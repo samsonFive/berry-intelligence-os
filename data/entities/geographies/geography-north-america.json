@@ -1,0 +1,15 @@
+{
+  "id": "geography-north-america",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "North America",
+  "aliases": [],
+  "status": "active",
+  "description": "",
+  "roles": [],
+  "berry_ids": ["berry-blueberry"],
+  "evidence_ids": ["ev-sample-variety-launch", "ev-sample-retail-placement"],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {}
+}

@@ -1,0 +1,27 @@
+{
+  "id": "ev-sample-patent-published",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "patent",
+  "title": "Patent published for a late-ripening, high-yield raspberry genetics program",
+  "source_name": "Example Patent Office",
+  "source_url": "https://example.invalid/patents/12345678",
+  "published_date": "2026-07-15",
+  "captured_date": "2026-07-20",
+  "summary": "A fictional patent publication describes genetics for a late-ripening, high-yield primocane raspberry with claimed shelf-life advantages.",
+  "why_it_matters": "Late-ripening, high-yield genetics could extend the commercial season window and warrant monitoring for licensing activity.",
+  "submitted_by": "system-seed",
+  "berry_ids": ["berry-raspberry"],
+  "geography_ids": ["geography-europe"],
+  "entity_ids": ["company-example-nursery", "variety-example-red", "geography-europe"],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": ["genetics", "patent", "raspberry", "yield"],
+  "priority": {
+    "reading": {"level": "low", "rationale": "Technical filing, background reading only."},
+    "testing": {"level": "none", "rationale": "No material available for testing yet."},
+    "commercial_position": {"level": "medium", "rationale": "Potential future licensing relevance."},
+    "monitoring": {"level": "high", "rationale": "Track for licensing or commercialization announcements."}
+  }
+}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}{{ entity.name }}{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">{{ entity.entity_type|replace('_',' ')|upper }}</p>
+    <h1>{{ entity.name }}</h1>
+  </div>
+</section>
+
+<article class="detail-card">
+  <dl>
+    <dt>Status</dt><dd><span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span></dd>
+    <dt>Roles</dt><dd>{% if entity.roles %}{{ entity.roles|join(', ') }}{% else %}—{% endif %}</dd>
+    <dt>Aliases</dt><dd>{% if entity.aliases %}{{ entity.aliases|join(', ') }}{% else %}—{% endif %}</dd>
+    <dt>Berries</dt><dd>{% for b in entity.berry_ids %}{{ berry_label(b) }}{% if not loop.last %}, {% endif %}{% else %}—{% endfor %}</dd>
+  </dl>
+
+  {% if entity.description %}
+    <h2>Description</h2><p>{{ entity.description }}</p>
+  {% endif %}
+
+  {% if entity.attributes %}
+    <h2>Attributes</h2>
+    <dl class="attributes">
+      {% for key, value in entity.attributes.items() %}
+        <dt>{{ key|replace('_',' ')|title }}</dt>
+        <dd>{% if value is iterable and value is not string %}{{ value|join(', ') }}{% else %}{{ value }}{% endif %}</dd>
+      {% endfor %}
+    </dl>
+  {% endif %}
+
+  <h2>Trust summary</h2>
+  <div class="trust-summary">
+    <div><strong>{{ evidence_count }}</strong><small>Linked evidence</small></div>
+    <div><strong>{{ source_count }}</strong><small>Independent sources</small></div>
+    <div><strong>{{ last_updated or "—" }}</strong><small>Last updated</small></div>
+  </div>
+
+  <h2>Facts</h2>
+  {% if linked_facts %}
+    <ul class="fact-list">
+      {% for fact in linked_facts %}
+        <li>
+          <span class="badge badge-muted">{{ fact.classification|upper }}</span>
+          <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
+          <p>{{ fact.statement }}</p>
+          <small>Reviewed by {{ fact.reviewer }} on {{ fact.created_at }} · {{ fact.status }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No facts published about this entity yet.</p>
+  {% endif %}
+
+  <h2>Linked evidence</h2>
+  {% if linked_evidence %}
+    <section class="feed feed-compact">
+      {% for item in linked_evidence %}
+        <article class="card source-{{ item.source_type }}">
+          <div class="card-header">
+            <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
+            <time>{{ item.published_date or item.captured_date }}</time>
+          </div>
+          <h3><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3>
+          <p>{{ item.summary }}</p>
+        </article>
+      {% endfor %}
+    </section>
+  {% else %}
+    <p class="empty-state">No published evidence links to this entity yet.</p>
+  {% endif %}
+</article>
+{% endblock %}

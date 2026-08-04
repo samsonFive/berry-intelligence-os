@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Add Intelligence — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">CAPTURE ANYTHING, FROM ANYWHERE</p>
+    <h1>Add Intelligence</h1>
+  </div>
+</section>
+
+{% if not authoring_mode %}
+  <p class="empty-state" role="alert">Intake is disabled. This deployment is running in read-only mode.</p>
+{% else %}
+
+{% if created_id %}
+  <div class="banner banner-success" role="status">
+    Draft saved as <strong>{{ created_id }}</strong>. It stays out of the published newsfeed until it is reviewed.
+    <a href="/intake/{{ created_id }}">View draft</a>
+  </div>
+{% endif %}
+
+{% if error %}
+  <div class="banner banner-error" role="alert">{{ error }}</div>
+{% endif %}
+
+<nav class="intake-tabs" aria-label="Intelligence type">
+  {% for key, label in intake_types.items() %}
+    <a href="/intake?type={{ key }}" class="{% if key == active_type %}active{% endif %}" {% if key == active_type %}aria-current="page"{% endif %}>{{ label }}</a>
+  {% endfor %}
+</nav>
+
+<form class="intake-form" action="/intake" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="intake_type" value="{{ active_type }}">
+
+  {% if active_type == 'article_or_url' %}
+    <div class="form-field">
+      <label for="source_url">Source URL *</label>
+      <input id="source_url" name="source_url" type="url" required value="{{ form_values.source_url if form_values else '' }}">
+    </div>
+  {% endif %}
+
+  <div class="form-field">
+    <label for="title">{% if active_type == 'standalone_fact' %}Fact statement *{% else %}Headline / Title *{% endif %}</label>
+    <input id="title" name="title" type="text" required value="{{ form_values.title if form_values else '' }}">
+  </div>
+
+  <div class="form-row">
+    <div class="form-field">
+      <label for="source_name">Source / Publication</label>
+      <input id="source_name" name="source_name" type="text" value="{{ form_values.source_name if form_values else '' }}">
+    </div>
+    <div class="form-field">
+      <label for="published_date">Published date</label>
+      <input id="published_date" name="published_date" type="date" value="{{ form_values.published_date if form_values else '' }}">
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="summary">{% if active_type == 'standalone_fact' %}Supporting context *{% else %}Your summary / notes *{% endif %}</label>
+    <textarea id="summary" name="summary" rows="4" required>{{ form_values.summary if form_values else '' }}</textarea>
+  </div>
+
+  <div class="form-field">
+    <label for="attachment">Attach file{% if active_type == 'uploaded_report' %} *{% endif %}</label>
+    <input id="attachment" name="attachment" type="file" {% if active_type == 'uploaded_report' %}required{% endif %}>
+  </div>
+
+  <div class="form-row">
+    <div class="form-field">
+      <label for="suggested_competitors">Suggested competitors</label>
+      <input id="suggested_competitors" name="suggested_competitors" type="text" placeholder="Comma-separated" value="{{ form_values.suggested_competitors if form_values else '' }}">
+    </div>
+    <div class="form-field">
+      <label for="suggested_varieties">Suggested varieties</label>
+      <input id="suggested_varieties" name="suggested_varieties" type="text" placeholder="Comma-separated" value="{{ form_values.suggested_varieties if form_values else '' }}">
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="why_it_matters">Why might this matter?</label>
+    <textarea id="why_it_matters" name="why_it_matters" rows="2">{{ form_values.why_it_matters if form_values else '' }}</textarea>
+  </div>
+
+  <div class="form-field">
+    <label for="submitted_by">Submitter *</label>
+    <input id="submitted_by" name="submitted_by" type="text" required value="{{ form_values.submitted_by if form_values else '' }}">
+  </div>
+
+  <div class="form-actions">
+    <button type="submit">Save to Intake</button>
+  </div>
+</form>
+{% endif %}
+
+<section class="drafts-list">
+  <h2>Recent drafts</h2>
+  {% if drafts %}
+    <ul class="draft-items">
+      {% for draft in drafts %}
+        <li>
+          <a href="/intake/{{ draft.id }}">{{ draft.title }}</a>
+          <span class="badge badge-muted">{{ intake_types.get(draft.intake_type, draft.intake_type) }}</span>
+          <span class="draft-meta">{{ draft.submitted_by }} · {{ draft.captured_date }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No drafts yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}{{ record.title }}{% endblock %}
+{% block content %}
+<section class="page-heading"><div><p class="eyebrow">EVIDENCE — {{ record.source_type|replace('_',' ')|upper }}</p><h1>{{ record.title }}</h1></div></section>
+<article class="detail-card">
+  <dl>
+    <dt>Source</dt><dd>{{ record.source_name or "Unknown" }}</dd>
+    <dt>Published</dt><dd>{{ record.published_date or "—" }}</dd>
+    <dt>Captured</dt><dd>{{ record.captured_date }}</dd>
+    <dt>Status</dt><dd>{{ record.status }}</dd>
+    <dt>Berries</dt><dd>{% for b in record.berry_ids %}{{ berry_label(b) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>
+    <dt>Geography</dt><dd>{% set geographies = linked_entities|selectattr('entity_type', 'equalto', 'geography')|list %}{% if geographies %}{% for g in geographies %}{{ g.name }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}—{% endif %}</dd>
+  </dl>
+
+  <h2>Summary</h2><p>{{ record.summary }}</p>
+  <h2>Why it matters</h2><p>{{ record.why_it_matters }}</p>
+
+  <h2>Priorities</h2>
+  <div class="priorities">
+    {% for name, value in record.priority.items() %}
+      <div>
+        <small>{{ name|replace('_',' ') }}</small>
+        <strong class="level-{{ value.level }}">{{ value.level }}</strong>
+        <p class="rationale">{{ value.rationale }}</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <h2>Linked entities</h2>
+  {% if linked_entities %}
+    <ul class="entity-links">
+      {% for entity in linked_entities %}
+        <li><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a> <span class="badge badge-muted">{{ entity.entity_type|replace('_',' ')|upper }}</span></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No linked entities.</p>
+  {% endif %}
+
+  <h2>Facts</h2>
+  {% if facts %}
+    <ul class="fact-list">
+      {% for fact in facts %}
+        <li>
+          <span class="badge badge-muted">{{ fact.classification|upper }}</span>
+          <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
+          <p>{{ fact.statement }}</p>
+          <small>Reviewed by {{ fact.reviewer }} on {{ fact.created_at }} · {{ fact.status }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No facts published from this evidence yet.</p>
+  {% endif %}
+
+  <h2>Relationships</h2>
+  {% if relationships %}
+    <ul class="relationship-list">
+      {% for rel in relationships %}
+        <li>{{ rel.subject }} <strong>{{ rel.predicate|replace('_',' ') }}</strong> {{ rel.object }}{% if rel.effective_date %} <small>(effective {{ rel.effective_date }})</small>{% endif %}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No relationships published from this evidence yet.</p>
+  {% endif %}
+
+  <h2>Attachments</h2>
+  {% if record.attachments %}
+    <ul>
+      {% for file in record.attachments %}
+        <li><a href="{{ file.url }}">{{ file.filename }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No attachments.</p>
+  {% endif %}
+
+  <h2>Provenance</h2>
+  {% if record.source_url %}
+    <p><a href="{{ record.source_url }}">Open original source</a></p>
+  {% else %}
+    <p class="empty-state">No external source URL recorded.</p>
+  {% endif %}
+</article>
+{% endblock %}

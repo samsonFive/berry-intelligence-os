@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "signal.schema.json",
+  "title": "Signal Record",
+  "type": "object",
+  "required": ["id", "record_type", "title", "direction", "strength", "confidence", "status", "evidence_ids", "first_seen", "last_updated", "reviewer"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^signal-[a-z0-9-]+$"},
+    "record_type": {"const": "signal"},
+    "title": {"type": "string", "minLength": 1},
+    "description": {"type": "string"},
+    "direction": {"enum": ["strengthening", "weakening", "emerging", "stable"]},
+    "strength": {"enum": ["low", "medium", "high"]},
+    "confidence": {"enum": ["low", "medium", "high"]},
+    "status": {"enum": ["active", "watch", "resolved"]},
+    "evidence_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "fact_ids": {"type": "array", "items": {"type": "string"}},
+    "entity_ids": {"type": "array", "items": {"type": "string"}},
+    "strategic_question_ids": {"type": "array", "items": {"type": "string"}},
+    "first_seen": {"type": "string", "format": "date"},
+    "last_updated": {"type": "string", "format": "date"},
+    "reviewer": {"type": "string", "minLength": 1}
+  }
+}

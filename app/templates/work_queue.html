@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Work Queue — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">WHAT DESERVES ATTENTION AND WHAT WORK REMAINS</p>
+    <h1>Work Queue</h1>
+  </div>
+</section>
+
+<div class="cockpit-grid">
+  <section class="cockpit-card">
+    <h2>Awaiting review ({{ drafts|length }})</h2>
+    {% if drafts %}
+      <ul class="simple-list">
+        {% for draft in drafts[:5] %}
+          <li><a href="/review/{{ draft.id }}">{{ draft.title }}</a> <span class="draft-meta">{{ draft.captured_date }}</span></li>
+        {% endfor %}
+      </ul>
+      <a href="/review">View review queue →</a>
+    {% else %}
+      <p class="empty-state">Nothing waiting for review.</p>
+    {% endif %}
+  </section>
+
+  <section class="cockpit-card">
+    <h2>Unresolved entity matches ({{ unresolved_entities|length }})</h2>
+    {% if unresolved_entities %}
+      <ul class="simple-list">
+        {% for entity in unresolved_entities[:5] %}
+          <li><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a> <span class="badge badge-muted">{{ entity.entity_type|upper }}</span></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty-state">No entities are pending verification.</p>
+    {% endif %}
+  </section>
+
+  <section class="cockpit-card">
+    <h2>High-priority items</h2>
+    {% if high_priority %}
+      <ul class="simple-list">
+        {% for item in high_priority %}
+          <li><a href="/evidence/{{ item.id }}">{{ item.title }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty-state">Nothing is currently marked high priority.</p>
+    {% endif %}
+  </section>
+
+  <section class="cockpit-card">
+    <h2>Recently published</h2>
+    {% if recent_evidence %}
+      <ul class="simple-list">
+        {% for item in recent_evidence %}
+          <li><a href="/evidence/{{ item.id }}">{{ item.title }}</a> <span class="draft-meta">{{ item.published_date or item.captured_date }}</span></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty-state">Nothing published yet.</p>
+    {% endif %}
+  </section>
+
+  <section class="cockpit-card">
+    <h2>Recently updated signals</h2>
+    {% if recent_signals %}
+      <ul class="simple-list">
+        {% for signal in recent_signals %}
+          <li><a href="/signals/{{ signal.id }}">{{ signal.title }}</a> <span class="badge badge-muted">{{ signal.direction|upper }}</span></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty-state">No signals recorded yet.</p>
+    {% endif %}
+  </section>
+
+  <section class="cockpit-card">
+    <h2>Priority queues</h2>
+    <ul class="simple-list">
+      <li><a href="/queues/reading">Reading</a> — {{ queue_summary.reading }}</li>
+      <li><a href="/queues/testing">Testing</a> — {{ queue_summary.testing }}</li>
+      <li><a href="/queues/commercial_position">Commercial Position</a> — {{ queue_summary.commercial_position }}</li>
+      <li><a href="/queues/monitoring">Monitoring</a> — {{ queue_summary.monitoring }}</li>
+    </ul>
+  </section>
+</div>
+{% endblock %}

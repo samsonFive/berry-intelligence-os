@@ -1,0 +1,27 @@
+{
+  "id": "ev-sample-retail-placement",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "field_observation",
+  "title": "Expanded end-cap placement observed for Example Blue at Example Fresh Market",
+  "source_name": "Field observation",
+  "source_url": "",
+  "published_date": null,
+  "captured_date": "2026-07-30",
+  "summary": "A fictional field observation noted expanded end-cap placement and premium pricing for a low-chill blueberry variety across multiple regional stores.",
+  "why_it_matters": "Expanded retail placement and premium pricing may indicate strengthening commercial traction ahead of independent trait validation.",
+  "submitted_by": "system-seed",
+  "berry_ids": ["berry-blueberry"],
+  "geography_ids": ["geography-north-america"],
+  "entity_ids": ["retailer-example-market", "variety-example-blue", "geography-north-america"],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": ["sq-premium-flavor"],
+  "tags": ["retail", "placement", "pricing"],
+  "priority": {
+    "reading": {"level": "medium", "rationale": "Useful commercial-position signal, not urgent reading."},
+    "testing": {"level": "low", "rationale": "Does not itself change testing priorities."},
+    "commercial_position": {"level": "high", "rationale": "Direct retail placement and pricing observation."},
+    "monitoring": {"level": "high", "rationale": "Placement and pricing trends should continue to be tracked."}
+  }
+}

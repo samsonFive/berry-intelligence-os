@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}{{ sq.title }} — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">STRATEGIC QUESTION — {{ sq.status|upper }}</p>
+    <h1>{{ sq.title }}</h1>
+  </div>
+</section>
+<article class="detail-card">
+  {% if sq.description %}<p>{{ sq.description }}</p>{% endif %}
+  <dl>
+    <dt>Berries</dt><dd>{% for b in sq.berry_ids %}{{ berry_label(b) }}{% if not loop.last %}, {% endif %}{% else %}—{% endfor %}</dd>
+  </dl>
+
+  <h2>Linked evidence</h2>
+  {% if linked_evidence %}
+    <section class="feed feed-compact">
+      {% for item in linked_evidence %}
+        <article class="card source-{{ item.source_type }}">
+          <div class="card-header">
+            <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
+            <time>{{ item.published_date or item.captured_date }}</time>
+          </div>
+          <h3><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3>
+          <p>{{ item.summary }}</p>
+        </article>
+      {% endfor %}
+    </section>
+  {% else %}
+    <p class="empty-state">No published evidence links to this strategic question yet.</p>
+  {% endif %}
+</article>
+{% endblock %}

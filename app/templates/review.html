@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+{% block title %}Review — {{ draft.title }}{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">REVIEW &amp; STRUCTURE</p>
+    <h1>{{ draft.title }}</h1>
+  </div>
+</section>
+
+{% if not authoring_mode %}
+  <p class="empty-state" role="alert">Review and publishing are disabled. This deployment is running in read-only mode.</p>
+{% else %}
+
+{% if error %}
+  <div class="banner banner-error" role="alert">{{ error }}</div>
+{% endif %}
+
+{% if duplicates %}
+  <div class="banner banner-warning" role="alert">
+    Possible duplicate of existing evidence:
+    <ul>
+      {% for dup in duplicates %}
+        <li>
+          {% if dup.status == 'published' %}
+            <a href="/evidence/{{ dup.id }}">{{ dup.title }}</a>
+          {% else %}
+            {{ dup.title }} (draft {{ dup.id }})
+          {% endif %}
+          <span class="badge badge-muted">{{ dup.status }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+<div class="review-split">
+  <section class="review-pane">
+    <h2>Original submission</h2>
+    <dl>
+      <dt>Intake type</dt><dd>{{ draft.intake_type|replace('_',' ')|title }}</dd>
+      <dt>Source</dt><dd>{{ draft.source_name or "—" }}</dd>
+      <dt>Source URL</dt><dd>{% if draft.source_url %}<a href="{{ draft.source_url }}">{{ draft.source_url }}</a>{% else %}—{% endif %}</dd>
+      <dt>Published</dt><dd>{{ draft.published_date or "—" }}</dd>
+      <dt>Captured</dt><dd>{{ draft.captured_date }}</dd>
+      <dt>Submitted by</dt><dd>{{ draft.submitted_by }}</dd>
+    </dl>
+    <h3>Summary</h3>
+    <p>{{ draft.summary }}</p>
+    {% if draft.why_it_matters %}
+      <h3>Why it might matter</h3>
+      <p>{{ draft.why_it_matters }}</p>
+    {% endif %}
+    {% if draft.suggested_competitors or draft.suggested_varieties %}
+      <h3>Suggested entities</h3>
+      <p>Companies: {{ draft.suggested_competitors|join(', ') if draft.suggested_competitors else '—' }}</p>
+      <p>Varieties: {{ draft.suggested_varieties|join(', ') if draft.suggested_varieties else '—' }}</p>
+    {% endif %}
+    <h3>Attachments</h3>
+    {% if draft.attachments %}
+      <ul>
+        {% for file in draft.attachments %}
+          <li><a href="{{ file.url }}">{{ file.filename }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty-state">No attachments.</p>
+    {% endif %}
+  </section>
+
+  <section class="review-pane">
+    <h2>Proposed structured record</h2>
+    <form class="intake-form" style="padding:0;max-width:none" action="/review/{{ draft.id }}/publish" method="post">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="source_type">Source type</label>
+          <input id="source_type" name="source_type" type="text" value="{{ values.source_type }}">
+        </div>
+        <div class="form-field">
+          <label for="title">Title *</label>
+          <input id="title" name="title" type="text" required value="{{ values.title }}">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="source_name">Source / Publication</label>
+          <input id="source_name" name="source_name" type="text" value="{{ values.source_name }}">
+        </div>
+        <div class="form-field">
+          <label for="source_url">Source URL</label>
+          <input id="source_url" name="source_url" type="text" value="{{ values.source_url }}">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="published_date">Published date</label>
+          <input id="published_date" name="published_date" type="date" value="{{ values.published_date }}">
+        </div>
+        <div class="form-field">
+          <label for="captured_date">Captured date</label>
+          <input id="captured_date" name="captured_date" type="date" value="{{ values.captured_date }}">
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="summary">Summary *</label>
+        <textarea id="summary" name="summary" rows="3" required>{{ values.summary }}</textarea>
+      </div>
+
+      <div class="form-field">
+        <label for="why_it_matters">Why it matters</label>
+        <textarea id="why_it_matters" name="why_it_matters" rows="2">{{ values.why_it_matters }}</textarea>
+      </div>
+
+      <div class="form-field">
+        <label for="tags">Tags</label>
+        <input id="tags" name="tags" type="text" placeholder="Comma-separated" value="{{ values.tags }}">
+      </div>
+
+      <fieldset class="form-fieldset">
+        <legend>Berries</legend>
+        {% for berry_id, label in berries.items() %}
+          <label class="checkbox-label">
+            <input type="checkbox" name="berries" value="{{ berry_id }}" {% if berry_id in values.berries %}checked{% endif %}>
+            {{ label }}
+          </label>
+        {% endfor %}
+      </fieldset>
+
+      <fieldset class="form-fieldset">
+        <legend>Linked entities (matched by name, created if new)</legend>
+        <div class="form-field">
+          <label for="companies">Companies</label>
+          <input id="companies" name="companies" type="text" placeholder="Comma-separated" value="{{ values.companies }}">
+        </div>
+        <div class="form-field">
+          <label for="varieties">Varieties</label>
+          <input id="varieties" name="varieties" type="text" placeholder="Comma-separated" value="{{ values.varieties }}">
+        </div>
+        <div class="form-field">
+          <label for="retailers">Retailers</label>
+          <input id="retailers" name="retailers" type="text" placeholder="Comma-separated" value="{{ values.retailers }}">
+        </div>
+        <div class="form-field">
+          <label for="geographies">Geographies</label>
+          <input id="geographies" name="geographies" type="text" placeholder="Comma-separated" value="{{ values.geographies }}">
+        </div>
+      </fieldset>
+
+      <div class="form-field">
+        <label for="strategic_questions">Strategic questions (existing id or title)</label>
+        <input id="strategic_questions" name="strategic_questions" type="text" placeholder="Comma-separated" value="{{ values.strategic_questions }}">
+      </div>
+
+      <fieldset class="form-fieldset">
+        <legend>Proposed facts</legend>
+        {% for i in range(1, num_fact_rows + 1) %}
+          <div class="fact-row">
+            <div class="form-field">
+              <label for="fact_statement_{{ i }}">Fact {{ i }}</label>
+              <input id="fact_statement_{{ i }}" name="fact_statement_{{ i }}" type="text" value="{{ values.facts[i - 1].statement }}">
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="fact_classification_{{ i }}">Classification</label>
+                <select id="fact_classification_{{ i }}" name="fact_classification_{{ i }}">
+                  {% for c in fact_classifications %}
+                    <option value="{{ c }}" {% if values.facts[i - 1].classification == c %}selected{% endif %}>{{ c|title }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="fact_confidence_{{ i }}">Confidence</label>
+                <select id="fact_confidence_{{ i }}" name="fact_confidence_{{ i }}">
+                  {% for c in fact_confidence_levels %}
+                    <option value="{{ c }}" {% if values.facts[i - 1].confidence == c %}selected{% endif %}>{{ c|title }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </fieldset>
+
+      <fieldset class="form-fieldset">
+        <legend>Proposed relationships (subject / object must match a linked entity name above)</legend>
+        {% for i in range(1, num_relationship_rows + 1) %}
+          <div class="form-row rel-row">
+            <div class="form-field">
+              <label for="rel_subject_{{ i }}">Subject</label>
+              <input id="rel_subject_{{ i }}" name="rel_subject_{{ i }}" type="text" value="{{ values.relationships[i - 1].subject }}">
+            </div>
+            <div class="form-field">
+              <label for="rel_predicate_{{ i }}">Predicate</label>
+              <select id="rel_predicate_{{ i }}" name="rel_predicate_{{ i }}">
+                {% for p in predicates %}
+                  <option value="{{ p }}" {% if values.relationships[i - 1].predicate == p %}selected{% endif %}>{{ p|replace('_',' ') }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="rel_object_{{ i }}">Object</label>
+              <input id="rel_object_{{ i }}" name="rel_object_{{ i }}" type="text" value="{{ values.relationships[i - 1].object }}">
+            </div>
+          </div>
+        {% endfor %}
+      </fieldset>
+
+      <fieldset class="form-fieldset">
+        <legend>Priorities</legend>
+        {% for dim in priority_dimensions %}
+          <div class="form-row">
+            <div class="form-field">
+              <label for="priority_{{ dim }}_level">{{ dim|replace('_',' ')|title }} level</label>
+              <select id="priority_{{ dim }}_level" name="priority_{{ dim }}_level">
+                {% for level in priority_levels %}
+                  <option value="{{ level }}" {% if values.priority[dim].level == level %}selected{% endif %}>{{ level|title }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="priority_{{ dim }}_rationale">Rationale</label>
+              <input id="priority_{{ dim }}_rationale" name="priority_{{ dim }}_rationale" type="text" value="{{ values.priority[dim].rationale }}">
+            </div>
+          </div>
+        {% endfor %}
+      </fieldset>
+
+      <div class="form-field">
+        <label for="reviewer">Reviewer *</label>
+        <input id="reviewer" name="reviewer" type="text" required value="{{ values.reviewer }}">
+      </div>
+
+      <div class="form-actions">
+        <button type="submit">Publish</button>
+      </div>
+    </form>
+  </section>
+</div>
+{% endif %}
+{% endblock %}

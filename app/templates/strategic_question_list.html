@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Strategic Questions — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">ENDURING QUESTIONS THAT ORGANIZE EVIDENCE AND ANALYSIS</p>
+    <h1>Strategic Questions</h1>
+  </div>
+</section>
+
+{% if questions %}
+  <section class="entity-list">
+    {% for sq in questions %}
+      <article class="card entity-card">
+        <div class="card-header">
+          <span class="badge badge-status-{{ sq.status }}">{{ sq.status }}</span>
+        </div>
+        <h2><a href="/strategic-questions/{{ sq.id }}">{{ sq.title }}</a></h2>
+        {% if sq.description %}<p>{{ sq.description }}</p>{% endif %}
+        <p class="draft-meta">{{ counts.get(sq.id, 0) }} linked evidence</p>
+      </article>
+    {% endfor %}
+  </section>
+{% else %}
+  <p class="empty-state">No strategic questions recorded yet.</p>
+{% endif %}
+{% endblock %}

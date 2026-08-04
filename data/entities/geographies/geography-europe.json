@@ -1,0 +1,15 @@
+{
+  "id": "geography-europe",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "Europe",
+  "aliases": [],
+  "status": "active",
+  "description": "",
+  "roles": [],
+  "berry_ids": ["berry-raspberry"],
+  "evidence_ids": ["ev-sample-patent-published"],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {}
+}

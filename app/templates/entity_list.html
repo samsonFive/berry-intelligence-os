@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ entity_type|replace('_',' ')|title }} records — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">ENTITIES</p>
+    <h1>{{ entity_type|replace('_',' ')|title }} records</h1>
+  </div>
+</section>
+<section class="entity-list">
+  {% for entity in entities %}
+    <article class="card entity-card">
+      <div class="card-header">
+        <span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span>
+      </div>
+      <h2><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a></h2>
+      {% if entity.description %}<p>{{ entity.description }}</p>{% endif %}
+      {% if entity.roles %}<div class="tags">{% for role in entity.roles %}<span>{{ role }}</span>{% endfor %}</div>{% endif %}
+    </article>
+  {% endfor %}
+</section>
+{% endblock %}

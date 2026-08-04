@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "entity.schema.json",
+  "title": "Entity Record",
+  "type": "object",
+  "required": ["id", "record_type", "entity_type", "name", "status"],
+  "properties": {
+    "id": {"type": "string"},
+    "record_type": {"const": "entity"},
+    "entity_type": {"enum": ["company", "variety", "source", "brand", "breeding_program", "geography", "retailer", "trait", "person", "patent", "product", "berry"]},
+    "name": {"type": "string", "minLength": 1},
+    "aliases": {"type": "array", "items": {"type": "string"}},
+    "status": {"enum": ["active", "inactive", "historical", "unverified"]},
+    "description": {"type": "string"},
+    "roles": {"type": "array", "items": {"type": "string"}},
+    "berry_ids": {"type": "array", "items": {"type": "string"}},
+    "evidence_ids": {"type": "array", "items": {"type": "string"}},
+    "fact_ids": {"type": "array", "items": {"type": "string"}},
+    "relationship_ids": {"type": "array", "items": {"type": "string"}},
+    "attributes": {"type": "object"}
+  }
+}

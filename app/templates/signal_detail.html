@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}{{ signal.title }} — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">SIGNAL — {{ signal.status|upper }}</p>
+    <h1>{{ signal.title }}</h1>
+  </div>
+</section>
+<article class="detail-card">
+  <dl>
+    <dt>Direction</dt><dd>{{ signal.direction }}</dd>
+    <dt>Strength</dt><dd>{{ signal.strength }}</dd>
+    <dt>Confidence</dt><dd>{{ signal.confidence }}</dd>
+    <dt>First seen</dt><dd>{{ signal.first_seen }}</dd>
+    <dt>Last updated</dt><dd>{{ signal.last_updated }}</dd>
+    <dt>Reviewer</dt><dd>{{ signal.reviewer }}</dd>
+  </dl>
+
+  {% if signal.description %}
+    <h2>Description</h2><p>{{ signal.description }}</p>
+  {% endif %}
+
+  <h2>Affected entities</h2>
+  {% if linked_entities %}
+    <ul class="entity-links">
+      {% for entity in linked_entities %}
+        <li><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a> <span class="badge badge-muted">{{ entity.entity_type|replace('_',' ')|upper }}</span></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No entities linked.</p>
+  {% endif %}
+
+  <h2>Supporting facts</h2>
+  {% if linked_facts %}
+    <ul class="fact-list">
+      {% for fact in linked_facts %}
+        <li>
+          <span class="badge badge-muted">{{ fact.classification|upper }}</span>
+          <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
+          <p>{{ fact.statement }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No facts linked.</p>
+  {% endif %}
+
+  <h2>Supporting evidence</h2>
+  {% if linked_evidence %}
+    <section class="feed feed-compact">
+      {% for item in linked_evidence %}
+        <article class="card source-{{ item.source_type }}">
+          <div class="card-header">
+            <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
+            <time>{{ item.published_date or item.captured_date }}</time>
+          </div>
+          <h3><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3>
+          <p>{{ item.summary }}</p>
+        </article>
+      {% endfor %}
+    </section>
+  {% else %}
+    <p class="empty-state">No evidence linked.</p>
+  {% endif %}
+</article>
+{% endblock %}

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "evidence.schema.json",
+  "title": "Evidence Record",
+  "type": "object",
+  "required": ["id", "record_type", "status", "source_type", "title", "captured_date", "summary", "submitted_by", "priority"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^ev-[a-z0-9-]+$"},
+    "record_type": {"const": "evidence"},
+    "status": {"enum": ["draft", "in_review", "published", "archived", "rejected"]},
+    "source_type": {"type": "string"},
+    "title": {"type": "string", "minLength": 1},
+    "source_name": {"type": "string"},
+    "source_url": {"type": "string"},
+    "published_date": {"type": ["string", "null"], "format": "date"},
+    "captured_date": {"type": "string", "format": "date"},
+    "summary": {"type": "string"},
+    "why_it_matters": {"type": "string"},
+    "submitted_by": {"type": "string"},
+    "berry_ids": {"type": "array", "items": {"type": "string"}},
+    "geography_ids": {"type": "array", "items": {"type": "string"}},
+    "entity_ids": {"type": "array", "items": {"type": "string"}},
+    "fact_ids": {"type": "array", "items": {"type": "string"}},
+    "relationship_ids": {"type": "array", "items": {"type": "string"}},
+    "strategic_question_ids": {"type": "array", "items": {"type": "string"}},
+    "tags": {"type": "array", "items": {"type": "string"}},
+    "priority": {
+      "type": "object",
+      "required": ["reading", "testing", "commercial_position", "monitoring"],
+      "properties": {
+        "reading": {"$ref": "#/$defs/priorityValue"},
+        "testing": {"$ref": "#/$defs/priorityValue"},
+        "commercial_position": {"$ref": "#/$defs/priorityValue"},
+        "monitoring": {"$ref": "#/$defs/priorityValue"}
+      }
+    }
+  },
+  "$defs": {
+    "priorityValue": {
+      "type": "object",
+      "required": ["level", "rationale"],
+      "properties": {
+        "level": {"enum": ["none", "low", "medium", "high"]},
+        "rationale": {"type": "string"}
+      }
+    }
+  }
+}

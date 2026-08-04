@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{{ draft.title }} — Draft{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div><p class="eyebrow">DRAFT — {{ draft.status|upper }}</p><h1>{{ draft.title }}</h1></div>
+  <a class="button-link" href="/review/{{ draft.id }}">Start review</a>
+</section>
+<article class="detail-card">
+  <p class="empty-state" role="note">This is an unreviewed draft. It will not appear in the published newsfeed until it is reviewed and published.</p>
+  <dl>
+    <dt>Intake type</dt><dd>{{ draft.intake_type|replace('_',' ')|title }}</dd>
+    <dt>Source</dt><dd>{{ draft.source_name or "—" }}</dd>
+    <dt>Source URL</dt><dd>{% if draft.source_url %}<a href="{{ draft.source_url }}">{{ draft.source_url }}</a>{% else %}—{% endif %}</dd>
+    <dt>Published</dt><dd>{{ draft.published_date or "—" }}</dd>
+    <dt>Captured</dt><dd>{{ draft.captured_date }}</dd>
+    <dt>Submitted by</dt><dd>{{ draft.submitted_by }}</dd>
+  </dl>
+
+  <h2>Summary</h2><p>{{ draft.summary }}</p>
+
+  {% if draft.why_it_matters %}
+    <h2>Why it might matter</h2><p>{{ draft.why_it_matters }}</p>
+  {% endif %}
+
+  {% if draft.suggested_competitors or draft.suggested_varieties %}
+    <h2>Suggested entities</h2>
+    <dl>
+      <dt>Competitors</dt><dd>{{ draft.suggested_competitors|join(', ') if draft.suggested_competitors else '—' }}</dd>
+      <dt>Varieties</dt><dd>{{ draft.suggested_varieties|join(', ') if draft.suggested_varieties else '—' }}</dd>
+    </dl>
+  {% endif %}
+
+  <h2>Attachments</h2>
+  {% if draft.attachments %}
+    <ul>
+      {% for file in draft.attachments %}
+        <li><a href="{{ file.url }}">{{ file.filename }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No attachments.</p>
+  {% endif %}
+</article>
+{% endblock %}

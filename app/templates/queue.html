@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ label }} — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">ITEMS PRIORITIZED FOR {{ dimension|replace('_',' ')|upper }}</p>
+    <h1>{{ label }} ({{ items|length }})</h1>
+  </div>
+</section>
+
+{% if items %}
+  <div class="queue-table-wrap">
+    <table class="queue-table">
+      <thead>
+        <tr>
+          <th scope="col">Item</th>
+          <th scope="col">Type</th>
+          <th scope="col">Entities</th>
+          <th scope="col">Why it's here</th>
+          <th scope="col">Added</th>
+          <th scope="col">Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+          <tr>
+            <td><a href="/evidence/{{ item.id }}">{{ item.title }}</a></td>
+            <td>{{ item.source_type|replace('_',' ')|title }}</td>
+            <td>{{ item.linked_entity_names|join(', ') if item.linked_entity_names else '—' }}</td>
+            <td>{{ item.priority[dimension].rationale }}</td>
+            <td>{{ item.published_date or item.captured_date }}</td>
+            <td><strong class="level-{{ item.priority[dimension].level }}">{{ item.priority[dimension].level }}</strong></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p class="empty-state">Nothing in this queue right now.</p>
+{% endif %}
+{% endblock %}

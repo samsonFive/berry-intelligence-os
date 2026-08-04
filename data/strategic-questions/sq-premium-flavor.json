@@ -1,0 +1,9 @@
+{
+  "id": "sq-premium-flavor",
+  "record_type": "strategic_question",
+  "title": "Which market entities are most likely to challenge premium flavor positioning?",
+  "description": "Track genetics, claims, independent sensory evidence, retailer acceptance, and commercial distribution relevant to premium flavor.",
+  "status": "active",
+  "berry_ids": ["berry-blueberry"],
+  "evidence_ids": ["ev-sample-variety-launch"]
+}

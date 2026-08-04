@@ -1,0 +1,19 @@
+{
+  "id": "variety-example-blue",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Example Blue",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Fictional low-chill blueberry variety used as seed data.",
+  "roles": [],
+  "berry_ids": ["berry-blueberry"],
+  "evidence_ids": ["ev-sample-variety-launch", "ev-sample-retail-placement"],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "chill_type": "low-chill",
+    "release_status": "announced",
+    "claimed_traits": ["flavor", "firmness", "extended harvest window"]
+  }
+}

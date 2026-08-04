@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# Virtual environment
+.venv/
+
+# Runtime-created, untrusted, or disposable (see docs/04-technical-architecture/ARCHITECTURE.md)
+inbox/
+generated/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Per-developer local tool settings (not shared project config)
+.claude/settings.local.json

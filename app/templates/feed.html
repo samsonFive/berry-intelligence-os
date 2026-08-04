@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Newsfeed — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">CONTINUOUSLY UPDATED INTELLIGENCE</p>
+    <h1>Newsfeed</h1>
+  </div>
+  {% if authoring_mode %}
+    <a class="button-link" href="/intake">Add Intelligence</a>
+  {% else %}
+    <button disabled title="Intake is unavailable in read-only mode">Add Intelligence</button>
+  {% endif %}
+</section>
+
+{% if not static_build %}
+<form class="filters" action="/" method="get" aria-label="Filter newsfeed">
+  <div class="filter-field">
+    <label for="filter-q">Search</label>
+    <input id="filter-q" type="search" name="q" value="{{ filters.q }}" placeholder="Search title, summary, tags…">
+  </div>
+  <div class="filter-field">
+    <label for="filter-berry">Berry</label>
+    <select id="filter-berry" name="berry">
+      <option value="">All berries</option>
+      {% for b in options.berries %}
+        <option value="{{ b }}" {% if filters.berry == b %}selected{% endif %}>{{ berry_label(b) }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="filter-field">
+    <label for="filter-source">Source type</label>
+    <select id="filter-source" name="source">
+      <option value="">All sources</option>
+      {% for s in options.sources %}
+        <option value="{{ s }}" {% if filters.source == s %}selected{% endif %}>{{ s|replace('_', ' ')|title }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="filter-field">
+    <label for="filter-priority">Priority</label>
+    <select id="filter-priority" name="priority">
+      <option value="">Any priority</option>
+      {% for dim in priority_dimensions %}
+        {% for level in priority_levels %}
+          <option value="{{ dim }}:{{ level }}" {% if filters.priority == dim ~ ':' ~ level %}selected{% endif %}>{{ dim|replace('_',' ')|title }} — {{ level|title }}</option>
+        {% endfor %}
+      {% endfor %}
+    </select>
+  </div>
+  <div class="filter-field">
+    <label for="filter-competitor">Competitor</label>
+    <select id="filter-competitor" name="competitor">
+      <option value="">All competitors</option>
+      {% for c in options.competitors %}
+        <option value="{{ c.id }}" {% if filters.competitor == c.id %}selected{% endif %}>{{ c.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="filter-field">
+    <label for="filter-geography">Geography</label>
+    <select id="filter-geography" name="geography">
+      <option value="">All geographies</option>
+      {% for g in options.geographies %}
+        <option value="{{ g.id }}" {% if filters.geography == g.id %}selected{% endif %}>{{ g.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="filter-actions">
+    <button type="submit">Apply filters</button>
+    <a href="/">Clear</a>
+  </div>
+</form>
+{% else %}
+  <p class="empty-state">Filtering and search require the local app; this is a static, read-only build.</p>
+{% endif %}
+
+<p class="result-count">Showing {{ evidence|length }} of {{ total_count }} published items</p>
+
+<section class="feed">
+{% for item in evidence %}
+  <article class="card source-{{ item.source_type }}">
+    <div class="card-header">
+      <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
+      <time>{{ item.published_date or item.captured_date }}</time>
+    </div>
+    <h2><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h2>
+    <p>{{ item.summary }}</p>
+    <div class="tags">{% for tag in item.tags %}<span>{{ tag }}</span>{% endfor %}</div>
+    <div class="priorities">
+      {% for name, value in item.priority.items() %}
+        <div><small>{{ name|replace('_',' ') }}</small><strong class="level-{{ value.level }}">{{ value.level }}</strong></div>
+      {% endfor %}
+    </div>
+    <div class="why"><strong>Why it matters</strong><p>{{ item.why_it_matters }}</p></div>
+  </article>
+{% else %}
+  <p class="empty-state">No published evidence matches the current filters.</p>
+{% endfor %}
+</section>
+{% endblock %}

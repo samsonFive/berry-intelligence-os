@@ -1,0 +1,19 @@
+{
+  "id": "variety-example-red",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Example Red",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Fictional primocane raspberry variety used as seed data.",
+  "roles": [],
+  "berry_ids": ["berry-raspberry"],
+  "evidence_ids": ["ev-sample-patent-published"],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "cane_type": "primocane",
+    "release_status": "patent-published",
+    "claimed_traits": ["yield", "shelf life"]
+  }
+}

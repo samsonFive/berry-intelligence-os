@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "relationship.schema.json",
+  "title": "Relationship Record",
+  "type": "object",
+  "required": ["id", "record_type", "subject_id", "predicate", "object_id", "status", "evidence_ids"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^rel-[a-z0-9-]+$"},
+    "record_type": {"const": "relationship"},
+    "subject_id": {"type": "string"},
+    "predicate": {"enum": ["owns", "develops", "licenses", "distributes", "grows", "trials", "sells", "carries", "partners_with", "operates_in"]},
+    "object_id": {"type": "string"},
+    "status": {"enum": ["active", "historical", "disputed"]},
+    "evidence_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "effective_date": {"type": ["string", "null"], "format": "date"},
+    "notes": {"type": "string"}
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "ev-sample-variety-launch",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "press_release",
+  "title": "Example breeder announces a new low-chill blueberry variety",
+  "source_name": "Example Industry Source",
+  "source_url": "https://example.invalid/variety-launch",
+  "published_date": "2026-07-28",
+  "captured_date": "2026-07-29",
+  "summary": "A fictional breeder announced a low-chill blueberry variety positioned around flavor, firmness, and an extended harvest window.",
+  "why_it_matters": "The claimed traits overlap with common premium fresh-market priorities and may warrant future testing if independently validated.",
+  "submitted_by": "system-seed",
+  "berry_ids": ["berry-blueberry"],
+  "geography_ids": ["geography-north-america"],
+  "entity_ids": ["company-example-genetics", "variety-example-blue", "geography-north-america"],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": ["sq-premium-flavor"],
+  "tags": ["genetics", "variety-release", "low-chill", "flavor", "firmness"],
+  "priority": {
+    "reading": {"level": "high", "rationale": "New variety announcement from a genetics participant."},
+    "testing": {"level": "medium", "rationale": "Claims need independent validation before testing is escalated."},
+    "commercial_position": {"level": "medium", "rationale": "The positioning overlaps with premium fresh-market claims."},
+    "monitoring": {"level": "high", "rationale": "Commercial availability and trial expansion should be tracked."}
+  }
+}

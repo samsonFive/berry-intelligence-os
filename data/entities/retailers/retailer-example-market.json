@@ -1,0 +1,15 @@
+{
+  "id": "retailer-example-market",
+  "record_type": "entity",
+  "entity_type": "retailer",
+  "name": "Example Fresh Market",
+  "aliases": [],
+  "status": "active",
+  "description": "Fictional retail chain used as seed data to demonstrate retail placement observations.",
+  "roles": ["retailer"],
+  "berry_ids": ["berry-blueberry"],
+  "evidence_ids": ["ev-sample-retail-placement"],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {"region": "North America"}
+}

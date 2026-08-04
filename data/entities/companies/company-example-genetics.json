@@ -1,0 +1,15 @@
+{
+  "id": "company-example-genetics",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Example Genetics",
+  "aliases": [],
+  "status": "active",
+  "description": "Fictional seed entity used to demonstrate the platform without privileging a real market participant.",
+  "roles": ["breeder", "genetics_provider"],
+  "berry_ids": ["berry-blueberry"],
+  "evidence_ids": ["ev-sample-variety-launch"],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {"website": "https://example.invalid"}
+}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Signals — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">WHAT PATTERN MAY BE EMERGING, AND WHAT SUPPORTS IT</p>
+    <h1>Signals</h1>
+  </div>
+  {% if authoring_mode %}
+    <a class="button-link" href="/signals/new">New Signal</a>
+  {% endif %}
+</section>
+
+{% if signals %}
+  <section class="entity-list">
+    {% for signal in signals %}
+      <article class="card entity-card">
+        <div class="card-header">
+          <span class="badge badge-muted">{{ signal.direction|upper }}</span>
+          <span class="badge badge-muted">{{ signal.strength|upper }} STRENGTH</span>
+        </div>
+        <h2><a href="/signals/{{ signal.id }}">{{ signal.title }}</a></h2>
+        {% if signal.description %}<p>{{ signal.description }}</p>{% endif %}
+        <p class="draft-meta">{{ signal.evidence_ids|length }} supporting evidence · updated {{ signal.last_updated }}</p>
+      </article>
+    {% endfor %}
+  </section>
+{% else %}
+  <p class="empty-state">No signals recorded yet.</p>
+{% endif %}
+{% endblock %}

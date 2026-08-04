@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Berry Intelligence OS{% endblock %}</title>
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">BERRY<span>INTELLIGENCE OS</span></div>
+      <nav aria-label="Primary">
+        <a href="/" {% if request.url.path == '/' %}class="active" aria-current="page"{% endif %}>Newsfeed</a>
+        <a href="/work-queue" {% if request.url.path == '/work-queue' %}class="active" aria-current="page"{% endif %}>Work Queue</a>
+        <a href="/entities/company" {% if request.url.path.startswith('/entities/company') %}class="active" aria-current="page"{% endif %}>Competitors</a>
+        <a href="/entities/variety" {% if request.url.path.startswith('/entities/variety') %}class="active" aria-current="page"{% endif %}>Varieties</a>
+        <a href="/strategic-questions" {% if request.url.path.startswith('/strategic-questions') %}class="active" aria-current="page"{% endif %}>Strategic Questions</a>
+        <a href="/signals" {% if request.url.path.startswith('/signals') %}class="active" aria-current="page"{% endif %}>Signals</a>
+        <hr>
+        {% if authoring_mode %}
+          <a href="/review" {% if request.url.path.startswith('/review') %}class="active" aria-current="page"{% endif %}>Review Queue{% if pending_review_count() %} ({{ pending_review_count() }}){% endif %}</a>
+        {% endif %}
+        <a href="/queues/reading" {% if request.url.path == '/queues/reading' %}class="active" aria-current="page"{% endif %}>Reading Queue{% if queue_counts().reading %} ({{ queue_counts().reading }}){% endif %}</a>
+        <a href="/queues/testing" {% if request.url.path == '/queues/testing' %}class="active" aria-current="page"{% endif %}>Testing Queue{% if queue_counts().testing %} ({{ queue_counts().testing }}){% endif %}</a>
+        <a href="/queues/commercial_position" {% if request.url.path == '/queues/commercial_position' %}class="active" aria-current="page"{% endif %}>Commercial Position{% if queue_counts().commercial_position %} ({{ queue_counts().commercial_position }}){% endif %}</a>
+        <a href="/queues/monitoring" {% if request.url.path == '/queues/monitoring' %}class="active" aria-current="page"{% endif %}>Monitoring{% if queue_counts().monitoring %} ({{ queue_counts().monitoring }}){% endif %}</a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        {% if not static_build %}
+          <form action="/" method="get" role="search">
+            <label class="visually-hidden" for="global-search">Search competitors, varieties, traits, topics</label>
+            <input id="global-search" name="q" aria-label="Search" placeholder="Search competitors, varieties, traits, topics…" value="{{ request.query_params.get('q', '') }}">
+          </form>
+        {% endif %}
+      </header>
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</body>
+</html>

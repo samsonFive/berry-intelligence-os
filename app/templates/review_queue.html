@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Review Queue — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">TRANSFORM INTAKE INTO STRUCTURED INTELLIGENCE</p>
+    <h1>Review Queue</h1>
+  </div>
+</section>
+
+{% if drafts %}
+  <ul class="draft-items" style="margin:0 32px 40px;max-width:800px">
+    {% for draft in drafts %}
+      <li>
+        <a href="/review/{{ draft.id }}">{{ draft.title }}</a>
+        <span class="badge badge-muted">{{ draft.status }}</span>
+        <span class="draft-meta">{{ draft.submitted_by }} · {{ draft.captured_date }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="empty-state">Nothing waiting for review. Drafts appear here after intake.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fact.schema.json",
+  "title": "Fact Record",
+  "type": "object",
+  "required": ["id", "record_type", "statement", "classification", "confidence", "status", "reviewer", "created_at", "evidence_ids"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^fact-[a-z0-9-]+$"},
+    "record_type": {"const": "fact"},
+    "statement": {"type": "string", "minLength": 1},
+    "classification": {"enum": ["fact", "claim"]},
+    "confidence": {"enum": ["low", "medium", "high"]},
+    "status": {"enum": ["active", "disputed", "superseded", "withdrawn"]},
+    "reviewer": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date"},
+    "evidence_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "entity_ids": {"type": "array", "items": {"type": "string"}},
+    "supersedes": {"type": ["string", "null"]}
+  }
+}
