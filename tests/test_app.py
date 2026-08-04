@@ -449,7 +449,14 @@ def test_work_queue_renders() -> None:
     response = client.get("/work-queue")
     assert response.status_code == 200
     assert "Work Queue" in response.text
-    assert "Example breeder announces" in response.text
+    assert "Recently published" in response.text
+    assert "High-priority items" in response.text
+    # "Recently published" shows only the most recent few records, so which
+    # specific title appears there depends on how much has been published --
+    # assert against the live feed instead of a title that may have aged out.
+    feed = client.get("/api/feed").json()
+    assert feed
+    assert feed[0]["title"] in response.text
 
 
 def test_reading_queue_includes_all_nonnone_levels() -> None:
