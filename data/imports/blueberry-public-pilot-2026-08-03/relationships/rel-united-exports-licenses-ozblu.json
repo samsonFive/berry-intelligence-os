@@ -1,0 +1,13 @@
+{
+  "id": "rel-united-exports-licenses-ozblu",
+  "record_type": "relationship",
+  "subject_id": "company-united-exports",
+  "predicate": "licenses",
+  "object_id": "brand-ozblu",
+  "status": "active",
+  "evidence_ids": [
+    "ev-ozblu-oz-varieties"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; United Exports holds the exclusive right to sub-license production of and market the OZblu varieties. This is a licensing position, not ownership of the breeding rights."
+}

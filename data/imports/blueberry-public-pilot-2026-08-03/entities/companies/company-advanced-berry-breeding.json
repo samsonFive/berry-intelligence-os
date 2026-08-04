@@ -1,0 +1,41 @@
+{
+  "id": "company-advanced-berry-breeding",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Advanced Berry Breeding B.V.",
+  "aliases": [
+    "ABB",
+    "Advanced Berry Breeding"
+  ],
+  "status": "active",
+  "description": "Dutch berry breeding company founded in 2006 and acquired by Planasa. Its published variety list and its owner's description of it cover raspberry only. No blueberry cultivar, patent or plant breeders' right attributable to this company was found, so it is recorded here as a group member with no identified blueberry activity.",
+  "roles": [
+    "breeder",
+    "genetics_licensor",
+    "planasa_group_member"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-cinven-planasa-ew-group",
+    "ev-abb-varieties",
+    "ev-cfia-blueberry-index"
+  ],
+  "fact_ids": [
+    "fact-advanced-berry-breeding-raspberry-only",
+    "fact-cfia-no-costa-planasa-hortifrut-blueberry"
+  ],
+  "relationship_ids": [
+    "rel-planasa-owns-advanced-berry-breeding",
+    "rel-advanced-berry-breeding-operates-in-netherlands"
+  ],
+  "attributes": {
+    "country": "Netherlands",
+    "founded": 2006,
+    "leadership": "CEO Hubert Gadret; CSO Roy Briga",
+    "blueberry_activity_identified": false,
+    "primary_crop": "raspberry",
+    "managed_variety_platform": "Elite Raspberry Collection (ERC) Membership Program, tiered Bronze/Silver/Gold (raspberry, not blueberry)"
+  }
+}

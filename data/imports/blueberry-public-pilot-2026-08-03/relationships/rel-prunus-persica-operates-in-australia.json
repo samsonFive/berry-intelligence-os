@@ -1,0 +1,14 @@
+{
+  "id": "rel-prunus-persica-operates-in-australia",
+  "record_type": "relationship",
+  "subject_id": "company-prunus-persica",
+  "predicate": "operates_in",
+  "object_id": "geography-australia",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uspp025858-eb8-42",
+    "ev-uspp030934-ns13-6"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Australian assignee of record on OZblu blueberry plant patents; breeding site at Yanchep, Western Australia."
+}

@@ -1,0 +1,39 @@
+{
+  "id": "breeding_program-atlantic-blue-royal-berries",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Atlantic Blue / Royal Berries blueberry breeding programme",
+  "aliases": [
+    "Royal Berry",
+    "Royal Berries"
+  ],
+  "status": "active",
+  "description": "Spanish blueberry breeding programme originating in Huelva. Atlantic Blue began a genetic programme in 1995 and the group created Royal Berries in 2003 as its breeding entity. Hortifrut acquired Atlantic Blue including this programme in 2021, and licenses 'Rocio' and 'Corona' from it for the Americas.",
+  "roles": [
+    "private_breeding_program"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-hortifrut-genetic-development",
+    "ev-leadersleague-atlantic-blue-2021",
+    "ev-freshuelva-atlantic-blue"
+  ],
+  "fact_ids": [
+    "fact-hortifrut-in-licensed-genetics",
+    "fact-hortifrut-atlantic-blue-2021",
+    "fact-atlantic-blue-programme-origin",
+    "fact-hortifrut-blueberry-ip-vehicle"
+  ],
+  "relationship_ids": [
+    "rel-hortifrut-owns-atlantic-blue-programme"
+  ],
+  "attributes": {
+    "country": "Spain",
+    "region": "Huelva",
+    "genetic_programme_started": 1995,
+    "breeding_entity_created": 2003,
+    "acquired_by": "Hortifrut S.A. (2021)"
+  }
+}

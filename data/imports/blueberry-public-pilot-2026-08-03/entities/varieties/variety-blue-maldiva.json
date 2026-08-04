@@ -1,0 +1,67 @@
+{
+  "id": "variety-blue-maldiva",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Blue Maldiva",
+  "aliases": [
+    "Plablue 1542",
+    "Blue Maldiva®"
+  ],
+  "status": "active",
+  "description": "Planasa blueberry cultivar from the selection 'Plablue 1542'. All published performance figures for it are owner marketing claims with no stated method; no patent or plant breeders' right for it was located in this research.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-planasa-blue-maldiva"
+  ],
+  "fact_ids": [
+    "fact-blue-maldiva-plablue-1542"
+  ],
+  "relationship_ids": [
+    "rel-planasa-develops-blue-maldiva"
+  ],
+  "attributes": {
+    "selection_code": "Plablue 1542",
+    "commercial_name": "Blue Maldiva",
+    "breeder": "Plantas de Navarra, S.A.",
+    "breeding_program_id": "breeding_program-planasa-blueberry",
+    "patent_number": null,
+    "rights_note": "No patent or plant breeders' right was found in the sources fetched. Absence of a located record is not evidence that none exists.",
+    "traits": [
+      {
+        "trait": "trait-yield",
+        "value": "4,200 g per plant",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-planasa-blue-maldiva"
+        ],
+        "conditions": "Owner website, no method stated",
+        "asserted_by": "Plantas de Navarra, S.A."
+      },
+      {
+        "trait": "trait-fruit-size",
+        "value": "6 g per fruit",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-planasa-blue-maldiva"
+        ],
+        "conditions": "Owner website, no method stated",
+        "asserted_by": "Plantas de Navarra, S.A."
+      },
+      {
+        "trait": "trait-soluble-solids",
+        "value": "16 degrees Brix",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-planasa-blue-maldiva"
+        ],
+        "conditions": "Owner website, no method stated",
+        "asserted_by": "Plantas de Navarra, S.A."
+      }
+    ]
+  }
+}

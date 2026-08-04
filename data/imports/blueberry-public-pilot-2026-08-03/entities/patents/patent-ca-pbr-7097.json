@@ -1,0 +1,48 @@
+{
+  "id": "patent-ca-pbr-7097",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "Canada PBR certificate 7097",
+  "aliases": [
+    "CA PBR 7097",
+    "DrisBlueSeventeen",
+    "Carlotta"
+  ],
+  "status": "active",
+  "description": "Canadian plant breeders' rights certificate 7097 for the blueberry variety 'DrisBlueSeventeen', trade name Carlotta, application 19-9740. Grant of rights 3 May 2024. The description rests on a UPOV Report of Technical Examination for CPVO application 2018/3441, trial conducted by the Direcao Geral de Alimentacao e Veterinaria at Escaroupim, Portugal over 2019 to 2022.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-cfia-pbr-drisblueseventeen"
+  ],
+  "fact_ids": [
+    "fact-drisblueseventeen-carlotta"
+  ],
+  "relationship_ids": [
+    "rel-driscolls-owns-ca-pbr-7097"
+  ],
+  "attributes": {
+    "registration_number": "certificate 7097",
+    "application_number": "19-9740",
+    "jurisdiction": "Canada",
+    "authority": "Canadian Food Inspection Agency",
+    "kind": "plant breeders' rights",
+    "grant_date": "2024-05-03",
+    "grant_date_precision": "2024-05-03 grant of rights",
+    "denomination": "DrisBlueSeventeen",
+    "trade_name": "Carlotta",
+    "examination_basis": "UPOV Report of Technical Examination, CPVO application 2018/3441",
+    "trial_site": "Escaroupim, Portugal",
+    "trial_years": "2019-2022",
+    "trial_body": "Direcao Geral de Alimentacao e Veterinaria",
+    "comparison_varieties": [
+      "DrisBlueFifteen ('136d5')",
+      "DrisBlueFive"
+    ],
+    "parentage": "'136D 2' x '8B 4', crossed 2004 in Santa Cruz County, California, selected 2006"
+  }
+}

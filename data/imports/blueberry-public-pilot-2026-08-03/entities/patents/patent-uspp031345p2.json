@@ -1,0 +1,44 @@
+{
+  "id": "patent-uspp031345p2",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP031345P2",
+  "aliases": [
+    "US PP31,345",
+    "Plablue 1545"
+  ],
+  "status": "active",
+  "description": "United States plant patent on the blueberry cultivar 'Plablue 1545', marketed as Blue Manila. Parents 14.027.001 and 14.049.001, both unpatented and belonging to the applicant's own programme. Propagated in Segovia, Spain with primocane observations in Huelva, Spain. United States publication 14 January 2020; a corresponding CPVO application 2018/2073 was filed 9 August 2018.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp031345-plablue-1545",
+    "ev-planasa-blue-manila-datasheet"
+  ],
+  "fact_ids": [
+    "fact-blue-manila-plablue-1545"
+  ],
+  "relationship_ids": [
+    "rel-planasa-owns-uspp031345p2"
+  ],
+  "attributes": {
+    "patent_number": "US PP31,345",
+    "jurisdiction": "United States",
+    "authority": "USPTO",
+    "kind": "plant patent",
+    "publication_date": "2020-01-14",
+    "grant_date": null,
+    "selection_code": "Plablue 1545",
+    "commercial_name": "Blue Manila",
+    "parentage": "14.027.001 x 14.049.001 (both unpatented)",
+    "propagation_site": "Segovia, Spain",
+    "observation_site": "Huelva, Spain",
+    "cpvo_application": "2018/2073 filed 9 August 2018",
+    "assignee_of_record": null,
+    "assignee_note": "No assignee was shown on the pages fetched. Not inferred."
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "fact-drisbluetwentyone-kimberley",
+  "record_type": "fact",
+  "statement": "The blueberry cultivar 'DrisBlueTwentyOne', protected by United States plant patent US PP32,267 granted 6 October 2020 with parentage '136D 2' crossed with '181C 1', is registered in Canada under the trade name Kimberley.",
+  "classification": "fact",
+  "confidence": "high",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-uspp032267-drisbluetwentyone",
+    "ev-cfia-blueberry-index"
+  ],
+  "entity_ids": [
+    "variety-drisbluetwentyone",
+    "patent-uspp032267p2",
+    "company-driscolls"
+  ]
+}

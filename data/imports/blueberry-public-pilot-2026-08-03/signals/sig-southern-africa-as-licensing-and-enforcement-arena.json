@@ -1,0 +1,39 @@
+{
+  "id": "sig-southern-africa-as-licensing-and-enforcement-arena",
+  "record_type": "signal",
+  "title": "Southern Africa recurs as the place where blueberry variety rights are licensed, contested and enforced",
+  "status": "proposed",
+  "strength": "moderate",
+  "observation": "United Exports terminated two 2017 South African licences in May 2020 and, per CIOPORA, obtained a Dutch Customs Red Alert at Rotterdam in November 2020 against approximately 26 tonnes of OZblu fruit, settled with an interim licence on 17 November 2020. Costa's African Blue is extending from Morocco into Zimbabwe through 11 growers and more than 300 hectares, and names Zimbabwe and South Africa among BluGenix growing countries. TopFruit acts as southern African commercial manager for the Australian breeder IQ Berries.",
+  "why_it_might_matter": "If southern Africa is where licensed genetics are both deployed and litigated, then royalty leakage, licence terminations and third-party commercial managers there are leading indicators of how a breeder's control over its varieties is actually holding.",
+  "what_would_confirm_it": "Further enforcement actions, licence terminations or customs seizures involving southern African blueberry production; or registry evidence of concentrated variety filings in South Africa and Zimbabwe.",
+  "what_would_falsify_it": "Evidence that the 2020 United Exports action was an isolated contractual dispute with no sector pattern; or that southern African volumes are marginal relative to the Americas.",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-ciopora-united-exports-pbr-2020",
+    "ev-harvestsa-rossouw-2020",
+    "ev-costa-african-blue-2023",
+    "ev-producereport-blugenix-2026",
+    "ev-topfruit-megacrisp"
+  ],
+  "entity_ids": [
+    "company-united-exports",
+    "company-african-blue",
+    "company-costa-group-holdings",
+    "company-topfruit",
+    "company-iq-berries",
+    "geography-south-africa",
+    "geography-zimbabwe",
+    "geography-morocco"
+  ],
+  "strategic_question_ids": [
+    "sq-genetics-geographic-spread",
+    "sq-global-genetics-reach"
+  ],
+  "proposed_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "proposed_at": "2026-08-03",
+  "reviewer": null,
+  "not_importable_reason": "No signal schema exists in the running repository. Retained in the staging package for human review only; see schema-assessment.md limitation L-7 and proposed-schema-enhancements.md."
+}

@@ -1,0 +1,13 @@
+{
+  "id": "rel-uf-partners-with-ffsp",
+  "record_type": "relationship",
+  "subject_id": "company-university-of-florida",
+  "predicate": "partners_with",
+  "object_id": "company-florida-foundation-seed-producers",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uf-ifas-hs1245"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Florida Foundation Seed Producers is the University of Florida-affiliated body that holds and licenses the commercialisation rights to the university's blueberry cultivars."
+}

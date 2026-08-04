@@ -1,0 +1,12 @@
+{
+  "id": "sq-global-genetics-reach",
+  "record_type": "strategic_question",
+  "title": "Which breeding programs and genetics owners have the strongest visible global blueberry reach?",
+  "description": "Track evidenced multi-country nursery, licensing and propagation footprints rather than self-described global presence. Reach is counted from evidenced operations, rights filings and named licensees, not from marketing language.",
+  "status": "active",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": []
+}

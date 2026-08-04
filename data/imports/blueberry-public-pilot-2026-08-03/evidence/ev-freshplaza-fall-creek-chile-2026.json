@@ -1,0 +1,68 @@
+{
+  "id": "ev-freshplaza-fall-creek-chile-2026",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "trade_press",
+  "title": "Fall Creek strengthens blueberry commitment in southern Chile",
+  "source_name": "FreshPlaza",
+  "source_url": "https://www.freshplaza.com/latin-america/article/9761007/fall-creek-strengthens-blueberry-commitment-in-southern-chile/",
+  "published_date": "2026-03-06",
+  "captured_date": "2026-08-03",
+  "summary": "Reports which Fall Creek varieties are under validation in southern Chile in 2025: Sekoya Fiesta 'FC13-113', Sekoya Crunch 'FC13-083', Sekoya Grande 'FC13-122', Sekoya Pop 'FCM14-052', ArabellaBlue 'FC14-062', LunaBlue 'FC12-205' and LoretoBlue 'FC11-118', with 'FC15-173', 'FC16-003' and 'FC11-164' listed as selections still in development.",
+  "why_it_matters": "Names the specific selections a competitor is validating in a specific country, which is a forward indicator of where its genetics will be planted next. Also independently corroborates several brand-to-code mappings.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-fall-creek-farm-and-nursery",
+    "geography-chile",
+    "variety-sekoya-fiesta",
+    "variety-sekoya-crunch",
+    "variety-sekoya-grande",
+    "variety-sekoya-pop",
+    "variety-fc11-164",
+    "variety-sekoya-nova"
+  ],
+  "fact_ids": [
+    "fact-freshplaza-fall-creek-chile-2026-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-operates-in-chile",
+    "rel-fall-creek-trials-sekoya-fiesta-chile",
+    "rel-fall-creek-trials-sekoya-crunch-chile",
+    "rel-fall-creek-trials-sekoya-grande-chile",
+    "rel-fall-creek-trials-sekoya-pop-chile",
+    "rel-fall-creek-trials-fc11-164-chile",
+    "rel-fall-creek-trials-sekoya-nova-chile"
+  ],
+  "strategic_question_ids": [
+    "sq-genetics-geographic-spread",
+    "sq-emerging-varieties",
+    "sq-testing-candidates"
+  ],
+  "tags": [
+    "tier-2",
+    "trial-pipeline",
+    "chile",
+    "brand-to-code-mapping"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "A rare public list of which selections are actually in country-level validation."
+    },
+    "testing": {
+      "level": "medium",
+      "rationale": "Identifies the specific selections that a comparative trial should include."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Chile is a major counter-seasonal supplier; genetics placement there shapes southern hemisphere supply."
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "Validation lists change season to season."
+    }
+  }
+}

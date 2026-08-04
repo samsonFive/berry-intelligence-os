@@ -1,0 +1,33 @@
+{
+  "id": "brand-fruitist",
+  "record_type": "entity",
+  "entity_type": "brand",
+  "name": "Fruitist",
+  "aliases": [
+    "Fruitist Jumbo"
+  ],
+  "status": "active",
+  "description": "Consumer brand of Agrovision Corp., which adopted the name at corporate level in 2025. A premium tier is marketed as Fruitist Jumbo. These are consumer brands, not cultivar names.",
+  "roles": [
+    "consumer_brand"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-agrovision-10-years-2024",
+    "ev-agfunder-fruitist-rebrand",
+    "ev-fruitist-brands"
+  ],
+  "fact_ids": [
+    "fact-fruitist-rebrand-2025",
+    "fact-fruitist-consumer-brands"
+  ],
+  "relationship_ids": [
+    "rel-agrovision-owns-fruitist"
+  ],
+  "attributes": {
+    "owner": "Agrovision Corp.",
+    "naming_hazard": "Fruitist and Fruitist Jumbo are marketing brands applied to licensed third-party genetics, not cultivar denominations."
+  }
+}

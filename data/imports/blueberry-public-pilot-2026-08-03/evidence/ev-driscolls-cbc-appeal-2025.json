@@ -1,0 +1,57 @@
+{
+  "id": "ev-driscolls-cbc-appeal-2025",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "company_press_release",
+  "title": "Driscoll's files appeal in strawberry patent case",
+  "source_name": "Business Wire (Driscoll's, Inc.)",
+  "source_url": "https://www.businesswire.com/news/home/20250514403283/en/Driscolls-Files-Appeal-in-Strawberry-Patent-Case",
+  "published_date": "2025-05-14",
+  "captured_date": "2026-08-04",
+  "summary": "Driscoll's announcement of a protective appeal, dated 14 May 2025, against summary judgment for California Berry Cultivars in the Eastern District of California. The release states that Driscoll's develops exclusive patented berry varieties, that because Driscoll's does not sell its plants there is no legitimate way for the defendant to have obtained the patented varieties, that it grows through more than 900 independent growers, and that its berries are grown in more than 20 countries and sold in more than 40 across North America, Australia, Europe and China. It names Soren Bjorn as chief executive.",
+  "why_it_matters": "The litigation itself concerns strawberry, not blueberry, and is recorded here only to prevent it being carried into blueberry analysis by mistake. The release is retained because it is the best available first-party statement of Driscoll's licensing model, grower network and geographic reach.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-driscolls",
+    "geography-united-states"
+  ],
+  "fact_ids": [
+    "fact-driscolls-closed-plant-model",
+    "fact-driscolls-cbc-litigation-is-strawberry"
+  ],
+  "relationship_ids": [
+    "rel-driscolls-operates-in-united-states"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-competitor-expansion"
+  ],
+  "tags": [
+    "tier-1",
+    "litigation",
+    "not-blueberry",
+    "business-model",
+    "self-description"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Useful for the business model; the case itself is out of scope."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No variety data."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "States the closed-plant-supply model plainly."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "The blueberry-relevant content is static."
+    }
+  }
+}

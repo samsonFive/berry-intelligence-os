@@ -1,0 +1,34 @@
+{
+  "id": "patent-uspp033896p2",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP033896P2 - Sentinel 'FL11-155'",
+  "aliases": [
+    "USPP033896P2",
+    "PP033896"
+  ],
+  "status": "unverified",
+  "description": "United States plant patent USPP033896P2 covering Sentinel 'FL11-155'. Assignee of record: University of Florida / Florida Foundation Seed Producers.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "patent_number": "USPP033896P2",
+    "jurisdiction": "United States",
+    "right_type": "US plant patent",
+    "assignee_of_record": "University of Florida / Florida Foundation Seed Producers",
+    "grant_date": "2022-01-25",
+    "protects_variety_subject": "Sentinel 'FL11-155'",
+    "inventors": [
+      "Paul M. Lyrene",
+      "James W. Olmstead"
+    ],
+    "verification_status": "No evidence record in this package captures this patent document. The bibliographic attributes below were compiled during research but the front page was not staged as evidence, so they are unverified within the package. Listed in coverage-gaps.md."
+  }
+}

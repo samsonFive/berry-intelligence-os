@@ -1,0 +1,76 @@
+{
+  "id": "company-university-of-florida",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "University of Florida",
+  "aliases": [
+    "University of Florida IFAS",
+    "UF/IFAS",
+    "UF"
+  ],
+  "status": "active",
+  "description": "Public land-grant university whose Institute of Food and Agricultural Sciences (UF/IFAS) runs a long-running southern highbush blueberry breeding programme and publishes measured cultivar performance data.",
+  "roles": [
+    "public_research_institution",
+    "breeder",
+    "extension_publisher"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uf-ifas-hs1245",
+    "ev-uf-breeding-emerald",
+    "ev-uf-breeding-jewel",
+    "ev-uf-breeding-farthing",
+    "ev-uf-breeding-meadowlark",
+    "ev-uf-breeding-patrecia",
+    "ev-uf-breeding-optimus",
+    "ev-uf-breeding-colossus",
+    "ev-uf-breeding-sentinel",
+    "ev-ffsp-emerald",
+    "ev-ffsp-jewel",
+    "ev-ffsp-farthing",
+    "ev-ffsp-optimus"
+  ],
+  "fact_ids": [
+    "fact-uf-ifas-hs1245-1",
+    "fact-uf-ifas-hs1245-2",
+    "fact-uf-ifas-hs1245-3",
+    "fact-uf-breeding-emerald-1",
+    "fact-uf-breeding-jewel-1",
+    "fact-uf-breeding-farthing-1",
+    "fact-uf-breeding-meadowlark-1",
+    "fact-uf-breeding-patrecia-1",
+    "fact-uf-breeding-optimus-1",
+    "fact-uf-breeding-colossus-1",
+    "fact-uf-breeding-sentinel-1",
+    "fact-uf-breeding-sentinel-2",
+    "fact-uf-breeding-sentinel-3",
+    "fact-uf-breeding-sentinel-4",
+    "fact-uf-breeding-colossus-2",
+    "fact-uf-breeding-colossus-3",
+    "fact-uf-breeding-optimus-2",
+    "fact-uf-breeding-optimus-3",
+    "fact-uf-breeding-meadowlark-2",
+    "fact-uf-breeding-patrecia-2",
+    "fact-uf-breeding-patrecia-3",
+    "fact-uf-breeding-jewel-2"
+  ],
+  "relationship_ids": [
+    "rel-uf-develops-emerald",
+    "rel-uf-develops-jewel",
+    "rel-uf-develops-farthing",
+    "rel-uf-develops-meadowlark",
+    "rel-uf-develops-patrecia",
+    "rel-uf-develops-optimus",
+    "rel-uf-develops-colossus",
+    "rel-uf-develops-sentinel",
+    "rel-uf-partners-with-ffsp",
+    "rel-uf-operates-in-united-states"
+  ],
+  "attributes": {
+    "headquarters": "Gainesville, Florida, United States",
+    "sector": "public_research"
+  }
+}

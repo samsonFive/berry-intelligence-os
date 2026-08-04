@@ -1,0 +1,21 @@
+{
+  "id": "fact-uf-breeding-optimus-3",
+  "record_type": "fact",
+  "statement": "The University of Florida breeding programme and Florida Foundation Seed Producers publish different measured values for Optimus: the programme reports 241 g/mm firmness, 1.7 g berry weight, 15.8 mm diameter and 12.3 degrees Brix, while the licensing body reports 220 g/mm, 1.9 g, 16.5 mm and 11.3 degrees Brix. Neither source states the seasons or sites underlying its figures.",
+  "classification": "claim",
+  "confidence": "low",
+  "status": "disputed",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-uf-breeding-optimus",
+    "ev-ffsp-optimus"
+  ],
+  "entity_ids": [
+    "variety-optimus",
+    "company-university-of-florida",
+    "company-florida-foundation-seed-producers",
+    "trait-fruit-firmness",
+    "trait-fruit-size"
+  ]
+}

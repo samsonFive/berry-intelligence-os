@@ -1,0 +1,65 @@
+{
+  "id": "ev-cinven-planasa-ew-group",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "private_equity_press_release",
+  "title": "Cinven and Label Investments to sell Planasa to EW Group",
+  "source_name": "Cinven",
+  "source_url": "https://www.cinven.com/news-insights/cinven-and-label-investments-to-sell-planasa-to-ew-group/",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "Cinven's announcement that it and Label Investments have agreed to sell Planasa to the EW Group, the German family-owned genetics group controlled by the Wesjohann family. No financial details are disclosed. The release summarises Cinven's ownership period, including the appointment of Michael Brinkmann as chief executive in 2020 and the completed acquisition of Advanced Berry Breeding, which it describes as a Dutch raspberry breeding group, as well as a Portuguese and a Moroccan acquisition and the construction of nurseries in the United States and Mexico.",
+  "why_it_matters": "Moves control of a major berry genetics platform to a group whose core business is animal genetics. It is also the source that establishes Advanced Berry Breeding as a raspberry business, correcting the assumption that it is a blueberry breeder.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-planasa",
+    "company-cinven",
+    "company-ew-group",
+    "company-advanced-berry-breeding",
+    "geography-germany",
+    "geography-netherlands"
+  ],
+  "fact_ids": [
+    "fact-planasa-ew-group-sale",
+    "fact-advanced-berry-breeding-raspberry-only"
+  ],
+  "relationship_ids": [
+    "rel-cinven-owns-planasa",
+    "rel-ew-group-owns-planasa",
+    "rel-planasa-owns-advanced-berry-breeding",
+    "rel-advanced-berry-breeding-operates-in-netherlands",
+    "rel-ew-group-operates-in-germany"
+  ],
+  "strategic_question_ids": [
+    "sq-competitor-expansion",
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-1",
+    "ownership",
+    "acquisition",
+    "genetics",
+    "scope-correction"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "A change of control at a top-tier genetics owner."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No variety data."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "New owner, new investment posture."
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "Watch for post-completion strategy and any portfolio changes."
+    }
+  }
+}

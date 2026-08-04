@@ -1,0 +1,13 @@
+{
+  "id": "rel-costa-operates-in-south-africa",
+  "record_type": "relationship",
+  "subject_id": "company-costa-group-holdings",
+  "predicate": "operates_in",
+  "object_id": "geography-south-africa",
+  "status": "active",
+  "evidence_ids": [
+    "ev-producereport-blugenix-2026"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Named BluGenix growing country."
+}

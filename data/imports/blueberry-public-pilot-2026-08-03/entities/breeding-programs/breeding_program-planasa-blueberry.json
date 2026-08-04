@@ -1,0 +1,34 @@
+{
+  "id": "breeding_program-planasa-blueberry",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Planasa blueberry breeding programme",
+  "aliases": [],
+  "status": "active",
+  "description": "Planasa's blueberry breeding activity, releasing cultivars under 'Plablue' selection codes and 'Blue ...' commercial names. Propagation of the patented 'Plablue 1545' took place in Segovia, Spain with primocane observations in Huelva, Spain.",
+  "roles": [
+    "private_breeding_program"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-planasa-about-us",
+    "ev-planasa-blue-manila-page",
+    "ev-planasa-blue-manila-datasheet",
+    "ev-planasa-blue-maldiva",
+    "ev-uspp031345-plablue-1545"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "selection_code_prefix": "Plablue",
+    "commercial_name_pattern": "Blue <place name>",
+    "sites": [
+      "Segovia, Spain",
+      "Huelva, Spain"
+    ],
+    "managed_variety_platform": null,
+    "platform_note": "No club or managed-variety platform name was found. Varieties are licensed through Planasa's nurseries."
+  }
+}

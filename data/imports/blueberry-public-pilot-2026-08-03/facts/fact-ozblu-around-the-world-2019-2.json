@@ -1,0 +1,19 @@
+{
+  "id": "fact-ozblu-around-the-world-2019-2",
+  "record_type": "fact",
+  "statement": "The OZblu breeding programme is separate from the Mountain Blue breeding programme. The only genetic link located between them in the public record is that Nature Select's 'NS 14-3' is reported to derive from a cross of 'Ridley 1403' with 'Ridley 4609'. The two programmes are not the same source of genetics and must not be treated as one.",
+  "classification": "fact",
+  "confidence": "medium",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-ozblu-around-the-world-2019"
+  ],
+  "entity_ids": [
+    "company-nature-select",
+    "company-mountain-blue-orchards",
+    "breeding_program-nature-select-blueberry-breeding",
+    "breeding_program-mountain-blue-blueberry-breeding"
+  ]
+}

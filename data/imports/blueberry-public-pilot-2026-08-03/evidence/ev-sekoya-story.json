@@ -1,0 +1,77 @@
+{
+  "id": "ev-sekoya-story",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "company_website",
+  "title": "Story",
+  "source_name": "SEKOYA",
+  "source_url": "https://sekoyafruit.com/story/",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "SEKOYA platform page giving the selection code, selection year and selection location for the SEKOYA varieties: Beauty 'FCM12-097' (Mexico 2012), Pop 'FCM14-052' (Mexico 2014), Grande 'FC13-122' (2013), Crunch 'FC13-083' (Oregon 2013) and Fiesta 'FC13-113' (debut 2023).",
+  "why_it_matters": "Primary owner-published mapping from SEKOYA brand names to breeding selection codes. Without this mapping, brand-level trade reporting cannot be joined to patent and plant breeders' rights records.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "brand-sekoya",
+    "company-fall-creek-farm-and-nursery",
+    "variety-sekoya-beauty",
+    "variety-sekoya-pop",
+    "variety-sekoya-grande",
+    "variety-sekoya-crunch",
+    "variety-sekoya-fiesta",
+    "geography-mexico",
+    "breeding_program-fall-creek-blueberry-breeding"
+  ],
+  "fact_ids": [
+    "fact-sekoya-story-beauty",
+    "fact-sekoya-story-pop",
+    "fact-sekoya-story-grande",
+    "fact-sekoya-story-crunch",
+    "fact-sekoya-story-fiesta",
+    "fact-sekoya-story-6"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-develops-sekoya-crunch",
+    "rel-fall-creek-program-develops-sekoya-crunch",
+    "rel-fall-creek-develops-sekoya-fiesta",
+    "rel-fall-creek-program-develops-sekoya-fiesta",
+    "rel-fall-creek-operates-in-mexico",
+    "rel-fall-creek-owns-brand-sekoya",
+    "rel-sekoya-carries-sekoya-beauty",
+    "rel-sekoya-carries-sekoya-pop",
+    "rel-sekoya-carries-sekoya-grande",
+    "rel-sekoya-carries-sekoya-crunch",
+    "rel-sekoya-carries-sekoya-fiesta"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "brand-to-code-mapping",
+    "identity-resolution",
+    "self-reported"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Identity resolution across brand names and selection codes is a prerequisite for the whole dataset."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Not directly testable, but it identifies which codes to request for trialling."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Mapping brands to codes reveals which genetics a competitor has actually placed in its premium tier."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "New SEKOYA members and varieties are added over time."
+    }
+  }
+}

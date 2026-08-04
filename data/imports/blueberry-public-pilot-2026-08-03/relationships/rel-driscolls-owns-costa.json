@@ -1,0 +1,13 @@
+{
+  "id": "rel-driscolls-owns-costa",
+  "record_type": "relationship",
+  "subject_id": "company-driscolls",
+  "predicate": "owns",
+  "object_id": "company-costa-group-holdings",
+  "status": "active",
+  "evidence_ids": [
+    "ev-costa-ownership-2024"
+  ],
+  "effective_date": "2024-02-26",
+  "notes": "confidence=medium; Consortium member in the February 2024 take-private. Individual shareholding percentages were not disclosed in the retrieved source."
+}

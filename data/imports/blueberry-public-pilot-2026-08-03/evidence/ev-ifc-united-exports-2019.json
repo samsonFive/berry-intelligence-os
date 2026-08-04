@@ -1,0 +1,56 @@
+{
+  "id": "ev-ifc-united-exports-2019",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "development_finance_press_release",
+  "title": "IFC, FMO and IFU Help South Africa's Leading Blueberry Producer Expand",
+  "source_name": "International Finance Corporation",
+  "source_url": "https://www.ifc.org/en/pressroom/2019/ifc-fmo-and-ifu-help-south-africas-leading-blueberry-producer-in",
+  "published_date": "2019-01-29",
+  "captured_date": "2026-08-03",
+  "summary": "Announcement from Johannesburg that the International Finance Corporation, FMO and IFU invested in Mbiza Trading Ltd, described as being renamed United Exports, to fund a 180 hectare blueberry farm expansion expected to create 200 to 250 permanent and 4,200 seasonal jobs. Quotes Roger Horak, Kevin Njiraini of IFC, Hans Bogaard of FMO and Johnny Ohgron Hansen of IFU.",
+  "why_it_matters": "A development finance institution's own release is a high-authority, independently issued record of a capital transaction. It also supplies the corporate identity link between Mbiza Trading Ltd and United Exports, which is needed to avoid treating them as separate entities.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-united-exports",
+    "geography-south-africa"
+  ],
+  "fact_ids": [
+    "fact-ifc-united-exports-2019-1"
+  ],
+  "relationship_ids": [
+    "rel-united-exports-operates-in-south-africa"
+  ],
+  "strategic_question_ids": [
+    "sq-competitor-expansion",
+    "sq-genetics-geographic-spread"
+  ],
+  "tags": [
+    "tier-1",
+    "investment",
+    "development-finance",
+    "corporate-identity",
+    "independent-issuer"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "High-authority record of both financing and corporate identity."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Institutional capital at this scale signals a durable expansion programme."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "One-off transaction."
+    }
+  }
+}

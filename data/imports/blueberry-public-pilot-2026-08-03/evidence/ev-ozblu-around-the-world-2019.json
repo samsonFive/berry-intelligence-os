@@ -1,0 +1,64 @@
+{
+  "id": "ev-ozblu-around-the-world-2019",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "company_website",
+  "title": "Around the world in thirty years",
+  "source_name": "OZblu",
+  "source_url": "https://www.ozblu.com/news/around-the-world-in-thirty-years/",
+  "published_date": "2019-05-21",
+  "captured_date": "2026-08-03",
+  "summary": "Company-published account stating that the OZblu blueberry varieties, carrying EB and NS selection codes, were bred by David and Leasa Mazzardis near Perth, Western Australia, through the breeding companies Prunus Persica and Nature Select, and tracing the programme to David Mazzardis's 1987 trip to the United States and collaboration with Dr Wayne Sherman of UF/IFAS.",
+  "why_it_matters": "This page overturns the common assumption that OZblu is a United Exports breeding programme, or that it shares genetics with Mountain Blue's Eureka family. The breeder and the licensor are different parties, and conflating them would attribute genetics ownership to the wrong entity.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-nature-select",
+    "company-united-exports",
+    "brand-ozblu",
+    "breeding_program-nature-select-blueberry-breeding",
+    "geography-australia",
+    "company-mountain-blue-orchards",
+    "breeding_program-mountain-blue-blueberry-breeding"
+  ],
+  "fact_ids": [
+    "fact-ozblu-around-the-world-2019-1",
+    "fact-ozblu-around-the-world-2019-2"
+  ],
+  "relationship_ids": [
+    "rel-nature-select-develops-ozblu",
+    "rel-united-exports-partners-with-nature-select",
+    "rel-nature-select-operates-in-australia"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "breeding-origin",
+    "identity-resolution",
+    "ownership-correction",
+    "self-reported"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Corrects a fundamental attribution error about who owns these genetics."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Distinguishing breeder from licensor changes who the actual genetics competitor is."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Historical account; stable."
+    }
+  }
+}

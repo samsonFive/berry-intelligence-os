@@ -1,0 +1,59 @@
+{
+  "id": "ev-planasa-blue-manila-page",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "company_website",
+  "title": "Planasa - Blueberry Blue Manila",
+  "source_name": "Plantas de Navarra, S.A. (Planasa)",
+  "source_url": "https://planasa.com/variety/blueberry-bluemanila/",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "Planasa's variety page for Blue Manila gives 3,300 to 4,000 g per plant, 4 g per fruit and 14 degrees Brix. No trial site, season, replication or measurement method is stated.",
+  "why_it_matters": "One half of an internal inconsistency: this page and Planasa's own data sheet for the same cultivar give different soluble solids figures and express yield in non-comparable units. Where an owner cannot agree with itself, an averaged or arbitrary figure would be worse than recording the disagreement.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-blue-manila",
+    "company-planasa",
+    "breeding_program-planasa-blueberry",
+    "trait-soluble-solids",
+    "trait-yield",
+    "trait-fruit-size"
+  ],
+  "fact_ids": [
+    "fact-blue-manila-brix-conflict"
+  ],
+  "relationship_ids": [
+    "rel-planasa-develops-blue-manila"
+  ],
+  "strategic_question_ids": [
+    "sq-repeated-trait-claims",
+    "sq-premium-trait-challengers"
+  ],
+  "tags": [
+    "tier-1",
+    "variety-data",
+    "owner-claim",
+    "internal-inconsistency"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Numbers without method."
+    },
+    "testing": {
+      "level": "medium",
+      "rationale": "Would need independent measurement to be usable."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Part of Planasa's premium positioning."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Marketing pages change without notice."
+    }
+  }
+}

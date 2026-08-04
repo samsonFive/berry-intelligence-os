@@ -1,0 +1,86 @@
+{
+  "id": "company-united-exports",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "United Exports",
+  "aliases": [
+    "United Exports Group",
+    "Mbiza Trading Ltd"
+  ],
+  "status": "active",
+  "description": "Vertically integrated South African-founded fruit exporter established in 2002 by Roger Horak. Holds exclusive sub-licensing and marketing rights to the OZblu blueberry varieties bred by Nature Select; not itself the breeder of those varieties.",
+  "roles": [
+    "exporter",
+    "genetics_sub_licensor",
+    "marketer",
+    "grower",
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-ozblu-around-the-world-2019",
+    "ev-ozblu-oz-varieties",
+    "ev-united-exports-overview",
+    "ev-united-exports-what-we-do",
+    "ev-ifc-united-exports-2019",
+    "ev-ozblu-migiva-2019",
+    "ev-ozblu-where-we-grow-2024",
+    "ev-fruitnet-ozblu-dispute-2020",
+    "ev-uspp025858-eb8-42",
+    "ev-uspp026173-eb8-46",
+    "ev-uspp028149-eb9-2",
+    "ev-uspp028358-eb9-12",
+    "ev-uspp027142-eb12-19",
+    "ev-uspp030934-ns13-6",
+    "ev-uspp033138-ns15-13",
+    "ev-uspp032897-ns16-2",
+    "ev-ciopora-united-exports-pbr-2020",
+    "ev-harvestsa-rossouw-2020"
+  ],
+  "fact_ids": [
+    "fact-united-exports-overview-1",
+    "fact-ozblu-around-the-world-2019-1",
+    "fact-ozblu-oz-varieties-1",
+    "fact-united-exports-what-we-do-1",
+    "fact-ifc-united-exports-2019-1",
+    "fact-ozblu-migiva-2019-1",
+    "fact-fruitnet-ozblu-dispute-2020-1",
+    "fact-fruitnet-ozblu-dispute-2020-2",
+    "fact-ozblu-where-we-grow-2024-1",
+    "fact-ozblu-inventor-mazzardis",
+    "fact-ozblu-assignee-structure",
+    "fact-united-exports-joint-titleholder-2016",
+    "fact-ozblu-rotterdam-seizure-2020",
+    "fact-ozblu-rossouw-settlement-2020"
+  ],
+  "relationship_ids": [
+    "rel-united-exports-licenses-ozblu",
+    "rel-united-exports-partners-with-oz-varieties",
+    "rel-united-exports-partners-with-nature-select",
+    "rel-united-exports-operates-in-south-africa",
+    "rel-united-exports-operates-in-united-states",
+    "rel-united-exports-operates-in-chile",
+    "rel-united-exports-operates-in-peru",
+    "rel-united-exports-operates-in-mexico",
+    "rel-united-exports-operates-in-spain",
+    "rel-united-exports-operates-in-australia",
+    "rel-united-exports-owns-brand-ozblu",
+    "rel-united-exports-sells-julieta",
+    "rel-united-exports-sells-bella",
+    "rel-united-exports-sells-magica",
+    "rel-united-exports-sells-bonita",
+    "rel-united-exports-sells-magnifica",
+    "rel-united-exports-sells-elaina",
+    "rel-united-exports-sells-dina",
+    "rel-united-exports-sells-olivia",
+    "rel-united-exports-operates-in-zambia"
+  ],
+  "attributes": {
+    "founded_year": 2002,
+    "founder": "Roger Horak",
+    "headquarters": "South Africa",
+    "note": "Rights holder/licensor, not breeder, of OZblu genetics"
+  }
+}

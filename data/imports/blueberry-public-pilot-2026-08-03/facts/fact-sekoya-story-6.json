@@ -1,0 +1,18 @@
+{
+  "id": "fact-sekoya-story-6",
+  "record_type": "fact",
+  "statement": "SEKOYA Beauty 'FCM12-097' and SEKOYA Pop 'FCM14-052' were both selected in Mexico, in 2012 and 2014 respectively.",
+  "classification": "fact",
+  "confidence": "medium",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-sekoya-story"
+  ],
+  "entity_ids": [
+    "variety-sekoya-beauty",
+    "variety-sekoya-pop",
+    "geography-mexico"
+  ]
+}

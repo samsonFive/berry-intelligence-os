@@ -1,0 +1,13 @@
+{
+  "id": "rel-african-blue-operates-in-zimbabwe",
+  "record_type": "relationship",
+  "subject_id": "company-african-blue",
+  "predicate": "operates_in",
+  "object_id": "geography-zimbabwe",
+  "status": "active",
+  "evidence_ids": [
+    "ev-costa-african-blue-2023"
+  ],
+  "effective_date": "2023-04-03",
+  "notes": "confidence=high; Direct from Source project with 11 growers and more than 300 hectares, first planted 2018."
+}

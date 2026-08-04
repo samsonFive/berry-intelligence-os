@@ -1,0 +1,77 @@
+{
+  "id": "company-hortifrut",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Hortifrut S.A.",
+  "aliases": [
+    "Hortifrut",
+    "RUT 96.896.990-0"
+  ],
+  "status": "active",
+  "description": "Chilean berry group, listed on the Bolsa de Comercio de Santiago under the code HF, describing itself as vertically integrated from genetics to the final customer. In blueberry it is simultaneously a grower, packer, exporter, marketer, co-owner of a breeding joint venture, and a licensee of third-party genetics. Controlled by the Moller, Quevedo, Del Rio and Elberg families; PSP Investments with SJF Investment SpA took 49.56% under a December 2022 investment agreement.",
+  "roles": [
+    "grower",
+    "packer",
+    "exporter",
+    "marketer",
+    "breeding_joint_venture_partner",
+    "genetics_licensee",
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-hortifrut-genetic-development",
+    "ev-hortifrut-investor-company",
+    "ev-hortifrut-integrated-report-2023",
+    "ev-hortifrut-annual-report-2020",
+    "ev-hortifrut-mbo-genetics-2026",
+    "ev-ffp-hortifrut-mbo-2026",
+    "ev-leadersleague-atlantic-blue-2021",
+    "ev-mbg-berry-blue-varieties",
+    "ev-ipaustralia-pvj-33-4",
+    "ev-cfia-blueberry-index"
+  ],
+  "fact_ids": [
+    "fact-hortifrut-corporate-identity",
+    "fact-hortifrut-founded-1983",
+    "fact-hortifrut-psp-4956",
+    "fact-hortifrut-controlling-families",
+    "fact-berry-blue-hortifrut-jv-claim",
+    "fact-berry-blue-ownership-disputed",
+    "fact-hortifrut-in-licensed-genetics",
+    "fact-hortifrut-breeding-stations",
+    "fact-hortifrut-atlantic-blue-2021",
+    "fact-hortifrut-mbo-collaboration-2026",
+    "fact-mbo-distinct-from-mbg",
+    "fact-hortifrut-colombia-jv-2019",
+    "fact-hortifrut-bfruit-2019",
+    "fact-hortifrut-blueberry-ip-vehicle",
+    "fact-cfia-no-costa-planasa-hortifrut-blueberry"
+  ],
+  "relationship_ids": [
+    "rel-hortifrut-partners-with-mbg",
+    "rel-hortifrut-owns-berry-blue",
+    "rel-hortifrut-partners-with-mbo",
+    "rel-hortifrut-partners-with-naturipe",
+    "rel-hortifrut-owns-atlantic-blue-programme",
+    "rel-hortifrut-operates-in-chile",
+    "rel-hortifrut-operates-in-spain",
+    "rel-hortifrut-operates-in-colombia",
+    "rel-hortifrut-operates-in-portugal",
+    "rel-hortifrut-operates-in-peru",
+    "rel-hortifrut-operates-in-mexico",
+    "rel-hortifrut-operates-in-china",
+    "rel-hortifrut-operates-in-united-states"
+  ],
+  "attributes": {
+    "headquarters": "Av. Del Condor 600, Huechuraba, Santiago, Chile",
+    "country": "Chile",
+    "founded": 1983,
+    "ownership": "publicly listed",
+    "stock_exchange": "Bolsa de Comercio de Santiago",
+    "ticker": "HF",
+    "countries_of_operation_count": 15
+  }
+}

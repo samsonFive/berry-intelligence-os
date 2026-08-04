@@ -1,0 +1,32 @@
+{
+  "id": "company-naturipe-farms",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Naturipe Farms",
+  "aliases": [
+    "Naturipe"
+  ],
+  "status": "active",
+  "description": "United States berry marketing group. It appears jointly with Hortifrut in the July 2026 announcement of an expanded genetics platform reached through a collaboration with Mountain Blue Orchards.",
+  "roles": [
+    "marketer",
+    "genetics_platform_partner"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-hortifrut-investor-company",
+    "ev-hortifrut-mbo-genetics-2026",
+    "ev-ffp-hortifrut-mbo-2026"
+  ],
+  "fact_ids": [
+    "fact-hortifrut-mbo-collaboration-2026"
+  ],
+  "relationship_ids": [
+    "rel-hortifrut-partners-with-naturipe"
+  ],
+  "attributes": {
+    "country": "United States"
+  }
+}

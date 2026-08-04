@@ -1,0 +1,13 @@
+{
+  "id": "rel-fall-creek-trials-sekoya-crunch-chile",
+  "record_type": "relationship",
+  "subject_id": "company-fall-creek-farm-and-nursery",
+  "predicate": "trials",
+  "object_id": "variety-sekoya-crunch",
+  "status": "active",
+  "evidence_ids": [
+    "ev-freshplaza-fall-creek-chile-2026"
+  ],
+  "effective_date": "2026-03-06",
+  "notes": "confidence=medium; Under validation or in development in southern Chile as reported in 2026. Substituted predicate: the schema has no way to attach a geography to a trials relationship, so the location is stated here and in the evidence summary."
+}

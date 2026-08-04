@@ -1,0 +1,64 @@
+{
+  "id": "ev-hortifrut-mbo-genetics-2026",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "company_press_release",
+  "title": "Naturipe Farms and Hortifrut expand berry genetics platform with Mountain Blue",
+  "source_name": "Hortifrut S.A.",
+  "source_url": "https://www.hortifrut.com/naturipe-farms-and-hortifrut-expand-one-of-the-worlds-broadest-berry-geneticsplatforms-to-deliver-the-next-generation-of-premium-berriesnaturipe-farms-and-hortifrut-expand-one-of-the-world/",
+  "published_date": "2026-07-30",
+  "captured_date": "2026-08-04",
+  "summary": "Joint Naturipe Farms and Hortifrut announcement dated 30 July 2026 of an expanded berry genetics platform reached through a strategic collaboration with Mountain Blue Orchards. Hortifrut states it gains access to new elite blueberry selections for the United States, Mexico, Peru and other Latin American countries. Hortifrut CEO Hector Lujan and Mountain Blue International Business Manager Mano Babiolakis are quoted. The release also mentions Hortifrut's 2025 global B Corp certification.",
+  "why_it_matters": "If it holds, this connects the largest listed blueberry producer to the Ridley breeding lineage, which until now reached the Americas through separate licensing arrangements. It is the single most consequential structural development in the package, and it rests on one originating announcement.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-hortifrut",
+    "company-naturipe-farms",
+    "company-mountain-blue-orchards",
+    "geography-united-states",
+    "geography-mexico",
+    "geography-peru",
+    "company-michigan-blueberry-growers"
+  ],
+  "fact_ids": [
+    "fact-hortifrut-mbo-collaboration-2026",
+    "fact-mbo-distinct-from-mbg"
+  ],
+  "relationship_ids": [
+    "rel-hortifrut-partners-with-mbo",
+    "rel-hortifrut-partners-with-naturipe"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-competitor-expansion",
+    "sq-genetics-geographic-spread"
+  ],
+  "tags": [
+    "tier-1",
+    "genetics",
+    "partnership",
+    "single-origin-claim",
+    "recent"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Directly changes the map of who can access which genetics."
+    },
+    "testing": {
+      "level": "medium",
+      "rationale": "Names no specific selections yet; watch for the varieties that follow."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "A major realignment between two of the largest platforms."
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "Follow-through should be verified: named varieties, territories, dates."
+    }
+  }
+}

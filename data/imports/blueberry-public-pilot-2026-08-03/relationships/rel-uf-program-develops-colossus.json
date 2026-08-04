@@ -1,0 +1,13 @@
+{
+  "id": "rel-uf-program-develops-colossus",
+  "record_type": "relationship",
+  "subject_id": "breeding_program-uf-ifas-blueberry-breeding",
+  "predicate": "develops",
+  "object_id": "variety-colossus",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uf-breeding-colossus"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Cultivar page published by the breeding programme itself."
+}

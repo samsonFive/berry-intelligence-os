@@ -1,0 +1,37 @@
+{
+  "id": "patent-uspp024697p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP024697P3 - Top Shelf",
+  "aliases": [
+    "USPP024697P3",
+    "PP024697"
+  ],
+  "status": "active",
+  "description": "United States plant patent USPP024697P3 covering Top Shelf. Assignee of record: Fall Creek Farm and Nursery, Inc..",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp024697-top-shelf"
+  ],
+  "fact_ids": [
+    "fact-uspp024697-top-shelf-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-owns-uspp024697p3"
+  ],
+  "attributes": {
+    "patent_number": "USPP024697P3",
+    "jurisdiction": "United States",
+    "right_type": "US plant patent",
+    "assignee_of_record": "Fall Creek Farm and Nursery, Inc.",
+    "grant_date": "2014-07-29",
+    "protects_variety_subject": "Top Shelf",
+    "chilling_requirement_stated": "700-1000 h",
+    "parentage": "'Magnolia' x 'Draper'"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": "geography-netherlands",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "Netherlands",
+  "aliases": [],
+  "status": "active",
+  "description": "Breeding, trading and re-export hub; several genetics and licensing organizations are Dutch-domiciled.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-fruitnet-driesvenplant-2018",
+    "ev-fruitnet-ozblu-dispute-2020",
+    "ev-ciopora-united-exports-pbr-2020",
+    "ev-abb-varieties",
+    "ev-cinven-planasa-ew-group"
+  ],
+  "fact_ids": [
+    "fact-fruitnet-driesvenplant-2018-1",
+    "fact-fruitnet-ozblu-dispute-2020-1",
+    "fact-ozblu-rotterdam-seizure-2020"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-operates-in-netherlands",
+    "rel-advanced-berry-breeding-operates-in-netherlands"
+  ],
+  "attributes": {
+    "iso_3166_1_alpha_2": "NL",
+    "region": "Europe"
+  }
+}

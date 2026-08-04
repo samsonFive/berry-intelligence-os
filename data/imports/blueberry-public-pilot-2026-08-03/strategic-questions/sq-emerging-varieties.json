@@ -1,0 +1,12 @@
+{
+  "id": "sq-emerging-varieties",
+  "record_type": "strategic_question",
+  "title": "Which recently introduced or expanding blueberry varieties appear most commercially significant?",
+  "description": "Monitor releases from the last five complete years plus the current year, weighting evidenced commercial plantings, nursery availability and rights filings above launch announcements. A launch announcement is not evidence of commercial success.",
+  "status": "active",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": []
+}

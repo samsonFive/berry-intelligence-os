@@ -1,0 +1,19 @@
+{
+  "id": "fact-costa-vip-age-conflict",
+  "record_type": "fact",
+  "statement": "The stated age of Costa's blueberry breeding effort is inconsistent across sources: Costa's own pages describe the Variety Improvement Program as operating for more than 25 years, while trade coverage of the BluGenix launch describes the programme as drawing on close to 40 years of plant breeding expertise. No founding date or founding document was retrieved.",
+  "classification": "claim",
+  "confidence": "low",
+  "status": "disputed",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-costa-vip",
+    "ev-costa-heaviest-blueberry-2024",
+    "ev-producereport-blugenix-2026"
+  ],
+  "entity_ids": [
+    "company-costa-group-holdings",
+    "breeding_program-costa-variety-improvement"
+  ]
+}

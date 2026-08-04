@@ -1,0 +1,13 @@
+{
+  "id": "rel-eureka-sunrise-grown-south-africa",
+  "record_type": "relationship",
+  "subject_id": "company-berryworld",
+  "predicate": "grows",
+  "object_id": "variety-eureka-sunrise",
+  "status": "active",
+  "evidence_ids": [
+    "ev-fruitnet-eureka-sunrise-2023"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Production by BerryWorld growers in South Africa, Zimbabwe, Morocco, Spain and Portugal. Substituted structure: the schema cannot attach the production geographies to this relationship, so they are listed here and in the evidence summary."
+}

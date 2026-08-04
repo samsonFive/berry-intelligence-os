@@ -1,0 +1,56 @@
+{
+  "id": "ev-abb-varieties",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "company_website",
+  "title": "Advanced Berry Breeding - Varieties",
+  "source_name": "Advanced Berry Breeding B.V.",
+  "source_url": "https://www.abbreeding.nl/varieties/",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "Advanced Berry Breeding's own variety list contains raspberry cultivars only: Zawadi, Sarafina, Rafiki, Baridi and Shani, alongside Malaika and Kwanza elsewhere on the site. No blueberry cultivar appears.",
+  "why_it_matters": "Recorded as negative evidence. The premise that Advanced Berry Breeding is a blueberry breeder is not supported by its own variety list or by its owner's description of it. Documenting the absence prevents a phantom competitor from entering the dataset.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-advanced-berry-breeding",
+    "company-planasa",
+    "geography-netherlands"
+  ],
+  "fact_ids": [
+    "fact-advanced-berry-breeding-raspberry-only"
+  ],
+  "relationship_ids": [
+    "rel-advanced-berry-breeding-operates-in-netherlands"
+  ],
+  "strategic_question_ids": [
+    "sq-public-record-gaps",
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-1",
+    "negative-evidence",
+    "scope-correction",
+    "self-description"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Short but it removes an entity from blueberry contention."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No blueberry varieties to test."
+    },
+    "commercial_position": {
+      "level": "low",
+      "rationale": "No blueberry commercial position."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Re-check only if a blueberry programme is announced."
+    }
+  }
+}

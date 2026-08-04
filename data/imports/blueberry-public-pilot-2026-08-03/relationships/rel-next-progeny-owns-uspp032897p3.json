@@ -1,0 +1,13 @@
+{
+  "id": "rel-next-progeny-owns-uspp032897p3",
+  "record_type": "relationship",
+  "subject_id": "company-next-progeny",
+  "predicate": "owns",
+  "object_id": "patent-uspp032897p3",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uspp032897-ns16-2"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Named as an assignee of record on the granted patent for 'NS 16-2'."
+}

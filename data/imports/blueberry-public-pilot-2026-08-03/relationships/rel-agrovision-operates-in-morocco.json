@@ -1,0 +1,13 @@
+{
+  "id": "rel-agrovision-operates-in-morocco",
+  "record_type": "relationship",
+  "subject_id": "company-agrovision",
+  "predicate": "operates_in",
+  "object_id": "geography-morocco",
+  "status": "active",
+  "evidence_ids": [
+    "ev-blueberriesconsulting-agrovision-2024"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Operations in Souss-Massa at 250 hectares."
+}

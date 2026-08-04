@@ -1,0 +1,63 @@
+{
+  "id": "ev-uaex-blueberry-trial-2024",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "university_trial_report",
+  "title": "2024 blueberry variety trial",
+  "source_name": "University of Arkansas Division of Agriculture",
+  "source_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/2024-blueberry-variety-trial.aspx",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "Results from a 20-variety blueberry trial covering northern highbush, southern highbush and rabbiteye types, established in 2021 at the Fruit Research Station, Clarksville, Arkansas, on the zone 7b/8a boundary, with weekly harvests from 21 May to 2 August 2024 in the first harvest season. Highest yields were from Alapaha and Vernon at about 10 lb of marketable fruit per plant, both rabbiteye. A mid-March freeze cut southern and northern highbush yields to under 1 lb per plant in some cases. Soluble solids ranged from 8 to 13.2 degrees Brix, lowest in Bluecrop and highest in Ochlockonee; pH ranged from 2.8 to 3.3 and titratable acidity from 0.27 to 0.85 per cent.",
+  "why_it_matters": "The only fully independent measured dataset found, with a stated site, season, harvest window and measurement points. It covers public varieties rather than the proprietary cultivars in this package, so its direct value is as a calibration reference: it shows what a real measured Brix range looks like, against which owner claims of 14 and 16 degrees can be read.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-university-of-arkansas",
+    "trait-soluble-solids",
+    "trait-titratable-acidity",
+    "trait-yield",
+    "geography-united-states",
+    "berry-blueberry"
+  ],
+  "fact_ids": [
+    "fact-uaex-trial-design-2024",
+    "fact-uaex-quality-range-2024"
+  ],
+  "relationship_ids": [
+    "rel-university-of-arkansas-operates-in-united-states",
+    "rel-university-of-arkansas-trials-blueberry"
+  ],
+  "strategic_question_ids": [
+    "sq-repeated-trait-claims",
+    "sq-testing-candidates",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "independent-trial",
+    "measurement",
+    "calibration",
+    "public-varieties"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "The methodological and numerical benchmark for trait claims."
+    },
+    "testing": {
+      "level": "high",
+      "rationale": "A directly usable trial template."
+    },
+    "commercial_position": {
+      "level": "low",
+      "rationale": "No proprietary varieties covered."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Annual trial; later seasons will be more informative."
+    }
+  }
+}

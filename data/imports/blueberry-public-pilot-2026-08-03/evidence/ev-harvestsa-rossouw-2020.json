@@ -1,0 +1,52 @@
+{
+  "id": "ev-harvestsa-rossouw-2020",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "trade_press",
+  "title": "Rossouw Farming Group concedes United Exports rights over OZblu varieties",
+  "source_name": "Harvest SA",
+  "source_url": "https://www.harvestsa.co.za/2020/11/18/rossouw-farming-group-concedes-united-exports-rights-over-ozblu-varieties/",
+  "published_date": "2020-11-18",
+  "captured_date": "2026-08-04",
+  "summary": "Reports that a settlement and interim licence were reached on 17 November 2020 between United Exports and the Rossouw Farming Group, with the dispute over removal of the plants referred to arbitration.",
+  "why_it_matters": "Gives the outcome of the enforcement action from a source outside the rights holder. A settlement with an interim licence is a different outcome from a court ruling on the merits, and the distinction should not be lost.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-united-exports",
+    "geography-south-africa"
+  ],
+  "fact_ids": [
+    "fact-ozblu-rossouw-settlement-2020"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-2",
+    "enforcement",
+    "settlement",
+    "outcome"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Records the outcome rather than the allegation."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trait data."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Shows how such disputes resolve in practice."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Arbitration outcome may surface later."
+    }
+  }
+}

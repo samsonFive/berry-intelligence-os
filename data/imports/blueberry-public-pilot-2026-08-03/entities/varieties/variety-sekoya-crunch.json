@@ -1,0 +1,42 @@
+{
+  "id": "variety-sekoya-crunch",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "SEKOYA Crunch",
+  "aliases": [
+    "SEKOYA® Crunch™",
+    "FC13-083",
+    "Sekoya Crunch"
+  ],
+  "status": "active",
+  "description": "Mid- to high-chill cultivar from the Fall Creek breeding programme, selected in Oregon in 2013.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-sekoya-story",
+    "ev-freshplaza-fall-creek-chile-2026",
+    "ev-nda-za-variety-list-2025"
+  ],
+  "fact_ids": [
+    "fact-sekoya-story-crunch",
+    "fact-freshplaza-fall-creek-chile-2026-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-develops-sekoya-crunch",
+    "rel-fall-creek-program-develops-sekoya-crunch",
+    "rel-fall-creek-trials-sekoya-crunch-chile",
+    "rel-sekoya-carries-sekoya-crunch"
+  ],
+  "attributes": {
+    "selection_code": "FC13-083",
+    "breeding_program": "breeding_program-fall-creek-blueberry-breeding",
+    "platform": "SEKOYA",
+    "chill_class": "mid to high chill",
+    "selected_year": 2013,
+    "selected_location": "Oregon, United States",
+    "traits": [],
+    "coverage_gap": "Owner trait claims not captured - fallcreekcatalogs.com/2025/01/23/sekoya-crunch/ disallowed by robots.txt"
+  }
+}

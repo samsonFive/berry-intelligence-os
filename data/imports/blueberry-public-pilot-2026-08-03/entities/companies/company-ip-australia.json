@@ -1,0 +1,28 @@
+{
+  "id": "company-ip-australia",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "IP Australia",
+  "aliases": [],
+  "status": "active",
+  "description": "Australian government intellectual property office, publisher of the Plant Varieties Journal in which blueberry plant breeders' rights applications, acceptances and grants are recorded.",
+  "roles": [
+    "government_regulator",
+    "plant_breeders_rights_registry"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-ipaustralia-pvj-33-4"
+  ],
+  "fact_ids": [
+    "fact-driscolls-australia-pbr"
+  ],
+  "relationship_ids": [
+    "rel-ip-australia-operates-in-australia"
+  ],
+  "attributes": {
+    "country": "Australia"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "id": "ev-italianberry-peru-varieties-2025",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "trade_press",
+  "title": "Peru: Sekoya Pop dominates ranking of most exported varieties, 2024/25 season",
+  "source_name": "Italian Berry, reporting Proarandanos data",
+  "source_url": "https://italianberry.it/en/news/Peru-Sekoya-Pop-dominates-ranking-most-exported-varieties-2024-25-season",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "Reports Proarandanos figures for Peruvian blueberry exports in the 2024/25 season to week 33: Sekoya Pop leads with 2,514 tonnes, or 19 percent of national volume; Eureka accounts for 655 tonnes, about 5 percent; and Eureka Sunrise appears under two separate codes, 'Ridley 160' with 714 tonnes and 'Ridley 1602' with 183 tonnes.",
+  "why_it_matters": "Third-party volume data from a national producer association is the closest available proxy for actual commercial adoption, as distinct from announced launches. The duplicate coding of Eureka Sunrise in the same table is itself a data-quality finding and means the two figures must not be summed without confirmation.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-sekoya-pop",
+    "variety-eureka",
+    "variety-eureka-sunrise",
+    "geography-peru",
+    "company-fall-creek-farm-and-nursery",
+    "company-mountain-blue-orchards",
+    "brand-eureka"
+  ],
+  "fact_ids": [
+    "fact-italianberry-peru-varieties-2025-4",
+    "fact-italianberry-peru-varieties-2025-1",
+    "fact-italianberry-peru-varieties-2025-2",
+    "fact-italianberry-peru-varieties-2025-3"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-genetics-geographic-spread",
+    "sq-emerging-varieties"
+  ],
+  "tags": [
+    "tier-2",
+    "market-data",
+    "export-volumes",
+    "peru",
+    "data-quality-issue",
+    "third-party"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Rare variety-level volume data showing which genetics have actually reached scale."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Volume share in the largest exporting country is the strongest available adoption signal."
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "Seasonal data that should be refreshed each year."
+    }
+  }
+}

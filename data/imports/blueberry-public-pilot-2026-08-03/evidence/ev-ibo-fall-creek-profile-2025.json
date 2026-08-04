@@ -1,0 +1,50 @@
+{
+  "id": "ev-ibo-fall-creek-profile-2025",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "industry_association_profile",
+  "title": "Fall Creek Farm & Nursery",
+  "source_name": "International Blueberry Organization",
+  "source_url": "https://www.internationalblueberry.org/fall-creek-farm-nursery/",
+  "published_date": "2025-02-19",
+  "captured_date": "2026-08-03",
+  "summary": "Industry-body profile of Fall Creek describing its nursery footprint across multiple countries, employee scale and variety portfolio breadth.",
+  "why_it_matters": "A third-party industry body restating operational scale gives partial corroboration of company-authored scale claims, though association profiles are usually member-supplied.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-fall-creek-farm-and-nursery"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-genetics-geographic-spread"
+  ],
+  "tags": [
+    "tier-2",
+    "company-profile",
+    "scale",
+    "member-supplied"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Useful corroboration but adds little beyond the company's own materials."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Footprint breadth is a competitive factor in genetics supply."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Association profiles update infrequently."
+    }
+  }
+}

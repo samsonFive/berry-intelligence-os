@@ -1,0 +1,12 @@
+{
+  "id": "sq-public-record-gaps",
+  "record_type": "strategic_question",
+  "title": "Where is the public blueberry record incomplete, contradictory, outdated, or dependent on self-reported marketing claims?",
+  "description": "Maintain an explicit register of coverage gaps, source conflicts and marketing-only claims so the dataset's limits stay visible to reviewers and to onboarding teams.",
+  "status": "active",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": []
+}

@@ -1,0 +1,34 @@
+{
+  "id": "geography-canada",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "Canada",
+  "aliases": [],
+  "status": "active",
+  "description": "Jurisdiction whose Plant Breeders' Rights Office publishes examination reports containing independently conducted comparative blueberry trials, and a searchable blueberry variety register.",
+  "roles": [
+    "production_or_regulatory_jurisdiction"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-cfia-blueberry-index",
+    "ev-cfia-pbr-drisblueseventeen",
+    "ev-cfia-pbr-drisbluetwentythree",
+    "ev-hortifrut-integrated-report-2023"
+  ],
+  "fact_ids": [
+    "fact-hortifrut-psp-4956",
+    "fact-drisblueseventeen-carlotta",
+    "fact-drisbluetwentythree-rosita",
+    "fact-drisbluetwentythree-chilliwack-trial",
+    "fact-cfia-driscolls-21-denominations",
+    "fact-cfia-no-costa-planasa-hortifrut-blueberry"
+  ],
+  "relationship_ids": [
+    "rel-driscolls-operates-in-canada",
+    "rel-cfia-operates-in-canada"
+  ],
+  "attributes": {}
+}

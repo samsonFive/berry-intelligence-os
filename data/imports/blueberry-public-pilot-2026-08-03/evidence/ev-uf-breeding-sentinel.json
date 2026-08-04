@@ -1,0 +1,68 @@
+{
+  "id": "ev-uf-breeding-sentinel",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "research_program_publication",
+  "title": "UF blueberry breeding programme cultivar page - Sentinel",
+  "source_name": "University of Florida blueberry breeding programme",
+  "source_url": "https://www.blueberrybreeding.com/sentinel",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "Programme page for Sentinel 'FL11-155' reporting firmness of 237 g/mm at harvest and 226 after 21 days, berry weight of 1.9 to 3.0 g averaging 2.2 g, diameter of 15.9 to 19.6 mm averaging 17.2 mm, soluble solids of 9.3 to 12.7 averaging 11.1 degrees Brix, an average Brix to acid ratio of 30.67, north-central Florida yields of 8.8 to 21.0 lb per plant averaging 16.4 across 2018 to 2020, central Florida yields of 5.6 to 10.9 averaging 8.2, and a flavour score of 27.5 against 19.9 for Emerald and 29.2 for Kestrel. Machine harvest is recorded as no data yet.",
+  "why_it_matters": "The UF breeding programme is the only major blueberry breeder in this dataset that publishes numeric, instrument-based trait measurements for its releases. These figures are measurements taken by the breeding institution, not marketing claims, and they provide the quantitative benchmark against which private breeders' qualitative claims can be judged. The pages do not always state season, replication or instrument calibration, so they are strong but not fully specified.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-sentinel",
+    "company-university-of-florida",
+    "breeding_program-uf-ifas-blueberry-breeding",
+    "trait-fruit-firmness",
+    "trait-fruit-size",
+    "trait-eating-quality",
+    "trait-yield",
+    "variety-emerald",
+    "trait-machine-harvest-suitability"
+  ],
+  "fact_ids": [
+    "fact-uf-breeding-sentinel-1",
+    "fact-uf-breeding-sentinel-2",
+    "fact-uf-breeding-sentinel-3",
+    "fact-uf-breeding-sentinel-4"
+  ],
+  "relationship_ids": [
+    "rel-uf-develops-sentinel",
+    "rel-uf-program-develops-sentinel"
+  ],
+  "strategic_question_ids": [
+    "sq-premium-trait-challengers",
+    "sq-testing-candidates",
+    "sq-repeated-trait-claims"
+  ],
+  "tags": [
+    "tier-1",
+    "measured-data",
+    "breeder-published",
+    "public-genetics",
+    "benchmark"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Numeric trait data is scarce in this sector and directly usable."
+    },
+    "testing": {
+      "level": "high",
+      "rationale": "Provides the measurement conventions and comparison values a trial programme should adopt."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Public cultivars set the performance floor that premium club varieties must clear."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Programme pages are updated as new season data accumulates."
+    }
+  }
+}

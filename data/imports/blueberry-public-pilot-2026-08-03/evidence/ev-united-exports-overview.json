@@ -1,0 +1,51 @@
+{
+  "id": "ev-united-exports-overview",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "company_website",
+  "title": "Overview",
+  "source_name": "United Exports",
+  "source_url": "https://united-exports.com/overview/",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "Company page stating that United Exports was established in 2002 by Roger Horak as a vertically integrated fruit exporter, moving from low-chill stone fruit into evergreen blueberries.",
+  "why_it_matters": "Baseline corporate facts for the third organisation in this wave, and context for why an exporter rather than a breeder ended up controlling a major variety platform.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-united-exports"
+  ],
+  "fact_ids": [
+    "fact-united-exports-overview-1"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-1",
+    "company-profile",
+    "founding-facts",
+    "self-reported"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Baseline facts required before any assessment."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Vertical integration from farm to export is a distinct competitive model."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Static content."
+    }
+  }
+}

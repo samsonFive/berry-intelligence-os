@@ -1,0 +1,31 @@
+{
+  "id": "company-iq-berries",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "IQ Berries",
+  "aliases": [],
+  "status": "active",
+  "description": "Australian blueberry breeder of the 'Mega' variety family, including MegaCrisp, MegaEarly, MegaCrop, MegaGem, MegaGrand and MegaOne. Recorded to correct a mis-attribution of these varieties to another company.",
+  "roles": [
+    "breeder",
+    "genetics_licensor",
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-topfruit-megacrisp"
+  ],
+  "fact_ids": [
+    "fact-megacrisp-iq-berries"
+  ],
+  "relationship_ids": [
+    "rel-topfruit-partners-with-iq-berries",
+    "rel-iq-berries-operates-in-australia"
+  ],
+  "attributes": {
+    "country": "Australia",
+    "variety_family": "Mega"
+  }
+}

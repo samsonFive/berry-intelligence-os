@@ -1,0 +1,19 @@
+{
+  "id": "fact-blue-manila-brix-conflict",
+  "record_type": "fact",
+  "statement": "Planasa's own published soluble-solids figures for Blue Manila conflict: the variety page states 14 degrees Brix while the 'Plablue 1545' technical data sheet states 13 degrees Brix. Neither document states season, replication or measurement method, and the data sheet is marked NOT CONTRACTUAL.",
+  "classification": "claim",
+  "confidence": "low",
+  "status": "disputed",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-planasa-blue-manila-page",
+    "ev-planasa-blue-manila-datasheet"
+  ],
+  "entity_ids": [
+    "variety-blue-manila",
+    "company-planasa",
+    "trait-soluble-solids"
+  ]
+}

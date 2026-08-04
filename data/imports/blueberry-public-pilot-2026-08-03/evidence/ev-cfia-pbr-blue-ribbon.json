@@ -1,0 +1,58 @@
+{
+  "id": "ev-cfia-pbr-blue-ribbon",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "plant_breeders_rights_record",
+  "title": "Plant Breeders' Rights record - Blue Ribbon",
+  "source_name": "Canadian Food Inspection Agency",
+  "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00008762e.shtml",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "Canadian plant breeders' rights record for Blue Ribbon. Application 12-7574 dated 2012-03-26, granted 2016-11-12, certificate 5369, expiring 2036-11-12. Breeders David M. Brazelton and Adam L. Wagner, agent Expert Agriculture Team Ltd. The examiner description from a 2015 Chilliwack, British Columbia trial records very firm fruit with low to medium sweetness and high acidity.",
+  "why_it_matters": "Canadian plant breeders' rights examination reports are among the very few publicly available descriptions of a blueberry cultivar that are produced by an independent examiner from a replicated comparative trial with a named location and season. They are therefore the strongest available counterweight to owner trait claims, even though the descriptors are ordinal rather than numeric.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-blue-ribbon",
+    "company-fall-creek-farm-and-nursery",
+    "trait-fruit-firmness",
+    "trait-eating-quality"
+  ],
+  "fact_ids": [
+    "fact-cfia-pbr-blue-ribbon-1",
+    "fact-cfia-pbr-blue-ribbon-2"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-premium-trait-challengers",
+    "sq-global-genetics-reach",
+    "sq-testing-candidates"
+  ],
+  "tags": [
+    "tier-1",
+    "registry-record",
+    "independent-examination",
+    "canada",
+    "trial-description"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "The closest thing to independent trial data available in the public record."
+    },
+    "testing": {
+      "level": "high",
+      "rationale": "Provides a named protocol and comparison standards that a trial design can reuse."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Rights coverage in Canada is a secondary commercial signal."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Records are static once granted."
+    }
+  }
+}

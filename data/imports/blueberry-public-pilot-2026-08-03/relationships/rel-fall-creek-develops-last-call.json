@@ -1,0 +1,13 @@
+{
+  "id": "rel-fall-creek-develops-last-call",
+  "record_type": "relationship",
+  "subject_id": "company-fall-creek-farm-and-nursery",
+  "predicate": "develops",
+  "object_id": "variety-last-call",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uspp025386-last-call"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Breeding origin evidenced by the plant patent or owner platform record cited."
+}

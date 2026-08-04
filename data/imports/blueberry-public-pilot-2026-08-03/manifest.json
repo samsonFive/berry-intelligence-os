@@ -1,0 +1,104 @@
+{
+  "package": "blueberry-public-pilot-2026-08-03",
+  "berry_scope": [
+    "berry-blueberry"
+  ],
+  "generated_on": "2026-08-04",
+  "generated_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "repo_commit": null,
+  "repo_commit_note": "The repository was supplied as a zip archive with no .git directory, so no commit hash is available. Schema conformance was verified against the schema files present in that archive.",
+  "schemas_validated_against": [
+    "entity.schema.json",
+    "evidence.schema.json",
+    "fact.schema.json",
+    "relationship.schema.json"
+  ],
+  "target_import_root": "data/",
+  "write_mode": "additive only; no existing record is modified or deleted",
+  "evidence_status_on_import": "in_review",
+  "counts": {
+    "files_total": 682,
+    "entity": 155,
+    "entity_by_type": {
+      "berry": 1,
+      "brand": 8,
+      "breeding_program": 9,
+      "company": 32,
+      "geography": 16,
+      "patent": 38,
+      "retailer": 1,
+      "trait": 10,
+      "variety": 40
+    },
+    "evidence": 121,
+    "evidence_by_tier": {
+      "tier-1": 92,
+      "tier-2": 27,
+      "tier-3": 2
+    },
+    "evidence_by_status": {
+      "in_review": 121
+    },
+    "evidence_by_source_type": {
+      "brand_website": 2,
+      "company_annual_report": 2,
+      "company_catalog": 7,
+      "company_press_release": 8,
+      "company_technical_datasheet": 1,
+      "company_website": 20,
+      "court_record": 1,
+      "development_finance_press_release": 1,
+      "extension_publication": 1,
+      "government_registry": 4,
+      "individual_analysis_post": 1,
+      "industry_association_profile": 2,
+      "industry_association_report": 4,
+      "licensing_body_website": 4,
+      "market_analysis_report": 1,
+      "market_data_service": 1,
+      "marketer_website": 1,
+      "news_media": 1,
+      "patent_aggregator": 1,
+      "patent_record": 22,
+      "plant_breeders_rights_record": 8,
+      "private_equity_press_release": 1,
+      "research_program_publication": 8,
+      "trade_press": 18,
+      "university_trial_report": 1
+    },
+    "fact": 186,
+    "fact_by_classification": {
+      "claim": 54,
+      "fact": 132
+    },
+    "fact_by_confidence": {
+      "high": 106,
+      "low": 17,
+      "medium": 63
+    },
+    "fact_by_status": {
+      "active": 176,
+      "disputed": 10
+    },
+    "relationship": 204,
+    "relationship_by_predicate": {
+      "carries": 7,
+      "develops": 57,
+      "grows": 1,
+      "licenses": 11,
+      "operates_in": 51,
+      "owns": 48,
+      "partners_with": 10,
+      "sells": 12,
+      "trials": 7
+    },
+    "relationship_by_status": {
+      "active": 201,
+      "disputed": 2,
+      "historical": 1
+    },
+    "strategic_question": 8,
+    "distinct_source_urls": 121
+  },
+  "content_sha256": "82e5472db31698cd78785a4d30145dabbcfb4027d20d89850fd9c292908ba976"
+}

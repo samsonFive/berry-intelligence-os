@@ -1,0 +1,29 @@
+{
+  "id": "company-oz-varieties",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "OZ Varieties",
+  "aliases": [],
+  "status": "active",
+  "description": "United Exports company that acts as the sub-licensee facilitating licensed production of the proprietary OZblu blueberry varieties.",
+  "roles": [
+    "genetics_sub_licensor",
+    "licensing_body"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-ozblu-oz-varieties"
+  ],
+  "fact_ids": [
+    "fact-ozblu-oz-varieties-1"
+  ],
+  "relationship_ids": [
+    "rel-oz-varieties-licenses-ozblu",
+    "rel-united-exports-partners-with-oz-varieties"
+  ],
+  "attributes": {
+    "parent": "United Exports"
+  }
+}

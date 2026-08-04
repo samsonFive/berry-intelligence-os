@@ -1,0 +1,13 @@
+{
+  "id": "rel-driscolls-operates-in-portugal",
+  "record_type": "relationship",
+  "subject_id": "company-driscolls",
+  "predicate": "operates_in",
+  "object_id": "geography-portugal",
+  "status": "active",
+  "evidence_ids": [
+    "ev-cfia-pbr-drisblueseventeen"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Variety examination conducted at Escaroupim, Portugal for CPVO application 2018/3441."
+}

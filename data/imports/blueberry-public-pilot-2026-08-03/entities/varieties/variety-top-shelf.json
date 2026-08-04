@@ -1,0 +1,92 @@
+{
+  "id": "variety-top-shelf",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Top Shelf",
+  "aliases": [],
+  "status": "active",
+  "description": "High-chill Fall Creek cultivar from a 'Magnolia' x 'Draper' cross, protected by US plant patent and Canadian plant breeders' rights.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-fallcreek-catalog-top-shelf",
+    "ev-uspp024697-top-shelf",
+    "ev-cfia-pbr-top-shelf"
+  ],
+  "fact_ids": [
+    "fact-fallcreek-catalog-top-shelf-1",
+    "fact-fallcreek-catalog-top-shelf-2",
+    "fact-uspp024697-top-shelf-1",
+    "fact-uspp024697-top-shelf-2",
+    "fact-cfia-pbr-top-shelf-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-develops-top-shelf",
+    "rel-fall-creek-program-develops-top-shelf"
+  ],
+  "attributes": {
+    "breeding_program": "breeding_program-fall-creek-blueberry-breeding",
+    "platform": "Fall Creek open catalogue",
+    "chill_class": "high chill",
+    "parentage": "'Magnolia' x 'Draper' (2004; selected 2007)",
+    "traits": [
+      {
+        "trait": "trait-chilling-requirement",
+        "value": "US plant patent states 700-1000 hours",
+        "provenance": "regulatory_or_registry_record",
+        "evidence_ids": [
+          "ev-uspp024697-top-shelf"
+        ],
+        "measured_value": "700-1000",
+        "units": "hours",
+        "asserted_by": "United States Patent and Trademark Office"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "Examiner-observed as high sweetness and low acidity",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-cfia-pbr-top-shelf"
+        ],
+        "conditions": "CFIA plant breeders' rights trial, British Columbia",
+        "asserted_by": "Canadian Food Inspection Agency"
+      },
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "Examiner-observed as firm",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-cfia-pbr-top-shelf"
+        ],
+        "asserted_by": "Canadian Food Inspection Agency"
+      },
+      {
+        "trait": "trait-disease-susceptibility",
+        "value": "Owner reports susceptibility to Botryosphaeria",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-fallcreek-catalog-top-shelf"
+        ],
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      },
+      {
+        "trait": "trait-postharvest-shelf-life",
+        "value": "Owner claims 28 days storage",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-fallcreek-catalog-top-shelf"
+        ],
+        "measured_value": 28,
+        "units": "days",
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      }
+    ],
+    "canada_pbr": {
+      "application_number": "12-7576",
+      "grant_date": "2016-11-12",
+      "certificate": "5373"
+    }
+  }
+}

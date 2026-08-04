@@ -1,0 +1,13 @@
+{
+  "id": "rel-costa-develops-variety-improvement-programme",
+  "record_type": "relationship",
+  "subject_id": "company-costa-group-holdings",
+  "predicate": "develops",
+  "object_id": "breeding_program-costa-variety-improvement",
+  "status": "active",
+  "evidence_ids": [
+    "ev-costa-vip"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Costa's in-house blueberry breeding programme at Corindi, New South Wales."
+}

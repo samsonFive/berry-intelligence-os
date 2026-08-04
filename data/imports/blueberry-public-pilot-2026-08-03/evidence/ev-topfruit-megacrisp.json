@@ -1,0 +1,59 @@
+{
+  "id": "ev-topfruit-megacrisp",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "company_website",
+  "title": "TopFruit - MegaCrisp",
+  "source_name": "TopFruit",
+  "source_url": "https://www.topfruit.co.za/fruit/megacrisp/",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "TopFruit's page for the blueberry variety MegaCrisp, identifying IQ Berries of Australia as the breeder and TopFruit as the commercial manager of the variety in southern Africa. MegaCrisp belongs to a Mega family that also includes MegaEarly, MegaCrop, MegaGem, MegaGrand and MegaOne.",
+  "why_it_matters": "Recorded to correct an attribution. The Mega family that appears on the South African export variety list is sometimes assumed to belong to a large grower-marketer; it belongs to a separate Australian breeder. It also adds a breeder that was not otherwise in scope.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-iq-berries",
+    "company-topfruit",
+    "geography-south-africa",
+    "geography-australia"
+  ],
+  "fact_ids": [
+    "fact-megacrisp-iq-berries"
+  ],
+  "relationship_ids": [
+    "rel-topfruit-partners-with-iq-berries",
+    "rel-iq-berries-operates-in-australia",
+    "rel-topfruit-operates-in-south-africa"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "attribution-correction",
+    "genetics",
+    "variety-management"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Corrects an attribution and adds a breeder."
+    },
+    "testing": {
+      "level": "low",
+      "rationale": "No performance data on the page."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Another Australian programme reaching Africa."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Worth a fuller profile in a later wave."
+    }
+  }
+}

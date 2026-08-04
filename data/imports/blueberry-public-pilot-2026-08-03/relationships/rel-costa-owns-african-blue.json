@@ -1,0 +1,13 @@
+{
+  "id": "rel-costa-owns-african-blue",
+  "record_type": "relationship",
+  "subject_id": "company-costa-group-holdings",
+  "predicate": "owns",
+  "object_id": "company-african-blue",
+  "status": "active",
+  "evidence_ids": [
+    "ev-costa-african-blue-2023"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Described by Costa as its Moroccan business."
+}

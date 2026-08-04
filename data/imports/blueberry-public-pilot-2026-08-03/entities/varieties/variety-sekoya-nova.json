@@ -1,0 +1,67 @@
+{
+  "id": "variety-sekoya-nova",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "SEKOYA Nova",
+  "aliases": [
+    "SEKOYA® Nova",
+    "FC15-173",
+    "Sekoya Nova"
+  ],
+  "status": "active",
+  "description": "High-chill, mid-late season selection from the Fall Creek breeding programme announced as a new SEKOYA release in February 2026. All performance figures published to date originate from the company's own evaluation data.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-produce-report-sekoya-nova-2026",
+    "ev-freshfruitportal-fall-creek-2026",
+    "ev-freshplaza-fall-creek-chile-2026"
+  ],
+  "fact_ids": [
+    "fact-produce-report-sekoya-nova-2026-1",
+    "fact-produce-report-sekoya-nova-2026-2",
+    "fact-produce-report-sekoya-nova-2026-3",
+    "fact-freshplaza-fall-creek-chile-2026-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-develops-sekoya-nova",
+    "rel-fall-creek-program-develops-sekoya-nova",
+    "rel-fall-creek-trials-sekoya-nova-chile",
+    "rel-sekoya-carries-sekoya-nova"
+  ],
+  "attributes": {
+    "selection_code": "FC15-173",
+    "breeding_program": "breeding_program-fall-creek-blueberry-breeding",
+    "platform": "SEKOYA",
+    "chill_class": "high chill",
+    "season": "mid-late",
+    "announced_date": "2026-02-03",
+    "traits": [
+      {
+        "trait": "trait-postharvest-shelf-life",
+        "value": "Owner claims more than 60 days shelf life, compared with about 45 days described as typical for newer high-chill releases",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-produce-report-sekoya-nova-2026"
+        ],
+        "measured_value": ">60",
+        "units": "days",
+        "asserted_by": "Fall Creek Farm & Nursery, Inc. (company evaluation data)"
+      },
+      {
+        "trait": "trait-fruit-size",
+        "value": "Owner claims about 80% of fruit exceeds 18 mm diameter, against 20-50% cited for comparable high-chill varieties",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-produce-report-sekoya-nova-2026"
+        ],
+        "measured_value": "~80% >18 mm",
+        "units": "percent of fruit",
+        "asserted_by": "Fall Creek Farm & Nursery, Inc. (company evaluation data)"
+      }
+    ],
+    "evidence_caution": "No independent trial data located. Trade coverage repeats the company figures."
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "company-university-of-arkansas",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "University of Arkansas Division of Agriculture",
+  "aliases": [
+    "University of Arkansas",
+    "UADA"
+  ],
+  "status": "active",
+  "description": "United States public research and extension institution. Publishes independent blueberry variety trial results with stated harvest windows and measured Brix, pH and titratable acidity.",
+  "roles": [
+    "public_research_institution",
+    "independent_trial_publisher",
+    "extension_publisher"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uaex-blueberry-trial-2024"
+  ],
+  "fact_ids": [
+    "fact-uaex-trial-design-2024",
+    "fact-uaex-quality-range-2024"
+  ],
+  "relationship_ids": [
+    "rel-university-of-arkansas-operates-in-united-states",
+    "rel-university-of-arkansas-trials-blueberry"
+  ],
+  "attributes": {
+    "country": "United States",
+    "trial_site": "Fruit Research Station, Clarksville, Arkansas"
+  }
+}

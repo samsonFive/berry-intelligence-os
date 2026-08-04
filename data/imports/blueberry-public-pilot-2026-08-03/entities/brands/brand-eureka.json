@@ -1,0 +1,42 @@
+{
+  "id": "brand-eureka",
+  "record_type": "entity",
+  "entity_type": "brand",
+  "name": "Eureka",
+  "aliases": [
+    "Eureka Blueberries",
+    "BerryWorld Eureka"
+  ],
+  "status": "active",
+  "description": "Mountain Blue brand family. The name is used both as the denomination of a single cultivar and as an umbrella brand covering multiple distinct Mountain Blue cultivars (Eureka Sunrise, Eureka Sunset, Eureka Dawn, Eureka Gold, Eureka Maxx). These are not interchangeable.",
+  "roles": [
+    "consumer_brand",
+    "umbrella_brand"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-mbo-eureka-blueberries",
+    "ev-eureka-blueberries-our-story",
+    "ev-ibo-eureka-moment-2015",
+    "ev-berryworld-varieties",
+    "ev-italianberry-peru-varieties-2025",
+    "ev-agronometrics-prism-2025"
+  ],
+  "fact_ids": [
+    "fact-mbo-eureka-blueberries-1",
+    "fact-mbo-eureka-blueberries-2",
+    "fact-italianberry-peru-varieties-2025-4",
+    "fact-eureka-blueberries-our-story-1",
+    "fact-ibo-eureka-moment-2015-1"
+  ],
+  "relationship_ids": [
+    "rel-coles-carries-eureka",
+    "rel-mbo-owns-brand-eureka"
+  ],
+  "attributes": {
+    "operator": "Mountain Blue Orchards Pty Ltd",
+    "naming_hazard": "cultivar name and umbrella brand share the same word"
+  }
+}

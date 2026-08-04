@@ -1,0 +1,52 @@
+{
+  "id": "ev-cafc-driscolls-25-1747",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "court_record",
+  "title": "Federal Circuit order, Driscoll's Inc. v. California Berry Cultivars, No. 25-1747",
+  "source_name": "United States Court of Appeals for the Federal Circuit (via Justia)",
+  "source_url": "https://law.justia.com/cases/federal/appellate-courts/cafc/25-1747/25-1747-2025-06-23.html",
+  "published_date": "2025-06-23",
+  "captured_date": "2026-08-04",
+  "summary": "Order of 23 June 2025 dismissing appeal 25-1747 for lack of jurisdiction, because invalidity counterclaims remain pending in the district court, Eastern District of California case number 2:19-cv-00493. Driscoll's of Europe B.V. appears as a co-plaintiff. The patents at issue are strawberry patents.",
+  "why_it_matters": "Confirms from the court record, rather than from a party's press release, that this dispute is a strawberry matter and remains unresolved. It also confirms the existence of the European Driscoll's entity.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-driscolls"
+  ],
+  "fact_ids": [
+    "fact-driscolls-cbc-litigation-is-strawberry",
+    "fact-cafc-dismissal-2025"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "litigation",
+    "not-blueberry",
+    "court-record"
+  ],
+  "priority": {
+    "reading": {
+      "level": "low",
+      "rationale": "Procedural, and outside the blueberry scope."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No variety content."
+    },
+    "commercial_position": {
+      "level": "low",
+      "rationale": "No direct blueberry bearing."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Only relevant if a blueberry patent dispute follows."
+    }
+  }
+}

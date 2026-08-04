@@ -1,0 +1,12 @@
+{
+  "id": "sq-repeated-trait-claims",
+  "record_type": "strategic_question",
+  "title": "Which product traits are increasingly repeated across releases and commercial claims?",
+  "description": "Count trait-claim frequency across independent organizations to detect category-level positioning shifts. Repetition across marketers is evidence about positioning, not about the fruit.",
+  "status": "active",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": []
+}

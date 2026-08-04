@@ -1,0 +1,59 @@
+{
+  "id": "ev-agronometrics-prism-2025",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "market_analysis_report",
+  "title": "2025 Agronometrics Peruvian Blueberry Varietal Price Spectrum Monitor (PRISM)",
+  "source_name": "Agronometrics, hosted by Berries Australia",
+  "source_url": "https://berries.net.au/wp-content/uploads/2025/10/2025-Agronometrics-Peruvian-Blueberry-Varietal-Price-Spectrum-Monitor-PRISM.pdf",
+  "published_date": "2025-10-01",
+  "captured_date": "2026-08-03",
+  "summary": "Analytical report indexing Peruvian blueberry varieties by realised price relative to the varietal average. Eureka indexes at 1.02 times average with a 95 percent confidence interval of 0.62 to 1.42 across 182 pricing reports; Eureka Sunrise indexes at 0.08 times average with a 95 percent confidence interval of minus 0.28 to 0.44 across 227 pricing reports.",
+  "why_it_matters": "One of the only public datasets that ties a specific cultivar to realised price with stated sample sizes and confidence intervals. The intervals are wide, so the indices should be read as weak evidence of relative price position rather than precise values.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-eureka",
+    "variety-eureka-sunrise",
+    "geography-peru",
+    "brand-eureka",
+    "company-mountain-blue-orchards"
+  ],
+  "fact_ids": [
+    "fact-italianberry-peru-varieties-2025-4",
+    "fact-agronometrics-prism-2025-1",
+    "fact-agronometrics-prism-2025-2"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-premium-trait-challengers",
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-2",
+    "price-data",
+    "market-analysis",
+    "peru",
+    "wide-confidence-intervals"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Price realisation is the ultimate test of whether premium trait claims convert to value."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Price premium is the commercial payoff that the whole club-variety model depends on."
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "Annual report; the next edition should be captured."
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "id": "ev-uspp023572-ridley-1111",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "patent_record",
+  "title": "USPP023572P3 - 'Ridley 1111' (Opi)",
+  "source_name": "United States Patent and Trademark Office plant patent record, translated summary",
+  "source_url": "https://fruitplantsvariation.blogspot.com/2018/07/opi-ridley-1111-blueberry.html",
+  "published_date": "2018-07-01",
+  "captured_date": "2026-08-03",
+  "summary": "A translated summary of United States plant patent 23,572 on 'Ridley 1111', application 12/930,887 filed 2011-01-18 and granted 2013-04-30. The cultivar is an open-pollinated seedling of 'C99-42' (PP20,695) raised at Lindendale, New South Wales in 2001 and selected in 2003. It is evergreen and very early, with average fruit diameter of 17.3 mm against 15.5 mm for 'C99-42', calyx basin 6.8 mm against 5.6 mm, medium to high sweetness and firm fruit suited to hand picking.",
+  "why_it_matters": "Critical for identity resolution: 'Ridley 1111' is Opi, not Eureka. Several secondary sources conflate the two, and any dataset that inherits that error will misattribute the Australian Federal Court judgment and the associated infringement history to the wrong cultivar.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-opi",
+    "patent-uspp023572p3",
+    "company-mountain-blue-orchards",
+    "variety-eureka",
+    "trait-fruit-size",
+    "trait-fruit-firmness",
+    "trait-eating-quality",
+    "breeding_program-mountain-blue-blueberry-breeding"
+  ],
+  "fact_ids": [
+    "fact-uspp023572-ridley-1111-1",
+    "fact-uspp023572-ridley-1111-2",
+    "fact-abc-chellew-judgment-2019-2"
+  ],
+  "relationship_ids": [
+    "rel-mbo-develops-opi",
+    "rel-mbo-program-develops-opi",
+    "rel-mbo-owns-uspp023572p3"
+  ],
+  "strategic_question_ids": [
+    "sq-public-record-gaps",
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-3",
+    "registry-record-secondary",
+    "identity-resolution",
+    "translated-source",
+    "needs-primary-confirmation"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Resolves a widespread misattribution in the public record."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Affects which cultivar an important legal precedent attaches to."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Should be re-confirmed against the primary USPTO document before publication."
+    }
+  }
+}

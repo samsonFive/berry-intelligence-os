@@ -1,0 +1,13 @@
+{
+  "id": "rel-nature-select-operates-in-australia",
+  "record_type": "relationship",
+  "subject_id": "company-nature-select",
+  "predicate": "operates_in",
+  "object_id": "geography-australia",
+  "status": "active",
+  "evidence_ids": [
+    "ev-ozblu-around-the-world-2019"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Breeding programme based near Perth, Western Australia."
+}

@@ -1,0 +1,58 @@
+{
+  "id": "ev-ipaustralia-pvj-33-4",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "government_registry",
+  "title": "Plant Varieties Journal, Volume 33 Number 4",
+  "source_name": "IP Australia",
+  "source_url": "https://www.ipaustralia.gov.au/tools-and-research/professional-resources/ip-rights-journals/~/-/media/Project/IPA/IPAustralia/PDF/PBR-Journals/Volume-33-Number-4.pdf?rev=a440897af4f5455e9ca3eb491a170803",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "Australian plant breeders' rights journal recording, among blueberry entries, Driscoll's application 2014/116 for 'DrisBlueThirteen' with certificate 6408 expiring 26 August 2040, and application 2020/017 for 'DrisBlueEighteen' accepted on 1 October 2020 with provisional protection from acceptance. The same volume lists southern highbush blueberry applications 'T112-519' (2020/184), 'T112-219' (2020/183), 'F116' (2020/170), 'T111-519' (2020/173), 'T111-219' (2020/172) and 'T11-319' (2020/171) by Rolfe Nominees Pty Ltd through the agent ANFIC, and an assignment of raspberry rights 2018/240 and 2018/241 from Pacific Berry Breeding LLC to Hortifrut North America, Inc.",
+  "why_it_matters": "A statutory register showing Driscoll's protecting blueberry varieties in Australia, and showing Rolfe Nominees filing its own southern highbush applications. Rolfe Nominees also appears as an assignee of record in the OZblu patent chain, which suggests a link between the two that the sources do not yet explain.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-ip-australia",
+    "company-driscolls",
+    "geography-australia",
+    "company-hortifrut"
+  ],
+  "fact_ids": [
+    "fact-driscolls-australia-pbr"
+  ],
+  "relationship_ids": [
+    "rel-driscolls-operates-in-australia",
+    "rel-ip-australia-operates-in-australia"
+  ],
+  "strategic_question_ids": [
+    "sq-public-record-gaps",
+    "sq-genetics-geographic-spread"
+  ],
+  "tags": [
+    "tier-1",
+    "registry",
+    "australia",
+    "open-question"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Register detail plus one unexplained connection worth pursuing."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trait data."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Maps protection in a significant production country."
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "The journal is issued periodically and is a good recurring source."
+    }
+  }
+}

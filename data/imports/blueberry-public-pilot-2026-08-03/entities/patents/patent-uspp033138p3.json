@@ -1,0 +1,43 @@
+{
+  "id": "patent-uspp033138p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP033138P3",
+  "aliases": [
+    "US PP33,138",
+    "NS 15-13"
+  ],
+  "status": "active",
+  "description": "United States plant patent on the blueberry selection 'NS 15-13', marketed as OZblu Dina. Sole inventor Vincent David Mazzardis; the cross was made at Yanchep Springs, Yanchep, Western Australia. Parentage 'EB 9-4' (US PP28,334) x 'EB 8-46' (US PP26,173). Granted 2021-06-08.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp033138-ns15-13"
+  ],
+  "fact_ids": [
+    "fact-ozblu-identity-dina"
+  ],
+  "relationship_ids": [
+    "rel-next-progeny-owns-uspp033138p3"
+  ],
+  "attributes": {
+    "patent_number": "US PP33,138",
+    "jurisdiction": "United States",
+    "authority": "USPTO",
+    "kind": "plant patent",
+    "grant_date": "2021-06-08",
+    "selection_code": "NS 15-13",
+    "commercial_name": "Dina",
+    "inventor": "Vincent David Mazzardis",
+    "assignees_of_record": [
+      "Next Progeny Pty Ltd"
+    ],
+    "cross_location": "Yanchep Springs, Yanchep, Western Australia",
+    "parentage": "'EB 9-4' (US PP28,334) x 'EB 8-46' (US PP26,173)",
+    "priority_claim": "CPVO application priority 15 August 2019"
+  }
+}

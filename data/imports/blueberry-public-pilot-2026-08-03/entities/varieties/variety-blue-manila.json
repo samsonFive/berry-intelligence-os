@@ -1,0 +1,96 @@
+{
+  "id": "variety-blue-manila",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Blue Manila",
+  "aliases": [
+    "Plablue 1545",
+    "Blue Manila®"
+  ],
+  "status": "active",
+  "description": "Planasa blueberry cultivar from the selection 'Plablue 1545', protected in the United States by US PP31,345 and the subject of a CPVO application filed in August 2018. Its published performance figures come from Planasa's own trial plots in Morocco and Spain and are marked as non-contractual by the owner; two Planasa pages give different soluble solids figures for the same cultivar.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-planasa-blue-manila-page",
+    "ev-planasa-blue-manila-datasheet",
+    "ev-uspp031345-plablue-1545"
+  ],
+  "fact_ids": [
+    "fact-blue-manila-plablue-1545",
+    "fact-blue-manila-brix-conflict",
+    "fact-blue-manila-owner-yield-claim"
+  ],
+  "relationship_ids": [
+    "rel-planasa-develops-blue-manila"
+  ],
+  "attributes": {
+    "selection_code": "Plablue 1545",
+    "commercial_name": "Blue Manila",
+    "breeder": "Plantas de Navarra, S.A.",
+    "breeding_program_id": "breeding_program-planasa-blueberry",
+    "patent_id": "patent-uspp031345p2",
+    "patent_number": "US PP31,345",
+    "patent_publication_date": "2020-01-14",
+    "patent_grant_date": null,
+    "parentage": "14.027.001 x 14.049.001 (both unpatented)",
+    "cpvo_application": "2018/2073 filed 9 August 2018",
+    "traits": [
+      {
+        "trait": "trait-yield",
+        "value": "19,000 kg/ha in years 1 and 2; 23,000 kg/ha in year 3",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-planasa-blue-manila-datasheet"
+        ],
+        "conditions": "Stated by the owner as average results from Planasa trial plots in Morocco and Spain, obtained under specific and controlled conditions and marked NOT CONTRACTUAL. No season, replication or plot design is given.",
+        "asserted_by": "Plantas de Navarra, S.A."
+      },
+      {
+        "trait": "trait-yield",
+        "value": "3,300-4,000 g per plant",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-planasa-blue-manila-page"
+        ],
+        "conditions": "Owner website figure in per-plant units, not comparable with the per-hectare figure the same owner publishes on the data sheet.",
+        "asserted_by": "Plantas de Navarra, S.A."
+      },
+      {
+        "trait": "trait-fruit-size",
+        "value": "calibre L, 22 mm",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-planasa-blue-manila-datasheet"
+        ],
+        "conditions": "Owner data sheet, no method stated",
+        "asserted_by": "Plantas de Navarra, S.A."
+      },
+      {
+        "trait": "trait-soluble-solids",
+        "value": "13 degrees Brix (data sheet) / 14 degrees Brix (website)",
+        "provenance": "unresolved",
+        "evidence_ids": [
+          "ev-planasa-blue-manila-datasheet",
+          "ev-planasa-blue-manila-page"
+        ],
+        "conditions": "The owner publishes two different figures for the same cultivar on two of its own pages. Neither states a method, site season or sampling point. Recorded as unresolved rather than averaged.",
+        "asserted_by": "Plantas de Navarra, S.A."
+      },
+      {
+        "trait": "trait-postharvest-shelf-life",
+        "value": "more than 4 weeks",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-planasa-blue-manila-datasheet"
+        ],
+        "conditions": "Owner data sheet; no storage temperature, atmosphere or assessment criterion stated",
+        "asserted_by": "Plantas de Navarra, S.A."
+      }
+    ]
+  }
+}

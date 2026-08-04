@@ -1,0 +1,56 @@
+{
+  "id": "ev-planasa-about-us",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "company_website",
+  "title": "Planasa - About us",
+  "source_name": "Plantas de Navarra, S.A. (Planasa)",
+  "source_url": "https://planasa.com/about-us/",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "Planasa's corporate page states that the company has more than 4,000 employees, is present in more than 25 countries, holds more than 225 registered varieties, operates seven research and development centres and produces more than 1,000 million plants a year. It describes the business as breeding, nursery plant production and technical support to growers.",
+  "why_it_matters": "Establishes Planasa's scale and, importantly, its position in the value chain: it sells plants and licences rather than fruit, which is a different competitive posture from the grower-marketers elsewhere in this dataset.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-planasa",
+    "breeding_program-planasa-blueberry",
+    "geography-spain"
+  ],
+  "fact_ids": [
+    "fact-planasa-scale-claim"
+  ],
+  "relationship_ids": [
+    "rel-planasa-operates-in-spain"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-competitor-expansion"
+  ],
+  "tags": [
+    "tier-1",
+    "corporate",
+    "self-description",
+    "scale"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Scale figures with no breakdown by crop."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No variety data."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Defines the business model as genetics and plants, not fruit."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Corporate pages change slowly."
+    }
+  }
+}

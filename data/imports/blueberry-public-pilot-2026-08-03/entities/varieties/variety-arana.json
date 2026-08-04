@@ -1,0 +1,49 @@
+{
+  "id": "variety-arana",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Arana",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Costa-bred blueberry cultivar and the most widely licensed name in Costa's portfolio, licensed exclusively to Driscoll's in the Americas, Australia and China through the Costa-Driscoll's joint venture, and grown in Africa through African Blue. No selection code, plant patent or plant breeders' right could be tied to this name from the sources fetched, and it does not appear in the Canadian plant breeders' rights blueberry index.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-cfia-blueberry-index",
+    "ev-justia-costa-berry-international",
+    "ev-costa-african-blue-2023"
+  ],
+  "fact_ids": [
+    "fact-african-blue-morocco-zimbabwe"
+  ],
+  "relationship_ids": [
+    "rel-costa-develops-arana"
+  ],
+  "attributes": {
+    "breeder": "Costa Group Holdings Pty Ltd",
+    "breeding_program_id": "breeding_program-costa-variety-improvement",
+    "selection_code": null,
+    "patent_number": null,
+    "identity_note": "Commercial name only. Costa publishes selection codes such as C13-051 on its patents and commercial names such as Arana in its releases, but no fetched source links the two sets. The mapping is an open question.",
+    "exclusive_licensee_americas_australia_china": "Driscoll's, Inc.",
+    "licensed_production_countries": [
+      "United States",
+      "Mexico",
+      "Peru",
+      "Colombia",
+      "Chile",
+      "Israel",
+      "South Africa",
+      "Zimbabwe",
+      "Zambia",
+      "Morocco",
+      "Australia",
+      "China"
+    ],
+    "traits": []
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "id": "ev-ibo-eureka-moment-2015",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "industry_association_report",
+  "title": "Blueberry growers' Eureka moment",
+  "source_name": "International Blueberry Organization",
+  "source_url": "https://www.internationalblueberry.org/2015/10/24/blueberry-growers-eureka-moment/",
+  "published_date": "2015-10-24",
+  "captured_date": "2026-08-03",
+  "summary": "Report by Andres Silva on the Australian retail launch of Eureka blueberries in Coles in spring 2015, following earlier limited in-store trials.",
+  "why_it_matters": "Fixes a dated commercial launch event, which anchors the timeline for a cultivar that was discovered in 2008 and patented in 2012.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-eureka",
+    "brand-eureka",
+    "retailer-coles",
+    "company-mountain-blue-orchards"
+  ],
+  "fact_ids": [
+    "fact-ibo-eureka-moment-2015-1"
+  ],
+  "relationship_ids": [
+    "rel-coles-carries-eureka"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-2",
+    "product-launch",
+    "australia",
+    "dated-event"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Useful for the timeline."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "A launch event is not by itself evidence of commercial success."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Historical record."
+    }
+  }
+}

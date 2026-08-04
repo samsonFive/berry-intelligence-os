@@ -1,0 +1,18 @@
+{
+  "id": "fact-italianberry-peru-varieties-2025-1",
+  "record_type": "fact",
+  "statement": "In the 2024/25 Peruvian export season to week 33, SEKOYA Pop was the single largest exported blueberry variety by volume at 2,514 tonnes, equal to 19 percent of national volume, according to Proarandanos figures.",
+  "classification": "fact",
+  "confidence": "medium",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-italianberry-peru-varieties-2025"
+  ],
+  "entity_ids": [
+    "variety-sekoya-pop",
+    "geography-peru",
+    "company-fall-creek-farm-and-nursery"
+  ]
+}

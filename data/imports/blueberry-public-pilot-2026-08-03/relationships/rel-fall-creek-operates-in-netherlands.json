@@ -1,0 +1,13 @@
+{
+  "id": "rel-fall-creek-operates-in-netherlands",
+  "record_type": "relationship",
+  "subject_id": "company-fall-creek-farm-and-nursery",
+  "predicate": "operates_in",
+  "object_id": "geography-netherlands",
+  "status": "active",
+  "evidence_ids": [
+    "ev-fruitnet-driesvenplant-2018"
+  ],
+  "effective_date": "2018-06-15",
+  "notes": "confidence=medium; Established through the acquisition of the Dutch nursery Driesvenplant."
+}

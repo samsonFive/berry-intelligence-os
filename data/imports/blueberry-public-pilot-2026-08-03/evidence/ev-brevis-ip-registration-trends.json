@@ -1,0 +1,56 @@
+{
+  "id": "ev-brevis-ip-registration-trends",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "individual_analysis_post",
+  "title": "Trends in blueberry IP registration",
+  "source_name": "Patricio Brevis, LinkedIn",
+  "source_url": "https://www.linkedin.com/pulse/trends-blueberry-ip-registration-patricio-brevis",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "Analysis by an individual author reporting that across the 2009 to 2019 period Eureka was the most widely registered blueberry variety with protection in 15 countries or regions, that Opi was registered in 13, and that Blue Ribbon was among the four most widely registered varieties with 13 countries or regions.",
+  "why_it_matters": "This is the only retrieved source that quantifies international registration breadth, which is a good proxy for where a breeder intends to commercialise. It is a self-published post by an individual with no visible methodology or peer review, so it is recorded at the lowest source tier and must not be the sole support for any material conclusion.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-eureka",
+    "variety-opi",
+    "variety-blue-ribbon"
+  ],
+  "fact_ids": [
+    "fact-brevis-ip-registration-trends-1"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-genetics-geographic-spread",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-3",
+    "low-authority",
+    "self-published",
+    "no-stated-methodology",
+    "needs-corroboration"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Interesting framing but the underlying counts cannot be verified from the post."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Registration breadth would be a useful competitive metric if it could be confirmed."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Should be replaced by direct registry counts in a later wave."
+    }
+  }
+}

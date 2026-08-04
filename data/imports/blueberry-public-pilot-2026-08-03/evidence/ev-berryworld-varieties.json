@@ -1,0 +1,74 @@
+{
+  "id": "ev-berryworld-varieties",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "marketer_website",
+  "title": "Berries - varieties",
+  "source_name": "BerryWorld",
+  "source_url": "https://www.berryworld.com/en-gb/berries/varieties",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "BerryWorld's variety listing, showing its Mountain Blue-derived retail brands including BerryWorld Eureka, Eureka Sunrise, Twilight, Opi, First Blush, Meridian, Sundown, Dazzle, Echo, Eureka Sunset, Inicio, Masena, Splash, Eureka Dawn, Eureka Gold, Eureka Maxx, Kalinda and Merliah, and recording International Taste Institute Superior Taste Awards including three stars for BerryWorld Eureka in 2025 and 2022 and awards for Eureka Dawn and Masena.",
+  "why_it_matters": "Shows how a marketer layers its own retail brands on top of a breeder's cultivars, which is the main reason blueberry variety data is hard to join across sources. Also the only retrieved source confirming that Twilight exists as a commercial brand at all.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-berryworld",
+    "brand-berryworld-varietal-brands",
+    "company-mountain-blue-orchards",
+    "variety-eureka",
+    "variety-eureka-sunrise",
+    "variety-twilight",
+    "variety-opi",
+    "trait-eating-quality",
+    "brand-eureka",
+    "breeding_program-mountain-blue-blueberry-breeding"
+  ],
+  "fact_ids": [
+    "fact-mbo-eureka-blueberries-1",
+    "fact-berryworld-varieties-1",
+    "fact-berryworld-varieties-2",
+    "fact-berryworld-varieties-3"
+  ],
+  "relationship_ids": [
+    "rel-mbo-develops-twilight",
+    "rel-mbo-program-develops-twilight",
+    "rel-berryworld-sells-eureka",
+    "rel-berryworld-sells-twilight",
+    "rel-berryworld-sells-opi",
+    "rel-berryworld-partners-with-mbo",
+    "rel-berryworld-owns-varietal-brands"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-genetics-geographic-spread",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-2",
+    "brand-architecture",
+    "marketer-published",
+    "taste-awards",
+    "identity-resolution"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Maps a large brand family onto a small number of underlying cultivars."
+    },
+    "testing": {
+      "level": "low",
+      "rationale": "Taste awards are independent sensory results but are not agronomic trials."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Retail brand coverage indicates where the genetics reach consumers."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Brand lists are refreshed each season."
+    }
+  }
+}

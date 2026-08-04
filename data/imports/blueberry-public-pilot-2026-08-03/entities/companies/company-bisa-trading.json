@@ -1,0 +1,42 @@
+{
+  "id": "company-bisa-trading",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Bisa Trading Pty Ltd",
+  "aliases": [
+    "Bisa Trading"
+  ],
+  "status": "active",
+  "description": "Australian entity recorded as a joint assignee on the OZblu 'EB' series blueberry plant patents. An interest held by Rolfe Nominees Pty Ltd in one of these patents was assigned to Bisa Trading on 6 April 2017.",
+  "roles": [
+    "patent_assignee",
+    "rights_holder"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp025858-eb8-42",
+    "ev-uspp026173-eb8-46",
+    "ev-uspp028149-eb9-2",
+    "ev-uspp028358-eb9-12",
+    "ev-uspp027142-eb12-19",
+    "ev-uspp030934-ns13-6",
+    "ev-uspp033138-ns15-13"
+  ],
+  "fact_ids": [
+    "fact-ozblu-assignee-structure"
+  ],
+  "relationship_ids": [
+    "rel-bisa-trading-owns-uspp025858p3",
+    "rel-bisa-trading-owns-uspp026173p3",
+    "rel-bisa-trading-owns-uspp028149p3",
+    "rel-bisa-trading-owns-uspp028358p3",
+    "rel-bisa-trading-owns-uspp027142p3",
+    "rel-bisa-trading-operates-in-australia"
+  ],
+  "attributes": {
+    "country": "Australia",
+    "patent_series": "EB"
+  }
+}

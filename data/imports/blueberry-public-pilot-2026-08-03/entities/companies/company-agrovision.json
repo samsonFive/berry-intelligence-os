@@ -1,0 +1,59 @@
+{
+  "id": "company-agrovision",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Agrovision Corp. (Fruitist)",
+  "aliases": [
+    "Fruitist",
+    "Agrovision",
+    "Agro Vision Corp."
+  ],
+  "status": "active",
+  "description": "United States berry grower, packer and marketer headquartered in Los Angeles, rebranded as Fruitist in 2025. It grows blueberries in Peru, Mexico, Morocco and elsewhere. It is a licensee of third-party genetics and not a breeder: no blueberry cultivar, plant patent or plant breeders' right owned by this company was found in the public record.",
+  "roles": [
+    "grower",
+    "packer",
+    "shipper",
+    "marketer",
+    "retailer_supplier",
+    "genetics_licensee",
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-agrovision-10-years-2024",
+    "ev-blueberriesconsulting-agrovision-2024",
+    "ev-agfunder-fruitist-rebrand",
+    "ev-foodnavigator-fruitist-2025",
+    "ev-ibo-agrovision-2019",
+    "ev-fruitist-brands"
+  ],
+  "fact_ids": [
+    "fact-agrovision-founding-year-conflict",
+    "fact-agrovision-licenses-not-breeds",
+    "fact-agrovision-peru-scale",
+    "fact-fruitist-rebrand-2025",
+    "fact-fruitist-financing-2025",
+    "fact-fruitist-consumer-brands"
+  ],
+  "relationship_ids": [
+    "rel-agrovision-licenses-sekoya",
+    "rel-agrovision-partners-with-fall-creek",
+    "rel-agrovision-owns-fruitist",
+    "rel-agrovision-owns-big-skye",
+    "rel-agrovision-operates-in-peru",
+    "rel-agrovision-operates-in-mexico",
+    "rel-agrovision-operates-in-morocco"
+  ],
+  "attributes": {
+    "headquarters": "Los Angeles, California, USA",
+    "country": "United States",
+    "ownership": "private, growth-equity backed",
+    "founding_year": null,
+    "founding_year_note": "Company communications give 2013; trade press gives 2012. Recorded as a disputed fact rather than resolved.",
+    "breeds_own_genetics": false,
+    "rebrand": "Agrovision Corp. renamed Fruitist in 2025"
+  }
+}

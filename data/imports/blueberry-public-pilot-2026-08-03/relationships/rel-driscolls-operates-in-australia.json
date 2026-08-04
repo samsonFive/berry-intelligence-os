@@ -1,0 +1,13 @@
+{
+  "id": "rel-driscolls-operates-in-australia",
+  "record_type": "relationship",
+  "subject_id": "company-driscolls",
+  "predicate": "operates_in",
+  "object_id": "geography-australia",
+  "status": "active",
+  "evidence_ids": [
+    "ev-ipaustralia-pvj-33-4"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Australian plant breeders' rights applications and grants for DrisBlue denominations."
+}

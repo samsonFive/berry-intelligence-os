@@ -1,0 +1,67 @@
+{
+  "id": "ev-cfia-pbr-drisbluetwentythree",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "plant_breeders_rights_record",
+  "title": "Canada PBR certificate 7211 - 'DrisBlueTwentyThree' (Rosita)",
+  "source_name": "Canadian Food Inspection Agency",
+  "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011977e.shtml",
+  "published_date": "2024-11-01",
+  "captured_date": "2026-08-04",
+  "summary": "Canadian plant breeders' rights record for the blueberry variety 'DrisBlueTwentyThree', trade name Rosita, application 20-10341, certificate 7211, grant of rights 1 November 2024. The comparative trial was carried out by Expert Agriculture Team Ltd. at Chilliwack, British Columbia in the 2023 growing season: one-year-old plants transplanted in April 2021 into raised beds with plastic mulch and drip irrigation, spaced 90 cm in-row and 3 m between rows, in a randomised complete block design of four replicates of three plants per variety with measurements taken from ten plants, against 'DrisBlueSeven' (Stella Blue) and 'DrisBlueTwentyTwo' (Regina). The fruit is described as medium size, oblate, firm, medium sweetness and medium-high acidity. Origin '196H-3' crossed with '75J301' in February 2011 in Santa Cruz County, California, selected April 2013 in Hillsborough County, Florida. Breeders named include Raymond L. Jacobs III, James Olmstead and Sarah Wool.",
+  "why_it_matters": "This is the only record in the package that states a full replicated trial design for a blueberry variety: design, replication, spacing, planting date, season and comparison varieties. It sets the standard against which every owner trait claim in this dataset should be judged, and shows how far short most of them fall.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-drisbluetwentythree",
+    "patent-ca-pbr-7211",
+    "company-driscolls",
+    "breeding_program-driscolls-blueberry",
+    "company-cfia",
+    "trait-fruit-firmness",
+    "trait-fruit-size",
+    "trait-eating-quality",
+    "geography-canada",
+    "geography-united-states"
+  ],
+  "fact_ids": [
+    "fact-drisbluetwentythree-rosita",
+    "fact-drisbluetwentythree-chilliwack-trial"
+  ],
+  "relationship_ids": [
+    "rel-driscolls-develops-drisbluetwentythree",
+    "rel-driscolls-owns-ca-pbr-7211"
+  ],
+  "strategic_question_ids": [
+    "sq-testing-candidates",
+    "sq-repeated-trait-claims",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "registry",
+    "independent-examination",
+    "trait-data",
+    "trial-design"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "The methodological benchmark for the whole dataset."
+    },
+    "testing": {
+      "level": "high",
+      "rationale": "A fully specified trial that could be replicated locally."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Indicates the varieties Driscoll's is advancing."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Static once granted."
+    }
+  }
+}

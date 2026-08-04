@@ -1,0 +1,14 @@
+{
+  "id": "rel-hortifrut-partners-with-naturipe",
+  "record_type": "relationship",
+  "subject_id": "company-hortifrut",
+  "predicate": "partners_with",
+  "object_id": "company-naturipe-farms",
+  "status": "active",
+  "evidence_ids": [
+    "ev-hortifrut-mbo-genetics-2026",
+    "ev-hortifrut-investor-company"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Joint announcing parties on the 2026 genetics platform expansion; Hortifrut's investor page identifies MBG and Munger Brothers as Naturipe partners."
+}

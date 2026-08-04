@@ -1,0 +1,13 @@
+{
+  "id": "rel-prunus-persica-owns-uspp028358p3",
+  "record_type": "relationship",
+  "subject_id": "company-prunus-persica",
+  "predicate": "owns",
+  "object_id": "patent-uspp028358p3",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uspp028358-eb9-12"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Named as an assignee of record on the granted patent for 'EB 9-12'."
+}

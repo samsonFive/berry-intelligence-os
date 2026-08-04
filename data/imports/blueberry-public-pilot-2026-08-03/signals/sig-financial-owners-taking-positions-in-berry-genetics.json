@@ -1,0 +1,39 @@
+{
+  "id": "sig-financial-owners-taking-positions-in-berry-genetics",
+  "record_type": "signal",
+  "title": "Institutional and private-equity capital is taking or rotating ownership positions in businesses that hold blueberry genetics",
+  "status": "proposed",
+  "strength": "moderate",
+  "observation": "Three separate ownership events sit inside the observation window. Hortifrut's 2023 integrated report records PSP Investments of Canada with SJF Investment SpA holding 49.56 per cent following a December 2022 investment agreement. Costa Group was taken private in February 2024 by a consortium of Paine Schwartz Partners, Driscoll's and British Columbia Investment Management Corporation, and its registered entity changed from Limited to Pty Ltd on 3 June 2024. Cinven and Label Investments agreed to sell Planasa to the EW Group.",
+  "why_it_might_matter": "Ownership changes alter disclosure. A delisted or privately held breeder publishes less, which degrades the evidence base the platform depends on, and can change licensing posture. The Costa transaction is also notable because a direct genetics competitor, Driscoll's, is inside the acquiring consortium.",
+  "what_would_confirm_it": "Disclosed shareholding percentages for the Costa consortium members; a completion announcement for the Planasa sale; or observable changes in licensing or disclosure behaviour after each transaction.",
+  "what_would_falsify_it": "Evidence that these are passive financial holdings with no effect on genetics strategy, licensing terms or public disclosure; or reversal of any of the transactions.",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-hortifrut-integrated-report-2023",
+    "ev-costa-ownership-2024",
+    "ev-abn-costa-history",
+    "ev-cinven-planasa-ew-group",
+    "ev-delisted-costa"
+  ],
+  "entity_ids": [
+    "company-hortifrut",
+    "company-costa-group-holdings",
+    "company-driscolls",
+    "company-paine-schwartz-partners",
+    "company-bci",
+    "company-planasa",
+    "company-cinven",
+    "company-ew-group"
+  ],
+  "strategic_question_ids": [
+    "sq-competitor-expansion",
+    "sq-public-record-gaps"
+  ],
+  "proposed_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "proposed_at": "2026-08-03",
+  "reviewer": null,
+  "not_importable_reason": "No signal schema exists in the running repository. Retained in the staging package for human review only; see schema-assessment.md limitation L-7 and proposed-schema-enhancements.md."
+}

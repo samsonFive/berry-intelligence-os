@@ -1,0 +1,13 @@
+{
+  "id": "rel-hortifrut-partners-with-mbg",
+  "record_type": "relationship",
+  "subject_id": "company-hortifrut",
+  "predicate": "partners_with",
+  "object_id": "company-michigan-blueberry-growers",
+  "status": "active",
+  "evidence_ids": [
+    "ev-hortifrut-genetic-development"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Berry Blue, LLC blueberry breeding joint venture, described by Hortifrut as created over a decade ago."
+}

@@ -1,0 +1,80 @@
+{
+  "id": "ev-hortifrut-genetic-development",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "company_website",
+  "title": "Hortifrut - Genetic Development",
+  "source_name": "Hortifrut S.A.",
+  "source_url": "https://www.hortifrut.com/innovation/genetic-development/",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "Hortifrut's own description of its genetics activity. It describes Berry Blue, LLC as a blueberry breeding joint venture with Michigan Blueberry Growers created over a decade ago, whose varieties are exclusive to Hortifrut, MBG and their producers. It names Berry Blue blueberry varieties including Prelude, Daybreak, Stellar, Candycrunch, Apolo, Bliss, Temptation, Robust, Envy, Keepsake and Sensation, lists breeding test stations in the United States, Chile, Peru, Mexico and China, and states that Hortifrut licenses 'Rocio' and 'Corona' from the Spanish Royal Berry programme exclusively for the Americas and 'Draper', 'Aurora', 'Liberty' and 'Osorno' from Michigan State University.",
+  "why_it_matters": "This is the anchor document for Hortifrut's genetics position and shows the company operating on both sides of the licensing market at once: owner of a closed platform and licensee of two external programmes. It also gives one of the two conflicting accounts of who owns Berry Blue.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-hortifrut",
+    "company-berry-blue-llc",
+    "company-michigan-blueberry-growers",
+    "breeding_program-berry-blue",
+    "breeding_program-atlantic-blue-royal-berries",
+    "variety-keepsake",
+    "variety-medallion",
+    "geography-chile",
+    "geography-peru",
+    "geography-mexico",
+    "geography-china",
+    "geography-united-states",
+    "company-mountain-blue-orchards"
+  ],
+  "fact_ids": [
+    "fact-berry-blue-hortifrut-jv-claim",
+    "fact-berry-blue-ownership-disputed",
+    "fact-hortifrut-in-licensed-genetics",
+    "fact-hortifrut-breeding-stations",
+    "fact-mbo-distinct-from-mbg",
+    "fact-hortifrut-blueberry-ip-vehicle"
+  ],
+  "relationship_ids": [
+    "rel-hortifrut-partners-with-mbg",
+    "rel-hortifrut-owns-berry-blue",
+    "rel-mbg-owns-berry-blue",
+    "rel-hortifrut-owns-atlantic-blue-programme",
+    "rel-hortifrut-operates-in-peru",
+    "rel-hortifrut-operates-in-mexico",
+    "rel-hortifrut-operates-in-china",
+    "rel-hortifrut-operates-in-united-states"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-competitor-expansion",
+    "sq-genetics-geographic-spread"
+  ],
+  "tags": [
+    "tier-1",
+    "genetics",
+    "licensing",
+    "closed-platform",
+    "self-description"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "The single densest statement of Hortifrut's genetics strategy."
+    },
+    "testing": {
+      "level": "low",
+      "rationale": "Names varieties worth trialling but publishes no performance data."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Defines who can and cannot access this germplasm."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Company pages are revised without notice; re-check periodically."
+    }
+  }
+}

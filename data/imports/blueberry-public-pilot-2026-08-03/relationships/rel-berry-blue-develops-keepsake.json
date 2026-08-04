@@ -1,0 +1,13 @@
+{
+  "id": "rel-berry-blue-develops-keepsake",
+  "record_type": "relationship",
+  "subject_id": "company-berry-blue-llc",
+  "predicate": "develops",
+  "object_id": "variety-keepsake",
+  "status": "active",
+  "evidence_ids": [
+    "ev-mbg-berry-blue-varieties"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Listed on MBG's Berry Blue proprietary variety page with selection code 'BB05-251MI-14'."
+}

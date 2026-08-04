@@ -1,0 +1,85 @@
+{
+  "id": "company-mountain-blue-orchards",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Mountain Blue Orchards Pty Ltd",
+  "aliases": [
+    "Mountain Blue",
+    "MBO",
+    "Mountain Blue Farms"
+  ],
+  "status": "active",
+  "description": "Australian blueberry grower and breeder based at Lindendale, New South Wales. Breeder of the 'Ridley' series of cultivars marketed under the Eureka brand family and licensed internationally.",
+  "roles": [
+    "breeder",
+    "grower",
+    "genetics_licensor",
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-mbo-eureka-blueberries",
+    "ev-mbo-history",
+    "ev-mbo-home",
+    "ev-uspp025432-ridley-1403",
+    "ev-uspp031605-ridley-1602",
+    "ev-uspp023572-ridley-1111",
+    "ev-abc-chellew-judgment-2019",
+    "ev-ibo-mbo-china-judgment-2024",
+    "ev-berryworld-varieties",
+    "ev-fruitnet-eureka-sunrise-2023",
+    "ev-italianberry-mbo-chile-2020",
+    "ev-eureka-blueberries-our-story",
+    "ev-ibo-eureka-moment-2015",
+    "ev-italianberry-peru-varieties-2025",
+    "ev-hortifrut-mbo-genetics-2026",
+    "ev-ffp-hortifrut-mbo-2026",
+    "ev-agronometrics-prism-2025",
+    "ev-nda-za-variety-list-2025",
+    "ev-ozblu-around-the-world-2019",
+    "ev-hortifrut-genetic-development"
+  ],
+  "fact_ids": [
+    "fact-mbo-home-1",
+    "fact-mbo-history-1",
+    "fact-uspp025432-ridley-1403-1",
+    "fact-uspp025432-ridley-1403-3",
+    "fact-mbo-eureka-blueberries-1",
+    "fact-mbo-eureka-blueberries-2",
+    "fact-italianberry-peru-varieties-2025-4",
+    "fact-uspp023572-ridley-1111-1",
+    "fact-abc-chellew-judgment-2019-1",
+    "fact-abc-chellew-judgment-2019-2",
+    "fact-uspp031605-ridley-1602-1",
+    "fact-ibo-mbo-china-judgment-2024-1",
+    "fact-berryworld-varieties-1",
+    "fact-berryworld-varieties-3",
+    "fact-eureka-blueberries-our-story-1",
+    "fact-italianberry-mbo-chile-2020-1",
+    "fact-ozblu-around-the-world-2019-2",
+    "fact-italianberry-peru-varieties-2025-2",
+    "fact-hortifrut-mbo-collaboration-2026",
+    "fact-mbo-distinct-from-mbg"
+  ],
+  "relationship_ids": [
+    "rel-mbo-develops-eureka",
+    "rel-mbo-develops-eureka-sunrise",
+    "rel-mbo-develops-opi",
+    "rel-mbo-develops-twilight",
+    "rel-mbo-owns-uspp025432p3",
+    "rel-mbo-owns-uspp031605p3",
+    "rel-mbo-owns-uspp023572p3",
+    "rel-mbo-operates-in-australia",
+    "rel-berryworld-partners-with-mbo",
+    "rel-mbo-operates-in-china",
+    "rel-mbo-owns-brand-eureka",
+    "rel-hortifrut-partners-with-mbo"
+  ],
+  "attributes": {
+    "headquarters": "Lindendale, New South Wales, Australia",
+    "acn": "068 706 650",
+    "selection_code_prefix": "Ridley"
+  }
+}

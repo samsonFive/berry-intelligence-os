@@ -1,0 +1,65 @@
+{
+  "id": "ev-blueberriesconsulting-agrovision-2024",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "trade_press",
+  "title": "Agrovision Corp seeks year-round blueberry supply from Peru, Mexico and Morocco",
+  "source_name": "Blueberries Consulting",
+  "source_url": "https://blueberriesconsulting.com/en/con-operaciones-en-peru-mexico-y-marruecos-agrovision-corp-busca-lograr-un-suministro-de-arandanos-durante-todo-el-ano/",
+  "published_date": "2024-05-15",
+  "captured_date": "2026-08-04",
+  "summary": "Reports that Agrovision's Peruvian operation began with the varieties Biloxi and Ventura and has since moved to other varieties, among which those of the Sekoya programme. Gives 2022 figures of 2,800 hectares of berries across Peru, Mexico and Morocco, turnover of US$210 million and more than 2,500 containers exported, 40 per cent to China. Names Peruvian operations at Olmos and Morrope in Lambayeque, Mexican operations in Jalisco above 300 hectares and Moroccan operations in Souss-Massa at 250 hectares.",
+  "why_it_matters": "Names the specific genetics Agrovision relies on. A grower of this scale moving from public varieties onto a club platform is exactly the kind of demand-side shift that determines whether a managed-variety platform succeeds.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-agrovision",
+    "brand-sekoya",
+    "company-fall-creek-farm-and-nursery",
+    "geography-peru",
+    "geography-mexico",
+    "geography-morocco",
+    "geography-china"
+  ],
+  "fact_ids": [
+    "fact-agrovision-licenses-not-breeds",
+    "fact-agrovision-peru-scale"
+  ],
+  "relationship_ids": [
+    "rel-agrovision-licenses-sekoya",
+    "rel-agrovision-partners-with-fall-creek",
+    "rel-agrovision-operates-in-mexico",
+    "rel-agrovision-operates-in-morocco"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-genetics-geographic-spread",
+    "sq-competitor-expansion"
+  ],
+  "tags": [
+    "tier-2",
+    "production",
+    "genetics-licensing",
+    "scale"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Links a very large grower to a specific club platform."
+    },
+    "testing": {
+      "level": "medium",
+      "rationale": "Variety names without performance data."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Demand-side confirmation of platform adoption."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Areas and varieties change season to season."
+    }
+  }
+}

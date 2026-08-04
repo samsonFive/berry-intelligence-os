@@ -1,0 +1,30 @@
+{
+  "id": "patent-uspp032028p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP032028P3 - Optimus 'FL08-262'",
+  "aliases": [
+    "USPP032028P3",
+    "PP032028"
+  ],
+  "status": "unverified",
+  "description": "United States plant patent USPP032028P3 covering Optimus 'FL08-262'. Assignee of record: University of Florida / Florida Foundation Seed Producers.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "patent_number": "USPP032028P3",
+    "jurisdiction": "United States",
+    "right_type": "US plant patent",
+    "assignee_of_record": "University of Florida / Florida Foundation Seed Producers",
+    "grant_date": "2020-08-04",
+    "protects_variety_subject": "Optimus 'FL08-262'",
+    "verification_status": "No evidence record in this package captures this patent document. The bibliographic attributes below were compiled during research but the front page was not staged as evidence, so they are unverified within the package. Listed in coverage-gaps.md."
+  }
+}

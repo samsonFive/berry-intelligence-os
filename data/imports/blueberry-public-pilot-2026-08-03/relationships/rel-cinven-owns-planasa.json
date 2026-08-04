@@ -1,0 +1,13 @@
+{
+  "id": "rel-cinven-owns-planasa",
+  "record_type": "relationship",
+  "subject_id": "company-cinven",
+  "predicate": "owns",
+  "object_id": "company-planasa",
+  "status": "historical",
+  "evidence_ids": [
+    "ev-cinven-planasa-ew-group"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Cinven and Label Investments held Planasa prior to the agreed sale to the EW Group."
+}

@@ -1,0 +1,68 @@
+{
+  "id": "ev-planasa-blue-manila-datasheet",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "company_technical_datasheet",
+  "title": "Planasa Blue Manila data sheet (BL-1545)",
+  "source_name": "Plantas de Navarra, S.A. (Planasa)",
+  "source_url": "https://planasa.com/wp-content/uploads/data-sheet/bl-1545_en.pdf",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "Planasa's technical data sheet for Blue Manila, selection 'Plablue 1545'. It gives average production of 19,000 kg per hectare in years one and two rising to 23,000 kg per hectare in year three, shelf life of more than four weeks, 13 degrees Brix and calibre L at 22 mm. The sheet states these are the average results obtained in Planasa's trial plots in Morocco and Spain under specific and controlled conditions, and marks the figures NOT CONTRACTUAL. No season, replication or plot design is given. It also carries a production calendar.",
+  "why_it_matters": "This is a comparatively honest owner document: it names the trial countries and explicitly disclaims the figures. That is still an owner claim, not a measurement with a stated method, and its 13 degrees Brix contradicts the 14 degrees the same company publishes on its website.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-blue-manila",
+    "company-planasa",
+    "breeding_program-planasa-blueberry",
+    "trait-soluble-solids",
+    "trait-yield",
+    "trait-fruit-size",
+    "trait-postharvest-shelf-life",
+    "geography-morocco",
+    "geography-spain",
+    "patent-uspp031345p2"
+  ],
+  "fact_ids": [
+    "fact-blue-manila-plablue-1545",
+    "fact-blue-manila-brix-conflict",
+    "fact-blue-manila-owner-yield-claim"
+  ],
+  "relationship_ids": [
+    "rel-planasa-owns-uspp031345p2",
+    "rel-planasa-operates-in-morocco"
+  ],
+  "strategic_question_ids": [
+    "sq-repeated-trait-claims",
+    "sq-premium-trait-challengers",
+    "sq-testing-candidates"
+  ],
+  "tags": [
+    "tier-1",
+    "variety-data",
+    "owner-claim",
+    "internal-inconsistency",
+    "datasheet"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "The most detailed Planasa performance document available."
+    },
+    "testing": {
+      "level": "high",
+      "rationale": "A concrete set of figures that could be tested against a local trial."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Supports Planasa's premium claim."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Data sheets are revised at variety-catalogue level."
+    }
+  }
+}

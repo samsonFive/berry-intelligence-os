@@ -1,0 +1,82 @@
+{
+  "id": "variety-eureka-sunrise",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Eureka Sunrise",
+  "aliases": [
+    "'Ridley 1602'",
+    "Ridley 1602",
+    "L25",
+    "BerryWorld Eureka Sunrise",
+    "M14-16-02"
+  ],
+  "status": "active",
+  "description": "Mountain Blue cultivar 'Ridley 1602', a cross of 'Ridley 1403' with 'Ridley 4609'. Distinct from the Eureka cultivar despite the shared brand prefix. Grown exclusively by BerryWorld growers.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp031605-ridley-1602",
+    "ev-ibo-mbo-china-judgment-2024",
+    "ev-berryworld-varieties",
+    "ev-fruitnet-eureka-sunrise-2023",
+    "ev-italianberry-peru-varieties-2025",
+    "ev-agronometrics-prism-2025",
+    "ev-nda-za-variety-list-2025",
+    "ev-mbo-eureka-blueberries"
+  ],
+  "fact_ids": [
+    "fact-mbo-eureka-blueberries-1",
+    "fact-uspp031605-ridley-1602-1",
+    "fact-ibo-mbo-china-judgment-2024-1",
+    "fact-fruitnet-eureka-sunrise-2023-1",
+    "fact-fruitnet-eureka-sunrise-2023-2",
+    "fact-berryworld-varieties-1",
+    "fact-italianberry-peru-varieties-2025-3",
+    "fact-agronometrics-prism-2025-2",
+    "fact-nda-za-variety-list-2025-1"
+  ],
+  "relationship_ids": [
+    "rel-mbo-develops-eureka-sunrise",
+    "rel-mbo-program-develops-eureka-sunrise",
+    "rel-berryworld-sells-eureka-sunrise",
+    "rel-eureka-sunrise-grown-south-africa"
+  ],
+  "attributes": {
+    "selection_code": "Ridley 1602",
+    "breeding_designation": "M14-16-02",
+    "breeding_program": "breeding_program-mountain-blue-blueberry-breeding",
+    "parentage": "'Ridley 1403' (PP25,432) x 'Ridley 4609'",
+    "bred": "Lindendale, New South Wales, 2011",
+    "inventor": "Ridley Bell",
+    "us_plant_patent": "PP31,605 (USPP031605P3, granted 2020-03-31)",
+    "china_ip": "Plant breeders' right upheld by the Kunming Intermediate People's Court in 2024",
+    "traits": [
+      {
+        "trait": "trait-eating-quality",
+        "value": "Two-star Superior Taste Award in 2023 with a score of 86.5 percent from the International Taste Institute; a three-star listing is also recorded for 2026",
+        "provenance": "independent_report",
+        "evidence_ids": [
+          "ev-fruitnet-eureka-sunrise-2023",
+          "ev-berryworld-varieties"
+        ],
+        "measured_value": 86.5,
+        "units": "percent (International Taste Institute sensory score)",
+        "asserted_by": "International Taste Institute"
+      }
+    ],
+    "data_hazard": "Peruvian export statistics for the 2024/25 season list this cultivar under two different codes in the same table ('Ridley 160' at 714 t and 'Ridley 1602' at 183 t). Do not sum these without confirming they are the same object.",
+    "market_position": {
+      "peru_price_index_2025": "0.08x the varietal average (95% CI -0.28 to 0.44, n=227)",
+      "grown_in": [
+        "South Africa",
+        "Zimbabwe",
+        "Morocco",
+        "Spain",
+        "Portugal",
+        "Egypt (plantings)"
+      ]
+    }
+  }
+}

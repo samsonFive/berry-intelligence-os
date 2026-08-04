@@ -1,0 +1,39 @@
+{
+  "id": "sig-owner-published-quality-figures-exceed-independent-measurement",
+  "record_type": "signal",
+  "title": "Owner-published fruit-quality figures sit consistently above the range produced by the one independent trial in this package",
+  "status": "proposed",
+  "strength": "moderate",
+  "observation": "Planasa publishes 14 degrees Brix for Blue Manila on its variety page and 13 on its own data sheet for the same selection, and 16 degrees Brix for Blue Maldiva, in every case without stating season, replication or method. Costa claims 27 days of shelf life at 4 degrees Celsius across five BluGenix varieties and up to 50 days for Eterna, again with no protocol stated. The single independent trial captured in this package, the University of Arkansas 2024 Clarksville trial, measured a soluble-solids range of 8 to 13.2 degrees Brix across 20 varieties with a stated harvest window and stated method.",
+  "why_it_might_matter": "If owner-published trait figures are systematically optimistic relative to independently measured values, then any comparison built from marketing material will overstate differences between programmes. It also means the platform should weight provenance, not just the number.",
+  "what_would_confirm_it": "Two or more independent, method-stating trials measuring the specific varieties for which owner figures are published, showing a consistent downward difference.",
+  "what_would_falsify_it": "Independent measurement of these specific varieties reproducing the owner-published figures; or disclosure of protocols showing the owner figures were measured under comparable conditions to the independent trial.",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-planasa-blue-manila-page",
+    "ev-planasa-blue-manila-datasheet",
+    "ev-planasa-blue-maldiva",
+    "ev-producereport-blugenix-2026",
+    "ev-uaex-blueberry-trial-2024"
+  ],
+  "entity_ids": [
+    "company-planasa",
+    "variety-blue-manila",
+    "variety-blue-maldiva",
+    "company-costa-group-holdings",
+    "brand-blugenix",
+    "company-university-of-arkansas",
+    "trait-soluble-solids",
+    "trait-postharvest-shelf-life"
+  ],
+  "strategic_question_ids": [
+    "sq-repeated-trait-claims",
+    "sq-testing-candidates"
+  ],
+  "proposed_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "proposed_at": "2026-08-03",
+  "reviewer": null,
+  "not_importable_reason": "No signal schema exists in the running repository. Retained in the staging package for human review only; see schema-assessment.md limitation L-7 and proposed-schema-enhancements.md."
+}

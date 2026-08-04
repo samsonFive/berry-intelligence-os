@@ -1,0 +1,40 @@
+{
+  "id": "brand-blugenix",
+  "record_type": "entity",
+  "entity_type": "brand",
+  "name": "BluGenix",
+  "aliases": [],
+  "status": "active",
+  "description": "Brand and platform launched in 2026 to front Costa's blueberry breeding programme, introduced with five varieties: Bounty, Breeze, Cascade, Delight and Eterna.",
+  "roles": [
+    "variety_platform",
+    "consumer_brand"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-producereport-blugenix-2026"
+  ],
+  "fact_ids": [
+    "fact-blugenix-launch-2026",
+    "fact-blugenix-shelf-life-claim",
+    "fact-blugenix-growing-countries"
+  ],
+  "relationship_ids": [
+    "rel-costa-owns-blugenix"
+  ],
+  "attributes": {
+    "owner": "Costa Group Holdings Pty Ltd",
+    "launched": "2026-05-29",
+    "launch_varieties": [
+      "Bounty",
+      "Breeze",
+      "Cascade",
+      "Delight",
+      "Eterna"
+    ],
+    "selection_code_mapping": null,
+    "mapping_note": "No source fetched maps any BluGenix commercial name to a Costa selection code or patent number."
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "id": "ev-uspp032267-drisbluetwentyone",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "patent_record",
+  "title": "USPP032267P2 - 'DrisBlueTwentyOne' (Kimberley)",
+  "source_name": "United States Patent and Trademark Office",
+  "source_url": "https://patents.google.com/patent/USPP32267P2/en",
+  "published_date": "2020-10-06",
+  "captured_date": "2026-08-04",
+  "summary": "United States plant patent on the blueberry cultivar 'DrisBlueTwentyOne', granted 6 October 2020, parentage '136D 2' crossed with '181C 1'. Named inventors include Brian K. Caster, Jennifer K. Izzo, Bruce D. Mowrey, Esther Kibbe, Marta C. Baptista and Arturo Garcia. The variety is registered in Canada under the trade name Kimberley.",
+  "why_it_matters": "Names the Driscoll's blueberry breeding team and establishes the parent '136D 2' as recurring across the programme, which is the kind of pedigree concentration that shapes how a portfolio will behave.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-drisbluetwentyone",
+    "patent-uspp032267p2",
+    "company-driscolls",
+    "breeding_program-driscolls-blueberry"
+  ],
+  "fact_ids": [
+    "fact-drisbluetwentyone-kimberley"
+  ],
+  "relationship_ids": [
+    "rel-driscolls-develops-drisbluetwentyone",
+    "rel-driscolls-owns-uspp032267p2"
+  ],
+  "strategic_question_ids": [
+    "sq-emerging-varieties",
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-1",
+    "patent",
+    "pedigree",
+    "breeding-team"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Pedigree and inventorship detail."
+    },
+    "testing": {
+      "level": "low",
+      "rationale": "No performance data in the fetched extract."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Part of the protected portfolio map."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Granted patents do not change."
+    }
+  }
+}

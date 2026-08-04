@@ -1,0 +1,28 @@
+{
+  "id": "geography-zimbabwe",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "Zimbabwe",
+  "aliases": [],
+  "status": "active",
+  "description": "Blueberry production origin developed through African Blue's Direct from Source project, and a licensed production country for Costa genetics.",
+  "roles": [
+    "production_or_regulatory_jurisdiction"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-producereport-blugenix-2026",
+    "ev-costa-african-blue-2023"
+  ],
+  "fact_ids": [
+    "fact-african-blue-morocco-zimbabwe",
+    "fact-blugenix-growing-countries"
+  ],
+  "relationship_ids": [
+    "rel-african-blue-operates-in-zimbabwe",
+    "rel-costa-operates-in-zimbabwe"
+  ],
+  "attributes": {}
+}

@@ -1,0 +1,56 @@
+{
+  "id": "ev-mbo-home",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "company_website",
+  "title": "Mountain Blue home page",
+  "source_name": "Mountain Blue",
+  "source_url": "https://www.mountainblue.com.au/",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "Mountain Blue's home page, describing the business as an Australian blueberry grower and breeder at Lindendale, New South Wales, and giving a founding year of 1978.",
+  "why_it_matters": "Establishes the corporate identity and location of the second major private breeding programme in this package, and supplies the founding year that conflicts with the company's own history page.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-mountain-blue-orchards",
+    "geography-australia"
+  ],
+  "fact_ids": [
+    "fact-mbo-home-1",
+    "fact-mbo-history-1"
+  ],
+  "relationship_ids": [
+    "rel-mbo-operates-in-australia"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "company-profile",
+    "conflicting-claim",
+    "self-reported"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Baseline corporate facts for a primary breeder."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Identifies the breeder behind a widely licensed genetics family."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Static content."
+    }
+  }
+}

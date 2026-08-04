@@ -1,0 +1,14 @@
+{
+  "id": "rel-uf-develops-meadowlark",
+  "record_type": "relationship",
+  "subject_id": "company-university-of-florida",
+  "predicate": "develops",
+  "object_id": "variety-meadowlark",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uf-ifas-hs1245",
+    "ev-uf-breeding-meadowlark"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Released by the University of Florida IFAS blueberry breeding programme."
+}

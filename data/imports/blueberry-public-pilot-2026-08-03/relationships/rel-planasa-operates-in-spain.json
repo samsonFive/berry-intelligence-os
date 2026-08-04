@@ -1,0 +1,14 @@
+{
+  "id": "rel-planasa-operates-in-spain",
+  "record_type": "relationship",
+  "subject_id": "company-planasa",
+  "predicate": "operates_in",
+  "object_id": "geography-spain",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uspp031345-plablue-1545",
+    "ev-planasa-about-us"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Propagation in Segovia and primocane observation in Huelva."
+}

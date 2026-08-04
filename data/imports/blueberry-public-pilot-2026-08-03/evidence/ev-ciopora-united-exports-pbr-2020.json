@@ -1,0 +1,77 @@
+{
+  "id": "ev-ciopora-united-exports-pbr-2020",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "industry_association_report",
+  "title": "United Exports Group enforces its PBR in blueberries",
+  "source_name": "CIOPORA",
+  "source_url": "https://www.ciopora.org/post/united-exports-group-enforces-its-pbr-in-blueberries-south-african-grower-in-breach-of-contract",
+  "published_date": "2020-11-06",
+  "captured_date": "2026-08-04",
+  "summary": "CIOPORA's account, dated 6 November 2020, of an enforcement action. It states that the OZblu varieties were developed by the breeder Dave Mazzardis and that United Exports became joint titleholder in 2016, responsible for commercialisation and for royalty return to the breeding programme. It reports that in November 2020 Dutch Customs issued a Red Alert Notice at Rotterdam and confiscated two containers of approximately 10 tonnes and 16 tonnes of protected OZblu-variety blueberries shipped without licence by Rosle Berries / Ross Berries of the Rossouw Farming Group, South Africa, following termination in May 2020 of two licence agreements dating from 2017.",
+  "why_it_matters": "A third-party intellectual property body, not the rights holder, confirming both the breeder's identity and the 2016 date on which the marketer became joint titleholder. That is the independent corroboration the patent record alone cannot give for the commercial arrangement.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-united-exports",
+    "company-ciopora",
+    "brand-ozblu",
+    "geography-south-africa",
+    "geography-netherlands",
+    "geography-australia",
+    "variety-julieta",
+    "variety-bella",
+    "variety-magica",
+    "variety-bonita",
+    "variety-magnifica",
+    "variety-elaina",
+    "variety-dina",
+    "variety-olivia"
+  ],
+  "fact_ids": [
+    "fact-ozblu-inventor-mazzardis",
+    "fact-united-exports-joint-titleholder-2016",
+    "fact-ozblu-rotterdam-seizure-2020"
+  ],
+  "relationship_ids": [
+    "rel-united-exports-sells-julieta",
+    "rel-united-exports-sells-bella",
+    "rel-united-exports-sells-magica",
+    "rel-united-exports-sells-bonita",
+    "rel-united-exports-sells-magnifica",
+    "rel-united-exports-sells-elaina",
+    "rel-united-exports-sells-dina",
+    "rel-united-exports-sells-olivia"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "enforcement",
+    "plant-breeders-rights",
+    "breeding-origin",
+    "independent-corroboration"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Independent confirmation of breeder identity and titleholding."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trait data."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Shows the rights holder enforcing, and on what basis."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Enforcement actions recur."
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "ev-justia-costa-berry-international",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "patent_aggregator",
+  "title": "Patents assigned to Costa Berry International Pty Ltd",
+  "source_name": "Justia Patents",
+  "source_url": "https://patents.justia.com/assignee/costa-berry-international-pty-ltd",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "Assignee listing showing seven United States blueberry plant patents held jointly by Costa Berry International Pty Ltd and Florida Foundation Seed Producers, Inc., all filed on 26 January 2022: US PP34,974 for 'C13-051' granted 14 February 2023, US PP34,975 for 'C14-409' granted 14 February 2023, US PP34,977 for 'C15-143' granted 14 February 2023, US PP34,989 for 'C14-771' granted 21 February 2023, US PP35,001 for 'C15-270' granted 28 February 2023, US PP35,002 for 'C15-268' granted 28 February 2023, and US PP35,068 for 'C12-122' granted 28 March 2023. Inventors named include Jessica Scalzo, Paul M. Lyrene, James W. Olmstead and Gary Wright. Parentage is given in Florida 'FL' selection codes.",
+  "why_it_matters": "Two findings sit here. Costa's patented blueberry selections are held jointly with Florida Foundation Seed Producers, the same Florida licensing body that appears elsewhere in this dataset, and their parents are Florida selections, so an Australian programme is built substantially on Florida germplasm. Separately, none of these selection codes can be matched to any Costa commercial name from the sources fetched.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-costa-berry-international",
+    "company-costa-group-holdings",
+    "company-florida-foundation-seed-producers",
+    "breeding_program-costa-variety-improvement",
+    "variety-arana",
+    "variety-eterna"
+  ],
+  "fact_ids": [
+    "fact-cbi-ffsp-joint-patents"
+  ],
+  "relationship_ids": [
+    "rel-costa-berry-international-partners-with-ffsp"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-emerging-varieties",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-2",
+    "patent",
+    "pedigree",
+    "identity-gap",
+    "aggregator"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Seven protected selections and an unexpected germplasm dependency."
+    },
+    "testing": {
+      "level": "medium",
+      "rationale": "Selection codes only; nothing yet to trial by name."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Shows the depth of Costa's protected pipeline."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "New grants will continue to appear."
+    }
+  }
+}

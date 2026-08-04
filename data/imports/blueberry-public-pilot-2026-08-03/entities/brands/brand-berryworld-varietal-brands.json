@@ -1,0 +1,27 @@
+{
+  "id": "brand-berryworld-varietal-brands",
+  "record_type": "entity",
+  "entity_type": "brand",
+  "name": "BerryWorld varietal brands",
+  "aliases": [],
+  "status": "active",
+  "description": "Family of BerryWorld-prefixed retail brands (BerryWorld Eureka, Eureka Sunrise, Twilight, Opi and others) applied to Mountain Blue genetics in BerryWorld's markets.",
+  "roles": [
+    "consumer_brand"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-berryworld-varieties"
+  ],
+  "fact_ids": [
+    "fact-berryworld-varieties-1"
+  ],
+  "relationship_ids": [
+    "rel-berryworld-owns-varietal-brands"
+  ],
+  "attributes": {
+    "operator": "BerryWorld Group"
+  }
+}

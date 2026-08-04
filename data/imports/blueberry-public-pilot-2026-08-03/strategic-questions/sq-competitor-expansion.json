@@ -1,0 +1,12 @@
+{
+  "id": "sq-competitor-expansion",
+  "record_type": "strategic_question",
+  "title": "Which organizations appear to be expanding through partnerships, acquisitions, nurseries, licensing networks or commercial plantings?",
+  "description": "Capture dated, evidenced corporate and network developments. Distinguish announced intent from completed transactions, and record the effective date separately from the report date.",
+  "status": "active",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": []
+}

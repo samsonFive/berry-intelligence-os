@@ -1,0 +1,23 @@
+{
+  "id": "geography-zambia",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "Zambia",
+  "aliases": [],
+  "status": "active",
+  "description": "Blueberry production country named among United Exports' growing origins.",
+  "roles": [
+    "production_or_regulatory_jurisdiction"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-united-exports-what-we-do"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-united-exports-operates-in-zambia"
+  ],
+  "attributes": {}
+}

@@ -1,0 +1,48 @@
+{
+  "id": "patent-uspp028358p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP028358P3",
+  "aliases": [
+    "US PP28,358",
+    "EB 9-12"
+  ],
+  "status": "active",
+  "description": "United States plant patent on the blueberry selection 'EB 9-12', marketed as OZblu Bonita. Sole inventor Vincent David Mazzardis; the cross was made at Yanchep Springs, Yanchep, Western Australia. Parentage 'BB-2' (unpatented) x '03-6' (unpatented), 2006 season. Granted 2017-09-05.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp028358-eb9-12",
+    "ev-uspp025358-aglaonema"
+  ],
+  "fact_ids": [
+    "fact-ozblu-identity-bonita",
+    "fact-bonita-patent-correction"
+  ],
+  "relationship_ids": [
+    "rel-bisa-trading-owns-uspp028358p3",
+    "rel-prunus-persica-owns-uspp028358p3"
+  ],
+  "attributes": {
+    "patent_number": "US PP28,358",
+    "jurisdiction": "United States",
+    "authority": "USPTO",
+    "kind": "plant patent",
+    "grant_date": "2017-09-05",
+    "selection_code": "EB 9-12",
+    "commercial_name": "Bonita",
+    "inventor": "Vincent David Mazzardis",
+    "assignees_of_record": [
+      "Bisa Trading Pty Ltd",
+      "Prunus Persica Pty Ltd"
+    ],
+    "cross_location": "Yanchep Springs, Yanchep, Western Australia",
+    "parentage": "'BB-2' (unpatented) x '03-6' (unpatented)",
+    "cross_season": "2006",
+    "priority_claim": "Australian plant breeders' rights application 2014/245, filed 16 October 2014"
+  }
+}

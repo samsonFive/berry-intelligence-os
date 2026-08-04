@@ -1,0 +1,13 @@
+{
+  "id": "rel-united-exports-owns-brand-ozblu",
+  "record_type": "relationship",
+  "subject_id": "company-united-exports",
+  "predicate": "owns",
+  "object_id": "brand-ozblu",
+  "status": "active",
+  "evidence_ids": [
+    "ev-ozblu-oz-varieties"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Brand ownership sits with United Exports; the underlying genetics do not."
+}

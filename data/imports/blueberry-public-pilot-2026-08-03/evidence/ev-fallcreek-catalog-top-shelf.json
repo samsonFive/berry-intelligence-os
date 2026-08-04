@@ -1,0 +1,56 @@
+{
+  "id": "ev-fallcreek-catalog-top-shelf",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "company_catalog",
+  "title": "Top Shelf",
+  "source_name": "Fall Creek Catalogs",
+  "source_url": "https://fallcreekcatalogs.com/2025/01/23/top-shelf/",
+  "published_date": "2025-01-23",
+  "captured_date": "2026-08-03",
+  "summary": "Owner catalogue entry claiming 28 days of storage, reporting Botryosphaeria susceptibility and hardiness to minus 20 degrees Celsius.",
+  "why_it_matters": "Owner-published trait descriptions are the marketing baseline against which independent trial and registry descriptions should be compared. Storage-day figures in particular are stated without any protocol and cannot be treated as measurements.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-top-shelf",
+    "company-fall-creek-farm-and-nursery",
+    "trait-postharvest-shelf-life",
+    "trait-disease-susceptibility"
+  ],
+  "fact_ids": [
+    "fact-fallcreek-catalog-top-shelf-1",
+    "fact-fallcreek-catalog-top-shelf-2"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-premium-trait-challengers",
+    "sq-repeated-trait-claims"
+  ],
+  "tags": [
+    "tier-1",
+    "owner-claim",
+    "variety-catalog",
+    "no-stated-protocol"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Short catalogue entries; the substance is a handful of claims."
+    },
+    "testing": {
+      "level": "high",
+      "rationale": "Every claim here is a candidate for independent verification."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Marketing language indicates how the owner positions the variety, not how it performs."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Catalogue text is revised roughly annually."
+    }
+  }
+}

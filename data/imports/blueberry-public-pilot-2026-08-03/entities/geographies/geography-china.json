@@ -1,0 +1,42 @@
+{
+  "id": "geography-china",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "China",
+  "aliases": [],
+  "status": "active",
+  "description": "Largest production area by planted hectares in several industry estimates; increasingly a licensing target.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-produce-report-sekoya-china-2025",
+    "ev-ibo-mbo-china-judgment-2024",
+    "ev-hortifrut-genetic-development",
+    "ev-costa-vip",
+    "ev-producereport-blugenix-2026",
+    "ev-blueberriesconsulting-agrovision-2024",
+    "ev-agrovision-10-years-2024",
+    "ev-fruitist-brands"
+  ],
+  "fact_ids": [
+    "fact-produce-report-sekoya-china-2025-1",
+    "fact-ibo-mbo-china-judgment-2024-1",
+    "fact-hortifrut-breeding-stations",
+    "fact-costa-licensing-regions",
+    "fact-blugenix-growing-countries",
+    "fact-agrovision-peru-scale",
+    "fact-fruitist-consumer-brands"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-operates-sekoya",
+    "rel-mbo-operates-in-china",
+    "rel-hortifrut-operates-in-china",
+    "rel-costa-operates-in-china"
+  ],
+  "attributes": {
+    "iso_3166_1_alpha_2": "CN",
+    "region": "Asia-Pacific"
+  }
+}

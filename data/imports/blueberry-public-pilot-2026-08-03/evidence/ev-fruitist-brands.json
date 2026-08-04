@@ -1,0 +1,57 @@
+{
+  "id": "ev-fruitist-brands",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "brand_website",
+  "title": "Fruitist - Our brands",
+  "source_name": "Fruitist (Agrovision Corp.)",
+  "source_url": "https://www.fruitist.com/our-brands",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "Brand page listing Fruitist and Fruitist Jumbo as the company's blueberry brands, alongside Pink Star for raspberry. These are consumer brands rather than cultivar denominations.",
+  "why_it_matters": "Confirms that the names most visible to consumers here attach to no cultivar at all. Treating a brand name as a variety is one of the most common identity errors in this sector, and this record documents the distinction explicitly.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "brand-fruitist",
+    "company-agrovision",
+    "brand-big-skye",
+    "geography-china"
+  ],
+  "fact_ids": [
+    "fact-fruitist-consumer-brands"
+  ],
+  "relationship_ids": [
+    "rel-agrovision-owns-fruitist"
+  ],
+  "strategic_question_ids": [
+    "sq-public-record-gaps",
+    "sq-premium-trait-challengers"
+  ],
+  "tags": [
+    "tier-1",
+    "brand",
+    "identity-resolution",
+    "naming-hazard"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Prevents a brand-versus-cultivar confusion."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No variety data."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Consumer-facing positioning."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Brand pages change slowly."
+    }
+  }
+}

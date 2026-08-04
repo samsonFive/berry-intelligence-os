@@ -1,0 +1,13 @@
+{
+  "id": "rel-fall-creek-owns-uspp024636p3",
+  "record_type": "relationship",
+  "subject_id": "company-fall-creek-farm-and-nursery",
+  "predicate": "owns",
+  "object_id": "patent-uspp024636p3",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uspp024636-blue-ribbon"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Assignee of record on the granted United States plant patent. Substituted predicate: the schema has no 'protects' predicate linking a patent to the variety it covers, so the patent-to-variety link is carried by shared evidence and by an explicit fact record."
+}

@@ -1,0 +1,40 @@
+{
+  "id": "patent-uspp024807p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP024807P3",
+  "aliases": [
+    "US PP24,807",
+    "BB05-251MI-14"
+  ],
+  "status": "active",
+  "description": "United States plant patent cited by the rights holder as covering the blueberry selection 'BB05-251MI-14', marketed as Keepsake. The patent number and the code-to-name mapping come from the rights holder's own variety list; the patent document itself was not fetched, so the grant date is not recorded.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-mbg-berry-blue-varieties",
+    "ev-cfia-blueberry-index"
+  ],
+  "fact_ids": [
+    "fact-keepsake-selection-code"
+  ],
+  "relationship_ids": [
+    "rel-berry-blue-owns-uspp024807p3"
+  ],
+  "attributes": {
+    "patent_number": "US PP24,807",
+    "jurisdiction": "United States",
+    "authority": "USPTO",
+    "kind": "plant patent",
+    "grant_date": null,
+    "selection_code": "BB05-251MI-14",
+    "commercial_name": "Keepsake",
+    "assignee_of_record": "Berry Blue, LLC",
+    "verification_status": "owner-stated",
+    "verification_note": "Patent number taken from the rights holder's variety list, not from the patent document. The selection code is independently corroborated by the Canadian plant breeders' rights register."
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "variety-bonita",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Bonita",
+  "aliases": [
+    "EB 9-12",
+    "OZblu Bonita",
+    "'EB 9-12'"
+  ],
+  "status": "active",
+  "description": "Blueberry cultivar from the selection 'EB 9-12', bred in Western Australia by Vincent David Mazzardis and marketed internationally under the OZblu brand by United Exports. Protected in the United States by US PP28,358, granted 2017-09-05. Parentage 'BB-2' (unpatented) x '03-6' (unpatented).",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp028358-eb9-12",
+    "ev-uspp025358-aglaonema",
+    "ev-ciopora-united-exports-pbr-2020"
+  ],
+  "fact_ids": [
+    "fact-ozblu-identity-bonita",
+    "fact-bonita-patent-correction"
+  ],
+  "relationship_ids": [
+    "rel-united-exports-sells-bonita"
+  ],
+  "attributes": {
+    "selection_code": "EB 9-12",
+    "patent_id": "patent-uspp028358p3",
+    "patent_number": "US PP28,358",
+    "patent_grant_date": "2017-09-05",
+    "parentage": "'BB-2' (unpatented) x '03-6' (unpatented)",
+    "cross_location": "Yanchep Springs, Yanchep, Western Australia",
+    "breeder_individual": "Vincent David Mazzardis",
+    "breeding_organisation": "Nature Select / Next Progeny / Prunus Persica (Australia)",
+    "marketed_under_brand": "OZblu",
+    "brand_owner": "United Exports",
+    "code_to_name_corroboration": "The selection code to commercial name mapping is corroborated by the South African Department of Agriculture, Land Reform and Rural Development berry export variety list 2025, independently of the rights holder.",
+    "identity_note": "This is a breeder selection code and a marketed cultivar name for the same object, confirmed by the patent record. OZblu is the brand under which it is sold and is not itself a cultivar.",
+    "cross_season": "2006",
+    "traits": []
+  }
+}

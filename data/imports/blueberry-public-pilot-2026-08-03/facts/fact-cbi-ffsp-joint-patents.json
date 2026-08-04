@@ -1,0 +1,18 @@
+{
+  "id": "fact-cbi-ffsp-joint-patents",
+  "record_type": "fact",
+  "statement": "Costa Berry International Pty Ltd and Florida Foundation Seed Producers, Inc. jointly hold seven United States blueberry plant patents, all filed on 26 January 2022 and granted between 14 February and 28 March 2023, covering the selections 'C13-051', 'C14-409', 'C15-143', 'C14-771', 'C15-270', 'C15-268' and 'C12-122'. Inventors named include Jessica Scalzo, Paul M. Lyrene, James W. Olmstead and Gary Wright.",
+  "classification": "fact",
+  "confidence": "high",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-justia-costa-berry-international"
+  ],
+  "entity_ids": [
+    "company-costa-berry-international",
+    "company-florida-foundation-seed-producers",
+    "breeding_program-costa-variety-improvement"
+  ]
+}

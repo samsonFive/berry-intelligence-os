@@ -1,0 +1,12 @@
+{
+  "id": "sq-genetics-geographic-spread",
+  "record_type": "strategic_question",
+  "title": "Which genetics are becoming available in new countries or production regions through licensing or nursery distribution?",
+  "description": "Track nursery listings, licensing announcements and plant-variety-right filings by jurisdiction. Distribution availability does not imply ownership, and a rights filing does not imply commercial planting.",
+  "status": "active",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": []
+}

@@ -1,0 +1,13 @@
+{
+  "id": "rel-fall-creek-operates-in-united-states",
+  "record_type": "relationship",
+  "subject_id": "company-fall-creek-farm-and-nursery",
+  "predicate": "operates_in",
+  "object_id": "geography-united-states",
+  "status": "active",
+  "evidence_ids": [
+    "ev-fall-creek-our-history"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Founded and headquartered in Lowell, Oregon."
+}

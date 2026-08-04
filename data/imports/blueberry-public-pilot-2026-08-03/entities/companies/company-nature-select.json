@@ -1,0 +1,41 @@
+{
+  "id": "company-nature-select",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Nature Select",
+  "aliases": [
+    "Nature Select Pty Ltd"
+  ],
+  "status": "active",
+  "description": "Western Australian breeding company associated with David and Leasa Mazzardis that bred the blueberry selections carrying the EB and NS codes commercialised under the OZblu brand.",
+  "roles": [
+    "breeder",
+    "genetics_owner"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-ozblu-around-the-world-2019",
+    "ev-ozblu-where-we-grow-2024",
+    "ev-ozblu-oz-varieties"
+  ],
+  "fact_ids": [
+    "fact-ozblu-around-the-world-2019-1",
+    "fact-ozblu-around-the-world-2019-2",
+    "fact-ozblu-where-we-grow-2024-1"
+  ],
+  "relationship_ids": [
+    "rel-nature-select-develops-ozblu",
+    "rel-united-exports-partners-with-nature-select",
+    "rel-nature-select-operates-in-australia"
+  ],
+  "attributes": {
+    "location": "Perth region, Western Australia",
+    "selection_code_prefixes": [
+      "EB",
+      "NS"
+    ],
+    "related_company": "Prunus Persica (stone fruit breeding)"
+  }
+}

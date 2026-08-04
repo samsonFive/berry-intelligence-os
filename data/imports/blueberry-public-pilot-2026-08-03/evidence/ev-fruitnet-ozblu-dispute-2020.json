@@ -1,0 +1,57 @@
+{
+  "id": "ev-fruitnet-ozblu-dispute-2020",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "trade_press",
+  "title": "Blueberry spat continues with war of words",
+  "source_name": "Eurofruit / Fruitnet",
+  "source_url": "https://www.fruitnet.com/eurofruit/blueberry-spat-continues-with-war-of-words/183446.article",
+  "published_date": "2020-11-09",
+  "captured_date": "2026-08-03",
+  "summary": "Report by Mike Knowles on a dispute between United Exports and the Rossouw Group's Ross Berries operation, in which two containers of about 27 tonnes were seized in Rotterdam on 27 October and 5 November 2020. United Exports asserted plant breeders' rights ownership in South Africa and the European Union and announced a five-year South African investment plan of R1.3 billion, about US$85 million.",
+  "why_it_matters": "Documents cross-border rights enforcement at the point of import, which is the most commercially disruptive form of plant variety rights action. The reported investment figure is a company announcement carried by trade press, not an audited commitment.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-united-exports",
+    "brand-ozblu",
+    "geography-south-africa",
+    "geography-netherlands"
+  ],
+  "fact_ids": [
+    "fact-fruitnet-ozblu-dispute-2020-1",
+    "fact-fruitnet-ozblu-dispute-2020-2"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-competitor-expansion"
+  ],
+  "tags": [
+    "tier-2",
+    "litigation",
+    "ip-enforcement",
+    "border-seizure",
+    "announced-investment"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Border enforcement is a serious and unusual step worth understanding."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Willingness to seize competitor consignments shapes the risk of unlicensed production."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Follow the outcome and any successor disputes."
+    }
+  }
+}

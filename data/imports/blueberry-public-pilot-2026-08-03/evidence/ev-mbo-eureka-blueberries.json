@@ -1,0 +1,61 @@
+{
+  "id": "ev-mbo-eureka-blueberries",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "company_website",
+  "title": "Eureka Blueberries",
+  "source_name": "Mountain Blue",
+  "source_url": "https://www.mountainblue.com.au/eureka-blueberries",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "Mountain Blue's own page for the Eureka brand, claiming jumbo size, exceptional sweetness and a crisp, juicy texture, and describing Eureka both as a cultivar and as a family of related varieties.",
+  "why_it_matters": "This page is the origin of the Eureka naming ambiguity: the same word is used for a single patented cultivar and for an umbrella brand covering several distinct cultivars. Any dataset that merges the two will misattribute trait, volume and pricing data.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-mountain-blue-orchards",
+    "brand-eureka",
+    "variety-eureka",
+    "trait-fruit-firmness",
+    "variety-eureka-sunrise",
+    "trait-eating-quality"
+  ],
+  "fact_ids": [
+    "fact-uspp025432-ridley-1403-3",
+    "fact-mbo-eureka-blueberries-1",
+    "fact-mbo-eureka-blueberries-2"
+  ],
+  "relationship_ids": [
+    "rel-mbo-owns-brand-eureka"
+  ],
+  "strategic_question_ids": [
+    "sq-premium-trait-challengers",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "owner-claim",
+    "naming-ambiguity",
+    "brand-architecture"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Essential for understanding the Eureka naming structure before any Eureka data is interpreted."
+    },
+    "testing": {
+      "level": "medium",
+      "rationale": "The sweetness and texture claims are testable."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Brand architecture shapes how the genetics are sold, not how they perform."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Brand pages change slowly."
+    }
+  }
+}

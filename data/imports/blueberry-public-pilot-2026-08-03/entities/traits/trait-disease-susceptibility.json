@@ -1,0 +1,27 @@
+{
+  "id": "trait-disease-susceptibility",
+  "record_type": "entity",
+  "entity_type": "trait",
+  "name": "Disease susceptibility",
+  "aliases": [],
+  "status": "active",
+  "description": "Reported susceptibility or tolerance to specific pathogens.",
+  "roles": [
+    "measurable_attribute"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-fallcreek-catalog-top-shelf",
+    "ev-uf-breeding-meadowlark",
+    "ev-ffsp-emerald"
+  ],
+  "fact_ids": [
+    "fact-fallcreek-catalog-top-shelf-2",
+    "fact-uf-breeding-meadowlark-2",
+    "fact-ffsp-emerald-1"
+  ],
+  "relationship_ids": [],
+  "attributes": {}
+}

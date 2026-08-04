@@ -1,0 +1,60 @@
+{
+  "id": "geography-australia",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "Australia",
+  "aliases": [],
+  "status": "active",
+  "description": "Breeding origin for several globally licensed low-chill programs; PBR jurisdiction.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-mbo-home",
+    "ev-abc-chellew-judgment-2019",
+    "ev-eureka-blueberries-our-story",
+    "ev-ozblu-around-the-world-2019",
+    "ev-united-exports-what-we-do",
+    "ev-ipaustralia-pvj-33-4",
+    "ev-costa-vip",
+    "ev-costa-heaviest-blueberry-2024",
+    "ev-producereport-blugenix-2026",
+    "ev-costa-ownership-2024",
+    "ev-abn-costa-history",
+    "ev-ciopora-united-exports-pbr-2020",
+    "ev-topfruit-megacrisp",
+    "ev-delisted-costa",
+    "ev-uspp025858-eb8-42",
+    "ev-uspp030934-ns13-6"
+  ],
+  "fact_ids": [
+    "fact-mbo-home-1",
+    "fact-abc-chellew-judgment-2019-1",
+    "fact-eureka-blueberries-our-story-1",
+    "fact-driscolls-australia-pbr",
+    "fact-costa-entity-name-change-2024",
+    "fact-costa-delisted-2024",
+    "fact-costa-consortium-2024",
+    "fact-costa-vip-corindi",
+    "fact-eterna-heaviest-blueberry-2023",
+    "fact-blugenix-growing-countries",
+    "fact-megacrisp-iq-berries"
+  ],
+  "relationship_ids": [
+    "rel-mbo-operates-in-australia",
+    "rel-united-exports-operates-in-australia",
+    "rel-nature-select-operates-in-australia",
+    "rel-bisa-trading-operates-in-australia",
+    "rel-prunus-persica-operates-in-australia",
+    "rel-next-progeny-operates-in-australia",
+    "rel-driscolls-operates-in-australia",
+    "rel-ip-australia-operates-in-australia",
+    "rel-costa-operates-in-australia",
+    "rel-iq-berries-operates-in-australia"
+  ],
+  "attributes": {
+    "iso_3166_1_alpha_2": "AU",
+    "region": "Asia-Pacific"
+  }
+}

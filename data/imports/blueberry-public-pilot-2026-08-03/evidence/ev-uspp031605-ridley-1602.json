@@ -1,0 +1,60 @@
+{
+  "id": "ev-uspp031605-ridley-1602",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "patent_record",
+  "title": "USPP031605P3 - 'Ridley 1602' (Eureka Sunrise)",
+  "source_name": "United States Patent and Trademark Office",
+  "source_url": "https://patents.google.com/patent/USPP31605P3/en",
+  "published_date": "2020-03-31",
+  "captured_date": "2026-08-03",
+  "summary": "United States plant patent on 'Ridley 1602', application 15/732,875 filed 2018-01-09 and granted 2020-03-31. Inventor Ridley Bell, assignee Mountain Blue Orchards Pty Ltd. Breeding designation 'M14-16-02'; parentage 'Ridley 1403' (PP25,432) crossed with 'Ridley 4609', bred at Lindendale, New South Wales in 2011.",
+  "why_it_matters": "Establishes that Eureka Sunrise is a genetically distinct cultivar descended from Eureka rather than a variant of it, and confirms the parent-offspring link between the two most commercially significant Mountain Blue selections.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-eureka-sunrise",
+    "patent-uspp031605p3",
+    "company-mountain-blue-orchards",
+    "variety-eureka",
+    "breeding_program-mountain-blue-blueberry-breeding"
+  ],
+  "fact_ids": [
+    "fact-uspp031605-ridley-1602-1"
+  ],
+  "relationship_ids": [
+    "rel-mbo-develops-eureka-sunrise",
+    "rel-mbo-program-develops-eureka-sunrise",
+    "rel-mbo-owns-uspp031605p3"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-emerging-varieties"
+  ],
+  "tags": [
+    "tier-1",
+    "registry-record",
+    "intellectual-property",
+    "parentage"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Resolves a naming hazard that would otherwise corrupt volume and price attribution."
+    },
+    "testing": {
+      "level": "low",
+      "rationale": "Parentage informs trial grouping but is not itself testable."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Confirms the depth of a single genetics lineage in world supply."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Fixed record."
+    }
+  }
+}

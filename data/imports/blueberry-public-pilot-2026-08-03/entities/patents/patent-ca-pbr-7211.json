@@ -1,0 +1,47 @@
+{
+  "id": "patent-ca-pbr-7211",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "Canada PBR certificate 7211",
+  "aliases": [
+    "CA PBR 7211",
+    "DrisBlueTwentyThree",
+    "Rosita"
+  ],
+  "status": "active",
+  "description": "Canadian plant breeders' rights certificate 7211 for the blueberry variety 'DrisBlueTwentyThree', trade name Rosita, application 20-10341. Grant of rights 1 November 2024. The examination was a comparative trial run by Expert Agriculture Team Ltd. at Chilliwack, British Columbia in the 2023 growing season, using a randomised complete block design of four replicates of three plants per variety.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-cfia-pbr-drisbluetwentythree"
+  ],
+  "fact_ids": [
+    "fact-drisbluetwentythree-rosita"
+  ],
+  "relationship_ids": [
+    "rel-driscolls-owns-ca-pbr-7211"
+  ],
+  "attributes": {
+    "registration_number": "certificate 7211",
+    "application_number": "20-10341",
+    "jurisdiction": "Canada",
+    "authority": "Canadian Food Inspection Agency",
+    "kind": "plant breeders' rights",
+    "grant_date": "2024-11-01",
+    "denomination": "DrisBlueTwentyThree",
+    "trade_name": "Rosita",
+    "trial_body": "Expert Agriculture Team Ltd.",
+    "trial_site": "Chilliwack, British Columbia, Canada",
+    "trial_season": "2023",
+    "trial_design": "randomised complete block, 4 replicates x 3 plants per variety, measurements from 10 plants; 1-year-old plants transplanted April 2021 into raised beds with plastic mulch and drip irrigation; 90 cm in-row, 3 m between rows",
+    "comparison_varieties": [
+      "DrisBlueSeven (Stella Blue)",
+      "DrisBlueTwentyTwo (Regina)"
+    ],
+    "parentage": "'196H-3' x '75J301', crossed February 2011 in Santa Cruz County, California, selected April 2013 in Hillsborough County, Florida"
+  }
+}

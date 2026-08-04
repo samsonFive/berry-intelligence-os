@@ -1,0 +1,59 @@
+{
+  "id": "ev-leadersleague-atlantic-blue-2021",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "trade_press",
+  "title": "Chilean berry company Hortifrut acquires Spain's Atlantic Blue for $280m",
+  "source_name": "Leaders League",
+  "source_url": "https://www.leadersleague.com/en/news/chilean-berry-company-hortifrut-acquires-spain-s-atlantic-blue-for-280m",
+  "published_date": "2021-10-20",
+  "captured_date": "2026-08-04",
+  "summary": "Reports Hortifrut's acquisition of 100 per cent of Atlantic Blue of Huelva, Spain at an enterprise value of 241 million euros, about US$280 million. The transaction is described as including the SAT processing plant, 100 per cent of the Euroberry commercial platform with roughly 200 million euros of annual sales, and Atlantic Blue's worldwide blueberry and low-chill cherry variety and breeding development programme, increasing Hortifrut's growing area by about 20 per cent.",
+  "why_it_matters": "The acquisition brought a second breeding programme inside Hortifrut. Hortifrut's own page on the transaction was not retrievable, so the price and scope rest on this single trade report.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-hortifrut",
+    "breeding_program-atlantic-blue-royal-berries",
+    "geography-spain",
+    "company-berry-blue-llc"
+  ],
+  "fact_ids": [
+    "fact-hortifrut-atlantic-blue-2021",
+    "fact-hortifrut-blueberry-ip-vehicle"
+  ],
+  "relationship_ids": [
+    "rel-hortifrut-owns-atlantic-blue-programme",
+    "rel-hortifrut-operates-in-spain"
+  ],
+  "strategic_question_ids": [
+    "sq-competitor-expansion",
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-2",
+    "acquisition",
+    "genetics",
+    "single-source"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Sets out the scope of a breeding-programme acquisition."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No performance data."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Consolidates two European genetics positions into one owner."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "A closed transaction; the follow-on variety releases are what to watch."
+    }
+  }
+}

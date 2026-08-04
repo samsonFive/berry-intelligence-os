@@ -1,0 +1,43 @@
+{
+  "id": "variety-keepsake",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Keepsake",
+  "aliases": [
+    "BB05-251MI-14"
+  ],
+  "status": "active",
+  "description": "Blueberry cultivar from the Berry Blue programme, selection 'BB05-251MI-14', cited by the rights holder as protected by US PP24,807. The selection code appears independently on the Canadian plant breeders' rights blueberry register, which corroborates the code-to-name mapping without relying on the owner's own list.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-hortifrut-genetic-development",
+    "ev-mbg-berry-blue-varieties",
+    "ev-cfia-blueberry-index"
+  ],
+  "fact_ids": [
+    "fact-keepsake-selection-code"
+  ],
+  "relationship_ids": [
+    "rel-berry-blue-develops-keepsake"
+  ],
+  "attributes": {
+    "selection_code": "BB05-251MI-14",
+    "commercial_name": "Keepsake",
+    "breeder": "Berry Blue, LLC",
+    "breeding_program_id": "breeding_program-berry-blue",
+    "patent_id": "patent-uspp024807p3",
+    "patent_number": "US PP24,807",
+    "patent_grant_date": null,
+    "named_inventors": [
+      "Edmund J. Wheeler",
+      "James F. Hancock"
+    ],
+    "access": "described by Hortifrut as exclusive to Hortifrut, MBG and their producers",
+    "traits": []
+  }
+}

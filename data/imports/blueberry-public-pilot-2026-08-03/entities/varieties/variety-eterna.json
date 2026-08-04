@@ -1,0 +1,73 @@
+{
+  "id": "variety-eterna",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Eterna",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Costa blueberry cultivar launched in 2026 as one of the five BluGenix varieties. A single Eterna berry picked at Costa's Corindi farm on 13 November 2023 weighing 20.40 g and measuring 39.31 mm was recognised as the world's heaviest blueberry, beating a previous record of 16.20 g set in Western Australia in 2020. Company shelf-life claims of up to 50 days are separate marketing statements with no stated method.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-costa-heaviest-blueberry-2024",
+    "ev-producereport-blugenix-2026",
+    "ev-justia-costa-berry-international"
+  ],
+  "fact_ids": [
+    "fact-blugenix-launch-2026",
+    "fact-blugenix-shelf-life-claim",
+    "fact-eterna-heaviest-blueberry-2023"
+  ],
+  "relationship_ids": [
+    "rel-costa-develops-eterna"
+  ],
+  "attributes": {
+    "breeder": "Costa Group Holdings Pty Ltd",
+    "breeding_program_id": "breeding_program-costa-variety-improvement",
+    "brand": "BluGenix",
+    "selection_code": null,
+    "patent_number": null,
+    "identity_note": "Commercial name only; no selection code, patent or plant breeders' right could be tied to it from the sources fetched.",
+    "record_berry": {
+      "weight_g": 20.4,
+      "diameter_mm": 39.31,
+      "picked": "2023-11-13",
+      "site": "Costa berry farm, Corindi, New South Wales, Australia",
+      "growers": [
+        "Brad Hocking",
+        "Jessica Scalzo",
+        "Marie-France Courtois"
+      ],
+      "previous_record_g": 16.2,
+      "previous_record_context": "Western Australia, 2020"
+    },
+    "traits": [
+      {
+        "trait": "trait-fruit-size",
+        "value": "20.40 g and 39.31 mm for the single record berry",
+        "provenance": "independent_report",
+        "evidence_ids": [
+          "ev-costa-heaviest-blueberry-2024"
+        ],
+        "measured_value": 20.4,
+        "units": "g",
+        "conditions": "A single adjudicated fruit picked on 13 November 2023 at Corindi, New South Wales. A record specimen, not a representative fruit size for the cultivar. Reported by the owner and republished by trade media; the adjudicating body's own record page was not fetched.",
+        "asserted_by": "Guinness World Records, as reported by Costa Group"
+      },
+      {
+        "trait": "trait-postharvest-shelf-life",
+        "value": "up to 50 days",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-producereport-blugenix-2026"
+        ],
+        "conditions": "Company claim at the BluGenix launch. No storage temperature, atmosphere, assessment criterion or trial is stated. A separate claim of 27 days at 4 degrees Celsius is made for all five BluGenix varieties including this one.",
+        "asserted_by": "Costa Group Holdings Pty Ltd"
+      }
+    ]
+  }
+}

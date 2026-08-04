@@ -1,0 +1,87 @@
+{
+  "id": "variety-jewel",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Jewel",
+  "aliases": [
+    "FL92-176",
+    "'FL92-176'"
+  ],
+  "status": "historical",
+  "description": "Southern highbush blueberry cultivar Jewel ('FL92-176') from the University of Florida IFAS breeding programme, released 1998. Commercialisation rights administered by Florida Foundation Seed Producers, Inc.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uf-breeding-jewel",
+    "ev-ffsp-jewel",
+    "ev-uf-ifas-hs1245"
+  ],
+  "fact_ids": [
+    "fact-uf-breeding-jewel-1",
+    "fact-uf-breeding-jewel-2",
+    "fact-ffsp-jewel-1"
+  ],
+  "relationship_ids": [
+    "rel-uf-develops-jewel",
+    "rel-uf-program-develops-jewel",
+    "rel-ffsp-licenses-jewel"
+  ],
+  "attributes": {
+    "selection_code": "FL92-176",
+    "breeding_program": "breeding_program-uf-ifas-blueberry-breeding",
+    "rights_administered_by": "Florida Foundation Seed Producers, Inc.",
+    "species_type": "southern highbush (interspecific Vaccinium corymbosum hybrid)",
+    "release_year": 1998,
+    "us_plant_patent": "PP11,807 (USPP011807P2), US patent expired",
+    "traits": [
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "UF/IFAS published firmness of 166-205, average 180 g/mm",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-jewel"
+        ],
+        "measured_value": 180,
+        "units": "g/mm (UF compression index)",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "UF/IFAS published soluble solids of average 11.1",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-jewel"
+        ],
+        "measured_value": "average 11.1",
+        "units": "degrees Brix",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-disease-susceptibility",
+        "value": "Reported as rust-susceptible",
+        "provenance": "independent_report",
+        "evidence_ids": [
+          "ev-uf-ifas-hs1245"
+        ],
+        "asserted_by": "UF/IFAS Extension"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "UF sensory flavour score of 25.4",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-jewel"
+        ],
+        "measured_value": 25.4,
+        "units": "UF flavour score",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      }
+    ],
+    "current_recommendation": "No longer recommended for Florida by the UF breeding programme",
+    "ip_status_note": "US plant patent expired; international protection reported to continue"
+  }
+}

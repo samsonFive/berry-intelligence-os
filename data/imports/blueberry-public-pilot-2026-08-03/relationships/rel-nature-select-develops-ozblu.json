@@ -1,0 +1,13 @@
+{
+  "id": "rel-nature-select-develops-ozblu",
+  "record_type": "relationship",
+  "subject_id": "company-nature-select",
+  "predicate": "develops",
+  "object_id": "brand-ozblu",
+  "status": "active",
+  "evidence_ids": [
+    "ev-ozblu-around-the-world-2019"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Nature Select bred the EB and NS selections marketed under the OZblu brand. Substituted object: the individual OZblu cultivars are not yet entities in this package, so the relationship is attached to the brand pending Wave 2."
+}

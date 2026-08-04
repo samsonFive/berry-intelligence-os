@@ -1,0 +1,56 @@
+{
+  "id": "ev-ffsp-farthing",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "licensing_body_website",
+  "title": "Florida Foundation Seed Producers variety page - Farthing",
+  "source_name": "Florida Foundation Seed Producers, Inc.",
+  "source_url": "https://ffsp.net/varieties/blueberry/farthing/",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "Licensing page for Farthing stating a chilling requirement of 300 hours below 7 degrees Celsius, a first harvest around 20 April at Gainesville, algal stem blotch, and partial self-incompatibility.",
+  "why_it_matters": "The licensing body's pages establish who may legally propagate each UF cultivar and in which territories, which is the practical constraint on how far public genetics can spread. Where its published trait figures diverge from the breeding programme's own, the divergence itself is a finding.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-farthing",
+    "company-florida-foundation-seed-producers",
+    "company-university-of-florida",
+    "trait-chilling-requirement"
+  ],
+  "fact_ids": [
+    "fact-ffsp-farthing-1"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-genetics-geographic-spread",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "licensing",
+    "rights-administration",
+    "public-genetics"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Concise licensing detail."
+    },
+    "testing": {
+      "level": "medium",
+      "rationale": "Chill-hour figures are testable in a target production region."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Licence availability determines whether a competitor can access these genetics at all."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Licensed-nursery lists change as agreements are signed."
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "rel-costa-berry-international-partners-with-ffsp",
+  "record_type": "relationship",
+  "subject_id": "company-costa-berry-international",
+  "predicate": "partners_with",
+  "object_id": "company-florida-foundation-seed-producers",
+  "status": "active",
+  "evidence_ids": [
+    "ev-justia-costa-berry-international"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Joint assignees of record on seven United States blueberry plant patents filed 26 January 2022."
+}

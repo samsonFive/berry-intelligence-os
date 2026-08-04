@@ -1,0 +1,60 @@
+{
+  "id": "ev-freshfruitportal-fall-creek-2026",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "trade_press",
+  "title": "Fall Creek high-chill field forum coverage",
+  "source_name": "FreshFruitPortal",
+  "source_url": "https://www.freshfruitportal.com/news/2026/07/09/fall-creek-event/",
+  "published_date": "2026-07-09",
+  "captured_date": "2026-08-03",
+  "summary": "Trade coverage of a Fall Creek grower event. Repeats the SEKOYA Nova figures published in the company press release and reports owner claims for 'FC11-164': described as the first machine-harvestable fresh-market variety, large and light blue, with firmness said to exceed any other variety and 60 or more days of storage.",
+  "why_it_matters": "Supplies the only retrieved trait claims for 'FC11-164'. This article republishes company material and is not an independent measurement, so it does not raise the Nova figures above the status of an owner claim.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-fc11-164",
+    "variety-sekoya-nova",
+    "company-fall-creek-farm-and-nursery",
+    "trait-machine-harvest-suitability",
+    "trait-fruit-firmness",
+    "trait-postharvest-shelf-life"
+  ],
+  "fact_ids": [
+    "fact-freshfruitportal-fall-creek-2026-1",
+    "fact-freshfruitportal-fall-creek-2026-2"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-emerging-varieties",
+    "sq-premium-trait-challengers",
+    "sq-repeated-trait-claims",
+    "sq-testing-candidates"
+  ],
+  "tags": [
+    "tier-2",
+    "new-variety",
+    "owner-claim",
+    "republished-company-material"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Introduces a machine-harvest fresh-market claim that would be significant if substantiated."
+    },
+    "testing": {
+      "level": "high",
+      "rationale": "A claim of first machine-harvestable fresh-market variety is a direct trial question."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Material only if the claim survives independent testing."
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "Track the commercial name release and any third-party trial results."
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "id": "ev-agfunder-fruitist-rebrand",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "trade_press",
+  "title": "Agrovision rebrands as Fruitist after reaching $400m sales in 2024",
+  "source_name": "AgFunderNews",
+  "source_url": "https://agfundernews.com/in-progress-agrovision-rebrands-as-fruitist-notched-up-sales-of-400m-in-2024-after-meteoric-growth",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "Reports the 2025 rebrand of Agrovision to Fruitist, 2024 sales of US$400 million, a three-fold increase in jumbo blueberry sales, the late 2024 acquisition of the Chilean cherry specialist ZurGroup, a partnership with RipeLocker on low-atmosphere vacuum chambers, and the hiring of a chief technology officer. It gives the founding year as 2012 with an initial focus on blueberries from Peru, and lists growing areas in Egypt, Chile, India, the United States and China alongside Peru, Mexico and Morocco.",
+  "why_it_matters": "Documents both the scale of a large licensee and a conflict with the company's own stated founding year. The three-fold growth in jumbo blueberry sales is a demand signal for large-fruit genetics generally, not for any one breeder.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-agrovision",
+    "brand-fruitist"
+  ],
+  "fact_ids": [
+    "fact-agrovision-founding-year-conflict",
+    "fact-fruitist-rebrand-2025"
+  ],
+  "relationship_ids": [
+    "rel-agrovision-owns-fruitist"
+  ],
+  "strategic_question_ids": [
+    "sq-competitor-expansion",
+    "sq-premium-trait-challengers"
+  ],
+  "tags": [
+    "tier-2",
+    "corporate",
+    "rebrand",
+    "conflicting-date",
+    "demand-signal"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Growth figures and a large-fruit demand signal."
+    },
+    "testing": {
+      "level": "low",
+      "rationale": "No variety-level data."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Indicates where premium volume is going."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Company reporting is frequent and unaudited."
+    }
+  }
+}

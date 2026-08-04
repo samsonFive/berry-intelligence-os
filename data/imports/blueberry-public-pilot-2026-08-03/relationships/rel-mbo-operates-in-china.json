@@ -1,0 +1,13 @@
+{
+  "id": "rel-mbo-operates-in-china",
+  "record_type": "relationship",
+  "subject_id": "company-mountain-blue-orchards",
+  "predicate": "operates_in",
+  "object_id": "geography-china",
+  "status": "active",
+  "evidence_ids": [
+    "ev-ibo-mbo-china-judgment-2024"
+  ],
+  "effective_date": "2024-12-02",
+  "notes": "confidence=medium; Holds and has successfully enforced a plant breeders' right in China. Substituted predicate: 'operates_in' is used for a rights-holding and enforcement presence rather than production."
+}

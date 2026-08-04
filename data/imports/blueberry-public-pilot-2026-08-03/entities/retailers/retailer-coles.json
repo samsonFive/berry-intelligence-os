@@ -1,0 +1,32 @@
+{
+  "id": "retailer-coles",
+  "record_type": "entity",
+  "entity_type": "retailer",
+  "name": "Coles Supermarkets",
+  "aliases": [
+    "Coles"
+  ],
+  "status": "active",
+  "description": "Australian supermarket chain that has held exclusive retail distribution of Eureka-brand blueberries in Australia.",
+  "roles": [
+    "grocery_retailer",
+    "exclusive_retail_partner"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-eureka-blueberries-our-story",
+    "ev-ibo-eureka-moment-2015"
+  ],
+  "fact_ids": [
+    "fact-eureka-blueberries-our-story-1",
+    "fact-ibo-eureka-moment-2015-1"
+  ],
+  "relationship_ids": [
+    "rel-coles-carries-eureka"
+  ],
+  "attributes": {
+    "country": "Australia"
+  }
+}

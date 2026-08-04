@@ -1,0 +1,34 @@
+{
+  "id": "breeding_program-nature-select-blueberry-breeding",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Nature Select Blueberry Breeding Program",
+  "aliases": [],
+  "status": "active",
+  "description": "Western Australian blueberry breeding programme run by David and Leasa Mazzardis producing the EB- and NS-coded selections commercialised under the OZblu brand.",
+  "roles": [
+    "private_breeding_program"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-ozblu-around-the-world-2019"
+  ],
+  "fact_ids": [
+    "fact-ozblu-around-the-world-2019-1",
+    "fact-ozblu-around-the-world-2019-2"
+  ],
+  "relationship_ids": [],
+  "attributes": {
+    "operator": "Nature Select",
+    "breeders": [
+      "David Mazzardis",
+      "Leasa Mazzardis"
+    ],
+    "selection_code_prefixes": [
+      "EB",
+      "NS"
+    ]
+  }
+}

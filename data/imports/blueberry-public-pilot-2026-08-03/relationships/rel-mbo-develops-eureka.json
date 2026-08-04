@@ -1,0 +1,13 @@
+{
+  "id": "rel-mbo-develops-eureka",
+  "record_type": "relationship",
+  "subject_id": "company-mountain-blue-orchards",
+  "predicate": "develops",
+  "object_id": "variety-eureka",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uspp025432-ridley-1403"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Breeding origin evidenced by the plant patent record, except for Twilight where only a marketer attribution to the Mountain Blue programme was located."
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rel-agrovision-owns-fruitist",
+  "record_type": "relationship",
+  "subject_id": "company-agrovision",
+  "predicate": "owns",
+  "object_id": "brand-fruitist",
+  "status": "active",
+  "evidence_ids": [
+    "ev-agfunder-fruitist-rebrand",
+    "ev-fruitist-brands"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Corporate rebrand of Agrovision to Fruitist in 2025."
+}

@@ -1,0 +1,115 @@
+{
+  "id": "variety-colossus",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Colossus",
+  "aliases": [
+    "FL11-35",
+    "'FL11-35'"
+  ],
+  "status": "active",
+  "description": "Southern highbush blueberry cultivar Colossus ('FL11-35') from the University of Florida IFAS breeding programme, released 2019. Commercialisation rights administered by Florida Foundation Seed Producers, Inc.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uf-breeding-colossus",
+    "ev-uf-ifas-hs1245"
+  ],
+  "fact_ids": [
+    "fact-uf-breeding-colossus-1",
+    "fact-uf-breeding-colossus-2",
+    "fact-uf-breeding-colossus-3"
+  ],
+  "relationship_ids": [
+    "rel-uf-develops-colossus",
+    "rel-uf-program-develops-colossus",
+    "rel-ffsp-licenses-colossus"
+  ],
+  "attributes": {
+    "selection_code": "FL11-35",
+    "breeding_program": "breeding_program-uf-ifas-blueberry-breeding",
+    "rights_administered_by": "Florida Foundation Seed Producers, Inc.",
+    "species_type": "southern highbush (interspecific Vaccinium corymbosum hybrid)",
+    "release_year": 2019,
+    "us_plant_patent": "PP33,802 (USPP033802P3, granted 2022-01-04)",
+    "traits": [
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "UF/IFAS published firmness of 304 at harvest, 336 after 21 days, 286 after 49 days, average 304 g/mm",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-colossus"
+        ],
+        "measured_value": 304,
+        "units": "g/mm (UF compression index)",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-fruit-size",
+        "value": "UF/IFAS published average berry weight 2.8 g (range 2.4-4.0) and average diameter 20.5 mm (range 17.9-23.0)",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-colossus"
+        ],
+        "measured_value": {
+          "weight_g": "2.8 g (range 2.4-4.0)",
+          "diameter_mm": "20.5 mm (range 17.9-23.0)"
+        },
+        "units": "g / mm",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "UF/IFAS published soluble solids of average 12.3",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-colossus"
+        ],
+        "measured_value": "average 12.3",
+        "units": "degrees Brix",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "UF sensory flavour score of 24.6",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-colossus"
+        ],
+        "measured_value": 24.6,
+        "units": "UF flavour score",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-yield",
+        "value": "UF/IFAS measured 10.3 lb per plant on average (range 6.5-12.4) in north-central Florida over 2018-19 and 6.1 lb per plant in central Florida",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-colossus"
+        ],
+        "measured_value": {
+          "north_central_fl_lb_per_plant_avg": 10.3,
+          "central_fl_lb_per_plant": 6.1
+        },
+        "units": "pounds per plant",
+        "conditions": "UF/IFAS Florida trial sites, 2018-2019 seasons",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-machine-harvest-suitability",
+        "value": "Reported to have performed well in machine-harvest trials",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-colossus"
+        ],
+        "asserted_by": "University of Florida IFAS"
+      }
+    ],
+    "note": "Post-storage firmness of 336 g/mm at 21 days exceeds the at-harvest value of 304 g/mm as published by UF; the programme does not explain this increase on the retrieved page."
+  }
+}

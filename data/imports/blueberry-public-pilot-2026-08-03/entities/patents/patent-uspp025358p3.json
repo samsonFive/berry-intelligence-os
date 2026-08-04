@@ -1,0 +1,36 @@
+{
+  "id": "patent-uspp025358p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP025358P3",
+  "aliases": [
+    "US PP25,358"
+  ],
+  "status": "historical",
+  "description": "United States plant patent US PP25,358, granted 17 March 2015 to inventor Kanachana Khemakongkanond for an Aglaonema plant named 'KKAG201303'. This record exists solely to document a correction: this patent number has been circulated as the patent for the blueberry selection 'EB 9-12' (OZblu Bonita). It is not a blueberry patent. The correct patent for 'EB 9-12' is US PP28,358.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-uspp025358-aglaonema",
+    "ev-uspp028358-eb9-12"
+  ],
+  "fact_ids": [
+    "fact-uspp025358-is-aglaonema",
+    "fact-bonita-patent-correction"
+  ],
+  "relationship_ids": [],
+  "attributes": {
+    "patent_number": "US PP25,358",
+    "jurisdiction": "United States",
+    "authority": "USPTO",
+    "kind": "plant patent",
+    "grant_date": "2015-03-17",
+    "subject_species": "Aglaonema",
+    "subject_cultivar": "KKAG201303",
+    "inventor": "Kanachana Khemakongkanond",
+    "is_blueberry": false,
+    "correction_note": "Frequently mis-cited as the patent for blueberry 'EB 9-12'. The correct blueberry patent is US PP28,358."
+  }
+}

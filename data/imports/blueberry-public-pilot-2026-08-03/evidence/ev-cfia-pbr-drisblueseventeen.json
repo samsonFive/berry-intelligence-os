@@ -1,0 +1,69 @@
+{
+  "id": "ev-cfia-pbr-drisblueseventeen",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "plant_breeders_rights_record",
+  "title": "Canada PBR certificate 7097 - 'DrisBlueSeventeen' (Carlotta)",
+  "source_name": "Canadian Food Inspection Agency",
+  "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011322e.shtml",
+  "published_date": "2024-05-03",
+  "captured_date": "2026-08-04",
+  "summary": "Canadian plant breeders' rights record for the blueberry variety 'DrisBlueSeventeen', trade name Carlotta, application 19-9740, certificate 7097, grant of rights 3 May 2024, applicant Driscoll's, Inc. of 345 Westridge Drive, Watsonville, California. The description derives from a UPOV Report of Technical Examination for CPVO application 2018/3441, purchased from the CPVO, with the trial conducted by the Direcao Geral de Alimentacao e Veterinaria at Escaroupim, Portugal over 2019 to 2022, using 'DrisBlueFifteen' and 'DrisBlueFive' as comparison varieties. The fruit is described as large to very large, oblate, soft, with medium sweetness and medium acidity, and dark blue after bloom removal. Origin is given as '136D 2' crossed with '8B 4' in 2004 in Santa Cruz County, California, selected in 2006.",
+  "why_it_matters": "One of very few blueberry trait descriptions in this package produced by a body that neither owns nor markets the variety, over four seasons, at a named site. The fruit is officially described as soft, which is the opposite of how premium blueberry varieties are usually marketed, and shows what independent examination adds.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-drisblueseventeen",
+    "patent-ca-pbr-7097",
+    "company-driscolls",
+    "breeding_program-driscolls-blueberry",
+    "company-cfia",
+    "trait-fruit-firmness",
+    "trait-fruit-size",
+    "trait-eating-quality",
+    "geography-portugal",
+    "geography-canada",
+    "geography-united-states"
+  ],
+  "fact_ids": [
+    "fact-drisblueseventeen-carlotta",
+    "fact-drisblueseventeen-portugal-examination"
+  ],
+  "relationship_ids": [
+    "rel-driscolls-develops-drisblueseventeen",
+    "rel-driscolls-owns-ca-pbr-7097",
+    "rel-driscolls-operates-in-portugal"
+  ],
+  "strategic_question_ids": [
+    "sq-testing-candidates",
+    "sq-repeated-trait-claims",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "registry",
+    "independent-examination",
+    "trait-data",
+    "cpvo"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Independent multi-season trait description with a named examining body."
+    },
+    "testing": {
+      "level": "high",
+      "rationale": "A directly comparable reference point for firmness and size assessment."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Shows what Driscoll's is protecting and where."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Rights records change only on grant, transfer or surrender."
+    }
+  }
+}

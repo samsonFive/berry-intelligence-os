@@ -1,0 +1,38 @@
+{
+  "id": "variety-twilight",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Twilight",
+  "aliases": [
+    "BerryWorld Twilight"
+  ],
+  "status": "unverified",
+  "description": "Mountain Blue cultivar marketed as BerryWorld Twilight. Named alongside Eureka as one of the two most important Mountain Blue varieties in Chile. Its selection code, US plant patent and plant breeders' rights could not be established from any source retrieved for this package.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-berryworld-varieties",
+    "ev-italianberry-mbo-chile-2020",
+    "ev-nda-za-variety-list-2025"
+  ],
+  "fact_ids": [
+    "fact-berryworld-varieties-1",
+    "fact-berryworld-varieties-3",
+    "fact-italianberry-mbo-chile-2020-1",
+    "fact-nda-za-variety-list-2025-1"
+  ],
+  "relationship_ids": [
+    "rel-mbo-develops-twilight",
+    "rel-mbo-program-develops-twilight",
+    "rel-berryworld-sells-twilight"
+  ],
+  "attributes": {
+    "selection_code": null,
+    "breeding_program": "breeding_program-mountain-blue-blueberry-breeding",
+    "status_reason": "Recorded as unverified because the underlying cultivar identity is unresolved. Candidate codes 'Ridley 0501', 'Ridley 0502', 'Ridley 1812', 'Ridley 1202' and 'Ridley 0328' were considered and none could be confirmed.",
+    "traits": [],
+    "coverage_gap": "No per-variety BerryWorld page exists for Twilight; no registry record matched."
+  }
+}

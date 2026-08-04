@@ -1,0 +1,58 @@
+{
+  "id": "breeding_program-fall-creek-blueberry-breeding",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Fall Creek Blueberry Breeding Program",
+  "aliases": [],
+  "status": "active",
+  "description": "In-house blueberry breeding programme of Fall Creek Farm & Nursery, using FC, FCM, FCE, ZF and FF selection-code prefixes across no-chill through high-chill germplasm.",
+  "roles": [
+    "private_breeding_program"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp028437-sekoya-beauty",
+    "ev-uspp032186-sekoya-pop",
+    "ev-uspp031822-sekoya-grande",
+    "ev-sekoya-story",
+    "ev-produce-report-sekoya-nova-2026",
+    "ev-uspp024636-blue-ribbon",
+    "ev-uspp024697-top-shelf",
+    "ev-uspp025386-last-call",
+    "ev-uspp024661-cargo",
+    "ev-uspp034903-fc11-164"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-fall-creek-program-develops-sekoya-beauty",
+    "rel-fall-creek-program-develops-sekoya-pop",
+    "rel-fall-creek-program-develops-sekoya-grande",
+    "rel-fall-creek-program-develops-sekoya-crunch",
+    "rel-fall-creek-program-develops-sekoya-fiesta",
+    "rel-fall-creek-program-develops-sekoya-nova",
+    "rel-fall-creek-program-develops-blue-ribbon",
+    "rel-fall-creek-program-develops-top-shelf",
+    "rel-fall-creek-program-develops-last-call",
+    "rel-fall-creek-program-develops-cargo",
+    "rel-fall-creek-program-develops-fc11-164"
+  ],
+  "attributes": {
+    "operator": "Fall Creek Farm & Nursery, Inc.",
+    "selection_code_prefixes": [
+      "FC",
+      "FCM",
+      "FCE",
+      "ZF",
+      "FF",
+      "TH"
+    ],
+    "chill_classification_used": {
+      "high_chill": ">800 h",
+      "mid_chill": "400-800 h",
+      "low_chill": "up to 400 h",
+      "no_chill": "evergreen"
+    }
+  }
+}

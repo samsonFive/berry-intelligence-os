@@ -1,0 +1,13 @@
+{
+  "id": "rel-agrovision-licenses-sekoya",
+  "record_type": "relationship",
+  "subject_id": "company-agrovision",
+  "predicate": "licenses",
+  "object_id": "brand-sekoya",
+  "status": "active",
+  "evidence_ids": [
+    "ev-blueberriesconsulting-agrovision-2024"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Agrovision's Peruvian production is reported to have moved onto Sekoya-programme varieties. No licence agreement was retrieved."
+}

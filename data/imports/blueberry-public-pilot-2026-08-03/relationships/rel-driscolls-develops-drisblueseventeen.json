@@ -1,0 +1,13 @@
+{
+  "id": "rel-driscolls-develops-drisblueseventeen",
+  "record_type": "relationship",
+  "subject_id": "company-driscolls",
+  "predicate": "develops",
+  "object_id": "variety-drisblueseventeen",
+  "status": "active",
+  "evidence_ids": [
+    "ev-cfia-pbr-drisblueseventeen"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Named applicant or assignee on the registered right for this denomination."
+}

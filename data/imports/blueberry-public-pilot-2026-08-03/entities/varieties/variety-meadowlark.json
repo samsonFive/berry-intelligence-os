@@ -1,0 +1,108 @@
+{
+  "id": "variety-meadowlark",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Meadowlark",
+  "aliases": [
+    "FL01-173",
+    "'FL01-173'"
+  ],
+  "status": "active",
+  "description": "Southern highbush blueberry cultivar Meadowlark ('FL01-173') from the University of Florida IFAS breeding programme, released 2009. Commercialisation rights administered by Florida Foundation Seed Producers, Inc.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uf-breeding-meadowlark",
+    "ev-uf-ifas-hs1245"
+  ],
+  "fact_ids": [
+    "fact-uf-ifas-hs1245-3",
+    "fact-uf-breeding-meadowlark-1",
+    "fact-uf-breeding-meadowlark-2"
+  ],
+  "relationship_ids": [
+    "rel-uf-develops-meadowlark",
+    "rel-uf-program-develops-meadowlark",
+    "rel-ffsp-licenses-meadowlark"
+  ],
+  "attributes": {
+    "selection_code": "FL01-173",
+    "breeding_program": "breeding_program-uf-ifas-blueberry-breeding",
+    "rights_administered_by": "Florida Foundation Seed Producers, Inc.",
+    "species_type": "southern highbush (interspecific Vaccinium corymbosum hybrid)",
+    "release_year": 2009,
+    "us_plant_patent": "PP21,553 (USPP021553P2)",
+    "traits": [
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "UF/IFAS published firmness of 221-277, average 256 g/mm",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-meadowlark"
+        ],
+        "measured_value": 256,
+        "units": "g/mm (UF compression index)",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-fruit-size",
+        "value": "UF/IFAS published average berry weight 2.5 g and average diameter 18.3 mm",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-meadowlark"
+        ],
+        "measured_value": {
+          "weight_g": "2.5 g",
+          "diameter_mm": "18.3 mm"
+        },
+        "units": "g / mm",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "UF/IFAS published soluble solids of average 10.9",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-meadowlark"
+        ],
+        "measured_value": "average 10.9",
+        "units": "degrees Brix",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-machine-harvest-suitability",
+        "value": "Reported to have performed well in machine-harvest trials",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-meadowlark"
+        ],
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-disease-susceptibility",
+        "value": "Susceptible to Xylella and to Blueberry Red Ringspot Virus",
+        "provenance": "independent_report",
+        "evidence_ids": [
+          "ev-uf-breeding-meadowlark"
+        ],
+        "asserted_by": "University of Florida IFAS"
+      },
+      {
+        "trait": "trait-yield",
+        "value": "UF/IFAS extension notes pollination and low-yield issues",
+        "provenance": "independent_report",
+        "evidence_ids": [
+          "ev-uf-ifas-hs1245"
+        ],
+        "asserted_by": "UF/IFAS Extension"
+      }
+    ],
+    "trademark_form_used": "Meadowlark(TM) in UF/IFAS extension literature",
+    "patent_test_plot": "Waldo, Florida"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "fact-cfia-pbr-fc11-164-2",
+  "record_type": "fact",
+  "statement": "The Canadian plant breeders' rights examiner description of 'FC11-164', compared against 'Cargo' and 'Draper', records medium to strong vigour, a semi-upright habit, oblate fruit, strong bloom and late-season flowering onset. It does not contain any comparative firmness ranking, and therefore does not corroborate the owner's claim that the selection has firmness beyond any other variety.",
+  "classification": "fact",
+  "confidence": "high",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-cfia-pbr-fc11-164"
+  ],
+  "entity_ids": [
+    "variety-fc11-164",
+    "trait-fruit-firmness"
+  ]
+}

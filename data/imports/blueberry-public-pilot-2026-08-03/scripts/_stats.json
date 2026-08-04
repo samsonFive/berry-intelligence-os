@@ -1,0 +1,275 @@
+{
+  "entity_by_type": {
+    "berry": 1,
+    "brand": 8,
+    "breeding_program": 9,
+    "company": 32,
+    "geography": 16,
+    "patent": 38,
+    "retailer": 1,
+    "trait": 10,
+    "variety": 40
+  },
+  "evidence_by_tier": {
+    "tier-1": 92,
+    "tier-2": 27,
+    "tier-3": 2
+  },
+  "evidence_by_source_type": {
+    "brand_website": 2,
+    "company_annual_report": 2,
+    "company_catalog": 7,
+    "company_press_release": 8,
+    "company_technical_datasheet": 1,
+    "company_website": 20,
+    "court_record": 1,
+    "development_finance_press_release": 1,
+    "extension_publication": 1,
+    "government_registry": 4,
+    "individual_analysis_post": 1,
+    "industry_association_profile": 2,
+    "industry_association_report": 4,
+    "licensing_body_website": 4,
+    "market_analysis_report": 1,
+    "market_data_service": 1,
+    "marketer_website": 1,
+    "news_media": 1,
+    "patent_aggregator": 1,
+    "patent_record": 22,
+    "plant_breeders_rights_record": 8,
+    "private_equity_press_release": 1,
+    "research_program_publication": 8,
+    "trade_press": 18,
+    "university_trial_report": 1
+  },
+  "fact_by_classification": {
+    "claim": 54,
+    "fact": 132
+  },
+  "fact_by_confidence": {
+    "high": 106,
+    "low": 17,
+    "medium": 63
+  },
+  "fact_by_status": {
+    "active": 176,
+    "disputed": 10
+  },
+  "relationship_by_predicate": {
+    "carries": 7,
+    "develops": 57,
+    "grows": 1,
+    "licenses": 11,
+    "operates_in": 51,
+    "owns": 48,
+    "partners_with": 10,
+    "sells": 12,
+    "trials": 7
+  },
+  "relationship_by_status": {
+    "active": 201,
+    "disputed": 2,
+    "historical": 1
+  },
+  "totals": {
+    "entity": 155,
+    "evidence": 121,
+    "fact": 186,
+    "relationship": 204,
+    "strategic_question": 8,
+    "files": 682
+  },
+  "disputed_facts": [
+    {
+      "id": "fact-agrovision-founding-year-conflict",
+      "statement": "The founding year of Agrovision is inconsistent across sources: the company's own February 2024 release states that it was established in 2013 and marks its tenth anniversary, while AgFunderNews gives the founding year as 2012. No incorporation record was retrieved."
+    },
+    {
+      "id": "fact-berry-blue-ownership-disputed",
+      "statement": "Hortifrut and Michigan Blueberry Growers each describe the ownership of Berry Blue, LLC differently: Hortifrut states it is a joint venture between the two, while MBG states it is a programme MBG owns and operates. No ownership instrument, filing or registry record reconciling the two descriptions was retrieved."
+    },
+    {
+      "id": "fact-blue-manila-brix-conflict",
+      "statement": "Planasa's own published soluble-solids figures for Blue Manila conflict: the variety page states 14 degrees Brix while the 'Plablue 1545' technical data sheet states 13 degrees Brix. Neither document states season, replication or measurement method, and the data sheet is marked NOT CONTRACTUAL."
+    },
+    {
+      "id": "fact-costa-vip-age-conflict",
+      "statement": "The stated age of Costa's blueberry breeding effort is inconsistent across sources: Costa's own pages describe the Variety Improvement Program as operating for more than 25 years, while trade coverage of the BluGenix launch describes the programme as drawing on close to 40 years of plant breeding expertise. No founding date or founding document was retrieved."
+    },
+    {
+      "id": "fact-fall-creek-commercial-platforms-2026-3",
+      "statement": "Fall Creek Farm & Nursery states that the SEKOYA platform has 14 members. Produce Report states 15 for the same platform. The two figures have not been reconciled and no member roster was retrieved."
+    },
+    {
+      "id": "fact-italianberry-peru-varieties-2025-3",
+      "statement": "The same Proarandanos table of 2024/25 Peruvian export volumes lists Eureka Sunrise under two different codes, 'Ridley 160' at 714 tonnes and 'Ridley 1602' at 183 tonnes. The two entries cannot be summed without confirming that they refer to the same cultivar, and no source confirming this was located."
+    },
+    {
+      "id": "fact-mbo-history-1",
+      "statement": "Mountain Blue publishes two different founding years for the same business on its own website: 1975 on its history page and 1978 on its home page. No independent record resolving the discrepancy was retrieved."
+    },
+    {
+      "id": "fact-uf-breeding-optimus-3",
+      "statement": "The University of Florida breeding programme and Florida Foundation Seed Producers publish different measured values for Optimus: the programme reports 241 g/mm firmness, 1.7 g berry weight, 15.8 mm diameter and 12.3 degrees Brix, while the licensing body reports 220 g/mm, 1.9 g, 16.5 mm and 11.3 degrees Brix. Neither source states the seasons or sites underlying its figures."
+    },
+    {
+      "id": "fact-uf-breeding-patrecia-3",
+      "statement": "The inventors named on United States plant patent USPP027740P2 for Patrecia, David E. Norden and Alto Straughn, do not match the University of Florida breeders credited in UF/IFAS extension literature for the programme's releases. This discrepancy is unresolved and no source retrieved for this package explains it."
+    },
+    {
+      "id": "fact-uf-breeding-sentinel-4",
+      "statement": "The University of Florida breeding programme page for Sentinel records machine-harvest performance as 'no data yet', while UF/IFAS extension publication HS1245 describes the cultivar as suitable for machine harvest. These two statements from the same institution have not been reconciled."
+    }
+  ],
+  "unverified_entities": [
+    {
+      "id": "patent-uspp012165p2",
+      "name": "USPP012165P2 - Emerald 'FL95-209a'",
+      "type": "patent"
+    },
+    {
+      "id": "patent-uspp019341p2",
+      "name": "USPP019341P2 - Farthing 'FL00-75'",
+      "type": "patent"
+    },
+    {
+      "id": "patent-uspp021553p2",
+      "name": "USPP021553P2 - Meadowlark 'FL01-173'",
+      "type": "patent"
+    },
+    {
+      "id": "patent-uspp025859p3",
+      "name": "USPP025859P3",
+      "type": "patent"
+    },
+    {
+      "id": "patent-uspp028334p3",
+      "name": "USPP028334P3",
+      "type": "patent"
+    },
+    {
+      "id": "patent-uspp028357p3",
+      "name": "USPP028357P3",
+      "type": "patent"
+    },
+    {
+      "id": "patent-uspp031793p3",
+      "name": "USPP031793P3 - SEKOYA Crunch 'FC13-083'",
+      "type": "patent"
+    },
+    {
+      "id": "patent-uspp032028p3",
+      "name": "USPP032028P3 - Optimus 'FL08-262'",
+      "type": "patent"
+    },
+    {
+      "id": "patent-uspp033802p3",
+      "name": "USPP033802P3 - Colossus 'FL11-35'",
+      "type": "patent"
+    },
+    {
+      "id": "patent-uspp033896p2",
+      "name": "USPP033896P2 - Sentinel 'FL11-155'",
+      "type": "patent"
+    },
+    {
+      "id": "variety-arana",
+      "name": "Arana",
+      "type": "variety"
+    },
+    {
+      "id": "variety-eterna",
+      "name": "Eterna",
+      "type": "variety"
+    },
+    {
+      "id": "variety-fc11-164",
+      "name": "FC11-164",
+      "type": "variety"
+    },
+    {
+      "id": "variety-twilight",
+      "name": "Twilight",
+      "type": "variety"
+    }
+  ],
+  "geography_entities": [
+    "Australia",
+    "Canada",
+    "Chile",
+    "China",
+    "Colombia",
+    "Germany",
+    "Mexico",
+    "Morocco",
+    "Netherlands",
+    "Peru",
+    "Portugal",
+    "South Africa",
+    "Spain",
+    "United States",
+    "Zambia",
+    "Zimbabwe"
+  ],
+  "evidence_without_published_date": [
+    "ev-abb-varieties",
+    "ev-abn-costa-history",
+    "ev-agfunder-fruitist-rebrand",
+    "ev-berryworld-varieties",
+    "ev-brevis-ip-registration-trends",
+    "ev-cfia-blueberry-index",
+    "ev-cfia-pbr-blue-ribbon",
+    "ev-cfia-pbr-cargo",
+    "ev-cfia-pbr-fc11-164",
+    "ev-cfia-pbr-last-call",
+    "ev-cfia-pbr-sekoya-grande",
+    "ev-cfia-pbr-top-shelf",
+    "ev-cinven-planasa-ew-group",
+    "ev-costa-vip",
+    "ev-delisted-costa",
+    "ev-eureka-blueberries-our-story",
+    "ev-fall-creek-our-history",
+    "ev-ffsp-emerald",
+    "ev-ffsp-farthing",
+    "ev-ffsp-jewel",
+    "ev-ffsp-optimus",
+    "ev-freshuelva-atlantic-blue",
+    "ev-fruitist-brands",
+    "ev-hortifrut-genetic-development",
+    "ev-hortifrut-investor-company",
+    "ev-ipaustralia-pvj-33-4",
+    "ev-italianberry-peru-varieties-2025",
+    "ev-justia-costa-berry-international",
+    "ev-mbg-berry-blue-varieties",
+    "ev-mbo-eureka-blueberries",
+    "ev-mbo-history",
+    "ev-mbo-home",
+    "ev-ozblu-oz-varieties",
+    "ev-planasa-about-us",
+    "ev-planasa-blue-maldiva",
+    "ev-planasa-blue-manila-datasheet",
+    "ev-planasa-blue-manila-page",
+    "ev-sekoya-story",
+    "ev-topfruit-megacrisp",
+    "ev-uaex-blueberry-trial-2024",
+    "ev-uf-breeding-colossus",
+    "ev-uf-breeding-emerald",
+    "ev-uf-breeding-farthing",
+    "ev-uf-breeding-jewel",
+    "ev-uf-breeding-meadowlark",
+    "ev-uf-breeding-optimus",
+    "ev-uf-breeding-patrecia",
+    "ev-uf-breeding-sentinel",
+    "ev-uf-ifas-hs1245",
+    "ev-united-exports-overview",
+    "ev-united-exports-what-we-do",
+    "ev-uspp024636-blue-ribbon",
+    "ev-uspp024661-cargo",
+    "ev-uspp024697-top-shelf",
+    "ev-uspp025386-last-call",
+    "ev-uspp028437-sekoya-beauty",
+    "ev-uspp031822-sekoya-grande",
+    "ev-uspp032186-sekoya-pop",
+    "ev-uspp034903-fc11-164"
+  ]
+}

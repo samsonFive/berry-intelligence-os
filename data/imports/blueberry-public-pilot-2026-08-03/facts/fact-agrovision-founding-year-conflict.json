@@ -1,0 +1,17 @@
+{
+  "id": "fact-agrovision-founding-year-conflict",
+  "record_type": "fact",
+  "statement": "The founding year of Agrovision is inconsistent across sources: the company's own February 2024 release states that it was established in 2013 and marks its tenth anniversary, while AgFunderNews gives the founding year as 2012. No incorporation record was retrieved.",
+  "classification": "claim",
+  "confidence": "low",
+  "status": "disputed",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-agrovision-10-years-2024",
+    "ev-agfunder-fruitist-rebrand"
+  ],
+  "entity_ids": [
+    "company-agrovision"
+  ]
+}

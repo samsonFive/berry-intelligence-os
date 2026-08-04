@@ -1,0 +1,59 @@
+{
+  "id": "ev-costa-heaviest-blueberry-2024",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "company_press_release",
+  "title": "World's heaviest blueberry",
+  "source_name": "Costa Group Holdings Pty Ltd",
+  "source_url": "https://costagroup.com.au/2024/03/12/worlds-heaviest-blueberry/",
+  "published_date": "2024-03-12",
+  "captured_date": "2026-08-04",
+  "summary": "Costa reports that a blueberry of the Eterna variety picked at its Corindi farm on 13 November 2023 was recognised as the world's heaviest, at 20.40 g and 39.31 mm, beating a previous record of 16.20 g set in Western Australia in 2020. The berry is credited to Brad Hocking, Jessica Scalzo and Marie-France Courtois. The release also describes the Variety Improvement Program as operating for more than 25 years and states that Costa is both the breeder and the grower.",
+  "why_it_matters": "A single adjudicated fruit is a genuine measurement, unlike most owner claims in this dataset, but it is a record specimen and says nothing about the cultivar's mean fruit size. The distinction matters because record-berry publicity is routinely read as a varietal performance claim.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-eterna",
+    "company-costa-group-holdings",
+    "breeding_program-costa-variety-improvement",
+    "trait-fruit-size",
+    "geography-australia"
+  ],
+  "fact_ids": [
+    "fact-costa-vip-age-conflict",
+    "fact-eterna-heaviest-blueberry-2023"
+  ],
+  "relationship_ids": [
+    "rel-costa-develops-eterna"
+  ],
+  "strategic_question_ids": [
+    "sq-premium-trait-challengers",
+    "sq-emerging-varieties"
+  ],
+  "tags": [
+    "tier-1",
+    "variety-data",
+    "record-specimen",
+    "single-fruit-measurement"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "A measured datum with a date, site and adjudicating body."
+    },
+    "testing": {
+      "level": "medium",
+      "rationale": "Interesting as a genetic size ceiling, not as an expected size."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Strong marketing asset for a competing platform."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "A one-off event."
+    }
+  }
+}

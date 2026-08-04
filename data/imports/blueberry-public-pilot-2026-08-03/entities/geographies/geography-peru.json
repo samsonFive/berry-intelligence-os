@@ -1,0 +1,43 @@
+{
+  "id": "geography-peru",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "Peru",
+  "aliases": [],
+  "status": "active",
+  "description": "Largest-volume southern-hemisphere blueberry exporter by recent trade reporting; heavily low-chill genetics dependent.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-united-exports-what-we-do",
+    "ev-italianberry-peru-varieties-2025",
+    "ev-agronometrics-prism-2025",
+    "ev-hortifrut-genetic-development",
+    "ev-hortifrut-mbo-genetics-2026",
+    "ev-producereport-blugenix-2026",
+    "ev-agrovision-10-years-2024",
+    "ev-blueberriesconsulting-agrovision-2024",
+    "ev-ibo-agrovision-2019"
+  ],
+  "fact_ids": [
+    "fact-italianberry-peru-varieties-2025-1",
+    "fact-italianberry-peru-varieties-2025-2",
+    "fact-italianberry-peru-varieties-2025-3",
+    "fact-agronometrics-prism-2025-1",
+    "fact-agronometrics-prism-2025-2",
+    "fact-hortifrut-breeding-stations",
+    "fact-blugenix-growing-countries",
+    "fact-agrovision-peru-scale"
+  ],
+  "relationship_ids": [
+    "rel-united-exports-operates-in-peru",
+    "rel-hortifrut-operates-in-peru",
+    "rel-agrovision-operates-in-peru"
+  ],
+  "attributes": {
+    "iso_3166_1_alpha_2": "PE",
+    "region": "Latin America"
+  }
+}

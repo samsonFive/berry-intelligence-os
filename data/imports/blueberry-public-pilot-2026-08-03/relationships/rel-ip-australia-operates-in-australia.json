@@ -1,0 +1,13 @@
+{
+  "id": "rel-ip-australia-operates-in-australia",
+  "record_type": "relationship",
+  "subject_id": "company-ip-australia",
+  "predicate": "operates_in",
+  "object_id": "geography-australia",
+  "status": "active",
+  "evidence_ids": [
+    "ev-ipaustralia-pvj-33-4"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; National plant breeders' rights registry authority."
+}

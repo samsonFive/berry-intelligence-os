@@ -1,0 +1,40 @@
+{
+  "id": "sig-breeder-and-patent-attribution-drift-in-public-sources",
+  "record_type": "signal",
+  "title": "Public and trade sources repeatedly attribute blueberry genetics to the wrong breeder or the wrong patent number",
+  "status": "proposed",
+  "strength": "moderate",
+  "observation": "Four distinct attribution errors surfaced while assembling this package. US PP25,358 is an Aglaonema ornamental patent, not the OZblu Bonita patent, which is US PP28,358. The OZblu selections name Vincent David Mazzardis as sole inventor, not the breeder more commonly associated with Australian blueberry genetics. Advanced Berry Breeding, often grouped with Planasa's berry genetics, lists raspberry cultivars only. Hortifrut's blueberry IP sits under Berry Blue, LLC and the acquired Atlantic Blue programme, and no source names a 'Hortifrut Genetics' holding blueberry varieties.",
+  "why_it_might_matter": "If attribution errors propagate through trade press and aggregators, any competitive picture assembled from secondary sources inherits them. It argues for treating registry and patent front pages as the only acceptable support for identity facts, and for carrying a standing correction list.",
+  "what_would_confirm_it": "Further identity errors found when checking additional secondary sources against primary registry records, establishing this as a general pattern rather than four incidents.",
+  "what_would_falsify_it": "Evidence that these four are isolated transcription errors and that secondary sources generally agree with registry records on breeder identity and patent numbers.",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp025358-aglaonema",
+    "ev-uspp028358-eb9-12",
+    "ev-ciopora-united-exports-pbr-2020",
+    "ev-abb-varieties",
+    "ev-hortifrut-genetic-development"
+  ],
+  "entity_ids": [
+    "patent-uspp025358p3",
+    "patent-uspp028358p3",
+    "variety-bonita",
+    "brand-ozblu",
+    "company-united-exports",
+    "company-advanced-berry-breeding",
+    "company-planasa",
+    "company-hortifrut",
+    "company-berry-blue-llc"
+  ],
+  "strategic_question_ids": [
+    "sq-public-record-gaps",
+    "sq-repeated-trait-claims"
+  ],
+  "proposed_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "proposed_at": "2026-08-03",
+  "reviewer": null,
+  "not_importable_reason": "No signal schema exists in the running repository. Retained in the staging package for human review only; see schema-assessment.md limitation L-7 and proposed-schema-enhancements.md."
+}

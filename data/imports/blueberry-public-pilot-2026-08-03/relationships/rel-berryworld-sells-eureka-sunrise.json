@@ -1,0 +1,13 @@
+{
+  "id": "rel-berryworld-sells-eureka-sunrise",
+  "record_type": "relationship",
+  "subject_id": "company-berryworld",
+  "predicate": "sells",
+  "object_id": "variety-eureka-sunrise",
+  "status": "active",
+  "evidence_ids": [
+    "ev-fruitnet-eureka-sunrise-2023"
+  ],
+  "effective_date": "2023-01-20",
+  "notes": "confidence=high; Grown exclusively by BerryWorld growers and marketed under a BerryWorld retail brand. Substituted predicate: the schema has no 'markets' predicate, so 'sells' is used for a marketing and route-to-market relationship."
+}

@@ -1,0 +1,43 @@
+{
+  "id": "breeding_program-driscolls-blueberry",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Driscoll's blueberry breeding programme",
+  "aliases": [],
+  "status": "active",
+  "description": "Driscoll's proprietary blueberry breeding programme. Crosses are made in Santa Cruz County, California and selections made in Hillsborough County, Florida and Santa Cruz County. Varieties are released under sequential 'DrisBlue...' denominations and licensed only to approved growers.",
+  "roles": [
+    "private_breeding_program",
+    "closed_variety_platform"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-cfia-pbr-drisblueseventeen",
+    "ev-cfia-pbr-drisbluetwentythree",
+    "ev-uspp032267-drisbluetwentyone"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "denomination_series": "DrisBlue...",
+    "crossing_site": "Santa Cruz County, California, USA",
+    "selection_sites": [
+      "Hillsborough County, Florida, USA",
+      "Santa Cruz County, California, USA"
+    ],
+    "named_inventors": [
+      "Brian K. Caster",
+      "Jennifer K. Izzo",
+      "Bruce D. Mowrey",
+      "Esther Kibbe",
+      "Marta C. Baptista",
+      "Arturo Garcia",
+      "Raymond L. Jacobs III",
+      "James Olmstead",
+      "Sarah Wool"
+    ],
+    "access_model": "closed; licensed exclusively to approved growers"
+  }
+}

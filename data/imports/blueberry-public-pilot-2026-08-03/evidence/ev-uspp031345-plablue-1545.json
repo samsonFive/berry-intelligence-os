@@ -1,0 +1,60 @@
+{
+  "id": "ev-uspp031345-plablue-1545",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "patent_record",
+  "title": "USPP031345P2 - 'Plablue 1545' (Blue Manila)",
+  "source_name": "United States Patent and Trademark Office",
+  "source_url": "https://patents.google.com/patent/USPP31345P2/en",
+  "published_date": "2020-01-14",
+  "captured_date": "2026-08-04",
+  "summary": "United States plant patent document for the blueberry cultivar 'Plablue 1545', published 14 January 2020. Parents are given as 14.027.001 and 14.049.001, both unpatented and belonging to the applicant's own programme. Propagation took place in Segovia, Spain and primocane observations were made in Huelva, Spain. A corresponding CPVO application 2018/2073 was filed on 9 August 2018. No assignee was shown on the pages fetched.",
+  "why_it_matters": "Ties the commercial name Blue Manila to a formal selection code and a registry record, which is what makes the cultivar trackable across jurisdictions. The absent assignee is recorded as absent rather than inferred from the obvious candidate.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "patent-uspp031345p2",
+    "variety-blue-manila",
+    "company-planasa",
+    "breeding_program-planasa-blueberry",
+    "geography-spain"
+  ],
+  "fact_ids": [
+    "fact-blue-manila-plablue-1545"
+  ],
+  "relationship_ids": [
+    "rel-planasa-develops-blue-manila",
+    "rel-planasa-owns-uspp031345p2",
+    "rel-planasa-operates-in-spain"
+  ],
+  "strategic_question_ids": [
+    "sq-emerging-varieties",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "patent",
+    "identity-resolution",
+    "missing-assignee"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "The registry anchor for a cultivar otherwise known only from marketing."
+    },
+    "testing": {
+      "level": "low",
+      "rationale": "Botanical description rather than performance data."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Confirms protection in the United States."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Static record."
+    }
+  }
+}

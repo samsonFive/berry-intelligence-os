@@ -1,0 +1,58 @@
+{
+  "id": "ev-produce-report-sekoya-china-2025",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "trade_press",
+  "title": "Sekoya confident about its premium blueberries in Asian, Chinese markets",
+  "source_name": "Produce Report",
+  "source_url": "https://www.producereport.com/article/sekoya-confident-about-its-premium-blueberries-asian-chinese-markets",
+  "published_date": "2025-11-13",
+  "captured_date": "2026-08-03",
+  "summary": "Interview-based trade article by Jing Zang on SEKOYA's positioning in Asian and Chinese markets. States a SEKOYA membership figure of 15.",
+  "why_it_matters": "Documents the platform's Asian market intent and supplies the competing membership count that conflicts with Fall Creek's own figure of 14.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "brand-sekoya",
+    "company-fall-creek-farm-and-nursery",
+    "geography-china"
+  ],
+  "fact_ids": [
+    "fact-fall-creek-commercial-platforms-2026-3",
+    "fact-produce-report-sekoya-china-2025-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-operates-sekoya"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-competitor-expansion"
+  ],
+  "tags": [
+    "tier-2",
+    "market-entry",
+    "asia",
+    "membership-count",
+    "conflicting-claim"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Moderately informative; largely interview material."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "China is the highest-growth premium blueberry market and platform entry there is competitively material."
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "Chinese market developments move quickly and warrant regular re-checking."
+    }
+  }
+}

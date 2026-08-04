@@ -1,0 +1,18 @@
+{
+  "id": "fact-fall-creek-commercial-platforms-2026-3",
+  "record_type": "fact",
+  "statement": "Fall Creek Farm & Nursery states that the SEKOYA platform has 14 members. Produce Report states 15 for the same platform. The two figures have not been reconciled and no member roster was retrieved.",
+  "classification": "claim",
+  "confidence": "low",
+  "status": "disputed",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-fall-creek-commercial-platforms-2026",
+    "ev-produce-report-sekoya-china-2025"
+  ],
+  "entity_ids": [
+    "company-fall-creek-farm-and-nursery",
+    "brand-sekoya"
+  ]
+}

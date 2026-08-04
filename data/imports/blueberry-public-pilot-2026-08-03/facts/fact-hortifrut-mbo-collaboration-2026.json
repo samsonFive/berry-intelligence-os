@@ -1,0 +1,19 @@
+{
+  "id": "fact-hortifrut-mbo-collaboration-2026",
+  "record_type": "fact",
+  "statement": "On 30 July 2026 Naturipe Farms and Hortifrut announced an expanded berry genetics platform reached through a strategic collaboration with Mountain Blue Orchards, under which Hortifrut states it gains access to new elite blueberry selections for the United States, Mexico, Peru and other Latin American countries.",
+  "classification": "claim",
+  "confidence": "high",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-hortifrut-mbo-genetics-2026",
+    "ev-ffp-hortifrut-mbo-2026"
+  ],
+  "entity_ids": [
+    "company-hortifrut",
+    "company-naturipe-farms",
+    "company-mountain-blue-orchards"
+  ]
+}

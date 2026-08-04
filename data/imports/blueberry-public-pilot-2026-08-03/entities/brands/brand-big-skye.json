@@ -1,0 +1,31 @@
+{
+  "id": "brand-big-skye",
+  "record_type": "entity",
+  "entity_type": "brand",
+  "name": "Big Skye",
+  "aliases": [
+    "Mei Yi Li"
+  ],
+  "status": "active",
+  "description": "Agrovision consumer blueberry brand used in the Chinese market, also rendered Mei Yi Li.",
+  "roles": [
+    "consumer_brand"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-agrovision-10-years-2024",
+    "ev-fruitist-brands"
+  ],
+  "fact_ids": [
+    "fact-fruitist-consumer-brands"
+  ],
+  "relationship_ids": [
+    "rel-agrovision-owns-big-skye"
+  ],
+  "attributes": {
+    "owner": "Agrovision Corp.",
+    "market": "China"
+  }
+}

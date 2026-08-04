@@ -1,0 +1,96 @@
+{
+  "id": "variety-fc11-164",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "FC11-164",
+  "aliases": [
+    "'FC11-164'"
+  ],
+  "status": "unverified",
+  "description": "High-chill northern highbush selection from the Fall Creek breeding programme. Its commercial name was revealed at a Fall Creek grower event on 29 July 2026 but was not published on any source retrieved for this package, so the cultivar is recorded here under its selection code only.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-freshfruitportal-fall-creek-2026",
+    "ev-freshplaza-fall-creek-chile-2026",
+    "ev-portalfruticola-fall-creek-2025",
+    "ev-uspp034903-fc11-164",
+    "ev-cfia-pbr-fc11-164"
+  ],
+  "fact_ids": [
+    "fact-uspp034903-fc11-164-1",
+    "fact-cfia-pbr-fc11-164-1",
+    "fact-cfia-pbr-fc11-164-2",
+    "fact-freshfruitportal-fall-creek-2026-1",
+    "fact-freshfruitportal-fall-creek-2026-2",
+    "fact-portalfruticola-fall-creek-2025-1",
+    "fact-freshplaza-fall-creek-chile-2026-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-develops-fc11-164",
+    "rel-fall-creek-program-develops-fc11-164",
+    "rel-fall-creek-trials-fc11-164-chile"
+  ],
+  "attributes": {
+    "selection_code": "FC11-164",
+    "breeding_program": "breeding_program-fall-creek-blueberry-breeding",
+    "platform": "Fall Creek Collection",
+    "chill_class": "high chill",
+    "season": "mid to mid-late",
+    "species_type": "northern highbush (Vaccinium corymbosum)",
+    "parentage": "open-pollinated; female parent 'ZF06-168', male parent unknown (2008, Lowell, Oregon)",
+    "commercial_name": null,
+    "status_reason": "Recorded as unverified because the commercial denomination is not established from a retrieved source",
+    "traits": [
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "Owner claims firmness beyond any other variety; examiner description does not corroborate a comparative firmness ranking",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-freshfruitportal-fall-creek-2026"
+        ],
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      },
+      {
+        "trait": "trait-machine-harvest-suitability",
+        "value": "Owner claims it is the first machine-harvestable fresh-market variety",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-freshfruitportal-fall-creek-2026"
+        ],
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      },
+      {
+        "trait": "trait-postharvest-shelf-life",
+        "value": "Owner claims 60 or more days storage",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-freshfruitportal-fall-creek-2026"
+        ],
+        "measured_value": ">=60",
+        "units": "days",
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      },
+      {
+        "trait": "trait-yield",
+        "value": "Trade press reports that matching the productivity of other new varieties is the main outstanding challenge for this selection",
+        "provenance": "independent_report",
+        "evidence_ids": [
+          "ev-portalfruticola-fall-creek-2025"
+        ],
+        "asserted_by": "Portalfruticola"
+      }
+    ],
+    "canada_pbr": {
+      "application_number": "22-11055",
+      "application_date": "2022-07-29",
+      "status": "provisional protection from 2022-07-29",
+      "breeders": [
+        "Peter Stefan Boches",
+        "Adam L. Wagner"
+      ]
+    }
+  }
+}
