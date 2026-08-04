@@ -8,6 +8,24 @@
   </div>
 </section>
 
+{% if not static_build %}
+<form class="filters" action="/queues/{{ dimension }}" method="get" aria-label="Filter {{ label }}">
+  <div class="filter-field">
+    <label for="filter-region">Region</label>
+    <select id="filter-region" name="region">
+      <option value="">All regions</option>
+      {% for r in regions %}
+        <option value="{{ r }}" {% if filters.region == r %}selected{% endif %}>{{ r }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="filter-actions">
+    <button type="submit">Apply filter</button>
+    <a href="/queues/{{ dimension }}">Clear</a>
+  </div>
+</form>
+{% endif %}
+
 {% if items %}
   <div class="queue-table-wrap">
     <table class="queue-table">

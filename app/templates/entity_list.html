@@ -7,16 +7,63 @@
     <h1>{{ entity_type|replace('_',' ')|title }} records</h1>
   </div>
 </section>
+
+{% if not static_build %}
+<form class="filters" action="/entities/{{ entity_type }}" method="get" aria-label="Filter {{ entity_type }} records">
+  <div class="filter-field">
+    <label for="filter-q">Search</label>
+    <input id="filter-q" type="search" name="q" value="{{ filters.q }}" placeholder="Name, alias, or variety code…">
+  </div>
+  <div class="filter-field">
+    <label for="filter-berry">Berry</label>
+    <select id="filter-berry" name="berry">
+      <option value="">All berries</option>
+      {% for berry_id, label in berries.items() %}
+        <option value="{{ berry_id }}" {% if filters.berry == berry_id %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="filter-field">
+    <label for="filter-region">Region</label>
+    <select id="filter-region" name="region">
+      <option value="">All regions</option>
+      {% for r in regions %}
+        <option value="{{ r }}" {% if filters.region == r %}selected{% endif %}>{{ r }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="filter-field">
+    <label for="filter-company">Company</label>
+    <select id="filter-company" name="company">
+      <option value="">All companies</option>
+      {% for c in companies %}
+        <option value="{{ c.id }}" {% if filters.company == c.id %}selected{% endif %}>{{ c.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="filter-actions">
+    <button type="submit">Apply filters</button>
+    <a href="/entities/{{ entity_type }}">Clear</a>
+  </div>
+</form>
+
+<p class="result-count">Showing {{ entities|length }} of {{ total_count }} {{ entity_type|replace('_',' ') }} records</p>
+{% endif %}
+
 <section class="entity-list">
   {% for entity in entities %}
     <article class="card entity-card">
       <div class="card-header">
         <span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span>
+        {% set code = (entity.attributes or {}).get('selection_code') %}
+        {% if code %}<span class="badge badge-muted">{{ code }}</span>{% endif %}
       </div>
       <h2><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a></h2>
       {% if entity.description %}<p>{{ entity.description }}</p>{% endif %}
       {% if entity.roles %}<div class="tags">{% for role in entity.roles %}<span>{{ role }}</span>{% endfor %}</div>{% endif %}
     </article>
+  {% else %}
+    <p class="empty-state">No {{ entity_type|replace('_',' ') }} records match the current filters.</p>
   {% endfor %}
 </section>
 {% endblock %}

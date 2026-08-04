@@ -14,6 +14,7 @@
     <dt>Roles</dt><dd>{% if entity.roles %}{{ entity.roles|join(', ') }}{% else %}—{% endif %}</dd>
     <dt>Aliases</dt><dd>{% if entity.aliases %}{{ entity.aliases|join(', ') }}{% else %}—{% endif %}</dd>
     <dt>Berries</dt><dd>{% for b in entity.berry_ids %}{{ berry_label(b) }}{% if not loop.last %}, {% endif %}{% else %}—{% endfor %}</dd>
+    <dt>Region{{ 's' if regions|length > 1 else '' }}</dt><dd>{{ regions|join(', ') if regions else '—' }}</dd>
   </dl>
 
   {% if entity.description %}

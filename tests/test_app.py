@@ -798,6 +798,175 @@ def test_purge_refuses_non_auto_captured_evidence(monkeypatch, tmp_path) -> None
     assert response.status_code == 400
 
 
+def test_geography_region_default_lookup_and_unclassified() -> None:
+    assert main.geography_region({"name": "Portugal", "attributes": {}}) == "Europe"
+    assert main.geography_region({"name": "Australia", "attributes": {}}) == "Oceania"
+    assert main.geography_region({"name": "Zambia", "attributes": {}}) == "Middle East & Africa"
+    # Not in the fixed lookup -- left unclassified rather than guessed.
+    assert main.geography_region({"name": "China", "attributes": {}}) is None
+
+
+def test_geography_region_override_beats_lookup() -> None:
+    geo = {"name": "China", "attributes": {"filter_region": "Asia-Pacific"}}
+    assert main.geography_region(geo) == "Asia-Pacific"
+
+
+def test_geography_region_ignores_unrelated_preexisting_region_attribute() -> None:
+    # Real imported data: attributes.region already means something else
+    # (the package's own taxonomy) and must not be mistaken for a correction.
+    geo = {"name": "Australia", "attributes": {"region": "Asia-Pacific"}}
+    assert main.geography_region(geo) == "Oceania"
+
+
+def test_feed_filters_by_region() -> None:
+    response = client.get("/api/feed", params={"region": "Europe"})
+    assert response.status_code == 200
+    body = response.json()
+    assert body
+    # geography-europe is linked via geography_ids on this sample record;
+    # real imported evidence also legitimately matches Europe via
+    # entity_ids-only geography links, so this is a subset check, not exact.
+    assert any(item["id"] == "ev-sample-patent-published" for item in body)
+
+    americas = client.get("/api/feed", params={"region": "Americas"}).json()
+    americas_ids = {item["id"] for item in americas}
+    assert {"ev-sample-variety-launch", "ev-sample-retail-placement"} <= americas_ids
+
+
+def test_entity_list_filters_by_region() -> None:
+    response = client.get("/entities/variety", params={"region": "Europe"})
+    assert response.status_code == 200
+    assert "Example Red" in response.text
+    assert "Example Blue" not in response.text
+
+
+def test_entity_list_search_matches_selection_code(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    main.save_entity(
+        {
+            "id": "variety-fictional-coded", "record_type": "entity", "entity_type": "variety",
+            "name": "Fictional Coded Variety", "aliases": [], "status": "active", "description": "",
+            "roles": [], "berry_ids": [], "evidence_ids": [], "fact_ids": [], "relationship_ids": [],
+            "attributes": {"selection_code": "EB 9-12"},
+        }
+    )
+    main.save_entity(
+        {
+            "id": "variety-fictional-other", "record_type": "entity", "entity_type": "variety",
+            "name": "Fictional Other Variety", "aliases": [], "status": "active", "description": "",
+            "roles": [], "berry_ids": [], "evidence_ids": [], "fact_ids": [], "relationship_ids": [], "attributes": {},
+        }
+    )
+    response = client.get("/entities/variety", params={"q": "EB 9-12"})
+    assert response.status_code == 200
+    assert "Fictional Coded Variety" in response.text
+    assert "Fictional Other Variety" not in response.text
+
+
+def test_entity_list_filters_by_company_via_relationships(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    main.save_entity(
+        {
+            "id": "company-fictional-breeder", "record_type": "entity", "entity_type": "company",
+            "name": "Fictional Breeder Co", "aliases": [], "status": "active", "description": "",
+            "roles": [], "berry_ids": [], "evidence_ids": [], "fact_ids": [], "relationship_ids": [], "attributes": {},
+        }
+    )
+    main.save_entity(
+        {
+            "id": "variety-fictional-one", "record_type": "entity", "entity_type": "variety",
+            "name": "Fictional Developed Variety", "aliases": [], "status": "active", "description": "",
+            "roles": [], "berry_ids": [], "evidence_ids": [], "fact_ids": [], "relationship_ids": [], "attributes": {},
+        }
+    )
+    main.save_entity(
+        {
+            "id": "variety-fictional-two", "record_type": "entity", "entity_type": "variety",
+            "name": "Fictional Unrelated Variety", "aliases": [], "status": "active", "description": "",
+            "roles": [], "berry_ids": [], "evidence_ids": [], "fact_ids": [], "relationship_ids": [], "attributes": {},
+        }
+    )
+    main.save_relationship(
+        {
+            "id": "rel-fictional-develops", "record_type": "relationship",
+            "subject_id": "company-fictional-breeder", "predicate": "develops", "object_id": "variety-fictional-one",
+            "status": "active", "evidence_ids": ["ev-placeholder"], "effective_date": None, "notes": "",
+        }
+    )
+
+    response = client.get("/entities/variety", params={"company": "company-fictional-breeder"})
+    assert response.status_code == 200
+    assert "Fictional Developed Variety" in response.text
+    assert "Fictional Unrelated Variety" not in response.text
+
+
+def test_entity_regions_span_multiple_via_linked_evidence(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    for geo_id, name in [("geography-fictional-a", "Portugal"), ("geography-fictional-b", "Australia")]:
+        main.save_entity(
+            {
+                "id": geo_id, "record_type": "entity", "entity_type": "geography", "name": name,
+                "aliases": [], "status": "active", "description": "", "roles": [], "berry_ids": [],
+                "evidence_ids": [], "fact_ids": [], "relationship_ids": [], "attributes": {},
+            }
+        )
+    main.save_entity(
+        {
+            "id": "variety-fictional-multi", "record_type": "entity", "entity_type": "variety",
+            "name": "Fictional Multi-Region Variety", "aliases": [], "status": "active", "description": "",
+            "roles": [], "berry_ids": [], "evidence_ids": [], "fact_ids": [], "relationship_ids": [], "attributes": {},
+        }
+    )
+    for i, geo_id in enumerate(["geography-fictional-a", "geography-fictional-b"], start=1):
+        main.save_evidence(
+            {
+                "id": f"ev-fictional-multi-{i}", "record_type": "evidence", "status": "published",
+                "source_type": "article", "title": f"Fictional trial {i}", "captured_date": "2026-08-04",
+                "summary": "x", "submitted_by": "tester",
+                "entity_ids": ["variety-fictional-multi", geo_id], "geography_ids": [geo_id],
+                "priority": {dim: {"level": "none", "rationale": ""} for dim in main.PRIORITY_DIMENSIONS},
+            }
+        )
+
+    response = client.get("/entities/variety/variety-fictional-multi")
+    assert response.status_code == 200
+    assert "Europe" in response.text
+    assert "Oceania" in response.text
+
+
+def test_region_and_geography_detected_when_only_in_entity_ids(monkeypatch, tmp_path) -> None:
+    """Real imported data links a geography via entity_ids only, with no
+    parallel geography_ids entry (that field postdates the import). Region
+    and geography filtering must still find it."""
+    _isolate(monkeypatch, tmp_path)
+    main.save_entity(
+        {
+            "id": "geography-fictional-portugal", "record_type": "entity", "entity_type": "geography",
+            "name": "Portugal", "aliases": [], "status": "active", "description": "", "roles": [],
+            "berry_ids": [], "evidence_ids": [], "fact_ids": [], "relationship_ids": [], "attributes": {},
+        }
+    )
+    main.save_evidence(
+        {
+            "id": "ev-fictional-no-geography-ids-field", "record_type": "evidence", "status": "published",
+            "source_type": "article", "title": "Fictional evidence without geography_ids",
+            "captured_date": "2026-08-04", "summary": "x", "submitted_by": "tester",
+            "entity_ids": ["geography-fictional-portugal"],
+            # Deliberately no "geography_ids" key at all.
+            "priority": {dim: {"level": "none", "rationale": ""} for dim in main.PRIORITY_DIMENSIONS},
+        }
+    )
+
+    region_matches = client.get("/api/feed", params={"region": "Europe"}).json()
+    assert any(r["id"] == "ev-fictional-no-geography-ids-field" for r in region_matches)
+
+    geography_matches = client.get("/api/feed", params={"geography": "geography-fictional-portugal"}).json()
+    assert any(r["id"] == "ev-fictional-no-geography-ids-field" for r in geography_matches)
+
+    options_page = client.get("/")
+    assert "Portugal" in options_page.text
+
+
 def test_sources_write_endpoints_blocked_in_readonly_mode(monkeypatch, tmp_path) -> None:
     _isolate(monkeypatch, tmp_path)
     monkeypatch.setattr(main, "AUTHORING_MODE", False)

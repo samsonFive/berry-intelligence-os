@@ -103,6 +103,18 @@ def build() -> list[Path]:
     evidence = published_evidence()
     entities = entity_index()
 
+    # base.html calls these as Jinja globals on every single page render (via
+    # the sidebar). They're cheap once, but at this record volume calling the
+    # live, uncached versions (which each re-read data/ from disk) once per
+    # page turns a few hundred pages into minutes of redundant I/O. Nothing
+    # in data/ changes mid-build, so compute them once here instead.
+    queue_summary_once = {
+        dim: sum(1 for r in evidence if (r.get("priority") or {}).get(dim, {}).get("level", "none") != "none")
+        for dim in PRIORITY_DIMENSIONS
+    }
+    templates.env.globals["queue_counts"] = lambda: queue_summary_once
+    templates.env.globals["pending_review_count"] = lambda: 0
+
     # Static asset.
     static_out = OUTPUT_DIR / "static"
     static_out.mkdir(parents=True, exist_ok=True)

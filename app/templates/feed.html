@@ -66,6 +66,15 @@
       {% endfor %}
     </select>
   </div>
+  <div class="filter-field">
+    <label for="filter-region">Region</label>
+    <select id="filter-region" name="region">
+      <option value="">All regions</option>
+      {% for r in options.regions %}
+        <option value="{{ r }}" {% if filters.region == r %}selected{% endif %}>{{ r }}</option>
+      {% endfor %}
+    </select>
+  </div>
   <div class="filter-actions">
     <button type="submit">Apply filters</button>
     <a href="/">Clear</a>
