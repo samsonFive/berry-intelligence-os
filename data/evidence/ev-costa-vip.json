@@ -1,0 +1,62 @@
+{
+  "id": "ev-costa-vip",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_website",
+  "title": "Costa - Variety Improvement Program",
+  "source_name": "Costa Group Holdings Pty Ltd",
+  "source_url": "https://costagroup.com.au/our-categories/berries-international/variety-improvement-program/",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "Costa's description of its Variety Improvement Program, based at Corindi on the Mid North Coast of New South Wales. The programme is described as operating for more than 25 years, holding what Costa calls the largest blueberry germplasm bank in Australia, screening around 20,000 seedlings a year of which one to two per cent are retained, working to a seven to ten year timeline and releasing one to two new varieties a year. It states that the programme licenses Costa-bred blueberry varieties in regions including the Americas, Morocco, China and south east Africa.",
+  "why_it_matters": "Sets out the throughput and cadence of a competing breeding programme, which is a better predictor of future release pressure than any individual variety launch. It also confirms Costa as a licensor and not only a grower.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-costa-group-holdings",
+    "breeding_program-costa-variety-improvement",
+    "geography-australia",
+    "geography-morocco",
+    "geography-china"
+  ],
+  "fact_ids": [
+    "fact-costa-vip-corindi",
+    "fact-costa-vip-age-conflict",
+    "fact-costa-licensing-regions"
+  ],
+  "relationship_ids": [
+    "rel-costa-develops-variety-improvement-programme",
+    "rel-costa-operates-in-australia"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-emerging-varieties",
+    "sq-competitor-expansion"
+  ],
+  "tags": [
+    "tier-1",
+    "breeding-programme",
+    "self-description",
+    "licensing"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Throughput figures are the best available forward indicator."
+    },
+    "testing": {
+      "level": "low",
+      "rationale": "No variety-level performance data."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Confirms a licensing business alongside the growing business."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Programme pages are updated on release cycles."
+    }
+  }
+}

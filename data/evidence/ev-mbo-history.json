@@ -1,0 +1,51 @@
+{
+  "id": "ev-mbo-history",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_website",
+  "title": "History",
+  "source_name": "Mountain Blue",
+  "source_url": "https://www.mountainblue.com.au/history",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "Mountain Blue's history page, which gives a founding year of 1975. The company's home page gives 1978 for the same business.",
+  "why_it_matters": "Two pages on the same corporate website give different founding years. This is recorded as a conflicting claim rather than resolved, because no independent registry source was retrieved that settles it.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-mountain-blue-orchards"
+  ],
+  "fact_ids": [
+    "fact-mbo-history-1"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "company-profile",
+    "conflicting-claim",
+    "self-reported"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Short, but the internal contradiction is worth noting."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "low",
+      "rationale": "Founding year has little competitive weight."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Static content."
+    }
+  }
+}

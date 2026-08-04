@@ -1,0 +1,57 @@
+{
+  "id": "ev-ozblu-migiva-2019",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_press_release",
+  "title": "MIGIVA Group to invest US$32 million in OZblu production in North America",
+  "source_name": "OZblu",
+  "source_url": "https://www.ozblu.com/news/migiva-group-to-invest-u32-million-as-they-embark-an-ozblu-production-in-north-america/",
+  "published_date": "2019-03-25",
+  "captured_date": "2026-08-03",
+  "summary": "Announcement of a joint venture with MIGIVA Group involving US$32 million and the first OZblu farm in North America, comprising a 453 acre site at Venus, Florida and an 82 acre site at Sebring, Florida. Names Matt Zinger and Jonathan Geller, and describes Roger Horak as global chief executive of United Exports and co-founder of OZblu.",
+  "why_it_matters": "A dated, quantified expansion into the United States. Because it is a company announcement of a planned investment, it evidences intent and commitment rather than realised production.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-united-exports",
+    "brand-ozblu",
+    "geography-united-states"
+  ],
+  "fact_ids": [
+    "fact-ozblu-migiva-2019-1"
+  ],
+  "relationship_ids": [
+    "rel-united-exports-operates-in-united-states"
+  ],
+  "strategic_question_ids": [
+    "sq-competitor-expansion",
+    "sq-genetics-geographic-spread"
+  ],
+  "tags": [
+    "tier-1",
+    "joint-venture",
+    "investment",
+    "north-america",
+    "announced-not-verified"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "A concrete, quantified move into the largest consumption market."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Domestic United States production would change the platform's seasonal reach."
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "Announced plans should be checked against realised plantings."
+    }
+  }
+}

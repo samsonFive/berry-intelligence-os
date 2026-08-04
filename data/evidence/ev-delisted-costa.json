@@ -1,0 +1,52 @@
+{
+  "id": "ev-delisted-costa",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "market_data_service",
+  "title": "Costa Group Holdings Limited - delisting record",
+  "source_name": "deListed Australia",
+  "source_url": "https://www.delisted.com.au/company/costa-group-holdings-limited",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "Record showing Costa Group Holdings Limited, ASX code CGC, listed 24 July 2015 and delisted 27 February 2024.",
+  "why_it_matters": "Gives the precise register date for the delisting, where the company's own release says only earlier this month. Small differences like this matter when a dataset is used to establish what was known when.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-costa-group-holdings",
+    "geography-australia"
+  ],
+  "fact_ids": [
+    "fact-costa-delisted-2024"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-2",
+    "corporate",
+    "listing",
+    "date-precision"
+  ],
+  "priority": {
+    "reading": {
+      "level": "low",
+      "rationale": "A single date."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No variety content."
+    },
+    "commercial_position": {
+      "level": "low",
+      "rationale": "No commercial bearing."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Static."
+    }
+  }
+}

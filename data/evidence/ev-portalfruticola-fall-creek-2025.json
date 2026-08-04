@@ -1,0 +1,54 @@
+{
+  "id": "ev-portalfruticola-fall-creek-2025",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "trade_press",
+  "title": "Fall Creek and the renewal of blueberry varieties",
+  "source_name": "Portalfruticola",
+  "source_url": "https://www.portalfruticola.com/noticias/2025/12/11/fall-creek-arandanos-renovacion/",
+  "published_date": "2025-12-11",
+  "captured_date": "2026-08-03",
+  "summary": "Spanish-language trade coverage describing 'FC11-164' as mid-season with exceptional firmness and storage durability, and noting that matching the productivity of other new varieties is its principal remaining challenge.",
+  "why_it_matters": "One of the few pieces of trade commentary that records a limitation rather than only repeating a company strength claim. The productivity caveat is a useful counterweight to the owner's framing.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-fc11-164",
+    "company-fall-creek-farm-and-nursery",
+    "trait-yield"
+  ],
+  "fact_ids": [
+    "fact-portalfruticola-fall-creek-2025-1"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-emerging-varieties",
+    "sq-premium-trait-challengers",
+    "sq-testing-candidates"
+  ],
+  "tags": [
+    "tier-2",
+    "variety-limitation",
+    "third-party-commentary"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Records a limitation that is absent from owner materials."
+    },
+    "testing": {
+      "level": "high",
+      "rationale": "Yield is directly measurable and is the stated open question."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Only matters commercially if the variety reaches scale."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Follow up when yield data is published."
+    }
+  }
+}

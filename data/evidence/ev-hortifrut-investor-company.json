@@ -1,0 +1,63 @@
+{
+  "id": "ev-hortifrut-investor-company",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_website",
+  "title": "Hortifrut - Company (investor site)",
+  "source_name": "Hortifrut S.A.",
+  "source_url": "https://investor.hortifrut.com/en/company/",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "Hortifrut's investor page states that the company was founded in 1983 in Chile's VIII Region, operates in 15 countries, and lists corporate milestones. Named events include an October 2019 frozen-berry joint venture with Alifrut, an October 2019 Colombian joint venture with Proplantas in which Hortifrut holds 75 per cent and the Afanador family 25 per cent with blueberry exports from Colombia beginning in March 2020, and a December 2019 agreement to acquire a non-controlling interest in the Portuguese BFruit Producers Organization. It also identifies Munger Brothers and MBG as Naturipe partners.",
+  "why_it_matters": "Establishes the corporate baseline and dated expansion events, and separates Munger Brothers from Michigan Blueberry Growers, two distinct partners that are easily conflated.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-hortifrut",
+    "company-michigan-blueberry-growers",
+    "company-naturipe-farms",
+    "geography-chile",
+    "geography-colombia",
+    "geography-portugal"
+  ],
+  "fact_ids": [
+    "fact-hortifrut-founded-1983",
+    "fact-hortifrut-colombia-jv-2019",
+    "fact-hortifrut-bfruit-2019"
+  ],
+  "relationship_ids": [
+    "rel-hortifrut-partners-with-naturipe",
+    "rel-hortifrut-operates-in-colombia",
+    "rel-hortifrut-operates-in-portugal"
+  ],
+  "strategic_question_ids": [
+    "sq-competitor-expansion",
+    "sq-genetics-geographic-spread"
+  ],
+  "tags": [
+    "tier-1",
+    "corporate",
+    "expansion",
+    "self-description"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Dated corporate events from the company's own investor material."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No variety or trait content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Shows the pace and direction of geographic expansion."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Investor pages are updated as new transactions close."
+    }
+  }
+}

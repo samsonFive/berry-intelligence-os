@@ -1,0 +1,54 @@
+{
+  "id": "ev-fallcreek-catalog-sekoya-beauty",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_catalog",
+  "title": "SEKOYA® Beauty™ 'FCM12-097'",
+  "source_name": "Fall Creek Catalogs",
+  "source_url": "https://fallcreekcatalogs.com/2025/01/23/sekoya-beauty-fcm12-097/",
+  "published_date": "2025-01-23",
+  "captured_date": "2026-08-03",
+  "summary": "Owner catalogue entry claiming jumbo size, very firm fruit and 45 days of storage. No storage temperature, packaging or quality threshold is given.",
+  "why_it_matters": "Owner-published trait descriptions are the marketing baseline against which independent trial and registry descriptions should be compared. Storage-day figures in particular are stated without any protocol and cannot be treated as measurements.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-sekoya-beauty",
+    "company-fall-creek-farm-and-nursery",
+    "trait-postharvest-shelf-life"
+  ],
+  "fact_ids": [
+    "fact-fallcreek-catalog-sekoya-beauty-1"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-premium-trait-challengers",
+    "sq-repeated-trait-claims"
+  ],
+  "tags": [
+    "tier-1",
+    "owner-claim",
+    "variety-catalog",
+    "no-stated-protocol"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Short catalogue entries; the substance is a handful of claims."
+    },
+    "testing": {
+      "level": "high",
+      "rationale": "Every claim here is a candidate for independent verification."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Marketing language indicates how the owner positions the variety, not how it performs."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Catalogue text is revised roughly annually."
+    }
+  }
+}

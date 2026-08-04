@@ -1,0 +1,76 @@
+{
+  "id": "ev-producereport-blugenix-2026",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "trade_press",
+  "title": "Costa launches BluGenix with five blueberry varieties suited to Yunnan",
+  "source_name": "Produce Report",
+  "source_url": "https://www.producereport.com/article/costa-launches-blugenix-5-blueberry-varieties-suited-yunnan",
+  "published_date": "2026-06-08",
+  "captured_date": "2026-08-04",
+  "summary": "Reports the launch of BluGenix on 29 May 2026 as the brand and platform for Costa's blueberry breeding programme, introduced with five varieties: Bounty, Breeze, Cascade, Delight and Eterna. Shelf life of 27 days at 4 degrees Celsius is claimed for all five and up to 50 days for Eterna. Costa chief executive Marc Werner and Leon Van Biljon, regional director of Costa Berry International, are quoted. The article describes the programme as drawing on close to 40 years of plant breeding expertise, and names South Africa, Zimbabwe, Morocco, the United States, Mexico, Peru, China and Australia as growing countries for BluGenix varieties.",
+  "why_it_matters": "A competitor putting a brand in front of its breeding programme is a shift from selling varieties to selling a platform, which is the same move Fall Creek made with Sekoya and United Exports with OZblu. The shelf-life claims carry no method, and the close to 40 years figure contradicts the more than 25 years Costa states on its own programme page.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "brand-blugenix",
+    "company-costa-group-holdings",
+    "breeding_program-costa-variety-improvement",
+    "variety-eterna",
+    "trait-postharvest-shelf-life",
+    "geography-china",
+    "geography-south-africa",
+    "geography-zimbabwe",
+    "geography-morocco",
+    "geography-united-states",
+    "geography-mexico",
+    "geography-peru",
+    "geography-australia"
+  ],
+  "fact_ids": [
+    "fact-costa-vip-age-conflict",
+    "fact-blugenix-launch-2026",
+    "fact-blugenix-shelf-life-claim",
+    "fact-blugenix-growing-countries"
+  ],
+  "relationship_ids": [
+    "rel-costa-develops-eterna",
+    "rel-costa-owns-blugenix",
+    "rel-costa-operates-in-china",
+    "rel-costa-operates-in-south-africa"
+  ],
+  "strategic_question_ids": [
+    "sq-emerging-varieties",
+    "sq-competitor-expansion",
+    "sq-premium-trait-challengers",
+    "sq-repeated-trait-claims"
+  ],
+  "tags": [
+    "tier-2",
+    "launch",
+    "platform-brand",
+    "owner-claim",
+    "recent",
+    "internal-inconsistency"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "A new managed-variety platform entering the market."
+    },
+    "testing": {
+      "level": "high",
+      "rationale": "Five named varieties with claimed shelf life and no method: prime test candidates."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Direct competitive parallel to Sekoya and OZblu."
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "Early-stage launch; territory and variety detail should be tracked."
+    }
+  }
+}

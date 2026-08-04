@@ -1,0 +1,59 @@
+{
+  "id": "ev-uspp028437-sekoya-beauty",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "patent_record",
+  "title": "USPP028437P3 - SEKOYA Beauty 'FCM12-097'",
+  "source_name": "United States Patent and Trademark Office plant patent record",
+  "source_url": "https://www.lens.org/lens/patent/004-752-018-959-306",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "United States plant patent granted 2017-09-26 on application 14/998,607 filed 2016-01-21. Inventors Brazelton, Wagner, Boches and Alamo Bermudo; parentage 'FF03-194' x 'FL00-180' from cross X08-167 made in 2008.",
+  "why_it_matters": "A granted plant patent is a public registry record. It fixes ownership, priority dates and parentage, and its botanical description is prepared under a legal duty of accuracy, which makes it a stronger source for varietal identity than any marketing material.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-sekoya-beauty",
+    "patent-uspp028437p3",
+    "company-fall-creek-farm-and-nursery",
+    "breeding_program-fall-creek-blueberry-breeding"
+  ],
+  "fact_ids": [
+    "fact-uspp028437-sekoya-beauty-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-develops-sekoya-beauty",
+    "rel-fall-creek-program-develops-sekoya-beauty",
+    "rel-fall-creek-owns-uspp028437p3"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "registry-record",
+    "intellectual-property",
+    "united-states"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Registry records are the anchor for varietal identity across the whole dataset."
+    },
+    "testing": {
+      "level": "low",
+      "rationale": "Patent descriptions suggest comparison standards for trialling but are not trial data."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Patent coverage indicates which markets a breeder intends to defend."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Grant status changes rarely; expiry dates matter on a multi-year horizon."
+    }
+  }
+}

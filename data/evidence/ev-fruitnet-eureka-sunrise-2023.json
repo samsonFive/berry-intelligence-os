@@ -1,0 +1,63 @@
+{
+  "id": "ev-fruitnet-eureka-sunrise-2023",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "trade_press",
+  "title": "Taste of success for Eureka Sunrise",
+  "source_name": "Fresh Produce Journal / Fruitnet",
+  "source_url": "https://www.fruitnet.com/fresh-produce-journal/taste-of-success-for-eureka-sunrise/248114.article",
+  "published_date": "2023-01-20",
+  "captured_date": "2026-08-03",
+  "summary": "Report by Michael Barker that Eureka Sunrise received a two-star Superior Taste Award from the International Taste Institute with a score of 86.5 percent, and that it is grown exclusively by BerryWorld growers in South Africa, Zimbabwe, Morocco, Spain and Portugal with plantings in Egypt. Quotes Adrian Olins, divisional chief executive of BerryWorld Group.",
+  "why_it_matters": "Supplies a numeric independent sensory score, which is rare, and an explicit list of production countries for a single cultivar under an exclusive arrangement. Note that the award is a sensory panel result, not an agronomic measurement.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-eureka-sunrise",
+    "company-berryworld",
+    "company-mountain-blue-orchards",
+    "geography-south-africa",
+    "geography-morocco",
+    "geography-spain",
+    "trait-eating-quality"
+  ],
+  "fact_ids": [
+    "fact-fruitnet-eureka-sunrise-2023-1",
+    "fact-fruitnet-eureka-sunrise-2023-2"
+  ],
+  "relationship_ids": [
+    "rel-berryworld-sells-eureka-sunrise",
+    "rel-eureka-sunrise-grown-south-africa"
+  ],
+  "strategic_question_ids": [
+    "sq-genetics-geographic-spread",
+    "sq-premium-trait-challengers",
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-2",
+    "independent-sensory-award",
+    "geographic-footprint",
+    "exclusive-licence"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Combines an independent quality result with a concrete geographic footprint."
+    },
+    "testing": {
+      "level": "medium",
+      "rationale": "Sensory performance is testable, though panel methods differ."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Exclusive multi-country production is a strong commercial position."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Country lists expand as plantings mature."
+    }
+  }
+}

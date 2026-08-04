@@ -1,0 +1,66 @@
+{
+  "id": "ev-uf-breeding-colossus",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "research_program_publication",
+  "title": "UF blueberry breeding programme cultivar page - Colossus",
+  "source_name": "University of Florida blueberry breeding programme",
+  "source_url": "https://www.blueberrybreeding.com/colossus",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "Programme page for Colossus 'FL11-35' reporting firmness of 304 g/mm at harvest, 336 at 21 days and 286 at 49 days, berry weight of 2.4 to 4.0 g averaging 2.8 g, diameter of 17.9 to 23.0 mm averaging 20.5 mm, average soluble solids of 12.3 degrees Brix, a flavour score of 24.6, yields of 6.5 to 12.4 lb per plant averaging 10.3 in north-central Florida over 2018-19 and 6.1 lb per plant in central Florida, and good performance in machine-harvest trials.",
+  "why_it_matters": "The UF breeding programme is the only major blueberry breeder in this dataset that publishes numeric, instrument-based trait measurements for its releases. These figures are measurements taken by the breeding institution, not marketing claims, and they provide the quantitative benchmark against which private breeders' qualitative claims can be judged. The pages do not always state season, replication or instrument calibration, so they are strong but not fully specified.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-colossus",
+    "company-university-of-florida",
+    "breeding_program-uf-ifas-blueberry-breeding",
+    "trait-fruit-firmness",
+    "trait-fruit-size",
+    "trait-eating-quality",
+    "trait-yield",
+    "trait-machine-harvest-suitability"
+  ],
+  "fact_ids": [
+    "fact-uf-breeding-colossus-1",
+    "fact-uf-breeding-colossus-2",
+    "fact-uf-breeding-colossus-3"
+  ],
+  "relationship_ids": [
+    "rel-uf-develops-colossus",
+    "rel-uf-program-develops-colossus"
+  ],
+  "strategic_question_ids": [
+    "sq-premium-trait-challengers",
+    "sq-testing-candidates",
+    "sq-repeated-trait-claims"
+  ],
+  "tags": [
+    "tier-1",
+    "measured-data",
+    "breeder-published",
+    "public-genetics",
+    "benchmark"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Numeric trait data is scarce in this sector and directly usable."
+    },
+    "testing": {
+      "level": "high",
+      "rationale": "Provides the measurement conventions and comparison values a trial programme should adopt."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Public cultivars set the performance floor that premium club varieties must clear."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Programme pages are updated as new season data accumulates."
+    }
+  }
+}

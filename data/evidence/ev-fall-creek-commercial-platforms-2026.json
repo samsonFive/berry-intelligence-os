@@ -1,0 +1,60 @@
+{
+  "id": "ev-fall-creek-commercial-platforms-2026",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_website",
+  "title": "Commercial Platforms",
+  "source_name": "Fall Creek Catalogs",
+  "source_url": "https://fallcreekcatalogs.com/commercial-platforms/",
+  "published_date": "2026-01-29",
+  "captured_date": "2026-08-03",
+  "summary": "Fall Creek's own description of its three commercialisation routes: the closed SEKOYA member platform founded in 2017, the Fall Creek Collection for wider licensing, and an open catalogue. States a SEKOYA membership figure of 14.",
+  "why_it_matters": "This is the clearest company-authored statement of how Fall Creek segments its genetics between closed-club and open licensing, which is the core of its competitive model. The membership count conflicts with a trade-press figure of 15, so the number is treated as disputed.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-fall-creek-farm-and-nursery",
+    "brand-sekoya",
+    "brand-fall-creek-collection"
+  ],
+  "fact_ids": [
+    "fact-fall-creek-commercial-platforms-2026-1",
+    "fact-fall-creek-commercial-platforms-2026-2",
+    "fact-fall-creek-commercial-platforms-2026-3"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-owns-brand-sekoya",
+    "rel-fall-creek-owns-brand-collection"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-competitor-expansion"
+  ],
+  "tags": [
+    "tier-1",
+    "business-model",
+    "club-variety",
+    "membership-count",
+    "self-reported"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Defines the commercial architecture that every Fall Creek variety record sits inside."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Closed versus open licensing is the primary axis of competitive differentiation among blueberry breeders."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Membership counts and platform composition change between seasons and should be re-read annually."
+    }
+  }
+}

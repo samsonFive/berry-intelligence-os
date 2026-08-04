@@ -1,0 +1,66 @@
+{
+  "id": "ev-uspp025432-ridley-1403",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "patent_record",
+  "title": "USPP025432P3 - 'Ridley 1403'",
+  "source_name": "United States Patent and Trademark Office",
+  "source_url": "https://patents.google.com/patent/USPP25432P3/en",
+  "published_date": "2012-11-13",
+  "captured_date": "2026-08-03",
+  "summary": "United States plant patent on 'Ridley 1403', application 13/694,258. The variety originated as a single plant, 'M08-14-03', selected in 2008 from 100 seedlings at Lindendale, New South Wales, from a 2006 cross of 'S02-25-05' with 'S03-08-02', both unpatented. The official description records an upright to semi-upright habit, strong vigour, evergreen foliage, very early flowering, early to medium ripening, very large fruit, medium-firm fruit, dark blue colour, a good balance of sweetness and acidity, and a small dry picking scar.",
+  "why_it_matters": "The registry description says medium-firm where the owner's marketing says the fruit is exceptional. That gap between a legally filed botanical description and a marketing description is exactly the kind of divergence this dataset exists to record. The patent is also the anchor for the Eureka identity question, since trade sources map the Eureka brand to this code without registry confirmation.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-eureka",
+    "patent-uspp025432p3",
+    "company-mountain-blue-orchards",
+    "trait-fruit-firmness",
+    "trait-fruit-size",
+    "trait-eating-quality",
+    "breeding_program-mountain-blue-blueberry-breeding"
+  ],
+  "fact_ids": [
+    "fact-uspp025432-ridley-1403-1",
+    "fact-uspp025432-ridley-1403-2",
+    "fact-uspp025432-ridley-1403-3"
+  ],
+  "relationship_ids": [
+    "rel-mbo-develops-eureka",
+    "rel-mbo-program-develops-eureka",
+    "rel-mbo-owns-uspp025432p3"
+  ],
+  "strategic_question_ids": [
+    "sq-premium-trait-challengers",
+    "sq-global-genetics-reach",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "registry-record",
+    "intellectual-property",
+    "claim-divergence",
+    "identity-resolution"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Central record for the most widely registered blueberry cultivar in the dataset."
+    },
+    "testing": {
+      "level": "medium",
+      "rationale": "The firmness discrepancy is a direct trial question."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "This cultivar underpins a large licensed international footprint."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Patent text is fixed."
+    }
+  }
+}

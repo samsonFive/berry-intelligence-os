@@ -1,0 +1,53 @@
+{
+  "id": "ev-hortifrut-integrated-report-2023",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_annual_report",
+  "title": "Hortifrut Integrated Annual Report 2023 (English)",
+  "source_name": "Hortifrut S.A.",
+  "source_url": "https://investor.hortifrut.com/wp-content/uploads/2024/07/MEMORIA-INTEGRADA-HF-2023_ENGLISH.pdf",
+  "published_date": "2024-07-01",
+  "captured_date": "2026-08-04",
+  "summary": "Hortifrut's integrated annual report for 2023 records the controlling group as the Moller, Quevedo, Del Rio and Elberg families and states that, following the December 2022 investment agreement, PSP Investments of Canada together with SJF Investment SpA acquired 49.56 per cent of the company. Holders above 10 per cent of Series A and B shares are given as 14602889 Canada Inc. at 25.12 per cent and SJF Investment SpA at 19.56 per cent, with PSPIB Natural Resources at 4.88 per cent. The company had 44 shareholders at 31 December 2023.",
+  "why_it_matters": "Ownership determines who ultimately controls one of the largest blueberry genetics and production platforms. A pension-fund investor taking almost half the equity is a structural change in the sector, not a routine financing.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-hortifrut",
+    "geography-canada"
+  ],
+  "fact_ids": [
+    "fact-hortifrut-psp-4956",
+    "fact-hortifrut-controlling-families"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-competitor-expansion"
+  ],
+  "tags": [
+    "tier-1",
+    "corporate",
+    "ownership",
+    "financial-report"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Audited-report ownership detail, the most reliable class available."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No variety content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Capital structure drives investment capacity."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Refreshed annually."
+    }
+  }
+}

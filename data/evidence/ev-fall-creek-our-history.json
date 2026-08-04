@@ -1,0 +1,54 @@
+{
+  "id": "ev-fall-creek-our-history",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_website",
+  "title": "Our History",
+  "source_name": "Fall Creek Farm & Nursery",
+  "source_url": "https://www.fallcreeknursery.com/about/about-fall-creek/our-history",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "Company-authored history page stating that Fall Creek was founded in 1978 in Lowell, Oregon and describing its growth from a family nursery into an international blueberry genetics and propagation business.",
+  "why_it_matters": "Establishes the founding date, founding location and self-described business scope of a primary genetics competitor. Company-authored, so corporate facts are reliable but any performance or market-position language on the page is a claim.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-fall-creek-farm-and-nursery",
+    "geography-united-states"
+  ],
+  "fact_ids": [
+    "fact-fall-creek-our-history-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-operates-in-united-states"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-1",
+    "company-profile",
+    "founding-facts",
+    "self-reported"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Baseline corporate facts needed before any competitor assessment can be written."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Nothing on this page is testable in a trial setting."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Founding date and scale context inform how the company is positioned against other breeders."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Static corporate history; unlikely to change."
+    }
+  }
+}

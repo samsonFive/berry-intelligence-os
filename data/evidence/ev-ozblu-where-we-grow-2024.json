@@ -1,0 +1,54 @@
+{
+  "id": "ev-ozblu-where-we-grow-2024",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_website",
+  "title": "Where We Grow",
+  "source_name": "OZblu",
+  "source_url": "https://www.ozblu.com/our-story/where-we-grow/",
+  "published_date": "2024-11-05",
+  "captured_date": "2026-08-03",
+  "summary": "Company table mapping OZblu selection codes to brand names and United States plant patent numbers: EB8-42 is Julieta with PP25,858; EB8-46 is Bella with PP26,173; EB9-2 is Magica with PP28,149; EB9-12 is Bonita with PP25,358; EB12-19 is Magnifica with PP27,142; NS13-6 is Elaina with PP30,934; NS15-13 is Dina with PP33,138; and NS16-2 is Olivia with PP32,897.",
+  "why_it_matters": "An owner-published code to brand to patent mapping for an entire portfolio. Mappings of this completeness are rare and are the key to joining trade volume data, which uses brand names, to registry data, which uses codes.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "brand-ozblu",
+    "company-united-exports",
+    "company-nature-select"
+  ],
+  "fact_ids": [
+    "fact-ozblu-where-we-grow-2024-1"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "brand-to-code-mapping",
+    "identity-resolution",
+    "intellectual-property"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "High-value identity resolution across a full portfolio."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Patent coverage indicates the breadth of the protected portfolio."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "New releases are added to the table over time."
+    }
+  }
+}

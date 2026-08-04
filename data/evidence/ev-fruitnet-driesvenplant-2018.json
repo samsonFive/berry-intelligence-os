@@ -1,0 +1,55 @@
+{
+  "id": "ev-fruitnet-driesvenplant-2018",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "trade_press",
+  "title": "Fall Creek Farm and Nursery buys Driesvenplant",
+  "source_name": "Asiafruit / Fruitnet",
+  "source_url": "https://www.fruitnet.com/asiafruit/fall-creek-farm-and-nursery-buys-driesvenplant/175849.article",
+  "published_date": "2018-06-15",
+  "captured_date": "2026-08-03",
+  "summary": "Trade report, by Matthew Jones, that Fall Creek acquired the Dutch nursery Driesvenplant, extending its European propagation capacity.",
+  "why_it_matters": "A dated corporate transaction that expands European propagation capacity. Acquisitions of propagation assets are a leading indicator of where a genetics business intends to place volume.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-fall-creek-farm-and-nursery",
+    "geography-netherlands"
+  ],
+  "fact_ids": [
+    "fact-fruitnet-driesvenplant-2018-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-operates-in-netherlands"
+  ],
+  "strategic_question_ids": [
+    "sq-competitor-expansion",
+    "sq-genetics-geographic-spread"
+  ],
+  "tags": [
+    "tier-2",
+    "mergers-and-acquisitions",
+    "europe",
+    "propagation-capacity"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Short factual item; quickly absorbed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Owning European propagation capacity materially changes a genetics supplier's cost and speed to market."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Watch for further European nursery consolidation."
+    }
+  }
+}

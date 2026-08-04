@@ -1,0 +1,62 @@
+{
+  "id": "ev-uspp025386-last-call",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "patent_record",
+  "title": "USPP025386P3 - Last Call",
+  "source_name": "United States Patent and Trademark Office plant patent record",
+  "source_url": "https://patents.google.com/patent/USPP25386P3/en",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "United States plant patent granted 2015-03-31. Estimates a chilling requirement of about 1000 hours and reports firmness measured against 'Elliott' using a FirmTech 2 instrument.",
+  "why_it_matters": "A granted plant patent is a public registry record. It fixes ownership, priority dates and parentage, and its botanical description is prepared under a legal duty of accuracy, which makes it a stronger source for varietal identity than any marketing material.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-last-call",
+    "patent-uspp025386p3",
+    "company-fall-creek-farm-and-nursery",
+    "trait-chilling-requirement",
+    "trait-fruit-firmness",
+    "breeding_program-fall-creek-blueberry-breeding"
+  ],
+  "fact_ids": [
+    "fact-uspp025386-last-call-1",
+    "fact-uspp025386-last-call-2"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-develops-last-call",
+    "rel-fall-creek-program-develops-last-call",
+    "rel-fall-creek-owns-uspp025386p3"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "registry-record",
+    "intellectual-property",
+    "united-states"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Registry records are the anchor for varietal identity across the whole dataset."
+    },
+    "testing": {
+      "level": "low",
+      "rationale": "Patent descriptions suggest comparison standards for trialling but are not trial data."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Patent coverage indicates which markets a breeder intends to defend."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Grant status changes rarely; expiry dates matter on a multi-year horizon."
+    }
+  }
+}

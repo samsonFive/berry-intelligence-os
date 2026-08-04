@@ -1,0 +1,60 @@
+{
+  "id": "ev-planasa-blue-maldiva",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_website",
+  "title": "Planasa - Blueberry Blue Maldiva",
+  "source_name": "Plantas de Navarra, S.A. (Planasa)",
+  "source_url": "https://planasa.com/variety/blueberry-blue-maldiva/",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "Planasa's variety page for Blue Maldiva, selection 'Plablue 1542', giving 4,200 g per plant, 6 g per fruit and 16 degrees Brix. No method, site or season is stated.",
+  "why_it_matters": "A 6 g fruit at 16 degrees Brix would be an exceptional combination if independently confirmed. Nothing in the public record confirms it, and no patent or plant breeders' right for this cultivar was located, so the claim stands alone.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-blue-maldiva",
+    "company-planasa",
+    "breeding_program-planasa-blueberry",
+    "trait-soluble-solids",
+    "trait-yield",
+    "trait-fruit-size"
+  ],
+  "fact_ids": [
+    "fact-blue-maldiva-plablue-1542"
+  ],
+  "relationship_ids": [
+    "rel-planasa-develops-blue-maldiva"
+  ],
+  "strategic_question_ids": [
+    "sq-premium-trait-challengers",
+    "sq-testing-candidates",
+    "sq-repeated-trait-claims"
+  ],
+  "tags": [
+    "tier-1",
+    "variety-data",
+    "owner-claim",
+    "unverified-performance"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "A strong claim with nothing behind it yet."
+    },
+    "testing": {
+      "level": "high",
+      "rationale": "A high-value candidate precisely because the claim is unverified."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Positions against other premium large-fruit varieties."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Watch for a patent or plant breeders' right filing."
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "id": "ev-uspp027142-eb12-19",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "patent_record",
+  "title": "USPP027142P3 - 'EB 12-19' (OZblu Magnifica)",
+  "source_name": "United States Patent and Trademark Office",
+  "source_url": "https://patents.google.com/patent/USPP27142P3/en",
+  "published_date": "2016-09-13",
+  "captured_date": "2026-08-04",
+  "summary": "United States plant patent on the blueberry selection 'EB 12-19', granted 2016-09-13. The sole named inventor is Vincent David Mazzardis and the cross was made at Yanchep Springs, Yanchep, Western Australia, from '8-19', unpatented, with 'EB 8-1', protected by US PP25,859, in the 2009 season. Assignees of record: Bisa Trading Pty Ltd, Prunus Persica Pty Ltd. The variety is marketed internationally as OZblu Magnifica.",
+  "why_it_matters": "The patent record is the only source that settles who bred this variety. It names an individual inventor in Western Australia and Australian holding entities, not the company that markets the fruit. Taken together across the eight OZblu patents, this establishes that the OZblu portfolio and the Mountain Blue Ridley portfolio are separate breeding lineages, and that the marketer is not the breeder.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "patent-uspp027142p3",
+    "variety-magnifica",
+    "brand-ozblu",
+    "company-united-exports",
+    "company-bisa-trading",
+    "company-prunus-persica",
+    "patent-uspp025859p3",
+    "company-next-progeny"
+  ],
+  "fact_ids": [
+    "fact-ozblu-identity-magnifica",
+    "fact-ozblu-assignee-structure"
+  ],
+  "relationship_ids": [
+    "rel-bisa-trading-owns-uspp027142p3",
+    "rel-prunus-persica-owns-uspp027142p3",
+    "rel-united-exports-sells-magnifica"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-emerging-varieties",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "patent",
+    "ozblu",
+    "breeding-origin",
+    "identity-resolution"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "The patent is the authoritative statement of inventorship and parentage."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "A patent describes a plant; it does not create anything to test."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Establishes who holds the rights and therefore who can license."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "A granted patent is a fixed record; only assignment changes need watching."
+    }
+  }
+}

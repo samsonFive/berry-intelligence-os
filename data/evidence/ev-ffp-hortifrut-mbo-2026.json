@@ -1,0 +1,55 @@
+{
+  "id": "ev-ffp-hortifrut-mbo-2026",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "trade_press",
+  "title": "Hortifrut and MBO berry deal",
+  "source_name": "FreshFruitPortal",
+  "source_url": "https://www.freshfruitportal.com/news/2026/07/30/hortifrut-mbo-berry-deal/",
+  "published_date": "2026-07-30",
+  "captured_date": "2026-08-04",
+  "summary": "Trade coverage of the 30 July 2026 Naturipe, Hortifrut and Mountain Blue Orchards genetics collaboration, published the same day as the announcement and reporting the same content.",
+  "why_it_matters": "Recorded to document that the trade coverage is same-day republication of the companies' own announcement rather than independent reporting. It does not raise the confidence of the underlying claim, and this record exists so that the package does not appear to have two independent sources where it has one.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-hortifrut",
+    "company-naturipe-farms",
+    "company-mountain-blue-orchards"
+  ],
+  "fact_ids": [
+    "fact-hortifrut-mbo-collaboration-2026"
+  ],
+  "relationship_ids": [
+    "rel-hortifrut-partners-with-mbo"
+  ],
+  "strategic_question_ids": [
+    "sq-competitor-expansion"
+  ],
+  "tags": [
+    "tier-2",
+    "partnership",
+    "republication",
+    "not-independent"
+  ],
+  "priority": {
+    "reading": {
+      "level": "low",
+      "rationale": "Adds no facts beyond the press release."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No variety content."
+    },
+    "commercial_position": {
+      "level": "low",
+      "rationale": "Useful only as a corroboration audit trail."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Watch instead for independent follow-up reporting."
+    }
+  }
+}

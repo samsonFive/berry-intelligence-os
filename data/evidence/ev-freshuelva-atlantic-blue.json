@@ -1,0 +1,52 @@
+{
+  "id": "ev-freshuelva-atlantic-blue",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "industry_association_profile",
+  "title": "Atlantic Blue S.L. - member profile",
+  "source_name": "Freshuelva",
+  "source_url": "https://freshuelva.es/en/atlantic-blue-s-l-2/",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "Association profile of Atlantic Blue stating that the company introduced blueberries to Huelva in 1993, started from four hectares and reached more than 400 hectares in Almonte and Aroche, began a genetic programme in 1995, and holds varieties protected in the European Union and elsewhere.",
+  "why_it_matters": "Provides an account of the Atlantic Blue breeding programme from a third-party association rather than from its acquirer, and dates the programme to 1995, well before the Hortifrut acquisition.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "breeding_program-atlantic-blue-royal-berries",
+    "geography-spain"
+  ],
+  "fact_ids": [
+    "fact-atlantic-blue-programme-origin"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-1",
+    "genetics",
+    "history",
+    "third-party-profile"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Useful background on programme origins."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No performance data."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Establishes the depth of the acquired programme."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Static profile page."
+    }
+  }
+}

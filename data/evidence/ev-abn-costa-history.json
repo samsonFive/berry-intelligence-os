@@ -1,0 +1,52 @@
+{
+  "id": "ev-abn-costa-history",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "government_registry",
+  "title": "ABN Lookup - historical details for ABN 68 151 363 129",
+  "source_name": "Australian Business Register",
+  "source_url": "https://abr.business.gov.au/AbnHistory/View/68151363129",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "The Australian Business Register history for ABN 68 151 363 129 records the entity name as Costa Group Holdings Limited from 19 November 2015 to 3 June 2024 and as COSTA GROUP HOLDINGS PTY LTD from 3 June 2024. The ABN was registered on 29 June 2011. Registered office history shows a move to Level 5, 818 Bourke Street, Docklands, Victoria 3008 and a previous address at Unit 1, 275 Robinsons Road, Ravenhall, Victoria 3023.",
+  "why_it_matters": "A government register settles the legal name and the exact date it changed. Records that still carry the Limited name are describing an entity that no longer exists under that name, which matters for any contractual or rights lookup.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-costa-group-holdings",
+    "geography-australia"
+  ],
+  "fact_ids": [
+    "fact-costa-entity-name-change-2024"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "registry",
+    "legal-identity",
+    "corporate"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Precise legal identity detail."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No variety content."
+    },
+    "commercial_position": {
+      "level": "low",
+      "rationale": "No direct commercial bearing."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Changes only on a further corporate action."
+    }
+  }
+}

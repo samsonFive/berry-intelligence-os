@@ -1,0 +1,53 @@
+{
+  "id": "ev-packer-finefield-2024",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "trade_press",
+  "title": "Fall Creek Farm and Nursery invests in mechanical harvesting company",
+  "source_name": "The Packer",
+  "source_url": "https://www.thepacker.com/news/packer-tech/fall-creek-farm-and-nursery-invests-mechanical-harvesting-company",
+  "published_date": "2024-02-05",
+  "captured_date": "2026-08-03",
+  "summary": "Report by Christina Herrick that Fall Creek took a minority investment in the mechanical harvesting business FineField.",
+  "why_it_matters": "A genetics company investing in harvest machinery signals that machine-harvest suitability is being treated as a breeding objective rather than an afterthought. This connects directly to the machine-harvest trait claims later made for 'FC11-164'.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-fall-creek-farm-and-nursery",
+    "trait-machine-harvest-suitability"
+  ],
+  "fact_ids": [
+    "fact-packer-finefield-2024-1"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-competitor-expansion",
+    "sq-premium-trait-challengers"
+  ],
+  "tags": [
+    "tier-2",
+    "investment",
+    "mechanisation",
+    "strategy-signal"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Directly informs how to read the company's later machine-harvest variety claims."
+    },
+    "testing": {
+      "level": "medium",
+      "rationale": "Machine-harvest performance is testable and should be on the trial list."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Vertical integration into harvest technology is a durable competitive move."
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "Track whether the investment converts into commercial deployments."
+    }
+  }
+}

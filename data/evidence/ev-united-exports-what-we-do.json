@@ -1,0 +1,68 @@
+{
+  "id": "ev-united-exports-what-we-do",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_website",
+  "title": "What We Do",
+  "source_name": "United Exports",
+  "source_url": "https://united-exports.com/what-we-do/",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "Company page listing OZblu production countries as South Africa, Australia, the United States, Chile, Peru, Mexico, Zambia and Spain, with exports to about 19 markets, and noting OZPeach and Burchell licences.",
+  "why_it_matters": "Gives the geographic spread of a licensed variety platform in the company's own words. Because it is self-reported and undated, the country list is treated as a claim rather than a verified footprint.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-united-exports",
+    "brand-ozblu",
+    "geography-south-africa",
+    "geography-australia",
+    "geography-united-states",
+    "geography-chile",
+    "geography-peru",
+    "geography-mexico",
+    "geography-spain",
+    "geography-zambia"
+  ],
+  "fact_ids": [
+    "fact-united-exports-what-we-do-1"
+  ],
+  "relationship_ids": [
+    "rel-united-exports-operates-in-chile",
+    "rel-united-exports-operates-in-peru",
+    "rel-united-exports-operates-in-mexico",
+    "rel-united-exports-operates-in-spain",
+    "rel-united-exports-operates-in-australia",
+    "rel-united-exports-operates-in-zambia"
+  ],
+  "strategic_question_ids": [
+    "sq-genetics-geographic-spread",
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-1",
+    "geographic-footprint",
+    "self-reported",
+    "undated"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "The clearest single statement of platform geography."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Eight production countries across both hemispheres is a genuine year-round supply position."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Undated, so it should be re-checked before being relied on."
+    }
+  }
+}

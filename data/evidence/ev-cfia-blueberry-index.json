@@ -1,0 +1,76 @@
+{
+  "id": "ev-cfia-blueberry-index",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "government_registry",
+  "title": "Plant Breeders' Rights - blueberry variety index",
+  "source_name": "Canadian Food Inspection Agency",
+  "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/ble.shtml",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "The Canadian plant breeders' rights blueberry register index. It lists 21 Driscoll's blueberry denominations with trade names including Kimberley, Rosita, Regina, Carlotta, Corrina, Caldonia, Cecilia, Roberto, Barbara Ann, Rosie Rooke, Sweet Jane and Stella Blue, together with Fall Creek entries, Berry Blue selection codes including 'BB05-251MI-14' Keepsake, 'BB05-259MI-15' Medallion, 'BB05-274MI-139' Sensation and 'BB06-507MI-52' Envoy, Michigan State and USDA public varieties, and New Zealand Plant and Food Research entries. No blueberry variety held by Costa, Planasa, Hortifrut or Advanced Berry Breeding appears on it.",
+  "why_it_matters": "A government register is the strongest available independent corroboration of a code-to-name mapping, because it does not depend on the rights holder's own marketing. It confirms four Berry Blue mappings independently of MBG's list. The absence of Costa, Planasa and Hortifrut entries is equally informative: it means those companies' code-to-name mappings currently rest on their own statements alone.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-cfia",
+    "company-driscolls",
+    "company-berry-blue-llc",
+    "variety-keepsake",
+    "variety-medallion",
+    "variety-arana",
+    "geography-canada",
+    "patent-uspp024807p3",
+    "company-michigan-blueberry-growers",
+    "patent-uspp032574p3",
+    "variety-drisbluetwentyone",
+    "patent-uspp032267p2",
+    "company-costa-group-holdings",
+    "company-planasa",
+    "company-hortifrut",
+    "company-advanced-berry-breeding"
+  ],
+  "fact_ids": [
+    "fact-keepsake-selection-code",
+    "fact-medallion-selection-code",
+    "fact-drisbluetwentyone-kimberley",
+    "fact-cfia-driscolls-21-denominations",
+    "fact-cfia-no-costa-planasa-hortifrut-blueberry"
+  ],
+  "relationship_ids": [
+    "rel-driscolls-operates-in-canada",
+    "rel-cfia-operates-in-canada"
+  ],
+  "strategic_question_ids": [
+    "sq-public-record-gaps",
+    "sq-global-genetics-reach",
+    "sq-emerging-varieties"
+  ],
+  "tags": [
+    "tier-1",
+    "registry",
+    "identity-resolution",
+    "independent-corroboration",
+    "coverage-gap"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Independent registry corroboration and a clear map of what is absent."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "An index, not a trial report."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Shows which portfolios are protected in Canada."
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "New registrations appear continuously; a good recurring monitoring target."
+    }
+  }
+}

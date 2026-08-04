@@ -1,0 +1,57 @@
+{
+  "id": "ev-ibo-agrovision-2019",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "industry_association_report",
+  "title": "Agro Vision blueberries - transforming lands, transforming lives",
+  "source_name": "International Blueberry Organization",
+  "source_url": "https://www.internationalblueberry.org/2019/09/04/agro-vision-blueberries-transforming-lands-transforming-lives/",
+  "published_date": "2019-09-04",
+  "captured_date": "2026-08-04",
+  "summary": "Industry association profile from 4 September 2019 stating that, through licences and strategic relationships with leading breeding programs globally, Agro Vision produces blueberries. It reports roughly 2,000 hectares planted at Olmos plus more than 500 adjacent hectares for the 2019/20 season, about 6.5 million kg of premium blueberries expected, a new blueberry and table-grape packing and cooling facility, and names Tom Snyder as chief executive.",
+  "why_it_matters": "The earliest clear statement that this company's genetics come from licences. It also establishes a 2019 chief executive different from the 2024 one, which explains an apparent inconsistency in leadership across sources.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-agrovision",
+    "geography-peru",
+    "brand-sekoya",
+    "company-fall-creek-farm-and-nursery"
+  ],
+  "fact_ids": [
+    "fact-agrovision-licenses-not-breeds"
+  ],
+  "relationship_ids": [
+    "rel-agrovision-operates-in-peru"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-competitor-expansion"
+  ],
+  "tags": [
+    "tier-2",
+    "production",
+    "licensee-not-breeder",
+    "historical"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Historical baseline for scale and model."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No variety data."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Shows the starting point of a rapid expansion."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Dated; superseded by later reporting."
+    }
+  }
+}

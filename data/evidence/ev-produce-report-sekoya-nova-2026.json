@@ -1,0 +1,66 @@
+{
+  "id": "ev-produce-report-sekoya-nova-2026",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_press_release",
+  "title": "Fall Creek To Reveal New Sekoya Nova 'FC15-173' High-Chill Blueberry Variety",
+  "source_name": "Produce Report (carrying a Fall Creek press release)",
+  "source_url": "https://www.producereport.com/article/press-release-fall-creek-reveal-new-sekoya-nova-fc15-173-high-chill-blueberry-variety",
+  "published_date": "2026-02-03",
+  "captured_date": "2026-08-03",
+  "summary": "Company press release announcing SEKOYA Nova 'FC15-173', a high-chill selection. States more than 60 days of shelf life against about 45 days described as typical for newer high-chill releases, and about 80 percent of fruit above 18 mm diameter against 20 to 50 percent for comparable varieties. Quotes chief commercial officer Paul Nselel and vice-president and general manager Mark David.",
+  "why_it_matters": "The only source for the Nova performance figures. Every number in it originates from the company's own evaluation data, with no stated trial protocol, site, season or replication. The figures must be carried as owner claims, not as measured facts.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-sekoya-nova",
+    "brand-sekoya",
+    "company-fall-creek-farm-and-nursery",
+    "trait-postharvest-shelf-life",
+    "trait-fruit-size",
+    "breeding_program-fall-creek-blueberry-breeding"
+  ],
+  "fact_ids": [
+    "fact-produce-report-sekoya-nova-2026-1",
+    "fact-produce-report-sekoya-nova-2026-2",
+    "fact-produce-report-sekoya-nova-2026-3"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-develops-sekoya-nova",
+    "rel-fall-creek-program-develops-sekoya-nova",
+    "rel-sekoya-carries-sekoya-nova"
+  ],
+  "strategic_question_ids": [
+    "sq-emerging-varieties",
+    "sq-premium-trait-challengers",
+    "sq-repeated-trait-claims",
+    "sq-testing-candidates"
+  ],
+  "tags": [
+    "tier-1",
+    "new-variety",
+    "owner-claim",
+    "unverified-performance-data",
+    "press-release"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "A new high-chill premium release directly targets the segment where firmness and shelf-life claims are contested."
+    },
+    "testing": {
+      "level": "high",
+      "rationale": "The shelf-life and size figures are precisely the sort of claim that an independent trial should verify."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "A credible high-chill premium entrant changes the competitive set in northern production regions."
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "Watch for independent trial data, plantings and first commercial volumes."
+    }
+  }
+}

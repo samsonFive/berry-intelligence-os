@@ -1,0 +1,55 @@
+{
+  "id": "ev-italianberry-mbo-chile-2020",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "trade_press",
+  "title": "Australian MBO varieties establish themselves in Chile",
+  "source_name": "Italian Berry",
+  "source_url": "https://italianberry.it/en/news/mirtilli-le-varieta-australiane-mbo-si-affermano-in-cile-507",
+  "published_date": "2020-12-01",
+  "captured_date": "2026-08-03",
+  "summary": "Reports that Eureka and Twilight are the two most important Mountain Blue varieties in Chile and that the genetics are licensed there through Snackberries.",
+  "why_it_matters": "Documents the Chilean licensing route for Mountain Blue genetics and identifies Twilight as commercially significant despite its unresolved cultivar identity.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-mountain-blue-orchards",
+    "variety-eureka",
+    "variety-twilight",
+    "geography-chile"
+  ],
+  "fact_ids": [
+    "fact-italianberry-mbo-chile-2020-1"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-genetics-geographic-spread",
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-2",
+    "licensing",
+    "chile",
+    "geographic-footprint"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Short but establishes the Chilean licensing structure."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Chile is a major southern hemisphere supplier."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Licensing arrangements change."
+    }
+  }
+}

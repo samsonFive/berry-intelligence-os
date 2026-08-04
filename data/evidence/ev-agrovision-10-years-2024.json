@@ -1,0 +1,66 @@
+{
+  "id": "ev-agrovision-10-years-2024",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_press_release",
+  "title": "Agrovision celebrates 10 years of bringing the world a better berry",
+  "source_name": "PR Newswire (Agrovision Corp.)",
+  "source_url": "https://www.prnewswire.com/news-releases/agrovision-celebrates-10-years-of-bringing-the-world-a-better-berry-302052244.html",
+  "published_date": "2024-02-05",
+  "captured_date": "2026-08-04",
+  "summary": "Agrovision's own release of 5 February 2024 states that the company was established in 2013, marks its tenth anniversary, reports more than US$350 million invested in operations over the previous six years, and describes itself as the third largest blueberry grower in Peru. It states that Agrovision partners with leading breeders to develop a broad portfolio of premium varietals, names Steve Magami as co-founder and executive chairman, and refers to the Big Skye brand in China.",
+  "why_it_matters": "The company's own wording, partners with leading breeders, is the clearest available statement that it accesses rather than owns genetics. Combined with the absence of any patent or plant breeders' right in its name, it settles the classification: licensee, not breeder.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-agrovision",
+    "brand-big-skye",
+    "brand-fruitist",
+    "geography-peru",
+    "brand-sekoya",
+    "company-fall-creek-farm-and-nursery",
+    "geography-mexico",
+    "geography-morocco",
+    "geography-china"
+  ],
+  "fact_ids": [
+    "fact-agrovision-founding-year-conflict",
+    "fact-agrovision-licenses-not-breeds",
+    "fact-agrovision-peru-scale",
+    "fact-fruitist-financing-2025",
+    "fact-fruitist-consumer-brands"
+  ],
+  "relationship_ids": [
+    "rel-agrovision-owns-big-skye"
+  ],
+  "strategic_question_ids": [
+    "sq-competitor-expansion",
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-1",
+    "corporate",
+    "self-description",
+    "licensee-not-breeder"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Settles the breeder-versus-licensee question from the company's own words."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No variety data."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Scale and position in a major origin."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Company communications are frequent."
+    }
+  }
+}

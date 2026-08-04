@@ -1,0 +1,62 @@
+{
+  "id": "ev-uf-breeding-emerald",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "research_program_publication",
+  "title": "UF blueberry breeding programme cultivar page - Emerald",
+  "source_name": "University of Florida blueberry breeding programme",
+  "source_url": "https://www.blueberrybreeding.com/emerald",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "Programme page for Emerald reporting firmness of 184 to 211 g/mm with an average of 195, average berry weight 2.4 g, average diameter 18.4 mm and average soluble solids of 11.3 degrees Brix.",
+  "why_it_matters": "The UF breeding programme is the only major blueberry breeder in this dataset that publishes numeric, instrument-based trait measurements for its releases. These figures are measurements taken by the breeding institution, not marketing claims, and they provide the quantitative benchmark against which private breeders' qualitative claims can be judged. The pages do not always state season, replication or instrument calibration, so they are strong but not fully specified.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-emerald",
+    "company-university-of-florida",
+    "breeding_program-uf-ifas-blueberry-breeding",
+    "trait-fruit-firmness",
+    "trait-fruit-size",
+    "trait-eating-quality"
+  ],
+  "fact_ids": [
+    "fact-uf-breeding-emerald-1"
+  ],
+  "relationship_ids": [
+    "rel-uf-develops-emerald",
+    "rel-uf-program-develops-emerald"
+  ],
+  "strategic_question_ids": [
+    "sq-premium-trait-challengers",
+    "sq-testing-candidates",
+    "sq-repeated-trait-claims"
+  ],
+  "tags": [
+    "tier-1",
+    "measured-data",
+    "breeder-published",
+    "public-genetics",
+    "benchmark"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Numeric trait data is scarce in this sector and directly usable."
+    },
+    "testing": {
+      "level": "high",
+      "rationale": "Provides the measurement conventions and comparison values a trial programme should adopt."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Public cultivars set the performance floor that premium club varieties must clear."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Programme pages are updated as new season data accumulates."
+    }
+  }
+}

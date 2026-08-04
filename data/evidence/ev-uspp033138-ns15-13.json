@@ -1,0 +1,65 @@
+{
+  "id": "ev-uspp033138-ns15-13",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "patent_record",
+  "title": "USPP033138P3 - 'NS 15-13' (OZblu Dina)",
+  "source_name": "United States Patent and Trademark Office",
+  "source_url": "https://patents.google.com/patent/USPP33138P3/en",
+  "published_date": "2021-06-08",
+  "captured_date": "2026-08-04",
+  "summary": "United States plant patent on the blueberry selection 'NS 15-13', granted 2021-06-08. The sole named inventor is Vincent David Mazzardis and the cross was made at Yanchep Springs, Yanchep, Western Australia, from 'EB 9-4', protected by US PP28,334, with 'EB 8-46', protected by US PP26,173. Assignees of record: Next Progeny Pty Ltd. The variety is marketed internationally as OZblu Dina.",
+  "why_it_matters": "The patent record is the only source that settles who bred this variety. It names an individual inventor in Western Australia and Australian holding entities, not the company that markets the fruit. Taken together across the eight OZblu patents, this establishes that the OZblu portfolio and the Mountain Blue Ridley portfolio are separate breeding lineages, and that the marketer is not the breeder.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "patent-uspp033138p3",
+    "variety-dina",
+    "brand-ozblu",
+    "company-united-exports",
+    "company-next-progeny",
+    "patent-uspp028334p3",
+    "company-bisa-trading",
+    "company-prunus-persica"
+  ],
+  "fact_ids": [
+    "fact-ozblu-identity-dina",
+    "fact-ozblu-assignee-structure"
+  ],
+  "relationship_ids": [
+    "rel-next-progeny-owns-uspp033138p3",
+    "rel-united-exports-sells-dina"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-emerging-varieties",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "patent",
+    "ozblu",
+    "breeding-origin",
+    "identity-resolution"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "The patent is the authoritative statement of inventorship and parentage."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "A patent describes a plant; it does not create anything to test."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Establishes who holds the rights and therefore who can license."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "A granted patent is a fixed record; only assignment changes need watching."
+    }
+  }
+}

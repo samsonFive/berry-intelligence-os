@@ -1,0 +1,60 @@
+{
+  "id": "ev-costa-ownership-2024",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_press_release",
+  "title": "Costa Group enters new ownership phase as experienced consortium takes control",
+  "source_name": "Costa Group Holdings Pty Ltd",
+  "source_url": "https://costagroup.com.au/2024/02/26/costa-group-enters-new-ownership-phase-as-experienced-consortium-takes-control/",
+  "published_date": "2024-02-26",
+  "captured_date": "2026-08-04",
+  "summary": "Costa's announcement of 26 February 2024 that a consortium of Paine Schwartz Partners, Driscoll's, Inc. and British Columbia Investment Management Corporation has taken control at A$3.20 per share, with Harry Debney as interim chief executive. The release notes the company's origins with the Costa family in Geelong, Victoria in the late 1800s and a history of more than 120 years, and states that Costa launched a record four new blueberry varieties during 2023.",
+  "why_it_matters": "Driscoll's, itself a blueberry breeder and licensor, becoming a part-owner of Costa, another blueberry breeder and licensor, links two breeding programmes through ownership rather than through a licence. That is a materially different kind of connection and is easy to miss if only licensing relationships are tracked.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-costa-group-holdings",
+    "company-driscolls",
+    "company-paine-schwartz-partners",
+    "company-bci",
+    "geography-australia"
+  ],
+  "fact_ids": [
+    "fact-costa-consortium-2024"
+  ],
+  "relationship_ids": [
+    "rel-paine-schwartz-owns-costa",
+    "rel-bci-owns-costa",
+    "rel-driscolls-owns-costa"
+  ],
+  "strategic_question_ids": [
+    "sq-competitor-expansion",
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-1",
+    "ownership",
+    "take-private",
+    "cross-holding"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "A structural link between two competing breeding programmes."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No variety data."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Changes how Costa and Driscoll's should be treated relative to each other."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Completed transaction; watch for operational integration."
+    }
+  }
+}

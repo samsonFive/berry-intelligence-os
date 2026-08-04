@@ -1,0 +1,52 @@
+{
+  "id": "ev-fruitnet-romania-2024",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "trade_press",
+  "title": "Fall Creek reveals Romanian acquisition",
+  "source_name": "Eurofruit / Fruitnet",
+  "source_url": "https://www.fruitnet.com/eurofruit/fall-creek-reveals-romanian-acquisition/260715.article",
+  "published_date": "2024-06-06",
+  "captured_date": "2026-08-03",
+  "summary": "Report by Carl Collen that Fall Creek acquired a Romanian site of about 50 hectares.",
+  "why_it_matters": "Dated evidence of eastward European expansion of propagation and evaluation capacity.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-fall-creek-farm-and-nursery"
+  ],
+  "fact_ids": [
+    "fact-fruitnet-romania-2024-1"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-competitor-expansion",
+    "sq-genetics-geographic-spread"
+  ],
+  "tags": [
+    "tier-2",
+    "mergers-and-acquisitions",
+    "europe",
+    "expansion"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Brief factual item."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Adds to the European footprint picture."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Part of a visible multi-year European expansion pattern worth tracking."
+    }
+  }
+}

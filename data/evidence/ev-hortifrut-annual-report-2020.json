@@ -1,0 +1,54 @@
+{
+  "id": "ev-hortifrut-annual-report-2020",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_annual_report",
+  "title": "Hortifrut Annual Report 2020",
+  "source_name": "Hortifrut S.A.",
+  "source_url": "https://investor.hortifrut.com/wp-content/uploads/2021/07/annual-report-hortifrut-2020.pdf",
+  "published_date": "2021-07-01",
+  "captured_date": "2026-08-04",
+  "summary": "Hortifrut's 2020 annual report gives the legal identification of the company as Hortifrut S.A., RUT 96.896.990-0, with its registered office at Av. Del Condor 600, 4th floor, Huechuraba, Santiago, Chile. It records the shares as traded on the Bolsa de Comercio de Santiago under the code HF and on the Bolsa Electronica de Chile, with a 2012 initial public offering raising more than US$67 million, and notes the constitution of HF Natur LDA, 50 per cent owned, on 11 December 2020.",
+  "why_it_matters": "Supplies the formal legal identity and listing detail needed to keep this entity distinct from its many subsidiaries and joint ventures.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-hortifrut",
+    "geography-chile"
+  ],
+  "fact_ids": [
+    "fact-hortifrut-corporate-identity"
+  ],
+  "relationship_ids": [
+    "rel-hortifrut-operates-in-chile"
+  ],
+  "strategic_question_ids": [
+    "sq-competitor-expansion"
+  ],
+  "tags": [
+    "tier-1",
+    "corporate",
+    "legal-identity",
+    "financial-report"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Reference detail rather than a finding."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No variety content."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Confirms listing status and capital raised."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Historic report; superseded by later filings."
+    }
+  }
+}

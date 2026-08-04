@@ -1,0 +1,59 @@
+{
+  "id": "ev-uspp034903-fc11-164",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "patent_record",
+  "title": "USPP034903P2 - 'FC11-164'",
+  "source_name": "United States Patent and Trademark Office plant patent record",
+  "source_url": "https://patents.google.com/patent/USPP34903P2/en",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "United States plant patent on 'FC11-164', assignee Fall Creek Farm and Nursery Inc. Describes an open-pollinated cross with female parent 'ZF06-168' and unknown male parent, made in 2008 at Lowell, Oregon.",
+  "why_it_matters": "A granted plant patent is a public registry record. It fixes ownership, priority dates and parentage, and its botanical description is prepared under a legal duty of accuracy, which makes it a stronger source for varietal identity than any marketing material.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "variety-fc11-164",
+    "patent-uspp034903p2",
+    "company-fall-creek-farm-and-nursery",
+    "breeding_program-fall-creek-blueberry-breeding"
+  ],
+  "fact_ids": [
+    "fact-uspp034903-fc11-164-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-develops-fc11-164",
+    "rel-fall-creek-program-develops-fc11-164",
+    "rel-fall-creek-owns-uspp034903p2"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "registry-record",
+    "intellectual-property",
+    "united-states"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Registry records are the anchor for varietal identity across the whole dataset."
+    },
+    "testing": {
+      "level": "low",
+      "rationale": "Patent descriptions suggest comparison standards for trialling but are not trial data."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Patent coverage indicates which markets a breeder intends to defend."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Grant status changes rarely; expiry dates matter on a multi-year horizon."
+    }
+  }
+}

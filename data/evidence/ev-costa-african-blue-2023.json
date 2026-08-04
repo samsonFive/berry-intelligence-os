@@ -1,0 +1,64 @@
+{
+  "id": "ev-costa-african-blue-2023",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_press_release",
+  "title": "African Blue broadens supply",
+  "source_name": "Costa Group Holdings Pty Ltd",
+  "source_url": "https://costagroup.com.au/2023/04/03/african-blue-broadens-supply/",
+  "published_date": "2023-04-03",
+  "captured_date": "2026-08-04",
+  "summary": "Costa reports that African Blue, its Moroccan business operating since 2007 with about 465 hectares, is broadening supply through a Zimbabwe Direct from Source project involving 11 growers and more than 300 hectares, first planted in 2018 and accounting for about 15 per cent of African Blue's annual sales. The varieties adopted are named as Kirra, Akala, Corindi Verdure and Arana.",
+  "why_it_matters": "Shows how Costa genetics reach African production through a majority-owned operating company rather than through an arms-length licence, and names four Costa commercial varieties in actual commercial deployment.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-african-blue",
+    "company-costa-group-holdings",
+    "variety-arana",
+    "breeding_program-costa-variety-improvement",
+    "geography-morocco",
+    "geography-zimbabwe"
+  ],
+  "fact_ids": [
+    "fact-african-blue-morocco-zimbabwe"
+  ],
+  "relationship_ids": [
+    "rel-costa-develops-arana",
+    "rel-costa-owns-african-blue",
+    "rel-african-blue-operates-in-morocco",
+    "rel-african-blue-operates-in-zimbabwe",
+    "rel-costa-operates-in-morocco",
+    "rel-costa-operates-in-zimbabwe"
+  ],
+  "strategic_question_ids": [
+    "sq-genetics-geographic-spread",
+    "sq-competitor-expansion"
+  ],
+  "tags": [
+    "tier-1",
+    "production",
+    "genetics-deployment",
+    "africa"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Concrete deployment detail with areas and grower counts."
+    },
+    "testing": {
+      "level": "low",
+      "rationale": "Names varieties but gives no performance data."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Shows a controlled route to a growing supply region."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Project areas expand season by season."
+    }
+  }
+}

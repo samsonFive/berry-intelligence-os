@@ -1,0 +1,57 @@
+{
+  "id": "ev-ibo-mbo-china-judgment-2024",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "industry_association_report",
+  "title": "Mountain Blue Orchards wins historic lawsuit in China over illegal propagation of blueberries",
+  "source_name": "International Blueberry Organization",
+  "source_url": "https://www.internationalblueberry.org/2024/12/02/mountain-blue-orchards-wins-historic-lawsuit-in-china-over-illegal-propagation-of-blueberries/",
+  "published_date": "2024-12-02",
+  "captured_date": "2026-08-03",
+  "summary": "Report that the Kunming Intermediate People's Court upheld Mountain Blue's plant breeders' right over 'Ridley 1602' (Eureka Sunrise) against an unlicensed Chinese nursery.",
+  "why_it_matters": "Successful plant variety rights enforcement in China is unusual and materially changes the risk-reward of licensing genetics into that market. It also confirms that Mountain Blue enforces internationally, not only in Australia.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-mountain-blue-orchards",
+    "variety-eureka-sunrise",
+    "geography-china"
+  ],
+  "fact_ids": [
+    "fact-ibo-mbo-china-judgment-2024-1"
+  ],
+  "relationship_ids": [
+    "rel-mbo-operates-in-china"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-genetics-geographic-spread",
+    "sq-competitor-expansion"
+  ],
+  "tags": [
+    "tier-2",
+    "litigation",
+    "ip-enforcement",
+    "china"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "A precedent-setting outcome in the fastest-growing market."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Enforceability in China is a gating factor for premium genetics strategy there."
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "Follow subsequent Chinese plant variety rights cases closely."
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "id": "ev-mbg-berry-blue-varieties",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_website",
+  "title": "Proprietary berry varieties - Berry Blue, LLC",
+  "source_name": "MBG Marketing (Michigan Blueberry Growers)",
+  "source_url": "https://www.blueberries.com/proprietary-berry-varieties-berry-blue-llc/",
+  "published_date": null,
+  "captured_date": "2026-08-04",
+  "summary": "MBG's variety page states that MBG owns and operates its own blueberry breeding programme, Berry Blue, LLC, and describes Berry Blue as an MBG Marketing company. It lists sixteen cultivars with their selection codes and cited United States plant patent numbers, including Keepsake 'BB05-251MI-14' with US PP24,807, Sensation 'BB05-274MI-139' with US PP24,809, Robust 'BB05-58GA-1' with US PP24,808, Temptation 'BB05-61GA-61' with US PP24,874, Bliss 'BB05-185GA' with US PP24,875, Daybreak 'BB07-210FL-18' with US PP24,876, Prelude 'BB06-540FL-12' with US PP24,831, Presto 'BB07-7FL-4' with US PP30,421, Envoy 'BB06-507MI-52' with US PP30,422, Stellar 'BB06-50FL-1' with US PP30,445, Alpha 'BB05-35FL-10' with US PP31,231, Affection 'BB06-426MI-84' with US PP31,257, Charisma 'BB06-343MI-16' with US PP31,524, Medallion 'BB05-259MI-15' with US PP32,574, Intrepid 'BB05-268MI-152' with US PP32,575, and Candy Crunch 'BB07-249GA-3' with US PP33,110. Keepsake's named inventors are given as Edmund J. Wheeler and James F. Hancock.",
+  "why_it_matters": "This is the rights holder's own code-to-name-to-patent mapping and directly contradicts Hortifrut's description of Berry Blue as a joint venture: MBG says it owns the programme. Both statements are self-descriptions by interested parties and the ownership question is left open rather than resolved.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-michigan-blueberry-growers",
+    "company-berry-blue-llc",
+    "breeding_program-berry-blue",
+    "variety-keepsake",
+    "variety-medallion",
+    "patent-uspp024807p3",
+    "patent-uspp032574p3",
+    "company-hortifrut"
+  ],
+  "fact_ids": [
+    "fact-berry-blue-mbg-ownership-claim",
+    "fact-berry-blue-ownership-disputed",
+    "fact-keepsake-selection-code",
+    "fact-medallion-selection-code"
+  ],
+  "relationship_ids": [
+    "rel-hortifrut-owns-berry-blue",
+    "rel-mbg-owns-berry-blue",
+    "rel-berry-blue-develops-keepsake",
+    "rel-berry-blue-develops-medallion",
+    "rel-berry-blue-owns-uspp024807p3",
+    "rel-berry-blue-owns-uspp032574p3"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-emerging-varieties",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "genetics",
+    "variety-list",
+    "identity-resolution",
+    "ownership-conflict"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Sixteen code-to-patent mappings in one authoritative-for-the-owner page."
+    },
+    "testing": {
+      "level": "medium",
+      "rationale": "Names candidate varieties but publishes no performance data."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Defines the Berry Blue portfolio and who claims to control it."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Variety lists change as releases are added."
+    }
+  }
+}

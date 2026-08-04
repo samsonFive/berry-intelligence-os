@@ -1,0 +1,60 @@
+{
+  "id": "ev-ozblu-oz-varieties",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "company_website",
+  "title": "OZ Varieties",
+  "source_name": "OZblu",
+  "source_url": "https://www.ozblu.com/oz-varieties/",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "States that OZ Varieties, a United Exports company, is the sub-licensee facilitating licensed production of the proprietary OZblu varieties, and that United Exports holds the exclusive right to sub-license production of and market OZblu.",
+  "why_it_matters": "The company's own description of its rights position. It confirms United Exports as an exclusive sub-licensor and marketer, not as the owner of the underlying breeding rights.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-oz-varieties",
+    "company-united-exports",
+    "brand-ozblu",
+    "company-nature-select"
+  ],
+  "fact_ids": [
+    "fact-ozblu-oz-varieties-1"
+  ],
+  "relationship_ids": [
+    "rel-united-exports-licenses-ozblu",
+    "rel-oz-varieties-licenses-ozblu",
+    "rel-united-exports-partners-with-oz-varieties",
+    "rel-united-exports-partners-with-nature-select",
+    "rel-united-exports-owns-brand-ozblu"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach"
+  ],
+  "tags": [
+    "tier-1",
+    "licensing-structure",
+    "rights-position",
+    "self-reported"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Defines the rights chain for the whole OZblu portfolio."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Exclusive marketing rights are a real commercial asset even without genetics ownership."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Corporate structure changes infrequently."
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "id": "ev-uspp025858-eb8-42",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "patent_record",
+  "title": "USPP025858P3 - 'EB 8-42' (OZblu Julieta)",
+  "source_name": "United States Patent and Trademark Office",
+  "source_url": "https://patents.google.com/patent/USPP25858P3/en",
+  "published_date": "2015-09-08",
+  "captured_date": "2026-08-04",
+  "summary": "United States plant patent on the blueberry selection 'EB 8-42', granted 2015-09-08. The sole named inventor is Vincent David Mazzardis and the cross was made at Yanchep Springs, Yanchep, Western Australia, from '03-2' with 'SB-1', both unpatented, in the 2005 season. Assignees of record: Bisa Trading Pty Ltd, Prunus Persica Pty Ltd. The variety is marketed internationally as OZblu Julieta.",
+  "why_it_matters": "The patent record is the only source that settles who bred this variety. It names an individual inventor in Western Australia and Australian holding entities, not the company that markets the fruit. Taken together across the eight OZblu patents, this establishes that the OZblu portfolio and the Mountain Blue Ridley portfolio are separate breeding lineages, and that the marketer is not the breeder.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "patent-uspp025858p3",
+    "variety-julieta",
+    "brand-ozblu",
+    "company-united-exports",
+    "company-bisa-trading",
+    "company-prunus-persica",
+    "company-next-progeny",
+    "geography-australia"
+  ],
+  "fact_ids": [
+    "fact-ozblu-identity-julieta",
+    "fact-ozblu-inventor-mazzardis",
+    "fact-ozblu-assignee-structure"
+  ],
+  "relationship_ids": [
+    "rel-bisa-trading-owns-uspp025858p3",
+    "rel-prunus-persica-owns-uspp025858p3",
+    "rel-united-exports-sells-julieta",
+    "rel-bisa-trading-operates-in-australia",
+    "rel-prunus-persica-operates-in-australia",
+    "rel-next-progeny-operates-in-australia"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-emerging-varieties",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "patent",
+    "ozblu",
+    "breeding-origin",
+    "identity-resolution"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "The patent is the authoritative statement of inventorship and parentage."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "A patent describes a plant; it does not create anything to test."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Establishes who holds the rights and therefore who can license."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "A granted patent is a fixed record; only assignment changes need watching."
+    }
+  }
+}

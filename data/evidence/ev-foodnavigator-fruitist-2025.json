@@ -1,0 +1,50 @@
+{
+  "id": "ev-foodnavigator-fruitist-2025",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "trade_press",
+  "title": "Fruitist continues expanding packaged fresh fruit business with $150 million raise",
+  "source_name": "FoodNavigator",
+  "source_url": "https://www.foodnavigator.com/Article/2025/11/10/fruitist-continues-expanding-packaged-fresh-fruit-business-with-150-million-capital-raise/",
+  "published_date": "2025-11-10",
+  "captured_date": "2026-08-04",
+  "summary": "Reports a US$150 million equity financing led by JP Morgan, dated 10 November 2025, and refers to Steve Magami as co-founder and chief executive.",
+  "why_it_matters": "Capital of this size flowing to a licensee rather than to a breeder indicates where the sector currently expects returns: in supply chain and packaging rather than in genetics ownership.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-agrovision"
+  ],
+  "fact_ids": [
+    "fact-fruitist-financing-2025"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-competitor-expansion"
+  ],
+  "tags": [
+    "tier-2",
+    "financing",
+    "capital"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "A single financing event."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No variety data."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Funds further expansion by a major buyer of licensed genetics."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Further rounds are likely."
+    }
+  }
+}

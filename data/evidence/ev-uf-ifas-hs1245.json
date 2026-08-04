@@ -1,0 +1,89 @@
+{
+  "id": "ev-uf-ifas-hs1245",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "extension_publication",
+  "title": "Blueberry Cultivars for Florida (HS1245)",
+  "source_name": "UF/IFAS Extension",
+  "source_url": "https://ask.ifas.ufl.edu/publication/HS1245",
+  "published_date": null,
+  "captured_date": "2026-08-03",
+  "summary": "University of Florida extension publication describing the UF southern highbush cultivars, their release years, plant patent numbers, disease susceptibilities and cultural notes, and stating that commercialisation rights are held by Florida Foundation Seed Producers, Inc. Uses the trademark form Meadowlark for 'FL01-173' and cultivar denominations for the others.",
+  "why_it_matters": "A peer-reviewed public extension publication from the breeding institution itself. It is the authoritative source for the cultivar-to-patent mapping and for the fact that rights sit with Florida Foundation Seed Producers rather than the university directly.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-university-of-florida",
+    "company-florida-foundation-seed-producers",
+    "breeding_program-uf-ifas-blueberry-breeding",
+    "variety-meadowlark",
+    "variety-sentinel",
+    "trait-machine-harvest-suitability",
+    "variety-patrecia",
+    "patent-uspp027740p2",
+    "variety-emerald",
+    "variety-jewel",
+    "variety-farthing",
+    "variety-optimus",
+    "variety-colossus",
+    "geography-united-states"
+  ],
+  "fact_ids": [
+    "fact-uf-ifas-hs1245-1",
+    "fact-uf-ifas-hs1245-2",
+    "fact-uf-ifas-hs1245-3",
+    "fact-uf-breeding-sentinel-4",
+    "fact-uf-breeding-patrecia-2",
+    "fact-uf-breeding-patrecia-3"
+  ],
+  "relationship_ids": [
+    "rel-uf-develops-emerald",
+    "rel-ffsp-licenses-emerald",
+    "rel-uf-develops-jewel",
+    "rel-ffsp-licenses-jewel",
+    "rel-uf-develops-farthing",
+    "rel-ffsp-licenses-farthing",
+    "rel-uf-develops-meadowlark",
+    "rel-ffsp-licenses-meadowlark",
+    "rel-uf-develops-patrecia",
+    "rel-ffsp-licenses-patrecia",
+    "rel-uf-develops-optimus",
+    "rel-ffsp-licenses-optimus",
+    "rel-uf-develops-colossus",
+    "rel-ffsp-licenses-colossus",
+    "rel-uf-develops-sentinel",
+    "rel-ffsp-licenses-sentinel",
+    "rel-uf-partners-with-ffsp",
+    "rel-uf-operates-in-united-states"
+  ],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "extension-publication",
+    "peer-reviewed",
+    "cultivar-registry"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Single most efficient source for the whole UF cultivar set."
+    },
+    "testing": {
+      "level": "medium",
+      "rationale": "Identifies disease susceptibilities worth confirming locally."
+    },
+    "commercial_position": {
+      "level": "medium",
+      "rationale": "Public genetics are a competitive alternative to club varieties."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Extension publications are revised every few years."
+    }
+  }
+}

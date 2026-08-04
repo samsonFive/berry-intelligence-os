@@ -1,0 +1,57 @@
+{
+  "id": "ev-abc-chellew-judgment-2019",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_media",
+  "title": "Federal Court decision on blueberry case a wake-up call",
+  "source_name": "ABC News (Australia)",
+  "source_url": "https://www.abc.net.au/news/2019-11-08/federal-court-decision-on-blueberry-case-a-wake-up-call/11685158",
+  "published_date": "2019-11-08",
+  "captured_date": "2026-08-03",
+  "summary": "Report on an Australian Federal Court judgment awarding about A$290,000 against a grower (Chellew) for unauthorised propagation of a Mountain Blue variety protected by plant breeders' rights.",
+  "why_it_matters": "A court judgment is the highest-authority evidence of how a breeder actually enforces its rights. Reporting on this case is frequently attached to Eureka, but the cultivar at issue corresponds to 'Ridley 1111', which is Opi. The misattribution is recorded rather than repeated.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "company-mountain-blue-orchards",
+    "variety-opi",
+    "geography-australia",
+    "variety-eureka"
+  ],
+  "fact_ids": [
+    "fact-abc-chellew-judgment-2019-1",
+    "fact-abc-chellew-judgment-2019-2"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-2",
+    "litigation",
+    "ip-enforcement",
+    "misattribution-risk",
+    "australia"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Enforcement behaviour is a strong indicator of how a breeder will treat licensees and infringers."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Demonstrated willingness to litigate affects the risk calculus of working with these genetics."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Watch for appeals or comparable actions."
+    }
+  }
+}

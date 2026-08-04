@@ -1,0 +1,55 @@
+{
+  "id": "ev-uspp025358-aglaonema",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "patent_record",
+  "title": "USPP025358P3 - Aglaonema plant named 'KKAG201303'",
+  "source_name": "United States Patent and Trademark Office",
+  "source_url": "https://patents.google.com/patent/USPP25358P3/en",
+  "published_date": "2015-03-17",
+  "captured_date": "2026-08-04",
+  "summary": "United States plant patent US PP25,358, granted 17 March 2015 to inventor Kanachana Khemakongkanond, covering an Aglaonema plant named 'KKAG201303'. It is an ornamental foliage plant and has no connection to blueberry.",
+  "why_it_matters": "This patent number circulates in industry material as the patent for the blueberry selection 'EB 9-12', marketed as OZblu Bonita. It is not. The correct number is US PP28,358. The record is kept so that the wrong number is documented as wrong rather than silently dropped, and so that any future import carrying the wrong number can be caught.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "patent-uspp025358p3",
+    "patent-uspp028358p3",
+    "variety-bonita"
+  ],
+  "fact_ids": [
+    "fact-uspp025358-is-aglaonema",
+    "fact-bonita-patent-correction"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "patent",
+    "correction",
+    "identity-resolution",
+    "data-quality"
+  ],
+  "priority": {
+    "reading": {
+      "level": "medium",
+      "rationale": "Short, but it settles a citation error that would otherwise propagate."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Nothing to test."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "No commercial bearing."
+    },
+    "monitoring": {
+      "level": "low",
+      "rationale": "Worth re-checking if the wrong number reappears in a future source."
+    }
+  }
+}

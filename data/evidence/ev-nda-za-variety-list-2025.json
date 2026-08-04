@@ -1,0 +1,71 @@
+{
+  "id": "ev-nda-za-variety-list-2025",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "government_registry",
+  "title": "Berries South Africa blueberry variety list 2025",
+  "source_name": "South African Department of Agriculture",
+  "source_url": "https://www.nda.gov.za/images/Branches/AgricProducHealthFoodSafety/food-safety-and-quality-assurance/export-regulations-and-standards/other-minor-fruits-/berriesza-variety-list-2025.pdf",
+  "published_date": "2025-01-01",
+  "captured_date": "2026-08-03",
+  "summary": "Official South African export variety list for blueberries, giving brand name and selection code pairs across multiple breeding programmes, including Sekoya Beauty 'FCM12-097', Sekoya Pop 'FCM14-052', Sekoya Grande 'FC13-122', Sekoya Crunch 'FC13-083', Sekoya Fiesta 'FC13-113', ArabellaBlue 'FC14-062', AtlasBlue 'FCM12-045', AzraBlue 'FCM14-031', BiancaBlue 'FCM12-087', JupiterBlue 'FCM12-131', KeplerBlue 'FCM12-038', LoretoBlue 'FC11-118', LunaBlue 'FC12-205', PeachyBlue 'ZF08-29', ValentinaBlue 'FF03-015', OlympusBlue 'TH-1008', Eureka, Eureka Sunrise, Eureka Sunset, Eureka Dawn, Eureka Maxx, Twilight, and additional OZblu code and brand pairs.",
+  "why_it_matters": "A government export registry is an independent, non-commercial source for brand to code mappings. It corroborates owner-published mappings without relying on the owner, and it is the only retrieved source that confirms Twilight is a commercially traded denomination.",
+  "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "entity_ids": [
+    "geography-south-africa",
+    "variety-sekoya-beauty",
+    "variety-sekoya-pop",
+    "variety-sekoya-grande",
+    "variety-sekoya-crunch",
+    "variety-sekoya-fiesta",
+    "variety-eureka",
+    "variety-eureka-sunrise",
+    "variety-twilight",
+    "brand-sekoya",
+    "company-fall-creek-farm-and-nursery",
+    "company-mountain-blue-orchards"
+  ],
+  "fact_ids": [
+    "fact-sekoya-story-beauty",
+    "fact-sekoya-story-pop",
+    "fact-sekoya-story-grande",
+    "fact-sekoya-story-crunch",
+    "fact-sekoya-story-fiesta",
+    "fact-berryworld-varieties-3",
+    "fact-nda-za-variety-list-2025-1"
+  ],
+  "relationship_ids": [],
+  "strategic_question_ids": [
+    "sq-global-genetics-reach",
+    "sq-genetics-geographic-spread",
+    "sq-public-record-gaps"
+  ],
+  "tags": [
+    "tier-1",
+    "government-registry",
+    "brand-to-code-mapping",
+    "independent-corroboration",
+    "south-africa"
+  ],
+  "priority": {
+    "reading": {
+      "level": "high",
+      "rationale": "Independent corroboration of identity mappings across several breeders at once."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "No trialable content."
+    },
+    "commercial_position": {
+      "level": "high",
+      "rationale": "Presence on a national export list indicates real commercial plantings."
+    },
+    "monitoring": {
+      "level": "medium",
+      "rationale": "Published annually."
+    }
+  }
+}
