@@ -2,6 +2,15 @@
 {% block title %}{{ record.title }}{% endblock %}
 {% block content %}
 <section class="page-heading"><div><p class="eyebrow">EVIDENCE — {{ record.source_type|replace('_',' ')|upper }}</p><h1>{{ record.title }}</h1></div></section>
+{% if record.auto_captured and not record.validated %}
+  <div class="banner banner-warning auto-captured-banner" role="status">
+    AUTO-CAPTURED — UNVALIDATED
+    {% if authoring_mode %}
+      <form action="/evidence/{{ record.id }}/validate" method="post"><button type="submit">Validate</button></form>
+      <form action="/evidence/{{ record.id }}/purge" method="post"><button type="submit">Purge</button></form>
+    {% endif %}
+  </div>
+{% endif %}
 <article class="detail-card">
   <dl>
     <dt>Source</dt><dd>{{ record.source_name or "Unknown" }}</dd>

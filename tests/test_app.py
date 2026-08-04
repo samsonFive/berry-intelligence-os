@@ -1,3 +1,4 @@
+import httpx
 from fastapi.testclient import TestClient
 
 from app import main
@@ -577,3 +578,234 @@ def test_signal_create_blocked_in_readonly_mode(monkeypatch, tmp_path) -> None:
         },
     )
     assert response.status_code == 403
+
+
+FAKE_RSS = b"""<?xml version="1.0"?>
+<rss version="2.0"><channel>
+<title>Fictional Trade Press</title>
+<item>
+  <title>Fictional headline about blueberry licensing</title>
+  <link>https://example.invalid/articles/fictional-headline</link>
+  <description>A fictional description used to test source ingestion.</description>
+  <pubDate>Mon, 03 Aug 2026 10:00:00 GMT</pubDate>
+</item>
+</channel></rss>
+"""
+
+
+class _FakeResponse:
+    def __init__(self, content: bytes) -> None:
+        self.content = content
+
+    def raise_for_status(self) -> None:
+        pass
+
+
+def test_sources_page_renders_empty_and_after_add(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+
+    empty = client.get("/sources")
+    assert empty.status_code == 200
+    assert "No sources yet" in empty.text
+
+    response = client.post(
+        "/sources",
+        data={"type": "rss", "label": "Fictional Trade Press", "value": "https://example.invalid/feed.xml"},
+        follow_redirects=False,
+    )
+    assert response.status_code == 303
+
+    listed = client.get("/sources")
+    assert "Fictional Trade Press" in listed.text
+    assert "https://example.invalid/feed.xml" in listed.text
+
+
+def test_sources_add_requires_fields(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    response = client.post("/sources", data={"type": "rss", "label": "", "value": ""})
+    assert response.status_code == 400
+    assert "required" in response.text
+
+
+def test_sources_toggle_and_delete(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    client.post("/sources", data={"type": "keyword", "label": "blueberry licensing", "value": "blueberry licensing"})
+    source_id = main.load_sources()[0]["id"]
+
+    toggled = client.post(f"/sources/{source_id}/toggle", follow_redirects=False)
+    assert toggled.status_code == 303
+    assert main.load_sources()[0]["enabled"] is False
+
+    deleted = client.post(f"/sources/{source_id}/delete", follow_redirects=False)
+    assert deleted.status_code == 303
+    assert main.load_sources() == []
+
+
+def test_google_news_rss_url_encodes_term() -> None:
+    url = main.google_news_rss_url("blueberry licensing")
+    assert url.startswith("https://news.google.com/rss/search?q=")
+    assert "blueberry%20licensing" in url or "blueberry+licensing" in url
+
+
+def test_check_source_writes_new_evidence_and_dedupes(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    monkeypatch.setattr(main.httpx, "get", lambda *a, **k: _FakeResponse(FAKE_RSS))
+
+    source = {
+        "id": "source-test",
+        "type": "rss",
+        "label": "Fictional Trade Press",
+        "value": "https://example.invalid/feed.xml",
+        "berry_ids": [],
+        "enabled": True,
+    }
+
+    written = main.check_source(source, set())
+    assert written == 1
+
+    feed = client.get("/api/feed").json()
+    assert len(feed) == 1
+    record = feed[0]
+    assert record["title"] == "Fictional headline about blueberry licensing"
+    assert record["status"] == "published"
+    assert record["auto_captured"] is True
+    assert record["validated"] is False
+    assert record["source_url"] == "https://example.invalid/articles/fictional-headline"
+
+    # Second check against the same feed must not create a duplicate.
+    written_again = main.check_source(source, main.existing_evidence_source_urls())
+    assert written_again == 0
+    assert len(client.get("/api/feed").json()) == 1
+
+
+def test_check_source_caps_new_items_per_check(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    items = "\n".join(
+        f"<item><title>Fictional item {i}</title>"
+        f"<link>https://example.invalid/articles/item-{i}</link>"
+        f"<description>Fictional description {i}.</description></item>"
+        for i in range(30)
+    )
+    big_feed = f"<?xml version='1.0'?><rss version='2.0'><channel>{items}</channel></rss>".encode()
+    monkeypatch.setattr(main.httpx, "get", lambda *a, **k: _FakeResponse(big_feed))
+
+    source = {"id": "source-test", "type": "rss", "label": "Fictional Big Feed",
+              "value": "https://example.invalid/feed.xml", "berry_ids": [], "enabled": True}
+
+    first_pass = main.check_source(source, set())
+    assert first_pass == main.SOURCE_MAX_NEW_ITEMS_PER_CHECK
+    assert len(client.get("/api/feed").json()) == main.SOURCE_MAX_NEW_ITEMS_PER_CHECK
+
+    # The items left over from the cap are still "new" and get picked up
+    # on a subsequent check rather than being lost.
+    second_pass = main.check_source(source, main.existing_evidence_source_urls())
+    assert second_pass == 30 - main.SOURCE_MAX_NEW_ITEMS_PER_CHECK
+    assert len(client.get("/api/feed").json()) == 30
+
+
+def test_check_all_sources_updates_last_checked_status(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    monkeypatch.setattr(main.httpx, "get", lambda *a, **k: _FakeResponse(FAKE_RSS))
+    main.save_sources(
+        [
+            {
+                "id": "source-test",
+                "type": "rss",
+                "label": "Fictional Trade Press",
+                "value": "https://example.invalid/feed.xml",
+                "berry_ids": [],
+                "enabled": True,
+                "last_checked_at": None,
+                "last_status": None,
+            }
+        ]
+    )
+
+    summary = main.check_all_sources()
+    assert summary == {"sources_checked": 1, "items_written": 1}
+
+    updated = main.load_sources()[0]
+    assert updated["last_checked_at"] is not None
+    assert updated["last_status"] == "ok: 1 new item(s)"
+
+
+def test_check_all_sources_records_fetch_errors(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+
+    def _raise(*args, **kwargs):
+        raise httpx.ConnectError("simulated network failure")
+
+    monkeypatch.setattr(main.httpx, "get", _raise)
+    main.save_sources(
+        [
+            {
+                "id": "source-test",
+                "type": "rss",
+                "label": "Unreachable feed",
+                "value": "https://example.invalid/down.xml",
+                "berry_ids": [],
+                "enabled": True,
+                "last_checked_at": None,
+                "last_status": None,
+            }
+        ]
+    )
+
+    summary = main.check_all_sources()
+    assert summary == {"sources_checked": 1, "items_written": 0}
+    assert "error" in main.load_sources()[0]["last_status"]
+
+
+def test_evidence_validate_and_purge(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    monkeypatch.setattr(main.httpx, "get", lambda *a, **k: _FakeResponse(FAKE_RSS))
+    source = {"id": "source-test", "type": "rss", "label": "Fictional Trade Press",
+              "value": "https://example.invalid/feed.xml", "berry_ids": [], "enabled": True}
+    main.check_source(source, set())
+    record_id = client.get("/api/feed").json()[0]["id"]
+
+    detail = client.get(f"/evidence/{record_id}")
+    assert "AUTO-CAPTURED" in detail.text
+
+    validated = client.post(f"/evidence/{record_id}/validate", follow_redirects=False)
+    assert validated.status_code == 303
+    assert client.get(f"/evidence/{record_id}").text.count("AUTO-CAPTURED") == 0
+
+    purged = client.post(f"/evidence/{record_id}/purge", follow_redirects=False)
+    assert purged.status_code == 303
+    assert client.get(f"/evidence/{record_id}").status_code == 404
+
+
+def test_purge_refuses_non_auto_captured_evidence(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    main.save_evidence(
+        {
+            "id": "ev-manual-fictional-record",
+            "record_type": "evidence",
+            "status": "published",
+            "source_type": "article",
+            "title": "Fictional manually published record",
+            "captured_date": "2026-08-04",
+            "summary": "Not auto-captured.",
+            "submitted_by": "tester",
+            "priority": {
+                dim: {"level": "none", "rationale": ""}
+                for dim in main.PRIORITY_DIMENSIONS
+            },
+        }
+    )
+    response = client.post("/evidence/ev-manual-fictional-record/purge")
+    assert response.status_code == 400
+
+
+def test_sources_write_endpoints_blocked_in_readonly_mode(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    monkeypatch.setattr(main, "AUTHORING_MODE", False)
+
+    assert client.post(
+        "/sources", data={"type": "rss", "label": "x", "value": "https://example.invalid/feed.xml"}
+    ).status_code == 403
+    assert client.post("/sources/source-test/toggle").status_code == 403
+    assert client.post("/sources/source-test/delete").status_code == 403
+    assert client.post("/sources/source-test/check-now").status_code == 403
+    assert client.post("/evidence/ev-sample-variety-launch/validate").status_code == 403

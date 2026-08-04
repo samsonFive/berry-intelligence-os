@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Sources — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">WHAT THE APP WATCHES FOR YOU</p>
+    <h1>Sources</h1>
+  </div>
+</section>
+
+{% if not authoring_mode %}
+  <p class="empty-state" role="alert">Source management is disabled. This deployment is running in read-only mode.</p>
+{% else %}
+
+{% if error %}
+  <div class="banner banner-error" role="alert">{{ error }}</div>
+{% endif %}
+
+<p class="result-count">Checked automatically every {{ poll_interval_minutes }} minutes while the app is running. New items land directly in the newsfeed, marked unvalidated until you confirm or purge them. Each check writes at most 20 new items per source, so a broad first check trickles in over a few cycles instead of flooding the feed at once.</p>
+
+<form class="intake-form" action="/sources" method="post">
+  <div class="form-row">
+    <div class="form-field">
+      <label for="type">Type</label>
+      <select id="type" name="type">
+        {% for key, label in source_types.items() %}
+          <option value="{{ key }}">{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-field">
+      <label for="label">Label</label>
+      <input id="label" name="label" type="text" required placeholder="e.g. Fresh Fruit Portal, or 'blueberry licensing'">
+    </div>
+  </div>
+  <div class="form-field">
+    <label for="value">Feed URL or search term</label>
+    <input id="value" name="value" type="text" required placeholder="https://example.com/feed.xml — or a keyword phrase">
+  </div>
+  <div class="form-actions">
+    <button type="submit">Add source</button>
+  </div>
+</form>
+
+<section class="entity-list">
+  {% for source in sources %}
+    <article class="card entity-card">
+      <div class="card-header">
+        <span class="badge badge-muted">{{ source_types.get(source.type, source.type)|upper }}</span>
+        <span class="badge {% if source.enabled %}badge-status-active{% else %}badge-muted{% endif %}">{{ "enabled" if source.enabled else "paused" }}</span>
+      </div>
+      <h2>{{ source.label }}</h2>
+      <p>{{ source.value }}</p>
+      <p class="draft-meta">
+        {% if source.last_checked_at %}Last checked {{ source.last_checked_at }} — {{ source.last_status }}{% else %}Never checked yet{% endif %}
+      </p>
+      <div class="form-actions">
+        <form action="/sources/{{ source.id }}/check-now" method="post"><button type="submit">Check now</button></form>
+        <form action="/sources/{{ source.id }}/toggle" method="post"><button type="submit">{{ "Pause" if source.enabled else "Resume" }}</button></form>
+        <form action="/sources/{{ source.id }}/delete" method="post"><button type="submit">Remove</button></form>
+      </div>
+    </article>
+  {% else %}
+    <p class="empty-state">No sources yet. Add an RSS/Atom feed URL, or a keyword to search for.</p>
+  {% endfor %}
+</section>
+{% endif %}
+{% endblock %}

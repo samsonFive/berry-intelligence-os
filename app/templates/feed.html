@@ -84,6 +84,15 @@
       <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
       <time>{{ item.published_date or item.captured_date }}</time>
     </div>
+    {% if item.auto_captured and not item.validated %}
+      <div class="banner banner-warning auto-captured-banner" role="status">
+        AUTO-CAPTURED — UNVALIDATED
+        {% if authoring_mode %}
+          <form action="/evidence/{{ item.id }}/validate" method="post"><button type="submit">Validate</button></form>
+          <form action="/evidence/{{ item.id }}/purge" method="post"><button type="submit">Purge</button></form>
+        {% endif %}
+      </div>
+    {% endif %}
     <h2><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h2>
     <p>{{ item.summary }}</p>
     <div class="tags">{% for tag in item.tags %}<span>{{ tag }}</span>{% endfor %}</div>

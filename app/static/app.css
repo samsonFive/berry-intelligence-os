@@ -103,6 +103,12 @@ a{color:#3d5c94}
 .banner-warning{background:#fdf3d9;color:#8a5a10;border:1px solid #f0dba4}
 .banner-warning ul{margin:6px 0 0;padding-left:18px}
 
+.auto-captured-banner{margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:800;font-size:11px;letter-spacing:.04em}
+.auto-captured-banner form{display:inline;margin:0}
+.auto-captured-banner button{font-size:11px;font-weight:700;background:white;color:#8a5a10;border:1px solid #f0dba4;border-radius:5px;padding:4px 9px;cursor:pointer}
+.auto-captured-banner button:hover{background:#fdf3d9}
+.feed .auto-captured-banner{margin-top:2px}
+
 .intake-tabs{display:flex;gap:8px;padding:0 32px 16px;flex-wrap:wrap}
 .intake-tabs a{text-decoration:none;color:#3c4a63;background:white;border:1px solid #dfe4ef;padding:8px 14px;border-radius:7px;font-size:13px}
 .intake-tabs a.active{background:#173d70;color:white;border-color:#173d70}

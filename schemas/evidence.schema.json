@@ -24,6 +24,8 @@
     "relationship_ids": {"type": "array", "items": {"type": "string"}},
     "strategic_question_ids": {"type": "array", "items": {"type": "string"}},
     "tags": {"type": "array", "items": {"type": "string"}},
+    "auto_captured": {"type": "boolean"},
+    "validated": {"type": "boolean"},
     "priority": {
       "type": "object",
       "required": ["reading", "testing", "commercial_position", "monitoring"],

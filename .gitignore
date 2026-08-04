@@ -16,6 +16,7 @@ generated/
 .idea/
 .DS_Store
 Thumbs.db
+*.lnk
 
 # Per-developer local tool settings (not shared project config)
 .claude/settings.local.json

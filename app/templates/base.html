@@ -17,6 +17,9 @@
         <a href="/entities/variety" {% if request.url.path.startswith('/entities/variety') %}class="active" aria-current="page"{% endif %}>Varieties</a>
         <a href="/strategic-questions" {% if request.url.path.startswith('/strategic-questions') %}class="active" aria-current="page"{% endif %}>Strategic Questions</a>
         <a href="/signals" {% if request.url.path.startswith('/signals') %}class="active" aria-current="page"{% endif %}>Signals</a>
+        {% if authoring_mode %}
+          <a href="/sources" {% if request.url.path.startswith('/sources') %}class="active" aria-current="page"{% endif %}>Sources</a>
+        {% endif %}
         <hr>
         {% if authoring_mode %}
           <a href="/review" {% if request.url.path.startswith('/review') %}class="active" aria-current="page"{% endif %}>Review Queue{% if pending_review_count() %} ({{ pending_review_count() }}){% endif %}</a>

@@ -1,14 +1,20 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import os
 import re
 import secrets
 import shutil
+import sys
+from contextlib import asynccontextmanager
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote
 
+import feedparser
+import httpx
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
@@ -71,7 +77,27 @@ SIGNAL_STRENGTHS = ["low", "medium", "high"]
 SIGNAL_STATUSES = ["active", "watch", "resolved"]
 PRIORITY_RANK = {"high": 0, "medium": 1, "low": 2, "none": 3}
 
-app = FastAPI(title="Berry Intelligence OS", version="0.1.0")
+SOURCE_TYPES = {"rss": "RSS / Atom feed", "keyword": "Keyword search"}
+SOURCE_POLL_INTERVAL_SECONDS = 15 * 60
+SOURCE_FETCH_TIMEOUT_SECONDS = 15
+SOURCE_USER_AGENT = "berry-intelligence-os-source-monitor/1.0"
+SOURCE_MAX_NEW_ITEMS_PER_CHECK = 20
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Never poll external sources during tests -- pytest importing this
+    # module must not trigger real network calls. Real deployments always
+    # have "pytest" absent from sys.modules.
+    task = None
+    if "pytest" not in sys.modules and AUTHORING_MODE:
+        task = asyncio.create_task(source_polling_loop())
+    yield
+    if task is not None:
+        task.cancel()
+
+
+app = FastAPI(title="Berry Intelligence OS", version="0.1.0", lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="static")
 templates = Jinja2Templates(directory=BASE_DIR / "app" / "templates")
 templates.env.globals["pending_review_count"] = lambda: len(list_drafts())
@@ -324,6 +350,160 @@ def unresolved_entities() -> list[dict[str, Any]]:
     return [e for e in all_entities() if e.get("status") == "unverified"]
 
 
+def sources_file() -> Path:
+    return DATA_DIR / "configuration" / "sources.json"
+
+
+def load_sources() -> list[dict[str, Any]]:
+    path = sources_file()
+    if not path.exists():
+        return []
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def save_sources(sources: list[dict[str, Any]]) -> None:
+    path = sources_file()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(sources, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def new_source_id(label: str) -> str:
+    stamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    suffix = secrets.token_hex(2)
+    slug = slugify(label)[:40] or "source"
+    return f"source-{stamp}-{suffix}-{slug}"
+
+
+def google_news_rss_url(term: str) -> str:
+    return f"https://news.google.com/rss/search?q={quote(term)}&hl=en-US&gl=US&ceid=US:en"
+
+
+def source_feed_url(source: dict[str, Any]) -> str:
+    if source.get("type") == "keyword":
+        return google_news_rss_url(source.get("value", ""))
+    return source.get("value", "")
+
+
+def existing_evidence_source_urls() -> set[str]:
+    return {r["source_url"] for r in all_evidence() if r.get("source_url")}
+
+
+_HTML_TAG_RE = re.compile(r"<[^>]+>")
+
+
+def strip_html(text: str) -> str:
+    return _HTML_TAG_RE.sub("", text or "").strip()
+
+
+def entry_published_date(entry: Any) -> str | None:
+    parsed = getattr(entry, "published_parsed", None) or getattr(entry, "updated_parsed", None)
+    if not parsed:
+        return None
+    try:
+        return date(parsed.tm_year, parsed.tm_mon, parsed.tm_mday).isoformat()
+    except (TypeError, ValueError):
+        return None
+
+
+def build_auto_evidence(entry: Any, source: dict[str, Any]) -> dict[str, Any]:
+    title = strip_html(getattr(entry, "title", "") or "(untitled)")
+    summary = strip_html(getattr(entry, "summary", "") or getattr(entry, "description", ""))
+    evidence_id = new_draft_id(title)
+    rationale = f"Auto-captured from source '{source.get('label')}'; not yet reviewed."
+    return {
+        "id": evidence_id,
+        "record_type": "evidence",
+        "status": "published",
+        "source_type": "rss_feed" if source.get("type") == "rss" else "news_search",
+        "title": title,
+        "source_name": source.get("label", ""),
+        "source_url": getattr(entry, "link", "") or "",
+        "published_date": entry_published_date(entry),
+        "captured_date": date.today().isoformat(),
+        "summary": summary[:2000],
+        "why_it_matters": "",
+        "submitted_by": f"source-monitor:{source.get('label', source.get('id', ''))}",
+        "berry_ids": list(source.get("berry_ids") or []),
+        "geography_ids": [],
+        "entity_ids": [],
+        "fact_ids": [],
+        "relationship_ids": [],
+        "strategic_question_ids": [],
+        "tags": [t for t in [source.get("label")] if t],
+        "auto_captured": True,
+        "validated": False,
+        "priority": {
+            dim: {"level": "none", "rationale": rationale}
+            for dim in PRIORITY_DIMENSIONS
+        },
+    }
+
+
+def fetch_source_entries(source: dict[str, Any]) -> list[Any]:
+    url = source_feed_url(source)
+    if not url:
+        return []
+    response = httpx.get(
+        url,
+        timeout=SOURCE_FETCH_TIMEOUT_SECONDS,
+        headers={"User-Agent": SOURCE_USER_AGENT},
+        follow_redirects=True,
+    )
+    response.raise_for_status()
+    parsed = feedparser.parse(response.content)
+    return list(parsed.entries or [])
+
+
+def check_source(source: dict[str, Any], seen_urls: set[str]) -> int:
+    """Fetch one source, write genuinely new evidence (capped per check), return count written.
+
+    A broad first-time source (especially a keyword search) can match dozens
+    of historical items at once; writing all of them in one pass would flood
+    the feed. Anything past the cap is simply left unwritten and picked up
+    on a later check, since it's still "new" until it's actually written.
+    """
+    entries = fetch_source_entries(source)
+    written = 0
+    for entry in entries:
+        if written >= SOURCE_MAX_NEW_ITEMS_PER_CHECK:
+            break
+        link = getattr(entry, "link", "") or ""
+        if not link or link in seen_urls:
+            continue
+        record = build_auto_evidence(entry, source)
+        save_evidence(record)
+        seen_urls.add(link)
+        written += 1
+    return written
+
+
+def check_all_sources() -> dict[str, Any]:
+    sources = load_sources()
+    seen_urls = existing_evidence_source_urls()
+    total_written = 0
+    for source in sources:
+        if not source.get("enabled", True):
+            continue
+        source["last_checked_at"] = datetime.now().isoformat(timespec="seconds")
+        try:
+            written = check_source(source, seen_urls)
+            source["last_status"] = f"ok: {written} new item(s)" if written else "ok: no new items"
+            total_written += written
+        except Exception as exc:                       # noqa: BLE001
+            source["last_status"] = f"error: {exc}"
+    save_sources(sources)
+    return {"sources_checked": len(sources), "items_written": total_written}
+
+
+async def source_polling_loop() -> None:
+    while True:
+        try:
+            await asyncio.to_thread(check_all_sources)
+        except Exception:                               # noqa: BLE001
+            pass
+        await asyncio.sleep(SOURCE_POLL_INTERVAL_SECONDS)
+
+
 def normalize_title(text: str) -> str:
     text = text.lower().strip()
     return re.sub(r"[^a-z0-9]+", " ", text).strip()
@@ -504,6 +684,33 @@ def evidence_attachment(record_id: str, filename: str) -> FileResponse:
     if not target.is_file() or not target.is_relative_to(directory):
         raise HTTPException(status_code=404, detail="Attachment not found")
     return FileResponse(target)
+
+
+@app.post("/evidence/{record_id}/validate")
+def evidence_validate(record_id: str) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Validating evidence is only available in authoring mode")
+    path = DATA_DIR / "evidence" / f"{record_id}.json"
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="Evidence record not found")
+    record = json.loads(path.read_text(encoding="utf-8"))
+    record["validated"] = True
+    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return RedirectResponse(url=f"/evidence/{record_id}", status_code=303)
+
+
+@app.post("/evidence/{record_id}/purge")
+def evidence_purge(record_id: str) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Purging evidence is only available in authoring mode")
+    path = DATA_DIR / "evidence" / f"{record_id}.json"
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="Evidence record not found")
+    record = json.loads(path.read_text(encoding="utf-8"))
+    if not record.get("auto_captured"):
+        raise HTTPException(status_code=400, detail="Purge is only available for auto-captured evidence")
+    path.unlink()
+    return RedirectResponse(url="/", status_code=303)
 
 
 @app.get("/entities/{entity_type}", response_class=HTMLResponse)
@@ -810,6 +1017,106 @@ def signal_detail(request: Request, signal_id: str) -> HTMLResponse:
             "authoring_mode": AUTHORING_MODE,
         },
     )
+
+
+@app.get("/sources", response_class=HTMLResponse)
+def sources_list(request: Request, error: str | None = None) -> HTMLResponse:
+    return templates.TemplateResponse(
+        request=request,
+        name="sources.html",
+        context={
+            "sources": load_sources(),
+            "source_types": SOURCE_TYPES,
+            "poll_interval_minutes": SOURCE_POLL_INTERVAL_SECONDS // 60,
+            "error": error,
+            "authoring_mode": AUTHORING_MODE,
+        },
+    )
+
+
+@app.post("/sources", response_model=None)
+def sources_add(
+    request: Request,
+    type: str = Form(...),
+    label: str = Form(""),
+    value: str = Form(""),
+) -> HTMLResponse | RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Adding sources is only available in authoring mode")
+    if type not in SOURCE_TYPES or not label.strip() or not value.strip():
+        return templates.TemplateResponse(
+            request=request,
+            name="sources.html",
+            context={
+                "sources": load_sources(),
+                "source_types": SOURCE_TYPES,
+                "poll_interval_minutes": SOURCE_POLL_INTERVAL_SECONDS // 60,
+                "error": "Type, label, and value (feed URL or search term) are all required.",
+                "authoring_mode": AUTHORING_MODE,
+            },
+            status_code=400,
+        )
+    sources = load_sources()
+    sources.append(
+        {
+            "id": new_source_id(label),
+            "type": type,
+            "label": label.strip(),
+            "value": value.strip(),
+            "berry_ids": [],
+            "enabled": True,
+            "created_at": date.today().isoformat(),
+            "last_checked_at": None,
+            "last_status": None,
+        }
+    )
+    save_sources(sources)
+    return RedirectResponse(url="/sources", status_code=303)
+
+
+@app.post("/sources/{source_id}/toggle")
+def sources_toggle(source_id: str) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Managing sources is only available in authoring mode")
+    sources = load_sources()
+    for source in sources:
+        if source["id"] == source_id:
+            source["enabled"] = not source.get("enabled", True)
+            break
+    else:
+        raise HTTPException(status_code=404, detail="Source not found")
+    save_sources(sources)
+    return RedirectResponse(url="/sources", status_code=303)
+
+
+@app.post("/sources/{source_id}/delete")
+def sources_delete(source_id: str) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Managing sources is only available in authoring mode")
+    sources = [s for s in load_sources() if s["id"] != source_id]
+    save_sources(sources)
+    return RedirectResponse(url="/sources", status_code=303)
+
+
+@app.post("/sources/{source_id}/check-now")
+def sources_check_now(source_id: str) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Managing sources is only available in authoring mode")
+    sources = load_sources()
+    for source in sources:
+        if source["id"] == source_id:
+            seen_urls = existing_evidence_source_urls()
+            source["last_checked_at"] = datetime.now().isoformat(timespec="seconds")
+            try:
+                written = check_source(source, seen_urls)
+                source["last_status"] = f"ok: {written} new item(s)" if written else "ok: no new items"
+            except Exception as exc:                    # noqa: BLE001
+                source["last_status"] = f"error: {exc}"
+            break
+    else:
+        raise HTTPException(status_code=404, detail="Source not found")
+    save_sources(sources)
+    return RedirectResponse(url="/sources", status_code=303)
 
 
 @app.get("/intake", response_class=HTMLResponse)
