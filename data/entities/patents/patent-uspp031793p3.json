@@ -1,0 +1,30 @@
+{
+  "id": "patent-uspp031793p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP031793P3 - SEKOYA Crunch 'FC13-083'",
+  "aliases": [
+    "USPP031793P3",
+    "PP031793"
+  ],
+  "status": "unverified",
+  "description": "United States plant patent USPP031793P3 covering SEKOYA Crunch 'FC13-083'. Assignee of record: Fall Creek Farm and Nursery, Inc..",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "patent_number": "USPP031793P3",
+    "jurisdiction": "United States",
+    "right_type": "US plant patent",
+    "assignee_of_record": "Fall Creek Farm and Nursery, Inc.",
+    "grant_date": "2020-05-26",
+    "protects_variety_subject": "SEKOYA Crunch 'FC13-083'",
+    "verification_status": "No evidence record in this package captures this patent document. The bibliographic attributes below were compiled during research but the front page was not staged as evidence, so they are unverified within the package. Listed in coverage-gaps.md."
+  }
+}

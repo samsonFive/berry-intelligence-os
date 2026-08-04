@@ -1,0 +1,38 @@
+{
+  "id": "patent-uspp025386p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP025386P3 - Last Call",
+  "aliases": [
+    "USPP025386P3",
+    "PP025386"
+  ],
+  "status": "active",
+  "description": "United States plant patent USPP025386P3 covering Last Call. Assignee of record: Fall Creek Farm and Nursery, Inc..",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp025386-last-call"
+  ],
+  "fact_ids": [
+    "fact-uspp025386-last-call-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-owns-uspp025386p3"
+  ],
+  "attributes": {
+    "patent_number": "USPP025386P3",
+    "jurisdiction": "United States",
+    "right_type": "US plant patent",
+    "assignee_of_record": "Fall Creek Farm and Nursery, Inc.",
+    "grant_date": "2015-03-31",
+    "protects_variety_subject": "Last Call",
+    "chilling_requirement_stated": "approx 1000 h",
+    "parentage": "'Ozarkblue' x 'Elliott'",
+    "firmness_instrument": "FirmTech 2"
+  }
+}

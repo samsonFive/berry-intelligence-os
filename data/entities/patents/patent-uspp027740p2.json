@@ -1,0 +1,39 @@
+{
+  "id": "patent-uspp027740p2",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP027740P2 - Patrecia",
+  "aliases": [
+    "USPP027740P2",
+    "PP027740"
+  ],
+  "status": "active",
+  "description": "United States plant patent USPP027740P2 covering Patrecia. Assignee of record: University of Florida / Florida Foundation Seed Producers.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uf-breeding-patrecia",
+    "ev-uf-ifas-hs1245"
+  ],
+  "fact_ids": [
+    "fact-uf-breeding-patrecia-3"
+  ],
+  "relationship_ids": [],
+  "attributes": {
+    "patent_number": "USPP027740P2",
+    "jurisdiction": "United States",
+    "right_type": "US plant patent",
+    "assignee_of_record": "University of Florida / Florida Foundation Seed Producers",
+    "grant_date": "2017-03-07",
+    "protects_variety_subject": "Patrecia",
+    "inventors_listed_on_patent": [
+      "Norden, David E.",
+      "Straughn, Alto"
+    ],
+    "note": "Inventors named on this patent do not match the UF/IFAS breeders credited in UF extension literature; unresolved."
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "sq-testing-candidates",
+  "record_type": "strategic_question",
+  "title": "Which varieties merit potential internal product testing based on public evidence?",
+  "description": "Populate the Milestone 4 testing queue. Candidacy requires either an independent measurement or convergent interest from multiple unrelated organizations.",
+  "status": "active",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": []
+}

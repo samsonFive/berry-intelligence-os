@@ -1,0 +1,13 @@
+{
+  "id": "rel-ew-group-owns-planasa",
+  "record_type": "relationship",
+  "subject_id": "company-ew-group",
+  "predicate": "owns",
+  "object_id": "company-planasa",
+  "status": "active",
+  "evidence_ids": [
+    "ev-cinven-planasa-ew-group"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Agreed acquisition of Planasa announced by Cinven. No completion date was retrieved."
+}

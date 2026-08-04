@@ -1,0 +1,45 @@
+{
+  "id": "patent-uspp028149p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP028149P3",
+  "aliases": [
+    "US PP28,149",
+    "EB 9-2"
+  ],
+  "status": "active",
+  "description": "United States plant patent on the blueberry selection 'EB 9-2', marketed as OZblu Magica. Sole inventor Vincent David Mazzardis; the cross was made at Yanchep Springs, Yanchep, Western Australia. Parentage 'BB-1' (unpatented) x '03-2' (unpatented), 2006 season. Granted 2017-07-04.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp028149-eb9-2"
+  ],
+  "fact_ids": [
+    "fact-ozblu-identity-magica"
+  ],
+  "relationship_ids": [
+    "rel-bisa-trading-owns-uspp028149p3",
+    "rel-prunus-persica-owns-uspp028149p3"
+  ],
+  "attributes": {
+    "patent_number": "US PP28,149",
+    "jurisdiction": "United States",
+    "authority": "USPTO",
+    "kind": "plant patent",
+    "grant_date": "2017-07-04",
+    "selection_code": "EB 9-2",
+    "commercial_name": "Magica",
+    "inventor": "Vincent David Mazzardis",
+    "assignees_of_record": [
+      "Bisa Trading Pty Ltd",
+      "Prunus Persica Pty Ltd"
+    ],
+    "cross_location": "Yanchep Springs, Yanchep, Western Australia",
+    "parentage": "'BB-1' (unpatented) x '03-2' (unpatented)",
+    "cross_season": "2006"
+  }
+}

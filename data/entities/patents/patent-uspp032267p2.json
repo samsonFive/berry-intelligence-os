@@ -1,0 +1,39 @@
+{
+  "id": "patent-uspp032267p2",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP032267P2",
+  "aliases": [
+    "US PP32,267",
+    "DrisBlueTwentyOne"
+  ],
+  "status": "active",
+  "description": "United States plant patent on the blueberry cultivar 'DrisBlueTwentyOne', trade name Kimberley in Canada. Parentage '136D 2' x '181C 1'. Granted 6 October 2020. Named inventors include Brian K. Caster, Jennifer K. Izzo, Bruce D. Mowrey, Esther Kibbe, Marta C. Baptista and Arturo Garcia.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp032267-drisbluetwentyone",
+    "ev-cfia-blueberry-index"
+  ],
+  "fact_ids": [
+    "fact-drisbluetwentyone-kimberley"
+  ],
+  "relationship_ids": [
+    "rel-driscolls-owns-uspp032267p2"
+  ],
+  "attributes": {
+    "patent_number": "US PP32,267",
+    "jurisdiction": "United States",
+    "authority": "USPTO",
+    "kind": "plant patent",
+    "grant_date": "2020-10-06",
+    "denomination": "DrisBlueTwentyOne",
+    "trade_name": "Kimberley",
+    "parentage": "'136D 2' x '181C 1'",
+    "assignee_of_record": "Driscoll's, Inc."
+  }
+}

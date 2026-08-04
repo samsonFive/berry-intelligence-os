@@ -1,0 +1,14 @@
+{
+  "id": "rel-fall-creek-owns-brand-sekoya",
+  "record_type": "relationship",
+  "subject_id": "company-fall-creek-farm-and-nursery",
+  "predicate": "owns",
+  "object_id": "brand-sekoya",
+  "status": "active",
+  "evidence_ids": [
+    "ev-fall-creek-commercial-platforms-2026",
+    "ev-sekoya-story"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; SEKOYA is a Fall Creek-operated managed-variety platform."
+}

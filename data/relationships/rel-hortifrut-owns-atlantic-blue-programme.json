@@ -1,0 +1,14 @@
+{
+  "id": "rel-hortifrut-owns-atlantic-blue-programme",
+  "record_type": "relationship",
+  "subject_id": "company-hortifrut",
+  "predicate": "owns",
+  "object_id": "breeding_program-atlantic-blue-royal-berries",
+  "status": "active",
+  "evidence_ids": [
+    "ev-leadersleague-atlantic-blue-2021",
+    "ev-hortifrut-genetic-development"
+  ],
+  "effective_date": "2021-10-20",
+  "notes": "confidence=medium; Acquired with 100 per cent of Atlantic Blue in 2021, including its worldwide blueberry variety and breeding development programme."
+}

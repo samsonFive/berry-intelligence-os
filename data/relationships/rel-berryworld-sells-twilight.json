@@ -1,0 +1,13 @@
+{
+  "id": "rel-berryworld-sells-twilight",
+  "record_type": "relationship",
+  "subject_id": "company-berryworld",
+  "predicate": "sells",
+  "object_id": "variety-twilight",
+  "status": "active",
+  "evidence_ids": [
+    "ev-berryworld-varieties"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Marketed under a BerryWorld retail brand. Substituted predicate: 'sells' stands in for 'markets', which the schema does not provide."
+}

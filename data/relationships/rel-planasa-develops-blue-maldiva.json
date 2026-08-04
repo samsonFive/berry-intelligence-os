@@ -1,0 +1,13 @@
+{
+  "id": "rel-planasa-develops-blue-maldiva",
+  "record_type": "relationship",
+  "subject_id": "company-planasa",
+  "predicate": "develops",
+  "object_id": "variety-blue-maldiva",
+  "status": "active",
+  "evidence_ids": [
+    "ev-planasa-blue-maldiva"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Planasa's own variety page identifies Blue Maldiva as its selection 'Plablue 1542'."
+}

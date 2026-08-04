@@ -1,0 +1,38 @@
+{
+  "id": "company-next-progeny",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Next Progeny Pty Ltd",
+  "aliases": [
+    "Next Progeny"
+  ],
+  "status": "active",
+  "description": "Australian entity recorded as the assignee on the later OZblu 'NS' series blueberry plant patents.",
+  "roles": [
+    "patent_assignee",
+    "rights_holder"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp030934-ns13-6",
+    "ev-uspp033138-ns15-13",
+    "ev-uspp032897-ns16-2",
+    "ev-uspp025858-eb8-42",
+    "ev-uspp027142-eb12-19"
+  ],
+  "fact_ids": [
+    "fact-ozblu-assignee-structure"
+  ],
+  "relationship_ids": [
+    "rel-next-progeny-owns-uspp030934p3",
+    "rel-next-progeny-owns-uspp033138p3",
+    "rel-next-progeny-owns-uspp032897p3",
+    "rel-next-progeny-operates-in-australia"
+  ],
+  "attributes": {
+    "country": "Australia",
+    "patent_series": "NS"
+  }
+}

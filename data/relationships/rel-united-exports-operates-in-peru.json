@@ -1,0 +1,13 @@
+{
+  "id": "rel-united-exports-operates-in-peru",
+  "record_type": "relationship",
+  "subject_id": "company-united-exports",
+  "predicate": "operates_in",
+  "object_id": "geography-peru",
+  "status": "active",
+  "evidence_ids": [
+    "ev-united-exports-what-we-do"
+  ],
+  "effective_date": null,
+  "notes": "confidence=low; Self-reported production country list."
+}

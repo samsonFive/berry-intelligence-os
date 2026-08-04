@@ -1,0 +1,17 @@
+{
+  "id": "fact-fruitnet-ozblu-dispute-2020-2",
+  "record_type": "fact",
+  "statement": "United Exports announced a five-year South African investment plan of R1.3 billion, approximately US$85 million, reported on 9 November 2020. This is a company announcement carried by trade press and no independent confirmation of the amount or of subsequent execution was located.",
+  "classification": "claim",
+  "confidence": "low",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-fruitnet-ozblu-dispute-2020"
+  ],
+  "entity_ids": [
+    "company-united-exports",
+    "geography-south-africa"
+  ]
+}

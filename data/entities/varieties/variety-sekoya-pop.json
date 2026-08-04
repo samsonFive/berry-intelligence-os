@@ -1,0 +1,83 @@
+{
+  "id": "variety-sekoya-pop",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "SEKOYA Pop",
+  "aliases": [
+    "SEKOYA® Pop™",
+    "FCM14-052",
+    "Sekoya Pop"
+  ],
+  "status": "active",
+  "description": "Zero- to low-chill blueberry cultivar from the Fall Creek breeding programme, selected in Mexico in 2014. Reported as the single largest Peruvian export variety by volume in the 2024/25 season.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-sekoya-story",
+    "ev-freshplaza-fall-creek-chile-2026",
+    "ev-fallcreek-catalog-sekoya-pop",
+    "ev-uspp032186-sekoya-pop",
+    "ev-italianberry-peru-varieties-2025",
+    "ev-nda-za-variety-list-2025"
+  ],
+  "fact_ids": [
+    "fact-sekoya-story-pop",
+    "fact-sekoya-story-6",
+    "fact-fallcreek-catalog-sekoya-pop-1",
+    "fact-uspp032186-sekoya-pop-1",
+    "fact-freshplaza-fall-creek-chile-2026-1",
+    "fact-italianberry-peru-varieties-2025-1",
+    "fact-nda-za-variety-list-2025-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-develops-sekoya-pop",
+    "rel-fall-creek-program-develops-sekoya-pop",
+    "rel-fall-creek-trials-sekoya-pop-chile",
+    "rel-sekoya-carries-sekoya-pop"
+  ],
+  "attributes": {
+    "selection_code": "FCM14-052",
+    "breeding_program": "breeding_program-fall-creek-blueberry-breeding",
+    "platform": "SEKOYA",
+    "chill_class": "zero to low chill",
+    "selected_year": 2014,
+    "selected_location": "Mexico",
+    "traits": [
+      {
+        "trait": "trait-fruit-size",
+        "value": "Described by the owner as jumbo",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-fallcreek-catalog-sekoya-pop"
+        ],
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      },
+      {
+        "trait": "trait-postharvest-shelf-life",
+        "value": "Owner claims 60 days storage; storage conditions not stated",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-fallcreek-catalog-sekoya-pop"
+        ],
+        "measured_value": 60,
+        "units": "days",
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      },
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "Described by the owner as exceptionally firm",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-fallcreek-catalog-sekoya-pop"
+        ],
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      }
+    ],
+    "market_position": {
+      "peru_export_share_2024_25_to_week_33": "19% of national volume (2,514 t)",
+      "source": "Proarandanos data reported by Italian Berry"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "company-planasa",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Plantas de Navarra, S.A.",
+  "aliases": [
+    "Planasa"
+  ],
+  "status": "active",
+  "description": "Spanish plant breeder and nursery group trading as Planasa, headquartered in Valtierra, Navarra. In blueberry it operates as a breeder and licensor of protected varieties and as a nursery plant producer, rather than as a fresh-fruit marketer. Owned by Cinven and Label Investments until their agreed sale to the German EW Group.",
+  "roles": [
+    "breeder",
+    "nursery",
+    "genetics_licensor",
+    "plant_producer",
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-planasa-about-us",
+    "ev-planasa-blue-manila-page",
+    "ev-planasa-blue-manila-datasheet",
+    "ev-planasa-blue-maldiva",
+    "ev-uspp031345-plablue-1545",
+    "ev-cinven-planasa-ew-group",
+    "ev-abb-varieties",
+    "ev-cfia-blueberry-index"
+  ],
+  "fact_ids": [
+    "fact-blue-manila-plablue-1545",
+    "fact-blue-maldiva-plablue-1542",
+    "fact-blue-manila-brix-conflict",
+    "fact-blue-manila-owner-yield-claim",
+    "fact-planasa-ew-group-sale",
+    "fact-advanced-berry-breeding-raspberry-only",
+    "fact-cfia-no-costa-planasa-hortifrut-blueberry",
+    "fact-planasa-scale-claim"
+  ],
+  "relationship_ids": [
+    "rel-planasa-develops-blue-manila",
+    "rel-planasa-develops-blue-maldiva",
+    "rel-planasa-owns-uspp031345p2",
+    "rel-planasa-operates-in-spain",
+    "rel-planasa-operates-in-morocco",
+    "rel-cinven-owns-planasa",
+    "rel-ew-group-owns-planasa",
+    "rel-planasa-owns-advanced-berry-breeding"
+  ],
+  "attributes": {
+    "headquarters": "Valtierra, Navarra, Spain",
+    "country": "Spain",
+    "founded": 1973,
+    "ownership": "private, corporate-owned",
+    "registered_varieties_all_crops": "more than 225",
+    "rnd_centres": 7,
+    "plants_per_year": "more than 1,000 million",
+    "countries_present": "more than 25"
+  }
+}

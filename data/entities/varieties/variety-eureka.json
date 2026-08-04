@@ -1,0 +1,111 @@
+{
+  "id": "variety-eureka",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Eureka",
+  "aliases": [
+    "'Ridley 1403'",
+    "Ridley 1403",
+    "BerryWorld Eureka"
+  ],
+  "status": "active",
+  "description": "Australian blueberry cultivar from the Mountain Blue breeding programme, discovered as a single plant selection in 2008 at Lindendale, New South Wales. The name is also used as an umbrella brand for several distinct Mountain Blue cultivars, which are not the same object as this cultivar.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-mbo-eureka-blueberries",
+    "ev-uspp025432-ridley-1403",
+    "ev-uspp031605-ridley-1602",
+    "ev-uspp023572-ridley-1111",
+    "ev-berryworld-varieties",
+    "ev-italianberry-mbo-chile-2020",
+    "ev-ibo-eureka-moment-2015",
+    "ev-italianberry-peru-varieties-2025",
+    "ev-agronometrics-prism-2025",
+    "ev-nda-za-variety-list-2025",
+    "ev-brevis-ip-registration-trends",
+    "ev-abc-chellew-judgment-2019"
+  ],
+  "fact_ids": [
+    "fact-uspp025432-ridley-1403-1",
+    "fact-uspp025432-ridley-1403-2",
+    "fact-uspp025432-ridley-1403-3",
+    "fact-mbo-eureka-blueberries-1",
+    "fact-mbo-eureka-blueberries-2",
+    "fact-italianberry-peru-varieties-2025-4",
+    "fact-uspp023572-ridley-1111-1",
+    "fact-abc-chellew-judgment-2019-2",
+    "fact-uspp031605-ridley-1602-1",
+    "fact-berryworld-varieties-1",
+    "fact-berryworld-varieties-2",
+    "fact-ibo-eureka-moment-2015-1",
+    "fact-italianberry-mbo-chile-2020-1",
+    "fact-italianberry-peru-varieties-2025-2",
+    "fact-agronometrics-prism-2025-1",
+    "fact-nda-za-variety-list-2025-1",
+    "fact-brevis-ip-registration-trends-1"
+  ],
+  "relationship_ids": [
+    "rel-mbo-develops-eureka",
+    "rel-mbo-program-develops-eureka",
+    "rel-berryworld-sells-eureka"
+  ],
+  "attributes": {
+    "selection_code": "Ridley 1403",
+    "code_confidence": "Attributed from trade and market sources; IP Australia's synonym field for the corresponding PBR record reads 'N/A', so there is no registry-level confirmation that the brand name Eureka maps to 'Ridley 1403'.",
+    "breeding_program": "breeding_program-mountain-blue-blueberry-breeding",
+    "discovered_year": 2008,
+    "discovered_by": "Ridley Bell",
+    "origin": "single plant 'M08-14-03' selected from 100 seedlings, Lindendale NSW",
+    "parentage": "'S02-25-05' x 'S03-08-02' (2006 cross; both parents unpatented)",
+    "us_plant_patent": "PP25,432 (USPP025432P3)",
+    "australia_pbr_application": "2010/215",
+    "naming_hazard": "Eureka the cultivar must not be merged with Eureka the umbrella brand, nor with Eureka Sunrise, Eureka Sunset, Eureka Dawn, Eureka Gold or Eureka Maxx.",
+    "traits": [
+      {
+        "trait": "trait-fruit-size",
+        "value": "Patent describes very large fruit",
+        "provenance": "regulatory_or_registry_record",
+        "evidence_ids": [
+          "ev-uspp025432-ridley-1403"
+        ],
+        "asserted_by": "United States Patent and Trademark Office"
+      },
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "Patent describes medium-firm fruit, which is materially weaker than the owner's marketing description",
+        "provenance": "regulatory_or_registry_record",
+        "evidence_ids": [
+          "ev-uspp025432-ridley-1403"
+        ],
+        "asserted_by": "United States Patent and Trademark Office"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "Patent describes a good sweetness and acidity balance; the owner separately claims exceptional sweetness and a crisp, juicy texture",
+        "provenance": "regulatory_or_registry_record",
+        "evidence_ids": [
+          "ev-uspp025432-ridley-1403",
+          "ev-mbo-eureka-blueberries"
+        ],
+        "asserted_by": "United States Patent and Trademark Office (patent description) and Mountain Blue (owner claim)"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "Superior Taste Award at three stars in 2025 and 2022, awarded to BerryWorld Eureka by the International Taste Institute",
+        "provenance": "independent_report",
+        "evidence_ids": [
+          "ev-berryworld-varieties"
+        ],
+        "asserted_by": "International Taste Institute, reported by BerryWorld"
+      }
+    ],
+    "market_position": {
+      "peru_export_volume_2024_25_to_week_33": "655 t, about 5% of national volume",
+      "peru_price_index_2025": "1.02x the varietal average (95% CI 0.62-1.42, n=182 pricing reports)",
+      "registrations_2009_2019": "15 countries or regions, reported as the most widely registered blueberry variety of that period"
+    }
+  }
+}

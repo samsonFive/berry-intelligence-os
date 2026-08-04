@@ -1,0 +1,29 @@
+{
+  "id": "company-bci",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "British Columbia Investment Management Corporation",
+  "aliases": [
+    "BCI"
+  ],
+  "status": "active",
+  "description": "Canadian institutional investor and member of the consortium that took Costa Group private in February 2024.",
+  "roles": [
+    "institutional_investor"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-costa-ownership-2024"
+  ],
+  "fact_ids": [
+    "fact-costa-consortium-2024"
+  ],
+  "relationship_ids": [
+    "rel-bci-owns-costa"
+  ],
+  "attributes": {
+    "country": "Canada"
+  }
+}

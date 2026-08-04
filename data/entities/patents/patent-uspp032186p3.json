@@ -1,0 +1,37 @@
+{
+  "id": "patent-uspp032186p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP032186P3 - SEKOYA Pop 'FCM14-052'",
+  "aliases": [
+    "USPP032186P3",
+    "PP032186"
+  ],
+  "status": "active",
+  "description": "United States plant patent USPP032186P3 covering SEKOYA Pop 'FCM14-052'. Assignee of record: Fall Creek Farm and Nursery, Inc..",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp032186-sekoya-pop"
+  ],
+  "fact_ids": [
+    "fact-uspp032186-sekoya-pop-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-owns-uspp032186p3"
+  ],
+  "attributes": {
+    "patent_number": "USPP032186P3",
+    "jurisdiction": "United States",
+    "right_type": "US plant patent",
+    "assignee_of_record": "Fall Creek Farm and Nursery, Inc.",
+    "grant_date": "2020-09-15",
+    "protects_variety_subject": "SEKOYA Pop 'FCM14-052'",
+    "filed": "2019-04-04",
+    "parentage": "'FL01-06' x 'FL06-556' (PP27,771)"
+  }
+}

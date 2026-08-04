@@ -1,0 +1,40 @@
+{
+  "id": "company-berryworld",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "BerryWorld Group",
+  "aliases": [
+    "BerryWorld"
+  ],
+  "status": "active",
+  "description": "UK-headquartered berry marketing and variety-management group that markets Mountain Blue genetics in Europe, the UK, Africa and the Middle East under BerryWorld-prefixed brands.",
+  "roles": [
+    "marketer",
+    "licensee",
+    "variety_manager"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-berryworld-varieties",
+    "ev-fruitnet-eureka-sunrise-2023"
+  ],
+  "fact_ids": [
+    "fact-fruitnet-eureka-sunrise-2023-2",
+    "fact-berryworld-varieties-1",
+    "fact-berryworld-varieties-2"
+  ],
+  "relationship_ids": [
+    "rel-berryworld-sells-eureka-sunrise",
+    "rel-berryworld-sells-eureka",
+    "rel-berryworld-sells-twilight",
+    "rel-berryworld-sells-opi",
+    "rel-berryworld-partners-with-mbo",
+    "rel-eureka-sunrise-grown-south-africa",
+    "rel-berryworld-owns-varietal-brands"
+  ],
+  "attributes": {
+    "country": "United Kingdom"
+  }
+}

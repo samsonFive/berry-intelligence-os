@@ -1,0 +1,44 @@
+{
+  "id": "patent-uspp028437p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP028437P3 - SEKOYA Beauty 'FCM12-097'",
+  "aliases": [
+    "USPP028437P3",
+    "PP028437"
+  ],
+  "status": "active",
+  "description": "United States plant patent USPP028437P3 covering SEKOYA Beauty 'FCM12-097'. Assignee of record: Fall Creek Farm and Nursery, Inc..",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp028437-sekoya-beauty"
+  ],
+  "fact_ids": [
+    "fact-uspp028437-sekoya-beauty-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-owns-uspp028437p3"
+  ],
+  "attributes": {
+    "patent_number": "USPP028437P3",
+    "jurisdiction": "United States",
+    "right_type": "US plant patent",
+    "assignee_of_record": "Fall Creek Farm and Nursery, Inc.",
+    "grant_date": "2017-09-26",
+    "protects_variety_subject": "SEKOYA Beauty 'FCM12-097'",
+    "application_number": "14/998,607",
+    "filed": "2016-01-21",
+    "inventors": [
+      "David M. Brazelton",
+      "Adam L. Wagner",
+      "Peter S. Boches",
+      "Alamo Bermudo"
+    ],
+    "parentage": "'FF03-194' x 'FL00-180' (cross X08-167, 2008)"
+  }
+}

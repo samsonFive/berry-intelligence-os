@@ -1,0 +1,13 @@
+{
+  "id": "rel-united-exports-operates-in-south-africa",
+  "record_type": "relationship",
+  "subject_id": "company-united-exports",
+  "predicate": "operates_in",
+  "object_id": "geography-south-africa",
+  "status": "active",
+  "evidence_ids": [
+    "ev-ifc-united-exports-2019"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; 180 hectare blueberry farm expansion financed by IFC, FMO and IFU."
+}

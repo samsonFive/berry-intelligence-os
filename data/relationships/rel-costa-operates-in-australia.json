@@ -1,0 +1,13 @@
+{
+  "id": "rel-costa-operates-in-australia",
+  "record_type": "relationship",
+  "subject_id": "company-costa-group-holdings",
+  "predicate": "operates_in",
+  "object_id": "geography-australia",
+  "status": "active",
+  "evidence_ids": [
+    "ev-costa-vip"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Breeding programme and farms at Corindi, New South Wales."
+}

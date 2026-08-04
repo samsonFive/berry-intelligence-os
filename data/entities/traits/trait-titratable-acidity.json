@@ -1,0 +1,27 @@
+{
+  "id": "trait-titratable-acidity",
+  "record_type": "entity",
+  "entity_type": "trait",
+  "name": "Titratable acidity",
+  "aliases": [
+    "TA"
+  ],
+  "status": "active",
+  "description": "Measured acid content of the fruit, reported as a percentage. Together with soluble solids it determines perceived sweetness, and it is rarely published outside independent trials.",
+  "roles": [
+    "measurable_attribute"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uaex-blueberry-trial-2024"
+  ],
+  "fact_ids": [
+    "fact-uaex-quality-range-2024"
+  ],
+  "relationship_ids": [],
+  "attributes": {
+    "units": "per cent"
+  }
+}

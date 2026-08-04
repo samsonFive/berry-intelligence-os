@@ -1,0 +1,52 @@
+{
+  "id": "company-florida-foundation-seed-producers",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Florida Foundation Seed Producers, Inc.",
+  "aliases": [
+    "FFSP"
+  ],
+  "status": "active",
+  "description": "University of Florida-affiliated entity that holds and licenses commercialisation rights to UF/IFAS-bred blueberry cultivars and publishes the licensed-nursery list.",
+  "roles": [
+    "licensing_body",
+    "rights_holder"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uf-ifas-hs1245",
+    "ev-ffsp-emerald",
+    "ev-ffsp-jewel",
+    "ev-ffsp-farthing",
+    "ev-ffsp-optimus",
+    "ev-justia-costa-berry-international",
+    "ev-uf-breeding-optimus"
+  ],
+  "fact_ids": [
+    "fact-uf-ifas-hs1245-1",
+    "fact-uf-breeding-optimus-3",
+    "fact-ffsp-jewel-1",
+    "fact-ffsp-farthing-1",
+    "fact-ffsp-optimus-1",
+    "fact-ffsp-emerald-1",
+    "fact-cbi-ffsp-joint-patents"
+  ],
+  "relationship_ids": [
+    "rel-ffsp-licenses-emerald",
+    "rel-ffsp-licenses-jewel",
+    "rel-ffsp-licenses-farthing",
+    "rel-ffsp-licenses-meadowlark",
+    "rel-ffsp-licenses-patrecia",
+    "rel-ffsp-licenses-optimus",
+    "rel-ffsp-licenses-colossus",
+    "rel-ffsp-licenses-sentinel",
+    "rel-uf-partners-with-ffsp",
+    "rel-costa-berry-international-partners-with-ffsp"
+  ],
+  "attributes": {
+    "affiliation": "University of Florida",
+    "country": "United States"
+  }
+}

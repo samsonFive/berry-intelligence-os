@@ -1,0 +1,33 @@
+{
+  "id": "patent-uspp012165p2",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP012165P2 - Emerald 'FL95-209a'",
+  "aliases": [
+    "USPP012165P2",
+    "PP012165"
+  ],
+  "status": "unverified",
+  "description": "United States plant patent USPP012165P2 covering Emerald 'FL95-209a'. Assignee of record: University of Florida / Florida Foundation Seed Producers.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "patent_number": "USPP012165P2",
+    "jurisdiction": "United States",
+    "right_type": "US plant patent",
+    "assignee_of_record": "University of Florida / Florida Foundation Seed Producers",
+    "grant_date": "2001-10-23",
+    "protects_variety_subject": "Emerald 'FL95-209a'",
+    "filed": "1999-09-09",
+    "inventor": "Paul M. Lyrene",
+    "parentage": "'FL91-69' x 'NC1528'",
+    "verification_status": "No evidence record in this package captures this patent document. The bibliographic attributes below were compiled during research but the front page was not staged as evidence, so they are unverified within the package. Listed in coverage-gaps.md."
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "id": "variety-blue-ribbon",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Blue Ribbon",
+  "aliases": [
+    "Blue Ribbon blueberry"
+  ],
+  "status": "active",
+  "description": "High-chill Fall Creek cultivar with granted US plant patent and Canadian plant breeders' rights, reported among the most widely registered blueberry varieties of the 2009-2019 period.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-fallcreek-catalog-blue-ribbon",
+    "ev-uspp024636-blue-ribbon",
+    "ev-cfia-pbr-blue-ribbon",
+    "ev-brevis-ip-registration-trends"
+  ],
+  "fact_ids": [
+    "fact-fallcreek-catalog-blue-ribbon-1",
+    "fact-uspp024636-blue-ribbon-1",
+    "fact-uspp024636-blue-ribbon-2",
+    "fact-cfia-pbr-blue-ribbon-1",
+    "fact-cfia-pbr-blue-ribbon-2",
+    "fact-brevis-ip-registration-trends-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-develops-blue-ribbon",
+    "rel-fall-creek-program-develops-blue-ribbon"
+  ],
+  "attributes": {
+    "breeding_program": "breeding_program-fall-creek-blueberry-breeding",
+    "platform": "Fall Creek open catalogue",
+    "chill_class": "high chill",
+    "parentage": "'G344' x 'Toro' (2002, Lowell, Oregon; selected 2005)",
+    "traits": [
+      {
+        "trait": "trait-chilling-requirement",
+        "value": "US plant patent states a chilling requirement of 800-1000 hours",
+        "provenance": "regulatory_or_registry_record",
+        "evidence_ids": [
+          "ev-uspp024636-blue-ribbon"
+        ],
+        "measured_value": "800-1000",
+        "units": "hours",
+        "asserted_by": "United States Patent and Trademark Office"
+      },
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "Examiner-observed as very firm",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-cfia-pbr-blue-ribbon"
+        ],
+        "conditions": "CFIA plant breeders' rights trial, Chilliwack, British Columbia, 2015",
+        "asserted_by": "Canadian Food Inspection Agency"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "Examiner-observed as low-to-medium sweetness with high acidity",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-cfia-pbr-blue-ribbon"
+        ],
+        "conditions": "Chilliwack, British Columbia, 2015",
+        "asserted_by": "Canadian Food Inspection Agency"
+      },
+      {
+        "trait": "trait-postharvest-shelf-life",
+        "value": "Owner claims 28 days storage",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-fallcreek-catalog-blue-ribbon"
+        ],
+        "measured_value": 28,
+        "units": "days",
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      }
+    ],
+    "canada_pbr": {
+      "application_number": "12-7574",
+      "application_date": "2012-03-26",
+      "grant_date": "2016-11-12",
+      "certificate": "5369",
+      "expiry": "2036-11-12",
+      "breeders": [
+        "David M. Brazelton",
+        "Adam L. Wagner"
+      ]
+    }
+  }
+}

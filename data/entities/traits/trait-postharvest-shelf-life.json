@@ -1,0 +1,44 @@
+{
+  "id": "trait-postharvest-shelf-life",
+  "record_type": "entity",
+  "entity_type": "trait",
+  "name": "Post-harvest shelf life",
+  "aliases": [],
+  "status": "active",
+  "description": "Number of days of acceptable quality in cold storage. Almost always an owner or marketer claim; storage temperature, packaging and quality threshold are usually unstated.",
+  "roles": [
+    "measurable_attribute"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-produce-report-sekoya-nova-2026",
+    "ev-planasa-blue-manila-datasheet",
+    "ev-producereport-blugenix-2026",
+    "ev-fallcreek-catalog-sekoya-beauty",
+    "ev-fallcreek-catalog-sekoya-pop",
+    "ev-fallcreek-catalog-sekoya-grande",
+    "ev-fallcreek-catalog-sekoya-fiesta",
+    "ev-fallcreek-catalog-blue-ribbon",
+    "ev-fallcreek-catalog-top-shelf",
+    "ev-fallcreek-catalog-last-call",
+    "ev-freshfruitportal-fall-creek-2026",
+    "ev-cfia-pbr-fc11-164"
+  ],
+  "fact_ids": [
+    "fact-fallcreek-catalog-sekoya-beauty-1",
+    "fact-fallcreek-catalog-sekoya-pop-1",
+    "fact-fallcreek-catalog-sekoya-grande-1",
+    "fact-fallcreek-catalog-sekoya-fiesta-1",
+    "fact-fallcreek-catalog-blue-ribbon-1",
+    "fact-fallcreek-catalog-top-shelf-1",
+    "fact-fallcreek-catalog-last-call-1",
+    "fact-produce-report-sekoya-nova-2026-2",
+    "fact-freshfruitportal-fall-creek-2026-1",
+    "fact-blue-manila-owner-yield-claim",
+    "fact-blugenix-shelf-life-claim"
+  ],
+  "relationship_ids": [],
+  "attributes": {}
+}

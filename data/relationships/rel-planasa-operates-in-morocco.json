@@ -1,0 +1,13 @@
+{
+  "id": "rel-planasa-operates-in-morocco",
+  "record_type": "relationship",
+  "subject_id": "company-planasa",
+  "predicate": "operates_in",
+  "object_id": "geography-morocco",
+  "status": "active",
+  "evidence_ids": [
+    "ev-planasa-blue-manila-datasheet"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Trial plots in Morocco cited as the basis for published Blue Manila performance figures."
+}

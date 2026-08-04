@@ -1,0 +1,45 @@
+{
+  "id": "variety-magnifica",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Magnifica",
+  "aliases": [
+    "EB 12-19",
+    "OZblu Magnifica",
+    "'EB 12-19'"
+  ],
+  "status": "active",
+  "description": "Blueberry cultivar from the selection 'EB 12-19', bred in Western Australia by Vincent David Mazzardis and marketed internationally under the OZblu brand by United Exports. Protected in the United States by US PP27,142, granted 2016-09-13. Parentage '8-19' (unpatented) x 'EB 8-1' (US PP25,859).",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp027142-eb12-19",
+    "ev-ciopora-united-exports-pbr-2020"
+  ],
+  "fact_ids": [
+    "fact-ozblu-identity-magnifica"
+  ],
+  "relationship_ids": [
+    "rel-united-exports-sells-magnifica"
+  ],
+  "attributes": {
+    "selection_code": "EB 12-19",
+    "patent_id": "patent-uspp027142p3",
+    "patent_number": "US PP27,142",
+    "patent_grant_date": "2016-09-13",
+    "parentage": "'8-19' (unpatented) x 'EB 8-1' (US PP25,859)",
+    "cross_location": "Yanchep Springs, Yanchep, Western Australia",
+    "breeder_individual": "Vincent David Mazzardis",
+    "breeding_organisation": "Nature Select / Next Progeny / Prunus Persica (Australia)",
+    "marketed_under_brand": "OZblu",
+    "brand_owner": "United Exports",
+    "code_to_name_corroboration": "The selection code to commercial name mapping is corroborated by the South African Department of Agriculture, Land Reform and Rural Development berry export variety list 2025, independently of the rights holder.",
+    "identity_note": "This is a breeder selection code and a marketed cultivar name for the same object, confirmed by the patent record. OZblu is the brand under which it is sold and is not itself a cultivar.",
+    "cross_season": "2009",
+    "traits": []
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "company-paine-schwartz-partners",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Paine Schwartz Partners",
+  "aliases": [],
+  "status": "active",
+  "description": "United States food and agribusiness private equity firm. Lead member of the consortium that acquired Costa Group in February 2024.",
+  "roles": [
+    "private_equity_investor"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-costa-ownership-2024"
+  ],
+  "fact_ids": [
+    "fact-costa-consortium-2024"
+  ],
+  "relationship_ids": [
+    "rel-paine-schwartz-owns-costa"
+  ],
+  "attributes": {
+    "country": "United States"
+  }
+}

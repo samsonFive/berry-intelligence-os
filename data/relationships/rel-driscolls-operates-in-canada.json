@@ -1,0 +1,13 @@
+{
+  "id": "rel-driscolls-operates-in-canada",
+  "record_type": "relationship",
+  "subject_id": "company-driscolls",
+  "predicate": "operates_in",
+  "object_id": "geography-canada",
+  "status": "active",
+  "evidence_ids": [
+    "ev-cfia-blueberry-index"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Holds 21 registered blueberry denominations on the Canadian plant breeders' rights register."
+}

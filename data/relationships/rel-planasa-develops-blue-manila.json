@@ -1,0 +1,14 @@
+{
+  "id": "rel-planasa-develops-blue-manila",
+  "record_type": "relationship",
+  "subject_id": "company-planasa",
+  "predicate": "develops",
+  "object_id": "variety-blue-manila",
+  "status": "active",
+  "evidence_ids": [
+    "ev-planasa-blue-manila-page",
+    "ev-uspp031345-plablue-1545"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Planasa's own variety page and data sheet identify Blue Manila as its selection 'Plablue 1545'."
+}

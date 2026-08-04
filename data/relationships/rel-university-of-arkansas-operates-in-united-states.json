@@ -1,0 +1,13 @@
+{
+  "id": "rel-university-of-arkansas-operates-in-united-states",
+  "record_type": "relationship",
+  "subject_id": "company-university-of-arkansas",
+  "predicate": "operates_in",
+  "object_id": "geography-united-states",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uaex-blueberry-trial-2024"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Land-grant institution operating the Fruit Research Station at Clarksville, Arkansas."
+}

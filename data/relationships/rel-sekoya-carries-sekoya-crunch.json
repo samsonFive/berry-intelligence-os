@@ -1,0 +1,13 @@
+{
+  "id": "rel-sekoya-carries-sekoya-crunch",
+  "record_type": "relationship",
+  "subject_id": "brand-sekoya",
+  "predicate": "carries",
+  "object_id": "variety-sekoya-crunch",
+  "status": "active",
+  "evidence_ids": [
+    "ev-sekoya-story"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Marketed within the SEKOYA managed-variety platform."
+}

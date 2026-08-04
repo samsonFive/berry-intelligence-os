@@ -1,0 +1,27 @@
+{
+  "id": "company-cinven",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Cinven",
+  "aliases": [],
+  "status": "active",
+  "description": "European private equity firm. Held a majority stake in Planasa from 2017/2018 and, with Label Investments, agreed to sell Planasa to EW Group.",
+  "roles": [
+    "private_equity_investor"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-cinven-planasa-ew-group"
+  ],
+  "fact_ids": [
+    "fact-planasa-ew-group-sale"
+  ],
+  "relationship_ids": [
+    "rel-cinven-owns-planasa"
+  ],
+  "attributes": {
+    "country": "United Kingdom"
+  }
+}

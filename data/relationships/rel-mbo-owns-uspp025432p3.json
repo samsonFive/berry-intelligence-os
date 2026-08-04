@@ -1,0 +1,13 @@
+{
+  "id": "rel-mbo-owns-uspp025432p3",
+  "record_type": "relationship",
+  "subject_id": "company-mountain-blue-orchards",
+  "predicate": "owns",
+  "object_id": "patent-uspp025432p3",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uspp025432-ridley-1403"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Assignee of record on the granted United States plant patent. Substituted predicate: no 'protects' predicate exists to link the patent to the variety it covers."
+}

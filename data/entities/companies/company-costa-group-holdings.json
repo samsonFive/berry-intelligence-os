@@ -1,0 +1,72 @@
+{
+  "id": "company-costa-group-holdings",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Costa Group Holdings Pty Ltd",
+  "aliases": [
+    "Costa Group",
+    "Costa Group Holdings Limited",
+    "ABN 68 151 363 129"
+  ],
+  "status": "active",
+  "description": "Australian horticultural group and blueberry breeder. Formerly the ASX-listed Costa Group Holdings Limited; delisted 27 February 2024 after a take-private by Paine Schwartz Partners, Driscoll's and British Columbia Investment Management Corporation, and renamed to a proprietary company on 3 June 2024. Its blueberry breeding programme is run from Corindi, New South Wales.",
+  "roles": [
+    "breeder",
+    "grower",
+    "packer",
+    "marketer",
+    "genetics_licensor",
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-costa-vip",
+    "ev-costa-heaviest-blueberry-2024",
+    "ev-producereport-blugenix-2026",
+    "ev-costa-ownership-2024",
+    "ev-abn-costa-history",
+    "ev-justia-costa-berry-international",
+    "ev-costa-african-blue-2023",
+    "ev-delisted-costa",
+    "ev-cfia-blueberry-index"
+  ],
+  "fact_ids": [
+    "fact-cfia-no-costa-planasa-hortifrut-blueberry",
+    "fact-costa-entity-name-change-2024",
+    "fact-costa-delisted-2024",
+    "fact-costa-consortium-2024",
+    "fact-costa-vip-corindi",
+    "fact-costa-vip-age-conflict",
+    "fact-costa-licensing-regions",
+    "fact-blugenix-launch-2026",
+    "fact-blugenix-shelf-life-claim",
+    "fact-eterna-heaviest-blueberry-2023",
+    "fact-african-blue-morocco-zimbabwe",
+    "fact-blugenix-growing-countries"
+  ],
+  "relationship_ids": [
+    "rel-costa-develops-eterna",
+    "rel-costa-develops-arana",
+    "rel-costa-develops-variety-improvement-programme",
+    "rel-costa-owns-blugenix",
+    "rel-costa-owns-african-blue",
+    "rel-paine-schwartz-owns-costa",
+    "rel-bci-owns-costa",
+    "rel-driscolls-owns-costa",
+    "rel-costa-operates-in-australia",
+    "rel-costa-operates-in-morocco",
+    "rel-costa-operates-in-china",
+    "rel-costa-operates-in-south-africa",
+    "rel-costa-operates-in-zimbabwe"
+  ],
+  "attributes": {
+    "headquarters": "Level 5, 818 Bourke Street, Docklands, Victoria 3008, Australia",
+    "country": "Australia",
+    "abn": "68 151 363 129",
+    "ownership": "private, private-equity backed",
+    "former_listing": "ASX code CGC, listed 24 July 2015, delisted 27 February 2024",
+    "entity_name_change_date": "2024-06-03"
+  }
+}

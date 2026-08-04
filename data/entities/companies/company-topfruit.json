@@ -1,0 +1,29 @@
+{
+  "id": "company-topfruit",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "TopFruit",
+  "aliases": [],
+  "status": "active",
+  "description": "South African variety management company that commercially manages the IQ Berries 'Mega' blueberry family in southern Africa.",
+  "roles": [
+    "variety_manager",
+    "genetics_sub_licensor"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-topfruit-megacrisp"
+  ],
+  "fact_ids": [
+    "fact-megacrisp-iq-berries"
+  ],
+  "relationship_ids": [
+    "rel-topfruit-partners-with-iq-berries",
+    "rel-topfruit-operates-in-south-africa"
+  ],
+  "attributes": {
+    "country": "South Africa"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "fact-ozblu-migiva-2019-1",
+  "record_type": "fact",
+  "statement": "United Exports announced on 25 March 2019 a joint venture with MIGIVA Group involving US$32 million to establish the first OZblu farm in North America, comprising a 453 acre site at Venus, Florida and an 82 acre site at Sebring, Florida. This is an announcement of planned investment; no source confirming realised plantings or production was located.",
+  "classification": "claim",
+  "confidence": "medium",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-ozblu-migiva-2019"
+  ],
+  "entity_ids": [
+    "company-united-exports",
+    "brand-ozblu",
+    "geography-united-states"
+  ]
+}

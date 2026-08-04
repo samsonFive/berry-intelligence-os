@@ -1,0 +1,33 @@
+{
+  "id": "company-african-blue",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "African Blue",
+  "aliases": [],
+  "status": "active",
+  "description": "Moroccan blueberry producer, majority-owned within the Costa group, operating since 2007 with roughly 465 hectares. It is the route by which Costa-bred varieties reach African production, including through a Zimbabwe supply project.",
+  "roles": [
+    "grower",
+    "exporter",
+    "costa_group_member"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-costa-african-blue-2023"
+  ],
+  "fact_ids": [
+    "fact-african-blue-morocco-zimbabwe"
+  ],
+  "relationship_ids": [
+    "rel-costa-owns-african-blue",
+    "rel-african-blue-operates-in-morocco",
+    "rel-african-blue-operates-in-zimbabwe"
+  ],
+  "attributes": {
+    "country": "Morocco",
+    "operating_since": 2007,
+    "area_ha": 465
+  }
+}

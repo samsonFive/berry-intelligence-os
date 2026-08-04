@@ -1,0 +1,13 @@
+{
+  "id": "rel-hortifrut-operates-in-china",
+  "record_type": "relationship",
+  "subject_id": "company-hortifrut",
+  "predicate": "operates_in",
+  "object_id": "geography-china",
+  "status": "active",
+  "evidence_ids": [
+    "ev-hortifrut-genetic-development"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Named breeding test-station location."
+}

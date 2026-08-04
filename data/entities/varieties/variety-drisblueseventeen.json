@@ -1,0 +1,72 @@
+{
+  "id": "variety-drisblueseventeen",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "DrisBlueSeventeen",
+  "aliases": [
+    "Carlotta",
+    "Drisblueseventeen"
+  ],
+  "status": "active",
+  "description": "Driscoll's blueberry cultivar, trade name Carlotta. Distinctive because its official description comes from a CPVO technical examination carried out by an independent body in Portugal over four seasons, which describes the fruit as soft. Parentage '136D 2' x '8B 4', crossed 2004 in Santa Cruz County, California and selected in 2006.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-cfia-pbr-drisblueseventeen"
+  ],
+  "fact_ids": [
+    "fact-drisblueseventeen-carlotta",
+    "fact-drisblueseventeen-portugal-examination"
+  ],
+  "relationship_ids": [
+    "rel-driscolls-develops-drisblueseventeen"
+  ],
+  "attributes": {
+    "denomination": "DrisBlueSeventeen",
+    "trade_name": "Carlotta",
+    "breeder": "Driscoll's, Inc.",
+    "breeding_program_id": "breeding_program-driscolls-blueberry",
+    "parentage": "'136D 2' x '8B 4'",
+    "cross_year": 2004,
+    "cross_location": "Santa Cruz County, California, USA",
+    "selection_year": 2006,
+    "rights": "Canada plant breeders' rights certificate 7097, granted 3 May 2024",
+    "rights_id": "patent-ca-pbr-7097",
+    "traits": [
+      {
+        "trait": "trait-fruit-size",
+        "value": "large to very large",
+        "provenance": "regulatory_or_registry_record",
+        "evidence_ids": [
+          "ev-cfia-pbr-drisblueseventeen"
+        ],
+        "conditions": "UPOV Report of Technical Examination, CPVO application 2018/3441; trial at Escaroupim, Portugal, 2019-2022, conducted by the Direcao Geral de Alimentacao e Veterinaria",
+        "asserted_by": "Canadian Food Inspection Agency / CPVO"
+      },
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "soft",
+        "provenance": "regulatory_or_registry_record",
+        "evidence_ids": [
+          "ev-cfia-pbr-drisblueseventeen"
+        ],
+        "conditions": "Ordinal descriptor from the same CPVO technical examination. Not comparable with g/mm compression indices or FirmTech readings.",
+        "asserted_by": "Canadian Food Inspection Agency / CPVO"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "medium sweetness, medium acidity",
+        "provenance": "regulatory_or_registry_record",
+        "evidence_ids": [
+          "ev-cfia-pbr-drisblueseventeen"
+        ],
+        "conditions": "Ordinal descriptors from the CPVO technical examination",
+        "asserted_by": "Canadian Food Inspection Agency / CPVO"
+      }
+    ]
+  }
+}

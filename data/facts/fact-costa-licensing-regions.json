@@ -1,0 +1,19 @@
+{
+  "id": "fact-costa-licensing-regions",
+  "record_type": "fact",
+  "statement": "Costa states that it licenses Costa-bred blueberry varieties in regions including the Americas, Morocco, China and south east Africa.",
+  "classification": "claim",
+  "confidence": "high",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-costa-vip"
+  ],
+  "entity_ids": [
+    "company-costa-group-holdings",
+    "breeding_program-costa-variety-improvement",
+    "geography-morocco",
+    "geography-china"
+  ]
+}

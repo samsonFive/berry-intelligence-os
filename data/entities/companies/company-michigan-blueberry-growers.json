@@ -1,0 +1,45 @@
+{
+  "id": "company-michigan-blueberry-growers",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Michigan Blueberry Growers Association",
+  "aliases": [
+    "MBG",
+    "MBG Marketing",
+    "Michigan Blueberry Growers"
+  ],
+  "status": "active",
+  "description": "United States blueberry grower marketing cooperative, trading as MBG Marketing. It is one of the two parties behind the Berry Blue, LLC blueberry breeding programme and publishes the proprietary variety list for it.",
+  "roles": [
+    "grower_cooperative",
+    "marketer",
+    "breeding_joint_venture_partner",
+    "rights_holder"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-hortifrut-genetic-development",
+    "ev-hortifrut-investor-company",
+    "ev-mbg-berry-blue-varieties",
+    "ev-hortifrut-mbo-genetics-2026",
+    "ev-cfia-blueberry-index"
+  ],
+  "fact_ids": [
+    "fact-berry-blue-hortifrut-jv-claim",
+    "fact-berry-blue-mbg-ownership-claim",
+    "fact-berry-blue-ownership-disputed",
+    "fact-mbo-distinct-from-mbg",
+    "fact-keepsake-selection-code",
+    "fact-medallion-selection-code"
+  ],
+  "relationship_ids": [
+    "rel-hortifrut-partners-with-mbg",
+    "rel-mbg-owns-berry-blue"
+  ],
+  "attributes": {
+    "country": "United States",
+    "naming_hazard": "MBG (Michigan Blueberry Growers) and MBO (Mountain Blue Orchards) are different organisations and must not be merged."
+  }
+}

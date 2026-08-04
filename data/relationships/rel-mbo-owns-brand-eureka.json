@@ -1,0 +1,13 @@
+{
+  "id": "rel-mbo-owns-brand-eureka",
+  "record_type": "relationship",
+  "subject_id": "company-mountain-blue-orchards",
+  "predicate": "owns",
+  "object_id": "brand-eureka",
+  "status": "active",
+  "evidence_ids": [
+    "ev-mbo-eureka-blueberries"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Eureka is a Mountain Blue brand."
+}

@@ -1,0 +1,13 @@
+{
+  "id": "rel-costa-owns-blugenix",
+  "record_type": "relationship",
+  "subject_id": "company-costa-group-holdings",
+  "predicate": "owns",
+  "object_id": "brand-blugenix",
+  "status": "active",
+  "evidence_ids": [
+    "ev-producereport-blugenix-2026"
+  ],
+  "effective_date": "2026-05-29",
+  "notes": "confidence=high; BluGenix is the brand and platform for Costa's blueberry breeding programme."
+}

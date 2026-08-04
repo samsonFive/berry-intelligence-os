@@ -1,0 +1,39 @@
+{
+  "id": "variety-drisbluetwentyone",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "DrisBlueTwentyOne",
+  "aliases": [
+    "Kimberley",
+    "Drisbluetwentyone"
+  ],
+  "status": "active",
+  "description": "Driscoll's blueberry cultivar, trade name Kimberley in Canada, protected in the United States by US PP32,267 granted 6 October 2020. Parentage '136D 2' x '181C 1'.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp032267-drisbluetwentyone",
+    "ev-cfia-blueberry-index"
+  ],
+  "fact_ids": [
+    "fact-drisbluetwentyone-kimberley"
+  ],
+  "relationship_ids": [
+    "rel-driscolls-develops-drisbluetwentyone"
+  ],
+  "attributes": {
+    "denomination": "DrisBlueTwentyOne",
+    "trade_name": "Kimberley",
+    "breeder": "Driscoll's, Inc.",
+    "breeding_program_id": "breeding_program-driscolls-blueberry",
+    "parentage": "'136D 2' x '181C 1'",
+    "patent_id": "patent-uspp032267p2",
+    "patent_number": "US PP32,267",
+    "patent_grant_date": "2020-10-06",
+    "traits": []
+  }
+}

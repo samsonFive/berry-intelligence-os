@@ -1,0 +1,14 @@
+{
+  "id": "rel-advanced-berry-breeding-operates-in-netherlands",
+  "record_type": "relationship",
+  "subject_id": "company-advanced-berry-breeding",
+  "predicate": "operates_in",
+  "object_id": "geography-netherlands",
+  "status": "active",
+  "evidence_ids": [
+    "ev-abb-varieties",
+    "ev-cinven-planasa-ew-group"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Dutch berry breeding company."
+}

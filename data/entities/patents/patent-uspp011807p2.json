@@ -1,0 +1,34 @@
+{
+  "id": "patent-uspp011807p2",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP011807P2 - Jewel 'FL92-176'",
+  "aliases": [
+    "USPP011807P2",
+    "PP011807"
+  ],
+  "status": "active",
+  "description": "United States plant patent USPP011807P2 covering Jewel 'FL92-176'. Assignee of record: University of Florida / Florida Foundation Seed Producers.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-ffsp-jewel"
+  ],
+  "fact_ids": [
+    "fact-ffsp-jewel-1"
+  ],
+  "relationship_ids": [],
+  "attributes": {
+    "patent_number": "USPP011807P2",
+    "jurisdiction": "United States",
+    "right_type": "US plant patent",
+    "assignee_of_record": "University of Florida / Florida Foundation Seed Producers",
+    "grant_date": "2001-03-13",
+    "protects_variety_subject": "Jewel 'FL92-176'",
+    "us_status": "expired; international protection reported to continue"
+  }
+}

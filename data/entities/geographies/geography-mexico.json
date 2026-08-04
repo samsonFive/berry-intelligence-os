@@ -1,0 +1,38 @@
+{
+  "id": "geography-mexico",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "Mexico",
+  "aliases": [],
+  "status": "active",
+  "description": "Counter-seasonal supplier to North America; low-chill and evergreen production systems.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-united-exports-what-we-do",
+    "ev-hortifrut-genetic-development",
+    "ev-hortifrut-mbo-genetics-2026",
+    "ev-producereport-blugenix-2026",
+    "ev-blueberriesconsulting-agrovision-2024",
+    "ev-sekoya-story",
+    "ev-agrovision-10-years-2024"
+  ],
+  "fact_ids": [
+    "fact-sekoya-story-6",
+    "fact-hortifrut-breeding-stations",
+    "fact-blugenix-growing-countries",
+    "fact-agrovision-peru-scale"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-operates-in-mexico",
+    "rel-united-exports-operates-in-mexico",
+    "rel-hortifrut-operates-in-mexico",
+    "rel-agrovision-operates-in-mexico"
+  ],
+  "attributes": {
+    "iso_3166_1_alpha_2": "MX",
+    "region": "Latin America"
+  }
+}

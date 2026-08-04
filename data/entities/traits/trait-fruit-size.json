@@ -1,0 +1,57 @@
+{
+  "id": "trait-fruit-size",
+  "record_type": "entity",
+  "entity_type": "trait",
+  "name": "Fruit size",
+  "aliases": [],
+  "status": "active",
+  "description": "Berry weight (g) and/or equatorial diameter (mm). Marketing terms such as 'jumbo' are owner claims, not measurements.",
+  "roles": [
+    "measurable_attribute"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-produce-report-sekoya-nova-2026",
+    "ev-uf-breeding-emerald",
+    "ev-uf-breeding-jewel",
+    "ev-uf-breeding-farthing",
+    "ev-uf-breeding-meadowlark",
+    "ev-uf-breeding-patrecia",
+    "ev-uf-breeding-optimus",
+    "ev-uf-breeding-colossus",
+    "ev-uf-breeding-sentinel",
+    "ev-uspp025432-ridley-1403",
+    "ev-cfia-pbr-drisblueseventeen",
+    "ev-cfia-pbr-drisbluetwentythree",
+    "ev-planasa-blue-manila-page",
+    "ev-planasa-blue-manila-datasheet",
+    "ev-planasa-blue-maldiva",
+    "ev-costa-heaviest-blueberry-2024",
+    "ev-cfia-pbr-sekoya-grande",
+    "ev-ffsp-optimus",
+    "ev-uspp023572-ridley-1111"
+  ],
+  "fact_ids": [
+    "fact-cfia-pbr-sekoya-grande-2",
+    "fact-produce-report-sekoya-nova-2026-3",
+    "fact-uf-breeding-emerald-1",
+    "fact-uf-breeding-jewel-1",
+    "fact-uf-breeding-farthing-1",
+    "fact-uf-breeding-meadowlark-1",
+    "fact-uf-breeding-patrecia-1",
+    "fact-uf-breeding-optimus-1",
+    "fact-uf-breeding-colossus-1",
+    "fact-uf-breeding-sentinel-1",
+    "fact-uf-breeding-optimus-3",
+    "fact-uspp025432-ridley-1403-2",
+    "fact-uspp023572-ridley-1111-2",
+    "fact-drisblueseventeen-portugal-examination",
+    "fact-drisbluetwentythree-chilliwack-trial",
+    "fact-blue-manila-owner-yield-claim",
+    "fact-eterna-heaviest-blueberry-2023"
+  ],
+  "relationship_ids": [],
+  "attributes": {}
+}

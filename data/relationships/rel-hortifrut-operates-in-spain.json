@@ -1,0 +1,13 @@
+{
+  "id": "rel-hortifrut-operates-in-spain",
+  "record_type": "relationship",
+  "subject_id": "company-hortifrut",
+  "predicate": "operates_in",
+  "object_id": "geography-spain",
+  "status": "active",
+  "evidence_ids": [
+    "ev-leadersleague-atlantic-blue-2021"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Acquisition of Atlantic Blue in Huelva."
+}

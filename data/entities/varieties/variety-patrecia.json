@@ -1,0 +1,101 @@
+{
+  "id": "variety-patrecia",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Patrecia",
+  "aliases": [
+    "UF52-20",
+    "'UF52-20'"
+  ],
+  "status": "active",
+  "description": "Southern highbush blueberry cultivar Patrecia ('UF52-20') from the University of Florida IFAS breeding programme, released 2016. Commercialisation rights administered by Florida Foundation Seed Producers, Inc.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uf-breeding-patrecia",
+    "ev-uf-ifas-hs1245"
+  ],
+  "fact_ids": [
+    "fact-uf-breeding-patrecia-1",
+    "fact-uf-breeding-patrecia-2",
+    "fact-uf-breeding-patrecia-3"
+  ],
+  "relationship_ids": [
+    "rel-uf-develops-patrecia",
+    "rel-uf-program-develops-patrecia",
+    "rel-ffsp-licenses-patrecia"
+  ],
+  "attributes": {
+    "selection_code": "UF52-20",
+    "breeding_program": "breeding_program-uf-ifas-blueberry-breeding",
+    "rights_administered_by": "Florida Foundation Seed Producers, Inc.",
+    "species_type": "southern highbush (interspecific Vaccinium corymbosum hybrid)",
+    "release_year": 2016,
+    "us_plant_patent": "PP27,740 (USPP027740P2)",
+    "traits": [
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "UF/IFAS published firmness of 212-265, average 232 g/mm",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-patrecia"
+        ],
+        "measured_value": 232,
+        "units": "g/mm (UF compression index)",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-fruit-size",
+        "value": "UF/IFAS published average berry weight 3.0 g and average diameter 19.9 mm",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-patrecia"
+        ],
+        "measured_value": {
+          "weight_g": "3.0 g",
+          "diameter_mm": "19.9 mm"
+        },
+        "units": "g / mm",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "UF/IFAS published soluble solids of average 10.5",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-patrecia"
+        ],
+        "measured_value": "average 10.5",
+        "units": "degrees Brix",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "UF sensory flavour score of 27.5",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-patrecia"
+        ],
+        "measured_value": 27.5,
+        "units": "UF flavour score",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-machine-harvest-suitability",
+        "value": "Machine harvest is not recommended; large scar that can tear and tight clusters are reported as limiting factors",
+        "provenance": "independent_report",
+        "evidence_ids": [
+          "ev-uf-breeding-patrecia",
+          "ev-uf-ifas-hs1245"
+        ],
+        "asserted_by": "University of Florida IFAS"
+      }
+    ],
+    "identity_note": "The inventors named on USPP027740P2 (Norden, David E.; Straughn, Alto) do not match the UF/IFAS breeders credited in UF extension literature. Unresolved."
+  }
+}

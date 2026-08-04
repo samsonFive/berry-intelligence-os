@@ -1,0 +1,33 @@
+{
+  "id": "patent-uspp025859p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP025859P3",
+  "aliases": [
+    "US PP25,859",
+    "EB 8-1"
+  ],
+  "status": "unverified",
+  "description": "United States plant patent on the blueberry selection 'EB 8-1', recorded here because it is cited as a parent in the patent record of at least one OZblu cultivar in this package. The patent itself was not separately fetched; only the citation was read.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp027142-eb12-19"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "patent_number": "US PP25,859",
+    "jurisdiction": "United States",
+    "authority": "USPTO",
+    "kind": "plant patent",
+    "selection_code": "EB 8-1",
+    "grant_date": null,
+    "verification_status": "cited only",
+    "verification_note": "Recorded from a parentage citation inside another fetched patent, not from the patent document itself."
+  }
+}

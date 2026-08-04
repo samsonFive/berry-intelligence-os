@@ -1,0 +1,43 @@
+{
+  "id": "patent-uspp030934p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP030934P3",
+  "aliases": [
+    "US PP30,934",
+    "NS 13-6"
+  ],
+  "status": "active",
+  "description": "United States plant patent on the blueberry selection 'NS 13-6', marketed as OZblu Elaina. Sole inventor Vincent David Mazzardis; the cross was made at Yanchep Springs, Yanchep, Western Australia. Parentage '7-26' (unpatented) x '8-10' (unpatented). Granted 2019-10-15.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp030934-ns13-6"
+  ],
+  "fact_ids": [
+    "fact-ozblu-identity-elaina"
+  ],
+  "relationship_ids": [
+    "rel-next-progeny-owns-uspp030934p3"
+  ],
+  "attributes": {
+    "patent_number": "US PP30,934",
+    "jurisdiction": "United States",
+    "authority": "USPTO",
+    "kind": "plant patent",
+    "grant_date": "2019-10-15",
+    "selection_code": "NS 13-6",
+    "commercial_name": "Elaina",
+    "inventor": "Vincent David Mazzardis",
+    "assignees_of_record": [
+      "Next Progeny Pty Ltd"
+    ],
+    "cross_location": "Yanchep Springs, Yanchep, Western Australia",
+    "parentage": "'7-26' (unpatented) x '8-10' (unpatented)",
+    "cross_season": "2012"
+  }
+}

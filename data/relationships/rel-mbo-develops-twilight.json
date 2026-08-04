@@ -1,0 +1,13 @@
+{
+  "id": "rel-mbo-develops-twilight",
+  "record_type": "relationship",
+  "subject_id": "company-mountain-blue-orchards",
+  "predicate": "develops",
+  "object_id": "variety-twilight",
+  "status": "active",
+  "evidence_ids": [
+    "ev-berryworld-varieties"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Breeding origin evidenced by the plant patent record, except for Twilight where only a marketer attribution to the Mountain Blue programme was located."
+}

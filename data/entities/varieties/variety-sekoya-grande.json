@@ -1,0 +1,104 @@
+{
+  "id": "variety-sekoya-grande",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "SEKOYA Grande",
+  "aliases": [
+    "SEKOYA® Grande™",
+    "FC13-122",
+    "Sekoya Grande"
+  ],
+  "status": "active",
+  "description": "Mid- to high-chill northern highbush cultivar from the Fall Creek breeding programme, selected at Lowell, Oregon in 2013. Holds a granted Canadian plant breeders' right with a published examiner trial description.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-sekoya-story",
+    "ev-freshplaza-fall-creek-chile-2026",
+    "ev-fallcreek-catalog-sekoya-grande",
+    "ev-uspp031822-sekoya-grande",
+    "ev-cfia-pbr-sekoya-grande",
+    "ev-nda-za-variety-list-2025"
+  ],
+  "fact_ids": [
+    "fact-sekoya-story-grande",
+    "fact-fallcreek-catalog-sekoya-grande-1",
+    "fact-uspp031822-sekoya-grande-1",
+    "fact-cfia-pbr-sekoya-grande-1",
+    "fact-cfia-pbr-sekoya-grande-2",
+    "fact-freshplaza-fall-creek-chile-2026-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-develops-sekoya-grande",
+    "rel-fall-creek-program-develops-sekoya-grande",
+    "rel-fall-creek-trials-sekoya-grande-chile",
+    "rel-sekoya-carries-sekoya-grande"
+  ],
+  "attributes": {
+    "selection_code": "FC13-122",
+    "breeding_program": "breeding_program-fall-creek-blueberry-breeding",
+    "platform": "SEKOYA",
+    "chill_class": "mid to high chill",
+    "season": "mid-season",
+    "species_type": "northern highbush",
+    "selected_year": 2013,
+    "parentage": "'ZF06-050' x 'ZF06-013' (2010, Lowell, Oregon)",
+    "traits": [
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "Examiner-observed as very firm in the Canadian PBR trial",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-cfia-pbr-sekoya-grande"
+        ],
+        "conditions": "CFIA-accepted trial, Chilliwack, British Columbia, 2022; randomised complete block, 4 replicates x 3 plants",
+        "asserted_by": "Canadian Food Inspection Agency plant breeders' rights examination"
+      },
+      {
+        "trait": "trait-fruit-size",
+        "value": "Examiner-observed as large fruit in the Canadian PBR trial",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-cfia-pbr-sekoya-grande"
+        ],
+        "conditions": "Chilliwack, British Columbia, 2022",
+        "asserted_by": "Canadian Food Inspection Agency"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "Examiner-observed as high sweetness and high acidity",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-cfia-pbr-sekoya-grande"
+        ],
+        "conditions": "Chilliwack, British Columbia, 2022",
+        "asserted_by": "Canadian Food Inspection Agency"
+      },
+      {
+        "trait": "trait-postharvest-shelf-life",
+        "value": "Owner claims up to 60 days; storage conditions not stated",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-fallcreek-catalog-sekoya-grande"
+        ],
+        "measured_value": 60,
+        "units": "days",
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      }
+    ],
+    "canada_pbr": {
+      "application_number": "18-9614",
+      "application_date": "2018-09-20",
+      "grant_date": "2023-10-06",
+      "certificate": "6925",
+      "expiry": "2043-10-06",
+      "breeders": [
+        "Peter Stefan Boches",
+        "Haley Belnap-McCall",
+        "Adam L. Wagner"
+      ]
+    }
+  }
+}

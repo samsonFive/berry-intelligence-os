@@ -1,0 +1,65 @@
+{
+  "id": "brand-ozblu",
+  "record_type": "entity",
+  "entity_type": "brand",
+  "name": "OZblu",
+  "aliases": [
+    "OZblu®"
+  ],
+  "status": "active",
+  "description": "Consumer and trade brand under which United Exports markets blueberry varieties bred by Nature Select. Brand ownership sits with United Exports; the underlying genetics do not.",
+  "roles": [
+    "consumer_brand",
+    "variety_platform"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-ozblu-around-the-world-2019",
+    "ev-ozblu-oz-varieties",
+    "ev-united-exports-what-we-do",
+    "ev-ozblu-migiva-2019",
+    "ev-ozblu-where-we-grow-2024",
+    "ev-fruitnet-ozblu-dispute-2020",
+    "ev-uspp025858-eb8-42",
+    "ev-uspp026173-eb8-46",
+    "ev-uspp028149-eb9-2",
+    "ev-uspp028358-eb9-12",
+    "ev-uspp027142-eb12-19",
+    "ev-uspp030934-ns13-6",
+    "ev-uspp033138-ns15-13",
+    "ev-uspp032897-ns16-2",
+    "ev-ciopora-united-exports-pbr-2020"
+  ],
+  "fact_ids": [
+    "fact-ozblu-around-the-world-2019-1",
+    "fact-ozblu-oz-varieties-1",
+    "fact-united-exports-what-we-do-1",
+    "fact-ozblu-migiva-2019-1",
+    "fact-fruitnet-ozblu-dispute-2020-1",
+    "fact-ozblu-where-we-grow-2024-1",
+    "fact-ozblu-identity-julieta",
+    "fact-ozblu-identity-bella",
+    "fact-ozblu-identity-magica",
+    "fact-ozblu-identity-bonita",
+    "fact-ozblu-identity-magnifica",
+    "fact-ozblu-identity-elaina",
+    "fact-ozblu-identity-dina",
+    "fact-ozblu-identity-olivia",
+    "fact-ozblu-inventor-mazzardis",
+    "fact-ozblu-assignee-structure",
+    "fact-united-exports-joint-titleholder-2016",
+    "fact-ozblu-rotterdam-seizure-2020"
+  ],
+  "relationship_ids": [
+    "rel-nature-select-develops-ozblu",
+    "rel-united-exports-licenses-ozblu",
+    "rel-oz-varieties-licenses-ozblu",
+    "rel-united-exports-owns-brand-ozblu"
+  ],
+  "attributes": {
+    "operator": "United Exports",
+    "genetics_origin": "Nature Select (Mazzardis programme)"
+  }
+}

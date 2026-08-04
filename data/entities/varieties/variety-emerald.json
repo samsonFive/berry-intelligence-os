@@ -1,0 +1,102 @@
+{
+  "id": "variety-emerald",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Emerald",
+  "aliases": [
+    "FL95-209a",
+    "'FL95-209a'"
+  ],
+  "status": "active",
+  "description": "Southern highbush blueberry cultivar Emerald ('FL95-209a') from the University of Florida IFAS breeding programme, released 1999. Commercialisation rights administered by Florida Foundation Seed Producers, Inc.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uf-breeding-emerald",
+    "ev-ffsp-emerald",
+    "ev-uf-breeding-sentinel",
+    "ev-uf-ifas-hs1245"
+  ],
+  "fact_ids": [
+    "fact-uf-breeding-emerald-1",
+    "fact-uf-breeding-sentinel-3",
+    "fact-ffsp-emerald-1"
+  ],
+  "relationship_ids": [
+    "rel-uf-develops-emerald",
+    "rel-uf-program-develops-emerald",
+    "rel-ffsp-licenses-emerald"
+  ],
+  "attributes": {
+    "selection_code": "FL95-209a",
+    "breeding_program": "breeding_program-uf-ifas-blueberry-breeding",
+    "rights_administered_by": "Florida Foundation Seed Producers, Inc.",
+    "species_type": "southern highbush (interspecific Vaccinium corymbosum hybrid)",
+    "release_year": 1999,
+    "us_plant_patent": "PP12,165 (USPP012165P2)",
+    "traits": [
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "UF/IFAS published firmness of 184-211, average 195 g/mm",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-emerald"
+        ],
+        "measured_value": 195,
+        "units": "g/mm (UF compression index)",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-fruit-size",
+        "value": "UF/IFAS published average berry weight 2.4 g and average diameter 18.4 mm",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-emerald"
+        ],
+        "measured_value": {
+          "weight_g": "2.4 g",
+          "diameter_mm": "18.4 mm"
+        },
+        "units": "g / mm",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "UF/IFAS published soluble solids of average 11.3",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-emerald"
+        ],
+        "measured_value": "average 11.3",
+        "units": "degrees Brix",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-disease-susceptibility",
+        "value": "UF/IFAS extension literature reports target spot susceptibility",
+        "provenance": "independent_report",
+        "evidence_ids": [
+          "ev-uf-ifas-hs1245"
+        ],
+        "asserted_by": "UF/IFAS Extension"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "UF sensory flavour score of 19.9, used as the programme's comparison baseline",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-sentinel"
+        ],
+        "measured_value": 19.9,
+        "units": "UF flavour score",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      }
+    ],
+    "first_harvest_gainesville": "approximately 22 April"
+  }
+}

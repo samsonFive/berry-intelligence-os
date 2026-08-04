@@ -1,0 +1,17 @@
+{
+  "id": "fact-united-exports-joint-titleholder-2016",
+  "record_type": "fact",
+  "statement": "CIOPORA states that United Exports became joint titleholder of the OZblu varieties in 2016, responsible for commercialisation and for royalty return to the breeding programme. No assignment instrument or registry entry confirming the joint title was retrieved.",
+  "classification": "claim",
+  "confidence": "medium",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-ciopora-united-exports-pbr-2020"
+  ],
+  "entity_ids": [
+    "company-united-exports",
+    "brand-ozblu"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "geography-portugal",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "Portugal",
+  "aliases": [],
+  "status": "active",
+  "description": "Trial jurisdiction for CPVO technical examinations of blueberry candidate varieties, and a Hortifrut production country.",
+  "roles": [
+    "production_or_regulatory_jurisdiction"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-cfia-pbr-drisblueseventeen",
+    "ev-hortifrut-investor-company"
+  ],
+  "fact_ids": [
+    "fact-hortifrut-bfruit-2019",
+    "fact-drisblueseventeen-portugal-examination"
+  ],
+  "relationship_ids": [
+    "rel-hortifrut-operates-in-portugal",
+    "rel-driscolls-operates-in-portugal"
+  ],
+  "attributes": {}
+}

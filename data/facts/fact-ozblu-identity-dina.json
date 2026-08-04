@@ -1,0 +1,18 @@
+{
+  "id": "fact-ozblu-identity-dina",
+  "record_type": "fact",
+  "statement": "The blueberry marketed internationally under the OZblu brand name Dina is the breeder selection 'NS 15-13', protected in the United States by plant patent US PP33,138, granted 8 June 2021.",
+  "classification": "fact",
+  "confidence": "high",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-uspp033138-ns15-13"
+  ],
+  "entity_ids": [
+    "variety-dina",
+    "patent-uspp033138p3",
+    "brand-ozblu"
+  ]
+}

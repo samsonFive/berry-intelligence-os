@@ -1,0 +1,57 @@
+{
+  "id": "variety-cargo",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Cargo",
+  "aliases": [],
+  "status": "active",
+  "description": "High-chill Fall Creek cultivar described in its US plant patent as oriented toward machine harvest.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp024661-cargo",
+    "ev-cfia-pbr-cargo"
+  ],
+  "fact_ids": [
+    "fact-uspp024661-cargo-1",
+    "fact-uspp024661-cargo-2"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-develops-cargo",
+    "rel-fall-creek-program-develops-cargo"
+  ],
+  "attributes": {
+    "breeding_program": "breeding_program-fall-creek-blueberry-breeding",
+    "platform": "Fall Creek open catalogue",
+    "chill_class": "high chill",
+    "breeders": [
+      "David M. Brazelton",
+      "Adam L. Wagner"
+    ],
+    "traits": [
+      {
+        "trait": "trait-chilling-requirement",
+        "value": "US plant patent states 800-1000 hours",
+        "provenance": "regulatory_or_registry_record",
+        "evidence_ids": [
+          "ev-uspp024661-cargo"
+        ],
+        "measured_value": "800-1000",
+        "units": "hours",
+        "asserted_by": "United States Patent and Trademark Office"
+      },
+      {
+        "trait": "trait-machine-harvest-suitability",
+        "value": "US plant patent describes the cultivar as oriented toward machine harvest",
+        "provenance": "regulatory_or_registry_record",
+        "evidence_ids": [
+          "ev-uspp024661-cargo"
+        ],
+        "asserted_by": "United States Patent and Trademark Office"
+      }
+    ],
+    "coverage_gap": "Owner catalogue page disallowed by robots.txt; owner claims not captured"
+  }
+}

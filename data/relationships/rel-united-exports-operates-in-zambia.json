@@ -1,0 +1,13 @@
+{
+  "id": "rel-united-exports-operates-in-zambia",
+  "record_type": "relationship",
+  "subject_id": "company-united-exports",
+  "predicate": "operates_in",
+  "object_id": "geography-zambia",
+  "status": "active",
+  "evidence_ids": [
+    "ev-united-exports-what-we-do"
+  ],
+  "effective_date": null,
+  "notes": "confidence=low; Zambia appears in United Exports' own undated list of OZblu production countries. Self-reported and unconfirmed by any second source; no hectarage, entity or date was given."
+}

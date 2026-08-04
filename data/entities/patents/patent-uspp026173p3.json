@@ -1,0 +1,45 @@
+{
+  "id": "patent-uspp026173p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP026173P3",
+  "aliases": [
+    "US PP26,173",
+    "EB 8-46"
+  ],
+  "status": "active",
+  "description": "United States plant patent on the blueberry selection 'EB 8-46', marketed as OZblu Bella. Sole inventor Vincent David Mazzardis; the cross was made at Yanchep Springs, Yanchep, Western Australia. Parentage 'BB-5' (unpatented) x 'SB-1' (unpatented), 2005 season. Granted 2015-12-01.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp026173-eb8-46"
+  ],
+  "fact_ids": [
+    "fact-ozblu-identity-bella"
+  ],
+  "relationship_ids": [
+    "rel-bisa-trading-owns-uspp026173p3",
+    "rel-prunus-persica-owns-uspp026173p3"
+  ],
+  "attributes": {
+    "patent_number": "US PP26,173",
+    "jurisdiction": "United States",
+    "authority": "USPTO",
+    "kind": "plant patent",
+    "grant_date": "2015-12-01",
+    "selection_code": "EB 8-46",
+    "commercial_name": "Bella",
+    "inventor": "Vincent David Mazzardis",
+    "assignees_of_record": [
+      "Bisa Trading Pty Ltd",
+      "Prunus Persica Pty Ltd"
+    ],
+    "cross_location": "Yanchep Springs, Yanchep, Western Australia",
+    "parentage": "'BB-5' (unpatented) x 'SB-1' (unpatented)",
+    "cross_season": "2005"
+  }
+}

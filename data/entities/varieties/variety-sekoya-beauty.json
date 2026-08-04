@@ -1,0 +1,74 @@
+{
+  "id": "variety-sekoya-beauty",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "SEKOYA Beauty",
+  "aliases": [
+    "SEKOYA® Beauty™",
+    "FCM12-097",
+    "Sekoya Beauty"
+  ],
+  "status": "active",
+  "description": "Zero- to low-chill blueberry cultivar from the Fall Creek breeding programme, selected in Mexico in 2012 and commercialised inside the closed SEKOYA member platform.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-sekoya-story",
+    "ev-fallcreek-catalog-sekoya-beauty",
+    "ev-uspp028437-sekoya-beauty",
+    "ev-nda-za-variety-list-2025"
+  ],
+  "fact_ids": [
+    "fact-sekoya-story-beauty",
+    "fact-sekoya-story-6",
+    "fact-fallcreek-catalog-sekoya-beauty-1",
+    "fact-uspp028437-sekoya-beauty-1",
+    "fact-nda-za-variety-list-2025-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-develops-sekoya-beauty",
+    "rel-fall-creek-program-develops-sekoya-beauty",
+    "rel-sekoya-carries-sekoya-beauty"
+  ],
+  "attributes": {
+    "selection_code": "FCM12-097",
+    "breeding_program": "breeding_program-fall-creek-blueberry-breeding",
+    "platform": "SEKOYA",
+    "chill_class": "zero to low chill",
+    "selected_year": 2012,
+    "selected_location": "Mexico",
+    "traits": [
+      {
+        "trait": "trait-fruit-size",
+        "value": "Described by the owner as jumbo size",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-fallcreek-catalog-sekoya-beauty"
+        ],
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      },
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "Described by the owner as very firm",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-fallcreek-catalog-sekoya-beauty"
+        ],
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      },
+      {
+        "trait": "trait-postharvest-shelf-life",
+        "value": "Owner claims up to 45 days storage; storage conditions not stated",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-fallcreek-catalog-sekoya-beauty"
+        ],
+        "measured_value": 45,
+        "units": "days",
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      }
+    ]
+  }
+}

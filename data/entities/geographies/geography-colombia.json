@@ -1,0 +1,25 @@
+{
+  "id": "geography-colombia",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "Colombia",
+  "aliases": [],
+  "status": "active",
+  "description": "Blueberry production origin entered by Hortifrut through a joint venture with Proplantas, with exports beginning in March 2020.",
+  "roles": [
+    "production_or_regulatory_jurisdiction"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-hortifrut-investor-company"
+  ],
+  "fact_ids": [
+    "fact-hortifrut-colombia-jv-2019"
+  ],
+  "relationship_ids": [
+    "rel-hortifrut-operates-in-colombia"
+  ],
+  "attributes": {}
+}

@@ -1,0 +1,13 @@
+{
+  "id": "rel-fall-creek-operates-in-chile",
+  "record_type": "relationship",
+  "subject_id": "company-fall-creek-farm-and-nursery",
+  "predicate": "operates_in",
+  "object_id": "geography-chile",
+  "status": "active",
+  "evidence_ids": [
+    "ev-freshplaza-fall-creek-chile-2026"
+  ],
+  "effective_date": "2026-03-06",
+  "notes": "confidence=medium; Variety validation programme reported in southern Chile."
+}

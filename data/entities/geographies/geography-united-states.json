@@ -1,0 +1,45 @@
+{
+  "id": "geography-united-states",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "United States",
+  "aliases": [],
+  "status": "active",
+  "description": "Major production, breeding and licensing market; USPTO plant patents are the primary global genetics-rights record.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-united-exports-what-we-do",
+    "ev-ozblu-migiva-2019",
+    "ev-hortifrut-genetic-development",
+    "ev-hortifrut-mbo-genetics-2026",
+    "ev-cfia-pbr-drisblueseventeen",
+    "ev-cfia-pbr-drisbluetwentythree",
+    "ev-producereport-blugenix-2026",
+    "ev-uaex-blueberry-trial-2024",
+    "ev-fall-creek-our-history",
+    "ev-uf-ifas-hs1245",
+    "ev-driscolls-cbc-appeal-2025"
+  ],
+  "fact_ids": [
+    "fact-ozblu-migiva-2019-1",
+    "fact-hortifrut-breeding-stations",
+    "fact-blugenix-growing-countries",
+    "fact-uaex-trial-design-2024",
+    "fact-uaex-quality-range-2024"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-operates-in-united-states",
+    "rel-uf-operates-in-united-states",
+    "rel-united-exports-operates-in-united-states",
+    "rel-hortifrut-operates-in-united-states",
+    "rel-driscolls-operates-in-united-states",
+    "rel-university-of-arkansas-operates-in-united-states"
+  ],
+  "attributes": {
+    "iso_3166_1_alpha_2": "US",
+    "region": "North America"
+  }
+}

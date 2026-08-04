@@ -1,0 +1,20 @@
+{
+  "id": "fact-drisbluetwentythree-rosita",
+  "record_type": "fact",
+  "statement": "The blueberry variety 'DrisBlueTwentyThree', trade name Rosita, received Canadian plant breeders' rights certificate 7211 on 1 November 2024 under application 20-10341. Its origin is given as '196H-3' crossed with '75J301' in February 2011 in Santa Cruz County, California, selected April 2013 in Hillsborough County, Florida, with breeders named including Raymond L. Jacobs III, James Olmstead and Sarah Wool.",
+  "classification": "fact",
+  "confidence": "high",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-cfia-pbr-drisbluetwentythree"
+  ],
+  "entity_ids": [
+    "variety-drisbluetwentythree",
+    "patent-ca-pbr-7211",
+    "company-driscolls",
+    "company-cfia",
+    "geography-canada"
+  ]
+}

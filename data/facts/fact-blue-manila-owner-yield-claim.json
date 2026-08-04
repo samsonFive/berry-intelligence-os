@@ -1,0 +1,20 @@
+{
+  "id": "fact-blue-manila-owner-yield-claim",
+  "record_type": "fact",
+  "statement": "Planasa states in its Blue Manila data sheet that average production is 19,000 kg per hectare in years one and two rising to 23,000 kg per hectare in year three, with shelf life of more than four weeks and calibre L at 22 mm, described as average results from Planasa trial plots in Morocco and Spain under specific and controlled conditions. No season, replication or plot design is given.",
+  "classification": "claim",
+  "confidence": "medium",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-planasa-blue-manila-datasheet"
+  ],
+  "entity_ids": [
+    "variety-blue-manila",
+    "company-planasa",
+    "trait-yield",
+    "trait-postharvest-shelf-life",
+    "trait-fruit-size"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "berry-blueberry",
+  "record_type": "entity",
+  "entity_type": "berry",
+  "name": "Blueberry",
+  "aliases": [
+    "Vaccinium corymbosum",
+    "highbush blueberry",
+    "arándano",
+    "mirtillo",
+    "myrtille"
+  ],
+  "status": "active",
+  "description": "Blueberry (genus Vaccinium, section Cyanococcus). Commercial fresh-market production is dominated by northern highbush (Vaccinium corymbosum), southern highbush (interspecific V. corymbosum hybrids incorporating low-chill species such as V. darrowii), and rabbiteye (V. virgatum, syn. V. ashei). Created to give berry_ids a resolvable target: the platform references berry-blueberry throughout but shipped no berry entity record (see schema-assessment.md A-3, proposed-schema-enhancements.md P-1).",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uaex-blueberry-trial-2024"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-university-of-arkansas-trials-blueberry"
+  ],
+  "attributes": {
+    "genus": "Vaccinium",
+    "section": "Cyanococcus",
+    "commercial_types": [
+      "northern highbush",
+      "southern highbush",
+      "rabbiteye",
+      "half-high",
+      "lowbush"
+    ],
+    "package_note": "Attributes are taxonomic scaffolding, not evidence-derived claims."
+  }
+}

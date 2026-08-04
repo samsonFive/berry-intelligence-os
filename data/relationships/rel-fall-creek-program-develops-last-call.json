@@ -1,0 +1,13 @@
+{
+  "id": "rel-fall-creek-program-develops-last-call",
+  "record_type": "relationship",
+  "subject_id": "breeding_program-fall-creek-blueberry-breeding",
+  "predicate": "develops",
+  "object_id": "variety-last-call",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uspp025386-last-call"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Selection code prefix and assignee of record place this cultivar in the Fall Creek programme."
+}

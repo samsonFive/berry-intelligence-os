@@ -1,0 +1,37 @@
+{
+  "id": "geography-spain",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "Spain",
+  "aliases": [],
+  "status": "active",
+  "description": "Principal EU production origin (Huelva); EU CPVO plant variety rights jurisdiction.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-fruitnet-eureka-sunrise-2023",
+    "ev-united-exports-what-we-do",
+    "ev-leadersleague-atlantic-blue-2021",
+    "ev-freshuelva-atlantic-blue",
+    "ev-planasa-blue-manila-datasheet",
+    "ev-uspp031345-plablue-1545",
+    "ev-planasa-about-us"
+  ],
+  "fact_ids": [
+    "fact-fruitnet-eureka-sunrise-2023-2",
+    "fact-hortifrut-atlantic-blue-2021",
+    "fact-atlantic-blue-programme-origin",
+    "fact-blue-manila-plablue-1545"
+  ],
+  "relationship_ids": [
+    "rel-united-exports-operates-in-spain",
+    "rel-hortifrut-operates-in-spain",
+    "rel-planasa-operates-in-spain"
+  ],
+  "attributes": {
+    "iso_3166_1_alpha_2": "ES",
+    "region": "Europe"
+  }
+}

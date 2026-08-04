@@ -1,0 +1,36 @@
+{
+  "id": "patent-uspp031822p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP031822P3 - SEKOYA Grande 'FC13-122'",
+  "aliases": [
+    "USPP031822P3",
+    "PP031822"
+  ],
+  "status": "active",
+  "description": "United States plant patent USPP031822P3 covering SEKOYA Grande 'FC13-122'. Assignee of record: Fall Creek Farm and Nursery, Inc..",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp031822-sekoya-grande"
+  ],
+  "fact_ids": [
+    "fact-uspp031822-sekoya-grande-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-owns-uspp031822p3"
+  ],
+  "attributes": {
+    "patent_number": "USPP031822P3",
+    "jurisdiction": "United States",
+    "right_type": "US plant patent",
+    "assignee_of_record": "Fall Creek Farm and Nursery, Inc.",
+    "grant_date": "2020-06-02",
+    "protects_variety_subject": "SEKOYA Grande 'FC13-122'",
+    "filed": "2019-01-10"
+  }
+}

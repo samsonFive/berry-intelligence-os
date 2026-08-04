@@ -1,0 +1,37 @@
+{
+  "id": "geography-chile",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "Chile",
+  "aliases": [],
+  "status": "active",
+  "description": "Long-established southern-hemisphere export origin; significant variety-renewal activity.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-freshplaza-fall-creek-chile-2026",
+    "ev-italianberry-mbo-chile-2020",
+    "ev-united-exports-what-we-do",
+    "ev-hortifrut-genetic-development",
+    "ev-hortifrut-investor-company",
+    "ev-hortifrut-annual-report-2020"
+  ],
+  "fact_ids": [
+    "fact-freshplaza-fall-creek-chile-2026-1",
+    "fact-italianberry-mbo-chile-2020-1",
+    "fact-hortifrut-corporate-identity",
+    "fact-hortifrut-founded-1983",
+    "fact-hortifrut-breeding-stations"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-operates-in-chile",
+    "rel-united-exports-operates-in-chile",
+    "rel-hortifrut-operates-in-chile"
+  ],
+  "attributes": {
+    "iso_3166_1_alpha_2": "CL",
+    "region": "Latin America"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "rel-fall-creek-operates-sekoya",
+  "record_type": "relationship",
+  "subject_id": "company-fall-creek-farm-and-nursery",
+  "predicate": "operates_in",
+  "object_id": "geography-china",
+  "status": "active",
+  "evidence_ids": [
+    "ev-produce-report-sekoya-china-2025"
+  ],
+  "effective_date": "2025-11-13",
+  "notes": "confidence=low; Stated market intent for the SEKOYA platform in China. Substituted predicate: 'operates_in' overstates a stated intention; treat as an intent signal, not an established operation."
+}

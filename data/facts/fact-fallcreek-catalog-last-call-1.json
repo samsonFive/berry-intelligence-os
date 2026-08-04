@@ -1,0 +1,18 @@
+{
+  "id": "fact-fallcreek-catalog-last-call-1",
+  "record_type": "fact",
+  "statement": "Fall Creek Farm & Nursery claims in its own catalogue that Last Call offers medium to large, light blue, very firm fruit and 28 days of storage. No storage temperature, packaging specification or quality threshold accompanies the storage figure, and no independent measurement of it was located.",
+  "classification": "claim",
+  "confidence": "medium",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-fallcreek-catalog-last-call"
+  ],
+  "entity_ids": [
+    "variety-last-call",
+    "company-fall-creek-farm-and-nursery",
+    "trait-postharvest-shelf-life"
+  ]
+}

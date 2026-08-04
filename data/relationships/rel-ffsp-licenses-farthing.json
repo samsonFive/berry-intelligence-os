@@ -1,0 +1,13 @@
+{
+  "id": "rel-ffsp-licenses-farthing",
+  "record_type": "relationship",
+  "subject_id": "company-florida-foundation-seed-producers",
+  "predicate": "licenses",
+  "object_id": "variety-farthing",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uf-ifas-hs1245"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Commercialisation rights to University of Florida blueberry cultivars are administered by Florida Foundation Seed Producers."
+}

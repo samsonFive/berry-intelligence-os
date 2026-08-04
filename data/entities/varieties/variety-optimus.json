@@ -1,0 +1,117 @@
+{
+  "id": "variety-optimus",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Optimus",
+  "aliases": [
+    "FL08-262",
+    "'FL08-262'"
+  ],
+  "status": "active",
+  "description": "Southern highbush blueberry cultivar Optimus ('FL08-262') from the University of Florida IFAS breeding programme, released 2017. Commercialisation rights administered by Florida Foundation Seed Producers, Inc.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uf-breeding-optimus",
+    "ev-ffsp-optimus",
+    "ev-uf-ifas-hs1245"
+  ],
+  "fact_ids": [
+    "fact-uf-breeding-optimus-1",
+    "fact-uf-breeding-optimus-2",
+    "fact-uf-breeding-optimus-3",
+    "fact-ffsp-optimus-1"
+  ],
+  "relationship_ids": [
+    "rel-uf-develops-optimus",
+    "rel-uf-program-develops-optimus",
+    "rel-ffsp-licenses-optimus"
+  ],
+  "attributes": {
+    "selection_code": "FL08-262",
+    "breeding_program": "breeding_program-uf-ifas-blueberry-breeding",
+    "rights_administered_by": "Florida Foundation Seed Producers, Inc.",
+    "species_type": "southern highbush (interspecific Vaccinium corymbosum hybrid)",
+    "release_year": 2017,
+    "us_plant_patent": "PP32,028 (USPP032028P3, granted 2020-08-04)",
+    "traits": [
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "UF/IFAS published firmness of 241 at harvest and 219 after 21 days, average 241 g/mm",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-optimus"
+        ],
+        "measured_value": 241,
+        "units": "g/mm (UF compression index)",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-fruit-size",
+        "value": "UF/IFAS published average berry weight 1.7 g and average diameter 15.8 mm",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-optimus"
+        ],
+        "measured_value": {
+          "weight_g": "1.7 g",
+          "diameter_mm": "15.8 mm"
+        },
+        "units": "g / mm",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "UF/IFAS published soluble solids of average 12.3",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-optimus"
+        ],
+        "measured_value": "average 12.3",
+        "units": "degrees Brix",
+        "conditions": "UF/IFAS blueberry breeding programme measurements, Florida",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-chilling-requirement",
+        "value": "Florida Foundation Seed Producers states 150-200 chill hours",
+        "provenance": "regulatory_or_registry_record",
+        "evidence_ids": [
+          "ev-ffsp-optimus"
+        ],
+        "measured_value": "150-200",
+        "units": "hours",
+        "asserted_by": "Florida Foundation Seed Producers, Inc."
+      },
+      {
+        "trait": "trait-yield",
+        "value": "UF/IFAS measured 9.3 lb per plant in north-central Florida and 6.7 lb per plant in central Florida",
+        "provenance": "named_trial_measurement",
+        "evidence_ids": [
+          "ev-uf-breeding-optimus"
+        ],
+        "measured_value": {
+          "north_central_fl_lb_per_plant": 9.3,
+          "central_fl_lb_per_plant": 6.7
+        },
+        "units": "pounds per plant",
+        "conditions": "UF/IFAS Florida trial sites",
+        "asserted_by": "University of Florida IFAS blueberry breeding programme"
+      },
+      {
+        "trait": "trait-disease-susceptibility",
+        "value": "Reported as rust-susceptible",
+        "provenance": "independent_report",
+        "evidence_ids": [
+          "ev-uf-breeding-optimus"
+        ],
+        "asserted_by": "University of Florida IFAS"
+      }
+    ],
+    "conflicting_measurements": "Florida Foundation Seed Producers publishes firmness 220 g/mm, 1.9 g, 16.5 mm and 11.3 Brix, differing from the UF breeding programme figures recorded here."
+  }
+}

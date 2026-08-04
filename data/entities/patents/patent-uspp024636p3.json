@@ -1,0 +1,37 @@
+{
+  "id": "patent-uspp024636p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP024636P3 - Blue Ribbon",
+  "aliases": [
+    "USPP024636P3",
+    "PP024636"
+  ],
+  "status": "active",
+  "description": "United States plant patent USPP024636P3 covering Blue Ribbon. Assignee of record: Fall Creek Farm and Nursery, Inc..",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp024636-blue-ribbon"
+  ],
+  "fact_ids": [
+    "fact-uspp024636-blue-ribbon-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-owns-uspp024636p3"
+  ],
+  "attributes": {
+    "patent_number": "USPP024636P3",
+    "jurisdiction": "United States",
+    "right_type": "US plant patent",
+    "assignee_of_record": "Fall Creek Farm and Nursery, Inc.",
+    "grant_date": "2014-07-15",
+    "protects_variety_subject": "Blue Ribbon",
+    "filed": "2012-03-12",
+    "chilling_requirement_stated": "800-1000 h"
+  }
+}

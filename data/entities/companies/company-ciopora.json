@@ -1,0 +1,24 @@
+{
+  "id": "company-ciopora",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "CIOPORA",
+  "aliases": [],
+  "status": "active",
+  "description": "International association of breeders of asexually reproduced ornamental and fruit varieties. Publishes enforcement case reports that provide third-party accounts of plant breeders' rights disputes.",
+  "roles": [
+    "industry_association",
+    "ip_advocacy_body"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-ciopora-united-exports-pbr-2020"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "scope": "international"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "id": "brand-sekoya",
+  "record_type": "entity",
+  "entity_type": "brand",
+  "name": "SEKOYA",
+  "aliases": [
+    "SEKOYA®",
+    "Sekoya"
+  ],
+  "status": "active",
+  "description": "Managed-variety (club) platform operated by Fall Creek Farm & Nursery, launched in 2017, under which selected premium Fall Creek cultivars are grown and marketed by a limited member group.",
+  "roles": [
+    "managed_variety_platform",
+    "consumer_brand"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-fall-creek-commercial-platforms-2026",
+    "ev-sekoya-story",
+    "ev-produce-report-sekoya-china-2025",
+    "ev-produce-report-sekoya-nova-2026",
+    "ev-blueberriesconsulting-agrovision-2024",
+    "ev-nda-za-variety-list-2025",
+    "ev-agrovision-10-years-2024",
+    "ev-ibo-agrovision-2019"
+  ],
+  "fact_ids": [
+    "fact-fall-creek-commercial-platforms-2026-1",
+    "fact-fall-creek-commercial-platforms-2026-2",
+    "fact-fall-creek-commercial-platforms-2026-3",
+    "fact-produce-report-sekoya-china-2025-1",
+    "fact-sekoya-story-beauty",
+    "fact-sekoya-story-pop",
+    "fact-sekoya-story-grande",
+    "fact-sekoya-story-crunch",
+    "fact-sekoya-story-fiesta",
+    "fact-produce-report-sekoya-nova-2026-1",
+    "fact-agrovision-licenses-not-breeds"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-owns-brand-sekoya",
+    "rel-sekoya-carries-sekoya-beauty",
+    "rel-sekoya-carries-sekoya-pop",
+    "rel-sekoya-carries-sekoya-grande",
+    "rel-sekoya-carries-sekoya-crunch",
+    "rel-sekoya-carries-sekoya-fiesta",
+    "rel-sekoya-carries-sekoya-nova",
+    "rel-agrovision-licenses-sekoya"
+  ],
+  "attributes": {
+    "operator": "Fall Creek Farm & Nursery, Inc.",
+    "founded_year": 2017,
+    "model": "closed member network"
+  }
+}

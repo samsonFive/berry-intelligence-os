@@ -1,0 +1,60 @@
+{
+  "id": "breeding_program-uf-ifas-blueberry-breeding",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "UF/IFAS Blueberry Breeding Program",
+  "aliases": [
+    "University of Florida blueberry breeding program"
+  ],
+  "status": "active",
+  "description": "University of Florida southern highbush blueberry breeding programme. Publishes measured firmness, berry weight, diameter, Brix, yield and sensory flavour-score data for its releases.",
+  "roles": [
+    "public_breeding_program"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uf-ifas-hs1245",
+    "ev-uf-breeding-emerald",
+    "ev-uf-breeding-jewel",
+    "ev-uf-breeding-farthing",
+    "ev-uf-breeding-meadowlark",
+    "ev-uf-breeding-patrecia",
+    "ev-uf-breeding-optimus",
+    "ev-uf-breeding-colossus",
+    "ev-uf-breeding-sentinel"
+  ],
+  "fact_ids": [
+    "fact-uf-ifas-hs1245-1",
+    "fact-uf-ifas-hs1245-2",
+    "fact-uf-breeding-emerald-1",
+    "fact-uf-breeding-jewel-1",
+    "fact-uf-breeding-farthing-1",
+    "fact-uf-breeding-meadowlark-1",
+    "fact-uf-breeding-patrecia-1",
+    "fact-uf-breeding-optimus-1",
+    "fact-uf-breeding-colossus-1",
+    "fact-uf-breeding-sentinel-1"
+  ],
+  "relationship_ids": [
+    "rel-uf-program-develops-emerald",
+    "rel-uf-program-develops-jewel",
+    "rel-uf-program-develops-farthing",
+    "rel-uf-program-develops-meadowlark",
+    "rel-uf-program-develops-patrecia",
+    "rel-uf-program-develops-optimus",
+    "rel-uf-program-develops-colossus",
+    "rel-uf-program-develops-sentinel"
+  ],
+  "attributes": {
+    "operator": "University of Florida (IFAS)",
+    "rights_administered_by": "Florida Foundation Seed Producers, Inc.",
+    "selection_code_prefixes": [
+      "FL",
+      "UF"
+    ],
+    "germplasm_type": "southern highbush (interspecific Vaccinium corymbosum hybrids)",
+    "firmness_units": "g/mm (compression index)"
+  }
+}

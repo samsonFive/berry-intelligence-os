@@ -1,0 +1,46 @@
+{
+  "id": "company-berry-blue-llc",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Berry Blue, LLC",
+  "aliases": [
+    "Berry Blue"
+  ],
+  "status": "active",
+  "description": "United States entity holding the blueberry breeding programme and plant patents associated with Hortifrut and Michigan Blueberry Growers. Ownership is described differently by the two parties and is recorded as unresolved.",
+  "roles": [
+    "breeding_entity",
+    "patent_assignee",
+    "rights_holder"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-hortifrut-genetic-development",
+    "ev-mbg-berry-blue-varieties",
+    "ev-cfia-blueberry-index",
+    "ev-leadersleague-atlantic-blue-2021"
+  ],
+  "fact_ids": [
+    "fact-berry-blue-hortifrut-jv-claim",
+    "fact-berry-blue-mbg-ownership-claim",
+    "fact-berry-blue-ownership-disputed",
+    "fact-hortifrut-blueberry-ip-vehicle",
+    "fact-keepsake-selection-code",
+    "fact-medallion-selection-code"
+  ],
+  "relationship_ids": [
+    "rel-hortifrut-owns-berry-blue",
+    "rel-mbg-owns-berry-blue",
+    "rel-berry-blue-develops-keepsake",
+    "rel-berry-blue-develops-medallion",
+    "rel-berry-blue-owns-uspp024807p3",
+    "rel-berry-blue-owns-uspp032574p3"
+  ],
+  "attributes": {
+    "country": "United States",
+    "ownership_status": "unresolved",
+    "ownership_note": "Hortifrut describes Berry Blue as a joint venture between itself and MBG. MBG describes Berry Blue as a programme it owns and operates and as an MBG Marketing company. No registry filing settling the point was located."
+  }
+}

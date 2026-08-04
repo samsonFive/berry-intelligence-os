@@ -1,0 +1,35 @@
+{
+  "id": "trait-yield",
+  "record_type": "entity",
+  "entity_type": "trait",
+  "name": "Yield",
+  "aliases": [],
+  "status": "active",
+  "description": "Harvested fruit per plant or per hectare, normally reported with a location and season.",
+  "roles": [
+    "measurable_attribute"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-portalfruticola-fall-creek-2025",
+    "ev-planasa-blue-manila-page",
+    "ev-planasa-blue-manila-datasheet",
+    "ev-planasa-blue-maldiva",
+    "ev-uaex-blueberry-trial-2024",
+    "ev-uf-breeding-sentinel",
+    "ev-uf-breeding-colossus",
+    "ev-uf-breeding-optimus"
+  ],
+  "fact_ids": [
+    "fact-portalfruticola-fall-creek-2025-1",
+    "fact-uf-breeding-sentinel-2",
+    "fact-uf-breeding-colossus-2",
+    "fact-uf-breeding-optimus-2",
+    "fact-blue-manila-owner-yield-claim",
+    "fact-uaex-trial-design-2024"
+  ],
+  "relationship_ids": [],
+  "attributes": {}
+}

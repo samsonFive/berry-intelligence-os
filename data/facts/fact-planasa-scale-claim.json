@@ -1,0 +1,16 @@
+{
+  "id": "fact-planasa-scale-claim",
+  "record_type": "fact",
+  "statement": "Planasa states that it has more than 4,000 employees, is present in more than 25 countries, holds more than 225 registered varieties across all crops, operates seven research and development centres and produces more than 1,000 million plants a year.",
+  "classification": "claim",
+  "confidence": "medium",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-planasa-about-us"
+  ],
+  "entity_ids": [
+    "company-planasa"
+  ]
+}

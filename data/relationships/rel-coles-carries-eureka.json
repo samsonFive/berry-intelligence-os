@@ -1,0 +1,14 @@
+{
+  "id": "rel-coles-carries-eureka",
+  "record_type": "relationship",
+  "subject_id": "retailer-coles",
+  "predicate": "carries",
+  "object_id": "brand-eureka",
+  "status": "active",
+  "evidence_ids": [
+    "ev-eureka-blueberries-our-story",
+    "ev-ibo-eureka-moment-2015"
+  ],
+  "effective_date": "2015-10-24",
+  "notes": "confidence=medium; Exclusive Australian retail listing."
+}

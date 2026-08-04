@@ -1,0 +1,44 @@
+{
+  "id": "geography-south-africa",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "South Africa",
+  "aliases": [],
+  "status": "active",
+  "description": "Growing export origin and a base for southern-hemisphere licensing networks.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-fruitnet-eureka-sunrise-2023",
+    "ev-united-exports-what-we-do",
+    "ev-ifc-united-exports-2019",
+    "ev-fruitnet-ozblu-dispute-2020",
+    "ev-nda-za-variety-list-2025",
+    "ev-producereport-blugenix-2026",
+    "ev-ciopora-united-exports-pbr-2020",
+    "ev-harvestsa-rossouw-2020",
+    "ev-topfruit-megacrisp"
+  ],
+  "fact_ids": [
+    "fact-fruitnet-eureka-sunrise-2023-2",
+    "fact-ifc-united-exports-2019-1",
+    "fact-fruitnet-ozblu-dispute-2020-1",
+    "fact-fruitnet-ozblu-dispute-2020-2",
+    "fact-nda-za-variety-list-2025-1",
+    "fact-ozblu-rotterdam-seizure-2020",
+    "fact-ozblu-rossouw-settlement-2020",
+    "fact-blugenix-growing-countries",
+    "fact-megacrisp-iq-berries"
+  ],
+  "relationship_ids": [
+    "rel-united-exports-operates-in-south-africa",
+    "rel-costa-operates-in-south-africa",
+    "rel-topfruit-operates-in-south-africa"
+  ],
+  "attributes": {
+    "iso_3166_1_alpha_2": "ZA",
+    "region": "Africa"
+  }
+}

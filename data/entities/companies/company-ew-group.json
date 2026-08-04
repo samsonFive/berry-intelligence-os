@@ -1,0 +1,32 @@
+{
+  "id": "company-ew-group",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "EW Group",
+  "aliases": [
+    "Erich Wesjohann Group"
+  ],
+  "status": "active",
+  "description": "German family-owned genetics group controlled by the Wesjohann family, agreed acquirer of Planasa from Cinven and Label Investments.",
+  "roles": [
+    "acquirer",
+    "genetics_group"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-cinven-planasa-ew-group"
+  ],
+  "fact_ids": [
+    "fact-planasa-ew-group-sale"
+  ],
+  "relationship_ids": [
+    "rel-ew-group-owns-planasa",
+    "rel-ew-group-operates-in-germany"
+  ],
+  "attributes": {
+    "country": "Germany",
+    "ownership": "Wesjohann family"
+  }
+}

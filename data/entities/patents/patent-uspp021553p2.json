@@ -1,0 +1,31 @@
+{
+  "id": "patent-uspp021553p2",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP021553P2 - Meadowlark 'FL01-173'",
+  "aliases": [
+    "USPP021553P2",
+    "PP021553"
+  ],
+  "status": "unverified",
+  "description": "United States plant patent USPP021553P2 covering Meadowlark 'FL01-173'. Assignee of record: University of Florida / Florida Foundation Seed Producers.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "patent_number": "USPP021553P2",
+    "jurisdiction": "United States",
+    "right_type": "US plant patent",
+    "assignee_of_record": "University of Florida / Florida Foundation Seed Producers",
+    "grant_date": "2010-12-07",
+    "protects_variety_subject": "Meadowlark 'FL01-173'",
+    "test_plot": "Waldo, Florida",
+    "verification_status": "No evidence record in this package captures this patent document. The bibliographic attributes below were compiled during research but the front page was not staged as evidence, so they are unverified within the package. Listed in coverage-gaps.md."
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "rel-driscolls-owns-ca-pbr-7211",
+  "record_type": "relationship",
+  "subject_id": "company-driscolls",
+  "predicate": "owns",
+  "object_id": "patent-ca-pbr-7211",
+  "status": "active",
+  "evidence_ids": [
+    "ev-cfia-pbr-drisbluetwentythree"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Grantee of Canadian PBR certificate 7211."
+}

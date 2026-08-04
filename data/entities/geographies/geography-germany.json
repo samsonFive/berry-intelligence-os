@@ -1,0 +1,25 @@
+{
+  "id": "geography-germany",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "Germany",
+  "aliases": [],
+  "status": "active",
+  "description": "Home jurisdiction of EW Group, the agreed acquirer of Planasa.",
+  "roles": [
+    "production_or_regulatory_jurisdiction"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-cinven-planasa-ew-group"
+  ],
+  "fact_ids": [
+    "fact-planasa-ew-group-sale"
+  ],
+  "relationship_ids": [
+    "rel-ew-group-operates-in-germany"
+  ],
+  "attributes": {}
+}

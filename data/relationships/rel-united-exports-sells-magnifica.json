@@ -1,0 +1,14 @@
+{
+  "id": "rel-united-exports-sells-magnifica",
+  "record_type": "relationship",
+  "subject_id": "company-united-exports",
+  "predicate": "sells",
+  "object_id": "variety-magnifica",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uspp027142-eb12-19",
+    "ev-ciopora-united-exports-pbr-2020"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; United Exports is described by CIOPORA as joint titleholder of the OZblu varieties from 2016 and responsible for their commercialisation. Substituted predicate: the schema has no 'commercialises' or 'markets' predicate, so 'sells' carries the route-to-market role."
+}

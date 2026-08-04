@@ -1,0 +1,67 @@
+{
+  "id": "company-driscolls",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Driscoll's, Inc.",
+  "aliases": [
+    "Driscoll's",
+    "Driscolls"
+  ],
+  "status": "active",
+  "description": "Privately held United States berry breeder, licensor and marketer headquartered in Watsonville, California. It breeds proprietary blueberry varieties under the 'DrisBlue...' denomination series, does not sell its plants, and grows through a network of independent licensed growers. Also a member of the consortium that took Costa Group private in February 2024.",
+  "roles": [
+    "breeder",
+    "genetics_licensor",
+    "marketer",
+    "brand_owner",
+    "investor",
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-cfia-blueberry-index",
+    "ev-cfia-pbr-drisblueseventeen",
+    "ev-cfia-pbr-drisbluetwentythree",
+    "ev-uspp032267-drisbluetwentyone",
+    "ev-driscolls-cbc-appeal-2025",
+    "ev-cafc-driscolls-25-1747",
+    "ev-ipaustralia-pvj-33-4",
+    "ev-costa-ownership-2024"
+  ],
+  "fact_ids": [
+    "fact-driscolls-closed-plant-model",
+    "fact-driscolls-cbc-litigation-is-strawberry",
+    "fact-cafc-dismissal-2025",
+    "fact-drisblueseventeen-carlotta",
+    "fact-drisblueseventeen-portugal-examination",
+    "fact-drisbluetwentythree-rosita",
+    "fact-drisbluetwentythree-chilliwack-trial",
+    "fact-drisbluetwentyone-kimberley",
+    "fact-cfia-driscolls-21-denominations",
+    "fact-driscolls-australia-pbr",
+    "fact-costa-consortium-2024"
+  ],
+  "relationship_ids": [
+    "rel-driscolls-develops-drisblueseventeen",
+    "rel-driscolls-develops-drisbluetwentythree",
+    "rel-driscolls-develops-drisbluetwentyone",
+    "rel-driscolls-owns-ca-pbr-7097",
+    "rel-driscolls-owns-ca-pbr-7211",
+    "rel-driscolls-owns-uspp032267p2",
+    "rel-driscolls-operates-in-united-states",
+    "rel-driscolls-operates-in-canada",
+    "rel-driscolls-operates-in-portugal",
+    "rel-driscolls-operates-in-australia",
+    "rel-driscolls-owns-costa"
+  ],
+  "attributes": {
+    "headquarters": "345 Westridge Drive, Watsonville, California 95076, USA",
+    "country": "United States",
+    "ownership": "private, family-owned",
+    "grower_network_size": "more than 900 independent growers",
+    "founding_year": null,
+    "founding_year_note": "The company's own about page was not retrievable. Secondary sources give 1904 and a 2016 rename from Driscoll's Strawberry Associates; not recorded as fact."
+  }
+}

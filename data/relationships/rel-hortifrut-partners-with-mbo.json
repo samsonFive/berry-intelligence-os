@@ -1,0 +1,14 @@
+{
+  "id": "rel-hortifrut-partners-with-mbo",
+  "record_type": "relationship",
+  "subject_id": "company-hortifrut",
+  "predicate": "partners_with",
+  "object_id": "company-mountain-blue-orchards",
+  "status": "active",
+  "evidence_ids": [
+    "ev-hortifrut-mbo-genetics-2026",
+    "ev-ffp-hortifrut-mbo-2026"
+  ],
+  "effective_date": "2026-07-30",
+  "notes": "confidence=high; Strategic genetics collaboration announced 30 July 2026."
+}

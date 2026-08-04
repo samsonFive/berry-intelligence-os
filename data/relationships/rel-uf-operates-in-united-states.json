@@ -1,0 +1,13 @@
+{
+  "id": "rel-uf-operates-in-united-states",
+  "record_type": "relationship",
+  "subject_id": "company-university-of-florida",
+  "predicate": "operates_in",
+  "object_id": "geography-united-states",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uf-ifas-hs1245"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Land-grant institution based in Gainesville, Florida."
+}

@@ -1,0 +1,39 @@
+{
+  "id": "patent-uspp025432p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP025432P3 - 'Ridley 1403'",
+  "aliases": [
+    "USPP025432P3",
+    "PP025432"
+  ],
+  "status": "active",
+  "description": "United States plant patent USPP025432P3 covering 'Ridley 1403'. Assignee of record: Mountain Blue Orchards Pty Ltd.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp025432-ridley-1403"
+  ],
+  "fact_ids": [
+    "fact-uspp025432-ridley-1403-1"
+  ],
+  "relationship_ids": [
+    "rel-mbo-owns-uspp025432p3"
+  ],
+  "attributes": {
+    "patent_number": "USPP025432P3",
+    "jurisdiction": "United States",
+    "right_type": "US plant patent",
+    "assignee_of_record": "Mountain Blue Orchards Pty Ltd",
+    "grant_date": null,
+    "protects_variety_subject": "'Ridley 1403'",
+    "application_number": "13/694,258",
+    "published": "2012-11-13",
+    "origin": "single plant 'M08-14-03' selected from 100 seedlings, 2008, Lindendale NSW",
+    "parentage": "'S02-25-05' x 'S03-08-02' (2006 cross; both parents unpatented)"
+  }
+}

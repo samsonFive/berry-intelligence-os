@@ -1,0 +1,33 @@
+{
+  "id": "trait-chilling-requirement",
+  "record_type": "entity",
+  "entity_type": "trait",
+  "name": "Chilling requirement",
+  "aliases": [],
+  "status": "active",
+  "description": "Accumulated hours below a stated threshold temperature needed to break dormancy. Thresholds differ between sources (7 °C is common in Florida literature).",
+  "roles": [
+    "measurable_attribute"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp024636-blue-ribbon",
+    "ev-uspp024697-top-shelf",
+    "ev-uspp025386-last-call",
+    "ev-uspp024661-cargo",
+    "ev-ffsp-farthing",
+    "ev-ffsp-optimus"
+  ],
+  "fact_ids": [
+    "fact-uspp024636-blue-ribbon-2",
+    "fact-uspp024697-top-shelf-2",
+    "fact-uspp025386-last-call-2",
+    "fact-uspp024661-cargo-2",
+    "fact-ffsp-farthing-1",
+    "fact-ffsp-optimus-1"
+  ],
+  "relationship_ids": [],
+  "attributes": {}
+}

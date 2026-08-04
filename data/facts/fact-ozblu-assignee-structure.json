@@ -1,0 +1,23 @@
+{
+  "id": "fact-ozblu-assignee-structure",
+  "record_type": "fact",
+  "statement": "The OZblu 'EB'-series United States plant patents examined name Bisa Trading Pty Ltd and Prunus Persica Pty Ltd as assignees of record, while the later 'NS'-series patents name Next Progeny Pty Ltd. United Exports is not named as an assignee on any of these granted patents.",
+  "classification": "fact",
+  "confidence": "high",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-uspp025858-eb8-42",
+    "ev-uspp027142-eb12-19",
+    "ev-uspp030934-ns13-6",
+    "ev-uspp033138-ns15-13"
+  ],
+  "entity_ids": [
+    "company-bisa-trading",
+    "company-prunus-persica",
+    "company-next-progeny",
+    "company-united-exports",
+    "brand-ozblu"
+  ]
+}

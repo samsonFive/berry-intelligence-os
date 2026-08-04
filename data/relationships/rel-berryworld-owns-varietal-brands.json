@@ -1,0 +1,13 @@
+{
+  "id": "rel-berryworld-owns-varietal-brands",
+  "record_type": "relationship",
+  "subject_id": "company-berryworld",
+  "predicate": "owns",
+  "object_id": "brand-berryworld-varietal-brands",
+  "status": "active",
+  "evidence_ids": [
+    "ev-berryworld-varieties"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; BerryWorld-prefixed retail brands."
+}

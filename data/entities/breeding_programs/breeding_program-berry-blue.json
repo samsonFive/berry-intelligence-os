@@ -1,0 +1,33 @@
+{
+  "id": "breeding_program-berry-blue",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Berry Blue blueberry breeding programme",
+  "aliases": [],
+  "status": "active",
+  "description": "Blueberry breeding programme associated with Hortifrut and Michigan Blueberry Growers, holding a series of United States plant patents under the Berry Blue, LLC name. Its varieties are described by Hortifrut as exclusive to Hortifrut, MBG and their producers.",
+  "roles": [
+    "private_breeding_program",
+    "closed_variety_platform"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-hortifrut-genetic-development",
+    "ev-mbg-berry-blue-varieties"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "selection_code_prefix": "BB",
+    "access_model": "closed; exclusive to Hortifrut, MBG and their producers",
+    "test_station_countries": [
+      "United States",
+      "Chile",
+      "Peru",
+      "Mexico",
+      "China"
+    ]
+  }
+}

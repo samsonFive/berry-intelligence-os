@@ -1,0 +1,43 @@
+{
+  "id": "patent-uspp032897p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP032897P3",
+  "aliases": [
+    "US PP32,897",
+    "NS 16-2"
+  ],
+  "status": "active",
+  "description": "United States plant patent on the blueberry selection 'NS 16-2', marketed as OZblu Olivia. Sole inventor Vincent David Mazzardis; the cross was made at Yanchep Springs, Yanchep, Western Australia. Parentage 'EB 9-4' (US PP28,334) x 'EB 8-50' (US PP28,357). Granted 2021-03-16.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp032897-ns16-2"
+  ],
+  "fact_ids": [
+    "fact-ozblu-identity-olivia"
+  ],
+  "relationship_ids": [
+    "rel-next-progeny-owns-uspp032897p3"
+  ],
+  "attributes": {
+    "patent_number": "US PP32,897",
+    "jurisdiction": "United States",
+    "authority": "USPTO",
+    "kind": "plant patent",
+    "grant_date": "2021-03-16",
+    "selection_code": "NS 16-2",
+    "commercial_name": "Olivia",
+    "inventor": "Vincent David Mazzardis",
+    "assignees_of_record": [
+      "Next Progeny Pty Ltd"
+    ],
+    "cross_location": "Yanchep Springs, Yanchep, Western Australia",
+    "parentage": "'EB 9-4' (US PP28,334) x 'EB 8-50' (US PP28,357)",
+    "cross_season": "2013"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "patent-uspp032574p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP032574P3",
+  "aliases": [
+    "US PP32,574",
+    "BB05-259MI-15"
+  ],
+  "status": "active",
+  "description": "United States plant patent cited by the rights holder as covering the blueberry selection 'BB05-259MI-15', marketed as Medallion. The patent number and the code-to-name mapping come from the rights holder's own variety list; the patent document itself was not fetched, so the grant date is not recorded.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-mbg-berry-blue-varieties",
+    "ev-cfia-blueberry-index"
+  ],
+  "fact_ids": [
+    "fact-medallion-selection-code"
+  ],
+  "relationship_ids": [
+    "rel-berry-blue-owns-uspp032574p3"
+  ],
+  "attributes": {
+    "patent_number": "US PP32,574",
+    "jurisdiction": "United States",
+    "authority": "USPTO",
+    "kind": "plant patent",
+    "grant_date": null,
+    "selection_code": "BB05-259MI-15",
+    "commercial_name": "Medallion",
+    "assignee_of_record": "Berry Blue, LLC",
+    "verification_status": "owner-stated",
+    "verification_note": "Patent number taken from the rights holder's variety list, not from the patent document. The selection code is independently corroborated by the Canadian plant breeders' rights register."
+  }
+}

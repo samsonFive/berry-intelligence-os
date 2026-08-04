@@ -1,0 +1,36 @@
+{
+  "id": "patent-uspp034903p2",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP034903P2 - 'FC11-164'",
+  "aliases": [
+    "USPP034903P2",
+    "PP034903"
+  ],
+  "status": "active",
+  "description": "United States plant patent USPP034903P2 covering 'FC11-164'. Assignee of record: Fall Creek Farm and Nursery, Inc..",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp034903-fc11-164"
+  ],
+  "fact_ids": [
+    "fact-uspp034903-fc11-164-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-owns-uspp034903p2"
+  ],
+  "attributes": {
+    "patent_number": "USPP034903P2",
+    "jurisdiction": "United States",
+    "right_type": "US plant patent",
+    "assignee_of_record": "Fall Creek Farm and Nursery, Inc.",
+    "grant_date": null,
+    "protects_variety_subject": "'FC11-164'",
+    "parentage": "open-pollinated; female parent 'ZF06-168', male parent unknown; 2008 Lowell, Oregon"
+  }
+}

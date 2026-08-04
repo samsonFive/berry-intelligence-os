@@ -1,0 +1,13 @@
+{
+  "id": "rel-fall-creek-operates-in-mexico",
+  "record_type": "relationship",
+  "subject_id": "company-fall-creek-farm-and-nursery",
+  "predicate": "operates_in",
+  "object_id": "geography-mexico",
+  "status": "active",
+  "evidence_ids": [
+    "ev-sekoya-story"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Selection of 'FCM12-097' and 'FCM14-052' in Mexico evidences a breeding and evaluation presence."
+}

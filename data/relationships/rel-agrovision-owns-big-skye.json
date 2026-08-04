@@ -1,0 +1,13 @@
+{
+  "id": "rel-agrovision-owns-big-skye",
+  "record_type": "relationship",
+  "subject_id": "company-agrovision",
+  "predicate": "owns",
+  "object_id": "brand-big-skye",
+  "status": "active",
+  "evidence_ids": [
+    "ev-agrovision-10-years-2024"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Referred to by Agrovision as its brand in the China market."
+}

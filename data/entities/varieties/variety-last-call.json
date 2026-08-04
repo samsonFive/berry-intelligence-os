@@ -1,0 +1,76 @@
+{
+  "id": "variety-last-call",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Last Call",
+  "aliases": [],
+  "status": "active",
+  "description": "High-chill, very late season Fall Creek cultivar from an 'Ozarkblue' x 'Elliott' cross.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-fallcreek-catalog-last-call",
+    "ev-uspp025386-last-call",
+    "ev-cfia-pbr-last-call"
+  ],
+  "fact_ids": [
+    "fact-fallcreek-catalog-last-call-1",
+    "fact-uspp025386-last-call-1",
+    "fact-uspp025386-last-call-2",
+    "fact-cfia-pbr-last-call-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-develops-last-call",
+    "rel-fall-creek-program-develops-last-call"
+  ],
+  "attributes": {
+    "breeding_program": "breeding_program-fall-creek-blueberry-breeding",
+    "platform": "Fall Creek open catalogue",
+    "chill_class": "high chill",
+    "season": "very late",
+    "parentage": "'Ozarkblue' x 'Elliott' (2002; selected 2006)",
+    "traits": [
+      {
+        "trait": "trait-chilling-requirement",
+        "value": "US plant patent estimates approximately 1000 hours",
+        "provenance": "regulatory_or_registry_record",
+        "evidence_ids": [
+          "ev-uspp025386-last-call"
+        ],
+        "measured_value": "~1000",
+        "units": "hours",
+        "asserted_by": "United States Patent and Trademark Office"
+      },
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "US plant patent reports firmness measured against 'Elliott' using a FirmTech 2 instrument",
+        "provenance": "regulatory_or_registry_record",
+        "evidence_ids": [
+          "ev-uspp025386-last-call"
+        ],
+        "conditions": "instrumented comparison against 'Elliott' as reported in the patent specification",
+        "asserted_by": "United States Patent and Trademark Office"
+      },
+      {
+        "trait": "trait-postharvest-shelf-life",
+        "value": "Owner claims 28 days storage",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-fallcreek-catalog-last-call"
+        ],
+        "measured_value": 28,
+        "units": "days",
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      }
+    ],
+    "canada_pbr": {
+      "application_number": "13-7859",
+      "application_date": "2013-01-23",
+      "grant_date": "2016-11-12",
+      "certificate": "5372",
+      "breeder": "Haley Belnap-McCall"
+    }
+  }
+}

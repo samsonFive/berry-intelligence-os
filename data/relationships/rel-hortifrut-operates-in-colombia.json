@@ -1,0 +1,13 @@
+{
+  "id": "rel-hortifrut-operates-in-colombia",
+  "record_type": "relationship",
+  "subject_id": "company-hortifrut",
+  "predicate": "operates_in",
+  "object_id": "geography-colombia",
+  "status": "active",
+  "evidence_ids": [
+    "ev-hortifrut-investor-company"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; 75 per cent joint venture with Proplantas from October 2019."
+}

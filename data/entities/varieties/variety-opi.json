@@ -1,0 +1,85 @@
+{
+  "id": "variety-opi",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Opi",
+  "aliases": [
+    "'Ridley 1111'",
+    "Ridley 1111",
+    "BerryWorld Opi"
+  ],
+  "status": "active",
+  "description": "Mountain Blue cultivar 'Ridley 1111', an open-pollinated seedling of 'C99-42', selected at Lindendale, New South Wales in 2003. Marketed as BerryWorld Opi. Recorded here in part because 'Ridley 1111' is frequently and incorrectly attributed to the Eureka cultivar.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp023572-ridley-1111",
+    "ev-abc-chellew-judgment-2019",
+    "ev-berryworld-varieties",
+    "ev-brevis-ip-registration-trends"
+  ],
+  "fact_ids": [
+    "fact-uspp023572-ridley-1111-1",
+    "fact-uspp023572-ridley-1111-2",
+    "fact-abc-chellew-judgment-2019-1",
+    "fact-abc-chellew-judgment-2019-2",
+    "fact-berryworld-varieties-1",
+    "fact-brevis-ip-registration-trends-1"
+  ],
+  "relationship_ids": [
+    "rel-mbo-develops-opi",
+    "rel-mbo-program-develops-opi",
+    "rel-berryworld-sells-opi"
+  ],
+  "attributes": {
+    "selection_code": "Ridley 1111",
+    "breeding_program": "breeding_program-mountain-blue-blueberry-breeding",
+    "parentage": "open-pollinated seedling of 'C99-42' (PP20,695)",
+    "origin": "Lindendale, New South Wales, 2001; selected 2003",
+    "us_plant_patent": "PP23,572 (USPP023572P3, granted 2013-04-30)",
+    "australia_pbr": {
+      "application": "2009/113",
+      "certificate": "4089",
+      "granted": "September 2010",
+      "expiry": "2030-09-29"
+    },
+    "disambiguation": "'Ridley 1111' is Opi, not Eureka. Sources that equate 'Ridley 1111' with Eureka are in conflict with the US plant patent record.",
+    "traits": [
+      {
+        "trait": "trait-fruit-size",
+        "value": "Patent reports average fruit diameter of 17.3 mm against 15.5 mm for the parent 'C99-42'",
+        "provenance": "regulatory_or_registry_record",
+        "evidence_ids": [
+          "ev-uspp023572-ridley-1111"
+        ],
+        "measured_value": 17.3,
+        "units": "mm",
+        "conditions": "comparison against parent 'C99-42' as reported in the patent specification",
+        "asserted_by": "United States Patent and Trademark Office"
+      },
+      {
+        "trait": "trait-eating-quality",
+        "value": "Patent describes medium-to-high sweetness",
+        "provenance": "regulatory_or_registry_record",
+        "evidence_ids": [
+          "ev-uspp023572-ridley-1111"
+        ],
+        "asserted_by": "United States Patent and Trademark Office"
+      },
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "Patent describes the fruit as firm and suited to hand picking",
+        "provenance": "regulatory_or_registry_record",
+        "evidence_ids": [
+          "ev-uspp023572-ridley-1111"
+        ],
+        "asserted_by": "United States Patent and Trademark Office"
+      }
+    ],
+    "market_position": {
+      "registrations_2009_2019": "13 countries or regions"
+    }
+  }
+}

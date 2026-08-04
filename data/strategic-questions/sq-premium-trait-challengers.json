@@ -1,0 +1,12 @@
+{
+  "id": "sq-premium-trait-challengers",
+  "record_type": "strategic_question",
+  "title": "Which varieties or programs may challenge established premium flavor, firmness, size, shelf-life, yield, harvest-window or machine-harvest positions?",
+  "description": "Separate owner trait claims from named-trial measurements. Only trial or peer-reviewed measurement should escalate testing priority; repeated marketing claims escalate commercial-position priority instead.",
+  "status": "active",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": []
+}

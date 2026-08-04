@@ -1,0 +1,13 @@
+{
+  "id": "rel-fall-creek-develops-sekoya-grande",
+  "record_type": "relationship",
+  "subject_id": "company-fall-creek-farm-and-nursery",
+  "predicate": "develops",
+  "object_id": "variety-sekoya-grande",
+  "status": "active",
+  "evidence_ids": [
+    "ev-uspp031822-sekoya-grande"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Breeding origin evidenced by the plant patent or owner platform record cited."
+}

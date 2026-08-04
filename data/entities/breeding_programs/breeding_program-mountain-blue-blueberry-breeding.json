@@ -1,0 +1,36 @@
+{
+  "id": "breeding_program-mountain-blue-blueberry-breeding",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Mountain Blue Blueberry Breeding Program",
+  "aliases": [],
+  "status": "active",
+  "description": "Australian blueberry breeding programme associated with Ridley Bell at Lindendale/Tabulam, NSW, producing the 'Ridley'-prefixed cultivars marketed under the Eureka brand family.",
+  "roles": [
+    "private_breeding_program"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-ozblu-around-the-world-2019",
+    "ev-uspp025432-ridley-1403",
+    "ev-uspp031605-ridley-1602",
+    "ev-uspp023572-ridley-1111",
+    "ev-berryworld-varieties"
+  ],
+  "fact_ids": [
+    "fact-ozblu-around-the-world-2019-2"
+  ],
+  "relationship_ids": [
+    "rel-mbo-program-develops-eureka",
+    "rel-mbo-program-develops-eureka-sunrise",
+    "rel-mbo-program-develops-opi",
+    "rel-mbo-program-develops-twilight"
+  ],
+  "attributes": {
+    "operator": "Mountain Blue Orchards Pty Ltd",
+    "selection_code_prefix": "Ridley",
+    "principal_breeder": "Ridley Bell"
+  }
+}

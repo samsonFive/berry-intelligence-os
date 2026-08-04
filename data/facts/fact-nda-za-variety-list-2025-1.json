@@ -1,0 +1,21 @@
+{
+  "id": "fact-nda-za-variety-list-2025-1",
+  "record_type": "fact",
+  "statement": "The South African official 2025 blueberry export variety list independently pairs brand names with breeding selection codes across multiple breeding programmes, corroborating the SEKOYA brand to code mappings published by Fall Creek and confirming that Eureka, Eureka Sunrise, Eureka Sunset, Eureka Dawn, Eureka Maxx and Twilight are all traded denominations.",
+  "classification": "fact",
+  "confidence": "high",
+  "status": "active",
+  "reviewer": "research-agent/blueberry-public-pilot-2026-08-03",
+  "created_at": "2026-08-03",
+  "evidence_ids": [
+    "ev-nda-za-variety-list-2025"
+  ],
+  "entity_ids": [
+    "geography-south-africa",
+    "variety-sekoya-beauty",
+    "variety-sekoya-pop",
+    "variety-eureka",
+    "variety-eureka-sunrise",
+    "variety-twilight"
+  ]
+}

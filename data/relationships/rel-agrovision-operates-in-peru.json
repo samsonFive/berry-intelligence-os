@@ -1,0 +1,13 @@
+{
+  "id": "rel-agrovision-operates-in-peru",
+  "record_type": "relationship",
+  "subject_id": "company-agrovision",
+  "predicate": "operates_in",
+  "object_id": "geography-peru",
+  "status": "active",
+  "evidence_ids": [
+    "ev-ibo-agrovision-2019"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Operations at Olmos and Morrope in Lambayeque."
+}

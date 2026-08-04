@@ -1,0 +1,45 @@
+{
+  "id": "patent-uspp025858p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP025858P3",
+  "aliases": [
+    "US PP25,858",
+    "EB 8-42"
+  ],
+  "status": "active",
+  "description": "United States plant patent on the blueberry selection 'EB 8-42', marketed as OZblu Julieta. Sole inventor Vincent David Mazzardis; the cross was made at Yanchep Springs, Yanchep, Western Australia. Parentage '03-2' (unpatented) x 'SB-1' (unpatented), 2005 season. Granted 2015-09-08.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp025858-eb8-42"
+  ],
+  "fact_ids": [
+    "fact-ozblu-identity-julieta"
+  ],
+  "relationship_ids": [
+    "rel-bisa-trading-owns-uspp025858p3",
+    "rel-prunus-persica-owns-uspp025858p3"
+  ],
+  "attributes": {
+    "patent_number": "US PP25,858",
+    "jurisdiction": "United States",
+    "authority": "USPTO",
+    "kind": "plant patent",
+    "grant_date": "2015-09-08",
+    "selection_code": "EB 8-42",
+    "commercial_name": "Julieta",
+    "inventor": "Vincent David Mazzardis",
+    "assignees_of_record": [
+      "Bisa Trading Pty Ltd",
+      "Prunus Persica Pty Ltd"
+    ],
+    "cross_location": "Yanchep Springs, Yanchep, Western Australia",
+    "parentage": "'03-2' (unpatented) x 'SB-1' (unpatented)",
+    "cross_season": "2005"
+  }
+}

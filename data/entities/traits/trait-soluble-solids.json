@@ -1,0 +1,34 @@
+{
+  "id": "trait-soluble-solids",
+  "record_type": "entity",
+  "entity_type": "trait",
+  "name": "Soluble solids content",
+  "aliases": [
+    "Brix",
+    "degrees Brix",
+    "SSC"
+  ],
+  "status": "active",
+  "description": "Sugar concentration of the fruit, normally reported in degrees Brix. Recorded as a separate trait because Brix figures are published by owners, by independent trials and by registries using different sampling points in the season, and are frequently quoted without a method.",
+  "roles": [
+    "measurable_attribute"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-planasa-blue-manila-page",
+    "ev-planasa-blue-manila-datasheet",
+    "ev-planasa-blue-maldiva",
+    "ev-uaex-blueberry-trial-2024"
+  ],
+  "fact_ids": [
+    "fact-blue-manila-brix-conflict",
+    "fact-uaex-quality-range-2024"
+  ],
+  "relationship_ids": [],
+  "attributes": {
+    "units": "degrees Brix",
+    "comparability_note": "Owner marketing figures, single-point measurements and season-long trial means are not interchangeable. Compare only where method, site and season are stated."
+  }
+}

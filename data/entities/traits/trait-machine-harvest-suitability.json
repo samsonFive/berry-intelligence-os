@@ -1,0 +1,37 @@
+{
+  "id": "trait-machine-harvest-suitability",
+  "record_type": "entity",
+  "entity_type": "trait",
+  "name": "Machine-harvest suitability",
+  "aliases": [],
+  "status": "active",
+  "description": "Whether a cultivar can be mechanically harvested for the fresh market without unacceptable quality loss.",
+  "roles": [
+    "measurable_attribute"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-packer-finefield-2024",
+    "ev-freshfruitportal-fall-creek-2026",
+    "ev-uspp024661-cargo",
+    "ev-cfia-pbr-fc11-164",
+    "ev-uf-breeding-sentinel",
+    "ev-uf-ifas-hs1245",
+    "ev-uf-breeding-colossus",
+    "ev-uf-breeding-meadowlark",
+    "ev-uf-breeding-patrecia"
+  ],
+  "fact_ids": [
+    "fact-packer-finefield-2024-1",
+    "fact-uspp024661-cargo-2",
+    "fact-freshfruitportal-fall-creek-2026-1",
+    "fact-uf-breeding-sentinel-4",
+    "fact-uf-breeding-colossus-3",
+    "fact-uf-breeding-meadowlark-2",
+    "fact-uf-breeding-patrecia-2"
+  ],
+  "relationship_ids": [],
+  "attributes": {}
+}

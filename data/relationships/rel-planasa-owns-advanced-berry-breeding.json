@@ -1,0 +1,13 @@
+{
+  "id": "rel-planasa-owns-advanced-berry-breeding",
+  "record_type": "relationship",
+  "subject_id": "company-planasa",
+  "predicate": "owns",
+  "object_id": "company-advanced-berry-breeding",
+  "status": "active",
+  "evidence_ids": [
+    "ev-cinven-planasa-ew-group"
+  ],
+  "effective_date": null,
+  "notes": "confidence=medium; Cinven records the completed acquisition of Advanced Berry Breeding during its ownership of Planasa. The acquiring entity of record was not separately confirmed."
+}

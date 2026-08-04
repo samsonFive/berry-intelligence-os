@@ -1,0 +1,27 @@
+{
+  "id": "brand-fall-creek-collection",
+  "record_type": "entity",
+  "entity_type": "brand",
+  "name": "Fall Creek Collection",
+  "aliases": [],
+  "status": "active",
+  "description": "Fall Creek commercial platform for proprietary varieties licensed outside the closed SEKOYA member network.",
+  "roles": [
+    "variety_platform"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-fall-creek-commercial-platforms-2026"
+  ],
+  "fact_ids": [
+    "fact-fall-creek-commercial-platforms-2026-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-owns-brand-collection"
+  ],
+  "attributes": {
+    "operator": "Fall Creek Farm & Nursery, Inc."
+  }
+}

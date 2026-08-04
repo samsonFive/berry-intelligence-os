@@ -1,0 +1,58 @@
+{
+  "id": "trait-eating-quality",
+  "record_type": "entity",
+  "entity_type": "trait",
+  "name": "Eating quality",
+  "aliases": [],
+  "status": "active",
+  "description": "Sweetness, acidity, Brix, Brix/acid ratio and sensory panel scores. UF/IFAS publishes a numeric flavour score; the International Taste Institute issues independent star awards.",
+  "roles": [
+    "measurable_attribute"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uf-breeding-emerald",
+    "ev-uf-breeding-jewel",
+    "ev-uf-breeding-farthing",
+    "ev-uf-breeding-meadowlark",
+    "ev-uf-breeding-patrecia",
+    "ev-uf-breeding-optimus",
+    "ev-uf-breeding-colossus",
+    "ev-uf-breeding-sentinel",
+    "ev-berryworld-varieties",
+    "ev-fruitnet-eureka-sunrise-2023",
+    "ev-cfia-pbr-drisblueseventeen",
+    "ev-cfia-pbr-drisbluetwentythree",
+    "ev-cfia-pbr-sekoya-grande",
+    "ev-cfia-pbr-blue-ribbon",
+    "ev-cfia-pbr-top-shelf",
+    "ev-uspp025432-ridley-1403",
+    "ev-mbo-eureka-blueberries",
+    "ev-uspp023572-ridley-1111"
+  ],
+  "fact_ids": [
+    "fact-cfia-pbr-sekoya-grande-2",
+    "fact-cfia-pbr-blue-ribbon-1",
+    "fact-cfia-pbr-top-shelf-1",
+    "fact-uf-breeding-emerald-1",
+    "fact-uf-breeding-jewel-1",
+    "fact-uf-breeding-farthing-1",
+    "fact-uf-breeding-meadowlark-1",
+    "fact-uf-breeding-patrecia-1",
+    "fact-uf-breeding-optimus-1",
+    "fact-uf-breeding-colossus-1",
+    "fact-uf-breeding-sentinel-1",
+    "fact-uf-breeding-sentinel-3",
+    "fact-uspp025432-ridley-1403-2",
+    "fact-mbo-eureka-blueberries-2",
+    "fact-uspp023572-ridley-1111-2",
+    "fact-fruitnet-eureka-sunrise-2023-1",
+    "fact-berryworld-varieties-2",
+    "fact-drisblueseventeen-portugal-examination",
+    "fact-drisbluetwentythree-chilliwack-trial"
+  ],
+  "relationship_ids": [],
+  "attributes": {}
+}

@@ -1,0 +1,39 @@
+{
+  "id": "patent-uspp023572p3",
+  "record_type": "entity",
+  "entity_type": "patent",
+  "name": "USPP023572P3 - 'Ridley 1111' (Opi)",
+  "aliases": [
+    "USPP023572P3",
+    "PP023572"
+  ],
+  "status": "active",
+  "description": "United States plant patent USPP023572P3 covering 'Ridley 1111' (Opi). Assignee of record: Mountain Blue Orchards Pty Ltd.",
+  "roles": [
+    "intellectual_property_right"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-uspp023572-ridley-1111"
+  ],
+  "fact_ids": [
+    "fact-uspp023572-ridley-1111-1"
+  ],
+  "relationship_ids": [
+    "rel-mbo-owns-uspp023572p3"
+  ],
+  "attributes": {
+    "patent_number": "USPP023572P3",
+    "jurisdiction": "United States",
+    "right_type": "US plant patent",
+    "assignee_of_record": "Mountain Blue Orchards Pty Ltd",
+    "grant_date": "2013-04-30",
+    "protects_variety_subject": "'Ridley 1111' (Opi)",
+    "application_number": "12/930,887",
+    "filed": "2011-01-18",
+    "parentage": "open-pollinated seedling of 'C99-42' (PP20,695)",
+    "origin": "Lindendale NSW 2001, selected 2003"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "rel-costa-develops-arana",
+  "record_type": "relationship",
+  "subject_id": "company-costa-group-holdings",
+  "predicate": "develops",
+  "object_id": "variety-arana",
+  "status": "active",
+  "evidence_ids": [
+    "ev-costa-african-blue-2023"
+  ],
+  "effective_date": null,
+  "notes": "confidence=low; Arana is named among varieties adopted in Costa's African Blue Zimbabwe project. Breeding origin is not stated in the source and no registry record for Arana was retrieved."
+}

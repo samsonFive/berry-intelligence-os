@@ -1,0 +1,13 @@
+{
+  "id": "rel-topfruit-partners-with-iq-berries",
+  "record_type": "relationship",
+  "subject_id": "company-topfruit",
+  "predicate": "partners_with",
+  "object_id": "company-iq-berries",
+  "status": "active",
+  "evidence_ids": [
+    "ev-topfruit-megacrisp"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; TopFruit acts as commercial manager in southern Africa for IQ Berries' Mega-family blueberry varieties."
+}

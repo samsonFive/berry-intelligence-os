@@ -1,0 +1,52 @@
+{
+  "id": "breeding_program-costa-variety-improvement",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Costa Variety Improvement Program",
+  "aliases": [
+    "Costa VIP",
+    "VIP"
+  ],
+  "status": "active",
+  "description": "Costa's blueberry breeding programme, based at Corindi, New South Wales, and led by Dr Jessica Scalzo since 2013. It screens roughly 20,000 seedlings a year, retains one to two per cent, works on a seven to ten year timeline and releases one to two new varieties a year. Since 2026 it is brand-fronted by BluGenix.",
+  "roles": [
+    "private_breeding_program",
+    "closed_variety_platform"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-costa-vip",
+    "ev-costa-heaviest-blueberry-2024",
+    "ev-producereport-blugenix-2026",
+    "ev-justia-costa-berry-international",
+    "ev-costa-african-blue-2023"
+  ],
+  "fact_ids": [
+    "fact-costa-vip-corindi",
+    "fact-costa-vip-age-conflict",
+    "fact-costa-licensing-regions",
+    "fact-cbi-ffsp-joint-patents",
+    "fact-blugenix-launch-2026"
+  ],
+  "relationship_ids": [
+    "rel-costa-develops-variety-improvement-programme"
+  ],
+  "attributes": {
+    "selection_code_prefix": "C",
+    "location": "Corindi, Mid North Coast, New South Wales, Australia",
+    "lead_breeder": "Dr Jessica Scalzo (since 2013)",
+    "seedlings_per_year": 20000,
+    "retention_rate": "1-2 per cent",
+    "development_timeline_years": "7-10",
+    "releases_per_year": "1-2",
+    "germplasm_bank": "described as the largest blueberry germplasm bank in Australia",
+    "licensing_regions": [
+      "Americas",
+      "Morocco",
+      "China",
+      "south east Africa"
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "id": "variety-sekoya-fiesta",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "SEKOYA Fiesta",
+  "aliases": [
+    "SEKOYA® Fiesta™",
+    "FC13-113",
+    "Sekoya Fiesta"
+  ],
+  "status": "active",
+  "description": "Late-season, mid- to high-chill northern highbush cultivar from the Fall Creek breeding programme; commercial debut reported in 2023.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-sekoya-story",
+    "ev-freshplaza-fall-creek-chile-2026",
+    "ev-fallcreek-catalog-sekoya-fiesta",
+    "ev-nda-za-variety-list-2025"
+  ],
+  "fact_ids": [
+    "fact-sekoya-story-fiesta",
+    "fact-fallcreek-catalog-sekoya-fiesta-1",
+    "fact-freshplaza-fall-creek-chile-2026-1"
+  ],
+  "relationship_ids": [
+    "rel-fall-creek-develops-sekoya-fiesta",
+    "rel-fall-creek-program-develops-sekoya-fiesta",
+    "rel-fall-creek-trials-sekoya-fiesta-chile",
+    "rel-sekoya-carries-sekoya-fiesta"
+  ],
+  "attributes": {
+    "selection_code": "FC13-113",
+    "breeding_program": "breeding_program-fall-creek-blueberry-breeding",
+    "platform": "SEKOYA",
+    "chill_class": "mid to high chill",
+    "season": "late",
+    "species_type": "northern highbush",
+    "debut_year": 2023,
+    "traits": [
+      {
+        "trait": "trait-fruit-size",
+        "value": "Described by the owner as jumbo size",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-fallcreek-catalog-sekoya-fiesta"
+        ],
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      },
+      {
+        "trait": "trait-fruit-firmness",
+        "value": "Described by the owner as very firm, with crunchiness",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-fallcreek-catalog-sekoya-fiesta"
+        ],
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      },
+      {
+        "trait": "trait-postharvest-shelf-life",
+        "value": "Owner claims up to 60 days with proper cold storage",
+        "provenance": "owner_or_marketer_claim",
+        "evidence_ids": [
+          "ev-fallcreek-catalog-sekoya-fiesta"
+        ],
+        "measured_value": 60,
+        "units": "days",
+        "asserted_by": "Fall Creek Farm & Nursery, Inc."
+      }
+    ]
+  }
+}

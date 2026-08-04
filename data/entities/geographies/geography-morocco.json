@@ -1,0 +1,39 @@
+{
+  "id": "geography-morocco",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "Morocco",
+  "aliases": [],
+  "status": "active",
+  "description": "Rapidly expanding counter-seasonal supplier to Europe.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-fruitnet-eureka-sunrise-2023",
+    "ev-planasa-blue-manila-datasheet",
+    "ev-costa-vip",
+    "ev-producereport-blugenix-2026",
+    "ev-costa-african-blue-2023",
+    "ev-blueberriesconsulting-agrovision-2024",
+    "ev-agrovision-10-years-2024"
+  ],
+  "fact_ids": [
+    "fact-fruitnet-eureka-sunrise-2023-2",
+    "fact-costa-licensing-regions",
+    "fact-african-blue-morocco-zimbabwe",
+    "fact-blugenix-growing-countries",
+    "fact-agrovision-peru-scale"
+  ],
+  "relationship_ids": [
+    "rel-planasa-operates-in-morocco",
+    "rel-african-blue-operates-in-morocco",
+    "rel-costa-operates-in-morocco",
+    "rel-agrovision-operates-in-morocco"
+  ],
+  "attributes": {
+    "iso_3166_1_alpha_2": "MA",
+    "region": "Africa"
+  }
+}

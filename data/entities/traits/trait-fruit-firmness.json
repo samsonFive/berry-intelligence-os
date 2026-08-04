@@ -1,0 +1,61 @@
+{
+  "id": "trait-fruit-firmness",
+  "record_type": "entity",
+  "entity_type": "trait",
+  "name": "Fruit firmness",
+  "aliases": [],
+  "status": "active",
+  "description": "Resistance of the berry to compression. Measured differently by different programmes: UF/IFAS publishes a g/mm compression index; US plant patents sometimes cite FirmTech instrument readings; PBR examination reports use ordinal descriptors. Values from different methods are not directly comparable.",
+  "roles": [
+    "measurable_attribute"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-freshfruitportal-fall-creek-2026",
+    "ev-uspp025386-last-call",
+    "ev-uf-breeding-emerald",
+    "ev-uf-breeding-jewel",
+    "ev-uf-breeding-farthing",
+    "ev-uf-breeding-meadowlark",
+    "ev-uf-breeding-patrecia",
+    "ev-uf-breeding-optimus",
+    "ev-uf-breeding-colossus",
+    "ev-uf-breeding-sentinel",
+    "ev-uspp025432-ridley-1403",
+    "ev-cfia-pbr-drisblueseventeen",
+    "ev-cfia-pbr-drisbluetwentythree",
+    "ev-cfia-pbr-sekoya-grande",
+    "ev-cfia-pbr-blue-ribbon",
+    "ev-cfia-pbr-top-shelf",
+    "ev-cfia-pbr-fc11-164",
+    "ev-ffsp-optimus",
+    "ev-mbo-eureka-blueberries",
+    "ev-uspp023572-ridley-1111"
+  ],
+  "fact_ids": [
+    "fact-uspp025386-last-call-2",
+    "fact-cfia-pbr-sekoya-grande-2",
+    "fact-cfia-pbr-blue-ribbon-1",
+    "fact-cfia-pbr-top-shelf-1",
+    "fact-cfia-pbr-fc11-164-2",
+    "fact-freshfruitportal-fall-creek-2026-1",
+    "fact-uf-breeding-emerald-1",
+    "fact-uf-breeding-jewel-1",
+    "fact-uf-breeding-farthing-1",
+    "fact-uf-breeding-meadowlark-1",
+    "fact-uf-breeding-patrecia-1",
+    "fact-uf-breeding-optimus-1",
+    "fact-uf-breeding-colossus-1",
+    "fact-uf-breeding-sentinel-1",
+    "fact-uf-breeding-optimus-3",
+    "fact-uspp025432-ridley-1403-2",
+    "fact-uspp025432-ridley-1403-3",
+    "fact-uspp023572-ridley-1111-2",
+    "fact-drisblueseventeen-portugal-examination",
+    "fact-drisbluetwentythree-chilliwack-trial"
+  ],
+  "relationship_ids": [],
+  "attributes": {}
+}
