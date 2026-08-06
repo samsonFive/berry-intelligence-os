@@ -103,14 +103,27 @@
       </div>
     {% endif %}
     <h2><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h2>
-    <p>{{ item.summary }}</p>
+    {% set summary_lines = item.summary|as_bullets %}
+    {% if summary_lines|length > 1 %}
+      <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+    {% else %}
+      <p>{{ item.summary }}</p>
+    {% endif %}
     <div class="tags">{% for tag in item.tags %}<span>{{ tag }}</span>{% endfor %}</div>
     <div class="priorities">
       {% for name, value in item.priority.items() %}
         <div><small>{{ name|replace('_',' ') }}</small><strong class="level-{{ value.level }}">{{ value.level }}</strong></div>
       {% endfor %}
     </div>
-    <div class="why"><strong>Why it matters</strong><p>{{ item.why_it_matters }}</p></div>
+    <div class="why">
+      <strong>Why it matters</strong>
+      {% set why_lines = item.why_it_matters|as_bullets %}
+      {% if why_lines|length > 1 %}
+        <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+      {% else %}
+        <p>{{ item.why_it_matters }}</p>
+      {% endif %}
+    </div>
   </article>
 {% else %}
   <p class="empty-state">No published evidence matches the current filters.</p>

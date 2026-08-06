@@ -35,7 +35,12 @@
             {% else %}
               <span>{{ item.title }}</span>
             {% endif %}
-            {% if item.detail %}<p>{{ item.detail }}</p>{% endif %}
+            {% set detail_lines = item.detail|as_bullets %}
+            {% if detail_lines|length > 1 %}
+              <ul class="bullet-list">{% for line in detail_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+            {% elif item.detail %}
+              <p>{{ item.detail }}</p>
+            {% endif %}
           </div>
         </li>
       {% endfor %}
@@ -45,7 +50,13 @@
   {% endif %}
 
   {% if entity.description %}
-    <h2>Description</h2><p>{{ entity.description }}</p>
+    <h2>Description</h2>
+    {% set description_lines = entity.description|as_bullets %}
+    {% if description_lines|length > 1 %}
+      <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+    {% else %}
+      <p>{{ entity.description }}</p>
+    {% endif %}
   {% endif %}
 
   {% if entity.attributes %}
@@ -72,7 +83,12 @@
         <li>
           <span class="badge badge-muted">{{ fact.classification|upper }}</span>
           <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
-          <p>{{ fact.statement }}</p>
+          {% set statement_lines = fact.statement|as_bullets %}
+          {% if statement_lines|length > 1 %}
+            <ul class="bullet-list">{% for line in statement_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+          {% else %}
+            <p>{{ fact.statement }}</p>
+          {% endif %}
           <small>Reviewed by {{ fact.reviewer }} on {{ fact.created_at|us_date }} · {{ fact.status }}</small>
         </li>
       {% endfor %}
@@ -91,7 +107,12 @@
             <time>{{ (item.published_date or item.captured_date)|us_date }}</time>
           </div>
           <h3><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3>
-          <p>{{ item.summary }}</p>
+          {% set item_summary_lines = item.summary|as_bullets %}
+          {% if item_summary_lines|length > 1 %}
+            <ul class="bullet-list">{% for line in item_summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+          {% else %}
+            <p>{{ item.summary }}</p>
+          {% endif %}
         </article>
       {% endfor %}
     </section>

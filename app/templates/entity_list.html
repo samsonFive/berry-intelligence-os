@@ -59,7 +59,12 @@
         {% if code %}<span class="badge badge-muted">{{ code }}</span>{% endif %}
       </div>
       <h2><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a></h2>
-      {% if entity.description %}<p>{{ entity.description }}</p>{% endif %}
+      {% set description_lines = entity.description|as_bullets %}
+      {% if description_lines|length > 1 %}
+        <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+      {% elif entity.description %}
+        <p>{{ entity.description }}</p>
+      {% endif %}
       {% if entity.roles %}<div class="tags">{% for role in entity.roles %}<span>{{ role }}</span>{% endfor %}</div>{% endif %}
     </article>
   {% else %}

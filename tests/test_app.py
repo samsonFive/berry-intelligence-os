@@ -1036,3 +1036,47 @@ def test_entity_page_shows_recent_activity_with_us_formatted_dates() -> None:
     assert response.status_code == 200
     assert "Recent activity" in response.text
     assert "7/28/2026" in response.text
+
+
+def test_as_bullets_splits_on_sentence_boundaries() -> None:
+    text = "Reports the 2025 rebrand of Agrovision to Fruitist. It gives the founding year as 2012."
+    assert main.as_bullets(text) == [
+        "Reports the 2025 rebrand of Agrovision to Fruitist.",
+        "It gives the founding year as 2012.",
+    ]
+
+
+def test_as_bullets_does_not_split_on_a_middle_initial() -> None:
+    text = "Breeders David M. Brazelton and Adam L. Wagner are named."
+    assert main.as_bullets(text) == [text]
+
+
+def test_as_bullets_does_not_split_on_a_company_suffix_mid_sentence() -> None:
+    text = "Fall Creek Farm & Nursery, Inc. was founded in 1978 in Lowell, Oregon."
+    assert main.as_bullets(text) == [text]
+
+
+def test_as_bullets_splits_after_a_company_suffix_at_a_real_sentence_end() -> None:
+    text = "Costa Berry International Pty Ltd. The variety is marketed internationally."
+    assert main.as_bullets(text) == [
+        "Costa Berry International Pty Ltd.",
+        "The variety is marketed internationally.",
+    ]
+
+
+def test_as_bullets_handles_empty_and_none() -> None:
+    assert main.as_bullets(None) == []
+    assert main.as_bullets("") == []
+
+
+def test_evidence_detail_renders_multi_sentence_summary_as_bullet_list() -> None:
+    response = client.get("/evidence/ev-leadersleague-atlantic-blue-2021")
+    assert response.status_code == 200
+    assert 'class="bullet-list"' in response.text
+    assert "Atlantic Blue of Huelva" in response.text
+
+
+def test_evidence_detail_renders_single_sentence_summary_as_plain_paragraph() -> None:
+    response = client.get("/evidence/ev-sample-variety-launch")
+    assert response.status_code == 200
+    assert "<p>A fictional breeder announced a low-chill blueberry variety" in response.text

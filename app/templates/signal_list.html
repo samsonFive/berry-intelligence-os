@@ -20,7 +20,12 @@
           <span class="badge badge-muted">{{ signal.strength|upper }} STRENGTH</span>
         </div>
         <h2><a href="/signals/{{ signal.id }}">{{ signal.title }}</a></h2>
-        {% if signal.description %}<p>{{ signal.description }}</p>{% endif %}
+        {% set description_lines = signal.description|as_bullets %}
+        {% if description_lines|length > 1 %}
+          <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+        {% elif signal.description %}
+          <p>{{ signal.description }}</p>
+        {% endif %}
         <p class="draft-meta">{{ signal.evidence_ids|length }} supporting evidence · updated {{ signal.last_updated|us_date }}</p>
       </article>
     {% endfor %}

@@ -16,10 +16,22 @@
     <dt>Submitted by</dt><dd>{{ draft.submitted_by }}</dd>
   </dl>
 
-  <h2>Summary</h2><p>{{ draft.summary }}</p>
+  <h2>Summary</h2>
+  {% set summary_lines = draft.summary|as_bullets %}
+  {% if summary_lines|length > 1 %}
+    <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+  {% else %}
+    <p>{{ draft.summary }}</p>
+  {% endif %}
 
   {% if draft.why_it_matters %}
-    <h2>Why it might matter</h2><p>{{ draft.why_it_matters }}</p>
+    <h2>Why it might matter</h2>
+    {% set why_lines = draft.why_it_matters|as_bullets %}
+    {% if why_lines|length > 1 %}
+      <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+    {% else %}
+      <p>{{ draft.why_it_matters }}</p>
+    {% endif %}
   {% endif %}
 
   {% if draft.suggested_competitors or draft.suggested_varieties %}

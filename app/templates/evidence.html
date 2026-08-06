@@ -21,8 +21,21 @@
     <dt>Geography</dt><dd>{% set geographies = linked_entities|selectattr('entity_type', 'equalto', 'geography')|list %}{% if geographies %}{% for g in geographies %}{{ g.name }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}—{% endif %}</dd>
   </dl>
 
-  <h2>Summary</h2><p>{{ record.summary }}</p>
-  <h2>Why it matters</h2><p>{{ record.why_it_matters }}</p>
+  <h2>Summary</h2>
+  {% set summary_lines = record.summary|as_bullets %}
+  {% if summary_lines|length > 1 %}
+    <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+  {% else %}
+    <p>{{ record.summary }}</p>
+  {% endif %}
+
+  <h2>Why it matters</h2>
+  {% set why_lines = record.why_it_matters|as_bullets %}
+  {% if why_lines|length > 1 %}
+    <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+  {% else %}
+    <p>{{ record.why_it_matters }}</p>
+  {% endif %}
 
   <h2>Priorities</h2>
   <div class="priorities">
@@ -53,7 +66,12 @@
         <li>
           <span class="badge badge-muted">{{ fact.classification|upper }}</span>
           <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
-          <p>{{ fact.statement }}</p>
+          {% set statement_lines = fact.statement|as_bullets %}
+          {% if statement_lines|length > 1 %}
+            <ul class="bullet-list">{% for line in statement_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+          {% else %}
+            <p>{{ fact.statement }}</p>
+          {% endif %}
           <small>Reviewed by {{ fact.reviewer }} on {{ fact.created_at|us_date }} · {{ fact.status }}</small>
         </li>
       {% endfor %}

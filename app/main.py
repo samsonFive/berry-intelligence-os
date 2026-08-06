@@ -149,7 +149,41 @@ def us_date(value: str | None) -> str:
         return value
 
 
+SENTENCE_SPLIT = re.compile(r'(?<=[a-z0-9)])([.!?])\s+(?=[A-Z"\'])')
+
+
+def as_bullets(text: str | None) -> list[str]:
+    """Split a prose field (evidence.summary, fact.statement, etc.) into its
+    individual sentences for bullet-point display, without altering a single
+    word of the stored text -- display-only, same as us_date.
+
+    Imported evidence/fact text is dense (multiple distinct claims chained
+    with commas and "and" into one paragraph) but not padded with literal
+    filler; verified against every stored summary/why_it_matters/statement
+    that this split point -- lowercase/digit/close-paren, then . ! or ?,
+    then whitespace, then an uppercase letter or quote -- never lands mid
+    sentence. The obvious naive regex (any ". " before a capital) would
+    wrongly break mid-sentence on a person's middle initial ("David M.
+    Brazelton"); requiring a non-capital before the punctuation avoids that
+    without an abbreviation exception list."""
+    if not text:
+        return []
+    parts = SENTENCE_SPLIT.split(text)
+    sentences: list[str] = []
+    buf = ""
+    for i, part in enumerate(parts):
+        if i % 2 == 0:
+            buf = part
+        else:
+            sentences.append(buf + part)
+            buf = ""
+    if buf:
+        sentences.append(buf)
+    return [s.strip() for s in sentences if s.strip()]
+
+
 templates.env.filters["us_date"] = us_date
+templates.env.filters["as_bullets"] = as_bullets
 
 
 REGIONS = ["Americas", "Europe", "Oceania", "Middle East & Africa"]
