@@ -27,14 +27,26 @@ a{color:#3d5c94}
   --pagefind-ui-background:#ffffff;
   --pagefind-ui-border:#315789;
   --pagefind-ui-border-width:1px;
-  --pagefind-ui-border-radius:7px;
+  --pagefind-ui-border-radius:10px;
   --pagefind-ui-font:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;
 }
-.pagefind-search .pagefind-ui__search-input{background:#173d70;color:white;border-color:#315789}
+.pagefind-search .pagefind-ui__form{position:relative}
+.pagefind-search .pagefind-ui__search-input{background:#173d70;color:white;border-color:#315789;border-radius:10px!important;padding:11px 40px 11px 14px!important}
 .pagefind-search .pagefind-ui__search-input::placeholder{color:#b7c8e6}
-.pagefind-search .pagefind-ui__search-clear{color:white}
-.pagefind-search .pagefind-ui__drawer{background:white;border-radius:7px;box-shadow:0 8px 24px rgba(8,20,45,.25)}
-.pagefind-search .pagefind-ui__result-link{color:#152443}
+.pagefind-search .pagefind-ui__search-clear{color:#b7c8e6;font-size:0;width:28px;height:28px;top:6px}
+.pagefind-search .pagefind-ui__search-clear::before{content:"\2715";font-size:14px}
+.pagefind-search .pagefind-ui__drawer{background:white;border-radius:12px;border:1px solid #e0e5ef;box-shadow:0 12px 32px rgba(8,20,45,.28);overflow:hidden;margin-top:8px}
+.pagefind-search .pagefind-ui__results-area{padding:10px}
+.pagefind-search .pagefind-ui__message{color:#6c778b;font-size:12px;padding:4px 6px 10px;margin:0}
+.pagefind-search .pagefind-ui__results{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.pagefind-search .pagefind-ui__result{border:1px solid #e3e7ef;border-radius:8px;padding:10px 12px;transition:border-color .15s,box-shadow .15s}
+.pagefind-search .pagefind-ui__result:hover{border-color:#6d50c7;box-shadow:0 2px 10px rgba(109,80,199,.15)}
+.pagefind-search .pagefind-ui__result-title{margin:0 0 3px;font-size:14px}
+.pagefind-search .pagefind-ui__result-link{color:#152443;font-weight:700;text-decoration:none}
+.pagefind-search .pagefind-ui__result-excerpt{margin:0;color:#536076;font-size:12.5px;line-height:1.5}
+.pagefind-search .pagefind-ui__result-excerpt mark{background:#eee8ff;color:#5537a8;border-radius:3px;padding:0 2px}
+.pagefind-search .pagefind-ui__button{background:#173d70;color:white;border:0;border-radius:7px;padding:9px 16px;font-size:13px;cursor:pointer}
+.pagefind-search .pagefind-ui__button:hover{background:#0c2d5d}
 
 .page-heading{display:flex;justify-content:space-between;align-items:end;padding:28px 32px 14px}
 .page-heading h1{margin:2px 0 0;font-size:30px}
