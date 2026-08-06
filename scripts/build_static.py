@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import re
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any
@@ -326,6 +327,32 @@ def validate_no_drafts_leaked() -> list[str]:
     return leaked
 
 
+def build_search_index() -> bool:
+    """Run Pagefind over the generated site, so the whole site -- including
+    search -- is reproducible from one command. Client-side search only: no
+    server, no external service, consistent with keeping this build free of
+    proprietary SaaS dependencies (ADR-0001).
+
+    Optional locally (pip install pagefind pagefind_bin enables it); the
+    deploy workflow always installs it, so a failure there is a real build
+    failure, not silently skipped like a missing local install is.
+    """
+    try:
+        import pagefind  # noqa: F401
+    except ImportError:
+        return False
+    result = subprocess.run(
+        [sys.executable, "-m", "pagefind", "--site", str(OUTPUT_DIR)],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
+    if result.returncode != 0:
+        raise RuntimeError(f"pagefind failed:\n{result.stdout}\n{result.stderr}")
+    return True
+
+
 def main() -> int:
     written = build()
     leaked = validate_no_drafts_leaked()
@@ -334,6 +361,16 @@ def main() -> int:
         for entry in leaked:
             print(f"- {entry}")
         return 1
+
+    if build_search_index():
+        print("Search index built (pagefind).")
+    else:
+        print(
+            "Skipped search index: pagefind not installed locally "
+            "(pip install pagefind pagefind_bin to enable it here -- "
+            "the deployed site always has it via CI)."
+        )
+
     print(f"Static build complete: {len(written)} pages written to {_display_path(OUTPUT_DIR)}/")
     print("Verified: no unpublished draft ids or titles appear in the output.")
     return 0

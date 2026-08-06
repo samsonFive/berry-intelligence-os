@@ -20,9 +20,34 @@ This wipes and recreates `generated/`, then:
   listing, priority queue, strategic question, and signal;
 - copies `app/static/app.css` and any evidence attachments under `data/attachments/`;
 - rewrites every internal link to be relative to the file that contains it;
+- builds a client-side search index over the generated pages (see
+  "Search" below) if Pagefind is installed;
 - runs an automated check that no draft id or draft title from `inbox/`
   appears anywhere in the generated HTML, and fails the build (non-zero exit,
   printed diagnostics) if it finds one.
+
+### Search
+
+The static build ships with real search, not just browsing. It's built with
+[Pagefind](https://pagefind.app) — a client-side search engine: it indexes
+the generated HTML at build time and runs entirely in the visitor's browser
+afterward, no server or external service involved. That keeps it consistent
+with this project's avoid-proprietary-SaaS-dependency stance (ADR-0001) and
+means it costs nothing to run.
+
+Enable it locally:
+
+```bash
+pip install pagefind pagefind_bin
+python scripts/build_static.py
+```
+
+If Pagefind isn't installed, the build still succeeds — it just prints a
+note and skips the index, so a working (searchless) site is still the
+default with zero extra setup. The GitHub Actions deploy workflow always
+installs it, so the deployed site always has search; a Pagefind failure
+*there* fails the build, since search is expected to work on the real
+deployment.
 
 Re-run the command any time published data changes — the output is fully
 reproducible from `data/` and disposable; deleting `generated/` never loses
@@ -69,12 +94,14 @@ server to accept writes. Concretely:
 - The "Add Intelligence" button renders disabled, and the "Review Queue" nav
   item is omitted, exactly as they already do in the live app when
   `BIOS_MODE=readonly`.
-- The newsfeed's search box and filter form are omitted (with a note
-  pointing back to the local app) rather than shipped non-functional —
-  there is no server to interpret `?q=`/`?berry=`/etc. on a static host, so
-  a form that silently did nothing would be misleading. Browsing every
+- The newsfeed's *filter form* (`?berry=`/`?region=`/etc.) is omitted, with
+  a note pointing back to the local app — there's no server to interpret
+  those query params on a static host, so a form that silently did nothing
+  would be misleading. Free-text *search* is not in that category: it's
+  replaced with the Pagefind search box described above, which is fully
+  functional on a static host because it runs client-side. Browsing every
   published evidence, entity, queue, strategic question, and signal page
-  still works fully.
+  still works fully either way.
 
 ## Validating draft exclusion
 

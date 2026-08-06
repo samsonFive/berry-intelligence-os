@@ -23,6 +23,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
+      - run: pip install pagefind pagefind_bin
       - run: python scripts/validate_records.py
       - run: python scripts/build_static.py
       - uses: actions/upload-pages-artifact@v3

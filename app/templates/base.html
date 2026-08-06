@@ -37,9 +37,20 @@
             <label class="visually-hidden" for="global-search">Search competitors, varieties, traits, topics</label>
             <input id="global-search" name="q" aria-label="Search" placeholder="Search competitors, varieties, traits, topics…" value="{{ request.query_params.get('q', '') }}">
           </form>
+        {% else %}
+          <div id="pagefind-search" class="pagefind-search"></div>
+          <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+          <script src="/pagefind/pagefind-ui.js"></script>
+          <script>
+            window.addEventListener("DOMContentLoaded", function () {
+              new PagefindUI({ element: "#pagefind-search", showSubResults: true, showImages: false });
+            });
+          </script>
         {% endif %}
       </header>
-      {% block content %}{% endblock %}
+      <div data-pagefind-body>
+        {% block content %}{% endblock %}
+      </div>
     </main>
   </div>
 </body>

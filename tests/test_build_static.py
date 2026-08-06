@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import json
+import sys
+
+import pytest
 
 from app import main
 
@@ -101,3 +104,48 @@ def test_static_build_detects_leak_if_validation_bypassed(monkeypatch, tmp_path)
     (output_dir / "leak.html").write_text(f"oops {DRAFT_RECORD['id']}", encoding="utf-8")
 
     assert build_static.validate_no_drafts_leaked() != []
+
+
+def test_build_search_index_skips_gracefully_without_pagefind(monkeypatch, tmp_path) -> None:
+    import scripts.build_static as build_static
+
+    monkeypatch.setattr(build_static, "OUTPUT_DIR", tmp_path)
+    # A None entry in sys.modules makes `import pagefind` raise ImportError,
+    # simulating an environment where the optional tool isn't installed --
+    # the build must still succeed overall, just without a search index.
+    monkeypatch.setitem(sys.modules, "pagefind", None)
+
+    assert build_static.build_search_index() is False
+
+
+def test_build_search_index_raises_on_pagefind_failure(monkeypatch, tmp_path) -> None:
+    import scripts.build_static as build_static
+
+    monkeypatch.setattr(build_static, "OUTPUT_DIR", tmp_path)
+    pytest.importorskip("pagefind")
+
+    class _FailedRun:
+        returncode = 1
+        stdout = ""
+        stderr = "simulated pagefind failure"
+
+    monkeypatch.setattr(build_static.subprocess, "run", lambda *a, **k: _FailedRun())
+
+    with pytest.raises(RuntimeError, match="pagefind failed"):
+        build_static.build_search_index()
+
+
+def test_build_search_index_succeeds_when_available(monkeypatch, tmp_path) -> None:
+    pytest.importorskip("pagefind")
+    import scripts.build_static as build_static
+
+    output_dir = tmp_path / "generated"
+    output_dir.mkdir(parents=True)
+    (output_dir / "index.html").write_text(
+        "<html><body><main data-pagefind-body><h1>Fictional page</h1></main></body></html>",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(build_static, "OUTPUT_DIR", output_dir)
+
+    assert build_static.build_search_index() is True
+    assert (output_dir / "pagefind" / "pagefind.js").exists()
