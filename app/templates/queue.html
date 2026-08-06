@@ -46,7 +46,7 @@
             <td>{{ item.source_type|replace('_',' ')|title }}</td>
             <td>{{ item.linked_entity_names|join(', ') if item.linked_entity_names else '—' }}</td>
             <td>{{ item.priority[dimension].rationale }}</td>
-            <td>{{ item.published_date or item.captured_date }}</td>
+            <td>{{ (item.published_date or item.captured_date)|us_date }}</td>
             <td><strong class="level-{{ item.priority[dimension].level }}">{{ item.priority[dimension].level }}</strong></td>
           </tr>
         {% endfor %}

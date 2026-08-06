@@ -21,7 +21,7 @@
         </div>
         <h2><a href="/signals/{{ signal.id }}">{{ signal.title }}</a></h2>
         {% if signal.description %}<p>{{ signal.description }}</p>{% endif %}
-        <p class="draft-meta">{{ signal.evidence_ids|length }} supporting evidence · updated {{ signal.last_updated }}</p>
+        <p class="draft-meta">{{ signal.evidence_ids|length }} supporting evidence · updated {{ signal.last_updated|us_date }}</p>
       </article>
     {% endfor %}
   </section>

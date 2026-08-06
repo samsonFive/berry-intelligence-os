@@ -14,7 +14,7 @@
       <li>
         <a href="/review/{{ draft.id }}">{{ draft.title }}</a>
         <span class="badge badge-muted">{{ draft.status }}</span>
-        <span class="draft-meta">{{ draft.submitted_by }} · {{ draft.captured_date }}</span>
+        <span class="draft-meta">{{ draft.submitted_by }} · {{ draft.captured_date|us_date }}</span>
       </li>
     {% endfor %}
   </ul>

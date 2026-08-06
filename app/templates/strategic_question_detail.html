@@ -20,7 +20,7 @@
         <article class="card source-{{ item.source_type }}">
           <div class="card-header">
             <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
-            <time>{{ item.published_date or item.captured_date }}</time>
+            <time>{{ (item.published_date or item.captured_date)|us_date }}</time>
           </div>
           <h3><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3>
           <p>{{ item.summary }}</p>

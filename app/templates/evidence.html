@@ -14,8 +14,8 @@
 <article class="detail-card">
   <dl>
     <dt>Source</dt><dd>{{ record.source_name or "Unknown" }}</dd>
-    <dt>Published</dt><dd>{{ record.published_date or "—" }}</dd>
-    <dt>Captured</dt><dd>{{ record.captured_date }}</dd>
+    <dt>Published</dt><dd>{{ record.published_date|us_date if record.published_date else "—" }}</dd>
+    <dt>Captured</dt><dd>{{ record.captured_date|us_date }}</dd>
     <dt>Status</dt><dd>{{ record.status }}</dd>
     <dt>Berries</dt><dd>{% for b in record.berry_ids %}{{ berry_label(b) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>
     <dt>Geography</dt><dd>{% set geographies = linked_entities|selectattr('entity_type', 'equalto', 'geography')|list %}{% if geographies %}{% for g in geographies %}{{ g.name }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}—{% endif %}</dd>
@@ -54,7 +54,7 @@
           <span class="badge badge-muted">{{ fact.classification|upper }}</span>
           <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
           <p>{{ fact.statement }}</p>
-          <small>Reviewed by {{ fact.reviewer }} on {{ fact.created_at }} · {{ fact.status }}</small>
+          <small>Reviewed by {{ fact.reviewer }} on {{ fact.created_at|us_date }} · {{ fact.status }}</small>
         </li>
       {% endfor %}
     </ul>
@@ -66,7 +66,7 @@
   {% if relationships %}
     <ul class="relationship-list">
       {% for rel in relationships %}
-        <li>{{ rel.subject }} <strong>{{ rel.predicate|replace('_',' ') }}</strong> {{ rel.object }}{% if rel.effective_date %} <small>(effective {{ rel.effective_date }})</small>{% endif %}</li>
+        <li>{{ rel.subject }} <strong>{{ rel.predicate|replace('_',' ') }}</strong> {{ rel.object }}{% if rel.effective_date %} <small>(effective {{ rel.effective_date|us_date }})</small>{% endif %}</li>
       {% endfor %}
     </ul>
   {% else %}

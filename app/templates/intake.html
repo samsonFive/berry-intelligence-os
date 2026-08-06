@@ -100,7 +100,7 @@
         <li>
           <a href="/intake/{{ draft.id }}">{{ draft.title }}</a>
           <span class="badge badge-muted">{{ intake_types.get(draft.intake_type, draft.intake_type) }}</span>
-          <span class="draft-meta">{{ draft.submitted_by }} · {{ draft.captured_date }}</span>
+          <span class="draft-meta">{{ draft.submitted_by }} · {{ draft.captured_date|us_date }}</span>
         </li>
       {% endfor %}
     </ul>

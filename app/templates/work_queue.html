@@ -14,7 +14,7 @@
     {% if drafts %}
       <ul class="simple-list">
         {% for draft in drafts[:5] %}
-          <li><a href="/review/{{ draft.id }}">{{ draft.title }}</a> <span class="draft-meta">{{ draft.captured_date }}</span></li>
+          <li><a href="/review/{{ draft.id }}">{{ draft.title }}</a> <span class="draft-meta">{{ draft.captured_date|us_date }}</span></li>
         {% endfor %}
       </ul>
       <a href="/review">View review queue →</a>
@@ -54,7 +54,7 @@
     {% if recent_evidence %}
       <ul class="simple-list">
         {% for item in recent_evidence %}
-          <li><a href="/evidence/{{ item.id }}">{{ item.title }}</a> <span class="draft-meta">{{ item.published_date or item.captured_date }}</span></li>
+          <li><a href="/evidence/{{ item.id }}">{{ item.title }}</a> <span class="draft-meta">{{ (item.published_date or item.captured_date)|us_date }}</span></li>
         {% endfor %}
       </ul>
     {% else %}

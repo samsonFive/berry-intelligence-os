@@ -25,11 +25,13 @@ from app.main import (  # noqa: E402
     PRIORITY_QUEUE_LABELS,
     all_entities,
     all_facts,
+    all_relationships,
     all_signals,
     berry_label,
+    entity_activity,
     entity_index,
+    entity_regions,
     evidence_for_strategic_question,
-    facts_for_entity,
     facts_for_evidence,
     list_drafts,
     load_strategic_questions,
@@ -190,6 +192,14 @@ def build() -> list[Path]:
             )
         )
 
+    # Loaded once and reused across every entity below -- calling their
+    # disk-reading equivalents (facts_for_entity() et al.) inside this loop
+    # instead was exactly the queue_counts() mistake documented above,
+    # just for a different pair of globals.
+    facts_all = all_facts()
+    relationships_all = all_relationships()
+    evidence_idx = {r["id"]: r for r in evidence}
+
     for entity in all_entities():
         entity_id = entity["id"]
         linked_evidence = [r for r in evidence if entity_id in (r.get("entity_ids") or [])]
@@ -199,6 +209,12 @@ def build() -> list[Path]:
             if linked_evidence
             else None
         )
+        entity_facts = [f for f in facts_all if entity_id in (f.get("entity_ids") or [])]
+        entity_relationships = [
+            r for r in relationships_all if entity_id in (r.get("subject_id"), r.get("object_id"))
+        ]
+        regions = sorted(entity_regions(entity, entities, linked_evidence))
+        activity = entity_activity(linked_evidence, entity_facts, entity_relationships, entities, evidence_idx)
         written.append(
             write_page(
                 "entity.html",
@@ -206,10 +222,12 @@ def build() -> list[Path]:
                 {
                     "entity": entity,
                     "linked_evidence": linked_evidence,
-                    "linked_facts": facts_for_entity(entity_id),
+                    "linked_facts": entity_facts,
+                    "activity": activity,
                     "evidence_count": len(linked_evidence),
                     "source_count": len(independent_sources),
                     "last_updated": last_updated,
+                    "regions": regions,
                     "berry_label": berry_label,
                     "authoring_mode": False,
                 },

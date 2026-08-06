@@ -17,6 +17,33 @@
     <dt>Region{{ 's' if regions|length > 1 else '' }}</dt><dd>{{ regions|join(', ') if regions else '—' }}</dd>
   </dl>
 
+  <h2>Recent activity</h2>
+  {% if activity %}
+    <ol class="activity-timeline">
+      {% for item in activity %}
+        <li class="activity-item">
+          <time>{{ item.date|us_date }}</time>
+          <div class="activity-item-body">
+            <div class="activity-item-badges">
+              <span class="badge badge-muted">{{ item.type_label }}</span>
+              {% if item.priority and item.priority != 'none' %}
+                <strong class="level-{{ item.priority }}">{{ item.priority }}</strong>
+              {% endif %}
+            </div>
+            {% if item.url %}
+              <a href="{{ item.url }}">{{ item.title }}</a>
+            {% else %}
+              <span>{{ item.title }}</span>
+            {% endif %}
+            {% if item.detail %}<p>{{ item.detail }}</p>{% endif %}
+          </div>
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p class="empty-state">No recorded activity yet.</p>
+  {% endif %}
+
   {% if entity.description %}
     <h2>Description</h2><p>{{ entity.description }}</p>
   {% endif %}
@@ -35,7 +62,7 @@
   <div class="trust-summary">
     <div><strong>{{ evidence_count }}</strong><small>Linked evidence</small></div>
     <div><strong>{{ source_count }}</strong><small>Independent sources</small></div>
-    <div><strong>{{ last_updated or "—" }}</strong><small>Last updated</small></div>
+    <div><strong>{{ last_updated|us_date if last_updated else "—" }}</strong><small>Last updated</small></div>
   </div>
 
   <h2>Facts</h2>
@@ -46,7 +73,7 @@
           <span class="badge badge-muted">{{ fact.classification|upper }}</span>
           <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
           <p>{{ fact.statement }}</p>
-          <small>Reviewed by {{ fact.reviewer }} on {{ fact.created_at }} · {{ fact.status }}</small>
+          <small>Reviewed by {{ fact.reviewer }} on {{ fact.created_at|us_date }} · {{ fact.status }}</small>
         </li>
       {% endfor %}
     </ul>
@@ -61,7 +88,7 @@
         <article class="card source-{{ item.source_type }}">
           <div class="card-header">
             <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
-            <time>{{ item.published_date or item.captured_date }}</time>
+            <time>{{ (item.published_date or item.captured_date)|us_date }}</time>
           </div>
           <h3><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3>
           <p>{{ item.summary }}</p>

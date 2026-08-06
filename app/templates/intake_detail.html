@@ -11,8 +11,8 @@
     <dt>Intake type</dt><dd>{{ draft.intake_type|replace('_',' ')|title }}</dd>
     <dt>Source</dt><dd>{{ draft.source_name or "—" }}</dd>
     <dt>Source URL</dt><dd>{% if draft.source_url %}<a href="{{ draft.source_url }}">{{ draft.source_url }}</a>{% else %}—{% endif %}</dd>
-    <dt>Published</dt><dd>{{ draft.published_date or "—" }}</dd>
-    <dt>Captured</dt><dd>{{ draft.captured_date }}</dd>
+    <dt>Published</dt><dd>{{ draft.published_date|us_date if draft.published_date else "—" }}</dd>
+    <dt>Captured</dt><dd>{{ draft.captured_date|us_date }}</dd>
     <dt>Submitted by</dt><dd>{{ draft.submitted_by }}</dd>
   </dl>
 

@@ -978,3 +978,61 @@ def test_sources_write_endpoints_blocked_in_readonly_mode(monkeypatch, tmp_path)
     assert client.post("/sources/source-test/delete").status_code == 403
     assert client.post("/sources/source-test/check-now").status_code == 403
     assert client.post("/evidence/ev-sample-variety-launch/validate").status_code == 403
+
+
+def test_us_date_formats_iso_dates_without_leading_zeros() -> None:
+    assert main.us_date("2026-08-03") == "8/3/2026"
+    assert main.us_date("2026-11-30") == "11/30/2026"
+
+
+def test_us_date_passes_through_non_iso_values_unchanged() -> None:
+    assert main.us_date(None) is None
+    assert main.us_date("") == ""
+    assert main.us_date("—") == "—"
+
+
+def test_entity_activity_excludes_evidence_without_published_date() -> None:
+    dated = {"id": "ev-1", "title": "Dated", "published_date": "2024-01-15", "source_type": "trade_press"}
+    undated = {"id": "ev-2", "title": "Undated reference page", "captured_date": "2026-08-03", "source_type": "company_website"}
+
+    activity = main.entity_activity([dated, undated], [], [], {}, {})
+
+    assert [item["url"] for item in activity] == ["/evidence/ev-1"]
+
+
+def test_entity_activity_prefers_fact_event_date_over_created_at() -> None:
+    fact = {
+        "id": "fact-1",
+        "statement": "Acquired in 2021.",
+        "event_date": "2021-10-20",
+        "created_at": "2026-08-03",
+        "evidence_ids": [],
+        "confidence": "high",
+        "status": "active",
+    }
+
+    activity = main.entity_activity([], [fact], [], {}, {})
+
+    assert activity[0]["date"] == "2021-10-20"
+
+
+def test_entity_activity_falls_back_to_created_at_without_event_date() -> None:
+    fact = {
+        "id": "fact-1",
+        "statement": "Static claim with no dateable event.",
+        "created_at": "2026-08-03",
+        "evidence_ids": [],
+        "confidence": "medium",
+        "status": "active",
+    }
+
+    activity = main.entity_activity([], [fact], [], {}, {})
+
+    assert activity[0]["date"] == "2026-08-03"
+
+
+def test_entity_page_shows_recent_activity_with_us_formatted_dates() -> None:
+    response = client.get("/entities/company/company-example-genetics")
+    assert response.status_code == 200
+    assert "Recent activity" in response.text
+    assert "7/28/2026" in response.text
