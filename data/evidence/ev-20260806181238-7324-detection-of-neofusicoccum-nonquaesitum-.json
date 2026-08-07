@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806181238-7324-detection-of-neofusicoccum-nonquaesitum-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Detection of Neofusicoccum nonquaesitum causing dieback and canker in highbush blueberry from Southern Chile - Scielo.cl",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOWVJka0dtQUQ5Mlo2Q0MtUURpYTBTQS1mVmE0Q3NoMUNNUTdRdmEySTdtT0M1RUtiUW02NjdxR0M1MlJrUHkwam9ZeGlfVmY5RldfWVd1eExoYWxQZGpVSEdmbE11TG90TExzWC1aZEF4b0VYNE94X3FUYU1sNzZTeERrbnpkdw?oc=5",
+  "published_date": "2021-06-10",
+  "captured_date": "2026-08-06",
+  "summary": "Detection of Neofusicoccum nonquaesitum causing dieback and canker in highbush blueberry from Southern Chile&nbsp;&nbsp;Scielo.cl",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

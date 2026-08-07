@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173848-4f85-costa-takes-reins-of-african-blue-fruitn",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Costa takes reins of African Blue - Fruitnet",
+  "source_name": "Berry joint venture genetics",
+  "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQbWgtcGN4OUtVMEdmUGNUMC1KWW5CMDBPZDZoZXN0bC1MbkJyNV9wejcxNndDQVlBbGJaWmNpX0Z3YXFQZHZlajRXNzdVTDBoaXJKajlWTGhwTDV6OENZVWw2R09qOEM0OW1ad0lwejVYNGswUzBhTG5rRExiR2tnTER0WTI5bVdhUTZ3?oc=5",
+  "published_date": "2017-11-03",
+  "captured_date": "2026-08-06",
+  "summary": "Costa takes reins of African Blue&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry joint venture genetics",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry joint venture genetics"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    }
+  }
+}

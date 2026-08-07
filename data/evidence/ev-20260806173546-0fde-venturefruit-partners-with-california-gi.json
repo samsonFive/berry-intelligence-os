@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173546-0fde-venturefruit-partners-with-california-gi",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "VentureFruit Partners With California Giant to Bring Premium Berry Genetics to North America - The Packer",
+  "source_name": "Berry joint venture genetics",
+  "source_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQbndMaUQtNVZDb1MwR0Vxc0RPRjJpcFoyM1l4b2o1YkxXU0tQb0JHdElYeTFaMzJWZ1pQNmk5LWRhbVFwVGNHMV9TZXlMelBPQUswWG54WHJqTHdNckh3a0JqWkVFU2NVVXlSWXhNR2JRYThKakx4a2pXSFFMaXVSeW9lZU1saVU4LVdGWmNKX0NjdWs0ZDRCT19VT1k4cU5wcUtTRGtYeU1rMEZyUDgwU093?oc=5",
+  "published_date": "2026-02-27",
+  "captured_date": "2026-08-06",
+  "summary": "VentureFruit Partners With California Giant to Bring Premium Berry Genetics to North America&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry joint venture genetics",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry joint venture genetics"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    }
+  }
+}

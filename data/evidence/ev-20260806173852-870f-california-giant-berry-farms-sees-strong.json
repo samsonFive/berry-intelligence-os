@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173852-870f-california-giant-berry-farms-sees-strong",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "California Giant Berry Farms sees strong volumes - The Packer",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxORExfM01hTURpQUpGLWNQdkpESXZKZldWYUxlc1MyUVlvZHpDTk5zbDI5OWkzVjN6Y3d3VTNrc1NxbzZtSWZCSjVmTUNaOEhYdmxLeTlkOFFPOW5xcWVrWGRHM0xvMTFGVE1oUXRMbC12blEtTTRtWk1peWY2NVc4NW5QMUFGWHF3UWZjUFRtaHJ6NHpZMDNr?oc=5",
+  "published_date": "2025-01-21",
+  "captured_date": "2026-08-06",
+  "summary": "California Giant Berry Farms sees strong volumes&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

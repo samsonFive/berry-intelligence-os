@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806181239-587d-gem-pack-red-blossom-berries-strength-in",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "GEM-Pack & Red Blossom Berries: Strength in Numbers & Know-How - Perishable News",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQLTJwYnQzYXl1emg4dzh2ay12bzlmZVd1S090T1RuQzBWU1RpcC1ERjZ1bHpZV182T1hGUGJwT05Ubnh5U0s4Ml9XQUt1N1dFQk4tRS1mcXQxcjNkeThRdWFjMjI2dzZUcTdyZzJmOURJdzIyZzJ4aVJYTFJsYnB1WTMwVUVTVDJMa1ktZ2VQU1NBZWdvYkVNag?oc=5",
+  "published_date": "2021-10-08",
+  "captured_date": "2026-08-06",
+  "summary": "GEM-Pack & Red Blossom Berries: Strength in Numbers & Know-How&nbsp;&nbsp;Perishable News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

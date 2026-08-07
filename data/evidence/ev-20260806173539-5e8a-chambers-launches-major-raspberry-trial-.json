@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173539-5e8a-chambers-launches-major-raspberry-trial-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Chambers launches major raspberry trial - Fruitnet",
+  "source_name": "Raspberry variety license",
+  "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNOGNrRVpwUW1kb1hNekQtYXA5S1JlMUFDOTV0RDIwRmJCckQ0dUlIaDN1aHlhWl82a09HVnRNbUh2cWhOaFhVMnpSMEF6V1htZW9BUzhWbU9MUVlPSjJxTlhXX0RwNXBVTFdoUWQ4c3ZZS0d1NzdiUG1TTG4wTWVQTEVnbGY4V1dRcXlMUDdrOUVyLUNaY1ZnVTBwck41TGQ1ZWtJ?oc=5",
+  "published_date": "2020-09-08",
+  "captured_date": "2026-08-06",
+  "summary": "Chambers launches major raspberry trial&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Raspberry variety license",
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Raspberry variety license"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    }
+  }
+}

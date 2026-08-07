@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173538-5f1d-abril-blueberry-earns-2-stars-at-superio",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Abril blueberry earns 2 Stars at Superior Taste Award - FreshPlaza",
+  "source_name": "Blueberry breeding program",
+  "source_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQN1NTWkJkZW04QWZHbjFya3pIcnZOOTQtSlJ5NTFOaFlBMGxLWkZ4cUhRQVBDRXlucmVWR3BBUjhkTHBDdGk3ZU5lS2sySExtc0lhYzEyTmI2YkI2c2lnTHJ1ZmhhWVF4Q1VYYU1RSjI2R2RpZUh4NGxoaEMwUnY2akF4aTRBUEFBNjIwRGp5c092bkREX010MlZfcjdmWWd0UDFxVjl2RGNSaE5YakZOeQ?oc=5",
+  "published_date": "2026-06-10",
+  "captured_date": "2026-08-06",
+  "summary": "Abril blueberry earns 2 Stars at Superior Taste Award&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blueberry breeding program",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blueberry breeding program"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    }
+  }
+}

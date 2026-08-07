@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175536-8804-which-country-eats-the-most-strawberries",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Which Country Eats the Most Strawberries in the World? - IndexBox",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPNHQxX3pRSmxTZHZGVkl2ZlhzMWZDOGwzMmRjMVU5MnFrQ1l4bWxRR3dOTEh2SklZeG11WXEyWHJUZURnSUVCaXFvakVVYTRpVk4xdXhraUsycEFEbVkwQ0dhR0ZHelZ0aE1vUF94UVUtcG5QOFhNNEZBaGV1dGN3WXR1Y1B1VXBNQjRJ?oc=5",
+  "published_date": "2018-02-09",
+  "captured_date": "2026-08-06",
+  "summary": "Which Country Eats the Most Strawberries in the World?&nbsp;&nbsp;IndexBox",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

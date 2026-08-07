@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181229-27f9-berry-plastics-production-exceeding-plan",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry Plastics’ production exceeding plans for growth - Lawrence Journal-World",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxObHlXQ1JOSWVsUlNKeFpSc0dqbW9QbUNYLTNRc3lmTVQwYVRVWjRXcWttWmJqVEdzb0cteVJERlQ2OXdVaU84TElySF9XUkV2OHhzclg1bk8wTFdNbVVXNHVNZ1VTRGo2UUFyNnNTZHpHUGxrTEk5cy1PRjd1ZWVvc3gtZGRTd09BRDhmdEx1MmU5T3hkR1E?oc=5",
+  "published_date": "2008-04-26",
+  "captured_date": "2026-08-06",
+  "summary": "Berry Plastics’ production exceeding plans for growth&nbsp;&nbsp;Lawrence Journal-World",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

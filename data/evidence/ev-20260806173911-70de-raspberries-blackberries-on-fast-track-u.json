@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173911-70de-raspberries-blackberries-on-fast-track-u",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Raspberries, blackberries on fast track upward - The Packer",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQNlpwa0lIa01VQjZRanhrbmpkT0Nyamh4cXFYWmFUNm9ET0NCa3BtYTZERUpzQks3RXpkNmxzajFFSmtNMnFSNjV3WGNPWVB4RUxsSHF6Q3hYNlgzcTE1QW55eEZYbE9WX1A3akgxREJOM2FhOUEtY0NOeW00Q3A5d0U3OU96RjJ6NEpRRVpB?oc=5",
+  "published_date": "2022-09-23",
+  "captured_date": "2026-08-06",
+  "summary": "Raspberries, blackberries on fast track upward&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

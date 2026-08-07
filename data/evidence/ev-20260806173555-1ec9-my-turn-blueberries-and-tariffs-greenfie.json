@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173555-1ec9-my-turn-blueberries-and-tariffs-greenfie",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "My Turn: Blueberries and tariffs - Greenfield Recorder",
+  "source_name": "Berry tariff",
+  "source_url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBHZXdyZmVseHR0d0ZvZFZYSkxFLVpZRXIyTkZsc1Y1TG5nN3ZzZ3hjeDhxVi05SS02RmhWVFd5VkJyaTNkSkJuZC1CZmVYc2dvUlAxUFd2TnBZVkNwMnc?oc=5",
+  "published_date": "2025-04-24",
+  "captured_date": "2026-08-06",
+  "summary": "My Turn: Blueberries and tariffs&nbsp;&nbsp;Greenfield Recorder",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry tariff",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry tariff"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175537-6ad1-strawberry-boycott-leaves-spain-s-farmer",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Strawberry boycott leaves Spain's farmers in a jam - The Peninsula Qatar",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOSHlIQ0lnN1BidlJic2RrWFE5aXdmc3M5VlZ3ajc1aE1hc2p0WFdIM0xHelQzS2VBVWgyaUFXX1FZMnVzdjBzNzEzV0tSY3NWQjJmUFVRaVM1UDBqak8zUm83eW45clpMMFFwVzFreWV6Mk5SUzA5aXRiMmtlS1VDWTU4cmROVUowaGpIOGJVS2lGOXNYYmFMNmF1WTVTYTA?oc=5",
+  "published_date": "2023-06-05",
+  "captured_date": "2026-08-06",
+  "summary": "Strawberry boycott leaves Spain's farmers in a jam&nbsp;&nbsp;The Peninsula Qatar",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

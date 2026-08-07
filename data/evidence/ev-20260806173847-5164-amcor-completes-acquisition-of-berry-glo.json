@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173847-5164-amcor-completes-acquisition-of-berry-glo",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Amcor completes acquisition of Berry Global - Packaging Dive",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNWlNvTHhqbkNTblY0eVA0d1BuODJIMWxlNUZWZFZnZzFMa3E0N2t5YnozNFhQT2VEd2laZE5yQ2F5QVoyODBOTkJ3dFVQSVRSZnVGUWpPLUs0R0ZycGJBTWk5MVFmaVFzQ2F2Z1A2czNKd0pjaWY3NHBoaFhRdHVQS3BzWkk1WEE?oc=5",
+  "published_date": "2025-04-30",
+  "captured_date": "2026-08-06",
+  "summary": "Amcor completes acquisition of Berry Global&nbsp;&nbsp;Packaging Dive",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

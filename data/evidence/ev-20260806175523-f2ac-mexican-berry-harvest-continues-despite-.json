@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175523-f2ac-mexican-berry-harvest-continues-despite-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Mexican berry harvest continues, despite labor challenges - FreshPlaza",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQeWxLOWNuMkZaei01NWN1TzRFU3VlNU1UWmRCV3h1Tng0eVVXWXQ4S1VVZlVWWXNEM0stS196Z1NjNGd4OWV4aUZVeGYyQjRwMnVmc2E1bUd0b1hRLVZBdi1FQW1ZOXRVQmlFLUpDMnBJcGVDbTFENGFsdi0tdlg2dDhOcUZqOEdnLWZjczdCQzg4UlhQUkRwU09pTGlPbWp5bHpzWVdYd2hYdThVSHNrUzAwaUE?oc=5",
+  "published_date": "2020-04-14",
+  "captured_date": "2026-08-06",
+  "summary": "Mexican berry harvest continues, despite labor challenges&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

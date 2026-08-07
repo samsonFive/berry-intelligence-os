@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173843-579e-sanlucar-acquires-controlling-stake-in-t",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "SanLucar acquires controlling stake in Twin River Berries - FreshPlaza",
+  "source_name": "Berry genetics company",
+  "source_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOZjVRbHdhUE9hbXdpaEhSYnBNd2l3OV9SaUJBUjVNSjdpNno0dzlKNU1pcWc0THZVaWM2emlaeFhYaVg3dW05NVdHWTNqcDFqM194aDU2TVpBUjRVME5STHhZNzFUNUFmYWYtTC1odVdFUXBvZ21XRDhzQktIeE51V04xODdIaXdFV1lIYzBSMGgxclI2anpyb0gya0NmeFJsbWxlakV3Z3k0ZzdmbW9PeUd3TE9Xdw?oc=5",
+  "published_date": "2026-07-09",
+  "captured_date": "2026-08-06",
+  "summary": "SanLucar acquires controlling stake in Twin River Berries&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}

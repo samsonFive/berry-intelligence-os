@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182922-cbf1-study-shows-you-should-skip-bananas-in-s",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Study Shows You Should Skip Bananas in Smoothies - SciTechDaily",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFB0X3NvOElVTlUxWXQ1M2FUbnE5ZHhBTXJyWGtnMGpoaF9qWlNNUVZhVjc3UWt4RzVBTkZsbFpGZWFKRmRnUlFDQ0NVMk5ra1pLYTZ0bHRZR0FTNEdzQlM2SFE5eVZ0SlNOWHBPOXlZc1J2MjRncndfdjhQUWQ1ejQ?oc=5",
+  "published_date": "2025-05-01",
+  "captured_date": "2026-08-06",
+  "summary": "Study Shows You Should Skip Bananas in Smoothies&nbsp;&nbsp;SciTechDaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173550-d96f-california-giant-berry-farms-announces-r",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "California Giant Berry Farms Announces Robust Strawberry Forecast; Brad Peterson Comments - AndNowUKnow",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNMk1GTGNZTmVjOV9fRXQtUGFZRVQtYkx1TDBONFp4RC14c3BmNkhFYVlXSUJTVmx0SlBESEdINW1CTjlDa21KUktBZkdjWTRBOS1RaVBabkk2QjNiWjY1b2VuUGRjT25GSzFFY3lFTmdDTmR1QXRWbzFVdW1EdWZiZlpHUkRPZVRnNVRWbjhFQzI3NVhfcjZTVEZ5RlZyTXZraUkyOXFiVzVPN1VtYW04OTlrUmgwbmpzaXA0Q3kyY3ZWTE16a3BVQ3Rn?oc=5",
+  "published_date": "2026-04-01",
+  "captured_date": "2026-08-06",
+  "summary": "California Giant Berry Farms Announces Robust Strawberry Forecast; Brad Peterson Comments&nbsp;&nbsp;AndNowUKnow",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

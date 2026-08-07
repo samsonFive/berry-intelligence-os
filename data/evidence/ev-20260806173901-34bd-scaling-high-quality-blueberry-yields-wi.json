@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173901-34bd-scaling-high-quality-blueberry-yields-wi",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Scaling high-quality blueberry yields with advanced substrate cultivation in Peru - Hortidaily",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOUDBWZGtYbGlxQURRbzBiVVZRYTdfNFI3aEhYa2l0U0IwMS12YUJsTEVLNXdLeURzaVZtbC1kRXZhZnpxbXVKcVBRSVhXT2VIVzk3dUtmVUJ2S05hV2ZVOC1PSHhVbmlqd0otSENQd29ZQWg4Y2hMVkdDYXdERk1yTk5XbEZocFdQZmYxb25kSmxLeXdJdDc1MzJSNUUzNG9jcHFzNFJWbW9ZNmtCNnJtZTEzMGlSS1dTeDBmdXJEeF9MWnM?oc=5",
+  "published_date": "2026-04-02",
+  "captured_date": "2026-08-06",
+  "summary": "Scaling high-quality blueberry yields with advanced substrate cultivation in Peru&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

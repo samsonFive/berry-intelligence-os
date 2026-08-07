@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173853-7dde-daifressh-boosts-berry-acreage-in-poland",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Daifressh boosts berry acreage in Poland and Morocco - Fruitnet",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQQkZ5S29rMGh4TkNTNlpJQ1Jqck1nb0NzMTZhNUdkOUUwRXFsd0pQR1lUczgzMHktTDNrUHpJWDYyY0N1OWRGLW8tc0d1eEVTTHdMdW40SE1qN2lyNk0wT3dVOW8tRUQ5a3ZOdWxxVnNabVE0WUVhcGNTRm1pNk56M3ZYdTV4eE5TN1AwU0tPdHV1MnRnQlJockprQUExMWhPTmh6NA?oc=5",
+  "published_date": "2023-02-16",
+  "captured_date": "2026-08-06",
+  "summary": "Daifressh boosts berry acreage in Poland and Morocco&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

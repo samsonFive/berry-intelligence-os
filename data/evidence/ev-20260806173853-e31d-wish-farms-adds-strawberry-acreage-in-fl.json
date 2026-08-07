@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173853-e31d-wish-farms-adds-strawberry-acreage-in-fl",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Wish Farms adds strawberry acreage in Florida - The Packer",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQM3NiRU5zeEtQbE9iOGVveVF0RXJWQk9mWTZCamVIVUg4RHNWS0YxUHEzVHdPbkQ0SjJHSENidzBGN3QtZ285VnJJVDlsNkhYVXVqOVhweVNRdUc2SmEyX1FvSGZuZDIzMTBnQzZ4cklYUUhmdmV3b3FRYXhNWWN1dG9sY3hGRTlKdmxtRTZxbHc?oc=5",
+  "published_date": "2020-12-09",
+  "captured_date": "2026-08-06",
+  "summary": "Wish Farms adds strawberry acreage in Florida&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

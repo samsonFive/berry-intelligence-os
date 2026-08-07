@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182922-4626-healthy-methow-valley-berry-crop-may-hel",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Healthy Methow Valley berry crop may help bears weather the winter - Methow Valley News",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNTVExaGpMRTJxLU9mSXhyUk1yWktDdWNnUllOSXhXbTRQWTRkMzk5SERRbTFFckFFOF9XeUx3QmF6WW14RWVLSVJjTlJQbXlBUWp0a0xmbVREdHdFM0RWTjhhVG8yYmItcWNLam1WVDBjeXNLblE1T3pZTmhYOU9KS2JSYXl3Y1k5V1pfei1SWTM1U3RTbTdTXzdNTnEyYlh3T0pVTngwMzZLbDg?oc=5",
+  "published_date": "2023-12-07",
+  "captured_date": "2026-08-06",
+  "summary": "Healthy Methow Valley berry crop may help bears weather the winter&nbsp;&nbsp;Methow Valley News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

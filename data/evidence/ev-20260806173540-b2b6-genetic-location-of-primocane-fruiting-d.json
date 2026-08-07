@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-b2b6-genetic-location-of-primocane-fruiting-d",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Genetic location of primocane-fruiting discovered in blackberries - EurekAlert!",
+  "source_name": "Blackberry primocane variety",
+  "source_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE83OG4tYzI4TnpaOUtwN0xJT2Z5V05YdzAxMHhuaXlfUkRscmVsbjQyVS1FbFg4TTdwRUhleVo1RlRQbkliS2M4WWxBdWhBYjlLNTdQaFZYZ294T0R3?oc=5",
+  "published_date": "2026-05-11",
+  "captured_date": "2026-08-06",
+  "summary": "Genetic location of primocane-fruiting discovered in blackberries&nbsp;&nbsp;EurekAlert!",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blackberry primocane variety",
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blackberry primocane variety"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    }
+  }
+}

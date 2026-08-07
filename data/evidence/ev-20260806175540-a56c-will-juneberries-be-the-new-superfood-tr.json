@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175540-a56c-will-juneberries-be-the-new-superfood-tr",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Will juneberries be the new superfood trend in German food retail? - FreshPlaza",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOYXc2WDJ3NEJmeWhuMkdpcTVKa2VfQmxJeVRZbGx3SHVSWldwOVJVWGxaRnV2MElvalk0RTJIX2JsMnRLdW1Wbk53ZTkxMmZGLUF2d21uU3Rka01CT0xJWFVCdGM3aUpORzlOcVRaRHl1MVhzTk1URktTTTU3UjQxRGRTTGw4THV1UDhOdmduZTF6OEJmVWRFVXVhbWhpR0ZRMjNZZTR4WW1yUnQwYWtCQldUYURENXpjYVNjeGx3bDA?oc=5",
+  "published_date": "2020-05-20",
+  "captured_date": "2026-08-06",
+  "summary": "Will juneberries be the new superfood trend in German food retail?&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

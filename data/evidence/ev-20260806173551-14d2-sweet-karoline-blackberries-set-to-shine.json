@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173551-14d2-sweet-karoline-blackberries-set-to-shine",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Sweet Karoline Blackberries Set to Shine in 2026 Season - The Packer",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPNmRMbWlyUnQyajdxdlZYZms0eTZYcHJLSzdOVVEzT3dUallucmJNVEJWSl9GY2ZXT1NpWmhzZm43cWVmRjlQSS05YXNsa2Q5eVFQOU9LckI0UVlzSzFpREdOUS1JMk5ZOVc0NkZ4blQxSzVKQXB2QnBjZHlkLW5WWkoxMGtPT2FuSnM5eDNGdU9pTmZjOWM1SGFB?oc=5",
+  "published_date": "2026-01-13",
+  "captured_date": "2026-08-06",
+  "summary": "Sweet Karoline Blackberries Set to Shine in 2026 Season&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175525-4e2e-cold-summer-makes-for-good-berry-harvest",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Cold Summer Makes for Good Berry Harvest - Iceland Review",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPUGMyam1vRl9jS1ZfbkwzcXJNbE5ZQWJnZ0dtLUIwaHFEUmFTdmZuUXdoaWpmMTFKa00tM2o2aVcxSzZ6QnR2TXdQUml5NlJ6RkZNTnZJbURJUTA2ZDB3aUxSN25fYWM3enpsWEk3RlhBaHJINmNzYV9MZzh1elBtWjlB?oc=5",
+  "published_date": "2022-08-25",
+  "captured_date": "2026-08-06",
+  "summary": "Cold Summer Makes for Good Berry Harvest&nbsp;&nbsp;Iceland Review",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173551-1b29-soon-to-close-berry-farm-would-make-way-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Soon-to-close berry farm would make way for 1,300-home development in Moseley - Richmond BizSense",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPWVRuZ1dKMXVxZjRibmpRNDN4d29vcE5uUXh6TS1rSjZkaE5hNlRiYUZRZmJJSkVhbUU2VEJJNlMxbVc1dmhOSjNiajJ2cEhxb2hwdGt6LWliRmVXeERLdmUzT0RDeTdqY1hDMnFfR3lkYWFFOUVVcXJnaEN0Qzd1WVZRcXVxX3hJX2NiaGVTcjFuTTZuVDlNbHFkVnpadGg4MFhBNXRZa2hSWFRjSEFPenNBZW5IcVFS?oc=5",
+  "published_date": "2025-10-23",
+  "captured_date": "2026-08-06",
+  "summary": "Soon-to-close berry farm would make way for 1,300-home development in Moseley&nbsp;&nbsp;Richmond BizSense",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

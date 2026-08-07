@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173847-6b42-brown-brown-market-leader-mark-berry-now",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Brown & Brown market leader Mark Berry now running 'bigger show' with acquisition - The Business Journals",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNcXZqRVN6TXU0eFJHUVFVdWh3a204QnlRWVhBRF9QeGlqbWxwZ3dYbkZDWlNHSnFpdVZIa0NqcVZYZWZrUkppWnhSZzB3a1Z4Z2c0Y1ZFU05uX004NUFwakhZc0paVTI5bGtoTDNBTmw4WlRXZFd5bDd0dkFENzRLUGpWSjlnUzZDRlV2dV95eDhQMzZuWEFMMjNHSW5ZOUhrS2RYTF9Ka0RkMzlLTnc?oc=5",
+  "published_date": "2025-10-10",
+  "captured_date": "2026-08-06",
+  "summary": "Brown & Brown market leader Mark Berry now running 'bigger show' with acquisition&nbsp;&nbsp;The Business Journals",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

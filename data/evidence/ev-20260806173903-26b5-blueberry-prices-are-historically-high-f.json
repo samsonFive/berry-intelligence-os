@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173903-26b5-blueberry-prices-are-historically-high-f",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blueberry prices are historically high - FreshPlaza",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQU201TU0yd1pDNUlTcGhIaV8xOXI0Wk10QkM1aEZwRUp4blFuU1N5b01mRExtYWJHUUE2bTJiRWZHQVd0QTZMLVFPTDlHQlM0TUY0TDVxcnYtMFhiNkJoSG5td2w3WWtqdV82Q2lWZlZqQjk1cXROazZONHVLcENHcHdHRE9PVVNCZTFhZFhLODhMYVJLTWRYRVRjeS0?oc=5",
+  "published_date": "2023-10-17",
+  "captured_date": "2026-08-06",
+  "summary": "Blueberry prices are historically high&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

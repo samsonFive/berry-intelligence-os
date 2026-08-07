@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175521-270e-centuria-acquires-177m-farm-from-roc-par",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Centuria acquires $177m farm from Roc Partners - realestatesource",
+  "source_name": "Berry nursery partnership",
+  "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOX0NqM3FDdU9mRjN2MEV0aTZEVFhybTY5ZENMZmZEMjFXVVVwY045Y2NFWGEwQXo4WGtXbExzT1FvMWRVUFo4STFKUFN1aDdEX190Uk1WdXA2am5acHJXMTE4MS1fc2V5c09kRmk0bVZjbXNzRWk1X3ZhU014MFhxN2drMnB6UUNLN2c?oc=5",
+  "published_date": "2021-10-27",
+  "captured_date": "2026-08-06",
+  "summary": "Centuria acquires $177m farm from Roc Partners&nbsp;&nbsp;realestatesource",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry nursery partnership",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry nursery partnership"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    }
+  }
+}

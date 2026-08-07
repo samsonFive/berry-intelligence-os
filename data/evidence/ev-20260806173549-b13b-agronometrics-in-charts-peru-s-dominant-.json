@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173549-b13b-agronometrics-in-charts-peru-s-dominant-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Agronometrics in Charts: Peru's dominant blueberry exports surge 21.5 percent - FreshFruitPortal.com",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFBzWW56dFVsWnBqclFTOXcyMFpQZVk3U2Nmc0hHQXNWSTY4S0FzWXZFUHVuNk1SS2E0QkdCbWphbUdzZDVHQlBNY2ZSRTh6cU9hS29ZcDVndnZNek9XWkxydUpoNWZxUFB3LXo0TEtXWGV0MEQyQXNsQ05n?oc=5",
+  "published_date": "2026-05-07",
+  "captured_date": "2026-08-06",
+  "summary": "Agronometrics in Charts: Peru's dominant blueberry exports surge 21.5 percent&nbsp;&nbsp;FreshFruitPortal.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173908-42a1-combination-of-greenhouses-and-tunnels-s",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Combination of greenhouses and tunnels secures efficient strawberry production - Hortidaily",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNN0ZaOW4zU3I0ZlNOUFJGTWhFclhUMk5CWXNjZE55SjZxeWRBQTJvZGtvcGVSYm5zQUVqSXFkbi1rdUxpMVJobld5eERCWVMyZlBiVHF4Y2VsdFVKRkhwZ0NQNjR6ZXdXYUxnbVphTXVOZ1pkb1l2OTlJTzR5NG9fNW1jU296cWJqZXhUTjFscUhzdFJodWhmeGw1MGk1VGRURUdXNy0wNmNFZnUza1R3U1E2V2JndXZHWGJtbzVWaw?oc=5",
+  "published_date": "2023-06-07",
+  "captured_date": "2026-08-06",
+  "summary": "Combination of greenhouses and tunnels secures efficient strawberry production&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

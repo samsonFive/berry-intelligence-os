@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173555-9f22-zero-tariff-deal-to-open-doors-for-local",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Zero-tariff deal to open doors for local beef, grapes and berries - Namibia Economist",
+  "source_name": "Berry tariff",
+  "source_url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNamp2N0dXcURpazNWcHlOUEJzTXc3YThtUXhMNlhfN3dSdGJJZDZzZWVSQmZ1TFVFMFpkN1hsR3NlR2dmUFdEZHR2SHdDYVlYMHB0dzRRb2g3S0NsRWtGay12bFBaVFVIV2psTXNlbmJhRVpQLUltQUdtQ2k2OFZMQ3RndGZFdTdpb3dnZTg2aXplaWh4RWR0Q204QVBUMGZ6eW95RHh3UQ?oc=5",
+  "published_date": "2026-05-12",
+  "captured_date": "2026-08-06",
+  "summary": "Zero-tariff deal to open doors for local beef, grapes and berries&nbsp;&nbsp;Namibia Economist",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry tariff",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry tariff"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    }
+  }
+}

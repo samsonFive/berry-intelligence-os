@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173844-2246-major-league-blueberries-organic-harvest",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Major League Blueberries organic harvest - Organic Produce Network",
+  "source_name": "Plant variety protection berry",
+  "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOSDRNeExuQUhmTlFXa1lJQV91T3N6TzdBN2g4NGp4QlJNNklFZTB4Z2lRT1pUaGZKVXpqUzd1WGxvcHJRS3VJbDBvRkVCdXdxQjk1akx0NHcyNFVKYkNlQmJmcW9MZldTc1BCS0hYcWVKM292U3BkTVMyUURKMm1QY3BoRzVWb253MTEzMXJaWElPUkhwWmtrOEFDYnhJaC1jdHFyNEV6Z0txN2NTVnc?oc=5",
+  "published_date": "2026-05-04",
+  "captured_date": "2026-08-06",
+  "summary": "Major League Blueberries organic harvest&nbsp;&nbsp;Organic Produce Network",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Plant variety protection berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Plant variety protection berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    }
+  }
+}

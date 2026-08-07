@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175526-5de4-canada-cielo-vista-expands-strawberry-pr",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Canada: Cielo Vista expands strawberry production - Hortidaily",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOZjZickUtVWhlcnpNSnVjd3prcDNmclA3dDlZVzJkOUhUY0NOeTJkeDdpSFVENE9nMmZ4SjFDUnhHUHMzY2M2VGJvVkxrTU9FVmlZQmxVbFhBaF9iX2pCNUUyRWFrdElqQTMtODJJNWhqcHBvM2Iwa3B3aEw0MUFfbnNudXhsZUM3WGo5dmZXMXd5MGdndm5V?oc=5",
+  "published_date": "2021-04-16",
+  "captured_date": "2026-08-06",
+  "summary": "Canada: Cielo Vista expands strawberry production&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

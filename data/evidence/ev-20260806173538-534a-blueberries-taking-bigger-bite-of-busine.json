@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173538-534a-blueberries-taking-bigger-bite-of-busine",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blueberries taking bigger bite of business in Peach State - AJC.com",
+  "source_name": "Blueberry breeding program",
+  "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOWHNZSU9ZZVdGc1N0S3U1SnZOQ3lINTZPSTJtUlJoakRXWGc5VTFxdXl3dENZeVR4TVVYZWNpLW9TY3p1NnA0eF91UTZZVlVmZVB1NnZSaXJiUnJsc1VKRE5mNW5QLUZ5SFZFNkNGc2hyUmtxcGw4cUtWdVlUN2RlUkV3LUo5ZUF5TkdPWGJlemNFTi1JYVJsaGprRUxmMktHaTFFdA?oc=5",
+  "published_date": "2026-05-10",
+  "captured_date": "2026-08-06",
+  "summary": "Blueberries taking bigger bite of business in Peach State&nbsp;&nbsp;AJC.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blueberry breeding program",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blueberry breeding program"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    }
+  }
+}

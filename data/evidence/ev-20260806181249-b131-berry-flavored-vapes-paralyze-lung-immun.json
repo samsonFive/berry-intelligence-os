@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181249-b131-berry-flavored-vapes-paralyze-lung-immun",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry-Flavored Vapes Paralyze Lung Immune Cells - respiratory-therapy.com",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOSUZQdVkybG5DR3ZocUpuNXZOMm1maXNfMFVuUUljb1dTTkpfQ1E3TVB0S2JPS3o1MEthTlk2MWxfeDdMOUJPYWNqZXp2TC02QThNa0NBdHBJWEZtN1ozRjZQMkluQ0phcW8wTUhLb1FtYUFOcVBIYV92MmNfMUZFVEdtUV9BVk5MRzU2QnQtcERvWmJJWkdOYVZoejk1eHZsZEd4OXRYWTE0YXA1VnEtSW04RjBxalhJbHdHSzB3?oc=5",
+  "published_date": "2024-11-05",
+  "captured_date": "2026-08-06",
+  "summary": "Berry-Flavored Vapes Paralyze Lung Immune Cells&nbsp;&nbsp;respiratory-therapy.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

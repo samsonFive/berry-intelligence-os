@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173911-d078-americans-are-buying-weed-more-than-choc",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Americans are buying weed more than chocolate, data shows - Business Insider",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNUkZRLWVoMGQxN24wYnFCaDFFQS1JdUxNbTcyVHdWSE1KbTlyLUpXLXdnYTNmUk80RHZQRk9rYkluYVRqX1E2eHMtSUx1LUc1bGk4UmNlNkFmanFCaklhTUJPTG5sdDVVUVhXTVpVWlVoWF9NcHU5T2hFSlhSLVZNQTRfQlBFZGsyb1RJQ01DbHFDSmE4S1ZpbnRlOWE?oc=5",
+  "published_date": "2023-05-13",
+  "captured_date": "2026-08-06",
+  "summary": "Americans are buying weed more than chocolate, data shows&nbsp;&nbsp;Business Insider",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

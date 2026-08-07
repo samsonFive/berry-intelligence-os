@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806181242-a243-china-gets-a-taste-of-california-strawbe",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "China gets a taste of California strawberries - SFGATE",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNWE1Md3pidUd3VVE5amRTRzljc0czalV6b1B3STJvOW1CQ3M4RnpNaHJkTVh5SVRldUhoeHBZazRvWEhLLVg0R0ZrdFVXTGQyYlJqOGVTcnRvaTl1Y29FOGlVRjhyMW5WTUZ6dFk4ZWJNWk9pQlZPM2NCendKbUU1RTFRYkVnZkdUN3hFYi10azd0WDFDX2dKcERhUnNzUQ?oc=5",
+  "published_date": "2008-08-17",
+  "captured_date": "2026-08-06",
+  "summary": "China gets a taste of California strawberries&nbsp;&nbsp;SFGATE",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173901-10c2-premium-peruvian-blueberries-gain-share-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Premium Peruvian blueberries gain share with US$2.28/kg price gap - FreshPlaza",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQUFhCNmZiR1RHcWNYenhMMWRodnNIaWhoZEJTU2hrc2hoQUctbEk1a0dFNmoxWncwdGthN1RhQWt4YlRHbEVoa1ZvTlhIQlZPM3hzY3VxYTJaRHpsZDFQNmxhOWVzcGVLeXBnZzhwMm1LNVI1MU5wM3lOTG9jb1dXcVR1dzdJQVpqaWMtaklwcDVNai1VSkR0emJYUjdSejlQMElMc2pRNzJ0aVdCVGlEMGVFRjV1OUtaczNKR2lNQnM?oc=5",
+  "published_date": "2026-03-25",
+  "captured_date": "2026-08-06",
+  "summary": "Premium Peruvian blueberries gain share with US$2.28/kg price gap&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

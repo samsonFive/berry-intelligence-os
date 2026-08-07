@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173852-b47f-moldovan-farmers-do-not-cut-their-foreca",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Moldovan farmers do not cut their forecast for strawberry production yet, but fear smuggling and low export prices - EastFruit",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxOaERpSmlJUkF3eVlISVM0ZmtmWkgtbmVVRHR5N0ZXTHdkRUtMZmp4dF9DTjRhdDhGWmF2NHJBc2M2TlE0ZmpEM09SbjZzY3BSeHJRaW84dWFHQV93ZDlNX0ktMERJaVNfc0NMVU9nT25pdUFDcjMwLV9xcUp1YWRtakpQd2prQ3NRU1RISThqb1B0TUQwcWpNZjdraVRCTDJRSXg5cUhYZDBGelM1VzBMSWpkQXI2c0F0bGlDR2FQWWk1VnRGS3lKTDVVTHRqSGxyUVpxOXdNMzdXZzRmd3c?oc=5",
+  "published_date": "2021-06-02",
+  "captured_date": "2026-08-06",
+  "summary": "Moldovan farmers do not cut their forecast for strawberry production yet, but fear smuggling and low export prices&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

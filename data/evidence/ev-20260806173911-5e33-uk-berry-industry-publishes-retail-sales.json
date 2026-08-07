@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173911-5e33-uk-berry-industry-publishes-retail-sales",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "UK berry industry publishes retail sales data amid viability concerns - Fruitnet",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOQ2xia05ZYmNsV29HdjhHanZoQWRzenZSRzRSaThldnhVczhncXg0ZWdWSDlxeVdNSWIxbl9lOWR5bEYweTVyOVhSZHViemw3R3l4YnFXbWZGeE1sOTlPTEdNRTMzLTQ3SjVnWk1lUHVWTTFYdXpuUTg0ZlZQNXJ6T3JoVkxjWWVKRG83dDRpc1JIZG9xb1duMnFUc0J4NGVWNl91NG45YmZLaFMxajRLVmw5Qnhxblotb0hDZjBpUHJidlJkeUhQOVBzTQ?oc=5",
+  "published_date": "2023-07-24",
+  "captured_date": "2026-08-06",
+  "summary": "UK berry industry publishes retail sales data amid viability concerns&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

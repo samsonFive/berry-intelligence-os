@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175540-15ec-antioxidant-packed-sorbet-pints-trend-hu",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Antioxidant-Packed Sorbet Pints - Trend Hunter",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9CS00tY1p3eDdENkRSYjVkV2g1QUlTenpNNVJLWkxTclNVUFBHUWo1czd2dnRtODY0NXg5SmQtek9jWGU3RFVJZDNoX281bnBuQ3ZwUXlCaG1hUFdScUhN0gFkQVVfeXFMTXhyaUw2UUNqc3k5STdhNEI5VXhSMlFqZEdZRllNQ0dyQ2stcTZQenhLQkE1dm42ZTJJcWFzczhnbVE5SHRnTWpwd2FqR1hNSHlidS1sU3dLUzM2ek95UW1uc3VqMw?oc=5",
+  "published_date": "2025-02-18",
+  "captured_date": "2026-08-06",
+  "summary": "Antioxidant-Packed Sorbet Pints&nbsp;&nbsp;Trend Hunter",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

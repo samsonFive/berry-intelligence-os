@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173603-e48c-spain-freshuelva-calls-for-more-moroccan",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Spain: Freshuelva Calls for More Moroccan Workers for Huelva Berry Harvest - Morocco World News",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNbDUtMXU0ZU42TE0tcHdyZU9lN3dfODhLRXV6a1FhNktxY1dDZkVqS2E2T3BnV1RSWm92MGJQOTBzcDJ2SDZvRHFZM2ZEci11cGxCcjNCZWxoUDlxX09FbkNNNFd6RWpBYkZyYUh1aXhWUkszRnF0ak96SlA5NVBRRTVFVGdqQ3U3eGNHTmhNMXdxMnpuQlIxaU5yc2ZHX1hWNERzTkVUTUQybGIyb3M2Qkg5SlFxTWJWdmFmUU9iSQ?oc=5",
+  "published_date": "2025-10-03",
+  "captured_date": "2026-08-06",
+  "summary": "Spain: Freshuelva Calls for More Moroccan Workers for Huelva Berry Harvest&nbsp;&nbsp;Morocco World News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

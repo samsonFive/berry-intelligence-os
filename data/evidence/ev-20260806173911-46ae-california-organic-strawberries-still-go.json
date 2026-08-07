@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173911-46ae-california-organic-strawberries-still-go",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "California Organic Strawberries: Still Going Strong - Produce Business",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQTXdQV1RiUlQ1OVNLY2FQZVdGNDNLdFMybVJGczcxZXNGZWJlNDdFbk5wYXdBQ0RQMWExSUQyQjNSTk5VS1otTFliYWFfZWhCOVVESXVCWU1GTnMyeUdOc2ppU3JwQWdkdlV1YzZuXzFWd3pKcFZ6NXBhOUc4R3Bsa2xlYVdNQQ?oc=5",
+  "published_date": "2025-05-12",
+  "captured_date": "2026-08-06",
+  "summary": "California Organic Strawberries: Still Going Strong&nbsp;&nbsp;Produce Business",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

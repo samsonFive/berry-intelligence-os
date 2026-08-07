@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173550-60b2-apple-crop-shrinks-berries-slow-to-start",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Apple crop shrinks, berries slow to start in Q2 - FreshFruitPortal.com",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1WWWlDcHlwS2N3QzEwMGhoWWk0NmFrbWlLNDBEemk5MUpqTF9uZ0FHQUNwMmpVMi1WZkd6YmlFa01rUURId09MQnJwVWxKR1VJYUlCTGpNcHlRcXg3TnEzQU9zMlNPT1lKSmRFSDFtbzZXMF9WQ3VBYWlFQVY?oc=5",
+  "published_date": "2026-04-13",
+  "captured_date": "2026-08-06",
+  "summary": "Apple crop shrinks, berries slow to start in Q2&nbsp;&nbsp;FreshFruitPortal.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

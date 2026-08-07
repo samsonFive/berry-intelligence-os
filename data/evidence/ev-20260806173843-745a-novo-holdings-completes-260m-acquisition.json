@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173843-745a-novo-holdings-completes-260m-acquisition",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Novo Holdings completes £260m acquisition of Benchmark Genetics - Salmon Business",
+  "source_name": "Berry genetics company",
+  "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPT0RlbGI0cTJpTXJPdVNqQnFCTW1zNDV5VGZ4Z1dobE93NUVTTDd0cWllWnllWVhhNGF5NldyVlYtbjdhakxQalBfM1hCOEhZVmJlb1ZNZHJSMXlUc290bEItVlNfdGtPVFhvQmVMd2hUYUw2eF9LbVY1Ujhwd09ybFlGakZPS1VnQjVRNzJMZDVDN05iZGwzejNn?oc=5",
+  "published_date": "2025-04-02",
+  "captured_date": "2026-08-06",
+  "summary": "Novo Holdings completes £260m acquisition of Benchmark Genetics&nbsp;&nbsp;Salmon Business",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}

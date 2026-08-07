@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173604-2b7b-bosch-berries-opens-49m-greenhouse-with-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Bosch Berries opens $49M greenhouse with 28 jobs in Pulaski - The Lane Report",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNUllPM080ZUJ1WElNYm9IT0JnNzhWc2tDSk5ZV1V2THlmTk94Nmx2SHl5UkQ1M0JCcUNpWndPQnNPTDlfNVhSYUE0RFlzRTlGWGpNaDlsUGZlUG05cW5xZmR5OXVENlVVTDV0dEFCcGZLRjN4NkN1QnF0NW4zR195UmNKbXg2UzRSWTRxWU1zUEhBLTk1elZ6aG5MWmZYanBtNlVn?oc=5",
+  "published_date": "2024-12-13",
+  "captured_date": "2026-08-06",
+  "summary": "Bosch Berries opens $49M greenhouse with 28 jobs in Pulaski&nbsp;&nbsp;The Lane Report",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

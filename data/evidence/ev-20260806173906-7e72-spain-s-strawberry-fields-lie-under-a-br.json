@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173906-7e72-spain-s-strawberry-fields-lie-under-a-br",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Spain's strawberry fields lie under a Brexit shadow - The Guardian",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPM1FJbGg3X1g1d1VUc3BjSTVBcHdkdDNVWW1oMDBaOGxjaTl6VHZRRzhYQWk5YjV6X1ZDX3lBakh2VDRPSm9jcjJxZWR1QmMyX0lfTW5LUlE0ZWlteUVVc2NNVzVTMEFNc2RVSlNiMHFGa0xsMEszRldMSTRGWFBLTk1PbS0wbEhZRjg2eDd2TTZPT28zam9XRnlhbHc?oc=5",
+  "published_date": "2019-02-12",
+  "captured_date": "2026-08-06",
+  "summary": "Spain's strawberry fields lie under a Brexit shadow&nbsp;&nbsp;The Guardian",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173603-278b-final-stretch-of-spanish-strawberry-seas",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Final stretch of Spanish strawberry season has been terrible - FreshPlaza",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQV1YwamJrT2FUZDdDWTJMdXhleW9nNkZpWjhRbG1JLVlEc0tKQUJnZDVoY1BqOEFQSXZSSTlpX2R5eHJWWUc4YlZGVkFVMlVUdDhXVFdfVnJ5bWNwNk5ic3UwekZJbWVnX2FwdVk3dUtrZU45WDdPZ1RlUktNU1JNY0w3SnlTTnoyR0J1UFRzNm0tWUVQU3BqTGpUZzVJZUVYLWtTd0pZWW9aRVZtU3VaWVVhTnE2bGcxWFE?oc=5",
+  "published_date": "2026-05-26",
+  "captured_date": "2026-08-06",
+  "summary": "Final stretch of Spanish strawberry season has been terrible&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

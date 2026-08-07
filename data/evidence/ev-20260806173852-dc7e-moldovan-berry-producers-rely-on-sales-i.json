@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173852-dc7e-moldovan-berry-producers-rely-on-sales-i",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Moldovan berry producers rely on sales in the domestic market and exports to Romania in 2023 - EastFruit",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQbklpRldhS1BaTmlBUXZGdjliNGpNVWNKS0szYUkwSFROdHpzbjhtZzRHVHNFU2xtbWZRUzBiOTRZVEtBRFVkZnNuNDFiOG1hblBnVU1ReFpndEtfMFRNLVg0anczU19zZENvbUV5V1VTOXZTRkRYcGxpYW1PbVdMbFdFc19UMF9mZmJUek55RVBaNHdPSTI1SDBHWW00dTRyc1BVelZkLU9VcnVmS19zLUZud0VYV0pSaG0xcExlMFJUUQ?oc=5",
+  "published_date": "2023-04-27",
+  "captured_date": "2026-08-06",
+  "summary": "Moldovan berry producers rely on sales in the domestic market and exports to Romania in 2023&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175525-87dc-2022-23-wma-deer-forecast-louisiana-spor",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "2022-23 WMA Deer Forecast - Louisiana Sportsman",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNZ1g4WkRHSFVLaXdrUHk2TVIzQmc2Q24tQTdBRUtNUUFva0ZaMjZDbXBUYnQ5bHJKM1NIYTR5a0NIUVBFWUlnUVhLUXpxVkJUOWtOWHV0eU14QmI2YTlaVFh2NHNYQktXNzNMeE0zc3NSbTBqRzdBbndTWENDTnhIZXpFT3VrR2lWOEE?oc=5",
+  "published_date": "2022-08-26",
+  "captured_date": "2026-08-06",
+  "summary": "2022-23 WMA Deer Forecast&nbsp;&nbsp;Louisiana Sportsman",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

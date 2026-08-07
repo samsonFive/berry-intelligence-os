@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173554-9ab8-berry-boom-drives-exports-jobs-and-preci",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry Boom Drives Exports, Jobs, and Precision Agriculture - Mexico Business News",
+  "source_name": "USDA GAIN report berry",
+  "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQdG9JWWstdDZaYTBERHdCLV9vSU90YzJyZUxkX3FIM3Y0SGFXOGtKUTBLNWdxQkdPRW8teURRUUYySllzZE9VYWUwaXN3d0l6VDRSZ2lkaTFJVjByUGJwMmlZWHRUcmVBbEpFSWg2Q1k3QTAtRVhJQjhhcHExTjRlbW4yTzVpa0dGMXBYbkpnYklsbE9TdzJHQlA3UlU0ZzBsdVdqdg?oc=5",
+  "published_date": "2026-07-03",
+  "captured_date": "2026-08-06",
+  "summary": "Berry Boom Drives Exports, Jobs, and Precision Agriculture&nbsp;&nbsp;Mexico Business News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:USDA GAIN report berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "USDA GAIN report berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
+    }
+  }
+}

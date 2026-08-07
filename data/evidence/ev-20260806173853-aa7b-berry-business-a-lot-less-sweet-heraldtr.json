@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173853-aa7b-berry-business-a-lot-less-sweet-heraldtr",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry business a lot less sweet - heraldtribune.com",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOVXh4cVdUQ2xEbHIwcjRjOVphc1ZrbmhIVjFLaVBZZE9YYXlveHFNVlpsVG0zYnBlWHk1N015Ymt6ai0wZXQ2aVpWdDhWSkxGRHZMT0l6a01uX1F3ZE96MEZxQ1Bhd3NMNEFjbnRhUnEwU3FqN1BMaHR4MllBUldrTEpZdkRQc3JCN0hKaE5xOHZZWW04WG1SWGg0bkk?oc=5",
+  "published_date": "2015-03-03",
+  "captured_date": "2026-08-06",
+  "summary": "Berry business a lot less sweet&nbsp;&nbsp;heraldtribune.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

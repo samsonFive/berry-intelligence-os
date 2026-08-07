@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181221-4dd8-chilean-berry-company-hortifrut-acquires",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Chilean berry company Hortifrut acquires Spain’s Atlantic Blue for $280m - leadersleague.com",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPcHdBVDZVZkFOU1NGcUsyWUYtWk1nVl9rSFdqLW1MU3JxRXEtREtxLXd1bGhBVF9lZHltSWJ0bUJ0MGU5cGJzTGNUZFRGRXQ0WGVyVkpIeVV3a0JIOGtjY1E4YnBJMkVrSUc3S2VKRXNsRmNKLXFmYXZ4cnM5cEEta0pRaFEtQXFRWDRpM0JuanVhOTViUmZzV1NuZHdjR0VIOGlld1Q3Vzc5T3ZmMWc?oc=5",
+  "published_date": "2021-10-20",
+  "captured_date": "2026-08-06",
+  "summary": "Chilean berry company Hortifrut acquires Spain’s Atlantic Blue for $280m&nbsp;&nbsp;leadersleague.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

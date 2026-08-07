@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175536-0f23-study-strawberry-consumption-helps-older",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Study: Strawberry consumption helps older adults - Farm Progress",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNaXAtRDc3RmFSRXIzNDhrUTBIQ0hRVzczbWM3U0tYdFdycW1sSTZhT3hlc2FSMHlUTG1iMDlUYmtLbzhETnEtSUZPTFR6YUU5SDRLRWJfazVWN3lVUmo3eUMyS0g2ZnRmT0M3VzhCRzA4R1ZHZkx4eWYyUDM3ekhTSmIyWXRuTG5yd3c?oc=5",
+  "published_date": "2023-07-25",
+  "captured_date": "2026-08-06",
+  "summary": "Study: Strawberry consumption helps older adults&nbsp;&nbsp;Farm Progress",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

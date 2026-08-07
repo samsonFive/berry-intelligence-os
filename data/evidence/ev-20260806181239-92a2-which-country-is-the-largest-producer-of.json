@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806181239-92a2-which-country-is-the-largest-producer-of",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Which Country is the Largest Producer of Blackberries in the World? - jagranjosh.com",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNOWg3cjhMWnpJcGlJOXhpWG9OX1NJSGlidV9LMUVQTUdta1JScFJ6bUE5R0M2M1ZMcDYzRG1HdHFkTHA4ZDdUOWQ4TmpjYXc1Z3VXM3VCMGNUUkRxeDhUZjRsbHJ5a2c4RVVqOVFOSUp5UTBEUjdnX1hmaEdFaTBXdTFyYlFUOHhzR3RzYUdXbzRWSElXQWdMVmhXaFdUWkdianF2WmhWSGFjTWFMWUE?oc=5",
+  "published_date": "2025-06-13",
+  "captured_date": "2026-08-06",
+  "summary": "Which Country is the Largest Producer of Blackberries in the World?&nbsp;&nbsp;jagranjosh.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

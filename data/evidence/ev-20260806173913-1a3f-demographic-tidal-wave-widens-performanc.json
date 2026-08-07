@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173913-1a3f-demographic-tidal-wave-widens-performanc",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Demographic tidal wave widens performance gap between fruits and vegetables - Hortidaily",
+  "source_name": "Berry category growth",
+  "source_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPdWJLblB0NUhZSXlNLUNtUFJSRDgwVWNMMTVYMnp2MTkzN3pDQWJlTkZrX2RpNmZieS15YXEtZnZRc2FNNHdOckExYnlxdzRrWnBqdW9ic05sUWRjaV8yWDN1d2s4SFgzSTVuUWFwNU5FNEdqckZjcWdXVm0tYWRCY1ZQYXBVSGdrRUNWWDNGaGhTRzNyNDhBVWhtX2p5TDV6NkppOFlYVXlfT3ZxTjM2VWg1Z0pMQmpZSDFZ?oc=5",
+  "published_date": "2026-03-26",
+  "captured_date": "2026-08-06",
+  "summary": "Demographic tidal wave widens performance gap between fruits and vegetables&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry category growth",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry category growth"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    }
+  }
+}

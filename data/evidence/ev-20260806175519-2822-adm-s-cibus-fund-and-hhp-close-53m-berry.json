@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175519-2822-adm-s-cibus-fund-and-hhp-close-53m-berry",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "ADM’s Cibus Fund and HHP close £53m berry assets deal - Agri Investor",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOaHRKaUgzWmk1QlhpNWJhcHlwTV9fOWV2RWZaa1FsM1h3MlZHSzVwTVRPX1pYYTZmY1FxbnBZUFQ3WHVaUjZfM1NDU3FweS1hVlUtMGxkVW94eHhhUnNLTW04dDdfak9kbDA2Nm53Y3dERE55UEY0c3FQbThiMjZWU3owOA?oc=5",
+  "published_date": "2019-09-16",
+  "captured_date": "2026-08-06",
+  "summary": "ADM’s Cibus Fund and HHP close £53m berry assets deal&nbsp;&nbsp;Agri Investor",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

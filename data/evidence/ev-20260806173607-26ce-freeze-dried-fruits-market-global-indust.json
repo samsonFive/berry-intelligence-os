@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173607-26ce-freeze-dried-fruits-market-global-indust",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Freeze Dried Fruits Market : Global Industry Analysis and Opportunity Assessment, 2036 - Future Market Insights",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9BTWFUQndPUGpHeXBJM1Z1M2d0YTQtMC1wM2FCM1VvWEV6M2Rub29sYkVSNXBRUXg0REwtUWk5MDYyWGRORklHSDBvVjR6cVBjS0hXcF9VNDlXYi15Q0hlWU15MlBZTGlOcUFNUndEMTFBcUlxY3pYQTZ6aw?oc=5",
+  "published_date": "2026-05-15",
+  "captured_date": "2026-08-06",
+  "summary": "Freeze Dried Fruits Market : Global Industry Analysis and Opportunity Assessment, 2036&nbsp;&nbsp;Future Market Insights",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

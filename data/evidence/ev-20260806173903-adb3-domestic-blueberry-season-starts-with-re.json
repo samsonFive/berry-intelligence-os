@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173903-adb3-domestic-blueberry-season-starts-with-re",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Domestic blueberry season starts with reduced early volumes - FreshPlaza",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNM3cyRm1RdkRBRlhzX1Zvb3cyc2dNbE1EOXdnaU5UWXRmR3VrbHlaVVZGMjZQbXZPbFl2MHJ0d2RyX0pMU1R2emFpTVppdU5iRC1rSlhQeWJlZ1FNZFhGLVpGSW8zWjFpdUJqbVN5b1Qza1ZtcHVfSk56ajVDVjZLajYybjB1VEZUamhrQ3lOem5PQ0M4Ym5sSFBhWHZXeVdMT3FjRDlmNVhMQ29EOE5zU0pWXzkyV2My?oc=5",
+  "published_date": "2026-03-10",
+  "captured_date": "2026-08-06",
+  "summary": "Domestic blueberry season starts with reduced early volumes&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

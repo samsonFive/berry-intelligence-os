@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175523-80fc-2020-2021-blueberry-yearbook-reveals-sou",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "2020–2021 Blueberry Yearbook Reveals Southern Hemisphere Export Data - Produce Report",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQUkZVTEs1aFJRNldSMUFVbE53Mm1OY0dHeFVubkpLYnNTY1p4Ul9WazN4Z0Q3LXBfek9HWUFtclJObWdxOEJLNkFydnZ6SWN1Tjl0WDJLYVFvNGViallaakVVemtiVVRuM1lBRnl4d0pFdXppRUdpYk91QVNUWlp2enQzd0dkdV9rTlRBZFllLW5BVThtUEQ4OUJyX3NpNDlWbFdVTTJlaHB4Zw?oc=5",
+  "published_date": "2021-06-10",
+  "captured_date": "2026-08-06",
+  "summary": "2020–2021 Blueberry Yearbook Reveals Southern Hemisphere Export Data&nbsp;&nbsp;Produce Report",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

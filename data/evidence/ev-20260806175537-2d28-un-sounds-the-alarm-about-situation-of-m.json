@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175537-2d28-un-sounds-the-alarm-about-situation-of-m",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "UN sounds the alarm about situation of Moroccan strawberry pickers in Huelva plantations - The North Africa Post",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNdmJqaEFoVl9pQlgtNmpqYXlzMVBxNW1kaURhY25CVGpDLXBvSjVSZ0trUDloVWs2WnAwQkR1Y0o3dGVCalV3RHB3Sm43X0NJUWFxSmdtNHRHMW9pTFZxcDNrY0ZmelFtczN3REVfTFhOUmFXSC1EeENTdWVwV2lQcVBzcldmN1BDODRkVW1WOURwTHQzdGo4cFlYVlBOWVVIdk9QemdtcFJfY2VWZ1RzcXBJSXk4cUJ6SFFJZ0dwMldSek1heXc?oc=5",
+  "published_date": "2020-06-30",
+  "captured_date": "2026-08-06",
+  "summary": "UN sounds the alarm about situation of Moroccan strawberry pickers in Huelva plantations&nbsp;&nbsp;The North Africa Post",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

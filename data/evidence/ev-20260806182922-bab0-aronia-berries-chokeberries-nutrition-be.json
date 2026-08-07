@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182922-bab0-aronia-berries-chokeberries-nutrition-be",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Aronia Berries (Chokeberries): Nutrition, Benefits, and More - Healthline",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE40LWpMS256Y3RfTEplR3RxamNfWDJLVDB0RC1IV2M4N1R6N1dqM0xTblJUMG85WHM3Mk1hMU9aZUlpZjNnR0VITGFhSEYxU183LXVwd3RDd1BCTGRRc3diVg?oc=5",
+  "published_date": "2019-08-08",
+  "captured_date": "2026-08-06",
+  "summary": "Aronia Berries (Chokeberries): Nutrition, Benefits, and More&nbsp;&nbsp;Healthline",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

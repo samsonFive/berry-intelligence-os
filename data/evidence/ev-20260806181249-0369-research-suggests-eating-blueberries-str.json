@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181249-0369-research-suggests-eating-blueberries-str",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Research Suggests Eating Blueberries, Strawberries Can Lower Heart Disease Risk - University of Utah Health",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNWXRMM2xrdVFmVGhLd2NEcU5GeXp0ckgtb1ByUG1fVEVQNVRSWVBxMjdaaUM2OUZJc1hZX1ZVQ3M5LS1tSHEwNWxuN0dtYU1fSGI4TXBqSF92TmVSMFlENVNUUnp3cGdoOE1LSURGeXc2YVJZMHM3WHhNeTJ1WnVsNXJtUDM3MzVOYU1Qa0s0NTllLVpkdUlvam1lamVDenNpRTJ0VGtpZEpCSlcyMHd0V1pQVDhSS3M4QmQzS19TWUZZVjA?oc=5",
+  "published_date": "2022-08-03",
+  "captured_date": "2026-08-06",
+  "summary": "Research Suggests Eating Blueberries, Strawberries Can Lower Heart Disease Risk&nbsp;&nbsp;University of Utah Health",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

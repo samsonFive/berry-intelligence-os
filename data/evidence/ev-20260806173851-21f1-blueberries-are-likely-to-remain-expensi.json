@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173851-21f1-blueberries-are-likely-to-remain-expensi",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blueberries are likely to remain expensive for a while yet - EastFruit",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNbFY2bDNLTHZ1WmVXWHYzM0swVkhLcWF3ZXVTbEZwOHBjX0NBQW5VOFREUGJ0R2h5Y0VPbnV3M0dLclJRaElQNzFHOHEtVU1mNUtFU3lXWnMxd2RvaUtmOXZjMXNFY0tyUkI3Y3ptLURsTXc4NVV1VThqMk5DQUhMdHJ0SkJzOUQxVzdPNEh3TkFLdw?oc=5",
+  "published_date": "2023-12-01",
+  "captured_date": "2026-08-06",
+  "summary": "Blueberries are likely to remain expensive for a while yet&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173602-76d2-in-the-face-of-fierce-competition-differ",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "\"In the face of fierce competition, differentiated, high-quality strawberry varieties are standing out\" - Hortidaily",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNejhWNldJWjVnVHFHLWFFS2pIMmR2bnYtaU56b0R0dEdSN1lqbi1naEJ3ZHE1RVptNlUwLUxIOXMtTllpQnctMXk5NFJBcWhGRlYyeFNrakJ6ZzU0MUFUZTFqa1UzcDhjbzJCTWhCdmN2VUJiSlo4amE1dC11dW55LXZwamJ0c0NFR0dadndlSzhKNG5UNmhpRko0Uno2a2xFWndxOWVUemNXOFQ4bUNhM0VZU2ExR3JHTGRHV1V6S0tNVjNWT21waGdhVjNyOW01U0ZNbFA2Wkw4N3c?oc=5",
+  "published_date": "2026-02-03",
+  "captured_date": "2026-08-06",
+  "summary": "\"In the face of fierce competition, differentiated, high-quality strawberry varieties are standing out\"&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

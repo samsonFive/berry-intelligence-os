@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175537-b36e-spain-to-build-migrant-camp-for-strawber",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Spain to build migrant camp for strawberry pickers in Huelva after fires break out in shanty town - Olive Press News Spain",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxNM0dGcGRYNUxDS2dmZGpIWnpMN2Y4aDNGeHB0RE5qMm96d3hVT1BudkoxMlZQdF9kQ3FhZGJtOFFKT0lLbWtoQmFROTRqUldOV1lRTF9Fd1lYNG02QWR6TnAxY1o1VmphZkdmOERBdTJKR29pclJsYk84NXRTUlJkUV8xZnMwMFVqXzZoQlVXYkVrZGk0Q3FmQ1pJbmJXNVZJeWxWRWdYU0F3d0FDdkVYblBJV1Jrc0hHVEJEcXRfN0FEWTFtWENhTUQ1YncyTHFLRDVta1pSc3l2UUcwRFYxeXUxdw?oc=5",
+  "published_date": "2020-07-29",
+  "captured_date": "2026-08-06",
+  "summary": "Spain to build migrant camp for strawberry pickers in Huelva after fires break out in shanty town&nbsp;&nbsp;Olive Press News Spain",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

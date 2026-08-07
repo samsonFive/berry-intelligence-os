@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173554-1989-fresh-trends-2023-blueberries-still-have",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fresh Trends 2023: Blueberries still have a big presence - The Packer",
+  "source_name": "USDA GAIN report berry",
+  "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPOTZkTV9Ja0RfTDhvQzZWUmR6cTBSTklmYmFibGtULWo2MHNYdURJcnpBR3dfU0t6elJGdFF5R2xjUGF5RGhWS0NRdWlFbklWSnlfeW9oQlJBdDZPLVdsSnRaa0gyeTg1YUw1NTlyTXpFS3BiNXhrM1JwNTM3ZHh5RTFuWWlJMktVTVZTVnh4N3MxNURINHc?oc=5",
+  "published_date": "2023-06-06",
+  "captured_date": "2026-08-06",
+  "summary": "Fresh Trends 2023: Blueberries still have a big presence&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:USDA GAIN report berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "USDA GAIN report berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173848-de0a-driscoll-s-russell-allwell-discusses-ber",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Driscoll’s Russell Allwell discusses Berry Gardens takeover - Fruitnet",
+  "source_name": "Berry joint venture genetics",
+  "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNVFdNUTZYOW80REZ0ZkFVRnRXQ0IzVHJwY1ZYUW5SRndRZW9sZDliblJVSE9RY3FHbF9UMENoOUJuZTdJaXlRUnJ3bkxWVWp2XzJqdHpRV2d1OHBjb1pCaGFDNGZJdjU4UV9Qek52MDBaakpUeWJyQmgxZ2FSUUZjU18xRVI5U0hqMHVFVEgxR2Z6SnpTZ0JydGpvRks3RVpFVmc4WkQ1NGpIQkxYdjFhOWZiMTBSUUhvOEZnUQ?oc=5",
+  "published_date": "2022-11-22",
+  "captured_date": "2026-08-06",
+  "summary": "Driscoll’s Russell Allwell discusses Berry Gardens takeover&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry joint venture genetics",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry joint venture genetics"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    }
+  }
+}

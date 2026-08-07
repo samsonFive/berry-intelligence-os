@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173842-121f-5-new-super-strawberries-all-with-resist",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "5 New Super Strawberries — All With Resistance To Fusarium Wilt - Growing Produce",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQdlhYUEZ5cTNJM3F5U1puUG1CdENqTHJKd2ZnZDduRXZIYnpvOUtWUWE5OWJtZkZ0NU42ZkJ2MUFVNndRblVQLU9lLVdJOGoxVlJqR2cwVVVLSUU4MHNFUGI3Wk1CWkxTR3VKZFk4YjQ2LWR3WWcwMlhtc0lnN2Ryb3RJYmF1dVdLSVEzZlViZ1RhTmpCNXlxbjU5WjlrV01rSEFCTWRkYVlMS1YzRG1UTS04YmdZZ1d5aDJKZw?oc=5",
+  "published_date": "2023-04-20",
+  "captured_date": "2026-08-06",
+  "summary": "5 New Super Strawberries — All With Resistance To Fusarium Wilt&nbsp;&nbsp;Growing Produce",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

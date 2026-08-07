@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173842-9b98-berry-naughty-business-chemistry-world",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry naughty business - Chemistry World",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQcGl4OGh3NjkzazVIY2Y3dzgzcC0yXy16QUJiTktSZjBhR0ljRWdOSkRTajBWaUIzd1pxaEFFU2JES1Mtb0tScjlnSDRtZ3M5TGJZdWktY1hud3ZTMVlyZUZWZzBwTXhQVEF2a3JCZDRma0pmWVFwdmxlNlpZSm1jTVdnTQ?oc=5",
+  "published_date": "2022-02-09",
+  "captured_date": "2026-08-06",
+  "summary": "Berry naughty business&nbsp;&nbsp;Chemistry World",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

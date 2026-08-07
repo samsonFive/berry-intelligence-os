@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173545-81c4-california-resources-crc-completes-merge",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "California Resources (CRC) Completes Merger with Berry Corporation - Yahoo Finance",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOQ0RGWEZVR1ZwNURleElDZ1VFYUxQVk91YlowMHA1UGxrQkJNTFVNdXVlODRTNU84bThaU2FrOTVDRWpQOWR5dmxkNTRaTDBRcWpDaFFxOEJ3MEVqWHAxSkg4NHNTRE5pb3FFaTVWTjlBX1dyZVFWZzJuRlhyTXN2alpRb2s1ZUFuS3M5SEV2Y1A?oc=5",
+  "published_date": "2025-12-26",
+  "captured_date": "2026-08-06",
+  "summary": "California Resources (CRC) Completes Merger with Berry Corporation&nbsp;&nbsp;Yahoo Finance",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181249-a414-study-suggests-wild-blueberries-help-bur",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Study Suggests Wild Blueberries Help Burn Fat - now.humboldt.edu",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNVU9QM2pfdVc1NVdKN0NGVWZPX2NNRlhZNVY5VmRETXlXbzhCN2QtVEhTb1Z4eGdtNVI3bGFLeVk2RngyMU9GNEU4UFhTbDdvVnVOVUVvanIwSE9LZlM3cTRWbmczQXF0WVVmQTVVQTFvS2wxTFhidjAyb01HV21sYg?oc=5",
+  "published_date": "2023-03-27",
+  "captured_date": "2026-08-06",
+  "summary": "Study Suggests Wild Blueberries Help Burn Fat&nbsp;&nbsp;now.humboldt.edu",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

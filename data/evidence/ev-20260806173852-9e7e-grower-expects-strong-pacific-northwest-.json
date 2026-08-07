@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173852-9e7e-grower-expects-strong-pacific-northwest-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Grower expects strong Pacific Northwest blueberry season starting in July - The Packer",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPMnpsVnpJMW5DWDVYSV9NemY1Wll5MGxMRW1pam9ER3FHb19aZFBkb0Q5a0E4d2FJU1FEVVYxU3hkeHYwYWMzcXRMZ3hTYXFTX2tCOWFYblBvOWRIRE9GNXlocmFNOHh6dmJ2YWlRb3R2Y2U5NzdnVm1kdlVHOWFjNXlmSXdCTGo0N1g1WDRCc1o3bU9rNnNtN3FfeUdCSE1VMTUyOE0zcU5idVNQSVJB?oc=5",
+  "published_date": "2023-06-23",
+  "captured_date": "2026-08-06",
+  "summary": "Grower expects strong Pacific Northwest blueberry season starting in July&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806175534-3046-mexico-blueberry-production-grows-for-fi",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Mexico: Blueberry production grows for fifth year in a row - FreshFruitPortal.com",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPZFNRUjEwUnBBRWVyOWhNckJQa2RZN3VYRWZrazZCVnpJVzNOSGVDMExveVBHVTZIZ2cwVGdLTlBjeWFUWmNPVk4zaUdIb3k5bGF2bFhqamlnUC1mSDRkZXJiQnZaNjRqMThwYkJJSUg5QUpfX3l2M0hiNl9VY2FrTHVMTlpCV0kzS29VWlVOSU1uTEJsbTdFM0hXTnhYaEhlVkp6RnNUY0pGLTg?oc=5",
+  "published_date": "2021-12-01",
+  "captured_date": "2026-08-06",
+  "summary": "Mexico: Blueberry production grows for fifth year in a row&nbsp;&nbsp;FreshFruitPortal.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

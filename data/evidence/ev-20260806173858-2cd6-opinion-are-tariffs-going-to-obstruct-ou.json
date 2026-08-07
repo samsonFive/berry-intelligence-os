@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173858-2cd6-opinion-are-tariffs-going-to-obstruct-ou",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Opinion: Are tariffs going to obstruct our access to blueberries? - startribune.com",
+  "source_name": "Berry tariff",
+  "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPcmRhcm9NQ1BSQ1J6cjNxaDQ3R3NmLVpDQ2xDU2RwRTZObDlpcE5kSHJ2Z0tVRXNKSkZZaXNOQnVLZ3pBVlFGS3B5dHdocDA2YkxTNHFLNTM1NERmMDJFYXFVZEtkVW03Wml2UzRsQXpKVTlUVzI0WmI4cTlDOUMxa2JjWFJiQ0VkNE03dGJyZFhJRS1BMEFPZncwZzhEUFA5SC1z?oc=5",
+  "published_date": "2025-05-09",
+  "captured_date": "2026-08-06",
+  "summary": "Opinion: Are tariffs going to obstruct our access to blueberries?&nbsp;&nbsp;startribune.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry tariff",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry tariff"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    }
+  }
+}

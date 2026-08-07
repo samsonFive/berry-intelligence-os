@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173543-dfe0-sa-s-blueberry-blues-worries-other-fruit",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "SA’s ‘blueberry blues’ worries other fruit industries - Food For Mzansi",
+  "source_name": "Berry royalty license agreement",
+  "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxObEE1NWxERERNT2VDR2NDWllCOVRheENVVEpvWFFmT21RcUlOaE9YQUxxODNFR1podjlwaXNiTG1qbWxVcm41ZS1ES2RXUHJiczB4VjI4d2RqeWl4SXFhbTdhbVFTa3FObHZLdmlWN2ZVLWdDQ1luYWFTemhIWlNIRVdGNTNvOFpRUVNz?oc=5",
+  "published_date": "2020-12-08",
+  "captured_date": "2026-08-06",
+  "summary": "SA’s ‘blueberry blues’ worries other fruit industries&nbsp;&nbsp;Food For Mzansi",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry royalty license agreement",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry royalty license agreement"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry royalty license agreement'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry royalty license agreement'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry royalty license agreement'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry royalty license agreement'; not yet reviewed."
+    }
+  }
+}

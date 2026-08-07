@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806173601-99ae-a-good-blueberry-season-expected-from-mo",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "A good blueberry season expected from Morocco - EastFruit",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQMzNMZE5UOWllcXBkbGV2cF9CWEhXcFRITkNid0ZKRFhRQjRaaWRxa3RiUVp0eUo4dmNkVkZ5Z3RwcXQ2UlhZMmpremMxWVA3bWJOQnduQS16Q1V2bWpzM0hiZnlvTGNEWkFneFNWLU05R3R3UF9XMnlROVNSSmx3YjRxRQ?oc=5",
+  "published_date": "2025-11-11",
+  "captured_date": "2026-08-06",
+  "summary": "A good blueberry season expected from Morocco&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

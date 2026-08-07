@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173851-d5f5-blueberry-exports-up-by-63-4-in-2025-rus",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blueberry Exports Up By 63.4% in 2025 – Russia Remains The Main Market - BM.GE",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNUzQtNEZSNmM0SWJqMG8tazI1UElXQ2NwdlZJSjg4cTlfR2hYWXhBbWZXbDB6NGlJZ19hYzVCWDBHd2k2eTBPY2NudmdoT3JVSjdOUlozWHRnWUY0aU1SeEJ5VFpxSTZ3OEpwaXFXYnhmYUV0N2RIM1AxbXVFSS1teTI3WWwzelozVmZsVU9kcW15UQ?oc=5",
+  "published_date": "2025-09-23",
+  "captured_date": "2026-08-06",
+  "summary": "Blueberry Exports Up By 63.4% in 2025 – Russia Remains The Main Market&nbsp;&nbsp;BM.GE",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

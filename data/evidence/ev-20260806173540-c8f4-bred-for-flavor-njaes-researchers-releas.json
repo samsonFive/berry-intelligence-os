@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-c8f4-bred-for-flavor-njaes-researchers-releas",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Bred for Flavor, NJAES Researchers Release New Rutgers D’Light Strawberry - Rutgers University",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPbVJjR0oyZmxJOHBQdkN6bFV6MExvaDhjMldfSnViZXpHNjg3NGdqNTlIOWMwSlNVU0U4SHE1OXBkbVB2UGpWcVdUbGVfSTRjV1FKdElMbmpfQWZxRWZ6dWUwd3gyUEVuaTZicE1hNHB3Wl9PNEhYV3Z3aDRvQXkyN1hqeUY2cFBPdnhuQldVMGRjQ1BTVGg2ZWw5ZEZ5RXZ4d3FDR0VPRDZ5V1pqWDBmX200LVk?oc=5",
+  "published_date": "2022-05-19",
+  "captured_date": "2026-08-06",
+  "summary": "Bred for Flavor, NJAES Researchers Release New Rutgers D’Light Strawberry&nbsp;&nbsp;Rutgers University",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

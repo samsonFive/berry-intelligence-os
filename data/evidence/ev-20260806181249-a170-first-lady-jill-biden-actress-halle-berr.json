@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181249-a170-first-lady-jill-biden-actress-halle-berr",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "First Lady Jill Biden, actress Halle Berry promote women's health at UIC - ABC7 Los Angeles",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOUHlUV3VLUzdUclhtVmVOV3h1OTdTT1BPWHVqUVRaOFFjdmJzWENydVI4ZllGZXFDOHdwWDhOMUtwQlFOdjVub3Y4c1FRRVd3ZEVZTjc4enplQk1XQ3kyWWNwVmZ6Q2k1MFl3aTl6M0t3aDhEMm9uTnowdVM0cVQ1R1N1RXFKWDgxRmfSAY8BQVVfeXFMTUo1bFByX3lCWGNGanlEeTBHaVlMVTRjdG1Md2IyZTRSd2FuMlZFRFBGYUxfSmxGTmFBNDJONUczRWNNRHZDMmdZUVU5SV8wZmpVXzBmTkNBMy1qUGRoYmVRZXpPY1cyMUlpZjVZNnBGLUV5Sm44Z20tUGphUGtCcU8xSzNhUTNwXzJoV2ZxcnM?oc=5",
+  "published_date": "2024-01-11",
+  "captured_date": "2026-08-06",
+  "summary": "First Lady Jill Biden, actress Halle Berry promote women's health at UIC&nbsp;&nbsp;ABC7 Los Angeles",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

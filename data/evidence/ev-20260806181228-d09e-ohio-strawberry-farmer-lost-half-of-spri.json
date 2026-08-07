@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181228-d09e-ohio-strawberry-farmer-lost-half-of-spri",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Ohio strawberry farmer lost half of spring crop as berries 'melted in the rain' amid weather headaches - FOX Weather",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOMUljZ2xIYzBEZUdVRnpkeURxM2tPTHZXcFg0QTJtdkJOSlJHNS1DbHZSRVJFTW5hTF81V0NNMFg1OEZGX3hJVWlQLURwWTkzRGZydnBTWUJUeDV3NlhyWkJvRDFWeHhUVW1La0t3WjRSWURKUEVJOTFpLTl3bGM5OEVGbEZMUHBaWU8tNjVzc0R4bkI20gGaAUFVX3lxTE5ueXB4cnpaSDhTZFQwYXZJR2FPMDZqRnhTSnh0bWRDSkdCVU92R24xbmtnYnNIWkNQR3RaSnNCNzJDUGtzN1doeU5YNklQRUx0OE9Zb0docVptNXR4UTRudXlJdU0zU2poX0tYYWplcUNkUWxzaTRzS0ltcWd2SXpHR1Z1Z3AzQzV1cW1sWjNiVmNDaFVKMUwwVUE?oc=5",
+  "published_date": "2024-05-29",
+  "captured_date": "2026-08-06",
+  "summary": "Ohio strawberry farmer lost half of spring crop as berries 'melted in the rain' amid weather headaches&nbsp;&nbsp;FOX Weather",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

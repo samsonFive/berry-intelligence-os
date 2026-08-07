@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173541-afbb-fall-creek-spain-turns-10-from-2-hectare",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fall Creek Spain Turns 10: From 2 Hectares to Serving 52 Countries - Perishable News",
+  "source_name": "Berry genetics company",
+  "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQUDM2X1lkUXU1ekVEX3RHWGZlM2t2QlM2UzRUMktWRnREcnlsWllpRHFoakpHN0ttTnp3eVNQRVFtUlFTSXJIY2c3MWxLd0thYUhhaDVrYlF3d3FhbVN5bEk0MkNQdXE4U21vWUs0UXNZRHdCMFIwYjVNWk9jRE1OT3A5YnYwTndfdmszczN6aU0yVDhpbTRzVmJLTGRyYWdydk1R?oc=5",
+  "published_date": "2026-05-26",
+  "captured_date": "2026-08-06",
+  "summary": "Fall Creek Spain Turns 10: From 2 Hectares to Serving 52 Countries&nbsp;&nbsp;Perishable News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}

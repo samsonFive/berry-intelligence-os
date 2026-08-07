@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-aff3-driscoll-s-loses-us-strawberry-patent-ca",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Driscoll’s loses US strawberry patent case - Hort News",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE53U20xMnBNSG04THhUYlVqOWZRbll1eHNaMS1Tak1Ma0VmbDlHTXNKb1pEUlFXaHBmSkVHMHdONWNiaU1yT2FXMVJUSU9FQ29kdVRpS0ItbDFzOEJieEx1YS1yZGhCOF9QNmloZWg1djA?oc=5",
+  "published_date": "2025-04-16",
+  "captured_date": "2026-08-06",
+  "summary": "Driscoll’s loses US strawberry patent case&nbsp;&nbsp;Hort News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

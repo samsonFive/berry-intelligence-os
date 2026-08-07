@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175517-9537-weekend-gardening-time-to-plant-strawber",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Weekend Gardening: Time To Plant Strawberries - NorthEscambia.com",
+  "source_name": "Plant variety protection berry",
+  "source_url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOcWtTcVdwY2I1ZE0yZE5KWU5FNVlpT0dJRTJwUlIyMGxKMkdfREVfdlNMZ0hYNl9tbkE2eTJlam81UlllYmVYb2pRcnQ1M3BxZWE1SzM2bGdjR1VOdGZnWlJJQXFxNURsS3oxUVBCNWsyWkhtRVhVeDZLd1BQV0d4QzhvR25oc2R4?oc=5",
+  "published_date": "2013-10-12",
+  "captured_date": "2026-08-06",
+  "summary": "Weekend Gardening: Time To Plant Strawberries&nbsp;&nbsp;NorthEscambia.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Plant variety protection berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Plant variety protection berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173912-f65d-this-brazilian-berry-may-reduce-inflamma",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "This Brazilian Berry May Reduce Inflammation, Support Gut Health, and Help Balance Blood Sugar - Food & Wine",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE53RU45WEw5V3pOUmtYVjR2ZVRuVXVfR1cyWE9HMnpCbGE4TXlUZDYxa1JzNDlOUU5oUHRRZFgxcFlBZVZoUWJ0WDRhU2VzM1k1SlRXS1k4eU5DejRwR2x4WU1CZm0wNVRNOXU1MklyZDJBaWdId05hOQ?oc=5",
+  "published_date": "2026-01-05",
+  "captured_date": "2026-08-06",
+  "summary": "This Brazilian Berry May Reduce Inflammation, Support Gut Health, and Help Balance Blood Sugar&nbsp;&nbsp;Food & Wine",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

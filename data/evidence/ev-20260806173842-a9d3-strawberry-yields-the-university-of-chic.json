@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173842-a9d3-strawberry-yields-the-university-of-chic",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Strawberry yields - The University of Chicago Magazine",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9xR05KSVdvSzZWOE5XM0VtZU5uRDV6djE0T0dVdjd4QUhqaUh2bmJKd0hFdVBMWUFRZU5odUZWWnppWGxwNTQ4enpnVVV3Sjl1cndkdDdBMDBlN1hSTlBKc1ZzRG80WS1jbUI0b0FB?oc=5",
+  "published_date": "2020-02-24",
+  "captured_date": "2026-08-06",
+  "summary": "Strawberry yields&nbsp;&nbsp;The University of Chicago Magazine",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

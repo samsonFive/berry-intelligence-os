@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181225-4709-apollo-graham-buy-berry-for-2-25-billion",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Apollo-Graham-buy-Berry-for-$2.25-billion - Plastics News",
+  "source_name": "Berry industry investment",
+  "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPbl9aRlYtT19aeGQwVEZaZmZ4Y0dUdFVpR3NsLURlMlJ2ZHZraklLcjZsMENjWDFPZWhtdjEwT2ZCcGpSZXZBUFN0S0R6djBrdmVyQW8zZW54WjJiV0U1YmtmUWY2RUFXX2lCNUZLSEc1MDcxd2hlY1dETkpTZkg2OVRiN3hFUXg5WFpBWE9aeUxOd1Y5UUNpd2FFbnRxbkkxNnVoMg?oc=5",
+  "published_date": "2006-07-03",
+  "captured_date": "2026-08-06",
+  "summary": "Apollo-Graham-buy-Berry-for-$2.25-billion&nbsp;&nbsp;Plastics News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry industry investment",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry industry investment"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    }
+  }
+}

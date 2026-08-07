@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173842-7822-bao-shengjie-grows-the-world-s-first-cli",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Bao Shengjie Grows The World’s First Climate-resilient Strawberry Varieties - a+ Singapore",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1kNXFmeUpxb182elNDazdXMjhJcjFnME0ybGhyQWFDSE1rM1NNWFR0X1FYb1NISk14Vl9BZk5zeEVkUkN4WjNuSjU5LWhNZnlObldMNklXTks3ZEVyZ0VYbmJkcGxMRkduVEVPQ0ZHeHE5VUVo?oc=5",
+  "published_date": "2025-01-06",
+  "captured_date": "2026-08-06",
+  "summary": "Bao Shengjie Grows The World’s First Climate-resilient Strawberry Varieties&nbsp;&nbsp;a+ Singapore",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

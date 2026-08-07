@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173603-de6c-german-strawberry-boycott-petition-spark",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "German strawberry boycott petition sparks anger in Spain - dw.com",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQYkhwakVPSjNwd2VvcDlNcFQtMm5DRjI1aXRuaS1ic25yaXotM1d4WjI2YTFKcDlkMi0tT1dDenhLM0hkaF9JUE9PMnVONTFybFFhdHRmajZUSjRUTUc5SV9LM0hRdkhXNWNrNU9WenVfbG9JR3Yza3phUWd3SC1ncHpTV1pleTAzcUEwSUowWFk0TzTSAZMBQVVfeXFMTnhyUTdxbmxaVDBwdVFJVmtqWllEZlc5NE5BcEhtTFUxVXRrYXpaNjBmNm9CbUlNbUpFYWlNNEN4bFV3SGZsLURvUXhHcWZNTGxWRm80S1VMWXhXSkpTRXgxME5iVGlqWXRTaWs3N1NqVHRBMWdkSG9oOEQ2aHNKTWtFNzR6ZzRKTjMyUHdkbDlTbkRB?oc=5",
+  "published_date": "2023-05-31",
+  "captured_date": "2026-08-06",
+  "summary": "German strawberry boycott petition sparks anger in Spain&nbsp;&nbsp;dw.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173604-8bae-kubo-applies-new-tech-to-strawberry-site",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Kubo applies new tech to strawberry sites in Canada and Saudi Arabia - Fruitnet",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNZVo3VF9CX3FEMk9WZFdMd3U2OW5vOUxhcGhWU244SUVsQnMxaTE2bUVjTGlaVDVNU1JpTVR5d1N0WUVaUkdQSGFGajFCN2JqbUlsYV9RTmFreVRNdVlfT0U0ZFVfYk8tQXRWYlNBMzV0eDVvWjlrakZra1AxdlRuRVhBd3pmOTZNcnRKWXhXQldfR25wNTQ3bHdsMVNYNHlwV003NU05dEpIX3Y0eW5QY2Z1YURJdzhz?oc=5",
+  "published_date": "2025-09-22",
+  "captured_date": "2026-08-06",
+  "summary": "Kubo applies new tech to strawberry sites in Canada and Saudi Arabia&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

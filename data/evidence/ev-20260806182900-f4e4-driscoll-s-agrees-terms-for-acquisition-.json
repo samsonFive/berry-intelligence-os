@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182900-f4e4-driscoll-s-agrees-terms-for-acquisition-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Driscoll’s agrees terms for acquisition of Berry Gardens Limited - Fruitnet",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNSy1OLWxYc0pVNzFGTUJqNzR2NkkxUkw4RUx0cVFpaURRZHNpMGNWQUVnbzJBRld2Smc4S0d5VlVUS3JhcDU4TWpGQVpKdE90YW1YU0VZN3JxQVRGZkdycnFVNFhOTmpCQ1h1ZUFkdVc0Y0hmNzE5ekNoT2pxZ09PNHVIM1R2MDY4b0FJSUNxUU1aRHgzZjRwbWZTSUpfbHFQR1RSQTE0N1l2T1F1ZDlNTThGQjdVSHlXV003MTJ3WHRDVjg?oc=5",
+  "published_date": "2022-06-23",
+  "captured_date": "2026-08-06",
+  "summary": "Driscoll’s agrees terms for acquisition of Berry Gardens Limited&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

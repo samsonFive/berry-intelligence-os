@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-9e1f-cheers-to-this-outstanding-red-raspberry",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Cheers to This Outstanding Red Raspberry Breeding Program - Growing Produce",
+  "source_name": "Blackberry primocane variety",
+  "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQbDlGRWJBdWgzTzhkU2tKOXROLXNaV1JjMUhKcm45elE0WGVtWFFWN3lrck9wOUJja0JLZnhTblNTTHk2dTBJSUNYNXdCMlNpNGszOTh2b3h2OHMyMVJpSTV3Z0hudTRGcHc4a3VuS1lZeVZocGJPd3l4amdvNXktZlhDS2tVOWpRTXZWbjcxSnI1Y0lBTDBOV1BKRUJNcElNWmc3ZmVn?oc=5",
+  "published_date": "2023-10-10",
+  "captured_date": "2026-08-06",
+  "summary": "Cheers to This Outstanding Red Raspberry Breeding Program&nbsp;&nbsp;Growing Produce",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blackberry primocane variety",
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blackberry primocane variety"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    }
+  }
+}

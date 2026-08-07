@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175532-b80e-peru-leads-world-blueberry-exports-at-ov",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Peru leads world blueberry exports at over 1 million tons - bluebookservices.com",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPQ2x6MF8yY1pmcDdnRmdKejVleFFFMWVzWDlFTlFpRWZ4X09Ec3BPMEZRVk51eGQxOW5sVnlXNVZMMWNpNTZzR0QyS2syeVRzZl8zNjNnTVE3YS1jRkpiUWFtMFFkMHBXR0daTzBiN20ydUl4YW1SdlczUDdyZ3JaRnpOVjNtTk5ST3RydUpyd0hiZW9lYlE?oc=5",
+  "published_date": "2025-08-19",
+  "captured_date": "2026-08-06",
+  "summary": "Peru leads world blueberry exports at over 1 million tons&nbsp;&nbsp;bluebookservices.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

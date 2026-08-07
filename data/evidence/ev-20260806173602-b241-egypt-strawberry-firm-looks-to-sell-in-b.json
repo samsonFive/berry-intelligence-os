@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173602-b241-egypt-strawberry-firm-looks-to-sell-in-b",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Egypt strawberry firm looks to sell in Brazil - Agência de Notícias Brasil-Árabe - ANBA",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE45Z21uMzJlVTVlLTM2UVBiX3RUS1ZucTdDZHg0TDBUaXZXZF9QV1N2N1dRM3hrVW9NbFNfMVlheWZSRE9rZlNwV3VrWXZvODZoMElsVjhZRC1JUTRyVS13dUVEdDRhOEQ1U1VlcGNRLWpXODdNby1taA?oc=5",
+  "published_date": "2026-04-08",
+  "captured_date": "2026-08-06",
+  "summary": "Egypt strawberry firm looks to sell in Brazil&nbsp;&nbsp;Agência de Notícias Brasil-Árabe - ANBA",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

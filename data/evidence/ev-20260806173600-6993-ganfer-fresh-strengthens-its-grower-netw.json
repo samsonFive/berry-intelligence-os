@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173600-6993-ganfer-fresh-strengthens-its-grower-netw",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Ganfer Fresh strengthens its grower network amid an increasingly pressured berry market - FreshPlaza",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNdGc4S0c3bE4xcEhGXzRfc3NmQzROWTE0SFRiRm0tUU5SRW0zVzRPLWFoSXJxRHVGNFBYYXgwYzZEUnVKaS01MnFjbXZKakd5MHFMc1pvQkVucm1tRkVISk9qOWNxU2VCbEdvUVpjTXF5M29TYnB2WHU0cGVNVmJlRnREMnFOOFZrWjFsZW4yVWZ6azVnS2NrcDhsN3BnNjZjdkxnRG9jUUpWYXdUenhad05yTjlXWm1MSzBRVHJSUXNMel9qcm1WUktnQ2dPcWNrUDNETmkyYUZmSGN1QVE?oc=5",
+  "published_date": "2026-04-21",
+  "captured_date": "2026-08-06",
+  "summary": "Ganfer Fresh strengthens its grower network amid an increasingly pressured berry market&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181217-40dd-the-benefits-of-berries-to-the-brain-the",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "The Benefits of Berries to the Brain - The Atlantic",
+  "source_name": "Plant variety protection berry",
+  "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQZXJmY2E2dFJOWmZqTEJpWDNWVVZZNlpjcmg4ZGZjQ1ItSDNsMnF5eUx5SFZFd2lLcDlhUXhIMnNaR0Z2dUd3MVU2Uk9NVkFCM1RIbi1vS3ZPUXo3N2JaamN4LWtPUGNWOUF3cWVXUGQzNmQxcnoxSzd1T2FuRzhsNV85TlhSWmlkb25rU2JxWHRieVNrQXdxeEI4RQ?oc=5",
+  "published_date": "2012-04-04",
+  "captured_date": "2026-08-06",
+  "summary": "The Benefits of Berries to the Brain&nbsp;&nbsp;The Atlantic",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Plant variety protection berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Plant variety protection berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175540-b842-gen-alpha-canned-drinks-trend-hunter",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Gen Alpha Canned Drinks - Trend Hunter",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5GZWlPdUludWVDUDBvS2toWlZkczUtSVNqT0tiTHdqQlY4aVNKeXdRci1GT01tWnFYbkgyeFgwQWhXNTViVjdNSWMzZ2pmcWRDX2Q5OGlENXFidnlGNVFoMNIBZkFVX3lxTE15UmNjQmZLcXVvUHhpZzIwQmtWUjl5Q2k1THZKeG92ZUlGdWE0TEFoTkVIcUZjeVVPeDdieFBJSHVBSERYVEZ5QUpZdVpydmgtZUs4V3VJZ0VkYk9SS3YxNkdRRVprUQ?oc=5",
+  "published_date": "2025-11-29",
+  "captured_date": "2026-08-06",
+  "summary": "Gen Alpha Canned Drinks&nbsp;&nbsp;Trend Hunter",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

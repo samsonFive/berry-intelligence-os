@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173607-8842-virginia-budget-clears-way-for-100b-berr",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Virginia budget clears way for $100B Berry Hill data center campus - Virginia Business",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOdzFMYjJRa3ZOZEhYUnZGc1AyelE2UWhUR3UtZC0ybGNBLXZCNWo4REpGRW11OTZ5aEkyM1JNYWxzdWRJSXFFU3JxRDRTRGVNcVFKdGhYMXdYeFg1MDNzOTl6bGVqSUkwZHpBOXJvNENFVWhjdURrMmV6RU5UWVlvYl93?oc=5",
+  "published_date": "2026-07-02",
+  "captured_date": "2026-08-06",
+  "summary": "Virginia budget clears way for $100B Berry Hill data center campus&nbsp;&nbsp;Virginia Business",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

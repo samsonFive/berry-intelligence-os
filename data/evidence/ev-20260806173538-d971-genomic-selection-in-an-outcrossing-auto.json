@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173538-d971-genomic-selection-in-an-outcrossing-auto",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Genomic Selection in an Outcrossing Autotetraploid Fruit Crop: Lessons From Blueberry Breeding - Frontiers",
+  "source_name": "Blueberry breeding program",
+  "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQQlZ3ZWY3ODhlY0NQYl9pS3lTVTF6dmdhS3FKTlhLSW93UzdERzhPVFRBX21zYzJLUjlvemFBNVROOUd6QmpSXzFyVTBhQWRHMlgtSEgtQ0ZiX0NNeXVQNFZ6UVhZbTdHcUkydE84ZjlzOGt5bDN3S1gyMEMxcGxneDRaenlqX2FZYWtfM0JhNkQtLUE?oc=5",
+  "published_date": "2024-02-09",
+  "captured_date": "2026-08-06",
+  "summary": "Genomic Selection in an Outcrossing Autotetraploid Fruit Crop: Lessons From Blueberry Breeding&nbsp;&nbsp;Frontiers",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blueberry breeding program",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blueberry breeding program"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    }
+  }
+}

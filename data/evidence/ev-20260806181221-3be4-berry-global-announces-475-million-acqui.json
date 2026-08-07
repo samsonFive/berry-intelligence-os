@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181221-3be4-berry-global-announces-475-million-acqui",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry Global announces $475 million acquisition - Courier & Press",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQZnNUUHVfRHRXcVM4OHBneFdJNEN3TW5UVnJxYzBfdi1OTlV1M2J1bEtBY1NaQTlQNFhUWVc4ZXJUUlFhX1Y2SlV6akF2THNfSmU2WTNGeTU0RTVmOUQzOExiTFRtSU5YVmtUM0E1ZDVvQk5wX19zdW9yR3VPYW02ejdvM09JalZGVnJ0eDhPZVQ3ckwyZnRndWFiUEp6bTJoUkxkOXBUN0RLUXBp?oc=5",
+  "published_date": "2017-11-16",
+  "captured_date": "2026-08-06",
+  "summary": "Berry Global announces $475 million acquisition&nbsp;&nbsp;Courier & Press",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

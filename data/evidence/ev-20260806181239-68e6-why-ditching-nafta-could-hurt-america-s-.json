@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806181239-68e6-why-ditching-nafta-could-hurt-america-s-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Why Ditching NAFTA Could Hurt America's Farmers More Than Mexico's - KERA News",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOa0MzOEZodGRHRmUtN2lGZkY4NUlBX2VjWldzbExxVENJUFpUS2kzdEh6Y00tT3VmTTBucjVJZTgxSThNbVFkTDVNRWtfQ1JwcmhHZGplZG9WNzNTNXJDQU52d1NHQ2ZWY3dFU3ZXaWMwd1JyaGE0eklPUkJVZDg0YVFVa1d4LWZMQjM3S09TUEs4Y045QjBWaklJbEJ5Vlh5M3c?oc=5",
+  "published_date": "2017-02-16",
+  "captured_date": "2026-08-06",
+  "summary": "Why Ditching NAFTA Could Hurt America's Farmers More Than Mexico's&nbsp;&nbsp;KERA News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

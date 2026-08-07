@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806181236-6633-peru-s-blueberry-exports-surged-outpaced",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "📈 Peru's Blueberry Exports Surged, Outpaced All Global Competitors - Voronoi",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOeUhtWkRLZ0ppd2MyN09hQ1E5NWN5OE12a0pzamUwSlJTSzJrRHY0VXk4dXNSMXY5OHRCNEc5YU5qMldxOXF1MjZWSFliZTZzakNMOEN3QjQ3Sm00dXlrMkx5SERFUGpSSi01REJEb2NtbjFWbjhoZUxsQV9hTlQyT3JGVGh5UF9ZN2RsX2hTMHhxVzdQcTJZSTRUZ3J2OWtEODg5OHdR?oc=5",
+  "published_date": "2024-09-22",
+  "captured_date": "2026-08-06",
+  "summary": "📈 Peru's Blueberry Exports Surged, Outpaced All Global Competitors&nbsp;&nbsp;Voronoi",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

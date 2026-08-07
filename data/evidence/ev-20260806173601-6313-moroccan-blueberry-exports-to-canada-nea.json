@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806173601-6313-moroccan-blueberry-exports-to-canada-nea",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Moroccan Blueberry Exports to Canada Nearly Double - Morocco World News",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOTGh6a3k4aDdYSExhc25RMTFsM0gtZHk5VEQyZTJtUVdPY3BkdGgzV3dvZGh6czRlN0RIQU4zS1pXMGZnclhwTTA5ZnFsYkxkWWo5VmRGMThZUjJiZjR3RG51QVlma0tWdHpNUW1OcGFjZTkxSl9aRXREV241eDNTeTJGN0FpX1lsNEtYYWFtLWZJa3ZiUEdnSVI3YVlZS2FW?oc=5",
+  "published_date": "2025-10-08",
+  "captured_date": "2026-08-06",
+  "summary": "Moroccan Blueberry Exports to Canada Nearly Double&nbsp;&nbsp;Morocco World News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

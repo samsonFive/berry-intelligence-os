@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806175535-1401-balancing-the-scales-of-morocco-s-food-e",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Balancing the scales of Morocco’s food exports - Arabian Gulf Business Insight | AGBI",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQQ3l6ZTJkTTdQZDFRX0MtNnV2em5jM3RzYWZVM1B1cFJwY29Hc2RDeDF4SVFkbjNVb3JCUDNpT013ZlNkUUpMV2RDTjhJUVlyaWNsMVVOTFRzOUlmUERZMlF3SnBvcTV0Q0xQdngwTTVpZEFVZHQxMExmZG9LQktsUDFVWUZsMkhpYU1HLVc2YzZzWlVKMkNBS3RzUEg?oc=5",
+  "published_date": "2024-07-11",
+  "captured_date": "2026-08-06",
+  "summary": "Balancing the scales of Morocco’s food exports&nbsp;&nbsp;Arabian Gulf Business Insight | AGBI",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

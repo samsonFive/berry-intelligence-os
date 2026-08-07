@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173853-719b-oregon-state-plants-research-plot-for-ki",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Oregon State plants research plot for kiwiberry, emerging small fruit - Capital Press",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPZ0hhNzF4S2lhZGVVeXo0Mm9RbE1IY1J3a0dZZjlwaUFKRmttcWMzQ1B2Z1YwUzVyVWlEWk1xMVV5TUhKMS14RmZRZ1lFYnFMNDhYQUNVMFV6RHFMeDdUcTZQWG5VOXdBVWRUTERBLXV5a3RDZUY2UURpdWttZkVJRUNkc19yZ0ozSjNNSmdXNzI2VEtlWXJXQnJuaFd1SFZOS2JkNjF1bnI?oc=5",
+  "published_date": "2025-06-13",
+  "captured_date": "2026-08-06",
+  "summary": "Oregon State plants research plot for kiwiberry, emerging small fruit&nbsp;&nbsp;Capital Press",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

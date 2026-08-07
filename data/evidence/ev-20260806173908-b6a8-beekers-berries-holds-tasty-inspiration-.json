@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173908-b6a8-beekers-berries-holds-tasty-inspiration-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Beekers Berries holds tasty inspiration day - FreshPlaza",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOSEdFaHpDc2tiaWxpWlRhbW5pdHVSX2I4eG1vTXppTWNnUXN4VmExVHJWSXgtUVp6aTFQSUppb1FCRzhONzBoX2hzYkJNejBFZWZhT1ZnMS1oSm00OXN6bC1BTVZsU0ItU2M3Sm04eEUwLWYwNnF6eUh4UFBvbF9lRldLcE5pRGtzYUx0UWhqcTZYYS05bmtiRzh4YVdUdUZEREJv?oc=5",
+  "published_date": "2022-04-19",
+  "captured_date": "2026-08-06",
+  "summary": "Beekers Berries holds tasty inspiration day&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

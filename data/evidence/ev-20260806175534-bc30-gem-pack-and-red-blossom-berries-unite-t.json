@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806175534-bc30-gem-pack-and-red-blossom-berries-unite-t",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "GEM-Pack and Red Blossom Berries unite - The Packer",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOZDYyX3RNZmh4Q200Um9IaWdVbmhTVVowWDRVYjFlalhCbE1ZV0NBSHBkcmV3WkczdW4wZlVjNjlDaUxxQk5FeWhGbXlBNUsybl83MjFmdTNEUTF5RU9BbFVCcFdBYUp1RTlYaDJHNXBWd2dZQ21RMXNDVDNxcjNULXRidU8?oc=5",
+  "published_date": "2021-10-07",
+  "captured_date": "2026-08-06",
+  "summary": "GEM-Pack and Red Blossom Berries unite&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

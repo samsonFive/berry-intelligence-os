@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806181239-17e4-quebec-strawberries-struggle-against-che",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Quebec strawberries struggle against cheaper imports from California and Mexico - CBC",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQUlhIYU5UUlBXS002Y3ZpTklJNjkxODh2SkVkWWxJeHRidFZDeldLMERiTGsxWGI2MkRjemNncTdSTnczaUVpNW14dHp4OFFSeDhYbnNCVzEzaGRnbzFzdmZNcF9uaXJaem9OTldnX3FFeWxVTXd5cTd2dkM1Q05kbUVNSm1hUXc?oc=5",
+  "published_date": "2024-06-09",
+  "captured_date": "2026-08-06",
+  "summary": "Quebec strawberries struggle against cheaper imports from California and Mexico&nbsp;&nbsp;CBC",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

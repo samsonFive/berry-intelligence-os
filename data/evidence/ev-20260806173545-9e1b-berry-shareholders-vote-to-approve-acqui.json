@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173545-9e1b-berry-shareholders-vote-to-approve-acqui",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry shareholders vote to approve acquisition by CRC - Bakersfield.com",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOT0hTcGM2NFJxaTlNZkZqSDI2Q1Q1OEI2QkVTUXhpNnRydEZDX0JVT1dGWVNZd0xUMXFnZ2E2OXVNY1Y5Zkl6QWp3Sk5CME43Y1E1QlY4emU4X0JNOEZWVUVmMFduS091SDFMMV8xZ3FSRThaaW4zN3pBY1h1SUNfaDJBUWlsSG5YRGNza3hYX2ZMVUp6aVhfNjRSOHRmWWRheW8tYXdObzl2SXpEY1VZbXBPQVJ5MlgzdUM5cXEwMGM2bThZU2lRMUlUZkdMdUdaVHc?oc=5",
+  "published_date": "2025-12-15",
+  "captured_date": "2026-08-06",
+  "summary": "Berry shareholders vote to approve acquisition by CRC&nbsp;&nbsp;Bakersfield.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

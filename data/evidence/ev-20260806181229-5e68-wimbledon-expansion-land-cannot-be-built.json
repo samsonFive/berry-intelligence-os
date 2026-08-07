@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181229-5e68-wimbledon-expansion-land-cannot-be-built",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Wimbledon expansion land cannot be built upon, High Court told - BBC",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBoUTlJa3BLUVFxMHBEQWZXMFN0WkR5ZDhKYlVQZVhfTUt1SGxTMkhUTjBNWjBmMy1xWlA0dU9ONDdIZDJQVm1SaS1Cc2NKV1pCdU9sYTd6cTJFTUc0?oc=5",
+  "published_date": "2025-07-08",
+  "captured_date": "2026-08-06",
+  "summary": "Wimbledon expansion land cannot be built upon, High Court told&nbsp;&nbsp;BBC",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

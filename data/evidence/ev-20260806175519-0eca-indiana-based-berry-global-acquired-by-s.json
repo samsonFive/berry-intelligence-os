@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175519-0eca-indiana-based-berry-global-acquired-by-s",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Indiana-based Berry Global acquired by Swiss packaging giant in $8.4B deal - Indianapolis Business Journal",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNSDJRcEFFc3BkYXpHaTk1Z21hTWtLNTN3ODFJR2xTTFVJTEUxaFFBY3hqS3l3RTRnazlQNzVIazFkYkFpVlpucHVMOS1jdHRNTDNlYmNsU0JBUHR3MW91N0NYeXNFMFE3b0hwd0tmOGRPM3NSWHo2emtnUV9KU2pUWnRlLVd1bzl2dmpZNHlITFhleEp2cUhrZllFQ1BhZGVxZjN5Vg?oc=5",
+  "published_date": "2024-11-19",
+  "captured_date": "2026-08-06",
+  "summary": "Indiana-based Berry Global acquired by Swiss packaging giant in $8.4B deal&nbsp;&nbsp;Indianapolis Business Journal",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

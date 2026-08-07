@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173858-0a1b-trump-imposes-double-digit-tariffs-on-do",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Trump imposes double-digit tariffs on dozens of countries as his 10% levies are set to expire Friday - Audacy",
+  "source_name": "Berry tariff",
+  "source_url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNY0N4SlkzVzZNTFZPZ0d2eUlPZ29FV25VcjZoNElSR05IVlN2Mi01N2d3RHNfZDVNX0NzcVM2YzVLa09Hdk5fTm9sZENVX2ZId1R1Rkg1WTZIcTRfaGdjdjNoa19zZ1dqRzBkVV94ZDdacW1FWjF1YVhQTmNrQ3dpSy03M05Ia0YxQmpNdHZKXzdxakF4cExzXzFKLUdDX2N3ZkRsWUdYZVZCWk9PVGxfNG5jYkZPLVlBQ0xjSk01OTY1bW1EZm1iMQ?oc=5",
+  "published_date": "2026-07-23",
+  "captured_date": "2026-08-06",
+  "summary": "Trump imposes double-digit tariffs on dozens of countries as his 10% levies are set to expire Friday&nbsp;&nbsp;Audacy",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry tariff",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry tariff"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    }
+  }
+}

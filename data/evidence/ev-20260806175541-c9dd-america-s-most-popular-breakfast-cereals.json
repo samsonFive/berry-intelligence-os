@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175541-c9dd-america-s-most-popular-breakfast-cereals",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "America's Most Popular Breakfast Cereals (And the Stocks Behind Them) - Kiplinger",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPajkzU2ZqT1BMNUt1dFB3bWc3RlFxVXFQQ3VDanRJalAzUHgyRUE5Nlp0SHpJUHY1bmVqbnUyQ3hiR1cxbHlhbzZiMGhsdW80TDVJX3J4MUxranA4ejNoRFpMZmxKa2lMSzRZd0xhVklmWjJKZ1dsUkxVUGViNmEtamV6dHhSTVZoM2c0dk1ZSW94ZzZJT3VHZy05b3hpOERoTGFLVGVacmRWeXlQLTItcENuOTE?oc=5",
+  "published_date": "2018-10-11",
+  "captured_date": "2026-08-06",
+  "summary": "America's Most Popular Breakfast Cereals (And the Stocks Behind Them)&nbsp;&nbsp;Kiplinger",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

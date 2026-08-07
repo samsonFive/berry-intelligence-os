@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175537-7d02-global-market-overview-strawberries-fres",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "GLOBAL MARKET OVERVIEW STRAWBERRIES - FreshPlaza",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNLXc5bXVSTlVBa1NzODU2VE9yXzQ1SmZuaTR5QXYtdlJyVjd5VThpLXRZa0RFSVdEMVdkdnZKWG9mUTZvX2JXWlNNejdUS2ZsN1pDVFRRZEdZci1sQ2UxNmFkZGNQNlJocWoxZklQQnc3N0w0VEtlR2tFLVk3RVZJZ2FKeUFvS0tUUEZhLWNjNjRtcWtmaDB1Rw?oc=5",
+  "published_date": "2025-05-09",
+  "captured_date": "2026-08-06",
+  "summary": "GLOBAL MARKET OVERVIEW STRAWBERRIES&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

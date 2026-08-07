@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173906-54a2-spain-marimbella-variety-achieves-good-p",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Spain: Marimbella variety achieves good productivity results in Huelva - Hortidaily",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPaEpOMUhTaG9NWnN3RmdKb2ViYUtMeFFONmVHb2I0b3gzNS0zaGlUa1IwSWNxVExTcERFRHRiand5dDh4dmRSZUxraUZaanJGQmtheEtHWWJ2SXphZ0tkVHhEN0JCb3dCbl9yM1JsY1lYQUlMQmZiSkVGTHNoOEk4RHdXcVBUYy1nUEcwLWRMdjRocGhzMllweExGRmgySFUxNWg3Q2ZYLXZaWXhwS0VGeVowcw?oc=5",
+  "published_date": "2024-04-24",
+  "captured_date": "2026-08-06",
+  "summary": "Spain: Marimbella variety achieves good productivity results in Huelva&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

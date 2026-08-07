@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173848-1ea4-home-depot-mandates-extra-tag-for-neonic",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Home Depot mandates extra tag for neonic-treated plants - nurserymag.com",
+  "source_name": "Berry nursery partnership",
+  "source_url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE8zMktoSTRaZ2kyUDJxS0NfS2sxMkU2R2dILXJPRFdJMnZ2TTFuOTVZVkZTUmFLdGo3cWdyMko2blpkMXloM29lcDJUVndqRWp2N0xIR3Nvd1BFMzBCVHFBempaMTAxV1UxNW1zd2Z2OWs?oc=5",
+  "published_date": "2014-12-01",
+  "captured_date": "2026-08-06",
+  "summary": "Home Depot mandates extra tag for neonic-treated plants&nbsp;&nbsp;nurserymag.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry nursery partnership",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry nursery partnership"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    }
+  }
+}

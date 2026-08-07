@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806173905-c6d2-morocco-solidifying-success-in-blueberry",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Morocco solidifying success in blueberry market of Singapore and Malaysia - EastFruit",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQM0ljakR3S0RoVFZoa0lMYWx3TjZmTFQ5YVJaZGZSbTFkUTBFR1d5amNmam5feE43MjRGSlBndHBOb1I4TmQ1dldMLU9waS13Y3M2Vzl3cnVJRGtIakZYZV9oZGc3NzBldFdlTFQ5NGx0R2xXbFkxaGZYUnI4QldHWWd3eDJKeFgzZkh6NTNYWGxaVTB1a0lXZ04zUkp1czFOQjZkbFpnXzM?oc=5",
+  "published_date": "2025-02-27",
+  "captured_date": "2026-08-06",
+  "summary": "Morocco solidifying success in blueberry market of Singapore and Malaysia&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

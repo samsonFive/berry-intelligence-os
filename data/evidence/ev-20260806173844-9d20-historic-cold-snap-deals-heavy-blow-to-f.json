@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173844-9d20-historic-cold-snap-deals-heavy-blow-to-f",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Historic Cold Snap Deals Heavy Blow to Florida Blueberries - The Packer",
+  "source_name": "Plant variety protection berry",
+  "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxONGMtOUd2Y3BBOHNMQlJDOHEyMzljSlkwZnlaM05fYzdSQTJDYjAwd3hyck11M0pjZUpkRjZpNzNkNjVteVBZUC1Fd0R0STl3c0lMakZoYXdOMml6YTBIVS1nUlcwclFFNkxPU2c5R2FsS3dZZ0FVVzg2LUlWMUtYRkdoQjFWS1BGUHN0dXlSMFpiaVU?oc=5",
+  "published_date": "2026-02-10",
+  "captured_date": "2026-08-06",
+  "summary": "Historic Cold Snap Deals Heavy Blow to Florida Blueberries&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Plant variety protection berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Plant variety protection berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    }
+  }
+}

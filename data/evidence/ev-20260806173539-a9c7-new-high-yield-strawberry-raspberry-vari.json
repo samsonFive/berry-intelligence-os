@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173539-a9c7-new-high-yield-strawberry-raspberry-vari",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "New high-yield strawberry, raspberry varieties released - Fruit Growers News",
+  "source_name": "Raspberry variety license",
+  "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQTGpYMjFWZUdPTlFISXBpSFEzZGF4OG14SkExOVQ4QUI1STluWVZ0NzN3UzU0Q29LTFBJX2NSSWFnYnowVkVJWlVUUGdQak1yNHdtWkJfNlBGZUhNVGVVMExtMUpjQ2JBcGFGRTc3eFY0ZVdiRWxHbzNBMm1aNVNZVjZVTm5XanlEeTZKM1dvSm55UXM?oc=5",
+  "published_date": "2018-09-06",
+  "captured_date": "2026-08-06",
+  "summary": "New high-yield strawberry, raspberry varieties released&nbsp;&nbsp;Fruit Growers News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Raspberry variety license",
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Raspberry variety license"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    }
+  }
+}

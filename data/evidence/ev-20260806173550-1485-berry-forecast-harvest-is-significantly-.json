@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173550-1485-berry-forecast-harvest-is-significantly-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry forecast: harvest is significantly lower, prices should rise - logos-pres.md",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNdVFHTUV0ekY0SEZZd1NfVHlFQXR2WmRGWThuRmVhR1N5SVlySGwxUDVKeENmZzRKRWY0SS1GelZ1VzVfVXEzWklSVXM0QlNyei1UT3N0WFpzamVoSVZwUzZwX3NfUEVMVmJJeURGVkpFeTNQQUg0QmtvX2RLa3UzTDN6N3dUQ3ZCb2dheGJHb3U2UVQ3ajRLQ3gyaw?oc=5",
+  "published_date": "2025-05-12",
+  "captured_date": "2026-08-06",
+  "summary": "Berry forecast: harvest is significantly lower, prices should rise&nbsp;&nbsp;logos-pres.md",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

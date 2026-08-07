@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173559-e6b5-chile-sets-sail-for-the-us-koru-kicks-of",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Chile sets sail for the US: Koru kicks off fruit season with a big first shipment - FreshFruitPortal.com",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE83eUhiME45aGNWYzJBZUpvVTRobU05NkV5WmdoZGEwbW5tVVJGNkU2Q290LTk2S2FobHFhUFlIbjAyd0w0eXIydXlVaS1HR3RoUzJjek0wVmdGcU84ZmR3ZUVydjc1MkpUYmFuUUJEaHFqcDhLa3c?oc=5",
+  "published_date": "2025-12-02",
+  "captured_date": "2026-08-06",
+  "summary": "Chile sets sail for the US: Koru kicks off fruit season with a big first shipment&nbsp;&nbsp;FreshFruitPortal.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

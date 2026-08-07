@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173559-f074-what-el-ni-o-could-mean-for-2026-fruit-i",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "What El Niño Could Mean for 2026 Fruit Imports from Peru and Chile - EastFruit",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNSDFwVzVVVmIzMWFkdFdjVDNZR3ZzZmppbW9GaU54LWhVa1pKcm92Umk1aEdDZ0ttaVJRcHoySTdLOHZYQ3BKWDVjQzlQVWtPRjhHV2s1TXFKaE5aQzZscXMyT1RwTVRWQnlXNzJLeEtkUFU2ZnQtQ3hJQlJtY1BxZHB6WjBxamtyQXdzbUw4NGxlVU95T3lvNUZxRkdOZzg?oc=5",
+  "published_date": "2026-07-09",
+  "captured_date": "2026-08-06",
+  "summary": "What El Niño Could Mean for 2026 Fruit Imports from Peru and Chile&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

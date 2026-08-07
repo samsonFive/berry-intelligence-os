@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175532-2ac4-blueberries-and-the-promise-of-agricultu",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blueberries and the Promise of Agricultural Innovation in Latin America - Inter-American Development Bank",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPMFUyNnFDcXVIQk9oX2hNZWlLdWdoWVdmR1owYlhmMDZGeVRKWGJXdVlRNU0yaXJrVWI3TXhUcVVEX2FZZFJHQjdTSm81eHdQdklTcVNaalBxTzMtbFgta3dpaVRJVFU3Vm9USk13SXVKTmdrSFhHLUtMNzVhVk85alZMaHpDdHRNRFRoTEZmT2JUMjVIQjVFZTVHWWlRUTg2MDItVWhObXJ5OFdxRzBkcw?oc=5",
+  "published_date": "2022-09-08",
+  "captured_date": "2026-08-06",
+  "summary": "Blueberries and the Promise of Agricultural Innovation in Latin America&nbsp;&nbsp;Inter-American Development Bank",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

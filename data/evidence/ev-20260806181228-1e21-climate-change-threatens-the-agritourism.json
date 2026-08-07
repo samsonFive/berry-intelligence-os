@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181228-1e21-climate-change-threatens-the-agritourism",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Climate Change Threatens the Agritourism That Helps Small Farms Survive - civileats.com",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOSE12eXVJUkdBTHZrRzBzZjN3aHMzT3A5TU5yWnR6SUYtTjUyTlZpNS1DSmV6TmxVVkVhR19zeElqWVcxZzZ2R1NZX3lEbXFUMU55TDBCclBKX1o2Y0lPdmNZVzdVbkpDX3Y4bVRQbHRmYUtqVTFxY2lCSkVybkN5ODBNa3F1X2ZqajhrOEN0ekVBUklBVl85UFdpb3c2ajV5Z0xkSEIzMmg?oc=5",
+  "published_date": "2023-09-06",
+  "captured_date": "2026-08-06",
+  "summary": "Climate Change Threatens the Agritourism That Helps Small Farms Survive&nbsp;&nbsp;civileats.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

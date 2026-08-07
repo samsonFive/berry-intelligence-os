@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173608-f5f4-berry-good-for-you-why-flavanols-are-key",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry good for you: Why flavanols are key to a heart-healthy diet - Euronews.com",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNMDU5eFp5OWRQX1FxWk1BYzNpTTlvQXJDOGRlNzN1YVk1WkdPNzl5TGRHYUpLN3J1WWk2V09Oc3JUeXdONW00SXBiS2dJTGF6aEkyY05DWWc0R1pMMUI0Y0dMYzZZcmdkbnZpZFhnV3Fjb0E5bjJjOTBVc21JeVZOSlhFWTYzVFAxQmdyeHpzSTFaNENCaEhyQnhQNUd5M3BwdXNLWlVMLWtUSjA?oc=5",
+  "published_date": "2026-06-09",
+  "captured_date": "2026-08-06",
+  "summary": "Berry good for you: Why flavanols are key to a heart-healthy diet&nbsp;&nbsp;Euronews.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

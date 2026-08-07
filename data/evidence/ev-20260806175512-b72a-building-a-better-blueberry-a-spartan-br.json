@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175512-b72a-building-a-better-blueberry-a-spartan-br",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Building a better blueberry: A Spartan breeder perfects one of Michigan's finest fruits - Michigan State University",
+  "source_name": "Blueberry breeding program",
+  "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPenA3RVNOSUd5Zm1jWl9WdDczdVhwa09VTjhZQjZxNWdHRHlqLU4tc244cTRYVm5pMHR0eW1BQjRCQTh1dTNkVEczQ0ZhXzZqTlZIMXRJNHJreXlMWjNRNE0yWlBzc3BfbUVObEZhbEIzNzVvQng2bkRWa21mcE9qV01SbVlJN0hTb0NfNF9oZUMzRHJDM2hRc2Q1aUcwa045b2xvS3U4X3E?oc=5",
+  "published_date": "2014-11-05",
+  "captured_date": "2026-08-06",
+  "summary": "Building a better blueberry: A Spartan breeder perfects one of Michigan's finest fruits&nbsp;&nbsp;Michigan State University",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blueberry breeding program",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blueberry breeding program"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    }
+  }
+}

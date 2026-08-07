@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175536-4062-chinese-strawberries-are-quite-a-recent-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Chinese strawberries are quite a recent trend, but their price keeps falling - FreshPlaza",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPb3VSbjVqek5HS2dZYkZYS2JEQXNNUS1kamJxSTdwSHZnYmJNa0kzUG1zejZyV1N3YmZxRW12a0xnVWs3NGRRRm94Y3l5ZTRyS1ZLVUpoVjhPVWNibGlKSWxEeWZqbzBraV8yazhvaEpfVHd3TnNIRnJHS1ZwemdHNHBzRzBjeGUwaU96VTh5aVRudUpfRXBxUXpWTDRsSy1nZEZkcldtd3FwS0djWF9rVUFpT0tIME8wZWd6Ujk3V1VGT0FQRk9BemZMUkhKUQ?oc=5",
+  "published_date": "2019-12-13",
+  "captured_date": "2026-08-06",
+  "summary": "Chinese strawberries are quite a recent trend, but their price keeps falling&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

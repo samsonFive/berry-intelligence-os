@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181229-e16e-saskatoon-grower-the-root-of-industry-ex",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Saskatoon grower the root of industry expansion - The Western Producer",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxObzdXY3N1eEFfZF9hN0g5UTA5VTVrLWdMekpWbzNrWjIxcnE0VjNLaVNISHdKbVEwQjRXM2tZN2xoTFlmSDliTzV2eWk0NnlDR1cxNDNsbllUOTRzYXdGQlVNTVpjRGxjNHJjaTUxZ3hwanJ4cVEwUmhxa0NIN1Fqb196cVpKb1ZNVEpfVnRn?oc=5",
+  "published_date": "2017-01-12",
+  "captured_date": "2026-08-06",
+  "summary": "Saskatoon grower the root of industry expansion&nbsp;&nbsp;The Western Producer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

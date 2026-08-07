@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173843-54b1-ew-group-to-acquire-spanish-berry-breede",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "EW Group to acquire Spanish berry breeder Planasa - Hortidaily",
+  "source_name": "Berry genetics company",
+  "source_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNX3p5WURaVWJTZlZNRHpGazFmanRYS2dBS2JzeDRQc3RldlBFVGxGWmxZTU5sNW9kYnFxaE9qQVVyQUg5TlJoVGEwRU8tb19GREMwVUxzX2tDbm1BRnVSRXZ0ZnlQd2xEeDlPOTFFYkFYdDBrWmZWeU5jV195WE9ROWNEZTUwekhLT010ZDB1Y1B2UFpFdzdZeg?oc=5",
+  "published_date": "2023-09-18",
+  "captured_date": "2026-08-06",
+  "summary": "EW Group to acquire Spanish berry breeder Planasa&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}

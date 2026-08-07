@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173910-05cc-se-asia-meet-up-2026-to-focus-on-fresh-p",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "SE Asia Meet Up 2026 to focus on fresh produce consumer and trade trends - FreshPlaza",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQTmZKbTFqZnJfaHlpcEhiSm1RWTd1VU1EQkZZMWVRbEh1SzdqZ2NoMVNhd05RT3NiMV93VzVwMGYwc01kdFNZOWxMU1JWaVMydEhldDZUREFvUElZZTQ5VjVVaEczd0R5T3c0cWpsVEJiRjFWVDRnVHBPNV9fNFhmMk1BR0tOTXFIcGFRcTBjZ3d2V1RxWk1iTmQ4OXNvY3Q0QWstWk5scVFiQWFENHo1Q2QtXzdKWDBNZFlIR2d5QVhzQU1rWjg4NXhn?oc=5",
+  "published_date": "2026-05-08",
+  "captured_date": "2026-08-06",
+  "summary": "SE Asia Meet Up 2026 to focus on fresh produce consumer and trade trends&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

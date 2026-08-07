@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806181236-d6e8-peruvian-troubles-boost-blueberry-market",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Peruvian troubles boost blueberry market for South Africa - Fruitnet",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNOWFWa3YySVdvV0dsbEJHcmRyQTRaVjFQMXF2WjVhbTByV24tSmxOQ0pvYWJtbFlTRXNIRmltZUV4QlhTQlh6NnZVYjRZcS1LVWZlQmpSaDBsTlFWTkk5UUxHT0d6VS1EcWd3WHctWnpqaWJycGNkVXUzb0Q3eXVWSHdIT0VFRGNpaUdJMHliWTFQc2tvcFZHOFZqLTNtM3BPUTdiby1IUk1mQ3RuVWtweGs3NA?oc=5",
+  "published_date": "2023-09-26",
+  "captured_date": "2026-08-06",
+  "summary": "Peruvian troubles boost blueberry market for South Africa&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

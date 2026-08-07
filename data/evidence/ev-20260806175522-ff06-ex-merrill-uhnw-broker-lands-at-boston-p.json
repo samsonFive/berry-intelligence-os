@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175522-ff06-ex-merrill-uhnw-broker-lands-at-boston-p",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Ex-Merrill UHNW Broker Lands at Boston Private in San Francisco - AdvisorHub",
+  "source_name": "Berry industry investment",
+  "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQVWZ1TmJCNnVweXBUVDB5bFFqSjVaTzR5V1hZWVNlbmZmNWp3a3FrY3E5cUdBbG9uQTAzU184UDItM205UjNsOFNRRnp1V1FuWmY4WmVPQ3pIRloxcEg4eURzOThiREpNRTFNdlgxbzhJWFBPQ01LbVZvM2dNWHZzMnFZLTh2Qm91VklrMDY5QUdZd1Z6M1E?oc=5",
+  "published_date": "2020-09-03",
+  "captured_date": "2026-08-06",
+  "summary": "Ex-Merrill UHNW Broker Lands at Boston Private in San Francisco&nbsp;&nbsp;AdvisorHub",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry industry investment",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry industry investment"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    }
+  }
+}

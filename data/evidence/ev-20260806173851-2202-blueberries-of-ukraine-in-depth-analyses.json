@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173851-2202-blueberries-of-ukraine-in-depth-analyses",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blueberries of Ukraine: in-depth analyses of prices, production, and export trends in 2023 - EastFruit",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxQSHNZWEd6czMzeEgwSlQtVjVHc0w0YVFaYVo3SjdmUzc1ZXNQVU1LQTR6T1R4Yy03UlBPYTBBMVQ0TXZaRkpDOFB0OWpCVHRDTmx0ZWpreFlPVTVkNE9IbjhMRjNJdU9kT3hCWmpEY1JucjI3SFB2UDB6clN4aDNuVktaaTFpMEZ0LW5OOHBHRE9rbnFvZEVDbnRIQlZkSjVYLTJTNGJmR0xLbjVwQ3hiSFdSTnRCblFrVjJwOVF1dnptcUdFbzhhT3ZKR2t5UklfZl8ySGZxQ2pxRTdaX2Faam1FOA?oc=5",
+  "published_date": "2023-10-03",
+  "captured_date": "2026-08-06",
+  "summary": "Blueberries of Ukraine: in-depth analyses of prices, production, and export trends in 2023&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

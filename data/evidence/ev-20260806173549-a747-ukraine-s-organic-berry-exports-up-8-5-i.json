@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173549-a747-ukraine-s-organic-berry-exports-up-8-5-i",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Ukraine's organic berry exports up 8.5% in value in 2025 despite lower volume – Organic Standard - Interfax-Ukraine",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9hdEdGWjdiU1QzTGxJNjg1WTkzb19WbjVmalNPak94V2Y2aXBUR3BrRFVNU3h6Z3o2YUdkT1dzbkQ3QUdCc1lQazNNN2lPZjFtWDl4WDcxVzdJaTdBenFtLUFnONIBaEFVX3lxTE5tN0Q4S0VvWE1Bb0ctZEZ1SUpOVUF5cS1FRWtENS1ReHYyZTR5V2gxRGJhWHBZcWFxVVNIUWdOeDRjdEJhM2cwZVpQTE41cWZaNTlCb29SanVrUnQ4TXlRTlNNTEtia1JX?oc=5",
+  "published_date": "2026-06-11",
+  "captured_date": "2026-08-06",
+  "summary": "Ukraine's organic berry exports up 8.5% in value in 2025 despite lower volume – Organic Standard&nbsp;&nbsp;Interfax-Ukraine",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

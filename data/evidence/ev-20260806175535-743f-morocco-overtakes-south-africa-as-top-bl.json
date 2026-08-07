@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806175535-743f-morocco-overtakes-south-africa-as-top-bl",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Morocco Overtakes South Africa as Top Blueberry Exporter to UAE - Morocco World News",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOWHdmZXpNNzZJeWJ0RGVsdE5OVXNGSEN6XzBReVRFWHAya1V0c05GQVZzT19PdDlZSVhkck03WHdYc3MxbkVQVmktcTBZSnRSTE1sRUU5S05OSHFld1AwelZJSVBlcld0TDFpeUFHRmJXbC1wcTlMME95bnM3bnYzN0lhcU55Nk1udnI3RjZXSVRQMGYtVjdBOUZHMGI0b3hwRHo4VlEyQzBpb29DU2Fzaw?oc=5",
+  "published_date": "2023-09-03",
+  "captured_date": "2026-08-06",
+  "summary": "Morocco Overtakes South Africa as Top Blueberry Exporter to UAE&nbsp;&nbsp;Morocco World News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

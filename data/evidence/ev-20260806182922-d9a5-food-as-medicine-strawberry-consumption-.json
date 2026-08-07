@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182922-d9a5-food-as-medicine-strawberry-consumption-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "“Food as Medicine” – Strawberry Consumption Linked With Heart Health, Cardiometabolic Benefits - SciTechDaily",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNcXEwVHhRdFI4OFZRUnlGXzBrMGlPTGxYbXFLal9sWWJROWFzQkNnZEVCZmFMeVJ2WURJbjhodXZkV0x0T1NDZXdBSnkxNFRCdUhSVDQxNDdZdzVFeVNvaWhlSnAyWXZ5b3h0QXExUGFsSVhLTHlLbVpDU280VUtwTm5kbFEzOHI1SHU1ZzhSTWRjT3RwSFVnMl9VVWVObE9tZC1EWjRNLUpwQXVvUk4yRTlrc09IQQ?oc=5",
+  "published_date": "2023-07-25",
+  "captured_date": "2026-08-06",
+  "summary": "“Food as Medicine” – Strawberry Consumption Linked With Heart Health, Cardiometabolic Benefits&nbsp;&nbsp;SciTechDaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

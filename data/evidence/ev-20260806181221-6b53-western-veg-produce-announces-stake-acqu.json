@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181221-6b53-western-veg-produce-announces-stake-acqu",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Western Veg-Produce Announces Stake Acquisition in We Love Berries; David Ollivier Details - AndNowUKnow",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNVEFqV1p6X3pUX1BxYnpKYVo0X2pVaVk1MmRNUC01Unhqa3V3OGlEd3VNWXhiSTJPYjNUNnB2d2luc0o3aTdHSDFPTHBJTmRFaXJPNW5pR3FiRUxuV1VDWFJ2Yi1pY3paX2Q2SG4zT05ldFFjZHRxQ3FFYVJ5dlZXNVlSQ2F0OHl4dnVYUTZDelh2aW8zNnBXbTViRlRNZzFGcC0xNlFjZXhZekRWLU9HVmJzZG80VEtmX2VBdmFGa2VHSWstUnl4YnExR0hLNnhjYlE?oc=5",
+  "published_date": "2023-09-05",
+  "captured_date": "2026-08-06",
+  "summary": "Western Veg-Produce Announces Stake Acquisition in We Love Berries; David Ollivier Details&nbsp;&nbsp;AndNowUKnow",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

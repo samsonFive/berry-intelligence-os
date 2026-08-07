@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173913-8978-lidl-backs-british-berry-production-with",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Lidl backs British berry production with £500m investment - New Food",
+  "source_name": "Berry category growth",
+  "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQRGVLLU85SFZTSG1MYjdYU2EyWHc1OGh3SGhrSk91UGZYSVUwMkdscjVUc0NTRFVsYnFDY2J6bm10UmZmbTlhLUdPSnd1MmN3aEU0QkhXajZGam9KaWJGVXdhNktLUUMxQnluRUZ3bWFJUkt6Qk1zYzlIcUk4WjlXU0cwOWhXU2JKWVV4YXVFNmctSEYtRmxSbzRxaG8wZHphSnRzU3k3bzF4bDVBVkE?oc=5",
+  "published_date": "2026-06-09",
+  "captured_date": "2026-08-06",
+  "summary": "Lidl backs British berry production with £500m investment&nbsp;&nbsp;New Food",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry category growth",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry category growth"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    }
+  }
+}

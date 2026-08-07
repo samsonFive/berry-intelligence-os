@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173600-e5fd-mexico-s-berry-production-reached-8-grow",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Mexico’s Berry Production Reached 8% Growth in 2024 - Mexico Business News",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOMWpiM1o2QmNORFVrcUYxMnVQMkhOOTRfYUJ0Ri1CTXRLRVFuZWdaUWE5MEk1WGs3RUhzR1dUek51eVp6NWJvUFU0OWh2cUFJRFNaNTRUSS1XRDFZc2d5QlRGWU9PVzBvdHlZYktMZktLY2FCMFpmbXhJcGFkQlpSSUh5Q1ZJTXFZaEtQcFBkaXZxTy1zUEVv?oc=5",
+  "published_date": "2024-11-25",
+  "captured_date": "2026-08-06",
+  "summary": "Mexico’s Berry Production Reached 8% Growth in 2024&nbsp;&nbsp;Mexico Business News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

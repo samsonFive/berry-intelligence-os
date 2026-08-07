@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173903-ea12-chilean-firm-mulls-potential-of-year-rou",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Chilean firm mulls potential of year-round blueberry production - Fruitnet",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPSnhGZ0Z4Wm10Qmw0RHhiUDBkQWRSNG1wb3o0dnBaaVVuaTZFMk9ZRzN1ZjNrNkpOcE41NWh4WF9Na3FZVU1xS195eXBlcjZmTGo2RVhfcmNNNFJhRzVsUGNMV0I1MFYzRVoxcmZiMjNKck9FRktPSmxSaUdyYUJaSGtaSTNrampwdGlsYTFQRmFEUlhCOU4yX0p6cGt2TEtPNmk0aTJTVVpEeUM1QmVsQXZ6WQ?oc=5",
+  "published_date": "2026-07-08",
+  "captured_date": "2026-08-06",
+  "summary": "Chilean firm mulls potential of year-round blueberry production&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

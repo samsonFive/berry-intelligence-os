@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175526-1364-ever-tru-farms-to-expand-operations-in-a",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Ever Tru Farms to Expand Operations in August - Perishable News",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQQ3VlTHp4aHRwRWh2aWZPbmhfa0h3MkllZUVjUWQ5SWNXenVQVVc3bzJTdi1CbGFkREtPMDh3VXFaWmY1Slo4ZXpmR18zTEo0cUxRdURKclFsV3hQMG5Ld2lscXJlM1FFQU9ZZWx2Y2tFMFJ5OUw2RFRtT0JvUEFzM09ZT21FQXFI?oc=5",
+  "published_date": "2022-08-02",
+  "captured_date": "2026-08-06",
+  "summary": "Ever Tru Farms to Expand Operations in August&nbsp;&nbsp;Perishable News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

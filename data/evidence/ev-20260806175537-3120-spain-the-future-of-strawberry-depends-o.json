@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175537-3120-spain-the-future-of-strawberry-depends-o",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Spain: The future of strawberry depends on more promotion and more varieties - eComercio Agrario",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPd0FKc2ZHWTVBRnhaWGRDaVJCajk1RC00WHRDdWhCOWJlUGlXaW8tM3NVT2ZReXhMbmlpb25UbTNnS3JpajdXYWhlbzM0SVZsYnl5ejh0X0NDN0oxN19qX1l0UWRtWnQ0NXJmcG00QUpkNC1FdUhUdklOY05GV2JnQ2w5Ny1KUkE5d0NMM0JxeGxBcDhTTHNpNlJfWnhyWmExbzc3empZWVFveFpu?oc=5",
+  "published_date": "2017-10-13",
+  "captured_date": "2026-08-06",
+  "summary": "Spain: The future of strawberry depends on more promotion and more varieties&nbsp;&nbsp;eComercio Agrario",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

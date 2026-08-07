@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173851-8a85-moroccan-frozen-raspberry-exports-to-spa",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Moroccan frozen raspberry exports to Spain: record-breaking volume, but decreased revenue in 2022/23 - EastFruit",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxOdlA0ZkFDWFlIM3BVY3lxMWowaHhoc01vVzdTQU1ZUVNLZkRYMklrVjM2RUlJZ1BQTmJRTXg1VDFrSTlfSHNvakVjNnA2T1g2RmVQbnk0WjVtM3Z6SWdrMnVJdGtnWm8waDBSOC1FR0pxOVo2WkJBM0dyVW1wZHRrblc0VjNibWktMVpGUFZzb2llcXN3T2xTcWxDQzV6cmkxNUU2MkFLQ2ZyV0NsS05WX0V2VHc0c0JXajFDMG1rSm11a2wySm5DVXdpMUtkWjg?oc=5",
+  "published_date": "2023-10-01",
+  "captured_date": "2026-08-06",
+  "summary": "Moroccan frozen raspberry exports to Spain: record-breaking volume, but decreased revenue in 2022/23&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

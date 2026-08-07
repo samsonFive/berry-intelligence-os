@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173911-bf5b-california-strawberry-commission-researc",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "California Strawberry Commission Research Highlights Strength of Strawberry Retail Promotions - Perishable News",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPVmdFTTIxTHhoTVdMa2puNllHSHNsc2JVWmFGZUhfQkowU3JHM2lkUVoxWjhISmE0NVZnNEpnRjBJcGltM2s0cXpkb1NwTXNvdjBiZEZ4TkNGUUlMT2J5azhqTkQ5VnQzOUVwUHVFWGpKaUVrTUpaTmVpSlp2RkRJZHNoZlFmUzljN0xhSURzdy1kbEFGc2FVbXFPNTJPcWl0dHFWcGZyUFFpaF9BaUFMaC1jMklic05ELUlpemFSbEhjNFRQbE5lRA?oc=5",
+  "published_date": "2024-12-04",
+  "captured_date": "2026-08-06",
+  "summary": "California Strawberry Commission Research Highlights Strength of Strawberry Retail Promotions&nbsp;&nbsp;Perishable News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

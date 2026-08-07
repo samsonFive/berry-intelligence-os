@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173604-1461-hortiroad2india-8-berries-and-mahaberry-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "HortiRoad2India, 8 Berries and Mahaberry sign MoU - Fruitnet",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNcVpyaUhTUnNUdDNtT3lfUHUyUUw2b2FrUXVvZEtjVVVmR2N6RV9FbGlCRk1HcFVDejU3UUpOb1FvU2s0Uk5vM3phc3dkNkUwaXNiMm51ZlJtSXlvVHUwQ2d6aU5zOTVYT2hyYlo3UW5oY1ROaXBuMXl4LTVMYmo4ZzkwQ05ERUM4MDg0VHNwc3JRYXBsVkNOR0t6OEdBTE0?oc=5",
+  "published_date": "2024-11-06",
+  "captured_date": "2026-08-06",
+  "summary": "HortiRoad2India, 8 Berries and Mahaberry sign MoU&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

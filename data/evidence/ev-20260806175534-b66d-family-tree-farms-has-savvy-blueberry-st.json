@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806175534-b66d-family-tree-farms-has-savvy-blueberry-st",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Family Tree Farms has savvy blueberry strategy - Produce News",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOOHViYWVpYzVTT3FxazNuY202dkNQNUxmODFzd1RSUlJIckU0VGhiaFFwb2FpWGlsRnNUWmpFWnZkNm1MUEQ0ZlVERTN1a0dlc1hYU1RtblhNYzJSaml1aWRSVUNzR2pDR254c3VLb09aaGk3ZmJWN0JmY29ITnNKbFc3elVmS0tR?oc=5",
+  "published_date": "2024-03-05",
+  "captured_date": "2026-08-06",
+  "summary": "Family Tree Farms has savvy blueberry strategy&nbsp;&nbsp;Produce News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

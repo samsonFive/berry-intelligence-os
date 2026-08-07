@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173544-50b1-number-of-ukrainian-companies-interested",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Number of Ukrainian companies interested in the berry business is increasing – Oleg Bosyi - EastFruit",
+  "source_name": "Exclusive variety license berry",
+  "source_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxONHJYVk1MU1o2ZkI0bU9BTWwxbG41cEZPajF2SjdhQ21JenMzdFlGSVgyMWFzTmc0RmVtRTRGT3djVi1YbXllVjRQQTZMTkNqQVlZVVdsY0FELWlUY0FLa1NGOVhVd0ctMmpZbW5DZS1GdjNFUEJoSi1aWlVCbjBoZEpFbUdUemJhdERnU2lRb3NuUGRxc1pNMW82VzNxNlNzU3BlaGtUZkpfNU82Qkp3S19ra0JqN25NSnNn?oc=5",
+  "published_date": "2020-08-13",
+  "captured_date": "2026-08-06",
+  "summary": "Number of Ukrainian companies interested in the berry business is increasing – Oleg Bosyi&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Exclusive variety license berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Exclusive variety license berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Exclusive variety license berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Exclusive variety license berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Exclusive variety license berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Exclusive variety license berry'; not yet reviewed."
+    }
+  }
+}

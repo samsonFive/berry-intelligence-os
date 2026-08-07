@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173604-7641-dutch-berry-grower-adds-another-18-ha-an",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Dutch berry grower adds another 18 ha and reaches 75 hectares - Hortidaily",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNMGFaQTlILTZsdXdTYWxHWEtNQll6Mmt1N3JBVDYydk9yVU5nWlF1UVZNN0gzNmd5ai11eGtjMGY3OG1XNnNVbEZiQ182ZHpKTWlSdTFvb0lxT3NvRWs2RllQQjVFcWNjZEd6d0RHNW9OQTctcVNFZmdLZDhaWVJFLTUtTXhSYUpwbEFHU1g3UEotc2I5THh1ZzJsY2JPUXJfMHdNOGN2MDA?oc=5",
+  "published_date": "2025-06-23",
+  "captured_date": "2026-08-06",
+  "summary": "Dutch berry grower adds another 18 ha and reaches 75 hectares&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

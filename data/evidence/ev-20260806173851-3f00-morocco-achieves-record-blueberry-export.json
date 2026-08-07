@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173851-3f00-morocco-achieves-record-blueberry-export",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Morocco achieves record blueberry exports to Eastern Europe in 2024 - EastFruit",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNZGhFN0lDb0tJT21fNnlyYXZ4LXFVOHhUVkgwcHkzMlFKQ3FKNUpOWUw5RGE5MUtwMnA2cHZESE1zamFRMDdybENpdDdtVW92dFNIeXVoTVhMekxrWXpZaWtVd1VZOVhhY3NpdkFVSkhuUWFaV0docUtUVzgwMmNLWWVkYk9fczZUUEU3VW5BZ3dJYjNrY09DcXl1aWJ5aVVn?oc=5",
+  "published_date": "2024-09-26",
+  "captured_date": "2026-08-06",
+  "summary": "Morocco achieves record blueberry exports to Eastern Europe in 2024&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

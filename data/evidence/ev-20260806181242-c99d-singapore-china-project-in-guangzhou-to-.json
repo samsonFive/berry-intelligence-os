@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806181242-c99d-singapore-china-project-in-guangzhou-to-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Singapore-China project in Guangzhou to speed up expansion - The Straits Times",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxORlJfamdlWFhJdmZETVVSVFJPeFBUZmZnNl9CQU8yWnhNODZKSHQza1JMaHVwWGFNSDNnTTI4N2FmLWxpMlJ6UktNdE84M0dFbHE1NWdqdEEyTF9fLXBnNk5vYjZLZVJpZFpyd0YtcXNWaXQzMi1jVnIzNFdKTjlCdlVSbGduYlRUV1M2SVJWOFduOW0tZllTczFuSE9ObVFVUXhnMw?oc=5",
+  "published_date": "2023-03-29",
+  "captured_date": "2026-08-06",
+  "summary": "Singapore-China project in Guangzhou to speed up expansion&nbsp;&nbsp;The Straits Times",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

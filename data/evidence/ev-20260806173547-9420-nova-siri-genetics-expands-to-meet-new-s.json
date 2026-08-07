@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173547-9420-nova-siri-genetics-expands-to-meet-new-s",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Nova Siri Genetics expands to meet new strawberry demand - Fruitnet",
+  "source_name": "Berry nursery partnership",
+  "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQTEVmd0x6VEFMTlZFWHNuRmVkUEJmNVE3aEhOZFhWNFBzTzh2QzZfU1FPbkFYMF9kNzQwRFBQT2Q5WTlVd2NmTUFFc3BsaV9tc0hobzg0dHR6YnZvV20xQzZIZ0VnUi03VWhVLTliY2ZxYmlaLVhKVzlNakNULTZpcEdhSFZGZ0NhVFpvMHhsSUg3LVJGRkdwUm5PZkpkNFpNcGJRam1hNTFlUQ?oc=5",
+  "published_date": "2024-09-23",
+  "captured_date": "2026-08-06",
+  "summary": "Nova Siri Genetics expands to meet new strawberry demand&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry nursery partnership",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry nursery partnership"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    }
+  }
+}

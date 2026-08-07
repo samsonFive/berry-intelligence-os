@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173908-0ab4-growers-expand-but-not-by-building-green",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Growers expand, but not by building greenhouses - Hortidaily",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNVXNjZmxJRmRoRjJjM2piakN1T2k2c1VUeElVQ3BsN05CUGsxYV9MdUd6Mi0yQkNONFFOTF9nTUJCamx6cjhOVG9fRDNVOVAwbjR5aGhIRlpITHhVNEZldGFmRWdneDNpQ0pLbVRtUzhJU3BrZG5aSnBDbDQwRjllZFNVZklUR1lBZzRBQWRyYkNKZW9X?oc=5",
+  "published_date": "2025-12-23",
+  "captured_date": "2026-08-06",
+  "summary": "Growers expand, but not by building greenhouses&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

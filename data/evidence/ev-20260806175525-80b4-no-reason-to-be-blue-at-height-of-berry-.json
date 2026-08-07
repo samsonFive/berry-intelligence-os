@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175525-80b4-no-reason-to-be-blue-at-height-of-berry-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "No reason to be blue at height of berry season - The Register-Guard",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOTHVDVTFSZDR1OGtFS2JVLTg2SXcxYUp2VXM3c2hrWGhvNFBHZFltb3A3OER5QzBMVmU5bWJfYlc3VTRBb0NFSDExZWpMNkUzX0lUOWZuSTlvRlhRU1NyQnBES3ZSSXh1cjduUG9OUmluMXowU2JkMWUtXzJtb1VYOUdleXk0dkxGTnVtQU1TSXM0c1NGdnJDMUQxeWhoM3lyMkE?oc=5",
+  "published_date": "2019-07-19",
+  "captured_date": "2026-08-06",
+  "summary": "No reason to be blue at height of berry season&nbsp;&nbsp;The Register-Guard",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

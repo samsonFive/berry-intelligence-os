@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-56fd-uc-davis-ends-strawberry-licensing-agree",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "UC Davis Ends Strawberry Licensing Agreements With Eurosemillas - UC Davis",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOeVotQ3dNRF91WnVCbmFoSHktN1Nvck9HVzJ0YlRQX1JoZXk3Y1RLWjkza1JFRWFGRnh5Z25PZDJmUFNfRy1meFkwanVQdTdFOVhGa1hIb0U1UngyTEZ0cWtVTGJDb2xZZWdnZC1pWUJVTXQyZTk3NkFXb2hEXzVMTllzSjBHbEpOdTJIR1N1QkY?oc=5",
+  "published_date": "2024-05-21",
+  "captured_date": "2026-08-06",
+  "summary": "UC Davis Ends Strawberry Licensing Agreements With Eurosemillas&nbsp;&nbsp;UC Davis",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

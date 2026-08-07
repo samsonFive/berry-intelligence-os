@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173908-88c8-fruit-art-company-first-in-kazakhstan-to",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fruit Art company first in Kazakhstan to start growing blueberries - Agroberichten Buitenland",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxORmVNWEZwcG01TTE3TDkyMzl2UE55MHRwdl9zQ3Ata2dwUTBHc0FkM0N6T1haekxJNnRGMWc2ZkVLRzBqOHpTYkhqZFJ4Q0FCNllSQkhMZkcwTm9hamVMaGxVeFhjMWRyYVlycjZCblIwdWdQTG1Da2NZTWtXVlMyR1RNeldlRDJiRW5LWTJFelJPV3Q4a1VNNmRJUHdRdi15N05qRTVoM3ZRTzlMOHVuNnR0bmlZZHE5WFMwRDA0SGFqVHY0QjZUN3J6NA?oc=5",
+  "published_date": "2025-06-12",
+  "captured_date": "2026-08-06",
+  "summary": "Fruit Art company first in Kazakhstan to start growing blueberries&nbsp;&nbsp;Agroberichten Buitenland",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

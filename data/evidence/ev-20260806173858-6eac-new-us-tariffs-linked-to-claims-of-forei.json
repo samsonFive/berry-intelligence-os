@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173858-6eac-new-us-tariffs-linked-to-claims-of-forei",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "New US tariffs linked to claims of foreign forced labor dismay and anger trading partners - Audacy",
+  "source_name": "Berry tariff",
+  "source_url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQVlhTY19IV3RDbnk5TThjRWFFVTdxYkJPVGdIbmJ0NWJrVkxCNkVFaVRmUkpzcDRrc24wX2phVkZiQ3J2dktXQjB3dGJMekFGck00WF9wYmZ5b2llNWt0OFFqc09MMnR3bnhDX0Y0Z2ltOWlvbUw0dFJtNmNKNXIzY3g1Y0gxcngzWTJFcDJrNzBoeVhjYW1iTjdMS01DUHpmQ0d2MVdsX3h2cy11MU8yQ01CekNQekJBRWU1aDN3?oc=5",
+  "published_date": "2026-07-24",
+  "captured_date": "2026-08-06",
+  "summary": "New US tariffs linked to claims of foreign forced labor dismay and anger trading partners&nbsp;&nbsp;Audacy",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry tariff",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry tariff"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    }
+  }
+}

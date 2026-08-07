@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173848-fcb1-growers-need-to-trust-that-the-plants-ar",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "\"Growers need to trust that the plants are consistent, clean and race ready\" - Hortidaily",
+  "source_name": "Berry nursery partnership",
+  "source_url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPZ1BzRHM2SXpnOEVlRmtaZEctODItRmZIVjA4Qi1hMDVBQ3ZyeGFnaExYM0tlZE5lTnY0OThLeVZUVWVtZWo4WExaaU9QTjlhbHg3X19qQmN4MmNVVkhFZm5DZW9ubzFCU2VVWWNjcFEyWThlZlQteXd4dHI1bDJYbmE4Y2RNWVFhdmo5eXJnRXlVWUd0SGVUcG13OXhaQUdNSGM1dnNFTGVEaW1Cdjk3YWRUeHRUeWdU?oc=5",
+  "published_date": "2026-07-07",
+  "captured_date": "2026-08-06",
+  "summary": "\"Growers need to trust that the plants are consistent, clean and race ready\"&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry nursery partnership",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry nursery partnership"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    }
+  }
+}

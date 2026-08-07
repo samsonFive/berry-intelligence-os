@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173853-e952-delfrescopure-announces-phase-one-of-ten",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "DelFrescoPure® Announces Phase One of Ten Acre Expansion - AndNowUKnow",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNZkVSR29LbG15VnBQcmx0eTZ5WTBwQW00MDNBQUJsMnRLYXM1STNMUW1YdFB3Y0RSTDFOVlRER0ItYnAzTG9JZlBxQXJOZUVSU3BEWEREYTI5UjAzYUxJdkV0WnQ4dUEwRFBJWDlBdEwtYVdYNjlSWmhGNHM0eEgyRktybUdSQ1d2QUc1eGhwMlltV0VqZzBOXzc2NlhuaTItM3kxTFJnZFBfMU81?oc=5",
+  "published_date": "2017-10-04",
+  "captured_date": "2026-08-06",
+  "summary": "DelFrescoPure® Announces Phase One of Ten Acre Expansion&nbsp;&nbsp;AndNowUKnow",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

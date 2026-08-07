@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806181239-dcc7-red-blossom-sales-fortifies-alliance-wit",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Red Blossom Sales Fortifies Alliance With GEM-Pack Berries; Paul Kawamura, David Lawrence, Mike Etchandy, and Craig Casca Discuss - AndNowUKnow",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMiggJBVV95cUxNNHdpYzdFWG5GOXh6MWhxVzJDZENuSEd0d0U1dnJhak9UR1pYUHJyYXlpZm81WkFnYjlNWllFbklsejMzTFU4NnFIbV92aGhWOW00SGdnSjduTk5mME9iTWM4S1JsZHZfeDBfNzlwaGtUcmFBdTZtQ3dXZ25yTkJKRnlnOV9hOHQ0RUwyMC13eGlnQjlnM3Rxb0QybTczQ2ZCbktZNW9RTy1Rb2VUOEx2akxNQUFiOUJBRjBPSTlDaG40OVZXZjhCcWI4OEdCMHdLcEtmZmE5dk83OFlyTXRkSlhhWHh6RWFKZnhSSFlqa3ZDNHBJWjBDUGpmTXVoS3pfaXc?oc=5",
+  "published_date": "2021-10-08",
+  "captured_date": "2026-08-06",
+  "summary": "Red Blossom Sales Fortifies Alliance With GEM-Pack Berries; Paul Kawamura, David Lawrence, Mike Etchandy, and Craig Casca Discuss&nbsp;&nbsp;AndNowUKnow",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

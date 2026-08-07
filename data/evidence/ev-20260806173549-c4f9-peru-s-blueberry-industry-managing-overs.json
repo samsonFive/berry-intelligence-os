@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173549-c4f9-peru-s-blueberry-industry-managing-overs",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Peru’s Blueberry Industry: Managing Oversupply and Market Pressures - Produce Report",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQdXh2QjlZRVgwTzRhYTNWOTVlUXZPZVd6c1hxV1Q5dWM4RzZmZVRXc2ktOHNoQ2VFRzd5Zk40QjhRSjhldVcyV291cVRVQlUzYmN0T3p1ejFwek5IMkJFX3RJMUxDWWszWG1kQXVvbHNsUWhmRTFicS0taTZZQkpkT0I1VWo3Y3FURWdpZVVBbE14cmN6amF1b0hub0VQaVJ4?oc=5",
+  "published_date": "2025-10-09",
+  "captured_date": "2026-08-06",
+  "summary": "Peru’s Blueberry Industry: Managing Oversupply and Market Pressures&nbsp;&nbsp;Produce Report",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173604-2752-dutch-lessons-hollyhillandco-com",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Dutch Lessons - hollyhillandco.com",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1NNDMzd2JiYWpKSVljVXhDMC1FNkk5dU9nRDZpV28yczZlWHVHSlNXRkdrTTQtRm9SOU44Z19NZjhla2Zsd1BvMHVyLUo3ZHdBcVpUSE9UeS1OZmtVOGRRcUFuQTg0X1RpbkdGZA?oc=5",
+  "published_date": "2025-03-27",
+  "captured_date": "2026-08-06",
+  "summary": "Dutch Lessons&nbsp;&nbsp;hollyhillandco.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

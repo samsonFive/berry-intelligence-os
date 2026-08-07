@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173851-806d-outlook-for-mexico-spain-blueberry-twins",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Outlook for Mexico & Spain: Blueberry Twins from Different Continents - EastFruit",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQV2tVa1FlbzUxbUFLMnRSS2c4azZTRFZrQ0dTeFdVbnA1aU85VE5neHVDeFhwMHhaa0dzUWRwcHlLRWtqSkFQa1RFM2JvYjI4YjR2VWRvYnhwTy01Sm41NzZsMi1yZVMxSjR5UDA0OXBRUWVnY3pIUDBNMnk1a3FoNGtOd1lQX3NxMHJ4N0RQNmFQNEltUGl4WW1rZzdOcHhlbEZqMnJBNDk5eDlraC16amV0VHZ6QVBSOUR2X3RQVzlXMzdldXhn?oc=5",
+  "published_date": "2025-04-28",
+  "captured_date": "2026-08-06",
+  "summary": "Outlook for Mexico & Spain: Blueberry Twins from Different Continents&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

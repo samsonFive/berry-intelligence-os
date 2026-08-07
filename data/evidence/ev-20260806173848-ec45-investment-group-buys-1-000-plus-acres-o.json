@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173848-ec45-investment-group-buys-1-000-plus-acres-o",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Investment Group Buys 1,000-Plus Acres of Farmland in Toledo - The Daily Chronicle",
+  "source_name": "Berry nursery partnership",
+  "source_url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNZ3QtdWc3UU9Zd0RYV2RkU3k0WWF1RFdmeGNkX0RDM3JDUXFJYk90cTg0ZjZHamdFeVpwQ042NFFZYzFUXzVRMW1yd1RwczZZUHpyNFpWQ3FMbHgtMFlGU09pQjhLYjZ5OVBEUmdNd0NVeTBiQUUzcXRQZWN0SkVOWTBzaUZTZ3ZaaUEzNTRlRElrMFJIT181RHRjYlhZQW8?oc=5",
+  "published_date": "2018-07-27",
+  "captured_date": "2026-08-06",
+  "summary": "Investment Group Buys 1,000-Plus Acres of Farmland in Toledo&nbsp;&nbsp;The Daily Chronicle",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry nursery partnership",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry nursery partnership"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    }
+  }
+}

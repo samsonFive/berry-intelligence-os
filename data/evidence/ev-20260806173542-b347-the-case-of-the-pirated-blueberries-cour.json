@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173542-b347-the-case-of-the-pirated-blueberries-cour",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "The case of the pirated blueberries: courts flex new muscle to protect plant breeders’ intellectual property - The Conversation",
+  "source_name": "Plant variety protection berry",
+  "source_url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNams3WnNnbXIwdlduTWc0THVJa0lTLUVoOVNKTlR5UFlJWXBxa2gtMFFFRV9HVUlqWnlxQk4xUzR6R2tQLTNwYTY1c24yLTZJZVhpYlpOTjJTT29oWjRLcW5uaFg5R0Rrcy1NLWhxc2FIVXZYNFNrNVhfLW04WW1SUFhYN0hlLUhuTWczY0RVc1Y0d3F1VkJncnZQRktiamNUVnZwR0tnU1JTYjlYeUcwU0ZSeEMtMk0teUJLN1RCMXhiQkNMNmlHRFNtNVhqMndtSXRqSG5tbTA?oc=5",
+  "published_date": "2019-11-27",
+  "captured_date": "2026-08-06",
+  "summary": "The case of the pirated blueberries: courts flex new muscle to protect plant breeders’ intellectual property&nbsp;&nbsp;The Conversation",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Plant variety protection berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Plant variety protection berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    }
+  }
+}

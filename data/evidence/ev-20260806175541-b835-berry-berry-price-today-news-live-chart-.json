@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175541-b835-berry-berry-price-today-news-live-chart-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry (BERRY) Price Today, News & Live Chart | Forbes Crypto Market Data - Forbes",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE52NGVmWEZPdDhEX1dsNVI2RWxHZTA0dWM2ME1vNG5vWWc0akduMjBEY1c2RHd1TGt2ZGM4MldjdlFoSU9ncWxFLW5pVnJuVUZzMDBhbjJSMnQ3Vm1MMVZHVWZUdnAwclAzSzhn?oc=5",
+  "published_date": "2024-11-28",
+  "captured_date": "2026-08-06",
+  "summary": "Berry (BERRY) Price Today, News & Live Chart | Forbes Crypto Market Data&nbsp;&nbsp;Forbes",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

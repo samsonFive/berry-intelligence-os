@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173608-8e87-a-nutrition-scientist-doesn-t-force-hers",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "A nutrition scientist doesn't force herself to snack less. Instead, she has 5 simple, heart-healthy favorites. - Business Insider",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPS1pfTmdaQW1lLU85OHdOVlhiNmRMTDhyRjMzY01pRHdUR3lEdVNucG5oS2VNX040VlBDbGFfbnR4WElrZHJFbU41Nm9raXlaNGF6M29LSlZaMW9FYUI5ZEFIbzhETXdvQTNHWm1uREFZQzh6SHE4VER5RjYzRjVqRERYSzdFc2tNdTB4ZjBIVmdIakk?oc=5",
+  "published_date": "2026-03-31",
+  "captured_date": "2026-08-06",
+  "summary": "A nutrition scientist doesn't force herself to snack less. Instead, she has 5 simple, heart-healthy favorites.&nbsp;&nbsp;Business Insider",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

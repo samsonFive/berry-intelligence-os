@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175524-92de-berries-exports-surge-50-percent-herald-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berries exports surge 50 percent - Herald.co.zw",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMickFVX3lxTE9kVnBDZ3JRNU9mbWdjdS1Hc21PeG9Rb25XcE5PdlJkMlBTZW5hWFA1dy1SeWlJQXJpSmFFSG81cThBNTdJNlBNM0ozc3hkNEEzWG1fRE01ZFlYZE9VVkxTejhQZDlQWEFWOE5YY2xlOHpYdw?oc=5",
+  "published_date": "2025-02-03",
+  "captured_date": "2026-08-06",
+  "summary": "Berries exports surge 50 percent&nbsp;&nbsp;Herald.co.zw",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806181236-f500-camposol-opens-peruvian-blueberry-season",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Camposol Opens Peruvian Blueberry Season in Asia With First Ocean Arrival - Produce Report",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOWEtBYXd3ZXJ1Zmh2ZTZDdXk5M2M4djhmOEE0cF9xZHJQTlJwdW1DNEdWY0tHNktXRWhjalpZZ09RaTg5Q2VzVkN6Ni0tMnp4NlhRNnpFM1ZVS2NlTkhuZ1Q3Rk91MmpLLWF0U1hZU20zUFRkSW9vOHZqMnNGMi1seTlzZDROdExnOVdsVWJOOUpsZnJYdXc1RTI0S1pZTzBHeGZ0S1RB?oc=5",
+  "published_date": "2025-06-24",
+  "captured_date": "2026-08-06",
+  "summary": "Camposol Opens Peruvian Blueberry Season in Asia With First Ocean Arrival&nbsp;&nbsp;Produce Report",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

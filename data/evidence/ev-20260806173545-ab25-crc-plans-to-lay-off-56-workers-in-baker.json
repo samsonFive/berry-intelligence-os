@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173545-ab25-crc-plans-to-lay-off-56-workers-in-baker",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "CRC plans to lay off 56 workers in Bakersfield following Berry acquisition - Bakersfield.com",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxObUpYMl9BcnNnU0RfcktPRXVfdkFDa1RTMnM1NWcwYWljV21pVGg1YUJ1RG1oby03MzVmemJuU3p0NzhMZE9kdHZONkdVMW5XQkJYVGtja2xVcGt6NU9VUVR1YnRZNnhoM29hRmJhN252dFUySzFxcTBQaHo0YV9vWGZUbXJpZy1jQXFsUXVtWkRpYXViejFVYTVibFNpam1QakxMME1qTHhqU3RwUmE3VnRsTFgzdWZESE5MdENrb0lpS29UdzVyT29lZG5Vc2FkSVkyUFpOaFJHWFBLZ2l4Qy1OR3o1S1ppVHI5V19R?oc=5",
+  "published_date": "2026-02-18",
+  "captured_date": "2026-08-06",
+  "summary": "CRC plans to lay off 56 workers in Bakersfield following Berry acquisition&nbsp;&nbsp;Bakersfield.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

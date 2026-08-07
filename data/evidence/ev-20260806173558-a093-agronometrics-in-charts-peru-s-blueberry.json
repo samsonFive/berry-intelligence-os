@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173558-a093-agronometrics-in-charts-peru-s-blueberry",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Agronometrics in Charts: Peru's blueberry industry faces climate uncertainty as El Niño risk builds - FreshFruitPortal.com",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5iVlJwbXNncFpmOTB4TUZrNTVyTXU2b1AxTHJ6WFJONUFFMm12WEdfMWJrN0ZtS1ItR2lIUGF5a0IyYW1vUTU2R3o1SDZRX0hYWFpDdDJLeV9QTGtYS0pJTTlRZnNGN0RxMnBINGk5MEVabG1rWHNOZUtSaw?oc=5",
+  "published_date": "2026-06-16",
+  "captured_date": "2026-08-06",
+  "summary": "Agronometrics in Charts: Peru's blueberry industry faces climate uncertainty as El Niño risk builds&nbsp;&nbsp;FreshFruitPortal.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

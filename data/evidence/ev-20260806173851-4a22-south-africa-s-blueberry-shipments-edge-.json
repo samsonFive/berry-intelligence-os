@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173851-4a22-south-africa-s-blueberry-shipments-edge-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "South Africa’s blueberry shipments edge ahead of 2023 - Fruitnet",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNY0tpWE1iY1Bmb2lRR0xvVi00alFmMkVGUEw5UkhsSElmd2VJVXV3UE9mUXFvclBfMUN3QTYtcWlIaV92THJZV3BVSDRWa0VUWU93Z3cxTXZobHlVYXpVWmhpQVhRcG1xeTVDZlIxR09NNDVfc0Y5SVpZdm56YTJyN0VlemI0Z2IzRE1hVzZFenowa0QzTG80S01wTDdRQ2lxcE5uVA?oc=5",
+  "published_date": "2024-12-16",
+  "captured_date": "2026-08-06",
+  "summary": "South Africa’s blueberry shipments edge ahead of 2023&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

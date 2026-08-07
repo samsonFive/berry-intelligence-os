@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173600-9bda-mexico-introduces-new-avocado-and-berry-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Mexico introduces new avocado and berry export certification rules - Hortidaily",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPamNUTXhhbGY3a1I5U19NWjlhcHFFN2Q5QWNKY3RZcmJPSWc2VlpLWEo5UVBWY1Y0ZThNM2tENTkwcV9oRGwxa0VvdUdPd0lVeFZNNnVySnVsMXZvRE96a3JoQUszVnN4Z0FMQjNzeUhQcnZBcF9fOVF3c3VZQUpVdk1yMVdON3FtWm8xWnVhV2ZSZmlCLVZHNzRDYjItUDU0cDZaNjFEbFZ3ZVJFck1v?oc=5",
+  "published_date": "2026-05-08",
+  "captured_date": "2026-08-06",
+  "summary": "Mexico introduces new avocado and berry export certification rules&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-ffd0-public-strawberry-breeding-program-backg",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Public Strawberry Breeding Program Backgrounder: Frequently Asked Questions - UC Davis",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOc3BZaGFWUVhGa3FFMkItVThLU2NZbVRLRUpEcjEybWJmQW9wNU1QN0gtZHIwNjlmLWhVLXk1cmVaQWZQOVJuMkFqSWlQaTB1QlJKRUlMNE5FRHBGSkJRZ0V3R3ZYS2Fmb3BldkFZUFBtbTZSSVVmVjZxVjBuQ24zOUw3MmV1OGtsdVVWd2xyWUhPQ1RtdThYbFRORzQ?oc=5",
+  "published_date": "2017-05-08",
+  "captured_date": "2026-08-06",
+  "summary": "Public Strawberry Breeding Program Backgrounder: Frequently Asked Questions&nbsp;&nbsp;UC Davis",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

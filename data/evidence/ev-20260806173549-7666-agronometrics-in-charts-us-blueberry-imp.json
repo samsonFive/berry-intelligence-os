@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173549-7666-agronometrics-in-charts-us-blueberry-imp",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Agronometrics in Charts: US blueberry imports hit record 720B pounds amid weather-related crop declines - FreshFruitPortal.com",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1uU1RvWEJ2XzBiODZOUEFUZ0V0Q09NQjBKbFJpZWhGMzBId1VSRzNlaTZPYzJPVC1DbUZ1Y3ZhdlFVc0VqOVR3cVlmUG9YMEdIUnhkZ2FrT1RlOUJtWUV3a2NMTXZ1dUJQVjhxT2NtTk0wd25hWVp1ZDFR?oc=5",
+  "published_date": "2026-03-31",
+  "captured_date": "2026-08-06",
+  "summary": "Agronometrics in Charts: US blueberry imports hit record 720B pounds amid weather-related crop declines&nbsp;&nbsp;FreshFruitPortal.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

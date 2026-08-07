@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-81ca-blackberries-reveal-single-genetic-switc",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blackberries reveal single genetic switch for first-year fruiting, speeding new varieties - Phys.org",
+  "source_name": "Blackberry primocane variety",
+  "source_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQbHBZWWtYeGtGM0R0Wi00XzhvTlJLTVN0V3JsNDVTbFd6Y29JVnFRcUpNazBNb3lDcloyYXh1SkNKQ2lkdUlYY2Zha2FKZlFsdFByaS1Da3h1c2NaUlMxZGNWTVN6V2p1X2prVmh2bEhQeFpKTHliU2lhLUNZeVR0bFhR?oc=5",
+  "published_date": "2026-05-12",
+  "captured_date": "2026-08-06",
+  "summary": "Blackberries reveal single genetic switch for first-year fruiting, speeding new varieties&nbsp;&nbsp;Phys.org",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blackberry primocane variety",
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blackberry primocane variety"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173852-59ec-northern-hemisphere-apple-harvest-starts",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Northern Hemisphere Apple Harvest Starts: What to Look Out For - czapp.com",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPS0JjWnc4cWttYnRFak41YXd5Q3dPWDA1S3FTREktZEszWjNBMTU3YjVqSVg0Z2ZWWVU4ZnNqbUllTEV4WFJBdU40NVByNm5zUkxHV0tKZGQ3Q1hGZjR3emdsSHRzNFdIck1sRFYwYnhETHdvRE9sNlBCRk5GQ0VNSDBNTnl4UU1YdkVEVU9BRl85Tm1aOWlvazJUemdfTXBTd05v?oc=5",
+  "published_date": "2023-09-13",
+  "captured_date": "2026-08-06",
+  "summary": "Northern Hemisphere Apple Harvest Starts: What to Look Out For&nbsp;&nbsp;czapp.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

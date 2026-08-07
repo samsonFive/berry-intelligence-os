@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173600-86e1-mexico-s-san-quint-n-water-crisis-threat",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Mexico's San Quintín water crisis threatens tomato and berry production - FreshPlaza",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNbTJLNUV1dFRhcjhZMnFIQlhOWGhPZVdwSWFtUzhydHJQNjRTNGpiVnpRaWdHR1lpN3ZWM3pfZzhvcnhwclp2N3VaUnpaOWF5OWZRd1MtMXl2TDRCODQ1VHlCSll6OE4tZmdKcWRaV05Zb1ItNVlyS04xNmg2SW9UdVRJTTQ0WG1RWjdhS2pZQnZ0ay1xTTZzUGpaN0tXaU5MdHVacHZyRE1DcW1ib0ZJNTB4V1UzZVNrTGdKYzNqcmdDeVN2UmpHaA?oc=5",
+  "published_date": "2026-07-24",
+  "captured_date": "2026-08-06",
+  "summary": "Mexico's San Quintín water crisis threatens tomato and berry production&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173602-ed12-fresh-strawberry-suppliers-export-data-p",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fresh Strawberry Suppliers, Export Data & Price Trends | Global Market Overview 2026 - tridge.com",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9BTlhpQ1ZiNWtmOS13cW8zcE9BRFJPS21FTV9hbElTaldOQ2lubEpoSkVjRGVxbFZneUtyWTdTNWRyOWk0WDloWC1CS1Q4Zmp3TE5ZS08xX19Fbkg1N2x6TkJzc3pjZw?oc=5",
+  "published_date": "2026-03-18",
+  "captured_date": "2026-08-06",
+  "summary": "Fresh Strawberry Suppliers, Export Data & Price Trends | Global Market Overview 2026&nbsp;&nbsp;tridge.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

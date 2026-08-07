@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173541-5b8b-the-world-has-a-berry-giant-agroberries-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "The world has a berry giant: Agroberries has completed the full acquisition of BerryWorld - EastFruit",
+  "source_name": "Berry genetics company",
+  "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNUm9QcnVIZl9rZ0dCMTl0TnhxMGtSMHNXQ1lMRExYWTlfOW5ITldtTnYtS1MtRU02YUk4R3VRZVItM2JZdmJOVFNRdHpjZ3Z2X3l6Ulc4RjlWaEZEVkYxUjlVX3ZTNFZJVWxVb2hTNFNXbE90T0lENDJCa21VeFpkVEJDNWo5Ti10TTJtX1k3VWVmVWdWOUZvbXVfQ2kyUDc5V1UwZU9RSmpCX3ZCX3ZVLTZRVmlLUjJneGR2NA?oc=5",
+  "published_date": "2024-09-24",
+  "captured_date": "2026-08-06",
+  "summary": "The world has a berry giant: Agroberries has completed the full acquisition of BerryWorld&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}

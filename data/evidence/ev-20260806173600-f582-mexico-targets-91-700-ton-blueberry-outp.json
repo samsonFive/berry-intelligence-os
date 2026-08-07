@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173600-f582-mexico-targets-91-700-ton-blueberry-outp",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Mexico targets 91,700-ton blueberry output for 2025–2026 - FreshPlaza",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNVExXV2tTOHAzV1MzVXp3UGt2ZW1KdUJPOXNWWktVRmVPUXJFOEtmX05Qd3ltRzQwYlZMMUllLWxtX19LUm15WlNDVksxb3NJWU5lWldVSEpoc2tlaVI1WGk3UTdxbXI1T3UtcW8yNmRFa0c1RnhIbDV5YnotS0pEOGVSWEZxYWR1MXpjcHlsOGQ1dlU1T3k0Y2ZHLXRRTmotVHZrTUo5Y1lwUlhSS2NXYk1sMGE?oc=5",
+  "published_date": "2025-11-27",
+  "captured_date": "2026-08-06",
+  "summary": "Mexico targets 91,700-ton blueberry output for 2025–2026&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

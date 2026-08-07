@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173903-7189-requirements-changed-for-fresh-blueberri",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Requirements changed for fresh blueberries imported from Chile - Fruit Growers News",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPMEVYQlh4OGJMOGdzejB1UXc5Mk9MejFPQVBpVTFXanhYNjlfVkVYSjFzRGRSS3BhVDBUajhnR1YwV2g1T1VsM0pUUTFtc0lLYXY2NUxrNVJuYXg5QzNxVWpMVFMybFZVTU1FWmF6VHdmM0pWcXJXYWp2eXdGaVRGR1A4Z1RNUjQtZHdIY3NFNU4zc2FPek9VRENEbEVPMmIxVHpN?oc=5",
+  "published_date": "2018-10-29",
+  "captured_date": "2026-08-06",
+  "summary": "Requirements changed for fresh blueberries imported from Chile&nbsp;&nbsp;Fruit Growers News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

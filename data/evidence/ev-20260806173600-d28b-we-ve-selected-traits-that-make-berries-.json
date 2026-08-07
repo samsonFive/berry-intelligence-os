@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173600-d28b-we-ve-selected-traits-that-make-berries-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "“We’ve selected traits that make berries firmer and more durable for transit” - FreshPlaza",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQYkdUeVdaeEJ1aWc5SmdXMEU4SjRxRzllTXdBeGZtNFFsLXhneWJVamdETnB6SE1YY0FZRDdNblNfRTQ1Rm93ZlFhNDl5cjd5VmRjZzhPUjN5LWtJUjJvQnpFaE45NUpac3UtNWZsbWFEZldiTk5Ea0dpQ25iUzJWNHd0bmZoQXk0dUUwZ3Q2MGlYZksxMmlvXzFhMXlOaWluSDhiZlNxZUF2WThkUk5XOXY1d2NNRVBBRk0tVFlMUVh0T2xpc2hzWFBYUXN0Zw?oc=5",
+  "published_date": "2025-09-09",
+  "captured_date": "2026-08-06",
+  "summary": "“We’ve selected traits that make berries firmer and more durable for transit”&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

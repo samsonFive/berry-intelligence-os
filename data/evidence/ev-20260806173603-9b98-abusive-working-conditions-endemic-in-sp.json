@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173603-9b98-abusive-working-conditions-endemic-in-sp",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Abusive working conditions endemic in Spain’s strawberry farms, report claims - The Guardian",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNaXpES1VPZFhGYjk3UVVHRHlUR3RUZmdnMlctTnp4UkZNSThMYzhFZGtpb1lZenEzQUZrdXozeFh0TnlmbElyRHdkX3NHRDZqXzcxb0JoMUY4cmkybDJvUWxLVHU4VE51eHkySFpGUVMybzhDVVdsZzhIdmFPVDlXYW8xNGEtU3ROVjJ3RDJXdDdhTy01dldfeURQdDg2alZ1Ym5veUlNcmo3SlJ3bDEwYnYxbHRGM2p5RDZZMnk0QjBOYVlpLW5zZUhNdWdXbXc?oc=5",
+  "published_date": "2023-03-31",
+  "captured_date": "2026-08-06",
+  "summary": "Abusive working conditions endemic in Spain’s strawberry farms, report claims&nbsp;&nbsp;The Guardian",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

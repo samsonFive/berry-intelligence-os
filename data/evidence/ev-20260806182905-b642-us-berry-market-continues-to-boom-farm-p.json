@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182905-b642-us-berry-market-continues-to-boom-farm-p",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "US berry market continues to boom - Farm Progress",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOYUF3aWZsRUZCOE9MVm1zVXpuS09vRGx3QVJyaXo3UEtTRGR4N0NLbmhidVFpbk5DUzEzS2QzVVVLN1NWSFJvaHlrMUpRT3pYVnU0ZUxFdHRBMHdoMGhuLVBuN0ZUWUFjamstUk9xOHhsMHU0clRuNmRWelF0bmR0YXJB?oc=5",
+  "published_date": "2012-11-05",
+  "captured_date": "2026-08-06",
+  "summary": "US berry market continues to boom&nbsp;&nbsp;Farm Progress",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

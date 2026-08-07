@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173844-c975-evaluating-berry-production-strategies-u",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Evaluating berry production strategies under tunnels - Michigan State University",
+  "source_name": "Plant variety protection berry",
+  "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNZmF4MTVxOWdBSFFRd0pRYjQ4TDMwTTBFYW5iSkd3amt0eU1IYkp1YWhOZmlnVEFFX0wyN2dzcFAta2hhbWVXYV9rcVdpSmg1RDhfTzM3UnZBYUpJaEFNdFpyLVkxOUhOUGJDOWxoZ2FSaDUzdi1Bd3I3ZEYtWHNGSDc0YXZrQzNXNFE?oc=5",
+  "published_date": "2016-10-04",
+  "captured_date": "2026-08-06",
+  "summary": "Evaluating berry production strategies under tunnels&nbsp;&nbsp;Michigan State University",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Plant variety protection berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Plant variety protection berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    }
+  }
+}

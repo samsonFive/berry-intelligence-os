@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173842-9369-driscoll-s-sues-former-uc-davis-scientis",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Driscoll's sues former UC Davis scientist - Fruitnet",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNbk5RSVl4QkNfRzUzVUJrSWpRUzZiUmtkNXNhM19WcGNEaXEtLV91R2VJc0stT0tmQ0tsclY0OVFUQXo4ZXVDRmJaSzVmSmNmUjNXU2lsTGpSa3Z2UmhSbTBKY0tSUDJDMk1RTVBVU1FSX2doc1U4S2x0VVAtTDE3a21ub2FsUXA5UHVCMVhKRXFwQWw2?oc=5",
+  "published_date": "2019-03-22",
+  "captured_date": "2026-08-06",
+  "summary": "Driscoll's sues former UC Davis scientist&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

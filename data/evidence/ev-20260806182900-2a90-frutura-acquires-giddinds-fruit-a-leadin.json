@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182900-2a90-frutura-acquires-giddinds-fruit-a-leadin",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Frutura acquires Giddinds Fruit, a leading global supplier of berries and cherries - Carey",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOd0tNLXZtUHBjRm55eS1QdHZLM3ZYOVdpQjlpaG1kaU16eElZMlZSalp1RFQyQTJ5Q0RXTHEtTTF1UFREdmlLNW5RLUlTSk91UUp6UDIzUTVpcmxTSHZZZHl3RXlMOXNCLUtHbGdFeVlISWo0VldLMXlqOC1NY19MRkxid2d1UDdWV3pKMHJlZWVkU3VWMTVjemVjU3dPcnpYVXItRA?oc=5",
+  "published_date": "2023-11-08",
+  "captured_date": "2026-08-06",
+  "summary": "Frutura acquires Giddinds Fruit, a leading global supplier of berries and cherries&nbsp;&nbsp;Carey",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

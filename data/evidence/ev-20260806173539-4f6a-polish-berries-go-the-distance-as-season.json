@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173539-4f6a-polish-berries-go-the-distance-as-season",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Polish berries go the distance as season starts - Fruitnet",
+  "source_name": "Raspberry variety license",
+  "source_url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPdktSZ25vckFXMXpQaWVTallwUi1naEJTRFFaWVJ3QkEzWHVEeEc3Umlnd3ZFcE5VWGVfWG91a3lHVDBwRm9tNjR1U0hXdDBseDU2TEJXNkYtbHVsclBDRUNHUzJFb0UyS1k4WGxJSHFzRVpzN1FJMXZlOEVHcGdPdFRVZU5Hemp5RDRZNWJQSGxuZlJDSmpKMGhGOUwwQQ?oc=5",
+  "published_date": "2025-09-19",
+  "captured_date": "2026-08-06",
+  "summary": "Polish berries go the distance as season starts&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Raspberry variety license",
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Raspberry variety license"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    }
+  }
+}

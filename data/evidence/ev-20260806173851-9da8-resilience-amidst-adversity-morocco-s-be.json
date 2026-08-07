@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173851-9da8-resilience-amidst-adversity-morocco-s-be",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Resilience amidst adversity: Morocco’s berry export boom in 2023 - EastFruit",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPME45MTJfX3V1Y3JYNl9nbExYOGJkNGkyc01rTzFmbVVtNE1rRnV3emZWSWI3RGZhVTJYSUUtTGlsa0xfbjR5M2xTdXhuZmpqWVprMmp2OUhPM0ZmVkhwWTAtWVhQOTl0UEZrQnM4T3JCM01BUzdmV3JrSWZxeC1mWDhXd2ZFZ2tReFhKcUJQTldVU00td0JfbXdR?oc=5",
+  "published_date": "2024-02-28",
+  "captured_date": "2026-08-06",
+  "summary": "Resilience amidst adversity: Morocco’s berry export boom in 2023&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

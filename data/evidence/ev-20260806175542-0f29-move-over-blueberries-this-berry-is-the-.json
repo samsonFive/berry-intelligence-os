@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175542-0f29-move-over-blueberries-this-berry-is-the-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Move Over Blueberries, This Berry is the New Brain Superfood - alzinfo.org",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE8xVjB4Y2tlazQybzE1SEp2S2tCaU5YUHFVdEdZcGxBRnh2WEVFMWpCdjRhbk9rbnJJa0stcHFEODVUWjMxZ281dC0wdVVMVU44Z01Rd0poNF8taFhtZmNZelkyQ3dQWUxvU0U0MV9lV3NjMHlfWGF6UEItdw?oc=5",
+  "published_date": "2023-11-15",
+  "captured_date": "2026-08-06",
+  "summary": "Move Over Blueberries, This Berry is the New Brain Superfood&nbsp;&nbsp;alzinfo.org",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

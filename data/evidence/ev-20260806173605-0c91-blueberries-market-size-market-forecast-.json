@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173605-0c91-blueberries-market-size-market-forecast-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blueberries Market Size, Market Forecast and Outlook By FMI - Future Market Insights",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1mTzhLUExxblhkVi1VU0p5bHNMcW51LVlqTkFsWUNkemdfb0xQXy1pZ0luaFpjM00wSXFXUVJFWjhrYkFiQkQ4NWV2WDVnNEQ1V0pvajFFVXA1UWMyaFhWYlA3V0s1Vk9yRzVvZnl3R3c?oc=5",
+  "published_date": "2026-06-01",
+  "captured_date": "2026-08-06",
+  "summary": "Blueberries Market Size, Market Forecast and Outlook By FMI&nbsp;&nbsp;Future Market Insights",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

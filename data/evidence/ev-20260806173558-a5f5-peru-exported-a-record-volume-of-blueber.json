@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173558-a5f5-peru-exported-a-record-volume-of-blueber",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Peru exported a record volume of blueberries in the 2025/26 season - FreshPlaza",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOVmsxQWNSLXhVSkVZdXpFdEJPWFRrcEs3Q19Bd19HRzJSVkN5VWN1TnFsR0hKSlFRaUJQVlBybmF0elp6Zjl3MmJYRUxlSW5EZUE3dnN4TzZqVHlSS2tQa0xFZC1xaGNFOFBBamgzQy1zT2NwdkRudW54bWowdHg2a2FQNU5aOXMzbjdlaXl2OERaWmV1clJEa2doc25hNGM0UmZBTDBuZjZBNFBjajhUcy1xdk52U3JQTmxxZUhGekZTZw?oc=5",
+  "published_date": "2026-05-07",
+  "captured_date": "2026-08-06",
+  "summary": "Peru exported a record volume of blueberries in the 2025/26 season&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

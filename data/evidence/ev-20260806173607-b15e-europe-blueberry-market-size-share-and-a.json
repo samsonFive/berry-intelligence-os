@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173607-b15e-europe-blueberry-market-size-share-and-a",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Europe Blueberry Market Size, Share and Analysis, 2034 - Market Data Forecast",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9kVGYtakp6UjIxOHlyOTZQWjhsQ1JkVUxPQjVyWTk3TWtOU2w5UnNYclZZNTRLQ2U1MHF4TW1fWjVDLWhLcjhEWTFfcjZwbFVNeFpaUV90bjhQY3RNS1ZoNjZuRmlMNUJERDJoMDUwOXVmS2RtdHVsYjNISklCUQ?oc=5",
+  "published_date": "2026-07-17",
+  "captured_date": "2026-08-06",
+  "summary": "Europe Blueberry Market Size, Share and Analysis, 2034&nbsp;&nbsp;Market Data Forecast",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

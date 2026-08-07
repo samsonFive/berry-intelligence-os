@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173903-296b-chilean-fresh-fruit-association-s-alliso",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Chilean Fresh Fruit Association's Allison Myers Discusses Seasonal Offerings - AndNowUKnow",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPY1NHV211anBFcmVpSVhhdEhDeVNUNmNWUzB1cTRQT3V1b01qLVVHZHhiRkhNQjUxX3VrZ1hlOFhxcWZEbWFpNVpxVTV3N1hfSUVTYkJwSmlxeHdCb1lXSDdkV2MySHRIRlBFUVhZY0FBRzdzSFhpaDRGdlNsX0taVHIwNnZfOWNuWjU1ak9val9yOU1TNW9ZY1BBSkdqUURGWG9KRGlfX2N6RHB0dnpjeTd1ZzQtOTFYeHcxd0VIenNNeGJKUEUyRUM2Q1NkTG9Z?oc=5",
+  "published_date": "2018-03-20",
+  "captured_date": "2026-08-06",
+  "summary": "Chilean Fresh Fruit Association's Allison Myers Discusses Seasonal Offerings&nbsp;&nbsp;AndNowUKnow",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

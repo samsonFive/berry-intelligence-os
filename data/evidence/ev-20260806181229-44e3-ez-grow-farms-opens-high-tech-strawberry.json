@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181229-44e3-ez-grow-farms-opens-high-tech-strawberry",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "EZ Grow Farms opens high-tech strawberry propagation facility - Hortidaily",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPMDhxQ3lKbVp5QXF5dGlfYVpFRVpVQ3BDMXRwZFJRWnBZRUNhZVhOY3NjRmxjb2JMVDV4YWlKa2VIUlp5bUNDV2dTVG8wZEJNNzlIajJrOU5ZRU1BRXA5UERBd19EUmdaMWNERzMyZGp1blp0UDRrNU14bWprcTdXT3dTazMweW1aU2hLTWRKX1VVdzVYbFpUQWM4dkZBZ1BZQTVPNmxWbk0?oc=5",
+  "published_date": "2024-06-27",
+  "captured_date": "2026-08-06",
+  "summary": "EZ Grow Farms opens high-tech strawberry propagation facility&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

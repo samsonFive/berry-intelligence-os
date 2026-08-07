@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175525-8b95-promising-future-for-the-berry-industry-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Promising Future for the Berry Industry - Growing Produce",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPUlNPUndNSnVOaS1yMHI2VVVvR08tT1pWTEJjZG5SdGtkR04xeEY0dXJlZ013VWJSNnNEcVJtckF4Z0RNMUY1eUpjN1BqT040bDBIa1hsamxLTzk5TmdFeDdGOFFXT3FiUHNMOER4TnpUTFRoSXhnT1FZdHdoX2FUQnIyY1E?oc=5",
+  "published_date": "2017-12-26",
+  "captured_date": "2026-08-06",
+  "summary": "Promising Future for the Berry Industry&nbsp;&nbsp;Growing Produce",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

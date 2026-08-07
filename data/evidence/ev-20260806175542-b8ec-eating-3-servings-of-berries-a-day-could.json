@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175542-b8ec-eating-3-servings-of-berries-a-day-could",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Eating 3 Servings of Berries a Day Could Boost Healthy Aging, Study Reveals - scitechdaily.com",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNSl9Sa3llbUNFOGxwcXVlTkZYX1lKdUNWUTBaNGsxM2ZQdzhUWGpDMXZKZkZJRWtvR0hGSEh1UUw0ZnRJblowY0hiZDZtd0g0dmljeXN1b0NqdlVFcmNscU1NRGc1dTdaY3JDNDdlRHR1LXRxakhEeFJDSDRZN1l0YW5MUUd1OXpoUmhHWG9uS0RNVXl5YXNLelYtU0x2Q0dpRlE?oc=5",
+  "published_date": "2025-06-03",
+  "captured_date": "2026-08-06",
+  "summary": "Eating 3 Servings of Berries a Day Could Boost Healthy Aging, Study Reveals&nbsp;&nbsp;scitechdaily.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

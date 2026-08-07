@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173603-f0b1-the-supply-of-spanish-strawberries-is-re",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "\"The supply of Spanish strawberries is recovering and is even higher than usual at this time of year\" - Hortidaily",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPRVRzREZzMWJ4MzhVN0NIOTZCbnhrZDYzWU05Yl9NRkVoS1hsRzBKN1ozYXB0X3RGUktFZHYzcmR4cElsLXFWdHY1SjgtSXpiRHdsRTlGT29EeWdLWEJvTHRxdjlrTElkZ1c5MWJtN0NUMWY4cHFVa3RSdy1IdkRRNklGS0duaUk4MkNLTkR1Ylh4YVlOSVpxZTFpQldUR3BzMGNINGxYUkJoeTRMVUtYZ1RBbmVKSVVBM2tpMW8yTU1mT0RnT29vWURROWoxQVo4YUsxOGR3THU1QjA?oc=5",
+  "published_date": "2026-04-01",
+  "captured_date": "2026-08-06",
+  "summary": "\"The supply of Spanish strawberries is recovering and is even higher than usual at this time of year\"&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

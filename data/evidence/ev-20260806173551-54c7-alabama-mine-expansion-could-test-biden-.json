@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173551-54c7-alabama-mine-expansion-could-test-biden-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Alabama mine expansion could test Biden policy on private extraction of publicly owned coal - Alabama Reflector",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQMTRuTjUxaDgwcV92cWxaUXJRMEVKdGUtdGVYblkwc25qN1hfTEdaNTctRXBMajRFUzJPVThoMjd2aTR2NnVJRVk3NzVCR3BIOUdQWHNSa2oxcDlyVEJVclIxZFRtdWlOZ1lWVldHLWxaTlVlaHg4d1dOMloyMzZOcVhNMGtQV1ZUaGxoSHBZREpTOEo5YUJjU0ppQUZrWEEzRWxHZHZWSExsc3ZTM1ktUUxtSXIyZVRmQUR5d0g2VjdaLTBEV2lBMmdXejg?oc=5",
+  "published_date": "2024-10-24",
+  "captured_date": "2026-08-06",
+  "summary": "Alabama mine expansion could test Biden policy on private extraction of publicly owned coal&nbsp;&nbsp;Alabama Reflector",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

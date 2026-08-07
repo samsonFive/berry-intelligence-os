@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173550-98d0-berry-good-news-maine-strawberry-season-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry good news: Maine strawberry season off to sweet start - WGME",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOeE5pcmZzNEFPdXVRYktxcWlxODhPZHJibUF2YS01d25UTE9OYmhlTGh4Y1BCcS0zWkpkWlFuVE9RemgxenNEV1l0YkdaX3UwMk9waVBnaHVWaGZXblE4dC1xOVFsNHJZa3Nrc0lDUE8wZlhiME1tV2FTRVpNbm9HOTRzaEVPMDBrcFJUUkxTQ3NZdFhySnVPR3o3N29hVkFIYnAxVw?oc=5",
+  "published_date": "2026-06-26",
+  "captured_date": "2026-08-06",
+  "summary": "Berry good news: Maine strawberry season off to sweet start&nbsp;&nbsp;WGME",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

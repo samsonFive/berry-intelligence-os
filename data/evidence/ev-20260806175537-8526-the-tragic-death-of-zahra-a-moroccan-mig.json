@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175537-8526-the-tragic-death-of-zahra-a-moroccan-mig",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "The tragic death of Zahra, a Moroccan migrant worker who came to pick strawberries in Spain - Mediapart",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQcjAtSHZMR1JjWHhjN2FLbUJwRHlEd3QwMmtQX1BwWGhHMHhkYnJ2SHFhU3BIbm9mVllsNXZYX1BTbS1FNkFHWDZoZFI0dmhzTjdaejFpalJOUXJHbGl5WHNRaTU4ZlYwaUVXN1BtcXluZkdYT2t0c3R2cmVXMVJQMUFoejM3a3pWUlpCeWRXRm1PNlZzMWFpYzBqelF2eHAxM1lqYnJmS08tcldfd3pNSi05a0swWjNLMEJTUHkwOEl3WlRKQ0RGVS1WMVY?oc=5",
+  "published_date": "2023-05-30",
+  "captured_date": "2026-08-06",
+  "summary": "The tragic death of Zahra, a Moroccan migrant worker who came to pick strawberries in Spain&nbsp;&nbsp;Mediapart",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

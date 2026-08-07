@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181221-5930-seaworld-is-looking-to-acquire-owner-of-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "SeaWorld is looking to acquire owner of Knott's Berry Farm and more than a dozen other parks - Los Angeles Times",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxQc0FfX2o0cDVjbm5Pa0RINkRWVnlIYUt4YlVJdGhER3RtZTliWlQzb0JxN19nLVhPeDdZeWxLeEpSeVdmZ0FvenBUYTk0b1gwRGNqejV3YUZvTllWUnJhOTdkR2N3aDlOYWRNb3AtNVJQSE53YjNJZk4wTmp6NkdQUVZha2V0OC1ZQTY1ODE0Q1VDYzdXeUFYdWhvSXU4ak5qejNIS1Rsb0xfclg2VlNrbGczV3VCVXp1VVBELTI1SGRqN254YUNCN09zY2xhTmJYaEU5SmphN2Q?oc=5",
+  "published_date": "2022-02-01",
+  "captured_date": "2026-08-06",
+  "summary": "SeaWorld is looking to acquire owner of Knott's Berry Farm and more than a dozen other parks&nbsp;&nbsp;Los Angeles Times",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

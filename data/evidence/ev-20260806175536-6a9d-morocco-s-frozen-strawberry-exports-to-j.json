@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175536-6a9d-morocco-s-frozen-strawberry-exports-to-j",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Morocco's frozen strawberry exports to Japan surge - Yabiladi.com",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNb1ZRVm9hci1UREo4cWRFcjcxOWJiN0wyWEUzbXBkb1JhcG5XY1JkeGVaWHR3ZkItbms2QllwdDFTUUpod1lqQ3pHeDZaX0ItbGVhY2xacGk4YzV3V0FRYTZ2S3BVeHBFdV9pZk5JdkFnOVBiZUxvczdPblVBUVVZRGxPX0IxTEltNThhUlhfeFZSWWtObm5MWXRn?oc=5",
+  "published_date": "2024-08-16",
+  "captured_date": "2026-08-06",
+  "summary": "Morocco's frozen strawberry exports to Japan surge&nbsp;&nbsp;Yabiladi.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

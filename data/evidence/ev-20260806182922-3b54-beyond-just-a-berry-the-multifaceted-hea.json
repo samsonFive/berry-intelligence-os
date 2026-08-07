@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182922-3b54-beyond-just-a-berry-the-multifaceted-hea",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Beyond just a berry: The multifaceted health benefits of black chokeberry - News-Medical",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQa2ZYVGJTMlhHVzhhek4wNFpJLVZLMk9lSEkzQ1NOcklIZFRSR1dDeVkwMG5SRmE4WFZpVmpYOTV5c052SmFXYVY1cTUyZnVhWWM3OEZEWUo3ZkpnWjdLTmNnZkI5eHhIY21qWFNOUGF2VFp6d0FOMUgteFVLNl9mZFlKRGVaNDBKYWltb0JSSE9UOEk5Vk1oT0UwRGp0eHRqd0hyRVRNaENEWDVNSnZQU3hQOGtEaWdGR1FHaA?oc=5",
+  "published_date": "2024-02-12",
+  "captured_date": "2026-08-06",
+  "summary": "Beyond just a berry: The multifaceted health benefits of black chokeberry&nbsp;&nbsp;News-Medical",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

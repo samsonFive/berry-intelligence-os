@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181225-5282-first-international-gathering-of-berry-f",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "First International Gathering of Berry Farmers in Serbia Opens – Berry Business Forum - eKapija",
+  "source_name": "Berry industry investment",
+  "source_url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFB1UDZFZjFBdDFsQW84QnBCLW50LUtGaVlqY0RPZ1NmQ1hRMUxzR1BnVXFKUDl5dUdMblVkdHFUZm9vUXRpMFN3bmRvc3F0V0hRT0ctNnVHek5YQ21LbXlFUllRR1haUGthM2hpelVGalc?oc=5",
+  "published_date": "2021-10-06",
+  "captured_date": "2026-08-06",
+  "summary": "First International Gathering of Berry Farmers in Serbia Opens – Berry Business Forum&nbsp;&nbsp;eKapija",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry industry investment",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry industry investment"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    }
+  }
+}

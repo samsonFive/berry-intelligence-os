@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173604-0015-combining-mini-air-and-glass-greenhouses",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "\"Combining Mini-Air and glass greenhouses is a success\" - Hortidaily",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOYkJVZVBoMXNkWm9tXzRELUJFUU9LVF81dlhYNkZwUnNuR2NmMzd3ekV1TVpsN1RZUkQwS3dzM1hLQVRhZm5ueldjdXF2ZkUxMHNBbThBWmc4WnoycXhiNXJxem1ScW92TVpQaGdjMW1Na1VMSTdZRjcxSkJzUjN2aF93Ymdpcm5oZE1nRlJzYndYQW95aG5OWXRZWUxHQQ?oc=5",
+  "published_date": "2025-04-18",
+  "captured_date": "2026-08-06",
+  "summary": "\"Combining Mini-Air and glass greenhouses is a success\"&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

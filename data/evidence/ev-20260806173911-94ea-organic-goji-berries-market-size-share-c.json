@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173911-94ea-organic-goji-berries-market-size-share-c",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Organic Goji Berries Market Size, Share | CAGR of 8.1% - Market.us",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9IZGZiSWVyRmRmZ2xqWExySG1PSXlJZ2w1VGZ2dEtCRUhaRDZYV2JfUE0yNUNHbTVSNFZYX0VOUTlXcFA0NlJ2RnNwempBdDNMS3BHcHNUbnVJT2pRcDN5elhsVQ?oc=5",
+  "published_date": "2026-01-29",
+  "captured_date": "2026-08-06",
+  "summary": "Organic Goji Berries Market Size, Share | CAGR of 8.1%&nbsp;&nbsp;Market.us",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

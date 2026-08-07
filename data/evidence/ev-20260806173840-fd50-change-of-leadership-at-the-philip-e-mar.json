@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173840-fd50-change-of-leadership-at-the-philip-e-mar",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Change of Leadership at the Philip E. Marucci Center for Blueberry and Cranberry Research and Extension - Rutgers University",
+  "source_name": "Blueberry breeding program",
+  "source_url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPRDJ5aC1pN1ZRWGl2WXFfdUd3UEFBU1FNc0l2d1JQRTdHR1ZVMDZJMTZXUl9OYWxXQVB4VU51YjhYeG5YN2FGUU9zd2lEZ3puaFd2d01ueEI0ZGozOUlvOHo2dHh0TjlNMTVGTlNmQUJUU3ZUYURFMDRNSmxBU3p0N1dWVXQwaWR2c210dUsyX0pKZkZycjV3TnhKRVlUSmQwMm50ZEtMVGV2TUtCZmFUSmNIcTQ0cnVnQjBGWV9SdWZEbHNJWlh4YUVLT0Z0YmgyTmFhMWtzUjE5bUQ3V0E?oc=5",
+  "published_date": "2021-04-30",
+  "captured_date": "2026-08-06",
+  "summary": "Change of Leadership at the Philip E. Marucci Center for Blueberry and Cranberry Research and Extension&nbsp;&nbsp;Rutgers University",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blueberry breeding program",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blueberry breeding program"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    }
+  }
+}

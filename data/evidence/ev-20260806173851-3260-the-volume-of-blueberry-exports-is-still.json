@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173851-3260-the-volume-of-blueberry-exports-is-still",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "\"The volume of blueberry exports is still in its early stages\" - FreshPlaza",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNNF9GWXNGdXRWX19Ja0RSVzduYXVZZWFncmNTaVZ4ZXN3UkZXZURyM3E4YWFxcHRsVUdIejVxUU9sM3FiMzRkWDBySk53em00UGtkMG52V05hU0dhV2VZUTdGNU9wZmZRV2hRTURPYXlvMU80Y3VrM1A2TFVPNUZJUzloc3Y5QXpsQnZVQ284dFVLb1lRZDgzYTZ5TzBhQjNXNDhveXBGNjE4UnJHcENOS0FTYUxscVdpRnc?oc=5",
+  "published_date": "2024-12-24",
+  "captured_date": "2026-08-06",
+  "summary": "\"The volume of blueberry exports is still in its early stages\"&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

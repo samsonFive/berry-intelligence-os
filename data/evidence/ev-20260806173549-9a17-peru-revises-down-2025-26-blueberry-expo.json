@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173549-9a17-peru-revises-down-2025-26-blueberry-expo",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Peru Revises Down 2025/26 Blueberry Export Estimate - Produce Report",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOOVNlLWhfUVp5dE5xMFJIREc3UE0tb1hXMEZicFRfdFJQQ2lncncyTTFmWTlPSGF1T0xjazN1Wm5kb1VhZ2hfbUJNN1FnNkhvX1dZY1hJYTRic2FDeEpqZHYzM1pBNkp2bkN2eWtzbnpxNGk4SkhmbGtLTGtTSVNULUFqM2NUTzZrcDZ1QmhUU0JkUnc?oc=5",
+  "published_date": "2025-11-11",
+  "captured_date": "2026-08-06",
+  "summary": "Peru Revises Down 2025/26 Blueberry Export Estimate&nbsp;&nbsp;Produce Report",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

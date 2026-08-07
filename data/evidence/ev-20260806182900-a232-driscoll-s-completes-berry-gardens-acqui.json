@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182900-a232-driscoll-s-completes-berry-gardens-acqui",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Driscoll’s completes Berry Gardens acquisition - The Grocer",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPdjdaV2RLd1RKbFVxdXhqZk03Y29SaURNbFFBV3B2SkRMWGhTR1d6NjZQQ2dwRXJ0VXNobk0tMUhfZFA1Sk5uQUJZd0ZPUU03ckJlQzJJN3U0QUlWRVI4cXJ0MC1ycHNkN2ZqZTFkX3N6NWF0elpESU5VS214R1hIMWRHS09KbWE1U043SnJGQVVrZXh2UHBFMg?oc=5",
+  "published_date": "2022-11-01",
+  "captured_date": "2026-08-06",
+  "summary": "Driscoll’s completes Berry Gardens acquisition&nbsp;&nbsp;The Grocer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

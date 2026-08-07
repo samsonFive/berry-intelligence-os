@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173906-99e3-dandong-strawberries-will-be-on-the-mark",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Dandong strawberries will be on the market in large quantities - Hortidaily",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPSU4zLWRHZHJTbEhLX0llVXdOcDhCNE9uOGVqM2M5UFZ5MGRKTUVMOTJXN1dYX2hPcFRWcmZnQ2RUQWkzMW5fMFAxODJwbE5NaDF6V1ptZHBKb1hqVkdMNWNQbHNIdDJISTUyaWpIRlZtTGhIdWJPMnBuTFpKZXYyVlFBVFBpXzI0UWd6RS1uOWZUU2hyanFUc2FaZUdTVnVPYTJpcTRIalNqQQ?oc=5",
+  "published_date": "2022-11-16",
+  "captured_date": "2026-08-06",
+  "summary": "Dandong strawberries will be on the market in large quantities&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

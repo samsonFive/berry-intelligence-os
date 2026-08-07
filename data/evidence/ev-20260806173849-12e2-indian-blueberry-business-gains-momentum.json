@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173849-12e2-indian-blueberry-business-gains-momentum",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Indian blueberry business gains momentum - Fruitnet",
+  "source_name": "Berry industry investment",
+  "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQWUpMazFMLXhmQ012QkZYOEpOQWt6bGVsTHZaY296Q2dkdnlCUVFrRlh4d2ZiS3pfNHlDdlRpOG9ENV9sYkpjSDZXRzNzVU94d3FXSHlPOWFTQVZSUUtjbVg0cDBXR3FyZEJocDB5T3V6c0h1QmpvSm1oQ1NlaXEwTW9oRjFDSGlONkQwLUE1dXF6RDZK?oc=5",
+  "published_date": "2026-06-04",
+  "captured_date": "2026-08-06",
+  "summary": "Indian blueberry business gains momentum&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry industry investment",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry industry investment"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    }
+  }
+}

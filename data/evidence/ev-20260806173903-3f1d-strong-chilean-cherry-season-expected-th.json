@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173903-3f1d-strong-chilean-cherry-season-expected-th",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Strong Chilean cherry season expected - The Packer",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNSDY1U0F6ZkVEZE5nT3IxMEJwOV83SGowR0hPYmxRVS1WUVVrOXR4cHB6NGhLNFduUGs1QzItVnhfajV6M3lwckMzbVp5VExnTTc1U1QxYXlOUVI4c0Nhc1Y3SG5IaVl1Z2RyRFBQZXJyUzFLTm1OZXlJeHNMQ3hndjk5WQ?oc=5",
+  "published_date": "2024-11-18",
+  "captured_date": "2026-08-06",
+  "summary": "Strong Chilean cherry season expected&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

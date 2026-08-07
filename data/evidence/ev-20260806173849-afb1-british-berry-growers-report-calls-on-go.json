@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173849-afb1-british-berry-growers-report-calls-on-go",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "British Berry Growers report calls on government and retailers to step up - Fruitnet",
+  "source_name": "Berry industry investment",
+  "source_url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxORDZ3N29QMGFKZ0xObkl5Rmp4SVBySjFBMzdvaEUyRjd3UWRmNWw4aDN4RDctdFIwV0RLMkNSc1lXQVp3WmJoYTVOWXhpaURwODZuU0pCaU5uZ200a04yaWlmdEVNX01mSXVKRUhxZ1hzZlpvaGlpOFcyZjc5bnd0a2M5YWdWcUpiUjlWNU5jNUo3a1Y1eTd0bWdRRmJYUEEyS1dSQk03NUtkZ2VGTEV2UVlvd0NsNmZ0T0Zxa0NjRWo3WTdnYWRlSk55aXhEOE9h?oc=5",
+  "published_date": "2025-05-14",
+  "captured_date": "2026-08-06",
+  "summary": "British Berry Growers report calls on government and retailers to step up&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry industry investment",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry industry investment"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    }
+  }
+}

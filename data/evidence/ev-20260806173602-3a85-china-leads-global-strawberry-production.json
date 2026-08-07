@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173602-3a85-china-leads-global-strawberry-production",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "China leads global strawberry production with tech - FreshPlaza",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNUnZqMmZrZmI5X3NoR3JTbEFHZ2ljODFrQnNHRFU5c1dtclZXZnpWNEl3LWdCbE9EdUJ0LU00WVVTM29WODh5YnhYa0Fybmp1WjdzdWZ2WFBkRUZhZjhnZ1d6elJxQlEtLVU5UlhNRkM5VloxUDdLbXQ2SVNTQ0ZKaThoOEtTeU1kYjdKV0FpZ0dVRno1ZE9NUHBrMHpQX00yNHdFLVdNaXJNeEdW?oc=5",
+  "published_date": "2025-05-12",
+  "captured_date": "2026-08-06",
+  "summary": "China leads global strawberry production with tech&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

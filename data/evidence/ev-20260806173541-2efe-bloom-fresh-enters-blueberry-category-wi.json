@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173541-2efe-bloom-fresh-enters-blueberry-category-wi",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Bloom Fresh enters blueberry category with acquisition - bluebookservices.com",
+  "source_name": "Berry genetics company",
+  "source_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOTVluR1FrM1Nqa2Q0bUh3ekF4dHNJNWFoRVBLNlBZbU5XU2pnSW9Na1hIbHY0WUZZTXQ1Wmt6X0JIMGthT1Vya1kwRXVQSktXdWUtN2dUVjZiTVJMMDJEakhZT0Z2TmtCc1BCV0w4ZHV0NVhjRkVxTmZ2WVdWNEtFSVlya1lTUkdvT0V3YjNrUDgyQQ?oc=5",
+  "published_date": "2024-10-09",
+  "captured_date": "2026-08-06",
+  "summary": "Bloom Fresh enters blueberry category with acquisition&nbsp;&nbsp;bluebookservices.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173550-2807-california-giant-berry-farms-forecasts-s",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "California Giant Berry Farms Forecasts Strong Pacific Northwest Blueberry Supplies; Markus Duran Comments - AndNowUKnow",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQMXpBbl9kMGVpaGNnMEN6aHRKTEFOanpyM0hiX2VJU2hLcmc1enViQXdFLS1aeF9ZLUpycHlhVE44dkpqQU9jNVE0ejJETUZrVWdoekh1MUxNWmFMZmQ2dUlyRWFtNWxzZFd5TUlGVDVldzhXclg1b0lnNDdiblpaZklIcGpGbUd6SmktOVBOZHN0ZTNxQjFjRTliajFUSUhzT0FoTHZJWkt4emQ5UjZ2S2E4RGQ5czVIdldSNWxFd3BCUHV6TGxXcDRXT1Jfa0l1SjVaOXJfNVhKNHZ5bFE?oc=5",
+  "published_date": "2024-06-24",
+  "captured_date": "2026-08-06",
+  "summary": "California Giant Berry Farms Forecasts Strong Pacific Northwest Blueberry Supplies; Markus Duran Comments&nbsp;&nbsp;AndNowUKnow",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

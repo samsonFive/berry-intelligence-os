@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173911-7c59-frozen-fruits-market-size-share-forecast",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Frozen Fruits Market Size & Share, Forecast Report 2035 - Research Nester",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE12MHlGYllaRG5ubE5rNlNja2ZTWE1jR0lEXzQ4ZTNJMUVSc09sbnVTYURSbFlsdi1QWHJvWjZ4cUhkaDNSTzNqYllFd2ZOS0czMlF3WXVyMDFmTGtNeXNaMkE1V2w4LURiZjlYRjZBWV8?oc=5",
+  "published_date": "2025-11-27",
+  "captured_date": "2026-08-06",
+  "summary": "Frozen Fruits Market Size & Share, Forecast Report 2035&nbsp;&nbsp;Research Nester",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

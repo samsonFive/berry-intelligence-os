@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173558-8d84-el-nino-threat-raises-the-risk-of-higher",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "El Nino threat raises the risk of higher blueberry prices - The Straits Times",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNZDhzSnJsdHc3ZkJrZkxPczVCYTVCNXhwbXRnYW1ZcXhBLTk1ZXU5aFV4a3pfckp3Yl81R2tkRnI3eVREZHNyTEJwWmUyR2t2SXZ2bGNjeV9aV0NlemZZc1lXMmxiRHIyV3VsUXlJZjgwX1VycnotYlZGVEJaaXpJZ1R4VWd5d1BLeDNhUVZydkNjR2U0aWFV?oc=5",
+  "published_date": "2026-07-30",
+  "captured_date": "2026-08-06",
+  "summary": "El Nino threat raises the risk of higher blueberry prices&nbsp;&nbsp;The Straits Times",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

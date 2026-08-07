@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173840-f959-florida-blueberries-healthy-convenient-a",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Florida Blueberries: Healthy, Convenient, And Locally Grown - Where The Food Comes From",
+  "source_name": "Blueberry breeding program",
+  "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNeFl2SkhGU2lyTjh6d1RnbDRReWJWUVRiOWZmc2luRHAyeWhlQ0JiRnNLalpsbVFqcGFWS29iamRpclpJaGRSaTdtNTN6S2UwLUNEcmp6OF9FMWxIaV9TRmV5NF9pNG9LaDVlRlc0Nnk4OGNvUmpydlR6OTJ5X2VqRE9EdkYzbnpKelVtMWl6SnVsWUhmLXc?oc=5",
+  "published_date": "2025-03-23",
+  "captured_date": "2026-08-06",
+  "summary": "Florida Blueberries: Healthy, Convenient, And Locally Grown&nbsp;&nbsp;Where The Food Comes From",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blueberry breeding program",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blueberry breeding program"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173604-df31-global-blueberry-leaders-gather-in-cape-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Global blueberry leaders gather in Cape Town for IBO Summit - Fruitnet",
+  "source_name": "South Africa blueberry IBO summit",
+  "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPZGh2LVNMSlVzd0xNOUFCb1hfV1I4RXR1VFhDVDhsemYyRk5CQkVHS3J1SDVfMWE3WnBUYXJaOFhJLW81M0NMUVhkcm13M2czeU5kdXl6TkVQYlJSUG9wZlVRc3R4N3hHZDhtRVp1eGxWYVJNRG01Z1RmazhUUHUxbGY0b1dGWFJyOW9SWlNwYkNPNnU1UmdhT0s5bzlpSUktektWNXJYaUQ4VERCemc?oc=5",
+  "published_date": "2025-09-22",
+  "captured_date": "2026-08-06",
+  "summary": "Global blueberry leaders gather in Cape Town for IBO Summit&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:South Africa blueberry IBO summit",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "South Africa blueberry IBO summit"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'South Africa blueberry IBO summit'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'South Africa blueberry IBO summit'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'South Africa blueberry IBO summit'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'South Africa blueberry IBO summit'; not yet reviewed."
+    }
+  }
+}

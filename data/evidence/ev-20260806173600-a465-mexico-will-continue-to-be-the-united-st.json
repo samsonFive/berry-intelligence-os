@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173600-a465-mexico-will-continue-to-be-the-united-st",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Mexico will continue to be the United States' top supplier of fresh berries in 2026 - FreshPlaza",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQeHhQcnhvRHVIRzZtUkhQOWx6aHZYb2lVVzFMeEk4dEZMbHVtQjl1aDdWU1BCVzN5MEhSbGRjS2ExSi0yWEozb1Jjb1pXeVFsdnRBMGdGWkdjWWZvMllZSVVacmtkZUd4SDg1TnlCbld3R2x2MU5uVDJkbm1qWjVINTQtdkI4Rm5VaHJVMmV6ZlB6T09EZV9uUFJMdGlLQU1YdnJRMl81bGlXVG9LZXZCc0syeUNVWngwam5McjdZejJ0OXlEa09Cd1I1Qmx3Ukt6c1ZQSDktOA?oc=5",
+  "published_date": "2026-03-18",
+  "captured_date": "2026-08-06",
+  "summary": "Mexico will continue to be the United States' top supplier of fresh berries in 2026&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

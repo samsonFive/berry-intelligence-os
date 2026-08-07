@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806181239-7b4d-in-peru-and-mexico-blueberry-varieties-w",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "\"In Peru and Mexico, blueberry varieties which best withstand climatic stress are Blue Madeira, Blue Manila and Blue Maldiva\" - FreshPlaza",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxQb3BsY3pWeGNXUFJJR0g2dk9GbEJRMjlCdS1JWEFRM1FobE4tWTdLT2g1OWpoOWg1N3hPN1VVTXJoSlNUR3FHR0Y1ODM1Sk9XWDRCOHR4RVRvcFRVaGhnTmpsd2VYQ2c2SXhFNjlWSVB5SnVxeEVuNXhVNUU5d1UwNHhGTXNxT2xYdHpZNzctRjNFOURpRHpxQVBNaGhxazRPenBSTklOREMwalNxRXBlUHRGVzZMel9mdzVHcGpyV2YxRy1HS3ZWTDdsVTFfbzZMQmZtOW9xRWstWjRCTS1kUlp6V1BjSEFRa042VVhXMG9sVm1GQTFOT2w3QWxiSzJxZl81a2hnSjNCZEE?oc=5",
+  "published_date": "2024-03-20",
+  "captured_date": "2026-08-06",
+  "summary": "\"In Peru and Mexico, blueberry varieties which best withstand climatic stress are Blue Madeira, Blue Manila and Blue Maldiva\"&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

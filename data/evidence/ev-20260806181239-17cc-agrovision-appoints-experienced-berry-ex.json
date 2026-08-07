@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806181239-17cc-agrovision-appoints-experienced-berry-ex",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Agrovision appoints experienced berry executive - Fruitnet",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMingFBVV95cUxObXZLeHBxdHBtTXE4VVdKb1FJMWtBNTdwTnFpdjVuSmltSUVkdUxpT1ktR2tIYTJQTGc5MFFGMXl6VDRCRnNyVE5tdm9fQ2k1NDVzU21KZGR6UjFpUUJLTWZ6eW85UC1ETFQwX2ZDTE42Zi1jWUJSOTlnaXEyLWFYQ2paandBMXU1T3dTWk04d1d6S0tLbXZGVXlZS2RYQQ?oc=5",
+  "published_date": "2021-09-10",
+  "captured_date": "2026-08-06",
+  "summary": "Agrovision appoints experienced berry executive&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

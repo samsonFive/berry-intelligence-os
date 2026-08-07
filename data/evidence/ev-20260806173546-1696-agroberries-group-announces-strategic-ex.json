@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173546-1696-agroberries-group-announces-strategic-ex",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "AgroBerries Group announces strategic expansion into Laos - Fruitnet",
+  "source_name": "Berry joint venture genetics",
+  "source_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPVVB3aUd4V0NrdE1TcGxlemNsSU1uTkR5ZmpISkNDdVBGM1Zzbnk4S25CYnd6RWlyRVh6T1EtQ1VHeUdEdzhvb3l2bXVVSVFfZXgtN0Y1ZUUxM3FuMkN3WVg4dmdZM0NBUzk1T3F2ZjRwa1dvLXN5UmFjS2Z6MF9ONnVmYVFyZVRCQl9LVXY5d1g5YXFZQWNHWDFuT1RvZ1F3UmE4NmdpdS1nNWs?oc=5",
+  "published_date": "2026-06-25",
+  "captured_date": "2026-08-06",
+  "summary": "AgroBerries Group announces strategic expansion into Laos&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry joint venture genetics",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry joint venture genetics"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173549-885a-in-2025-spanish-berry-exports-reached-2-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "In 2025, Spanish berry exports reached 2,114 million euros - FreshPlaza",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQOE53WktlbHpZVjQyTW9mNWRSc3BqM29wclBfSU1MTi03OW94bDVIS3hCTmszUXNwSlRUek5wRlJDRVN6bzVRUGR1YmpWUlZOOFpURUM0MXJNcXp2Sy01MmxiZ3pyM0FLYm55cXBRS0U5WUg5OWtzdGt0Vkd2UGlIb19KSWwzMk5qNFk4R1pjMEQzM19ka19WR2dYaFdicnRFQnVVVTNqd2VsckI0?oc=5",
+  "published_date": "2026-06-01",
+  "captured_date": "2026-08-06",
+  "summary": "In 2025, Spanish berry exports reached 2,114 million euros&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

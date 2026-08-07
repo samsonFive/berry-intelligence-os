@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173853-11b6-the-evolving-fresh-market-berry-industry",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "The Evolving Fresh Market Berry Industry Santa Cruz and Monterey Counties* - ucanr.edu",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMiREFVX3lxTE9zRmdsVVFjbmpzOTBmTUNaSW1vaGItMUJkenU3S3BrUUsxMDJnVGVXNk1VU19zTkJ0YlE3MzIxdXFQYU9p?oc=5",
+  "published_date": "2016-02-04",
+  "captured_date": "2026-08-06",
+  "summary": "The Evolving Fresh Market Berry Industry Santa Cruz and Monterey Counties*&nbsp;&nbsp;ucanr.edu",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

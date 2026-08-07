@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173842-1313-growing-strawberries-in-desert-greenhous",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Growing strawberries in desert greenhouses - producegrower.com",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQeVBOdF9MNjY2SjNnamRkVzJxVTM0ZGRwSS1BQ09LWlhJMnpudGVCQmxkNUk4WUFCcHM3cUgwdkRwSDVwMlhwZF9LcFFRMUJ6bE11QU1xdUMxUW0tZW5MZlNUUUNVdUl1dUw0dTdMVXNNSjN0SmdDSkxjbjhKZThDYVVYQnU1NkRUYkE?oc=5",
+  "published_date": "2013-12-27",
+  "captured_date": "2026-08-06",
+  "summary": "Growing strawberries in desert greenhouses&nbsp;&nbsp;producegrower.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

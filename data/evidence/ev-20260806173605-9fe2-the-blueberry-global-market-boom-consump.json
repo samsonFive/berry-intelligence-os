@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173605-9fe2-the-blueberry-global-market-boom-consump",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "The blueberry global market boom: consumption, production, and leading markets - FreshFruitPortal.com",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1ZR3hGaTI0aW1JYTFnVERVWGpLNFVEaHQwSzNyOUp5eWdnR19uN3p1aXBINWVGdnZsa2dlakdCREpxVVBHemFyYnhMZVlGOGkycXNBNmNhVUhMQmVVdmxiTXQtd19RUDdrcXhDb01QVTBNM3R1aGE2M1VQeVVSdw?oc=5",
+  "published_date": "2025-11-17",
+  "captured_date": "2026-08-06",
+  "summary": "The blueberry global market boom: consumption, production, and leading markets&nbsp;&nbsp;FreshFruitPortal.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

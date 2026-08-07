@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175529-ce9d-us-puts-tariffs-on-countries-linked-to-c",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "US Puts Tariffs on Countries Linked to Cuba / New SICT Investment - Mexico Business News",
+  "source_name": "Berry tariff",
+  "source_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOa0ZEdExHTWJKQk1tRG1teTFjWXZGR2NEZVgwLTZPbW9sWGlQZHAzOTF5ZkxLa3pyakNiVnQwb29RbUtZS3lNa29TS3hpVTVWRm5Ya0FCb25HQnplWjBvNThYakVHUHBiaXF3YUg5cktpWUtHU3Fxc0VQWFhJVXEwWW1zLWdwVm9jajJacnczNDlxc3JId1ZqLXJfeW90WnQ0Y0pYVTFiNk1POU0?oc=5",
+  "published_date": "2026-01-30",
+  "captured_date": "2026-08-06",
+  "summary": "US Puts Tariffs on Countries Linked to Cuba / New SICT Investment&nbsp;&nbsp;Mexico Business News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry tariff",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry tariff"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    }
+  }
+}

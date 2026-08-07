@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173604-e2a9-by-growing-blackberries-in-a-greenhouse-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "\"By growing blackberries in a greenhouse, we're extending the 2024 Dutch season from May to early November\" - Hortidaily",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxOVFNyVm1HOEttNjlzcy1qQm9ucVlTNlZLNldXT2xoS1A4cmhFa0VYbVBEWXVzSWhwbHk1bUs2YVpxZ2JHWmQzLWVOVmFHc1pnbG1HVWV5dmUwa0tKMnhzUTZEbDE0ckFCeHc4V2dSd2xXdGV3UGx1YzZoRVJKV0I3NVRSeFotaHhiU25hRW5iYUcwTlJ6b1JpVm9zMFljMHBCU3V4VHd3VDRsMnQ1VGZNd1ZTLXRTNVFpZUVkQW1ISlRDS3piNkRrREx6ay0xMXlGbVlZcTJXWG0tSjNucVdsaDJB?oc=5",
+  "published_date": "2023-10-16",
+  "captured_date": "2026-08-06",
+  "summary": "\"By growing blackberries in a greenhouse, we're extending the 2024 Dutch season from May to early November\"&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

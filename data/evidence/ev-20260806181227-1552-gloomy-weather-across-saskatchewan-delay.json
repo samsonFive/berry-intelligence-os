@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181227-1552-gloomy-weather-across-saskatchewan-delay",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Gloomy weather across Saskatchewan delays Saskatoon berry season - 650 CKOM",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQMTlBWmQ3M2JNZGpENnJKWTVneXF0UWQ5aDJncFZRdUZZdjl0cTFXVmttNF9aZFhFbi1iU0JRN2cxNk5PN3pzZkNlMVVkSlZkTThaZ3VISzVmX0JWWHJ3WC1YZHJ6S2VPcDVzdGJVQlhCQnVBX3hvNGdGMjhvTE5rVFBiOXJybmJhWlNGX2ZvNXZpc2VYaTZYcmRYRGduUQ?oc=5",
+  "published_date": "2026-07-05",
+  "captured_date": "2026-08-06",
+  "summary": "Gloomy weather across Saskatchewan delays Saskatoon berry season&nbsp;&nbsp;650 CKOM",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

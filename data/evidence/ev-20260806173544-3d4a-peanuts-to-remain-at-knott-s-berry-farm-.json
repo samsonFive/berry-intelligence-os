@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173544-3d4a-peanuts-to-remain-at-knott-s-berry-farm-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Peanuts to Remain at Knott’s Berry Farm as Licensing Agreement is Extended - Daps Magic",
+  "source_name": "Exclusive variety license berry",
+  "source_url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOZEc0UFFidVpBd0dOQW1HcFR5aHo4eFBUWl9aS1dtemtkNkpJbUtMT3gtM3ZvbUFHZzFXbnkyZUxhRGVxOEVFTnpyXzBBUmFJVkZqbTFXYWs5QzRpVVNmbGN6X2ZwZlZ6STZQWTdQVkRzbW0zUGlvejFfMTRkRGU3VWdHY1VMUWhWRnduSzlnMWFQZDYzMU1DelRpclMyUDZQTVh1VUdKaw?oc=5",
+  "published_date": "2025-09-13",
+  "captured_date": "2026-08-06",
+  "summary": "Peanuts to Remain at Knott’s Berry Farm as Licensing Agreement is Extended&nbsp;&nbsp;Daps Magic",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Exclusive variety license berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Exclusive variety license berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Exclusive variety license berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Exclusive variety license berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Exclusive variety license berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Exclusive variety license berry'; not yet reviewed."
+    }
+  }
+}

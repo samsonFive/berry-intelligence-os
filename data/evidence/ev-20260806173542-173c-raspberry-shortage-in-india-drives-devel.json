@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173542-173c-raspberry-shortage-in-india-drives-devel",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Raspberry shortage in India drives development of local varieties and domestic production - EastFruit",
+  "source_name": "Plant variety protection berry",
+  "source_url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNWl9ST2hfaFRLVm1ETG1xTWJBZEQ0c3ZwZFpOQ0VEaDZrUzMxRWx1Zm5iaDRZb0FXSWxVWVQ5S2ZkUFhUOExib1ZHZ2tpNFVXY1lNU0VPakVXci1rYUFzU192ZFZwMHk1dnV2VlBlUlNsWlFOakZyQ0c1YUl4YXVreWlubllfSks2RnFzQngzRjhqMjZjeXpZRjQ5V3JUeU5Vc2x6Ry1WR2lRS2htbUhQd0FNOExlTFFMNXo4bXlLS2lyQQ?oc=5",
+  "published_date": "2026-01-22",
+  "captured_date": "2026-08-06",
+  "summary": "Raspberry shortage in India drives development of local varieties and domestic production&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Plant variety protection berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Plant variety protection berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    }
+  }
+}

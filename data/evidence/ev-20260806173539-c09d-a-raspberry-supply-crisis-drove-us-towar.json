@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173539-c09d-a-raspberry-supply-crisis-drove-us-towar",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "“A raspberry supply crisis drove us toward homegrown varieties in India” - Hortidaily",
+  "source_name": "Raspberry variety license",
+  "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNM2JqRnNMZ21SY21USGcyZks5LU9LN2JvWnh2NTVsR0FEU1ltelBvSjMxcG9YTGJZU1ZXd0lkOVhLRThqX2t0OGJlQWFORW0xVE9iaExqS1VXaVNsVFBNcXBISkZaWE9UYWdPcnpsZGJxUXowenpTMURFRm1BLUdna3lXSTlWbVdpYU9QSkpmZVdHOTJVM3I1bFZnZDJISTdKR3c5a2YwUHpoMG4xNmZQOVRhb2M?oc=5",
+  "published_date": "2026-01-21",
+  "captured_date": "2026-08-06",
+  "summary": "“A raspberry supply crisis drove us toward homegrown varieties in India”&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Raspberry variety license",
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Raspberry variety license"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    }
+  }
+}

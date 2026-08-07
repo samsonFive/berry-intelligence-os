@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173608-24dc-maine-s-wild-blueberries-deliver-more-th",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Maine’s wild blueberries deliver more than tradition. Research proves they support health. - UMaine News - The University of Maine",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNNFNoY0oycmd2M3h5N0ZHYXkyeTlDUzJJNHhnaWY4azZfY1RDa0tBSXM0dGwxbXNlOXR2cUFSS2ExZ19HYm8zS2RnSjJXNEhWN2VPUXVkbGE5Y2pvbWZPbmZJU3UxT0VjRTc3QXgzN0p3X3dHbVN1cUhHUkNTU2ZRT3dkYy1CWW1CbV9HOUtLc05ocV9VUFVOZXNUSWFQY0g3NnQyOThzSXY5VFVya0hHNHdlcTBfd1l5TzZRYg?oc=5",
+  "published_date": "2026-03-13",
+  "captured_date": "2026-08-06",
+  "summary": "Maine’s wild blueberries deliver more than tradition. Research proves they support health. - UMaine News&nbsp;&nbsp;The University of Maine",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

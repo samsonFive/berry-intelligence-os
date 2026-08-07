@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173848-147e-linton-growing-joins-driscoll-s-nursery-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Linton Growing joins Driscoll’s nursery network - Fruitnet",
+  "source_name": "Berry nursery partnership",
+  "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNQWZrN1JPMVNtbEdxMW9UalpTTnVqQmlaTUptV1lFQnlUMXFYSnMyTjVRT0E0SzkyN0VhQVVlLU9LOHRNU3E2dHNJeF9kZEdLVXA3Z1lLWUdqbk9IVy03R0U5RlZVQWY0SGhlUFEzanpJSGZZSmVJaWhjeEpzZ29nZmtOMWpidUhNT1RfZVJzMGdjOXJfMndfSXNxQkFTQXJOZzA1UVZiSl9IQ2pv?oc=5",
+  "published_date": "2023-02-02",
+  "captured_date": "2026-08-06",
+  "summary": "Linton Growing joins Driscoll’s nursery network&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry nursery partnership",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry nursery partnership"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    }
+  }
+}

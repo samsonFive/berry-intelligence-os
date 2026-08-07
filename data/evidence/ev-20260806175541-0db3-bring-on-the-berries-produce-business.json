@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175541-0db3-bring-on-the-berries-produce-business",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Bring On The Berries - Produce Business",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE54SFZqelJxVG8wX2VCcll0b2cwSC15NmlycFg4WU1sekszeWszOGpXcm9mQmhNcVExMmFMb3N4MExmaVJlVWlDekhsVDJEVzVmSE83SnJsQUZwOUcxTWc?oc=5",
+  "published_date": "2018-03-01",
+  "captured_date": "2026-08-06",
+  "summary": "Bring On The Berries&nbsp;&nbsp;Produce Business",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175532-e96f-china-expands-blueberry-production-and-m",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "China expands blueberry production and market reach - FreshPlaza",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQR0djT01ldmtpZjRzVjhEMTM5ME5lbU9HN2R5LWdDeFhja2lzdENieGxodUtoUHhtTnBrX0RmSVM2UlVleHFObVh0QTltbnMwRVZXTER5dnpvcUJoX0dnbU1fSHhUY25EVk03d2hNajU0WWRIdGNSNmpiMlJJbkU5UEhQemZVemZmbWtJZTcxVGZib3FmMi1RTDRlZUVKS0FRWm1SZ2VLZ3dwekYzLWc?oc=5",
+  "published_date": "2025-11-10",
+  "captured_date": "2026-08-06",
+  "summary": "China expands blueberry production and market reach&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

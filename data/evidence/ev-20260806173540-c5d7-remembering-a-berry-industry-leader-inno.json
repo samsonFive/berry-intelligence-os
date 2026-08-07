@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-c5d7-remembering-a-berry-industry-leader-inno",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Remembering a Berry Industry Leader, Innovator, and Friend - Growing Produce",
+  "source_name": "Blackberry primocane variety",
+  "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQbHd1UFRCcVJkM0FQU0pwOTFCOU5pMG85RDFwQ1Y0Zk9Uekd6MXFsT1lhZllKUWZ2ODlHTHV6YUpsd2otckx3ZlE1c2h1WFctRHN4enV6SnhKZ2tFV19lR09DTFVoWGpEUWEyNno4UEdGZzNfRTI4Q2tuZHc4cF9zczhwR3kxT0x4Y1d4RXJsdGJLcEJzQkdVOTFUWQ?oc=5",
+  "published_date": "2021-03-23",
+  "captured_date": "2026-08-06",
+  "summary": "Remembering a Berry Industry Leader, Innovator, and Friend&nbsp;&nbsp;Growing Produce",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blackberry primocane variety",
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blackberry primocane variety"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    }
+  }
+}

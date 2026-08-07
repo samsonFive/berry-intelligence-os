@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173842-2f7b-bitter-court-fight-over-millions-in-swee",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Bitter Court Fight Over Millions in Sweet Strawberries - Courthouse News",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOOEFLSEE2TzZZdFhINXpxbjU0SU5LWnVPX083Z3ZIaTlnN0xJa25Jb0dnOXhwT0dsMHc4RHVmeDU1LUtyUjZRZHpMLWZ1Z29Ma2lvcFFCLXN4WDZoc2lxaEZIZHlIWjRqOVpBei1KTTV4N0s2amZKOGtQM2F4ZEhTWHhYR1Q?oc=5",
+  "published_date": "2017-05-16",
+  "captured_date": "2026-08-06",
+  "summary": "Bitter Court Fight Over Millions in Sweet Strawberries&nbsp;&nbsp;Courthouse News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

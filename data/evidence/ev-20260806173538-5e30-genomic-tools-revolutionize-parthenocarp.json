@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173538-5e30-genomic-tools-revolutionize-parthenocarp",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Genomic tools revolutionize parthenocarpic blueberry breeding - EurekAlert!",
+  "source_name": "Blueberry breeding program",
+  "source_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBRU1VtNnRlcnpLUVVyNGV3VDdhNFJTSFNGQjdYWmxEemtYdGFPUmFXY2otVlIzcmlfOVpfaTBOUFZsMEdnMTQxcmxYVUxGMThpMzFkRjRoa1dZTzlh?oc=5",
+  "published_date": "2025-12-11",
+  "captured_date": "2026-08-06",
+  "summary": "Genomic tools revolutionize parthenocarpic blueberry breeding&nbsp;&nbsp;EurekAlert!",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blueberry breeding program",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blueberry breeding program"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    }
+  }
+}

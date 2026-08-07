@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173549-b6f2-blueberry-outlook-for-serbia-small-but-f",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blueberry Outlook for Serbia: Small but Fast-Growing European Exporter - EastFruit",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPOUlfNXVha2Zfd3ZDSnNzM0dmVUNyWW5sdWVkT1drcXRYX1dNd1pIclBXYVBIa3JmVTVZNHNOOFZlYUJiSGE1SXVZdDVYR28xTjFScjdnZW5Xd0p1N1pwZ2xsaGREY2djUjF2d3JuT19oRkN0QzJSTkIxTHl3MGdodHF5WVpCbDJySkdBS1ZLQUtsN0NqLTE1aFVuUVdBSFpZVU02eW95a2Q5R3BCWmxwTEgxZzFzaEU1bWNhWnQwdHRuY3N6NVZHYzV0bw?oc=5",
+  "published_date": "2025-05-02",
+  "captured_date": "2026-08-06",
+  "summary": "Blueberry Outlook for Serbia: Small but Fast-Growing European Exporter&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

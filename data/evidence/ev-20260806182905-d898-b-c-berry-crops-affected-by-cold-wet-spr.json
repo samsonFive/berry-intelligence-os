@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182905-d898-b-c-berry-crops-affected-by-cold-wet-spr",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "B.C. berry crops affected by cold, wet spring - CityNews Vancouver",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE5adnBWZGUtMmdZMFVNTTRQTWFZN0lxSnRpUHc2SDZUbU9RYzlDbm1DNVdMQnVBeVVTaVBBTEZaRndRc1JXWk85MDhKelNCMUNjTk1pU0trSHBhOElQOXNaR3pscWpwZVhGcVI2MjRqTWxIMkUwMG1BTHdB?oc=5",
+  "published_date": "2022-05-10",
+  "captured_date": "2026-08-06",
+  "summary": "B.C. berry crops affected by cold, wet spring&nbsp;&nbsp;CityNews Vancouver",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

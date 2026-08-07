@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173913-8abb-naturipe-farms-turns-up-the-volume-on-pr",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Naturipe Farms Turns Up the Volume on Premium Berries at SEPC Southern Exposure - Perishable News",
+  "source_name": "Berry category growth",
+  "source_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNMDZUZDRtd1N6V3V5UUYwbDJYM1hlS0lnc0ljcWd4b3dPM2ZkZTB5bjFJbVhWV0FYWC0tZ2s3Rzltd3lDZmFkTjgwLWpxNXhJbWlITlRIUzVVV0gzaE1zT2w4V1lTdTJ3ZFBTRjBScmoxamhyVmlUU1I4ZzVlQkhtMVQxTEM5YzV0YTlLSGV5cjh0bEo5SFJmX3hwR2tCRGdCa3BUUncxQ2kzVHhUVDYxa2JPUjQ4Zw?oc=5",
+  "published_date": "2026-02-18",
+  "captured_date": "2026-08-06",
+  "summary": "Naturipe Farms Turns Up the Volume on Premium Berries at SEPC Southern Exposure&nbsp;&nbsp;Perishable News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry category growth",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry category growth"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    }
+  }
+}

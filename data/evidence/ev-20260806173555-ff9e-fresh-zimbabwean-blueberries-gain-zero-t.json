@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173555-ff9e-fresh-zimbabwean-blueberries-gain-zero-t",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fresh Zimbabwean Blueberries Gain Zero-Tariff Access to China - Produce Report",
+  "source_name": "Berry tariff",
+  "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPRElkalZ4RGhXZ2hWWGhtcWdUVUNIZFRTNzB4WWRGV2k3VUZzSG1TN2hsWWRhVDI0bDJabEhQb2RwTVNoRjM0MjZmdWNfeGFNVndHUmM4bHlpNEhaUmR5Tk41SkUxekJ4anhkUE9LUXVmS1prbmMydlE1aHY0cEFGaDhMYWF3QWxxdmF5SF84YjRmUG1RNm5ocUZUVzc?oc=5",
+  "published_date": "2025-09-14",
+  "captured_date": "2026-08-06",
+  "summary": "Fresh Zimbabwean Blueberries Gain Zero-Tariff Access to China&nbsp;&nbsp;Produce Report",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry tariff",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry tariff"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    }
+  }
+}

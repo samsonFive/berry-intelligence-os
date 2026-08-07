@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173609-6fc4-driscoll-s-ceo-addresses-berry-markets-a",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Driscoll’s CEO Addresses Berry Markets and California Agriculture Challenges - AgNet West",
+  "source_name": "Berry category growth",
+  "source_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQWk1sMWRuc0FwQ1dmUnZxZE9iTjBsOFBpWTRvYXg1N2ljd2staFFPcWVFdDgwNE1EbGliam53TzBPZ2VFdno2ai1jMDgwVlBMNWRBS0czNmdVNVRHSUdianIzb24tamtjV1drb2FaSnB4V0p0cGd1Nm40Q1RCNjRKdHFTVHEtT0k?oc=5",
+  "published_date": "2026-06-11",
+  "captured_date": "2026-08-06",
+  "summary": "Driscoll’s CEO Addresses Berry Markets and California Agriculture Challenges&nbsp;&nbsp;AgNet West",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry category growth",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry category growth"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    }
+  }
+}

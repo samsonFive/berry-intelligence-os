@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-daee-startup-sued-by-120-year-old-fruit-compa",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Startup sued by 120-year-old fruit company over patented strawberry varieties - Daily Journal",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNQ3Vnb2FNYkE5MHlWb1U0M2hnV2N2eE54V3hBQlVJZXdlN3AxamYxZDdzVTZsT2F0ZTRBTlFzNlJhbC1RcGVuNklVZjRkUkhkWTB5WWp6ZkdzbFFaMnR1aE9ZSW94MF8xamQ4QS1xMGlGQ1U3OTdrMHI2Z3RlRWI5TnYtMnR0eDZiSVRFVUxRWEdCLTZnSUMwcVhjdTQ2Y3JNRzA3dFFMUW5xam5MX0VFZFY1eWFsSml0?oc=5",
+  "published_date": "2024-02-22",
+  "captured_date": "2026-08-06",
+  "summary": "Startup sued by 120-year-old fruit company over patented strawberry varieties&nbsp;&nbsp;Daily Journal",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

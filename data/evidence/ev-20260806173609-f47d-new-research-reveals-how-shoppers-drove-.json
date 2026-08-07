@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173609-f47d-new-research-reveals-how-shoppers-drove-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "New research reveals how shoppers drove $500 million in strawberry category gains - FreshPlaza",
+  "source_name": "Berry category growth",
+  "source_url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNQi1NdE5JalFDbTFPN01LMTN2cDlaVkZHU2VjbHNGNjRmT2I5UzU3bFJoN0tHVjE4OVFpZXByZERwc2Eybi11UndMcUpTdm5CNExZTmV2ZUQzd2k4VklhbUJnUFo1WkNLX1BkaUFPc1dleUpHdlNldTd4N1phRXpJdUtDQk90Sk5Ibmk0THItWVVIUFNYWEhxWlRMUGttWFg0aWZEcW15VXEzZ0Exd0QwX0U5OHdnNFZoejJhTjVTbHNkQkpqY1RHSWN2eWp6QlJBZmdxeg?oc=5",
+  "published_date": "2026-01-15",
+  "captured_date": "2026-08-06",
+  "summary": "New research reveals how shoppers drove $500 million in strawberry category gains&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry category growth",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry category growth"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    }
+  }
+}

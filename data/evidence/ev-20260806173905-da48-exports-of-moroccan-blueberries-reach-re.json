@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806173905-da48-exports-of-moroccan-blueberries-reach-re",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Exports of Moroccan blueberries reach record levels - Atalayar",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPdEVLVzdPcWhmNTdkLVJSYzYtOTlBdENnenJvRHVVMmw5aFlCOXVRSEJDQ3ZtVTZGSUJKOU1vQmhpZ0FmWDNyaGNSbzh4eF9IanVpMGpoVEQxSUI5SVA4VDZMdWxrLXR6QXUtSEZtMkFUZEZ6bnhFcWw4c3d6cHBpZWZQRnVJczRvZ0NmckJLQUF2ckZILUkySGRUZ3k0XzR3UExKSW1MeEs4RGRtLW9sbjdVeS1nVHUwR211SWZEVURsRTFfQjhnQ0tJTGc4a0I50gHWAUFVX3lxTE9pNlIyM2tPclZQUnFDRC0ySkQ4TjBuMklaSG9kNnFSOUtYbjkyT3dERlJXZUQwSFM4b1ZTZU1DcjE4cjdzODZtYWNVU2d0Q2gtTWpvTzYyVExYY0pTVUxrSDJjRHhjVl9JMVNKaW1LaEV6SnRvTFdDQkJyM0IwNkx3T2ppRlpVYzFSSHZpVHNweUpGeHFGY1cwQi1lNVhDYWljZ2hDeDNRTERjSE4ybDMycjdsWmNnMWJCRG9aX1RLeDdRY3lIdmYxdWZLMG1EVkZ6U2xOaUE?oc=5",
+  "published_date": "2024-08-26",
+  "captured_date": "2026-08-06",
+  "summary": "Exports of Moroccan blueberries reach record levels&nbsp;&nbsp;Atalayar",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

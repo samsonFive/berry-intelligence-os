@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181225-b048-olins-urges-more-berry-investments-fruit",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Olins urges more berry investments - Fruitnet",
+  "source_name": "Berry industry investment",
+  "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOSmxvWk9hZTdDM1luYmJyLWdLMHA5MEhyX0hEa0l6Y3p5Q0swT3M2LXNVVjVLTGRoa3l4amxqNnVYZDh5MXpwcDVMX0tOaFJCbThQRUhhalpZVHp0cDlkYy1lOXpEQmhFbXktYzg2V21uVUhxNnRDMWhTUWtYUjloV1RuVVJTdFdJTmdNc1ZsTGFiS0dzTFhjanRwV2g?oc=5",
+  "published_date": "2013-07-25",
+  "captured_date": "2026-08-06",
+  "summary": "Olins urges more berry investments&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry industry investment",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry industry investment"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    }
+  }
+}

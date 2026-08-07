@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173853-d3c7-california-giant-berry-farms-ramps-up-or",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "California Giant Berry Farms Ramps Up Organic and Conventional Production - AndNowUKnow",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxPb19IZm1YSHNjckFneDhkekJQNC1md1ZqQU03aXprYWtFTlRKNWtrbHNQYmd0YU1tcml2LXJOT1lKbE1tS05ZLWxkdnZUbS1mcXQzY0dZZEZOeUduUlBRZ3FUOV9zd2tJd2V3YS1kRGU4ZTBwdnZOc0FvX0hkU190WEVoUXdlLXl5RTJ3ZzdnT01JYU9HZk02Wi1yM0tla1RZV2NDRUhYN2NLdUcyZy1zTnBnM3p6bnVoaTlVaGJCb2g1OWRuVTdrTWZBZFFkVjFOWjZfOVZPOWU?oc=5",
+  "published_date": "2020-10-06",
+  "captured_date": "2026-08-06",
+  "summary": "California Giant Berry Farms Ramps Up Organic and Conventional Production&nbsp;&nbsp;AndNowUKnow",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173545-e49e-amcor-reports-increased-sales-in-q1-of-2",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Amcor reports increased sales in Q1 of '26 - Recycling Today",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOaGRIa1ZfbWNLV2YySmdUdVJmZHpod1hMQnVKX1g1MjMxYVVubjF5WjUwQWZ0a0ZRX1djZlA2c3V0cnd1ZVloNVZFY1BkREROVE85cUpqSEpxaGJWNGdCX19Gcm5rS2FtU3FmU196TnhPcTFZaUgxcWtQSjNSTU5ORmdqTU5ObUN2LWRSY3R4VGRqS21Ndmc?oc=5",
+  "published_date": "2025-11-10",
+  "captured_date": "2026-08-06",
+  "summary": "Amcor reports increased sales in Q1 of '26&nbsp;&nbsp;Recycling Today",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

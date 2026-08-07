@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175540-562f-eu-strawberry-market-reached-3-8b-and-is",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "EU Strawberry Market Reached $3.8B and Is Set To Continue Moderate Growth - Global Trade Magazine",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNUzYxeUdZRVhxbzBiV2hONVNCTzdJRUtLbnJxSGR6NFgzUWFlQ2xaY3pPUEpfWHY4aUlnWmxBaEdjM0ktbGtyWUw4bWpJeVRmMXYzYTdNRUt2V25kMmRmcFphbWtGbWlDR3FXcUF5cng4TGx5bTlkc1I5OFBsTlRaeWFZS3JtLVdpTHRUbWZPY1lVNUplOGZVLVp4bXNEWE5mT19GWDk0QQ?oc=5",
+  "published_date": "2020-03-26",
+  "captured_date": "2026-08-06",
+  "summary": "EU Strawberry Market Reached $3.8B and Is Set To Continue Moderate Growth&nbsp;&nbsp;Global Trade Magazine",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

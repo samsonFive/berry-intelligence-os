@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173608-4301-research-shows-nuts-and-berries-support-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Research Shows Nuts and Berries Support Brain Health with Key Nutrients - Brain & Life",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQMWJiSC1QRERUX3F2MmsyUUkweGFTV24tSWlZcUJTSzVVSDRfWnJUc3REOTFiNUFHMEtwMFROazVCd3ltUFh4Zng0SGNIUTJpMjQwWU5ncWlsYUwtTkFuZTRzSHd2dXVQRF9OcVpwdWg5YS1WTElYejVEVmMyTGwzc0l4bmQyc0d3eVcxNFNRNGVGbi1fcVZjTlFB?oc=5",
+  "published_date": "2025-10-06",
+  "captured_date": "2026-08-06",
+  "summary": "Research Shows Nuts and Berries Support Brain Health with Key Nutrients&nbsp;&nbsp;Brain & Life",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

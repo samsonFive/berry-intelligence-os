@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175525-66c3-bountiful-blueberry-harvest-forecast-for",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Bountiful blueberry harvest forecast for Greater Sudbury - Sudbury News",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPOUk1YzB5MzNnaldMRjgxRi14SVh6YUJ6eVg3YUJUQ1J6aTVYOGl5QWlTNDlieTd5S0c2bllaNVdKQ3FQQlJuVno5MDVxV1dxcEo0MVdjVVpleERlWkFLcGdVYXJIM0lOZXd0VkVnXzNkeHRTVEZQZjVWQjBnaWs0cDlYSjdWMjlXcVllR0RuR09sdE9vSzA5cGF1UnNfdUZF?oc=5",
+  "published_date": "2023-05-09",
+  "captured_date": "2026-08-06",
+  "summary": "Bountiful blueberry harvest forecast for Greater Sudbury&nbsp;&nbsp;Sudbury News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

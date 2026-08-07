@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806175534-93b7-blackberry-producing-regions-in-mexico-p",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blackberry producing regions in Mexico. - ProducePay",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9LX2NXUmV3M3lnSG5IcnBNdGNVV2tHZi0zSXJSVmJrWWh2YkphWGl1Z0lUSUdCZkRaemJIUVdGdVlNV0FRLUQ0YzhiM1V1Z0dPVk9NNngwQl84c1Fuby14Y2U0TjNsdl9VckpVeFhncU12QVppRlE?oc=5",
+  "published_date": "2022-11-18",
+  "captured_date": "2026-08-06",
+  "summary": "Blackberry producing regions in Mexico.&nbsp;&nbsp;ProducePay",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

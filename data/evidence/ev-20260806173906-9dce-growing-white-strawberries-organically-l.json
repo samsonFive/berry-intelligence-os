@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173906-9dce-growing-white-strawberries-organically-l",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "\"Growing white strawberries organically leads to higher market returns\" - Hortidaily",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPN295cS1nRmRCRXJrZFotZnc0QkdpMDg0dFhzb2t5Wm9lbl9GYmJIZUF5Z0lpZDN6OXdHejJLU0c4UWJRRHNsOHZVTmgxUDVYRnFiY2xOTWhFY1ZXWFpxZjJsc3VrLXpIZmUtR3R3VTJISm9iWWRFMjBYVmdoOHlSWThITlNCaEItZ0QyZkJweVNoalBFMXFGT0xrOFA5eGRGREpBWmpUb04yV1lrenhWYmJaVQ?oc=5",
+  "published_date": "2023-03-28",
+  "captured_date": "2026-08-06",
+  "summary": "\"Growing white strawberries organically leads to higher market returns\"&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

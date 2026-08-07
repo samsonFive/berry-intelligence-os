@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175541-2ce1-comment-data-tools-drive-driscoll-s-impr",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Comment: Data tools drive Driscoll’s improvement - Fruitnet",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPRzFDdk5WbHlPN1NXYk9hTUNxVHpJMUxFaGh4XzVXblJPS19VZGVVdTdIbG1qdDdGc3VvTE1iVjhvRkIyLUNjOHdpaDZqek9uSWEyOHJSM19FWFlOb05BeGFsVEY2b2lrR2xsUm9UZDRMUzZSQ3laczFZVlJhVmpud2Jqb0dPNDVTRjdzYTJuNW1ZUEU3cVdNeThnTVhKcmozVTM4eEdZTTZCaFBO?oc=5",
+  "published_date": "2025-01-21",
+  "captured_date": "2026-08-06",
+  "summary": "Comment: Data tools drive Driscoll’s improvement&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

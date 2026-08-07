@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173600-ad45-mexico-expands-berry-exports-while-reduc",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Mexico expands berry exports while reducing U.S. dependence - FreshPlaza",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPX2xBN3FGNGZtaHhEUlZPcmpQYlBXbjE0QnQ4UXpPTWVrcEFheURwLXN5NVZya2JlTFc4d0pUbkI5Sk04Q1FXQmJYbWQtUWVZX0NodEtTZmpWbWcwaEJSRDJheExnMFhTTDVHWGlqandrMEN5NUVSY3dPN0ZYLWlJa0ZVel9UZzRiLThwTkluUlpQNk1SWmpCMjA1NjFnRlNCVTRiQnVTWlNNUG9OY2w5ZUI2ZkZRSjA?oc=5",
+  "published_date": "2025-10-15",
+  "captured_date": "2026-08-06",
+  "summary": "Mexico expands berry exports while reducing U.S. dependence&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

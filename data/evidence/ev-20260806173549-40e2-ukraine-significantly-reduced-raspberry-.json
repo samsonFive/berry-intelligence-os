@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173549-40e2-ukraine-significantly-reduced-raspberry-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Ukraine significantly reduced raspberry production and export volumes in 2025 - Українські Національні Новини (УНН)",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOYk5iNTA0OUVJNWR5anJ0YURZVVVkUGthZ2JkQmRoTWVnMkItRElxTVNYeFRSbUdwRzM5X1NWYUpjNTdfck9CWkhnampVZXhQQzBJeTRaZ2o2MXZ1UWhNZTdrRlQ2UURsSGFmNXFrcXpsSF9ON0hsRG4zekRTVWsxWTA5cWI3d296NnREMmU5eThvVTkyRGRXSF9hdkYxQ3dzVXfSAaABQVVfeXFMTlpFLWNhdDllX1V0aE1TRTVsWDFSSXFPZDZoQWhfaHVubF9Ea1NOVmJDS2NyMzVzSV9CWldaWVBjRGlLN0ZOT09qM3lhZUFGaldtQjdLaHl2TWZSUXNWRmxjMHFXWWRqRHZWSDdCaHhUNnVsSVJXNU5EMmdOMVl0X1lNYzVVUTVkeVJEMHVtZTMyajg1bEFBUzgyNmlJQWtQUQ?oc=5",
+  "published_date": "2026-02-20",
+  "captured_date": "2026-08-06",
+  "summary": "Ukraine significantly reduced raspberry production and export volumes in 2025&nbsp;&nbsp;Українські Національні Новини (УНН)",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

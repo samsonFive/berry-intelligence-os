@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806181239-9307-g-berries-and-dole-form-mexico-partnersh",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "G-Berries and Dole form Mexico partnership - Fruitnet",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNTWdnOFoxZnp3LXNPVFRRbW9oeERNaGtCcm9pNlFJZnczN2t2VGNla2hGZTBtVkpLZ2dTUFJGUEFhTlh3MEpOQ2ZEeWZlQ1cyX1B5TU1ncjhGUm41VVpqOUxfMlRwbUQ3dXQ5c29Ob0l3NWpTQTQtdTdkeElYOThGYXNlNWY2bF9Ubnd0Ni1aekFjcFJNOG9j?oc=5",
+  "published_date": "2021-10-21",
+  "captured_date": "2026-08-06",
+  "summary": "G-Berries and Dole form Mexico partnership&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

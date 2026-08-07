@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173547-8c5d-cracking-the-elderberry-code-independent",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Cracking the Elderberry Code - independent.com",
+  "source_name": "Berry nursery partnership",
+  "source_url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBYUV80dWNVRXF2ZlMyU3VDUjZmTWVXQUd5NjA0ZUhQbURUVzZyalhEY1FSbU1OY21vM3dNajlVWjRFUzN6NVE3OER1WkZScThCU1RIbHI3ekpGVUZ5RWlJNVByMFFGdWIwVEJyUGJoWDB2R1F1Wncw?oc=5",
+  "published_date": "2023-12-13",
+  "captured_date": "2026-08-06",
+  "summary": "Cracking the Elderberry Code&nbsp;&nbsp;independent.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry nursery partnership",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry nursery partnership"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    }
+  }
+}

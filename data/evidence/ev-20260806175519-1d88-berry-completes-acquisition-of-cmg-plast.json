@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175519-1d88-berry-completes-acquisition-of-cmg-plast",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry Completes Acquisition of CMG Plastics - PlasticsToday",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNbzdPakZjQ1JvWklremctazNoM092enotOUxlQ01ZUThLSURHdTV1TndZQ216WUwyWGwxamxfWl92ODRBX0R3Y3NwMFdpemFrUHdmZ2Qxa2NROWFjVVRDZnRSY2ZTX0lZNnl0b1Q0NTNqN0VIMHBvc0xlcEpWWkxyUjFiaFZQSlpEWGtr?oc=5",
+  "published_date": "2025-02-25",
+  "captured_date": "2026-08-06",
+  "summary": "Berry Completes Acquisition of CMG Plastics&nbsp;&nbsp;PlasticsToday",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

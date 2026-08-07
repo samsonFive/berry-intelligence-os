@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181226-abe5-blueberry-leads-in-horticulture-producti",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blueberry leads in horticulture production with 69pc growth - Herald.co.zw",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxONDFQQ1RUbDR4NGRBTnRaSTJXM1dYcDNXUFdCcXFyX1Jjaldad25ncEZqYlF6SGZidXpZS0FlRFhZZnEzZTRBeU8xSkF5WE9ETDhmWXB3V3RqWHB0dXhhOGNKNlBJQU80NUNPaGZSVVNka2JSemt4N0R6elhZaFVfT0ZZbV8tbi1RYndxbzA1cW9SNEVUbWc?oc=5",
+  "published_date": "2023-05-01",
+  "captured_date": "2026-08-06",
+  "summary": "Blueberry leads in horticulture production with 69pc growth&nbsp;&nbsp;Herald.co.zw",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

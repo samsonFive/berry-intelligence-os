@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173600-5d73-what-is-the-most-profitable-agri-food-in",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "What is the most profitable agri-food in Mexico? - Hortidaily",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNamtjZEg3ZVBNaXE5NGZxaENOQVdlMDdlM2w4dmkySDZ2aDFfZWFRNk51M2hYakdQT2lxQWhJOHIwZ2dKUjg2WUg3SEY4aHBzWDBjNkstbHFMbGZSWHpWbHBrV2Fmdmc5eldGQmd1a0RzWEdZajRSWUo1Z3BpTHY3QmcxR2hsZXNpSHN1ZjVRRjdzdmJBTlE?oc=5",
+  "published_date": "2025-11-05",
+  "captured_date": "2026-08-06",
+  "summary": "What is the most profitable agri-food in Mexico?&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

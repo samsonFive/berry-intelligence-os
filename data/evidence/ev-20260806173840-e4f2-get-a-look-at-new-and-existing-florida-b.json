@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173840-e4f2-get-a-look-at-new-and-existing-florida-b",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Get a Look at New and Existing Florida Blueberry Varieties - Growing Produce",
+  "source_name": "Blueberry breeding program",
+  "source_url": "https://news.google.com/rss/articles/CBMingFBVV95cUxObzRBc191Z3c5MVNJUTZiOWgxUmdqN2ZOSzA5QU9xRGEwVkdSRzdiV1B3a3dSQllqUDZqTXR0YmhaZTNybXM0SW9zZVRMWE8yRkRvUl9lSi1hQjNoT1lkZ2l2cmNyN0lWYXRxc19DUjFNbFZ5UE9ZeWVKdktKdHZ3a0g5Y2JhLWwzd252d1hEc2dlbXhIZEg2alNPenZmZw?oc=5",
+  "published_date": "2019-09-29",
+  "captured_date": "2026-08-06",
+  "summary": "Get a Look at New and Existing Florida Blueberry Varieties&nbsp;&nbsp;Growing Produce",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blueberry breeding program",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blueberry breeding program"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    }
+  }
+}

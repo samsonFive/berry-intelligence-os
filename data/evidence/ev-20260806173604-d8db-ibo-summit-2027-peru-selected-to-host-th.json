@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173604-d8db-ibo-summit-2027-peru-selected-to-host-th",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "IBO Summit 2027: Peru selected to host the blueberry industry - FreshFruitPortal.com",
+  "source_name": "South Africa blueberry IBO summit",
+  "source_url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1Cd0pZbDNnOUt4UU44VFItcE5GeHFPVnhYVUU3VlpvcHVVRDJQeVBJbU92VHBsSWhELVdrd0FQYnIzb0JZanlBOVluZk9ZX09Iby1mR3BQdlZ5R3lVbWRqM0VJc1FZOFdaVEtzQk16eGI?oc=5",
+  "published_date": "2026-02-10",
+  "captured_date": "2026-08-06",
+  "summary": "IBO Summit 2027: Peru selected to host the blueberry industry&nbsp;&nbsp;FreshFruitPortal.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:South Africa blueberry IBO summit",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "South Africa blueberry IBO summit"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'South Africa blueberry IBO summit'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'South Africa blueberry IBO summit'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'South Africa blueberry IBO summit'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'South Africa blueberry IBO summit'; not yet reviewed."
+    }
+  }
+}

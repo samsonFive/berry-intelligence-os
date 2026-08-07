@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182922-8086-bears-and-berries-researchers-highlight-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Bears and berries: Researchers highlight critical role of grizzlies in huckleberry health - The University of British Columbia",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOYzhINGRtR2hBcjVzQlJWWUY1Wk9LQWtnTmpjYkFnTkZENGdWQV9BemRGTkhMVHk0Z1dYV2ZnYm5SOVV5dGJZOG5mX0MyNF9hMG9TUzgtQkNtTndwWnNrSHFGQjFVRGNsQnJ5YlNPUUdsck8xVHV2SjJTbEwwazZlTEVCbEhsb0RlR0JPOS0yaFpqamdVMmhleENKdTFIZ3llc0NUQ1RsRTU3bTlhLWxFbHJCSkpjdFJJbkU0V1R2VFQ?oc=5",
+  "published_date": "2024-12-10",
+  "captured_date": "2026-08-06",
+  "summary": "Bears and berries: Researchers highlight critical role of grizzlies in huckleberry health&nbsp;&nbsp;The University of British Columbia",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

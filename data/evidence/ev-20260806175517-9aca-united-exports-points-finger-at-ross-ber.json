@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175517-9aca-united-exports-points-finger-at-ross-ber",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "United Exports points finger at Ross Berries - Fruitnet",
+  "source_name": "Plant variety protection berry",
+  "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOVDBRRURqQ0ZjelNxVlhxY2dUeDkyODZ4MVU3Vjk2VHJ4RTVZLVlrdW4zZERRSU9fcEowMXdJR1E1emozVFl0R2NleFZKNFNLRnJfV2xUSGFpaHN0QS1NVlBWTmRmcDgxSkFRSEZ3SkdpTjJFQTZTb3JVVjJSY3BuRFd2QV9vclVsdy00NmM1LV94cDdPc0J5Z05n?oc=5",
+  "published_date": "2020-11-06",
+  "captured_date": "2026-08-06",
+  "summary": "United Exports points finger at Ross Berries&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Plant variety protection berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Plant variety protection berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    }
+  }
+}

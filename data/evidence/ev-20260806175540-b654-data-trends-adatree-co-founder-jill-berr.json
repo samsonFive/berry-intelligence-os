@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175540-b654-data-trends-adatree-co-founder-jill-berr",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Data trends: Adatree co-founder Jill Berry on what to expect in 2023 - smartcompany.com.au",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPVEdlbmtEVmNsdEgzbTBNMVJyeTM4eTVnSFY1X2F4bXlqUE5lNUhTeW5nVHYtZkpGZFFXS3JYVUtwd1hJcWhBSVdkNmxkMVI4M3VPa20yMWhtcnBra2lzOHV3MHUzY1paby1SUFVfekhjZU91ajY2M19maTlPeDd4Y3pfdDFrLU9zWVc1bUpCYkVEUHMzRmNKTTM0Vmxma0hfZEgtOE9IYURjQU80?oc=5",
+  "published_date": "2022-12-06",
+  "captured_date": "2026-08-06",
+  "summary": "Data trends: Adatree co-founder Jill Berry on what to expect in 2023&nbsp;&nbsp;smartcompany.com.au",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175533-9c8e-blueberry-pricing-likely-to-pick-up-next",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blueberry pricing likely to pick up next month - FreshPlaza",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNMzhvVXpyTUNoOVBmaVd2VlBKRDhxMW1lT3BSOFN1azJrUWdUSllZQ2F1OWl3OWdLRk9aUmdFNHFFbkFmRW52bnJXLXN6T2VIWVdzblgtTmpJRkxKQ0Zlcml2SHpkeDMwS3RsdUFtUnlsOTZLejg4dmhMV0JLYVdBTGhzc1RTOXJCWGpOb1duYlNFaEkzOWs2S3JUZHc0WEJDVS1Bcmh0VQ?oc=5",
+  "published_date": "2026-01-27",
+  "captured_date": "2026-08-06",
+  "summary": "Blueberry pricing likely to pick up next month&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

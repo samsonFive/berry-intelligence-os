@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173908-28d8-the-netherlands-remains-our-preferred-so",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "\"The Netherlands remains our preferred source for fresh produce imports despite the distance\" - Hortidaily",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPOG1Ec29ZeVV1aFlXLS0zcDhoUEloaUl3QVR1QndicGlqbjAwSjEwYjFCNnh4OEZ4WHY0NDk0YnpwR191REJBVFI0TEc5ZERCYlplZ0ktaHdYMi1fUV9qb3o3QUZKRmNpY0ZHVG8ySDR4UWIzX18yeHhBc0VpSEE1UEExUEtXbTEtRGs5LV9ncUNwWTJXV1dTWUZ3d3htYmlGMFFFaWsxbkc3Y3Jad1dKaUM0cG9wM01td2ZhcmVtd3hKdzFtVDRDNnZBNU9JM2Vk?oc=5",
+  "published_date": "2024-12-04",
+  "captured_date": "2026-08-06",
+  "summary": "\"The Netherlands remains our preferred source for fresh produce imports despite the distance\"&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

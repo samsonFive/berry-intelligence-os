@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182922-78cd-first-lady-jill-biden-actress-halle-berr",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "First Lady Jill Biden, actress Halle Berry to visit Chicago's UIC to discuss women's health - CBS News",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNbGQ3bE16TUtFdmxaTmRLNFhXLVlwZ2N6OFFIWjdLYmlMZlpFZm1qVTRSN1BndEFRZEFsQmhwZ2ZKR1FlZ253SWRDcW41TGVKMFpBNU5tUnVITW9OQlNEZndTMlZBR3l4R0RsS1FaYktxQ3FKcmtxcWllcVNfOFN1LUlxejTSAYoBQVVfeXFMTnZFVTJvbDFJRkhqRlN2Y29EbERKeDNRQVF2TkJNdDloRGVnU1AteGFUUGNHMjJQWDFXWVVybkpQbjlnMlREUEctY01DRkJjc3ZwSXJWeV9tT2FwYk5KbjlSTHMtb21HVmV3dHZuWktrUkZiUWpkUjRNOUlfY29RYWxfUzFERmpJaF9n?oc=5",
+  "published_date": "2024-01-11",
+  "captured_date": "2026-08-06",
+  "summary": "First Lady Jill Biden, actress Halle Berry to visit Chicago's UIC to discuss women's health&nbsp;&nbsp;CBS News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

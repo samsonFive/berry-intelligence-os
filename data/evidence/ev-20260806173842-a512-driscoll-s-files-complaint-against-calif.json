@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173842-a512-driscoll-s-files-complaint-against-calif",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Driscoll's Files Complaint Against California Berry Cultivars for Patent Infringement - AndNowUKnow",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNNVpSZmJiZHBjc2NVUC1kM0doelYtVVZ5M3hZdC1wejFFWENtZ01YSjZlbDgyQ1l0N1A0bWJVN3dVTDBQQk81TVhxQkI3WEdYbUtPUnJQTTUwWlNROTBXTG5jWXdIMUkyS1FOWmJNS0NTWFNOR1R0TnZBTFdMSi1JVDJkY0NxXzNoMnl1QWUzTnJtTXZubmpiZmtjdGNHeHlwNThmZ3NOLVdkdjNSN01FVHZ4YV92YmpvOWxvUUFaaERmU0tLTXhnWTNUZjZRR0MxN0JV?oc=5",
+  "published_date": "2019-03-20",
+  "captured_date": "2026-08-06",
+  "summary": "Driscoll's Files Complaint Against California Berry Cultivars for Patent Infringement&nbsp;&nbsp;AndNowUKnow",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

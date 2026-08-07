@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173550-6fb5-blackcurrants-in-ukraine-are-entering-a-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blackcurrants in Ukraine are entering a price peak, and revenue opportunities go beyond the berries themselves - EastFruit",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxOQXgwYkdUMFMyV0NvUm5RUVE2bE9GcGVaRm5ob2tLOTBjNVpxUG5xSlF2TTRjZTlmVkZncm9RUWtrMkh2Y3VSWE5fZmZPMUxEbFRoOFlEQUZEbDBMNXNrYUlTTTF3WnNBLVctTUxyN1QzYURfWDdteF9IRTQ3UDZER3ozRzBsWmhIRzN0WGdmTWpSVXZoZHp2aHd5bVBlTVF3WGZfdVZsTjZucUdNSldfcERQZFNFMDRSMXk4d29vQkVJTE9LZUV2ckdsQTE3NFJYSDRSaU1KQWdySGtuME5F?oc=5",
+  "published_date": "2026-03-31",
+  "captured_date": "2026-08-06",
+  "summary": "Blackcurrants in Ukraine are entering a price peak, and revenue opportunities go beyond the berries themselves&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173549-1590-overlapping-supply-windows-pressure-glob",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Overlapping supply windows pressure global blueberry prices - FreshPlaza",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNdzJ1enVKenk4ekROMWRmWm5WUkpacVFfZ2Z6X3lVVEtwWEx3QkVYclNkbU9WMC1FVjRYUlRjRXBpSTY5U20tVkxMd2MzWVhQel9iZldfd1FESmtGQm95VWxDR0xTRWtlb3ZiZmdFZlp2MTcwaUJVbnBjS2pfaE8yWjZOXzVEOXpZeUlEaXdUdWFEN2JuUmF4dEsta2UtQ1p0WUtldEtrYkhxTnhwdUxtX2NuWC1qN2xR?oc=5",
+  "published_date": "2026-06-16",
+  "captured_date": "2026-08-06",
+  "summary": "Overlapping supply windows pressure global blueberry prices&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

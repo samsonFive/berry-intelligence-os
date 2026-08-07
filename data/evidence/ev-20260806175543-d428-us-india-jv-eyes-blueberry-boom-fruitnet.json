@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175543-d428-us-india-jv-eyes-blueberry-boom-fruitnet",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "US-India JV eyes blueberry boom - Fruitnet",
+  "source_name": "Berry category growth",
+  "source_url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOekd6S1ZFS2xaUERoUVIyWlg1NUp1NzZDNVc4WV9saFJXTF8xSzhhNUZOc051dlhKbFNlRXlxMk9vZFdMd0JZTzJCMlhMMncyWkJYWG0tbUF3Q0F2VlhVa2lvOGREVlY2VE5sZVZ5TFlBUE81U3A5YWpKVk9fbGRWWmUyb1ZQRHNQ?oc=5",
+  "published_date": "2019-09-25",
+  "captured_date": "2026-08-06",
+  "summary": "US-India JV eyes blueberry boom&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry category growth",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry category growth"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    }
+  }
+}

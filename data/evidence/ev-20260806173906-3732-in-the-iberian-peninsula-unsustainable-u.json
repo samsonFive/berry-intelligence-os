@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173906-3732-in-the-iberian-peninsula-unsustainable-u",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "In the Iberian peninsula, “unsustainable, unviable” berry businesses are draining water and exploiting migrant labour - equaltimes.org",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBQejVVZV9aN2tNbkxDdGRnZlA3S2ktY013eVVyaGd0UGd2WjYzZThwTkM0WHRnTlNydEZ0NDhMN1hSbjJUbE15SWVKTHYwaURlQVdXTDhJRXZYS2thOGhfeA?oc=5",
+  "published_date": "2022-12-05",
+  "captured_date": "2026-08-06",
+  "summary": "In the Iberian peninsula, “unsustainable, unviable” berry businesses are draining water and exploiting migrant labour&nbsp;&nbsp;equaltimes.org",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

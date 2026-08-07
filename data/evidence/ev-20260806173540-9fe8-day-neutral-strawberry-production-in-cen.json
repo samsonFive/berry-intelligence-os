@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-9fe8-day-neutral-strawberry-production-in-cen",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Day-neutral Strawberry Production in Central Oregon - OSU Extension Service",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPMEM3U3hpN3BBRjRLMUZkcEpzTnNEc2tDNDhNYTcxY3E0dU00cXV3LWdZMTZiSGFEM1J6anhYeXVjQmtqWHp3bGZOX2FRb3JnQlJMb09vTXFRdzdGWnI1MGJFNU9xbDAxZklUcnVodVRPVWZhOWpDcVY0X01IcFlaWk8xLThUY2E5MGVtaVRkUEo5bk5DUVAybGhxWk9VbEFPWWVSaA?oc=5",
+  "published_date": "2023-06-09",
+  "captured_date": "2026-08-06",
+  "summary": "Day-neutral Strawberry Production in Central Oregon&nbsp;&nbsp;OSU Extension Service",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

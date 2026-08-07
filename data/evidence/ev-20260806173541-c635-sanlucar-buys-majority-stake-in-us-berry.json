@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173541-c635-sanlucar-buys-majority-stake-in-us-berry",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "SanLucar buys majority stake in US berry grower Twin River - Dealroom",
+  "source_name": "Berry genetics company",
+  "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNSGpscHdBU1FHUEswTjJ6cVhmS2tkUmh3Q29kX2U3dHNhSFZoWVVCN2s1cHkwTU5POVpadTBUNVRDdXJNMVZkazVfUE9kc19JbHowZndyWi1DaDBVVXFyTUJOS2J3TXl1VnZiTVRZWmtnRG5QamZIZDB2RXd3U0FQY2tvUUtaV2RCVUxmRFBVWE9RTkV1S05F?oc=5",
+  "published_date": "2026-07-09",
+  "captured_date": "2026-08-06",
+  "summary": "SanLucar buys majority stake in US berry grower Twin River&nbsp;&nbsp;Dealroom",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175529-4107-australia-disappointed-with-china-s-beef",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Australia ‘disappointed’ with China’s beef tariffs - Taipei Times",
+  "source_name": "Berry tariff",
+  "source_url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFB3NWNPVzlGM0ZHYlRZa0pUVjVUY1lpU3lLNGtpLXJpTUZQX0ZZWGtzdXNuR25uVjl4NmFvSVZTWDloRkFQZGdJWFp2VDh3cU5yRFYtMElfV2RSck0zbTNUajU4QldLd1dTbG9rcHdGNVFvZzJXbXc?oc=5",
+  "published_date": "2026-01-02",
+  "captured_date": "2026-08-06",
+  "summary": "Australia ‘disappointed’ with China’s beef tariffs&nbsp;&nbsp;Taipei Times",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry tariff",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry tariff"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    }
+  }
+}

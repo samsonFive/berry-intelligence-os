@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806175535-0dfa-morocco-outperforms-us-to-become-4th-lar",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Morocco Outperforms US to Become 4th Largest Blueberry Exporter Worldwide - Morocco World News",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNaW1FZlJmbkZpbE5tMXJaZ3JGQ3NnZjhGbGFZZVJHc0M0OUNwbWRudlR2aUF2Zm9PSExFd2NBMjlpLXZlSFVwZ1RGNTlsbmZTWE5MUGdmb3pxOWdwd20wankwenFEQlhOWTdCXzd6M1V5cFVDV0JTeDN4eVpsY1dab3JZMEZRZkR5TTNvWmZsUlhsM2hvUXhLT1F3eUtlNE40MHJfTDJhTUdQbjRQQUMtbnl1NTkyNUFNM2NmNnB3?oc=5",
+  "published_date": "2023-03-19",
+  "captured_date": "2026-08-06",
+  "summary": "Morocco Outperforms US to Become 4th Largest Blueberry Exporter Worldwide&nbsp;&nbsp;Morocco World News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

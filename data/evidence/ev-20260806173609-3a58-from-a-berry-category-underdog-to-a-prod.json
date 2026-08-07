@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173609-3a58-from-a-berry-category-underdog-to-a-prod",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "“From a berry category underdog to a product with growth potential” - FreshPlaza",
+  "source_name": "Berry category growth",
+  "source_url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPYzZRNHlYM0MwYnlJLXRkWlF3Tm5GNkxGQ2lfLWpEVjFkQnNMbDRIVUpwbkVIZXY2MUloQTR2WExMbHdHdi16THlMRlNqVFRydHJyRmtwY2pPa0tndXRiNlFCMV9VRjEwZmhxdmVOS1BzZXZkU1k0X2Q4ck1MUVBRak93OHZmR2JyWXczRFJPQkM1N3R3OEpTcHRwMmZzQUtfSlZ3UWVEb1Q3TTU4RlVRX1Z6YnlfbWtRR1ZGT1E4S08?oc=5",
+  "published_date": "2024-10-09",
+  "captured_date": "2026-08-06",
+  "summary": "“From a berry category underdog to a product with growth potential”&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry category growth",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry category growth"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    }
+  }
+}

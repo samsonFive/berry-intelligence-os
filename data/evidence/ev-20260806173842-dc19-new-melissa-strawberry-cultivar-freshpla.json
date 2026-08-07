@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173842-dc19-new-melissa-strawberry-cultivar-freshpla",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "New Melissa strawberry cultivar - FreshPlaza",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxONE1Md3NmRnQyeElFZkJ3V0xwQ0VacHd5WjhGaTFjTjRoLWFUWlBpNk9MU1dBTk43UDdGdmxiRGtRejZSSU91MHk2U0tvNXprZ1c1clE0RVRLeDRoRHlwektZV1lTRFRZSVNjN2VhaE1aa2VXa09jMEQ5anRaRjR4Y21xLW4ta08xU1hodG90WmNDM28?oc=5",
+  "published_date": "2016-03-01",
+  "captured_date": "2026-08-06",
+  "summary": "New Melissa strawberry cultivar&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

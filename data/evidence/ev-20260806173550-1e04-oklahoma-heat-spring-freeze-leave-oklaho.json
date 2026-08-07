@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173550-1e04-oklahoma-heat-spring-freeze-leave-oklaho",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Oklahoma heat, spring freeze leave Oklahoma berry farmers struggling to save next year's crop - News 9",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOVlIwTlNCajFWdU1JYUVUWnhIenRERW5NZ3RRMXF3SXNMSUhyYWxTdzRvQ2RmRlRCOXlwNUF2a0o5bk5zMDhWbGVvVUFPWnhqX3ZxdHpMazNpUXpicmVENlBLQlVDME5sZHBEVUIwd25RTVZKMkxUT25iZi1OMUJPVE9zWk5lVk4xYzh5eGJXczdIVUh5N2V2YmlXcUpQNFRPbW8zSU1KTjl5dGlWUTZ0OG1OWVpOZDBsYzdQWkw1ekhyQ29xNjJRelduRWY?oc=5",
+  "published_date": "2026-07-27",
+  "captured_date": "2026-08-06",
+  "summary": "Oklahoma heat, spring freeze leave Oklahoma berry farmers struggling to save next year's crop&nbsp;&nbsp;News 9",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173842-368b-uc-davis-releases-5-new-strawberry-varie",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "UC Davis Releases 5 New Strawberry Varieties - UC Davis",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPTi0yblRJZzJJall6MnowV3EtWTB0U0I5VVJtcGc5VEhNNG50UmpMeWlKamFNc3h5MkJyWi1ZVzB4am5ORTZfdF8xdk0zOVB0MWprYXpISjAybVJDR1RyQ3FlSVUyS3FERFJ5Z3N6NG45Y083dlhnTk9ieWM4QlZHZ2F6LVA?oc=5",
+  "published_date": "2019-07-09",
+  "captured_date": "2026-08-06",
+  "summary": "UC Davis Releases 5 New Strawberry Varieties&nbsp;&nbsp;UC Davis",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

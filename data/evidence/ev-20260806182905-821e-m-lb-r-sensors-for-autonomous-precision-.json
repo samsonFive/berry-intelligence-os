@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182905-821e-m-lb-r-sensors-for-autonomous-precision-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "MålBær – Sensors for autonomous precision harvesting of strawberries - sintef.no",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOS2w1NUQyYkNSVkp6ZTJfTGRZeFJjMlVVLVRwYXRtTDR6aVVqNmxtQk1hdTdnZ3hmc0NTeFhoLVZqWEE0QXNqWGNEMTRDVlFYS0NTMlR2bFlmbG5UUHBHZWlseUpjRjd4TXRxUWhqNFJ3QkhBcFpoZ0VBcklRVWtzSXp6aXN4R3lsTzQyRDBnbElIbHpJYUZ1U1VGTFp2ZXVqQzE0eUpWQ0NqUQ?oc=5",
+  "published_date": "2021-05-19",
+  "captured_date": "2026-08-06",
+  "summary": "MålBær – Sensors for autonomous precision harvesting of strawberries&nbsp;&nbsp;sintef.no",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175543-efd5-coca-cola-eyes-growth-in-water-category-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Coca-Cola eyes growth in water category with new products - Convenience & Impulse Retailing",
+  "source_name": "Berry category growth",
+  "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPMGowdEREd3pYY0t3T1hRSjhRMm9ObzVtQ2VJWXN2OG16VWkxOW92WmtCRHZsdEY1UXYtNEk0UEtpMHItUkRjb2tGWk85Nmt6QlRkLU5EeTlmQW03NjhURXdhazM4M3pFSEl2T05VcDhWaWt5YVljY1hiR0ozQnI2Tm9Ha0pZNTBOM1ktUmVR?oc=5",
+  "published_date": "2016-01-04",
+  "captured_date": "2026-08-06",
+  "summary": "Coca-Cola eyes growth in water category with new products&nbsp;&nbsp;Convenience & Impulse Retailing",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry category growth",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry category growth"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    }
+  }
+}

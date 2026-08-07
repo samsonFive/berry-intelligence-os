@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173549-c201-the-ukrainian-berry-industry-2025-agrobe",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "The Ukrainian Berry Industry 2025 - Agroberichten Buitenland",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNUkIwMnZxUWEya0cyS0JjTFpiVU1weV9fSDZxYmZjRFVfUDQzeTAwU0xWVVJqeGpBeF9NaTF2QXk5WjlxaXN2U3kwem92cUs4NTNZWG5YcENqYnZ0WnF2eDhocE84Zy01cm9lOXI0V3FKSmFKbGtNOGxJTi1OcWF1bm1xOEptdDRmV0hiVy1ET3RnYktr?oc=5",
+  "published_date": "2025-10-01",
+  "captured_date": "2026-08-06",
+  "summary": "The Ukrainian Berry Industry 2025&nbsp;&nbsp;Agroberichten Buitenland",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

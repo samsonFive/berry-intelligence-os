@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173559-0e21-chile-launches-campaign-to-boost-domesti",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Chile launches campaign to boost domestic blueberry consumption - Fruitnet",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOQ1F0NzFQVUVPWkh6M0VBU1JmRFJkYWY5QlFLNW1PUEM3UzVRc3ltTEY4LVg5WkdxN1Q3b3p4OFlTV2xUdFY5cEJjc0ktekh1eWtDY0oyTHFyYXVwMHY1Z3RXQVpfeW1BZlpvTnhadmg4T0x2RVZDU2FoVlBZVnNMaVFYZHNaY3Q5Mk8tYXR0ajJkRHZzcWFGSnhzS3E2RWVob2F1SncwQmNtT0I5UURyVzkzYw?oc=5",
+  "published_date": "2025-12-12",
+  "captured_date": "2026-08-06",
+  "summary": "Chile launches campaign to boost domestic blueberry consumption&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

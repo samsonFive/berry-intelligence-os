@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173901-28fa-agr-cola-cerro-prieto-reports-strong-gro",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Agrícola Cerro Prieto reports strong growth in blueberry exports - Fruitnet",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOTjA0dTZzME1SUEdJcnF1Z3pBX1RQUzBtWTFmRGxQc0FrVnh0N1VybzhfTmw1TW5uMWtFRENQSHA5b0tjRllndDR3U3Q1cDJzWUNMSThoa0FuSzFBdzhOMFd6eG92NlZvMDJ1MndGaWczd1JocXZHYWZOcjl6MjIyd3NoX0hmUklKM21PdU1JRjhBellYYjJtSTVrRU1COGFnM1U0MmRZcG85ZWRGWElFaXhzejU?oc=5",
+  "published_date": "2026-01-06",
+  "captured_date": "2026-08-06",
+  "summary": "Agrícola Cerro Prieto reports strong growth in blueberry exports&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

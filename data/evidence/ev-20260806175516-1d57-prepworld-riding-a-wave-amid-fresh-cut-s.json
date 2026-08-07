@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175516-1d57-prepworld-riding-a-wave-amid-fresh-cut-s",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "PrepWorld riding a wave amid fresh-cut sales boom - Fruitnet",
+  "source_name": "Berry genetics company",
+  "source_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOLWFaQXlULTVHUnMwdVN3R0tPQVFRM3BMbGtMNnhycUtOWnl0dWw2MEZhaUJkeWI0cVNoamoyV0dmSm5BTmpXWDBkS3V4MnRVNUdCTzhhQWpaYWNhVUxRbmVNekwxNlgzMXRGM1M3c1RtbDJOMkp0bmRIRnhwM1VkUGhSQnBsRlRuMkxZQXpEektNTVhJVUVibi1IZ0l3VUwzMjdkMWdCYVZxRF9ORmxIdQ?oc=5",
+  "published_date": "2026-02-09",
+  "captured_date": "2026-08-06",
+  "summary": "PrepWorld riding a wave amid fresh-cut sales boom&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}

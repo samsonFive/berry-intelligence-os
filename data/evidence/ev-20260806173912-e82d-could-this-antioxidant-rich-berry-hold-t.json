@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173912-e82d-could-this-antioxidant-rich-berry-hold-t",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Could This Antioxidant-Rich Berry Hold the Answer to Better Blood Sugar Control? - Food & Wine",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNd24zRkNXdUd5WUZmaXdZRHpTM3ByNU5CRF9yWjlGQ3F6ZHVQdlJ1TjVUR2dBYWctTU1ZNnVlWWlYYXRzTG05UkhDYlE3NzUxaU1ydG4ydF9QZUdFeHgxZ3RsUlJCS0h2bmFfSGVhVF9WR2p1cWMzLUplQkRsMWt3SEhRa1RVRkFpSlpr?oc=5",
+  "published_date": "2026-01-23",
+  "captured_date": "2026-08-06",
+  "summary": "Could This Antioxidant-Rich Berry Hold the Answer to Better Blood Sugar Control?&nbsp;&nbsp;Food & Wine",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

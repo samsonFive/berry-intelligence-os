@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-16dd-is-containerized-blackberry-production-r",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Is containerized blackberry production ready for prime time? - Fruit Growers News",
+  "source_name": "Blackberry primocane variety",
+  "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOcTZQMm45Skx1XzJYdm9CZnNYMmFVTDdmRnlhdGZmV3pOb2ZwVnFoY0NMR2J5dncza0xVcXBDbDFEQTIzbmtjTHZjN2lHUzM1MUJGZ0p3aEpQaE8tTzA2TmpIWFRHQ3cwUjJpODN3VnFyaVMzRFU2djdhaDVtTWhhMTNYWnpQV3RKNElwa29MX3NYRXdpNWowbkpR?oc=5",
+  "published_date": "2020-04-09",
+  "captured_date": "2026-08-06",
+  "summary": "Is containerized blackberry production ready for prime time?&nbsp;&nbsp;Fruit Growers News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blackberry primocane variety",
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blackberry primocane variety"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    }
+  }
+}

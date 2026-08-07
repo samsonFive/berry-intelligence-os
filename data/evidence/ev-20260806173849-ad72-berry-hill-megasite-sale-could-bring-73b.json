@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173849-ad72-berry-hill-megasite-sale-could-bring-73b",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry Hill Megasite sale could bring $73B project - Virginia Business",
+  "source_name": "Berry industry investment",
+  "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQbXlQZl9Kb3VINXNaNk5XdWZEWFJGWHJBVlM0VG02dDFzbFlQOG9Pc0JxaThfdGgwNHNUVmM2cEJUVVBqcUVBZDMxUkpEZUxBRkVfSkNpUEhuUUktOWotNjY5QXVKVnV2TnpGYTFrbnowekZlUkFoNmJBQ1NnN1VsVk5GYjBMMWUzb3c?oc=5",
+  "published_date": "2026-03-10",
+  "captured_date": "2026-08-06",
+  "summary": "Berry Hill Megasite sale could bring $73B project&nbsp;&nbsp;Virginia Business",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry industry investment",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry industry investment"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175541-92d5-wrigley-unveils-berry-starburst-variant-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Wrigley unveils Berry Starburst variant - foodanddrinktechnology.com",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPN3lxM1VDVG9HQ0RNbHJsQUR4QjdvQkk4RnFXd2JFUDBtb09hNHRZbFYxZUV5QUwyWEZhak9mZW5tMGZXRUJBSmdJTzF4WEpkeENqSklkYjRJOTVYTDY2eUtnd3NHdkFVSFlLYmNVekR5bU9fRXMtQkRUaVNyQ1dLRE0zSWFQN2hiMUVGeGc0cXFjNmVi?oc=5",
+  "published_date": "2017-02-01",
+  "captured_date": "2026-08-06",
+  "summary": "Wrigley unveils Berry Starburst variant&nbsp;&nbsp;foodanddrinktechnology.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

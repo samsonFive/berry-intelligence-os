@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173852-0702-california-stone-fruit-season-running-we",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "California Stone Fruit Season Running Weeks Ahead of Schedule - AgNet West",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1tcVRhWlIzRGtObEUwSDU5dVpZVVpuX29tSXUtWHVBQTZ0eHBlUDdLeGVOSnNtUEJwN2x5ajNvWGczYXpTbHFKOFlXeGZPTzBxTDVaeUprWTRSc3FDdExUcHdyRWZDeTVVRnI1X0NUVm85VGN0OGc?oc=5",
+  "published_date": "2026-06-11",
+  "captured_date": "2026-08-06",
+  "summary": "California Stone Fruit Season Running Weeks Ahead of Schedule&nbsp;&nbsp;AgNet West",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

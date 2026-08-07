@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175533-0d3c-berry-import-gaps-are-closing-produce-bu",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry Import Gaps Are Closing - Produce Business",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1ROF91LTJNSGI0Mk1yZXNJY0xRSkkzOFY4S3E1UEVXWG81eVV4VmgyN1p3X3NNR053THM3d2w5M3RZRlBvTUVhT045ZzIyR0h5VU52NWFIREFkZElER1oyQ2RpWE5RQUpZTnc?oc=5",
+  "published_date": "2020-11-04",
+  "captured_date": "2026-08-06",
+  "summary": "Berry Import Gaps Are Closing&nbsp;&nbsp;Produce Business",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

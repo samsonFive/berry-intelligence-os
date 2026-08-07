@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173556-0978-how-driscoll-s-reinvented-the-strawberry",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "How Driscoll’s Reinvented the Strawberry - The New Yorker",
+  "source_name": "Berry plant patent granted",
+  "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPY1UzSFAwM2s4SElWMkNoNUtpZEVrdDZHRDJSdFlTbFNrYVVzcG1fT0UzWXFHTk5aN1piMFVhTGF3V2Q2QkRNM0dSMk9QSWdUZ2dXQTRHZ1plXzBvUVpKQUpvcFRXQnlJb05UbUlTVXo0T3R2UFowUUtSX3hnOVB0YnFvVm5nZS1EeE83TGp3?oc=5",
+  "published_date": "2017-08-14",
+  "captured_date": "2026-08-06",
+  "summary": "How Driscoll’s Reinvented the Strawberry&nbsp;&nbsp;The New Yorker",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry plant patent granted",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry plant patent granted"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry plant patent granted'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry plant patent granted'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry plant patent granted'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry plant patent granted'; not yet reviewed."
+    }
+  }
+}

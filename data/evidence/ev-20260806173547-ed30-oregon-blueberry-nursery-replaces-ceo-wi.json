@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173547-ed30-oregon-blueberry-nursery-replaces-ceo-wi",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Oregon blueberry nursery replaces CEO with outside pick - Capital Press",
+  "source_name": "Berry nursery partnership",
+  "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNZjE4RTZncWN0Q1ZsbUxkR0pneW1yOEVhWGYyRHpJSTdTanI4ODQ0aGtod2c2TTRpQU13U0J4SjhMZzZiWEJBQUpYMXozNUxjLVptbXE5eFNEQ2dseUZvQnVoTFdSN0FDNDhxY00zT2pMYmtEZVhaMGdGM2wwcGhnQUpuakl2eTB3S1l1RC0zVWx2c0ZJemNB?oc=5",
+  "published_date": "2025-11-05",
+  "captured_date": "2026-08-06",
+  "summary": "Oregon blueberry nursery replaces CEO with outside pick&nbsp;&nbsp;Capital Press",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry nursery partnership",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry nursery partnership"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    }
+  }
+}

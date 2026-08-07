@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173538-8d43-a-behind-the-scenes-look-at-berry-breedi",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "A Behind-the-Scenes Look at Berry Breeding - NC State University",
+  "source_name": "Blueberry breeding program",
+  "source_url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE95R0FOTFNFQTBKRTh1TmcwU3Y2REJJc3N0dUphTDlSdEhYTkhkUVBsUDFYbmZDMzhMN2FVdzh1OHY4Sml4ZnJhWjZxRzhlU0VseGN1OVk1MGZjWm13Z2RnaDRTX1N5Qk5FWnNVX2p4enE3VjYzUDYwclVn?oc=5",
+  "published_date": "2023-08-02",
+  "captured_date": "2026-08-06",
+  "summary": "A Behind-the-Scenes Look at Berry Breeding&nbsp;&nbsp;NC State University",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blueberry breeding program",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blueberry breeding program"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    }
+  }
+}

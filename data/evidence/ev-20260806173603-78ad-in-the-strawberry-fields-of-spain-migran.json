@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173603-78ad-in-the-strawberry-fields-of-spain-migran",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "In the strawberry fields of Spain, migrants from Africa work in hope of a better life - NPR",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQbXc0MkgyRVI2WUFGbFNyMUlHRkk0bkxkaU11QXlkVzg0UzBHYkNucHpHZ2paYUttdnZVaWc5NG80ZHFTUUtENF8xRDFpNXlXdDU5Qm95WWp0cHVYbERtTVAxVU10VGVrUXdKa0RCRG9ZcXpkV2NQN3h1dmdxa002QU9FY0tEUmc?oc=5",
+  "published_date": "2022-11-21",
+  "captured_date": "2026-08-06",
+  "summary": "In the strawberry fields of Spain, migrants from Africa work in hope of a better life&nbsp;&nbsp;NPR",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

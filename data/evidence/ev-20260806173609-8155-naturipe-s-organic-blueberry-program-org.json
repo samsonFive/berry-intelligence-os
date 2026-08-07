@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173609-8155-naturipe-s-organic-blueberry-program-org",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Naturipe's Organic Blueberry Program - Organic Produce Network",
+  "source_name": "Berry category growth",
+  "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPNUFObTVseWlaMFlZVHNORk1abHFNand3dnh4TEpNbTlsSDBDcEdEZ3RYWjd1WXJNVXpRckVQeU4wa1FNUVNFc1hkVUlESmdyWHBFV0hyQ2J0TEU4dGppaXVCOG1LZFpfN2YzZ3NrWVNOeGh6bkxSOEZxSTgzVmtxVjNVSFNDX3R5SkF2WWdlTFRueEt6?oc=5",
+  "published_date": "2024-07-09",
+  "captured_date": "2026-08-06",
+  "summary": "Naturipe's Organic Blueberry Program&nbsp;&nbsp;Organic Produce Network",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry category growth",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry category growth"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    }
+  }
+}

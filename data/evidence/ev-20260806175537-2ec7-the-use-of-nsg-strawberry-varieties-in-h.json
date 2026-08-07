@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175537-2ec7-the-use-of-nsg-strawberry-varieties-in-h",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "The use of NSG strawberry varieties in Huelva increased by 16% reaching 58 million plants - Hortidaily",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPV2RpQTNnSExtRk5wWGc0dDM4WTgzN1hPYmpDWWktRk51S29RZnZXTGRST3VwbDJPMHFRdjdiakJOT0tudkpJdFdPUm83bWtCVG16R3lkaXJmcGItbDRqSDFOUC1kMGhXc3I5cmk1Z0ZzeGQ1clF1ZGJCNFZyMzdzTHVWY0xJbV83cTBPMWpBcHc5NVhJdmpTMWhDREdtU1UxRnhWYmhra1dTQmZXU29aLUVxR2o1Nnhzc2paaXhLS05TcXFkeElOazRwZVA?oc=5",
+  "published_date": "2025-01-22",
+  "captured_date": "2026-08-06",
+  "summary": "The use of NSG strawberry varieties in Huelva increased by 16% reaching 58 million plants&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

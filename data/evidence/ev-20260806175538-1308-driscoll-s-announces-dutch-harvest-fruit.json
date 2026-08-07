@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806175538-1308-driscoll-s-announces-dutch-harvest-fruit",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Driscoll's announces Dutch harvest - Fruitnet",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOQ3BSbk5pVUJNOGtsd0lhSTVRV1dId01jeldWMXRjcEFMX2RsVTY5WTRqQ1R0YnBXdVl6eFREWEt1LVdOUC1LZUdwdlY1N1FZbExyWjVRSGhvUWVlWWVlaXBtVUFhUlFrMXo3TUZSdEdKcjkyWGFpSU1oQjBSUmc4aDBEc3otdldBUDRJ?oc=5",
+  "published_date": "2014-09-16",
+  "captured_date": "2026-08-06",
+  "summary": "Driscoll's announces Dutch harvest&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

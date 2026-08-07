@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175523-02a3-ukraine-exported-a-record-volume-of-blue",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Ukraine exported a record volume of blueberries this year. - ubn.news",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNVHotdkQwZ0lpdDlQSUJzbHZySEtjamMxN0x1MVpPek5ibk90d2s4NGdTXzNiTUJrcTNkT3YtcEp6YWlWRXlJSmlfSWkzSVJCMHh5R3RmT0RuZG5XaXE2M0dYM3p2ZzlCbkZCSTRqdWItT1BscWxxVzFsMk44WkFIYtIBiAFBVV95cUxPcEtIUHpIWkYxN1B2ekFxY2xHTFVoazZYUjJPTGRfZW1DTzBrb1Fib24yWFJPa1ZUUGhYXzFVV3N2d3pPZTBjZ3VhRVJXSkJ1b3h6NWhWa1l0RWFqR1pNSkFBc1pvS18zV1RzZEYyUC1COHh1MzNpcWsxTktTbzhPTTJveXFzazVF?oc=5",
+  "published_date": "2022-11-10",
+  "captured_date": "2026-08-06",
+  "summary": "Ukraine exported a record volume of blueberries this year.&nbsp;&nbsp;ubn.news",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

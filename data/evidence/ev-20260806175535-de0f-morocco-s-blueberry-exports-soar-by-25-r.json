@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806175535-de0f-morocco-s-blueberry-exports-soar-by-25-r",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Morocco’s Blueberry Exports Soar by 25%, Reach Record 67,300 Tons - Morocco World News",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPSkxvRHVmejJmUDRxc0VsQUFCNWl6ZDBQQ2pIR0JGMXBGR0FEYlVUMDRRWHhvZ3BYVlJHTllxVGRDa0hRUkFCUEJsQlIySTZ4c05wcXBMSHVqNGFRS0JyTVVQUTZTTGIwNUFlZURHbjFhWFQ2WXVFb3ZjMmRHOXJNNVhMbmpyUmo1ekdYRVRoR1hkcnhFSDQyVmQ5TTU2X3kwTHZqX1h5ejJ4a2d3N0s0?oc=5",
+  "published_date": "2024-08-24",
+  "captured_date": "2026-08-06",
+  "summary": "Morocco’s Blueberry Exports Soar by 25%, Reach Record 67,300 Tons&nbsp;&nbsp;Morocco World News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

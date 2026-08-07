@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173851-2986-georgia-quadrupled-blueberry-exports-in-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Georgia quadrupled blueberry exports in one year! - EastFruit",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNVHZNMnZmQnFiQmNncXUyYTRSdUNfZDAxNzhvNWVBbzB4dXBKOUxsMXlEQ0hGNEdlX054OF9HRXYwdXpLY191SHdQSnhsZm9aanF6VTR4QVA4SWdNWVVOVEFuZklLbmdtUEpoeXJSVmJmZzFRS2Fqbi1QYVpGZENEQmlVVXpWeVM0d2JmSEN6V0NNUk9SRUFDaDVXWFF5enNFdmpFUVdTdl9xN3I5ZzRIR1llWlNGVjB4UlE?oc=5",
+  "published_date": "2023-07-11",
+  "captured_date": "2026-08-06",
+  "summary": "Georgia quadrupled blueberry exports in one year!&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

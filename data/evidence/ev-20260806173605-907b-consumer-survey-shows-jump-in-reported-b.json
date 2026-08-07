@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173605-907b-consumer-survey-shows-jump-in-reported-b",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Consumer survey shows jump in reported blueberry purchases - The Packer",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPUGx5eW9ZanpXRHR4T0dzaUhkYXlNR3ZOdlJoRW1wTGRwXzNxaEZwVzM4ZWQwWnhSTjdLVGpHd0ktTUptVXlIUVZGdHhLMGphbkZZNUZKajlpU1ROM0w2UFJaR3hzcjZPR3c1Rk12dHo3UFhYN3ZYcEJXSEhJRGZWM0dFeFVfMWVhZ290RTByb2R1ejZlMkE0Wg?oc=5",
+  "published_date": "2024-05-29",
+  "captured_date": "2026-08-06",
+  "summary": "Consumer survey shows jump in reported blueberry purchases&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

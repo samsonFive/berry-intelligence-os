@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173853-4079-tcu-forges-ahead-with-500-million-expans",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "TCU forges ahead with $500 million expansion in Fort Worth - WFAA",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNVXh1Wm9zQU1nX3RBbHFhRGZWQmUyUzB0X1l0aEFIOFNockc2SG9Ob2JUTk1KVDNXWGlEdjFFRWlqWUFkSWk1dVY4S1NBVUJNMWQ0TmpRMlpFVFRjU3RmLUxsZjRKZnpKODZnYmRFRHZzeFJwdGdEM0ZYUUR1SUtuNFZwY3pYSWFTOXY2WFVnZnM1VE1fMS02Z1VnbzdUdFNmZlllMDMxR2k2czI2aGlXajVtMnZVYjlFeFRTNXVDbW9Rb1k?oc=5",
+  "published_date": "2025-12-18",
+  "captured_date": "2026-08-06",
+  "summary": "TCU forges ahead with $500 million expansion in Fort Worth&nbsp;&nbsp;WFAA",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

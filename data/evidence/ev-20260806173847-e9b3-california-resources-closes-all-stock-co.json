@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173847-e9b3-california-resources-closes-all-stock-co",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "California Resources closes all-stock combination with Berry Corp. - World Oil",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQbUs0TkVGMEx0dmFndUFYdGZkVkRkeGNQZ1pDZ3JJenFfZDMzbW54MmFrRVBWa0pDUHNXajR0eWN6R1dEZl9RdnFpX3Vqb3RWeV9XOHBTTkNaSUJSUjl0MDdzd0VSa2JmNmdTZmdrYm4tVTk2dkpEcXBOTEpZTWRfQW5FSnU0RTUtamxGbmNBYkNrMjI0cVIzOEN1YUhFZDBrV3MxbXN3?oc=5",
+  "published_date": "2025-12-18",
+  "captured_date": "2026-08-06",
+  "summary": "California Resources closes all-stock combination with Berry Corp.&nbsp;&nbsp;World Oil",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

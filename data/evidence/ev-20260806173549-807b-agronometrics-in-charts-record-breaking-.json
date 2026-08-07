@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173549-807b-agronometrics-in-charts-record-breaking-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Agronometrics in Charts: Record-breaking Peruvian blueberry exports top $2.5B amidst global market diversification - FreshFruitPortal.com",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQYWdnRHpOMW0zcFgtQmg1T3JaZG9rVFZwU29NbFBrNlRJODZmeWFaUEZkcUpiazRtTjlRZzFqQ21Bd2VrTWJOUHN4OXNydlR2T2RxaWJyYUZCZ3MzSWYzU3JndDFMZVZBWHFoUzJGeER0NWJ2MDE3elQ3MFBLY09zdg?oc=5",
+  "published_date": "2026-01-15",
+  "captured_date": "2026-08-06",
+  "summary": "Agronometrics in Charts: Record-breaking Peruvian blueberry exports top $2.5B amidst global market diversification&nbsp;&nbsp;FreshFruitPortal.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

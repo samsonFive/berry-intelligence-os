@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173848-ec08-driscoll-s-makes-nursery-acquisition-fru",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Driscoll's makes nursery acquisition - Fruitnet",
+  "source_name": "Berry nursery partnership",
+  "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOckxCX3RldDk4M1BHRnppX0NFR252TnZYaUlwWWVMcW1fNFNLWEdFalFKeER6cHdhNmJweXNIN0xRVHV6cXIzNlJ0dVIyMF9CUy1YZV81cFdoQkJlRUZRZmJPNzVtMWV1dUFRN2M5ZjF4MTFmOGFPWkJ2dUtPQktNSjR5cmQzcld4MnhXdXhR?oc=5",
+  "published_date": "2013-06-05",
+  "captured_date": "2026-08-06",
+  "summary": "Driscoll's makes nursery acquisition&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry nursery partnership",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry nursery partnership"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    }
+  }
+}

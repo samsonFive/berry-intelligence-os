@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173554-42eb-palantir-expands-us-government-footprint",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Palantir expands US government footprint with $300 million USDA deal for food security - Harici",
+  "source_name": "USDA GAIN report berry",
+  "source_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNYjB4OXNEb1JDcUM5LUtlVkI1NE1mSnpNcGVyNEtCWE0weEg5YVJlWUp2NzlDSzlXM2tFSjhYVjU4QmttYjNRdHBQQ0w0UW5oMnlHUjZRNFl3TTNXNEJQWWJCcldTR1Vzd1dFSlNNQ3g4X29sQU9KSElIUHFOeUxBancxQkhUWHQza3lUOVdUcGlaMFZLd2RpRUJXYmNkTl9wZXlRdk1jREN4ZGdLWWJkd9IBsAFBVV95cUxNYjB4OXNEb1JDcUM5LUtlVkI1NE1mSnpNcGVyNEtCWE0weEg5YVJlWUp2NzlDSzlXM2tFSjhYVjU4QmttYjNRdHBQQ0w0UW5oMnlHUjZRNFl3TTNXNEJQWWJCcldTR1Vzd1dFSlNNQ3g4X29sQU9KSElIUHFOeUxBancxQkhUWHQza3lUOVdUcGlaMFZLd2RpRUJXYmNkTl9wZXlRdk1jREN4ZGdLWWJkdw?oc=5",
+  "published_date": "2026-04-23",
+  "captured_date": "2026-08-06",
+  "summary": "Palantir expands US government footprint with $300 million USDA deal for food security&nbsp;&nbsp;Harici",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:USDA GAIN report berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "USDA GAIN report berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
+    }
+  }
+}

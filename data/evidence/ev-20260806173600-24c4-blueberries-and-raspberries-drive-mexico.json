@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173600-24c4-blueberries-and-raspberries-drive-mexico",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blueberries and raspberries drive Mexico’s berry production expansion - FreshFruitPortal.com",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE96aksyWGVxd3lMbHM2Z0dFaUMteElWTjAxWFlKbk04V0RWU0FnUVl1bzFWei1idzh4emFha2JMb2hLdTE1Rml5XzBqckhqVEtYOXE0bmEyQ1EtQ1JRb3hPSlVpbTVmMzg1NWV5bUdqdEg?oc=5",
+  "published_date": "2026-03-19",
+  "captured_date": "2026-08-06",
+  "summary": "Blueberries and raspberries drive Mexico’s berry production expansion&nbsp;&nbsp;FreshFruitPortal.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

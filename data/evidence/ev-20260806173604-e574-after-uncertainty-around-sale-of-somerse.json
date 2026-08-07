@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173604-e574-after-uncertainty-around-sale-of-somerse",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "After uncertainty around sale of Somerset AppHarvest farm, deal now moving forward - Lexington Herald Leader",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBVUjNJNjg3T3lhRkpxNFozaEE2VGt5Ulh2d3h5YndyVFNJdTZsQ3l3R2Y5cktnSlhfX0ZQLVFuaGxnamFYMHBCSlp4aEVXSExGTjV4NnZMMVEzU3VnX0l6WHRjdFNqanJWRDdUU01DellueWcw0gF0QVVfeXFMTzNidWxZbWZhalBaSHBuV1Rmc3dqV183TWh5cmYtMDNsSXp3YUNnRUp3QzFJMTV4dk5BSHFNM0NOV1JDWGhaRW03RXdWSTRIRDdab1FSdk96UVEwOUdtV0FYbDNPekRUUFFuVDBjcXZrVGpPV3M?oc=5",
+  "published_date": "2023-10-02",
+  "captured_date": "2026-08-06",
+  "summary": "After uncertainty around sale of Somerset AppHarvest farm, deal now moving forward&nbsp;&nbsp;Lexington Herald Leader",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173906-7858-driscoll-s-responds-to-u-s-lawsuits-amid",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Driscoll’s Responds to U.S. Lawsuits Amid China Market Concerns - Produce Report",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNSFNhSkoxd090RXpzc3hQZExEUEFUcTE1S25odC0xQkxRTVhFTHJ3a2RYMW1IVlhETDVjaHVnUGZXM3Yya19wYXc0RV84Vmk3UTJ6M0M3QWhHdHhqOTFGRWJSQjhnVHVwU09SNU94VEZEc3lyRnpqNVRKZ2pzeGV1alhtd0NzajVmUWtyVTdEREVDNHAyTE10elFiYw?oc=5",
+  "published_date": "2026-07-28",
+  "captured_date": "2026-08-06",
+  "summary": "Driscoll’s Responds to U.S. Lawsuits Amid China Market Concerns&nbsp;&nbsp;Produce Report",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181227-53a3-california-giant-berry-farms-forecasts-s",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "California Giant Berry Farms forecasts strong strawberry season - The Packer",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNcXIyYXUxa2FteDhRTlZ4bHFLTlZrUWNUYnl6MW45bS0tOXQ4aC1pdEhGeUs1UkcyUC1Jc3ZYdXZRZDYyZXYyZ25Bd0tMU1VuRzU2cUVNV2NLbU1WMEw2bE5xc3VGdEQ0cWRXWDR6SjJYNUtXQ01ibzJYYVlTb0JQYzZqV0xJNDktNnZLU2dpNXRHTEMtLXdJTUxlLVVJQklTMlU5aGI2a0NfOGMw?oc=5",
+  "published_date": "2025-04-01",
+  "captured_date": "2026-08-06",
+  "summary": "California Giant Berry Farms forecasts strong strawberry season&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

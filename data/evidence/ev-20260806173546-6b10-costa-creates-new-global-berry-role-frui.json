@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173546-6b10-costa-creates-new-global-berry-role-frui",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Costa creates new global berry role - Fruitnet",
+  "source_name": "Berry joint venture genetics",
+  "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNVllXVklMMDhtZzM5LWRURVJwcXBRSU1Hc1NtTzRaNjFTZDIxeUVhMWhLVE1RYmg3X0lrSUxFWHh2d1NzeUU4RHBsMUw3bnlRaF85Z0hvSzc1TXNlY1dqQlFlV1prNHZrbXF1SjZhbDlqUHlDc1NHTUF2cTVUc3J5c3ZDbWRCMHFIbGxTajRn?oc=5",
+  "published_date": "2016-07-25",
+  "captured_date": "2026-08-06",
+  "summary": "Costa creates new global berry role&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry joint venture genetics",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry joint venture genetics"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173605-5840-rising-berry-prices-are-forcing-househol",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Rising berry prices are forcing households to revise their grocery lists - The Independent",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOUXBneFJmNGdZOEJzRUUwOHQ0MWRVd253YTFVamd4M2x5MlZ2Z2pTYmxRbHNPZXIzMUFPYmJnSTZGaTRWQjc3RTZ0Rm9oWkpUUUx1clVraFRSR21JRmRVdVRBS0VPOVdiNzBHdGViNWk4VGZjd0ozaGN6TWZOWDlMaDUtM2FaWlZIOWs4VWYtczN0cGNzc0E2ZUExa0FITUtUQVVOUGtad2NUQUdsRjlKX0JrbGo4dw?oc=5",
+  "published_date": "2026-06-14",
+  "captured_date": "2026-08-06",
+  "summary": "Rising berry prices are forcing households to revise their grocery lists&nbsp;&nbsp;The Independent",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

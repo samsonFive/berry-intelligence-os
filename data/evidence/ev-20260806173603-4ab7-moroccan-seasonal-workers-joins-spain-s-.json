@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173603-4ab7-moroccan-seasonal-workers-joins-spain-s-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Moroccan seasonal workers joins Spain’s Huelva as strawberry harvest starts - Hortidaily",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQNUxtUmx5WndrNHdHX1pQU1hwQmN0UFdfUWdmMkJyQjRoR1U5c3ZrQkx3amFSLV9OQ3huTExWQWNESC1QZkN6UTlBSVVJYTJFeW9VclIxZm5kX0xhMFlUZXd4aGtGWVVKdnBWb0d5cjloU0RNMWN4MFd3WFBVT3l1dnlCYVJ3b2ZiV0xyUDNxTGZQZXpNYlVEM2xSQUp3c3RfNzNTVlJsRUhHblJXQVlHWF9abjdRRWNsNld3?oc=5",
+  "published_date": "2026-01-15",
+  "captured_date": "2026-08-06",
+  "summary": "Moroccan seasonal workers joins Spain’s Huelva as strawberry harvest starts&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

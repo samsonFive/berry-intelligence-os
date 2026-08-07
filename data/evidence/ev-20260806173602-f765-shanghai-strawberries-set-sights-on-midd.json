@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173602-f765-shanghai-strawberries-set-sights-on-midd",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Shanghai Strawberries Set Sights on Middle Eastern Markets - Produce Report",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPSG1fRmNHYk52WXByZU5lS2VaOEJRX21RdDd3RnE0alRzSFpNZ2VWMnBUTE5YUkgtSGN3MjR3aUVlOWNLcnlJa2tYLXpsdV81eEg4VXAyTU96a0dwaF9PX0I2R0JQaEZaanMzOUxvelpSOE9hQ0lLZnZzWTBJd1ZFVDQ5d203dG1MRUlkdzNlZDBWX3ZNYWc1UQ?oc=5",
+  "published_date": "2024-04-11",
+  "captured_date": "2026-08-06",
+  "summary": "Shanghai Strawberries Set Sights on Middle Eastern Markets&nbsp;&nbsp;Produce Report",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

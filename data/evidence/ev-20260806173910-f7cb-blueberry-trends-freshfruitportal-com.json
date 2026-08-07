@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173910-f7cb-blueberry-trends-freshfruitportal-com",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blueberry trends - FreshFruitPortal.com",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOdjA2RkxvRzlSWFJjNGJrY0hVSFVOVXRqM3Q1cC1JUDkteGpaV2V3anBwM2JwYS1FeXBNbl9FbHVYc01Da2RZemFBWVNjWWtHb0dWeEJOQUpLOTBRcm43NkdDUnhvTlQzeHh6QjFva1U4aVBGODYyRE5RQ001X0hpTFhwcmsxUERXaEtj?oc=5",
+  "published_date": "2025-07-15",
+  "captured_date": "2026-08-06",
+  "summary": "Blueberry trends&nbsp;&nbsp;FreshFruitPortal.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

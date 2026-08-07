@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175532-fcd8-proar-ndanos-adjusts-export-forecast-dow",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Proarándanos adjusts export forecast downward - Fruitnet",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNeTlwZ3RieEJ2dm1qMVQyUEp1djItcFVTbEhPVS1fWHJwNVRiRFRqUGRXYXpYWDJ6b3U1MllCQVV5Wm1BQWlLYzBaSExac1ctNG9vQWdSSVBYY014eTBQT3YwckNvX05MM1lYeXFoeE9RUTFFcE5KMHRzcnhQbVgyeFh2OVBMbGhkR1FFQUhJcXYwUk9rMl9mZmhSWQ?oc=5",
+  "published_date": "2025-11-06",
+  "captured_date": "2026-08-06",
+  "summary": "Proarándanos adjusts export forecast downward&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

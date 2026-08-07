@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173603-9c7d-taste-and-food-patriotism-france-s-weapo",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Taste and food patriotism: France's weapons in the war against Huelva strawberries - Diari ARA",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQVi13RkNlTjAtbldtOWtYeC10SU5aWWhzMldJb1NaLWw4Z2psNHVSOXh3dF9iZkM5SW1USGxldHlSTVZIdUhqaG1aZk5YTnNueXc1OWVPc0VFckRNOVVUa2daeEFTUDV0LTlaaFczOEtiWUFTMHRveVNFalZlODZFd2M4WWZKQ2p5OXJmWVMzNnQ5eW5ia0xGeWwyWVBPOS0wOFRnaVNJX1Y2NUpEVmVvdlFwU3NDanozVkhERNIBwgFBVV95cUxOUnNJWTl4SVFzV1pXQTVTNWkxaHN1Y0U5R1dsZ1BEWWRFMTZxR1pTOFBwd09kMUhwRjBtbVU2NWVZTGRQd1FRb3NDVlQwVW5rQkJnZWktNkhzNkxxMFBhMkVjUzZIaEtKa0RYSENub1RicG1vdXU1NFYzT3lFQU5keklOQ0JnSUhLRk1VUXZMQUEtdjV2cS1IcVF4RnliUzd1Wk1fempmdHN2Ry1DcnVYUVo4eXFxcGZucUduMkRjbndCUQ?oc=5",
+  "published_date": "2026-05-14",
+  "captured_date": "2026-08-06",
+  "summary": "Taste and food patriotism: France's weapons in the war against Huelva strawberries&nbsp;&nbsp;Diari ARA",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-749e-arkansas-blackberry-season-is-here-witho",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Arkansas blackberry season is here — without the thorns - The Arkansas Democrat-Gazette",
+  "source_name": "Blackberry primocane variety",
+  "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQV0c4akJVRGpFQ29BRjRVOFhFVTBraFpYeGd2OTdzbGxLLWRENXBSOG5ITUJ0ejVOQ2gyNEN1dDh4Vi1RVkdwWENxdno4RTdfVFhzalkwdjdaSU0yWWtzZ0FNRjBKb2dtQTNfOGJ0X1JTbGhKcGVHYlRzMVZ3Yjh5S3dmOEhTcEV5YXFzbW5GTEpwcUk4QkUzamRDZw?oc=5",
+  "published_date": "2026-06-19",
+  "captured_date": "2026-08-06",
+  "summary": "Arkansas blackberry season is here — without the thorns&nbsp;&nbsp;The Arkansas Democrat-Gazette",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blackberry primocane variety",
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blackberry primocane variety"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    }
+  }
+}

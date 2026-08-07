@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173545-5770-california-resources-closes-berry-merger",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "California Resources Closes Berry Merger, Expands Asset Base - Yahoo Finance",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQNEp4bmlqWTlCSzQxWm1XbHA0SHhRWlpuNFpLbEpqMEtnVnI0MjF3LWZIR2pLcHJMeGFyRzVMVHh0dS1Dd0xCOWJ0SlFKa2lxNlNONE1KZlJGNWluN2xGQnRIellJRnpZX0VKOXBlc19UeWt0YlhHd0hyNGhKSk80RHNtSGVudkNBYk1kblRUZw?oc=5",
+  "published_date": "2025-12-19",
+  "captured_date": "2026-08-06",
+  "summary": "California Resources Closes Berry Merger, Expands Asset Base&nbsp;&nbsp;Yahoo Finance",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

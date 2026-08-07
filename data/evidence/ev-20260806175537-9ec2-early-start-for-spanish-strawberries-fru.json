@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175537-9ec2-early-start-for-spanish-strawberries-fru",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Early start for Spanish strawberries - Fruitnet",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQODAyZUYxSEUwNDY1RmZlNXZmMlYxd0IxazJhNkxxTlBuekZocXlnb3hzcTc4ZVpuRnJRcWhGcDRnV2pFcnA4ZmVxVjdZSk5DY0dxQmI0dGZDLW90a0lyOXlERU1HQ2s4NTlSeVNjMHNuM1ZGX3U5bmwwdExHN0MxUHNRZ3A5VGJtQ1pReTNRVQ?oc=5",
+  "published_date": "2017-11-20",
+  "captured_date": "2026-08-06",
+  "summary": "Early start for Spanish strawberries&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

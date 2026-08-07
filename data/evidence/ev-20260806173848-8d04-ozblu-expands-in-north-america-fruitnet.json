@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173848-8d04-ozblu-expands-in-north-america-fruitnet",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Ozblu expands in North America - Fruitnet",
+  "source_name": "Berry joint venture genetics",
+  "source_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOaGlSX2QyRF9lNzAxazYyYXN6YUU4UGRieXJKV21jc2tHX0NhYTc4cDFONllUc0lsMEJ2RFdWSVN3a2dBVGhiaWp0enltMXFJeTBCNXl1TVEzTUdEYmRWclJ6b285WXJ5NEdBcHdLeU5mNmtLTVd2ZURPT0lBTVduMUJxS1pMX3M?oc=5",
+  "published_date": "2019-02-06",
+  "captured_date": "2026-08-06",
+  "summary": "Ozblu expands in North America&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry joint venture genetics",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry joint venture genetics"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    }
+  }
+}

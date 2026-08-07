@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175523-c918-why-blueberry-prices-in-ukraine-in-2021-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Why blueberry prices in Ukraine in 2021 were higher than in 2019? - EastFruit",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPTlZSZEs5Ti1RenJLT2k5cXFySGVuWGMyM21oR0Q3LUF6dmNfbnVaakJFTFduanJVR3lWRVNXME9OLTRZdjN0TU11YVBMcjFRdGt2Ry1ERjVubXoyNGNXT1lVbkdvUUp3cXRkZHBvdFFNdUdISGZxYV9ObHk1SmsybkNXNmhkODlKTGV4VXFjaGZYXzY2UGJuSzVtcG05Ty1pcDBpOUFkNzg1SDFjVlptMmoxRkc2RGNrcGdlSE92b1U0V3hKa2FMSGIwb1M1QWtjSC14QmN6TTgwc2No?oc=5",
+  "published_date": "2021-08-23",
+  "captured_date": "2026-08-06",
+  "summary": "Why blueberry prices in Ukraine in 2021 were higher than in 2019?&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

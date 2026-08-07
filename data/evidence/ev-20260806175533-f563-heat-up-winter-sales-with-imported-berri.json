@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175533-f563-heat-up-winter-sales-with-imported-berri",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "HEAT UP WINTER SALES WITH IMPORTED BERRIES - Produce Business",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5CelplUHhldEdZVmZQMUNEbmZJdWJjemxCa2NuMjNWLUZkVjdleDYyMkNHV2lnZ2hwczdNaXB2aUxYNjVLakZaYUFrLUtjTktHT1R0OE95TTJnZ01qZU1LdTZ0X0xrN0N2eUxiYzVuSVBWUU54VU1pQmJlYw?oc=5",
+  "published_date": "2018-10-01",
+  "captured_date": "2026-08-06",
+  "summary": "HEAT UP WINTER SALES WITH IMPORTED BERRIES&nbsp;&nbsp;Produce Business",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173901-7bb5-peruvian-blueberry-industry-subjects-202",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Peruvian blueberry industry subjects 2026 season projections to El Niño threat - FreshFruitPortal.com",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9XNldiR2o5cVFZNkpwRmRmVjVObVhQb1hvR241ajJtWE1Qc3JSOUVqWllrWllwVEV4U25jR0ZrUGxYTUExa3Z1VlVNanZGZVYzWk1PdWY0NGJaS0dVbE5ZZGN6aFlyZVZwYmZyUmtGb3B6eE5t?oc=5",
+  "published_date": "2026-06-09",
+  "captured_date": "2026-08-06",
+  "summary": "Peruvian blueberry industry subjects 2026 season projections to El Niño threat&nbsp;&nbsp;FreshFruitPortal.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175537-cefc-morocco-begins-preparations-for-strawber",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Morocco begins preparations for strawberry harvesters’ trips to Huelva - HESPRESS English - Morocco News",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNN2szVXhQSzI2QkEwN3VkY0VFRFlPRjQ4QXpZOEg1ZVpmclFPQmk1MC1LcUJxYjRLRzYySndwMzZ5eUduNm5nUVVpcEh1dFZkbnROanctVjBPcEVFQW9PTEpCWHIxYjItcVhoNVFHcGdBc3lPZ2dQR3hnSDRYS0pkRVQ4U1QzMGZsZ2NTRVdoaE9KQWR6QjZheTg4c2daUWt3UGFXcmZUaw?oc=5",
+  "published_date": "2021-12-18",
+  "captured_date": "2026-08-06",
+  "summary": "Morocco begins preparations for strawberry harvesters’ trips to Huelva&nbsp;&nbsp;HESPRESS English - Morocco News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

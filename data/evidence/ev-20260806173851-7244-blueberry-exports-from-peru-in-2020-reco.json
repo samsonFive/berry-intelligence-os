@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173851-7244-blueberry-exports-from-peru-in-2020-reco",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blueberry exports from Peru in 2020: Record-low price and record-high volume - EastFruit",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNd1NRTHNGa0pGc0ZONTd0ZUVWNjdLa0ZaUlhvenB6MWtZWk1mSVBJUi0xa3FSTVhiRTBpQzI0bkRTY0hWZTE2Tm5Pd084dm84b2NoaU53WDRWa2w5bnp1Ym5fYWU2MURFc2V6Wjl2eHM3OFdDMnE0MGJJQ1JXaDNvV2lFQUJnWi1PbE04bFVCaldkMkN0UUIyN0pyeE1LLW1JeDNoa0pBQmZOUEk?oc=5",
+  "published_date": "2021-01-12",
+  "captured_date": "2026-08-06",
+  "summary": "Blueberry exports from Peru in 2020: Record-low price and record-high volume&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

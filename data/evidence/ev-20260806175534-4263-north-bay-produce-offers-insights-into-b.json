@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806175534-4263-north-bay-produce-offers-insights-into-b",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "North Bay Produce Offers Insights Into Bluberry Program - AndNowUKnow",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOTFVJYkNERzk3cTM0Vy1VczFyS3NtVGdwdGRjSG42elgyQmE0TUg0SS1XbklneWtPY0VrbUp3QzhIZ1lVclRoeUhwdWhuZU9lcUhWUjFuSEpFQUcxaW9YbVV3azBLV2RDV1lDX2ZnZ0dseTY4Z1NwWnhfc1pKWllFN3RhNFFDZ3A1SzU0cFFlUE1rWUs4M2ZfbGdKNEhjWFh5bnE4?oc=5",
+  "published_date": "2024-03-22",
+  "captured_date": "2026-08-06",
+  "summary": "North Bay Produce Offers Insights Into Bluberry Program&nbsp;&nbsp;AndNowUKnow",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

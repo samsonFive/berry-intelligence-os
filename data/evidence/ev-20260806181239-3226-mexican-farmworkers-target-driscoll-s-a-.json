@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806181239-3226-mexican-farmworkers-target-driscoll-s-a-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Mexican farmworkers target Driscoll’s, a firm with labor-friendly image - Los Angeles Times",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOQ1hKcy1TVEdocFVWaER5enphbmJOZVAzazZpVnBiZlNRVGpta0swc0sxTzd6d1NyWVR2eExnRmZfM3NJZFMyLWxNaU9ZWHJMMWYzc29rOHJRN0JfV1R6NE9LN1R4bWpDRGZ5M2M5WmZSeExtZU9icDF0SG5VaWFYdEdxTzBRN0F1VjFN?oc=5",
+  "published_date": "2015-04-10",
+  "captured_date": "2026-08-06",
+  "summary": "Mexican farmworkers target Driscoll’s, a firm with labor-friendly image&nbsp;&nbsp;Los Angeles Times",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

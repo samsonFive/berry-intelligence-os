@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173901-86de-peru-turns-to-china-as-us-tariffs-squeez",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Peru turns to China as US tariffs squeeze blueberry exports - Reuters",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxON1JFaXlXYm5lWXJkeVNTMHIzWUxnN1BneHdwNlMyVTBlWU1WaktlakhUTVVRZ2tXdHZwT2ZkTnBWWk5aaEhBcVo4MW9ySFpHOGxFZUpwazFMYUlNY1A1dzJiNXBLZHYwU0xUMERqQ0lXSXFnSU40OTZJUnlmOWRjNHU5eU5sUkRKVXhCOUl3ejlvZTlaUXllV3FxOEhrR1FvamNTaV9BSmdnRzZTMWZsNW40R2tXSFJ3bVl0VU5yaw?oc=5",
+  "published_date": "2025-06-11",
+  "captured_date": "2026-08-06",
+  "summary": "Peru turns to China as US tariffs squeeze blueberry exports&nbsp;&nbsp;Reuters",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

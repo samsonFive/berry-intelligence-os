@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173842-d191-valentine-s-day-reveal-lumina-sweet-new-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Valentine’s Day reveal: ‘Lumina’ sweet, new strawberry cultivar - AGDAILY",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPaks2NHlVdEtJeTVwZW5NNEpHZVBfc2hZOXFnSmhOSXlqaTZ6bXFnNkRxVlBCZFdsRzlOZml3bHhKVUU4U04xZXN0bjYwVXlZQmQzRVJGcldGWGI4MzF0QTRmZ0Joc2x2dUkzQlVPR3JRa1F2NjBPRHRKUEpNX2QtVnNOaUZzU3JiQnRwWTFSTUFPMzg?oc=5",
+  "published_date": "2024-02-14",
+  "captured_date": "2026-08-06",
+  "summary": "Valentine’s Day reveal: ‘Lumina’ sweet, new strawberry cultivar&nbsp;&nbsp;AGDAILY",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

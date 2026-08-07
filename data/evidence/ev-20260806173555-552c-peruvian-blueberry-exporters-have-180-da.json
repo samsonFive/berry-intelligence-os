@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173555-552c-peruvian-blueberry-exporters-have-180-da",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Peruvian blueberry exporters have 180 days to claim US$ tariff refunds - FreshPlaza",
+  "source_name": "Berry tariff",
+  "source_url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxORXJGZERDZVhmVnVPNlh6Q0pndjZXOC14eGJiYkpVU0VVZm9HWUZCc1poQTZnQ3VpaVJEQ1Q5UWh6Z2hJOWw5NG1Zdlp1QzZoQVpOQ0w2QVFUeWFjMHNEMW55LW55MG5PLUpGWWd2aVZBX3g4UVVRSjkzMkp0alVDNkFXa3ExQnhzZHZGN2hOR2tsZ2ozWG1TZXowUjlhN2dsUElYeGFVNkpDQ0UtU3BKWVJEVnBzbVBhdmJUV3Z6enZhOE9xZHc?oc=5",
+  "published_date": "2026-03-02",
+  "captured_date": "2026-08-06",
+  "summary": "Peruvian blueberry exporters have 180 days to claim US$ tariff refunds&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry tariff",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry tariff"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    }
+  }
+}

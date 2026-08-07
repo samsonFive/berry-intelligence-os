@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806175534-fbb0-ryan-lockman-discusses-north-bay-produce",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Ryan Lockman Discusses North Bay Produce Blueberry and Blackberry Retail Programs - AndNowUKnow",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNNVBBREJhaHhFak5OUUE3bXB6TEFwOG9uMGJkdWNGbmlra3psbjlvTk94Mzd0YlJkNnpLelR0LWxzdGllbUxEVk9iU1FKWWpobTRqTzdSdGhlUUFGNXZ5eG5rUDI3bVNaNm84enZ3RTQxYnkwU3VjSEVxX29HME5RMWRZVTg2UmJ3TVJoTW95ZTlSSXJ4Y1p2cDhwVmZoTjMzVm44V0F2YUNrRHFYVTJZbmROLVlLVnhYZW1ubmtGejV4VWhmS1lOTHp6NXZodTBUQ0JDcg?oc=5",
+  "published_date": "2024-01-10",
+  "captured_date": "2026-08-06",
+  "summary": "Ryan Lockman Discusses North Bay Produce Blueberry and Blackberry Retail Programs&nbsp;&nbsp;AndNowUKnow",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

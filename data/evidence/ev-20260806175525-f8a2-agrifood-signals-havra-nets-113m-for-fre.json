@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175525-f8a2-agrifood-signals-havra-nets-113m-for-fre",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Agrifood Signals: Havra nets $113m for fresh produce ERP, ZBiotics GM probiotic expands to hospitality sector - AgFunderNews",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOVkJrV3Zfa3ZyT21KNmdGcGNDUXR1c3RxYzNIeXZjX1VKTHBwWndNb3BsazZKdUdBa0cxYUVSTF9TM3BGdHlmUV8wbFhYcV96TVk2NUttVzV2aVdoRFhGQjcxS1FhVm1uN25mbzFqWW5IVjB5T28tWTF5NG9fTmZ2T0o2YWl0U0djeWExVDhYQTlXdXRuQ1dYaUNER01vZmVBOUh6VTlvNGtkei04aHdSVUFodzBFQXpYRnJzOHlpUm9pUFZCYzZmN2tPZw?oc=5",
+  "published_date": "2026-04-09",
+  "captured_date": "2026-08-06",
+  "summary": "Agrifood Signals: Havra nets $113m for fresh produce ERP, ZBiotics GM probiotic expands to hospitality sector&nbsp;&nbsp;AgFunderNews",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173545-1f2a-crc-regulatory-trap-limits-berry-merger-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "CRC: Regulatory Trap Limits Berry Merger Upside - AlphaStreet",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPMzRVNUtRTzJOcWgtUzd3dWJPRlNaOGpMSG1YQXR1RC1yRWp0VEQ3SW9EUmF4UUFZSVRHQXg0enJfTWk3Q1hvVW5yeTJUVy0xblA5b0ZxNVAtUmc2RzNJNFJET1puaFEwdktkTHRGcjk5ZHdPX1JJdkxIVGZzbkNSYU5R0gGCAUFVX3lxTE8zNFU1S1FPMk5xaC1TN3d1Yk9GU1o4akxIbVhBdHVELXJFanRURDdJb0RSYXhRQVlJVEdBeDR6cl9NaTdDWG9VbnJ5MlRXLTFuUDlvRnE1UC1SZzZHM0k0UkRPWm5oUTB2S2RMdEZyOTlkd09fUkl2TEhUZnNuQ1JhTlE?oc=5",
+  "published_date": "2026-02-09",
+  "captured_date": "2026-08-06",
+  "summary": "CRC: Regulatory Trap Limits Berry Merger Upside&nbsp;&nbsp;AlphaStreet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

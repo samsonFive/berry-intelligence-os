@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173604-4f19-kentucky-welcomes-bosch-berries-and-thei",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Kentucky welcomes Bosch Berries and their $50 million investment in Somerset - Hortidaily",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOdGlXWlFaUHpMMEZQUlJxa3ZjQXJKWENvSnNiNEpNVUwxQTBGcGV0Z3d0aDFnVThoZmZaTml1b0ljNW1FV3lZZ0xwVHVoUVZORl9DVkhLZ21YeVJmd2lwdGpROHVvcEhQQURxWDVSVHNGQkdTNWtyVWFXVDRWdnFyTlhSX2o5YXJBVUY5WUt1RjNaNEd1bTRjYzhNTGZ1ZTdjQWdOWFRCd1hHYXNndWtUMGdnckRyYzhoeFp3?oc=5",
+  "published_date": "2024-02-13",
+  "captured_date": "2026-08-06",
+  "summary": "Kentucky welcomes Bosch Berries and their $50 million investment in Somerset&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

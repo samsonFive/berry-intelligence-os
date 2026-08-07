@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173911-9f83-new-research-shows-how-shoppers-drove-50",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "New research shows how shoppers drove $500 million in strawberry gains - bluebookservices.com",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNamItVjBHVGZPZWJOLTczaWdwRlFzX0hFdEthQ3VrUVVKOHU2N3c3aGRjYmdyV1YwWnROSzFQWXlLQlBzREUwcnd2NzkwaVdxX2l0MF9BNS11clFpN3ZQX21pZ2NheERfeDlVblU0OUVuMXNKMERuazFsVHNQdDBvZC1mNm80YkxHdzh3RWsxNlpQbnhTSVdGblZubnVQdzVZMEVDeFhB?oc=5",
+  "published_date": "2026-01-15",
+  "captured_date": "2026-08-06",
+  "summary": "New research shows how shoppers drove $500 million in strawberry gains&nbsp;&nbsp;bluebookservices.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

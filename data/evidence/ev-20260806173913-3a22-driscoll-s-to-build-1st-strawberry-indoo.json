@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173913-3a22-driscoll-s-to-build-1st-strawberry-indoo",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Driscoll’s to Build 1st Strawberry Indoor Vertical Farm - Progressive Grocer",
+  "source_name": "Berry category growth",
+  "source_url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOZjBRMGlxYWdVWjlQVHVqYUR1cGtIbmNyNkxqcUYtRzlpVWNhdm10YmZhTEVyMXZ3VVdmS0xlVzBzV25KbUwtcXRiMnVsQS0zWDU2TUNURERvM3dOb29aTFQyY1loOVNCOU1nUjZvMGdla1A5YmE1SVZNTkMwRUMwVFJLbXgtUUpj?oc=5",
+  "published_date": "2022-03-15",
+  "captured_date": "2026-08-06",
+  "summary": "Driscoll’s to Build 1st Strawberry Indoor Vertical Farm&nbsp;&nbsp;Progressive Grocer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry category growth",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry category growth"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    }
+  }
+}

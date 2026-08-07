@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173609-f898-new-berry-product-in-the-spotlight-fresh",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "New berry product in the spotlight - FreshPlaza",
+  "source_name": "Berry category growth",
+  "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQcGpkYW92b09vM1hIOTAyLWk2elc4cXdmU0NPcFE5dFpnX0l4RWx6bnp5YUdIT2NfTmNpVmtWQ19MeUoweDBKY2lmOG5SZG5pTVl5Ty1kWWxTNjVDTGxCY0xjRGxFRmhkUzNCOG5Mc1NTRHdJNmgxR0ZDT0JEMngydGY4WjFqOU5CMWdmNGRfUlN3WmJQMXNF?oc=5",
+  "published_date": "2026-02-09",
+  "captured_date": "2026-08-06",
+  "summary": "New berry product in the spotlight&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry category growth",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry category growth"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    }
+  }
+}

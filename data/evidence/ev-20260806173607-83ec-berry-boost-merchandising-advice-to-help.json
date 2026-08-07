@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173607-83ec-berry-boost-merchandising-advice-to-help",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry Boost: Merchandising Advice to Help Drive Sales - The Packer",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOei00N1NaTEVfeHY5by1jaVg0VTdFcmlJTFIxWklsN012cVBJYXFUZ1FPWWMzTjNPSDlCOEhwV1dkTTZZMEdVSTk4Y3VrbnZFZkU1OUJPZGZVRHlkN1ZIS0F5Z3pHVE1rS2JHRkx4UmhsUnlObVlOWVBQdVlaZWpBSVpSRDRYbFk?oc=5",
+  "published_date": "2026-05-19",
+  "captured_date": "2026-08-06",
+  "summary": "Berry Boost: Merchandising Advice to Help Drive Sales&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

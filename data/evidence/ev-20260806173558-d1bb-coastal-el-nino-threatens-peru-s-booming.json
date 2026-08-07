@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173558-d1bb-coastal-el-nino-threatens-peru-s-booming",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Coastal El Nino threatens Peru's booming agro-exports with heavy rains - Reuters",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOR3lpZnpPNVhNSUdKUFNxd0k3OG4tQmNqRjljb0hZeHpPZFZlMHRhN3M5VUptaFZLNTl2RjNfcFZqVjVOSmZvUTNyMWZNNl85TmhPamJvZWxmNWRKX08yT2FUQ0dQS29GRndwOE9GLVdMM0g1SW1PTks0aGlHVEhST1djN2stU3IzUzZIWE5Va3JCcGRrR2xaQUZDaXFaV21LaW85TmVJRVlJZzAwcHRmX3ZleXdsUkRpU3pxZGw4RWphZw?oc=5",
+  "published_date": "2026-03-03",
+  "captured_date": "2026-08-06",
+  "summary": "Coastal El Nino threatens Peru's booming agro-exports with heavy rains&nbsp;&nbsp;Reuters",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

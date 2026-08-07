@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173852-303d-dutch-harvest-forecast-for-2026-fewer-ap",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Dutch harvest forecast for 2026: Fewer apples, more pears - FreshPlaza",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPb2NCMEI4MWxDd0lUVElmaFNWWHE4dGNvZDBuY0JpamhIN1pMQzRWb09IOFRlT0ZOQmkyUEF5ZEtqc1d1XzNyOXVmVWczR3ctOEJPOU5laVduQ1dXZ19VYkhLSk9VSmtVQm5pOExKN29iVGxtSWdwRGl1MDFHWkdVOG40WEFFcjhJdGtRXzJkeHlZTmMwYkpIbjJwMTVOZGpsM3lDeDZ3dXBiVDRPXzBHSG5DZw?oc=5",
+  "published_date": "2026-07-21",
+  "captured_date": "2026-08-06",
+  "summary": "Dutch harvest forecast for 2026: Fewer apples, more pears&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

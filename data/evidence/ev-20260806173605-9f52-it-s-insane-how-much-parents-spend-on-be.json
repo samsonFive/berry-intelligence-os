@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173605-9f52-it-s-insane-how-much-parents-spend-on-be",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "'It's insane' how much parents spend on berries, but when did they become an all-season snack? | CBC News - CBC",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE54Z3gyMGlBVlN4YU5IQ0RxdDExVl8xNUs5UW1UQm9CSkx6RnFILTVxNHY4R2tRMHh6LTAxR0VZTTJJckZPc1pDT0h1WndOa3BlQjBEc1NlVXFDdFM4YXFBbnBhbXR2d1Yzanc0NQ?oc=5",
+  "published_date": "2026-06-28",
+  "captured_date": "2026-08-06",
+  "summary": "'It's insane' how much parents spend on berries, but when did they become an all-season snack? | CBC News&nbsp;&nbsp;CBC",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806181239-6f70-chilean-berry-grower-expands-production-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Chilean berry grower expands production to Peru, Mexico, US and Morocco - Hortidaily",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQdHZ5NkNyNjN6REdMeWZOSmt6RXdOamlKWnhRd01XV1NVU2pyWHp3cHNfd21nSnJOUk5YOWZRLVViVXZSTlFpVllBRUFTZGRSOFBjNUpSZ3l5QjhoUFgwYTFNX0xDV2FhVDZCb09tekYzcEc2dE52b3JiNnJrQ3F0eVdSNXNQamNfVGNvaHhIMTkyRjVCdlVHT2lzbWNXMzExeFluRFA4M0plalcwRFNheWdNVQ?oc=5",
+  "published_date": "2023-01-17",
+  "captured_date": "2026-08-06",
+  "summary": "Chilean berry grower expands production to Peru, Mexico, US and Morocco&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

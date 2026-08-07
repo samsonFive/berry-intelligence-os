@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173604-ec9e-bosch-growers-to-acquire-appharvest-berr",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Bosch Growers to acquire AppHarvest berry and cucumber farm - The Packer",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxORHhSNDVzbTVpWHAwTGpMMXhQNE80bm1abzRBd0Q2R0Q3NVVHMktfeDZ1T0c1UUg3aXUzandFMTRpTVFWTHZraEhnMEZOUWZGNllqdC1zbXFhaEFIY3JUc1h1SGo0MktxbXhGTDIwb1BSZFlqMVczTTROVU0zb3pHRXZ0Tnp3QTM5S1pXcUpJSDEyaUl2Mm9wNjRsZFo?oc=5",
+  "published_date": "2023-10-05",
+  "captured_date": "2026-08-06",
+  "summary": "Bosch Growers to acquire AppHarvest berry and cucumber farm&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

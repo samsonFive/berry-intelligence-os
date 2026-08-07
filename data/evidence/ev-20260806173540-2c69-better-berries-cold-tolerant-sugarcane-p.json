@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-2c69-better-berries-cold-tolerant-sugarcane-p",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Better Berries, Cold-Tolerant Sugarcane, Precision Breeding Is Making It Possible - Where The Food Comes From",
+  "source_name": "Blackberry primocane variety",
+  "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNaDktN0RlOU5aTGEwS2FnMVRIRDQxSWpfV3VIT0ZvTUFjc1VhLU53cVk4VkpTaE9jbjJZejM3eG4yOG9OV2RreWQwa3kxN21OV0ZUMWlFcWJFc0xNVXFjT0lvZWQ2YXY4bG05MGx0MWk1RDc5UXBYU0lTLVZNc2w1d3R1ZkszMjc3Qm12cm9Jb2NFcjdwZ2pSeVZpRGR2Wk5HdXhJMkhXYkFFbHkyeTd4TGY5QjM?oc=5",
+  "published_date": "2024-05-05",
+  "captured_date": "2026-08-06",
+  "summary": "Better Berries, Cold-Tolerant Sugarcane, Precision Breeding Is Making It Possible&nbsp;&nbsp;Where The Food Comes From",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blackberry primocane variety",
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blackberry primocane variety"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    }
+  }
+}

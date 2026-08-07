@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173847-1779-amcor-to-acquire-berry-global-in-8-43b-a",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Amcor to acquire Berry Global in $8.43B all-stock transaction - Recycling Today",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQdWZkakkzb0tLakd0dTZLbk5VOGNFbTZ4RGgzNmRmRnhzbkNUMkY1Q1RQTVRtQk1QRDJtMTh1Wmg0RTNWLS1EbzFCWTJHTUJTdkktaW52ZU9SRXNxRWxJVGRyaUdEZVdYcElENnRVTHlkcng5WWNuLTVQT1g5Yy03T0lIZ2tMNjdYbHdtQVgzSzBEc3NLbGE4TDJfdnhOVllKazNCN2RVbWFtR1BS?oc=5",
+  "published_date": "2024-11-19",
+  "captured_date": "2026-08-06",
+  "summary": "Amcor to acquire Berry Global in $8.43B all-stock transaction&nbsp;&nbsp;Recycling Today",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

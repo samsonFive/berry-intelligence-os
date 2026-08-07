@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173552-4f07-russia-lifts-temporary-restrictions-on-t",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Russia lifts temporary restrictions on the imports of plant products from the Fergana region of Uzbekistan, except for tomatoes and peppers - EastFruit",
+  "source_name": "Phytosanitary berry import restriction",
+  "source_url": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxNRUJsM3o0V29lWEhZVVdkdXJub1dwb2JuVkZPS3ZsTTZrWm1KNjJmQ3hiMzFGR09oQm43cHFuOGplWGc3eE9IUUM0LWlYWUhYRVFYcEFfZ050V0lFbFNYS0xXZi1iYlVMd2t6eTY5VEx2LUpRSzQ3cV9jLWxyb2pnek4yZGdZYk51UkNsYWhxZVNJaHdQZnBwMkdLWkw3VXYwU3did1NFbVFIZUo0VHJ5S1Y1My1iRTQ1RWZwVHQ5SkJSYTdfMUNKNHlwN2lRekhpMFhXR3Y0ZE9rdGlhM3BwaTRGZTVsekRoUlJVdngzMlZqZWxhZ2VRU25JVHRQODQ?oc=5",
+  "published_date": "2021-04-10",
+  "captured_date": "2026-08-06",
+  "summary": "Russia lifts temporary restrictions on the imports of plant products from the Fergana region of Uzbekistan, except for tomatoes and peppers&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Phytosanitary berry import restriction",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Phytosanitary berry import restriction"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Phytosanitary berry import restriction'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Phytosanitary berry import restriction'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Phytosanitary berry import restriction'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Phytosanitary berry import restriction'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175536-6a03-record-low-prices-for-chinese-strawberri",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Record low prices for Chinese strawberries in Vietnam - VnExpress International",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNVkE4cFE1dnFHaVI0VlczMlJPTTY5OFRLYlFkOVl1UUtteElBeUd1SS1pZHl1ckhXM2FXS2IxYkpBa0tYbGZuODBLa1Q3bjBKT0o1YnRCOVpZcTBrdmFTMDBOWXFTa0NsMlhGaUNzYUxGVjNhWVJZbnNkdW9JZzlyMzN0dWE1WWl5MzJMamhHV0xwbzVRcnI4OU9Oc1Zibk1Id21UaGp0d0hfWUpjVEJaNjF3?oc=5",
+  "published_date": "2025-03-02",
+  "captured_date": "2026-08-06",
+  "summary": "Record low prices for Chinese strawberries in Vietnam&nbsp;&nbsp;VnExpress International",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

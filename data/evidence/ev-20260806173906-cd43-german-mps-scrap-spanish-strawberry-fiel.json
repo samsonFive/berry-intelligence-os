@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173906-cd43-german-mps-scrap-spanish-strawberry-fiel",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "German MPs scrap Spanish strawberry fields visit as election water wars heat up - Reuters",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPUlFZUDlSRE1MUzFiUzlaWEE0YmpKMWVhY0tWeUFCUFNKbzZYeDBMaGlwbUJ0ZGJ4bzl1aDdORm5Fb1h6ZUNRZGFJZ284ZGlXUXhPWklhU3Y4RWxZN2JhNy1jb25rMHVKNTk3R0M3VXZOd3U1SkFXTkFhR2dLRmhqRXBJU1dTU09yMThRTDZ4YnpQOXFCdVdGZWpEVC1kb0IwTWVHWTR5N2NINTY4OHgtR0ZwbGxzY3N5eEFtenJYU0x2QjQ?oc=5",
+  "published_date": "2023-06-05",
+  "captured_date": "2026-08-06",
+  "summary": "German MPs scrap Spanish strawberry fields visit as election water wars heat up&nbsp;&nbsp;Reuters",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

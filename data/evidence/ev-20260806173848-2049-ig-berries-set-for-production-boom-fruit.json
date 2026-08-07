@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173848-2049-ig-berries-set-for-production-boom-fruit",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "IG Berries set for production boom - Fruitnet",
+  "source_name": "Berry joint venture genetics",
+  "source_url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOcUJ2cWpYcGFCdVY0aVd4ZEhrZXVCdnZDbDhkRTIwRE5YX2NFVmRLanJ1bFV1eDlsc01EaTBybldDek95Z2tXbzk5WlRlMFdhYm5hNlRFYnNLOFhHekljOENiQTRpcm12R05kNWZCd2ZEbGFaVkVIN0xZdkxfbUh1Y2RFVjctVW5wakZwdw?oc=5",
+  "published_date": "2021-04-26",
+  "captured_date": "2026-08-06",
+  "summary": "IG Berries set for production boom&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry joint venture genetics",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry joint venture genetics"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    }
+  }
+}

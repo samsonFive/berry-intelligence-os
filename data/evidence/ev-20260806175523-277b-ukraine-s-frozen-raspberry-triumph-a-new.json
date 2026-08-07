@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175523-277b-ukraine-s-frozen-raspberry-triumph-a-new",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Ukraine’s frozen raspberry triumph: a new global leader emerges, overtaking Poland and Serbia - EastFruit",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQTFp4S2JUYzhFeWMzaVVpbG5BOEVvYWtGWUY0dmZNMTMteU91UTJBaTdmOTZ0S25jb3FTQ3BFZGR0U0xKVDFqWW1jcmtyY08yVTZmQm1fSVJ2b1NBMlJvblBjV0tZbmRwZ3Y3Tmo4cFdKN0NsMUY2b3V6Umt5RzBZSmpEUUxiX0VSeFBSSllVelpFM2NtZjM2UEczM2djRzBISTI0b3hlZmM5czU5YTlkOEVvaWE3VnJQQ2RzNWNncw?oc=5",
+  "published_date": "2025-03-27",
+  "captured_date": "2026-08-06",
+  "summary": "Ukraine’s frozen raspberry triumph: a new global leader emerges, overtaking Poland and Serbia&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

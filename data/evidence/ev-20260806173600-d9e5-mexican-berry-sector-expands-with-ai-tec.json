@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173600-d9e5-mexican-berry-sector-expands-with-ai-tec",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Mexican berry sector expands with AI technology - FreshPlaza",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxONnFzdUxRdTBfa0JOOXBoeTBBNEk0cF9pS1dadWVpREV1LUVZUUp4TmJjN1liVEVkb3kwRmdHZ0JCZmJwNVgtU2VTZXRXV2NaX1F4R3I1REJfeXZKTjYyLXlaMWZ3YU9CajZtTUNjVnFibXZEdXdjYVJwdzVHQWhLdzdWeG03b1RtOGl2ZmNHUkFJTEpSMzFzZ0ZvblZWVkQ4WFlWbFZNU0Q?oc=5",
+  "published_date": "2026-05-25",
+  "captured_date": "2026-08-06",
+  "summary": "Mexican berry sector expands with AI technology&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

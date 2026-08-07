@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173851-cd4c-peru-s-blueberry-exports-slide-in-2023-2",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Peru’s blueberry exports slide in 2023-24, but long-term outlook strong - The Packer",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNZXdJX3R0MVRaTkszSWpYQmltUGNJUXVGc2R3SFZYeGs3dHdTcEpxS2VoT0psYk9PZHAtVEhMUEJ6Ykl0dG1RUjhndTVqRkVwZjdFU2IzM01PRTl3b29yU3dqWi1LNnVVNlp0Z2dRVFlHckZ2WTVvZWpWSU1fNWtyTWFJX29rMTlQaHhzLTc1b2UxVThoMGJIV052OXR3RnVIQ2RiMWhjU2owNkE?oc=5",
+  "published_date": "2024-03-04",
+  "captured_date": "2026-08-06",
+  "summary": "Peru’s blueberry exports slide in 2023-24, but long-term outlook strong&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

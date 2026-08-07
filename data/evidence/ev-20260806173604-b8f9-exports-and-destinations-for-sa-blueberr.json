@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173604-b8f9-exports-and-destinations-for-sa-blueberr",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Exports and destinations for SA blueberries expand - Farmer's Weekly SA",
+  "source_name": "South Africa blueberry IBO summit",
+  "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPaHJnSUd2R0dGeHRkdWsxNE1fNWdyV0Rkc1U3SnRZS3M1RFRjeDBLaDJPRWVNWWZyQ2F0TE15amwzMFVkT1owbXhEeENWcERaUG5zdHpKUm83X3EtOEtSUUF1V2Zmb0tuVEhZZmR1T3F0TWhOY2NDMGY5Z243V3NzWTZFdGJXYWIxMk9lWC0xWTJpbnFVLW14M09LTzdnRE00djVOdF9jeml1QQ?oc=5",
+  "published_date": "2025-09-25",
+  "captured_date": "2026-08-06",
+  "summary": "Exports and destinations for SA blueberries expand&nbsp;&nbsp;Farmer's Weekly SA",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:South Africa blueberry IBO summit",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "South Africa blueberry IBO summit"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'South Africa blueberry IBO summit'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'South Africa blueberry IBO summit'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'South Africa blueberry IBO summit'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'South Africa blueberry IBO summit'; not yet reviewed."
+    }
+  }
+}

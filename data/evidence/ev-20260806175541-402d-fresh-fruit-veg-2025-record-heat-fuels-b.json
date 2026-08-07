@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175541-402d-fresh-fruit-veg-2025-record-heat-fuels-b",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fresh - fruit & veg 2025: Record heat fuels boom in berry sales - The Grocer",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPNWpENS0zRFlIaFFsMW0ySU52OEdKUTJiTkdSV3U0aktYb0d1R3ZOTHJ2MUF3bVVSdUxtRHlvcHFsRWozNWdhaklCc0l0a1Z5cmhRZS1jV2Q2U1hYYTlXdE9XVmdnMEhzMlJzakJabVV5NHJJbzV4UFk0WXZvSnViZnhuQlVQTjhra2drM3NIRFhfOGQ2dTJ1RWlDbFQxRk5EZWJxSHNrWmFvQWoycUdTSVJiTzQ?oc=5",
+  "published_date": "2025-12-12",
+  "captured_date": "2026-08-06",
+  "summary": "Fresh - fruit & veg 2025: Record heat fuels boom in berry sales&nbsp;&nbsp;The Grocer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806175535-fd7d-morocco-triples-blueberry-exports-to-sou",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Morocco Triples Blueberry Exports to Southeast Asia - Morocco World News",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOUFRYaTRWdXZRUnF6eENNbjhpeGtJdnF2TDRSdkV3Rkx3RUZHR29jZ0tKaDBoZ2F0eFFveWZoaHZTZmI3ZVQ5enVKOTBCSFcwY0Nubk5YbW11cnFIRGx6U2NvZDFRN281QWEzTUFOQl9GVVQtMkxaNVlYWER3N0UzWUhXeGViOWo2RnhQTFdhR1RHbFgzZVdibVlYM1BEbzY3?oc=5",
+  "published_date": "2024-07-13",
+  "captured_date": "2026-08-06",
+  "summary": "Morocco Triples Blueberry Exports to Southeast Asia&nbsp;&nbsp;Morocco World News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

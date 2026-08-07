@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175522-c53c-scottish-berry-research-projects-win-fun",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Scottish berry research projects win funding - BBC",
+  "source_name": "Berry industry investment",
+  "source_url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1tZXg0SUFwRGhaT3l6eGFxeXljQVFlQWprRlpxbTNFT2NHZjl5aXJxaWpOc0NoVTB1Z2dZVEp5elJLS2p3eldmR3AyM0VjeE5rLUhsbmp4UXgyemdRZFFvbzhBSzRvc2hGdTloMm05eU4?oc=5",
+  "published_date": "2015-06-21",
+  "captured_date": "2026-08-06",
+  "summary": "Scottish berry research projects win funding&nbsp;&nbsp;BBC",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry industry investment",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry industry investment"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    }
+  }
+}

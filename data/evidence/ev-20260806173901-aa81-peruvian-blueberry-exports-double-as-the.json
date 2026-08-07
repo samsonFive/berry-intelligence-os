@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173901-aa81-peruvian-blueberry-exports-double-as-the",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Peruvian blueberry exports double as the US and China lead demand - FreshFruitPortal.com",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQVUNDdlgzWGJIaGs0QlpBN1FZS3BheG1GSzR5V3JDV2JLVF8wWVhqTy1vQ3ViSzhtSnNfV25QTGZxSUVpVi02SWpqZUxSSjFfU2h0Sml4REtfY0F6VE1KTHlFVURRNmptVDhUTmNVcHV2eDdIT2sxdVpMTGMyUjY3Sy1rS3o?oc=5",
+  "published_date": "2025-10-17",
+  "captured_date": "2026-08-06",
+  "summary": "Peruvian blueberry exports double as the US and China lead demand&nbsp;&nbsp;FreshFruitPortal.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

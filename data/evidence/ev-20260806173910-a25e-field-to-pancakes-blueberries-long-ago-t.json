@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173910-a25e-field-to-pancakes-blueberries-long-ago-t",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Field to pancakes: Blueberries long ago took over from peaches as Georgia's top fruit crop - Online Athens",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxOYVBjcDd6VUhoZFVHdHBFVkxfekoxd1c0bE8ycXBiZUdianUxT2FSQUZhWXd1bHIxVC1qWXlYYVFKY2NDZDUteVFHalJzSFVrZkJqdXpUb0k2OGdMWHM0cDFuUHhwUVdEc2hDMVVTS2dYbF8wVC1UdXM5UThHOEpBVFhoRDNDTFB0QW9sNXdmc29pN3M0bkFTQTdyaTZiZ1IyLVd0TGxqUkwwYk1zVmQ4b3pPT1ZvbE9iSHdId0VWM0QzZGptaV8xOWdmTzU0bkozbmpVS1BJTHlKRE5SOHZJ?oc=5",
+  "published_date": "2023-09-06",
+  "captured_date": "2026-08-06",
+  "summary": "Field to pancakes: Blueberries long ago took over from peaches as Georgia's top fruit crop&nbsp;&nbsp;Online Athens",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

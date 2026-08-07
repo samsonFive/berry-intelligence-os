@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175519-3a79-shareholders-approve-8-4b-acquisition-of",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Shareholders approve $8.4B acquisition of Berry Global - Inside INdiana Business",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNbkpHRWMwbFNjT0U2RXh3cGdSaXVHOXlhd3FsVGwxV0dPS2c4N1VyV0FQTWtfamFkSVg2c2ZRTFBZMkQ4X0VaYkwzQmw5UTdZSHhtUzJIS2ZSb09Hb0FFTVpjMnFjampjdGcxcHZ1VWh4WF9VQVB3TXliSzNfSVBHZVVTckFNLWRwckRzZ3VUQzR1UmY1Y3dwNklKQTZMSEFGenc?oc=5",
+  "published_date": "2025-02-26",
+  "captured_date": "2026-08-06",
+  "summary": "Shareholders approve $8.4B acquisition of Berry Global&nbsp;&nbsp;Inside INdiana Business",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

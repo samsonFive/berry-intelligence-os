@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173548-0c00-lidl-gb-commits-half-a-billion-investmen",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Lidl GB commits half a billion investment to increase British berry volumes as demand soars - grocerytrader.co.uk",
+  "source_name": "Berry industry investment",
+  "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPZVIxc2ZTcnNLY0FqUWo0dEQ3SG1OT1Bjb3dXaGswcU1laVBhSWtDWVJYakVVUUg2Z3piVHF6ME5XVXZlWFowT2lEdnJwWEIwdENZUkVyMHlLUDFDQ3RBbGlZUWFWLVRGbUtuUGxmNDNod1BHSDJadk5UNWJ3R0c2ZW1Xb1VpakRZUkhyOGRQaWpHTGppZzd1SFZjbUtEb0F6SzJNZmtXWnBLMlFQaGYxRkVHb0FqS3pPZ3Jvcg?oc=5",
+  "published_date": "2026-06-09",
+  "captured_date": "2026-08-06",
+  "summary": "Lidl GB commits half a billion investment to increase British berry volumes as demand soars&nbsp;&nbsp;grocerytrader.co.uk",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry industry investment",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry industry investment"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
+    }
+  }
+}

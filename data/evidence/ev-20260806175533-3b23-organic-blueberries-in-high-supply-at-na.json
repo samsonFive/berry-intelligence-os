@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175533-3b23-organic-blueberries-in-high-supply-at-na",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Organic Blueberries in High Supply at Naturipe Farms; Brian Vertrees Comments - AndNowUKnow",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNMkZqSnUwY28zYV8tc01XakJCN29FZEtSaXZ0bkRIdlpSQ2VzZUJzNHZIaWl1Zm5zcE9pMDhHa2VZWTJMYzA0QmIyS3ByNnFSOHI0NWwxbFlMSTRlQU8tN3ZHRUFQeUZJMnlNMFRQVDhYY2ZQbnRmaWtWMDVPTzE1aWM0T2F0eC1WbWtXSUQzTVA5VFI3UUxzMDVUU2dCR0dESGp3N3JnTEFZVFgyR0xYcmZJelpTWU5FRGpCS2pSRUZoWTQ?oc=5",
+  "published_date": "2025-01-02",
+  "captured_date": "2026-08-06",
+  "summary": "Organic Blueberries in High Supply at Naturipe Farms; Brian Vertrees Comments&nbsp;&nbsp;AndNowUKnow",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

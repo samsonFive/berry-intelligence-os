@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173559-8893-fruit-exports-from-chile-going-strong-in",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fruit Exports from Chile Going Strong into Winter - The Packer",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOVktjeFFMcXROcHQ3bGZVNWt6b2p0U21tTFlSN3hTRWp2dmZibEZhU21EYkhZZDRBdGJSWWRBZ0NuVTNWMV9tMHpPLXp2cVdKTmJRelIzUHlCajdLV1JJN0p4Rm1QYjhTS2E3UzI0THl0VE13Y3Jhb1BDd0RNZ1E0ZkVmcWg2RDdkc0dtUQ?oc=5",
+  "published_date": "2025-11-18",
+  "captured_date": "2026-08-06",
+  "summary": "Fruit Exports from Chile Going Strong into Winter&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

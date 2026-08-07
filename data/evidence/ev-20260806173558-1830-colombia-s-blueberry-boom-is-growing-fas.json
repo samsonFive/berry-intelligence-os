@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173558-1830-colombia-s-blueberry-boom-is-growing-fas",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Colombia’s Blueberry Boom Is Growing Fast, but Exports Lag - The City Paper Bogotá",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPdjN6MUdZdTA5SERPTDdSVF9DSkZ1M0J3Tkh3NXlRUlE1Nk9NTFIta0xPel95aUJ3bUVJTEJ0RWxZVmJKNTNSdzlWVE1BdUtoTUVvWHprUzNNblMtcXB1Yk1ubTJ3WmtkR0ZJeUFEY3Z4c1M4b0czQjZKR2tnX1F3a182WXFmMzdPMnNUNXU2OWljUmNfNXRpV0d1NC1Hdw?oc=5",
+  "published_date": "2026-02-12",
+  "captured_date": "2026-08-06",
+  "summary": "Colombia’s Blueberry Boom Is Growing Fast, but Exports Lag&nbsp;&nbsp;The City Paper Bogotá",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

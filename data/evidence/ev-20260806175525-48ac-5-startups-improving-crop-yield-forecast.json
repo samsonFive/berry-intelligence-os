@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175525-48ac-5-startups-improving-crop-yield-forecast",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "5 Startups Improving Crop Yield Forecasting - Nanalyze",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1wYkRraVZfYlVwQTBRNU5qd1ZhcWNtQ0pvbmNlWklIaGoxTWFUbHp5VDhCUUtjMUUyNjBXVy1VNlBGa25JM3MwRTlxRlppQm5QUDZQVHI4UTBOaUdQeDZsdjc5OWFFQ1pUV1NCX2RjWG5iLVNp?oc=5",
+  "published_date": "2019-08-29",
+  "captured_date": "2026-08-06",
+  "summary": "5 Startups Improving Crop Yield Forecasting&nbsp;&nbsp;Nanalyze",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

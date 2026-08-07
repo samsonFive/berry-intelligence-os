@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173539-147e-cornell-berry-breeding-program-releases-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Cornell berry breeding program releases new strawberry and raspberry - The Ithaca Journal",
+  "source_name": "Raspberry variety license",
+  "source_url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNX0E1dnZFZXhFS29HOC1RY1ZQdXFNRDBIdDY2Y1NHME80STdoTHMyemJCUGUtRkMtcVNzUGg5Sm1sb3U5TEtIU0tKNVIxeF9WLURSb2dJV252N040SXMzSE9QU0l5WGlCWVgyM09zdm5mRU5WOFp2c2dzeU12dzgxbnNDblNmZHVyUmh5Q0Y1dnNSZ09rZ0ZHbExoTE5vNUVOOFlXR1hOUkE4RzN5SmQ0YVpzaGN0bW83T3dkUE5nVTNxY3Z3QnZWZFlwOWF3d1BUbFd6Xw?oc=5",
+  "published_date": "2018-09-11",
+  "captured_date": "2026-08-06",
+  "summary": "Cornell berry breeding program releases new strawberry and raspberry&nbsp;&nbsp;The Ithaca Journal",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Raspberry variety license",
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Raspberry variety license"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    }
+  }
+}

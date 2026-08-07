@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175512-2bb0-the-tooth-rotting-trials-of-building-bet",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "The Tooth-Rotting Trials of Building Better-Tasting Berries - Atlas Obscura",
+  "source_name": "Blueberry breeding program",
+  "source_url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE96b3pSRnliUVloMlJtdHltY0VYZHRaRjdzSktDTnJ1T0ZQNTkyQ0d0Zk90RXZsZEtWeGpWelNDcnNvVUExX0dQMUxRQWw4X0pLT1BJcXRaM2JkbGRJX0JhYl9XODg0MXVLeU1USVA4R0VrM1Nl?oc=5",
+  "published_date": "2018-11-14",
+  "captured_date": "2026-08-06",
+  "summary": "The Tooth-Rotting Trials of Building Better-Tasting Berries&nbsp;&nbsp;Atlas Obscura",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blueberry breeding program",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blueberry breeding program"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    }
+  }
+}

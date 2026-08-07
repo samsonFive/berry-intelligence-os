@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175541-cd91-driscoll-s-unveils-the-top-10-berry-lovi",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Driscoll's Unveils The Top 10 Berry-Loving Markets In America - Perishable News",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNSUdNeTRTZmhwTDZ2OENzazd0dENTbnVZZVBnNG01WlV6UDVQdXlOaENKZ24wMVlMZ1Bmbkd2X21HQkRFZHlsYzA2Uy1IbE5pR2ZnbmFUc1hBNkVraThoaXpud1h4UVI0Z0tIbXgwZXRBNGJwbVFiWTVlSmJMOEhDRi1vTjlSV015a1VPdXctT1ZWenVFY0E0Y1JxTmE?oc=5",
+  "published_date": "2017-06-30",
+  "captured_date": "2026-08-06",
+  "summary": "Driscoll's Unveils The Top 10 Berry-Loving Markets In America&nbsp;&nbsp;Perishable News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173602-7166-they-own-the-world-s-favorite-fruit-chin",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "\"They own the world’s favorite fruit\" : China’s 200,000-hectare farms dominate global production, it’s 20 times the size of Paris - leravi.org",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxPaVluTFF0UkRnZXRwLUgtOFJNNG9PN1RON3JFTlVnUHhqY1Bac2U3Wl8yX3kyTXhIOEIyRktnMmNVTElGQWVtem56WHkxYlFPSTZadTgxUDVndVJZblFrOHdxdjBvekFFR003blhLdVFCbkd4Z2doa1JBb2pvRVlSUGRjQ29Ga0FfbWYwYUxDTXJXWFNyYlRsRF8yVUxuazZZY3U3YXBNTXNTMi1QMlBhcTFTMVQydkFtQVB6VmVCR2M3NjhoekRydlpFbmpWTHhJcG5sVDRWZDZDZ2NpbnNkY0hyQUo?oc=5",
+  "published_date": "2025-11-20",
+  "captured_date": "2026-08-06",
+  "summary": "\"They own the world’s favorite fruit\" : China’s 200,000-hectare farms dominate global production, it’s 20 times the size of Paris&nbsp;&nbsp;leravi.org",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

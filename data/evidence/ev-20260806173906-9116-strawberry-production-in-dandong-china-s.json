@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173906-9116-strawberry-production-in-dandong-china-s",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "\"Strawberry production in Dandong, China surges 30%\" - Hortidaily",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPbmJQZUFyTjY0eXVwenpiRjVaVk5IbllaQ2U3ZnBFTUh1TTR5ME1NMFltTks1cm12U2F1QU01VW5MQTBKODZ4eUd3ZG9SRE5ySnphczZLa1owMkE5QWFxaU80amFQMVdCdlhKai1HM3RENkszSVpXRFJoOEUtQW9CcUQzdUZnbW96UzlHdHBIeTNOV3hCLWhZ?oc=5",
+  "published_date": "2019-11-20",
+  "captured_date": "2026-08-06",
+  "summary": "\"Strawberry production in Dandong, China surges 30%\"&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

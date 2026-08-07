@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173551-5087-naturipe-expanding-strawberry-program-th",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Naturipe expanding strawberry program - The Packer",
+  "source_name": "Berry acreage expansion",
+  "source_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPbEIyLXQ0QTRGdTRPTkhramhpTF9TeHpKR09nX1k4MkRiSmxMV05fYTRRanlab2k3TTE2cV80ZzZuNUt4MmEyU2FKWW1NWjRxUGx6NFZSOUhOdnhiOTI2Q2JhbmgtbU8wRUhVazNCaG5FaFRpMTVVUW5XNlJ0N1lSR0V1bndfdmM?oc=5",
+  "published_date": "2024-12-16",
+  "captured_date": "2026-08-06",
+  "summary": "Naturipe expanding strawberry program&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry acreage expansion",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry acreage expansion"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
+    }
+  }
+}

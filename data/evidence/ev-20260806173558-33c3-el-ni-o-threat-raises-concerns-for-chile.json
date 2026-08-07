@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173558-33c3-el-ni-o-threat-raises-concerns-for-chile",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "El Niño threat raises concerns for Chilean and Peruvian blueberry exports - FreshPlaza",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPcVpqbUpCZDZnbjRZS05KVmNaVG9zbV9FMl9MNkU0NVZMUlVjTGtkczZGTXlvVEFqdUdtcjN0a21zZm96UFlIUVBoV1RIYlBSSGZLVkZhcDBNNW1qVjdmY0h0UkdTUk9GcGI0YlRjWlZIbElyNEl2eWgwYjJGcDktWDFBLWhmdm9ZVTk4VGZaOGtIQlZYVlUzYU1aUTFhUGtwOHBZUXkzMS1GYWxxTzJET192azlib0xXeTRaVk5id05lUHMwVkQ1S05JVQ?oc=5",
+  "published_date": "2026-05-13",
+  "captured_date": "2026-08-06",
+  "summary": "El Niño threat raises concerns for Chilean and Peruvian blueberry exports&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

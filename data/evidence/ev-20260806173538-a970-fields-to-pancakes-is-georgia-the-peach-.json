@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173538-a970-fields-to-pancakes-is-georgia-the-peach-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fields to pancakes: Is Georgia the Peach State or the Blueberry State? - Online Athens",
+  "source_name": "Blueberry breeding program",
+  "source_url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxPUEdObEZWb1lWd1JkRjBwQWczUVRrMU1kcXNwSG9VY0JSZE9TNEQ2b3ZXR2NvSVlfRGVjN1p6THlUMnBhLU5iY2tBQ3lsT3g0LTQwQ2hCcExpOU9KSC1LeG1ZZFZKanlkNTJlRWI2N2N3Z0JfbmcwVGRBRkxqdzBwVnQxTE1CWmlhV3UxS1NiVVJkQkRJYVJ5b2d6RzU4aVZhbHd5UVJRREVjRkdKYk4weTVPRDVETjJuU19iWUdrNkNLaE5xRDZKajlQVzhaZ2JWMk5sOXllNHlpeUlaNDNSLUYyOA?oc=5",
+  "published_date": "2023-09-04",
+  "captured_date": "2026-08-06",
+  "summary": "Fields to pancakes: Is Georgia the Peach State or the Blueberry State?&nbsp;&nbsp;Online Athens",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blueberry breeding program",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blueberry breeding program"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182922-2bb5-high-intake-of-berries-apples-and-tea-li",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "High intake of berries, apples, and tea linked to lower dementia risk - Harvard Health",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQTjl3aTNJdzV4WXZRVXBqcl80Nmxoak1MelZUVmV4V242VktlTTdpeWVDZ21Kb2VtSFF5dEl4VEtQd1dvWU5MUFdWRjhQb3VGRXJXVG1Sak9DU3lSdmVGZ2NNaU1VUlRGbGVFaGw4QldwUzBVa3lKRXEtbC1TUnhaeHhPbjgtaFdLZkoxaU9VcFBpNldGVkhZQU5EUW8tazhHUmFQXzVJZFpmMlA3WGdLTjhR?oc=5",
+  "published_date": "2020-08-01",
+  "captured_date": "2026-08-06",
+  "summary": "High intake of berries, apples, and tea linked to lower dementia risk&nbsp;&nbsp;Harvard Health",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

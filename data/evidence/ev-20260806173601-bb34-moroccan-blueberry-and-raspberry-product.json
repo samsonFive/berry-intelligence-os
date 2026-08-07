@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806173601-bb34-moroccan-blueberry-and-raspberry-product",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Moroccan blueberry and raspberry production rising, while strawberries decline - EastFruit",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNUTRNclEtZ0oxTXpfOTZhOVczaTM4Y201RklSSDhwdTRPbGNrdklkbWEtaXlyb1UxTmhwbVNKdk9BaUR0TE5pODJwLVRPam9IWVNxRUIxZlBqdnotOEpTcV9waTgtSDYwTVZ0Z1hmRDhHMHhyUHNWWEpoVWR1MHNmLV8xRlM1XzhUX1I1MU5ZeF9TZWhGMGtYakYxeURrVjNWanRLbU1EbTRsOW8zelE?oc=5",
+  "published_date": "2025-10-07",
+  "captured_date": "2026-08-06",
+  "summary": "Moroccan blueberry and raspberry production rising, while strawberries decline&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

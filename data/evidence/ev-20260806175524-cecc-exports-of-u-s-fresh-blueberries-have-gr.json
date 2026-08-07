@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175524-cecc-exports-of-u-s-fresh-blueberries-have-gr",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Exports of U.S. fresh blueberries have grown in recent years - USDA Economic Research Service (.gov)",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1NOEg3RDd3anZ3NW5VbC1Oc1E2WjF0ME1CbHljTzVqY1NDY2dja0RnU3dpWElGTlgyaWY4aERXZDI4VUxSZjdQRlkybHM3U1QzclRFNTBHRzVfQzZXRlRzSjMwVFVTdTVGNElF?oc=5",
+  "published_date": "2012-09-10",
+  "captured_date": "2026-08-06",
+  "summary": "Exports of U.S. fresh blueberries have grown in recent years&nbsp;&nbsp;USDA Economic Research Service (.gov)",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806181236-d56b-new-genetics-change-face-of-peruvian-blu",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "New genetics change face of Peruvian blueberry industry - Fruitnet",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQTmlES1RrSVVqN0lsbTFrQzVzc3JZOVlQV3p1aE02NWRKZThETktBeGJmQkdTaHBOek5ZZFlFdTFZbTEyUndXcnY5UTBFSEJMM09JbmJhTmF4SmVqM055eTVmb3lpV0xrUWpISjF3eWJzeDR0elRIUDRMcnFQY1VYaVJaVHNMUnV2c0VkTE5YSy0yWWZ6ck1ZdWVGQ3loUHJOYWk5dldmYWE?oc=5",
+  "published_date": "2025-02-14",
+  "captured_date": "2026-08-06",
+  "summary": "New genetics change face of Peruvian blueberry industry&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

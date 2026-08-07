@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175519-7bc5-amcor-buying-berry-global-in-8-4b-deal-p",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Amcor buying Berry Global in $8.4B deal - Plastics News",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBjclQ4OEFNLU1rcUJsZUpjbVBkSkVVdGNPN3pHM0p3Ykk4ejVRYmJVSFVfd0h6Y1lMMjdPb1huZ0hKMGpsTnVhVVZkdXRrVHkwOUZBeGtpa0Q1Sk54LUhxbWMtMjFSTjV5UWtFVmNQMk1DZDJKQkEwSQ?oc=5",
+  "published_date": "2024-11-19",
+  "captured_date": "2026-08-06",
+  "summary": "Amcor buying Berry Global in $8.4B deal&nbsp;&nbsp;Plastics News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

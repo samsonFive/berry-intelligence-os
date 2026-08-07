@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806173905-b0f8-morocco-s-blueberry-boom-in-southeast-as",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Morocco’s blueberry boom in Southeast Asia - EastFruit",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1fZFJ4ZlJiVWk1Um9Nb0U0UFNHSzlSSjBxZDlHMldMUE5hTGNWdk94ZjdpdG0tTWRDMVJvSG91bDhuS2NwZXg2U2tZUExiUGN4S3BRU0hROHdYSlZhd2VWakJIbHh5NzZuV1J1eXJSd2dUcUJKVDdHQ1VBZXlaZw?oc=5",
+  "published_date": "2024-01-18",
+  "captured_date": "2026-08-06",
+  "summary": "Morocco’s blueberry boom in Southeast Asia&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175529-b558-asus-pivots-production-to-southeast-asia",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Asus pivots production to Southeast Asia to ease tariffs - Supply Chain Dive",
+  "source_name": "Berry tariff",
+  "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOS3AxSzRJSnVmTUVranVVNzlJWlBBaVpUekFGa2tyVHlycVpVeElRaW9RZm9rRWNTbmVMZFU2aU1EVkNhZV9wNWo2Y3pXVzdULXpHa2pYRHpHbXcyZGV4dUxyR2o2LTV1S3d5TWRyend1RTZZcVBkRXNCbjhVZDRxc3lKbGU2aDdQRWY3eTJ3U2k1aXVH?oc=5",
+  "published_date": "2025-09-03",
+  "captured_date": "2026-08-06",
+  "summary": "Asus pivots production to Southeast Asia to ease tariffs&nbsp;&nbsp;Supply Chain Dive",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry tariff",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry tariff"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    }
+  }
+}

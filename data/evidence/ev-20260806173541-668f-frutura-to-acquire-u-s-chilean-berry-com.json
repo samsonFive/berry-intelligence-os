@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173541-668f-frutura-to-acquire-u-s-chilean-berry-com",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Frutura to acquire U.S., Chilean berry companies - Fruit Growers News",
+  "source_name": "Berry genetics company",
+  "source_url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQM2RhWmsxMXJuSjdDQktvY3M4cXg1Umo2RENENzZSMk5EcmMzazlYV2ZxUHZjVW9GNTM3RURkYWNKdDZpcTV3ZV9sZEFkUFlJNUw4WHVDaEdhbXBSYUFpWUVLT3B4V1ljbjFjNkVtZzZYM0dMd2MtYUtuRXFMZGRRUjU5MlhBZzM5?oc=5",
+  "published_date": "2023-10-18",
+  "captured_date": "2026-08-06",
+  "summary": "Frutura to acquire U.S., Chilean berry companies&nbsp;&nbsp;Fruit Growers News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}

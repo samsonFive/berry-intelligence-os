@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173904-1784-mexican-blueberry-production-to-fall-9-p",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Mexican blueberry production to fall 9 per cent in 2025 - Fruitnet",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNck5XdlQ4SV9iUFJaeXdhUFBPSEUxSkcxdnBpMmJXd1IyeEt1WHpTX2JjbGZ6UGtoSDlLNzJTbjlqaEpHT0dRVlhvRENDOU1VcnpzUVUwdm5uZGtRV1VsMFBfa2FvdEdiclZieE9lQ2ZKSk1yRDl3clM1RHQ4R3U2Mnp1UUcyalk5dXFNdlh6T29FeTRBZVNCRV91eGppSHlhcEZjVnRjN1c?oc=5",
+  "published_date": "2025-02-11",
+  "captured_date": "2026-08-06",
+  "summary": "Mexican blueberry production to fall 9 per cent in 2025&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

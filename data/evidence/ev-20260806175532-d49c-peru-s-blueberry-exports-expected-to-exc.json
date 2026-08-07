@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175532-d49c-peru-s-blueberry-exports-expected-to-exc",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Peru's blueberry exports expected to exceed 400,000 tons in 2026 | News | ANDINA - Peru News Agency - Agencia Andina",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOaHZsUUdNM3NlT2JiaHpEZ2ZxRmtjVk9JNDFTaE1oZ19FOTE1UnR3d0VqelJKc21tY21MZzdTM0JtaWZuS0xwTTIwNzdBVWNrZGJUUFJhQXRGRXpNR2diUmVCQUFzeVlzcGN2OXZQU1J5Z0RCZXFxWms0UHVhay1lTS14S3Btb0N3Z1ZVbDROaU82OHlDLTU0TG9YNWozcVdlZHEtLVBIOVFrYVR5?oc=5",
+  "published_date": "2026-06-14",
+  "captured_date": "2026-08-06",
+  "summary": "Peru's blueberry exports expected to exceed 400,000 tons in 2026 | News | ANDINA - Peru News Agency&nbsp;&nbsp;Agencia Andina",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

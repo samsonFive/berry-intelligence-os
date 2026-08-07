@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173903-d13f-how-peru-became-the-king-of-blueberries-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "How Peru became the king of blueberries - EL PAÍS English",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPY1g1OUlhV3JiSThNRlMtSFMwWVdZZVUzZ2lpU3lEV0xhQUdEOU9QTElGMUtjRE1YcW1lSjFwOHBDTkdyTFFuVEs2R3ZnWldqS0VGUkhPRzJDUkpKb19KUmZ5Mk9JNVRDaDM1YmJNb3dDSi00RzcxbmtsNGxmeUh2cVp6ZkhHZ2E0a1Rmay1HY3cxMnY0RXpMeGtGVHbSAbABQVVfeXFMT1Bvd3VqN3BSWVFGTnpEekEzQ3praDV5YjFzQll5ZnEzZWc0R3JPT3o5dXNDOFFTdWhmUHh3ZURtSTBCSkJfSFdfYkNiQWE2MnN6RmFuVmI3VVZ2QzdSRE1NMzM2T2pDdUVuQTEtTTNIVGdoc1RiMi1qWW9fbG55Y1pWcm9xUU80TlRBREQ1aEZmSGQ0ZVlxbTh3aW5XWDRqbmQzOU9pYjdsdlh4Z2FiY2Q?oc=5",
+  "published_date": "2023-08-13",
+  "captured_date": "2026-08-06",
+  "summary": "How Peru became the king of blueberries&nbsp;&nbsp;EL PAÍS English",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

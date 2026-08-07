@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173553-8fd0-fight-erupts-over-500-fold-increase-of-f",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fight erupts over 500-fold increase of 'forever chemical' on berries - ABC News & Headlines – Australian Broadcasting Corporation",
+  "source_name": "MRL berry regulation",
+  "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNRWVocmtFZHp3WGszMEloZUVkN2RSb3hpRWVLVDFDYVBzN2VtZjk3Sl9PRjl2NmlDTlFQNlQ0MTdLV2k2c1daSk1IcmZpTXN2d1B4RHRHcVlNTDNPeXRHc3dDazBQamsyV1Myd1VYd2J4ODV0RmwtdTl4eWNSajNseHRDQWZlbktVMkJkZzNJWmFyTVJ2X1VyM2pyMDJmRmJKdGZpSG9fSXBESzJfazhJbG9ETHBEQjNqekE?oc=5",
+  "published_date": "2026-07-18",
+  "captured_date": "2026-08-06",
+  "summary": "Fight erupts over 500-fold increase of 'forever chemical' on berries&nbsp;&nbsp;ABC News & Headlines – Australian Broadcasting Corporation",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:MRL berry regulation",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "MRL berry regulation"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'MRL berry regulation'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'MRL berry regulation'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'MRL berry regulation'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'MRL berry regulation'; not yet reviewed."
+    }
+  }
+}

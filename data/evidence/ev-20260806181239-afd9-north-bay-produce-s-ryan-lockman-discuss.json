@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806181239-afd9-north-bay-produce-s-ryan-lockman-discuss",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "North Bay Produce’s Ryan Lockman Discusses Expanded Strawberry Program Through Mexico and Florida Supplies - AndNowUKnow",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQYlBmXzc2N1RlcG9wQ3NBNGhUMUFDcndLODZuOFBMbmRwNDRBMEkxX1hBS0VyTnh0UUExWXBndWJQVU5TSFpXcUFXZUd4ZUNNZi03ZE84RDNBdG5PV3QxN1lxaDBQblJsa0xFVkVqX3VtSERiNW1GYXFMRFpsSFpWbWVtQm1Eb1JKaW8taXMyUk5PSEJqQmI5Z25sNHpkOVN4SnQwdWp4SlR1YVc2NXF5MVhJaWZVYm5lb25xMTFleVFVOVFvTXhB?oc=5",
+  "published_date": "2021-11-04",
+  "captured_date": "2026-08-06",
+  "summary": "North Bay Produce’s Ryan Lockman Discusses Expanded Strawberry Program Through Mexico and Florida Supplies&nbsp;&nbsp;AndNowUKnow",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

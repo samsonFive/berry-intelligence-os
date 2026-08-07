@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173539-86c2-tsbc-partners-with-berrytech-on-new-rasp",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "TSBC partners with Berrytech on new raspberry variety - Hort News",
+  "source_name": "Raspberry variety license",
+  "source_url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQdkhhZElyb0tQbC1TZklkdGRPX3VmaWRJYnEwQnZkaFhtR0V6Z2IwNE1iUnI4WE5tUm8zMU15ZmI3WHZQMk5zTy1YeEFqTWlCeENlQ0JMQVpITnctWjJXNW5YdmFZeEFNOHV5OTZVbUM5NUVnRHdITGtGd0Jvc096Uw?oc=5",
+  "published_date": "2023-10-20",
+  "captured_date": "2026-08-06",
+  "summary": "TSBC partners with Berrytech on new raspberry variety&nbsp;&nbsp;Hort News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Raspberry variety license",
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Raspberry variety license"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    }
+  }
+}

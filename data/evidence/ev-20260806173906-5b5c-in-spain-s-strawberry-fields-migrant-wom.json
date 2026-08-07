@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173906-5b5c-in-spain-s-strawberry-fields-migrant-wom",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "In Spain’s strawberry fields, migrant women face sexual abuse - Al Jazeera",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNaVlxUVVZQUZsTlNzNVczdmpvYlJlQ1hGOXVSSjYzM2JIYUE3QzhBZ0NrZjZzV3NlalpTWDJxZ1Qybm5nNFF2Rl9KbG9UUGU5c1QzT2NqZjFIc2VmOS1Pb3BDblBKb1ZoNzBXN1RtVllUb3dZT1JTdXZRRnRCUGVYd2pOVkR5cmVmU1BGRzFuOFhtNzg2SlpOemVXSnUybG9rNXfSAacBQVVfeXFMTUVpSVc0c3Q2aHVZUURnNTdXUGozX0tsOWNabWM2NFFTZWZxNjVSWVRzOUFjLTBZUldZZUN5d1JLYWdJRFM1SUhuUmJoY3QxTE1HQkN6ZVJzclI3ak0wU2Niakl5YmtUYk9qTEl6UGlYQ2xZRF9fbW1RSFYtQWZQTXlNQ2EwSlpLdGxQd09xYWdIRXlXZjY0NEY3SUxoRW1VdzVFRWNVekU?oc=5",
+  "published_date": "2021-07-10",
+  "captured_date": "2026-08-06",
+  "summary": "In Spain’s strawberry fields, migrant women face sexual abuse&nbsp;&nbsp;Al Jazeera",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

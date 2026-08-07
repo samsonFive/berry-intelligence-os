@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173840-8702-apertis-collabora-s-distro-for-embedded-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Apertis, Collabora's distro for embedded devices - Desde Linux",
+  "source_name": "Raspberry variety license",
+  "source_url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPSm5NdEh3b0dEd1MtR094YWlOYkVkcGZwLVZndnNEQUZzVFNISnB5SG9XTENyUmdaS3hKaHdIRVo4SWpzSUwzWEtMYlhnUFZ1X2wwb1d0V1paM2dhSTF3alduNVlNOXA5UTEtN1dXYS1odnM4RHFxS29RckIwZ016ZTk0VkJlWEx5?oc=5",
+  "published_date": "2024-12-17",
+  "captured_date": "2026-08-06",
+  "summary": "Apertis, Collabora's distro for embedded devices&nbsp;&nbsp;Desde Linux",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Raspberry variety license",
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Raspberry variety license"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    }
+  }
+}

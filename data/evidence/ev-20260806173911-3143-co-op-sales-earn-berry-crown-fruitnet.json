@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173911-3143-co-op-sales-earn-berry-crown-fruitnet",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Co-op sales earn berry crown - Fruitnet",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPQTh5MmVJNHdWTVBKR05tU0VZeU9idFFuQzJaUjROYTFhVUowUi1sMmo3WEJ0WFdiNnp1eFZocjlZZm5oWndZUzA0MUV1ZU5ZU280ZU5uc2c0UmZDczJRYmFTY1Jsd1R2akF5MWI4MS1scU9WanBsVXVQTDVCV1l4VGJnb1FGWEZLRzZqN1FJUlh5Mllq?oc=5",
+  "published_date": "2023-11-17",
+  "captured_date": "2026-08-06",
+  "summary": "Co-op sales earn berry crown&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

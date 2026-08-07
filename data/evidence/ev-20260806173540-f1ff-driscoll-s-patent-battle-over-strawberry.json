@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-f1ff-driscoll-s-patent-battle-over-strawberry",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Driscoll’s patent battle over strawberry varieties stalls in federal court - Lookout Santa Cruz",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQX29zaDVMazNIeFVKWUQzNTljS2hpdkhJOVNXb2NRMG5Xbm5xRmF6SWJ0ZlJHd3FtNkctbExFX19LbUR5NlZJNUNnS0FzVHFnaXlVNS1xcmVuSU8zaFpHbnEzN1hqX1MtUFBPLVZHVDJuTFRKU1pDTkJiQjUtbkN5QTJpV1AyMzFjUTYydGVteW9xOXFmZnB6dGtCcHJYVFU?oc=5",
+  "published_date": "2025-04-08",
+  "captured_date": "2026-08-06",
+  "summary": "Driscoll’s patent battle over strawberry varieties stalls in federal court&nbsp;&nbsp;Lookout Santa Cruz",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

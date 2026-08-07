@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175524-2fda-blueberry-exports-on-the-rise-russia-rem",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blueberry Exports on the Rise – Russia Remains Georgia’s Leading Market - BM.GE",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNcWRlT2RHVTJIYVVwX0NNa3VDdC0tNEUweFhkR1JUaVY2bjBqanBVM1hqOXRYRExjSXVoeFp5S1Z4OW5fVVBDWkRoYmtpU24tV0J0Qk5rT0xnLWJ6SFU5dHd0NUFONEhmaURyYkxEXzBGbkZFZkxCWlFCT0VwbklRdGljdC1TWmRKUU1IV2lxbmhXV1B5?oc=5",
+  "published_date": "2025-07-31",
+  "captured_date": "2026-08-06",
+  "summary": "Blueberry Exports on the Rise – Russia Remains Georgia’s Leading Market&nbsp;&nbsp;BM.GE",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

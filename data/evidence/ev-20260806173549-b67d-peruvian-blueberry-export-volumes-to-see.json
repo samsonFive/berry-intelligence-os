@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173549-b67d-peruvian-blueberry-export-volumes-to-see",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Peruvian blueberry export volumes to see massive 7 percent drop - FreshFruitPortal.com",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9reDFHd2NWQU53UXk2M3lfbU55UVkwd0pNc25HbXBrQ2ZRbmZUNWZaUmQ4eXdLaUExaUNEN05mdldMTGZrYWVvVkNwVGJNWlVsajQtbjF6RkpkT1dFUUMxcktUVEZWMDMzN0dKOGhnT01NVUNNZ2FwX3kydw?oc=5",
+  "published_date": "2026-07-10",
+  "captured_date": "2026-08-06",
+  "summary": "Peruvian blueberry export volumes to see massive 7 percent drop&nbsp;&nbsp;FreshFruitPortal.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

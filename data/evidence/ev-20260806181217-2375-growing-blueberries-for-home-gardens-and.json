@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181217-2375-growing-blueberries-for-home-gardens-and",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Growing blueberries for home gardens and small scale production - Ontario.ca",
+  "source_name": "Plant variety protection berry",
+  "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNOFZGLW1Zc1ZQSk50N01vbDhNNWJqOEhkV1VuWUhKRktRczlWYTBKRlEwcU54S2RNWmNvdERudU5BaG5tdDhKcFo4dG5tcGlDS1pEWFd6YXR0ZVpWRTN4R1UyakNwVjFvYzhpNGRoU1lPOENrLU9LMWRZTnZ1SDU2cEZCckcxcWZaaVBBbjFXTQ?oc=5",
+  "published_date": "2023-03-31",
+  "captured_date": "2026-08-06",
+  "summary": "Growing blueberries for home gardens and small scale production&nbsp;&nbsp;Ontario.ca",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Plant variety protection berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Plant variety protection berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    }
+  }
+}

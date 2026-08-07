@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173541-e0b0-fall-creek-expands-beyond-blueberries-wi",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fall Creek expands beyond blueberries with Italian acquisitions - Fruitnet",
+  "source_name": "Berry genetics company",
+  "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQUDhJR1pFOGdFczNEN0Iydl9HdW5TQ3BfeHJOTGtKS2IyV3U1OXdNb1FQTmN1bk1sMi1icU5Mc2pFMVI5aW5tTVlsbGZZa1VJa29HWUdZaUYtSkRSSlYzeF9XOWZDMXhhUVoxRUtEV1NRc3BUcUxQc1NfNk4tSDFBekpUVDY2VEYwSExoLW9kNkNkaE5hellBN09vMlBvNC1zTHhLU0kyUXVncVVRejlvQlF3bw?oc=5",
+  "published_date": "2026-06-10",
+  "captured_date": "2026-08-06",
+  "summary": "Fall Creek expands beyond blueberries with Italian acquisitions&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}

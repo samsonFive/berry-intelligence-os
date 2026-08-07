@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175533-5154-soft-fruit-demand-doubled-in-january-fre",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "\"Soft fruit demand doubled in January\" - FreshPlaza",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQVVRId2gzYUJNUjlLbkc2Y0xOUFdPOUhnS2toMDJjWE9OdlJSLTdidWZaaFFMRVJaN2xSM3Fxa0czcUZMeXJuS0pnVzhnT0dTdThnRmtCYUdjeGJDeXMwZW9leVFYQl8yUk1NUzBtdG1qRGdLQ0ZEbzR2QXV6c3R0eVdjTFpyRVNWaFBrZ2d1V0c?oc=5",
+  "published_date": "2023-01-30",
+  "captured_date": "2026-08-06",
+  "summary": "\"Soft fruit demand doubled in January\"&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

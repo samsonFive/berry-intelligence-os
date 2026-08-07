@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173912-2d47-this-berry-has-been-called-the-siberian-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "This berry has been called the ‘Siberian miracle’ — it could slow aging, boost immunity and even help prevent cancer - nypost.com",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPYWg5N24tOU1nSnZCUG1PdlF0NWJSWFF5UUJjdHFNSWEwVFlZbUJhZVlMeW04c0o0aUo4TGNmcVF2TjV5TWZjbUJZdnY4TVZsX0gtekxuZVdDSUhlSFpJQ0RaUXpIYTlNQ1pqVHV3Mkt1MHIwVm1Sa0dENFNxcThRU05lRHdvQXZ5Q2JvdlVLS3FIYXV0MGJzRQ?oc=5",
+  "published_date": "2025-10-29",
+  "captured_date": "2026-08-06",
+  "summary": "This berry has been called the ‘Siberian miracle’ — it could slow aging, boost immunity and even help prevent cancer&nbsp;&nbsp;nypost.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

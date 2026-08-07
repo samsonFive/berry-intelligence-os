@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173554-9429-corn-emergence-stalls-across-key-u-s-sta",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Corn emergence stalls across key U.S. states despite early planting gains - Agrolatam",
+  "source_name": "USDA GAIN report berry",
+  "source_url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPR0VLdVFCQnlwMTExUl9VbnZaSmdaWk9oQU9zQXRjcUZ1ZzNjb2FNbHdjMmdUSm03UW1EQ3JvUUZoMUpUQ1BORXc2UnZOSHNnMWtHeVRtN19ZWjZWSldOanJHREdndFUxRVAtZ0l1VER5TlY4b2ZoUjdsU2R3azlEUGpVdw?oc=5",
+  "published_date": "2026-04-21",
+  "captured_date": "2026-08-06",
+  "summary": "Corn emergence stalls across key U.S. states despite early planting gains&nbsp;&nbsp;Agrolatam",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:USDA GAIN report berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "USDA GAIN report berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
+    }
+  }
+}

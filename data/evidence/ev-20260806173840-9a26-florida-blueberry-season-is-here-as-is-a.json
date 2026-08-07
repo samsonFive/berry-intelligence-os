@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173840-9a26-florida-blueberry-season-is-here-as-is-a",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Florida blueberry season is here, as is a new variety from UF/IFAS - The News-Press",
+  "source_name": "Blueberry breeding program",
+  "source_url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNRkhDU0JWLWUwU2xidFpQMnpmMnpHX0w1aXo3TDRjZG9pTUlxUUU2RlJYTG9EYTJmd25JamVsZFZlZGt0ZWJWX1lUeU9Yc0luUWZHOTM4Q0pKR0xfMTl5c2dURGU0VEdTYTJ5M09yeHM5VTJUaXNJRlJFOGlaV1ZUa29KdF9HV0l3OHNHWXBEdU8waVJ0ckJKbmNfaG5mY1Z2NlFCTTYzWkpfN0MxaHpZVFlubmcwR19VSUhRLVFZS0VRMFhvcnJ6SlZxNVVkZ0N1eFp6NQ?oc=5",
+  "published_date": "2021-04-09",
+  "captured_date": "2026-08-06",
+  "summary": "Florida blueberry season is here, as is a new variety from UF/IFAS&nbsp;&nbsp;The News-Press",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blueberry breeding program",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blueberry breeding program"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    }
+  }
+}

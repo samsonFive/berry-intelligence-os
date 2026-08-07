@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173603-edde-sluggish-start-for-huelva-strawberry-sea",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Sluggish start for Huelva strawberry season - Fruitnet",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNZXJoUVlkekpjSmpzWU93dHFlcjNwY3FVNGx1elQyZ092aUd0MkhKUm5TclNSajZyNWVrSVJjMWlOZWdfX0Y1U2V2NUQydG9PdXNLSEJrVHV1am1hQWFuemtXNW5aUWtPcmRsV1lBZkl1eHdNbjFqOXhXRzVnUnFlQ2xiZndBSkhFVVdZbkVwSzR0VXlqUC1qVA?oc=5",
+  "published_date": "2026-01-20",
+  "captured_date": "2026-08-06",
+  "summary": "Sluggish start for Huelva strawberry season&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173605-b6af-u-s-consumption-of-fresh-blueberries-is-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "U.S. consumption of fresh blueberries is growing - USDA Economic Research Service (.gov)",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBhVUdqcFpKak5oUWtsQy1RdVRZMEVJU3VKS3VKb3lWcHczVTh2LUZScl9SOVZMQnZSWkZMQnR0UVJ3aTk3a1RhN1I3QWhZd1FxRHlnOFRDbmFxY0YzTkRBR1B0SU1CSWtXZmc?oc=5",
+  "published_date": "2016-04-18",
+  "captured_date": "2026-08-06",
+  "summary": "U.S. consumption of fresh blueberries is growing&nbsp;&nbsp;USDA Economic Research Service (.gov)",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

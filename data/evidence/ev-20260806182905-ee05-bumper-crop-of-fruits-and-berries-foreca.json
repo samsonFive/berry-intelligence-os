@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182905-ee05-bumper-crop-of-fruits-and-berries-foreca",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Bumper crop of fruits and berries forecast by National Trust - The Telegraph",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOVTlpQjdMdllGeEJ4ZE5hVFVLNjRidnBNREZuczMtcVMxS2p6dDdqZUg0bzJfcmxwczIteXZ1aWQ1OFVtencwYWZuYXdockIyZkw0cWZaYXpaTUNsWDlJZUpqOEZsSWlWaTQySFhmdEk3RUwydmxuRkRvcWFadXVyOFFPN3dGTXVDNlgwd3RHMzVLYlYtb0M4TlMzQ1lMZTJlSkdDNVZhN3NCbGs1emcyeUl1WFFtVU9tMXllVy14NFdOWW5KR2ZXS2NOUQ?oc=5",
+  "published_date": "2010-09-25",
+  "captured_date": "2026-08-06",
+  "summary": "Bumper crop of fruits and berries forecast by National Trust&nbsp;&nbsp;The Telegraph",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

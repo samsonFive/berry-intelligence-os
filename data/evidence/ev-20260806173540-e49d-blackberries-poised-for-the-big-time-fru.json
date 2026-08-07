@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-e49d-blackberries-poised-for-the-big-time-fru",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blackberries poised for the big time - Fruitnet",
+  "source_name": "Blackberry primocane variety",
+  "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOc28zY0RQbWJrTzljVnlYUEVncEVWeEV4aXJSWEFQa216VW5wTkEtYkhPb2EwQmg4VXFrWEVUMjRySXlNMy1CYUFwZkxpQkNwMVBIQjJyWFY5TElEVUJ5ZzdlVVRSLTVwMVNTRVY1TmEtZ1JWTlZyeGNvQ0VJNV9HS3JoSDNwXzgzWkpmNUtoaw?oc=5",
+  "published_date": "2022-02-24",
+  "captured_date": "2026-08-06",
+  "summary": "Blackberries poised for the big time&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blackberry primocane variety",
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blackberry primocane variety"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    }
+  }
+}

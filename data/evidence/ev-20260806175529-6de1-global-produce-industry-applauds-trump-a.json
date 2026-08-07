@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175529-6de1-global-produce-industry-applauds-trump-a",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Global produce industry applauds Trump Administration’s immediate tariff exemption on avocados, bananas, and coffee - FreshFruitPortal.com",
+  "source_name": "Berry tariff",
+  "source_url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFAwdFVyWXp0UnQyLVowX3lVZkRmY1B6aGVFODYxRUxhT2s5T1pGUXZLRVpjRXo2ejFnNzNfWnM4RFNkLV95aGg2ZHpfNUJDRHE5VXgycmpKMlF0S2dkUmlzelZTcS1waE52dDRBWlFydEFWZGdDZWc?oc=5",
+  "published_date": "2025-11-17",
+  "captured_date": "2026-08-06",
+  "summary": "Global produce industry applauds Trump Administration’s immediate tariff exemption on avocados, bananas, and coffee&nbsp;&nbsp;FreshFruitPortal.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry tariff",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry tariff"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    }
+  }
+}

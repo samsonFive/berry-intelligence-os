@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173848-0730-fall-creek-invests-in-finefield-to-advan",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fall Creek invests in FineField to advance mechanical blueberry harvesting - Fruitnet",
+  "source_name": "Berry nursery partnership",
+  "source_url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOTzZJT2l1NVNkcUQ2TlE5eE1QSURZdFlJUFI5YlpYU29wNmJ1dDBuREpPM0pyLThZMmtma0p5cUtXaGlJSnJTTU45S1VhTGhZdVNudDlFeHdmZGJCQjRnT2VoU2gzaU8wMndIZnZwWW9lN2pXQ250UnY5cS1CNG9BdnR0NE5GSllILXY1RVZEUnZBLUZtSTl4RVVfbGswSHAzSVVrNlpvbEx1OGJ3Q1hXOUQ3Q0hEYlVWb3BfMTBrRlVJUQ?oc=5",
+  "published_date": "2024-02-01",
+  "captured_date": "2026-08-06",
+  "summary": "Fall Creek invests in FineField to advance mechanical blueberry harvesting&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry nursery partnership",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry nursery partnership"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    }
+  }
+}

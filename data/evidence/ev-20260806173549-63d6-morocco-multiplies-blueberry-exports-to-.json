@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173549-63d6-morocco-multiplies-blueberry-exports-to-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Morocco multiplies blueberry exports to Canada seventeenfold over three seasons - EastFruit",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOVFo2Qi1ZS1QteXBUUTJxbS14bDh1ZXg0VjlOTXJKZTZMdktFUU9lSVpTeklOenBnNXJNeE1sVkhGdWw2RHp1VzhsVUk5d3VFaUlrYmNXd1VYSTlxclo4M0hUWFNyV2w5bW9yd0tfRzlHX1BNdDlfR1g2SFdFTjdEam9ORW1VbFY0V1R0WkdMWHdjUlk1MmpmVlFzZGZQTDh5Q1BuZmdzSGRoM2JVUkstYw?oc=5",
+  "published_date": "2025-10-08",
+  "captured_date": "2026-08-06",
+  "summary": "Morocco multiplies blueberry exports to Canada seventeenfold over three seasons&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

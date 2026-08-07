@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175536-8e1f-time-for-polish-strawberries-agrobericht",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Time for Polish strawberries - Agroberichten Buitenland",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNMk95bko1VF9EbzlXRl9rWTZMMTFqMWM2R3FUMmM2dHg0Y0thZ251NjJVZVlfT2lXazVYUk4taFRzSWhZM0lyYzU4N19jUzhEbzgzMVJZRVc5T2g1czBMWnM2ckNuMW1HYUx6WlRKMFoyNUNhWUpac3dRU09jMEdjNU44bV9HXzRhZnFTSjJMSVRkS0liU2tReg?oc=5",
+  "published_date": "2022-05-16",
+  "captured_date": "2026-08-06",
+  "summary": "Time for Polish strawberries&nbsp;&nbsp;Agroberichten Buitenland",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

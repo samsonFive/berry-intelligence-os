@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173541-ace6-sanlucar-acquires-controlling-stake-in-t",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "SanLucar acquires controlling stake in Twin River Berries - bluebookservices.com",
+  "source_name": "Berry genetics company",
+  "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNN3JZd29tOGgxV1QzZ3lsSGRWQlVUT0NZNFNQdk5QNnFaaTFrYXNoejg1WGVVeTRnVEhnNXY4b2E2dzN1Wm9yQTA3TE5JR3FxTW1vWkxKaTBXM212SXc3RGMwLV9jN1VfVWRpTmJ6V2ZqM3F3RUduWVR0eVJzeE9fbmU5VlBlN0ZkTnU4SzlTV3otVjJiOHc?oc=5",
+  "published_date": "2026-07-09",
+  "captured_date": "2026-08-06",
+  "summary": "SanLucar acquires controlling stake in Twin River Berries&nbsp;&nbsp;bluebookservices.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}

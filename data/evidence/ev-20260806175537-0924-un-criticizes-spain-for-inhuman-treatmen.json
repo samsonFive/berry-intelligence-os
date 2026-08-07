@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175537-0924-un-criticizes-spain-for-inhuman-treatmen",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "UN Criticizes Spain for inhuman treatment of Moroccan fruit pickers - The North Africa Post",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOMnB0RG9tSFlyU2dCZzd5SVFycS16d0xEclVwaERMUklwNDJyZHlDZS1MQ0MtQlFXQkFyNHRlVHV2XzdXUUFrenJkaGNMdjMyak5zdERiWEZvUVpvczl1a1NBckFONTNZNnVxNUZRdEh3X2VSbFA5MWdBTUFYYVZQTm9CdFBOdDFrQ1ZxTF8xbVBQbUVaV0FEaVFKQUsyOUd5d2pnakZtMzUtUQ?oc=5",
+  "published_date": "2020-07-27",
+  "captured_date": "2026-08-06",
+  "summary": "UN Criticizes Spain for inhuman treatment of Moroccan fruit pickers&nbsp;&nbsp;The North Africa Post",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

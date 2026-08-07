@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806173905-3eff-morocco-moves-up-global-blueberry-rankin",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Morocco moves up global blueberry rankings - EastFruit",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9OZ0J4ZGhJUFRNaHliS0RUc3lMbTJHMjFva3NkZVJoZHRBUUh2Y3hEMmlCLXZDWkYwcEFHREQtMmZydzF0YmhMVVpYb1lTRzlTZHlZa3V6cmxQM3RHUWw1andfNjBHaWxDU3RnTUJleGNtX2JCc3RoUHgyaV85Rmc?oc=5",
+  "published_date": "2025-08-12",
+  "captured_date": "2026-08-06",
+  "summary": "Morocco moves up global blueberry rankings&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

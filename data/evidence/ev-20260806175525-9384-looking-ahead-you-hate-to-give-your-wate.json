@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175525-9384-looking-ahead-you-hate-to-give-your-wate",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Looking ahead: 'You hate to give your water away' - Farm Progress",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPUEozYWlCR3pMM3pQRlV0djlDRTRGNUtNR2lJTjE1ZU1QWkJLNXN3Zi1ua2dvLXZwY2NqY09MUzBsV0U3RTJ1SUZtdzRaWEJjczM4QnpaeXFuU2ZmUHl6cGxRaEhsVnNmQU81eHRqZTVYRDFxWEFWVi15RnJQVlVQeVNOdnRqN3BlcnlFTQ?oc=5",
+  "published_date": "2023-01-26",
+  "captured_date": "2026-08-06",
+  "summary": "Looking ahead: 'You hate to give your water away'&nbsp;&nbsp;Farm Progress",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-a6ec-new-year-round-premium-blackberry-platfo",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "New Year-Round Premium Blackberry Platform Launched by Plant Sciences Genetics - The Packer",
+  "source_name": "Blackberry primocane variety",
+  "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPYUJZMkNXY3pHODkxQnptdG9JNkpXeGJiVzJDWk1NY3RRRnBTek1GSmtfM0N4aDR5U3lVdEpLVEw4X3R1Z0xCTlk5T3Y1eVpYOWJueWZhWGdjakwxUFViVlFQUWQzelE2UnRTU3NVLTdGUXgwX05FNldwUzROSzQwTThIY3R3S1dlT0JDcUhrX1lVWXJQNVFLNXNLNUdvZFBxc3NSRmZLelhsQQ?oc=5",
+  "published_date": "2026-08-04",
+  "captured_date": "2026-08-06",
+  "summary": "New Year-Round Premium Blackberry Platform Launched by Plant Sciences Genetics&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blackberry primocane variety",
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blackberry primocane variety"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    }
+  }
+}

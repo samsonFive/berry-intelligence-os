@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806173601-a2af-uk-turns-to-morocco-for-blueberries-as-i",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "UK turns to Morocco for blueberries as imports hit new high - EastFruit",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPM1pvNVYtQnBCN3RncE1ST2FRWktsRDVvZEx1ZlJvU3dYSmtjZ0pWQmlxNWprWW5oZjUtblJvQ2R0dzdBb2VzZ3hmWlNUb2F5eldOMjl4aG9jRk5ibWRTWkkzLW5ZZ01xV0pldXZURUdBMUhFU0tHb3BIcl8wbVFnM0h0UnlSQ2pqbW1kYWsyU01YUHlKNHc?oc=5",
+  "published_date": "2025-08-20",
+  "captured_date": "2026-08-06",
+  "summary": "UK turns to Morocco for blueberries as imports hit new high&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

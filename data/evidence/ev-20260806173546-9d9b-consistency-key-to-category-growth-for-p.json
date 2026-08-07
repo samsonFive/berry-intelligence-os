@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173546-9d9b-consistency-key-to-category-growth-for-p",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Consistency key to category growth for Piñata Farms - Fruitnet",
+  "source_name": "Berry joint venture genetics",
+  "source_url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOc2l5QjNCTUtEV3FHUDBrZWdQYURjOUZSWW9pYklPZ0h1NzcwWVJyZWVIU2lFVUlyWllLajM4aHlyQTl6Slp6Y3N1QklaY2NUeE1BRTZZREU2N0ZaQ3ZQVDZ1UFBXVXEyYjI5UmliUWZKcmQzRHhCQ2dvMUlPdmMtb2U1c2djem41a0VZTy1zSjVhdGphUFNQMXU3YjVFZDBPdzlHRmdFTQ?oc=5",
+  "published_date": "2024-11-27",
+  "captured_date": "2026-08-06",
+  "summary": "Consistency key to category growth for Piñata Farms&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry joint venture genetics",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry joint venture genetics"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    }
+  }
+}

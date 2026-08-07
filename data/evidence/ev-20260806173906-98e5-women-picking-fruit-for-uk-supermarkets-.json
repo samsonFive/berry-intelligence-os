@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173906-98e5-women-picking-fruit-for-uk-supermarkets-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Women picking fruit for UK supermarkets 'facing new forms of exploitation' | Spain - The Guardian",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOV194UDNYVVdTRGV0RHdxNHYxTUpXWHF0Q1VkbmNvcXB1WWNCSEYyLS0wc25DUUw3S09GbXZjMUJLTk5tVjQxXzZyeG5vakJwS2lkRWRVLW9Lek9jMlp2OFJQTjNBcEFGRzlRdWtzWFRlTjVwVVgtckRPX0d3N2dHQVVOQXA0UjFBdmxBUS1FS3pQWkxKNW82VnI2WmV5SmZtVGgydlBZeUZ2M3BHQldnVEVlVUl2dFp5b1NVd2I5WXpieUp0NVhvcnZXaw?oc=5",
+  "published_date": "2020-06-03",
+  "captured_date": "2026-08-06",
+  "summary": "Women picking fruit for UK supermarkets 'facing new forms of exploitation' | Spain&nbsp;&nbsp;The Guardian",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

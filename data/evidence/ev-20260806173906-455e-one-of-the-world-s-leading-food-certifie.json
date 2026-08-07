@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173906-455e-one-of-the-world-s-leading-food-certifie",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "One Of The World’s Leading Food Certifiers Will Investigate The Alleged Sexual Abuse Of Female Farm Workers - buzzfeednews.com",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNY1UwNGoxZ3ZMX250SVlKdjh4MmJCd2dDTHJvMXlDY3c1ckJQOUlmRnFHZmhVdTJOMTIwczktQXVrV1dMN3o2bEhqSXlJbnE1UG5aVjRsWmRyZkJDT2ZJLVFGTUdKYXFZTDYtXzZfdHJDaWUzUFNxcnZJdUliN19oZVNlM0stS3l5ZVh3?oc=5",
+  "published_date": "2018-05-02",
+  "captured_date": "2026-08-06",
+  "summary": "One Of The World’s Leading Food Certifiers Will Investigate The Alleged Sexual Abuse Of Female Farm Workers&nbsp;&nbsp;buzzfeednews.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

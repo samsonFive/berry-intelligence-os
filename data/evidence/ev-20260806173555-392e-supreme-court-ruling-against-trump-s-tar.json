@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173555-392e-supreme-court-ruling-against-trump-s-tar",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Supreme Court ruling against Trump's tariffs is unlikely to mean an end to trade policy chaos - ABC7 Bay Area",
+  "source_name": "Berry tariff",
+  "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOQkFfUVZ2Yk54V2Rod2hwMTdYUzh0SDhLbXBLTEdLQnk0MVBMUGhTSGxsRFEyNFNQcUc4Y1ZscTRZUHpHVURmcjlyR1U0Yl95QlFjZF9UMmUyaG9QWVVta0Y4ZXl5d3NzY3VZVno4dHpwc2t4a1BPdkIwb0ZCbXNUOENmZld5Y2FJVXM4NVU4SWplMlhxU1l6bUFjaHd0LWFhQXhtb9IBqgFBVV95cUxNRmkyVmx6WFJQZ0VPUGJkc3lTM3A0UllHdEJ2WHVGTlVHSm50cHVCbHh2VTNEMTdEYnIzcnBRSGVrSWpWRE10ekN3cGVuY3BwQm8zOG1mLXllQ1NWSlZxM0JUSTZ3SEVjSFVBVXg5SVJNT0ZrMmFfLWs3UEJkdnZOTzVod1p5ODEtTjVEWGJfMkhUMmpNcmwtdVlqdjRKYmNsakFPTDN2TllOdw?oc=5",
+  "published_date": "2026-02-24",
+  "captured_date": "2026-08-06",
+  "summary": "Supreme Court ruling against Trump's tariffs is unlikely to mean an end to trade policy chaos&nbsp;&nbsp;ABC7 Bay Area",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry tariff",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry tariff"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    }
+  }
+}

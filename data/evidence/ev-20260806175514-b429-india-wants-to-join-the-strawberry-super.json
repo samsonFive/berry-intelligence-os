@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175514-b429-india-wants-to-join-the-strawberry-super",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "India wants to join the strawberry superpowers - MyJoyOnline",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPX3N3SkFqYjVTbUhoVTdnZzFZZjFSelVmYUo5UkNqNmZELXFXeTRMLUVwN2J3eFFnM1NZb3hvMk5kQ1hic1F1b0RhVG03dmlzSVZ0aG1pY0dLWlNIeWE3dEowcFpjM1ktQnR0b0hRbE9La0xsb2xKbzNPRlpiVTZxag?oc=5",
+  "published_date": "2026-07-31",
+  "captured_date": "2026-08-06",
+  "summary": "India wants to join the strawberry superpowers&nbsp;&nbsp;MyJoyOnline",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173903-c583-del-monte-fresh-produce-talks-domestic-b",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Del Monte Fresh Produce Talks Domestic Blueberry Season - AndNowUKnow",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxONE5nNlhlUUJCRFZVMzY3Z1BJRmdPVXRSRFlrYXVqek56UDZ3WWk2UTJXUU41YkdqRGpWQjhMRTNGLWl1b3E4aUJrMmRJSE1fRF9oLUtwTHpGNEpZNm5FVEFaUHpaNUkzWXFMZlVtV243U3N2c1owNExOY2lkME9wdUZIRlFnbDdoZS1hSGFIME1CaHZneEpLRzhBMVdsakRxMzlVSUJHa0hMYk1qTS1LTVZXaEFzUEVKbmxXV3dCeWc0YVFMVUZmQXdSOA?oc=5",
+  "published_date": "2018-04-03",
+  "captured_date": "2026-08-06",
+  "summary": "Del Monte Fresh Produce Talks Domestic Blueberry Season&nbsp;&nbsp;AndNowUKnow",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

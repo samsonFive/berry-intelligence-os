@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173906-f07f-afn-introduces-singrow-and-it-s-set-to-d",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "AFN Introduces…SinGrow. And it’s set to disrupt Singapore’s strawberry market - AgFunderNews",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOWlM1Yl8ydkhvLWQ1QTBIZ0E2cHN3YW1oU3JvY1FpWDV1YUo5QmROcGJjZUtEdXBRMldweXI2ZU1ZZzRscXNsSUZ1RHc4dlB3anpvV3hSck9ESmMwTk1SVW5wdUR6NExfYjI5N21LZ2pkSC14NHRUMmxpdHdma1Z1Y05GRTVFOVhlMTRabEdNTGNQSkhpcVIwbFBUX1JvUQ?oc=5",
+  "published_date": "2019-09-27",
+  "captured_date": "2026-08-06",
+  "summary": "AFN Introduces…SinGrow. And it’s set to disrupt Singapore’s strawberry market&nbsp;&nbsp;AgFunderNews",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

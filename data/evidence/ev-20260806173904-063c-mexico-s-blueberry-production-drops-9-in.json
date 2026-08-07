@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173904-063c-mexico-s-blueberry-production-drops-9-in",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Mexico's blueberry production drops 9% in 2025 amid competition and climate challenges - FreshPlaza",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNZV9iM0k3SnRnYmYyNE95OFFLN3B5SWxCT21VSUpMaXJ6MEQ5Z0stRHoxN3B1UDBXN2xMWk9MdWFFX00xU0lTS2VrTWRIam5qWF9jZnMzRkFKdFdFTXpRRExNX0lwa1dQQWxiMTktaXROM0ItcGEyekdIME1mU1VkSWhUSUVDMVN4NDlHdXprb0xVdlVqZ3RUdlNNRVVJNVdPZmhKOFRfbzkyakFwQ1ZMRThwS3RzY3lGTFJaSmNBYXk1WmZaTF9uSnVja09RR2hRQm1ROHNJbjFSUUk?oc=5",
+  "published_date": "2025-02-05",
+  "captured_date": "2026-08-06",
+  "summary": "Mexico's blueberry production drops 9% in 2025 amid competition and climate challenges&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

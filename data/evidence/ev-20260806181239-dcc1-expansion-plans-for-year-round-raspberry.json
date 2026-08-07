@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806181239-dcc1-expansion-plans-for-year-round-raspberry",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Expansion plans for year-round raspberry grower - Hortidaily",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQMGZhUVhMa2ZzSDFqa3Rkay1nejQ1YVpOMHBUaFMtbkhidE1odGV6eXdJTGh0LV9WWFh2c2tIaXB6LUhoRmJkZGh1cXNVc0xNRDBfMG1wZUxWS21wLUJtZlRpZGYtdnVQMzdyQmR2QjNaMW5sMmh1bWdITy1yZDhiRjdRNF9sU0FkXzhjTmV5ekJXR0c3dnc?oc=5",
+  "published_date": "2019-05-22",
+  "captured_date": "2026-08-06",
+  "summary": "Expansion plans for year-round raspberry grower&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

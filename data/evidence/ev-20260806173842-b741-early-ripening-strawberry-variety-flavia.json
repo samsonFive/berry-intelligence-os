@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173842-b741-early-ripening-strawberry-variety-flavia",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Early ripening strawberry variety Flavia popular with growers - FreshPlaza",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQU0JJQXNfZ2VvMjdyblJON1IyR1JnNlltc09YNXZNWkZhTjk1QkdXaGpOa1QxYkxLVmdRWEtBU2UxM0dDVGhJS3AyNDdZcjFnRjZNNEkzVE05Ukkwa3Z1YklGY0cxYnZtcWIySXl5YnhvTFZpSWFkU2VDTVJWMGdJaHdIdGJqVDY0LXBoY3ZoWVp3YmJyMFdMNXRiYlJ1TEp5bGtSQWtETXV1a2JfSzhCcEMzSEtUS3VIcnBJ?oc=5",
+  "published_date": "2020-03-27",
+  "captured_date": "2026-08-06",
+  "summary": "Early ripening strawberry variety Flavia popular with growers&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175524-d918-ukraine-has-strengthened-its-position-in",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Ukraine has strengthened its position in the EU organic berry market - UA.NEWS",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNd0hmSjhYbUJla1ktWE9IS0lwVktqSjNSVVJoM2l2Zzh0dHU4RHBkNHVhMlp2RnVuSkwzVFZMRjZFeHJ6dWJpSXpGbU9Ra2c3d1NkUWlVVjc1M0RsOWt5Q19PRW41eXRtQ0pVU3k5SHUwMG91djE4RmlqV2g3UGJMNi1lZ1FSRVpPR0pRVFJfRQ?oc=5",
+  "published_date": "2026-07-10",
+  "captured_date": "2026-08-06",
+  "summary": "Ukraine has strengthened its position in the EU organic berry market&nbsp;&nbsp;UA.NEWS",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

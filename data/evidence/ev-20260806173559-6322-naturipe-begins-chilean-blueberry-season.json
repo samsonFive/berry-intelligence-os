@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173559-6322-naturipe-begins-chilean-blueberry-season",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Naturipe begins Chilean blueberry season with high expectations - The Packer",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQNjR5SVVESnNwakY3Mkthclpic0o1d0xmbmVIUUxvOXQ2N3hIejBfeUdlRjBCVE1xbU9OMTBoM2lhcnNFUGllSThLSndkZ0ctRUVpaHdJS2xaTkZjc3lfY2xLbnFTdzNiRTN0ZThDODNRVUZGZ2ZVempLTjFhOS12LXdqbmY5SU9RM1JuTFRjTmhWT21xSUNaS0o3b01NRWUzRkNRZTln?oc=5",
+  "published_date": "2022-10-07",
+  "captured_date": "2026-08-06",
+  "summary": "Naturipe begins Chilean blueberry season with high expectations&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

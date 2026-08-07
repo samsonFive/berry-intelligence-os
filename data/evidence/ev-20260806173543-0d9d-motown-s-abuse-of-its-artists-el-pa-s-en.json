@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173543-0d9d-motown-s-abuse-of-its-artists-el-pa-s-en",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Motown’s abuse of its artists - EL PAÍS English",
+  "source_name": "Berry royalty license agreement",
+  "source_url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNbDBwT1NYYy1uZUlMZ2QwekxlQ1d0WTdLeF9yeEFZNElnazFlNkFFckZaaU1Jb09LRFdKcm1lTDg0cTVhSm5vQUI2bnNoN2lpTzZqakxGN0w5Sk5oQmFTRUk0UEFEQng1RVVTalJJYWJJLXEwUkJZV2p3eXFZdHZ5WHZhWnBQUdIBmgFBVV95cUxPMDBqRF9qVFdPMkVkckZUREpoZTJ4aXctOE1ZVVlZYVd5V0FJV0sxaVJ0OTNZTUR0dlFDWjh0ek5oZzlhTVRRN2hZN2phTDJiM2J5WXJUT1JtUUlXZUZwb0pQdUtoeXphTGFxQjRuSnJaSEl5WmZmY3pxMldvU2J6MHBFMW1iZ1BkdzdZYkRZVnE2SFhxVTlBamF3?oc=5",
+  "published_date": "2023-03-20",
+  "captured_date": "2026-08-06",
+  "summary": "Motown’s abuse of its artists&nbsp;&nbsp;EL PAÍS English",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry royalty license agreement",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry royalty license agreement"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry royalty license agreement'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry royalty license agreement'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry royalty license agreement'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry royalty license agreement'; not yet reviewed."
+    }
+  }
+}

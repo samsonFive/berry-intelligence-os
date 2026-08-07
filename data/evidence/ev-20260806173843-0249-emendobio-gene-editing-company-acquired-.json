@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173843-0249-emendobio-gene-editing-company-acquired-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "EmendoBio Gene Editing Company Acquired by AnGes, Inc. - Business Wire",
+  "source_name": "Berry genetics company",
+  "source_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxORWl1NUgtcjJkVjdDWTJVMk91ZGgtSE1kUkJTdTAxRnZsam42Z1ROU19MZUNtd0ZKSkpETzZ2bzR1MDZsOW12VWo5Ri1OQnMtSlVnOTAxWm5mdnd5bS1IYlY1WDJYZFVnU3BXVTltcEhDLVZ1WENuWHJaSGhoYS15ZTFzWUZBREN5Wmc4R3NEZ1NpR09sVlBKeF9zT2t2RThXRWdfd1NiUS1LQ2tjd2Rr?oc=5",
+  "published_date": "2020-12-15",
+  "captured_date": "2026-08-06",
+  "summary": "EmendoBio Gene Editing Company Acquired by AnGes, Inc.&nbsp;&nbsp;Business Wire",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}

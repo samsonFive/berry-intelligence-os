@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-99d6-california-berry-cultivars-wins-summary-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "California Berry Cultivars wins summary judgment in lawsuit - FreshPlaza",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNWGlkWlN2c2FGSFF1RXVXbGFaczdkUzh5N2tZR3dfc1d0ZDU0dUJqaDNvRHJLdWdZYTFIbkl3MXhFMlQwOHhuanptNk85LTN4Yno4ZGt1YnJQX0xyVENablNRbnFwWDRkMDI5TjJMQTlFNkJRTmZDV2N1d1hCRjVfS3AwTWlLYjdUanJZaEo2cnNDNlVoZ0FvcnZCeS1ZSjM4Z21HTkZ5azRlNTFTRHRscU5FX0ttdlpZ?oc=5",
+  "published_date": "2025-04-07",
+  "captured_date": "2026-08-06",
+  "summary": "California Berry Cultivars wins summary judgment in lawsuit&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

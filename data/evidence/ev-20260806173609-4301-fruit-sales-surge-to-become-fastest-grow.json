@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173609-4301-fruit-sales-surge-to-become-fastest-grow",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fruit sales surge to become fastest-growing category - Fruitnet",
+  "source_name": "Berry category growth",
+  "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQdktDb3ZIU3ZwcjFneXI1cHZ3cHhZWEdMdDNQMUhvTEQ3WkQ1YTVGMFkzRjlfUnhsUm1jVmUxMlUzU0VPMFdkOGF6S19keUlGWklKUXRJTGZlUjVmUzA1Mk5IQzBwWXVFU0ROcS1WRllZbHo3QzQtTnEwNVcwRHNfZkNWbWYxX0tqV0tCREdLYUtnQXNUbGFPWHFCZTdIVGpDOWhCbTRMOHliUUVJQzlVV09BN1U?oc=5",
+  "published_date": "2025-12-12",
+  "captured_date": "2026-08-06",
+  "summary": "Fruit sales surge to become fastest-growing category&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry category growth",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry category growth"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    }
+  }
+}

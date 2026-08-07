@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175533-9a08-feblueary-update-with-mario-flores-and-b",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "FeBLUEary Update with Mario Flores and Brian Vertrees of Naturipe - AndNowUKnow",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNZkhJejVVQ3dTN2pUMXk0emc2cGVvUU8tZUpsZ210cElEMlNLVEY1WTlHelpHcmhaMjdqMXpMR1EyWWlyaW1FZ0QzWVNOYnJsT0RGMV9iTTdZR3RDWjNMT3VQYVo3bFBMMW9qc0VkWkhkTW1LLUxpUy1ISUh6cWVwMVVORGlUWWJ0aWZyb0pRdVdFd3BFWm95R2owUDM3Z3I2OTh4bEdQRUZHa2lxVGg4dkVpOEg5N3RXZ3c?oc=5",
+  "published_date": "2018-01-31",
+  "captured_date": "2026-08-06",
+  "summary": "FeBLUEary Update with Mario Flores and Brian Vertrees of Naturipe&nbsp;&nbsp;AndNowUKnow",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

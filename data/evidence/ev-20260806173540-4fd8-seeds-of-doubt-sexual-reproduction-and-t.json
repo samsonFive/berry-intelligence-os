@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-4fd8-seeds-of-doubt-sexual-reproduction-and-t",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Seeds of Doubt: Sexual Reproduction and Territorial Limits in Plant Patent Law - Patently-O",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBkWlRraTJUR2dvcnN5TkFoZEpVYmR1VC02UjV2cjhjQ2NjN2thWk53djlKdjZjdjMxR2J0SUxxdXQ1ZnlTS0hhZWlyaWRObUVGYzN0QVBqMVE0REVzd01uNmp4M0hxdUVsbTRHaFRoV1psTDY0WVdlYU5QNHJDZw?oc=5",
+  "published_date": "2025-06-24",
+  "captured_date": "2026-08-06",
+  "summary": "Seeds of Doubt: Sexual Reproduction and Territorial Limits in Plant Patent Law&nbsp;&nbsp;Patently-O",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173549-c4bc-plus-berries-reports-good-quality-and-ex",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Plus Berries reports good quality and export volume as stonefruit season begins - Fruitnet",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNT2VFMURlZl9LdjBlVTNLdUNQSU4tc3huR1dFcEFDSHZkd083WEpLdVEwOVFSQWY2ZWxrZlNnZGtBZ2VydERteWt4dkRmTW4wOUJaWU0za3loak1fcnBZVF9yMFQ3Z0ZpSmNzZVJBNjQ1a2x4UXE5cEI0d3RUeDZnNkZXQi1SblZKVmtBeE82RGxTdFFoNGlqeTdkVEhyRzdvN0taMGI3amVmNEJfNVgwLUNhX3NRZjQxMy03LTl2bmdnVzhyV0JQYQ?oc=5",
+  "published_date": "2026-04-15",
+  "captured_date": "2026-08-06",
+  "summary": "Plus Berries reports good quality and export volume as stonefruit season begins&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

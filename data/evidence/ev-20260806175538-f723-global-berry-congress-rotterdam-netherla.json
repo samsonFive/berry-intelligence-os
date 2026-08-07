@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806175538-f723-global-berry-congress-rotterdam-netherla",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Global Berry Congress, Rotterdam, Netherlands - Hortidaily",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPWVRkX3UwenlpV3lpZVJKVEQ5aE96cURaUndZSG5hTVhDMzFkZEx3V1hoUGVHbVA2ZkxraVpDUnhrSFYtXzVsZW9keHZBQmVUZFdKM25UMVpiYzNjZXlqQklud2E1dXRtQmRZcGVpdDM1RUZDMjVZRHhhWkVfSDJLLXVSVlhRS2p6SG50ems0Q3Y2UWNw?oc=5",
+  "published_date": "2023-11-29",
+  "captured_date": "2026-08-06",
+  "summary": "Global Berry Congress, Rotterdam, Netherlands&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

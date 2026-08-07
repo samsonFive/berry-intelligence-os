@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181221-3fcd-wichita-s-berry-companies-starts-transit",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Wichita's Berry Companies starts transition to next generation - The Business Journals",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNOENudFUzSHNHbmdvRzdZbVhQNmlVaWEtc0swaFNRbE44cFhtM3g3MHIxdER3cXdXNWp3ZXRrN1h5QzhTd2xmbXZTb1dacmJEVnR2NW15dUZWN05CNk5rUHRDR1JFdEhudnhsb19YLWViRFF2eUVVQ3dMQWJVNEphT2RSSzVkLUVSTW0tUlhhLTRiWHFWeWg2UFJB?oc=5",
+  "published_date": "2023-04-03",
+  "captured_date": "2026-08-06",
+  "summary": "Wichita's Berry Companies starts transition to next generation&nbsp;&nbsp;The Business Journals",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

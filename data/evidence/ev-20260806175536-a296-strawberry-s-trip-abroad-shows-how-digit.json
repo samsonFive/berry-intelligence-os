@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175536-a296-strawberry-s-trip-abroad-shows-how-digit",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Strawberry’s trip abroad shows how digital tech shapes modern trade - Global Times",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9XRVFGYUxJeV9LOS0yNzZNdEEtcUhPYU5ON2lLSHJZR1BVUHVDVFVYY2VQWlNCYjV0V0xkbEFobUpWQlRUUjFGbkxHTzJ6eWhyMWFvam9XbDF5V0NoQklWclVR?oc=5",
+  "published_date": "2026-02-10",
+  "captured_date": "2026-08-06",
+  "summary": "Strawberry’s trip abroad shows how digital tech shapes modern trade&nbsp;&nbsp;Global Times",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

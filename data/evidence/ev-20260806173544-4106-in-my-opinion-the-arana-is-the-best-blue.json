@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173544-4106-in-my-opinion-the-arana-is-the-best-blue",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "\"In my opinion the Arana is the best blueberry I have seen\" - FreshPlaza",
+  "source_name": "Exclusive variety license berry",
+  "source_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPNXFsNm9NRmdiR0I1TmdZdzJhRTU3QnFuWVJvaVc3LTJxOE1Xc0toVzh5WFhyQXVtZmk2RGtIUGhqbnVpbk15bHZGU093R0FhTGlZeHZNSEVjdkdrZEtKWDhHalZSdjEzN2t5RGczQWdROHpNNEpRMm1SM0ZheHR6UmVUc2MzWVlqLTBEcW9LMlBhVWpCenVoVGlRelVDb2FsLWlNeFBOaFIzcFlzNGRoVmpQNkJYQQ?oc=5",
+  "published_date": "2021-09-29",
+  "captured_date": "2026-08-06",
+  "summary": "\"In my opinion the Arana is the best blueberry I have seen\"&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Exclusive variety license berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Exclusive variety license berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Exclusive variety license berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Exclusive variety license berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Exclusive variety license berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Exclusive variety license berry'; not yet reviewed."
+    }
+  }
+}

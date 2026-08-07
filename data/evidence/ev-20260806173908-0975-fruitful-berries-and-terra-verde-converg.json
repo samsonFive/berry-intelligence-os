@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173908-0975-fruitful-berries-and-terra-verde-converg",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fruitful-Berries and Terra Verde converge under the name Frescura NV - Hortidaily",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPS0tqejA5WTJxQmNjTkRYMnIyZGpXYUVBYjVEdnlka29ZUW9lOG0tVFBZNjhFUk4wNXRtc3V1R3ZTcDViREJTX3pMb1BJWE1jRGwtdjh4OE1XTzRqZENfcURLeDVYWEcybEh3Um1mcnl1a1FhNDY5T1hjQWdoUnJtVjVhMGZXZFVSUzNQY3NzRWRkSkFOdXpqcFdhMUpkd01BdjdKTnVXV094TmVSMmZUdU5R?oc=5",
+  "published_date": "2024-01-30",
+  "captured_date": "2026-08-06",
+  "summary": "Fruitful-Berries and Terra Verde converge under the name Frescura NV&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

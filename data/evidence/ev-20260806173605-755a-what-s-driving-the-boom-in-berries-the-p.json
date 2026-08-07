@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173605-755a-what-s-driving-the-boom-in-berries-the-p",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "What’s Driving the Boom in Berries - The Packer",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE13cWFrMEJaYTZmTnJ5d21oTEtsb004TnYtQTNVZTFoNXJES09uaER0V3EtNGI1T0ZybTNNNkEtR1pwZW8wQS1DNDQ0cjIwLVkydXMyN1BLbHVPRmFqZWhidi11TUliZzlHVENlTFhGV3JtWVhl?oc=5",
+  "published_date": "2025-07-23",
+  "captured_date": "2026-08-06",
+  "summary": "What’s Driving the Boom in Berries&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

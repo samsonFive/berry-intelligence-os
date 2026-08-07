@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173906-ed47-china-s-beauty-13-strawberry-gaining-pop",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "\"China's 'Beauty 13' strawberry gaining popularity in overseas markets\" - FreshPlaza",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNcTlFQVJSb0VMYnU2M2RzSmw5enJFWHoxemw5X0N3VGtTQzFSMnYweFNKZzBaNkZ1Vjh1UTBMSHJZQmQ1dGFQRG00RFBJNmhmdmpnck9wNXlwWUxBQ2pOdk0yWlhSbGU4SkR5THZPNV9YUEZnNEpVOGk4RGx2REt0R0hJSTdBbWdkcmVza3JlVTlJdUp4a2Z5MmVoRjVuMzJYZ3l6c1l0TVIxTFc1N19wY1dhWlVuXzNMVDgza1c3MmtqOUk?oc=5",
+  "published_date": "2019-05-09",
+  "captured_date": "2026-08-06",
+  "summary": "\"China's 'Beauty 13' strawberry gaining popularity in overseas markets\"&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173541-01ca-dual-acquisitions-of-sun-belle-and-giddi",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Dual Acquisitions of Sun Belle and Giddings Fruit Propel Frutura’s Berry Portfolio - Perishable News",
+  "source_name": "Berry genetics company",
+  "source_url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNWHZfcUxXY0pDY3lLU1NQVDhZQWIyUXR3cmdDbm1Ka0VMeFQ2QThSZFVyVGhSUzk1SUtSRDFOOFJJeWVXN2VIdjNQQXNOTE1sWkhsUV9hZTFBTTNNQm9JZmo4LVJjUEp6ajBWRDFRaXNwRmt4V3pzOUVUSDFsM205cWtPWDhOZlZQbzN6MVVMcE53QzlwNmtWdFlsTDRmUkhvNGJDZ3RyV0lpUUk5ajI1RjQwNTM5VXND?oc=5",
+  "published_date": "2023-10-17",
+  "captured_date": "2026-08-06",
+  "summary": "Dual Acquisitions of Sun Belle and Giddings Fruit Propel Frutura’s Berry Portfolio&nbsp;&nbsp;Perishable News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}

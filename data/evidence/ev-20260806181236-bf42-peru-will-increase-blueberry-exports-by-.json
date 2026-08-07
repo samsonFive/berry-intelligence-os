@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806181236-bf42-peru-will-increase-blueberry-exports-by-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Peru will increase blueberry exports by 40% this season - EastFruit",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNSGpzWUdHRXBYR2ZzNlhuVk9FU0F2NVNoZjBlMGlKbVduaWFwQ1BEZjBKSmVlcExSUFVKQU1KNE1ySGg5MTNTUlJ6cE45WjQ1QmVYNld6S1d0RjRvTnlDT05KTzhvNXdaSWFHNTZYMkotaGdRTXAwbHBMSVlQNGkxVlZsRVBmVkpObGc0SHEwUQ?oc=5",
+  "published_date": "2020-07-21",
+  "captured_date": "2026-08-06",
+  "summary": "Peru will increase blueberry exports by 40% this season&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

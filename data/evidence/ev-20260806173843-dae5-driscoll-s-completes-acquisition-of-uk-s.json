@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173843-dae5-driscoll-s-completes-acquisition-of-uk-s",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Driscoll’s Completes Acquisition of UK’s Largest Supplier of Berries - Perishable News",
+  "source_name": "Berry genetics company",
+  "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNOUQxSEV0MEZuaGFoQ3NjWHVEa1QwUTZjWEs5XzlYTjNScFNQc1dlVDFlZjc4TDh3WmUwM3dMYXhZME5TMGppMVBmYjVZNmdFZ0xhaXJKT19YeE1Pd1k1Y2ZxQzBPNnQ3Yk5oYjhPT0pqZkFzS0gzSUw1cVAtb19ObHpJaWJxYkVHcFdLTHJKcVNhQkxQVXdBZFVFZE1UWXBLcVRLNg?oc=5",
+  "published_date": "2022-11-03",
+  "captured_date": "2026-08-06",
+  "summary": "Driscoll’s Completes Acquisition of UK’s Largest Supplier of Berries&nbsp;&nbsp;Perishable News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}

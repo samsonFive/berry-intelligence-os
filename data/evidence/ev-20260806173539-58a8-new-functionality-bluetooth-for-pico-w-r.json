@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173539-58a8-new-functionality-bluetooth-for-pico-w-r",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "New functionality: Bluetooth for Pico W - Raspberry Pi",
+  "source_name": "Raspberry variety license",
+  "source_url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE5KUHZVekdYWnQ4azNjbzZzd2JFZDFkNEJuMzJidUhQTnJsVzVCb0FTeDZtRnBOZE1WaHdkbE1pelEtbXB5bEhkVnRMMFBNZV9EODdNa3VpTmRwUkROZXQwZHozcnEyVWZWNS1lWWJVeVEyRDh6WkYzaEFyQV8?oc=5",
+  "published_date": "2023-06-14",
+  "captured_date": "2026-08-06",
+  "summary": "New functionality: Bluetooth for Pico W&nbsp;&nbsp;Raspberry Pi",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Raspberry variety license",
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Raspberry variety license"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    }
+  }
+}

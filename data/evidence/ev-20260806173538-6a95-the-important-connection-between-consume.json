@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173538-6a95-the-important-connection-between-consume",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "The Important Connection Between Consumers and Blueberry Breeding - Growing Produce",
+  "source_name": "Blueberry breeding program",
+  "source_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOQWFnZl8yaWhKUV8xQ1FVZVZKT2Rqa1NjMjJGTWhiSDYwTWdDN243SXYxa0hqRHNLakQtSXdpaXZHc1NoNjJvN3Z5a3B0NVhFS3doTDRRLUZGUFExZlByTnJDWW1UTDN3Wm5UbU9Rd1RKeldJbXRpMmFCdF9UOUs1ZGV5dkNTNHUwZlBsX1pib0RWUXBoYXB1Q2xIMzhhVVdwUktDZng2UFEyV0Vrenl0b25B?oc=5",
+  "published_date": "2024-12-09",
+  "captured_date": "2026-08-06",
+  "summary": "The Important Connection Between Consumers and Blueberry Breeding&nbsp;&nbsp;Growing Produce",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blueberry breeding program",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blueberry breeding program"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
+    }
+  }
+}

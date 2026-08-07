@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806175534-7c5e-planasa-inaugurates-an-r-d-center-in-mex",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Planasa inaugurates an R&D center in Mexico to launch new berry varieties in Latin America and the US - FreshPlaza",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxOdXhzREh2TDZtWWdsanFERU55OFg2U3ZVTVlsQ21QYkpwMmZLRnN1ZW5GV1lMVUtNcXlEWUlqQUREQURmTmdqY0pOSjdTWXN0REFvNFFhSW9PV2FZT0pMQ0V1OWZJYVpjZk1FS2NOdS1IMGFfaXVXY0FXc0t5Y01wWkMwQzhRdjlrNFp1LS12WHNhT0M4bHlqY0VlTmhJem9tU2RuNjhUaE5vRFM1ZFRQMmRPeGt6algxQ1hrelF5RmhmV1FhMEZicXpRM1BWT1gtRlNnWjlTWV9udU1hTlpCVkV1T3NjaThMUmJiMmR6dHg?oc=5",
+  "published_date": "2023-02-17",
+  "captured_date": "2026-08-06",
+  "summary": "Planasa inaugurates an R&amp;D center in Mexico to launch new berry varieties in Latin America and the US&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

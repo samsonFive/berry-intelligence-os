@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182905-cc82-harvesting-of-green-gold-and-red-kiwifru",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Harvesting of Green, Gold and Red Kiwifruit begins - The Bay's News First - SunLive",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQQ05Wb19heXFWZGJ4RFdQUnY4eUM3WC1FSGptQ29DaUZEbGJleXlZOEtsTGsxVnhyNHpRNHp6U1YzNWZPcjJ2d2FBNzFLdk1ZMTlxT01fYlhUdndtS3VpTkczb3BYSG9vbEdOOU5SeFBVWi1iQWJjeVlYcDhKVXZpX3RkZUxFMVZEOG5iaUhDOEJiZw?oc=5",
+  "published_date": "2020-03-07",
+  "captured_date": "2026-08-06",
+  "summary": "Harvesting of Green, Gold and Red Kiwifruit begins - The Bay's News First&nbsp;&nbsp;SunLive",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

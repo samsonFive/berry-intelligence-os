@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173912-8fc4-montana-state-researchers-receive-usda-g",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Montana State researchers receive USDA grant to study health benefits of haskap berries - montana.edu",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOekNaWllqSFVnZUhpVmtyZ09xcEd5MWtpT1NFVldtbTVQb1A2d2FHem55a0VFREsyVEtKaEV0NTdZeWNJcFVudDI5NHZ4TVZLbmUwaWFibk40RTBEUUNKWEdBMWpheW1pV25aUHJJMGNla0hoWUYwWnA2VER2bU1RNU8tS2ZWSU5DTEloNkpVeHVFd2FVd28zekwtZkhyaUtBWGNJbHBqUnlidFI1NWhmdVRFanR6aWdiT0swNEkydw?oc=5",
+  "published_date": "2024-08-27",
+  "captured_date": "2026-08-06",
+  "summary": "Montana State researchers receive USDA grant to study health benefits of haskap berries&nbsp;&nbsp;montana.edu",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

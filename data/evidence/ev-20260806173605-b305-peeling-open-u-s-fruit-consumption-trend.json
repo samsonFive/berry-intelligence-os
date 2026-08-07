@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173605-b305-peeling-open-u-s-fruit-consumption-trend",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Peeling Open U.S. Fruit Consumption Trends - USDA Economic Research Service (.gov)",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNdFd6NXRLaFNNWHZlWlZ3QW50UmNSS3VXWURKT1FzOTE4THVYdUhIaUt1amZFcFNGcHdXRy1uOTYwNE9XSTZfb1lsbFp2ZVduWURaM0stWTRkWDBMUFRycnJRM1FmaEI2Q0Z3TW9sX2p6bVVrN1RFZHkwTXY1NmlHaVZiYmNKMnY4enJYVXFyR1poUk42?oc=5",
+  "published_date": "2025-02-27",
+  "captured_date": "2026-08-06",
+  "summary": "Peeling Open U.S. Fruit Consumption Trends&nbsp;&nbsp;USDA Economic Research Service (.gov)",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

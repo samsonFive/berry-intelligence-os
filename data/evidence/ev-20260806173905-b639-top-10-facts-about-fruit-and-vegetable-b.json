@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806173905-b639-top-10-facts-about-fruit-and-vegetable-b",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Top 10 facts about fruit and vegetable business in Morocco you might have never heard about - EastFruit",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxOdXVxZ3JWblItR0FmMGhFNURmMDZmNUdrUWdpa1AtU0NWOWd0OWJfZWZnWVFGeGVTVFl2UGhDNGhNbUtFV2xmQnExZTBiNkpJZkNGWjhMS0Vua1ZLTnlUR0dIQ2llMWxrdWVSWk90NktXZGhwa3d1V3A0djBwYkRaR3g1aUkybFRlZU8zZkxyQXNrRXc3OXR5WEZsaEZOemlSLXVJdThYUFJqMjZjUDV4Q0tZYUhpdmRheDUtV3FRaF91TDBlS0lfXzkzbGZDYUhlcllBWHFMeFRLLXc4c0hV?oc=5",
+  "published_date": "2023-05-30",
+  "captured_date": "2026-08-06",
+  "summary": "Top 10 facts about fruit and vegetable business in Morocco you might have never heard about&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

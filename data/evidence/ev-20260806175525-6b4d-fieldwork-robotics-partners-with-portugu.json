@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175525-6b4d-fieldwork-robotics-partners-with-portugu",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fieldwork Robotics partners with Portuguese berry producers for harvesting trials - Fruitnet",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPSVVwNHEwVklOZ0k2WEd4d2lvaXJob1YyckpsNS01ekdWQUQ1aU1EaVhoaXFHQTlrYmZhdVhSTjVaOU44bW94YjhXQXFnT3BrdldvNUtwRlZZNnNGb194bkEyakJfcFZ4RzI5cXc5X1R6ZDhZZUdabU8xTUpSTlRwVkh1a3hsclRmSURpdzdma1l2cnkxYWRpbWdzaXN1em5LQUNwQlJ4aVF1SllUeFNQQlpmZXdmX1RKeWZOWjBablZzWW1zQ0Z0b3kxSQ?oc=5",
+  "published_date": "2025-10-21",
+  "captured_date": "2026-08-06",
+  "summary": "Fieldwork Robotics partners with Portuguese berry producers for harvesting trials&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

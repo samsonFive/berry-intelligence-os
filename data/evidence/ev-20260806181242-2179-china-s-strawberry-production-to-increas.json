@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806181242-2179-china-s-strawberry-production-to-increas",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "China's strawberry production to increase - Fruitnet",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNMmExMHlndFF6UFYwR1Z6VVgzbFQ3SnBwbmJzNlRpZ0p4bXBRdlBfLW5kMUs0QVBZWHp4UERZTmdHSm1nNFlFdUpSTnREQmhZbmttSjFsYm01VEUzOEhzSzZISDhZNWdzNy1icjZFa29nMnRhOF9pcVFudmVLVHp3VTl0Ni03d09ZZ2xTd3pUYktZQQ?oc=5",
+  "published_date": "2009-06-30",
+  "captured_date": "2026-08-06",
+  "summary": "China's strawberry production to increase&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

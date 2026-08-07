@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173603-5913-dia-invests-16m-to-secure-completely-spa",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Dia invests €16m to secure completely Spanish strawberry supply - Fruitnet",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNUFozeFVWOFhnSk43RnppWXVEYU9SVUE2RUYzYzF3S3hOV2NJX0w0YU1IOUpkaXVZYzFmTW11bUpYdXg2ZTd4MVR0Z1Q5QzFwNV9PaWNQdmk4MzJiX0N2d2NmYUNKNUxuVkxrRXF3ZHRXNmdlMG11Vng1aG93RVFIQ0luc09hWGllQ3UwUzVmNk9aaTJ5RFhPWHpFRWxYd2lsbnFBVzVKaFY3eUxMQ3VTREdn?oc=5",
+  "published_date": "2026-03-10",
+  "captured_date": "2026-08-06",
+  "summary": "Dia invests €16m to secure completely Spanish strawberry supply&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

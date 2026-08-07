@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173904-af11-berry-fresh-details-sweet-karoline-black",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry Fresh Details Sweet Karoline® Blackberries and Growth in Mexico; Darren Sinn Comments - AndNowUKnow",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxPdGdHUUZUZ3Ywb0tEV2lDc1U2YUV0STZnNnF4cWtrcDBWRlNiWV9zaEd1M0JFRm5Ca2ROYnVaZ3FvX0hzNXNMMGxDMHFVMDAtdTJjX0tCMVF3em9pWHFxR2k3dVpVb1pqRElaajNnV3Qwa01pUHp1RnkySEdiNDVhbDc5NlduVTB4TDBNTEFHNjE0dm4xOHRNVk1mTHF2MV9iQnNleEk4bEdpWUZyR0tWN0tNcHk4Y2ROZDhfWnhNcUViMXZLakNTRzFWeHEyY0N0Tml6dHVHMA?oc=5",
+  "published_date": "2024-04-04",
+  "captured_date": "2026-08-06",
+  "summary": "Berry Fresh Details Sweet Karoline® Blackberries and Growth in Mexico; Darren Sinn Comments&nbsp;&nbsp;AndNowUKnow",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

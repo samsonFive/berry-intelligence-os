@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175519-fd8c-berry-corporation-completes-acquisition-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry Corporation Completes Acquisition of Macpherson Energy Corporation, Updates Annual Guidance - Yahoo Finance",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxObUlIbU9mSGxFR18zTXdXTWgwbGhMd0NXbUVlQWdXekhTNWg2SUFlMmRBNm5DZF9SUmVpejUyZm8wZWxxQktySlR4bGlCZ0tkM0FwUGNJU1pmMnhfNktHNklRcVE1RXVLQ0ZJOWZaZGNvZG56M2xTemlZRjJXR3hHLV83bGFiZExwU3hKdHdsTGRnNGhHZHhheTFCckQ?oc=5",
+  "published_date": "2023-09-18",
+  "captured_date": "2026-08-06",
+  "summary": "Berry Corporation Completes Acquisition of Macpherson Energy Corporation, Updates Annual Guidance&nbsp;&nbsp;Yahoo Finance",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

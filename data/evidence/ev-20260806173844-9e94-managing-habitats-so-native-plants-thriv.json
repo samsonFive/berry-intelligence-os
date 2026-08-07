@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173844-9e94-managing-habitats-so-native-plants-thriv",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Managing Habitats so Native Plants Thrive - Florida State Parks",
+  "source_name": "Plant variety protection berry",
+  "source_url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPcWtycm00UHREa216RXJpeUE0UFlpV2JIWDREVThRbUJOUWVPZWdHNGFYSlJaa09vaTJMV2FMQ1Zwek4zdUFLckY3c0tKVTRXSEN4S0p1aGlQZnpKRU5vN0RyME9vU2VUTm9zTTRYeTBUN1ZEcEliS00tZ1hlM3JVRHl5eEEtczJq?oc=5",
+  "published_date": "2022-06-23",
+  "captured_date": "2026-08-06",
+  "summary": "Managing Habitats so Native Plants Thrive&nbsp;&nbsp;Florida State Parks",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Plant variety protection berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Plant variety protection berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    }
+  }
+}

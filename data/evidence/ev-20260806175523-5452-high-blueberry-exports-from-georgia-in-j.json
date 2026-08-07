@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175523-5452-high-blueberry-exports-from-georgia-in-j",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "High blueberry exports from Georgia In July - EastFruit",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQS2lLOE1JNGJOLXBES25rYlVNV3lYeDA3V3RRU0FhNlJVSm1udXFmWGppd2xIc25FZFBQZVRBS2dKSllQaVpLWG1UeUE5RmlLZDNtSG5LT0J6YXgwQzNtNkFReDBYRnZBN19rWk1MaE5lckxPbnphNEF1SW1obHYyYw?oc=5",
+  "published_date": "2022-08-10",
+  "captured_date": "2026-08-06",
+  "summary": "High blueberry exports from Georgia In July&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}

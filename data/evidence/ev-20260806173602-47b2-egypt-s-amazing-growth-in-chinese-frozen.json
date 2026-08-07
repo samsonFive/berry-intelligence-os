@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173602-47b2-egypt-s-amazing-growth-in-chinese-frozen",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Egypt’s amazing growth in Chinese frozen strawberry market. Fresh exports ahead? - EastFruit",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPSGFKTGxLRGhSV2tiV0VWTlR0QzVIZldJRE1jLXRfVXpjU0lvMGxKMGVQVms0MHQ5RkJSMEpWa2xJMTR3eGdVOERrMEptZ1YwYVBWcVBHNGlDanJFZDdLZ0F2bm1vRG1CZFVJU3pNTTlqV0YwQkJ2YzkyeGhtQUdILTc3elpXMFZRTmIyS095Z1BzRXNUZ25TRHNTLVR4LUtJZWtZMGVDbG1QaUVTTlE?oc=5",
+  "published_date": "2024-01-11",
+  "captured_date": "2026-08-06",
+  "summary": "Egypt’s amazing growth in Chinese frozen strawberry market. Fresh exports ahead?&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

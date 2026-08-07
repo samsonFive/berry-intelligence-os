@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182900-f5f6-driscoll-s-completes-berry-gardens-ltd-b",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Driscoll’s completes Berry Gardens Ltd buy-out - Fruitnet",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOSDRUNUtkdXJZZTFlTTJfWWNaMGt0SE1abm10TVVuRm54ZWJ1S2U2NjYzWE05ZHdtUmhEajZTbVBwS003aEJBTG5jdmxvOUd4a1Vxc2FUcm9Eb1J3eXNQQW1xWEgxcVNwWmNZd1BQQzBoMlVCRWF3U2FuczczWU81RU5La25kcDdJN3BpdDZMbUFaZmlQczNpalF2UnM1Mkp1VXdrQnQ4TDAtY1k?oc=5",
+  "published_date": "2022-11-01",
+  "captured_date": "2026-08-06",
+  "summary": "Driscoll’s completes Berry Gardens Ltd buy-out&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

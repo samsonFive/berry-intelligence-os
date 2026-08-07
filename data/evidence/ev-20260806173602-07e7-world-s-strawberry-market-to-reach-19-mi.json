@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173602-07e7-world-s-strawberry-market-to-reach-19-mi",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "World's Strawberry Market to Reach 19 Million Tons in Volume and $69.5 Billion in Value by 2035 - IndexBox",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBBOG00VjlRdEo4aUtfVUp6NEJHbEdWdUh5SHRtRXE3aWg5WGNuOHNLRnVLZHMwZXBUQVlneUdyOEh1MG93ODFHczZsSW5nWHRPTnd5aVctX0FsQ1hFenRoZ1NGU05GNEpNbHJldEttcUZ3VXE2b3F2Wg?oc=5",
+  "published_date": "2025-10-06",
+  "captured_date": "2026-08-06",
+  "summary": "World's Strawberry Market to Reach 19 Million Tons in Volume and $69.5 Billion in Value by 2035&nbsp;&nbsp;IndexBox",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

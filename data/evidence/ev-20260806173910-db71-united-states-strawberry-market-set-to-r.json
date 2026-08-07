@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173910-db71-united-states-strawberry-market-set-to-r",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "United States' Strawberry Market Set to Reach 1.6 Million Tons and $6.8 Billion by 2035 - IndexBox",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQT3ZzUFBObzVTeUJOZVFXU1d2UHl0cDE3U0ZpQk1uTTdBQjlJOVI5MmlPNVhBajJZZ2h3bEU2V0RmYWFDR093TnQyVmQyVEZBSnNHa2pyNHFpNk5xdnU3aUY4djJ0Nml2MElIblI1eGNLb2ZiYndaNFkyT3BneHg1OU5mYw?oc=5",
+  "published_date": "2026-01-13",
+  "captured_date": "2026-08-06",
+  "summary": "United States' Strawberry Market Set to Reach 1.6 Million Tons and $6.8 Billion by 2035&nbsp;&nbsp;IndexBox",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

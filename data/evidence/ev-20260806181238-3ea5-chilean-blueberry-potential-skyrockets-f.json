@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806181238-3ea5-chilean-blueberry-potential-skyrockets-f",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Chilean blueberry potential skyrockets - Fruitnet",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQVUdHaXVMcFowR2hXaWQwallET1dfOVlXMnBZTkZIM2lWWlhQS2NFNlk5MVFZTDFENGczMEdKQWdDSUw1YzA0UW1OTzhYUjVJcVNlZWZvSTBvbUozRWtyT0pyb1V3TmpfYURTeEpnWmFQZ05sMW1odEFTcmtrQnBOeDllUXk0TjR2UFE3Q2Rn?oc=5",
+  "published_date": "2008-06-16",
+  "captured_date": "2026-08-06",
+  "summary": "Chilean blueberry potential skyrockets&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

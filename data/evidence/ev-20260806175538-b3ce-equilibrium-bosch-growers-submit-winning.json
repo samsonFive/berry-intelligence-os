@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806175538-b3ce-equilibrium-bosch-growers-submit-winning",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Equilibrium & Bosch Growers submit winning bids to acquire AppHarvest's KY greenhouse facilities - AgFunderNews",
+  "source_name": "Netherlands berry greenhouse",
+  "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPaEJsTzkzczRpVUE2WlpYUWpwalhTdFgzNGcyLWlySXBPQlhvYmFMM3M3My1QYXpXSU1FeDVzdl9ZQks2N2c3MEtWV1FjX3ZycGpsMy1LVi1zeHhFUjNSNDByQWNFS25FTVA0YUhfbzN2cWpwczRibVJyUEV3LTJqNHY4Vjh0RXRjTWFUdWhPTjMzbzB0YXVfbF9lZlZMVHplUXRxYVBycEF2UHJmWWM3SW9nd3Z3T2ROYWc?oc=5",
+  "published_date": "2023-09-05",
+  "captured_date": "2026-08-06",
+  "summary": "Equilibrium & Bosch Growers submit winning bids to acquire AppHarvest's KY greenhouse facilities&nbsp;&nbsp;AgFunderNews",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Netherlands berry greenhouse",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Netherlands berry greenhouse"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
+    }
+  }
+}

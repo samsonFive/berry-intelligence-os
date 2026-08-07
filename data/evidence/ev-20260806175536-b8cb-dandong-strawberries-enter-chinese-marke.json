@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175536-b8cb-dandong-strawberries-enter-chinese-marke",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Dandong strawberries enter Chinese market ten days later than last year - FreshPlaza",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPb1d3cW8yaUhEWEd5dktvcF9GTEFuYS1hY250NHEtSTRuUTZRcU9BSi1wRG5fY1c4ZHNBQjFadXUtN28xZWwzRjlsbUNTUmlldzhQLWZhMFl5ZmlmTXFLYU5yY3VNUlBuN1RsRlVYdzlPV2lScHphWjRoOE9vTnZ6cS1kaGhSWXJMT19qdlpyaHhYSEhTVWxoY1YtVUJTMDRJVjlKZ1ZOb2djU0MzUDdhMEJrbmVUVEpVZjB1Qg?oc=5",
+  "published_date": "2021-11-12",
+  "captured_date": "2026-08-06",
+  "summary": "Dandong strawberries enter Chinese market ten days later than last year&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

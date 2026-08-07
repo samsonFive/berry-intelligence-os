@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806175535-1205-latest-conflict-blueberries-western-saha",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Latest: conflict blueberries - Western Sahara Resource Watch",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5wRTdQZHJiT25RazFGTndmTlBKZld4ZjBxZ295dktSS016Z1huaUFrMFRxSzJCa3lqVE9YQ1JGOW1xSlQxOGtsSXlzX2lsdEo4OUhCSWlBRkltbnY4cHQ0ZlJXbjlJTDdxa3FMLTVTeFFEeFM2MUkzdQ?oc=5",
+  "published_date": "2021-06-17",
+  "captured_date": "2026-08-06",
+  "summary": "Latest: conflict blueberries&nbsp;&nbsp;Western Sahara Resource Watch",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

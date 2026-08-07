@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173602-5b94-china-s-strawberry-industry-booms-with-n",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "China’s Strawberry Industry Booms With New ‘Fendai’ Variety - Produce Report",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQaV9KWlI0QmxSdTV4c3U3UTNBck9CNzE5ZWFVLThfVDlETHlTaGNkYmZHXzRsa1UzbXNGX0xaZXRvelMxTXc4dDlfbDdFRHBJN3lkQVhOMmJ0a2Nwa1BJanNSWk9FWmpGQ2hIQXNRNzEzX2s2X2NBaHhsNkdlWDluS3JqbDZ1Z0g4a2tFNkNyV1pLMjA?oc=5",
+  "published_date": "2022-03-03",
+  "captured_date": "2026-08-06",
+  "summary": "China’s Strawberry Industry Booms With New ‘Fendai’ Variety&nbsp;&nbsp;Produce Report",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806182922-f3eb-berry-good-news-daily-strawberries-boost",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Berry Good News: Daily Strawberries Boost Cognitive & Cardio Health - Neuroscience News",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBEd3VVUnV5SkV5ME1kNEVrWEU0RTVjLUhLaHI4VU1KWlpjMllybVVsVVZfT193eVY5bHNqd3E3OFJWVC13dFNwX3dyUFJOUWUwcjEyQWNwN2Fuc3VTRGt1allvNFVTV2pMRlJ1dV93?oc=5",
+  "published_date": "2023-07-24",
+  "captured_date": "2026-08-06",
+  "summary": "Berry Good News: Daily Strawberries Boost Cognitive & Cardio Health&nbsp;&nbsp;Neuroscience News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

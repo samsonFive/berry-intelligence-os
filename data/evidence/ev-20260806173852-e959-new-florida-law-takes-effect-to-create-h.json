@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173852-e959-new-florida-law-takes-effect-to-create-h",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "New Florida law takes effect to create harsher penalties for palmetto berry thefts - Gulf Coast News and Weather",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQNjBVTFVFcXVoM0xsQ3k0dkJxLXFqcEFyT1U2UWh4TFpseUdyOUJHRnBnRzRLM05LSTZRZWlSY2l6RXFlRk90SkhILU4zVFhQR3Nsbk4zTTdZbE81VXI1X1dTM0dLWms1dGNhaTlqMWtPa1hHTlVzRU9LVnNibFBMZmVpbzhxUmVwTFRyWWU1Zjg0cC1ERUxXdGV5VnZCdFhyWGtOdkVLaEc?oc=5",
+  "published_date": "2024-07-03",
+  "captured_date": "2026-08-06",
+  "summary": "New Florida law takes effect to create harsher penalties for palmetto berry thefts&nbsp;&nbsp;Gulf Coast News and Weather",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

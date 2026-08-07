@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173559-9831-chilean-blueberry-exporters-expect-a-sim",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Chilean blueberry exporters expect a similar crop to a year ago - The Packer",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQOHRsekxyZE44dnk1MkdMOHc0RGUwaThzSnBNTnA5S2pzT2czS0t5T1BFLXFnVng4bWVJUjFKeTN6S3ktOE1vMjhwREFRcHRJNndFTXgtNFNEOUFqd2cydTVYTkpxTTRIZEp1WUtldVhwU2g3NVNNNEVpSzN1OU5uU2UzMS1zVzVra0h4X05STUl4NGR3MHRxTHJRMFI0WWpVRVNr?oc=5",
+  "published_date": "2022-09-23",
+  "captured_date": "2026-08-06",
+  "summary": "Chilean blueberry exporters expect a similar crop to a year ago&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

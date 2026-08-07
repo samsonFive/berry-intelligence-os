@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173550-2240-freeze-derails-florida-strawberry-season",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Freeze Derails Florida Strawberry Season - centralfloridaagnews.com",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5Bc3lNQ2NOUjBRSmp5Q3RBSXlnWXowajNZWW44TkY5XzV3OVZnRzJ5NHNBc19zczduU0FYS2N6X2x3RGtpbUJJYzl0dzZFM3JxaVlTeEFpLU5OUFJOeWpwTVpNaUdpNXdpV0JOa19CMGhGS3F2RFd0cUc4WDdJNDA?oc=5",
+  "published_date": "2026-02-12",
+  "captured_date": "2026-08-06",
+  "summary": "Freeze Derails Florida Strawberry Season&nbsp;&nbsp;centralfloridaagnews.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

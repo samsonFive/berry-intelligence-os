@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173842-f17b-column-a-legal-conflict-brings-a-sour-no",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Column: A legal conflict brings a sour note to the sweet history of California strawberries - Los Angeles Times",
+  "source_name": "Strawberry cultivar patent",
+  "source_url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOclVoQzl6T0FZeVpid2FlUFR1b04yMkIwSC11NzlYQk5hOFVvWTJJTWxDYXpHTnMybW5abzJ3WjhqQ19KelFXVjZYRW1uYnhDWnE5QjEwc2haaURVR05vRVEwY0RIN2g1NTJic1FhU0RYeVFwTHZTWXp3UURReVV4dXRYVnVyb3ZMYzUyblZxR3hDd0VxRDZqN0ZDd0xZQ28?oc=5",
+  "published_date": "2019-04-26",
+  "captured_date": "2026-08-06",
+  "summary": "Column: A legal conflict brings a sour note to the sweet history of California strawberries&nbsp;&nbsp;Los Angeles Times",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

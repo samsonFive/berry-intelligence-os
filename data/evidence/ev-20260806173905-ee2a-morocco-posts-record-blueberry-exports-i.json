@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806173905-ee2a-morocco-posts-record-blueberry-exports-i",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Morocco posts record blueberry exports in 2023/2024 season - northafricapost.com",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQbV9jRnZLN2RNeHhncG5VT2hCLVZfa2R4cnBFV1JmREpKbVlHeUhlUHNjcE5LYWt6aVQ0OWNhV2V5RWlqeFk1Q1A0X2VQMkNMb3ZoejY4VU5tSEcybnhSMUtDejVINV9yek1mR1pHOUZXRXpybVpscHdRWF8tZDZVS3h0ZTAydGI2aDE3YW81WnZWdEhmUUZsLWt4cFR2QQ?oc=5",
+  "published_date": "2024-08-27",
+  "captured_date": "2026-08-06",
+  "summary": "Morocco posts record blueberry exports in 2023/2024 season&nbsp;&nbsp;northafricapost.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

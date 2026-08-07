@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173550-475c-ai-platform-promises-more-accurate-berry",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "AI platform promises more accurate berry forecasts - Fruitnet",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQT000c1RMRGhtXzJqRU9YZDI5WFdPZ2FWbWVNQjdZZlNITEZ3S3dISmZndmpXbUhybVdFZE82RFItS25QdVBnc05vTDFJaVJNazJCNmtLZTVZaXJwV2hFUlRlT1RzZTlIb1B0LU5jNmRIUG5HUWdUMnVyUml4ZlEyUVJPbWEwd19JNWZnSUQwQ2hpMXVfb2k4MnNkRmMyTk0tcEx1V09DZlR1ZV9QN0tsOGRR?oc=5",
+  "published_date": "2026-06-19",
+  "captured_date": "2026-08-06",
+  "summary": "AI platform promises more accurate berry forecasts&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173904-bd0b-farm-labor-and-mexican-produce-exports-m",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Farm Labor and Mexican Produce Exports - Migration Dialogue",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFBHeEZ6U08yczFYNDRPSk1YRzY2YVYxOHdfVFg2QUNkVkZXQUJ1d0ZJNUVlekdRSkVxeG5oNmdsZmdVV19PWWVOWkF0V1RfMGtERWVVcG5pbThNZDhtbldrcUNLWEM4VUZtR2pxTVJIa3p2S21iSC1sb0ZGOA?oc=5",
+  "published_date": "2018-05-03",
+  "captured_date": "2026-08-06",
+  "summary": "Farm Labor and Mexican Produce Exports&nbsp;&nbsp;Migration Dialogue",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

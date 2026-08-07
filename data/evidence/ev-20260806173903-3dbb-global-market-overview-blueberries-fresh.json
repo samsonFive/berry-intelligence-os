@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173903-3dbb-global-market-overview-blueberries-fresh",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "GLOBAL MARKET OVERVIEW BLUEBERRIES - FreshPlaza",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQZGo4OHdOOWF5b3ExNTcyNnJtMzc4NUczenFFT1V4NzNRVG5aVlVudEhWTEJWc3I5UkRLRGxpd2J3WGtvYzdGVmdyYWo5d3ZkSVlfOGpuc0taclRyOUZuNXZOZEpXLXBnbHhGM3VnMzJIVldveTBqWXZKYWQwWEtoSm8wLTFnR1llZ1l3c3gwTUVMald4NGc0?oc=5",
+  "published_date": "2023-05-12",
+  "captured_date": "2026-08-06",
+  "summary": "GLOBAL MARKET OVERVIEW BLUEBERRIES&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

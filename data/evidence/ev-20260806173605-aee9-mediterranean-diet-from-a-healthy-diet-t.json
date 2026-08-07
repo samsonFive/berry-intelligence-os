@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173605-aee9-mediterranean-diet-from-a-healthy-diet-t",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Mediterranean Diet: From a Healthy Diet to a Sustainable Dietary Pattern - Frontiers",
+  "source_name": "Berry consumption trend",
+  "source_url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPcm5pNFBvQmFDR3lYVFJOTko2UXJ5ZFJrdkJLZS1wdFFlMVRDLTcyQ0pzZ2VHOTRmVVJUUHltSDBsYURqakstZloyWXNtQVd1djBrX1BCU1Y1OVUwMEdHaXI3V09IdUtuZkNzdER3ZTY3ZVRxdmxTZ3lmUkZnZ0c0am5ITm9uQk9vS0RiUg?oc=5",
+  "published_date": "2024-06-27",
+  "captured_date": "2026-08-06",
+  "summary": "Mediterranean Diet: From a Healthy Diet to a Sustainable Dietary Pattern&nbsp;&nbsp;Frontiers",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry consumption trend",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry consumption trend"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
+    }
+  }
+}

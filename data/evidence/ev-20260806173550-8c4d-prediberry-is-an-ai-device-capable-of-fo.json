@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173550-8c4d-prediberry-is-an-ai-device-capable-of-fo",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "\"Prediberry is an AI device capable of forecasting berry harvests every week\" - Hortidaily",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPdjBEMkE2ZGgwdmw3Z1NwRXpXWktKYmEtdkQ2WFNsRHpyYU82ZHdULW9IYldkdXN2NDh6ME9XMVhoNm5GS1VjVXlPNEVrWGtXOWQxLUt2RlJMM2hOZFFiaHExdWYyQ1N2QWV6X3Q3OXRLS0xQR1ppZ2JMU25Ed1NYeHJ1bE95QUhrM1dGNndGcjA3ZGFwM3RiWmVvTXRfbkZmelB3enFUbHJyUnFERlpsR0x5cnFRcG9CRUlz?oc=5",
+  "published_date": "2025-07-16",
+  "captured_date": "2026-08-06",
+  "summary": "\"Prediberry is an AI device capable of forecasting berry harvests every week\"&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

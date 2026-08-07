@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-30a7-top-performing-arkansas-blackberry-recei",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Top-Performing Arkansas Blackberry Receives Outstanding Fruit Cultivar Award - University of Arkansas News",
+  "source_name": "Blackberry primocane variety",
+  "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNWjA2XzBNdE4wenUyb3UybmJvd2dyMkhTVjZ4NUlsalkyeTFXOE9uQk9DQm9sQktIczdhd1ZYTGVkLVAyb05YblRpc2h6ZWVqTHZ1WFZDRFR1cW5Oa2E2SFhBMFFXQ1hSYmxtYmgzVkFveW1mbEJnLXQ5MEhYbk1FcVFmdzBBWkNMa0pWYWZWUm9nVlU3MEQxYVplWWN6STlhZklNSWxGWFVRY3BMeWgzeWV2QQ?oc=5",
+  "published_date": "2020-07-29",
+  "captured_date": "2026-08-06",
+  "summary": "Top-Performing Arkansas Blackberry Receives Outstanding Fruit Cultivar Award&nbsp;&nbsp;University of Arkansas News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blackberry primocane variety",
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blackberry primocane variety"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    }
+  }
+}

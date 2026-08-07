@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181227-e791-california-giant-berry-farms-announces-a",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "California Giant Berry Farms Announces Abundant Strawberry Crop for National Strawberry Month - Forecasts High Spring and Summer Yields; Tim Youmans Comments - AndNowUKnow",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOeWxsTVFpX1plTjZ5WjUxamQ5dm9pY1NZYk5HcVpobUNHM0I2NkNVSGxvWnVTX2F4UzhYQUlXM2tXbWhIcksxaDZSUzB5T210SzhhSGNWT0JILVFoX3lpYldFWUNoOUI5Rkl6UWJfZDgtS0Y3UjUxS2pZdmlGcWFBbjNacnBQWFFNem9kTk5vNFpZdFJSekh4QVlGNGxxYXljYXlmWjdfNjdNdXpYR2VpY3JiVXBCNXJ4eUZoMXFxc2o?oc=5",
+  "published_date": "2025-05-13",
+  "captured_date": "2026-08-06",
+  "summary": "California Giant Berry Farms Announces Abundant Strawberry Crop for National Strawberry Month - Forecasts High Spring and Summer Yields; Tim Youmans Comments&nbsp;&nbsp;AndNowUKnow",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

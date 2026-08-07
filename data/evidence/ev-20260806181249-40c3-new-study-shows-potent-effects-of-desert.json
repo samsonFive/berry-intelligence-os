@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181249-40c3-new-study-shows-potent-effects-of-desert",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "New study shows potent effects of desert berry extract (NRK-C) - News-Medical",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPbm5kVzIwNEtCWDRydkJ6eTB1cUdwa2FEMC11UWZraldzWWV4elIycUxrWl9Pa3Rjd3U3SXpHRVFyNW5Xdk5BQ1lCbHNqUXg4Q2ExMERlRnZHSnAtTUtFOG9XbHQ5RDlveDJWWFIzbE9RVFQwQmVYYWtpOWFVTHZ5VFBnWFNJb3ZjU1VBTmZtXzl3bDFjQ2ZZVlJNUWFMRWR4Y0hKeDhIOERxTy1HVHRn?oc=5",
+  "published_date": "2025-07-26",
+  "captured_date": "2026-08-06",
+  "summary": "New study shows potent effects of desert berry extract (NRK-C)&nbsp;&nbsp;News-Medical",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

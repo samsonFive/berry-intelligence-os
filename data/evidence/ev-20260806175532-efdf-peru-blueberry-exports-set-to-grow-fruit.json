@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175532-efdf-peru-blueberry-exports-set-to-grow-fruit",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Peru blueberry exports set to grow - Fruitnet",
+  "source_name": "Peru blueberry export",
+  "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQNjZZNTEzOVFhLVJSeDBZb1lQYUMwTk5tcGVvZGlfRDhjZVhJMUFaNEpCQ0dPeVBBNlE5MlhyeFBRYnpNaFRjaWJsUFZZUTF3bEFSY24zTF9mWlFyUlowR3YydGtNTTZ3blcwR3l4TkR1bl9FWl9YWGNTVklSekp4SldQM0w5WFNmMDNj?oc=5",
+  "published_date": "2025-05-21",
+  "captured_date": "2026-08-06",
+  "summary": "Peru blueberry exports set to grow&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Peru blueberry export",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Peru blueberry export"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
+    }
+  }
+}

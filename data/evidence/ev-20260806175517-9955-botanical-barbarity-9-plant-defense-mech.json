@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175517-9955-botanical-barbarity-9-plant-defense-mech",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Botanical Barbarity: 9 Plant Defense Mechanisms - Encyclopedia Britannica",
+  "source_name": "Plant variety protection berry",
+  "source_url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPRVB5SW1TYnpYZDZwWDhmTldwd3RGQl9MVnZaQ0pzekRoYjlpZnR2M2JMWmQwVXNFUFRsR0FPMUZIMmRnWENDOG1VNzlMZ2tIdTdrTzNpOXQ3bzhYaE9OcXhXUXc3OEpObkJ3c1pGbzF6bEN2V19GRnQ1dGNBVnpaRVAyYk1KZw?oc=5",
+  "published_date": "2023-08-04",
+  "captured_date": "2026-08-06",
+  "summary": "Botanical Barbarity: 9 Plant Defense Mechanisms&nbsp;&nbsp;Encyclopedia Britannica",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Plant variety protection berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Plant variety protection berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    }
+  }
+}

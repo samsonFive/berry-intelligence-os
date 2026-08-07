@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175537-5ed4-in-the-canary-islands-just-like-in-huelv",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "\"In the Canary Islands, just like in Huelva, our strawberry production is down 30%\" - Hortidaily",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPR3ZyT1NDSEotQU51VWltTnNYN0RsZTJtOHllWG5iWDBQZVc2RFprNHdSMzVUWWg5aEdyeV9uNksxS1c3SkdTTWs3MEFOVl82dWRBVWRqV3V3TjVhRDdEVmdPQ1dhNzdITUhodmNsdDBHc3NXXzdObmhRSy1wQnIyc1FSbWdHdGdtbVlzM0N2X0ZoM1Y0eWNqZjUwWHJUd045RnVWeEc4UlZEcjhrRTFOakdfQ3VYODFYZ3RuRjY5bw?oc=5",
+  "published_date": "2023-04-07",
+  "captured_date": "2026-08-06",
+  "summary": "\"In the Canary Islands, just like in Huelva, our strawberry production is down 30%\"&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

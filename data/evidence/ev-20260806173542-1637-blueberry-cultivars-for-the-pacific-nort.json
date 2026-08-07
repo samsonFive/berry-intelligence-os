@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173542-1637-blueberry-cultivars-for-the-pacific-nort",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blueberry Cultivars for the Pacific Northwest - OSU Extension Service",
+  "source_name": "Plant variety protection berry",
+  "source_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQbEhPNi1EMmhfb0g2cTN4MUZKQUdZQXhOT0Z1R0ZZWTdQUW1rVnJyRVRfR1ZCM3dEM2ZCa01yV05MdHdaZzlDaXZhOFVJbGdMOWxibWNKOUd0OWV2aTZhQk9CRUJaRmg3bjNJTXVDQjdyVXZ1UjdkaVJQZTNZV3NwV1g0THlYbmYyOGFqTXVKQ04?oc=5",
+  "published_date": "2025-06-25",
+  "captured_date": "2026-08-06",
+  "summary": "Blueberry Cultivars for the Pacific Northwest&nbsp;&nbsp;OSU Extension Service",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Plant variety protection berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Plant variety protection berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
+    }
+  }
+}

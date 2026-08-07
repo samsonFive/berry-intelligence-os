@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806173601-23dc-moroccan-blueberries-a-global-success-st",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Moroccan Blueberries: A Global Success Story Driven by a Unique Selling Proposition - EastFruit",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQVTBNWFdPTTU0NmVXTTN1Umd1b3R4Wng5MFNRX21qMm0zdGF1c0FHaVMxdlU5eFV6UmFnc25PZDBmdzl4c0dJZkdER3cxaDFCWjl2cHVIeWdOdkRaRnFROVBERmdMZkVPRzNHWVFnVm5QTDZEVDZSNWNkbjY1MUxCQ1hsaUhTSUtoMElZVk1HSkNROUxDcDhjOG1TZTFjaHVZUEdYTEpnLWZleWNEWC1KaWJNRDM?oc=5",
+  "published_date": "2025-03-21",
+  "captured_date": "2026-08-06",
+  "summary": "Moroccan Blueberries: A Global Success Story Driven by a Unique Selling Proposition&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175541-8aa3-study-finds-kaegi-has-improved-fairness-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Study finds Kaegi has improved fairness in Cook County property assessments - chicagotribune.com",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxORWJrVW5XMGJ6M0YyTVhmUXpDMUE5SWJJcmszRVFmVjhHQ2ZYYVBqQXRhSmtOd3JBLXFXUXppLVA2RjIxYjVfWGRaNUZRWFZhOGRjWGdfbzgxTTctR2FVS1VHSWJfTDVvTGM2UXlxdDROZjRyRGlCNFVDTDhlemlreDkweFJGc25RdEhQZTNKMVlhaXNTdlhkSnNaZ1ZETDkt?oc=5",
+  "published_date": "2025-09-05",
+  "captured_date": "2026-08-06",
+  "summary": "Study finds Kaegi has improved fairness in Cook County property assessments&nbsp;&nbsp;chicagotribune.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

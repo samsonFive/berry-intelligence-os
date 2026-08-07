@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175529-b334-trump-s-tariffs-mean-big-opportunities-f",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Trump's tariffs mean big opportunities for corruption - Slow Boring",
+  "source_name": "Berry tariff",
+  "source_url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE4xdVlpZlpGVFhva21jSlIzaHBCTFpiVmVfWmY3WlUxbkhibXU0QXRqMDlpLUR6cVc2YThXRFYwWl9xT2N2MlhfdF9RQmt2QlFUVUhpcXJ6ME0yS3dXNjdhT1FkRzVZeFZfTFd5bjN3Y09tWkZl?oc=5",
+  "published_date": "2024-07-17",
+  "captured_date": "2026-08-06",
+  "summary": "Trump's tariffs mean big opportunities for corruption&nbsp;&nbsp;Slow Boring",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry tariff",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry tariff"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
+    }
+  }
+}

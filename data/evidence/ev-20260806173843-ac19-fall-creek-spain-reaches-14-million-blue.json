@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173843-ac19-fall-creek-spain-reaches-14-million-blue",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fall Creek Spain reaches 14 million blueberry plants after 10 years - FreshPlaza",
+  "source_name": "Berry genetics company",
+  "source_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNZ3Y1QXBoQU1mMlNvTmdxU1ZlRzVvNE1kZmJUd3BTS0U0Ny1FQ3VKcmxWd1dSSWVOSVZWdWp5SnFNTkh0VmtfUTlicDJ4Y0NtbkYzcUZkQXI1ZDZoeWNoYTdYcXhyNXJSUzdRMklBR1dtWkczQVZ6ZlkzUHpnMzlfa0RSZmw2b2FHc2pEb1U2eXBJME5zaXU4SEsxY01vd2VXeVY1RWRwREpqaDlsOFBKeFVPWk0taEpfWWh2ZzVxU1dMejQ?oc=5",
+  "published_date": "2026-05-26",
+  "captured_date": "2026-08-06",
+  "summary": "Fall Creek Spain reaches 14 million blueberry plants after 10 years&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}

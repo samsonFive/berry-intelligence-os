@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173906-df65-strawberry-production-by-country-2026-wo",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Strawberry Production by Country 2026 - World Population Review",
+  "source_name": "China strawberry market",
+  "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOdEUyUWY0VVVmWjdCMzUwcnpWRDNyT0hacjY5eElwZzk5QUVsTS1tNi1IWnFhR0ZmemhpRExuMDctdnJHeFZSTzFIbWtKb0trNWcxeGNQREo2NTgyZ1ZmX0xoM1lMcXpBRWhHN3lfc05OempsYmxwMlZxMHMtUU9TSTA0dGJJemY2LVR3?oc=5",
+  "published_date": "2023-05-19",
+  "captured_date": "2026-08-06",
+  "summary": "Strawberry Production by Country 2026&nbsp;&nbsp;World Population Review",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:China strawberry market",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "China strawberry market"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
+    }
+  }
+}

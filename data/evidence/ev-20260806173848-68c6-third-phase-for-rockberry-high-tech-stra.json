@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173848-68c6-third-phase-for-rockberry-high-tech-stra",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Third phase for RockBerry: high-tech strawberry greenhouse in Armenia - Hortidaily",
+  "source_name": "Berry nursery partnership",
+  "source_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPc3lzLWRMWk5HeFFHQXhPeFNqazJiWnAwVE1CWDFjdndsbHdINXNvU2ZfVEVXSUV0NzM2bE1oZ0ZFRHRnbFh4NDkxLTd5aHVnbjZJLVdGX1MxYzk1c2RqZnpVdGNTYWVDbnRyTXJCODZ5dWM3d2gtVDRLelI0VGhfN0Y4WWUtVzJyQmNrLUN5MWFwQlRMRWcwRjhON2tzSFNtRmY0eXpLaFdKdXRhTVFwR1BR?oc=5",
+  "published_date": "2021-11-19",
+  "captured_date": "2026-08-06",
+  "summary": "Third phase for RockBerry: high-tech strawberry greenhouse in Armenia&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry nursery partnership",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry nursery partnership"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    }
+  }
+}

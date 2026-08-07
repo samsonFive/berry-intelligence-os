@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173539-06bb-malaika-raspberries-raise-the-premium-ha",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Malaika Raspberries Raise the Premium Harvest in Portugal - AICEP",
+  "source_name": "Raspberry variety license",
+  "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPVnJKRmNTdW9MYnR6enFKX2x1M3pYSTBQVXVsRFVvN1ZBSE9ObzFZX2NKa0FUQWVBNDlDY2R4MVZuX0M0dEE5c0Z3S3JoMXZ4M2xYcTd3Q29pTWx4N1NQV1ctNmo3RXlWc2lNV3lUal9jdERDUUI0Q0FxY1JHOVU2d0RmM2oyTG5hbFNGME96NXNZVlY3X0U5bU4xUlhFdnVzd3FONXRPYWVxSHNEdHc?oc=5",
+  "published_date": "2025-10-03",
+  "captured_date": "2026-08-06",
+  "summary": "Malaika Raspberries Raise the Premium Harvest in Portugal&nbsp;&nbsp;AICEP",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Raspberry variety license",
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Raspberry variety license"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
+    }
+  }
+}

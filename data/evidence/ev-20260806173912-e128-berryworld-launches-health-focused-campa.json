@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173912-e128-berryworld-launches-health-focused-campa",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "BerryWorld launches health-focused campaign for berry category - Fruitnet",
+  "source_name": "Berry health research",
+  "source_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPNkZZdnN3TnpjbklTOFZncWh5TGlmeFN2SUt4OS1xRVI4Rzl1QWlFN3h5U096MVE0T0FlTWF2MXZ5TGlxZHJaaVdsREE1UG5NeVNvYmVadTVMMHlwR1JTQjIwdGI2RlRXYTlOVUNfWlNWeV9jdUM3Rm5PZ1N1b2s0Q2VUM1Jab09DRkpVTlBLY1pJWUpvUzkyUF84RXpqNUZWc21IbktST1JoTUFHY2lFNHZR?oc=5",
+  "published_date": "2026-03-18",
+  "captured_date": "2026-08-06",
+  "summary": "BerryWorld launches health-focused campaign for berry category&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry health research",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry health research"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
+    }
+  }
+}

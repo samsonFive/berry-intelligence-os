@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806175534-b92b-strawberry-exports-break-all-time-record",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Strawberry Exports Break All-Time Record - Mexico Business News",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNVDNSdkcxWkVkQ1BOLUstLV9WZy1zbVpiZl9VTUNhaEZoTWhFVTAzSng5T3IyVGQtd0NTUDU4ZF9aVFVPbUpSdDZuZVcwc1F6RDg4MG1nSzJlSEJWQUtZR3VHRzlwYWE4UUl5dm8xTGdQQzBleFRGbm5WSm5UWkpRWG5EcXZ1TS1jRTVmX3J0Yw?oc=5",
+  "published_date": "2021-05-05",
+  "captured_date": "2026-08-06",
+  "summary": "Strawberry Exports Break All-Time Record&nbsp;&nbsp;Mexico Business News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

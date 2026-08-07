@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175525-69a2-market-overview-of-fruits-and-berries-fo",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Market overview of fruits and berries for freezing in Moldova: production, prices and trends - EastFruit",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxQVFM2WmRKQmJLWkRWSWdueWpXUlBmX1Y3djluYnlVQWlBdnFIeXFaZ0pUUF9KNHNFOEZGLUp2VmdUT3hoSENzVTRzT3ltZll6TTU0TGthWkl0VjZsQ2xSRERISVZOT0liWko2TlkyWWtqVDNudzhTTzkzSHhZNnFEcnNpRExXMFFkYlB6TElKZ3dkRVlKeERiNnVnczNlbkxhRld0N3VJa25SMjhYbWhobHhhMldYczdqdzJTY3gyVl9LQlIxMWZyelA5M0gxbnc2eGNYSnZNT1ViVjdJell6TVlnbjVsQTA?oc=5",
+  "published_date": "2023-06-19",
+  "captured_date": "2026-08-06",
+  "summary": "Market overview of fruits and berries for freezing in Moldova: production, prices and trends&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

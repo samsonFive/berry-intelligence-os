@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173609-2ffe-room-for-berry-category-growth-produce-b",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Room for Berry Category Growth - Produce Business",
+  "source_name": "Berry category growth",
+  "source_url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBCMmlOZndkOHNhM1VCWlVmUVA0V1pEbzdCZkR1eG50NVpKbWc3dTBOSXhLRGsyZTJjQkYwVHUtUklLQXEzb2pkeThWZGl3SzZocWJ0Z2FzWjM2V3dhbnJXV1RRRDZzdUotSnNF?oc=5",
+  "published_date": "2017-03-01",
+  "captured_date": "2026-08-06",
+  "summary": "Room for Berry Category Growth&nbsp;&nbsp;Produce Business",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry category growth",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry category growth"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
+    }
+  }
+}

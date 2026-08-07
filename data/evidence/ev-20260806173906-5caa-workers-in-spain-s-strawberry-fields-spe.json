@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173906-5caa-workers-in-spain-s-strawberry-fields-spe",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Workers in Spain’s Strawberry Fields Speak Out on Abuse (Published 2019) - The New York Times",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPNXNLMGRlS1FPZ20tLU5scGRteFBXQ0dfUWR6Y2J4bTFKRm1Jd2RjdUtHZEtKR2VKdFIyQlo1Tjd3eVk4aU9oUXJYTHhxS1M0LWNzc1h4dmhKdzBYc2dfS0JiZU9aREFCNzdEMW8zQ2E2NnNzWE5TUlI1VUlMbVRYYy02UmU0WmVmaHc?oc=5",
+  "published_date": "2019-07-20",
+  "captured_date": "2026-08-06",
+  "summary": "Workers in Spain’s Strawberry Fields Speak Out on Abuse (Published 2019)&nbsp;&nbsp;The New York Times",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

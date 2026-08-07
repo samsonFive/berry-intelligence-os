@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173903-1a8f-chilean-summer-fruit-en-route-to-u-s-the",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Chilean ‘summer’ fruit en route to U.S. - The Packer",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQYThtWVhMbkdTQ0lTUXJya0FHcy1vV1Z3a1p3QUlzRndlX0RXYVJWNkNUVjJzMjlYVGp6cXpXWUlNY2lkZlNqQ3FWRUx6QkNVdktocFFIalV1ZFpTYVpvQ19ORXI3N0NuU01ibmJoc0ZvQXl1ZHJQVk9WY2FOeGlWRTItTGk?oc=5",
+  "published_date": "2023-11-07",
+  "captured_date": "2026-08-06",
+  "summary": "Chilean ‘summer’ fruit en route to U.S.&nbsp;&nbsp;The Packer",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

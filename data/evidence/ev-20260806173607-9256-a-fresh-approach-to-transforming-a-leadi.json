@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173607-9256-a-fresh-approach-to-transforming-a-leadi",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "A fresh approach to transforming a leading berry brand's supply chain - Genpact",
+  "source_name": "Berry retail sales data",
+  "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPUVNVekJ1LWFmN3k3YlVnRDhpTjF6b2NZTUV3XzZ2SVZsWURvVHNVLU44VEtWZDcxTUZCa3ozSGRMV0ZJanhJZmpfdFAzUEU4dFBzTGNHNHZXdDk4bHQtbk82NlUydUliZmNGQkg0TFY3NWI0RnBicmdQMUVsTkJvcUJzQmtqamtjZWlWcUU2QTZWQS0wRF9WQVg2VlRubEZaQTUwQzFFbXY?oc=5",
+  "published_date": "2025-06-30",
+  "captured_date": "2026-08-06",
+  "summary": "A fresh approach to transforming a leading berry brand's supply chain&nbsp;&nbsp;Genpact",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry retail sales data",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry retail sales data"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
+    }
+  }
+}

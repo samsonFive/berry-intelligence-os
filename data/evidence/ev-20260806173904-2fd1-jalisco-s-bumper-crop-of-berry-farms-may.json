@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173904-2fd1-jalisco-s-bumper-crop-of-berry-farms-may",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Jalisco’s bumper crop of berry farms may hurt locals more than help - Mexico News Daily",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE52elpGNUJlTmRvQ2lyUFpnWGZzd0NiYUM3U2xsaXNDZmp0UkNjaDZGUUw3OVdDMzF2aHlXcjhLcHdRczJ3aXEzRWp2ZmFmZHFhRE5mQ1lRdmg1SzR6NjFhRlU5T1N3TWN2Sm96M0V0cGFjUm8z?oc=5",
+  "published_date": "2022-03-18",
+  "captured_date": "2026-08-06",
+  "summary": "Jalisco’s bumper crop of berry farms may hurt locals more than help&nbsp;&nbsp;Mexico News Daily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

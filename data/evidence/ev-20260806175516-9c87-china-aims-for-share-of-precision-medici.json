@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175516-9c87-china-aims-for-share-of-precision-medici",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "China aims for share of precision medicine - The Arkansas Democrat-Gazette",
+  "source_name": "Berry genetics company",
+  "source_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPcnRWZWUxWXNZTVY3Y3JwYnZoTURSMjRhVHB6eHBJTk9tTW93aHMtdmliMGczc1B5R0pUdTRHYTBlUEFBbDAxX2lwRUdIYW5fSUV6YUJTTHRZMW43Q19CaUpGVlFHaEZGOVplTjRFcXRadkkxWl9kbk5mdTlrVVY4Y0xvam9PVkVQa1lDYmxid094UQ?oc=5",
+  "published_date": "2017-02-13",
+  "captured_date": "2026-08-06",
+  "summary": "China aims for share of precision medicine&nbsp;&nbsp;The Arkansas Democrat-Gazette",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}

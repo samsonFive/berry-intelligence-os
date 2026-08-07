@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806173905-b64f-moroccan-fresh-berries-a-growing-success",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Moroccan fresh berries: a growing success story in the Middle East - EastFruit",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOT0FmTm5YV1FXX04wR0ZXazdBdmItQjB3T0oyMFFTSWluWTYtWjlDSklUV1VSa3hRd0tBRUxWTWhyZW1PRE9KZ2dwQXVzSTlsbl9UY3ZKVWEtX09YN3c0UmpoVmx4RUFmVFZ5N3J4VGRDTzBoX1ZtcHVGdE1naEJTUmdST3M0eDJCTG5uVjFHQTRTNUlEejU1OGNuSjBlZw?oc=5",
+  "published_date": "2023-12-27",
+  "captured_date": "2026-08-06",
+  "summary": "Moroccan fresh berries: a growing success story in the Middle East&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

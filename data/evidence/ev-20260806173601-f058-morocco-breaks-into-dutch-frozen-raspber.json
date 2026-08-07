@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806173601-f058-morocco-breaks-into-dutch-frozen-raspber",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Morocco breaks into Dutch frozen raspberry market with record exports in 2025 - EastFruit",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOZTZmdWJST3dIemNrcnA2ZGNPMUNfcllQOUFlX3dOYXVnRDVSTTJXWkhfWExvLWs2LUNRNHIwOTVLV1JPMlBGZjY0U2Y1RF9RVkp1YWNmaXFFVTcyVEtzM242R2R6UWh3TXhaeXIwNnpwUU9JcWtzam9uTFFqLW1tZUlLejFQN3dKRXdZQUIyMWExM0NhUlRPSEVaZEo3bW9lSWcyb2xCbkVTWjZlSVE?oc=5",
+  "published_date": "2026-04-28",
+  "captured_date": "2026-08-06",
+  "summary": "Morocco breaks into Dutch frozen raspberry market with record exports in 2025&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

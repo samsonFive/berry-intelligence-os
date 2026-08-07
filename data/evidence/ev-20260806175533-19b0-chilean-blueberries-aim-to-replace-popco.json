@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175533-19b0-chilean-blueberries-aim-to-replace-popco",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Chilean blueberries aim to replace popcorn in Chinese cinemas - blog.investchile.gob.cl",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQS0VwRWZrSmI0Y3lnazNYZFRfMWNCTDlta19rbDhpXzN0WlV5R0VvTllsVXh2ZGNnY2NkcFBmcGlqS0RVamJqejNUV1U4OWVQV1ZRZVEzRVNsWVBycHpLdUx5X1hySjN4SV9jaTd3aUlHelJvTVlacGFBRXhYeHdIdlZWbW1jUzRtUTZOWE1mRkRwTjBxVXY4ctIBqAFBVV95cUxOeW1qV2NqcldYNUVMdjl5MGlrelRoWkNyenQ4blAyb29zSGYtbkxjNVBjQnY2UHJxcUZYRXFQR0pEUGF3TTNyYjdTeGZhMU1hX0NpUXEzeFhfMWRmaGs0eGhzWFE3TURqWDRVUTRTR2plOF90OEU5eGZyeXZRRmFUNHhvOER0ZTVQZU9RUGlrNmRBZTNjZmNYRk5PUExzUG5ONHZXZ2Jldkc?oc=5",
+  "published_date": "2019-02-07",
+  "captured_date": "2026-08-06",
+  "summary": "Chilean blueberries aim to replace popcorn in Chinese cinemas&nbsp;&nbsp;blog.investchile.gob.cl",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

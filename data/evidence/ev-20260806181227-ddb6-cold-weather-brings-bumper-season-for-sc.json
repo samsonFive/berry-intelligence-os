@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806181227-ddb6-cold-weather-brings-bumper-season-for-sc",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Cold weather brings 'bumper' season for Scottish berry growers - STV News",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQMTZEUHg4LTFkOVRubHRmZDFOSWFWdTdnYjktN0R3bUJla19Dd0NZM3hKOEZmSXVfWDQ2VkhXZDJvY1p3UGdkRVR0SF9mQ1RucGhOd29pY2VlTENTTmNpQkI4LWhJSk10aTlXblduTklLQm5feTN5TlREeGowLWNNSVJwU1hDUjlHYldFUGNpSQ?oc=5",
+  "published_date": "2026-06-06",
+  "captured_date": "2026-08-06",
+  "summary": "Cold weather brings 'bumper' season for Scottish berry growers&nbsp;&nbsp;STV News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

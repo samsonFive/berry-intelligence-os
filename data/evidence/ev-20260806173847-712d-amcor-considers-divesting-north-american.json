@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173847-712d-amcor-considers-divesting-north-american",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Amcor considers divesting North American beverage business - Packaging Dive",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNYl83bkxVVkx0VDNrXzNVVWo4VDNsMUhxcXJtaVRGalZqYnl3d1RSV1phVTNHWGYwckx0T1YxU3hiUjh5ZWpNcElNejRNWERWWEMtWWV4QzJIQkVBQTQ4REFiRnl2ZmZaX1MxRWZZS3JzRU1qLTQtTkZPNXZ2Y0lzc3VOZ2s2Y1FGLUR0OGpWb3pWX1puV09sbFpTaw?oc=5",
+  "published_date": "2025-08-14",
+  "captured_date": "2026-08-06",
+  "summary": "Amcor considers divesting North American beverage business&nbsp;&nbsp;Packaging Dive",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

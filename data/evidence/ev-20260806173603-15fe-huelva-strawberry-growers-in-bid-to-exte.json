@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173603-15fe-huelva-strawberry-growers-in-bid-to-exte",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Huelva strawberry growers in bid to extend season - Fruitnet",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQeWhUOERQakpWUUM3dDBLZm5HX1U3ZG1ULWxMSHlsNVdYeDIteGlucUVXS2ctb2Rfbm9PdmVZR0tHLUM1bHJBZWJfZk0yREVJSUJEY05jTlV1Znc5VzBrVGwwNWR1X3VzMndrdTlldlEzTk1HZE5pLUF2bzQ4b005SnJhUzN6M3FjcW9sQ3JRTkhZOXdHQ2pRWGxDSDlYV3R5?oc=5",
+  "published_date": "2026-03-03",
+  "captured_date": "2026-08-06",
+  "summary": "Huelva strawberry growers in bid to extend season&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806173601-1062-morocco-ranks-4th-worldwide-in-the-expor",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Morocco ranks 4th worldwide in the export of berries - Atalayar",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQWEJYT04zT2p3V01jVkZBRGlWZmdmSk9oYXc0MnAyOWZFYlFmUmpSOXRkeExzMFlTVUJrNmliZ3VqcXlic3RhbjRlV2FUd0lscHFDb3B3SHdlZ19QNktiYXZ3bE5HQTBtSXlUTjVlU2FrN3V2R29iaUdocnlXUVcxZmd3VHd5Umt6aVhscklUSDZLR0FRUWpNZXlvdUxkWWRlbktMZ1RyNkl4T0txRUlocW83YnFxSFd1Umx0aXFOcy01RXR1NlQ5RVpsSE5EMXZSWHfSAdcBQVVfeXFMUEhCYWZHYkJvR3RGSHMtUXBRT0NfekNMSkFJN3JIQ0FsaDVFRjNjdURDRGNzcEdZTjZTMFl4VWxoQXMwYTFFY2o2NUgtaFY2MkVnU0FCVDV4NDVUcVlldkdsZ1dNSnZVQW1LUTVkR0c3YzFYb1BzbmJMYnE5c3c1ekNkaUJDcWdJWllsTTVIMUxWeWhUMGFXV1JXWXFBRDE4M2VCbXlxd0ZLcUN5SHdGakVac3pMN2lCYmVoYVhyY0pTbllDX1lZLWFyUnBTeFlOSXdXakdqQms?oc=5",
+  "published_date": "2025-09-12",
+  "captured_date": "2026-08-06",
+  "summary": "Morocco ranks 4th worldwide in the export of berries&nbsp;&nbsp;Atalayar",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

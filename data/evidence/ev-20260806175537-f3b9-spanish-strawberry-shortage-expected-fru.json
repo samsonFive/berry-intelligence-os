@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175537-f3b9-spanish-strawberry-shortage-expected-fru",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Spanish strawberry shortage expected - Fruitnet",
+  "source_name": "Spain Huelva strawberry",
+  "source_url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPRHo4QzMxX3Q5dFIwT2tIZTRKSmVrMkRna2dzZ2pGaHA0eDJpVklNZ3J1bG1oaEl3STlkQ1JxRlgtZnp4bjVEUDBIOUVYQXhxeUZoam8tcFUxMlB1S0wya2NQQ3FKV0VOaG1fQ2p2ZTVia25paHEyS2trT01VSU43M3VIUDBsMjF2RkNJaA?oc=5",
+  "published_date": "2010-02-17",
+  "captured_date": "2026-08-06",
+  "summary": "Spanish strawberry shortage expected&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Spain Huelva strawberry",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Spain Huelva strawberry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
+    }
+  }
+}

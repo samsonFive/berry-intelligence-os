@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173540-b624-the-florida-pearl-and-rose-pearl-brands-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "The Florida Pearl® and Rose Pearl® brands by EMCO CAL - IFEMA Madrid",
+  "source_name": "Blackberry primocane variety",
+  "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQR0h3cDFzazJLb01rUWRYWGpqUFNpXzhrbTY0Zl8yWFJkdDZyTGdUcTNDVGloNUltS1VIaHlvOVczRU52QUtkR1VKY0YyTDZSY2lObHhrQVhLLTR1YmFFQUFVMzQ0cTM2OEhzRmczRGp0cUF3RUJQeVlyay05NTBuUmE5akdYdzNrc21YUGxJcV9ncGNuWVhmT2xmYw?oc=5",
+  "published_date": "2023-09-19",
+  "captured_date": "2026-08-06",
+  "summary": "The Florida Pearl® and Rose Pearl® brands by EMCO CAL&nbsp;&nbsp;IFEMA Madrid",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blackberry primocane variety",
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blackberry primocane variety"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    }
+  }
+}

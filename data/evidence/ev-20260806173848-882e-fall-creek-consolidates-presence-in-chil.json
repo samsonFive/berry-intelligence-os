@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173848-882e-fall-creek-consolidates-presence-in-chil",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fall Creek consolidates presence in Chile - Fruitnet",
+  "source_name": "Berry nursery partnership",
+  "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQMnBsN05HNVo3dEc4aVZUY1JsSk5ocmhrRWNtazBJLVhQejlCemR5VW83SS02VGJxOTN2UjdLZkZ2V1drZ0hHRmxWX3d6VERjaVdrZl9PRGw3YTcyYUxxMFUyRzZrZWNnR1R4Wnl0bXNkcjI4eXJiSzVFUTBFOURHZ1pKZFlQM0pfY0tONUNuWlRFUE5hZ3c?oc=5",
+  "published_date": "2022-09-14",
+  "captured_date": "2026-08-06",
+  "summary": "Fall Creek consolidates presence in Chile&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry nursery partnership",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry nursery partnership"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
+    }
+  }
+}

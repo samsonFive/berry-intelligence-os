@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173852-430c-strong-forecast-for-winter-strawberries-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Strong forecast for winter strawberries - bluebookservices.com",
+  "source_name": "Berry harvest forecast",
+  "source_url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1SeUxUNC0tbmIzZDJpV2p6eXN5dWVQZy1HU2E5MHhiV0ZUSlF4ZFFwRWZUS2hIbmQ5MEdUZVpjV3Vka1pqQ0ZQeTBKQVU4V2pqX0docGNtTmEzeXN5Y0dLSUlkLS1DeEhjVk9SbTdLeVlfX09MeGNQeDRZTTVNUQ?oc=5",
+  "published_date": "2021-12-14",
+  "captured_date": "2026-08-06",
+  "summary": "Strong forecast for winter strawberries&nbsp;&nbsp;bluebookservices.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry harvest forecast",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry harvest forecast"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
+    }
+  }
+}

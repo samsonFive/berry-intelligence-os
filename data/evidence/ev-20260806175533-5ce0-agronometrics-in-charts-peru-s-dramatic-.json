@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806175533-5ce0-agronometrics-in-charts-peru-s-dramatic-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Agronometrics in Charts: Peru’s dramatic increase in blueberry production sends pricing to an all time low - FreshFruitPortal.com",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPRnB2SDYwME9SZVNBU3hGNGlEcWdwbFhYS0dLZFVPRHRjTElLY21oRmZwdGZ2MF9KdnhGSGpBZWJVV2w1SjUzMXlMeWVTbkR0V0pDUTF6aWd5elo3d2RVTU02U2VyWThHaTgxcjEzTV9MRU1tREhuelJXRG91UVZKcVg2eThnOVluSTlfR3E5ZHR5bHlJNU5IOExnOW9mc0Ntaktra3FiWVVraVZ6dk43VXNIamEtOWRVSDRfcw?oc=5",
+  "published_date": "2022-01-20",
+  "captured_date": "2026-08-06",
+  "summary": "Agronometrics in Charts: Peru’s dramatic increase in blueberry production sends pricing to an all time low&nbsp;&nbsp;FreshFruitPortal.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

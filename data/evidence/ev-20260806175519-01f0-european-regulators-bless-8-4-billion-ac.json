@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175519-01f0-european-regulators-bless-8-4-billion-ac",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "European regulators bless $8.4 billion acquisition of Berry Global - Inside INdiana Business",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxONDJ3WEpodl9CeVp2c1A1UTJnZ1RzVEowa2ZqVElTLWkxUHJLUUpfaTNqZmlCRmJRVFVvVkR5TGFzUEFDVnE0UGR3QjhDbWJ6d1d1ekdlV0kzUWxNWlBrOFBtOVE1a1RncUNnVkVoUUo4eUhBbDIzbm1MNkQ5cjZ6aWpobHQ5NFF5UmdvVGpydFFUN2ZkZ3Fiel9zWk9xZ0RESmZtVmIyOGpjb1FxQkxJUWVR?oc=5",
+  "published_date": "2025-04-28",
+  "captured_date": "2026-08-06",
+  "summary": "European regulators bless $8.4 billion acquisition of Berry Global&nbsp;&nbsp;Inside INdiana Business",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "ev-20260806173905-57a6-france-and-uk-account-for-main-growth-in",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "France and UK account for main growth in Morocco’s revenues from fruit exports - EastFruit",
+  "source_name": "Morocco berry exports",
+  "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPeU9UM09ySm1yMVRTbjJQa3M3Vm9IMk9raUNZN1RGOTdZUkJsMHd6WFEyX09IN0xnWlpGcTUzV2xRNnF4RFVkNjNQdXRMcjFmUmt4UzhRSEJSZ3gyRW5pNncyZFdrQVBoOFdzREgwcVIzaDNDWjZiVHUxazZSRklDS2d2U09INWZsd0NheDBIY3hyMVEtLUhOR0hFMUN0TTNieHN5ZldfbXNZdHhkamx1cG02VQ?oc=5",
+  "published_date": "2023-07-29",
+  "captured_date": "2026-08-06",
+  "summary": "France and UK account for main growth in Morocco’s revenues from fruit exports&nbsp;&nbsp;EastFruit",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Morocco berry exports",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Morocco berry exports"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
+    }
+  }
+}

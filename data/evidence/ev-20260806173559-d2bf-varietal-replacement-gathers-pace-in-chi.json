@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806173559-d2bf-varietal-replacement-gathers-pace-in-chi",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Varietal replacement gathers pace in Chilean blueberry sector - Fruitnet",
+  "source_name": "Chile blueberry season",
+  "source_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQbFFPV1pPZHhuc0ZqbDdqV1ZQb0wybGZBR1RYYjExSDNiWWU5ZHNZV0JoWWhTeTdyNnJiTUdHM19wUXh0eVE5Q2poVzBjbXk0aEhIZl92eXVyV2haU1B4LU9rZFFSOHI3c3ZoZkNsc2lWV2lId0txLTJ0X25obWNMLW92WFZDRlUwV3VGUEVMWkthbjFXX3ZGMWZFeGhzdmpPMF8tSkFKMnpGbzUxY0pxag?oc=5",
+  "published_date": "2025-10-27",
+  "captured_date": "2026-08-06",
+  "summary": "Varietal replacement gathers pace in Chilean blueberry sector&nbsp;&nbsp;Fruitnet",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Chile blueberry season",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Chile blueberry season"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
+    }
+  }
+}

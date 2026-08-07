@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806173600-6768-blueberry-roundup-what-s-on-in-the-growi",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Blueberry roundup: what’s on in the growing regions - FreshPlaza",
+  "source_name": "Mexico berry production",
+  "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQaHE5NHpscUxwaWJNV1Yza2ZJbXJZV0hTYl9nelgzUEVVOVpKSmh6amhBS2NiLUd0MFpKeUxqU2VieWhXRHpXUkc1bVZFVnZHRFpMdEU1QjJvalBmUTVxUDluWWFUUVVjV1V5ejVaYTJJaGJRNUtEQzJZU05oQ1htODhuMkttejcwZ2hnY3dSMFNTZmFxWm50SjRsT0pMQ0JSMDd3TmJiU1AwZjRp?oc=5",
+  "published_date": "2026-03-24",
+  "captured_date": "2026-08-06",
+  "summary": "Blueberry roundup: what’s on in the growing regions&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

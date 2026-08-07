@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173546-7fb1-agroberries-expands-into-laos-with-150-h",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "AgroBerries expands into Laos with 150-hectare blueberry project - Hortidaily",
+  "source_name": "Berry joint venture genetics",
+  "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNaG9qcjBQeV9yNWVZcTBIekZxdF9GNkZFQ0lWTXc5d0NRd05Ta1RXUTFUSE5ERkJaRVZEdElJVy1nMG00VWJ4UWZZdWx1MEJwcUFQU1RQQ2lGSjNTaUsyZGZGTGxSdUJGMEtiZEtWMWdyXzJIUF9jTXpzN0xlSXZreUhpLVktSHBBd25MdzY3WVhnZGdDMTQ4UFk1dHZTWHlaeFRKTTNwdFpyTXVB?oc=5",
+  "published_date": "2026-06-26",
+  "captured_date": "2026-08-06",
+  "summary": "AgroBerries expands into Laos with 150-hectare blueberry project&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry joint venture genetics",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry joint venture genetics"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
+    }
+  }
+}

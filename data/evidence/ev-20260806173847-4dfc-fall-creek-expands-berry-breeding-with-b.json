@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806173847-4dfc-fall-creek-expands-berry-breeding-with-b",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Fall Creek expands berry breeding with Berrytech acquisition - FreshPlaza",
+  "source_name": "Company acquisition berry",
+  "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPcXUyZWFrSlRpMDllRUhycEhMUE15SDd2UlZVTjVYajV1TUxnTDJQT1EwRnk5ODVXOWxrS2dGR0kwR1pkdFBGQVZKM19TVlozd21zNFFZeHd4cnBVLUhLUUtKWUJZVEx3cUI2VXFXdVhrc2NtWGhLU21NbldNRjkxSlBnU1dsQjJtTER5YVZPMk0yNF9WMm1YQndwVEJzRzNtU3k0eW0yTkFkQzdINkx6c1FRYlFHWFhfd1E?oc=5",
+  "published_date": "2026-06-10",
+  "captured_date": "2026-08-06",
+  "summary": "Fall Creek expands berry breeding with Berrytech acquisition&nbsp;&nbsp;FreshPlaza",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Company acquisition berry",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Company acquisition berry"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
+    }
+  }
+}

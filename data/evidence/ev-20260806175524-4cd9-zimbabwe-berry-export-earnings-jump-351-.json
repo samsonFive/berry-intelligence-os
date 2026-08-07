@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806175524-4cd9-zimbabwe-berry-export-earnings-jump-351-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Zimbabwe: Berry export earnings jump 351% - Hortidaily",
+  "source_name": "Berry export volume",
+  "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNeFREZVhQeU43LWhqLWtaYmlEWUhISUlUMjZ1YUl5OTNvemdPWTBqQ0dGREpmcjhxWWgyaW1tRDlyY2l4TXd5ZmllTmlycHpQUWFtZ1dzbjNqNGdhNWQyQnlZcHV3R0JfQ3FUMjItMlhlaWV3X2hUOGdoTlVKanFjV1NiNG1pc09NVDZn?oc=5",
+  "published_date": "2025-05-12",
+  "captured_date": "2026-08-06",
+  "summary": "Zimbabwe: Berry export earnings jump 351%&nbsp;&nbsp;Hortidaily",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry export volume",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry export volume"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
+    }
+  }
+}
