@@ -1,3 +1,5 @@
+from datetime import date
+
 import httpx
 from fastapi.testclient import TestClient
 
@@ -1103,3 +1105,139 @@ def test_api_search_finds_entity_by_misspelled_query() -> None:
     assert response.status_code == 200
     body = response.json()
     assert any(e["id"] == "company-hortifrut" for e in body["entities"])
+
+
+def test_next_check_due_and_source_is_due() -> None:
+    weekly_recent = {"update_cadence": "weekly", "last_checked_at": date.today().isoformat() + "T00:00:00"}
+    assert main.next_check_due(weekly_recent) > date.today().isoformat()
+    assert not main.source_is_due(weekly_recent)
+
+    weekly_old = {"update_cadence": "weekly", "last_checked_at": "2000-01-01T00:00:00"}
+    assert main.source_is_due(weekly_old)
+
+    never_checked = {"update_cadence": "annual", "last_checked_at": None}
+    assert main.next_check_due(never_checked) == date.today().isoformat()
+
+    event_driven = {"update_cadence": "event_driven", "last_checked_at": "2000-01-01T00:00:00"}
+    assert main.next_check_due(event_driven) is None
+    assert not main.source_is_due(event_driven)
+
+
+def test_source_has_coverage_gap() -> None:
+    assert main.source_has_coverage_gap({"berry_ids": [], "region_coverage": ["global"]})
+    assert main.source_has_coverage_gap({"berry_ids": ["berry-blueberry"], "region_coverage": []})
+    assert not main.source_has_coverage_gap({"berry_ids": ["berry-blueberry"], "region_coverage": ["global"]})
+
+
+def test_filter_sources_by_entity_type_berry_region_priority_and_view() -> None:
+    sources = [
+        {"id": "s1", "entity_types": ["trade_press"], "berry_ids": ["berry-blueberry"],
+         "region_coverage": ["global"], "monitoring_priority": "high", "type": "keyword",
+         "update_cadence": "weekly", "last_checked_at": "2000-01-01T00:00:00"},
+        {"id": "s2", "entity_types": ["government_regulatory"], "berry_ids": [],
+         "region_coverage": [], "monitoring_priority": "low", "type": "reference"},
+    ]
+    assert [s["id"] for s in main.filter_sources(sources, entity_type="trade_press")] == ["s1"]
+    assert [s["id"] for s in main.filter_sources(sources, berry="berry-blueberry")] == ["s1"]
+    assert [s["id"] for s in main.filter_sources(sources, priority="low")] == ["s2"]
+    assert [s["id"] for s in main.filter_sources(sources, view="gaps")] == ["s2"]
+    assert [s["id"] for s in main.filter_sources(sources, view="due")] == ["s1"]
+
+
+def test_group_sources_by_berry_lets_multi_berry_source_appear_in_each_group() -> None:
+    sources = [{"id": "s1", "berry_ids": ["berry-blueberry", "berry-raspberry"], "monitoring_priority": "high"}]
+    grouped = dict(main.group_sources(sources, "berry"))
+    assert [s["id"] for s in grouped["Blueberry"]] == ["s1"]
+    assert [s["id"] for s in grouped["Raspberry"]] == ["s1"]
+
+
+def test_domain_of_strips_www() -> None:
+    assert main.domain_of("https://www.freshfruitportal.com/article/x") == "freshfruitportal.com"
+    assert main.domain_of("https://trendhunter.com/x") == "trendhunter.com"
+
+
+def test_source_polling_loop_is_disabled_by_default() -> None:
+    assert main.SOURCE_POLLING_ENABLED is False
+
+
+def test_check_source_skips_reference_type_sources() -> None:
+    written = main.check_source({"type": "reference", "id": "s1"}, set())
+    assert written == 0
+
+
+def test_check_all_sources_skips_reference_sources_last_checked(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    main.save_sources(
+        [{"id": "source-ref", "type": "reference", "label": "Some Report", "value": "Some Report",
+          "berry_ids": [], "enabled": True, "last_checked_at": None, "last_status": None}]
+    )
+    summary = main.check_all_sources()
+    assert summary == {"sources_checked": 0, "items_written": 0}
+    assert main.load_sources()[0]["last_checked_at"] is None
+
+
+def test_sources_mark_checked_sets_reviewed_status(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    main.save_sources(
+        [{"id": "source-ref", "type": "reference", "label": "Some Report", "value": "Some Report",
+          "berry_ids": [], "enabled": True, "last_checked_at": None, "last_status": None}]
+    )
+    response = client.post("/sources/source-ref/mark-checked", follow_redirects=False)
+    assert response.status_code == 303
+    source = main.load_sources()[0]
+    assert source["last_status"] == "reviewed"
+    assert source["last_checked_at"] is not None
+
+
+def test_evidence_validate_bumps_source_validated_count(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    monkeypatch.setattr(main.httpx, "get", lambda *a, **k: _FakeResponse(FAKE_RSS))
+    main.save_sources(
+        [{"id": "source-test", "type": "rss", "label": "Fictional Trade Press",
+          "value": "https://example.invalid/feed.xml", "berry_ids": [], "enabled": True}]
+    )
+    main.check_source(main.load_sources()[0], set())
+    record_id = client.get("/api/feed").json()[0]["id"]
+
+    client.post(f"/evidence/{record_id}/validate")
+
+    assert main.load_sources()[0]["validated_count"] == 1
+
+
+def test_evidence_purge_bumps_source_purged_count_and_can_block_domain(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    monkeypatch.setattr(main.httpx, "get", lambda *a, **k: _FakeResponse(FAKE_RSS))
+    main.save_sources(
+        [{"id": "source-test", "type": "rss", "label": "Fictional Trade Press",
+          "value": "https://example.invalid/feed.xml", "berry_ids": [], "enabled": True}]
+    )
+    main.check_source(main.load_sources()[0], set())
+    record_id = client.get("/api/feed").json()[0]["id"]
+
+    client.post(f"/evidence/{record_id}/purge", data={"block_domain": "true"})
+
+    assert main.load_sources()[0]["purged_count"] == 1
+    assert "example.invalid" in main.load_blocked_domains()
+
+
+def test_check_source_skips_blocked_domains(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    monkeypatch.setattr(main.httpx, "get", lambda *a, **k: _FakeResponse(FAKE_RSS))
+    main.save_blocked_domains(["example.invalid"])
+
+    source = {"id": "source-test", "type": "rss", "label": "Fictional Trade Press",
+              "value": "https://example.invalid/feed.xml", "berry_ids": [], "enabled": True}
+    written = main.check_source(source, set())
+
+    assert written == 0
+    assert client.get("/api/feed").json() == []
+
+
+def test_sources_unblock_domain(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    main.save_blocked_domains(["example.invalid", "trendhunter.com"])
+
+    response = client.post("/sources/blocked-domains/example.invalid/remove", follow_redirects=False)
+
+    assert response.status_code == 303
+    assert main.load_blocked_domains() == ["trendhunter.com"]

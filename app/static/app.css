@@ -163,6 +163,15 @@ a{color:#3d5c94}
 .form-fieldset{border:1px solid #e3e7ef;border-radius:8px;padding:14px;margin:0;display:grid;gap:12px}
 .form-fieldset legend{font-weight:700;font-size:13px;color:#3c4a63;padding:0 4px}
 .checkbox-label{display:inline-flex;align-items:center;gap:6px;font-size:13px;margin-right:14px}
+
+.collapsible-form{margin:0 0 16px;border:1px solid #e3e7ef;border-radius:8px;padding:0 16px}
+.collapsible-form summary{cursor:pointer;font-weight:700;padding:12px 0;color:#173d70}
+.collapsible-form[open] summary{border-bottom:1px solid #eef1f6;margin-bottom:14px}
+.collapsible-form form{padding-bottom:16px}
+
+strong.level-high{color:#c0581a}
+strong.level-medium{color:#3d8c61}
+strong.level-low{color:#426aa8}
 .fact-row,.rel-row{border-top:1px solid #eef1f6;padding-top:10px}
 .fact-row:first-child,.rel-row:first-child{border-top:0;padding-top:0}
 .rel-row{grid-template-columns:1fr 1fr 1fr}

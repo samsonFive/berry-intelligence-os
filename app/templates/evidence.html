@@ -8,6 +8,7 @@
     {% if authoring_mode %}
       <form action="/evidence/{{ record.id }}/validate" method="post"><button type="submit">Validate</button></form>
       <form action="/evidence/{{ record.id }}/purge" method="post"><button type="submit">Purge</button></form>
+      <form action="/evidence/{{ record.id }}/purge" method="post"><input type="hidden" name="block_domain" value="true"><button type="submit">Purge &amp; block this domain</button></form>
     {% endif %}
   </div>
 {% endif %}

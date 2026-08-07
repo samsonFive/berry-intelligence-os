@@ -9,10 +9,10 @@ import secrets
 import shutil
 import sys
 from contextlib import asynccontextmanager
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
-from urllib.parse import quote
+from urllib.parse import quote, urlparse
 
 import feedparser
 import httpx
@@ -31,6 +31,17 @@ SCHEMAS_DIR = BASE_DIR / "schemas"
 # read-only / static deployment sets BIOS_MODE=readonly so write endpoints
 # are unavailable.
 AUTHORING_MODE = os.environ.get("BIOS_MODE", "authoring") == "authoring"
+
+# Off by default on purpose: the poll loop fires an immediate check as soon
+# as it starts (see source_polling_loop() below), so leaving this on by
+# default meant every plain dev-server restart during iteration silently
+# fired live network requests against every configured source and wrote
+# real evidence into the dataset -- discovered the hard way after seeding
+# ~40 keyword sources and restarting the app twice while testing a template
+# change, which produced over 1000 auto-captured records in minutes. A real
+# deployment that wants monitoring sets ENABLE_SOURCE_POLLING=true
+# explicitly; nothing else changes that decision on its behalf.
+SOURCE_POLLING_ENABLED = os.environ.get("ENABLE_SOURCE_POLLING", "").lower() in {"1", "true", "yes"}
 
 INTAKE_TYPES = {
     "article_or_url": "Article or URL",
@@ -78,20 +89,76 @@ SIGNAL_STRENGTHS = ["low", "medium", "high"]
 SIGNAL_STATUSES = ["active", "watch", "resolved"]
 PRIORITY_RANK = {"high": 0, "medium": 1, "low": 2, "none": 3}
 
-SOURCE_TYPES = {"rss": "RSS / Atom feed", "keyword": "Keyword search"}
+SOURCE_TYPES = {
+    "rss": "RSS / Atom feed",
+    "keyword": "Keyword search",
+    "reference": "Reference (manually reviewed)",
+}
 SOURCE_POLL_INTERVAL_SECONDS = 15 * 60
 SOURCE_FETCH_TIMEOUT_SECONDS = 15
 SOURCE_USER_AGENT = "berry-intelligence-os-source-monitor/1.0"
 SOURCE_MAX_NEW_ITEMS_PER_CHECK = 20
+
+# A source's own coverage-taxonomy fields (entity type, region, priority,
+# cadence). Deliberately separate from the entity/evidence system's own
+# taxonomies below:
+# - SOURCE_REGIONS is a coarser, self-declared "what does this outlet cover"
+#   tag (North America / South America / Europe / Asia-Pacific / Africa /
+#   Global), not the finer Americas/Europe/Oceania/Middle East & Africa
+#   REGIONS used for evidence/entities (derived from actual geography
+#   linkage via entity_regions()/evidence_regions()). Forcing sources onto
+#   that taxonomy would either lose the Americas-Africa/Asia-Pacific split
+#   this list needs or require reworking region filtering everywhere else
+#   for a directory feature that doesn't need that precision.
+SOURCE_ENTITY_TYPES = {
+    "breeding_program": "Breeding Program",
+    "genetics_company": "Genetics Company / IP Licensor",
+    "grower_marketer": "Grower-Marketer / Large-Scale Producer",
+    "nursery_propagator": "Nursery / Propagator",
+    "trade_association": "Trade Association / Industry Council",
+    "government_regulatory": "Government / Regulatory / Statistical Agency",
+    "trade_press": "Trade Press / News Outlet",
+    "market_research": "Market Research / Data Analytics",
+    "retailer_foodservice": "Retailer / Foodservice Buyer",
+    "academic_journal": "Academic Journal / Conference Proceeding",
+}
+SOURCE_REGIONS = {
+    "north_america": "North America",
+    "south_america": "South America",
+    "europe": "Europe",
+    "asia_pacific": "Asia-Pacific",
+    "africa": "Africa",
+    "global": "Global",
+}
+SOURCE_PRIORITIES = {"high": "High", "medium": "Medium", "low": "Low"}
+SOURCE_CADENCES = {
+    "realtime": "Real-time Filing",
+    "weekly": "Weekly News",
+    "biweekly": "Biweekly",
+    "monthly": "Monthly",
+    "quarterly": "Quarterly Data Release",
+    "annual": "Annual Report",
+    "event_driven": "Event-driven",
+}
+SOURCE_CADENCE_DAYS = {
+    "realtime": 1,
+    "weekly": 7,
+    "biweekly": 14,
+    "monthly": 30,
+    "quarterly": 90,
+    "annual": 365,
+    # event_driven has no fixed schedule -- never "due", only checked manually.
+}
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Never poll external sources during tests -- pytest importing this
     # module must not trigger real network calls. Real deployments always
-    # have "pytest" absent from sys.modules.
+    # have "pytest" absent from sys.modules. Also gated on
+    # SOURCE_POLLING_ENABLED, off by default -- see its definition above.
     task = None
-    if "pytest" not in sys.modules and AUTHORING_MODE:
+    if "pytest" not in sys.modules and AUTHORING_MODE and SOURCE_POLLING_ENABLED:
         task = asyncio.create_task(source_polling_loop())
     yield
     if task is not None:
@@ -709,6 +776,43 @@ def save_sources(sources: list[dict[str, Any]]) -> None:
     path.write_text(json.dumps(sources, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
+def bump_source_tally(source_id: str | None, field: str) -> None:
+    """Record a human Validate/Purge decision against the source that
+    captured the item -- the transparent, inspectable feedback signal this
+    project uses instead of a black-box relevance model: every count here
+    traces back to an actual reviewer decision on an actual item, visible
+    on the Sources page, not a learned score nobody can audit."""
+    if not source_id:
+        return
+    sources = load_sources()
+    for source in sources:
+        if source["id"] == source_id:
+            source[field] = source.get(field, 0) + 1
+            save_sources(sources)
+            return
+
+
+def blocked_domains_file() -> Path:
+    return DATA_DIR / "configuration" / "blocked_domains.json"
+
+
+def load_blocked_domains() -> list[str]:
+    path = blocked_domains_file()
+    if not path.exists():
+        return []
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def save_blocked_domains(domains: list[str]) -> None:
+    path = blocked_domains_file()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(sorted(set(domains)), indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def domain_of(url: str) -> str:
+    return urlparse(url).netloc.lower().removeprefix("www.")
+
+
 def new_source_id(label: str) -> str:
     stamp = datetime.now().strftime("%Y%m%d%H%M%S")
     suffix = secrets.token_hex(2)
@@ -718,6 +822,85 @@ def new_source_id(label: str) -> str:
 
 def google_news_rss_url(term: str) -> str:
     return f"https://news.google.com/rss/search?q={quote(term)}&hl=en-US&gl=US&ceid=US:en"
+
+
+def next_check_due(source: dict[str, Any]) -> str | None:
+    """When a source is next due for review, derived from update_cadence +
+    last_checked_at rather than stored -- so it's never stale relative to
+    whatever "today" actually is. None means "never due" (event-driven
+    cadence, or no cadence set), not "overdue"."""
+    cadence = source.get("update_cadence")
+    days = SOURCE_CADENCE_DAYS.get(cadence)
+    if days is None:
+        return None
+    last_checked = source.get("last_checked_at")
+    if not last_checked:
+        return date.today().isoformat()
+    try:
+        last_date = datetime.fromisoformat(last_checked).date()
+    except ValueError:
+        return date.today().isoformat()
+    return (last_date + timedelta(days=days)).isoformat()
+
+
+def source_is_due(source: dict[str, Any]) -> bool:
+    due = next_check_due(source)
+    return bool(due and due <= date.today().isoformat())
+
+
+def source_has_coverage_gap(source: dict[str, Any]) -> bool:
+    return not source.get("berry_ids") or not source.get("region_coverage")
+
+
+def filter_sources(
+    sources: list[dict[str, Any]],
+    entity_type: str | None = None,
+    berry: str | None = None,
+    region: str | None = None,
+    priority: str | None = None,
+    view: str | None = None,
+) -> list[dict[str, Any]]:
+    results = sources
+    if entity_type:
+        results = [s for s in results if entity_type in (s.get("entity_types") or [])]
+    if berry:
+        results = [s for s in results if berry in (s.get("berry_ids") or [])]
+    if region:
+        results = [s for s in results if region in (s.get("region_coverage") or [])]
+    if priority:
+        results = [s for s in results if s.get("monitoring_priority") == priority]
+    if view == "gaps":
+        results = [s for s in results if source_has_coverage_gap(s)]
+    elif view == "due":
+        results = [s for s in results if source_is_due(s)]
+    return results
+
+
+SOURCE_PRIORITY_RANK = {"high": 0, "medium": 1, "low": 2}
+
+
+def group_sources(sources: list[dict[str, Any]], group_by: str) -> list[tuple[str, list[dict[str, Any]]]]:
+    """Group already-filtered sources for display, sorted High-priority-first
+    within each group (per the spec's grouped views). A source with several
+    values for the grouping field (e.g. covers three berries) legitimately
+    appears in each of those groups -- that's the multi-select tagging
+    working as intended, not a duplicate bug."""
+    labels = {"berry": BERRIES, "region": SOURCE_REGIONS, "entity_type": SOURCE_ENTITY_TYPES}.get(
+        group_by, SOURCE_ENTITY_TYPES
+    )
+    key_field = {"berry": "berry_ids", "region": "region_coverage", "entity_type": "entity_types"}.get(
+        group_by, "entity_types"
+    )
+    sorted_sources = sorted(sources, key=lambda s: SOURCE_PRIORITY_RANK.get(s.get("monitoring_priority"), 3))
+
+    groups: dict[str, list[dict[str, Any]]] = {}
+    for source in sorted_sources:
+        keys = source.get(key_field) or []
+        if not keys:
+            groups.setdefault("Untagged", []).append(source)
+        for key in keys:
+            groups.setdefault(labels.get(key, key), []).append(source)
+    return sorted(groups.items(), key=lambda item: (item[0] == "Untagged", item[0]))
 
 
 def source_feed_url(source: dict[str, Any]) -> str:
@@ -759,6 +942,7 @@ def build_auto_evidence(entry: Any, source: dict[str, Any]) -> dict[str, Any]:
         "source_type": "rss_feed" if source.get("type") == "rss" else "news_search",
         "title": title,
         "source_name": source.get("label", ""),
+        "source_id": source.get("id"),
         "source_url": getattr(entry, "link", "") or "",
         "published_date": entry_published_date(entry),
         "captured_date": date.today().isoformat(),
@@ -796,21 +980,30 @@ def fetch_source_entries(source: dict[str, Any]) -> list[Any]:
     return list(parsed.entries or [])
 
 
-def check_source(source: dict[str, Any], seen_urls: set[str]) -> int:
+def check_source(source: dict[str, Any], seen_urls: set[str], blocked_domains: set[str] | None = None) -> int:
     """Fetch one source, write genuinely new evidence (capped per check), return count written.
 
     A broad first-time source (especially a keyword search) can match dozens
     of historical items at once; writing all of them in one pass would flood
     the feed. Anything past the cap is simply left unwritten and picked up
     on a later check, since it's still "new" until it's actually written.
+
+    Reference sources (annual reports, government statistics portals,
+    association reports -- most of the seeded source registry) have no feed
+    to fetch at all; they're tracked for review cadence, not polled.
     """
+    if source.get("type") == "reference":
+        return 0
     entries = fetch_source_entries(source)
+    blocked = load_blocked_domains() if blocked_domains is None else blocked_domains
     written = 0
     for entry in entries:
         if written >= SOURCE_MAX_NEW_ITEMS_PER_CHECK:
             break
         link = getattr(entry, "link", "") or ""
         if not link or link in seen_urls:
+            continue
+        if blocked and domain_of(link) in blocked:
             continue
         record = build_auto_evidence(entry, source)
         save_evidence(record)
@@ -822,19 +1015,25 @@ def check_source(source: dict[str, Any], seen_urls: set[str]) -> int:
 def check_all_sources() -> dict[str, Any]:
     sources = load_sources()
     seen_urls = existing_evidence_source_urls()
+    blocked_domains = set(load_blocked_domains())
     total_written = 0
+    checked = 0
     for source in sources:
-        if not source.get("enabled", True):
+        if not source.get("enabled", True) or source.get("type") == "reference":
+            # Reference sources have nothing to fetch; last_checked_at for
+            # them means "a human reviewed it", set only by the manual
+            # mark-checked action, never by the automated poll loop.
             continue
+        checked += 1
         source["last_checked_at"] = datetime.now().isoformat(timespec="seconds")
         try:
-            written = check_source(source, seen_urls)
+            written = check_source(source, seen_urls, blocked_domains)
             source["last_status"] = f"ok: {written} new item(s)" if written else "ok: no new items"
             total_written += written
         except Exception as exc:                       # noqa: BLE001
             source["last_status"] = f"error: {exc}"
     save_sources(sources)
-    return {"sources_checked": len(sources), "items_written": total_written}
+    return {"sources_checked": checked, "items_written": total_written}
 
 
 async def source_polling_loop() -> None:
@@ -1043,11 +1242,13 @@ def evidence_validate(record_id: str) -> RedirectResponse:
     record = json.loads(path.read_text(encoding="utf-8"))
     record["validated"] = True
     path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    if record.get("auto_captured"):
+        bump_source_tally(record.get("source_id"), "validated_count")
     return RedirectResponse(url=f"/evidence/{record_id}", status_code=303)
 
 
 @app.post("/evidence/{record_id}/purge")
-def evidence_purge(record_id: str) -> RedirectResponse:
+def evidence_purge(record_id: str, block_domain: bool = Form(False)) -> RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Purging evidence is only available in authoring mode")
     path = DATA_DIR / "evidence" / f"{record_id}.json"
@@ -1056,6 +1257,12 @@ def evidence_purge(record_id: str) -> RedirectResponse:
     record = json.loads(path.read_text(encoding="utf-8"))
     if not record.get("auto_captured"):
         raise HTTPException(status_code=400, detail="Purge is only available for auto-captured evidence")
+    if record.get("source_id"):
+        bump_source_tally(record["source_id"], "purged_count")
+    if block_domain and record.get("source_url"):
+        domains = load_blocked_domains()
+        domains.append(domain_of(record["source_url"]))
+        save_blocked_domains(domains)
     path.unlink()
     return RedirectResponse(url="/", status_code=303)
 
@@ -1406,18 +1613,68 @@ def signal_detail(request: Request, signal_id: str) -> HTMLResponse:
     )
 
 
+def sources_page_context(
+    entity_type: str | None,
+    berry: str | None,
+    region: str | None,
+    priority: str | None,
+    view: str | None,
+    group_by: str,
+    error: str | None,
+) -> dict[str, Any]:
+    all_sources = load_sources()
+    filtered = filter_sources(all_sources, entity_type=entity_type, berry=berry, region=region, priority=priority, view=view)
+    companies = sorted(
+        ({"id": e["id"], "name": e["name"]} for e in all_entities() if e.get("entity_type") == "company"),
+        key=lambda c: c["name"],
+    )
+    return {
+        "sources": filtered,
+        "total_count": len(all_sources),
+        "grouped_sources": group_sources(filtered, group_by),
+        "gaps_count": len([s for s in all_sources if source_has_coverage_gap(s)]),
+        "due_count": len([s for s in all_sources if source_is_due(s)]),
+        "source_types": SOURCE_TYPES,
+        "source_entity_types": SOURCE_ENTITY_TYPES,
+        "source_regions": SOURCE_REGIONS,
+        "source_priorities": SOURCE_PRIORITIES,
+        "source_cadences": SOURCE_CADENCES,
+        "berries": BERRIES,
+        "companies": companies,
+        "next_check_due": next_check_due,
+        "source_is_due": source_is_due,
+        "source_has_coverage_gap": source_has_coverage_gap,
+        "blocked_domains": load_blocked_domains(),
+        "filters": {
+            "entity_type": entity_type or "",
+            "berry": berry or "",
+            "region": region or "",
+            "priority": priority or "",
+            "view": view or "",
+            "group_by": group_by,
+        },
+        "poll_interval_minutes": SOURCE_POLL_INTERVAL_SECONDS // 60,
+        "source_polling_enabled": SOURCE_POLLING_ENABLED,
+        "error": error,
+        "authoring_mode": AUTHORING_MODE,
+    }
+
+
 @app.get("/sources", response_class=HTMLResponse)
-def sources_list(request: Request, error: str | None = None) -> HTMLResponse:
+def sources_list(
+    request: Request,
+    entity_type: str | None = None,
+    berry: str | None = None,
+    region: str | None = None,
+    priority: str | None = None,
+    view: str | None = None,
+    group_by: str = "entity_type",
+    error: str | None = None,
+) -> HTMLResponse:
     return templates.TemplateResponse(
         request=request,
         name="sources.html",
-        context={
-            "sources": load_sources(),
-            "source_types": SOURCE_TYPES,
-            "poll_interval_minutes": SOURCE_POLL_INTERVAL_SECONDS // 60,
-            "error": error,
-            "authoring_mode": AUTHORING_MODE,
-        },
+        context=sources_page_context(entity_type, berry, region, priority, view, group_by, error),
     )
 
 
@@ -1427,6 +1684,14 @@ def sources_add(
     type: str = Form(...),
     label: str = Form(""),
     value: str = Form(""),
+    url: str = Form(""),
+    why_it_matters: str = Form(""),
+    monitoring_priority: str = Form(""),
+    update_cadence: str = Form(""),
+    entity_types: list[str] = Form([]),
+    berry_ids: list[str] = Form([]),
+    region_coverage: list[str] = Form([]),
+    linked_competitor_ids: list[str] = Form([]),
 ) -> HTMLResponse | RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Adding sources is only available in authoring mode")
@@ -1434,13 +1699,10 @@ def sources_add(
         return templates.TemplateResponse(
             request=request,
             name="sources.html",
-            context={
-                "sources": load_sources(),
-                "source_types": SOURCE_TYPES,
-                "poll_interval_minutes": SOURCE_POLL_INTERVAL_SECONDS // 60,
-                "error": "Type, label, and value (feed URL or search term) are all required.",
-                "authoring_mode": AUTHORING_MODE,
-            },
+            context=sources_page_context(
+                None, None, None, None, None, "entity_type",
+                "Type, label, and value (feed URL or search term) are all required.",
+            ),
             status_code=400,
         )
     sources = load_sources()
@@ -1450,7 +1712,14 @@ def sources_add(
             "type": type,
             "label": label.strip(),
             "value": value.strip(),
-            "berry_ids": [],
+            "url": url.strip(),
+            "why_it_matters": why_it_matters.strip(),
+            "entity_types": [t for t in entity_types if t in SOURCE_ENTITY_TYPES],
+            "berry_ids": [b for b in berry_ids if b in BERRIES],
+            "region_coverage": [r for r in region_coverage if r in SOURCE_REGIONS],
+            "monitoring_priority": monitoring_priority if monitoring_priority in SOURCE_PRIORITIES else None,
+            "update_cadence": update_cadence if update_cadence in SOURCE_CADENCES else None,
+            "linked_competitor_ids": linked_competitor_ids,
             "enabled": True,
             "created_at": date.today().isoformat(),
             "last_checked_at": None,
@@ -1503,6 +1772,33 @@ def sources_check_now(source_id: str) -> RedirectResponse:
     else:
         raise HTTPException(status_code=404, detail="Source not found")
     save_sources(sources)
+    return RedirectResponse(url="/sources", status_code=303)
+
+
+@app.post("/sources/{source_id}/mark-checked")
+def sources_mark_checked(source_id: str) -> RedirectResponse:
+    """For reference-type sources: record that a human reviewed it, since
+    there's nothing to auto-fetch. Distinct from /check-now, which actually
+    fetches and writes evidence for rss/keyword sources."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Managing sources is only available in authoring mode")
+    sources = load_sources()
+    for source in sources:
+        if source["id"] == source_id:
+            source["last_checked_at"] = datetime.now().isoformat(timespec="seconds")
+            source["last_status"] = "reviewed"
+            break
+    else:
+        raise HTTPException(status_code=404, detail="Source not found")
+    save_sources(sources)
+    return RedirectResponse(url="/sources", status_code=303)
+
+
+@app.post("/sources/blocked-domains/{domain}/remove")
+def sources_unblock_domain(domain: str) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Managing sources is only available in authoring mode")
+    save_blocked_domains([d for d in load_blocked_domains() if d != domain])
     return RedirectResponse(url="/sources", status_code=303)
 
 

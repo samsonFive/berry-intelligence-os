@@ -16,53 +16,221 @@
   <div class="banner banner-error" role="alert">{{ error }}</div>
 {% endif %}
 
-<p class="result-count">Checked automatically every {{ poll_interval_minutes }} minutes while the app is running. New items land directly in the newsfeed, marked unvalidated until you confirm or purge them. Each check writes at most 20 new items per source, so a broad first check trickles in over a few cycles instead of flooding the feed at once.</p>
+{% if source_polling_enabled %}
+  <p class="result-count">RSS/keyword sources are checked automatically every {{ poll_interval_minutes }} minutes; matching items land directly in the newsfeed, marked unvalidated until you confirm or purge them (at most 20 new items per source per check, so a broad first check trickles in over a few cycles). Reference sources (annual reports, government data, association publications) aren't polled — mark them checked manually after you review them.</p>
+{% else %}
+  <div class="banner banner-warning" role="status">Automatic polling is off (set <code>ENABLE_SOURCE_POLLING=true</code> to turn it on for a real deployment). Use "Check now" on any RSS/keyword source below to fetch it manually — nothing runs in the background on a plain restart.</div>
+{% endif %}
 
-<form class="intake-form" action="/sources" method="post">
-  <div class="form-row">
-    <div class="form-field">
-      <label for="type">Type</label>
-      <select id="type" name="type">
-        {% for key, label in source_types.items() %}
-          <option value="{{ key }}">{{ label }}</option>
-        {% endfor %}
-      </select>
-    </div>
-    <div class="form-field">
-      <label for="label">Label</label>
-      <input id="label" name="label" type="text" required placeholder="e.g. Fresh Fruit Portal, or 'blueberry licensing'">
-    </div>
+<form class="filters" action="/sources" method="get" aria-label="Filter sources">
+  <div class="filter-field">
+    <label for="filter-entity-type">Entity type</label>
+    <select id="filter-entity-type" name="entity_type">
+      <option value="">All entity types</option>
+      {% for key, label in source_entity_types.items() %}
+        <option value="{{ key }}" {% if filters.entity_type == key %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
   </div>
-  <div class="form-field">
-    <label for="value">Feed URL or search term</label>
-    <input id="value" name="value" type="text" required placeholder="https://example.com/feed.xml — or a keyword phrase">
+  <div class="filter-field">
+    <label for="filter-berry">Berry</label>
+    <select id="filter-berry" name="berry">
+      <option value="">All berries</option>
+      {% for berry_id, label in berries.items() %}
+        <option value="{{ berry_id }}" {% if filters.berry == berry_id %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
   </div>
-  <div class="form-actions">
-    <button type="submit">Add source</button>
+  <div class="filter-field">
+    <label for="filter-region">Region</label>
+    <select id="filter-region" name="region">
+      <option value="">All regions</option>
+      {% for key, label in source_regions.items() %}
+        <option value="{{ key }}" {% if filters.region == key %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="filter-field">
+    <label for="filter-priority">Priority</label>
+    <select id="filter-priority" name="priority">
+      <option value="">All priorities</option>
+      {% for key, label in source_priorities.items() %}
+        <option value="{{ key }}" {% if filters.priority == key %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="filter-field">
+    <label for="filter-group-by">Group by</label>
+    <select id="filter-group-by" name="group_by">
+      <option value="entity_type" {% if filters.group_by == 'entity_type' %}selected{% endif %}>Entity type</option>
+      <option value="berry" {% if filters.group_by == 'berry' %}selected{% endif %}>Berry</option>
+      <option value="region" {% if filters.group_by == 'region' %}selected{% endif %}>Region</option>
+    </select>
+  </div>
+  <input type="hidden" name="view" value="{{ filters.view }}">
+  <div class="filter-actions">
+    <button type="submit">Apply filters</button>
+    <a href="/sources">Clear</a>
   </div>
 </form>
 
-<section class="entity-list">
-  {% for source in sources %}
-    <article class="card entity-card">
-      <div class="card-header">
-        <span class="badge badge-muted">{{ source_types.get(source.type, source.type)|upper }}</span>
-        <span class="badge {% if source.enabled %}badge-status-active{% else %}badge-muted{% endif %}">{{ "enabled" if source.enabled else "paused" }}</span>
+<p class="result-count">
+  Showing {{ sources|length }} of {{ total_count }} sources
+  {% if filters.view == 'gaps' %}— Coverage Gaps view (missing berry or region tags){% elif filters.view == 'due' %}— Due for Review view{% endif %}
+  · <a href="/sources?view=gaps">Coverage gaps ({{ gaps_count }})</a>
+  · <a href="/sources?view=due">Due for review ({{ due_count }})</a>
+  {% if filters.view %}· <a href="/sources">Clear view</a>{% endif %}
+</p>
+
+{% if blocked_domains %}
+  <details class="collapsible-form">
+    <summary>Blocked domains ({{ blocked_domains|length }})</summary>
+    <div class="tags" style="padding:14px 0">
+      {% for domain in blocked_domains %}
+        <form action="/sources/blocked-domains/{{ domain }}/remove" method="post" style="display:inline">
+          <span>{{ domain }} <button type="submit" title="Unblock">&times;</button></span>
+        </form>
+      {% endfor %}
+    </div>
+  </details>
+{% endif %}
+
+<details class="collapsible-form">
+  <summary>Add a source</summary>
+  <form class="intake-form" action="/sources" method="post">
+    <div class="form-row">
+      <div class="form-field">
+        <label for="type">Type</label>
+        <select id="type" name="type">
+          {% for key, label in source_types.items() %}
+            <option value="{{ key }}">{{ label }}</option>
+          {% endfor %}
+        </select>
       </div>
-      <h2>{{ source.label }}</h2>
-      <p>{{ source.value }}</p>
-      <p class="draft-meta">
-        {% if source.last_checked_at %}Last checked {{ source.last_checked_at }} — {{ source.last_status }}{% else %}Never checked yet{% endif %}
-      </p>
-      <div class="form-actions">
-        <form action="/sources/{{ source.id }}/check-now" method="post"><button type="submit">Check now</button></form>
-        <form action="/sources/{{ source.id }}/toggle" method="post"><button type="submit">{{ "Pause" if source.enabled else "Resume" }}</button></form>
-        <form action="/sources/{{ source.id }}/delete" method="post"><button type="submit">Remove</button></form>
+      <div class="form-field">
+        <label for="label">Label</label>
+        <input id="label" name="label" type="text" required placeholder="e.g. Fresh Fruit Portal">
       </div>
-    </article>
+    </div>
+    <div class="form-field">
+      <label for="value">Feed URL, search term, or homepage URL</label>
+      <input id="value" name="value" type="text" required placeholder="https://example.com/feed.xml — a keyword phrase — or a homepage URL for a reference source">
+    </div>
+    <div class="form-field">
+      <label for="url">URL / contact (optional, if different from above)</label>
+      <input id="url" name="url" type="text" placeholder="https://example.com">
+    </div>
+    <div class="form-field">
+      <label for="why_it_matters">Why it matters</label>
+      <textarea id="why_it_matters" name="why_it_matters" rows="2" placeholder="What unique signal does this source provide, and what decision does it support?"></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <label for="monitoring_priority">Monitoring priority</label>
+        <select id="monitoring_priority" name="monitoring_priority">
+          <option value="">—</option>
+          {% for key, label in source_priorities.items() %}
+            <option value="{{ key }}">{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="update_cadence">Update cadence</label>
+        <select id="update_cadence" name="update_cadence">
+          <option value="">—</option>
+          {% for key, label in source_cadences.items() %}
+            <option value="{{ key }}">{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <fieldset class="form-fieldset">
+      <legend>Entity type</legend>
+      {% for key, label in source_entity_types.items() %}
+        <label class="checkbox-label"><input type="checkbox" name="entity_types" value="{{ key }}"> {{ label }}</label>
+      {% endfor %}
+    </fieldset>
+    <fieldset class="form-fieldset">
+      <legend>Berry coverage</legend>
+      {% for berry_id, label in berries.items() %}
+        <label class="checkbox-label"><input type="checkbox" name="berry_ids" value="{{ berry_id }}"> {{ label }}</label>
+      {% endfor %}
+    </fieldset>
+    <fieldset class="form-fieldset">
+      <legend>Region coverage</legend>
+      {% for key, label in source_regions.items() %}
+        <label class="checkbox-label"><input type="checkbox" name="region_coverage" value="{{ key }}"> {{ label }}</label>
+      {% endfor %}
+    </fieldset>
+    <div class="form-field">
+      <label for="linked_competitor_ids">Linked competitors (optional)</label>
+      <select id="linked_competitor_ids" name="linked_competitor_ids" multiple size="6">
+        {% for c in companies %}
+          <option value="{{ c.id }}">{{ c.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-actions">
+      <button type="submit">Add source</button>
+    </div>
+  </form>
+</details>
+
+{% for group_label, group_sources in grouped_sources %}
+  <h2>{{ group_label }} ({{ group_sources|length }})</h2>
+  <section class="entity-list">
+    {% for source in group_sources %}
+      <article class="card entity-card">
+        <div class="card-header">
+          <span class="badge badge-muted">{{ source_types.get(source.type, source.type)|upper }}</span>
+          {% if source.monitoring_priority %}
+            <strong class="level-{{ source.monitoring_priority }}">{{ source.monitoring_priority }}</strong>
+          {% endif %}
+          <span class="badge {% if source.enabled %}badge-status-active{% else %}badge-muted{% endif %}">{{ "enabled" if source.enabled else "paused" }}</span>
+          {% if source_has_coverage_gap(source) %}<span class="badge badge-muted">coverage gap</span>{% endif %}
+        </div>
+        <h2>{{ source.label }}</h2>
+        {% set why_lines = source.why_it_matters|as_bullets %}
+        {% if why_lines|length > 1 %}
+          <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+        {% elif source.why_it_matters %}
+          <p>{{ source.why_it_matters }}</p>
+        {% endif %}
+        <p class="draft-meta">{{ source.value }}{% if source.url and source.url != source.value %} · <a href="{{ source.url }}">{{ source.url }}</a>{% endif %}</p>
+        {% if source.entity_types or source.berry_ids or source.region_coverage %}
+          <div class="tags">
+            {% for t in source.entity_types %}<span>{{ source_entity_types.get(t, t) }}</span>{% endfor %}
+            {% for b in source.berry_ids %}<span>{{ berries.get(b, b) }}</span>{% endfor %}
+            {% for r in source.region_coverage %}<span>{{ source_regions.get(r, r) }}</span>{% endfor %}
+          </div>
+        {% endif %}
+        <p class="draft-meta">
+          {% if source.update_cadence %}{{ source_cadences.get(source.update_cadence, source.update_cadence) }} · {% endif %}
+          {% if source.last_checked_at %}Last checked {{ source.last_checked_at[:10]|us_date }}{% else %}Never checked yet{% endif %}
+          {% set due = next_check_due(source) %}
+          {% if due %} · Next due {{ due|us_date }}{% if source_is_due(source) %} <strong class="level-high">overdue</strong>{% endif %}{% endif %}
+          {% if source.last_status %} · {{ source.last_status }}{% endif %}
+          {% if source.validated_count or source.purged_count %} · {{ source.validated_count or 0 }} validated / {{ source.purged_count or 0 }} purged{% endif %}
+        </p>
+        <div class="form-actions">
+          {% if source.type == 'reference' %}
+            <form action="/sources/{{ source.id }}/mark-checked" method="post"><button type="submit">Mark checked</button></form>
+          {% else %}
+            <form action="/sources/{{ source.id }}/check-now" method="post"><button type="submit">Check now</button></form>
+          {% endif %}
+          <form action="/sources/{{ source.id }}/toggle" method="post"><button type="submit">{{ "Pause" if source.enabled else "Resume" }}</button></form>
+          <form action="/sources/{{ source.id }}/delete" method="post"><button type="submit">Remove</button></form>
+        </div>
+      </article>
+    {% endfor %}
+  </section>
+{% else %}
+  {% if total_count == 0 %}
+    <p class="empty-state">No sources yet. Add an RSS/Atom feed, a keyword to search for, or a reference source to track.</p>
   {% else %}
-    <p class="empty-state">No sources yet. Add an RSS/Atom feed URL, or a keyword to search for.</p>
-  {% endfor %}
-</section>
+    <p class="empty-state">No sources match the current filters.</p>
+  {% endif %}
+{% endfor %}
+
 {% endif %}
 {% endblock %}

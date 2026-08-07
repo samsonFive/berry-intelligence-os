@@ -1,1 +1,2964 @@
-[]
+[
+  {
+    "id": "source-20260806173428-a8b4-michigan-state-university-blueberry-bree-0",
+    "type": "reference",
+    "label": "Michigan State University Blueberry Breeding Program",
+    "value": "https://www.canr.msu.edu/blueberries/",
+    "url": "https://www.canr.msu.edu/blueberries/",
+    "why_it_matters": "Public breeding program of record for 'Draper', 'Aurora', 'Liberty' and 'Osorno' -- the origin point for genetics Hortifrut licenses commercially; tracks new MSU releases before they reach commercial licensees.",
+    "entity_types": [
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:27:51",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-04d0-berry-blue-llc-1",
+    "type": "reference",
+    "label": "Berry Blue, LLC",
+    "value": "Berry Blue, LLC",
+    "url": "",
+    "why_it_matters": "Hortifrut/Michigan Blueberry Growers breeding joint venture behind 'Prelude', 'Daybreak', 'Stellar', 'Candycrunch' and 'Apolo' -- direct source for licensing terms and new variety announcements from one of the largest blueberry genetics platforms.",
+    "entity_types": [
+      "genetics_company",
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:27:52",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-071f-hortifrut-genetica-pmg-2",
+    "type": "reference",
+    "label": "Hortifrut Genetica (PMG)",
+    "value": "https://www.hortifrut.com/innovation/genetic-development/",
+    "url": "https://www.hortifrut.com/innovation/genetic-development/",
+    "why_it_matters": "Hortifrut's own global genetic improvement program page -- primary source for the company's own account of its breeding activity, useful for cross-checking against third-party reporting on the same claims.",
+    "entity_types": [
+      "genetics_company"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "south_america",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:27:52",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-5498-fall-creek-farm-nursery-3",
+    "type": "reference",
+    "label": "Fall Creek Farm & Nursery",
+    "value": "https://www.fallcreeknursery.com",
+    "url": "https://www.fallcreeknursery.com",
+    "why_it_matters": "Global blueberry nursery and genetics licensor behind the SEKOYA platform; catalogue and press releases are the fastest way to see new variety commercialization before independent coverage appears.",
+    "entity_types": [
+      "genetics_company",
+      "nursery_propagator"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:27:53",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-ece4-spanish-royal-berry-program-4",
+    "type": "reference",
+    "label": "Spanish Royal Berry Program",
+    "value": "Spanish Royal Berry Program",
+    "url": "",
+    "why_it_matters": "Licensor of record for 'Rocio' and 'Corona', which Hortifrut licenses exclusively for the Americas -- tracks the licensing terms and territory scope at the source rather than through a licensee's paraphrase.",
+    "entity_types": [
+      "genetics_company",
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "europe"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:27:55",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-2616-global-plant-genetics-gpg-5",
+    "type": "reference",
+    "label": "Global Plant Genetics (GPG)",
+    "value": "https://www.globalplantgenetics.com",
+    "url": "https://www.globalplantgenetics.com",
+    "why_it_matters": "Commercial IP/licensing platform spanning blueberry, raspberry, blackberry and strawberry genetics -- a cross-berry licensing signal that most single-berry sources can't provide.",
+    "entity_types": [
+      "genetics_company"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:27:55",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-386e-university-of-georgia-blueberry-breeding-6",
+    "type": "reference",
+    "label": "University of Georgia Blueberry Breeding Program",
+    "value": "University of Georgia Blueberry Breeding Program",
+    "url": "",
+    "why_it_matters": "Public southern highbush breeding program independent of the commercial licensors -- a check on whether a given trait or release claim originates from public or proprietary genetics.",
+    "entity_types": [
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:27:59",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-93aa-university-of-florida-blueberry-breeding-7",
+    "type": "reference",
+    "label": "University of Florida Blueberry Breeding Program",
+    "value": "https://blueberrybreeding.ifas.ufl.edu",
+    "url": "https://blueberrybreeding.ifas.ufl.edu",
+    "why_it_matters": "Public breeding program for low-chill southern highbush cultivars adapted to Florida; releases are licensed through Florida Foundation Seed Producers, so this is the upstream source for FFSP's catalogue.",
+    "entity_types": [
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:27:59",
+    "last_status": "error: [Errno 11001] getaddrinfo failed"
+  },
+  {
+    "id": "source-20260806173428-669a-plant-food-research-new-zealand-blueberr-8",
+    "type": "reference",
+    "label": "Plant & Food Research (New Zealand) Blueberry Genetics",
+    "value": "https://www.plantandfood.com",
+    "url": "https://www.plantandfood.com",
+    "why_it_matters": "Southern Hemisphere public breeding program -- coverage most Northern-Hemisphere-focused sources miss entirely, relevant to counter-seasonal supply and Oceania variety licensing.",
+    "entity_types": [
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "asia_pacific",
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:27:59",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-68b7-bc-berry-genetics-9",
+    "type": "reference",
+    "label": "BC Berry Genetics",
+    "value": "BC Berry Genetics",
+    "url": "",
+    "why_it_matters": "British Columbia-based blueberry genetics source; regional counterpoint to the larger US/Chile-centered licensors.",
+    "entity_types": [
+      "genetics_company"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "low",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:00",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-21d3-pacific-berry-breeding-pbb-10",
+    "type": "reference",
+    "label": "Pacific Berry Breeding (PBB)",
+    "value": "Pacific Berry Breeding (PBB)",
+    "url": "",
+    "why_it_matters": "Hortifrut/Naturipe joint venture for raspberry and blackberry genetics based in Watsonville, CA -- the raspberry/blackberry counterpart to Berry Blue's blueberry role, same two-parent ownership structure worth tracking for consistency.",
+    "entity_types": [
+      "genetics_company",
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-raspberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:00",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-876d-niab-emr-east-malling-research-11",
+    "type": "reference",
+    "label": "NIAB EMR (East Malling Research)",
+    "value": "https://www.niab.com/research/niab-emr",
+    "url": "https://www.niab.com/research/niab-emr",
+    "why_it_matters": "UK public raspberry breeding institution; primary source for European raspberry genetics independent of the Total Berry/Meiosis commercial licensing chain.",
+    "entity_types": [
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-raspberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "europe"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:01",
+    "last_status": "error: Client error '404 Not Found' for url 'https://www.niab.com/research/niab-emr'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+  },
+  {
+    "id": "source-20260806173428-5767-james-hutton-institute-12",
+    "type": "reference",
+    "label": "James Hutton Institute",
+    "value": "https://www.hutton.ac.uk",
+    "url": "https://www.hutton.ac.uk",
+    "why_it_matters": "Scottish raspberry and blackberry breeding program that licenses its own IP -- both the origin source and a licensor, useful for tracking new releases before Meiosis commercializes them.",
+    "entity_types": [
+      "breeding_program",
+      "genetics_company"
+    ],
+    "berry_ids": [
+      "berry-raspberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "europe"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:02",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-e298-meiosis-ltd-13",
+    "type": "reference",
+    "label": "Meiosis Ltd",
+    "value": "Meiosis Ltd",
+    "url": "",
+    "why_it_matters": "Commercializes James Hutton Institute varieties -- the licensing/commercial layer on top of Hutton's public breeding output; tracks which varieties actually reach growers and on what terms.",
+    "entity_types": [
+      "genetics_company"
+    ],
+    "berry_ids": [
+      "berry-raspberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "europe"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:04",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-5c57-total-berry-14",
+    "type": "reference",
+    "label": "Total Berry",
+    "value": "Total Berry",
+    "url": "",
+    "why_it_matters": "Spain-based, Meiosis-affiliated raspberry/blackberry genetics distributor -- the Iberian commercialization point for Hutton-derived varieties.",
+    "entity_types": [
+      "genetics_company"
+    ],
+    "berry_ids": [
+      "berry-raspberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "europe"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:05",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-e364-uc-davis-strawberry-breeding-research-pr-15",
+    "type": "reference",
+    "label": "UC Davis Strawberry Breeding & Research Program",
+    "value": "https://strawberry.ucdavis.edu/breeding",
+    "url": "https://strawberry.ucdavis.edu/breeding",
+    "why_it_matters": "30+ patented varieties licensed via Fresa Fortaleza and Global Plant Genetics -- the single most consequential public strawberry breeding program by commercial reach; new releases here reshape licensing terms industry-wide.",
+    "entity_types": [
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:05",
+    "last_status": "error: Client error '403 Forbidden' for url 'https://strawberry.ucdavis.edu/breeding'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403"
+  },
+  {
+    "id": "source-20260806173428-3059-university-of-florida-strawberry-breedin-16",
+    "type": "reference",
+    "label": "University of Florida Strawberry Breeding Program",
+    "value": "University of Florida Strawberry Breeding Program",
+    "url": "",
+    "why_it_matters": "Whitaker/Peres/Lee program developing low-chill southern strawberry cultivars -- the Florida counterpart to UC Davis, relevant for winter/early-season supply.",
+    "entity_types": [
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:06",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-cccb-plant-sciences-inc-17",
+    "type": "reference",
+    "label": "Plant Sciences Inc.",
+    "value": "Plant Sciences Inc.",
+    "url": "",
+    "why_it_matters": "California commercial strawberry genetics and nursery operation -- a private-sector counterweight to the UC Davis public program, useful for spotting where proprietary genetics are displacing public varieties.",
+    "entity_types": [
+      "genetics_company",
+      "nursery_propagator"
+    ],
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:06",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-9e68-driscoll-s-proprietary-strawberry-breedi-18",
+    "type": "reference",
+    "label": "Driscoll's Proprietary Strawberry Breeding Program",
+    "value": "Driscoll's Proprietary Strawberry Breeding Program",
+    "url": "",
+    "why_it_matters": "Driscoll's closed-genetics strawberry program -- the largest fully proprietary strawberry breeding effort; unlike UC Davis or UF, its releases never reach competitors, so tracking it is about competitive positioning, not licensing.",
+    "entity_types": [
+      "genetics_company",
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:06",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-5f03-california-giant-berry-farms-breeding-pa-19",
+    "type": "reference",
+    "label": "California Giant Berry Farms Breeding Partnerships",
+    "value": "California Giant Berry Farms Breeding Partnerships",
+    "url": "",
+    "why_it_matters": "Grower-marketer with its own breeding partnerships across three berries -- a demand-side signal for which genetics are actually being planted at scale, not just announced.",
+    "entity_types": [
+      "grower_marketer"
+    ],
+    "berry_ids": [
+      "berry-strawberry",
+      "berry-blackberry",
+      "berry-raspberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:07",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-c804-fresa-fortaleza-20",
+    "type": "reference",
+    "label": "Fresa Fortaleza",
+    "value": "Fresa Fortaleza",
+    "url": "",
+    "why_it_matters": "Commercialization partner for UC Davis strawberry varieties -- the licensing/distribution layer that determines which growers actually get access to new UC releases and on what terms.",
+    "entity_types": [
+      "genetics_company"
+    ],
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "south_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:07",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-099e-spanish-strawberry-breeding-programs-pla-21",
+    "type": "reference",
+    "label": "Spanish Strawberry Breeding Programs (Planasa, FNM/Huelva)",
+    "value": "Spanish Strawberry Breeding Programs (Planasa, FNM/Huelva)",
+    "url": "",
+    "why_it_matters": "Planasa and Fresas Nuevos Materiales cover the Huelva region, the dominant European strawberry production area -- the European counterpart to the US public/private breeding split.",
+    "entity_types": [
+      "breeding_program",
+      "genetics_company"
+    ],
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "europe"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:08",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-ae24-university-of-arkansas-fruit-breeding-pr-22",
+    "type": "reference",
+    "label": "University of Arkansas Fruit Breeding Program",
+    "value": "https://aaes.uada.edu/fruit-research/",
+    "url": "https://aaes.uada.edu/fruit-research/",
+    "why_it_matters": "World's largest public blackberry program (Worthington/Clark), 43+ varieties released including the Prime-Ark(R) and Sweet-Ark(TM) series -- the single most important blackberry genetics source globally; almost every commercial blackberry variety traces back here.",
+    "entity_types": [
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:08",
+    "last_status": "error: Client error '404 Not Found' for url 'https://aaes.uada.edu/fruit-research/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+  },
+  {
+    "id": "source-20260806173428-9593-emco-cal-23",
+    "type": "reference",
+    "label": "EMCO CAL",
+    "value": "https://www.emcocal.com",
+    "url": "https://www.emcocal.com",
+    "why_it_matters": "International variety development and trial partner for University of Arkansas blackberry germplasm -- tracks which Arkansas selections are actually being trialed and commercialized outside the US.",
+    "entity_types": [
+      "genetics_company"
+    ],
+    "berry_ids": [
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "europe"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:10",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-bc96-driscoll-s-proprietary-blackberry-breedi-24",
+    "type": "reference",
+    "label": "Driscoll's Proprietary Blackberry Breeding",
+    "value": "Driscoll's Proprietary Blackberry Breeding",
+    "url": "",
+    "why_it_matters": "Driscoll's closed blackberry genetics program -- the proprietary counterpart to the Arkansas public program, same competitive-positioning rationale as its strawberry program.",
+    "entity_types": [
+      "genetics_company",
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:12",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-e254-driscoll-s-25",
+    "type": "reference",
+    "label": "Driscoll's",
+    "value": "Driscoll's",
+    "url": "",
+    "why_it_matters": "Largest global berry marketer across all four berries with closed proprietary genetics on each -- the single most important company to monitor for competitive positioning across the whole category.",
+    "entity_types": [
+      "grower_marketer",
+      "genetics_company"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "south_america",
+      "europe",
+      "asia_pacific",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:12",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-dd29-naturipe-farms-berries-26",
+    "type": "reference",
+    "label": "Naturipe Farms/Berries",
+    "value": "Naturipe Farms/Berries",
+    "url": "",
+    "why_it_matters": "US grower-marketer cooperative across all four berries, co-owner of Pacific Berry Breeding -- tracks demand-side and genetics-access signals from a Driscoll's competitor of comparable scale.",
+    "entity_types": [
+      "grower_marketer"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:13",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-5266-hortifrut-s-a-27",
+    "type": "reference",
+    "label": "Hortifrut S.A.",
+    "value": "https://www.hortifrut.com",
+    "url": "https://www.hortifrut.com",
+    "why_it_matters": "Chile-based global blueberry leader and Berry Blue/Atlantic Blue genetics owner -- already the most evidence-rich entity in this dataset; investor filings and press releases are the highest-signal primary source for its own M&A and genetics activity.",
+    "entity_types": [
+      "grower_marketer",
+      "genetics_company"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "south_america",
+      "europe",
+      "asia_pacific",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:13",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-6b33-california-giant-berry-farms-28",
+    "type": "reference",
+    "label": "California Giant Berry Farms",
+    "value": "California Giant Berry Farms",
+    "url": "",
+    "why_it_matters": "Three-berry grower-marketer, listed separately here for its marketing/demand-side reporting distinct from its breeding partnerships entry above.",
+    "entity_types": [
+      "grower_marketer"
+    ],
+    "berry_ids": [
+      "berry-strawberry",
+      "berry-blackberry",
+      "berry-raspberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:14",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-20ae-sunnyridge-farm-29",
+    "type": "reference",
+    "label": "SunnyRidge Farm",
+    "value": "SunnyRidge Farm",
+    "url": "",
+    "why_it_matters": "Blueberry-focused grower-marketer with Southern Hemisphere counter-season sourcing -- a mid-size competitor signal distinct from the Hortifrut/Driscoll's/Naturipe majors.",
+    "entity_types": [
+      "grower_marketer"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "south_america"
+    ],
+    "monitoring_priority": "low",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:15",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-42ce-munger-farms-30",
+    "type": "reference",
+    "label": "Munger Farms",
+    "value": "Munger Farms",
+    "url": "",
+    "why_it_matters": "California/Chile blueberry grower -- tracks a specific US-Chile vertically integrated supply chain.",
+    "entity_types": [
+      "grower_marketer"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "south_america"
+    ],
+    "monitoring_priority": "low",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:15",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-95db-agrovision-camposol-31",
+    "type": "reference",
+    "label": "Agrovision / Camposol",
+    "value": "Agrovision / Camposol",
+    "url": "",
+    "why_it_matters": "Peru-based blueberry grower (rebranded Fruitist in 2025) diversifying into avocado -- already evidence-rich in this dataset for its founding-year discrepancy and Fruitist rebrand; ongoing filings would resolve the open questions already on record.",
+    "entity_types": [
+      "grower_marketer"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "south_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:15",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-f0ea-superfrost-frusan-32",
+    "type": "reference",
+    "label": "Superfrost / Frusan",
+    "value": "Superfrost / Frusan",
+    "url": "",
+    "why_it_matters": "Chilean export-side operator -- a logistics/export-volume signal distinct from the grower-genetics sources above.",
+    "entity_types": [
+      "grower_marketer"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "south_america"
+    ],
+    "monitoring_priority": "low",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:16",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-1112-berryworld-group-33",
+    "type": "reference",
+    "label": "BerryWorld Group",
+    "value": "BerryWorld Group",
+    "url": "",
+    "why_it_matters": "UK/global marketing alliance already on record in this dataset for its Mountain Blue-derived retail brand family (BerryWorld Eureka, Twilight, etc.) -- the primary source for how Mountain Blue genetics get rebranded at retail.",
+    "entity_types": [
+      "grower_marketer"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "europe",
+      "africa",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:16",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-cc68-costa-group-34",
+    "type": "reference",
+    "label": "Costa Group",
+    "value": "Costa Group",
+    "url": "",
+    "why_it_matters": "Australian berry grower and owner of the BluGenix breeding platform -- already evidence-rich in this dataset (2024 consortium takeover, delisting); ongoing coverage would track the post-takeover ownership structure.",
+    "entity_types": [
+      "grower_marketer",
+      "genetics_company"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "asia_pacific"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:16",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-5688-family-tree-farms-35",
+    "type": "reference",
+    "label": "Family Tree Farms",
+    "value": "Family Tree Farms",
+    "url": "",
+    "why_it_matters": "California stone fruit grower diversifying into berries -- a new-entrant signal worth tracking for how outside growers enter the category.",
+    "entity_types": [
+      "grower_marketer"
+    ],
+    "berry_ids": [
+      "berry-strawberry",
+      "berry-blackberry",
+      "berry-raspberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "low",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:17",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-266d-dandong-region-strawberry-cooperatives-c-36",
+    "type": "reference",
+    "label": "Dandong Region Strawberry Cooperatives (China)",
+    "value": "Dandong Region Strawberry Cooperatives (China)",
+    "url": "",
+    "why_it_matters": "Domestic Chinese strawberry production cluster -- one of the only entries in this list covering Chinese strawberry supply directly rather than through export/import statistics.",
+    "entity_types": [
+      "grower_marketer"
+    ],
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "asia_pacific"
+    ],
+    "monitoring_priority": "low",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:17",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-041b-vidafresh-t-g-global-37",
+    "type": "reference",
+    "label": "VidaFresh / T&G Global",
+    "value": "VidaFresh / T&G Global",
+    "url": "",
+    "why_it_matters": "New Zealand grower-marketer -- Southern Hemisphere, counter-season supply signal across multiple berries.",
+    "entity_types": [
+      "grower_marketer"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "asia_pacific"
+    ],
+    "monitoring_priority": "low",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:18",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-6938-international-blueberry-organization-ibo-38",
+    "type": "reference",
+    "label": "International Blueberry Organization (IBO)",
+    "value": "https://www.internationalblueberry.org",
+    "url": "https://www.internationalblueberry.org",
+    "why_it_matters": "Represents 90%+ of world blueberry production and publishes the annual Global State of the Blueberry Industry report -- the single highest-authority global blueberry production and acreage dataset available.",
+    "entity_types": [
+      "trade_association"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "annual",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:18",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-030a-u-s-highbush-blueberry-council-ushbc-39",
+    "type": "reference",
+    "label": "U.S. Highbush Blueberry Council (USHBC)",
+    "value": "https://ushbc.blueberry.org",
+    "url": "https://ushbc.blueberry.org",
+    "why_it_matters": "US blueberry demand promotion body with its own business intelligence dashboards -- a demand-side and consumption-trend signal that supply-side sources (breeders, growers) don't provide.",
+    "entity_types": [
+      "trade_association",
+      "market_research"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:23",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-ad21-north-american-blueberry-council-nabc-40",
+    "type": "reference",
+    "label": "North American Blueberry Council (NABC)",
+    "value": "https://nabc.blueberry.org",
+    "url": "https://nabc.blueberry.org",
+    "why_it_matters": "US/Canada blueberry industry advocacy body -- policy and trade-position signal distinct from USHBC's consumption focus.",
+    "entity_types": [
+      "trade_association"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "monthly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:24",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-1ee4-california-strawberry-commission-41",
+    "type": "reference",
+    "label": "California Strawberry Commission",
+    "value": "California Strawberry Commission",
+    "url": "",
+    "why_it_matters": "California produces the large majority of US strawberries; this commission's data is the closest thing to a national US strawberry acreage/volume signal.",
+    "entity_types": [
+      "trade_association",
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:25",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-f95e-florida-strawberry-growers-association-42",
+    "type": "reference",
+    "label": "Florida Strawberry Growers Association",
+    "value": "Florida Strawberry Growers Association",
+    "url": "",
+    "why_it_matters": "Represents the winter-season US strawberry supply that complements California's, relevant to seasonal supply-gap analysis.",
+    "entity_types": [
+      "trade_association"
+    ],
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "monthly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:26",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-2c73-north-american-raspberry-blackberry-asso-43",
+    "type": "reference",
+    "label": "North American Raspberry & Blackberry Association (NARBA)",
+    "value": "North American Raspberry & Blackberry Association (NARBA)",
+    "url": "",
+    "why_it_matters": "The only dedicated North American trade body covering both raspberry and blackberry -- fills a gap left by the blueberry- and strawberry-focused associations above.",
+    "entity_types": [
+      "trade_association"
+    ],
+    "berry_ids": [
+      "berry-raspberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "monthly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:26",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-7efc-european-fruit-growers-associations-rasp-44",
+    "type": "reference",
+    "label": "European Fruit Growers Associations (Raspberry)",
+    "value": "European Fruit Growers Associations (Raspberry)",
+    "url": "",
+    "why_it_matters": "European raspberry grower advocacy -- regional counterpart to NARBA; coverage should be spot-checked for which specific national body is most active before relying on it.",
+    "entity_types": [
+      "trade_association"
+    ],
+    "berry_ids": [
+      "berry-raspberry"
+    ],
+    "region_coverage": [
+      "europe"
+    ],
+    "monitoring_priority": "low",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:26",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-acce-comite-de-arandanos-de-chile-chilean-blu-45",
+    "type": "reference",
+    "label": "Comite de Arandanos de Chile (Chilean Blueberry Committee)",
+    "value": "Comite de Arandanos de Chile (Chilean Blueberry Committee)",
+    "url": "",
+    "why_it_matters": "Chile is a top-three global blueberry exporter; this committee is the primary domestic industry voice, distinct from ProChile's trade-promotion angle.",
+    "entity_types": [
+      "trade_association"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "south_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "monthly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:27",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-6270-prochile-proarandanos-46",
+    "type": "reference",
+    "label": "ProChile / ProArandanos",
+    "value": "ProChile / ProArandanos",
+    "url": "",
+    "why_it_matters": "Chilean state trade-promotion body for blueberry exports -- export-volume and market-access signal complementing the Blueberry Committee's production-side data.",
+    "entity_types": [
+      "government_regulatory",
+      "trade_association"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "south_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:27",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-1bab-asociacion-de-productores-de-arandanos-p-47",
+    "type": "reference",
+    "label": "Asociacion de Productores de Arandanos (Proarandanos Peru)",
+    "value": "Asociacion de Productores de Arandanos (Proarandanos Peru)",
+    "url": "",
+    "why_it_matters": "Already a cited source in this dataset for Peruvian export-volume-by-variety figures (SEKOYA Pop, Eureka); ongoing monitoring would keep those season-by-season figures current.",
+    "entity_types": [
+      "trade_association"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "south_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "monthly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:28",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-4f5a-china-fruit-marketing-association-berry--48",
+    "type": "reference",
+    "label": "China Fruit Marketing Association (Berry Subcommittee)",
+    "value": "China Fruit Marketing Association (Berry Subcommittee)",
+    "url": "",
+    "why_it_matters": "One of the only association-level sources for the Chinese domestic berry market, relevant to both a major producer (blueberry) and consumer (all four) market.",
+    "entity_types": [
+      "trade_association"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "asia_pacific"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:28",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-d178-freshfel-europe-49",
+    "type": "reference",
+    "label": "Freshfel Europe",
+    "value": "Freshfel Europe",
+    "url": "",
+    "why_it_matters": "EU-wide fresh produce trade body covering berry trade across the whole bloc -- fills the gap between country-specific European sources.",
+    "entity_types": [
+      "trade_association"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "europe"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "monthly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:29",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-c14d-produce-for-better-health-foundation-50",
+    "type": "reference",
+    "label": "Produce for Better Health Foundation",
+    "value": "Produce for Better Health Foundation",
+    "url": "",
+    "why_it_matters": "Consumption/health research partner to IBO's Global State report -- a demand-side, health-driven consumption signal distinct from the production-focused association data elsewhere on this list.",
+    "entity_types": [
+      "trade_association",
+      "market_research"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:29",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-7559-usda-nass-51",
+    "type": "reference",
+    "label": "USDA NASS",
+    "value": "https://www.nass.usda.gov",
+    "url": "https://www.nass.usda.gov",
+    "why_it_matters": "Noncitrus Fruits and Nuts Annual Summary and Census of Agriculture specialty crop tables -- the authoritative US acreage, yield and value dataset across all four berries; nothing else in this list has the same statistical rigor for US production.",
+    "entity_types": [
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "annual",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:29",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-82d9-usda-ams-52",
+    "type": "reference",
+    "label": "USDA AMS",
+    "value": "https://www.ams.usda.gov",
+    "url": "https://www.ams.usda.gov",
+    "why_it_matters": "Fruit and Vegetable Market News and specialty crop reports -- pricing and market-movement data at a finer grain than NASS's annual census.",
+    "entity_types": [
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:31",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-eba3-usda-rma-53",
+    "type": "reference",
+    "label": "USDA RMA",
+    "value": "USDA RMA",
+    "url": "",
+    "why_it_matters": "Crop insurance specialty crop reports double as a market-penetration proxy -- which regions/growers are insuring berry acreage, an indirect signal NASS doesn't provide directly.",
+    "entity_types": [
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "low",
+    "update_cadence": "annual",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:32",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-b58c-usda-fas-gain-reports-54",
+    "type": "reference",
+    "label": "USDA FAS (GAIN Reports)",
+    "value": "USDA FAS (GAIN Reports)",
+    "url": "",
+    "why_it_matters": "Foreign Agricultural Service reports on berry production in Mexico, Peru, Chile, Morocco and China -- the US government's own foreign-production intelligence, useful for cross-checking against each country's own trade association figures.",
+    "entity_types": [
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "south_america",
+      "africa",
+      "asia_pacific",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:32",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-fb47-usda-aphis-55",
+    "type": "reference",
+    "label": "USDA APHIS",
+    "value": "USDA APHIS",
+    "url": "",
+    "why_it_matters": "Phytosanitary and import regulations affecting berry trade -- a regulatory-exposure signal for any variety or shipment dependent on import access.",
+    "entity_types": [
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:33",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-05d4-european-commission-dg-agri-eu-cmo-fruit-56",
+    "type": "reference",
+    "label": "European Commission DG AGRI (EU CMO / Fruit Sector Market Observatory)",
+    "value": "European Commission DG AGRI (EU CMO / Fruit Sector Market Observatory)",
+    "url": "",
+    "why_it_matters": "EU-wide fruit sector market observatory -- the European counterpart to USDA NASS/AMS, filling the largest gap in this list's regulatory/statistical coverage.",
+    "entity_types": [
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "europe"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:33",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-a2a9-china-national-bureau-of-statistics-moa-57",
+    "type": "reference",
+    "label": "China National Bureau of Statistics / MOA",
+    "value": "China National Bureau of Statistics / MOA",
+    "url": "",
+    "why_it_matters": "Official Chinese fruit production data -- pairs with the China Fruit Marketing Association's industry-level view for a fuller picture of the Chinese market.",
+    "entity_types": [
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "asia_pacific"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:34",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-1098-senasa-peru-58",
+    "type": "reference",
+    "label": "SENASA (Peru)",
+    "value": "SENASA (Peru)",
+    "url": "",
+    "why_it_matters": "Peruvian phytosanitary regulator -- import/export access signal for a top blueberry exporting country.",
+    "entity_types": [
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "south_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:34",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-2c4f-sag-chile-59",
+    "type": "reference",
+    "label": "SAG (Chile)",
+    "value": "SAG (Chile)",
+    "url": "",
+    "why_it_matters": "Chilean phytosanitary regulator (Servicio Agricola y Ganadero) -- same role as SENASA for Chile, the largest Southern Hemisphere blueberry exporter.",
+    "entity_types": [
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "south_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:34",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-868c-senasica-mexico-60",
+    "type": "reference",
+    "label": "SENASICA (Mexico)",
+    "value": "SENASICA (Mexico)",
+    "url": "",
+    "why_it_matters": "Mexican phytosanitary regulator -- covers a major supplier to the US market across multiple berries, distinct from USDA APHIS's importer-side view.",
+    "entity_types": [
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:35",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-9280-u-s-plant-variety-protection-office-uspt-61",
+    "type": "reference",
+    "label": "U.S. Plant Variety Protection Office / USPTO",
+    "value": "https://www.uspto.gov",
+    "url": "https://www.uspto.gov",
+    "why_it_matters": "Plant patents on berry cultivars -- already the backbone of the identity/ownership data in this dataset (the USPP patent records); the primary source of record for variety ownership disputes.",
+    "entity_types": [
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:35",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-43e9-upov-62",
+    "type": "reference",
+    "label": "UPOV",
+    "value": "https://www.upov.int",
+    "url": "https://www.upov.int",
+    "why_it_matters": "International Union for the Protection of New Varieties of Plants -- the global plant variety rights database underlying every country-specific PBR record already in this dataset (e.g. the Canadian CFIA records).",
+    "entity_types": [
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:36",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-fa7f-uc-davis-department-of-plant-sciences-fo-63",
+    "type": "reference",
+    "label": "UC Davis Department of Plant Sciences / Foundation Plant Services",
+    "value": "https://ngr.ucdavis.edu/strawberry.cfm",
+    "url": "https://ngr.ucdavis.edu/strawberry.cfm",
+    "why_it_matters": "Foundation Plant Services is the certified-nursery-stock source underlying the UC Davis strawberry program's actual commercial rollout, distinct from the breeding program entry above.",
+    "entity_types": [
+      "academic_journal",
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:37",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-4728-university-of-arkansas-fruit-research-st-64",
+    "type": "reference",
+    "label": "University of Arkansas Fruit Research Station, Clarksville",
+    "value": "University of Arkansas Fruit Research Station, Clarksville",
+    "url": "",
+    "why_it_matters": "Field-trial site already cited in this dataset for a 2024 20-variety blueberry trial with measured Brix/pH/acidity data -- the primary source for independently measured (not company-claimed) variety performance data.",
+    "entity_types": [
+      "academic_journal",
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-blackberry",
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:38",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-8d5e-university-of-florida-ifas-65",
+    "type": "reference",
+    "label": "University of Florida IFAS",
+    "value": "University of Florida IFAS",
+    "url": "",
+    "why_it_matters": "Extension literature and cultivar performance data already cited extensively in this dataset (Sentinel, Colossus, Optimus firmness/yield measurements) -- the primary source of independently measured UF variety performance.",
+    "entity_types": [
+      "academic_journal",
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-strawberry",
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:38",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-ba77-michigan-state-university-extension-blue-66",
+    "type": "reference",
+    "label": "Michigan State University Extension (Blueberry)",
+    "value": "Michigan State University Extension (Blueberry)",
+    "url": "",
+    "why_it_matters": "Extension-side counterpart to the MSU breeding program entry -- grower-facing guidance and cultivar recommendations rather than breeding announcements.",
+    "entity_types": [
+      "academic_journal"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:39",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-3f00-plant-food-research-new-zealand-67",
+    "type": "reference",
+    "label": "Plant & Food Research (New Zealand)",
+    "value": "Plant & Food Research (New Zealand)",
+    "url": "",
+    "why_it_matters": "Listed separately from the breeding-program entry above for its wider research-publication output beyond blueberry variety releases specifically.",
+    "entity_types": [
+      "academic_journal",
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "asia_pacific"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:39",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-6dab-international-society-for-horticultural--68",
+    "type": "reference",
+    "label": "International Society for Horticultural Science (ISHS)",
+    "value": "International Society for Horticultural Science (ISHS)",
+    "url": "",
+    "why_it_matters": "Acta Horticulturae proceedings already cited in this dataset for the University of Arkansas blackberry program's own 30-year retrospective -- the primary peer-reviewed venue for berry breeding program history and methodology across all four berries.",
+    "entity_types": [
+      "academic_journal"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:39",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-6b1b-usda-agricultural-research-service-ars-69",
+    "type": "reference",
+    "label": "USDA Agricultural Research Service (ARS)",
+    "value": "USDA Agricultural Research Service (ARS)",
+    "url": "",
+    "why_it_matters": "Berry germplasm repositories -- the genetic-diversity source underlying public breeding programs' raw material, one step upstream of the breeding programs themselves.",
+    "entity_types": [
+      "academic_journal",
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:40",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-4022-fruit-growers-news-70",
+    "type": "reference",
+    "label": "Fruit Growers News",
+    "value": "Fruit Growers News",
+    "url": "",
+    "why_it_matters": "US grower-facing trade press across all four berries -- practical/operational signal (planting, harvest, labor) distinct from the deal/M&A focus of the outlets below.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:40",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-e7bb-produce-blue-book-blue-book-services-71",
+    "type": "reference",
+    "label": "Produce Blue Book / Blue Book Services",
+    "value": "Produce Blue Book / Blue Book Services",
+    "url": "",
+    "why_it_matters": "Produce industry credit and company-reference database with news coverage -- useful for verifying counterparty legitimacy alongside straight news signal.",
+    "entity_types": [
+      "trade_press",
+      "market_research"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:40",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-47f6-the-packer-72",
+    "type": "reference",
+    "label": "The Packer",
+    "value": "The Packer",
+    "url": "",
+    "why_it_matters": "Long-running US produce industry trade press -- broad-coverage baseline for North American berry news.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:41",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-c710-fresh-fruit-portal-73",
+    "type": "reference",
+    "label": "Fresh Fruit Portal",
+    "value": "https://www.freshfruitportal.com",
+    "url": "https://www.freshfruitportal.com",
+    "why_it_matters": "Explicitly weighted High priority per this list's own coverage-gap note: fastest-moving deal, M&A and variety-launch signal for Latin America-focused berry news, an area annual reports and government statistics cover too slowly.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "south_america",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:41",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-a004-fresh-plaza-74",
+    "type": "reference",
+    "label": "Fresh Plaza",
+    "value": "https://www.freshplaza.com",
+    "url": "https://www.freshplaza.com",
+    "why_it_matters": "Explicitly weighted High priority per this list's own coverage-gap note: global fresh produce news with strong berry coverage, fills the same fast-moving-deal gap as Fresh Fruit Portal but with broader geographic scope.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:43",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-9300-hortidaily-75",
+    "type": "reference",
+    "label": "Hortidaily",
+    "value": "https://www.hortidaily.com",
+    "url": "https://www.hortidaily.com",
+    "why_it_matters": "Sister publication to Fresh Plaza with a horticulture/greenhouse production lens -- relevant to protected-cropping berry production specifically.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "europe",
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:44",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-b9d1-growing-produce-76",
+    "type": "reference",
+    "label": "Growing Produce",
+    "value": "Growing Produce",
+    "url": "",
+    "why_it_matters": "US grower-facing coverage overlapping with Fruit Growers News -- kept as a separate source for redundancy on operational/production signal.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "low",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:45",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-316e-berry-world-news-industry-newsletter-agg-77",
+    "type": "reference",
+    "label": "Berry World News (Industry Newsletter Aggregators)",
+    "value": "Berry World News (Industry Newsletter Aggregators)",
+    "url": "",
+    "why_it_matters": "Aggregator-style coverage -- useful as a discovery layer for stories this list's other, more targeted sources might miss.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "low",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:46",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-10d3-andnowuknow-78",
+    "type": "reference",
+    "label": "AndNowUKnow",
+    "value": "https://www.andnowuknow.com",
+    "url": "https://www.andnowuknow.com",
+    "why_it_matters": "Explicitly weighted High priority per this list's own coverage-gap note: produce industry press releases carried faster than most trade press picks them up, a leading indicator for deal/executive-move announcements.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:46",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-1f0b-produce-report-79",
+    "type": "reference",
+    "label": "Produce Report",
+    "value": "https://www.producereport.com",
+    "url": "https://www.producereport.com",
+    "why_it_matters": "Explicitly weighted High priority per this list's own coverage-gap note: the primary English-language source for China-focused fresh produce news, already cited in this dataset for SEKOYA's Chinese market expansion statement.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "asia_pacific"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:47",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-c725-eastfruit-80",
+    "type": "reference",
+    "label": "EastFruit",
+    "value": "EastFruit",
+    "url": "",
+    "why_it_matters": "Eastern Europe / Central Asia produce news -- geographic coverage no other source on this list provides.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "europe",
+      "asia_pacific"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:49",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-ee41-ibo-global-state-of-the-blueberry-indust-81",
+    "type": "reference",
+    "label": "IBO Global State of the Blueberry Industry Report",
+    "value": "IBO Global State of the Blueberry Industry Report",
+    "url": "",
+    "why_it_matters": "Annual flagship report -- listed separately from the IBO association entry above because this is specifically the report deliverable, the single most-cited external data point for global blueberry acreage and volume comparisons.",
+    "entity_types": [
+      "market_research",
+      "trade_association"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "annual",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:49",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-ff19-rabobank-fresh-produce-berry-sector-repo-82",
+    "type": "reference",
+    "label": "Rabobank Fresh Produce / Berry Sector Reports",
+    "value": "Rabobank Fresh Produce / Berry Sector Reports",
+    "url": "",
+    "why_it_matters": "Financial-sector analysis of berry supply/demand fundamentals -- an investment/capital-flows lens distinct from the production-statistics focus of the government and association sources.",
+    "entity_types": [
+      "market_research"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:50",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-80e7-tridge-83",
+    "type": "reference",
+    "label": "Tridge",
+    "value": "Tridge",
+    "url": "",
+    "why_it_matters": "Global agri-commodity trade data platform -- cross-border trade-flow visibility complementing country-specific export association data.",
+    "entity_types": [
+      "market_research"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:50",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-50e8-mintec-expana-berry-price-benchmarking-84",
+    "type": "reference",
+    "label": "Mintec / Expana Berry Price Benchmarking",
+    "value": "Mintec / Expana Berry Price Benchmarking",
+    "url": "",
+    "why_it_matters": "Price benchmarking already partially represented in this dataset via the Agronometrics Peruvian varietal price index -- this is the broader, cross-market pricing data source that would extend that kind of analysis beyond Peru.",
+    "entity_types": [
+      "market_research"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:50",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-0432-euromonitor-mordor-intelligence-berry-ma-85",
+    "type": "reference",
+    "label": "Euromonitor / Mordor Intelligence Berry Market Sizing Reports",
+    "value": "Euromonitor / Mordor Intelligence Berry Market Sizing Reports",
+    "url": "",
+    "why_it_matters": "Market-sizing and forecast reports -- a longer-horizon, category-growth lens distinct from the season-by-season trade data elsewhere on this list.",
+    "entity_types": [
+      "market_research"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "quarterly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:51",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-db81-nielsen-circana-retail-scan-data-86",
+    "type": "reference",
+    "label": "Nielsen/Circana Retail Scan Data",
+    "value": "Nielsen/Circana Retail Scan Data",
+    "url": "",
+    "why_it_matters": "Retail scan data for berry category sales -- the only true point-of-sale demand signal on this entire list; every other source is supply-side or trade-side.",
+    "entity_types": [
+      "market_research",
+      "retailer_foodservice"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "monthly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:51",
+    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+  },
+  {
+    "id": "source-20260806173428-3785-blueberry-breeding-program-87",
+    "type": "keyword",
+    "label": "Blueberry breeding program",
+    "value": "blueberry breeding program",
+    "url": "",
+    "why_it_matters": "Catches new-program announcements and breeding-program personnel/funding news outside the named institutional sources above.",
+    "entity_types": [],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:52",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-2f6a-raspberry-variety-license-88",
+    "type": "keyword",
+    "label": "Raspberry variety license",
+    "value": "raspberry variety license",
+    "url": "",
+    "why_it_matters": "Catches licensing-deal announcements for raspberry genetics outside the named Hutton/Meiosis/Total Berry sources.",
+    "entity_types": [],
+    "berry_ids": [
+      "berry-raspberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:53",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
+    "type": "keyword",
+    "label": "Strawberry cultivar patent",
+    "value": "strawberry cultivar patent",
+    "url": "",
+    "why_it_matters": "Catches new strawberry plant patent filings/grants as they're reported, ahead of formal USPTO record availability.",
+    "entity_types": [],
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:54",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-d63a-blackberry-primocane-variety-90",
+    "type": "keyword",
+    "label": "Blackberry primocane variety",
+    "value": "blackberry primocane variety",
+    "url": "",
+    "why_it_matters": "Primocane-fruiting is the key trait axis in blackberry breeding right now; this catches trait-specific announcements outside the Arkansas program's own channels.",
+    "entity_types": [],
+    "berry_ids": [
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:54",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-80ee-berry-genetics-company-91",
+    "type": "keyword",
+    "label": "Berry genetics company",
+    "value": "berry genetics company acquisition",
+    "url": "",
+    "why_it_matters": "Cross-berry catch-all for genetics-company M&A that a single-berry keyword would miss.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:55",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+    "type": "keyword",
+    "label": "Plant variety protection berry",
+    "value": "plant variety protection berry",
+    "url": "",
+    "why_it_matters": "Catches PBR/plant-patent news across all four berries in one query, ahead of the country-specific registries in this list being updated.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:56",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-4da7-berry-royalty-license-agreement-93",
+    "type": "keyword",
+    "label": "Berry royalty license agreement",
+    "value": "berry royalty license agreement",
+    "url": "",
+    "why_it_matters": "Catches licensing-term disclosures (royalty rates, exclusivity terms) that rarely appear in a company's own press releases.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:57",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-abbb-exclusive-variety-license-berry-94",
+    "type": "keyword",
+    "label": "Exclusive variety license berry",
+    "value": "exclusive variety license berry",
+    "url": "",
+    "why_it_matters": "Catches new exclusive-licensing-territory announcements, the same category of claim already on record for Hortifrut's Rocio/Corona and Draper/Aurora licenses.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:58",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-8498-company-acquisition-berry-95",
+    "type": "keyword",
+    "label": "Company acquisition berry",
+    "value": "berry company acquisition",
+    "url": "",
+    "why_it_matters": "Broad M&A catch-all across the whole category.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:28:59",
+    "last_status": "ok: 15 new item(s)"
+  },
+  {
+    "id": "source-20260806173428-c823-berry-joint-venture-genetics-96",
+    "type": "keyword",
+    "label": "Berry joint venture genetics",
+    "value": "berry joint venture genetics",
+    "url": "",
+    "why_it_matters": "Catches new joint-venture formations like Berry Blue and Pacific Berry Breeding before they're covered by the named trade press.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:00",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-9388-berry-nursery-partnership-97",
+    "type": "keyword",
+    "label": "Berry nursery partnership",
+    "value": "berry nursery partnership",
+    "url": "",
+    "why_it_matters": "Catches nursery-level partnership announcements distinct from genetics-licensing deals specifically.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:01",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-69a5-berry-industry-investment-98",
+    "type": "keyword",
+    "label": "Berry industry investment",
+    "value": "berry industry investment",
+    "url": "",
+    "why_it_matters": "Broad capital-flows catch-all, complements the Rabobank market-research entry above with real-time deal announcements.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:02",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-2cf5-berry-export-volume-99",
+    "type": "keyword",
+    "label": "Berry export volume",
+    "value": "berry export volume",
+    "url": "",
+    "why_it_matters": "Catches export-volume reporting outside the fixed reporting calendar of the named trade associations.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "south_america",
+      "asia_pacific",
+      "africa",
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:03",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-a200-berry-harvest-forecast-100",
+    "type": "keyword",
+    "label": "Berry harvest forecast",
+    "value": "berry harvest forecast",
+    "url": "",
+    "why_it_matters": "Forward-looking supply signal ahead of actual harvest/export data being reported.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:04",
+    "last_status": "ok: 10 new item(s)"
+  },
+  {
+    "id": "source-20260806173428-33f6-berry-acreage-expansion-101",
+    "type": "keyword",
+    "label": "Berry acreage expansion",
+    "value": "berry acreage expansion",
+    "url": "",
+    "why_it_matters": "Catches new-planting announcements well ahead of the next annual acreage census from USDA NASS or equivalent bodies.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:05",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-a6a6-phytosanitary-berry-import-restriction-102",
+    "type": "keyword",
+    "label": "Phytosanitary berry import restriction",
+    "value": "phytosanitary berry import restriction",
+    "url": "",
+    "why_it_matters": "Catches new trade-restriction announcements faster than the regulatory agencies' own publication cycles.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:06",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-0a6b-mrl-berry-regulation-103",
+    "type": "keyword",
+    "label": "MRL berry regulation",
+    "value": "MRL berry regulation",
+    "url": "",
+    "why_it_matters": "Maximum residue limit changes directly affect market access; this is a faster signal than waiting for APHIS/DG AGRI updates.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:07",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-1732-usda-gain-report-berry-104",
+    "type": "keyword",
+    "label": "USDA GAIN report berry",
+    "value": "USDA GAIN report berry",
+    "url": "",
+    "why_it_matters": "Catches new GAIN report releases as they're published, complementing the USDA FAS entry above.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "north_america",
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:08",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-f8a7-berry-tariff-105",
+    "type": "keyword",
+    "label": "Berry tariff",
+    "value": "berry tariff",
+    "url": "",
+    "why_it_matters": "Trade-policy signal directly affecting cross-border berry pricing and sourcing decisions.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:09",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-fba2-berry-plant-patent-granted-106",
+    "type": "keyword",
+    "label": "Berry plant patent granted",
+    "value": "berry plant patent granted",
+    "url": "",
+    "why_it_matters": "Catches newly granted patents as reported, ahead of them appearing in the USPTO/PVP registry searches this dataset already relies on.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "north_america",
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:10",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-dcaa-upov-berry-variety-registration-107",
+    "type": "keyword",
+    "label": "UPOV berry variety registration",
+    "value": "UPOV berry variety registration",
+    "url": "",
+    "why_it_matters": "Catches new UPOV registrations as reported, complementing the UPOV database entry above.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:11",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-e395-peru-blueberry-export-108",
+    "type": "keyword",
+    "label": "Peru blueberry export",
+    "value": "Peru blueberry export",
+    "url": "",
+    "why_it_matters": "Peru is a top global blueberry exporter and already has extensive coverage in this dataset (Proarandanos volume-by-variety data); this keeps that season-by-season picture current.",
+    "entity_types": [],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "south_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:12",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-7893-chile-blueberry-season-109",
+    "type": "keyword",
+    "label": "Chile blueberry season",
+    "value": "Chile blueberry season",
+    "url": "",
+    "why_it_matters": "Chile is the largest Southern Hemisphere blueberry exporter; season-timing news is a leading indicator for counter-season US/EU supply.",
+    "entity_types": [],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "south_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:13",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-a053-mexico-berry-production-110",
+    "type": "keyword",
+    "label": "Mexico berry production",
+    "value": "Mexico berry production",
+    "url": "",
+    "why_it_matters": "Mexico is a major supplier across multiple berries to the US market; catches production news outside SENASICA's regulatory-only coverage.",
+    "entity_types": [],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:14",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+    "type": "keyword",
+    "label": "Morocco berry exports",
+    "value": "Morocco berry exports",
+    "url": "",
+    "why_it_matters": "Morocco is a growing blueberry/raspberry exporter already referenced in this dataset via Costa's African Blue operation; catches broader Moroccan sector news beyond that one company.",
+    "entity_types": [],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry"
+    ],
+    "region_coverage": [
+      "africa"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:15",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-01c8-china-strawberry-market-112",
+    "type": "keyword",
+    "label": "China strawberry market",
+    "value": "China strawberry market",
+    "url": "",
+    "why_it_matters": "China is a major strawberry producer and consumer; catches domestic market news the Dandong cooperative entry alone wouldn't surface.",
+    "entity_types": [],
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "asia_pacific"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:16",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+    "type": "keyword",
+    "label": "Spain Huelva strawberry",
+    "value": "Spain Huelva strawberry",
+    "url": "",
+    "why_it_matters": "Huelva is the dominant European strawberry production region, already referenced via Planasa/FNM; catches broader regional news beyond those two companies.",
+    "entity_types": [],
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "europe"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:17",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+    "type": "keyword",
+    "label": "Netherlands berry greenhouse",
+    "value": "Netherlands berry greenhouse",
+    "url": "",
+    "why_it_matters": "Dutch protected-cropping berry production is a distinct supply category from open-field production covered elsewhere on this list.",
+    "entity_types": [],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "europe"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:17",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-996e-south-africa-blueberry-ibo-summit-115",
+    "type": "keyword",
+    "label": "South Africa blueberry IBO summit",
+    "value": "South Africa blueberry IBO summit",
+    "url": "",
+    "why_it_matters": "South Africa is a growing blueberry exporter and past IBO summit host; catches conference-driven announcements that cluster around industry events.",
+    "entity_types": [],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "africa"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:18",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-ff93-berry-consumption-trend-116",
+    "type": "keyword",
+    "label": "Berry consumption trend",
+    "value": "berry consumption trend",
+    "url": "",
+    "why_it_matters": "Consumer-demand signal complementing USHBC and Nielsen/Circana's more structured demand data.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:19",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-dee2-berry-retail-sales-data-117",
+    "type": "keyword",
+    "label": "Berry retail sales data",
+    "value": "berry retail sales data",
+    "url": "",
+    "why_it_matters": "Catches retail sales reporting outside Nielsen/Circana's formal data releases.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:20",
+    "last_status": "ok: no new items"
+  },
+  {
+    "id": "source-20260806173428-2e40-berry-health-research-118",
+    "type": "keyword",
+    "label": "Berry health research",
+    "value": "berry health research",
+    "url": "",
+    "why_it_matters": "Health-research findings are a recurring driver of demand spikes (as with the Produce for Better Health Foundation partnership); catches new studies as they're published.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:21",
+    "last_status": "ok: 19 new item(s)"
+  },
+  {
+    "id": "source-20260806173428-3eee-berry-category-growth-119",
+    "type": "keyword",
+    "label": "Berry category growth",
+    "value": "berry category growth",
+    "url": "",
+    "why_it_matters": "Broad category-level growth signal complementing the narrower Euromonitor/Mordor market-sizing reports.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-06",
+    "last_checked_at": "2026-08-06T18:29:22",
+    "last_status": "ok: no new items"
+  }
+]

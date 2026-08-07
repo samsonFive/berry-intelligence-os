@@ -26,6 +26,7 @@
     "tags": {"type": "array", "items": {"type": "string"}},
     "auto_captured": {"type": "boolean"},
     "validated": {"type": "boolean"},
+    "source_id": {"type": ["string", "null"]},
     "priority": {
       "type": "object",
       "required": ["reading", "testing", "commercial_position", "monitoring"],
