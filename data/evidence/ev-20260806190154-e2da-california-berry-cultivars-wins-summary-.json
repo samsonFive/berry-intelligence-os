@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806190154-e2da-california-berry-cultivars-wins-summary-",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "California Berry Cultivars Wins Summary Judgment in Lawsuit Filed by Driscoll’s, Inc. - Perishable News",
+  "source_name": "Perishable News",
+  "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPVnZqQzFiZkhnTUtVWXNNVTlSVjZKeXU4eGdxanh1YXkwdkhna09KejBRZy0xaXJoUC1JX3BmZG9oQXhCOHhaSGg2YmZaOUgtOTVWc2tPbVlhYTRmSW96bTV6dk42cnJsVm9Ma3F4MDBLenRrNXpSekRjdWpVU2xEZ0oyTi1CM2ZlZDNtNUR5Ymh3T1RhaVVNWFg0Rm5xZWhXMm51MGsySlhpbWwxYUYtdEcxeUJVNUpWdUE?oc=5",
+  "published_date": "2025-04-08",
+  "captured_date": "2026-08-06",
+  "summary": "California Berry Cultivars Wins Summary Judgment in Lawsuit Filed by Driscoll’s, Inc.&nbsp;&nbsp;Perishable News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Strawberry cultivar patent",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Strawberry cultivar patent"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "ev-20260806193503-145b-mexican-berry-exports-grow-as-demand-for",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Mexican Berry Exports Grow as Demand for Healthy Foods Increases - Mexico Business News",
+  "source_name": "Mexico Business News",
+  "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPQS1najhvVTBGVnhuRlhtRmQybVdMVFByQVQwWkI2Rlk2b19WaTljczVBaFpIeGJKajI5NE10STh2N1g5WVNNUDU2S2xvaG9Od0JEOE1FcDNnNjB0UzRZNnF3ZlVoUDIyazFQUlBGYWhEd0o4SDN4Y3hpZkx0Q0pNXzdOSjY0TXV5NVR2czlMVEh4Z1p4Ump4eTR0SXMtYUhpUGU5N3lB?oc=5",
+  "published_date": "2025-03-06",
+  "captured_date": "2026-08-06",
+  "summary": "Mexican Berry Exports Grow as Demand for Healthy Foods Increases&nbsp;&nbsp;Mexico Business News",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Mexico berry production",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-strawberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Mexico berry production"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
+    }
+  }
+}

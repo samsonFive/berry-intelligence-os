@@ -1,0 +1,45 @@
+{
+  "id": "ev-20260806190155-d6f1-at-last-sweet-blackberries-stay-the-cour",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "At Last, Sweet Blackberries Stay the Course (Published 2007) - The New York Times",
+  "source_name": "The New York Times",
+  "source_url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE8xQVhwR1M2N0hxU0p4U2ZTaWVLQ1Y1S25leXFiOWwtTENrdUdPZjBFX0tDN2tpV2k3bUpRTzhYTE5FNUd5Q3o3SnNHVm5fOGgxWkVIQW9DWkZWY0hkWGstQmxFZw?oc=5",
+  "published_date": "2007-07-25",
+  "captured_date": "2026-08-06",
+  "summary": "At Last, Sweet Blackberries Stay the Course (Published 2007)&nbsp;&nbsp;The New York Times",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Blackberry primocane variety",
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Blackberry primocane variety"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
+    }
+  }
+}

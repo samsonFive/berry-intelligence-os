@@ -1,0 +1,43 @@
+{
+  "id": "ev-20260806190157-3686-frutura-expands-in-berries-with-two-acqu",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "news_search",
+  "title": "Frutura expands in berries with two acquisitions - bluebookservices.com",
+  "source_name": "bluebookservices.com",
+  "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPX3JJeFRtSHFQN2tWX0JxWXFaLU9FNFJzdm9JQ2RDSjl4VnpIUS1OVTlGd0tIMnFaZHZyaGNYeDllX0M1RGdlVEVIYzl0RlBMbl9NbEFvOVhaeDVEUlc0TzZPM0NBVjhqUVJNN0wzMlphcWdMYk1HVFB2WTZjNVdSaW1ERXlJSGhfZXc?oc=5",
+  "published_date": "2023-10-16",
+  "captured_date": "2026-08-06",
+  "summary": "Frutura expands in berries with two acquisitions&nbsp;&nbsp;bluebookservices.com",
+  "why_it_matters": "",
+  "submitted_by": "source-monitor:Berry genetics company",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "Berry genetics company"
+  ],
+  "auto_captured": true,
+  "validated": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
+    }
+  }
+}
