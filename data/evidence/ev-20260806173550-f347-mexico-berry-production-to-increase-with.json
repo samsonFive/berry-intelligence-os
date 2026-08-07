@@ -12,7 +12,9 @@
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
-  "geography_ids": [],
+  "geography_ids": [
+    "geography-mexico"
+  ],
   "entity_ids": [],
   "fact_ids": [],
   "relationship_ids": [],
@@ -39,5 +41,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

@@ -12,8 +12,12 @@
   "why_it_matters": "",
   "submitted_by": "source-monitor:Company acquisition berry",
   "berry_ids": [],
-  "geography_ids": [],
-  "entity_ids": [],
+  "geography_ids": [
+    "geography-spain"
+  ],
+  "entity_ids": [
+    "company-hortifrut"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],
@@ -39,5 +43,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

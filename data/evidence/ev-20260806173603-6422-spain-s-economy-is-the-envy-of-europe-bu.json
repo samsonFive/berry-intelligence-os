@@ -14,7 +14,10 @@
   "berry_ids": [
     "berry-strawberry"
   ],
-  "geography_ids": [],
+  "geography_ids": [
+    "geography-europe",
+    "geography-spain"
+  ],
   "entity_ids": [],
   "fact_ids": [],
   "relationship_ids": [],
@@ -41,5 +44,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

@@ -15,7 +15,9 @@
     "berry-strawberry"
   ],
   "geography_ids": [],
-  "entity_ids": [],
+  "entity_ids": [
+    "company-university-of-florida"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],
@@ -41,5 +43,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

@@ -12,7 +12,9 @@
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry tariff",
   "berry_ids": [],
-  "geography_ids": [],
+  "geography_ids": [
+    "geography-zimbabwe"
+  ],
   "entity_ids": [],
   "fact_ids": [],
   "relationship_ids": [],
@@ -39,5 +41,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

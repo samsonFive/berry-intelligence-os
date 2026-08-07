@@ -14,8 +14,12 @@
   "berry_ids": [
     "berry-blueberry"
   ],
-  "geography_ids": [],
-  "entity_ids": [],
+  "geography_ids": [
+    "geography-australia"
+  ],
+  "entity_ids": [
+    "company-costa-group-holdings"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],
@@ -41,5 +45,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

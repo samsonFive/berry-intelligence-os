@@ -15,7 +15,12 @@
     "berry-blueberry",
     "berry-raspberry"
   ],
-  "geography_ids": [],
+  "geography_ids": [
+    "geography-chile",
+    "geography-morocco",
+    "geography-peru",
+    "geography-south-africa"
+  ],
   "entity_ids": [],
   "fact_ids": [],
   "relationship_ids": [],
@@ -42,5 +47,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

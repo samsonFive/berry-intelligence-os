@@ -12,7 +12,9 @@
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
   "berry_ids": [],
-  "geography_ids": [],
+  "geography_ids": [
+    "geography-china"
+  ],
   "entity_ids": [],
   "fact_ids": [],
   "relationship_ids": [],
@@ -39,5 +41,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

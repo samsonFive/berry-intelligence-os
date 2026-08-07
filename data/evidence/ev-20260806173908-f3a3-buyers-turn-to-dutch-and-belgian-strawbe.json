@@ -17,7 +17,9 @@
     "berry-strawberry",
     "berry-blackberry"
   ],
-  "geography_ids": [],
+  "geography_ids": [
+    "geography-europe"
+  ],
   "entity_ids": [],
   "fact_ids": [],
   "relationship_ids": [],
@@ -44,5 +46,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

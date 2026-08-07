@@ -17,8 +17,12 @@
     "berry-strawberry",
     "berry-blackberry"
   ],
-  "geography_ids": [],
-  "entity_ids": [],
+  "geography_ids": [
+    "geography-mexico"
+  ],
+  "entity_ids": [
+    "company-planasa"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],
@@ -44,5 +48,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

@@ -12,7 +12,10 @@
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry industry investment",
   "berry_ids": [],
-  "geography_ids": [],
+  "geography_ids": [
+    "geography-colombia",
+    "geography-zimbabwe"
+  ],
   "entity_ids": [],
   "fact_ids": [],
   "relationship_ids": [],
@@ -39,5 +42,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

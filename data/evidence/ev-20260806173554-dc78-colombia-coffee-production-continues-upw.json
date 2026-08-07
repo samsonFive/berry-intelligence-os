@@ -12,7 +12,9 @@
   "why_it_matters": "",
   "submitted_by": "source-monitor:USDA GAIN report berry",
   "berry_ids": [],
-  "geography_ids": [],
+  "geography_ids": [
+    "geography-colombia"
+  ],
   "entity_ids": [],
   "fact_ids": [],
   "relationship_ids": [],
@@ -39,5 +41,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

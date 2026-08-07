@@ -13,7 +13,10 @@
   "submitted_by": "source-monitor:Berry category growth",
   "berry_ids": [],
   "geography_ids": [],
-  "entity_ids": [],
+  "entity_ids": [
+    "company-cinven",
+    "company-planasa"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],
@@ -39,5 +42,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

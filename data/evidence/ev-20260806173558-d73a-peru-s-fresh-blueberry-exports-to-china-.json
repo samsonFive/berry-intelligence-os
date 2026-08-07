@@ -14,7 +14,10 @@
   "berry_ids": [
     "berry-blueberry"
   ],
-  "geography_ids": [],
+  "geography_ids": [
+    "geography-china",
+    "geography-peru"
+  ],
   "entity_ids": [],
   "fact_ids": [],
   "relationship_ids": [],
@@ -41,5 +44,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

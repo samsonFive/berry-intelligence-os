@@ -13,7 +13,9 @@
   "submitted_by": "source-monitor:Berry joint venture genetics",
   "berry_ids": [],
   "geography_ids": [],
-  "entity_ids": [],
+  "entity_ids": [
+    "company-agrovision"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],
@@ -39,5 +41,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

@@ -14,7 +14,11 @@
   "berry_ids": [
     "berry-blueberry"
   ],
-  "geography_ids": [],
+  "geography_ids": [
+    "geography-chile",
+    "geography-morocco",
+    "geography-spain"
+  ],
   "entity_ids": [],
   "fact_ids": [],
   "relationship_ids": [],
@@ -41,5 +45,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

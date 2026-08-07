@@ -12,8 +12,12 @@
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry nursery partnership",
   "berry_ids": [],
-  "geography_ids": [],
-  "entity_ids": [],
+  "geography_ids": [
+    "geography-chile"
+  ],
+  "entity_ids": [
+    "company-fall-creek-farm-and-nursery"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],
@@ -39,5 +43,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

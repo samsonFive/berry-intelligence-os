@@ -12,7 +12,10 @@
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
-  "geography_ids": [],
+  "geography_ids": [
+    "geography-mexico",
+    "geography-spain"
+  ],
   "entity_ids": [],
   "fact_ids": [],
   "relationship_ids": [],
@@ -39,5 +42,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }

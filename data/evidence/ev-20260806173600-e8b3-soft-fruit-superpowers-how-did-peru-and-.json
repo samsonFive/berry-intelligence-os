@@ -17,7 +17,10 @@
     "berry-strawberry",
     "berry-blackberry"
   ],
-  "geography_ids": [],
+  "geography_ids": [
+    "geography-mexico",
+    "geography-peru"
+  ],
   "entity_ids": [],
   "fact_ids": [],
   "relationship_ids": [],
@@ -44,5 +47,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
     }
-  }
+  },
+  "auto_tagged": true
 }
