@@ -104,11 +104,27 @@
       </div>
     {% endif %}
     <h2><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h2>
-    {% set summary_lines = item.summary|as_bullets %}
-    {% if summary_lines|length > 1 %}
-      <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-    {% else %}
-      <p>{{ item.summary }}</p>
+    {% set geo_and_entity_ids = (item.geography_ids or []) + (item.entity_ids or []) %}
+    {% if geo_and_entity_ids %}
+      <div class="tags tags-linked">
+        {% for eid in geo_and_entity_ids %}
+          {% if eid in entities %}
+            <span>{{ entities[eid].name }}</span>
+          {% endif %}
+        {% endfor %}
+        {% if item.auto_tagged %}<small class="auto-tagged-note">auto-tagged, unverified</small>{% endif %}
+      </div>
+    {% endif %}
+    {% set summary_is_redundant = item.summary|is_redundant_summary(item.title) %}
+    {% if not summary_is_redundant %}
+      {% set summary_lines = item.summary|as_bullets %}
+      {% if summary_lines|length > 1 %}
+        <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+      {% else %}
+        <p>{{ item.summary }}</p>
+      {% endif %}
+    {% elif item.source_url %}
+      <p class="empty-state">No summary available from this source — <a href="{{ item.source_url }}" target="_blank" rel="noopener">read the full article ↗</a></p>
     {% endif %}
     <div class="tags">{% for tag in item.tags %}<span>{{ tag }}</span>{% endfor %}</div>
     <div class="priorities">
@@ -116,15 +132,17 @@
         <div><small>{{ name|replace('_',' ') }}</small><strong class="level-{{ value.level }}">{{ value.level }}</strong></div>
       {% endfor %}
     </div>
-    <div class="why">
-      <strong>Why it matters</strong>
-      {% set why_lines = item.why_it_matters|as_bullets %}
-      {% if why_lines|length > 1 %}
-        <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-      {% else %}
-        <p>{{ item.why_it_matters }}</p>
-      {% endif %}
-    </div>
+    {% if item.why_it_matters %}
+      <div class="why">
+        <strong>Why it matters</strong>
+        {% set why_lines = item.why_it_matters|as_bullets %}
+        {% if why_lines|length > 1 %}
+          <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+        {% else %}
+          <p>{{ item.why_it_matters }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
   </article>
 {% else %}
   <p class="empty-state">No published evidence matches the current filters.</p>

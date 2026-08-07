@@ -27,6 +27,8 @@
     "auto_captured": {"type": "boolean"},
     "validated": {"type": "boolean"},
     "source_id": {"type": ["string", "null"]},
+    "origin_domain": {"type": "string"},
+    "auto_tagged": {"type": "boolean"},
     "priority": {
       "type": "object",
       "required": ["reading", "testing", "commercial_position", "monitoring"],

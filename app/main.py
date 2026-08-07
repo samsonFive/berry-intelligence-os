@@ -276,8 +276,32 @@ def as_bullets(text: str | None) -> list[str]:
     return [s.strip() for s in sentences if s.strip()]
 
 
+def is_redundant_summary(summary: str | None, title: str | None) -> bool:
+    """True when a "summary" carries no information beyond the headline --
+    Google News search results always look like this, since their RSS
+    <description> repeats "<headline>&nbsp;&nbsp;<publisher>" (no dash)
+    while the matching title is "<headline> - <publisher>" (confirmed
+    against the actual capture backlog). Showing that text as if it were a
+    summary is worse than showing nothing: it looks like context was
+    provided when none was. A direct publisher RSS feed's description is a
+    real excerpt and won't match this.
+
+    Compares against the headline portion of the title (before the last
+    " - ") rather than the whole title, since the two fields use different
+    headline/publisher delimiters -- a straight full-string comparison
+    would miss the redundancy entirely."""
+    def normalize(text: str | None) -> str:
+        return re.sub(r"\s+", " ", (text or "").replace("&nbsp;", " ")).strip().lower()
+
+    headline = title.rsplit(" - ", 1)[0] if title and " - " in title else title
+    normalized_headline = normalize(headline)
+    normalized_summary = normalize(summary)
+    return bool(normalized_headline) and normalized_summary.startswith(normalized_headline)
+
+
 templates.env.filters["us_date"] = us_date
 templates.env.filters["as_bullets"] = as_bullets
+templates.env.filters["is_redundant_summary"] = is_redundant_summary
 
 
 REGIONS = ["Americas", "Europe", "Oceania", "Middle East & Africa"]
@@ -1026,6 +1050,63 @@ def build_auto_evidence(entry: Any, source: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def name_matchers_for_type(entity_type: str, entities: dict[str, dict[str, Any]] | None = None) -> list[tuple[str, "re.Pattern[str]"]]:
+    """(entity_id, compiled word-boundary regex) for every name/alias of the
+    given entity type, at least 4 characters. The length floor exists
+    because this project's actual geography/company names are all >=4
+    chars (shortest is "Peru") -- a shorter floor would risk matching
+    common words as false positives (an unfiltered "US" would match the
+    pronoun "us" in ordinary prose)."""
+    entities = entities if entities is not None else entity_index()
+    matchers: list[tuple[str, "re.Pattern[str]"]] = []
+    for entity in entities.values():
+        if entity.get("entity_type") != entity_type:
+            continue
+        for name in [entity.get("name", "")] + list(entity.get("aliases") or []):
+            name = name.strip()
+            if len(name) < 4:
+                continue
+            matchers.append((entity["id"], re.compile(r"\b" + re.escape(name) + r"\b", re.IGNORECASE)))
+    return matchers
+
+
+def auto_tag_geography_and_entities(
+    record: dict[str, Any],
+    geo_matchers: list[tuple[str, "re.Pattern[str]"]] | None = None,
+    company_matchers: list[tuple[str, "re.Pattern[str]"]] | None = None,
+) -> dict[str, Any]:
+    """Best-effort, deterministic name/alias matching against known
+    geography and company entities, applied only to still-unreviewed
+    auto-captured evidence -- never touches a record a human has already
+    validated. This is pattern matching, not verification: it exists so a
+    newsfeed card isn't blank on region/company where the real answer is
+    knowable from the text, not to assert the match is correct. Records it
+    tags get auto_tagged: true so every display surface can show that
+    distinction rather than presenting an inferred tag as a reviewed one.
+
+    Pass precomputed matchers when tagging many records in a loop (e.g. a
+    backfill pass) -- name_matchers_for_type() rebuilds its list from every
+    entity on each call, wasteful to redo per record."""
+    if not record.get("auto_captured") or record.get("validated"):
+        return record
+    if geo_matchers is None:
+        geo_matchers = name_matchers_for_type("geography")
+    if company_matchers is None:
+        company_matchers = name_matchers_for_type("company")
+
+    haystack = f"{record.get('title', '')} {record.get('summary', '')}"
+    matched_geo = {eid for eid, pattern in geo_matchers if pattern.search(haystack)}
+    matched_ent = {eid for eid, pattern in company_matchers if pattern.search(haystack)}
+
+    if matched_geo:
+        record["geography_ids"] = sorted(set(record.get("geography_ids") or []) | matched_geo)
+    if matched_ent:
+        record["entity_ids"] = sorted(set(record.get("entity_ids") or []) | matched_ent)
+    if matched_geo or matched_ent:
+        record["auto_tagged"] = True
+    return record
+
+
 def fetch_source_entries(source: dict[str, Any]) -> list[Any]:
     url = source_feed_url(source)
     if not url:
@@ -1057,6 +1138,8 @@ def check_source(source: dict[str, Any], seen_urls: set[str], blocked_domains: s
         return 0
     entries = fetch_source_entries(source)
     blocked = load_blocked_domains() if blocked_domains is None else blocked_domains
+    geo_matchers = name_matchers_for_type("geography")
+    company_matchers = name_matchers_for_type("company")
     written = 0
     for entry in entries:
         if written >= SOURCE_MAX_NEW_ITEMS_PER_CHECK:
@@ -1067,6 +1150,7 @@ def check_source(source: dict[str, Any], seen_urls: set[str], blocked_domains: s
         record = build_auto_evidence(entry, source)
         if blocked and record["origin_domain"] in blocked:
             continue
+        record = auto_tag_geography_and_entities(record, geo_matchers, company_matchers)
         save_evidence(record)
         seen_urls.add(link)
         written += 1
@@ -1237,6 +1321,7 @@ def home(
             "total_count": len(evidence),
             "berry_label": berry_label,
             "options": options,
+            "entities": entities,
             "filters": {
                 "q": q or "",
                 "berry": berry or "",

@@ -1887,11 +1887,11 @@
   },
   {
     "id": "source-20260806173428-c710-fresh-fruit-portal-73",
-    "type": "reference",
+    "type": "rss",
     "label": "Fresh Fruit Portal",
-    "value": "https://www.freshfruitportal.com",
+    "value": "https://www.freshfruitportal.com/tag/berries/feed/",
     "url": "https://www.freshfruitportal.com",
-    "why_it_matters": "Explicitly weighted High priority per this list's own coverage-gap note: fastest-moving deal, M&A and variety-launch signal for Latin America-focused berry news, an area annual reports and government statistics cover too slowly.",
+    "why_it_matters": "Explicitly weighted High priority per this list's own coverage-gap note: fastest-moving deal, M&A and variety-launch signal for Latin America-focused berry news, an area annual reports and government statistics cover too slowly. Confirmed 2026-08-06 to have a real, berry-scoped RSS feed (/tag/berries/feed/) with genuine article excerpts, not just repeated headlines -- converted from reference to a live-polled rss source.",
     "entity_types": [
       "trade_press"
     ],

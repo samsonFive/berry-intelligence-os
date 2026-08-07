@@ -87,6 +87,10 @@ a{color:#3d5c94}
 .tags{display:flex;gap:6px;flex-wrap:wrap}
 .tags span{font-size:11px;background:#f1f3f8;border-radius:999px;padding:5px 8px}
 
+.tags-linked{margin:6px 0}
+.tags-linked span{font-size:11px;background:#e2f6e9;color:#1c6b42;border-radius:999px;padding:5px 8px;font-weight:600}
+.tags-linked .auto-tagged-note{font-size:11px;color:#7d8799;font-style:italic;align-self:center}
+
 .priorities{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
 .priorities div{border:1px solid #e3e7ef;border-radius:7px;padding:8px}
 .priorities small{display:block;text-transform:capitalize;color:#6c778b}

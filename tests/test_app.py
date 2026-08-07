@@ -113,8 +113,11 @@ def test_feed_filters_by_geography() -> None:
 
     na_response = client.get("/api/feed", params={"geography": "geography-north-america"})
     na_body = na_response.json()
-    assert len(na_body) == 2
-    assert {item["id"] for item in na_body} == {"ev-sample-variety-launch", "ev-sample-retail-placement"}
+    # The two purpose-built sample records are deliberately tagged North
+    # America; other real (non-isolated) data may legitimately also match
+    # -- e.g. auto-tagging finding genuine North America mentions in the
+    # auto-capture backlog -- so this checks presence, not an exact count.
+    assert {"ev-sample-variety-launch", "ev-sample-retail-placement"} <= {item["id"] for item in na_body}
 
 
 def test_feed_page_renders_competitor_and_geography_filter_options() -> None:
@@ -1275,3 +1278,111 @@ def test_evidence_purge_block_domain_never_blocks_news_google_com(monkeypatch, t
     client.post("/evidence/ev-no-origin-domain/purge", data={"block_domain": "true"})
 
     assert main.load_blocked_domains() == []
+
+
+def test_auto_tag_geography_and_entities_matches_known_names() -> None:
+    record = {
+        "title": "Peru blueberry exports grow as Hortifrut expands operations",
+        "summary": "Peru blueberry exports grow as Hortifrut expands operations",
+        "auto_captured": True,
+        "validated": False,
+        "geography_ids": [],
+        "entity_ids": [],
+    }
+
+    tagged = main.auto_tag_geography_and_entities(record)
+
+    assert "geography-peru" in tagged["geography_ids"]
+    assert "company-hortifrut" in tagged["entity_ids"]
+    assert tagged["auto_tagged"] is True
+
+
+def test_auto_tag_geography_and_entities_skips_reviewed_records() -> None:
+    record = {
+        "title": "Peru blueberry exports grow",
+        "summary": "Peru blueberry exports grow",
+        "auto_captured": True,
+        "validated": True,
+        "geography_ids": [],
+        "entity_ids": [],
+    }
+
+    tagged = main.auto_tag_geography_and_entities(record)
+
+    assert tagged["geography_ids"] == []
+    assert "auto_tagged" not in tagged
+
+
+def test_auto_tag_geography_and_entities_skips_manually_authored_records() -> None:
+    record = {
+        "title": "Peru blueberry exports grow",
+        "summary": "Peru blueberry exports grow",
+        "auto_captured": False,
+        "validated": False,
+        "geography_ids": [],
+        "entity_ids": [],
+    }
+
+    tagged = main.auto_tag_geography_and_entities(record)
+
+    assert tagged["geography_ids"] == []
+    assert "auto_tagged" not in tagged
+
+
+def test_auto_tag_geography_and_entities_no_false_positive_on_unrelated_text() -> None:
+    record = {
+        "title": "A completely unrelated headline about nothing in particular",
+        "summary": "No real content here.",
+        "auto_captured": True,
+        "validated": False,
+        "geography_ids": [],
+        "entity_ids": [],
+    }
+
+    tagged = main.auto_tag_geography_and_entities(record)
+
+    assert tagged["geography_ids"] == []
+    assert tagged["entity_ids"] == []
+    assert "auto_tagged" not in tagged
+
+
+def test_is_redundant_summary_detects_google_news_style_repetition() -> None:
+    assert main.is_redundant_summary(
+        "Breeding Better Blueberries&nbsp;&nbsp;NC State University",
+        "Breeding Better Blueberries - NC State University",
+    )
+    assert not main.is_redundant_summary(
+        "A genuine excerpt describing what actually happened in the article.",
+        "Breeding Better Blueberries - NC State University",
+    )
+
+
+def test_feed_shows_linked_geography_tags_and_suppresses_redundant_summary(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    main.save_evidence(
+        {
+            "id": "ev-fictional-auto-tagged",
+            "record_type": "evidence",
+            "status": "published",
+            "source_type": "news_search",
+            "title": "Fictional headline about Peru blueberries",
+            "source_name": "Fictional Publisher",
+            "source_url": "https://example.invalid/x",
+            "captured_date": "2026-01-01",
+            "summary": "Fictional headline about Peru blueberries&nbsp;&nbsp;Fictional Publisher",
+            "submitted_by": "tester",
+            "auto_captured": True,
+            "validated": False,
+            "auto_tagged": True,
+            "geography_ids": ["geography-peru"],
+            "entity_ids": [],
+            "priority": {dim: {"level": "none", "rationale": ""} for dim in main.PRIORITY_DIMENSIONS},
+        }
+    )
+
+    response = client.get("/")
+
+    assert "Peru" in response.text
+    assert "auto-tagged, unverified" in response.text
+    assert "Fictional headline about Peru blueberries&amp;nbsp;" not in response.text
+    assert "read the full article" in response.text
