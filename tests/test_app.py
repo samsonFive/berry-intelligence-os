@@ -1080,3 +1080,26 @@ def test_evidence_detail_renders_single_sentence_summary_as_plain_paragraph() ->
     response = client.get("/evidence/ev-sample-variety-launch")
     assert response.status_code == 200
     assert "<p>A fictional breeder announced a low-chill blueberry variety" in response.text
+
+
+def test_text_matches_exact_and_phrase_still_work() -> None:
+    assert main.text_matches("hortifrut", "Hortifrut S.A. investor page")
+    assert main.text_matches("example blue", "A fictional Example Blue variety")
+    assert not main.text_matches("nonexistent term", "Hortifrut S.A. investor page")
+
+
+def test_text_matches_tolerates_common_typos() -> None:
+    assert main.text_matches("hortifruit", "Hortifrut S.A. investor page")
+    assert main.text_matches("hortifrit", "Hortifrut S.A. investor page")
+
+
+def test_text_matches_does_not_fuzzy_match_short_or_unrelated_words() -> None:
+    assert not main.text_matches("coast", "Costa Group Holdings Limited")
+    assert not main.text_matches("cat", "Costa Group Holdings Limited")
+
+
+def test_api_search_finds_entity_by_misspelled_query() -> None:
+    response = client.get("/api/search", params={"q": "hortifruit"})
+    assert response.status_code == 200
+    body = response.json()
+    assert any(e["id"] == "company-hortifrut" for e in body["entities"])

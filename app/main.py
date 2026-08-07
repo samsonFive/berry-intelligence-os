@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import difflib
 import json
 import os
 import re
@@ -279,6 +280,37 @@ def related_entity_ids(entity_id: str, relationships: list[dict[str, Any]]) -> s
     return related
 
 
+def text_matches(needle: str, haystack: str) -> bool:
+    """Case-insensitive search matching shared by the newsfeed, entity list,
+    and global search. Tries an exact substring match first (fast path,
+    preserves exact behavior for phrase queries like "example blue"). If
+    that fails, falls back to per-word matching -- each query word must
+    either appear as a substring somewhere in the haystack, or fuzzy-match
+    one of its words -- so a near-miss spelling ("hortifruit", "hortifrit")
+    still finds "Hortifrut". This is needed because, unlike the static
+    build's Pagefind search, the live app has no other typo tolerance.
+    Words under 4 characters are excluded from the fuzzy fallback: fuzzy
+    matching on short strings produces too many unrelated near-hits to be
+    useful ("cost" vs "costa" scores high on similarity but isn't a typo)."""
+    needle = needle.strip().lower()
+    if not needle:
+        return True
+    haystack = haystack.lower()
+    if needle in haystack:
+        return True
+
+    haystack_words = re.findall(r"[a-z0-9]+", haystack)
+    query_words = re.findall(r"[a-z0-9]+", needle)
+    if not query_words:
+        return False
+    for word in query_words:
+        if word in haystack:
+            continue
+        if len(word) < 4 or not difflib.get_close_matches(word, haystack_words, n=1, cutoff=0.82):
+            return False
+    return True
+
+
 def filter_evidence(
     records: list[dict[str, Any]],
     q: str | None = None,
@@ -303,8 +335,8 @@ def filter_evidence(
                         record.get("why_it_matters", ""),
                         " ".join(record.get("tags", [])),
                     ]
-                ).lower()
-                return needle in haystack
+                )
+                return text_matches(needle, haystack)
 
             results = [r for r in results if matches_text(r)]
 
@@ -391,8 +423,8 @@ def filter_entities(
                     str(attrs.get("selection_code", "")),
                     str(attrs.get("patent_number", "")),
                 ]
-            ).lower()
-            return needle in haystack
+            )
+            return text_matches(needle, haystack)
 
         results = [e for e in results if matches_text(e)]
 
@@ -1989,10 +2021,9 @@ def api_search(q: str = "") -> dict[str, Any]:
         e
         for e in all_entities()
         if needle
-        and (
-            needle in e.get("name", "").lower()
-            or any(needle in alias.lower() for alias in e.get("aliases", []))
-            or needle in e.get("description", "").lower()
+        and text_matches(
+            needle,
+            " ".join([e.get("name", ""), " ".join(e.get("aliases", [])), e.get("description", "")]),
         )
     ]
     return {"evidence": evidence_matches, "entities": entity_matches}
