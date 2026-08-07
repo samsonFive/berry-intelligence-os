@@ -1241,3 +1241,37 @@ def test_sources_unblock_domain(monkeypatch, tmp_path) -> None:
 
     assert response.status_code == 303
     assert main.load_blocked_domains() == ["trendhunter.com"]
+
+
+def test_add_blocked_domain_refuses_the_google_news_redirect_host(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+
+    assert main.add_blocked_domain("news.google.com") is False
+    assert main.load_blocked_domains() == []
+    assert main.add_blocked_domain("trendhunter.com") is True
+    assert main.load_blocked_domains() == ["trendhunter.com"]
+
+
+def test_evidence_purge_block_domain_never_blocks_news_google_com(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    main.save_evidence(
+        {
+            "id": "ev-no-origin-domain",
+            "record_type": "evidence",
+            "status": "published",
+            "source_type": "news_search",
+            "title": "Fictional headline with no origin_domain recorded",
+            "source_name": "Fictional Publisher",
+            "source_url": "https://news.google.com/rss/articles/fictional",
+            "captured_date": "2026-01-01",
+            "summary": "x",
+            "submitted_by": "tester",
+            "auto_captured": True,
+            "validated": False,
+            "priority": {dim: {"level": "none", "rationale": ""} for dim in main.PRIORITY_DIMENSIONS},
+        }
+    )
+
+    client.post("/evidence/ev-no-origin-domain/purge", data={"block_domain": "true"})
+
+    assert main.load_blocked_domains() == []

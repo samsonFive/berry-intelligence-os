@@ -20,8 +20,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:27:51",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-04d0-berry-blue-llc-1",
@@ -45,8 +45,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:27:52",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-071f-hortifrut-genetica-pmg-2",
@@ -73,8 +73,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:27:52",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-5498-fall-creek-farm-nursery-3",
@@ -99,8 +99,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:27:53",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-ece4-spanish-royal-berry-program-4",
@@ -124,8 +124,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:27:55",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-2616-global-plant-genetics-gpg-5",
@@ -151,8 +151,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:27:55",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-386e-university-of-georgia-blueberry-breeding-6",
@@ -175,8 +175,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:27:59",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-93aa-university-of-florida-blueberry-breeding-7",
@@ -199,8 +199,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:27:59",
-    "last_status": "error: [Errno 11001] getaddrinfo failed"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-669a-plant-food-research-new-zealand-blueberr-8",
@@ -224,8 +224,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:27:59",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-68b7-bc-berry-genetics-9",
@@ -248,8 +248,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:00",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-21d3-pacific-berry-breeding-pbb-10",
@@ -274,8 +274,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:00",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-876d-niab-emr-east-malling-research-11",
@@ -299,8 +299,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:01",
-    "last_status": "error: Client error '404 Not Found' for url 'https://www.niab.com/research/niab-emr'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-5767-james-hutton-institute-12",
@@ -325,8 +325,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:02",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-e298-meiosis-ltd-13",
@@ -350,8 +350,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:04",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-5c57-total-berry-14",
@@ -375,8 +375,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:05",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-e364-uc-davis-strawberry-breeding-research-pr-15",
@@ -400,8 +400,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:05",
-    "last_status": "error: Client error '403 Forbidden' for url 'https://strawberry.ucdavis.edu/breeding'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-3059-university-of-florida-strawberry-breedin-16",
@@ -424,8 +424,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:06",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-cccb-plant-sciences-inc-17",
@@ -449,8 +449,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:06",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-9e68-driscoll-s-proprietary-strawberry-breedi-18",
@@ -475,8 +475,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:06",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-5f03-california-giant-berry-farms-breeding-pa-19",
@@ -501,8 +501,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:07",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-c804-fresa-fortaleza-20",
@@ -526,8 +526,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:07",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-099e-spanish-strawberry-breeding-programs-pla-21",
@@ -551,8 +551,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:08",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-ae24-university-of-arkansas-fruit-breeding-pr-22",
@@ -576,8 +576,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:08",
-    "last_status": "error: Client error '404 Not Found' for url 'https://aaes.uada.edu/fruit-research/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-9593-emco-cal-23",
@@ -601,8 +601,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:10",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-bc96-driscoll-s-proprietary-blackberry-breedi-24",
@@ -627,8 +627,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:12",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-e254-driscoll-s-25",
@@ -659,8 +659,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:12",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-dd29-naturipe-farms-berries-26",
@@ -687,8 +687,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:13",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-5266-hortifrut-s-a-27",
@@ -715,8 +715,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:13",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-6b33-california-giant-berry-farms-28",
@@ -741,8 +741,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:14",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-20ae-sunnyridge-farm-29",
@@ -766,8 +766,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:15",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-42ce-munger-farms-30",
@@ -791,8 +791,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:15",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-95db-agrovision-camposol-31",
@@ -815,8 +815,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:15",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-f0ea-superfrost-frusan-32",
@@ -839,8 +839,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:16",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-1112-berryworld-group-33",
@@ -868,8 +868,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:16",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-cc68-costa-group-34",
@@ -893,8 +893,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:16",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-5688-family-tree-farms-35",
@@ -919,8 +919,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:17",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-266d-dandong-region-strawberry-cooperatives-c-36",
@@ -943,8 +943,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:17",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-041b-vidafresh-t-g-global-37",
@@ -970,8 +970,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:18",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-6938-international-blueberry-organization-ibo-38",
@@ -994,8 +994,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:18",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-030a-u-s-highbush-blueberry-council-ushbc-39",
@@ -1019,8 +1019,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:23",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-ad21-north-american-blueberry-council-nabc-40",
@@ -1043,8 +1043,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:24",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-1ee4-california-strawberry-commission-41",
@@ -1068,8 +1068,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:25",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-f95e-florida-strawberry-growers-association-42",
@@ -1092,8 +1092,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:26",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-2c73-north-american-raspberry-blackberry-asso-43",
@@ -1117,8 +1117,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:26",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-7efc-european-fruit-growers-associations-rasp-44",
@@ -1141,8 +1141,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:26",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-acce-comite-de-arandanos-de-chile-chilean-blu-45",
@@ -1165,8 +1165,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:27",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-6270-prochile-proarandanos-46",
@@ -1190,8 +1190,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:27",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-1bab-asociacion-de-productores-de-arandanos-p-47",
@@ -1214,8 +1214,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:28",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-4f5a-china-fruit-marketing-association-berry--48",
@@ -1241,8 +1241,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:28",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-d178-freshfel-europe-49",
@@ -1268,8 +1268,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:29",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-c14d-produce-for-better-health-foundation-50",
@@ -1297,8 +1297,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:29",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-7559-usda-nass-51",
@@ -1324,8 +1324,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:29",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-82d9-usda-ams-52",
@@ -1351,8 +1351,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:31",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-eba3-usda-rma-53",
@@ -1378,8 +1378,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:32",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-b58c-usda-fas-gain-reports-54",
@@ -1408,8 +1408,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:32",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-fb47-usda-aphis-55",
@@ -1436,8 +1436,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:33",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-05d4-european-commission-dg-agri-eu-cmo-fruit-56",
@@ -1463,8 +1463,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:33",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-a2a9-china-national-bureau-of-statistics-moa-57",
@@ -1490,8 +1490,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:34",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-1098-senasa-peru-58",
@@ -1514,8 +1514,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:34",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-2c4f-sag-chile-59",
@@ -1538,8 +1538,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:34",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-868c-senasica-mexico-60",
@@ -1565,8 +1565,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:35",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-9280-u-s-plant-variety-protection-office-uspt-61",
@@ -1592,8 +1592,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:35",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-43e9-upov-62",
@@ -1619,8 +1619,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:36",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-fa7f-uc-davis-department-of-plant-sciences-fo-63",
@@ -1644,8 +1644,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:37",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-4728-university-of-arkansas-fruit-research-st-64",
@@ -1670,8 +1670,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:38",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-8d5e-university-of-florida-ifas-65",
@@ -1696,8 +1696,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:38",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-ba77-michigan-state-university-extension-blue-66",
@@ -1720,8 +1720,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:39",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-3f00-plant-food-research-new-zealand-67",
@@ -1745,8 +1745,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:39",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-6dab-international-society-for-horticultural--68",
@@ -1772,8 +1772,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:39",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-6b1b-usda-agricultural-research-service-ars-69",
@@ -1800,8 +1800,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:40",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-4022-fruit-growers-news-70",
@@ -1827,8 +1827,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:40",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-e7bb-produce-blue-book-blue-book-services-71",
@@ -1855,8 +1855,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:40",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-47f6-the-packer-72",
@@ -1882,8 +1882,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:41",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-c710-fresh-fruit-portal-73",
@@ -1910,8 +1910,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:41",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-a004-fresh-plaza-74",
@@ -1937,8 +1937,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:43",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-9300-hortidaily-75",
@@ -1965,8 +1965,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:44",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-b9d1-growing-produce-76",
@@ -1992,8 +1992,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:45",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-316e-berry-world-news-industry-newsletter-agg-77",
@@ -2019,8 +2019,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:46",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-10d3-andnowuknow-78",
@@ -2046,8 +2046,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:46",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-1f0b-produce-report-79",
@@ -2073,8 +2073,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:47",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-c725-eastfruit-80",
@@ -2101,8 +2101,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:49",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-ee41-ibo-global-state-of-the-blueberry-indust-81",
@@ -2126,8 +2126,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:49",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-ff19-rabobank-fresh-produce-berry-sector-repo-82",
@@ -2153,8 +2153,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:50",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-80e7-tridge-83",
@@ -2180,8 +2180,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:50",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-50e8-mintec-expana-berry-price-benchmarking-84",
@@ -2207,8 +2207,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:50",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-0432-euromonitor-mordor-intelligence-berry-ma-85",
@@ -2234,8 +2234,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:51",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-db81-nielsen-circana-retail-scan-data-86",
@@ -2262,8 +2262,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:51",
-    "last_status": "error: Request URL is missing an 'http://' or 'https://' protocol."
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-3785-blueberry-breeding-program-87",
@@ -2284,8 +2284,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:52",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-2f6a-raspberry-variety-license-88",
@@ -2306,8 +2306,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:53",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
@@ -2328,8 +2328,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:54",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-d63a-blackberry-primocane-variety-90",
@@ -2350,8 +2350,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:54",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-80ee-berry-genetics-company-91",
@@ -2370,8 +2370,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:55",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
@@ -2390,8 +2390,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:56",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-4da7-berry-royalty-license-agreement-93",
@@ -2410,8 +2410,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:57",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-abbb-exclusive-variety-license-berry-94",
@@ -2430,8 +2430,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:58",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-8498-company-acquisition-berry-95",
@@ -2450,8 +2450,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:28:59",
-    "last_status": "ok: 15 new item(s)"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-c823-berry-joint-venture-genetics-96",
@@ -2470,8 +2470,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:00",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-9388-berry-nursery-partnership-97",
@@ -2490,8 +2490,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:01",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-69a5-berry-industry-investment-98",
@@ -2510,8 +2510,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:02",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-2cf5-berry-export-volume-99",
@@ -2533,8 +2533,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:03",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-a200-berry-harvest-forecast-100",
@@ -2553,8 +2553,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:04",
-    "last_status": "ok: 10 new item(s)"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-33f6-berry-acreage-expansion-101",
@@ -2573,8 +2573,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:05",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-a6a6-phytosanitary-berry-import-restriction-102",
@@ -2593,8 +2593,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:06",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-0a6b-mrl-berry-regulation-103",
@@ -2613,8 +2613,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:07",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-1732-usda-gain-report-berry-104",
@@ -2634,8 +2634,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:08",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-f8a7-berry-tariff-105",
@@ -2654,8 +2654,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:09",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-fba2-berry-plant-patent-granted-106",
@@ -2675,8 +2675,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:10",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-dcaa-upov-berry-variety-registration-107",
@@ -2695,8 +2695,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:11",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-e395-peru-blueberry-export-108",
@@ -2717,8 +2717,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:12",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-7893-chile-blueberry-season-109",
@@ -2739,8 +2739,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:13",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-a053-mexico-berry-production-110",
@@ -2764,8 +2764,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:14",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-5a0b-morocco-berry-exports-111",
@@ -2787,8 +2787,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:15",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-01c8-china-strawberry-market-112",
@@ -2809,8 +2809,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:16",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
@@ -2831,8 +2831,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:17",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
@@ -2856,8 +2856,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:17",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-996e-south-africa-blueberry-ibo-summit-115",
@@ -2878,8 +2878,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:18",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-ff93-berry-consumption-trend-116",
@@ -2898,8 +2898,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:19",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-dee2-berry-retail-sales-data-117",
@@ -2918,8 +2918,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:20",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-2e40-berry-health-research-118",
@@ -2938,8 +2938,8 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:21",
-    "last_status": "ok: 19 new item(s)"
+    "last_checked_at": null,
+    "last_status": null
   },
   {
     "id": "source-20260806173428-3eee-berry-category-growth-119",
@@ -2958,7 +2958,7 @@
     "linked_competitor_ids": [],
     "enabled": true,
     "created_at": "2026-08-06",
-    "last_checked_at": "2026-08-06T18:29:22",
-    "last_status": "ok: no new items"
+    "last_checked_at": null,
+    "last_status": null
   }
 ]

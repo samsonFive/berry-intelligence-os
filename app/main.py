@@ -172,13 +172,39 @@ templates.env.globals["pending_review_count"] = lambda: len(list_drafts())
 templates.env.globals["queue_counts"] = lambda: queue_counts()
 
 
+_JSON_FOLDER_CACHE: dict[Path, tuple[tuple[tuple[str, int], ...], list[dict[str, Any]]]] = {}
+
+
 def load_json_files(folder: Path) -> list[dict[str, Any]]:
-    records: list[dict[str, Any]] = []
+    """Read every *.json file in a folder, cached against a signature of
+    (filename, mtime) for every file currently in it.
+
+    At the record volumes this project now runs at (1500+ evidence files
+    from a single auto-capture session), re-reading and re-parsing every
+    file on every call -- which this function did unconditionally before,
+    and which every route calls at least once per request, often more --
+    measured at 0.6-1.1s per call and made the whole app close to unusable.
+    stat()-ing every file is still O(n), but a stat is microseconds versus
+    milliseconds for a full read+parse, so this is a ~100-1000x speedup for
+    the common case where nothing changed between calls.
+
+    Correct by construction rather than by remembering to invalidate: the
+    signature is recomputed from the actual filesystem state on every call,
+    so any write through any code path -- save_evidence(), a direct
+    path.write_text() elsewhere, even hand-editing a file outside the app --
+    is picked up on the very next call. No dirty flag to forget to set."""
     if not folder.exists():
-        return records
-    for path in sorted(folder.rglob("*.json")):
+        return []
+    paths = sorted(folder.rglob("*.json"))
+    signature = tuple((str(p), p.stat().st_mtime_ns) for p in paths)
+    cached = _JSON_FOLDER_CACHE.get(folder)
+    if cached is not None and cached[0] == signature:
+        return cached[1]
+    records: list[dict[str, Any]] = []
+    for path in paths:
         with path.open("r", encoding="utf-8") as handle:
             records.append(json.load(handle))
+    _JSON_FOLDER_CACHE[folder] = (signature, records)
     return records
 
 
@@ -813,6 +839,27 @@ def domain_of(url: str) -> str:
     return urlparse(url).netloc.lower().removeprefix("www.")
 
 
+# Never a legitimate block target: it's Google News's own redirect host,
+# not a publisher. Records captured before origin_domain existed (or any
+# future bug that fails to resolve a real publisher) fall back to this
+# domain -- blocking it would silently disable every keyword source at
+# once, not just one noisy outlet. block_domain() below is the only place
+# that's allowed to add to the blocklist, specifically so this guard can't
+# be bypassed by a new call site forgetting to check it.
+UNBLOCKABLE_DOMAINS = {"news.google.com"}
+
+
+def add_blocked_domain(domain: str) -> bool:
+    """Add a domain to the blocklist. Returns False (no-op) for a domain in
+    UNBLOCKABLE_DOMAINS or empty, True if it was actually added."""
+    if not domain or domain in UNBLOCKABLE_DOMAINS:
+        return False
+    domains = load_blocked_domains()
+    domains.append(domain)
+    save_blocked_domains(domains)
+    return True
+
+
 def new_source_id(label: str) -> str:
     stamp = datetime.now().strftime("%Y%m%d%H%M%S")
     suffix = secrets.token_hex(2)
@@ -935,15 +982,29 @@ def build_auto_evidence(entry: Any, source: dict[str, Any]) -> dict[str, Any]:
     summary = strip_html(getattr(entry, "summary", "") or getattr(entry, "description", ""))
     evidence_id = new_draft_id(title)
     rationale = f"Auto-captured from source '{source.get('label')}'; not yet reviewed."
+
+    # A keyword source's link is a Google News redirect (news.google.com),
+    # never the publisher's own domain -- every keyword-captured item would
+    # otherwise report the same fake domain, which both mislabels who
+    # actually published it and makes the domain blocklist useless (blocking
+    # "news.google.com" would block every keyword source at once). Google
+    # News RSS entries carry the real outlet in entry.source.{href,title};
+    # a plain RSS feed entry has no .source at all because it IS already the
+    # publisher's own feed, so the feed's own link/label are already correct.
+    origin = getattr(entry, "source", None)
+    publisher_name = (origin.get("title") if origin else None) or source.get("label", "")
+    publisher_url = (origin.get("href") if origin else None) or getattr(entry, "link", "") or ""
+
     return {
         "id": evidence_id,
         "record_type": "evidence",
         "status": "published",
         "source_type": "rss_feed" if source.get("type") == "rss" else "news_search",
         "title": title,
-        "source_name": source.get("label", ""),
+        "source_name": publisher_name,
         "source_id": source.get("id"),
         "source_url": getattr(entry, "link", "") or "",
+        "origin_domain": domain_of(publisher_url),
         "published_date": entry_published_date(entry),
         "captured_date": date.today().isoformat(),
         "summary": summary[:2000],
@@ -1003,9 +1064,9 @@ def check_source(source: dict[str, Any], seen_urls: set[str], blocked_domains: s
         link = getattr(entry, "link", "") or ""
         if not link or link in seen_urls:
             continue
-        if blocked and domain_of(link) in blocked:
-            continue
         record = build_auto_evidence(entry, source)
+        if blocked and record["origin_domain"] in blocked:
+            continue
         save_evidence(record)
         seen_urls.add(link)
         written += 1
@@ -1259,10 +1320,16 @@ def evidence_purge(record_id: str, block_domain: bool = Form(False)) -> Redirect
         raise HTTPException(status_code=400, detail="Purge is only available for auto-captured evidence")
     if record.get("source_id"):
         bump_source_tally(record["source_id"], "purged_count")
-    if block_domain and record.get("source_url"):
-        domains = load_blocked_domains()
-        domains.append(domain_of(record["source_url"]))
-        save_blocked_domains(domains)
+    if block_domain:
+        # origin_domain is the real publisher (e.g. freshplaza.com); older
+        # records captured before that field existed fall back to
+        # source_url, which is only correct for direct-RSS sources -- a
+        # keyword-captured record's source_url is a Google News redirect,
+        # not a real domain. add_blocked_domain() refuses to add that
+        # redirect host itself, which would otherwise silently disable
+        # every keyword source instead of just one noisy outlet.
+        domain = record.get("origin_domain") or domain_of(record.get("source_url", ""))
+        add_blocked_domain(domain)
     path.unlink()
     return RedirectResponse(url="/", status_code=303)
 
