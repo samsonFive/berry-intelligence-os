@@ -46,6 +46,16 @@ def main() -> None:
     bad_decision = []
     newly_blocked: set[str] = set()
 
+    # Batched rather than written through bump_source_tally()/
+    # add_blocked_domain() per row -- those each do their own full
+    # load+save of sources.json/blocked_domains.json, which is fine for a
+    # single web-UI click but rewrites a growing file hundreds of times in
+    # a row for a spreadsheet this size (observed: minutes instead of
+    # seconds for ~1600 rows). One load, accumulate in memory, one save.
+    sources = bios.load_sources()
+    sources_by_id = {s["id"]: s for s in sources}
+    blocked_domains = set(bios.load_blocked_domains())
+
     for row in ws.iter_rows(min_row=2, values_only=True):
         decision = (row[col["decision"]] or "").strip().lower()
         record_id = row[col["id"]]
@@ -62,20 +72,28 @@ def main() -> None:
             continue
 
         record = json.loads(path.read_text(encoding="utf-8"))
+        source = sources_by_id.get(record.get("source_id"))
 
         if decision == "validate":
             record["validated"] = True
             path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-            bios.bump_source_tally(record.get("source_id"), "validated_count")
+            if source is not None:
+                source["validated_count"] = source.get("validated_count", 0) + 1
             counts["validate"] += 1
         else:
             if decision == "purge+block":
                 domain = record.get("origin_domain") or bios.domain_of(record.get("source_url", ""))
-                if bios.add_blocked_domain(domain):
+                if domain and domain not in bios.UNBLOCKABLE_DOMAINS:
+                    blocked_domains.add(domain)
                     newly_blocked.add(domain)
-            bios.bump_source_tally(record.get("source_id"), "purged_count")
+            if source is not None:
+                source["purged_count"] = source.get("purged_count", 0) + 1
             path.unlink()
             counts[decision] += 1
+
+    bios.save_sources(sources)
+    if newly_blocked:
+        bios.save_blocked_domains(sorted(blocked_domains))
 
     print(f"Validated: {counts['validate']}")
     print(f"Purged: {counts['purge']}")
