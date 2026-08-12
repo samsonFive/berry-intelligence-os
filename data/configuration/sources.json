@@ -2285,7 +2285,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 43,
+    "purged_count": 1
   },
   {
     "id": "source-20260806173428-2f6a-raspberry-variety-license-88",
@@ -2307,7 +2309,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 19,
+    "purged_count": 5
   },
   {
     "id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
@@ -2329,7 +2333,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 43,
+    "purged_count": 1
   },
   {
     "id": "source-20260806173428-d63a-blackberry-primocane-variety-90",
@@ -2351,7 +2357,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 21,
+    "purged_count": 2
   },
   {
     "id": "source-20260806173428-80ee-berry-genetics-company-91",
@@ -2371,7 +2379,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 41,
+    "purged_count": 3
   },
   {
     "id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
@@ -2391,7 +2401,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 42,
+    "purged_count": 28
   },
   {
     "id": "source-20260806173428-4da7-berry-royalty-license-agreement-93",
@@ -2411,7 +2423,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 2,
+    "purged_count": 9
   },
   {
     "id": "source-20260806173428-abbb-exclusive-variety-license-berry-94",
@@ -2431,7 +2445,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 12,
+    "purged_count": 5
   },
   {
     "id": "source-20260806173428-8498-company-acquisition-berry-95",
@@ -2451,7 +2467,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 23,
+    "purged_count": 72
   },
   {
     "id": "source-20260806173428-c823-berry-joint-venture-genetics-96",
@@ -2471,7 +2489,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 32,
+    "purged_count": 2
   },
   {
     "id": "source-20260806173428-9388-berry-nursery-partnership-97",
@@ -2491,7 +2511,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 30,
+    "purged_count": 14
   },
   {
     "id": "source-20260806173428-69a5-berry-industry-investment-98",
@@ -2511,7 +2533,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 48,
+    "purged_count": 21
   },
   {
     "id": "source-20260806173428-2cf5-berry-export-volume-99",
@@ -2534,7 +2558,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 62,
+    "purged_count": 1
   },
   {
     "id": "source-20260806173428-a200-berry-harvest-forecast-100",
@@ -2554,7 +2580,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 64,
+    "purged_count": 27
   },
   {
     "id": "source-20260806173428-33f6-berry-acreage-expansion-101",
@@ -2574,7 +2602,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 38,
+    "purged_count": 33
   },
   {
     "id": "source-20260806173428-a6a6-phytosanitary-berry-import-restriction-102",
@@ -2594,7 +2624,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 3,
+    "purged_count": 7
   },
   {
     "id": "source-20260806173428-0a6b-mrl-berry-regulation-103",
@@ -2614,7 +2646,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 3,
+    "purged_count": 2
   },
   {
     "id": "source-20260806173428-1732-usda-gain-report-berry-104",
@@ -2635,7 +2669,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 14,
+    "purged_count": 5
   },
   {
     "id": "source-20260806173428-f8a7-berry-tariff-105",
@@ -2655,7 +2691,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 14,
+    "purged_count": 45
   },
   {
     "id": "source-20260806173428-fba2-berry-plant-patent-granted-106",
@@ -2676,7 +2714,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 4,
+    "purged_count": 5
   },
   {
     "id": "source-20260806173428-dcaa-upov-berry-variety-registration-107",
@@ -2718,7 +2758,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 76,
+    "purged_count": 1
   },
   {
     "id": "source-20260806173428-7893-chile-blueberry-season-109",
@@ -2740,7 +2782,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 63,
+    "purged_count": 3
   },
   {
     "id": "source-20260806173428-a053-mexico-berry-production-110",
@@ -2765,7 +2809,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 77,
+    "purged_count": 2
   },
   {
     "id": "source-20260806173428-5a0b-morocco-berry-exports-111",
@@ -2788,7 +2834,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 49,
+    "purged_count": 1
   },
   {
     "id": "source-20260806173428-01c8-china-strawberry-market-112",
@@ -2810,7 +2858,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 64,
+    "purged_count": 7
   },
   {
     "id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
@@ -2832,7 +2882,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 58,
+    "purged_count": 3
   },
   {
     "id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
@@ -2857,7 +2909,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 47,
+    "purged_count": 1
   },
   {
     "id": "source-20260806173428-996e-south-africa-blueberry-ibo-summit-115",
@@ -2879,7 +2933,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 7,
+    "purged_count": 0
   },
   {
     "id": "source-20260806173428-ff93-berry-consumption-trend-116",
@@ -2899,7 +2955,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 37,
+    "purged_count": 27
   },
   {
     "id": "source-20260806173428-dee2-berry-retail-sales-data-117",
@@ -2919,7 +2977,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 28,
+    "purged_count": 33
   },
   {
     "id": "source-20260806173428-2e40-berry-health-research-118",
@@ -2939,7 +2999,9 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 31,
+    "purged_count": 69
   },
   {
     "id": "source-20260806173428-3eee-berry-category-growth-119",
@@ -2959,6 +3021,8 @@
     "enabled": true,
     "created_at": "2026-08-06",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "validated_count": 44,
+    "purged_count": 11
   }
 ]

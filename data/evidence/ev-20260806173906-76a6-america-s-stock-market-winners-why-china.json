@@ -25,7 +25,7 @@
     "China strawberry market"
   ],
   "auto_captured": true,
-  "validated": false,
+  "validated": true,
   "priority": {
     "reading": {
       "level": "none",
@@ -44,5 +44,6 @@
       "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
     }
   },
-  "auto_tagged": true
+  "auto_tagged": true,
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
 }

@@ -21,7 +21,7 @@
     "Phytosanitary berry import restriction"
   ],
   "auto_captured": true,
-  "validated": false,
+  "validated": true,
   "priority": {
     "reading": {
       "level": "none",
@@ -39,5 +39,6 @@
       "level": "none",
       "rationale": "Auto-captured from source 'Phytosanitary berry import restriction'; not yet reviewed."
     }
-  }
+  },
+  "source_id": "source-20260806173428-a6a6-phytosanitary-berry-import-restriction-102"
 }

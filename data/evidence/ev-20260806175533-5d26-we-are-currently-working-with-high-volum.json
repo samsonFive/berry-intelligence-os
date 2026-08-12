@@ -26,7 +26,7 @@
     "Chile blueberry season"
   ],
   "auto_captured": true,
-  "validated": false,
+  "validated": true,
   "priority": {
     "reading": {
       "level": "none",
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "auto_tagged": true
+  "auto_tagged": true,
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
 }

@@ -23,7 +23,7 @@
     "Berry health research"
   ],
   "auto_captured": true,
-  "validated": false,
+  "validated": true,
   "priority": {
     "reading": {
       "level": "none",
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
     }
   },
-  "auto_tagged": true
+  "auto_tagged": true,
+  "source_id": "source-20260806173428-2e40-berry-health-research-118"
 }
