@@ -13,7 +13,7 @@
   </div>
 {% endif %}
 <article class="detail-card">
-  <dl>
+  <dl data-pagefind-ignore>
     <dt>Source</dt><dd>{{ record.source_name or "Unknown" }}</dd>
     <dt>Published</dt><dd>{{ record.published_date|us_date if record.published_date else "—" }}</dd>
     <dt>Captured</dt><dd>{{ record.captured_date|us_date }}</dd>

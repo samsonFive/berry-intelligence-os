@@ -83,6 +83,11 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
         assert "Secret unpublished draft title" not in content
         assert 'href="/' not in content, f"unrewritten absolute href in {html_file}"
 
+    search_html = (output_dir / "search" / "index.html").read_text(encoding="utf-8")
+    assert 'id="pagefind-js-path"' in search_html
+    assert 'href="../pagefind/pagefind.js"' in search_html
+    assert 'id="search-results"' in search_html
+
 
 def test_static_build_detects_leak_if_validation_bypassed(monkeypatch, tmp_path) -> None:
     data_dir = tmp_path / "data"

@@ -9,7 +9,7 @@
 </section>
 
 <article class="detail-card">
-  <dl>
+  <dl data-pagefind-ignore>
     <dt>Status</dt><dd><span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span></dd>
     <dt>Roles</dt><dd>{% if entity.roles %}{{ entity.roles|join(', ') }}{% else %}—{% endif %}</dd>
     <dt>Aliases</dt><dd>{% if entity.aliases %}{{ entity.aliases|join(', ') }}{% else %}—{% endif %}</dd>
@@ -22,9 +22,9 @@
     <ol class="activity-timeline">
       {% for item in activity %}
         <li class="activity-item">
-          <time>{{ item.date|us_date }}</time>
+          <time data-pagefind-ignore>{{ item.date|us_date }}</time>
           <div class="activity-item-body">
-            <div class="activity-item-badges">
+            <div class="activity-item-badges" data-pagefind-ignore>
               <span class="badge badge-muted">{{ item.type_label }}</span>
               {% if item.priority and item.priority != 'none' %}
                 <strong class="level-{{ item.priority }}">{{ item.priority }}</strong>

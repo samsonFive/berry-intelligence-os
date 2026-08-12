@@ -318,6 +318,11 @@ def build() -> list[Path]:
             )
         )
 
+    # Full search-results page. Runs Pagefind's own JS entirely client-side
+    # (reads ?q= at load, renders via the site's own card styling) -- no
+    # server-side content to pass here, unlike every other page above.
+    written.append(write_page("search.html", "/search", {"authoring_mode": False}))
+
     return written
 
 

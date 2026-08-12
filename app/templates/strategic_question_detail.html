@@ -14,7 +14,7 @@
   {% elif sq.description %}
     <p>{{ sq.description }}</p>
   {% endif %}
-  <dl>
+  <dl data-pagefind-ignore>
     <dt>Berries</dt><dd>{% for b in sq.berry_ids %}{{ berry_label(b) }}{% if not loop.last %}, {% endif %}{% else %}—{% endfor %}</dd>
   </dl>
 

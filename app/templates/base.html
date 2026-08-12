@@ -39,11 +39,31 @@
           </form>
         {% else %}
           <div id="pagefind-search" class="pagefind-search"></div>
+          <a id="search-page-link" href="/search/" style="display:none" aria-hidden="true"></a>
           <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
           <script src="/pagefind/pagefind-ui.js"></script>
           <script>
             window.addEventListener("DOMContentLoaded", function () {
               new PagefindUI({ element: "#pagefind-search", showSubResults: true, showImages: false });
+              // The dropdown is a quick preview, capped in height (see
+              // app.css) -- pressing Enter takes you to the full results
+              // page instead of scrolling through a shrunken list here.
+              // Capture phase + preventDefault/stopPropagation so this wins
+              // over PagefindUI's own Enter handling and its <input>'s
+              // native form submission, rather than racing them.
+              document.getElementById("pagefind-search").addEventListener("keydown", function (event) {
+                if (event.key !== "Enter" || !event.target.classList.contains("pagefind-ui__search-input")) {
+                  return;
+                }
+                var query = event.target.value.trim();
+                if (!query) {
+                  return;
+                }
+                event.preventDefault();
+                event.stopPropagation();
+                var base = document.getElementById("search-page-link").href;
+                window.location.href = base + "?q=" + encodeURIComponent(query);
+              }, true);
             });
           </script>
         {% endif %}

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}Search — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">FULL RESULTS</p>
+    <h1 id="search-heading">Search</h1>
+  </div>
+</section>
+
+<link id="pagefind-js-path" rel="preload" as="script" href="/pagefind/pagefind.js">
+
+<form class="filters" role="search" onsubmit="return false;">
+  <div class="filter-field" style="flex:1;min-width:260px">
+    <label for="search-input">Search</label>
+    <input id="search-input" type="search" placeholder="Search competitors, varieties, traits, topics…">
+  </div>
+</form>
+
+<p class="result-count" id="search-status">Type to search.</p>
+
+<section class="feed" id="search-results"></section>
+
+<div class="form-actions" id="search-load-more-wrap" style="display:none">
+  <button type="button" id="search-load-more">Load more results</button>
+</div>
+
+<script type="module">
+  const input = document.getElementById("search-input");
+  const status = document.getElementById("search-status");
+  const results = document.getElementById("search-results");
+  const loadMoreWrap = document.getElementById("search-load-more-wrap");
+  const loadMoreBtn = document.getElementById("search-load-more");
+  const heading = document.getElementById("search-heading");
+
+  const PAGE_SIZE = 15;
+  let currentResults = [];
+  let shown = 0;
+  let pagefind = null;
+
+  function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text == null ? "" : text;
+    return div.innerHTML;
+  }
+
+  function cardHtml(data) {
+    const title = data.meta && data.meta.title ? data.meta.title : data.url;
+    // data.excerpt is Pagefind's own sanitized/highlighted HTML fragment
+    // (with <mark> tags around matched terms) -- not re-escaped here, same
+    // trust level as the rest of this static build's own generated pages.
+    return (
+      '<article class="card">' +
+      '<h2><a href="' + data.url + '">' + escapeHtml(title) + "</a></h2>" +
+      "<p>" + (data.excerpt || "") + "</p>" +
+      "</article>"
+    );
+  }
+
+  function renderMore() {
+    const next = currentResults.slice(shown, shown + PAGE_SIZE);
+    if (!next.length) {
+      loadMoreWrap.style.display = "none";
+      return;
+    }
+    Promise.all(next.map((r) => r.data())).then((datas) => {
+      results.insertAdjacentHTML("beforeend", datas.map(cardHtml).join(""));
+      shown += next.length;
+      loadMoreWrap.style.display = shown < currentResults.length ? "" : "none";
+    });
+  }
+
+  async function ensurePagefind() {
+    if (!pagefind) {
+      const src = document.getElementById("pagefind-js-path").href;
+      pagefind = await import(/* @vite-ignore */ src);
+      await pagefind.init();
+    }
+    return pagefind;
+  }
+
+  async function runSearch(term) {
+    results.innerHTML = "";
+    shown = 0;
+    currentResults = [];
+    if (!term) {
+      status.textContent = "Type to search.";
+      loadMoreWrap.style.display = "none";
+      heading.textContent = "Search";
+      return;
+    }
+    status.textContent = "Searching…";
+    heading.textContent = 'Search results for "' + term + '"';
+    const pf = await ensurePagefind();
+    const search = await pf.search(term);
+    currentResults = search.results;
+    status.textContent = currentResults.length
+      ? currentResults.length + " result" + (currentResults.length === 1 ? "" : "s")
+      : "No results found.";
+    renderMore();
+  }
+
+  loadMoreBtn.addEventListener("click", renderMore);
+
+  let debounceTimer;
+  input.addEventListener("input", () => {
+    clearTimeout(debounceTimer);
+    const value = input.value;
+    debounceTimer = setTimeout(() => {
+      const url = new URL(window.location);
+      if (value) {
+        url.searchParams.set("q", value);
+      } else {
+        url.searchParams.delete("q");
+      }
+      window.history.replaceState(null, "", url);
+      runSearch(value);
+    }, 200);
+  });
+
+  const initialQuery = new URLSearchParams(window.location.search).get("q") || "";
+  input.value = initialQuery;
+  runSearch(initialQuery);
+</script>
+{% endblock %}

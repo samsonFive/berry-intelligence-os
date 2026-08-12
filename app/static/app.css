@@ -35,7 +35,16 @@ a{color:#3d5c94}
 .pagefind-search .pagefind-ui__search-input::placeholder{color:#b7c8e6}
 .pagefind-search .pagefind-ui__search-clear{color:#b7c8e6;font-size:0;width:28px;height:28px;top:6px}
 .pagefind-search .pagefind-ui__search-clear::before{content:"\2715";font-size:14px}
-.pagefind-search .pagefind-ui__drawer{background:white;border-radius:12px;border:1px solid #e0e5ef;box-shadow:0 12px 32px rgba(8,20,45,.28);overflow:hidden;margin-top:8px}
+.pagefind-search .pagefind-ui__drawer{
+  background:white;border-radius:12px;border:1px solid #e0e5ef;
+  box-shadow:0 12px 32px rgba(8,20,45,.28);margin-top:8px;
+  /* Floats over the page instead of pushing it down. Pagefind's own CSS
+     leaves the drawer in normal document flow, which meant a broad query
+     with lots of results grew the drawer to fill (and exceed) the whole
+     viewport, scrolling the search box itself out of view along with it. */
+  position:absolute;top:100%;left:0;right:0;
+  max-height:min(65vh,540px);overflow-y:auto;
+}
 .pagefind-search .pagefind-ui__results-area{padding:10px}
 .pagefind-search .pagefind-ui__message{color:#6c778b;font-size:12px;padding:4px 6px 10px;margin:0}
 .pagefind-search .pagefind-ui__results{list-style:none;margin:0;padding:0;display:grid;gap:8px}
