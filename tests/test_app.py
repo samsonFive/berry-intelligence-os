@@ -539,6 +539,19 @@ def test_signal_create_and_detail_page(monkeypatch, tmp_path) -> None:
             "reviewer": "reviewer@example.invalid",
         },
     )
+    # A signal now requires >=2 evidence references (schemas/signal.schema.json,
+    # V2 BL-014: "a signal built on one data point is really just a Claim") --
+    # publish a second piece of evidence so this exercises a genuinely valid
+    # signal, not just the single-evidence shape the schema no longer accepts.
+    second_draft_id = _create_draft("Fictional second signal source evidence")
+    client.post(
+        f"/review/{second_draft_id}/publish",
+        data={
+            "title": "Fictional second signal source evidence",
+            "summary": "Another fictional summary.",
+            "reviewer": "reviewer@example.invalid",
+        },
+    )
 
     response = client.post(
         "/signals",
@@ -549,7 +562,7 @@ def test_signal_create_and_detail_page(monkeypatch, tmp_path) -> None:
             "strength": "high",
             "confidence": "medium",
             "status": "active",
-            "evidence_ids": draft_id,
+            "evidence_ids": f"{draft_id},{second_draft_id}",
             "reviewer": "reviewer@example.invalid",
         },
         follow_redirects=False,

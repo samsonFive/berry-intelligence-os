@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "assessment.schema.json",
+  "title": "Assessment Record",
+  "$comment": "New core object, V2 Phase 1 (BL-010, docs/v2/10-BACKLOG.md). An analyst's (or AI-proposed, human-approved) interpretation of one or more Facts -- the first link in the Recommendation -> Assessment/Signal -> Facts -> Evidence -> Source lineage chain that had no schema in V1 (docs/v2/03-DOMAIN-MODEL.md, 'Assessment'). Distinct from Fact (a statement, not an interpretation), Claim (fact.classification, unverified but still a statement), Signal (a pattern across multiple evidence, not a read of existing facts), and Recommendation (a proposed action, downstream of an Assessment). No workspace/domain scoping fields yet -- those are Phase 3 (D-008, docs/v2/08-DECISION-LOG.md).",
+  "type": "object",
+  "required": ["id", "record_type", "title", "rationale", "status", "confidence", "fact_ids", "reviewer", "created_at"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^assessment-[a-z0-9-]+$"},
+    "record_type": {"const": "assessment"},
+    "title": {"type": "string", "minLength": 1},
+    "rationale": {
+      "type": "string",
+      "minLength": 1,
+      "$comment": "The interpretation itself -- what this Assessment concludes from its supporting facts, and why."
+    },
+    "status": {"enum": ["active", "superseded", "withdrawn"]},
+    "confidence": {"enum": ["low", "medium", "high"]},
+    "fact_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1,
+      "$comment": "Structurally required (BL-010): an Assessment always interprets at least one Fact -- this is what keeps it from being a bare, untraceable opinion. Not conditional on status; a draft Assessment with zero facts isn't a meaningful assessment at any stage."
+    },
+    "evidence_ids": {"type": "array", "items": {"type": "string"}},
+    "entity_ids": {"type": "array", "items": {"type": "string"}},
+    "strategic_question_ids": {"type": "array", "items": {"type": "string"}},
+    "counterevidence_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "Evidence or Fact ids that push against this Assessment's interpretation, where appropriate -- keeps a considered interpretation distinguishable from a one-sided one."
+    },
+    "reviewer": {"type": "string", "minLength": 1},
+    "ai_proposed": {
+      "type": "boolean",
+      "$comment": "True until a human reviewer has approved this Assessment (Core Design Principle #4, AI proposes / humans approve). Absent or false means human-authored or already-approved."
+    },
+    "created_at": {"type": "string", "format": "date"},
+    "updated_at": {"type": ["string", "null"], "format": "date"}
+  }
+}

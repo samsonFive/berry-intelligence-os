@@ -29,6 +29,23 @@
     "source_id": {"type": ["string", "null"]},
     "origin_domain": {"type": "string"},
     "auto_tagged": {"type": "boolean"},
+    "review_state": {
+      "enum": ["draft", "in_review", "published"],
+      "$comment": "V2 Phase 1 addition (BL-012, docs/v2/10-BACKLOG.md), optional/additive. The unified review-state vocabulary docs/v2/03-DOMAIN-MODEL.md's Evidence section calls for -- one field meaning the same thing regardless of how a record arrived (manual intake, import package, or Collector), replacing the V1 split between `status` (draft/in_review/published/archived/rejected) and `validated` (a boolean meaningful only for auto_captured records). Not required and not backfilled onto existing records in this task -- see the compatibility-bridge note in ARCHITECTURE.md-equivalent V2 docs: `status`/`validated` remain authoritative and unchanged until the Phase 3 migration maps them onto this field (docs/v2/06-MIGRATION-MAP.md's Evidence review-state mapping)."
+    },
+    "source_tier": {
+      "enum": ["tier_1_primary", "tier_2_specialist", "tier_3_corroborating", "low_authority"],
+      "$comment": "V2 Phase 1 addition (BL-012), optional. Per the blueberry import package's own proposed-schema-enhancements.md P-4: today this only exists informally as a plain string inside `tags` (e.g. \"tier-1\"), indistinguishable from unrelated tags. Not backfilled from `tags` in this task -- a data-migration concern, not a schema one."
+    },
+    "event_date": {
+      "type": ["string", "null"],
+      "format": "date",
+      "$comment": "V2 Phase 1 addition (BL-012), optional. When the underlying development actually happened, distinct from `captured_date` (when this system captured it) and `published_date` (when it was reported) -- per proposed-schema-enhancements.md P-4. Mirrors `fact.event_date`, added to this repository in an earlier session."
+    },
+    "information_confidence": {
+      "enum": ["low", "medium", "high"],
+      "$comment": "V2 Phase 1 addition (BL-012), optional. Confidence in the evidence's information itself, distinct from any fact/assessment later derived from it -- per proposed-schema-enhancements.md P-4."
+    },
     "priority": {
       "type": "object",
       "required": ["reading", "testing", "commercial_position", "monitoring"],

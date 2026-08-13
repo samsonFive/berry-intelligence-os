@@ -2,23 +2,56 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "signal.schema.json",
   "title": "Signal Record",
+  "$comment": "Refined for V2 Phase 1 (BL-014, docs/v2/10-BACKLOG.md). Zero live Signal records exist (data/signals/ is empty). The refinement target is the six staged, not-yet-imported blueberry proposed Signals (data/imports/blueberry-public-pilot-2026-08-03/signals/), per docs/v2/03-DOMAIN-MODEL.md's Signal section. COMPATIBILITY CORRECTION (found by running the existing test suite, not by data inspection alone): app/main.py's live /signals route validates against this schema at runtime (get_validator('signal.schema.json')) and has its own independent, hard-coded id-generation convention (new_signal_id() always produces a 'signal-' prefix) and form-option vocabularies (SIGNAL_STRENGTHS = [low, medium, high], SIGNAL_STATUSES = [active, watch, resolved]) -- checking only data/ for backward compatibility (0 live signal records) missed this second, equally-real compatibility surface. An id-pattern or enum replacement that only served the blueberry package's shape would have permanently broken live signal creation without any app/template code being touched, which is exactly the 'do not change application behavior' constraint this task set. Resolved by making id pattern and the strength/status enums the UNION of both vocabularies -- not a replacement -- so both the live app's existing values and the blueberry package's proposed values validate. evidence_ids' minItems 1->2 is kept exactly as specified (not unioned/loosened): it was an explicit, deliberate BL-014 requirement, not an incidental value mismatch, and the live app's existing multi-value evidence_ids form field already supports satisfying it with zero app/template changes -- see the test update noted in this task's final report.",
   "type": "object",
-  "required": ["id", "record_type", "title", "direction", "strength", "confidence", "status", "evidence_ids", "first_seen", "last_updated", "reviewer"],
+  "required": ["id", "record_type", "title", "status", "evidence_ids", "strength", "reviewer"],
   "properties": {
-    "id": {"type": "string", "pattern": "^signal-[a-z0-9-]+$"},
+    "id": {
+      "type": "string",
+      "pattern": "^(signal|sig)-[a-z0-9-]+$",
+      "$comment": "Union, not a replacement: 'signal-' is what app/main.py's new_signal_id() always generates today (unchanged, not touched by this task); 'sig-' is what the staged blueberry signals and their own proposed-schema-enhancements.md P-7 use."
+    },
     "record_type": {"const": "signal"},
     "title": {"type": "string", "minLength": 1},
     "description": {"type": "string"},
-    "direction": {"enum": ["strengthening", "weakening", "emerging", "stable"]},
-    "strength": {"enum": ["low", "medium", "high"]},
-    "confidence": {"enum": ["low", "medium", "high"]},
-    "status": {"enum": ["active", "watch", "resolved"]},
-    "evidence_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "direction": {
+      "enum": ["strengthening", "weakening", "emerging", "stable"],
+      "$comment": "Demoted from required to optional: the staged blueberry signals don't populate it, but the live app always does when creating one, with these exact values (SIGNAL_DIRECTIONS in app/main.py, unchanged) -- concept and value set both retained."
+    },
+    "strength": {
+      "enum": ["low", "medium", "high", "weak", "moderate", "strong"],
+      "$comment": "Union, not a replacement: [low, medium, high] is app/main.py's SIGNAL_STRENGTHS (unchanged, drives the live form's dropdown); [weak, moderate, strong] is the staged blueberry signals' and P-7's vocabulary. Still required -- both sides always populate it."
+    },
+    "confidence": {
+      "enum": ["low", "medium", "high"],
+      "$comment": "Demoted from required to optional: the staged blueberry signals don't populate it, but the live app always does. Value set unchanged."
+    },
+    "status": {
+      "enum": ["active", "watch", "resolved", "proposed", "monitoring", "confirmed", "refuted", "retired"],
+      "$comment": "Union, not a replacement: [active, watch, resolved] is app/main.py's SIGNAL_STATUSES (unchanged, drives the live form's dropdown); [proposed, monitoring, confirmed, refuted, retired] is docs/v2/03-DOMAIN-MODEL.md's adopted state machine, matching all six staged signals (status=proposed)."
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 2,
+      "$comment": "Raised from 1 to 2 (BL-014, kept exactly as specified): a signal is a pattern across multiple evidence, not a single data point. All six staged signals have 4-5 evidence_ids. This does change what the live /signals form will accept (a single-evidence submission now fails validation, where it previously succeeded) -- flagged explicitly in this task's final report, not silently absorbed; the existing form field already accepts multiple comma-separated evidence ids with zero app/template changes needed to satisfy it."
+    },
     "fact_ids": {"type": "array", "items": {"type": "string"}},
     "entity_ids": {"type": "array", "items": {"type": "string"}},
     "strategic_question_ids": {"type": "array", "items": {"type": "string"}},
-    "first_seen": {"type": "string", "format": "date"},
-    "last_updated": {"type": "string", "format": "date"},
-    "reviewer": {"type": "string", "minLength": 1}
+    "first_seen": {
+      "type": "string",
+      "format": "date",
+      "$comment": "Demoted from required to optional: the staged blueberry signals don't populate it (they use an unmodeled proposed_at field instead), but the live app always does."
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date",
+      "$comment": "Demoted from required to optional: the staged blueberry signals don't populate it, but the live app always does."
+    },
+    "reviewer": {
+      "type": ["string", "null"],
+      "$comment": "Made nullable (was a required non-empty string) to accommodate reviewer=null on all six staged, not-yet-human-reviewed signals. The live app always sets a real, non-empty string, which remains valid under this looser type."
+    }
   }
 }
