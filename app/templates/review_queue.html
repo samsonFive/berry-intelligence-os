@@ -3,11 +3,16 @@
 {% block content %}
 <section class="page-heading">
   <div>
-    <p class="eyebrow">TRANSFORM INTAKE INTO STRUCTURED INTELLIGENCE</p>
+    <p class="eyebrow">EVERYTHING WAITING ON A HUMAN DECISION</p>
     <h1>Review Queue</h1>
   </div>
 </section>
 
+<p class="result-count">
+  Two kinds of items land here. <strong>Intake drafts</strong> (submitted through Add Intelligence, or dropped as files) need full structuring -- entities, facts, priorities -- before they can publish. <strong>Auto-captured evidence</strong> is already published and visible in the newsfeed, just flagged unvalidated until you confirm or purge it; sorted by the source's own monitoring priority, oldest first within each priority tier so nothing sits forgotten.
+</p>
+
+<h2>Intake drafts ({{ drafts|length }})</h2>
 {% if drafts %}
   <ul class="draft-items" style="margin:0 32px 40px;max-width:800px">
     {% for draft in drafts %}
@@ -20,5 +25,50 @@
   </ul>
 {% else %}
   <p class="empty-state">Nothing waiting for review. Drafts appear here after intake.</p>
+{% endif %}
+
+<h2>Auto-captured evidence awaiting validation ({{ unvalidated_evidence|length }})</h2>
+{% if unvalidated_evidence %}
+  <section class="feed">
+    {% for item in unvalidated_evidence %}
+      <article class="card source-{{ item.source_type }}">
+        <div class="card-header">
+          <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
+          <time>{{ (item.published_date or item.captured_date)|us_date }}</time>
+        </div>
+        <h2><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h2>
+        {% set geo_and_entity_ids = (item.geography_ids or []) + (item.entity_ids or []) %}
+        {% if geo_and_entity_ids %}
+          <div class="tags tags-linked">
+            {% for eid in geo_and_entity_ids %}
+              {% if eid in entities %}
+                <span>{{ entities[eid].name }}</span>
+              {% endif %}
+            {% endfor %}
+            {% if item.auto_tagged %}<small class="auto-tagged-note">auto-tagged, unverified</small>{% endif %}
+          </div>
+        {% endif %}
+        {% set summary_is_redundant = item.summary|is_redundant_summary(item.title) %}
+        {% if not summary_is_redundant %}
+          {% set summary_lines = item.summary|as_bullets %}
+          {% if summary_lines|length > 1 %}
+            <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+          {% else %}
+            <p>{{ item.summary }}</p>
+          {% endif %}
+        {% elif item.source_url %}
+          <p class="empty-state">No summary available from this source — <a href="{{ item.source_url }}" target="_blank" rel="noopener">read the full article ↗</a></p>
+        {% endif %}
+        <div class="banner banner-warning auto-captured-banner" role="status">
+          AUTO-CAPTURED — UNVALIDATED
+          <form action="/evidence/{{ item.id }}/validate" method="post"><input type="hidden" name="redirect_to" value="/review"><button type="submit">Validate</button></form>
+          <form action="/evidence/{{ item.id }}/purge" method="post"><input type="hidden" name="redirect_to" value="/review"><button type="submit">Purge</button></form>
+          <form action="/evidence/{{ item.id }}/purge" method="post"><input type="hidden" name="redirect_to" value="/review"><input type="hidden" name="block_domain" value="true"><button type="submit">Purge &amp; block domain</button></form>
+        </div>
+      </article>
+    {% endfor %}
+  </section>
+{% else %}
+  <p class="empty-state">Nothing waiting for validation. Items appear here after a source is polled.</p>
 {% endif %}
 {% endblock %}

@@ -781,6 +781,117 @@ def test_evidence_validate_and_purge(monkeypatch, tmp_path) -> None:
     assert client.get(f"/evidence/{record_id}").status_code == 404
 
 
+def test_evidence_validate_and_purge_honor_redirect_to_review(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    monkeypatch.setattr(main.httpx, "get", lambda *a, **k: _FakeResponse(FAKE_RSS))
+    source = {"id": "source-test", "type": "rss", "label": "Fictional Trade Press",
+              "value": "https://example.invalid/feed.xml", "berry_ids": [], "enabled": True}
+    main.check_source(source, set())
+    record_id = client.get("/api/feed").json()[0]["id"]
+
+    validated = client.post(
+        f"/evidence/{record_id}/validate", data={"redirect_to": "/review"}, follow_redirects=False
+    )
+    assert validated.status_code == 303
+    assert validated.headers["location"] == "/review"
+
+    main.check_source(source, set())
+    other_id = [r["id"] for r in client.get("/api/feed").json() if r["id"] != record_id][0]
+    purged = client.post(
+        f"/evidence/{other_id}/purge", data={"redirect_to": "/review"}, follow_redirects=False
+    )
+    assert purged.status_code == 303
+    assert purged.headers["location"] == "/review"
+
+
+def test_evidence_validate_ignores_unrecognized_redirect_to(monkeypatch, tmp_path) -> None:
+    # redirect_to is only ever compared against a fixed allowlist, never used
+    # as a raw redirect target -- this guards against it becoming an open
+    # redirect if a form (or a crafted request) sends something else.
+    _isolate(monkeypatch, tmp_path)
+    monkeypatch.setattr(main.httpx, "get", lambda *a, **k: _FakeResponse(FAKE_RSS))
+    source = {"id": "source-test", "type": "rss", "label": "Fictional Trade Press",
+              "value": "https://example.invalid/feed.xml", "berry_ids": [], "enabled": True}
+    main.check_source(source, set())
+    record_id = client.get("/api/feed").json()[0]["id"]
+
+    response = client.post(
+        f"/evidence/{record_id}/validate",
+        data={"redirect_to": "https://evil.example/phish"},
+        follow_redirects=False,
+    )
+    assert response.headers["location"] == f"/evidence/{record_id}"
+
+
+def test_review_queue_shows_unvalidated_auto_captured_evidence(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    monkeypatch.setattr(main.httpx, "get", lambda *a, **k: _FakeResponse(FAKE_RSS))
+    source = {"id": "source-test", "type": "rss", "label": "Fictional Trade Press",
+              "value": "https://example.invalid/feed.xml", "berry_ids": [], "enabled": True}
+    main.check_source(source, set())
+
+    response = client.get("/review")
+    assert response.status_code == 200
+    assert "Fictional headline about blueberry licensing" in response.text
+    assert "Auto-captured evidence awaiting validation (1)" in response.text
+    assert 'name="redirect_to" value="/review"' in response.text
+
+
+def test_pending_review_count_includes_unvalidated_auto_captured_evidence(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    monkeypatch.setattr(main.httpx, "get", lambda *a, **k: _FakeResponse(FAKE_RSS))
+    source = {"id": "source-test", "type": "rss", "label": "Fictional Trade Press",
+              "value": "https://example.invalid/feed.xml", "berry_ids": [], "enabled": True}
+    pending_review_count = main.templates.env.globals["pending_review_count"]
+
+    assert pending_review_count() == 0
+    main.check_source(source, set())
+    assert pending_review_count() == 1
+
+    record_id = client.get("/api/feed").json()[0]["id"]
+    client.post(f"/evidence/{record_id}/validate")
+    assert pending_review_count() == 0
+
+
+def test_unvalidated_evidence_sorted_by_source_priority_then_oldest_first(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    main.save_evidence(
+        {
+            "id": "ev-low-priority-old", "record_type": "evidence", "status": "published",
+            "source_type": "news_search", "title": "Low priority, older",
+            "auto_captured": True, "validated": False, "source_id": "source-low",
+            "captured_date": "2026-01-01",
+        }
+    )
+    main.save_evidence(
+        {
+            "id": "ev-high-priority-new", "record_type": "evidence", "status": "published",
+            "source_type": "news_search", "title": "High priority, newer",
+            "auto_captured": True, "validated": False, "source_id": "source-high",
+            "captured_date": "2026-06-01",
+        }
+    )
+    main.save_evidence(
+        {
+            "id": "ev-high-priority-old", "record_type": "evidence", "status": "published",
+            "source_type": "news_search", "title": "High priority, older",
+            "auto_captured": True, "validated": False, "source_id": "source-high",
+            "captured_date": "2026-01-01",
+        }
+    )
+    main.save_sources(
+        [
+            {"id": "source-low", "type": "rss", "label": "Low", "value": "https://a.invalid/feed.xml",
+             "berry_ids": [], "enabled": True, "monitoring_priority": "low"},
+            {"id": "source-high", "type": "rss", "label": "High", "value": "https://b.invalid/feed.xml",
+             "berry_ids": [], "enabled": True, "monitoring_priority": "high"},
+        ]
+    )
+
+    ordered = [r["id"] for r in main.unvalidated_auto_captured_evidence()]
+    assert ordered == ["ev-high-priority-old", "ev-high-priority-new", "ev-low-priority-old"]
+
+
 def test_purge_refuses_non_auto_captured_evidence(monkeypatch, tmp_path) -> None:
     _isolate(monkeypatch, tmp_path)
     main.save_evidence(

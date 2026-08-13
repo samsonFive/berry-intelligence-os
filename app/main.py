@@ -168,7 +168,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Berry Intelligence OS", version="0.1.0", lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="static")
 templates = Jinja2Templates(directory=BASE_DIR / "app" / "templates")
-templates.env.globals["pending_review_count"] = lambda: len(list_drafts())
+templates.env.globals["pending_review_count"] = lambda: len(list_drafts()) + len(unvalidated_auto_captured_evidence())
 templates.env.globals["queue_counts"] = lambda: queue_counts()
 
 
@@ -215,6 +215,28 @@ def all_evidence() -> list[dict[str, Any]]:
 def published_evidence() -> list[dict[str, Any]]:
     records = [r for r in all_evidence() if r.get("status") == "published"]
     return sorted(records, key=lambda r: r.get("published_date") or r.get("captured_date", ""), reverse=True)
+
+
+def unvalidated_auto_captured_evidence() -> list[dict[str, Any]]:
+    """Auto-captured evidence still awaiting a human validate/purge decision
+    -- already live in the newsfeed (see the "AUTO-CAPTURED -- UNVALIDATED"
+    banner there), but also surfaced here so there's one place that shows
+    everything waiting on a review decision, not just intake drafts.
+    Excludes the pre-auto-capture seed dataset, which predates the
+    `validated` field and was never part of this workflow.
+
+    Sorted by the source's own monitoring_priority (the same field shown on
+    the Sources page) so the most important items surface first -- a
+    transparent, human-set signal, not an inferred score."""
+    records = [r for r in all_evidence() if r.get("auto_captured") and not r.get("validated")]
+    priority_by_source = {s["id"]: s.get("monitoring_priority") for s in load_sources()}
+    return sorted(
+        records,
+        key=lambda r: (
+            SOURCE_PRIORITY_RANK.get(priority_by_source.get(r.get("source_id")), 3),
+            r.get("captured_date", ""),
+        ),
+    )
 
 
 def all_entities() -> list[dict[str, Any]]:
@@ -1378,8 +1400,11 @@ def evidence_attachment(record_id: str, filename: str) -> FileResponse:
     return FileResponse(target)
 
 
+_ALLOWED_EVIDENCE_ACTION_REDIRECTS = {"/", "/review"}
+
+
 @app.post("/evidence/{record_id}/validate")
-def evidence_validate(record_id: str) -> RedirectResponse:
+def evidence_validate(record_id: str, redirect_to: str = Form("")) -> RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Validating evidence is only available in authoring mode")
     path = DATA_DIR / "evidence" / f"{record_id}.json"
@@ -1390,11 +1415,14 @@ def evidence_validate(record_id: str) -> RedirectResponse:
     path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     if record.get("auto_captured"):
         bump_source_tally(record.get("source_id"), "validated_count")
-    return RedirectResponse(url=f"/evidence/{record_id}", status_code=303)
+    # Only ever redirects to a fixed, known-safe in-app path -- never the raw
+    # form value -- so this can't be turned into an open redirect.
+    destination = redirect_to if redirect_to in _ALLOWED_EVIDENCE_ACTION_REDIRECTS else f"/evidence/{record_id}"
+    return RedirectResponse(url=destination, status_code=303)
 
 
 @app.post("/evidence/{record_id}/purge")
-def evidence_purge(record_id: str, block_domain: bool = Form(False)) -> RedirectResponse:
+def evidence_purge(record_id: str, block_domain: bool = Form(False), redirect_to: str = Form("")) -> RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Purging evidence is only available in authoring mode")
     path = DATA_DIR / "evidence" / f"{record_id}.json"
@@ -1416,7 +1444,8 @@ def evidence_purge(record_id: str, block_domain: bool = Form(False)) -> Redirect
         domain = record.get("origin_domain") or domain_of(record.get("source_url", ""))
         add_blocked_domain(domain)
     path.unlink()
-    return RedirectResponse(url="/", status_code=303)
+    destination = redirect_to if redirect_to in _ALLOWED_EVIDENCE_ACTION_REDIRECTS else "/"
+    return RedirectResponse(url=destination, status_code=303)
 
 
 @app.get("/entities/{entity_type}", response_class=HTMLResponse)
@@ -2090,10 +2119,16 @@ def intake_attachment(draft_id: str, filename: str) -> FileResponse:
 
 @app.get("/review", response_class=HTMLResponse)
 def review_queue(request: Request) -> HTMLResponse:
+    entities = entity_index()
     return templates.TemplateResponse(
         request=request,
         name="review_queue.html",
-        context={"drafts": list_drafts(), "authoring_mode": AUTHORING_MODE},
+        context={
+            "drafts": list_drafts(),
+            "unvalidated_evidence": unvalidated_auto_captured_evidence(),
+            "entities": entities,
+            "authoring_mode": AUTHORING_MODE,
+        },
     )
 
 
