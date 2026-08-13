@@ -10,7 +10,9 @@ __pycache__/
 # Runtime-created, untrusted, or disposable (see docs/04-technical-architecture/ARCHITECTURE.md)
 inbox/
 generated/
-review/
+review/*
+!review/review-backlog-2026-08-06.xlsx
+review/~$*
 
 # Editors / OS
 .vscode/
