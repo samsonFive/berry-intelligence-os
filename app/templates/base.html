@@ -38,32 +38,127 @@
             <input id="global-search" name="q" aria-label="Search" placeholder="Search competitors, varieties, traits, topics…" value="{{ request.query_params.get('q', '') }}">
           </form>
         {% else %}
-          <div id="pagefind-search" class="pagefind-search"></div>
+          <div id="pagefind-search" class="pagefind-search">
+            <form class="pagefind-ui__form" role="search" onsubmit="return false;">
+              <label class="visually-hidden" for="header-search-input">Search competitors, varieties, traits, topics</label>
+              <input id="header-search-input" class="pagefind-ui__search-input" type="text" autocomplete="off" placeholder="Search competitors, varieties, traits, topics…">
+              <button type="button" id="header-search-clear" class="pagefind-ui__search-clear" style="display:none">Clear</button>
+            </form>
+            <div id="header-search-drawer" class="pagefind-ui__drawer" style="display:none">
+              <div class="pagefind-ui__results-area">
+                <p id="header-search-message" class="pagefind-ui__message"></p>
+                <ul id="header-search-results" class="pagefind-ui__results"></ul>
+              </div>
+            </div>
+          </div>
           <a id="search-page-link" href="/search/" style="display:none" aria-hidden="true"></a>
-          <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
-          <script src="/pagefind/pagefind-ui.js"></script>
-          <script>
+          <link id="pagefind-js-path" rel="preload" as="script" href="/pagefind/pagefind.js">
+          <link id="search-core-path" rel="preload" as="script" href="/static/search-core.js">
+          <script type="module">
+            // Hand-rolled instead of the PagefindUI widget so this dropdown
+            // ranks results the same way the full /search/ page does
+            // (see search-core.js) -- PagefindUI has no hook for
+            // reordering/grouping a result set, only per-result tweaks and
+            // a single global sort that would apply to every result
+            // uniformly, not "entities first, then articles by date".
             window.addEventListener("DOMContentLoaded", function () {
-              new PagefindUI({ element: "#pagefind-search", showSubResults: true, showImages: false });
-              // The dropdown is a quick preview, capped in height (see
-              // app.css) -- pressing Enter takes you to the full results
-              // page instead of scrolling through a shrunken list here.
-              // Capture phase + preventDefault/stopPropagation so this wins
-              // over PagefindUI's own Enter handling and its <input>'s
-              // native form submission, rather than racing them.
-              document.getElementById("pagefind-search").addEventListener("keydown", function (event) {
-                if (event.key !== "Enter" || !event.target.classList.contains("pagefind-ui__search-input")) {
+              var input = document.getElementById("header-search-input");
+              var clearBtn = document.getElementById("header-search-clear");
+              var drawer = document.getElementById("header-search-drawer");
+              var message = document.getElementById("header-search-message");
+              var resultsList = document.getElementById("header-search-results");
+              var pageLink = document.getElementById("search-page-link").href;
+              var MAX_RESULTS = 8;
+
+              var pagefind = null;
+              var searchCore = null;
+              var latestQuery = 0;
+
+              function escapeHtml(text) {
+                var div = document.createElement("div");
+                div.textContent = text == null ? "" : text;
+                return div.innerHTML;
+              }
+
+              function resultHtml(data) {
+                var title = data.meta && data.meta.title ? data.meta.title : data.url;
+                return (
+                  '<li class="pagefind-ui__result">' +
+                  '<p class="pagefind-ui__result-title"><a class="pagefind-ui__result-link" href="' + data.url + '">' + escapeHtml(title) + "</a></p>" +
+                  '<p class="pagefind-ui__result-excerpt">' + (data.excerpt || "") + "</p>" +
+                  "</li>"
+                );
+              }
+
+              async function ensureModules() {
+                if (!pagefind) {
+                  var src = document.getElementById("pagefind-js-path").href;
+                  pagefind = await import(/* @vite-ignore */ src);
+                  await pagefind.init();
+                }
+                if (!searchCore) {
+                  var coreSrc = document.getElementById("search-core-path").href;
+                  searchCore = await import(/* @vite-ignore */ coreSrc);
+                }
+              }
+
+              async function runSearch(term) {
+                clearBtn.style.display = term ? "" : "none";
+                if (!term) {
+                  drawer.style.display = "none";
                   return;
                 }
-                var query = event.target.value.trim();
-                if (!query) {
+                var queryId = ++latestQuery;
+                drawer.style.display = "";
+                message.textContent = "Searching…";
+                resultsList.innerHTML = "";
+                await ensureModules();
+                var merged = await searchCore.mergedSearch(pagefind, term);
+                if (queryId !== latestQuery) return;
+                if (!merged.length) {
+                  message.textContent = "No results found.";
                   return;
                 }
-                event.preventDefault();
-                event.stopPropagation();
-                var base = document.getElementById("search-page-link").href;
-                window.location.href = base + "?q=" + encodeURIComponent(query);
-              }, true);
+                var shown = merged.slice(0, MAX_RESULTS);
+                var datas = await Promise.all(shown.map(function (r) { return r.data(); }));
+                if (queryId !== latestQuery) return;
+                message.textContent = merged.length > shown.length
+                  ? shown.length + " of " + merged.length + " results — press Enter to see all"
+                  : merged.length + " result" + (merged.length === 1 ? "" : "s");
+                resultsList.innerHTML = datas.map(resultHtml).join("");
+              }
+
+              var debounceTimer;
+              input.addEventListener("input", function () {
+                clearTimeout(debounceTimer);
+                var value = input.value.trim();
+                debounceTimer = setTimeout(function () { runSearch(value); }, 200);
+              });
+
+              input.addEventListener("keydown", function (event) {
+                if (event.key === "Enter") {
+                  var query = input.value.trim();
+                  if (!query) return;
+                  event.preventDefault();
+                  window.location.href = pageLink + "?q=" + encodeURIComponent(query);
+                } else if (event.key === "Escape") {
+                  drawer.style.display = "none";
+                  input.blur();
+                }
+              });
+
+              clearBtn.addEventListener("click", function () {
+                input.value = "";
+                clearBtn.style.display = "none";
+                drawer.style.display = "none";
+                input.focus();
+              });
+
+              document.addEventListener("click", function (event) {
+                if (!event.target.closest("#pagefind-search")) {
+                  drawer.style.display = "none";
+                }
+              });
             });
           </script>
         {% endif %}

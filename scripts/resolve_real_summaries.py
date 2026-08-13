@@ -46,6 +46,18 @@ BLOCK_SIGNALS = (
     "captcha",
     "sorry.google.com",
     "consent.google.com",
+    # Found via a diagnostic pass over the records this script couldn't
+    # resolve: thepacker.com returns this exact title behind a PerimeterX
+    # px-captcha wall, and several .edu sites (e.g. canr.msu.edu) return an
+    # hCaptcha "additional security check" interstitial instead of the
+    # article. Both are real, active bot-detection -- this script does not
+    # attempt to solve or evade either, so the only fix here is recognizing
+    # them and reporting "blocked" accurately instead of silently falling
+    # through to "no description found", which understated how much of the
+    # unresolved backlog is a genuine wall rather than a missing excerpt.
+    "access to this page has been denied",
+    "additional security check is required",
+    "i am human",
 )
 
 
@@ -99,8 +111,15 @@ def main() -> None:
     failed = 0
     blocked_skipped = 0
     blocked_at = None
-    recent_block_indices: list[int] = []
-    STOP_IF_N_BLOCKS_WITHIN_WINDOW = 3
+    # (index, domain) for each recent block, so the systemic check below can
+    # tell "many blocks from the one site we already know is gated" (normal,
+    # keep going) apart from "blocks spreading across multiple sites" (the
+    # real rate-limiting signal). Recognizing more block signals (see
+    # BLOCK_SIGNALS above) means a single heavily-represented gated domain
+    # can now produce several blocks in a row on its own -- counting raw
+    # events without this would trip the breaker on that alone.
+    recent_blocks: list[tuple[int, str]] = []
+    STOP_IF_N_DISTINCT_DOMAINS_WITHIN_WINDOW = 3
     BLOCK_WINDOW = 20
 
     def launch_browser_and_page(playwright_instance):
@@ -160,13 +179,16 @@ def main() -> None:
                         # rate-limited), which is when stopping for real is
                         # the right call.
                         blocked_skipped += 1
-                        recent_block_indices.append(i)
-                        recent_block_indices[:] = [idx for idx in recent_block_indices if i - idx <= BLOCK_WINDOW]
-                        if len(recent_block_indices) >= STOP_IF_N_BLOCKS_WITHIN_WINDOW:
+                        blocked_domain = urlparse(final_url).netloc.lower().removeprefix("www.")
+                        recent_blocks.append((i, blocked_domain))
+                        recent_blocks[:] = [(idx, d) for idx, d in recent_blocks if i - idx <= BLOCK_WINDOW]
+                        distinct_domains = {d for _, d in recent_blocks}
+                        if len(distinct_domains) >= STOP_IF_N_DISTINCT_DOMAINS_WITHIN_WINDOW:
                             blocked_at = i
                             print(
-                                f"[{i}/{len(candidates)}] {len(recent_block_indices)} block signals within "
-                                f"the last {BLOCK_WINDOW} records -- looks systemic, stopping run."
+                                f"[{i}/{len(candidates)}] blocks across {len(distinct_domains)} distinct domains "
+                                f"({', '.join(sorted(distinct_domains))}) within the last {BLOCK_WINDOW} records "
+                                "-- looks systemic, stopping run."
                             )
                             break
                         print(f"[{i}/{len(candidates)}] BLOCK SIGNAL at {final_url} (site-specific) -- skipping, continuing.")

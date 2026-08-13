@@ -31,9 +31,9 @@ a{color:#3d5c94}
   --pagefind-ui-font:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;
 }
 .pagefind-search .pagefind-ui__form{position:relative}
-.pagefind-search .pagefind-ui__search-input{background:#173d70;color:white;border-color:#315789;border-radius:10px!important;padding:11px 40px 11px 14px!important}
+.pagefind-search .pagefind-ui__search-input{width:100%;font:inherit;background:#173d70;color:white;border:1px solid #315789;border-radius:10px!important;padding:11px 40px 11px 14px!important}
 .pagefind-search .pagefind-ui__search-input::placeholder{color:#b7c8e6}
-.pagefind-search .pagefind-ui__search-clear{color:#b7c8e6;font-size:0;width:28px;height:28px;top:6px}
+.pagefind-search .pagefind-ui__search-clear{position:absolute;right:6px;border:0;background:none;cursor:pointer;color:#b7c8e6;font-size:0;width:28px;height:28px;top:6px}
 .pagefind-search .pagefind-ui__search-clear::before{content:"\2715";font-size:14px}
 .pagefind-search .pagefind-ui__drawer{
   background:white;border-radius:12px;border:1px solid #e0e5ef;

@@ -32,6 +32,15 @@ python scripts/build_static.py
 python -m http.server 8080 --directory generated   # smoke test
 ```
 
+## Testing
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
+
+The deploy workflow (`.github/workflows/deploy-pages.yml`) runs the same suite before every build, so a broken route or template fails the deploy instead of shipping.
+
 ## V1 operating model
 
 1. Capture locally through the app or by dropping Markdown/JSON into an inbox.

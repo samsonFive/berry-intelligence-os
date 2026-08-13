@@ -122,6 +122,7 @@ def build() -> list[Path]:
     static_out = OUTPUT_DIR / "static"
     static_out.mkdir(parents=True, exist_ok=True)
     shutil.copy2(ROOT / "app" / "static" / "app.css", static_out / "app.css")
+    shutil.copy2(ROOT / "app" / "static" / "search-core.js", static_out / "search-core.js")
 
     # Newsfeed.
     written.append(
