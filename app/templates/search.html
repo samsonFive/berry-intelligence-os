@@ -92,8 +92,30 @@
     status.textContent = "Searching…";
     heading.textContent = 'Search results for "' + term + '"';
     const pf = await ensurePagefind();
-    const search = await pf.search(term);
-    currentResults = search.results;
+    // Three-tier ordering: a company/entity's own page is the strongest
+    // possible match for its own name and belongs first; newsfeed articles
+    // are more useful ranked by recency than by raw text-match score; and
+    // any other search terms Pagefind's plain relevance was already
+    // reasonable for the wider default of the surface (this session's
+    // "MBO" search-priority fix). All three queries hit the same index, so
+    // this runs them in parallel and merges by id, keeping the fallback
+    // pass as the authoritative membership list so nothing is ever dropped
+    // -- it just gets reordered ahead of it when a stronger signal exists.
+    const [entityMatches, newsfeedMatches, allMatches] = await Promise.all([
+      pf.search(term, { filters: { type: "entity" } }),
+      pf.search(term, { filters: { type: "evidence" }, sort: { date: "desc" } }),
+      pf.search(term),
+    ]);
+    const seen = new Set();
+    const merged = [];
+    for (const bucket of [entityMatches.results, newsfeedMatches.results, allMatches.results]) {
+      for (const result of bucket) {
+        if (seen.has(result.id)) continue;
+        seen.add(result.id);
+        merged.push(result);
+      }
+    }
+    currentResults = merged;
     status.textContent = currentResults.length
       ? currentResults.length + " result" + (currentResults.length === 1 ? "" : "s")
       : "No results found.";

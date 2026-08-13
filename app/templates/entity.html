@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{ entity.name }}{% endblock %}
 {% block content %}
-<section class="page-heading">
+<section class="page-heading" data-pagefind-filter="type:entity">
   <div>
     <p class="eyebrow">{{ entity.entity_type|replace('_',' ')|upper }}</p>
     <h1>{{ entity.name }}</h1>

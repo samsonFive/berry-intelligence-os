@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{ record.title }}{% endblock %}
 {% block content %}
-<section class="page-heading"><div><p class="eyebrow">EVIDENCE — {{ record.source_type|replace('_',' ')|upper }}</p><h1>{{ record.title }}</h1></div></section>
+<section class="page-heading" data-pagefind-filter="type:evidence" data-pagefind-sort="date:{{ record.published_date or record.captured_date }}"><div><p class="eyebrow">EVIDENCE — {{ record.source_type|replace('_',' ')|upper }}</p><h1>{{ record.title }}</h1></div></section>
 {% if record.auto_captured and not record.validated %}
   <div class="banner banner-warning auto-captured-banner" role="status">
     AUTO-CAPTURED — UNVALIDATED

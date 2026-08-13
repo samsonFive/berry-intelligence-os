@@ -1406,3 +1406,19 @@ def test_entity_page_omits_aliases_line_when_none() -> None:
     response = client.get("/entities/company/company-example-genetics")
     assert response.status_code == 200
     assert "Also known as:" not in response.text
+
+
+def test_entity_page_tagged_for_search_prioritization() -> None:
+    response = client.get("/entities/company/company-mountain-blue-orchards")
+    assert response.status_code == 200
+    assert 'data-pagefind-filter="type:entity"' in response.text
+
+
+def test_evidence_page_tagged_with_search_type_and_sort_date() -> None:
+    response = client.get("/evidence/ev-sample-variety-launch")
+    assert response.status_code == 200
+    assert 'data-pagefind-filter="type:evidence"' in response.text
+    # Prefers published_date over captured_date so the newsfeed-by-recency
+    # search ordering reflects when the article actually ran, not when this
+    # app happened to capture it.
+    assert 'data-pagefind-sort="date:2026-07-28"' in response.text

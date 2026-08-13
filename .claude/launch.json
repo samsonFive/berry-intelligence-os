@@ -6,6 +6,12 @@
       "runtimeExecutable": ".venv/Scripts/uvicorn.exe",
       "runtimeArgs": ["app.main:app", "--port", "8000"],
       "port": 8000
+    },
+    {
+      "name": "static-site",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8010", "--directory", "generated"],
+      "port": 8010
     }
   ]
 }
