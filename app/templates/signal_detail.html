@@ -65,7 +65,7 @@
             <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
             <time>{{ (item.published_date or item.captured_date)|us_date }}</time>
           </div>
-          <h3><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3>
+          <h3 data-pagefind-weight="1"><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3>
           {% set summary_lines = item.summary|as_bullets %}
           {% if summary_lines|length > 1 %}
             <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>

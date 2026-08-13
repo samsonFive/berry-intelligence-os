@@ -1386,3 +1386,23 @@ def test_feed_shows_linked_geography_tags_and_suppresses_redundant_summary(monke
     assert "auto-tagged, unverified" in response.text
     assert "Fictional headline about Peru blueberries&amp;nbsp;" not in response.text
     assert "read the full article" in response.text
+
+
+def test_entity_page_shows_weighted_searchable_aliases() -> None:
+    response = client.get("/entities/company/company-mountain-blue-orchards")
+    assert response.status_code == 200
+    assert 'data-pagefind-weight="10"' in response.text
+    assert "Also known as:" in response.text
+    assert "MBO" in response.text
+    # Aliases must not be inside the ignored metadata block -- that's the
+    # regression this test guards against (an alias that isn't indexed at
+    # all can't be found by searching it, regardless of weight).
+    ignored_block_start = response.text.index('<dl data-pagefind-ignore>')
+    ignored_block_end = response.text.index('</dl>', ignored_block_start)
+    assert "Also known as" not in response.text[ignored_block_start:ignored_block_end]
+
+
+def test_entity_page_omits_aliases_line_when_none() -> None:
+    response = client.get("/entities/company/company-example-genetics")
+    assert response.status_code == 200
+    assert "Also known as:" not in response.text

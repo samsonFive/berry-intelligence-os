@@ -59,6 +59,7 @@ a{color:#3d5c94}
 
 .page-heading{display:flex;justify-content:space-between;align-items:end;padding:28px 32px 14px}
 .page-heading h1{margin:2px 0 0;font-size:30px}
+.also-known-as{margin:4px 0 0;color:#7d8799;font-size:13px}
 .eyebrow{margin:0;color:#5e65c7;font-size:12px;font-weight:800;letter-spacing:.08em}
 .page-heading button{background:#6d50c7;color:white;border:0;border-radius:7px;padding:11px 16px}
 .page-heading button:disabled{opacity:.55;cursor:not-allowed}

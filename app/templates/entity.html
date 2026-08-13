@@ -5,6 +5,16 @@
   <div>
     <p class="eyebrow">{{ entity.entity_type|replace('_',' ')|upper }}</p>
     <h1>{{ entity.name }}</h1>
+    {% if entity.aliases %}
+      {# Indexed and weighted deliberately -- this is the single strongest
+         relevance signal a search page can offer for short-name/acronym
+         queries like "MBO", stronger than an incidental mention buried in
+         an article body. Previously inside the ignored metadata <dl> below,
+         which meant aliases weren't searchable at all: a query for an
+         entity's own alias ranked that entity's page behind news articles
+         that merely mentioned the acronym once in passing. #}
+      <p class="also-known-as" data-pagefind-weight="10">Also known as: {{ entity.aliases|join(', ') }}</p>
+    {% endif %}
   </div>
 </section>
 
@@ -12,7 +22,6 @@
   <dl data-pagefind-ignore>
     <dt>Status</dt><dd><span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span></dd>
     <dt>Roles</dt><dd>{% if entity.roles %}{{ entity.roles|join(', ') }}{% else %}—{% endif %}</dd>
-    <dt>Aliases</dt><dd>{% if entity.aliases %}{{ entity.aliases|join(', ') }}{% else %}—{% endif %}</dd>
     <dt>Berries</dt><dd>{% for b in entity.berry_ids %}{{ berry_label(b) }}{% if not loop.last %}, {% endif %}{% else %}—{% endfor %}</dd>
     <dt>Region{{ 's' if regions|length > 1 else '' }}</dt><dd>{{ regions|join(', ') if regions else '—' }}</dd>
   </dl>
@@ -106,7 +115,7 @@
             <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
             <time>{{ (item.published_date or item.captured_date)|us_date }}</time>
           </div>
-          <h3><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3>
+          <h3 data-pagefind-weight="1"><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3>
           {% set item_summary_lines = item.summary|as_bullets %}
           {% if item_summary_lines|length > 1 %}
             <ul class="bullet-list">{% for line in item_summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
