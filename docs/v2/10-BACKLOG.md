@@ -1,6 +1,6 @@
 # Intelligence OS — Backlog (V2)
 
-**Status:** Reviewed and accepted with revisions, 2026-08-13. Every item remains `Not started` except BL-016/BL-017, whose decisions are now resolved by the planning review itself (see notes on those items). This translates `07-IMPLEMENTATION-ROADMAP.md`'s phase-level goals into bounded, individually-completable work items — none of them "giant undifferentiated tasks," per the roadmap's own constraint. **This revision**: inserted a new Phase 1.5 (BL-024 – BL-029); added an early minimal Intelligence Package exporter to Phase 2 (BL-035); replaced Phase 3's dual-write items with the simplified seven-step sequence (BL-040 – BL-048); replaced BL-052 with a bounded review task; retired BL-053 (moved to Phase 1.5 as BL-024).
+**Status:** Reviewed and accepted with revisions, 2026-08-13; Phase 0 executed 2026-08-13. `BL-001` and `BL-002` are `Done`. `BL-016`/`BL-017`'s decisions are resolved by the planning review itself. Every other item remains `Not started` — Phase 1 has not begun. This translates `07-IMPLEMENTATION-ROADMAP.md`'s phase-level goals into bounded, individually-completable work items — none of them "giant undifferentiated tasks," per the roadmap's own constraint. **Planning revision**: inserted a new Phase 1.5 (BL-024 – BL-029); added an early minimal Intelligence Package exporter to Phase 2 (BL-035); replaced Phase 3's dual-write items with the simplified seven-step sequence (BL-040 – BL-048); replaced BL-052 with a bounded review task; retired BL-053 (moved to Phase 1.5 as BL-024).
 
 **Size key**: S = a few hours to ~1 day of focused work. M = a few days. L = a week or more, or high uncertainty — an `L` item is itself a signal it may need splitting further once scoped in detail.
 
@@ -10,8 +10,8 @@
 
 | ID | Title | Purpose | Dependencies | Acceptance criteria | Status | Size |
 |---|---|---|---|---|---|---|
-| BL-001 | Tag V1 reference baseline | Guarantee a recoverable, known-good V1 state before any V2 work begins | None | Named git tag pushed; tests/validation/static build all pass against it in isolation | Not started | S |
-| BL-002 | Document V1 baseline's CI independence | Confirm V2 branch work can't accidentally affect V1's live deployment | BL-001 | V1's `deploy-pages.yml` continues to succeed from the tag with zero changes required | Not started | S |
+| BL-001 | Tag V1 reference baseline | Guarantee a recoverable, known-good V1 state before any V2 work begins | None | Named git tag pushed; tests/validation/static build all pass against it in isolation | **Done** (2026-08-13 — `v1-blueberry-reference` tags commit `432a96b`, pushed to `origin`; 122/122 tests, zero schema errors, static build succeeded, all verified at that commit) | S |
+| BL-002 | Document V1 baseline's CI independence | Confirm V2 branch work can't accidentally affect V1's live deployment | BL-001 | V1's `deploy-pages.yml` continues to succeed from the tag with zero changes required | **Done** (2026-08-13 — `deploy-pages.yml` confirmed unmodified since commit `518efc7`, well before the tag; every step it runs was reproduced locally at the tagged commit with matching results; `v2/intelligence-os` branch created from the tag and pushed, ready for V2 work without touching `master`) | S |
 
 ## Phase 1 — V2 domain definitions and abstractions
 

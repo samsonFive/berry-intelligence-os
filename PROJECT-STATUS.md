@@ -10,37 +10,37 @@
 Intelligence OS V2
 
 **Current stage:**
-Architecture plan accepted with revisions (planning review completed 2026-08-13 — see `docs/v2/08-DECISION-LOG.md`)
+Phase 0 complete — V1 baseline frozen
 
 **Current branch:**
-`master`
+`v2/intelligence-os`
 
 **Next phase:**
-Phase 0 — freeze/reference baseline (not started — see "Next implementation action" below)
+Phase 1 — V2 domain definitions and abstractions (not started)
 
 **Last completed:**
-V2 planning documents revised per owner review: D-001–D-009 accepted, D-010 resolved (Claim stays a Fact subtype), D-011 resolved (Recommendation and Evidence Priority coexist permanently, distinct semantics, no mechanical conversion); Phase 1.5 (Intelligence UX Prototype) inserted between Phase 1 and Phase 2; Phase 3's migration strategy simplified from extended dual-write to a bounded 7-step freeze/load/parity-check/test/stage/cutover sequence; Phase 1's Domain Pack scope confirmed narrow (6 concretely-needed surfaces only); an early minimal Intelligence Package exporter added to Phase 2; a public-internet authentication rule added. Updated: `02-TARGET-ARCHITECTURE.md`, `03-DOMAIN-MODEL.md`, `06-MIGRATION-MAP.md`, `07-IMPLEMENTATION-ROADMAP.md`, `08-DECISION-LOG.md`, `09-RISK-REGISTER.md`, `10-BACKLOG.md`.
+`BL-001` and `BL-002` (Phase 0) — V1 reference state frozen. Baseline verified clean (122/122 tests, zero schema validation errors, static build succeeds), tagged `v1-blueberry-reference` (annotated, pushed to `origin`), and the `v2/intelligence-os` branch created from that exact tagged commit and pushed to `origin`.
 
 **In progress:**
-Nothing implementation-facing. This was a documents-only revision — no production code or data was touched.
+Nothing implementation-facing. Phase 0 was tracking/git operations only — no production code or data was touched.
 
 **Next:**
-Owner confirms the revised plan is ready to act on; then proceed to Phase 0 only.
+Owner authorization to begin Phase 1 planning/execution.
 
 **Next implementation action:**
-`BL-001` / Phase 0 only — tag the current commit as the V1 reference baseline (recommended name `v1-blueberry-reference`). **Not started in this task, by explicit instruction.**
+`BL-010` / Phase 1 — write `assessment.schema.json`. **Pending owner authorization — not started.**
 
 **Blocked by:**
 None.
 
 **Known-good V1 reference:**
-Current audited V1 commit (this repository's `master` HEAD as of this planning revision), pending final tag. No tag exists yet — creating it is `BL-001`, Phase 0's first step, deliberately still not done.
+Tag `v1-blueberry-reference` → commit `432a96bd4efce1991df83b60aa1587154ba19528`. Annotated, pushed to `origin`, confirmed to dereference to the expected commit.
 
 **Architecture documents:**
-Accepted, after the revisions made in this task (`docs/v2/00-README.md` through `10-BACKLOG.md`, all updated 2026-08-13).
+Accepted (`docs/v2/00-README.md` through `10-BACKLOG.md`, 2026-08-13).
 
 **Tests at baseline:**
-122 passed, 0 failed (`pytest -q`); `scripts/validate_records.py` passes with zero schema errors. Unchanged by this task (planning documents only).
+122 passed, 0 failed (`pytest -q`); `scripts/validate_records.py` passes with zero schema errors; `scripts/build_static.py` completes successfully (1,452 pages). All verified directly at the tagged commit.
 
 **Important decisions — status:**
 (IDs match `docs/v2/08-DECISION-LOG.md`)
@@ -49,4 +49,4 @@ Accepted, after the revisions made in this task (`docs/v2/00-README.md` through 
 - D-010 — Claim stays a `fact.classification` value, no separate schema — **ACCEPTED (Option A)**
 - D-011 — Recommendation and Evidence Priority coexist permanently, distinct triage-vs-decision semantics — **ACCEPTED**
 
-No decisions remain open. Nothing is blocking Phase 0 except the deliberate choice not to start it in this task.
+No decisions remain open. Phase 1 has not been started, per explicit instruction.
