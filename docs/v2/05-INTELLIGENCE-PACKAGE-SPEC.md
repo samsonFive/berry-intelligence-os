@@ -1,6 +1,6 @@
 # Intelligence OS — Intelligence Package Specification (V2)
 
-**Status:** Planning draft, not accepted.
+**Status:** Reviewed and accepted, 2026-08-13. This spec's role grew on review: it is now also the mechanism behind Phase 3's migration-safety "freeze and archive" step (`07-IMPLEMENTATION-ROADMAP.md`), not only the long-term downstream-system export contract — a minimal exporter against this spec is built early, in Phase 2 (`10-BACKLOG.md` BL-035), rather than waiting for the full report/API/export UI in Phase 6.
 
 ## Purpose
 

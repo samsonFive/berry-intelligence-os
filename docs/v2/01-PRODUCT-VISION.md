@@ -1,6 +1,6 @@
 # Intelligence OS — Product Vision (V2)
 
-**Status:** Planning draft. Nothing in this document has been approved for implementation.
+**Status:** Reviewed and accepted, 2026-08-13 (see `08-DECISION-LOG.md`). Acceptance of the plan is not authorization to begin implementation — see `PROJECT-STATUS.md`.
 **Relationship to V1 docs:** this supersedes none of `WELCOME.md`, `docs/00-product-vision/VISION.md`, or `docs/01-prd/PRD.md` for the Berry Domain Pack itself — those remain accurate descriptions of the berry product. This document describes what the *platform underneath* Berry Intelligence OS becomes.
 
 ---

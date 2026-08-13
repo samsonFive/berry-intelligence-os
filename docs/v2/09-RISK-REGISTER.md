@@ -1,6 +1,6 @@
 # Intelligence OS — Risk Register (V2)
 
-**Status:** Planning draft, not accepted. Likelihood/impact ratings are this planning pass's own judgment, grounded in `CURRENT-STATE-AUDIT.md` where a risk is already partially observable in V1, and should be revisited once real V2 implementation experience exists.
+**Status:** Reviewed and accepted with revisions, 2026-08-13 — R-01's mitigation and R-11's likelihood/priority were updated to reflect the simplified Phase 3 migration strategy (see the note at the end of this document). Likelihood/impact ratings are this planning pass's own judgment, grounded in `CURRENT-STATE-AUDIT.md` where a risk is already partially observable in V1, and should be revisited once real V2 implementation experience exists.
 
 Rating scale: **Likelihood** and **Impact** each Low/Medium/High. **Priority** is not a mechanical product of the two — it also weighs how hard the risk is to detect after the fact, since a low-likelihood, hard-to-detect risk (e.g., silent provenance loss) can outrank a higher-likelihood, easy-to-catch one.
 
@@ -12,7 +12,7 @@ Rating scale: **Likelihood** and **Impact** each Low/Medium/High. **Priority** i
 
 **Description**: the Phase 3 Postgres migration, or any later schema evolution, silently drops or corrupts records from the 1,882-record V1 dataset — the single explicit product-direction requirement most directly threatened ("the existing blueberry dataset must be preserved").
 
-**Mitigation**: the dual-write/parity-verification design in Phase 3 (`07-IMPLEMENTATION-ROADMAP.md`) is built specifically against this risk — automated, continuous, byte-level parity checking before any JSON-file write path is retired, plus a full Intelligence Package archival export taken before migration begins as an independent, out-of-band backstop. See D-009 (`08-DECISION-LOG.md`) — this is the primary reason a big-bang cutover is disallowed.
+**Mitigation**: the revised, bounded seven-step migration in Phase 3 (`07-IMPLEMENTATION-ROADMAP.md`, `08-DECISION-LOG.md` D-001) is built specifically against this risk — freeze and archive a validated Intelligence Package first (an independent, out-of-band backstop that exists *before* any Postgres load happens), then deterministic JSON→Postgres→JSON round-trip parity checks against that frozen archive, then the full test suite against the Postgres repository, then a bounded staging acceptance period, then cutover — with the V1 git tag and the archived package preserved indefinitely afterward, not just until confidence is high. See D-009 (`08-DECISION-LOG.md`) — this is the primary reason a big-bang cutover is disallowed. Deliberately **not** an extended dual-write period (rejected on review — see D-001's reviewer modification): the mitigation here is a verified, deterministic, bounded sequence, not an open-ended parallel-run.
 
 **Owner/phase**: Phase 3.
 
@@ -128,16 +128,18 @@ Rating scale: **Likelihood** and **Impact** each Low/Medium/High. **Priority** i
 
 ## R-11 — Flat-file / Postgres parity drift during transition
 
-**Likelihood**: Medium (this is the specific, named risk of choosing a dual-write transition strategy at all) · **Impact**: Medium-High (a silent drift could look like R-01, migration data loss, if not caught) · **Priority**: High
+**Likelihood**: Low-Medium (substantially reduced by the revised, bounded migration strategy — see below) · **Impact**: Medium-High (an undetected discrepancy could look like R-01, migration data loss, if not caught) · **Priority**: Medium (downgraded on review from High, reflecting the reduced exposure window)
 
-**Description**: during Phase 3's dual-write period, the two stores (JSON files, Postgres) drift out of sync — a write succeeds on one side and fails or is delayed on the other, or a schema-evolution change is applied to one store's writer but not the other's, and nobody notices until the parity check catches it (or worse, doesn't).
+**Description**: **revised in scope on review, 2026-08-13** — the original framing of this risk assumed an extended dual-write period where two actively-written stores could silently diverge over time. That strategy was rejected (`08-DECISION-LOG.md` D-001's reviewer modification): Phase 3 now freezes the JSON source, loads it into Postgres once, and never writes to JSON again. The residual risk this leaves is narrower but real: **(a)** the one-time load (step 2) silently drops or transforms something during the JSON→Postgres translation, and **(b)** during the bounded staging/branch acceptance period (step 5), the application writes new data directly to Postgres — data that has no JSON-side equivalent by design (the archive is a frozen point-in-time snapshot, not meant to stay in sync) — which matters only if the migration needs to be abandoned mid-staging and rolled back, at which point those Postgres-only writes would need an explicit reconciliation plan, not an assumption they'll just carry over.
 
-**Mitigation**: this is precisely why Phase 3's acceptance criteria require the parity job to run *continuously* and report *zero discrepancies over a defined observation window* before cutover, not a one-time check at the start — the risk isn't "the migration is wrong on day one," it's "the two stores silently diverge over the following weeks." The parity job itself should alert loudly (not just log) on any discrepancy, treated as a Phase-3-blocking incident, not a background cleanup item.
+**Mitigation**: **(a)** is exactly what the deterministic JSON→Postgres→JSON round-trip parity check (step 3) exists to catch — run against the frozen archive, not a moving target, so "zero discrepancies" is a clean, one-time, fully reproducible bar rather than an ongoing monitoring problem. **(b)** is addressed by treating the staging period as genuinely provisional: any real analytical work done during it (a new Fact, a new Assessment) should be treated as at-risk until cutover is final, and a rollback decision during staging should be made early rather than late, before provisional Postgres-only work accumulates enough volume to make reconciliation itself risky.
 
-**Owner/phase**: Phase 3, for the entire duration of the dual-write period.
+**Owner/phase**: Phase 3 — step 3 (parity check) and step 5 (staging period), specifically.
 
 ---
 
 ## Summary — highest-priority risks
 
 Ranked by this register's own priority assessment (not likelihood alone): **R-01 (migration data loss)**, **R-08 (report hallucination)**, and **R-09 (loss of provenance)** share the top priority tier — each directly threatens either an explicit product-direction requirement (preserving the dataset) or the platform's core identity claim (trustworthy, evidence-traceable intelligence). All three have structural, not just procedural, mitigations specified above and built into the roadmap's acceptance criteria, rather than left as "be careful" guidance.
+
+**Revised on review, 2026-08-13**: R-01's mitigation and R-11's likelihood/priority were both updated to reflect the simplified, bounded Phase 3 migration strategy adopted this review (freeze/archive/load/parity-check/test/stage/cutover, replacing the originally-proposed extended dual-write period — see `08-DECISION-LOG.md` D-001). R-01 remains top-priority; R-11 is downgraded from High to Medium priority, since removing the extended-dual-write design removes the specific failure mode ("two actively-written stores silently diverging over weeks") that risk was originally scoped around.

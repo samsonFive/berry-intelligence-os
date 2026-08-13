@@ -1,6 +1,6 @@
 # Intelligence OS V2 — Planning Document Set
 
-**Status: planning draft. Nothing in `docs/v2/` is accepted. No implementation begins until this set is reviewed and approved.**
+**Status: reviewed and accepted with revisions, 2026-08-13 (see `08-DECISION-LOG.md`). Implementation still has not begun — see `PROJECT-STATUS.md`; the next action is Phase 0 / `BL-001` only.**
 
 This directory is the architecture planning pass for the controlled transition from Berry Intelligence OS V1 into a generalized Intelligence OS, per the product direction: an independently hosted platform that can monitor arbitrary industries/markets/geographies, with Berry Intelligence becoming the first Domain Pack and reference implementation rather than the platform's architectural identity.
 
@@ -34,10 +34,10 @@ Everything here is organized around one distinction, stated fully in `01-PRODUCT
 ## What this plan does NOT do
 
 - It does not modify `app/main.py`, any schema, any template, or any data file.
-- It does not commit the platform to PostgreSQL, a specific AI provider, or any specific SaaS feature as a *fait accompli* — every architectural choice in `02-TARGET-ARCHITECTURE.md` and every decision in `08-DECISION-LOG.md` is marked `PROPOSED`, not accepted, per the task's explicit instruction.
-- It does not propose a big-bang rewrite anywhere — `06-MIGRATION-MAP.md` gives every `REPLACE` item a coexistence bridge, and `08-DECISION-LOG.md` D-009 records this as a deliberate, named decision, not an implicit assumption.
+- Acceptance of the plan is not authorization to start building — `08-DECISION-LOG.md`'s decisions being `ACCEPTED` means the *plan* is settled, not that implementation has begun. See `PROJECT-STATUS.md`: the only authorized next action is Phase 0 / `BL-001`.
+- It does not propose a big-bang rewrite anywhere — `06-MIGRATION-MAP.md` gives every `REPLACE` item a coexistence bridge, and `08-DECISION-LOG.md` D-009 records this as a deliberate, accepted decision. The Phase 3 migration strategy was further simplified on review (bounded freeze/load/parity-check/stage/cutover, not an extended dual-write) — see D-001's reviewer modification.
 - It does not scope Phase 8 (SaaS-readiness) in detail — that phase's first work item is a justification decision, made later, against real need.
 
 ## Recommended next step
 
-Per the task's own closing instruction, implementation does not begin until this set is reviewed and accepted. The concrete first action **after acceptance** is Phase 0 (`07-IMPLEMENTATION-ROADMAP.md`): tag the current V1 commit as the reference baseline (`BL-001`, `10-BACKLOG.md`) — a trivial, reversible, zero-risk action that unblocks every subsequent phase without touching anything currently running.
+The plan is now reviewed and accepted (with the revisions recorded in `08-DECISION-LOG.md`). The concrete first action is Phase 0 (`07-IMPLEMENTATION-ROADMAP.md`): tag the current V1 commit as the reference baseline (`BL-001`, `10-BACKLOG.md`) — a trivial, reversible, zero-risk action that unblocks every subsequent phase without touching anything currently running. **Not started as part of this review pass** — see `PROJECT-STATUS.md`.

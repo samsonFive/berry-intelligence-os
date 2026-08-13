@@ -1,6 +1,6 @@
 # Intelligence OS — Domain Model (V2)
 
-**Status:** Planning draft, not accepted.
+**Status:** Reviewed and accepted, 2026-08-13, including resolution of the two open decisions (D-010, D-011 — see `08-DECISION-LOG.md`) this document originally flagged as unresolved.
 
 This extends, and in two places (Assessment, Recommendation) finally *implements*, the domain model V1's own `docs/03-information-architecture/DOMAIN-MODEL.md` specified from the project's first commit but never fully built. That document's lineage requirement is the organizing idea for everything below:
 
@@ -134,7 +134,7 @@ V1 built `Facts → Evidence → Source`. `Assessment` and `Signal` existed as n
 - **Provenance requirements**: as Fact.
 - **Review state**: as Fact.
 - **Core or domain-specific**: Core.
-- **Decision needed (`08-DECISION-LOG.md` D-010)**: in V1, Claim is not a separate schema — it's `fact.classification == "claim"`, sharing every other field with Fact. V2 has two honest options: **(a)** keep this — it's simple, already validated at scale (132 fact / 54 claim records, `CURRENT-STATE-AUDIT.md` Section 6), and the classification enum is the *entire* mechanism that makes the FACT/CLAIM distinction real rather than just a naming convention; or **(b)** split Fact and Claim into two schemas if a future need (different required fields, different workflows for verifying a Claim into a Fact) makes them diverge. This document does not resolve that choice — it's flagged as PROPOSED, needs-owner-input in `08-DECISION-LOG.md`.
+- **Decision (`08-DECISION-LOG.md` D-010, ACCEPTED 2026-08-13)**: Claim remains a subtype/classification of Fact, not a separate schema — `fact.classification = "fact" | "claim"`, sharing every other field with Fact. This is simple, already validated at scale (132 fact / 54 claim records, `CURRENT-STATE-AUDIT.md` Section 6), and the classification enum is the *entire* mechanism that makes the FACT/CLAIM distinction real rather than just a naming convention. **No separate Claim persistence schema is introduced in V2** unless a future concrete workflow (a distinct required-field set, a distinct verification lifecycle that promotes a Claim into a Fact) demonstrates the need — at which point that becomes a new, separately-numbered decision, not a reopening of D-010.
 
 ## Relationship
 
@@ -168,14 +168,14 @@ V1 built `Facts → Evidence → Source`. `Assessment` and `Signal` existed as n
 
 ## Recommendation
 
-- **Purpose**: **new in V2, though — like Assessment — not a new idea.** V1's `DOMAIN-MODEL.md` defines it as "a proposed action, such as read, test, commercially review, or monitor." This is the *other* missing link in the lineage chain.
+- **Purpose**: **new in V2, though — like Assessment — not a new idea.** V1's `DOMAIN-MODEL.md` defines it, in spirit, as "a proposed action." This is the *other* missing link in the lineage chain. **Resolved this review (`08-DECISION-LOG.md` D-011, ACCEPTED)**: Recommendation is a **decision/action** object, answering *"what action or decision is proposed based on accumulated intelligence?"* — a genuinely different question from the one Evidence Priority answers (see below), not a grander version of it.
 - **Ownership/scope**: belongs to a Workspace.
 - **Important relationships**: requires ≥1 Assessment or Signal (never bare evidence — a Recommendation is downstream of interpretation, per the lineage chain, not a shortcut around it); may reference Entities and Strategic Questions.
 - **Provenance requirements**: `assessment_or_signal_ids` (≥1), `action_type`, `rationale`, `reviewer`, `created_at`.
 - **Review state**: same AI-proposes/human-approves discipline as Assessment.
-- **Core or domain-specific**: the object is Core; the *vocabulary* of action types is Domain-specific — V1's four (reading/testing/commercial_position/monitoring) become the Berries Domain Pack's starter `action_type` vocabulary rather than a hard-coded global enum, so a different Domain Pack can define its own recommendation vocabulary without touching core code.
-- **Decision needed (`08-DECISION-LOG.md` D-011)**: does V1's `evidence.priority` (the four dimensions bolted directly onto Evidence, with a level and rationale each) get **replaced** by real Recommendation objects, or does it **remain** as a lighter-weight, evidence-level triage signal that coexists alongside the heavier, Assessment/Signal-anchored Recommendation object? This document proposes coexistence during migration (Recommendation is additive, `evidence.priority` isn't removed until Recommendation is proven) — see `06-MIGRATION-MAP.md`'s ADAPT entry for `evidence.priority`.
-- **V1 equivalent**: none as an object; `evidence.priority.{reading,testing,commercial_position,monitoring}` is the closest analog and the direct migration source for early Recommendation records (`06-MIGRATION-MAP.md`).
+- **Core or domain-specific**: the object is Core; the *vocabulary* of `action_type` values is Domain-specific (`04-DOMAIN-PACK-SPEC.md`) — a genuinely different, decision-oriented vocabulary from Evidence Priority's triage dimensions (e.g., candidates for a Berries Domain Pack starter vocabulary: `pursue_licensing_discussion`, `escalate_to_commercial_review`, `monitor_for_confirmation`, `no_action_warranted` — illustrative, not finalized; an actual vocabulary is Phase 1.5/Phase 4 work, informed by the first real Recommendations written in Phase 1.5).
+- **Relationship to Evidence Priority — permanent, not a migration-period default (`08-DECISION-LOG.md` D-011, ACCEPTED 2026-08-13)**: Evidence Priority (the four dimensions on `Evidence` — `reading`/`testing`/`commercial_position`/`monitoring`) and Recommendation **coexist permanently**, because they answer different questions at different points in the lineage chain. Evidence Priority is **triage**, attached directly to one Evidence record: *"how urgently, or in what way, should an analyst pay attention to this specific item?"* Recommendation is **decision/action**, downstream of Assessment/Signal/Facts: *"what should we actually do, based on accumulated intelligence?"* A single high-priority evidence item does not imply any Recommendation exists yet — real analytical work (an Assessment or Signal) sits between the two. Because of this, **existing `evidence.priority` values are never mechanically converted into Recommendation records** — see `10-BACKLOG.md`'s BL-052 (a bounded review task, not a conversion sweep) and `06-MIGRATION-MAP.md`'s entry for `evidence.priority`.
+- **V1 equivalent**: none as an object. `evidence.priority.{reading,testing,commercial_position,monitoring}` is a related-but-distinct, permanently-retained concept (see above), not a migration source for Recommendation records.
 
 ## Strategic Question
 

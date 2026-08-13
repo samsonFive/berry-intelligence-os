@@ -1,6 +1,6 @@
 # Intelligence OS — Backlog (V2)
 
-**Status:** Planning draft, not accepted. Every item is `Not started`. This translates `07-IMPLEMENTATION-ROADMAP.md`'s phase-level goals into bounded, individually-completable work items — none of them "giant undifferentiated tasks," per the roadmap's own constraint.
+**Status:** Reviewed and accepted with revisions, 2026-08-13. Every item remains `Not started` except BL-016/BL-017, whose decisions are now resolved by the planning review itself (see notes on those items). This translates `07-IMPLEMENTATION-ROADMAP.md`'s phase-level goals into bounded, individually-completable work items — none of them "giant undifferentiated tasks," per the roadmap's own constraint. **This revision**: inserted a new Phase 1.5 (BL-024 – BL-029); added an early minimal Intelligence Package exporter to Phase 2 (BL-035); replaced Phase 3's dual-write items with the simplified seven-step sequence (BL-040 – BL-048); replaced BL-052 with a bounded review task; retired BL-053 (moved to Phase 1.5 as BL-024).
 
 **Size key**: S = a few hours to ~1 day of focused work. M = a few days. L = a week or more, or high uncertainty — an `L` item is itself a signal it may need splitting further once scoped in detail.
 
@@ -15,16 +15,18 @@
 
 ## Phase 1 — V2 domain definitions and abstractions
 
+**Scope note (confirmed on review, 2026-08-13)**: the items below already implement only the six Domain Pack surfaces concretely required by the Berries reference build (manifest, entity types, predicates, taxonomies, strategic-question templates, collector templates) — no items exist here for report templates, visualization configuration, or advanced filters, consistent with D-007's narrowed Phase 1 scope. Those remain specified in `04-DOMAIN-PACK-SPEC.md` but unimplemented until Phase 1.5 or Phase 4 shows a concrete need.
+
 | ID | Title | Purpose | Dependencies | Acceptance criteria | Status | Size |
 |---|---|---|---|---|---|---|
 | BL-010 | Write `assessment.schema.json` | New core object per `03-DOMAIN-MODEL.md` | BL-001 | Schema validates a hand-written example Assessment record; requires ≥1 `fact_ids` | Not started | S |
-| BL-011 | Write `recommendation.schema.json` | New core object per `03-DOMAIN-MODEL.md` | BL-001, D-011 decision | Schema validates a hand-written example; requires ≥1 `assessment_or_signal_ids` | Not started | S |
+| BL-011 | Write `recommendation.schema.json` | New core object per `03-DOMAIN-MODEL.md`, reflecting D-011's resolved decision/action semantics (distinct from Evidence Priority) | BL-001 (D-011 resolved, see BL-017) | Schema validates a hand-written example; requires ≥1 `assessment_or_signal_ids`; does not overlap `evidence.priority`'s fields | Not started | S |
 | BL-012 | Extend `evidence.schema.json` | Unified review-state enum, `source_tier`, `event_date`, `information_confidence` — all optional/additive | BL-001 | Full V1 evidence dataset (1,263 records) validates unchanged against extended schema | Not started | M |
 | BL-013 | Extend `relationship.schema.json` | Add `confidence` field (P-3, blueberry import proposal) | BL-001 | Full V1 relationship dataset (204 records) validates unchanged | Not started | S |
 | BL-014 | Extend `signal.schema.json` | Enforce `minItems: 2` on `evidence_ids`; richer status enum | BL-001 | The 6 staged blueberry signals validate against the new schema | Not started | S |
 | BL-015 | Tighten `strategic-question.schema.json` status enum | `active/answered/retired` per P-6 | BL-001 | Full V1 strategic-question dataset (9 records) validates unchanged | Not started | S |
-| BL-016 | Resolve D-010 (Claim schema) | Unblock Phase 1 schema work | BL-001 | Recorded decision in `08-DECISION-LOG.md`, either confirming (a) or scoping (b) | Not started | S |
-| BL-017 | Resolve D-011 (Recommendation vs. `evidence.priority`) | Unblock Phase 4 planning | BL-001 | Recorded decision in `08-DECISION-LOG.md` | Not started | S |
+| BL-016 | Resolve D-010 (Claim schema) | Unblock Phase 1 schema work | BL-001 | Recorded decision in `08-DECISION-LOG.md` | **Done** (2026-08-13 planning review — Option A accepted: Claim stays `fact.classification`, no separate schema) | S |
+| BL-017 | Resolve D-011 (Recommendation vs. `evidence.priority`) | Unblock Phase 4 planning | BL-001 | Recorded decision in `08-DECISION-LOG.md` | **Done** (2026-08-13 planning review — permanent coexistence, distinct triage-vs-decision semantics; no mechanical conversion) | S |
 | BL-018 | Write `domain-pack.schema.json` | Validates the manifest shape from `04-DOMAIN-PACK-SPEC.md` | BL-010 – BL-015 | A hand-written minimal manifest validates; a manifest missing a required section fails validation | Not started | M |
 | BL-019 | Extract Berries entity types into Domain Pack `entity-types.json` | Replace hard-coded `SOURCE_ENTITY_TYPES`/implicit types with declared config | BL-018 | File lists all 9 live entity types (`CURRENT-STATE-AUDIT.md` Section 6), each entity in live data resolves to a declared type | Not started | S |
 | BL-020 | Extract Berries relationship predicates into Domain Pack `relationship-predicates.json` | Include V1's 10 plus the 6 from P-2 | BL-018 | File lists 16 predicates; every live relationship (204 records) resolves to a declared predicate | Not started | S |
@@ -32,38 +34,57 @@
 | BL-022 | Migrate 9 live strategic questions into `strategic-question-templates.json` | Per `04-DOMAIN-PACK-SPEC.md` Section 4 | BL-018 | All 9 questions present, content unchanged | Not started | S |
 | BL-023 | Build Berries `collector-templates.json` from the 120-source registry | Per `04-DOMAIN-PACK-SPEC.md` Section 5 | BL-018 | All 120 sources represented with their type/priority/berry/region metadata intact | Not started | M |
 
+## Phase 1.5 — Intelligence UX prototype
+
+**Added on review, 2026-08-13.** All items run against the current JSON-backed repository — no PostgreSQL. See `07-IMPLEMENTATION-ROADMAP.md`'s Phase 1.5 for why this phase exists and what it validates.
+
+| ID | Title | Purpose | Dependencies | Acceptance criteria | Status | Size |
+|---|---|---|---|---|---|---|
+| BL-024 | Import the 6 staged blueberry Signals (JSON-backed) | Closes a gap open since 2026-08-04; earliest possible real-data test of the refined Signal schema | BL-014 (Phase 1 complete) | All 6 visible and correctly linked in the running JSON-backed app | Not started | S |
+| BL-025 | Create one real, human-authored Assessment and one real Recommendation (JSON-backed) | Validates Assessment/Signal/Recommendation semantics against real usage before Phase 2/3 commit further engineering on top of them | BL-010, BL-011, BL-024 | Both exist, reviewed/published, with a correctly-traced `Recommendation → Assessment/Signal → Facts → Evidence → Source` chain | Not started | M |
+| BL-026 | Prototype a Blueberry/Berries Landscape view (JSON-backed) | First real test of a rollup/synthesis view, informing Phase 2's repository-interface query needs | BL-025 | Reachable in the running app; synthesizes multiple records into one view | Not started | M |
+| BL-027 | Prototype a richer Company intelligence/portfolio view (JSON-backed) | Closes `CURRENT-STATE-AUDIT.md` Workflow B's identified gap (no portfolio rollup on a company page) | BL-025 | Shows a company's varieties/patents/relationships as a grouped view, not just the current interleaved activity timeline | Not started | M |
+| BL-028 | Prototype a richer Variety intelligence view, including a first attempt at trait provenance (JSON-backed) | Closes `CURRENT-STATE-AUDIT.md` Section 5's identified gap (trait-to-variety linkage isn't structured/queryable) | BL-025 | Shows a variety's traits with their supporting evidence/facts, distinguishable from unrelated mentions | Not started | M |
+| BL-029 | Document Phase 1.5 findings | Feeds Phase 2's repository-interface design directly, per this phase's stated purpose | BL-024 – BL-028 | Written document covering: what rollup queries were actually needed, what Domain Pack configuration was genuinely necessary, what data-model gaps appeared — referenced by name in Phase 2's design work, not filed unread | Not started | S |
+
 ## Phase 2 — Repository/storage abstraction
 
 | ID | Title | Purpose | Dependencies | Acceptance criteria | Status | Size |
 |---|---|---|---|---|---|---|
-| BL-030 | Define repository interfaces per core object type | The seam Phase 3 swaps behind | Phase 1 complete | Interface covers list/filter/get/create/update for every core type; documented | Not started | M |
+| BL-030 | Define repository interfaces per core object type | The seam Phase 3 swaps behind, informed by BL-029's findings | Phase 1 complete, BL-029 | Interface covers list/filter/get/create/update for every core type, plus the rollup/query patterns Phase 1.5 found necessary; documented | Not started | M |
 | BL-031 | Implement JSON-file repository against the new interface | Prove the interface without changing behavior | BL-030 | Existing `load_json_files()` logic reachable only through the interface | Not started | M |
 | BL-032 | Refactor evidence/entity routes onto the repository interface | Remove direct file I/O from route handlers | BL-031 | No route performs direct file I/O (verified by code search); all 122 tests pass unmodified in assertion | Not started | L |
 | BL-033 | Refactor remaining routes (facts, relationships, sources, review, signals, strategic questions) onto the interface | Complete the abstraction | BL-032 | Same acceptance bar as BL-032, applied repo-wide | Not started | L |
 | BL-034 | Build a second (in-memory) repository implementation for test speed | Prove the seam is real, not a renamed function call | BL-030 | Test suite can run against either implementation without route code changes | Not started | S |
+| BL-035 | Build a minimal Intelligence Package exporter against the repository interface | **Added on review** — early proof of the migration-safety mechanism and the downstream-system export contract, ahead of the full report/API/export UI (Phase 6) | BL-031 | Exports the current dataset to `05-INTELLIGENCE-PACKAGE-SPEC.md` format; a re-import round-trips without information loss (`source-lineage.json`'s `orphan_check` empty) | Not started | M |
 
 ## Phase 3 — PostgreSQL parity migration
+
+**Revised on review, 2026-08-13** — replaces the originally-proposed dual-write approach with the bounded seven-step sequence below (`08-DECISION-LOG.md` D-001, `07-IMPLEMENTATION-ROADMAP.md` Phase 3). No extended period with two simultaneously-written operational stores.
 
 | ID | Title | Purpose | Dependencies | Acceptance criteria | Status | Size |
 |---|---|---|---|---|---|---|
 | BL-040 | Generate Postgres schema from Phase 1 JSON schemas | Ground truth stays the JSON schema, not a hand-written DDL | Phase 1, Phase 2 complete | Every field/enum/required-optional distinction preserved; reviewed against schemas by hand | Not started | M |
 | BL-041 | Implement Postgres-backed repository | Second real implementation of Phase 2's interface | BL-040, BL-030 | Passes the same test suite BL-034's in-memory implementation passes | Not started | L |
-| BL-042 | One-time full dataset load into Postgres | Seed V2's operational store from V1's dataset | BL-041 | All 1,882 live records present, verified by automated count-and-content check | Not started | M |
-| BL-043 | Build the continuous parity-check job | The core mitigation for R-01/R-11 | BL-042 | Job runs on a schedule, diffs every Postgres row against source JSON, alerts loudly on any discrepancy | Not started | L |
-| BL-044 | Implement `Evidence` review-state migration mapping | Per the exact mapping in `06-MIGRATION-MAP.md` | BL-042 | Every evidence record's new `review_state` matches the documented mapping rule for its V1 `status`/`validated`/`auto_captured` combination | Not started | M |
-| BL-045 | Dual-write period: application writes both JSON and Postgres | The actual bridge — no big-bang cutover | BL-041, BL-043 | Zero parity discrepancies over the defined observation window | Not started | L |
-| BL-046 | Cut application reads over to Postgres; disable JSON writes | Completes the migration | BL-045 clean for observation window | App fully functional read/write against Postgres only; JSON files archived, not deleted | Not started | M |
-| BL-047 | Pre-migration full Intelligence Package archival export | Independent backstop against R-01, separate from the parity job itself | BL-042 (can run before BL-045) | A complete, validated Intelligence Package of the pre-migration JSON state exists in cold storage | Not started | S |
+| BL-042 | **Step 1** — Freeze and archive a complete, validated Intelligence Package from the current JSON-backed system | The migration safety mechanism; reuses BL-035's exporter for real, not just as a proof-of-concept | BL-035, Phase 1.5 complete | A complete, validated Intelligence Package exists, covering every live record including Phase 1.5's additions (Signals, Assessment, Recommendation) | Not started | S |
+| BL-043 | **Step 2** — Load the archived package into PostgreSQL (one-time) | Seed V2's operational store; not an ongoing sync | BL-041, BL-042 | All records from the archive present in Postgres, verified by automated count-and-content check | Not started | M |
+| BL-044 | **Step 2 detail** — Apply the `Evidence` review-state migration mapping during load | Per the exact mapping in `06-MIGRATION-MAP.md` | BL-043 | Every evidence record's new `review_state` matches the documented mapping rule for its V1 `status`/`validated`/`auto_captured` combination | Not started | M |
+| BL-045 | **Step 3** — Deterministic JSON → Postgres → canonical JSON round-trip parity check | The core mitigation for R-01/R-11, run against the frozen archive, not a live moving target | BL-043 | Running the check reports zero discrepancies between the archived package and the round-tripped Postgres content | Not started | L |
+| BL-046 | **Step 4** — Run the complete application test suite against the Postgres repository implementation | Proves behavior parity, not just data parity | BL-045 clean | Every existing test (122 plus whatever Phase 1/1.5/2 added) passes against Postgres | Not started | M |
+| BL-047 | **Step 5** — Run V2 on a branch/staging environment using Postgres for a bounded acceptance period | Real usage verification, explicitly time-boxed | BL-046 | Staging period runs its full defined duration with zero discrepancies or regressions; any issue found resets the clock rather than being waived | Not started | L |
+| BL-048 | **Steps 6–7** — Cut V2 over to PostgreSQL; preserve the V1 tag and archived JSON package indefinitely | Completes the migration without ever running an extended dual-write period | BL-047 clean for its full duration | App fully functional read/write against Postgres only; V1 git tag and archived Intelligence Package both verified still present and documented as permanent, post-cutover | Not started | M |
 
-## Phase 4 — Intelligence/synthesis layer
+## Phase 4 — Intelligence/synthesis layer (productionization)
+
+**Revised on review, 2026-08-13.** This phase now productionizes what Phase 1.5 already prototyped against JSON — it does not build these objects/views for the first time. BL-053 (originally "import the 6 signals") is retired here; that work moved to Phase 1.5 as BL-024, since it needed to happen before Postgres, not after.
 
 | ID | Title | Purpose | Dependencies | Acceptance criteria | Status | Size |
 |---|---|---|---|---|---|---|
-| BL-050 | Build Assessment create/review/approve UI | Extends the review-queue pattern to a new object type | Phase 3 complete, BL-010 | An analyst can create, review, and publish an Assessment through the UI | Not started | M |
-| BL-051 | Build Recommendation create/review/approve UI | Same pattern for Recommendation | Phase 3 complete, BL-011, BL-017 | An analyst can create, review, and publish a Recommendation through the UI | Not started | M |
-| BL-052 | Migrate 124 records' `priority` values into initial Recommendations | Per D-011's resolution | BL-051 | Every priority level currently set (`CURRENT-STATE-AUDIT.md` Section 4: reading/testing/commercial/monitoring counts) has a corresponding Recommendation record | Not started | M |
-| BL-053 | Import the 6 staged blueberry Signals | Closes a gap open since 2026-08-04 | BL-014, Phase 3 complete | All 6 visible and correctly linked in the running app | Not started | S |
-| BL-054 | Build "Berries Landscape" Intelligence Product / view | Proves the rollup/synthesis concept end-to-end | BL-050 – BL-053 | View shows information (a real geography-grouped rollup) not visible on any single existing page | Not started | L |
+| BL-050 | Productionize Assessment create/review/approve UI on Postgres | Rebuilds Phase 1.5's (BL-025) prototype properly, informed by its findings (BL-029), not designed from scratch | Phase 3 complete, BL-025, BL-029 | An analyst can create, review, and publish an Assessment through the UI, handling more than the single Phase 1.5 example | Not started | M |
+| BL-051 | Productionize Recommendation create/review/approve UI on Postgres | Same, for Recommendation | Phase 3 complete, BL-025, BL-029 | An analyst can create, review, and publish a Recommendation through the UI, correctly enforcing the `assessment_or_signal_ids` requirement | Not started | M |
+| BL-052 | **Replaced on review** — Bounded review of the 124 curated priority-tagged evidence records | Per D-011 (ACCEPTED): Evidence Priority and Recommendation coexist permanently with distinct semantics — no mechanical conversion. This task examines existing curated priority records and creates a Recommendation *only* where an actual, action-oriented recommendation is genuinely supported by accumulated intelligence (an Assessment or Signal justifies it) | BL-051 | A documented review of all 124 records exists, stating how many were reviewed, how many warranted a real Recommendation and why, and — just as importantly — why the rest didn't; `evidence.priority` itself is untouched | Not started | M |
+| ~~BL-053~~ | ~~Import the 6 staged blueberry Signals~~ | **Retired — moved to Phase 1.5 as BL-024**, since it needed to happen before Postgres, not after | — | — | Retired | — |
+| BL-054 | Productionize the Berries Landscape / Company / Variety views on Postgres | Completes Phase 1.5's (BL-026/027/028) prototypes, addressing the specific gaps their findings (BL-029) identified | BL-050, BL-051, BL-026, BL-027, BL-028, BL-029 | Each productionized view demonstrably addresses a specific gap named in Phase 1.5's findings document, not just a re-skin of the prototype | Not started | L |
 | BL-055 | Fix `/work-queue` vs. `/review` count discrepancy | Named directly in `CURRENT-STATE-AUDIT.md` as a live, current bug | Phase 3 complete | Both pages agree on backlog size, sourced from the same query | Not started | S |
 | BL-056 | Add visual distinction for `disputed` status (facts and relationships) | Named directly in `CURRENT-STATE-AUDIT.md` Section 7/9 as a rendering gap | Phase 3 complete | A disputed fact/relationship is visually distinguishable from an active one without reading small print | Not started | S |
 
@@ -86,7 +107,7 @@
 | ID | Title | Purpose | Dependencies | Acceptance criteria | Status | Size |
 |---|---|---|---|---|---|---|
 | BL-070 | Design and implement versioned read API (`/api/v2/...`) | Core Design Principle #11 | Phase 3 complete | Every core object type has a working, filterable read endpoint | Not started | L |
-| BL-071 | Implement minimal authentication | Direct mitigation for R-10, required before any hosted deployment | Phase 3 complete | Write access requires authentication; `reviewer`/`approved_by` fields reference real Users | Not started | M |
+| BL-071 | Implement minimal authentication | Direct mitigation for R-10. **Hard rule, not phase-conditional**: no writable Intelligence OS instance may be exposed to the public internet without authentication in front of it | Phase 3 complete | Write access requires authentication; `reviewer`/`approved_by` fields reference real Users; verified this gate is enforced before any public-internet exposure, regardless of phase | Not started | M |
 | BL-072 | Build Report generation from Domain Pack templates | Closes the "customized intelligence reports" product-direction requirement | Phase 4 complete (Assessment/Recommendation exist to cite) | At least one report template generates a correct, fully lineage-traceable report against live data | Not started | L |
 | BL-073 | Implement Intelligence Package export (JSON) | Core of `05-INTELLIGENCE-PACKAGE-SPEC.md` | BL-070 | Full-dataset export produces a valid manifest + all record types + `source-lineage.json` with empty `orphan_check` | Not started | M |
 | BL-074 | Implement Intelligence Package export (JSONL, CSV) | Format completeness per the spec | BL-073 | Same content as JSON export, correctly reshaped, documented flattening notes for CSV | Not started | M |

@@ -1,6 +1,6 @@
 # Intelligence OS — Domain Pack Specification (V2)
 
-**Status:** Planning draft, not accepted.
+**Status:** Reviewed and accepted, 2026-08-13 (D-007, `08-DECISION-LOG.md`), with Phase 1's *implementation* scope narrowed to the six concretely-required surfaces — see `07-IMPLEMENTATION-ROADMAP.md` Phase 1. This document's full eight-surface specification stands; report templates, visualization configuration, and advanced filters remain specified here but unimplemented until a concrete need is demonstrated.
 
 ## Purpose
 
