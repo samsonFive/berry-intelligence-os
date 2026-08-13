@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQU3BwNHpzVFUxQUFCUVR1NUU0ODZrdVd0WGV5OHl6cTBpVy1jSFFVQ3FpQlpRRC15cWY1c0I0MjdVWm42aE5ZUkZMNWE1d3I0Z2lxVmRsRzRaSWluWmlMN3dpbFBnNWlPRVZTdGZYZzlGZzYzTzFYRnJteG90U0xPT2U4SjB3NTVMOURQUmdLZmEtVFVWLVJEYjB4OExvSzNnSC1PMnhVVmFZdjZpZGl5bUZoaUVTSUF2ekc4MEhvSQ?oc=5",
   "published_date": "2022-11-09",
   "captured_date": "2026-08-06",
-  "summary": "Chile’s Agroberries Invests €40 million in Blueberry Farming in Morocco&nbsp;&nbsp;Morocco World News",
+  "summary": "Chile’s vertically integrated producer, marketer, and distributor of berries Agroberries Limited is investing €40 million in the first phase of its expansion strategy in Morocco.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Morocco berry exports",
   "berry_ids": [
@@ -47,5 +47,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111"
+  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+  "origin_domain": "moroccoworldnews.com"
 }

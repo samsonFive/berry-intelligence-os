@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPZ2xwX0NvcXQ4dHl2ZW9XdWdLV1lXOGJTcTVwalhDcmF3V0xQS0RLWTlpTjlTU1ItYkN5cTZ1b2laRkJlbzk4cFpMN0gtRTZFNTZpQjRhSzZwdW0yTDVLeGhJSVZ1c0htU3JmejdYWFUtUm94NjIwMjc4eGNoa05uMWZyVHlqSndrLVRtVjFB?oc=5",
   "published_date": "2025-04-07",
   "captured_date": "2026-08-06",
-  "summary": "Peru’s rapid rise as the world’s leading blueberry exporter&nbsp;&nbsp;IFPRI",
+  "summary": "With research staff from more than 70 countries, and offices across the globe, IFPRI provides research-based policy solutions to sustainably reduce poverty and end hunger and malnutrition in developing countries.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry industry investment",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-69a5-berry-industry-investment-98"
+  "source_id": "source-20260806173428-69a5-berry-industry-investment-98",
+  "origin_domain": "ifpri.org"
 }

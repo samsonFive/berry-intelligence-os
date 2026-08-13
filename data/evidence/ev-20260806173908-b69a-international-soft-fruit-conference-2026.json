@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOaWVKQjRNWm1KZkxDQmVRNVNmWHNoTEJ2Vzg0M3BuS0R3UFRXUzRyc19sdnVkbEpPUE9xeUNJdkJCRmVCT2dMUzRQdEMtWUFKc0tMMExiakFoOGs3NGg3eEwyaVNSUWJxN0tjQjUxQ1pvc25lTUFBT2duS09qQ2dBME9IeGw4dFJxM1lfbXZrVkpWbWh0TU84N1J4WDRCYXFXVEJ1c1c4VUNjakRIZXlWU0d6NzB4dw?oc=5",
   "published_date": "2026-01-09",
   "captured_date": "2026-08-06",
-  "summary": "International Soft Fruit Conference 2026, 's-Hertogenbosch, Netherlands&nbsp;&nbsp;Hortidaily",
+  "summary": "You are using software which is blocking our advertisements (adblocker).",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "hortidaily.com"
 }

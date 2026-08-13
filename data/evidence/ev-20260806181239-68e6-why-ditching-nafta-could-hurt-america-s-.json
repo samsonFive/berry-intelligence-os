@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOa0MzOEZodGRHRmUtN2lGZkY4NUlBX2VjWldzbExxVENJUFpUS2kzdEh6Y00tT3VmTTBucjVJZTgxSThNbVFkTDVNRWtfQ1JwcmhHZGplZG9WNzNTNXJDQU52d1NHQ2ZWY3dFU3ZXaWMwd1JyaGE0eklPUkJVZDg0YVFVa1d4LWZMQjM3S09TUEs4Y045QjBWaklJbEJ5Vlh5M3c?oc=5",
   "published_date": "2017-02-16",
   "captured_date": "2026-08-06",
-  "summary": "Why Ditching NAFTA Could Hurt America's Farmers More Than Mexico's&nbsp;&nbsp;KERA News",
+  "summary": "Trade in food between the U.S. and Mexico has exploded over the past 15 years. President Trump is talking about restricting that trade, but when it comes to food, such moves could backfire.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "keranews.org"
 }

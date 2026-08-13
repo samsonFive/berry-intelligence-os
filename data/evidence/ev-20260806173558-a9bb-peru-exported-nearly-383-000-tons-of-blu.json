@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOd0ItLWlCbnhrNHltbDM0cW9GSVBEb1ZVVTZ0TVZMWEo5Mk9aYnBuOFlFc25wUGRxUWdiNDNGSkczM0hyeEFIbUxyeW9yVlh5ZkVvVm9hcmtyS1hrcnpHekRaNkZuMzE2blJmNUdrVjVtZzBnUVl5aHVtWGs1a2RpdmpKMXlYRHVqb2Q3OGpfUXRvXzFLZEdyMW10My1KdVBqTkdZNzhYVXNZbkhmdWIyazUxLUdtU3JvWHc?oc=5",
   "published_date": "2026-06-22",
   "captured_date": "2026-08-06",
-  "summary": "Peru exported nearly 383,000 tons of blueberries this season&nbsp;&nbsp;FreshPlaza",
+  "summary": "The Peruvian blueberry season ended with favorable results, as the sector exported approximately 383,000 tons, in line with forecasts, according to Miguel Bentín, president of ProArándanos,…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "freshplaza.com"
 }

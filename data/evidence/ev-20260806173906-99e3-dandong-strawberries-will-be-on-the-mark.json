@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPSU4zLWRHZHJTbEhLX0llVXdOcDhCNE9uOGVqM2M5UFZ5MGRKTUVMOTJXN1dYX2hPcFRWcmZnQ2RUQWkzMW5fMFAxODJwbE5NaDF6V1ptZHBKb1hqVkdMNWNQbHNIdDJISTUyaWpIRlZtTGhIdWJPMnBuTFpKZXYyVlFBVFBpXzI0UWd6RS1uOWZUU2hyanFUc2FaZUdTVnVPYTJpcTRIalNqQQ?oc=5",
   "published_date": "2022-11-16",
   "captured_date": "2026-08-06",
-  "summary": "Dandong strawberries will be on the market in large quantities&nbsp;&nbsp;Hortidaily",
+  "summary": "The Dandong region of China is similar in size to Shizuoka County, Japan. It is located at 40° north latitude and has a unique microclimate. It is internationally recognized as the optimal…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "hortidaily.com"
 }

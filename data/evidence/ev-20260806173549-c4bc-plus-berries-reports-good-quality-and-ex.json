@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNT2VFMURlZl9LdjBlVTNLdUNQSU4tc3huR1dFcEFDSHZkd083WEpLdVEwOVFSQWY2ZWxrZlNnZGtBZ2VydERteWt4dkRmTW4wOUJaWU0za3loak1fcnBZVF9yMFQ3Z0ZpSmNzZVJBNjQ1a2x4UXE5cEI0d3RUeDZnNkZXQi1SblZKVmtBeE82RGxTdFFoNGlqeTdkVEhyRzdvN0taMGI3amVmNEJfNVgwLUNhX3NRZjQxMy03LTl2bmdnVzhyV0JQYQ?oc=5",
   "published_date": "2026-04-15",
   "captured_date": "2026-08-06",
-  "summary": "Plus Berries reports good quality and export volume as stonefruit season begins&nbsp;&nbsp;Fruitnet",
+  "summary": "Spanish company says harvest is running around a week later than last year, due to the wet winter",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "fruitnet.com"
 }

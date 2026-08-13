@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxON1BJWEE3SUNHRTZhOFdad0tHMmJGclhlNDItZTZUZ29fdE9XZEV0OTBRamJSZ0hUSEVWMlJWUUh0Zzl3X3Voa0h3WlUtaC1jMU9NckR5NHdTNDdlRXd1SXloMG5KTkdGR3BGRlUzaFRaQ0xIMXJvMkxZbG9Nc0VHTHdvdHZjT2hNR0FtY1ZSTkxLb1NrOUNv?oc=5",
   "published_date": "2024-07-26",
   "captured_date": "2026-08-06",
-  "summary": "Mexico's Berry Sector Thrives With Record Production&nbsp;&nbsp;Mexico Business News",
+  "summary": "Mexico solidified its position as a top global berry exporter, with significant production growth and an export value reaching US$3.9 billion.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "mexicobusiness.news"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1ROF91LTJNSGI0Mk1yZXNJY0xRSkkzOFY4S3E1UEVXWG81eVV4VmgyN1p3X3NNR053THM3d2w5M3RZRlBvTUVhT045ZzIyR0h5VU52NWFIREFkZElER1oyQ2RpWE5RQUpZTnc?oc=5",
   "published_date": "2020-11-04",
   "captured_date": "2026-08-06",
-  "summary": "Berry Import Gaps Are Closing&nbsp;&nbsp;Produce Business",
+  "summary": "Originally printed in the October 2020 issue of Produce Business.\n\n\n\nGlobal production efforts show berries have become viable year-round in terms of availabili",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "producebusiness.com"
 }

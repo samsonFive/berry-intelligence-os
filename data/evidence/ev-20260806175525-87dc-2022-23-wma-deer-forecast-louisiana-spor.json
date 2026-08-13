@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNZ1g4WkRHSFVLaXdrUHk2TVIzQmc2Q24tQTdBRUtNUUFva0ZaMjZDbXBUYnQ5bHJKM1NIYTR5a0NIUVBFWUlnUVhLUXpxVkJUOWtOWHV0eU14QmI2YTlaVFh2NHNYQktXNzNMeE0zc3NSbTBqRzdBbndTWENDTnhIZXpFT3VrR2lWOEE?oc=5",
   "published_date": "2022-08-26",
   "captured_date": "2026-08-06",
-  "summary": "2022-23 WMA Deer Forecast&nbsp;&nbsp;Louisiana Sportsman",
+  "summary": "Biologists share their advice on what WMAs public-land hunters should go to for deer during the 2022-23 deer season.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "louisianasportsman.com"
 }

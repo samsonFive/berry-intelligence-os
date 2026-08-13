@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPSUVjSTNibVRjUmJmUWFva3M1bi1VMHlIMUNqMmR0U3NDMy1XNWl5aGVDdnlQRHVBbUkwQWduc29JQWV1NVdJX0FRdFliaFdnVjBvREJHc0JEVnNDQTBiOVVtaE8xbWM5QVduaDd5Mlh2ZmVQdE1oM1UxR005QWs5YlRFS0JJRWZBN3pzUGxJUmVjdXd0OTFheEJYMTB3Y0hUc1NnekZpa25ma1U?oc=5",
   "published_date": "2019-12-17",
   "captured_date": "2026-08-06",
-  "summary": "Superglue plant and ‘miracle berry’ among 2019’s new finds&nbsp;&nbsp;The Guardian",
+  "summary": "Other species identified by Kew experts include a snowdrop and cancer-fighting fungus",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92"
+  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+  "origin_domain": "theguardian.com"
 }

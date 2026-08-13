@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPemtDbGxsNFRFbWtBTDR1bHpqVU9lYUplNl9RSGc5ekhiNExWa2xvSEIxemhrM2dvY0daSDAxcjE4bVRmVkprUVBibFJWQzM0YjR0QVVOT1V3ekN5bjhrQ2k5UEJMWHF3QVJyaFF2MDVHUWZNckFzMWU5dDZKTTlCLXNvZEtrUGtqYm1FZzZWYVFvTmQ0MVhCTFpGNTcwdkkzczF6T2lEQTVoOUxx?oc=5",
   "published_date": "2026-01-13",
   "captured_date": "2026-08-06",
-  "summary": "‘Sour Patch Kids’ and ‘big bowl’: Blueberry nicknames hint at star potential&nbsp;&nbsp;Capital Press",
+  "summary": "A few promising blueberry selections don’t yet have names — only a clunky mix of letters and numbers — but unofficial monikers hint at star potential.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Blueberry breeding program",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87"
+  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87",
+  "origin_domain": "capitalpress.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQU201TU0yd1pDNUlTcGhIaV8xOXI0Wk10QkM1aEZwRUp4blFuU1N5b01mRExtYWJHUUE2bTJiRWZHQVd0QTZMLVFPTDlHQlM0TUY0TDVxcnYtMFhiNkJoSG5td2w3WWtqdV82Q2lWZlZqQjk1cXROazZONHVLcENHcHdHRE9PVVNCZTFhZFhLODhMYVJLTWRYRVRjeS0?oc=5",
   "published_date": "2023-10-17",
   "captured_date": "2026-08-06",
-  "summary": "Blueberry prices are historically high&nbsp;&nbsp;FreshPlaza",
+  "summary": "“As the South American blueberry season unfolds, an intriguing set of factors are driving prices to historic highs in the global market,” says Luciano Fiszman with Gourmet Trading Company.…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "freshplaza.com"
 }

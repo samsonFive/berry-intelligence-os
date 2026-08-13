@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNVEFqV1p6X3pUX1BxYnpKYVo0X2pVaVk1MmRNUC01Unhqa3V3OGlEd3VNWXhiSTJPYjNUNnB2d2luc0o3aTdHSDFPTHBJTmRFaXJPNW5pR3FiRUxuV1VDWFJ2Yi1pY3paX2Q2SG4zT05ldFFjZHRxQ3FFYVJ5dlZXNVlSQ2F0OHl4dnVYUTZDelh2aW8zNnBXbTViRlRNZzFGcC0xNlFjZXhZekRWLU9HVmJzZG80VEtmX2VBdmFGa2VHSWstUnl4YnExR0hLNnhjYlE?oc=5",
   "published_date": "2023-09-05",
   "captured_date": "2026-08-06",
-  "summary": "Western Veg-Produce Announces Stake Acquisition in We Love Berries; David Ollivier Details&nbsp;&nbsp;AndNowUKnow",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Company acquisition berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-8498-company-acquisition-berry-95"
+  "source_id": "source-20260806173428-8498-company-acquisition-berry-95",
+  "origin_domain": "andnowuknow.com"
 }

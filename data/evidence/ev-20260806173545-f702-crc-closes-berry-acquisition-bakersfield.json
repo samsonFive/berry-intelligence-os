@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQVWpvbnlDYXR3V285bV9DT0ZUWmhXQ0prREFReDlqbF9YTThra2FZSENHenVmUVI1V2xBR19mbnRQQzFkWklvdHAyVDZFM0d6VzZDbFdBM1dtNm9kY2I1cG1JWW5SakNkVTZTanZ3R21DNHkyaEpXeUdEekdiTGdFOTRSUjV5SlZKYVM2cWw4c2FGQUx2dElHa1kzNDFEOVpRSkUxUGw4cExKZm50OTNXWg?oc=5",
   "published_date": "2025-12-18",
   "captured_date": "2026-08-06",
-  "summary": "CRC closes Berry acquisition&nbsp;&nbsp;Bakersfield.com",
+  "summary": "Mid-size Kern County oil producer Berry Corp. became part of rival California Resources Corp. on Thursday, further consolidating local oil-field operations amid expectations that a challenging period for the state’s",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Company acquisition berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-8498-company-acquisition-berry-95"
+  "source_id": "source-20260806173428-8498-company-acquisition-berry-95",
+  "origin_domain": "bakersfield.com"
 }

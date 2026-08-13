@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQal9FTE1haHFVbEJyRHpFUEEtM1JFOU1NZEpRM2JTOHBSTE9EQm0yMUMyNWNDbldueElmLXlIZEc2SEo0cHhzWGpiOWY3R19YYUhNN3ozYTREYnE4enFPeTJrUTF2Mnl5WjVmaTV5TzQ4Ni1mVVBXUThrQlJNUnJLaWlxeFBqVWFvaWJFTGFMbEduTmU3S3hGek90LWh2WkVpV1hXZmxqQldZZ0VwQm5EVXU3SkNPYUhCak1ZZU5ZeER1VTFLdDd6RW53cDFYeFU?oc=5",
   "published_date": "2025-05-29",
   "captured_date": "2026-08-06",
-  "summary": "Premium blueberry demand rising as consumers prioritize quality and wellness&nbsp;&nbsp;FreshPlaza",
+  "summary": "As economic pressure continues to shape consumer choices, a clear trend is emerging: people are finding small, health-forward ways to treat themselves, and blueberries are leading the way.…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry consumption trend",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-ff93-berry-consumption-trend-116"
+  "source_id": "source-20260806173428-ff93-berry-consumption-trend-116",
+  "origin_domain": "freshplaza.com"
 }

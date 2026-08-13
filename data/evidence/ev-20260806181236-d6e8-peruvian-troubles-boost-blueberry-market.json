@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNOWFWa3YySVdvV0dsbEJHcmRyQTRaVjFQMXF2WjVhbTByV24tSmxOQ0pvYWJtbFlTRXNIRmltZUV4QlhTQlh6NnZVYjRZcS1LVWZlQmpSaDBsTlFWTkk5UUxHT0d6VS1EcWd3WHctWnpqaWJycGNkVXUzb0Q3eXVWSHdIT0VFRGNpaUdJMHliWTFQc2tvcFZHOFZqLTNtM3BPUTdiby1IUk1mQ3RuVWtweGs3NA?oc=5",
   "published_date": "2023-09-26",
   "captured_date": "2026-08-06",
-  "summary": "Peruvian troubles boost blueberry market for South Africa&nbsp;&nbsp;Fruitnet",
+  "summary": "South African blueberry exporters say they expect a strong market for their peak season",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "fruitnet.com"
 }

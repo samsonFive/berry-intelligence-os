@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNLXc5bXVSTlVBa1NzODU2VE9yXzQ1SmZuaTR5QXYtdlJyVjd5VThpLXRZa0RFSVdEMVdkdnZKWG9mUTZvX2JXWlNNejdUS2ZsN1pDVFRRZEdZci1sQ2UxNmFkZGNQNlJocWoxZklQQnc3N0w0VEtlR2tFLVk3RVZJZ2FKeUFvS0tUUEZhLWNjNjRtcWtmaDB1Rw?oc=5",
   "published_date": "2025-05-09",
   "captured_date": "2026-08-06",
-  "summary": "GLOBAL MARKET OVERVIEW STRAWBERRIES&nbsp;&nbsp;FreshPlaza",
+  "summary": "The global strawberry market is experiencing varied conditions across key producing regions. While some countries are seeing strong production and stable demand, others face challenges such…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "freshplaza.com"
 }

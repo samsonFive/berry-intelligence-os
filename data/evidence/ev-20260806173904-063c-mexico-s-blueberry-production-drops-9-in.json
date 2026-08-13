@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNZV9iM0k3SnRnYmYyNE95OFFLN3B5SWxCT21VSUpMaXJ6MEQ5Z0stRHoxN3B1UDBXN2xMWk9MdWFFX00xU0lTS2VrTWRIam5qWF9jZnMzRkFKdFdFTXpRRExNX0lwa1dQQWxiMTktaXROM0ItcGEyekdIME1mU1VkSWhUSUVDMVN4NDlHdXprb0xVdlVqZ3RUdlNNRVVJNVdPZmhKOFRfbzkyakFwQ1ZMRThwS3RzY3lGTFJaSmNBYXk1WmZaTF9uSnVja09RR2hRQm1ROHNJbjFSUUk?oc=5",
   "published_date": "2025-02-05",
   "captured_date": "2026-08-06",
-  "summary": "Mexico's blueberry production drops 9% in 2025 amid competition and climate challenges&nbsp;&nbsp;FreshPlaza",
+  "summary": "Mexico is a leading global producer of blueberries, ranking sixth worldwide. Production is forecast at 73,500 metric tons (MT) for calendar year (CY) 2025, representing a nine percent…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "freshplaza.com"
 }

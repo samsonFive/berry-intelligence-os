@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1NNDMzd2JiYWpKSVljVXhDMC1FNkk5dU9nRDZpV28yczZlWHVHSlNXRkdrTTQtRm9SOU44Z19NZjhla2Zsd1BvMHVyLUo3ZHdBcVpUSE9UeS1OZmtVOGRRcUFuQTg0X1RpbkdGZA?oc=5",
   "published_date": "2025-03-27",
   "captured_date": "2026-08-06",
-  "summary": "Dutch Lessons&nbsp;&nbsp;hollyhillandco.com",
+  "summary": "Not all farms grow food in fields. A Dutch family is working to transplant its technical know-how from the Netherlands, a country that has nearly perfected high-yield, small footprint food production, to its first North American venture.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "hollyhillandco.com"
 }

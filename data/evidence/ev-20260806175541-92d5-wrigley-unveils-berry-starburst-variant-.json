@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPN3lxM1VDVG9HQ0RNbHJsQUR4QjdvQkk4RnFXd2JFUDBtb09hNHRZbFYxZUV5QUwyWEZhak9mZW5tMGZXRUJBSmdJTzF4WEpkeENqSklkYjRJOTVYTDY2eUtnd3NHdkFVSFlLYmNVekR5bU9fRXMtQkRUaVNyQ1dLRE0zSWFQN2hiMUVGeGc0cXFjNmVi?oc=5",
   "published_date": "2017-02-01",
   "captured_date": "2026-08-06",
-  "summary": "Wrigley unveils Berry Starburst variant&nbsp;&nbsp;foodanddrinktechnology.com",
+  "summary": "Confectionery manufacturer Wrigley has added a Very Berry variant to join its Starburst candy portfolio.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry retail sales data",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117"
+  "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117",
+  "origin_domain": "foodanddrinktechnology.com"
 }

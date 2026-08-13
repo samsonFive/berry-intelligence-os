@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQZ3lYWHlfSm5xN1IwcEQ4bmpnZFhyenRfRVJycXYyVHNhdHE1aXNxREVTdHI4QmFGQ0dDdlBSNGpJQjNlYVlVcllKQ2RWbEloNWoxQVhtWHZWaXlIRWNjc0ZLNWNDZkxib1NCOUh2aGpSMWhZcEotWlMtNGdJYXQ1enViS0J2Nm10RFkzYmljX3RHSWE1NkxkMUFJVmZFVVdEQndXZEJ4ZDFhMnBNN3VaYkNiWkpVNHBaZElBZUJfcm0yaWc?oc=5",
   "published_date": "2025-09-16",
   "captured_date": "2026-08-06",
-  "summary": "Blueberry consumption continues to grow, even in established regions&nbsp;&nbsp;FreshPlaza",
+  "summary": "Blueberries are the fastest growing berry category, both from a breeding and consumption perspective. \"In blueberries, we're seeing a lot of breeding activity, resulting in better varieties,\"…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry category growth",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-3eee-berry-category-growth-119"
+  "source_id": "source-20260806173428-3eee-berry-category-growth-119",
+  "origin_domain": "freshplaza.com"
 }

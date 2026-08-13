@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE5adnBWZGUtMmdZMFVNTTRQTWFZN0lxSnRpUHc2SDZUbU9RYzlDbm1DNVdMQnVBeVVTaVBBTEZaRndRc1JXWk85MDhKelNCMUNjTk1pU0trSHBhOElQOXNaR3pscWpwZVhGcVI2MjRqTWxIMkUwMG1BTHdB?oc=5",
   "published_date": "2022-05-10",
   "captured_date": "2026-08-06",
-  "summary": "B.C. berry crops affected by cold, wet spring&nbsp;&nbsp;CityNews Vancouver",
+  "summary": "The cool, wet weather is concerning some berry farms on the Lower Mainland, as many continue to deal with the fallout of last year's floods.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "vancouver.citynews.ca"
 }

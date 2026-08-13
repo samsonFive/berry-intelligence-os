@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQS0FiLUo1ZGZjSUtNQXcxbXZfMllJZjBwR3ZKU09kZWstUk91NmF1ODg4U3lReDBHSVMxUHFxM1F6NWhfODg2Y0dUMjE5bkQtUjZoVV9xVXJKQUxfcG5oMFdzbWYwOTZfdXpaRXQ3NWF4Yko3SzZGVWF3blMwMXhYQi1yekM?oc=5",
   "published_date": "2024-10-10",
   "captured_date": "2026-08-06",
-  "summary": "Bloom Fresh expands breeding portfolio&nbsp;&nbsp;The Packer",
+  "summary": "The fruit breeder has added varieties and a breeding program from Inka’s Berries, which develops no-chill cultivars.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Blueberry breeding program",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87"
+  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87",
+  "origin_domain": "thepacker.com"
 }

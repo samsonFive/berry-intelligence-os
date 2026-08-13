@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFA0TTBPVS03aUN2dUlNYi1QX1hmQ0NnNVQ3X3BBd0xocndybGZ6VHRBY255aThtR1pYbGpPQlNpQ1FyTHpfNjF6ZHp0MjRYTlQ0WDJsc1A5WFZMQ1c4RkxLeXlPWkg5U3pJOGxZ?oc=5",
   "published_date": "2015-05-23",
   "captured_date": "2026-08-06",
-  "summary": "Avoid Blueberry Rust&nbsp;&nbsp;Growing Produce",
+  "summary": "Whether in Michigan, California, Hawaii, or elsewhere, blueberry growers must stay vigilant to thedanger of blueberry leaf rust. With epidemics of it",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92"
+  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+  "origin_domain": "growingproduce.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNSFNhSkoxd090RXpzc3hQZExEUEFUcTE1S25odC0xQkxRTVhFTHJ3a2RYMW1IVlhETDVjaHVnUGZXM3Yya19wYXc0RV84Vmk3UTJ6M0M3QWhHdHhqOTFGRWJSQjhnVHVwU09SNU94VEZEc3lyRnpqNVRKZ2pzeGV1alhtd0NzajVmUWtyVTdEREVDNHAyTE10elFiYw?oc=5",
   "published_date": "2026-07-28",
   "captured_date": "2026-08-06",
-  "summary": "Driscoll’s Responds to U.S. Lawsuits Amid China Market Concerns&nbsp;&nbsp;Produce Report",
+  "summary": "Driscoll’s has responded to allegations linked to two U.S. lawsuits, emphasizing that products sold in China are unrelated and meet food safety standards.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "producereport.com"
 }

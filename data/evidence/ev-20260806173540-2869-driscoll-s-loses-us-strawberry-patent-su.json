@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNYzJRenlqLVYzTFViZk5TMkhfUHQxaHdBeEFoQ1daY29pNjBxNmRBN1RGWnlGMDM3MG1GNjl2NC12MnpldWw5bTFrNk1KblFSQTZBMkJCdGNPN0JsWmprLXRvRTVQSkhlcUc3Zjc1emkxRTdiWk1oR3FfQ1lLdlUwSFJ3RjU0ekViSGZHN1Y1a09pUlJzT3c?oc=5",
   "published_date": "2025-04-09",
   "captured_date": "2026-08-06",
-  "summary": "Driscoll’s loses US strawberry patent suit&nbsp;&nbsp;Fruitnet",
+  "summary": "Ruling brings to an end a lawsuit filed by Driscoll's against California Berry Cultivars in 2019",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Strawberry cultivar patent",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89"
+  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
+  "origin_domain": "fruitnet.com"
 }

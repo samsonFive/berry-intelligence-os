@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPX040MTVRYVZLcmpZQzZEZDZ0eEpmdTRvUjdNTW1Nb0dmYkdNUGZ3RmhuLXVKbDMwOWgyenV6OWRsOHNrcVpNVWpVMkR1QTFwZVpTSm91emRvcWw0dUJrSC1FNURSS3FCZjQzZk5vcGhOaWQ4eFZlU3dFTWtHaU1nX3k4eEpjTmkwUnQzeUpJQi10RTVGamdJR0NJVUpVeVRTRlR3dnE2Y28?oc=5",
   "published_date": "2026-01-13",
   "captured_date": "2026-08-06",
-  "summary": "2026 Sweet Karoline blackberry season kicks off&nbsp;&nbsp;FreshPlaza",
+  "summary": "Berry Fresh is launching its 2026 Sweet Karoline® blackberry season. This year's program is expected to be the strongest yet, fueled by expanded acreage, improved yields, and rising consumer…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry acreage expansion",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101"
+  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101",
+  "origin_domain": "freshplaza.com"
 }

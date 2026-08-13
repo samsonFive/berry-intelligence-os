@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPWmoxTFRiWkQ1cDladmUwc252SWxxRlZlZVZtWXFtcjZ4M0kxX1ZTVkx0QlJoYS1tZnAwd1ExSUNOeGRPMmF3S3QxcVJnNEJXNkx6eDVXb0hsd1lZVUgtU0ZXYkVuQzZVWHlybUFtRlNmTlkwbGE5cjZwdVZZZkJDN2dLWUZJVWN1ckdPRHZsdGhnb3FFenFHM3lEME1vOW8?oc=5",
   "published_date": "2026-06-23",
   "captured_date": "2026-08-06",
-  "summary": "Growers alarmed at MPI’s fruit import safeguards&nbsp;&nbsp;farmersweekly.co.nz",
+  "summary": "MPI defends standards as growers slate ‘weak’ new rules that they say could expose local crops to pests and diseases.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Phytosanitary berry import restriction",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Phytosanitary berry import restriction'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a6a6-phytosanitary-berry-import-restriction-102"
+  "source_id": "source-20260806173428-a6a6-phytosanitary-berry-import-restriction-102",
+  "origin_domain": "farmersweekly.co.nz"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOZjVRbHdhUE9hbXdpaEhSYnBNd2l3OV9SaUJBUjVNSjdpNno0dzlKNU1pcWc0THZVaWM2emlaeFhYaVg3dW05NVdHWTNqcDFqM194aDU2TVpBUjRVME5STHhZNzFUNUFmYWYtTC1odVdFUXBvZ21XRDhzQktIeE51V04xODdIaXdFV1lIYzBSMGgxclI2anpyb0gya0NmeFJsbWxlakV3Z3k0ZzdmbW9PeUd3TE9Xdw?oc=5",
   "published_date": "2026-07-09",
   "captured_date": "2026-08-06",
-  "summary": "SanLucar acquires controlling stake in Twin River Berries&nbsp;&nbsp;FreshPlaza",
+  "summary": "SanLucar, a European fruit company with a focus on its own production, and U.S. berry grower and marketer Twin River Berries have announced that SanLucar has acquired a controlling ownership…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry genetics company",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-80ee-berry-genetics-company-91"
+  "source_id": "source-20260806173428-80ee-berry-genetics-company-91",
+  "origin_domain": "freshplaza.com"
 }

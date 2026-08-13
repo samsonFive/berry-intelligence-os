@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNX0E1dnZFZXhFS29HOC1RY1ZQdXFNRDBIdDY2Y1NHME80STdoTHMyemJCUGUtRkMtcVNzUGg5Sm1sb3U5TEtIU0tKNVIxeF9WLURSb2dJV252N040SXMzSE9QU0l5WGlCWVgyM09zdm5mRU5WOFp2c2dzeU12dzgxbnNDblNmZHVyUmh5Q0Y1dnNSZ09rZ0ZHbExoTE5vNUVOOFlXR1hOUkE4RzN5SmQ0YVpzaGN0bW83T3dkUE5nVTNxY3Z3QnZWZFlwOWF3d1BUbFd6Xw?oc=5",
   "published_date": "2018-09-11",
   "captured_date": "2026-08-06",
-  "summary": "Cornell berry breeding program releases new strawberry and raspberry&nbsp;&nbsp;The Ithaca Journal",
+  "summary": "The berries will be available for planting in spring 2019.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Raspberry variety license",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88"
+  "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88",
+  "origin_domain": "ithacajournal.com"
 }

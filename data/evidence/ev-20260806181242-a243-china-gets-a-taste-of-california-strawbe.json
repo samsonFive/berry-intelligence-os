@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNWE1Md3pidUd3VVE5amRTRzljc0czalV6b1B3STJvOW1CQ3M4RnpNaHJkTVh5SVRldUhoeHBZazRvWEhLLVg0R0ZrdFVXTGQyYlJqOGVTcnRvaTl1Y29FOGlVRjhyMW5WTUZ6dFk4ZWJNWk9pQlZPM2NCendKbUU1RTFRYkVnZkdUN3hFYi10azd0WDFDX2dKcERhUnNzUQ?oc=5",
   "published_date": "2008-08-17",
   "captured_date": "2026-08-06",
-  "summary": "China gets a taste of California strawberries&nbsp;&nbsp;SFGATE",
+  "summary": "[...] that the Chinese government has for the first time opened a sliver of its market to...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "sfgate.com"
 }

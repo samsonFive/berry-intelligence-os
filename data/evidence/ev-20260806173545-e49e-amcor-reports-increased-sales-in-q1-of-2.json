@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOaGRIa1ZfbWNLV2YySmdUdVJmZHpod1hMQnVKX1g1MjMxYVVubjF5WjUwQWZ0a0ZRX1djZlA2c3V0cnd1ZVloNVZFY1BkREROVE85cUpqSEpxaGJWNGdCX19Gcm5rS2FtU3FmU196TnhPcTFZaUgxcWtQSjNSTU5ORmdqTU5ObUN2LWRSY3R4VGRqS21Ndmc?oc=5",
   "published_date": "2025-11-10",
   "captured_date": "2026-08-06",
-  "summary": "Amcor reports increased sales in Q1 of '26&nbsp;&nbsp;Recycling Today",
+  "summary": "It was the first full quarter operating as a combined Amcor and Berry business.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Company acquisition berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-8498-company-acquisition-berry-95"
+  "source_id": "source-20260806173428-8498-company-acquisition-berry-95",
+  "origin_domain": "recyclingtoday.com"
 }

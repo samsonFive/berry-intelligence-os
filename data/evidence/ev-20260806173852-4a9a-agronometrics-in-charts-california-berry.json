@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1CaFl6NWRjUUY1M3BQS1dsd0s2SXNpTk1VWGxqcFB3c2xtdW84LTlIRDZnU2VtZ21YamtPMXhzbGVkV2l0MU55RUxZLXhqQllZZEw4WGRHT1hGai0zdlJRa3FJanNrNVJlMDE3Sg?oc=5",
   "published_date": "2026-07-28",
   "captured_date": "2026-08-06",
-  "summary": "Agronometrics in Charts: California berry harvest hits full stride, raspberries leading growth&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "California's berry season has entered its peak production period, with abundant strawberry and raspberry supplies.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "freshfruitportal.com"
 }

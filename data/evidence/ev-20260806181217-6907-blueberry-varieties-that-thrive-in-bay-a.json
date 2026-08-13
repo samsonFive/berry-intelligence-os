@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNUHJONHpoYjg1Q2lYMl9ZcXl0STVrd29uR0xXc19TdVk2akVjUW5qbnpTM2pCSWZfejg3QmxRWWxRRy1mVjlCeWloMEdyeEhxSW9zSmR3NDdvbzh2YjdDUTVXNjRfWUsycGlpRE9yQTNaNThUZG41Rm5WV3N5RDJ4Z3BkLXdaOEYyY3JxcUhTX0NQX0NZdUdPUzhuOTFPZDhWaklTTDBhZUhxLWEzbmF4eEhCTVJvQkk?oc=5",
   "published_date": "2011-05-05",
   "captured_date": "2026-08-06",
-  "summary": "Blueberry varieties that thrive in Bay Area&nbsp;&nbsp;SFGATE",
+  "summary": "The Chronicle's Home & Garden department just added 10,000 new workers.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92"
+  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+  "origin_domain": "sfgate.com"
 }

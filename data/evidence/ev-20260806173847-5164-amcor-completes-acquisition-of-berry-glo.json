@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNWlNvTHhqbkNTblY0eVA0d1BuODJIMWxlNUZWZFZnZzFMa3E0N2t5YnozNFhQT2VEd2laZE5yQ2F5QVoyODBOTkJ3dFVQSVRSZnVGUWpPLUs0R0ZycGJBTWk5MVFmaVFzQ2F2Z1A2czNKd0pjaWY3NHBoaFhRdHVQS3BzWkk1WEE?oc=5",
   "published_date": "2025-04-30",
   "captured_date": "2026-08-06",
-  "summary": "Amcor completes acquisition of Berry Global&nbsp;&nbsp;Packaging Dive",
+  "summary": "The Zurich-based company’s reach now spans approximately 140 countries, with some 400 facilities, 70,000 employees and $23 billion in anticipated sales revenue.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Company acquisition berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-8498-company-acquisition-berry-95"
+  "source_id": "source-20260806173428-8498-company-acquisition-berry-95",
+  "origin_domain": "packagingdive.com"
 }

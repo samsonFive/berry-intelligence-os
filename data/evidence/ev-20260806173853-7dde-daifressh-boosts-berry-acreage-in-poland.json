@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQQkZ5S29rMGh4TkNTNlpJQ1Jqck1nb0NzMTZhNUdkOUUwRXFsd0pQR1lUczgzMHktTDNrUHpJWDYyY0N1OWRGLW8tc0d1eEVTTHdMdW40SE1qN2lyNk0wT3dVOW8tRUQ5a3ZOdWxxVnNabVE0WUVhcGNTRm1pNk56M3ZYdTV4eE5TN1AwU0tPdHV1MnRnQlJockprQUExMWhPTmh6NA?oc=5",
   "published_date": "2023-02-16",
   "captured_date": "2026-08-06",
-  "summary": "Daifressh boosts berry acreage in Poland and Morocco&nbsp;&nbsp;Fruitnet",
+  "summary": "The company is consolidating its berry production in both origins as its market presence continues to grow",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry acreage expansion",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101"
+  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101",
+  "origin_domain": "fruitnet.com"
 }

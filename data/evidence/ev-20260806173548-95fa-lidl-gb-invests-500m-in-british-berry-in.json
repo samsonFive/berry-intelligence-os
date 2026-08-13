@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPM3dJT3AyODZjQWlYLWwzNXhIbnlxM2stRXJUUVEtbUVoY0xocUhCY0lPQjVEbl8wdzljWmU5aTBTaVNfYU1idDMzejBBMkRiR2EzZl82aThSQ0VUQmRoVVpWR3BobFJfNkVHR0hjWUwwd2VfMmNkNDA4XzlVVlpoem84SklIc1pHenNVSEtUc3FZSXBKaWhfLUoyZw?oc=5",
   "published_date": "2026-06-10",
   "captured_date": "2026-08-06",
-  "summary": "Lidl GB Invests £500m In British Berry Industry&nbsp;&nbsp;ESM Magazine",
+  "summary": "Lidl GB has announced that it will invest £500 million in the British berry industry, to increase volumes in its stores.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry industry investment",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-69a5-berry-industry-investment-98"
+  "source_id": "source-20260806173428-69a5-berry-industry-investment-98",
+  "origin_domain": "esmmagazine.com"
 }

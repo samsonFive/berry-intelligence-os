@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBQejVVZV9aN2tNbkxDdGRnZlA3S2ktY013eVVyaGd0UGd2WjYzZThwTkM0WHRnTlNydEZ0NDhMN1hSbjJUbE15SWVKTHYwaURlQVdXTDhJRXZYS2thOGhfeA?oc=5",
   "published_date": "2022-12-05",
   "captured_date": "2026-08-06",
-  "summary": "In the Iberian peninsula, “unsustainable, unviable” berry businesses are draining water and exploiting migrant labour&nbsp;&nbsp;equaltimes.org",
+  "summary": "On a breathless summer morning in El Rocío, a village bordering Spain's Doñana National Park, Juan Romero points to a map detailing the surrounding area. “Here are the berry crops,” he says, tracing their encroachment of the park from the north and west. “It's all full of plastic.” For years, the retired teacher-turned-activist has documented the worsening impacts of intensive berry cultivation on Doñana with the group Ecologistas en Acción. “Agricultural interests have taken precedence, and (…)",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "equaltimes.org"
 }

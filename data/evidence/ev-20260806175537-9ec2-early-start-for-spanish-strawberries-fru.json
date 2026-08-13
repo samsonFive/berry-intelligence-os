@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQODAyZUYxSEUwNDY1RmZlNXZmMlYxd0IxazJhNkxxTlBuekZocXlnb3hzcTc4ZVpuRnJRcWhGcDRnV2pFcnA4ZmVxVjdZSk5DY0dxQmI0dGZDLW90a0lyOXlERU1HQ2s4NTlSeVNjMHNuM1ZGX3U5bmwwdExHN0MxUHNRZ3A5VGJtQ1pReTNRVQ?oc=5",
   "published_date": "2017-11-20",
   "captured_date": "2026-08-06",
-  "summary": "Early start for Spanish strawberries&nbsp;&nbsp;Fruitnet",
+  "summary": "Mild temperatures and a lack of rainfall means fruit will hit supermarket shelves earlier this season",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "fruitnet.com"
 }

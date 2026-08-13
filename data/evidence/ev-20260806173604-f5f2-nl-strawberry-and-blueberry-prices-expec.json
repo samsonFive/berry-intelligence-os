@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQU3pNS1NqQ1UzdVdtRlM5T1BCVkJoakVILVhnU1JQNm9LTTlpc08zNlhzeFdYTmdLd1VSZ1FjNlpBLXY0ZmgyNkRHSjI5aENfcTk1WU1HQXJLczVJLUxHZi1sbl9nUnpxX0VNaXVJYUlLWnVTeDB5RFpuMklPQjBDVXRlVmx4U2U5T2N6ZlJ2Z3hta1BtZkNIZzhSTFZiVW16YXlxQzNQUElXNFZtTENXa0Fva1RzNllFV3hJSQ?oc=5",
   "published_date": "2025-09-17",
   "captured_date": "2026-08-06",
-  "summary": "NL: \"Strawberry and blueberry prices expected to remain strong in coming weeks\"&nbsp;&nbsp;Hortidaily",
+  "summary": "\"We can look back on quite a good soft fruit summer,\" says Sjraar Hulsman of Frankort & Koning. \"Many strawberry growers are now working with everbearers to spread out production and make…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "hortidaily.com"
 }

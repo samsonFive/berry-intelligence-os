@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNNWozeWQzNld1SkhhU2RIekRCcnBKNjdMLXlGWUxhVm1zQ0otZTFJdVlkNWRmVWlvZWplVHlRWnM4WnFLNndhc1lHR0hjVF9LWGg0VFpLRVVWMUxGQld5UEtPNWNKN25VNWNJcUZOdk9vZ2tlRTY5eGFzbENyVTY5eEstdzFWTW1xSy1pX1p3QmV6QWFYS2dDSnU3aFRQUUNlV3NqX1haWEF1bENPcnFFZGhTbEt0bXJj?oc=5",
   "published_date": "2025-09-29",
   "captured_date": "2026-08-06",
-  "summary": "The Summer Berry Company harvests premium Malaika raspberry variety in Portugal&nbsp;&nbsp;Fruitnet",
+  "summary": "Fruit producer The Summer Berry Company has begun harvesting commercial volumes of Malaika, a premium raspberry variety with jumbo fruit size and exceptional shelf-life, marking the start of wider European availability",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Raspberry variety license",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88"
+  "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88",
+  "origin_domain": "fruitnet.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNeFl2SkhGU2lyTjh6d1RnbDRReWJWUVRiOWZmc2luRHAyeWhlQ0JiRnNLalpsbVFqcGFWS29iamRpclpJaGRSaTdtNTN6S2UwLUNEcmp6OF9FMWxIaV9TRmV5NF9pNG9LaDVlRlc0Nnk4OGNvUmpydlR6OTJ5X2VqRE9EdkYzbnpKelVtMWl6SnVsWUhmLXc?oc=5",
   "published_date": "2025-03-23",
   "captured_date": "2026-08-06",
-  "summary": "Florida Blueberries: Healthy, Convenient, And Locally Grown&nbsp;&nbsp;Where The Food Comes From",
+  "summary": "Along with vitamin C, manganese and fiber, blueberries are known for anthocyanin, which provides their color and their antioxidant capacity.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Blueberry breeding program",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87"
+  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87",
+  "origin_domain": "wherethefoodcomesfrom.com"
 }

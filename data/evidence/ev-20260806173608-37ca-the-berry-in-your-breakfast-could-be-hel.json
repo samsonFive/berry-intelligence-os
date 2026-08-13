@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQdnVGRGM4dGkzSUNVSHR2b2RPVUJBSWZxTWRVWmhfLTNtTm9qaG16VHh4UjNFRXRqUGhKZDBZQnVUeTBLbWNTLVFhUzFKMDBOSkVoeEJBeS1vOUdvaG5GUG9MODBtal9sZFNfLV9LZUJITF81YTFiZWdPcVZrWWRWbjc3a2pmSEFHQXVBUXpOMGFNWUNON25nWWtQQQ?oc=5",
   "published_date": "2026-07-31",
   "captured_date": "2026-08-06",
-  "summary": "The Berry in Your Breakfast Could Be Helping Your Heart, According to New Research&nbsp;&nbsp;Food & Wine",
+  "summary": "Your morning handful of blueberries may be doing more for your heart than you realized. New research found that anthocyanin-rich foods like blueberries, cherries, and red cabbage are linked to a lower risk of heart disease and type 2 diabetes. The best part? You don’t need to eat very much to potentially reap the benefits.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry health research",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2e40-berry-health-research-118"
+  "source_id": "source-20260806173428-2e40-berry-health-research-118",
+  "origin_domain": "foodandwine.com"
 }

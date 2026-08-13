@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPMG5CcnpzTU1rVHhJYlROX2FQU293SWg4bVlYVjljMDZNRmlPRG8yNjRJRUQ0dUFtWE1CWWk5RndLMDVZenZ5dWszbWlLQ0p5Q2htc2FiRGxRWkhSN2kzZXU0aUFUVkVCenRoRk5LTXdmQjF2YkVIVWlmMUlyVG9hQkZmQ1VWTzJRQnpHbENjaW9XLVhJOW0wclJSTQ?oc=5",
   "published_date": "2017-04-30",
   "captured_date": "2026-08-06",
-  "summary": "Trump policies will move California’s berry production to Mexico&nbsp;&nbsp;SFGATE",
+  "summary": "Two hundred years ago, British economist David Ricardo outlined a theory of international...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "sfgate.com"
 }

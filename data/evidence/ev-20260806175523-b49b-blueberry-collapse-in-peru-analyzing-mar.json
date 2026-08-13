@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPWC1PcFBJdW9VNDRjX1ZQWnJrMHozNG9GaVk0aEJHTGU4ZnhKYjc3VjhnNVp3cWpYTS1vLXJadldsem1WSDNZa0otU0JUMl9tQzB1RHdsTHVXSk40NTNzOGIybm82T3d1WE93ZTZ5WlFTRHllTWw1eXBNSzBjM2lHX0o4WHdCd2dqc3dDTDZvUmtGVW1iWGFMVFR6UlhJUEVX?oc=5",
   "published_date": "2023-10-04",
   "captured_date": "2026-08-06",
-  "summary": "Blueberry collapse in Peru: analyzing market impact and consequences&nbsp;&nbsp;EastFruit",
+  "summary": "EastFruit analysts draw attention to the sharp decline in blueberry exports from Peru in the current season, which has a huge impact on the global blueberry market. After all, Peru is the global leader in blueberry exports by a huge margin. In 2022 Peru exported 273 thousand tons of fresh...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "east-fruit.com"
 }

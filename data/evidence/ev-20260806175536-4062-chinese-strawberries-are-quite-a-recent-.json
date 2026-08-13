@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPb3VSbjVqek5HS2dZYkZYS2JEQXNNUS1kamJxSTdwSHZnYmJNa0kzUG1zejZyV1N3YmZxRW12a0xnVWs3NGRRRm94Y3l5ZTRyS1ZLVUpoVjhPVWNibGlKSWxEeWZqbzBraV8yazhvaEpfVHd3TnNIRnJHS1ZwemdHNHBzRzBjeGUwaU96VTh5aVRudUpfRXBxUXpWTDRsSy1nZEZkcldtd3FwS0djWF9rVUFpT0tIME8wZWd6Ujk3V1VGT0FQRk9BemZMUkhKUQ?oc=5",
   "published_date": "2019-12-13",
   "captured_date": "2026-08-06",
-  "summary": "Chinese strawberries are quite a recent trend, but their price keeps falling&nbsp;&nbsp;FreshPlaza",
+  "summary": "The strawberry harvest has already begun. The supply of strawberries to the Jiangnan Market continues to grow every day. The strawberries currently for sale mainly come from Anhui, Dandong,…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "freshplaza.com"
 }

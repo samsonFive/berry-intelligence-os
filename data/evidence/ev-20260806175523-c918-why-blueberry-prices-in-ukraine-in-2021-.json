@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPTlZSZEs5Ti1RenJLT2k5cXFySGVuWGMyM21oR0Q3LUF6dmNfbnVaakJFTFduanJVR3lWRVNXME9OLTRZdjN0TU11YVBMcjFRdGt2Ry1ERjVubXoyNGNXT1lVbkdvUUp3cXRkZHBvdFFNdUdISGZxYV9ObHk1SmsybkNXNmhkODlKTGV4VXFjaGZYXzY2UGJuSzVtcG05Ty1pcDBpOUFkNzg1SDFjVlptMmoxRkc2RGNrcGdlSE92b1U0V3hKa2FMSGIwb1M1QWtjSC14QmN6TTgwc2No?oc=5",
   "published_date": "2021-08-23",
   "captured_date": "2026-08-06",
-  "summary": "Why blueberry prices in Ukraine in 2021 were higher than in 2019?&nbsp;&nbsp;EastFruit",
+  "summary": "According to EastFruit analysts, the numerous statements about record low prices for blueberries in 2021 in Ukraine are not entirely true. Perhaps the reason for such statements made by market players was the comparison of actual prices with the prices in 2020, when they were abnormally high due to the sharp decline...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "east-fruit.com"
 }

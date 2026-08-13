@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPdjBEMkE2ZGgwdmw3Z1NwRXpXWktKYmEtdkQ2WFNsRHpyYU82ZHdULW9IYldkdXN2NDh6ME9XMVhoNm5GS1VjVXlPNEVrWGtXOWQxLUt2RlJMM2hOZFFiaHExdWYyQ1N2QWV6X3Q3OXRLS0xQR1ppZ2JMU25Ed1NYeHJ1bE95QUhrM1dGNndGcjA3ZGFwM3RiWmVvTXRfbkZmelB3enFUbHJyUnFERlpsR0x5cnFRcG9CRUlz?oc=5",
   "published_date": "2025-07-16",
   "captured_date": "2026-08-06",
-  "summary": "\"Prediberry is an AI device capable of forecasting berry harvests every week\"&nbsp;&nbsp;Hortidaily",
+  "summary": "Sustainability and profitability in plantations require more engineering expertise to achieve success. The threat posed by the increasing heat and drought is forcing the sector to develop…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "hortidaily.com"
 }

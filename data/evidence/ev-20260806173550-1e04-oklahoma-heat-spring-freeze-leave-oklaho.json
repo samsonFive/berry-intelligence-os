@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOVlIwTlNCajFWdU1JYUVUWnhIenRERW5NZ3RRMXF3SXNMSUhyYWxTdzRvQ2RmRlRCOXlwNUF2a0o5bk5zMDhWbGVvVUFPWnhqX3ZxdHpMazNpUXpicmVENlBLQlVDME5sZHBEVUIwd25RTVZKMkxUT25iZi1OMUJPVE9zWk5lVk4xYzh5eGJXczdIVUh5N2V2YmlXcUpQNFRPbW8zSU1KTjl5dGlWUTZ0OG1OWVpOZDBsYzdQWkw1ekhyQ29xNjJRelduRWY?oc=5",
   "published_date": "2026-07-27",
   "captured_date": "2026-08-06",
-  "summary": "Oklahoma heat, spring freeze leave Oklahoma berry farmers struggling to save next year's crop&nbsp;&nbsp;News 9",
+  "summary": "Oklahoma berry farmers are battling a year of weather extremes, with a spring freeze and intense summer heat wiping out crops and threatening next year's harvest.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "news9.com"
 }

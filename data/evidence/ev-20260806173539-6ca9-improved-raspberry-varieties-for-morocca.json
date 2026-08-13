@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNV2ZqZUZreTBxZThQQlhxaXJtTEo3RTBhdHN2RHlSem5vU2RCakdSU0p4ZG1fRnJad3N6QkVNcUJ6M3g2SFd5VFU5b245enlZcHBhbU5NRmpabHE2eWJGTzB1RlFlamFlSVZ4OTlZMkxLcHgyYi1xeG8xdnpMeXBxZVdJLUlOMHdwbnVjSEp6eWlsNXJsdkhvdDB0RnQ2N1p6My1BcEFGdWJkQlhy?oc=5",
   "published_date": "2020-11-23",
   "captured_date": "2026-08-06",
-  "summary": "Improved raspberry varieties for Moroccan and Tunisian Producers&nbsp;&nbsp;Hortidaily",
+  "summary": "Global Plant Genetics is excited to announce that it recently extended its raspberry representation contract with James Hutton Ltd. This means that the company is now able to exclusively…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Raspberry variety license",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88"
+  "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88",
+  "origin_domain": "hortidaily.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOMUljZ2xIYzBEZUdVRnpkeURxM2tPTHZXcFg0QTJtdkJOSlJHNS1DbHZSRVJFTW5hTF81V0NNMFg1OEZGX3hJVWlQLURwWTkzRGZydnBTWUJUeDV3NlhyWkJvRDFWeHhUVW1La0t3WjRSWURKUEVJOTFpLTl3bGM5OEVGbEZMUHBaWU8tNjVzc0R4bkI20gGaAUFVX3lxTE5ueXB4cnpaSDhTZFQwYXZJR2FPMDZqRnhTSnh0bWRDSkdCVU92R24xbmtnYnNIWkNQR3RaSnNCNzJDUGtzN1doeU5YNklQRUx0OE9Zb0docVptNXR4UTRudXlJdU0zU2poX0tYYWplcUNkUWxzaTRzS0ltcWd2SXpHR1Z1Z3AzQzV1cW1sWjNiVmNDaFVKMUwwVUE?oc=5",
   "published_date": "2024-05-29",
   "captured_date": "2026-08-06",
-  "summary": "Ohio strawberry farmer lost half of spring crop as berries 'melted in the rain' amid weather headaches&nbsp;&nbsp;FOX Weather",
+  "summary": "This year's unusually high rainfall levels have set new records in Ohio, significantly affecting the strawberry crops at Bloom and Berries Farm in Loveland.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "foxweather.com"
 }

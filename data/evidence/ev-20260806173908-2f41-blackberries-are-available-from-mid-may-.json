@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxQMGNhamJ2TDB4VmkxcEJBekpxS0c5Y2ItRHhYeFhUcmlhVUZqNDhVUzlUREpkejVNTVA0cG1XdGl6VlpmMDRZMHhRTGZPWDVqTy1FUUZQYVg5WHloY18yNS1nOVJvclZENUZKOUFsVWtKUFp6WGFEWVZFMHk3ak9rUUpVeW1CZlNvTDhXRXpHRUxuV3FiRHBxV2YtcXJsSXdQM215LUhBZ3hKNjNOTUpOMGx2YXVpSTNiei04aVFHOGlHSDRad1YtS0xHUUU1bXJLQVlUdzE2cHM?oc=5",
   "published_date": "2025-05-20",
   "captured_date": "2026-08-06",
-  "summary": "\"Blackberries are available from mid-May to late November with greenhouse and outdoor crops\"&nbsp;&nbsp;FreshPlaza",
+  "summary": "Earlier this month, Aart van Wijk of the soft fruit company Sikkert Berry's began harvesting the first blackberries from his 1-hectare greenhouse. \"Every year, we encountered the issue of…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "freshplaza.com"
 }

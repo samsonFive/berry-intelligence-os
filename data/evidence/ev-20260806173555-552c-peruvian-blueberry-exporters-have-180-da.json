@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxORXJGZERDZVhmVnVPNlh6Q0pndjZXOC14eGJiYkpVU0VVZm9HWUZCc1poQTZnQ3VpaVJEQ1Q5UWh6Z2hJOWw5NG1Zdlp1QzZoQVpOQ0w2QVFUeWFjMHNEMW55LW55MG5PLUpGWWd2aVZBX3g4UVVRSjkzMkp0alVDNkFXa3ExQnhzZHZGN2hOR2tsZ2ozWG1TZXowUjlhN2dsUElYeGFVNkpDQ0UtU3BKWVJEVnBzbVBhdmJUV3Z6enZhOE9xZHc?oc=5",
   "published_date": "2026-03-02",
   "captured_date": "2026-08-06",
-  "summary": "Peruvian blueberry exporters have 180 days to claim US$ tariff refunds&nbsp;&nbsp;FreshPlaza",
+  "summary": "The United States Supreme Court has declared the tariffs implemented during President Donald Trump's administration illegal, opening the possibility of requesting a refund of the 10% tariff…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry tariff",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-f8a7-berry-tariff-105"
+  "source_id": "source-20260806173428-f8a7-berry-tariff-105",
+  "origin_domain": "freshplaza.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQR0swMFV0dmVTX21OZHQwMFJCdDRleDdwek1wcmFZNmI3aWVvbnFhZi0xdGd5RWZKT1lmU3d0TTRTeTRuYXQybzRraDBTNUxfOGZaMFBtYks0UUY1d1RDT0tEZnpUdkdRX2NkYTdsNDZXNUJZdVJNeDEtQkFnaGhrSzNUeDU0UUR2ZjZ1T0twMDN3R3A1d0RV?oc=5",
   "published_date": "2026-05-29",
   "captured_date": "2026-08-06",
-  "summary": "GLOBAL MARKET OVERVIEW BLUEBERRIES&nbsp;&nbsp;FreshPlaza",
+  "summary": "Global blueberry markets are seeing improving Northern Hemisphere supply, although weather-related quality issues and uneven volumes continue to affect several regions. Increased domestic…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "freshplaza.com"
 }

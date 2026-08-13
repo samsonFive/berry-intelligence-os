@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNMUtYWmtWa2dlajBqSXJ5WVRfcEhESlNUT2thRGJtUGJSck14WlBERDIwRkI4MEFva0FrN0QyZjhOZ2RQOXlhblRRQlVwSnJ0NUJtY29KbUozQnV4TmQxMkZaa3ZPVHlhZDUwRkpaN3JLRG9kYXRRSkh0TE94RDNSUHRNek04RXJTZnFEX0UwUW5BSUh6U3R5R0x1SXJhT0FuY0dXcjFn?oc=5",
   "published_date": "2024-03-12",
   "captured_date": "2026-08-06",
-  "summary": "Froebel Partnership launches pilot phase of new CPD package&nbsp;&nbsp;Nursery World",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry nursery partnership",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-9388-berry-nursery-partnership-97"
+  "source_id": "source-20260806173428-9388-berry-nursery-partnership-97",
+  "origin_domain": "nurseryworld.co.uk"
 }

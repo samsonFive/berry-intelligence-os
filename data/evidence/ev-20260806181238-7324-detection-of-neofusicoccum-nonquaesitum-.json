@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOWVJka0dtQUQ5Mlo2Q0MtUURpYTBTQS1mVmE0Q3NoMUNNUTdRdmEySTdtT0M1RUtiUW02NjdxR0M1MlJrUHkwam9ZeGlfVmY5RldfWVd1eExoYWxQZGpVSEdmbE11TG90TExzWC1aZEF4b0VYNE94X3FUYU1sNzZTeERrbnpkdw?oc=5",
   "published_date": "2021-06-10",
   "captured_date": "2026-08-06",
-  "summary": "Detection of Neofusicoccum nonquaesitum causing dieback and canker in highbush blueberry from Southern Chile&nbsp;&nbsp;Scielo.cl",
+  "summary": "Detection of Neofusicoccum nonquaesitum causing dieback and canker in highbush blueberry from Southern Chile",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "scielo.cl"
 }

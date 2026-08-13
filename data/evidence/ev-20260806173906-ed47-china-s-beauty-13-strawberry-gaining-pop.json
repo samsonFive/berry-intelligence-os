@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNcTlFQVJSb0VMYnU2M2RzSmw5enJFWHoxemw5X0N3VGtTQzFSMnYweFNKZzBaNkZ1Vjh1UTBMSHJZQmQ1dGFQRG00RFBJNmhmdmpnck9wNXlwWUxBQ2pOdk0yWlhSbGU4SkR5THZPNV9YUEZnNEpVOGk4RGx2REt0R0hJSTdBbWdkcmVza3JlVTlJdUp4a2Z5MmVoRjVuMzJYZ3l6c1l0TVIxTFc1N19wY1dhWlVuXzNMVDgza1c3MmtqOUk?oc=5",
   "published_date": "2019-05-09",
   "captured_date": "2026-08-06",
-  "summary": "\"China's 'Beauty 13' strawberry gaining popularity in overseas markets\"&nbsp;&nbsp;FreshPlaza",
+  "summary": "The Noro virus was discovered in frozen strawberries on the global market several years ago. One of the countries to suffer from this virus was China. Fortunately, the Chinese government and…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "freshplaza.com"
 }

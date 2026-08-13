@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxObE9hN3JFb2VWb0hsZTVFZFRmNHp1ZlRQSDNCTWNmaDVQOTV3X2JKeFFSSkxFTEQ4ZmcwLW1TNTNOV1U2NjNjbmJmejk0LWF4RWFtQ2ZFV0d6alduN3VYX1lQR2FKVFdsaXdUeWN5VDBHV0JTSVYyZjV1NjRmVEN1TE5WT0dwd3JkQnRlMjZ4Sm9qQQ?oc=5",
   "published_date": "2020-12-24",
   "captured_date": "2026-08-06",
-  "summary": "Premium Dutch strawberry ready for Christmas&nbsp;&nbsp;Hortidaily",
+  "summary": "This year, Dutch Berries built a four-hectare full LED-lit greenhouse. This allows this major Dutch strawberry farming to bring large volumes of a brand new crop to market from Christmas…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "hortidaily.com"
 }

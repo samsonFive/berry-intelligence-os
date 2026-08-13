@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOZTZmdWJST3dIemNrcnA2ZGNPMUNfcllQOUFlX3dOYXVnRDVSTTJXWkhfWExvLWs2LUNRNHIwOTVLV1JPMlBGZjY0U2Y1RF9RVkp1YWNmaXFFVTcyVEtzM242R2R6UWh3TXhaeXIwNnpwUU9JcWtzam9uTFFqLW1tZUlLejFQN3dKRXdZQUIyMWExM0NhUlRPSEVaZEo3bW9lSWcyb2xCbkVTWjZlSVE?oc=5",
   "published_date": "2026-04-28",
   "captured_date": "2026-08-06",
-  "summary": "Morocco breaks into Dutch frozen raspberry market with record exports in 2025&nbsp;&nbsp;EastFruit",
+  "summary": "Morocco has achieved a new milestone in the European frozen raspberry trade, with the Netherlands importing record volumes in 2025, according to EastFruit. Last year, Dutch imports of Moroccan frozen raspberries reached 1,000 tons, valued at more than EUR 2 million. This represents a 50% increase over 2024 and quadruple...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Morocco berry exports",
   "berry_ids": [
@@ -46,5 +46,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111"
+  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+  "origin_domain": "east-fruit.com"
 }

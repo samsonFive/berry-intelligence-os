@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQYWdnRHpOMW0zcFgtQmg1T3JaZG9rVFZwU29NbFBrNlRJODZmeWFaUEZkcUpiazRtTjlRZzFqQ21Bd2VrTWJOUHN4OXNydlR2T2RxaWJyYUZCZ3MzSWYzU3JndDFMZVZBWHFoUzJGeER0NWJ2MDE3elQ3MFBLY09zdg?oc=5",
   "published_date": "2026-01-15",
   "captured_date": "2026-08-06",
-  "summary": "Agronometrics in Charts: Record-breaking Peruvian blueberry exports top $2.5B amidst global market diversification&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "Preliminary figures indicate that Peruvian blueberry shipments reached $2.563 billion and 412,239 tons, confirming Peru’s position as top exporter.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "freshfruitportal.com"
 }

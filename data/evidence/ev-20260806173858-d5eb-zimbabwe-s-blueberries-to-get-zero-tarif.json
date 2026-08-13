@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5qQ19WTndsdmJ5RU55Rm84NDlvdnEwd2RtdWRRSkdzOVhhR2FTOUZYdDMybGg3XzU2Ukx6dExtdzRBa3ptUFFzZmh6WGgxNGZjVk1LWm5kUTB3MGpz?oc=5",
   "published_date": "2025-09-28",
   "captured_date": "2026-08-06",
-  "summary": "Zimbabwe's blueberries to get zero-tariff access to Chinese market&nbsp;&nbsp;BBC",
+  "summary": "\"The future is food, not a bad habit,\" horticulture specialist Clarence Mwale tells the BBC.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry tariff",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-f8a7-berry-tariff-105"
+  "source_id": "source-20260806173428-f8a7-berry-tariff-105",
+  "origin_domain": "bbc.co.uk"
 }

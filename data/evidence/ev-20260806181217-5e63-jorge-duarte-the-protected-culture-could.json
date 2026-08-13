@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQdzh3dzNwdVB0ZGY5cUExQXhOc3RnaW1VaWdBa2QzVkxnLTdORnVzbFViNGlzNV9kWDFRQmhDSkV1WHBqd3dJN3dtbVh3TTVPLVRhWk5Obm85RUtSWjlHZTJWcHZFaktZRUVIMHZSRXBkZmVBSUxrSlVzcjBJRU91WEFUajE3Y0RHVW43MXVCLUdVc1ZLb0ZwR3JqajlHSTk5QmJDVGFPaw?oc=5",
   "published_date": "2021-09-23",
   "captured_date": "2026-08-06",
-  "summary": "Jorge Duarte: The protected culture could improve the berry sector in Georgia&nbsp;&nbsp;BM.GE",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92"
+  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+  "origin_domain": "bm.ge"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQaV9KWlI0QmxSdTV4c3U3UTNBck9CNzE5ZWFVLThfVDlETHlTaGNkYmZHXzRsa1UzbXNGX0xaZXRvelMxTXc4dDlfbDdFRHBJN3lkQVhOMmJ0a2Nwa1BJanNSWk9FWmpGQ2hIQXNRNzEzX2s2X2NBaHhsNkdlWDluS3JqbDZ1Z0g4a2tFNkNyV1pLMjA?oc=5",
   "published_date": "2022-03-03",
   "captured_date": "2026-08-06",
-  "summary": "China’s Strawberry Industry Booms With New ‘Fendai’ Variety&nbsp;&nbsp;Produce Report",
+  "summary": "The new pink Fendai strawberry variety recently debuted in China and is expected to bolster the local strawberry market.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "producereport.com"
 }

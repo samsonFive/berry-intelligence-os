@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxONnFzdUxRdTBfa0JOOXBoeTBBNEk0cF9pS1dadWVpREV1LUVZUUp4TmJjN1liVEVkb3kwRmdHZ0JCZmJwNVgtU2VTZXRXV2NaX1F4R3I1REJfeXZKTjYyLXlaMWZ3YU9CajZtTUNjVnFibXZEdXdjYVJwdzVHQWhLdzdWeG03b1RtOGl2ZmNHUkFJTEpSMzFzZ0ZvblZWVkQ4WFlWbFZNU0Q?oc=5",
   "published_date": "2026-05-25",
   "captured_date": "2026-08-06",
-  "summary": "Mexican berry sector expands with AI technology&nbsp;&nbsp;FreshPlaza",
+  "summary": "Mexico's berry industry continues to expand through increased export activity, varietal development, and the adoption of production technology. According to Aneberries CEO Juan José Flores,…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "freshplaza.com"
 }

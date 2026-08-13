@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQbEhPNi1EMmhfb0g2cTN4MUZKQUdZQXhOT0Z1R0ZZWTdQUW1rVnJyRVRfR1ZCM3dEM2ZCa01yV05MdHdaZzlDaXZhOFVJbGdMOWxibWNKOUd0OWV2aTZhQk9CRUJaRmg3bjNJTXVDQjdyVXZ1UjdkaVJQZTNZV3NwV1g0THlYbmYyOGFqTXVKQ04?oc=5",
   "published_date": "2025-06-25",
   "captured_date": "2026-08-06",
-  "summary": "Blueberry Cultivars for the Pacific Northwest&nbsp;&nbsp;OSU Extension Service",
+  "summary": "Blueberry growers can choose from many different cultivars. Learn which grow best in the home garden, and which work well for commercial growers.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92"
+  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+  "origin_domain": "extension.oregonstate.edu"
 }

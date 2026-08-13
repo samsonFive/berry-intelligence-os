@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNMGFaQTlILTZsdXdTYWxHWEtNQll6Mmt1N3JBVDYydk9yVU5nWlF1UVZNN0gzNmd5ai11eGtjMGY3OG1XNnNVbEZiQ182ZHpKTWlSdTFvb0lxT3NvRWs2RllQQjVFcWNjZEd6d0RHNW9OQTctcVNFZmdLZDhaWVJFLTUtTXhSYUpwbEFHU1g3UEotc2I5THh1ZzJsY2JPUXJfMHdNOGN2MDA?oc=5",
   "published_date": "2025-06-23",
   "captured_date": "2026-08-06",
-  "summary": "Dutch berry grower adds another 18 ha and reaches 75 hectares&nbsp;&nbsp;Hortidaily",
+  "summary": "Starting December 1, 2025, Royal Berry will acquire the greenhouse horticulture facility in Egchel from Limburg's Wijnen Square Crops. This takeover involves a modern 18-hectare greenhouse…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "hortidaily.com"
 }

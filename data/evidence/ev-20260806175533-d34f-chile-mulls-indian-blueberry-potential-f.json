@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNOGVJcFlxbHlad1N6QXpQNVg3WE5YcWY0U0V0UjR1Q3FYb3FyNmxKQk54RWI0cUdvNnhRY1dDQUNJdF9aaFFaXzE3T0d6LXhSSmxwdTJUWDVleUpNMmtrd3FpNnJuUWdLdm84Z0FhQlhoc0ktU1J6d0NyTnBEVXlTY3ZwSl9KbVNJNWpRNUlWM1VwUQ?oc=5",
   "published_date": "2018-03-13",
   "captured_date": "2026-08-06",
-  "summary": "Chile mulls Indian blueberry potential&nbsp;&nbsp;Fruitnet",
+  "summary": "The fruit is becoming increasingly popular among India's health conscious consumers",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "fruitnet.com"
 }

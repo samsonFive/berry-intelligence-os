@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQR0h3cDFzazJLb01rUWRYWGpqUFNpXzhrbTY0Zl8yWFJkdDZyTGdUcTNDVGloNUltS1VIaHlvOVczRU52QUtkR1VKY0YyTDZSY2lObHhrQVhLLTR1YmFFQUFVMzQ0cTM2OEhzRmczRGp0cUF3RUJQeVlyay05NTBuUmE5akdYdzNrc21YUGxJcV9ncGNuWVhmT2xmYw?oc=5",
   "published_date": "2023-09-19",
   "captured_date": "2026-08-06",
-  "summary": "The Florida Pearl® and Rose Pearl® brands by EMCO CAL&nbsp;&nbsp;IFEMA Madrid",
+  "summary": "The Florida Pearl® and Rose Pearl® brands by EMCO CAL",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Blackberry primocane variety",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-d63a-blackberry-primocane-variety-90"
+  "source_id": "source-20260806173428-d63a-blackberry-primocane-variety-90",
+  "origin_domain": "ifema.es"
 }

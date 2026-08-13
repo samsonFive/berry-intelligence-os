@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQUkZVTEs1aFJRNldSMUFVbE53Mm1OY0dHeFVubkpLYnNTY1p4Ul9WazN4Z0Q3LXBfek9HWUFtclJObWdxOEJLNkFydnZ6SWN1Tjl0WDJLYVFvNGViallaakVVemtiVVRuM1lBRnl4d0pFdXppRUdpYk91QVNUWlp2enQzd0dkdV9rTlRBZFllLW5BVThtUEQ4OUJyX3NpNDlWbFdVTTJlaHB4Zw?oc=5",
   "published_date": "2021-06-10",
   "captured_date": "2026-08-06",
-  "summary": "2020–2021 Blueberry Yearbook Reveals Southern Hemisphere Export Data&nbsp;&nbsp;Produce Report",
+  "summary": "The recently published 2020–2021 Blueberry Yearbook shows that Peru continues to lead Southern Hemisphere blueberry exports.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "producereport.com"
 }

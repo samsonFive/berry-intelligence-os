@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNWUVRaGQ5NGIwWG5rYWtFZU96d0N1c0hoclA3c09UVUkySGZxMnZhOXVDclJoazdoYlFpaTJHQVAzbkMtUEpPdE41cTBXaUVBeEx4VXF0aXo2RHpkUkJQMldZQThrdXN4dFpMdllUNGxZU2ZZVWtPb1ltMkRTaFBpci1DR1dSYkhVVTJWc25lckhtSzkwbWhVdnVodzhYQlJN?oc=5",
   "published_date": "2023-11-30",
   "captured_date": "2026-08-06",
-  "summary": "Ukraine is the world champion in terms of berry exports growth rate&nbsp;&nbsp;EastFruit",
+  "summary": "According to EastFruit analysts, during one of the Global Berry Congress, which took place on November 28, 2023 in Rotterdam, the Netherlands, high level of attention was paid to Ukraine’s progress in the berry business. Despite the ongoing military aggression from Russia, Ukrainian companies continued to increase their presence in...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "east-fruit.com"
 }

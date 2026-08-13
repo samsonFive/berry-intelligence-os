@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPMEVYQlh4OGJMOGdzejB1UXc5Mk9MejFPQVBpVTFXanhYNjlfVkVYSjFzRGRSS3BhVDBUajhnR1YwV2g1T1VsM0pUUTFtc0lLYXY2NUxrNVJuYXg5QzNxVWpMVFMybFZVTU1FWmF6VHdmM0pWcXJXYWp2eXdGaVRGR1A4Z1RNUjQtZHdIY3NFNU4zc2FPek9VRENEbEVPMmIxVHpN?oc=5",
   "published_date": "2018-10-29",
   "captured_date": "2026-08-06",
-  "summary": "Requirements changed for fresh blueberries imported from Chile&nbsp;&nbsp;Fruit Growers News",
+  "summary": "Effective immediately, the Animal and Plant Health Inspection Service (APHIS) is amending the entry requirements for the importation of fresh blueberry fruit (Vaccinium spp.) from Chile into the United States. Chile has divided Region VIII (Biobio), which is known to have European grapevine moth (Lobesia botrana or EGVM), into two regions: Biobio (Region VIII) and …",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "fruitgrowersnews.com"
 }

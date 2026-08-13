@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPTmNjUGF6SjhzNFh6dEVSLUN6ME1hWTFxcG45VGF4T3AxMWlKMnFDTjctazB1WXN1VWpKWlhpSmtmalEwWjVobDM1RDZkQjFSbDdlc0RBYlRJTzNqUDRaUkpkWHQtbGVqaGY0Qmc4VlFBMWRIVzBTRFFjbnByTWNXTjZhU0RGMERENW1GREE3T1hLZnNH?oc=5",
   "published_date": "2025-05-16",
   "captured_date": "2026-08-06",
-  "summary": "Driscoll’s filed appeal in strawberry patent case&nbsp;&nbsp;The Packer",
+  "summary": "The Watsonville, Calif.-based berry grower filed a protective appeal that challenges a recent summary judgment ruling and said this appeal helps protect its intellectual property.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Strawberry cultivar patent",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89"
+  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
+  "origin_domain": "thepacker.com"
 }

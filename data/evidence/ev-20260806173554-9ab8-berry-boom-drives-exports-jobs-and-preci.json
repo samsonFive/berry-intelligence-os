@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQdG9JWWstdDZaYTBERHdCLV9vSU90YzJyZUxkX3FIM3Y0SGFXOGtKUTBLNWdxQkdPRW8teURRUUYySllzZE9VYWUwaXN3d0l6VDRSZ2lkaTFJVjByUGJwMmlZWHRUcmVBbEpFSWg2Q1k3QTAtRVhJQjhhcHExTjRlbW4yTzVpa0dGMXBYbkpnYklsbE9TdzJHQlA3UlU0ZzBsdVdqdg?oc=5",
   "published_date": "2026-07-03",
   "captured_date": "2026-08-06",
-  "summary": "Berry Boom Drives Exports, Jobs, and Precision Agriculture&nbsp;&nbsp;Mexico Business News",
+  "summary": "Mexico’s berry industry has become one of the country’s most dynamic agricultural sectors, producing more than 900,000t/y.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:USDA GAIN report berry",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-1732-usda-gain-report-berry-104"
+  "source_id": "source-20260806173428-1732-usda-gain-report-berry-104",
+  "origin_domain": "mexicobusiness.news"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOdEl2azR3a2QtMGlRNTVpRy1nVWo4RThrSVYyNER6Y1FaX1piWEJncGZRVHdIc0RhbHB3RlJKSDliVHJ0N1NRdVBuOHFTUm1NQjJ4XzdZZGdkaDdGOVlTT2ZtcndxaHNSZmsxdm5LMHRXWkdjTzFMY3U2VVdscC1lWUlaSlR3VGZRUl9GNE1EVmtneVRfdFV5UHdnSlZpWV9ReExXLS1rUHgzSk55NEp6cGNzUzVzMXBsTlVsejJqQWZzdTdCal9ib3hrMmFOVTBsM1FQWUxrMGZESUVM?oc=5",
   "published_date": "2024-11-28",
   "captured_date": "2026-08-06",
-  "summary": "\"Dandong strawberry supply decreases early in the season, while overall quality improves\"&nbsp;&nbsp;FreshPlaza",
+  "summary": "Strawberries from Dandong, China, entered the market in early October, earlier than last year. However, early-season supply is lower than in previous years, leading to a 10%-15% increase in…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "freshplaza.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOcVlUSV9CdHNjZU4yOFlOMjdYLWZaMUM2NlFDckJvM0p4OW5zZHBpXzNZdlo1YVBEc3VfeV9hMG5zTkhTS3liMHJ4b1pPcHNmLTk4OGxYNEYtQzl5dVdXYWtSNDVGMWxUS3VIWHExN1VUQ0VIeFVGdDZINEZpQ010WkotZk1JZlk3a0thLQ?oc=5",
   "published_date": "2023-05-18",
   "captured_date": "2026-08-06",
-  "summary": "Weather making berry crops less predictable&nbsp;&nbsp;Farm Progress",
+  "summary": "Ag researchers say climate change is forcing berry growers to re-think their strategies.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92"
+  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+  "origin_domain": "farmprogress.com"
 }

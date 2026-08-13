@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOZUJSMHRhWEVrVmhqVng3aUV1aGc4UkRhUi1NU1hWcTYwZ1NlZjJBSnRIVVJsNzIzMFNWX1E2QlVwbUl5c3p1WEthRExwcHJ2U2JaYWdYSVpleVZCWFIzcHh2ZHlmN2Z6QXBJOE9XblhGa2l6TWtSVFJ6UVNFTnZza2ZqNVNGMm9hSjdBRFZYSUI4bXY1bml2QzU4M0VFVGdNZUtaOWhWWktvR0FpYXgtald5bw?oc=5",
   "published_date": "2024-06-05",
   "captured_date": "2026-08-06",
-  "summary": "Morocco dominates early 2024 with historic fruit and vegetable exports to Germany&nbsp;&nbsp;EastFruit",
+  "summary": "According to EastFruit, Morocco’s direct shipments of fresh and frozen produce to Germany soared to unprecedented levels from January to March 2024. This surge was particularly notable in the export of greenhouse tomatoes, sweet peppers, frozen raspberries, fresh blueberries, among other products. During the initial three months of 2024, Morocco...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Morocco berry exports",
   "berry_ids": [
@@ -47,5 +47,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111"
+  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+  "origin_domain": "east-fruit.com"
 }

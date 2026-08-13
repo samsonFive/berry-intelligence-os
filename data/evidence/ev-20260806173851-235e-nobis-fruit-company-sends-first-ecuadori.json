@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOYmh6WEtHTk9IcG9sR3VjYXFRZlRXS09DS0RDMjd4aGVudDIzTjIwTDAySzRsNG1XWHhpa2sxUUJjLXo1QlNxOHUxMzNHMGNDbENlMy1wUGF6NFg4UmZ4eWtkT25hcHNmcnRpTGZqVEFkZDZ0TEVUaDZOZE81THI4bEM3c1FUV1I4ZVkxRnctNnlpMkdFZmNPdDNEbmdPTk1zRUVrUWVzMnRCWmVfMHRxRnhGYW5mUE5QQlZGbUhwdTRHZw?oc=5",
   "published_date": "2024-10-30",
   "captured_date": "2026-08-06",
-  "summary": "Nobis Fruit Company sends first Ecuadorian blueberry shipment to Hong Kong&nbsp;&nbsp;Fruitnet",
+  "summary": "Ecuadorian company plans to increase export volume to multiple global markets in the coming year",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "fruitnet.com"
 }

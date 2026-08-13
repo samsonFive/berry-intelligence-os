@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNaVlxUVVZQUZsTlNzNVczdmpvYlJlQ1hGOXVSSjYzM2JIYUE3QzhBZ0NrZjZzV3NlalpTWDJxZ1Qybm5nNFF2Rl9KbG9UUGU5c1QzT2NqZjFIc2VmOS1Pb3BDblBKb1ZoNzBXN1RtVllUb3dZT1JTdXZRRnRCUGVYd2pOVkR5cmVmU1BGRzFuOFhtNzg2SlpOemVXSnUybG9rNXfSAacBQVVfeXFMTUVpSVc0c3Q2aHVZUURnNTdXUGozX0tsOWNabWM2NFFTZWZxNjVSWVRzOUFjLTBZUldZZUN5d1JLYWdJRFM1SUhuUmJoY3QxTE1HQkN6ZVJzclI3ak0wU2Niakl5YmtUYk9qTEl6UGlYQ2xZRF9fbW1RSFYtQWZQTXlNQ2EwSlpLdGxQd09xYWdIRXlXZjY0NEY3SUxoRW1VdzVFRWNVekU?oc=5",
   "published_date": "2021-07-10",
   "captured_date": "2026-08-06",
-  "summary": "In Spain’s strawberry fields, migrant women face sexual abuse&nbsp;&nbsp;Al Jazeera",
+  "summary": "Farm bosses routinely harass and exploit the workers who pick fruit for European supermarkets, investigation reveals.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "aljazeera.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9PREhkQkxTSGZPbmJ2NEh3OEROeEhOanBqUjdSc0lJUGZzS0lxVmhNWlhQeTB4VzQ3cTJZbnJVMFMwVm1FMUtzQnh2dDNQY3VPb0JWcXZKYnRYWE1kVnhPMFlpUGQ?oc=5",
   "published_date": "2023-02-17",
   "captured_date": "2026-08-06",
-  "summary": "Strawberries enter harvest season in E China's Shandong&nbsp;&nbsp;People's Daily Online",
+  "summary": "Villagers weigh and pack up freshly-picked strawberries in Wuyan Village of Dongping County, ea",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "en.people.cn"
 }

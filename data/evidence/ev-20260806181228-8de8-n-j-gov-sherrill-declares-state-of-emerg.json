@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOYlE3MWVkY2UzcWtySy1XbHFqQW45RmxMZHJKdENSMGlZNDB4UWZhYWRkVkZCRUQ3QWh6VE5lQW04Q3h1czRKa25VZTUwbm9VRzRzTHM1WmV1c2wzNlR5MjJtN2ZoRUFWamhQb3dmTVI5Y3h5OW83Znc2YVphWmZQeg?oc=5",
   "published_date": "2026-05-20",
   "captured_date": "2026-08-06",
-  "summary": "N.J. Gov. Sherrill declares state of emergency due to crop losses from wild weather&nbsp;&nbsp;WHYY",
+  "summary": "An initial assessment by the state Department of Agriculture finds at least $300 million in crop losses reported by farmers.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "whyy.org"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNbFY2bDNLTHZ1WmVXWHYzM0swVkhLcWF3ZXVTbEZwOHBjX0NBQW5VOFREUGJ0R2h5Y0VPbnV3M0dLclJRaElQNzFHOHEtVU1mNUtFU3lXWnMxd2RvaUtmOXZjMXNFY0tyUkI3Y3ptLURsTXc4NVV1VThqMk5DQUhMdHJ0SkJzOUQxVzdPNEh3TkFLdw?oc=5",
   "published_date": "2023-12-01",
   "captured_date": "2026-08-06",
-  "summary": "Blueberries are likely to remain expensive for a while yet&nbsp;&nbsp;EastFruit",
+  "summary": "According to EastFruit analysts, on the sidelines of the Global Berry Congress held in the Netherlands on November 28, 2023, the prospects for blueberry pricing were actively discussed, given the unprecedentedly high level of prices in the current season. Let us recall that the main reason for high prices for...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "east-fruit.com"
 }

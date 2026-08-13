@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOOEhNS2FRWmxQZ1dUaTlDRm95ZENFM1E1WHZZVENxMDBSS2NRVlhTRUNnNTlKcDRvczdhb0F6WG5Lc1ZIenNCNERDYWJlTzk2RXl3VFZScmd0bzJZbExpZndYRXZ5R2hBLTZWbmxNX1Atemh6c3cxWU5IWVNvUWV3ZS1lLU9zMU5jYi1reWI3UEZnSm9Eb2MxR0lrb29hbWRsLW1BSWhKRV8?oc=5",
   "published_date": "2026-06-11",
   "captured_date": "2026-08-06",
-  "summary": "Osborne Clarke advises Fall Creek on the acquisition of Berrytech and Berryplant&nbsp;&nbsp;Osborne Clarke",
+  "summary": "Osborne Clarke advised the U.S.-based Fall Creek Group on its acquisition of Berrytech and Berryplant—two leading Italian companies based in the Trentino region that specialise in the genetics, hybridisation, and propagation of raspberries and blackberries.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry genetics company",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-80ee-berry-genetics-company-91"
+  "source_id": "source-20260806173428-80ee-berry-genetics-company-91",
+  "origin_domain": "osborneclarke.com"
 }

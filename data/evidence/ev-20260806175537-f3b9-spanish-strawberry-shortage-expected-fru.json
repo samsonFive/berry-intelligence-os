@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPRHo4QzMxX3Q5dFIwT2tIZTRKSmVrMkRna2dzZ2pGaHA0eDJpVklNZ3J1bG1oaEl3STlkQ1JxRlgtZnp4bjVEUDBIOUVYQXhxeUZoam8tcFUxMlB1S0wya2NQQ3FKV0VOaG1fQ2p2ZTVia25paHEyS2trT01VSU43M3VIUDBsMjF2RkNJaA?oc=5",
   "published_date": "2010-02-17",
   "captured_date": "2026-08-06",
-  "summary": "Spanish strawberry shortage expected&nbsp;&nbsp;Fruitnet",
+  "summary": "Growers in the southern province of Huelva are expecting a shortage of fruit this season following persistent, heavy rains",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "fruitnet.com"
 }

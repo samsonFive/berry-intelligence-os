@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1tZXg0SUFwRGhaT3l6eGFxeXljQVFlQWprRlpxbTNFT2NHZjl5aXJxaWpOc0NoVTB1Z2dZVEp5elJLS2p3eldmR3AyM0VjeE5rLUhsbmp4UXgyemdRZFFvbzhBSzRvc2hGdTloMm05eU4?oc=5",
   "published_date": "2015-06-21",
   "captured_date": "2026-08-06",
-  "summary": "Scottish berry research projects win funding&nbsp;&nbsp;BBC",
+  "summary": "The UK government announces funding for three new research projects which it says could \"revolutionise\" Scottish berry production.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry industry investment",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-69a5-berry-industry-investment-98"
+  "source_id": "source-20260806173428-69a5-berry-industry-investment-98",
+  "origin_domain": "bbc.com"
 }

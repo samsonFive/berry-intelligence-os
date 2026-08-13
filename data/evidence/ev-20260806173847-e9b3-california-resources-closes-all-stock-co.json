@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQbUs0TkVGMEx0dmFndUFYdGZkVkRkeGNQZ1pDZ3JJenFfZDMzbW54MmFrRVBWa0pDUHNXajR0eWN6R1dEZl9RdnFpX3Vqb3RWeV9XOHBTTkNaSUJSUjl0MDdzd0VSa2JmNmdTZmdrYm4tVTk2dkpEcXBOTEpZTWRfQW5FSnU0RTUtamxGbmNBYkNrMjI0cVIzOEN1YUhFZDBrV3MxbXN3?oc=5",
   "published_date": "2025-12-18",
   "captured_date": "2026-08-06",
-  "summary": "California Resources closes all-stock combination with Berry Corp.&nbsp;&nbsp;World Oil",
+  "summary": "California Resources Corporation has completed its all-stock combination with Berry Corporation, strengthening its California-focused portfolio with long-life, low-decline conventional assets and adding development upside in the San Joaquin Basin and Uinta Basin.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Company acquisition berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-8498-company-acquisition-berry-95"
+  "source_id": "source-20260806173428-8498-company-acquisition-berry-95",
+  "origin_domain": "worldoil.com"
 }

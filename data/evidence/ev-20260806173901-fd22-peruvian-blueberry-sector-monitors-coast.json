@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPRWxGT1F0ZWFNOGVvX3dqWE1sTGZzRURNOHhzUV9lWllLR2pKQldXREIxRm5uQXdlNlZSX2xzeGE4M3NXSWtrYzNyZWJPY01qd0dSeXdBb0FIdHQzR2ROYkpBWTBoQjdJRmY1bmR1M3V5SmdzSlg2ZGZ6SkRIeWgzdXplQWFlTFhLNWoteDUxTGY5M0RjTHYxRW4xTWRLN1VnWUxlR19ocW8xeGZ6REtPYVdQRQ?oc=5",
   "published_date": "2026-03-04",
   "captured_date": "2026-08-06",
-  "summary": "Peruvian blueberry sector monitors coastal El Niño risk&nbsp;&nbsp;FreshPlaza",
+  "summary": "Peru's fruit industry is monitoring forecasts after the Multisectoral Commission for the National Study of the \"El Niño\" Phenomenon (ENFEN) confirmed that the Coastal El Niño Alert will…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "freshplaza.com"
 }

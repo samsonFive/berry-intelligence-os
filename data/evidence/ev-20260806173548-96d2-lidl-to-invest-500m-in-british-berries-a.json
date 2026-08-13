@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNeEdveE9Ud2xvQTlQaU5VVnlkdDBEc0tCQVYtRjcxbTRwSHB0V2RfMWktMm5GYlZhVzNCNFZ0dlpldjExclBlbkhUTjI4bjd0aHU4SzZRYi1wQlJmVjZrV0Q2WU9QOVhOSUEwbnpraE1ndjEyeUl1eF9VOHlNQWVSS3JSdERzdUVhamIzY1VFR09MVTBxTURnaUJ2aw?oc=5",
   "published_date": "2026-06-10",
   "captured_date": "2026-08-06",
-  "summary": "Lidl to invest £500m in British berries after increases in volumes&nbsp;&nbsp;Farmers Guardian",
+  "summary": "The discounter said it has signed five-year agreements to give farmers certainty amid rising costs and unpredictable weather",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry industry investment",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-69a5-berry-industry-investment-98"
+  "source_id": "source-20260806173428-69a5-berry-industry-investment-98",
+  "origin_domain": "farmersguardian.com"
 }

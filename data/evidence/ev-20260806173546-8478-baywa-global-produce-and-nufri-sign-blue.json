@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQbk42c3cyTi0xbWlQRl9ZcklIMFBfT283WUtUWUtoNVVjZGphc3BQT3MxUy1NUG1oV1JqcWU4MEkxRTBPX2JmcGcwb1c0VlBMNldUSWpGbUM2dGhjNGlBcWI1VGxtSGIxRG1ZMHA2NE9PRXlPQ0hFYTVkT0d4Yl9tV2NOS3VDZy1yb3JYWFlVVTJHT0daSVg0UDlGcTExTkh5VlVvbjJnQU9PU0ZiRXc?oc=5",
   "published_date": "2023-10-04",
   "captured_date": "2026-08-06",
-  "summary": "BayWa Global Produce and Nufri sign blueberry joint venture&nbsp;&nbsp;Fruitnet",
+  "summary": "New Huelva-based company will grow premium varieties from VentureFruit and associated breeding programmes",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry joint venture genetics",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-c823-berry-joint-venture-genetics-96"
+  "source_id": "source-20260806173428-c823-berry-joint-venture-genetics-96",
+  "origin_domain": "fruitnet.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQbHBZWWtYeGtGM0R0Wi00XzhvTlJLTVN0V3JsNDVTbFd6Y29JVnFRcUpNazBNb3lDcloyYXh1SkNKQ2lkdUlYY2Zha2FKZlFsdFByaS1Da3h1c2NaUlMxZGNWTVN6V2p1X2prVmh2bEhQeFpKTHliU2lhLUNZeVR0bFhR?oc=5",
   "published_date": "2026-05-12",
   "captured_date": "2026-08-06",
-  "summary": "Blackberries reveal single genetic switch for first-year fruiting, speeding new varieties&nbsp;&nbsp;Phys.org",
+  "summary": "Lifting a veil of uncertainty in blackberry genetics, a national team of horticulture scientists have discovered evidence pointing to the single genetic region that controls primocane-fruiting, or the ability to flower and fruit on first-year canes.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Blackberry primocane variety",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-d63a-blackberry-primocane-variety-90"
+  "source_id": "source-20260806173428-d63a-blackberry-primocane-variety-90",
+  "origin_domain": "phys.org"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNaXpES1VPZFhGYjk3UVVHRHlUR3RUZmdnMlctTnp4UkZNSThMYzhFZGtpb1lZenEzQUZrdXozeFh0TnlmbElyRHdkX3NHRDZqXzcxb0JoMUY4cmkybDJvUWxLVHU4VE51eHkySFpGUVMybzhDVVdsZzhIdmFPVDlXYW8xNGEtU3ROVjJ3RDJXdDdhTy01dldfeURQdDg2alZ1Ym5veUlNcmo3SlJ3bDEwYnYxbHRGM2p5RDZZMnk0QjBOYVlpLW5zZUhNdWdXbXc?oc=5",
   "published_date": "2023-03-31",
   "captured_date": "2026-08-06",
-  "summary": "Abusive working conditions endemic in Spain’s strawberry farms, report claims&nbsp;&nbsp;The Guardian",
+  "summary": "UK supermarkets heavily reliant on strawberries from southern Spain, where workers allege they are regularly underpaid, have passports withheld and are forced to live in unsanitary shacks",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "theguardian.com"
 }

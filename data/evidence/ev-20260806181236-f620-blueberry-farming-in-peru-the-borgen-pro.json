@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1FUzdiRmhlTmZidG03NWF5NzYwejFxLVVXdGlWUWhRbEREelFIYTZ1S0lRTjdtcFgzMFdUYkxIblFuelVla1AzZVdabjdvaHhBbVFpVC0zbVQ4TVNuY0x1Z3FB?oc=5",
   "published_date": "2023-05-17",
   "captured_date": "2026-08-06",
-  "summary": "Blueberry Farming in Peru&nbsp;&nbsp;The Borgen Project",
+  "summary": "Blueberry farming in Peru has helped many rural families gain access to secure employment, a steady source of income and the basic resources needed to lead a healthy, fulfilling life.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "borgenproject.org"
 }

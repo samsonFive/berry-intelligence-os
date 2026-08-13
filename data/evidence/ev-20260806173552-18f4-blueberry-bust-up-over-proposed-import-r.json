@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNcGdhTVZhVEVVZEJsb0VBLWYyS1hFbkFzN1BTZ1NGNDFHRTl1a2VOUU1iYVp6eFRCc1NTOU02WW1uMUpwRkdNYXlMdUVNSkpMNzhWclFPYXo4R2pOVTRxWEh6bTkxZnF6RzVHZXdhT0x2Nk9OZ2hZUDRpZU95OHdLZHplNEdRUUNpS2k2RURuSDRyNWl6SXhiQ2IxMA?oc=5",
   "published_date": "2026-07-17",
   "captured_date": "2026-08-06",
-  "summary": "Blueberry bust-up over proposed import rules&nbsp;&nbsp;farmersweekly.co.nz",
+  "summary": "Warning about pathogens comes up against assurances about the highest biosecurity standards.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Phytosanitary berry import restriction",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Phytosanitary berry import restriction'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a6a6-phytosanitary-berry-import-restriction-102"
+  "source_id": "source-20260806173428-a6a6-phytosanitary-berry-import-restriction-102",
+  "origin_domain": "farmersweekly.co.nz"
 }

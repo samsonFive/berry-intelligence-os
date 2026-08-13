@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQc3FmOEd2NTdCTjRzS284RFZWWEpEempHVHAtMGxHWVRCakRCSHJzRko0VjBIVkZ5NVJkdWhGY1l6cnNNOVp6V1lpTWR1Wi16S2ZxLXpBWUVSUFRTQ2VMMHF0SnNsVlVpUEtuTFhiWEpBdzZLOFRsdVVKci1aeTRmbkYyMVBuZWhTTUdpYw?oc=5",
   "published_date": "2023-06-05",
   "captured_date": "2026-08-06",
-  "summary": "Strawberry boycott leaves Spain's farmers in a jam&nbsp;&nbsp;Times of Malta",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "timesofmalta.com"
 }

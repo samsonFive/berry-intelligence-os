@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOYUF3aWZsRUZCOE9MVm1zVXpuS09vRGx3QVJyaXo3UEtTRGR4N0NLbmhidVFpbk5DUzEzS2QzVVVLN1NWSFJvaHlrMUpRT3pYVnU0ZUxFdHRBMHdoMGhuLVBuN0ZUWUFjamstUk9xOHhsMHU0clRuNmRWelF0bmR0YXJB?oc=5",
   "published_date": "2012-11-05",
   "captured_date": "2026-08-06",
-  "summary": "US berry market continues to boom&nbsp;&nbsp;Farm Progress",
+  "summary": "This website is using a security service to protect itself from online attacks. The action you just performed triggered the security solution. There are several actions that could trigger this block including submitting a certain word or phrase, a SQL command or malformed data.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "farmprogress.com"
 }

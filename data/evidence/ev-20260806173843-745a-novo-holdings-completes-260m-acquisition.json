@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPT0RlbGI0cTJpTXJPdVNqQnFCTW1zNDV5VGZ4Z1dobE93NUVTTDd0cWllWnllWVhhNGF5NldyVlYtbjdhakxQalBfM1hCOEhZVmJlb1ZNZHJSMXlUc290bEItVlNfdGtPVFhvQmVMd2hUYUw2eF9LbVY1Ujhwd09ybFlGakZPS1VnQjVRNzJMZDVDN05iZGwzejNn?oc=5",
   "published_date": "2025-04-02",
   "captured_date": "2026-08-06",
-  "summary": "Novo Holdings completes £260m acquisition of Benchmark Genetics&nbsp;&nbsp;Salmon Business",
+  "summary": "Benchmark Genetics shifts HQ to Bergen following Novo acquisition. Novo Holdings has completed its acquisition of Benchmark Genetics, the aquaculture genetics division of UK-based Benchmark Holdings, in a transaction valued at up to £260 million. The deal, finalised on 31 March 2025, includes £230 million paid on completion and a further £30 million contingent on […]",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry genetics company",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-80ee-berry-genetics-company-91"
+  "source_id": "source-20260806173428-80ee-berry-genetics-company-91",
+  "origin_domain": "salmonbusiness.com"
 }

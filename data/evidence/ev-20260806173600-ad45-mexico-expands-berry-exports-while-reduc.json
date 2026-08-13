@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPX2xBN3FGNGZtaHhEUlZPcmpQYlBXbjE0QnQ4UXpPTWVrcEFheURwLXN5NVZya2JlTFc4d0pUbkI5Sk04Q1FXQmJYbWQtUWVZX0NodEtTZmpWbWcwaEJSRDJheExnMFhTTDVHWGlqandrMEN5NUVSY3dPN0ZYLWlJa0ZVel9UZzRiLThwTkluUlpQNk1SWmpCMjA1NjFnRlNCVTRiQnVTWlNNUG9OY2w5ZUI2ZkZRSjA?oc=5",
   "published_date": "2025-10-15",
   "captured_date": "2026-08-06",
-  "summary": "Mexico expands berry exports while reducing U.S. dependence&nbsp;&nbsp;FreshPlaza",
+  "summary": "Mexico has consolidated its position as one of the world's leading berry producers and exporters, with annual shipments valued at more than US$3 billion. The country ranks first globally in…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "freshplaza.com"
 }

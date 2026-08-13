@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPZlpYZThVR0lmWl9Rb2FKS2JhcklrQmtGWEZZTnNwZndVcExQTVdhSWoxa1hQN2t4X1FVTlp2T0l2WUQ0TzdlUUpmeS1kUkU4ejBHZWtEN2p6R1RkbXgwWk4zSXpOaHZMZFRuYXVxcUplcFJ3SzBfNFY4VUVkTFpYV0NiYkllbG91ZU5hc2hQc0ZReTZmZmRjTXd4YzBRenVUT1N1NGFnbzkzRzRjVGdJTjgzM096VS1xbkl1cng4bFJXSXZmaWxoOTdMTjU1Z0ZwTFE?oc=5",
   "published_date": "2024-09-24",
   "captured_date": "2026-08-06",
-  "summary": "PLENTY OPENS WORLD'S FIRST FARM TO GROW INDOOR, VERTICALLY FARMED BERRIES AT SCALE&nbsp;&nbsp;PR Newswire",
+  "summary": "/PRNewswire/ -- Today, Plenty Unlimited Inc. opened the world's first farm to grow indoor, vertically farmed berries at scale. Plenty farms are the most...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry category growth",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-3eee-berry-category-growth-119"
+  "source_id": "source-20260806173428-3eee-berry-category-growth-119",
+  "origin_domain": "prnewswire.com"
 }

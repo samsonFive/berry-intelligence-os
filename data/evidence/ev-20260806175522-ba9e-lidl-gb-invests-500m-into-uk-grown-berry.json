@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQOWt5Y213N001d2VKc29ldE5TeXBiTUNOVG9Ob2xNbEdwTU9DNUtfdUdBTkZaM2R6UUs1M0ZHSlNWWW9EbHd2Y05jTDd2UHlBSC02OEFWWnQ3bHN6OEFRd29GT1RYWEh5VTk1NzJRdndjcnFfRll1R0JzbkNqTjhJdFFucld0b3VY?oc=5",
   "published_date": "2026-06-09",
   "captured_date": "2026-08-06",
-  "summary": "Lidl GB: Invests £500m into UK-Grown Berry Sourcing&nbsp;&nbsp;Procurement Magazine",
+  "summary": "Lidl GB has committed a £500m sourcing investment to increase its volume of UK-grown berries over the next five years, giving suppliers greater certainty",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry industry investment",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-69a5-berry-industry-investment-98"
+  "source_id": "source-20260806173428-69a5-berry-industry-investment-98",
+  "origin_domain": "procurementmag.com"
 }

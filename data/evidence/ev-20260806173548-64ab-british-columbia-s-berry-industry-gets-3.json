@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxONGkyWjNLeTNXTFZXR0p1bDVJNk9ibVl6bFEwOWkzbE02djJLRzlHc3M3MzBsQmZEUnNYRG1qRDliZUEwcnNLengxX1hMZi0tcUN6YlJmZ1AtME9PZzRmWFdTOUxIMTFabWhvcGlhNjE1T0JISlV1czJXdzd2RWxkWW13U1QyREctLVhqZWdoZEE5QQ?oc=5",
   "published_date": "2019-07-05",
   "captured_date": "2026-08-06",
-  "summary": "British Columbia’s berry industry gets $3.6M investment&nbsp;&nbsp;Fruit Growers News",
+  "summary": "Canadian officials July 4 visited the Berry Haven Farm, where they announced an investment of up to $3.6 million to the Lower Mainland Horticultural Improvement Association (LMHIA) under the Canadian Agricultural Partnership, AgriScience Program. The funding will support the LMHIA in improving efficiency in production and quality of berries, enhancing the industry’s ability to adapt …",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry industry investment",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-69a5-berry-industry-investment-98"
+  "source_id": "source-20260806173428-69a5-berry-industry-investment-98",
+  "origin_domain": "fruitgrowersnews.com"
 }

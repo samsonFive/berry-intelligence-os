@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOTXg1cjJiUW5xaDJ3RUltTEZOT2NCaXJOYTdteHJzaDhNNEdLOXg2bjhMbE9UN0pjc3U5ZWJiMmNwUmUtcGRyZW40ODBhbWdtQW00Z08tSHlZZnZoOGVNdXV5YW5PQ0dIRXNtRkpOWk1hT0d2bGg2djQtZ1JkS1hnR2NNbS1YVmdtaHlBakhya3BUbUtkSzZWX3NPb0YtekUxSlY5ZWo5VkdoTzZyTE01YjdOSjJxTm0tVE5qSWZB?oc=5",
   "published_date": "2024-02-01",
   "captured_date": "2026-08-06",
-  "summary": "Berry consumption shown to lower stress-related disease risk in US adults&nbsp;&nbsp;News-Medical",
+  "summary": "The association between berry consumption and physiological dysregulation from stress responses.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry health research",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2e40-berry-health-research-118"
+  "source_id": "source-20260806173428-2e40-berry-health-research-118",
+  "origin_domain": "news-medical.net"
 }

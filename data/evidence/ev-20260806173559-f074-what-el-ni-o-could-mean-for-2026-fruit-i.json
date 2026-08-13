@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNSDFwVzVVVmIzMWFkdFdjVDNZR3ZzZmppbW9GaU54LWhVa1pKcm92Umk1aEdDZ0ttaVJRcHoySTdLOHZYQ3BKWDVjQzlQVWtPRjhHV2s1TXFKaE5aQzZscXMyT1RwTVRWQnlXNzJLeEtkUFU2ZnQtQ3hJQlJtY1BxZHB6WjBxamtyQXdzbUw4NGxlVU95T3lvNUZxRkdOZzg?oc=5",
   "published_date": "2026-07-09",
   "captured_date": "2026-08-06",
-  "summary": "What El Niño Could Mean for 2026 Fruit Imports from Peru and Chile&nbsp;&nbsp;EastFruit",
+  "summary": "El Niño may affect blueberry, grape, cherry and stone fruit exports from Peru and Chile in the 2026/27 season, creating risks for timing, volumes and quality.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -46,5 +46,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "east-fruit.com"
 }

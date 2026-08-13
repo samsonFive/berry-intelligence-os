@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOekNaR3RVUkhLcV9vcTZEVmd6T1FFNG10LXBwTDNUUWtmNnFkQ3dnZEdjcTNzYU8xMWtVOWdaQUZpa2xUN0FhM2N5RTlsOF84emVkOXVwcGhPYnh0cVZSMWhnWGFtLVlnYlFWd1pGaUpvU2s2MmZKRW9vWVpOcFFoaHN6TjdNako5dkdUd25pMmdOZENjZTNkRFNWM3ZIaGRzOE1iYXJUMEVLd2lQc09VQjBpV1EwN1pCd3FZMk0xUm5HNC1ib1NIMkp3YTE1MmVW?oc=5",
   "published_date": "2026-04-22",
   "captured_date": "2026-08-06",
-  "summary": "USDA and Palantir Launch Partnership to Deliver Faster, Modernized Support for Farmers&nbsp;&nbsp;Palantir",
+  "summary": "Foundational software of tomorrow. Delivered today.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:USDA GAIN report berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-1732-usda-gain-report-berry-104"
+  "source_id": "source-20260806173428-1732-usda-gain-report-berry-104",
+  "origin_domain": "investors.palantir.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPYm8wclpwSElTbTlmWXdOdW5SNmNsdERkaWMtUUk0THRhMnBzcWp4bW54OEMtS2JvLThXUlRJVzVZV1d2dk1FZ0pZdUFxMWxHbkFDTkN0RlZueFRTOTFlUHpRZnR3a1Q3dUduNzlHMlVBMGNOM05uVVRaWXotcklJSTNUNDN0U3p4WWVOUlhZdk5mdw?oc=5",
   "published_date": "2025-06-16",
   "captured_date": "2026-08-06",
-  "summary": "A tale of two farms: Indiana's 2025 strawberry season&nbsp;&nbsp;WRTV",
+  "summary": "Strawberries are tiny berries, but a lot of hard work goes into producing them in Indiana. Hail can destroy berries quickly, and too much rain can destroy a crop.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "wrtv.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNUGxQR3ZIZFhLbFJxM3VEYXVnYTQ3cWhFS0dTaHp6c3Q0UDFHZkRXbG93dUx2eG1aZk9KaDctWUp0Tml1YzFacWduVEVGSjVWT1JVYkhsTWVmVDdqdU9lU2N6ZTNpVUhRSzdYWndDV3dOR2VVRTUzaEVGdW9IeHpSdnhhbmpRYWhJUmZaWUkzcmdxbkdDUXYweTg3R2o3U1RsYmpQb3oyR1ZGanNVLVBhYmpIaU5wUQ?oc=5",
   "published_date": "2025-04-30",
   "captured_date": "2026-08-06",
-  "summary": "AgTech’s New Era: A Data Gilded Age For Global Resilience&nbsp;&nbsp;Forbes",
+  "summary": "AgTech sees a shift in investment as private equity backs data platforms, climate resilience tools and thermal intelligence for global food security.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "forbes.com"
 }

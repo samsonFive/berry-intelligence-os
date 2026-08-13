@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNeFREZVhQeU43LWhqLWtaYmlEWUhISUlUMjZ1YUl5OTNvemdPWTBqQ0dGREpmcjhxWWgyaW1tRDlyY2l4TXd5ZmllTmlycHpQUWFtZ1dzbjNqNGdhNWQyQnlZcHV3R0JfQ3FUMjItMlhlaWV3X2hUOGdoTlVKanFjV1NiNG1pc09NVDZn?oc=5",
   "published_date": "2025-05-12",
   "captured_date": "2026-08-06",
-  "summary": "Zimbabwe: Berry export earnings jump 351%&nbsp;&nbsp;Hortidaily",
+  "summary": "The berries sub-sector continues to lead the resurgence of the horticulture industry, with a 351 percent increase in export earnings from $11 million in 2020 to $50 million in 2024.…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "hortidaily.com"
 }

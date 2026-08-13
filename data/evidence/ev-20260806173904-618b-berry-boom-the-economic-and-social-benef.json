@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQVzFMbmYtbG8yYmRfUnNwcHF3MVhtTnVkOE1PeFBJZ0JyTUwtSHFzSTV2WUVTUFM5ZzlxbkIybElXMjJZbUFLOTZFamhZdjdNYmpwQjV5aGNMN3lVMHJ1S3M2blg4MW12UEx2MHlkMnVsaFE4OS1zT3VXOVZqdGtpOFR6d3RSU0I1V0lZTWxHRnpLc1ZpNmtnTWgxZy1veGNFcjl6ZQ?oc=5",
   "published_date": "2023-04-11",
   "captured_date": "2026-08-06",
-  "summary": "Berry Boom: The Economic and Social Benefits of Berry Production&nbsp;&nbsp;Mexico Business News",
+  "summary": "The berry industry has brought about economic growth, improved health and created greater gender income equality, writes Juan Jose Flores Garcia.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "mexicobusiness.news"
 }

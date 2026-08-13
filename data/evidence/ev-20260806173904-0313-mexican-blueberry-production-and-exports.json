@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE14X19yRUpTMHJOTzhBT1lnQS1Lc0dYdEM4dlZGTVZzbmlPdG13VDlfVkdCME1RT0prM2NYMi1oNTRVNzlhMGxBZklGQ0c4MnFSNkFySk4tNDF4STdYdkZTSDBydklITHNaN3p4ZG03U1ZoZk91OGN4aA?oc=5",
   "published_date": "2022-04-09",
   "captured_date": "2026-08-06",
-  "summary": "Mexican Blueberry Production and Exports&nbsp;&nbsp;ProducePay",
+  "summary": "Mexico has potential in terms of production and export of blueberries and if you want to know its seasonality check this article.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "producepay.com"
 }

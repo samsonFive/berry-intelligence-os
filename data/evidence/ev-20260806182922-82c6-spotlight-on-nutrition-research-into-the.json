@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE14OVlJSVNHbGZhYk50TktELVh3REtUcE9ySUIxRXdCOGRfc1FqZjRYTXJFaTJrenl0eFctUHE2RV9Cc1Q4eF9HblFJYUt1RmZ3ZUJJNXVhMA?oc=5",
   "published_date": "2023-08-09",
   "captured_date": "2026-08-06",
-  "summary": "Spotlight on nutrition: Research into the impacts of our diets&nbsp;&nbsp;kcl.ac.uk",
+  "summary": "From beans, to berries to new types of bread, our researchers have been doing a range of work to help us better understand how you are what you eat.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry health research",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2e40-berry-health-research-118"
+  "source_id": "source-20260806173428-2e40-berry-health-research-118",
+  "origin_domain": "kcl.ac.uk"
 }

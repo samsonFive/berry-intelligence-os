@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOdEUyUWY0VVVmWjdCMzUwcnpWRDNyT0hacjY5eElwZzk5QUVsTS1tNi1IWnFhR0ZmemhpRExuMDctdnJHeFZSTzFIbWtKb0trNWcxeGNQREo2NTgyZ1ZmX0xoM1lMcXpBRWhHN3lfc05OempsYmxwMlZxMHMtUU9TSTA0dGJJemY2LVR3?oc=5",
   "published_date": "2023-05-19",
   "captured_date": "2026-08-06",
-  "summary": "Strawberry Production by Country 2026&nbsp;&nbsp;World Population Review",
+  "summary": "Detailed data on strawberry production by country, including which country produces the most of this member of the rose family.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "worldpopulationreview.com"
 }

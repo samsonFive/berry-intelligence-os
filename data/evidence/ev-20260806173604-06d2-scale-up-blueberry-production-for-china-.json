@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFA3UVZnbXpwSHBJb2ltbV9na1VkX2hMTEthZWNVUy1selZPRlB6OWR3bkktQzNrQ1JpRmd1OGZRbFBvSFJVc1hnMTZqdmZhODdoVHlqQzNHUklReExoSE1odFhqV1FsQW1mdFlEa2Y1c2t6aDJkQ3V1N1YtMA?oc=5",
   "published_date": "2025-11-25",
   "captured_date": "2026-08-06",
-  "summary": "‘Scale-up blueberry production for China’&nbsp;&nbsp;Herald.co.zw",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:South Africa blueberry IBO summit",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-996e-south-africa-blueberry-ibo-summit-115"
+  "source_id": "source-20260806173428-996e-south-africa-blueberry-ibo-summit-115",
+  "origin_domain": "heraldonline.co.zw"
 }

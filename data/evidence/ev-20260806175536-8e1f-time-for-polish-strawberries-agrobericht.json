@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNMk95bko1VF9EbzlXRl9rWTZMMTFqMWM2R3FUMmM2dHg0Y0thZ251NjJVZVlfT2lXazVYUk4taFRzSWhZM0lyYzU4N19jUzhEbzgzMVJZRVc5T2g1czBMWnM2ckNuMW1HYUx6WlRKMFoyNUNhWUpac3dRU09jMEdjNU44bV9HXzRhZnFTSjJMSVRkS0liU2tReg?oc=5",
   "published_date": "2022-05-16",
   "captured_date": "2026-08-06",
-  "summary": "Time for Polish strawberries&nbsp;&nbsp;Agroberichten Buitenland",
+  "summary": "Poland is among the leading producers of strawberries in the European Union. The share of the strawberry cultivation area in the total domestic berry cultivation area is 27–28%.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "agroberichtenbuitenland.nl"
 }

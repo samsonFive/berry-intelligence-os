@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQTGpYMjFWZUdPTlFISXBpSFEzZGF4OG14SkExOVQ4QUI1STluWVZ0NzN3UzU0Q29LTFBJX2NSSWFnYnowVkVJWlVUUGdQak1yNHdtWkJfNlBGZUhNVGVVMExtMUpjQ2JBcGFGRTc3eFY0ZVdiRWxHbzNBMm1aNVNZVjZVTm5XanlEeTZKM1dvSm55UXM?oc=5",
   "published_date": "2018-09-06",
   "captured_date": "2026-08-06",
-  "summary": "New high-yield strawberry, raspberry varieties released&nbsp;&nbsp;Fruit Growers News",
+  "summary": "Cornell’s berry breeding program is releasing two new varieties, which will be available for planting in spring 2019: a strawberry, Dickens, and a raspberry, Crimson Treasure. Both varieties produce large fruits with vibrant colors that maintain peak flavor for longer than most heritage varieties. The new berries are the handiwork of berry breeder Courtney Weber, associate …",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Raspberry variety license",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88"
+  "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88",
+  "origin_domain": "fruitgrowersnews.com"
 }

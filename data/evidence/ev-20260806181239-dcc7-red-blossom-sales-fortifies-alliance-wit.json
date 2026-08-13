@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiggJBVV95cUxNNHdpYzdFWG5GOXh6MWhxVzJDZENuSEd0d0U1dnJhak9UR1pYUHJyYXlpZm81WkFnYjlNWllFbklsejMzTFU4NnFIbV92aGhWOW00SGdnSjduTk5mME9iTWM4S1JsZHZfeDBfNzlwaGtUcmFBdTZtQ3dXZ25yTkJKRnlnOV9hOHQ0RUwyMC13eGlnQjlnM3Rxb0QybTczQ2ZCbktZNW9RTy1Rb2VUOEx2akxNQUFiOUJBRjBPSTlDaG40OVZXZjhCcWI4OEdCMHdLcEtmZmE5dk83OFlyTXRkSlhhWHh6RWFKZnhSSFlqa3ZDNHBJWjBDUGpmTXVoS3pfaXc?oc=5",
   "published_date": "2021-10-08",
   "captured_date": "2026-08-06",
-  "summary": "Red Blossom Sales Fortifies Alliance With GEM-Pack Berries; Paul Kawamura, David Lawrence, Mike Etchandy, and Craig Casca Discuss&nbsp;&nbsp;AndNowUKnow",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "andnowuknow.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNNFNoY0oycmd2M3h5N0ZHYXkyeTlDUzJJNHhnaWY4azZfY1RDa0tBSXM0dGwxbXNlOXR2cUFSS2ExZ19HYm8zS2RnSjJXNEhWN2VPUXVkbGE5Y2pvbWZPbmZJU3UxT0VjRTc3QXgzN0p3X3dHbVN1cUhHUkNTU2ZRT3dkYy1CWW1CbV9HOUtLc05ocV9VUFVOZXNUSWFQY0g3NnQyOThzSXY5VFVya0hHNHdlcTBfd1l5TzZRYg?oc=5",
   "published_date": "2026-03-13",
   "captured_date": "2026-08-06",
-  "summary": "Maine’s wild blueberries deliver more than tradition. Research proves they support health. - UMaine News&nbsp;&nbsp;The University of Maine",
+  "summary": "Wild blueberries — the iconic Maine crop dotting hillsides, decorating sweatshirts and adding personality to local menus — is more than a cultural symbol. Over 20 years of preclinical and clinical studies suggest that regularly consuming wild blueberries supports gut and heart health and may reduce risk factors associated with…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry health research",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2e40-berry-health-research-118"
+  "source_id": "source-20260806173428-2e40-berry-health-research-118",
+  "origin_domain": "umaine.edu"
 }

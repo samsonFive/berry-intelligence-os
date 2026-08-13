@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPc3NVUUYyRDVacTdCRnhUb1MxU044aloweUkzTkZqSjg4ZnNldkJtX2pmMkZWc0pGY1JyNFdHYjJBd2pscEY4X3FUTlptWi1aenNDaXNFZm5oLU90VGk0aDgyaEtXdnJlNHpJeVRqaEwxZXY4VXFfMkVLSW9mekE1VmJMbDNHVWtEeWRVVEhwVk1vR2RJaDRycTFLdUJQRWJabUlBMUdEcngxejNmTkpjXzB6MHRqMHZGcEcwM1N5S3h5dw?oc=5",
   "published_date": "2026-02-17",
   "captured_date": "2026-08-06",
-  "summary": "Peru ships 440 tons of blueberries to New York via charter flights&nbsp;&nbsp;FreshPlaza",
+  "summary": "During Peru's main blueberry harvest window from August to November, export volumes increase sharply, with peak activity in September and October. As one of the world's largest blueberry…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "freshplaza.com"
 }

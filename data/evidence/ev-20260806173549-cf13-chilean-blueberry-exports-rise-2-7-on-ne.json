@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNZnBxQ2VLV2JkTWtJcFA5VmFkY29fZTJISEh4TGN4UTRzMl9YODZzYmFvbFBlN0ZhbFVhWWlWenBKSGl6SVMwWFN5em1rX3NIcVBPdEhaWklOTkl2c3J5ajY4T0Y0cUJJaXpGcDc1OG84Q1pBc1RkSXVGR2RtVjQtWFhoVGxWQjVPOXJmZVQ3WDExbTB0MkxFcGxlS01Hd0g4TS1HWkRNbm5KNUdyajJUTGFnS0EyVHpaUVdtQTQtQUUzcXV1X1JHQw?oc=5",
   "published_date": "2026-03-23",
   "captured_date": "2026-08-06",
-  "summary": "Chilean blueberry exports rise 2.7% on new varieties and European demand&nbsp;&nbsp;FreshPlaza",
+  "summary": "The 2025–2026 season for Chilean fresh blueberry exports closed with a cumulative volume of 92,900 tons, an increase of 2.7% compared to the previous period. According to Andrés Armstrong,…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "freshplaza.com"
 }

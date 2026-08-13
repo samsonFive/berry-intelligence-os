@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNS1l3VHlxZlFuU0Iyb3JpN0FEVTBjUmJ5U3hzUVVVWjRpbHNlZVpVS0hTLUlhRmpHWTYwVE1vQU1qU2d3NkY5Vk8zZDBkbnZua3VydlZ2REhIYWZBb1dwbEdhcTdMWVBHMFhxdGxrNjc5RU1WaGVFVlIxQzdQVWJTdk90NHpQLXJpZ3R4UGZEaTBaUGxWam1FTW5RcThPYnpuZm5zZG5TeUtpOTVibG42TEpIUkFrMEhmTUxteXFGbG9wQQ?oc=5",
   "published_date": "2025-04-18",
   "captured_date": "2026-08-06",
-  "summary": "\"We expect Moroccan blueberry exports to increase by 20% this season\"&nbsp;&nbsp;FreshPlaza",
+  "summary": "The Moroccan blueberry season is currently in full swing with the arrival of large harvest volumes. The industry continues its growth momentum, attracting more growers every year. Salah…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Morocco berry exports",
   "berry_ids": [
@@ -43,5 +43,6 @@
       "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111"
+  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+  "origin_domain": "freshplaza.com"
 }

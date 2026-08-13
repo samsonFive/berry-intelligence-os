@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOYk5iNTA0OUVJNWR5anJ0YURZVVVkUGthZ2JkQmRoTWVnMkItRElxTVNYeFRSbUdwRzM5X1NWYUpjNTdfck9CWkhnampVZXhQQzBJeTRaZ2o2MXZ1UWhNZTdrRlQ2UURsSGFmNXFrcXpsSF9ON0hsRG4zekRTVWsxWTA5cWI3d296NnREMmU5eThvVTkyRGRXSF9hdkYxQ3dzVXfSAaABQVVfeXFMTlpFLWNhdDllX1V0aE1TRTVsWDFSSXFPZDZoQWhfaHVubF9Ea1NOVmJDS2NyMzVzSV9CWldaWVBjRGlLN0ZOT09qM3lhZUFGaldtQjdLaHl2TWZSUXNWRmxjMHFXWWRqRHZWSDdCaHhUNnVsSVJXNU5EMmdOMVl0X1lNYzVVUTVkeVJEMHVtZTMyajg1bEFBUzgyNmlJQWtQUQ?oc=5",
   "published_date": "2026-02-20",
   "captured_date": "2026-08-06",
-  "summary": "Ukraine significantly reduced raspberry production and export volumes in 2025&nbsp;&nbsp;Українські Національні Новини (УНН)",
+  "summary": "УНН Economy ✎ In 2025, Ukraine significantly reduced raspberry production and exports, leading to no surplus for export. Exports of frozen\nraspberries decreased by …",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "unn.ua"
 }

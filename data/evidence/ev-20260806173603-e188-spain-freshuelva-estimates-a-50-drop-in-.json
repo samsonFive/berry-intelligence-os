@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQeVdGdDFMTkdQSHFzdHJtQjBvOHBJeW9ja1VsUXRDRmZSa0s4WVN3UWtLbDVNcTdJZ2ViREQtLTBVc1g4S3BoNFhnMjZVek9lX1NyWVJobU1jcGtXaU9ZYmQtU2FMUER3MXZYU2pqSElBUWhueWZhdmItN0Y5U3M4bE0zbkhLN3NUTlZNLXlIbklfazUyM2RMRU9LT3dQWjA2Uk1WNWNIT3ZlMVotZHNfdElKV3FTTWhOeFpjRWh5Q3V5VzdiX180MjY0LVpCc1cwUmc?oc=5",
   "published_date": "2026-02-12",
   "captured_date": "2026-08-06",
-  "summary": "Spain: Freshuelva estimates a 50% drop in berry exports after weeks of severe storms in Huelva&nbsp;&nbsp;Hortidaily",
+  "summary": "The Association of Strawberry Producers and Exporters of Huelva, Freshuelva, is currently collecting and analysing data to quantify the extent of the damage caused by the succession of storms…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "hortidaily.com"
 }

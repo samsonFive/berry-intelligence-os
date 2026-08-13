@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNaGJwenlTNVVXUUhMTVNJYmx6YXFfemRYQ2JSb1psMS1lNGdMZ0ZGYUhOZHh2MVR6NF9WUGUwY3pkNWZjV2xwV2FHUWlqeHJlTThTaFFHd2dTUlAwSEtoMWVqc3d1aTFjbF8xT2t5TjZNWDZGaFU3LW9acnh3QmlDY240c2t1dDJWTEJERXFn?oc=5",
   "published_date": "2023-04-05",
   "captured_date": "2026-08-06",
-  "summary": "AI tools help berry growers predict yield&nbsp;&nbsp;Hortidaily",
+  "summary": "Berries are no longer a luxury fruit - they are an everyday superfood. Berry consumption has grown across the world, and berry farmers recognize the need to increase production to meet the…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "hortidaily.com"
 }

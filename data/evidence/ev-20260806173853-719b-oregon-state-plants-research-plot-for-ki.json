@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPZ0hhNzF4S2lhZGVVeXo0Mm9RbE1IY1J3a0dZZjlwaUFKRmttcWMzQ1B2Z1YwUzVyVWlEWk1xMVV5TUhKMS14RmZRZ1lFYnFMNDhYQUNVMFV6RHFMeDdUcTZQWG5VOXdBVWRUTERBLXV5a3RDZUY2UURpdWttZkVJRUNkc19yZ0ozSjNNSmdXNzI2VEtlWXJXQnJuaFd1SFZOS2JkNjF1bnI?oc=5",
   "published_date": "2025-06-13",
   "captured_date": "2026-08-06",
-  "summary": "Oregon State plants research plot for kiwiberry, emerging small fruit&nbsp;&nbsp;Capital Press",
+  "summary": "AURORA, Ore. — Oregon State University recently planted one acre of kiwiberry vines under an imported Italian trellis system at its North Willamette Research & Extension Center. One acre doesn’t […]",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry acreage expansion",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101"
+  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101",
+  "origin_domain": "capitalpress.com"
 }

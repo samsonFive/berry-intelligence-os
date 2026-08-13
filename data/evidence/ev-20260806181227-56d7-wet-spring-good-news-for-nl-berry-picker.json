@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE1lcm1mNm9fYURxV1VJczB5RnB5bXpjQmthSjFxY0dTSVdCTmM1eGk4UWxhUnhfcEtKeUhaVHluNlFrcDJNNHRJZ292TQ?oc=5",
   "published_date": "2026-05-31",
   "captured_date": "2026-08-06",
-  "summary": "Wet Spring Good News for NL Berry Pickers&nbsp;&nbsp;VOCM",
+  "summary": "Extreme dry conditions resulted in a hard year for some berries and mushrooms last year, but it's hoped this s...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "vocm.com"
 }

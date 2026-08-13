@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNUGtwREl4X3F4bXhMbHVSUDdPeWtENDJkQVBON1JRdmU5ZmdBZ3RSOXRXT2N2VkplTzdycmpGYkZIVkU1aHRKdXRWRGhkMFVBUTdUN2hrZnZfdlI2UzFKVzNtbGpvanhISXpETXRkZWJJblVPVHljQldOSGV1VkNkdm9IcnVzVTFpS3hma1Z0SjJKeDVLWVhBa253M3NxelpXWUtSbTRIdDh3bEFpMXp6SHhDdk5zMjRJZWVRWlE4Tm83MVNGS3pzQjN4T0htSWc?oc=5",
   "published_date": "2022-01-13",
   "captured_date": "2026-08-06",
-  "summary": "Ryan Lockman Details Tight Berry Market Conditions and North Bay Produce's One-Stop Shop&nbsp;&nbsp;AndNowUKnow",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "andnowuknow.com"
 }

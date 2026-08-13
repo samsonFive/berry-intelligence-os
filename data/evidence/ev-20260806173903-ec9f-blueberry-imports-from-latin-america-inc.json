@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9tX0dwa1k2eFBIUlNzODdneThGUzFpNUpSQVF5MVUwbFZuUVU0cEctTGRWZndwZjRlR1ZNWEdpZ1pEQWpuNm5pbkVUTGxyZHdmRG1wZl9vZ051NUtGck9tWnVzNHdEenlTVFE?oc=5",
   "published_date": "2020-09-21",
   "captured_date": "2026-08-06",
-  "summary": "Blueberry imports from Latin America increase to meet year-round demand | Economic Research Service&nbsp;&nbsp;USDA Economic Research Service (.gov)",
+  "summary": "An official website of the United States government",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "ers.usda.gov"
 }

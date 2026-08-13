@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNQ3Vnb2FNYkE5MHlWb1U0M2hnV2N2eE54V3hBQlVJZXdlN3AxamYxZDdzVTZsT2F0ZTRBTlFzNlJhbC1RcGVuNklVZjRkUkhkWTB5WWp6ZkdzbFFaMnR1aE9ZSW94MF8xamQ4QS1xMGlGQ1U3OTdrMHI2Z3RlRWI5TnYtMnR0eDZiSVRFVUxRWEdCLTZnSUMwcVhjdTQ2Y3JNRzA3dFFMUW5xam5MX0VFZFY1eWFsSml0?oc=5",
   "published_date": "2024-02-22",
   "captured_date": "2026-08-06",
-  "summary": "Startup sued by 120-year-old fruit company over patented strawberry varieties&nbsp;&nbsp;Daily Journal",
+  "summary": "The Daily Journal has more journalists covering the California legal profession than any other publication.  Comprehensive coverage of litigation, arbitration, and mediation results from California state and federal trial courts for attorneys and legal professionals.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Strawberry cultivar patent",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89"
+  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
+  "origin_domain": "dailyjournal.com"
 }

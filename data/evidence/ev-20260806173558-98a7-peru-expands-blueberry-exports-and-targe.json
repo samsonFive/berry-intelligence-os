@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQeS1YSUs2QmNPT1ZGVmVSeGxpOTVBelozWlJpTGhRc0FVSTNzOEc0QzEtTklkZXBmVS13eWY1TS1nN1ZEYU1HVkZOXzNKUnc5MFJWZ2hVUWJkaWN4UjVOVHI5a0dHNEc2a19sYnRVcjNkLVljR3R5aDZDajdFbjV1SXowT3NVTUlXTnRFTE9abHBNb0lMcHBBN3ZnWHAtUUNEb0hoZGY3ZGx1QQ?oc=5",
   "published_date": "2025-11-19",
   "captured_date": "2026-08-06",
-  "summary": "Peru expands blueberry exports and targets Japan&nbsp;&nbsp;FreshPlaza",
+  "summary": "Between January and September 2025, Peru exported US$743.248 million in blueberries, an increase of 25.5 per cent compared with the same period in 2024, according to the Agro-export…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "freshplaza.com"
 }

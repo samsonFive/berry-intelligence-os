@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOMzJ5UmZTZXZRV21uOHdNU1Z6TEhETE9GSEpsY0tiU0IxSm1aeFF4UmFlWGRxX1Y0UnM3eXE1Rm0wOHRoa3lya1Roc3BCR2Jqb1RyOXQycHRhaUtia1ZJaFdkUU9veDUtbUkyQjVURkE5VXFNU3ZhTFZtSHRkSFBHVnJFWE43Um8?oc=5",
   "published_date": "2022-08-01",
   "captured_date": "2026-08-06",
-  "summary": "North Bay offering organic Sekoya blueberries&nbsp;&nbsp;Produce News",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry category growth",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-3eee-berry-category-growth-119"
+  "source_id": "source-20260806173428-3eee-berry-category-growth-119",
+  "origin_domain": "theproducenews.com"
 }

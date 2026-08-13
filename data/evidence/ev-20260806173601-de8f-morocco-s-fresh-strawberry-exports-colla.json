@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQQldWMkFxZzczOTEzdjd5OFhNMzNXVVh4anBJQkp5RDNhc25ob0ZhcHhpRG5SQi1KT0lPMFNXbVl0dGxPZzdzSGtkWlk2c29fOG51RVJfYTA5bWNtMnJvQzJGU095UmY0dWxLUmV0MTNRYXJQSU9YZlNqVFduNllMVjZSRGU1X2R6Slo1eXVzVnNCNFJZUjdVU0ltcndxRzRvMldnRUR3?oc=5",
   "published_date": "2026-07-07",
   "captured_date": "2026-08-06",
-  "summary": "Morocco’s Fresh Strawberry Exports Collapse to a Record Low&nbsp;&nbsp;EastFruit",
+  "summary": "Morocco’s fresh strawberry exports have plunged to their lowest level on record, marking the fourth consecutive season of decline and the most dramatic contraction yet, according to EastFruit. Between October 2025 and April 2026, exporters shipped just 8,700 tons abroad, half the volume recorded a year earlier, putting the current...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Morocco berry exports",
   "berry_ids": [
@@ -46,5 +46,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111"
+  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+  "origin_domain": "east-fruit.com"
 }

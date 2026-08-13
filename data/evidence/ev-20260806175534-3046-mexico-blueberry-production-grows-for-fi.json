@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPZFNRUjEwUnBBRWVyOWhNckJQa2RZN3VYRWZrazZCVnpJVzNOSGVDMExveVBHVTZIZ2cwVGdLTlBjeWFUWmNPVk4zaUdIb3k5bGF2bFhqamlnUC1mSDRkZXJiQnZaNjRqMThwYkJJSUg5QUpfX3l2M0hiNl9VY2FrTHVMTlpCV0kzS29VWlVOSU1uTEJsbTdFM0hXTnhYaEhlVkp6RnNUY0pGLTg?oc=5",
   "published_date": "2021-12-01",
   "captured_date": "2026-08-06",
-  "summary": "Mexico: Blueberry production grows for fifth year in a row&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "Mexican blueberry exports totaled $399 million in 2020 and 96 percent of the exported volume went to the U.S. market.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "freshfruitportal.com"
 }

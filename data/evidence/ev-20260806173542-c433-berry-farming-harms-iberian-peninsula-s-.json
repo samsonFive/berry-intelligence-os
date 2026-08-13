@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOQ3k5TXlsMldZMTcyaGtBdkhnaHN3UkI2YmVjbmxPaEFma0ozRU5CajlzNHpWZGx1TDI2OVZmblozS1lrNGRPR0ZqMWVOY2x5MFB5VGR0T3l3b0U3TmZ1VVpJQXFrcWVCSzdNN3UteVktcFNGNnNGRDdWQUIzUml3TWYycTBuTFZTazgwN3FWZWpoaERKRllwaW5hcDZpUFFxWV9QdUxEeXJ4WHVlTjdHbVdJT0ZKb0U?oc=5",
   "published_date": "2023-03-28",
   "captured_date": "2026-08-06",
-  "summary": "Berry Farming Harms Iberian Peninsula’s Protected Areas&nbsp;&nbsp;Earth Island Institute",
+  "summary": "Europe’s growing appetite for berries is sucking up Iberia’s water.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92"
+  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+  "origin_domain": "earthisland.org"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPV1J4MGJUajg0SlJxcUpiVjBaa1BtV2hVZXlVYXVwUk1ZM05OVEFaYjZEdWpMOHBRZE1jY1hna0RCRGc2TjVyWjNLS2Nwb3Y5aTNTUnZLRWJ4ZWVkUUs4eTNKOXJSLVgwaVpyNzBoNkluNkN3eFlpYjUyanQ5c1JTRzBVNjdhcFc2Qm9ReFFvNnViRUtzR19UTkdYWjR3dWxKMXd0dkl2NmZZNENuUEZzdQ?oc=5",
   "published_date": "2018-06-22",
   "captured_date": "2026-08-06",
-  "summary": "Global consumption of strawberries increases annually&nbsp;&nbsp;FreshPlaza",
+  "summary": "Data from market analysis company IndexBox shows that the world's largest consumers of strawberries are China (41%), the USA (16%), Egypt (5%), Turkey (4%), Mexico (4%), and Germany (3%).…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "freshplaza.com"
 }

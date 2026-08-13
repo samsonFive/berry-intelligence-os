@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPcXUyZWFrSlRpMDllRUhycEhMUE15SDd2UlZVTjVYajV1TUxnTDJQT1EwRnk5ODVXOWxrS2dGR0kwR1pkdFBGQVZKM19TVlozd21zNFFZeHd4cnBVLUhLUUtKWUJZVEx3cUI2VXFXdVhrc2NtWGhLU21NbldNRjkxSlBnU1dsQjJtTER5YVZPMk0yNF9WMm1YQndwVEJzRzNtU3k0eW0yTkFkQzdINkx6c1FRYlFHWFhfd1E?oc=5",
   "published_date": "2026-06-10",
   "captured_date": "2026-08-06",
-  "summary": "Fall Creek expands berry breeding with Berrytech acquisition&nbsp;&nbsp;FreshPlaza",
+  "summary": "Fall Creek has announced the acquisition of Berryplant - Rubus Specialists and Berrytech - Hybreeders. The company said it is looking forward to combining its operations with the Berrytech…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Company acquisition berry",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-8498-company-acquisition-berry-95"
+  "source_id": "source-20260806173428-8498-company-acquisition-berry-95",
+  "origin_domain": "freshplaza.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNMDZvaVB3RklkZ3d4dWtfZDdIY3lJbWxNU0N0aTBJdXNmdVBXRjRodE1yLXR4dHgxU1A2T290SmZJcWpfU0hjNjJJOFduenFwSXI5VTh2bWtvekxzeC1XY2pmXzZIR2VlSUMxNVFodlJUMFpnU0s5cXBVYlBkaU43b0FPUVk4RDBQVzV5XzZ2bTdwWXNJVFdlTUhrSkhSVUhydUFuRzR5bXN2U0xVR3h5OFJ2QndxOTNvUFBObURuQUFDNVU?oc=5",
   "published_date": "2025-09-16",
   "captured_date": "2026-08-06",
-  "summary": "Nursery \"Semirechye\" - the future of Kazakhstani berry growing&nbsp;&nbsp;Agroberichten Buitenland",
+  "summary": "The Ministry of Agriculture of Kazakhstan represented by the Deputy Minister of Agriculture, Azat Sultanov together with the Mayor of Almaty Region, organized a press tour of the region’s agro-industrial facilities.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Raspberry variety license",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88"
+  "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88",
+  "origin_domain": "agroberichtenbuitenland.nl"
 }

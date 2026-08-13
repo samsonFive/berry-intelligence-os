@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNM3NzRGJOT2prdkxvbUZlYVdZazZHX0xOTGhxcnVQSEVlMWsyZ05DNTVKY2tCdmNBOFVlMFBOV25oaTFLUF9zV3VGTXZrYlgxbWRra2VDalZ4X0NXWERSdUZPeFctSFpQS1FKdXZWRzZ6bjlCNEJlYXRrSWJUX1h6ZG41LWZPdG5YMGtEem12ZjZCWno0Smdid1l3OVZDbHE5RFo4LWpBZDA?oc=5",
   "published_date": "2022-03-22",
   "captured_date": "2026-08-06",
-  "summary": "\"Blueberries are the next big hit after cherries\"&nbsp;&nbsp;FreshPlaza",
+  "summary": "The blueberry is a beautiful and nutritious fruit that is known to effectively help eyesight. People in the market are paying more and more attention to the blueberry. Mr. Huang Zegui,…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "freshplaza.com"
 }

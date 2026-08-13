@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1WWWlDcHlwS2N3QzEwMGhoWWk0NmFrbWlLNDBEemk5MUpqTF9uZ0FHQUNwMmpVMi1WZkd6YmlFa01rUURId09MQnJwVWxKR1VJYUlCTGpNcHlRcXg3TnEzQU9zMlNPT1lKSmRFSDFtbzZXMF9WQ3VBYWlFQVY?oc=5",
   "published_date": "2026-04-13",
   "captured_date": "2026-08-06",
-  "summary": "Apple crop shrinks, berries slow to start in Q2&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "The latest Produce Alliance US fruits report, including apples and berries, shows the industry is navigating a rollercoaster ride this second quarter, resulting in harvest and quality dependent on the fruit and region.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "freshfruitportal.com"
 }

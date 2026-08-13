@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPNWpENS0zRFlIaFFsMW0ySU52OEdKUTJiTkdSV3U0aktYb0d1R3ZOTHJ2MUF3bVVSdUxtRHlvcHFsRWozNWdhaklCc0l0a1Z5cmhRZS1jV2Q2U1hYYTlXdE9XVmdnMEhzMlJzakJabVV5NHJJbzV4UFk0WXZvSnViZnhuQlVQTjhra2drM3NIRFhfOGQ2dTJ1RWlDbFQxRk5EZWJxSHNrWmFvQWoycUdTSVJiTzQ?oc=5",
   "published_date": "2025-12-12",
   "captured_date": "2026-08-06",
-  "summary": "Fresh - fruit & veg 2025: Record heat fuels boom in berry sales&nbsp;&nbsp;The Grocer",
+  "summary": "Weather records were smashed in 2025 - and the effect on fresh fruit &amp; veg sales is  clear",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry retail sales data",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117"
+  "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117",
+  "origin_domain": "thegrocer.co.uk"
 }

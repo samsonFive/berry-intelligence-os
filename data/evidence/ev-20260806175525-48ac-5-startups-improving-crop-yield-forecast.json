@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1wYkRraVZfYlVwQTBRNU5qd1ZhcWNtQ0pvbmNlWklIaGoxTWFUbHp5VDhCUUtjMUUyNjBXVy1VNlBGa25JM3MwRTlxRlppQm5QUDZQVHI4UTBOaUdQeDZsdjc5OWFFQ1pUV1NCX2RjWG5iLVNp?oc=5",
   "published_date": "2019-08-29",
   "captured_date": "2026-08-06",
-  "summary": "5 Startups Improving Crop Yield Forecasting&nbsp;&nbsp;Nanalyze",
+  "summary": "With an increasing number of mouths to feed and a decline in the food supply, agtech solutions like crop yield forecasting try to save us from world hunger.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "nanalyze.com"
 }

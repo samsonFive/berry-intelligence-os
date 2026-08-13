@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPRndsUC1FZllweUdOdzNfMWR4UkFFLVR0LWx0OFFjTWp4YUJFLWs5SjNaWDN3SW8wdmVRUWdlZmdrcWp6aEZVMTQwTFA0WDFacmtza2o0ZkxHZy04d0N0Uy1KeTE4RGVsUEVfUlM4b1dyeTdBY3NOelhqb1BhenZFNVlXUjFJV2JpTGF0Zkt4VmltNWx3TFRmYkVnT0lpbEpQRDB3?oc=5",
   "published_date": "2025-04-03",
   "captured_date": "2026-08-06",
-  "summary": "Legal Protections Bring Cornell’s Crop Innovations to Farms&nbsp;&nbsp;The Cornell Daily Sun",
+  "summary": "When new technology, scientific methods or plant varieties are developed at Cornell, legal protections are often required to safeguard their creation.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry plant patent granted",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry plant patent granted'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-fba2-berry-plant-patent-granted-106"
+  "source_id": "source-20260806173428-fba2-berry-plant-patent-granted-106",
+  "origin_domain": "cornellsun.com"
 }

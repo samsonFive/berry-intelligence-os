@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQYkdUeVdaeEJ1aWc5SmdXMEU4SjRxRzllTXdBeGZtNFFsLXhneWJVamdETnB6SE1YY0FZRDdNblNfRTQ1Rm93ZlFhNDl5cjd5VmRjZzhPUjN5LWtJUjJvQnpFaE45NUpac3UtNWZsbWFEZldiTk5Ea0dpQ25iUzJWNHd0bmZoQXk0dUUwZ3Q2MGlYZksxMmlvXzFhMXlOaWluSDhiZlNxZUF2WThkUk5XOXY1d2NNRVBBRk0tVFlMUVh0T2xpc2hzWFBYUXN0Zw?oc=5",
   "published_date": "2025-09-09",
   "captured_date": "2026-08-06",
-  "summary": "“We’ve selected traits that make berries firmer and more durable for transit”&nbsp;&nbsp;FreshPlaza",
+  "summary": "Berry supply is currently plentiful; blueberries and strawberries are still available in the U.S. domestic market, and the transition to Mexico and Latin America has started. \"We still have…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "freshplaza.com"
 }

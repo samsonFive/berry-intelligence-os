@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxOVFNyVm1HOEttNjlzcy1qQm9ucVlTNlZLNldXT2xoS1A4cmhFa0VYbVBEWXVzSWhwbHk1bUs2YVpxZ2JHWmQzLWVOVmFHc1pnbG1HVWV5dmUwa0tKMnhzUTZEbDE0ckFCeHc4V2dSd2xXdGV3UGx1YzZoRVJKV0I3NVRSeFotaHhiU25hRW5iYUcwTlJ6b1JpVm9zMFljMHBCU3V4VHd3VDRsMnQ1VGZNd1ZTLXRTNVFpZUVkQW1ISlRDS3piNkRrREx6ay0xMXlGbVlZcTJXWG0tSjNucVdsaDJB?oc=5",
   "published_date": "2023-10-16",
   "captured_date": "2026-08-06",
-  "summary": "\"By growing blackberries in a greenhouse, we're extending the 2024 Dutch season from May to early November\"&nbsp;&nbsp;Hortidaily",
+  "summary": "The last Dutch blackberries and raspberries spell the end of the harvesting season at BerryBrothers. Cousins Nijs and Teun van Zuilen reflect on that and consider the weeks ahead. \"Our…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "hortidaily.com"
 }

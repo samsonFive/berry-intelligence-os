@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNbk5RSVl4QkNfRzUzVUJrSWpRUzZiUmtkNXNhM19WcGNEaXEtLV91R2VJc0stT0tmQ0tsclY0OVFUQXo4ZXVDRmJaSzVmSmNmUjNXU2lsTGpSa3Z2UmhSbTBKY0tSUDJDMk1RTVBVU1FSX2doc1U4S2x0VVAtTDE3a21ub2FsUXA5UHVCMVhKRXFwQWw2?oc=5",
   "published_date": "2019-03-22",
   "captured_date": "2026-08-06",
-  "summary": "Driscoll's sues former UC Davis scientist&nbsp;&nbsp;Fruitnet",
+  "summary": "Berry marketer accuses California Berry Cultivars and founder Douglas Shaw of using Driscoll's strawberries in its breeding",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Strawberry cultivar patent",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89"
+  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
+  "origin_domain": "fruitnet.com"
 }

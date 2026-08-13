@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOdDFkRWpiRE9zRzVOdkdaYjJvVmVuOTRBSG9PRThKV1ZlLUhHVHg2bWNHdmw0ZnNKSG53eWY0a3kzQXFvYTExM244NjJzVFYwclFxV3FZWGxqN3FXbnh6eDcwOWJXMFlJZVJKT052OGdWRFc1NUxMOThqZE5KN3pPamRjOUhTd2NNZE9vVDVjMHpnSnNuNkVhRWZpQTJJb2t2NlE?oc=5",
   "published_date": "2024-10-12",
   "captured_date": "2026-08-06",
-  "summary": "Bloom Fresh Ventures into Blueberries Amidst Grape Market Stagnation&nbsp;&nbsp;EastFruit",
+  "summary": "Even table grape breeders are now turning their attention to blueberries! Blueberries have become one of the world’s fastest-growing fruits in terms of production, consumption, and international trade, as frequently highlighted by EastFruit experts. In contrast, the grape market appears to be stagnating, potentially due to the rising popularity of...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Blueberry breeding program",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87"
+  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87",
+  "origin_domain": "east-fruit.com"
 }

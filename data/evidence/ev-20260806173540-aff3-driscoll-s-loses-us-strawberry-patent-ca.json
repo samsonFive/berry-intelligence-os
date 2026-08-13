@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE53U20xMnBNSG04THhUYlVqOWZRbll1eHNaMS1Tak1Ma0VmbDlHTXNKb1pEUlFXaHBmSkVHMHdONWNiaU1yT2FXMVJUSU9FQ29kdVRpS0ItbDFzOEJieEx1YS1yZGhCOF9QNmloZWg1djA?oc=5",
   "published_date": "2025-04-16",
   "captured_date": "2026-08-06",
-  "summary": "Driscoll’s loses US strawberry patent case&nbsp;&nbsp;Hort News",
+  "summary": "A long-running patent infringement case brought by Watsonville-based Driscoll’s against California Berry Cultivars LLC has ended after a court in California found that Driscoll’s failed to provide enough evidence to continue their case. Driscoll’s, who have not commented on the ruling, filed the lawsuit in 2019 alleging that California Berry Cultivars improperly used the company’s […]",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Strawberry cultivar patent",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89"
+  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
+  "origin_domain": "hortnews.com"
 }

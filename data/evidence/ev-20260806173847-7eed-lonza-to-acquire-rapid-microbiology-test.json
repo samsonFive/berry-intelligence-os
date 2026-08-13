@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPQUJrSFowN0ZldElXVE1jdFhSU1Fad1oxT0tIOFA2ZGRsbWt1YTBEeG5uR3c3U1dnbHU0N3BMSjQ1djdIMC1CejhJUUxleEJMZmpEU08wY19ub2RhN2h0YXdnQ0JxVGRObHI5ak5OT29JOFlXa2Z1WWprVnpST1V1dF91YmlURWhGajBjdVRPNG9nRjFGWmlwWE5GQUVBU3l6UkNrZ2E3VEM?oc=5",
   "published_date": "2025-11-13",
   "captured_date": "2026-08-06",
-  "summary": "Lonza to Acquire Rapid Microbiology Testing Company Redberry&nbsp;&nbsp;Clinical Lab Products",
+  "summary": "Lonza has agreed to acquire Redberry SAS, a company specializing in rapid microbiology testing solutions using solid-phase cytometry tech.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Company acquisition berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-8498-company-acquisition-berry-95"
+  "source_id": "source-20260806173428-8498-company-acquisition-berry-95",
+  "origin_domain": "clpmag.com"
 }

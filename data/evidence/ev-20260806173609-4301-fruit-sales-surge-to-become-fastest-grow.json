@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQdktDb3ZIU3ZwcjFneXI1cHZ3cHhZWEdMdDNQMUhvTEQ3WkQ1YTVGMFkzRjlfUnhsUm1jVmUxMlUzU0VPMFdkOGF6S19keUlGWklKUXRJTGZlUjVmUzA1Mk5IQzBwWXVFU0ROcS1WRllZbHo3QzQtTnEwNVcwRHNfZkNWbWYxX0tqV0tCREdLYUtnQXNUbGFPWHFCZTdIVGpDOWhCbTRMOHliUUVJQzlVV09BN1U?oc=5",
   "published_date": "2025-12-12",
   "captured_date": "2026-08-06",
-  "summary": "Fruit sales surge to become fastest-growing category&nbsp;&nbsp;Fruitnet",
+  "summary": "Strong berry and grape sales have helped fruit become the fastest growing category in UK grocery as Brits shift to healthier diets, according to new figures",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry category growth",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-3eee-berry-category-growth-119"
+  "source_id": "source-20260806173428-3eee-berry-category-growth-119",
+  "origin_domain": "fruitnet.com"
 }

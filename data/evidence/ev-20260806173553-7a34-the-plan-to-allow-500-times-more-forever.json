@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNMUE1Y1VxczNLQkVYSThyb1FCVE1Oa1cxcWc4bDV4X1hjZHBpaDhHVjlOSkJGTExrU1dMWkNsQzFYTWg0Vy1NSFpTNUNySTBlbVFQYjlpNWZ4N2tSYllQZzVuNzJmbzJUSVZYV1d3N2RHNE1SdzkwSnNIWXdqV0R5b01EYjBRbElrVUFwamJUa1VOeFJrdkFkTllXTU5yb3lIQXMtMmY2cnd1XzAxOW9xc3Bfc2dYSG0yb2FIeG0xdmZ1YXdmQTJKSDgxeFA?oc=5",
   "published_date": "2026-07-14",
   "captured_date": "2026-08-06",
-  "summary": "The plan to allow 500 times more ‘forever chemical’ residue on Australian berries&nbsp;&nbsp;SMH.com.au",
+  "summary": "The controversial pesticide has been linked to reproductive risks, but regulators say there would be no risk to human health.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:MRL berry regulation",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'MRL berry regulation'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-0a6b-mrl-berry-regulation-103"
+  "source_id": "source-20260806173428-0a6b-mrl-berry-regulation-103",
+  "origin_domain": "smh.com.au"
 }

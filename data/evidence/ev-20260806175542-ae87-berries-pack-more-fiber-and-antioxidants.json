@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNb0JZRzRQdDFLZDc1Q0NWd09xTGlQSldOUjVPVXJWR1VPaWNNUWh3RUVPOFZuTFZUdEhpX2VmVVU0Q3NGQkFRekpNZFhoX3dUWU1ia1RaWUZCcnpNeklCRGdDQU5vWFcyOHFwNlg1c3Vlc2VvQjJpa1JMekRhX3d6U1hubVJvdzN5WkxnV1BHenloSmt4RmstNDctWEpBRXo3STRaczhmTS10c1NFbkdIZnE0eXFmSmVHTEo5NlJGYVRaWmRo?oc=5",
   "published_date": "2025-06-16",
   "captured_date": "2026-08-06",
-  "summary": "Berries pack more fiber and antioxidants than America’s most-eaten fruits&nbsp;&nbsp;News-Medical",
+  "summary": "Replacing one daily serving of commonly eaten fruits like apples or bananas with berries significantly boosts nutrient density in USDA dietary patterns. The modeling analysis showed notable gains in anthocyanins, fiber, and vitamins, with only modest cost increases.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry health research",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2e40-berry-health-research-118"
+  "source_id": "source-20260806173428-2e40-berry-health-research-118",
+  "origin_domain": "news-medical.net"
 }

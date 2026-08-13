@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE8xSGoybEZUNTFjaEZndnlGUFhObnppLUFNdy1QUmJDYzc4NkJSZnJydzJvOGtqTzZPSmdQbFE4UFhIMGVhY2N3ck5KSlRkcmNJMm1qQUhTS1EzUGg0ZjFYVU9FRmlhbjBxeUtzZVBUVDhCdWJaVGRV?oc=5",
   "published_date": "2026-03-16",
   "captured_date": "2026-08-06",
-  "summary": "Severe storm damage threatens Moroccan blueberry growers, with losses expected to exceed 20 percent&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "A series of severe storms have affected Moroccan blueberry growing regions. IBO President, Mario Steta says volumes can fall up to 50 percent in some cases.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Morocco berry exports",
   "berry_ids": [
@@ -43,5 +43,6 @@
       "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111"
+  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+  "origin_domain": "freshfruitportal.com"
 }

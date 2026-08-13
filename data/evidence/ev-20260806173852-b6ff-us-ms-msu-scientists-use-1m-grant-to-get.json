@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPbUFwODV0cHpCNjJ5a2h3MGF1UGRYSWEtRXc1b1hmV25IMlhUeUI0STVtdld1cV9xS3FNeGhNMjRvREFDazJqeXJWNVV0ellvZ084dUhCZU1oZ0JWR1J6QkFiUWpIVFpBRld2OGtCakJlazlXN2NoVS1pb1VTQ211X0lpUlQ0MjRIaURiZjBoclR2dlN3T0pUaVQxUHl1TFdRZHUxQjd4UWdHSWlSR05fMXltMDA4MUNVS3dCbEFxeGJWLXNR?oc=5",
   "published_date": "2024-08-16",
   "captured_date": "2026-08-06",
-  "summary": "US (MS): MSU scientists use $1M grant to ‘get a grip’ on automated blackberry harvesting&nbsp;&nbsp;Hortidaily",
+  "summary": "The labor-intensive work of harvesting delicate blackberries by hand is a must, but the development of advanced technologies by Mississippi State scientists could help automate the tedious…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "hortidaily.com"
 }

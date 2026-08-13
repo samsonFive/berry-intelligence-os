@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPckN1Yll0T2JlXzUwZXBvV2NSRHE4THdQR0tWTU5aVDl6SDRNc2dycUxFOUVPTmJUTThuSXYySnhjZDJsanN5RldHSHJweU13SHhXNVU0QUFHMlNZdFB1dTl4YW0tbnJsSF9YVjh5UFVMdHZmZFFuQld6NThSVXlNMUNReC1wb0lMbnhnM0hyMXBmWDBnTVpKVTZCMDU5cHgzeHpZbmVGM3dZb2Z4R25jVFI5QjVsSnVqa0haU2YwR2lpby1FOVpLeFA1MFYzVVU?oc=5",
   "published_date": "2020-07-27",
   "captured_date": "2026-08-06",
-  "summary": "Spain to build camp for migrant strawberry pickers after UN calls out 'deplorable conditions'&nbsp;&nbsp;InfoMigrants",
+  "summary": "Following fires in cramped migrant worker settlements in southwest Spain and subsequent criticism by a UN official about \"deplorable conditions\" there, Spanish soldiers were deployed over the weekend to build a camp for migrant strawberry pickers.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "infomigrants.net"
 }

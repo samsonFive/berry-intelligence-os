@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxONE5nNlhlUUJCRFZVMzY3Z1BJRmdPVXRSRFlrYXVqek56UDZ3WWk2UTJXUU41YkdqRGpWQjhMRTNGLWl1b3E4aUJrMmRJSE1fRF9oLUtwTHpGNEpZNm5FVEFaUHpaNUkzWXFMZlVtV243U3N2c1owNExOY2lkME9wdUZIRlFnbDdoZS1hSGFIME1CaHZneEpLRzhBMVdsakRxMzlVSUJHa0hMYk1qTS1LTVZXaEFzUEVKbmxXV3dCeWc0YVFMVUZmQXdSOA?oc=5",
   "published_date": "2018-04-03",
   "captured_date": "2026-08-06",
-  "summary": "Del Monte Fresh Produce Talks Domestic Blueberry Season&nbsp;&nbsp;AndNowUKnow",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "andnowuknow.com"
 }

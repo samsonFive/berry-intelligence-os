@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQN0FzMTZtQXNJei00WEU1Zy1oRXIxMjdYZHBadFJqSXI2R2x5bFpsa3pOMi1qQ21NRnhzMFJtU3hiV3hIazZkQ0FlUGtYeVlPMkhmcm1adGFWQ0ctMmMwLUYzMkJ6aXBFaTFVNkR1SG1DZDdHNEt4SDB4LVE2ZDJBRThFQU5BblF4MWVpZ2VIOVd2SEdaLXdscVYwWURRYVJzY19xSUFNNA?oc=5",
   "published_date": "2022-07-05",
   "captured_date": "2026-08-06",
-  "summary": "Spring of Discontent: Mexican Berry Pickers Strike for a Bigger Share of Profits&nbsp;&nbsp;Labor Notes |",
+  "summary": "In a major agro-export region four hours south of the U.S-Mexican border, berry pickers went on strike May 28 to demand a bigger share of the profits they produce. Over the following week, protests and strikes erupted on farms throughout the San Quintín valley, a major source of berries, tomatoes, chilies, and cucumbers. A second wave of strikes began June 30.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "labornotes.org"
 }

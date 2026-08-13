@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPV2RpQTNnSExtRk5wWGc0dDM4WTgzN1hPYmpDWWktRk51S29RZnZXTGRST3VwbDJPMHFRdjdiakJOT0tudkpJdFdPUm83bWtCVG16R3lkaXJmcGItbDRqSDFOUC1kMGhXc3I5cmk1Z0ZzeGQ1clF1ZGJCNFZyMzdzTHVWY0xJbV83cTBPMWpBcHc5NVhJdmpTMWhDREdtU1UxRnhWYmhra1dTQmZXU29aLUVxR2o1Nnhzc2paaXhLS05TcXFkeElOazRwZVA?oc=5",
   "published_date": "2025-01-22",
   "captured_date": "2026-08-06",
-  "summary": "The use of NSG strawberry varieties in Huelva increased by 16% reaching 58 million plants&nbsp;&nbsp;Hortidaily",
+  "summary": "The NSG company, specializing in researching and experimenting with new strawberry and berry varieties, has consolidated its strong growth in Spain in the 2024-2025 season. 58 million plants…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "hortidaily.com"
 }

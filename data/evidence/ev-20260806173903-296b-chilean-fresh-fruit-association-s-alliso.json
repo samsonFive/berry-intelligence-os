@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPY1NHV211anBFcmVpSVhhdEhDeVNUNmNWUzB1cTRQT3V1b01qLVVHZHhiRkhNQjUxX3VrZ1hlOFhxcWZEbWFpNVpxVTV3N1hfSUVTYkJwSmlxeHdCb1lXSDdkV2MySHRIRlBFUVhZY0FBRzdzSFhpaDRGdlNsX0taVHIwNnZfOWNuWjU1ak9val9yOU1TNW9ZY1BBSkdqUURGWG9KRGlfX2N6RHB0dnpjeTd1ZzQtOTFYeHcxd0VIenNNeGJKUEUyRUM2Q1NkTG9Z?oc=5",
   "published_date": "2018-03-20",
   "captured_date": "2026-08-06",
-  "summary": "Chilean Fresh Fruit Association's Allison Myers Discusses Seasonal Offerings&nbsp;&nbsp;AndNowUKnow",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "andnowuknow.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPUEE5dEN5czBGUFB1T0h4bEp1Sld0eGFIZDhjMnVQbGgxM0x1ZnFOLWx6a2hibFR6S2lxVWhHRE5fVGhoT3UwcmdSUmVGTWpBSXJweHcxaW1GaExUYkxDZzRqaFVfblcwWWFjeTY1cDRNUnpQd0xDaDhJV3pWR2ZQNEsyY0VZbkk?oc=5",
   "published_date": "2016-09-27",
   "captured_date": "2026-08-06",
-  "summary": "Moroccan berries on UK mission&nbsp;&nbsp;Fruitnet",
+  "summary": "A number of exporters of Moroccan berries arrived in London this week for one-on-one meetings with UK importers, with the aim of growing exports to the country",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Morocco berry exports",
   "berry_ids": [
@@ -43,5 +43,6 @@
       "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111"
+  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+  "origin_domain": "fruitnet.com"
 }

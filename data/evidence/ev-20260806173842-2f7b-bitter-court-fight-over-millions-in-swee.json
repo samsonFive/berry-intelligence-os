@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOOEFLSEE2TzZZdFhINXpxbjU0SU5LWnVPX083Z3ZIaTlnN0xJa25Jb0dnOXhwT0dsMHc4RHVmeDU1LUtyUjZRZHpMLWZ1Z29Ma2lvcFFCLXN4WDZoc2lxaEZIZHlIWjRqOVpBei1KTTV4N0s2amZKOGtQM2F4ZEhTWHhYR1Q?oc=5",
   "published_date": "2017-05-16",
   "captured_date": "2026-08-06",
-  "summary": "Bitter Court Fight Over Millions in Sweet Strawberries&nbsp;&nbsp;Courthouse News",
+  "summary": "Attorneys for two agricultural scientists battling UC Davis for rights to million-dollar strawberry strains told a federal jury Monday that the school colluded with special interests to keep the plants away from California strawberry breeders.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Strawberry cultivar patent",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89"
+  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
+  "origin_domain": "courthousenews.com"
 }

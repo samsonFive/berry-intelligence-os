@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5iVlJwbXNncFpmOTB4TUZrNTVyTXU2b1AxTHJ6WFJONUFFMm12WEdfMWJrN0ZtS1ItR2lIUGF5a0IyYW1vUTU2R3o1SDZRX0hYWFpDdDJLeV9QTGtYS0pJTTlRZnNGN0RxMnBINGk5MEVabG1rWHNOZUtSaw?oc=5",
   "published_date": "2026-06-16",
   "captured_date": "2026-08-06",
-  "summary": "Agronometrics in Charts: Peru's blueberry industry faces climate uncertainty as El Niño risk builds&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "Peru's blueberry industry is entering the 2026/27 season amid expanding production potential and growing climate uncertainty.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "freshfruitportal.com"
 }

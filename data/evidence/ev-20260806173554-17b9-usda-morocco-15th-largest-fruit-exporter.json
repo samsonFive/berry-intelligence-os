@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQeDhsSnI4a0hhV1BnZE5rUUlmbTZYQjNzTXlZekQxeGxXb3QyaGE1RnRRel9sd3FVV0lkbTRXc1VxSVNMc0F3NUJ3a0Z6QXdHZE1zSzcxT3loZ3E5Z2U4T1RmemdFbThrSVptUjBzQmZaYVVlcDd4QVNkaDhxU1AtS2lzMXVJX3FCSUhReW1Sd1ZMdUFqSl9V?oc=5",
   "published_date": "2022-11-16",
   "captured_date": "2026-08-06",
-  "summary": "USDA: Morocco, 15th-largest fruit exporter in the world&nbsp;&nbsp;northafricapost.com",
+  "summary": "Morocco’s fruit exports have more than doubled from $729 million recorded in 2016 to more than $1.5 billion in 2021, accounting for more than a third of the total agricultural exports in 2021.Newspapers",
   "why_it_matters": "",
   "submitted_by": "source-monitor:USDA GAIN report berry",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-1732-usda-gain-report-berry-104"
+  "source_id": "source-20260806173428-1732-usda-gain-report-berry-104",
+  "origin_domain": "northafricapost.com"
 }

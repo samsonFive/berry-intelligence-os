@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPb2NCMEI4MWxDd0lUVElmaFNWWHE4dGNvZDBuY0JpamhIN1pMQzRWb09IOFRlT0ZOQmkyUEF5ZEtqc1d1XzNyOXVmVWczR3ctOEJPOU5laVduQ1dXZ19VYkhLSk9VSmtVQm5pOExKN29iVGxtSWdwRGl1MDFHWkdVOG40WEFFcjhJdGtRXzJkeHlZTmMwYkpIbjJwMTVOZGpsM3lDeDZ3dXBiVDRPXzBHSG5DZw?oc=5",
   "published_date": "2026-07-21",
   "captured_date": "2026-08-06",
-  "summary": "Dutch harvest forecast for 2026: Fewer apples, more pears&nbsp;&nbsp;FreshPlaza",
+  "summary": "This year's Dutch apple harvest is expected to be 18 per cent lower than last year's, while the pear harvest is forecast to increase by 10 per cent compared with 2025. The harvest forecast…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "freshplaza.com"
 }

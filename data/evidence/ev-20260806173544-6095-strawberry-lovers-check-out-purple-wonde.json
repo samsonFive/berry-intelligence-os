@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNdXBOWjk3ekFxcjBLbEg2ZU9BZGxlWnhnMDdGLTNCZnhWcXlaV0dMc3h6RHBKazZWZzU3N1cxbzFNc3N2ZzBZX3BEZnZOaUdxUmRXTTdKMlZvLWpqTXV6UXJDMWZDdXlJRzNWZUlyeFhMdTBWaEVUNmpJcjlweG5GeTFId2FjUy15NUE?oc=5",
   "published_date": "2012-03-05",
   "captured_date": "2026-08-06",
-  "summary": "Strawberry lovers: Check out Purple Wonder&nbsp;&nbsp;Cornell Chronicle",
+  "summary": "Cornell's newest and darkest strawberry variety - Purple Wonder - will make its debut at the Philadelphia International Flower Show March 5. It is a burgundy berry. (March 5, 2012)",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Exclusive variety license berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Exclusive variety license berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-abbb-exclusive-variety-license-berry-94"
+  "source_id": "source-20260806173428-abbb-exclusive-variety-license-berry-94",
+  "origin_domain": "news.cornell.edu"
 }

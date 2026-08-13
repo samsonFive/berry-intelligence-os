@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9kVWtMc0p4bTRPSW9YOEMyN3E5QmlGSEZEdkFRdDdjRE9CaFR5SmduUmtCSWNiY3pvbGZlM3pVZ0pYUGZNeDI1WUNrVnlYaVczVkJjSi1lOUlMaWFnR2NRQ0gtU1l0SEV5RVBFTE1YenNCSnlu?oc=5",
   "published_date": "2022-08-23",
   "captured_date": "2026-08-06",
-  "summary": "Blueberry Producing Regions in Mexico&nbsp;&nbsp;ProducePay",
+  "summary": "Do you want to know which are the key blueberry producing regions in Mexico? Enter and find out which states and municipalities lead.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "producepay.com"
 }

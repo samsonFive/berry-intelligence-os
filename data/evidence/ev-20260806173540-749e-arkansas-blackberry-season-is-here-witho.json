@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQV0c4akJVRGpFQ29BRjRVOFhFVTBraFpYeGd2OTdzbGxLLWRENXBSOG5ITUJ0ejVOQ2gyNEN1dDh4Vi1RVkdwWENxdno4RTdfVFhzalkwdjdaSU0yWWtzZ0FNRjBKb2dtQTNfOGJ0X1JTbGhKcGVHYlRzMVZ3Yjh5S3dmOEhTcEV5YXFzbW5GTEpwcUk4QkUzamRDZw?oc=5",
   "published_date": "2026-06-19",
   "captured_date": "2026-08-06",
-  "summary": "Arkansas blackberry season is here — without the thorns&nbsp;&nbsp;The Arkansas Democrat-Gazette",
+  "summary": "Many of us can remember picking wild blackberries in the summer, but having our arms covered in scratches from the thorns. Today's blackberry varieties put those wild ones to shame.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Blackberry primocane variety",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-d63a-blackberry-primocane-variety-90"
+  "source_id": "source-20260806173428-d63a-blackberry-primocane-variety-90",
+  "origin_domain": "arkansasonline.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9vc2hzd1Fub0NiQ2JvMDUxbWxCTWxtRDdmbmtmby1ZVmpZQWxQQTQtbTRLaVpqeTF0anJHZXhmZURpRzBWTWhFNDNmYTl0eVFlOTNrODBLZXJNMHNHVE9lcERISW52WmtVUTg1cGxpVjRKNXhfZkNFUkFwcjJRWW8?oc=5",
   "published_date": "2026-04-02",
   "captured_date": "2026-08-06",
-  "summary": "Agronometrics in Charts: China's blueberry exports skyrocket 602 percent, transforming global trade&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "China's blueberry export sector has undergone a dramatic transformation over the past three years, growing into a significant exporter in its own right.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "freshfruitportal.com"
 }

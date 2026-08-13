@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPYzZRNHlYM0MwYnlJLXRkWlF3Tm5GNkxGQ2lfLWpEVjFkQnNMbDRIVUpwbkVIZXY2MUloQTR2WExMbHdHdi16THlMRlNqVFRydHJyRmtwY2pPa0tndXRiNlFCMV9VRjEwZmhxdmVOS1BzZXZkU1k0X2Q4ck1MUVBRak93OHZmR2JyWXczRFJPQkM1N3R3OEpTcHRwMmZzQUtfSlZ3UWVEb1Q3TTU4RlVRX1Z6YnlfbWtRR1ZGT1E4S08?oc=5",
   "published_date": "2024-10-09",
   "captured_date": "2026-08-06",
-  "summary": "“From a berry category underdog to a product with growth potential”&nbsp;&nbsp;FreshPlaza",
+  "summary": "\"Blackberries remain the smallest berry category, but they're growing rapidly in most European markets. For years, blackberry quality was inconsistent, and they had a poor reputation, flavor…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry category growth",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-3eee-berry-category-growth-119"
+  "source_id": "source-20260806173428-3eee-berry-category-growth-119",
+  "origin_domain": "freshplaza.com"
 }

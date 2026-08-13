@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQR0djT01ldmtpZjRzVjhEMTM5ME5lbU9HN2R5LWdDeFhja2lzdENieGxodUtoUHhtTnBrX0RmSVM2UlVleHFObVh0QTltbnMwRVZXTER5dnpvcUJoX0dnbU1fSHhUY25EVk03d2hNajU0WWRIdGNSNmpiMlJJbkU5UEhQemZVemZmbWtJZTcxVGZib3FmMi1RTDRlZUVKS0FRWm1SZ2VLZ3dwekYzLWc?oc=5",
   "published_date": "2025-11-10",
   "captured_date": "2026-08-06",
-  "summary": "China expands blueberry production and market reach&nbsp;&nbsp;FreshPlaza",
+  "summary": "In less than a decade, China has evolved from an emerging player into the world's main hub for blueberry production. This development was driven by large-scale investment, genetic research,…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "freshplaza.com"
 }

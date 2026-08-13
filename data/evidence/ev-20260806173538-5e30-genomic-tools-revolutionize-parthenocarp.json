@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBRU1VtNnRlcnpLUVVyNGV3VDdhNFJTSFNGQjdYWmxEemtYdGFPUmFXY2otVlIzcmlfOVpfaTBOUFZsMEdnMTQxcmxYVUxGMThpMzFkRjRoa1dZTzlh?oc=5",
   "published_date": "2025-12-11",
   "captured_date": "2026-08-06",
-  "summary": "Genomic tools revolutionize parthenocarpic blueberry breeding&nbsp;&nbsp;EurekAlert!",
+  "summary": "Parthenocarpy, the ability of plants to set fruit without fertilization, is a key trait for breeding high-yielding blueberry cultivars, especially in the context of pollination deficits. This study investigates genomic selection (GS) and other molecular breeding methods to accelerate the development of parthenocarpic blueberries. Through genome-wide association studies (GWAS) and predictive analysis, researchers identified several promising genetic markers linked to parthenocarpic fruit set, offering a strategic approach to improve blueberry cultivation.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Blueberry breeding program",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87"
+  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87",
+  "origin_domain": "eurekalert.org"
 }

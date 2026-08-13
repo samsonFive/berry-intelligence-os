@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQS3AxZVVRZzZqdndQMUx2V2tzc1MweGRhWjZrYzNZemZ0WTNIZDZKdjlFbFBxdHh0N19zN1ljTVVkdWxoZUV0bHM4cDMwTldJRXZlWTRQY216dlJLUDl3MUJnb0M4c25aaVZIc1ZJYTN6UEI2U2tRaHFRRmRPcUlPYVR2aFhoRXd4aWg0ZXNlRmVuNGJvc1F4YmpQU1ZXLU82ZnZoYXViUmdUdw?oc=5",
   "published_date": "2025-09-29",
   "captured_date": "2026-08-06",
-  "summary": "Mexican share grows in U.S. horticultural imports&nbsp;&nbsp;FreshPlaza",
+  "summary": "Mexico remains the primary supplier of fresh horticultural products to the United States, according to data on trade flows. In 2023, the U.S. imported $20.2 billion worth of fresh…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "freshplaza.com"
 }

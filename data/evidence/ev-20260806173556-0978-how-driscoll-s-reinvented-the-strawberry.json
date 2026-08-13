@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPY1UzSFAwM2s4SElWMkNoNUtpZEVrdDZHRDJSdFlTbFNrYVVzcG1fT0UzWXFHTk5aN1piMFVhTGF3V2Q2QkRNM0dSMk9QSWdUZ2dXQTRHZ1plXzBvUVpKQUpvcFRXQnlJb05UbUlTVXo0T3R2UFowUUtSX3hnOVB0YnFvVm5nZS1EeE83TGp3?oc=5",
   "published_date": "2017-08-14",
   "captured_date": "2026-08-06",
-  "summary": "How Driscoll’s Reinvented the Strawberry&nbsp;&nbsp;The New Yorker",
+  "summary": "The berry behemoth turned produce into a beauty contest, and won.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry plant patent granted",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry plant patent granted'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-fba2-berry-plant-patent-granted-106"
+  "source_id": "source-20260806173428-fba2-berry-plant-patent-granted-106",
+  "origin_domain": "newyorker.com"
 }

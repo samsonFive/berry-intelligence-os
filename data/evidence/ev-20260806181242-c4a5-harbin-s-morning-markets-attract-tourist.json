@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1MbEJVbllYUGtoMG1DbXBuZjJ3bm54UjRJRHRPYkd2dlJzTVR2VTZaMlFTcndVUFNMcUlOOHRvVUNxZDhsWkRHekY4d2FvU0RmVUZMdTdQMXhRRFRvWHpwVkdEZXlaS01VRUhsMGx3d2NTeTU0ZnFCREZfcEQ?oc=5",
   "published_date": "2024-01-24",
   "captured_date": "2026-08-06",
-  "summary": "Harbin's morning markets attract tourists&nbsp;&nbsp;Xinhua",
+  "summary": "Harbin's morning markets attract tourists-",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "english.news.cn"
 }

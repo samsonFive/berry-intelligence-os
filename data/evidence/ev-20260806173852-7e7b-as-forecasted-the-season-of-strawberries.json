@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQN3J1Ny12a0tGbUNDR3JMTTNYX2VjTW5mWXpTdy1nUXl4VEVFbTNvT2F5XzExbTBOMndJcTNqRF9Ua1IwemJrRlF3a0RGaXNEVmMxcGk5dmlwVXM4d25DclF3dTl3cl9Wa09MM19PTGNSQ1AxdDNndDVnYTQ2QllDc0RBRnY4eUhsMTRYOUhDc29ZTnZpSVFsUlc5cVVER3VDSjBxSzVKdnpxeV9wNFhoU2drWFBoVW9lVVRlRA?oc=5",
   "published_date": "2021-04-26",
   "captured_date": "2026-08-06",
-  "summary": "As forecasted, the season of strawberries in Ukraine started two weeks later than in 2020.&nbsp;&nbsp;EastFruit",
+  "summary": "The season of greenhouse strawberries in Ukraine began 2 weeks later than in 2020, in line with the earlier forecast made by the analysts of the EastFruit project. The reasons for the shift in the current season for berry and vegetable crops have already been disclosed in many articles on...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "east-fruit.com"
 }

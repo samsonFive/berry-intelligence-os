@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNVDNSdkcxWkVkQ1BOLUstLV9WZy1zbVpiZl9VTUNhaEZoTWhFVTAzSng5T3IyVGQtd0NTUDU4ZF9aVFVPbUpSdDZuZVcwc1F6RDg4MG1nSzJlSEJWQUtZR3VHRzlwYWE4UUl5dm8xTGdQQzBleFRGbm5WSm5UWkpRWG5EcXZ1TS1jRTVmX3J0Yw?oc=5",
   "published_date": "2021-05-05",
   "captured_date": "2026-08-06",
-  "summary": "Strawberry Exports Break All-Time Record&nbsp;&nbsp;Mexico Business News",
+  "summary": "Mexico became the world's largest strawberry exporter for the first time since 2020, with a record of US$851 million.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "mexicobusiness.news"
 }

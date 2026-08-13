@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE1aSG5vTERObW9xaGlQWE1jOVV5ZUkzRmtvd0hhZFRhdVNhdEtVcWF0aEhJVnBuUlY5UzlHOFRVdGN5Zw?oc=5",
   "published_date": "2026-07-09",
   "captured_date": "2026-08-06",
-  "summary": "Berry prices set to rise after Foreign Ministry rejects foreign workers' visas&nbsp;&nbsp;Yle",
+  "summary": "Berry industry groups are furious about the last-minute rejection of foreign pickers' visa applications. They say it's impossible to replace them with domestic workers.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "yle.fi"
 }

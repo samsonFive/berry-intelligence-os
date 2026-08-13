@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNMDU5eFp5OWRQX1FxWk1BYzNpTTlvQXJDOGRlNzN1YVk1WkdPNzl5TGRHYUpLN3J1WWk2V09Oc3JUeXdONW00SXBiS2dJTGF6aEkyY05DWWc0R1pMMUI0Y0dMYzZZcmdkbnZpZFhnV3Fjb0E5bjJjOTBVc21JeVZOSlhFWTYzVFAxQmdyeHpzSTFaNENCaEhyQnhQNUd5M3BwdXNLWlVMLWtUSjA?oc=5",
   "published_date": "2026-06-09",
   "captured_date": "2026-08-06",
-  "summary": "Berry good for you: Why flavanols are key to a heart-healthy diet&nbsp;&nbsp;Euronews.com",
+  "summary": "Most dietary guidelines recommend five portions of fruits and vegetables a day, but new research suggests that for heart health, which one you choose matters more than how much you eat.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry health research",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2e40-berry-health-research-118"
+  "source_id": "source-20260806173428-2e40-berry-health-research-118",
+  "origin_domain": "euronews.com"
 }

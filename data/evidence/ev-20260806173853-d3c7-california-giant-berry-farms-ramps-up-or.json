@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxPb19IZm1YSHNjckFneDhkekJQNC1md1ZqQU03aXprYWtFTlRKNWtrbHNQYmd0YU1tcml2LXJOT1lKbE1tS05ZLWxkdnZUbS1mcXQzY0dZZEZOeUduUlBRZ3FUOV9zd2tJd2V3YS1kRGU4ZTBwdnZOc0FvX0hkU190WEVoUXdlLXl5RTJ3ZzdnT01JYU9HZk02Wi1yM0tla1RZV2NDRUhYN2NLdUcyZy1zTnBnM3p6bnVoaTlVaGJCb2g1OWRuVTdrTWZBZFFkVjFOWjZfOVZPOWU?oc=5",
   "published_date": "2020-10-06",
   "captured_date": "2026-08-06",
-  "summary": "California Giant Berry Farms Ramps Up Organic and Conventional Production&nbsp;&nbsp;AndNowUKnow",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry acreage expansion",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101"
+  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101",
+  "origin_domain": "andnowuknow.com"
 }

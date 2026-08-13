@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNX3hmV042V3BCODVmZi1URWJCOXpkRUpyR1NJZTZOU3Z2MlRhb3RKWGJKUnpCVkdEcTQ1WmxadS1tcG9QLWhFQUI2VHY1bUZ6ZUdlTlBITUdycXBNYURfbTlEaDJZOURLWks5YUw1bEMzUU0zaUlZRlRpYkZxU0tJUTd2S2hBYm5vRms5VkRHQUJJQ1RYUUdUb0dJZjhzcUU?oc=5",
   "published_date": "2016-06-14",
   "captured_date": "2026-08-06",
-  "summary": "MEET A FARMER: Grant's Berry Patch got its start with strawberries&nbsp;&nbsp;Norwich Bulletin",
+  "summary": "LISBON - June is finally here and Connecticut is eagerly awaiting local strawberries. Lisbon farmer Christopher Grant owns Grant’s Berry Patch & Farm Stand, and his fields are loaded with sweet, plum…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry acreage expansion",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101"
+  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101",
+  "origin_domain": "norwichbulletin.com"
 }

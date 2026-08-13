@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE96b3pSRnliUVloMlJtdHltY0VYZHRaRjdzSktDTnJ1T0ZQNTkyQ0d0Zk90RXZsZEtWeGpWelNDcnNvVUExX0dQMUxRQWw4X0pLT1BJcXRaM2JkbGRJX0JhYl9XODg0MXVLeU1USVA4R0VrM1Nl?oc=5",
   "published_date": "2018-11-14",
   "captured_date": "2026-08-06",
-  "summary": "The Tooth-Rotting Trials of Building Better-Tasting Berries&nbsp;&nbsp;Atlas Obscura",
+  "summary": "Some blueberries are sweet, some delightfully tart, and then, there are some that taste like rotting corpses. Dr. Sarah Taber, now a contract knowledge...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Blueberry breeding program",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87"
+  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87",
+  "origin_domain": "atlasobscura.com"
 }

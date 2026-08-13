@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNZXJoUVlkekpjSmpzWU93dHFlcjNwY3FVNGx1elQyZ092aUd0MkhKUm5TclNSajZyNWVrSVJjMWlOZWdfX0Y1U2V2NUQydG9PdXNLSEJrVHV1am1hQWFuemtXNW5aUWtPcmRsV1lBZkl1eHdNbjFqOXhXRzVnUnFlQ2xiZndBSkhFVVdZbkVwSzR0VXlqUC1qVA?oc=5",
   "published_date": "2026-01-20",
   "captured_date": "2026-08-06",
-  "summary": "Sluggish start for Huelva strawberry season&nbsp;&nbsp;Fruitnet",
+  "summary": "Cool temperatures and lack of sunlight are slowing ripening, while the limited supply is driving up prices",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "fruitnet.com"
 }

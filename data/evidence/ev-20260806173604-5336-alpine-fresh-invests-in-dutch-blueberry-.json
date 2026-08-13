@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOYmwzYWZQXzFMX2lGaE1EUGRZZTY4bXVZNUFvNGc3UjRRalpBRzkyV2g4cDFBU1BlY09GR3BPR2oyTFlkd1Zhdi0wbmN2TTRmdVBOMjItaVdWZ0RnQnhhbVRNVXh2Z2xxd01La3JVV05yMktua3NjMHpIQjVFb20zSWNWdmU4RGcyNzVkS0s5bGJnWEZCMFlNT1g5d05vUnFPQjBtRUFB?oc=5",
   "published_date": "2026-06-03",
   "captured_date": "2026-08-06",
-  "summary": "Alpine Fresh invests in Dutch blueberry company ABB Growers&nbsp;&nbsp;Hortidaily",
+  "summary": "Grower, packer, and marketer, Alpine Fresh has made a significant investment in ABB Growers, a European blueberry specialist based in Horst, Netherlands, bringing together two companies with…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "hortidaily.com"
 }

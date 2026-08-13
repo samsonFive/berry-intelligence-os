@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOOFlDeHpESHJzMFlBd3oxdDBUZkRRYjJpQ0dnSHYyeG9iTHZuOHBObHFoOG83RTBZcC1sSnBoeXQzQjZNS0cyWFZOUlVGS3h1d1ZhUWgwbXY5MnktNldhVGlyQjhpcVlkQjZJZ2hCR25kcm9fRlhCaEl1Q2E0LURmazVTRU1kSnhGZzJSdkFhcS1VMmIzWjB3NW44NkxaY1FJdTk4bjk1Y2JUZDg?oc=5",
   "published_date": "2024-10-08",
   "captured_date": "2026-08-06",
-  "summary": "Berries Paradise Faces Challenges, Seizes Growth Opportunities&nbsp;&nbsp;Mexico Business News",
+  "summary": "Berries Paradise faces climate impacts, rising costs, and US election uncertainties while driving growth through sustainability.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "mexicobusiness.news"
 }

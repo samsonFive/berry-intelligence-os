@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOUW56YUZNMDVRbnlYMFZjZlJ4anNFSnlGS2ExazhVMmI5RE1uWGZHNXVadUhvb3ZBUURDTzQ1VkdPMi1ZNHNFS0NKOFVzX25pZXVXeHZTQWUwbUljb0hiS0VwaU93TjlVdWtlekp1a1JzQjl4SEc0d2JFbllfazNyWXE3NklyWS1tbXVXRXRVVV9nZw?oc=5",
   "published_date": "2025-08-08",
   "captured_date": "2026-08-06",
-  "summary": "Strawberries 2.0: How technology is improving Dutch cultivation&nbsp;&nbsp;IO+",
+  "summary": "The Netherlands embraces innovative technology to optimize strawberry production.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "ioplus.nl"
 }

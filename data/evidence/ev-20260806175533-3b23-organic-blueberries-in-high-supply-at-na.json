@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNMkZqSnUwY28zYV8tc01XakJCN29FZEtSaXZ0bkRIdlpSQ2VzZUJzNHZIaWl1Zm5zcE9pMDhHa2VZWTJMYzA0QmIyS3ByNnFSOHI0NWwxbFlMSTRlQU8tN3ZHRUFQeUZJMnlNMFRQVDhYY2ZQbnRmaWtWMDVPTzE1aWM0T2F0eC1WbWtXSUQzTVA5VFI3UUxzMDVUU2dCR0dESGp3N3JnTEFZVFgyR0xYcmZJelpTWU5FRGpCS2pSRUZoWTQ?oc=5",
   "published_date": "2025-01-02",
   "captured_date": "2026-08-06",
-  "summary": "Organic Blueberries in High Supply at Naturipe Farms; Brian Vertrees Comments&nbsp;&nbsp;AndNowUKnow",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "andnowuknow.com"
 }

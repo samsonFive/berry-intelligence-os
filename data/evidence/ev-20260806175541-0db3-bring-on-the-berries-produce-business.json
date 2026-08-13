@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE54SFZqelJxVG8wX2VCcll0b2cwSC15NmlycFg4WU1sekszeWszOGpXcm9mQmhNcVExMmFMb3N4MExmaVJlVWlDekhsVDJEVzVmSE83SnJsQUZwOUcxTWc?oc=5",
   "published_date": "2018-03-01",
   "captured_date": "2026-08-06",
-  "summary": "Bring On The Berries&nbsp;&nbsp;Produce Business",
+  "summary": "Berries have a lot of appeal, and supermarket produce executives who aren’t taking steps to showcase them are missing out on an opportunity, not only to sell more berries but also to move products throughout the store that complement berries.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry retail sales data",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117"
+  "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117",
+  "origin_domain": "producebusiness.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQV1YwamJrT2FUZDdDWTJMdXhleW9nNkZpWjhRbG1JLVlEc0tKQUJnZDVoY1BqOEFQSXZSSTlpX2R5eHJWWUc4YlZGVkFVMlVUdDhXVFdfVnJ5bWNwNk5ic3UwekZJbWVnX2FwdVk3dUtrZU45WDdPZ1RlUktNU1JNY0w3SnlTTnoyR0J1UFRzNm0tWUVQU3BqTGpUZzVJZUVYLWtTd0pZWW9aRVZtU3VaWVVhTnE2bGcxWFE?oc=5",
   "published_date": "2026-05-26",
   "captured_date": "2026-08-06",
-  "summary": "Final stretch of Spanish strawberry season has been terrible&nbsp;&nbsp;FreshPlaza",
+  "summary": "The strawberry season in Huelva, the main berry-producing area in Spain, is now in its final stages, and it has been one of the most difficult ones in living memory. Meanwhile, the raspberry…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "freshplaza.com"
 }

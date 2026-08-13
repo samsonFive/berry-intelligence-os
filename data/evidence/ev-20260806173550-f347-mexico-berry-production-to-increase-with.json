@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNN0hJWE5obEpnVTJZTlBSdGhBNldHcGR5OWFibkR0ZzVkUDBSTk9qbjd6alpDbE9lNFNRbkdCSXdCd3VyTlRnYWtOaTBWZFFCUlF6bktwMzR0Z0VGM3FUMDZoNXI0UUFhWHhmZVQ0U013aXZocFdZdTFJeXZnUThBdmhkTFprSDlIWDBPZ21rZW8wYTFyYVUxUmR1aG4zSFN4T2dvZGI1SjFmVDRJcGdzWA?oc=5",
   "published_date": "2026-03-19",
   "captured_date": "2026-08-06",
-  "summary": "Mexico berry production to increase, with half of harvest headed to the U.S.&nbsp;&nbsp;Capital Press",
+  "summary": "Some Northwest berry segments concerned, others more measured Mexico’s berry harvest is forecast to increase 4% to 1.2 million metric tons in 2026 and nearly half of production is headed […]",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "capitalpress.com"
 }

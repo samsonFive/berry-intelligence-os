@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxONFNicUdPTURYNUJIeWRPWmFQd3hiNk5fX0NUdmtvTGRIVGp4alZkQTlBa250eS0tREJObzZZYUZBTmxZX29xbVBpR0JSb3RjNWZtWExYTW56dVNCNlFlY0xFTG5TbW1VeWc5bHJZdDFDdEhKakVKQ1lGVkFLbmJEaEd0TF9ObkpEQjFDeGZuVHljUjUyRDM0QTdR?oc=5",
   "published_date": "2026-07-14",
   "captured_date": "2026-08-06",
-  "summary": "Strawberry grower helps electrify public transport&nbsp;&nbsp;Hortidaily",
+  "summary": "Strawberry grower Royal Berry and public transport operator Transdev have officially launched a partnership focused on sustainable energy and emission-free public transport in the…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "hortidaily.com"
 }

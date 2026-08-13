@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNOUQxSEV0MEZuaGFoQ3NjWHVEa1QwUTZjWEs5XzlYTjNScFNQc1dlVDFlZjc4TDh3WmUwM3dMYXhZME5TMGppMVBmYjVZNmdFZ0xhaXJKT19YeE1Pd1k1Y2ZxQzBPNnQ3Yk5oYjhPT0pqZkFzS0gzSUw1cVAtb19ObHpJaWJxYkVHcFdLTHJKcVNhQkxQVXdBZFVFZE1UWXBLcVRLNg?oc=5",
   "published_date": "2022-11-03",
   "captured_date": "2026-08-06",
-  "summary": "Driscoll’s Completes Acquisition of UK’s Largest Supplier of Berries&nbsp;&nbsp;Perishable News",
+  "summary": "Maidstone, Kent, Driscoll’s has completed the acquisition of Berry Gardens Limited (BGL), the sales, packaging, and distribution entity of Berry Gardens Growers Limited (BGG).",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry genetics company",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-80ee-berry-genetics-company-91"
+  "source_id": "source-20260806173428-80ee-berry-genetics-company-91",
+  "origin_domain": "perishablenews.com"
 }

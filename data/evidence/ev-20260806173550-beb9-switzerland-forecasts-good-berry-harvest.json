@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPUWgyb1BncURpY2JMbDZsR2FOVkNqaTRtbXMzU0RvblhqejJkcTh1YjhHWlZhbXFoU24weVdoNzRUQ2I0SWZZOEN3c29XQng3bzRjVjZGN2ViMzRWR0l2X0FMS1RZU2ZiLTR6bnJ4N2JiUmJ5dmNCMi1FRVRjZG9sMW5rVm1zc1VCQmhQVG05Tlo2TnM0VlA4eUN6c1V6eWh4YmZEOXhqSFI4cl9BcUNQRg?oc=5",
   "published_date": "2025-07-04",
   "captured_date": "2026-08-06",
-  "summary": "Switzerland forecasts good berry harvest despite area decline&nbsp;&nbsp;Fruitnet",
+  "summary": "The Swiss Fruit Association has announced positive forecasts for the country's berry harvest, with increases expected for raspberries, blueberries and currants, despite a recent reduction in total planted area",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "fruitnet.com"
 }

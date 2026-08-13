@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPWWZuQWtsd2k2d2lJcGhSTFVrakZOcUMycndKN2lsT09QNXJBdHpUdjVUNnBtS25IVEMtYmJRNG1PNXhweTRpaWt5a0RaVnF0Unl6Um1yUE9FVEtLX0pYdUEwVXd5ODRiaEFvY09NZGpTcWdBS1FWNFhXWUlkS3RPSnJjVjVsd2pyZnFZMGVFR2Q4eXN1bl9ZR3lyTnk0dWp2bFNaalhhSThBTWZnVlIwNGtWMHdqdFZaN01LSw?oc=5",
   "published_date": "2026-01-27",
   "captured_date": "2026-08-06",
-  "summary": "\"We are currently working with high volumes from Peru and Chile\"&nbsp;&nbsp;FreshPlaza",
+  "summary": "At the moment, the UK is mainly receiving blueberries from Peru, which is finishing its main season, and volumes are gradually transitioning into Chile. In addition, early and smaller volumes…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -46,5 +46,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "freshplaza.com"
 }

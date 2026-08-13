@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNUllPM080ZUJ1WElNYm9IT0JnNzhWc2tDSk5ZV1V2THlmTk94Nmx2SHl5UkQ1M0JCcUNpWndPQnNPTDlfNVhSYUE0RFlzRTlGWGpNaDlsUGZlUG05cW5xZmR5OXVENlVVTDV0dEFCcGZLRjN4NkN1QnF0NW4zR195UmNKbXg2UzRSWTRxWU1zUEhBLTk1elZ6aG5MWmZYanBtNlVn?oc=5",
   "published_date": "2024-12-13",
   "captured_date": "2026-08-06",
-  "summary": "Bosch Berries opens $49M greenhouse with 28 jobs in Pulaski&nbsp;&nbsp;The Lane Report",
+  "summary": "Bosch Berries, an international grower and distributor of bell peppers, blackberries and strawberries, celebrated the grand opening of their new greenhouse operation in Pulaski County, a nearly $50 million investment that will create 28 full-time Kentucky jobs.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "lanereport.com"
 }

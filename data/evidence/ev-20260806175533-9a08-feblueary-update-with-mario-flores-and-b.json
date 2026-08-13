@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNZkhJejVVQ3dTN2pUMXk0emc2cGVvUU8tZUpsZ210cElEMlNLVEY1WTlHelpHcmhaMjdqMXpMR1EyWWlyaW1FZ0QzWVNOYnJsT0RGMV9iTTdZR3RDWjNMT3VQYVo3bFBMMW9qc0VkWkhkTW1LLUxpUy1ISUh6cWVwMVVORGlUWWJ0aWZyb0pRdVdFd3BFWm95R2owUDM3Z3I2OTh4bEdQRUZHa2lxVGg4dkVpOEg5N3RXZ3c?oc=5",
   "published_date": "2018-01-31",
   "captured_date": "2026-08-06",
-  "summary": "FeBLUEary Update with Mario Flores and Brian Vertrees of Naturipe&nbsp;&nbsp;AndNowUKnow",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "andnowuknow.com"
 }

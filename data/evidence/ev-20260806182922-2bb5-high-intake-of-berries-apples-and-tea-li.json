@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQTjl3aTNJdzV4WXZRVXBqcl80Nmxoak1MelZUVmV4V242VktlTTdpeWVDZ21Kb2VtSFF5dEl4VEtQd1dvWU5MUFdWRjhQb3VGRXJXVG1Sak9DU3lSdmVGZ2NNaU1VUlRGbGVFaGw4QldwUzBVa3lKRXEtbC1TUnhaeHhPbjgtaFdLZkoxaU9VcFBpNldGVkhZQU5EUW8tazhHUmFQXzVJZFpmMlA3WGdLTjhR?oc=5",
   "published_date": "2020-08-01",
   "captured_date": "2026-08-06",
-  "summary": "High intake of berries, apples, and tea linked to lower dementia risk&nbsp;&nbsp;Harvard Health",
+  "summary": "Evidence suggests that people who report the highest flavonoid intake (from foods such as berries, apples, and tea) are less likely to develop dementia, compared with people who report the lowest i...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry health research",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2e40-berry-health-research-118"
+  "source_id": "source-20260806173428-2e40-berry-health-research-118",
+  "origin_domain": "health.harvard.edu"
 }

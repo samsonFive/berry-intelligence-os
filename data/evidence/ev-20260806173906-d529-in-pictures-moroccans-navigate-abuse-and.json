@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOZzFjUHpZbmZmcG96ZEFGOHZ5b3U2eFpsV01QUnpiSmF0VW1WeE1jY2J4UFZ4MGtQbXgxbmswS0ZIWi1fa0hTV3hZTUFOb2J4ZDcyRkJVbldabmtDSzZ1R3k3WThOQ0JlVWdwQ0dUdFNwaWlBdjhfTHpWTUJteDFjeWdwV2NEeXV2X2ExbE5zajF1S3BBQjU5Rjg0V00?oc=5",
   "published_date": "2020-05-06",
   "captured_date": "2026-08-06",
-  "summary": "In pictures: Moroccans navigate abuse and coronavirus to pick Spain's 'red gold'&nbsp;&nbsp;Middle East Eye",
+  "summary": "The Covid-19 pandemic has slashed the number of strawberry pickers flocking from Morocco to southern Spain to harvest the fruit, but some say the job may not be as sweet as it appears",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "middleeasteye.net"
 }

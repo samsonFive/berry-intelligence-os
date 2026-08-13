@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQdTQtZDNuTlFrQmdoWlktUFM0WVNjUkJIOFJ0U1c0bW9MLTN5LUFwYXdzejBYTWlnSHd0dnNSRlBxWVFrTVNsaWs2NFBjYkQ5QThZSnNnRHdqZUxDaWVPM3A5OENwR1J5Q1l0V3lzWUF0YzR6cWJVb21mME1GREJHaFNkX3M0eFJpMGtxZFpGRUxWUUw2WUlpUEY1eDU0UmJjakFUNk50Ykx1OWx6cXVvMWZlN0w2NzQ?oc=5",
   "published_date": "2016-10-31",
   "captured_date": "2026-08-06",
-  "summary": "Canada: Dutch strawberry growers make headway in Kingsville&nbsp;&nbsp;FreshPlaza",
+  "summary": "In August the first strawberry plants were planted in the new greenhouse of Boem Berry Farms in Kingsville, Ontario. The new company is the result of a partnership between Canadian grower and…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "freshplaza.com"
 }

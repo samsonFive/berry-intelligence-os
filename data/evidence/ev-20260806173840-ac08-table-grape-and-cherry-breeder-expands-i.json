@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNaHFkV1JKamdMTERjcFY2cE43MmlrVG14TE5vU1ZDYXFuZVJDQUV1aHRsTW10Qy1jUmRKQ0RfX1hpakNCTUthcktTUXpQWGkzSXZjbWJXVnRVUW5xN2FNdjMzU1Nndzh4WmM2bTJzYkREZVFmdUIyRnlWQnFMLUh2a0R3N2xsdkszTDExdGllNTg4UzhwYU04bE1YaU9tZXR0S3M4em1aaHM2Y04zczJ1SDM5UQ?oc=5",
   "published_date": "2024-10-09",
   "captured_date": "2026-08-06",
-  "summary": "Table grape and cherry breeder expands into blueberries&nbsp;&nbsp;FreshPlaza",
+  "summary": "Bloom Fresh™ has acquired Inka's Berries breeding program. Inka's Berries, founded in Peru, is a blueberry breeding program responsible for creating premium varieties such as Abril Blue+ and…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Blueberry breeding program",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87"
+  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87",
+  "origin_domain": "freshplaza.com"
 }

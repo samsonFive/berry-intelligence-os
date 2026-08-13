@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOTjA0dTZzME1SUEdJcnF1Z3pBX1RQUzBtWTFmRGxQc0FrVnh0N1VybzhfTmw1TW5uMWtFRENQSHA5b0tjRllndDR3U3Q1cDJzWUNMSThoa0FuSzFBdzhOMFd6eG92NlZvMDJ1MndGaWczd1JocXZHYWZOcjl6MjIyd3NoX0hmUklKM21PdU1JRjhBellYYjJtSTVrRU1COGFnM1U0MmRZcG85ZWRGWElFaXhzejU?oc=5",
   "published_date": "2026-01-06",
   "captured_date": "2026-08-06",
-  "summary": "Agrícola Cerro Prieto reports strong growth in blueberry exports&nbsp;&nbsp;Fruitnet",
+  "summary": "Shipments set to increase by 15 per cent in 2025/26 to 26,000 tonnes",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "fruitnet.com"
 }

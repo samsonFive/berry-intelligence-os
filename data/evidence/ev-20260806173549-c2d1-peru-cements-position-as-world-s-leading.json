@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPSExtNmpSeXZKWGp5cndlRTMyenJuVXpnbkhDY0ctU0hhSUJONDlvY0NUazlISmxUb1dnMXg5RFd6aTBjXzRfNTkxQW85QW1pSXA2d2h0cXllV1RiNG53d0kyTkwwb1hPdnRJc0JSdmFCc2Z1OGtGYXVhX21sRlowU3gyRWlFczd1bmxNN1RiSVlFdkVrb1B4aG9jMnFqN2llQ0N3Qm50TQ?oc=5",
   "published_date": "2025-12-03",
   "captured_date": "2026-08-06",
-  "summary": "Peru cements position as world's leading blueberry exporter | News | ANDINA - Peru News Agency&nbsp;&nbsp;Agencia Andina",
+  "summary": "Peru has consolidated its position as the world's top exporter of blueberries, reaching a record sales figure of over US$2.27 billion to key global markets by the end of 2024. The season will continue until April of this year, according to the <a href=\" https://www.gob.pe/midagri\"target=\"_blank\"> Ministry of Agrarian Development and Irrigation (Midagri)</a>.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "andina.pe"
 }

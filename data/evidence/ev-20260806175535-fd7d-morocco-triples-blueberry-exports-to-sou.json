@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOUFRYaTRWdXZRUnF6eENNbjhpeGtJdnF2TDRSdkV3Rkx3RUZHR29jZ0tKaDBoZ2F0eFFveWZoaHZTZmI3ZVQ5enVKOTBCSFcwY0Nubk5YbW11cnFIRGx6U2NvZDFRN281QWEzTUFOQl9GVVQtMkxaNVlYWER3N0UzWUhXeGViOWo2RnhQTFdhR1RHbFgzZVdibVlYM1BEbzY3?oc=5",
   "published_date": "2024-07-13",
   "captured_date": "2026-08-06",
-  "summary": "Morocco Triples Blueberry Exports to Southeast Asia&nbsp;&nbsp;Morocco World News",
+  "summary": "Morocco has seen a significant rise in blueberry exports to Southeast Asia in recent years. This growth comes despite challenges like drought conditions and a shift in global blueberry production.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Morocco berry exports",
   "berry_ids": [
@@ -46,5 +46,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111"
+  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+  "origin_domain": "moroccoworldnews.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNcFZaLWZpeFBUaUdvSWE0U3Q4Y1FKdVNibk9fNXJscjNFOUtmbUVrclp1SDV0dVRLd3JINDVRYndQcjg0Y1Y3Z2JqckZOMm5DSDBTaUpnMEp0Z2NNcER0cnV4blozWnFqOUh3Z21LTjJmT21qcEpOeEpUeEt2X182eW5LaWxMOXlIRUx6cHRHb3Bxcl83Vlc5d1VlWF9pSGtV?oc=5",
   "published_date": "2020-11-09",
   "captured_date": "2026-08-06",
-  "summary": "Blueberry industry faces blues over trading rights row&nbsp;&nbsp;IOL",
+  "summary": "A recent dispute between SA, Australian berry producers has led to the confiscation by Dutch customs of two shipments of blueberries in the past week.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92"
+  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+  "origin_domain": "iol.co.za"
 }

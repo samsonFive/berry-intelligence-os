@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNRHM3UWdCb2dJQmpWNWdBR08tS2dUOFJvU3ppOV94R1ZtdHRncEVIWTUyMzhHcjdUSjA1WkNCY3JYWFB0M1hLeHlueEJqSTFsanRQNWJsTmVRUEdYeDFNSzRnLUJfV0szRDJqUUJxUXpKMWJEa3ZmRnpZN3A1UXU4WnE3U3NiM2pwOExhcC1EYzEtWFVHcGZfcjZMQW0yR2NkMlBvMDZCTTlFLWpqRlkzUGxLSEhJdw?oc=5",
   "published_date": "2019-06-29",
   "captured_date": "2026-08-06",
-  "summary": "Fresh abuse claims from women picking strawberries in Spain for UK market&nbsp;&nbsp;The Guardian",
+  "summary": "Lawyers say abuse claims by Moroccans must be investigated by Spanish authorities",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "theguardian.com"
 }

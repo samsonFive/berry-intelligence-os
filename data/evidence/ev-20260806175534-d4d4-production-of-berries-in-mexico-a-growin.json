@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOYUMzT1NGVzB3blUwYzktNTNqbk1NeVU0WFk3c3g1S05xbDl1VHBmaGdndENFR0w3cGpvd01RVEJTQXlUSHk5bFpmMFIwS1RPTEo1MktHX3Npa1RzYXlMMGswRl9iVk16WjlvWUlxaXhrZnQ4ZEd4eGV3akJfS05yZmVqaXNsZXNXeEdHQnR1U3FvM2tDM0Ew?oc=5",
   "published_date": "2019-07-03",
   "captured_date": "2026-08-06",
-  "summary": "Production of berries in Mexico - a growing market&nbsp;&nbsp;Hortidaily",
+  "summary": "Berries are the fifth largest agricultural product in Mexico, and thanks to the quality and traits they present, they have become one of the most important products for worldwide exports.…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "hortidaily.com"
 }

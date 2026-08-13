@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNRlJSbWRGWmNXbXRoLWlWSWZhRWJxVlZlR3EzMkliNTlGSnZuSy1PTnJJdmdZWHBmQXdfbkt4TVBkNFBiMUpuclVUT3B6RHNxb2lIa1BsdXdKUDFubEg4VHhoOVlleVhiN29SS2I5Y3RUMjlrRGJrcVNBUEt6UzU0aVMzRnN1VGo5TnFtVEVwQlhsVF9yY3Y2TDd4TXlKNENwdkM3cWpReF9feDQ2bnpkcVpUbThOanJoNlNKTVJveEphdUt6UFE?oc=5",
   "published_date": "2023-08-17",
   "captured_date": "2026-08-06",
-  "summary": "Central West Produce Looks to Expand Acreage to Meet Organic Berry Demand&nbsp;&nbsp;Organic Produce Network",
+  "summary": "Central West Produce Looks to Expand Acreage to Meet Organic Berry Demand",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry acreage expansion",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101"
+  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101",
+  "origin_domain": "organicproducenetwork.com"
 }

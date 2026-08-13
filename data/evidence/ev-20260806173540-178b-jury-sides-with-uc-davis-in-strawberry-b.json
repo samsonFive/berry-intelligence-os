@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQR1hheDVpTzRHZjR4VFZXQjhiYmtXOHNpZXNtaVpqTDY0STF3UTRqajRNb3ZuTEpFYzNtRmJBazJhTWdBaGdxeFE5dHAtdlNNMEwzN0UxNndGS0tjTjZqWnFWX3RFTDZQLWgwdElxQVlnWTVmeW1WUUt1WU83d0VHdkRIeXg5dw?oc=5",
   "published_date": "2017-05-23",
   "captured_date": "2026-08-06",
-  "summary": "Jury Sides With UC Davis in Strawberry Breeding Trial&nbsp;&nbsp;UC Davis",
+  "summary": "SAN FRANCISCO — A federal jury has ruled in favor of the University of California in its lawsuit with two former UC Davis strawberry breeders and the private breeding company they created with UC-owned plants. A separate jury is expected to decide issues related to damages at a later time.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Strawberry cultivar patent",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89"
+  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
+  "origin_domain": "ucdavis.edu"
 }

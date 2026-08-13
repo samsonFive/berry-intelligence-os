@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPcHZ3LTBIUHZlRElMdGp1MVhfc3ZJX1RVTm11MFgtd2tpSGZOS213MTJGQU5TcHZZZUdnMFpzdDZnemxZd1NWS0JPbGRsU0tRa1ZfUm1qRExVU3BCTW13andqQXF0SG03UWFjU21ZMnRLMVdrTDhmMktQTE53NG9CLVlmb0ViVUJfbDExN1BWZ2xjcEVDRUh5dVBadTZCa3B6ZGRQYkdueWNjQWx4RGc3ZThoQVpMb1VDTXc?oc=5",
   "published_date": "2026-03-19",
   "captured_date": "2026-08-06",
-  "summary": "Moroccan blueberry output to drop about 20% after Souss-Massa storms&nbsp;&nbsp;FreshPlaza",
+  "summary": "Storms in late February affected Morocco's blueberry production in the Souss-Massa region, with industry estimates indicating a decline of more than 20 per cent for the 2026 season. The…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "freshplaza.com"
 }

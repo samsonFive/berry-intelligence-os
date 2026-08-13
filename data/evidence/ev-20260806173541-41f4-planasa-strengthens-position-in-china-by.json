@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxPdXg4Q2RDbThtMDRhb0FoSkZGWmczRU94QUF1bC14dnZvVnd5RzhDNnBPTWxmZTBTY1FaM0J0bmZ1S0RtOFhIXzFybXVpbWRoaUdSN2xxNHZYTmdDM1l3YS11Q0hpeE1LN29OaEVxczM2SGxyaGhIZDRWMTJzVnFLZHMycFJBRHVvb2VnWHVSYjI1Q1RfMnZnMFBDb0RHVzc2NWtnNERDWXJKWV9aaHF4d0RDd0NFc09GajhsRXJoTTJtM1dVUVV3SlpWUXB6dVIzV19qWG5xczJBUQ?oc=5",
   "published_date": "2023-10-10",
   "captured_date": "2026-08-06",
-  "summary": "Planasa strengthens position in China by acquiring 100% stake of its local subsidiary&nbsp;&nbsp;FreshPlaza",
+  "summary": "Planasa, the berry genetics company recently acquired by the German conglomerate EW Group, has closed a deal to acquire the remaining 50% stake held by its partners in China, the brothers…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry genetics company",
   "berry_ids": [],
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-80ee-berry-genetics-company-91"
+  "source_id": "source-20260806173428-80ee-berry-genetics-company-91",
+  "origin_domain": "freshplaza.com"
 }

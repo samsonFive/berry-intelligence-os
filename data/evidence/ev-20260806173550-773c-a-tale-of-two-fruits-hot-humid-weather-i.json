@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxOWk5qVzhIRXVvRDk0MTdqdVRmRjVtNF9hZy1IZ1ZuMEhCeWVUaV9RaW9EXzBmNEd2aVp4WkpESVBEV3BoQ3k0bEtrWTktRUJJYUx2N29TczhIeTZnZmNsckIzd0Z4SkpMckxSbU9tRHZjRWh6ckVsZ01jd3h1OFM2cWpqbFY1RENVSXo2aktuaFpocDB5ekRFbzBVTUdnTmdrUFJ1YUhWYTVOYXpOMzJKa0xfQnFnRGtOLWhiZlNDOHNsSVRlVWQ2a3RMbFgxTlV1QTh1YWZlNlkyZ1NNSjVtbFlnRnNXZ0VOaFM0?oc=5",
   "published_date": "2026-06-26",
   "captured_date": "2026-08-06",
-  "summary": "A tale of two fruits: Hot, humid weather in the forecast good for one, not the other&nbsp;&nbsp;WLUK",
+  "summary": "The weather's going to take a turn for the hot and humid, and that's good news for one fruit crop, and bad news for lovers of a different small, red treat.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "fox11online.com"
 }

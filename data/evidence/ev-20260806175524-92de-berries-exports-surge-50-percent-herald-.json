@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMickFVX3lxTE9kVnBDZ3JRNU9mbWdjdS1Hc21PeG9Rb25XcE5PdlJkMlBTZW5hWFA1dy1SeWlJQXJpSmFFSG81cThBNTdJNlBNM0ozc3hkNEEzWG1fRE01ZFlYZE9VVkxTejhQZDlQWEFWOE5YY2xlOHpYdw?oc=5",
   "published_date": "2025-02-03",
   "captured_date": "2026-08-06",
-  "summary": "Berries exports surge 50 percent&nbsp;&nbsp;Herald.co.zw",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "heraldonline.co.zw"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQT000c1RMRGhtXzJqRU9YZDI5WFdPZ2FWbWVNQjdZZlNITEZ3S3dISmZndmpXbUhybVdFZE82RFItS25QdVBnc05vTDFJaVJNazJCNmtLZTVZaXJwV2hFUlRlT1RzZTlIb1B0LU5jNmRIUG5HUWdUMnVyUml4ZlEyUVJPbWEwd19JNWZnSUQwQ2hpMXVfb2k4MnNkRmMyTk0tcEx1V09DZlR1ZV9QN0tsOGRR?oc=5",
   "published_date": "2026-06-19",
   "captured_date": "2026-08-06",
-  "summary": "AI platform promises more accurate berry forecasts&nbsp;&nbsp;Fruitnet",
+  "summary": "GreenView AI says it can improve forecast accuracy to 90 per cent or more using footage of about three per cent of a grower's crop",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "fruitnet.com"
 }

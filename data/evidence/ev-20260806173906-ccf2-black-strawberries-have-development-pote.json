@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPMm1xd0ZRSGdfdlZBM0wtQlZKZ1ItdWlRa2Njc0Z3S092N1JPLThXdncyMWo5NG52b3B1cGJLVGhzdmVuNUtEb0hzVlJodHhGWUlwSUFHRDNUbEhCSWg0b1FYOWpRbWpGX0hrM2U1OE14YVBxUVBURVhIQzVBVncwdU1ndDN1WHlNZWU4QThLQUFwQ24zR29fQlRJajMySkh3WkJpOUFQaXc1c3pUMnlZa2dFQXk1NW5PU3BvMUtlZkNHTzg1RWRZcXRYcW55RzE3VlE?oc=5",
   "published_date": "2024-12-20",
   "captured_date": "2026-08-06",
-  "summary": "\"Black strawberries have development potential, while the white strawberry market is declining\"&nbsp;&nbsp;Hortidaily",
+  "summary": "The Chinese strawberry market continues to show differing trends for various color varieties. \"Affected by the climate, many white strawberry plants died this year, complicating management…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "hortidaily.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNQ2N5dlVaRTlBVXRwaVplZ3JSeG1MX3plMlk2bXlqSmdQQUhVOWw1MVkyZHp2ZEltMlhocnJGZGdSMUo4ZWNFZWJVdDM2bmZHZTlsMTg2dUR0S0h3SjlLQTYyTWZNQ3pObXhYaFkxeU5UcHdnVWllWlBmUGxIcjdacEw4dWFjQnNLSGp1blZDX29ZaFNoZ2VJ?oc=5",
   "published_date": "2022-05-19",
   "captured_date": "2026-08-06",
-  "summary": "Peru shifting blueberry varieties to sustain export growth&nbsp;&nbsp;bluebookservices.com",
+  "summary": "According to the Association of Blueberry Producers of Peru (Proarandanos), exports of fresh blueberries would reach 222,714 tons in the 2021/2022 campaign. A large percent coming from two of the oldest varieties (Ventura and Biloxi), however, producers are now looking to differentiate themselves. Regional director of Fall Creek & Nursery, Ricardo Polis, told Agraria that […]",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "bluebookservices.com"
 }

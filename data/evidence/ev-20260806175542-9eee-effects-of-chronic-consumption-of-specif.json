@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE41R2s3enZfSThXQjRlRWJORHFBT0kyeFZ4VVBqMVlKZGU2eGJ1ZjdjLXRxNDVQQm1KNlZKV29qZ09yVThhRV9abkFOYXlydFA4eXZvMEgyUzJPWEVKZTJR?oc=5",
   "published_date": "2022-04-20",
   "captured_date": "2026-08-06",
-  "summary": "Effects of chronic consumption of specific fruit (berries, cherries and citrus) on cognitive health: a systematic review and meta-analysis of randomised controlled trials&nbsp;&nbsp;Nature",
+  "summary": "The cognitive-protective effects related to the consumption of a variety of fruits are supported by several intervention studies. This systematic review and meta-analysis compared the magnitude of effects following chronic (≥1 week) consumption of frozen, freeze-dried powder including extracts and juices of fruits, covering berries, cherries and citrus, on cognition and mood in adults. PubMed, Web of Science, Scopus, and psycARTICLES were searched from inception until February, 2021. Inclusion criteria were randomised controlled trials assessing memory, executive function, psychomotor speed, mood and mini mental state examination in adult participants ≥18 years of age. Cognition was tested by global or domain specific tasks. Out of 13,861 articles identified, 16 papers were included; 11 studies provided suitable data for meta-analysis. Fourteen studies reported improvement or trend for improvement in cognition, five studies assessed mood and one study supplementing grape juice found trend for mood improvement. From the meta-analysis, cherry juice supplementation was suggested to improve psychomotor speed by −0.37 of standardised mean difference (95% CI [−0.74, 0.01]) in reaction time (P = 0.05). The meta-analysis did not sufficiently support a role for fruits or fruit forms to improve cognition and mood.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry health research",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2e40-berry-health-research-118"
+  "source_id": "source-20260806173428-2e40-berry-health-research-118",
+  "origin_domain": "nature.com"
 }

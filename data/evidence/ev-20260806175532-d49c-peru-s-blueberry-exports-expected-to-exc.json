@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOaHZsUUdNM3NlT2JiaHpEZ2ZxRmtjVk9JNDFTaE1oZ19FOTE1UnR3d0VqelJKc21tY21MZzdTM0JtaWZuS0xwTTIwNzdBVWNrZGJUUFJhQXRGRXpNR2diUmVCQUFzeVlzcGN2OXZQU1J5Z0RCZXFxWms0UHVhay1lTS14S3Btb0N3Z1ZVbDROaU82OHlDLTU0TG9YNWozcVdlZHEtLVBIOVFrYVR5?oc=5",
   "published_date": "2026-06-14",
   "captured_date": "2026-08-06",
-  "summary": "Peru's blueberry exports expected to exceed 400,000 tons in 2026 | News | ANDINA - Peru News Agency&nbsp;&nbsp;Agencia Andina",
+  "summary": "Blueberry exports are expected to exceed 400,000 tons this year, according to projections by chemical company BASF.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "andina.pe"
 }

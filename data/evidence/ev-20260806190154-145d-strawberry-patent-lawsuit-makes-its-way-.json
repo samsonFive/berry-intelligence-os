@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPV09mWWppQjFpemFiQ0lDY29PRFBDbTdmM3NEUlYzUzJFWEhYSWlWaThKb1NrVVh6QjFoT1gtYnlfQ1ZaTHRoSnBFbFN1R3poT214UEk4YkdiZGR1QTB1cDcxeUtpWkNwNldOb1R4WUJlN3RwaV9uWVpYb0lDOVFBYXh5MUtZVXprVEtzWDJGcDYxUFdhWGRBUl8yRDF1UEtoeGtZUFhB?oc=5",
   "published_date": "2019-03-27",
   "captured_date": "2026-08-06",
-  "summary": "Strawberry Patent Lawsuit Makes its Way to Federal Court&nbsp;&nbsp;Growing Produce",
+  "summary": "Driscoll’s alleges illegal use of its hybrid to cross breed for new varieties.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Strawberry cultivar patent",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89"
+  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
+  "origin_domain": "growingproduce.com"
 }

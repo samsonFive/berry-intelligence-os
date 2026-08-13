@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE4xeXdqenBSWVpzMTF5ZDJUM1Y5cmtfR0hfeFR1SWZKbUN6YnJuaGR0elo2X3FLSlNKUWY2SGR3UWRLNkhxTzZhbmhScWZCU21LckctZ1hWTlhROHFFazlJdG8wRW53X3NUNHVQZg?oc=5",
   "published_date": "2026-03-26",
   "captured_date": "2026-08-06",
-  "summary": "Agronometrics in Charts: Mexican berries secure dominance with projected 4 percent production rise in 2026&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "Mexico is on track to strengthen its position as the leading supplier of fresh berries to the United States, with production expected to grow by four percent in 2026.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "freshfruitportal.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOdTFWTHlmMTlvXzdUc1ZZWjc1dEhXWGdkRWU5Mk45Z0hlSGVxQURnOVBodmZQdWdsLXJwRHZxUFF1MFE5eXh1UmFId2VtVXpsTWY4YW9qbFBzQm1QX2p6OUN4N2VBd2ZvS3NkNy1WYVBWZHZRNFdVOEs4UFhPWWRqRUFRUXYwX1lIaUpGUERnZkk1c3RHNmhRdlpOdkFmZTA2TTd2MnYwRldjZUJXR2hzQWh3?oc=5",
   "published_date": "2024-12-18",
   "captured_date": "2026-08-06",
-  "summary": "\"The growth of the Peruvian blueberry is no coincidence\"&nbsp;&nbsp;FreshPlaza",
+  "summary": "Peru is expected to produce 323,928 tons of blueberries in the 2024-2025 season, exceeding initial estimates by 4.1%, and consolidating the country as the world leading blueberry exporter.…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "freshplaza.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPUGc1bHRrTTVrb0tRTnBQbHc2YW1zT2p5NlVnS2pTVkZaYUlGV2lfbFdOc3dtTUxiM2dXZktHdUJYQVB2bkR3VVF6aTdlZGdHaEQ3X1loSmtfdVg0LVdraUtBUTR0MWhKLU95ZXVVeXRlYXZWOXRwUmpQZExKcy1uemE2RWxBS05xZ1gxTWt1bU80ZkF6SkE?oc=5",
   "published_date": "2014-03-14",
   "captured_date": "2026-08-06",
-  "summary": "Common Hoptree and Dwarf Hackberry government response statement&nbsp;&nbsp;Ontario.ca",
+  "summary": "Ontario’s policy direction for the protection and recovery of Common Hoptree and Dwarf Hackberry. Publication date: March 14, 2014",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92"
+  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+  "origin_domain": "ontario.ca"
 }

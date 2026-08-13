@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOeE5pcmZzNEFPdXVRYktxcWlxODhPZHJibUF2YS01d25UTE9OYmhlTGh4Y1BCcS0zWkpkWlFuVE9RemgxenNEV1l0YkdaX3UwMk9waVBnaHVWaGZXblE4dC1xOVFsNHJZa3Nrc0lDUE8wZlhiME1tV2FTRVpNbm9HOTRzaEVPMDBrcFJUUkxTQ3NZdFhySnVPR3o3N29hVkFIYnAxVw?oc=5",
   "published_date": "2026-06-26",
   "captured_date": "2026-08-06",
-  "summary": "Berry good news: Maine strawberry season off to sweet start&nbsp;&nbsp;WGME",
+  "summary": "Pineland Farms grows strawberries on 35 acres and cultivates several different varieties.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "wgme.com"
 }

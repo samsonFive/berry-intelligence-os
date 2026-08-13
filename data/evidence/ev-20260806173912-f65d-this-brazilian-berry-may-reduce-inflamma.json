@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE53RU45WEw5V3pOUmtYVjR2ZVRuVXVfR1cyWE9HMnpCbGE4TXlUZDYxa1JzNDlOUU5oUHRRZFgxcFlBZVZoUWJ0WDRhU2VzM1k1SlRXS1k4eU5DejRwR2x4WU1CZm0wNVRNOXU1MklyZDJBaWdId05hOQ?oc=5",
   "published_date": "2026-01-05",
   "captured_date": "2026-08-06",
-  "summary": "This Brazilian Berry May Reduce Inflammation, Support Gut Health, and Help Balance Blood Sugar&nbsp;&nbsp;Food & Wine",
+  "summary": "Açai isn’t the only Brazilian fruit with superfood potential, according to emerging research. Jaboticaba is rich in antioxidants, including anthocyanins that give it its deep purple color and are linked to reduced inflammation and oxidative stress. And with its genome newly decoded, scientists say the fruit may offer even more health-supporting compounds.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry health research",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2e40-berry-health-research-118"
+  "source_id": "source-20260806173428-2e40-berry-health-research-118",
+  "origin_domain": "foodandwine.com"
 }

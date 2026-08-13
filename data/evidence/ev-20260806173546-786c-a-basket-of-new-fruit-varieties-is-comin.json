@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPbXRrVW9KMEVsQzExcTQ4M3BaM0dJdVF4eWt0UHBPWmQ2ZFBjdG9ZMlBGeFY1UFNHWmwzUU8tSjJIT2VOY3NCem9xcXp2anNRRVZBZ3ZUVUZKMG83ZDh1RzhwWHdFSGVrblZBb0wxS3h0MTZnYU9Xb1ROcnBOckNFQ0Jpemgxc0pPNWNNQ3g1YlZkTXJJZ3hRdV9oU00xZmozSE1VNkwzUzBaeldfSklB?oc=5",
   "published_date": "2026-03-04",
   "captured_date": "2026-08-06",
-  "summary": "A basket of new fruit varieties is coming your way&nbsp;&nbsp;The Economist",
+  "summary": "Gene-edited fruits like seedless blackberries and stoneless cherries use CRISPR technology to create varieties that would be difficult to achieve through conventional breeding. | Science & technology",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry joint venture genetics",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry joint venture genetics'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-c823-berry-joint-venture-genetics-96"
+  "source_id": "source-20260806173428-c823-berry-joint-venture-genetics-96",
+  "origin_domain": "economist.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPLUh2T2U4Wk1SYVpjZk10eDE0VXg0RDAySFNBV1dYeTdoS1dqMURqT2JGaUstZXVPanBxYjdZTk16d1Vvb2dwWmlITFpGZTlYQmFmbHFHUE9NamFvclFZb194Y3lmeV9WMmNXdWxmQ3liQUV4Z2dIbFRtckFwS3YzTHJTSjMtWHJZeDJjTjFaTVRlY01PcGVmczhRR2l4RGU3YmRCZ1JuMGtLd2xkWTNEaFR4S01Ba0JOMWttdWZacmttQlk?oc=5",
   "published_date": "2020-07-10",
   "captured_date": "2026-08-06",
-  "summary": "\"Mexico continues to be the fastest-growing source for Driscoll's despite COVID-19\"&nbsp;&nbsp;Hortidaily",
+  "summary": "Despite COVID-19, the essential berry sector and a large part of the agri-food industry in Mexico continued with their activities. The producer and marketer of berries, Driscoll's Mexico, has…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -50,5 +50,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "hortidaily.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQUFhCNmZiR1RHcWNYenhMMWRodnNIaWhoZEJTU2hrc2hoQUctbEk1a0dFNmoxWncwdGthN1RhQWt4YlRHbEVoa1ZvTlhIQlZPM3hzY3VxYTJaRHpsZDFQNmxhOWVzcGVLeXBnZzhwMm1LNVI1MU5wM3lOTG9jb1dXcVR1dzdJQVpqaWMtaklwcDVNai1VSkR0emJYUjdSejlQMElMc2pRNzJ0aVdCVGlEMGVFRjV1OUtaczNKR2lNQnM?oc=5",
   "published_date": "2026-03-25",
   "captured_date": "2026-08-06",
-  "summary": "Premium Peruvian blueberries gain share with US$2.28/kg price gap&nbsp;&nbsp;FreshPlaza",
+  "summary": "Premium blueberry varieties are increasing their share in Peru's export market, with FOB prices consistently above those of standard genetics, according to data presented by Agronometrics at…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "freshplaza.com"
 }

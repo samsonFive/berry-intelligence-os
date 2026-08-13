@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOeDVDekJtQk55VTl6cXY3U01HT0RHdnNhY0RBVFAwdmU5UnZVZVFMWFZPcVpORnBSVGI4T0pVcEhyYXJyR01pTkNZdFpZeXhHN3JTcXNLYU1kLW1aNFdzSnVOZ0FLZzllWDFkNUx4RmJJaE9HVGp1dVhjdVM4bTU2WnlRclpsWE1WZEJFdG1RM2o2OHltMFBPVTFyQ0FtU09LRUx3?oc=5",
   "published_date": "2025-01-10",
   "captured_date": "2026-08-06",
-  "summary": "Mexican Berry Industry Faces Production, Export Declines&nbsp;&nbsp;Mexico Business News",
+  "summary": "Mexico’s berry sector faces declining production and exports due to rising costs, labor shortages, and climate challenges.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "mexicobusiness.news"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPRzFDdk5WbHlPN1NXYk9hTUNxVHpJMUxFaGh4XzVXblJPS19VZGVVdTdIbG1qdDdGc3VvTE1iVjhvRkIyLUNjOHdpaDZqek9uSWEyOHJSM19FWFlOb05BeGFsVEY2b2lrR2xsUm9UZDRMUzZSQ3laczFZVlJhVmpud2Jqb0dPNDVTRjdzYTJuNW1ZUEU3cVdNeThnTVhKcmozVTM4eEdZTTZCaFBO?oc=5",
   "published_date": "2025-01-21",
   "captured_date": "2026-08-06",
-  "summary": "Comment: Data tools drive Driscoll’s improvement&nbsp;&nbsp;Fruitnet",
+  "summary": "Fresh4cast and berry marketer Driscoll's were nominated for a Technology Champion Award at the recent FPC Fresh Industry Awards. We asked Fresh4cast's Michele Dall'Olio to tell us more",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry retail sales data",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117"
+  "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117",
+  "origin_domain": "fruitnet.com"
 }

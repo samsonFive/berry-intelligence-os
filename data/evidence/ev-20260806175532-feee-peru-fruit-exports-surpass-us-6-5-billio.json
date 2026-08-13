@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNa0RIQ3Y5ajZUQlROVHZabnl2WC1VX3Y1aUZjR2NBYlU4Y0N3RVEtdm5VVmF3RTdTNngxWWp1ajM2YWNZNkhrZTVVZzJ6ZTBORVhzWEk1MmpLOEJDQUt1ZWc0dlNmU1Z1LVlFYVdIUzRuaExWMzgzSnJNV2pfT1JKc0JRc1gzcFE3RTUzS3kyam1yUElQQmxJcGNzOXZDVHBUMDl0aQ?oc=5",
   "published_date": "2026-01-13",
   "captured_date": "2026-08-06",
-  "summary": "Peru: Fruit exports surpass US$6.5 billion, led by blueberries | News | ANDINA - Peru News Agency&nbsp;&nbsp;Agencia Andina",
+  "summary": "Total fresh fruit exports reached US$6.52 billion between January and November 2025, a 14.46% increase compared with the same period in 2024, the <a href=\"https://www.camaralima.org.pe/\"target=\"_blank\">Lima Chamber of Commerce (CCL)</a> reported.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "andina.pe"
 }

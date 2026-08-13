@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPeFdCOUdIczF2QnFZdW82dTNNZ0hSYUJZclkzdTdRVTBGT19LWGQ5Vlhzay1JWGNvd0xvUGR1OENuRi1ORnFic2VEdFVJekgyWkN2QlBFUWhtMmt4WG1Sc1o5M19xa3Y5eE1qMXhHclRFSVpuUE9aLWxGb25yQ3JDUkFHLXVDREt0SHdnYXlCYlA1dFdsazRMNUV6bExydEJjakZR?oc=5",
   "published_date": "2025-09-03",
   "captured_date": "2026-08-06",
-  "summary": "Japan blueberry imports dominated by Mexico&nbsp;&nbsp;FreshPlaza",
+  "summary": "Japan is a market of interest for blueberry producers, known for high-net-worth consumers who value quality and long-term supply relationships. In 2024, Japan imported 1,895 metric tons of…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Phytosanitary berry import restriction",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a6a6-phytosanitary-berry-import-restriction-102"
+  "source_id": "source-20260806173428-a6a6-phytosanitary-berry-import-restriction-102",
+  "origin_domain": "freshplaza.com"
 }

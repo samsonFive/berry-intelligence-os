@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNM2JqRnNMZ21SY21USGcyZks5LU9LN2JvWnh2NTVsR0FEU1ltelBvSjMxcG9YTGJZU1ZXd0lkOVhLRThqX2t0OGJlQWFORW0xVE9iaExqS1VXaVNsVFBNcXBISkZaWE9UYWdPcnpsZGJxUXowenpTMURFRm1BLUdna3lXSTlWbVdpYU9QSkpmZVdHOTJVM3I1bFZnZDJISTdKR3c5a2YwUHpoMG4xNmZQOVRhb2M?oc=5",
   "published_date": "2026-01-21",
   "captured_date": "2026-08-06",
-  "summary": "“A raspberry supply crisis drove us toward homegrown varieties in India”&nbsp;&nbsp;Hortidaily",
+  "summary": "India's domestic raspberry demand far outstrips supply due to import barriers. All consumption must be homegrown since fresh raspberry imports face economic and regulatory hurdles, says Tanvi…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Raspberry variety license",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88"
+  "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88",
+  "origin_domain": "hortidaily.com"
 }

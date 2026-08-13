@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxQTjhiby1oaUh6U0tRYXotbWh4d2hwVDNxMjlhbFl4eEdad05SQUFyN0hzRzBHLWhscE5VZHVJNDJVTkJmdUVZYk1ESk9hS1Z5YzNlV3R5SFVSbm1yVmRRcVNuX3NVbFRUM24zNzRCSk9JbVhxSjViUkhZNFZ0ekE3ZWFuN1FwYzYzcXFsRk1iV1VyZzJnS1RwQUVKY01MVWdrU2JlSXpoMW9YSDk0d0ROdmwyMWJuUFNzUlg3MmljT3RFOGlGTnRTbU00OGkwc1M4elNCOFBxSnA?oc=5",
   "published_date": "2025-07-23",
   "captured_date": "2026-08-06",
-  "summary": "Sector Trend Analysis – Fruit and greenhouse vegetable trends in Hong Kong&nbsp;&nbsp;Agriculture and Agri-food Canada",
+  "summary": "Note: This report includes forecasting data that is based on baseline historical data.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry retail sales data",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117"
+  "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117",
+  "origin_domain": "agriculture.canada.ca"
 }

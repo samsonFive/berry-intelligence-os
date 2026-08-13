@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNeE9HM2dpT0t1RHBIcGhVNUxxWDVITEJzWllTcHBzRFlaWk5mekl0TkIwbl9uT25lRVc2R3ZoRzRobjFrUGtFT3VOaFVmVzUwZm0zQ2NtUG1UQmwxQ0tyQ3dIUzc3eVgzcnI4bGZJYUxocUNQbTR1ckFvZW11cGR0Smg1WEdYWG9ueThxb1cwM3NkVmJ1RXhaNTBSaUp6dW44U1pHTHRmV1czdFE?oc=5",
   "published_date": "2021-12-12",
   "captured_date": "2026-08-06",
-  "summary": "Ukraine sharply increased blueberry exports in 2021 due to a drop in prices&nbsp;&nbsp;EastFruit",
+  "summary": "According to EastFruit analysts, in 2021 Ukraine increased the exports of blueberries by 65% in volume ​​compared to 2020. At the same time, export volumes of fresh blueberries were 18% lower than in the record-breaking 2019. The downward trend in the price of blueberries, which is unpleasant for Ukrainian exporters, should also be noted...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "east-fruit.com"
 }

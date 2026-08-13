@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQZGo4OHdOOWF5b3ExNTcyNnJtMzc4NUczenFFT1V4NzNRVG5aVlVudEhWTEJWc3I5UkRLRGxpd2J3WGtvYzdGVmdyYWo5d3ZkSVlfOGpuc0taclRyOUZuNXZOZEpXLXBnbHhGM3VnMzJIVldveTBqWXZKYWQwWEtoSm8wLTFnR1llZ1l3c3gwTUVMald4NGc0?oc=5",
   "published_date": "2023-05-12",
   "captured_date": "2026-08-06",
-  "summary": "GLOBAL MARKET OVERVIEW BLUEBERRIES&nbsp;&nbsp;FreshPlaza",
+  "summary": "The global blueberry market shows a varied picture this week, as some seasons come to an end, whilst some are yet to begin. In the Netherlands, an impending shortage looms from week 22 to 25…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "freshplaza.com"
 }

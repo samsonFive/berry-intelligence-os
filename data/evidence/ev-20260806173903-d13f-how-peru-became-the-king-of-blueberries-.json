@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPY1g1OUlhV3JiSThNRlMtSFMwWVdZZVUzZ2lpU3lEV0xhQUdEOU9QTElGMUtjRE1YcW1lSjFwOHBDTkdyTFFuVEs2R3ZnWldqS0VGUkhPRzJDUkpKb19KUmZ5Mk9JNVRDaDM1YmJNb3dDSi00RzcxbmtsNGxmeUh2cVp6ZkhHZ2E0a1Rmay1HY3cxMnY0RXpMeGtGVHbSAbABQVVfeXFMT1Bvd3VqN3BSWVFGTnpEekEzQ3praDV5YjFzQll5ZnEzZWc0R3JPT3o5dXNDOFFTdWhmUHh3ZURtSTBCSkJfSFdfYkNiQWE2MnN6RmFuVmI3VVZ2QzdSRE1NMzM2T2pDdUVuQTEtTTNIVGdoc1RiMi1qWW9fbG55Y1pWcm9xUU80TlRBREQ1aEZmSGQ0ZVlxbTh3aW5XWDRqbmQzOU9pYjdsdlh4Z2FiY2Q?oc=5",
   "published_date": "2023-08-13",
   "captured_date": "2026-08-06",
-  "summary": "How Peru became the king of blueberries&nbsp;&nbsp;EL PAÍS English",
+  "summary": "After being a minor competitor over the past decade, the South American country has leaped to become the main global exporter of these fruits",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "english.elpais.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQSXNuSnBmbkpxN203UnJBTFpibnVtYW9BbVV0c1dETlFVSFdJQU9OQUVnVktKVFZpYldNdTRpSC13VFdkWUt0MXhfTDhrM256eW5yakw1Q09KSDBRdGRMdUFFZXJyQ3p0c2ZVU3pzOGliSWZ4TDk0YUV5X0lfRXRNRG53blR6TkRtR3pYMlkxN2J2NGxRNlhjUnlFNzlzazZjOGV1c3V1b2E?oc=5",
   "published_date": "2022-02-03",
   "captured_date": "2026-08-06",
-  "summary": "“The demand and consumption show a growing trend”&nbsp;&nbsp;FreshPlaza",
+  "summary": "For IG International, their blueberry production is doubling every year. Although the Indian importer will not export any of the current season’s blueberries, the intention is to find new…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry consumption trend",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-ff93-berry-consumption-trend-116"
+  "source_id": "source-20260806173428-ff93-berry-consumption-trend-116",
+  "origin_domain": "freshplaza.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOT05EOGdPYlVjeWVHNHJoNW4xcnVTZllvLTFBR0FmZGRES3JhS1RkOEdBVTY1Sy1SUVNRMmdQVnlNcERZU0pMUmlYVzFZRzB1bVNzMS1NOWZNcEdPVHVMdlZvaXE5ZEpwVUZ1X2o4VTEzRW5hZklZclRTRHhHWjNUT0REVVN0dXpBbFctSkczZnA2UQ?oc=5",
   "published_date": "2026-06-10",
   "captured_date": "2026-08-06",
-  "summary": "Fall Creek acquires Berryplant and Berrytech&nbsp;&nbsp;Hortidaily",
+  "summary": "Fall Creek announced the acquisition of Berryplant and Berrytech, a family-founded Rubus breeding and nursery business based in Trentino, Italy. The acquisition brings together two…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry genetics company",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-80ee-berry-genetics-company-91"
+  "source_id": "source-20260806173428-80ee-berry-genetics-company-91",
+  "origin_domain": "hortidaily.com"
 }

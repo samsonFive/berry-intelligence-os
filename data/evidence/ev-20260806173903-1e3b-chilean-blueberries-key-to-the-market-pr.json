@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1DOXZ2ZHhqRmtUMjdtOERqX3VkZUExUkVCRFVIZkNwQ3RKOE5UTFU4U2NoNHQ3eVlxbVAyeHN1ekhTM1JxMEpCc0pBdjZ5cUNmUG9qVFdmckZrakI5Q0lPa2FXNS1CeDFPVU5jQjloZW16SFU?oc=5",
   "published_date": "2024-01-19",
   "captured_date": "2026-08-06",
-  "summary": "Chilean blueberries key to the market&nbsp;&nbsp;Produce News",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "theproducenews.com"
 }

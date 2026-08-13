@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQVUp6NGRDbVcwMDhkejRoMTR3cXF1VkMwTlpyZ3c5endfZ241ZFd1TG1tSU9kaU1KTndsVW5HTDJOeEVFWnpobmVxNnRhM1Ywd0s2V0d2T1hUSjVoSVhGeFFwZkdfWlpKajlDZElkdnQyOEZ1OEhrTVcxeW5VajBlN1UtN2tXUHVKaW1mWUgtalZfSE5tLVdhY2cwWEg?oc=5",
   "published_date": "2026-07-09",
   "captured_date": "2026-08-06",
-  "summary": "Moroccan fresh strawberry exports fall to record low&nbsp;&nbsp;Hortidaily",
+  "summary": "Morocco's fresh strawberry exports have fallen to their lowest level on record, marking a fourth consecutive season of decline, according to EastFruit. Between October 2025 and April 2026,…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Morocco berry exports",
   "berry_ids": [
@@ -43,5 +43,6 @@
       "rationale": "Auto-captured from source 'Morocco berry exports'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111"
+  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+  "origin_domain": "hortidaily.com"
 }

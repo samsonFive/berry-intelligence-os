@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQU0RfLW1zN2ZwOG1DZS1HNWFLWHBpcWg5S3BONDZlWEVvc0xhVFhFVmdMc2hwYkxwQURueGVlcGFPMmFKN0dHMlpMbFRyOGpVSWtuSlVlV1haellqd2FkSTVpcjJ2UTJmZ25sOWlGTTZ3WVlzOENDUjBSLWlubDFlU3k5SWZVNE9DdEhGMG43OE1vNk5ZUVoycWxZdWxGR2RjZEctQXRxRGhmX0U?oc=5",
   "published_date": "2018-06-04",
   "captured_date": "2026-08-06",
-  "summary": "Global strawberry market continues to expand, report finds&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "The report's findings include a rise in production from all key producing countries and an increase in imports to the U.S.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "freshfruitportal.com"
 }

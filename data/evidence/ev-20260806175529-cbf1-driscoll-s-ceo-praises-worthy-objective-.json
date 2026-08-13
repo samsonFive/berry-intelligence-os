@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5VbjhMSzEwdlltX3V3Wl9SUjFYaTktcVdBX2UtNTlzUThmTHZMZjBXdU84MDZxS01xZmpibUpjY3BtSl9pNUhqMGtXX2xnTk1taWxlVFF0SDk5RHc?oc=5",
   "published_date": "2025-04-02",
   "captured_date": "2026-08-06",
-  "summary": "Driscoll’s CEO praises ‘worthy objective’ in Trump's economic agenda, says reciprocal tariffs could play ‘very important role’&nbsp;&nbsp;Fox Business",
+  "summary": "Driscoll’s CEO Soren Bjorn evaluates how the agricultural sector is preparing for President Donald Trump’s looming Liberation Day tariffs on ‘The Claman Countdown.’",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry tariff",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-f8a7-berry-tariff-105"
+  "source_id": "source-20260806173428-f8a7-berry-tariff-105",
+  "origin_domain": "foxbusiness.com"
 }

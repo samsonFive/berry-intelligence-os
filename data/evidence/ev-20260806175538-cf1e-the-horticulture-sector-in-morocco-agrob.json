@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNS1VneGpWdFpmNWdZVUR5ZmQ2Q2c2ZFdWdTNKeVlRamNXb29TTzdwTVdSeFZPMXVDdTFBRnI3Zk9jcGYxVEZVNVd0OF9uR01GUGhrWTYwRGwtYldXOS0wdjd3UTFHNHhUZlktaTZPd2ZMVUU0X1c4anpHMjl3WmZfTVhaY2huM0xaRW4zd04yMWR2eGNOMHVONmQzSDBjcmk2bGVLbmY3b3VVMlk?oc=5",
   "published_date": "2025-03-28",
   "captured_date": "2026-08-06",
-  "summary": "The horticulture sector in Morocco&nbsp;&nbsp;Agroberichten Buitenland",
+  "summary": "The horticultural sector in Morocco is a very important and dynamic sector. It is also of (potential) interest to many Dutch companies. Therefore, the Netherlands Agricultural Network (LAN) team of the Dutch embassy in Rabat prepared a note with the state of play in this sector. This note mainly focuses on the production of vegetables, not on the production of red fruits/berries, which is also an important export product.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "agroberichtenbuitenland.nl"
 }

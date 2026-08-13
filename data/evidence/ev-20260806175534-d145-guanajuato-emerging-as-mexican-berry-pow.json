@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPRG9IYm9iVWVkbkFHS0hJQ2EwNGI1RjZmekRnTkE4WnJMdFhXQ2QtVFA3anppb0pXN3kzVkRlMzRvWi1HY3k1WC1OandGR255RG82V0UxTlR6bFpISGNJMWx6cFNuejNEdzJRcktxVkl4UDZKN3RZdUd1WkxiMURRRFdR?oc=5",
   "published_date": "2020-09-11",
   "captured_date": "2026-08-06",
-  "summary": "Guanajuato emerging as Mexican berry power&nbsp;&nbsp;bluebookservices.com",
+  "summary": "Mexico is seeing the state of Guanajuato emerge is a bigger player with strawberries showing the evidence. Located in central Mexico, northwest of Mexico City, Guanajuato is one of the main strawberry producing states in Mexico. While the region of Irapuato was the first that dedicated itself to strawberry production for decades, currently Tarandacuao, Abasolo, […]",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "bluebookservices.com"
 }

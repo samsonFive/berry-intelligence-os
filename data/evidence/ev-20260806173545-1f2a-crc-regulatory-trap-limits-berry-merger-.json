@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPMzRVNUtRTzJOcWgtUzd3dWJPRlNaOGpMSG1YQXR1RC1yRWp0VEQ3SW9EUmF4UUFZSVRHQXg0enJfTWk3Q1hvVW5yeTJUVy0xblA5b0ZxNVAtUmc2RzNJNFJET1puaFEwdktkTHRGcjk5ZHdPX1JJdkxIVGZzbkNSYU5R0gGCAUFVX3lxTE8zNFU1S1FPMk5xaC1TN3d1Yk9GU1o4akxIbVhBdHVELXJFanRURDdJb0RSYXhRQVlJVEdBeDR6cl9NaTdDWG9VbnJ5MlRXLTFuUDlvRnE1UC1SZzZHM0k0UkRPWm5oUTB2S2RMdEZyOTlkd09fUkl2TEhUZnNuQ1JhTlE?oc=5",
   "published_date": "2026-02-09",
   "captured_date": "2026-08-06",
-  "summary": "CRC: Regulatory Trap Limits Berry Merger Upside&nbsp;&nbsp;AlphaStreet",
+  "summary": "Executive Summary While California Resources Corporation (CRC) remains the largest independent oil and natural gas producer in California, the company faces a challenging near-term outlook characterized by earnings volatility, regulatory friction, and execution risks associated with its pivot to carbon management. Despite the recent completion of the Berry Corporation merger, which solidifies CRC’s position in CRC: Regulatory Berry Merger",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Company acquisition berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-8498-company-acquisition-berry-95"
+  "source_id": "source-20260806173428-8498-company-acquisition-berry-95",
+  "origin_domain": "news.alphastreet.com"
 }

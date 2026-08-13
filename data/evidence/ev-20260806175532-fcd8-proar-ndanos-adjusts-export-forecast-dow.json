@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNeTlwZ3RieEJ2dm1qMVQyUEp1djItcFVTbEhPVS1fWHJwNVRiRFRqUGRXYXpYWDJ6b3U1MllCQVV5Wm1BQWlLYzBaSExac1ctNG9vQWdSSVBYY014eTBQT3YwckNvX05MM1lYeXFoeE9RUTFFcE5KMHRzcnhQbVgyeFh2OVBMbGhkR1FFQUhJcXYwUk9rMl9mZmhSWQ?oc=5",
   "published_date": "2025-11-06",
   "captured_date": "2026-08-06",
-  "summary": "Proarándanos adjusts export forecast downward&nbsp;&nbsp;Fruitnet",
+  "summary": "Industry association also anticipates a shorter season than expected",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "fruitnet.com"
 }

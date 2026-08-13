@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOVTlpQjdMdllGeEJ4ZE5hVFVLNjRidnBNREZuczMtcVMxS2p6dDdqZUg0bzJfcmxwczIteXZ1aWQ1OFVtencwYWZuYXdockIyZkw0cWZaYXpaTUNsWDlJZUpqOEZsSWlWaTQySFhmdEk3RUwydmxuRkRvcWFadXVyOFFPN3dGTXVDNlgwd3RHMzVLYlYtb0M4TlMzQ1lMZTJlSkdDNVZhN3NCbGs1emcyeUl1WFFtVU9tMXllVy14NFdOWW5KR2ZXS2NOUQ?oc=5",
   "published_date": "2010-09-25",
   "captured_date": "2026-08-06",
-  "summary": "Bumper crop of fruits and berries forecast by National Trust&nbsp;&nbsp;The Telegraph",
+  "summary": "Reference #18.55a7cb17.1786609127.cccc5ef",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "telegraph.co.uk"
 }

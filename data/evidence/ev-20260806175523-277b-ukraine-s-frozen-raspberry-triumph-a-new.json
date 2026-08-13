@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQTFp4S2JUYzhFeWMzaVVpbG5BOEVvYWtGWUY0dmZNMTMteU91UTJBaTdmOTZ0S25jb3FTQ3BFZGR0U0xKVDFqWW1jcmtyY08yVTZmQm1fSVJ2b1NBMlJvblBjV0tZbmRwZ3Y3Tmo4cFdKN0NsMUY2b3V6Umt5RzBZSmpEUUxiX0VSeFBSSllVelpFM2NtZjM2UEczM2djRzBISTI0b3hlZmM5czU5YTlkOEVvaWE3VnJQQ2RzNWNncw?oc=5",
   "published_date": "2025-03-27",
   "captured_date": "2026-08-06",
-  "summary": "Ukraine’s frozen raspberry triumph: a new global leader emerges, overtaking Poland and Serbia&nbsp;&nbsp;EastFruit",
+  "summary": "According to EastFruit analysts, a historic milestone was achieved in 2024: Ukraine, a country that barely exported frozen raspberries a decade ago, has emerged as the world leader in net frozen raspberry exports. For the first time, it has surpassed not only Poland but also Serbia, the long-standing leader in...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "east-fruit.com"
 }

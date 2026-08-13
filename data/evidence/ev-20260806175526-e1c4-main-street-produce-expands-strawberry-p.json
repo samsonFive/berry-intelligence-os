@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxObi1JNWtVYU1qdU5ld191QzJFY2RyNkFjTWY1c29aRFlpYmtIVkxQM0UtWHRXSW5UV1Y4UUJibTFudGkzbmRrUnpnME4tYTlKVTlRS0RmTS05NDBPWk0wclNhb2s4bUdiZVFsWlV1Z1NnTjBZcUpDRTNLQk9VMVQtUVA4U2xVeldZN2o1cw?oc=5",
   "published_date": "2021-03-15",
   "captured_date": "2026-08-06",
-  "summary": "Main Street Produce expands strawberry production&nbsp;&nbsp;Produce News",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry acreage expansion",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101"
+  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101",
+  "origin_domain": "theproducenews.com"
 }

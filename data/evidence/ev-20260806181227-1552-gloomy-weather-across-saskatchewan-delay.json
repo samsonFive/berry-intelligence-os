@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQMTlBWmQ3M2JNZGpENnJKWTVneXF0UWQ5aDJncFZRdUZZdjl0cTFXVmttNF9aZFhFbi1iU0JRN2cxNk5PN3pzZkNlMVVkSlZkTThaZ3VISzVmX0JWWHJ3WC1YZHJ6S2VPcDVzdGJVQlhCQnVBX3hvNGdGMjhvTE5rVFBiOXJybmJhWlNGX2ZvNXZpc2VYaTZYcmRYRGduUQ?oc=5",
   "published_date": "2026-07-05",
   "captured_date": "2026-08-06",
-  "summary": "Gloomy weather across Saskatchewan delays Saskatoon berry season&nbsp;&nbsp;650 CKOM",
+  "summary": "The Berry Barn in Saskatoon, which usually harvests between 15,000 and 20,000 pounds in a season, says the weeks of rain and cloud cover have pushed Saskatoon berry season back by at least a week.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "ckom.com"
 }

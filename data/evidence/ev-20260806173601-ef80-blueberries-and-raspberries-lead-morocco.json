@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNZ0lTOVlwRVRyYS0yOFZHLTV3TzBUVGVkMDNFN0tST2x3dUI1WDdXUXlfRzNVM0xERVNMY3NxTi1WR0wwVjZHMXotZGJ1aXRub1JiRkdyWlBxcndXWF9LQ1RnVHdCUVBndWlneEVjd2xtc2tjdEY0Q3ZKTEZWdDVRZWd0RlNJc2ttQkpNMmRYa0ZTbWlYT2Q0ZkFBY0tRM09EZFJFUXdsbEZqeWFFN05YTnZVM3NONkox?oc=5",
   "published_date": "2025-10-07",
   "captured_date": "2026-08-06",
-  "summary": "Blueberries and Raspberries Lead Morocco’s Record Fruit Export Season&nbsp;&nbsp;Morocco World News",
+  "summary": "Morocco’s berry sector is undergoing a major transformation.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Morocco berry exports",
   "berry_ids": [
@@ -46,5 +46,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111"
+  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+  "origin_domain": "moroccoworldnews.com"
 }

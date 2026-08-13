@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFBzWW56dFVsWnBqclFTOXcyMFpQZVk3U2Nmc0hHQXNWSTY4S0FzWXZFUHVuNk1SS2E0QkdCbWphbUdzZDVHQlBNY2ZSRTh6cU9hS29ZcDVndnZNek9XWkxydUpoNWZxUFB3LXo0TEtXWGV0MEQyQXNsQ05n?oc=5",
   "published_date": "2026-05-07",
   "captured_date": "2026-08-06",
-  "summary": "Agronometrics in Charts: Peru's dominant blueberry exports surge 21.5 percent&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "Peru’s blueberry industry continued its strong expansion in the 2025/26 season, with total fresh exports reaching about 419,000 tons, marking a 21.5 % increase.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "freshfruitportal.com"
 }

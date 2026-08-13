@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNSWdrZ2J1TzZXZnpqTlU1YW5naDdzRXVUZGRTdWNjZEN5UURFLS1ONEw1dFd2VnprTHlNZVFYVEJTaDAwWHkzdmtEalFWeTQya1dwOHJsNHBXSFFjbXpxWHAwazRjZVpoS3pFTjlRUkFzczNRMm52U25zeEt2U2xSYjdUQzhRNjBjQVoxSHdxX2JUdGhIMXRNZmJfcTJ5ejJmZmFGSndjWURjYUw2VXhBaA?oc=5",
   "published_date": "2026-05-28",
   "captured_date": "2026-08-06",
-  "summary": "Mexican blueberry sector targets flavour and genetics&nbsp;&nbsp;FreshPlaza",
+  "summary": "Mexico's blueberry sector is focusing on fruit quality, genetics, operational efficiency, and supply chain performance as competition increases from Peru, Morocco, and China. The discussion…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "freshplaza.com"
 }

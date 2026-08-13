@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNSUdNeTRTZmhwTDZ2OENzazd0dENTbnVZZVBnNG01WlV6UDVQdXlOaENKZ24wMVlMZ1Bmbkd2X21HQkRFZHlsYzA2Uy1IbE5pR2ZnbmFUc1hBNkVraThoaXpud1h4UVI0Z0tIbXgwZXRBNGJwbVFiWTVlSmJMOEhDRi1vTjlSV015a1VPdXctT1ZWenVFY0E0Y1JxTmE?oc=5",
   "published_date": "2017-06-30",
   "captured_date": "2026-08-06",
-  "summary": "Driscoll's Unveils The Top 10 Berry-Loving Markets In America&nbsp;&nbsp;Perishable News",
+  "summary": "Boston, Hartford-New Haven and Minneapolis-St. Paul claimed the top three most berry-adoring markets in the country, according to syndicated category data reported by The Nielsen Company* and based upon the highest weekly store sales of fresh strawberries, raspberries, blueberries and blackberries. The Twin Cities also emerged as the raspberry consumption capital of the U.S., with families enjoying 132 percent more fresh raspberries per household than the national average annually.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry retail sales data",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117"
+  "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117",
+  "origin_domain": "perishablenews.com"
 }

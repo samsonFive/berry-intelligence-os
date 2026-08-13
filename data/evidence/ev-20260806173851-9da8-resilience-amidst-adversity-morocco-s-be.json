@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPME45MTJfX3V1Y3JYNl9nbExYOGJkNGkyc01rTzFmbVVtNE1rRnV3emZWSWI3RGZhVTJYSUUtTGlsa0xfbjR5M2xTdXhuZmpqWVprMmp2OUhPM0ZmVkhwWTAtWVhQOTl0UEZrQnM4T3JCM01BUzdmV3JrSWZxeC1mWDhXd2ZFZ2tReFhKcUJQTldVU00td0JfbXdR?oc=5",
   "published_date": "2024-02-28",
   "captured_date": "2026-08-06",
-  "summary": "Resilience amidst adversity: Morocco’s berry export boom in 2023&nbsp;&nbsp;EastFruit",
+  "summary": "In 2023, Morocco demonstrated a robust increase in revenue from its fresh berry exports, overcoming adverse weather conditions and a dip in supply volumes. EastFruit’s data reveals that Moroccan berry producers exported nearly 124,000 tons, generating $750 million in revenue. “Berries have reaffirmed their role as a cornerstone of Morocco’s...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "east-fruit.com"
 }

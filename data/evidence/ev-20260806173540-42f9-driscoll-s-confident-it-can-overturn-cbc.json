@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQTEdXT2JQd3NobG9UaWM5VVBLZUI2NUFHVWZTQjdlYnJwQnpLWjFuRjMyZldyZGNEM2tTR0Nvd1dsbXJDTllZTnFkRWRoY0x6U2ItS3VHcE9sVUdKZklRSTB6VVlzNjk2QVdiNjh0VGRZR2paaVhmRnVjbDBTeGdXd2g4UDh5NF9sYk1aTi1xQnVfWWt2Tm5sVld1LTFhdUkwNEZr?oc=5",
   "published_date": "2025-05-15",
   "captured_date": "2026-08-06",
-  "summary": "Driscoll’s ‘confident’ it can overturn CBC court ruling&nbsp;&nbsp;Fruitnet",
+  "summary": "Company launches appeal against decision in favour of California Berry Cultivars, which it says infringed its strawberry variety patents",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Strawberry cultivar patent",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89"
+  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
+  "origin_domain": "fruitnet.com"
 }

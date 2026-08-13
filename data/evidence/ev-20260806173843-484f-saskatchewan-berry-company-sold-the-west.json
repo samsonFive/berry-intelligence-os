@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFB2c00tX2ZSakdPQkw5SlpGQU94MkhWMEpadDBPSHUyb3hOSGRaMUp1Z2JhVGUtTUlKWEl1a1pjMmtkTHZuNFVrS1VwRDV2blhvTTJoZmFoWTJqWEZCbzVscjFrTUQ2Q1pfd3BISVduTS03ZEd5YVlPWA?oc=5",
   "published_date": "2025-04-09",
   "captured_date": "2026-08-06",
-  "summary": "Saskatchewan berry company sold&nbsp;&nbsp;The Western Producer",
+  "summary": "Grasslands Group of Companies announced April 1 it has acquired Prairie Berries",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry genetics company",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-80ee-berry-genetics-company-91"
+  "source_id": "source-20260806173428-80ee-berry-genetics-company-91",
+  "origin_domain": "producer.com"
 }

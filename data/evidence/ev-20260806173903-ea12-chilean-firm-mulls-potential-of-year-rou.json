@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPSnhGZ0Z4Wm10Qmw0RHhiUDBkQWRSNG1wb3o0dnBaaVVuaTZFMk9ZRzN1ZjNrNkpOcE41NWh4WF9Na3FZVU1xS195eXBlcjZmTGo2RVhfcmNNNFJhRzVsUGNMV0I1MFYzRVoxcmZiMjNKck9FRktPSmxSaUdyYUJaSGtaSTNrampwdGlsYTFQRmFEUlhCOU4yX0p6cGt2TEtPNmk0aTJTVVpEeUM1QmVsQXZ6WQ?oc=5",
   "published_date": "2026-07-08",
   "captured_date": "2026-08-06",
-  "summary": "Chilean firm mulls potential of year-round blueberry production&nbsp;&nbsp;Fruitnet",
+  "summary": "SQM's trial seeks to grow the fruit in the Atacama Desert using adapted varieties, advanced irrigation and precision fertigation",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "fruitnet.com"
 }

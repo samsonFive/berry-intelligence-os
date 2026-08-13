@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOcTZQMm45Skx1XzJYdm9CZnNYMmFVTDdmRnlhdGZmV3pOb2ZwVnFoY0NMR2J5dncza0xVcXBDbDFEQTIzbmtjTHZjN2lHUzM1MUJGZ0p3aEpQaE8tTzA2TmpIWFRHQ3cwUjJpODN3VnFyaVMzRFU2djdhaDVtTWhhMTNYWnpQV3RKNElwa29MX3NYRXdpNWowbkpR?oc=5",
   "published_date": "2020-04-09",
   "captured_date": "2026-08-06",
-  "summary": "Is containerized blackberry production ready for prime time?&nbsp;&nbsp;Fruit Growers News",
+  "summary": "Blackberries and other small fruits are increasingly being grown in soilless substrate and containers versus field soil. Growing small fruit crops in containers requires additional capital and effort compared to field production, but has some potential benefits. Potential benefits can include earlier and more consistent yields as well as greater nutrient and water use efficiency. …",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Blackberry primocane variety",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-d63a-blackberry-primocane-variety-90"
+  "source_id": "source-20260806173428-d63a-blackberry-primocane-variety-90",
+  "origin_domain": "fruitgrowersnews.com"
 }

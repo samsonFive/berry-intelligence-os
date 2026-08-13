@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQVUNDdlgzWGJIaGs0QlpBN1FZS3BheG1GSzR5V3JDV2JLVF8wWVhqTy1vQ3ViSzhtSnNfV25QTGZxSUVpVi02SWpqZUxSSjFfU2h0Sml4REtfY0F6VE1KTHlFVURRNmptVDhUTmNVcHV2eDdIT2sxdVpMTGMyUjY3Sy1rS3o?oc=5",
   "published_date": "2025-10-17",
   "captured_date": "2026-08-06",
-  "summary": "Peruvian blueberry exports double as the US and China lead demand&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "Peruvian blueberry exports surged to over 297 million pounds between May and September 2025, according to Peru’s National Agriculture Health Service.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "freshfruitportal.com"
 }

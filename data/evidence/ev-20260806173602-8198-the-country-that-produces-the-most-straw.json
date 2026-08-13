@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFAxQmducEFJM01wUkZENlVXc2d5aFREOGp1RWI0N0M5ZHhxd0RES3l3bDFDbGJpS0hDZzFiWUVsQ055OW53VHJNRnkxUGhYa09WSVVJSElUX2VpdnhBcTJzZVhHNjdQUGpNb3pfRzR3blhFRzMyNjRmd2dYb2Q?oc=5",
   "published_date": "2024-07-08",
   "captured_date": "2026-08-06",
-  "summary": "The Country That Produces The Most Strawberries By A Landslide&nbsp;&nbsp;foodrepublic.com",
+  "summary": "One country's yearly production of strawberries amounts to 3,336,690 tons - which is more than triple what the second-place nation is putting out.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "foodrepublic.com"
 }

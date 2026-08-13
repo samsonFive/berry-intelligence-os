@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOYXc2WDJ3NEJmeWhuMkdpcTVKa2VfQmxJeVRZbGx3SHVSWldwOVJVWGxaRnV2MElvalk0RTJIX2JsMnRLdW1Wbk53ZTkxMmZGLUF2d21uU3Rka01CT0xJWFVCdGM3aUpORzlOcVRaRHl1MVhzTk1URktTTTU3UjQxRGRTTGw4THV1UDhOdmduZTF6OEJmVWRFVXVhbWhpR0ZRMjNZZTR4WW1yUnQwYWtCQldUYURENXpjYVNjeGx3bDA?oc=5",
   "published_date": "2020-05-20",
   "captured_date": "2026-08-06",
-  "summary": "Will juneberries be the new superfood trend in German food retail?&nbsp;&nbsp;FreshPlaza",
+  "summary": "Supermarkets are always looking for new products and innovations to attract new customers and stimulate purchases. Superfoods' are a popular category in a society that is increasingly focused…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry consumption trend",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-ff93-berry-consumption-trend-116"
+  "source_id": "source-20260806173428-ff93-berry-consumption-trend-116",
+  "origin_domain": "freshplaza.com"
 }

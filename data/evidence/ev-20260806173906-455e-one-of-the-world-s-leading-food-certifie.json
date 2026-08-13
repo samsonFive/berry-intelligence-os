@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNY1UwNGoxZ3ZMX250SVlKdjh4MmJCd2dDTHJvMXlDY3c1ckJQOUlmRnFHZmhVdTJOMTIwczktQXVrV1dMN3o2bEhqSXlJbnE1UG5aVjRsWmRyZkJDT2ZJLVFGTUdKYXFZTDYtXzZfdHJDaWUzUFNxcnZJdUliN19oZVNlM0stS3l5ZVh3?oc=5",
   "published_date": "2018-05-02",
   "captured_date": "2026-08-06",
-  "summary": "One Of The World’s Leading Food Certifiers Will Investigate The Alleged Sexual Abuse Of Female Farm Workers&nbsp;&nbsp;buzzfeednews.com",
+  "summary": "It comes after BuzzFeed News revealed widespread sexualized violence against women picking fruit destined for European supermarkets.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "buzzfeednews.com"
 }

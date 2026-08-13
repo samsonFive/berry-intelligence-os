@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOZUoweUVEQ2E2Vk9XSU5fczZrSENVVXFGRWh0NTdVT3Z6eElMQURrOWMxejZ6MUJCSVZQc0hhZ3lFSmhlNy1ZUHZhYUNBNTZfcmo0NUp3cm85T09ucEZhbHdOQWx0QUpmYjlLMC12MnpqVjVfM0wzNDJlODVYdW15SDZuZVItN08xNE1XbDI5LWQ1M0hlUlpsWUJXMmRWNmF2cHllUXZ1VkEtOUtpSWxJc2daN1h0TFRvLXVMNTJ5aw?oc=5",
   "published_date": "2022-02-15",
   "captured_date": "2026-08-06",
-  "summary": "Agronometrics in Charts: Mexico picks up momentum on blueberry production&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "Growth trends in volume for Mexican blueberries are likely to persist as the country continues to make new plantations.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "freshfruitportal.com"
 }

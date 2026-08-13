@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBHZXdyZmVseHR0d0ZvZFZYSkxFLVpZRXIyTkZsc1Y1TG5nN3ZzZ3hjeDhxVi05SS02RmhWVFd5VkJyaTNkSkJuZC1CZmVYc2dvUlAxUFd2TnBZVkNwMnc?oc=5",
   "published_date": "2025-04-24",
   "captured_date": "2026-08-06",
-  "summary": "My Turn: Blueberries and tariffs&nbsp;&nbsp;Greenfield Recorder",
+  "summary": "My favorite breakfast is granola, yogurt and blueberries. I do love my blueberries, and the grocery stores have them almost all the time. It’s fun to read the labels and see where they come from.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry tariff",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-f8a7-berry-tariff-105"
+  "source_id": "source-20260806173428-f8a7-berry-tariff-105",
+  "origin_domain": "recorder.com"
 }

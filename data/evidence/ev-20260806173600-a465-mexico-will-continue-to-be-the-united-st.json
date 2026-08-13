@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQeHhQcnhvRHVIRzZtUkhQOWx6aHZYb2lVVzFMeEk4dEZMbHVtQjl1aDdWU1BCVzN5MEhSbGRjS2ExSi0yWEozb1Jjb1pXeVFsdnRBMGdGWkdjWWZvMllZSVVacmtkZUd4SDg1TnlCbld3R2x2MU5uVDJkbm1qWjVINTQtdkI4Rm5VaHJVMmV6ZlB6T09EZV9uUFJMdGlLQU1YdnJRMl81bGlXVG9LZXZCc0syeUNVWngwam5McjdZejJ0OXlEa09Cd1I1Qmx3Ukt6c1ZQSDktOA?oc=5",
   "published_date": "2026-03-18",
   "captured_date": "2026-08-06",
-  "summary": "Mexico will continue to be the United States' top supplier of fresh berries in 2026&nbsp;&nbsp;FreshPlaza",
+  "summary": "Mexico will continue to be the top supplier of fresh berries to the United States in 2026, with an expected production of 1.2 million metric tons (MT) of blueberries, raspberries,…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -49,5 +49,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "freshplaza.com"
 }

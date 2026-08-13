@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOUXVfUHNSemlCZW9CNGpSc3UybWpNNnMzdjB0WWYzdlhBRWJ5M014UmdFSnhSb2dIUGhZTXBvc1prdUtiRlFzS3BPT0dPemV4ZjRtUVYybGt1dUJhN2hJaVVxeVBXQ3VpOFlrU0l4RTVPTmpPR2JfMG5jM2E0ajVNY2JxY2gzWXk1eFVKOW8tVnE1N1p5bVpHaWVRYl8yMmNXOU9v?oc=5",
   "published_date": "2023-05-17",
   "captured_date": "2026-08-06",
-  "summary": "Shortened strawberry season at one local farm thanks to weather&nbsp;&nbsp;Spectrum News",
+  "summary": "Short strawberry season due to weather at a St. Louis farm.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "spectrumlocalnews.com"
 }

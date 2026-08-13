@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxONDJ3WEpodl9CeVp2c1A1UTJnZ1RzVEowa2ZqVElTLWkxUHJLUUpfaTNqZmlCRmJRVFVvVkR5TGFzUEFDVnE0UGR3QjhDbWJ6d1d1ekdlV0kzUWxNWlBrOFBtOVE1a1RncUNnVkVoUUo4eUhBbDIzbm1MNkQ5cjZ6aWpobHQ5NFF5UmdvVGpydFFUN2ZkZ3Fiel9zWk9xZ0RESmZtVmIyOGpjb1FxQkxJUWVR?oc=5",
   "published_date": "2025-04-28",
   "captured_date": "2026-08-06",
-  "summary": "European regulators bless $8.4 billion acquisition of Berry Global&nbsp;&nbsp;Inside INdiana Business",
+  "summary": "European regulators are giving the all-clear for a merger between Swiss company Amcor and Evansville-based Berry Global. The deal is an all-stock acquisition valued at $8.4 billion.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Company acquisition berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-8498-company-acquisition-berry-95"
+  "source_id": "source-20260806173428-8498-company-acquisition-berry-95",
+  "origin_domain": "insideindianabusiness.com"
 }

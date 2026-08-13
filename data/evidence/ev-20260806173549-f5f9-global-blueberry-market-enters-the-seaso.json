@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPeDJPaVpFS2xXLTdDLXJsNVhjX09Ub0Z3cklnX2FfSkVyc2hGdTV6OEcySW1DM1JFQmZyTGZhUmh3MWNfbDlJaGpGYXU1eEE4VDFsQXQxLUpwa1d1QlNSWW5hTmNSYXlTWjRxbjl1Mm1IX1hzRkJXUmxQdC1SSnF5Vk53RDB6S1JwYk1Fa3RjOWY0OF93dWRNTW5vdG5nQUFFaTJJZWs3SURkSzhQSWVvQ2hNQk04bEFE?oc=5",
   "published_date": "2026-01-16",
   "captured_date": "2026-08-06",
-  "summary": "Global blueberry market enters the season under pressure from volumes and weather&nbsp;&nbsp;EastFruit",
+  "summary": "The global blueberry market is entering a new season amid an active redistribution of supply between origins and growing price pressure. In Europe, early-season availability is largely shaped by imports from the Southern Hemisphere – primarily Chile and Peru – while adverse weather conditions continue to delay the start of...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "east-fruit.com"
 }

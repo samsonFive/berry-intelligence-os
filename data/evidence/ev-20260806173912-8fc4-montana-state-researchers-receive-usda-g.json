@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOekNaWllqSFVnZUhpVmtyZ09xcEd5MWtpT1NFVldtbTVQb1A2d2FHem55a0VFREsyVEtKaEV0NTdZeWNJcFVudDI5NHZ4TVZLbmUwaWFibk40RTBEUUNKWEdBMWpheW1pV25aUHJJMGNla0hoWUYwWnA2VER2bU1RNU8tS2ZWSU5DTEloNkpVeHVFd2FVd28zekwtZkhyaUtBWGNJbHBqUnlidFI1NWhmdVRFanR6aWdiT0swNEkydw?oc=5",
   "published_date": "2024-08-27",
   "captured_date": "2026-08-06",
-  "summary": "Montana State researchers receive USDA grant to study health benefits of haskap berries&nbsp;&nbsp;montana.edu",
+  "summary": "Researchers at MSU aim to learn more about the potential health benefits of haskap berries while also learning how to best cultivate the berries to maximize those health benefits.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry health research",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2e40-berry-health-research-118"
+  "source_id": "source-20260806173428-2e40-berry-health-research-118",
+  "origin_domain": "montana.edu"
 }

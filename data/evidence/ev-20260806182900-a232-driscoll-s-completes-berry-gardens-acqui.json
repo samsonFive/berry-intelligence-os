@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPdjdaV2RLd1RKbFVxdXhqZk03Y29SaURNbFFBV3B2SkRMWGhTR1d6NjZQQ2dwRXJ0VXNobk0tMUhfZFA1Sk5uQUJZd0ZPUU03ckJlQzJJN3U0QUlWRVI4cXJ0MC1ycHNkN2ZqZTFkX3N6NWF0elpESU5VS214R1hIMWRHS09KbWE1U043SnJGQVVrZXh2UHBFMg?oc=5",
   "published_date": "2022-11-01",
   "captured_date": "2026-08-06",
-  "summary": "Driscoll’s completes Berry Gardens acquisition&nbsp;&nbsp;The Grocer",
+  "summary": "Driscoll's said the acquisition of the UK's largest supplier of berries would help it to 'become the world's berry company'",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Company acquisition berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-8498-company-acquisition-berry-95"
+  "source_id": "source-20260806173428-8498-company-acquisition-berry-95",
+  "origin_domain": "thegrocer.co.uk"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNRkhDU0JWLWUwU2xidFpQMnpmMnpHX0w1aXo3TDRjZG9pTUlxUUU2RlJYTG9EYTJmd25JamVsZFZlZGt0ZWJWX1lUeU9Yc0luUWZHOTM4Q0pKR0xfMTl5c2dURGU0VEdTYTJ5M09yeHM5VTJUaXNJRlJFOGlaV1ZUa29KdF9HV0l3OHNHWXBEdU8waVJ0ckJKbmNfaG5mY1Z2NlFCTTYzWkpfN0MxaHpZVFlubmcwR19VSUhRLVFZS0VRMFhvcnJ6SlZxNVVkZ0N1eFp6NQ?oc=5",
   "published_date": "2021-04-09",
   "captured_date": "2026-08-06",
-  "summary": "Florida blueberry season is here, as is a new variety from UF/IFAS&nbsp;&nbsp;The News-Press",
+  "summary": "It's blueberry season in Florida, and researchers at the University of Florida are celebrating with a new variety of the fruit. Meet the Sentinel.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Blueberry breeding program",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87"
+  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87",
+  "origin_domain": "news-press.com"
 }

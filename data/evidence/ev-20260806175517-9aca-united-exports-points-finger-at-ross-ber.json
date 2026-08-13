@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOVDBRRURqQ0ZjelNxVlhxY2dUeDkyODZ4MVU3Vjk2VHJ4RTVZLVlrdW4zZERRSU9fcEowMXdJR1E1emozVFl0R2NleFZKNFNLRnJfV2xUSGFpaHN0QS1NVlBWTmRmcDgxSkFRSEZ3SkdpTjJFQTZTb3JVVjJSY3BuRFd2QV9vclVsdy00NmM1LV94cDdPc0J5Z05n?oc=5",
   "published_date": "2020-11-06",
   "captured_date": "2026-08-06",
-  "summary": "United Exports points finger at Ross Berries&nbsp;&nbsp;Fruitnet",
+  "summary": "Group alleges licensing breach following second reported seizure of South African blueberries in Rotterdam",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92"
+  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+  "origin_domain": "fruitnet.com"
 }

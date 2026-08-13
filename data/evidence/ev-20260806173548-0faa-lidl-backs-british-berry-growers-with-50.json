@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQTnZ0UkFlV2Z6SVFZRS03OGpIcXlXQTEtMzk5RHR6eXZubF9pc2N1ZVVsb3ktTUNnNkdkaWJKa0xWTHJHSUZTaXpoYWU3a29OSW5vTzZKWW1RZTR4YmVGeE80LVczalA0RnBZQllVaUhJRlRlUzVwX0FqZGpkX2tXdkc1SkFkMDNKQkhwU00wZEpRanFNRWtPdmFfOV9iY2dUU2kw?oc=5",
   "published_date": "2026-06-10",
   "captured_date": "2026-08-06",
-  "summary": "Lidl backs British berry growers with £500m investment&nbsp;&nbsp;The Grocer",
+  "summary": "The investment reflects the value of sourcing contracts with British-based berry suppliers over the next five years with the discounter signing new five-year agreements",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry industry investment",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-69a5-berry-industry-investment-98"
+  "source_id": "source-20260806173428-69a5-berry-industry-investment-98",
+  "origin_domain": "thegrocer.co.uk"
 }

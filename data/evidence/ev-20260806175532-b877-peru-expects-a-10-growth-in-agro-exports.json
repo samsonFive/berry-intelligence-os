@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPaUlqbFFTZW9LUVphU1JHeVVSOG5yVl9EdW4tTUQ3QTVPRmU2ZFJDQ2VnalRjMjlzeUt3dlFEMlRfTFZubnNGOU1fOENWazRqOXFreVJObXBkeDlNUW5aQ3p5d2JnSDJkbk4yUUFOemFYYk03WDRWSXh6a3liZE1ib2EyMW5PVHVaMjgySmIxTURqUHJ0TGhJX0hMOGJzdE9fNURLTWdfWmg0QQ?oc=5",
   "published_date": "2025-11-18",
   "captured_date": "2026-08-06",
-  "summary": "Peru expects a 10% growth in agro-exports by 2025&nbsp;&nbsp;FreshPlaza",
+  "summary": "Over the past two decades, Peru has firmly established itself as a major player in global agriculture. It now ranks among the world's top exporters of products like asparagus, blueberries,…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "freshplaza.com"
 }

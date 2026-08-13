@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNVEZoRDRBOGRyTi14WmFfaTRObkR3eEVjUWk4RmNuREgzNXdkZUJEcjZzRW40VmxNMlpoeU03UDVtdWswaEowbUU2X3pjM1E4NWM4Yzd5cWc0bVhPWFgzellkQWhseDQwRjNKWFRsTDh3UUVlZjl5Tmk5LVZXOGxhaUJjY2F1R1pLaHpLSXhMajB2Y1VnZzExdWhoR1JydGZZWjJwcUlXeEdjbWVtR1BLVQ?oc=5",
   "published_date": "2021-08-18",
   "captured_date": "2026-08-06",
-  "summary": "Doubling the Boem Berry Farms acreage by adding another 15 hectares&nbsp;&nbsp;Hortidaily",
+  "summary": "On a random road near Kingsville, in Ontario, Canada, Chris Bastiaansen of Meteor Systems is driving. The Boem Berry Farms sign along the road, with the remarkable red-colored strawberries,…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry acreage expansion",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101"
+  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101",
+  "origin_domain": "hortidaily.com"
 }

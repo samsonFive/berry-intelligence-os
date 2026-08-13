@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPQllydVczSy1DeW83aVkyd1JqUm9WX3ljZzJQQU9LMVdOQ3pOSC1ueEZkUXYtM2dIWEpoVklSSGxUYmhPR0F1RWFZVElJcU9QWTFoLW9tZHdBenZRVmVvdVRuWU9IM0N2SnJndU1ab3N3WTRwREFSYnJBenByNzlwSzNnZS1fLXh1LTFYeVA1dXQ?oc=5",
   "published_date": "2022-04-11",
   "captured_date": "2026-08-06",
-  "summary": "Indian greenhouse project takes shape&nbsp;&nbsp;Fruitnet",
+  "summary": "Dutch Greenhouse Delta and Sahyadri Farms work together to improve soft fruit production in India",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "fruitnet.com"
 }

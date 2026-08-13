@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOMWpiM1o2QmNORFVrcUYxMnVQMkhOOTRfYUJ0Ri1CTXRLRVFuZWdaUWE5MEk1WGs3RUhzR1dUek51eVp6NWJvUFU0OWh2cUFJRFNaNTRUSS1XRDFZc2d5QlRGWU9PVzBvdHlZYktMZktLY2FCMFpmbXhJcGFkQlpSSUh5Q1ZJTXFZaEtQcFBkaXZxTy1zUEVv?oc=5",
   "published_date": "2024-11-25",
   "captured_date": "2026-08-06",
-  "summary": "Mexico’s Berry Production Reached 8% Growth in 2024&nbsp;&nbsp;Mexico Business News",
+  "summary": "Mexico’s berry production grew by 8% in 2024, driven by technological innovations and drought-resistant crops.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "mexicobusiness.news"
 }

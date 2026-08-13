@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNSy00b0Y5SkEwbFpTSzhyM1RHRTBsTUJnNm9IQXNvS3BMMVo2eXpDQTZzRjRSTHBOdXROYjltTkNPdVl3NlRLbTRnamFLN1ozcFJyRzVQTXN5MVJBQWpJYkRZMTlwWHBLNGRQajZxX0ZEVmluRzJmYm5RWThwaXRxcjJYUEIwUEhkSHpKbVVNQ0t2WDJJcE5idFVPeUJ2cnJVMHk0U3k2eGtKUQ?oc=5",
   "published_date": "2024-10-10",
   "captured_date": "2026-08-06",
-  "summary": "Peru’s 2024-2025 fresh blueberry export projections revised down slightly&nbsp;&nbsp;bluebookservices.com",
+  "summary": "In the 2024-2025 campaign, Peruvian exports of fresh blueberries are projected to reach a total volume of 292,138 tons, which would mean a reduction of 0.6 percent in relation to the estimate made in June (293,841 tons), according to Agraria, using the latest projection of the Association of Producers and Exporters of Blueberries of Peru […]",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "bluebookservices.com"
 }

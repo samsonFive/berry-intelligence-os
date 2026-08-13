@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPQ2x6MF8yY1pmcDdnRmdKejVleFFFMWVzWDlFTlFpRWZ4X09Ec3BPMEZRVk51eGQxOW5sVnlXNVZMMWNpNTZzR0QyS2syeVRzZl8zNjNnTVE3YS1jRkpiUWFtMFFkMHBXR0daTzBiN20ydUl4YW1SdlczUDdyZ3JaRnpOVjNtTk5ST3RydUpyd0hiZW9lYlE?oc=5",
   "published_date": "2025-08-19",
   "captured_date": "2026-08-06",
-  "summary": "Peru leads world blueberry exports at over 1 million tons&nbsp;&nbsp;bluebookservices.com",
+  "summary": "Global blueberry exports reached 1 million tons in 2024 with Peru claiming a 31-percent share of the shipments.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "bluebookservices.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPaHJnSUd2R0dGeHRkdWsxNE1fNWdyV0Rkc1U3SnRZS3M1RFRjeDBLaDJPRWVNWWZyQ2F0TE15amwzMFVkT1owbXhEeENWcERaUG5zdHpKUm83X3EtOEtSUUF1V2Zmb0tuVEhZZmR1T3F0TWhOY2NDMGY5Z243V3NzWTZFdGJXYWIxMk9lWC0xWTJpbnFVLW14M09LTzdnRE00djVOdF9jeml1QQ?oc=5",
   "published_date": "2025-09-25",
   "captured_date": "2026-08-06",
-  "summary": "Exports and destinations for SA blueberries expand&nbsp;&nbsp;Farmer's Weekly SA",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:South Africa blueberry IBO summit",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'South Africa blueberry IBO summit'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-996e-south-africa-blueberry-ibo-summit-115"
+  "source_id": "source-20260806173428-996e-south-africa-blueberry-ibo-summit-115",
+  "origin_domain": "farmersweekly.co.za"
 }

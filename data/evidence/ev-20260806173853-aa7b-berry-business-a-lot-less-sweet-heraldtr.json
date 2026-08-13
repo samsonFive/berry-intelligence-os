@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOVXh4cVdUQ2xEbHIwcjRjOVphc1ZrbmhIVjFLaVBZZE9YYXlveHFNVlpsVG0zYnBlWHk1N015Ymt6ai0wZXQ2aVpWdDhWSkxGRHZMT0l6a01uX1F3ZE96MEZxQ1Bhd3NMNEFjbnRhUnEwU3FqN1BMaHR4MllBUldrTEpZdkRQc3JCN0hKaE5xOHZZWW04WG1SWGg0bkk?oc=5",
   "published_date": "2015-03-03",
   "captured_date": "2026-08-06",
-  "summary": "Berry business a lot less sweet&nbsp;&nbsp;heraldtribune.com",
+  "summary": "Three aerial photographs hang on the wall of strawberry farmer Carl Grooms' office, each a testament to years of expansion. \n Taking a visitor from one to the next, he begins the tour in sepia in 197…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry acreage expansion",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101"
+  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101",
+  "origin_domain": "heraldtribune.com"
 }

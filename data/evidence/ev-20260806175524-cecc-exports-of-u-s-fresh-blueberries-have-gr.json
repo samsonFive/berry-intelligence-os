@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1NOEg3RDd3anZ3NW5VbC1Oc1E2WjF0ME1CbHljTzVqY1NDY2dja0RnU3dpWElGTlgyaWY4aERXZDI4VUxSZjdQRlkybHM3U1QzclRFNTBHRzVfQzZXRlRzSjMwVFVTdTVGNElF?oc=5",
   "published_date": "2012-09-10",
   "captured_date": "2026-08-06",
-  "summary": "Exports of U.S. fresh blueberries have grown in recent years&nbsp;&nbsp;USDA Economic Research Service (.gov)",
+  "summary": "An official website of the United States government",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "ers.usda.gov"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNamtjZEg3ZVBNaXE5NGZxaENOQVdlMDdlM2w4dmkySDZ2aDFfZWFRNk51M2hYakdQT2lxQWhJOHIwZ2dKUjg2WUg3SEY4aHBzWDBjNkstbHFMbGZSWHpWbHBrV2Fmdmc5eldGQmd1a0RzWEdZajRSWUo1Z3BpTHY3QmcxR2hsZXNpSHN1ZjVRRjdzdmJBTlE?oc=5",
   "published_date": "2025-11-05",
   "captured_date": "2026-08-06",
-  "summary": "What is the most profitable agri-food in Mexico?&nbsp;&nbsp;Hortidaily",
+  "summary": "Berries, strawberries blueberries raspberries and blackberries, are recognized in Mexico as the most profitable agricultural food category. Although they do not lead in national production…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "hortidaily.com"
 }

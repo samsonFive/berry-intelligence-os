@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE96aksyWGVxd3lMbHM2Z0dFaUMteElWTjAxWFlKbk04V0RWU0FnUVl1bzFWei1idzh4emFha2JMb2hLdTE1Rml5XzBqckhqVEtYOXE0bmEyQ1EtQ1JRb3hPSlVpbTVmMzg1NWV5bUdqdEg?oc=5",
   "published_date": "2026-03-19",
   "captured_date": "2026-08-06",
-  "summary": "Blueberries and raspberries drive Mexico’s berry production expansion&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "Mexico’s berry industry has experienced tremendous growth over the past decade, transforming the country into one of the world’s leading suppliers of fresh berries.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "freshfruitportal.com"
 }

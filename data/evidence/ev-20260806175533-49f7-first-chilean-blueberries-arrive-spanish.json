@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPZ0lKMzFlT2VvM0Z0Nks5QTU5NU5jeDBmazE2eGxHbVNiaGhSSk1oZXJScGVtQ2NiMzNjaVlXd3dIRGlPWDU3Ulo0dUVDOC1MU3dFQ1p1Wkg2djU3cXNOdTk2QWhoSXJOUGJGaFBBWFJIT3hLYzJxTXFLTXlDQ3RtNkliX2ZQY0U5QmhTUUxPUmdXcDMteDdWSE9wSU1sb1ktaVU2RkN6Y0JqVTNqb2d3MlFPdHpYWkVVMzV5S1pMU3BTSXQxMWc?oc=5",
   "published_date": "2025-01-16",
   "captured_date": "2026-08-06",
-  "summary": "First Chilean blueberries arrive, Spanish and Moroccan in tight supply&nbsp;&nbsp;FreshPlaza",
+  "summary": "Over the past few months, the UK's blueberry supply has been dominated by Peru, supported by South Africa. However, the market is now transitioning to sources from Chile, Morocco, and Spain.…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "freshplaza.com"
 }

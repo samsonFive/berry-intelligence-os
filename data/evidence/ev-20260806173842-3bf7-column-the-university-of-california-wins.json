@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOSDdmWUgwWlpHQVNIUTJBRlZwems0QTFpaUx4bE5OdnlBM0VZb3Z0SnVqNkZlb2liRlRqSGx1bFlZUGxaWUdJcFdTZHFMbFhZY0x6VHdMMWN1V3FOOFRuSVlJMC1GaFZBb09rOVdKX2NCY1dUdUhKd0V4VWhSZ3lIbkgyVjFGSFoza3Z5NXFqQ2FOQQ?oc=5",
   "published_date": "2017-05-25",
   "captured_date": "2026-08-06",
-  "summary": "Column: The University of California wins a jury verdict in strawberry case, then gets blasted by the judge&nbsp;&nbsp;Los Angeles Times",
+  "summary": "The University of California secured a resounding victory Wednesday from a federal court jury in a lawsuit claiming that two former professors had infringed on its strawberry patents.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Strawberry cultivar patent",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89"
+  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
+  "origin_domain": "latimes.com"
 }

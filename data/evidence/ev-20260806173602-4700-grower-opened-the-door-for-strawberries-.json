@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPSk15ZDVLLTJnNDBuVTA2aGFBXzR6M09DSGhUZEtDbjNCOGFBV2JkMDJnZmpuNnpTUldMbVlEbkw1ZlhiVUt1WDd6ZHdFcHZ0cHlqaHdtQ0RYT1FLSkVYNkNOblU2aEFSZWxXSHB4ZElCZGQxU1B5MGhmTmhtUjhLM1RPVGV0V19rMmNLRnhKVlJXUVRNZHc?oc=5",
   "published_date": "2023-01-18",
   "captured_date": "2026-08-06",
-  "summary": "Grower opened the door for strawberries in China&nbsp;&nbsp;Farm Progress",
+  "summary": "This website is using a security service to protect itself from online attacks. The action you just performed triggered the security solution. There are several actions that could trigger this block including submitting a certain word or phrase, a SQL command or malformed data.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "farmprogress.com"
 }

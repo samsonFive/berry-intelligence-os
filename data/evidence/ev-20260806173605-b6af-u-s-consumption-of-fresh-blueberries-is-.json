@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBhVUdqcFpKak5oUWtsQy1RdVRZMEVJU3VKS3VKb3lWcHczVTh2LUZScl9SOVZMQnZSWkZMQnR0UVJ3aTk3a1RhN1I3QWhZd1FxRHlnOFRDbmFxY0YzTkRBR1B0SU1CSWtXZmc?oc=5",
   "published_date": "2016-04-18",
   "captured_date": "2026-08-06",
-  "summary": "U.S. consumption of fresh blueberries is growing&nbsp;&nbsp;USDA Economic Research Service (.gov)",
+  "summary": "An official website of the United States government",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry consumption trend",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-ff93-berry-consumption-trend-116"
+  "source_id": "source-20260806173428-ff93-berry-consumption-trend-116",
+  "origin_domain": "ers.usda.gov"
 }

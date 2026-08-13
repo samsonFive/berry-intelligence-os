@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPLUpKV2tCWlFqX1dNV1hzOUwxX3c2aWNQWndVdnhYalYtd25mRS1kZ0VaZnBlRXZGN1dLV2N0UVpjbW80TVNUazhqdTFNbHVyTUlnaWpOb0tQNFRfaFoySy1fZWl3UHJmTVl0T3Ffd21lR2p0bzRiNVVqeUxyQm5sQXJOZG95bEVHSWctRGRBUQ?oc=5",
   "published_date": "2023-08-04",
   "captured_date": "2026-08-06",
-  "summary": "Plant Sciences Restructures to Form Plant Sciences Genetics, Inc.&nbsp;&nbsp;igrownews.com",
+  "summary": "Plant Sciences, has announced a significant restructuring to create a new entity named Plant Sciences Genetics, Inc. (PSG).",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry genetics company",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry genetics company'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-80ee-berry-genetics-company-91"
+  "source_id": "source-20260806173428-80ee-berry-genetics-company-91",
+  "origin_domain": "igrownews.com"
 }

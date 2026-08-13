@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQOE53WktlbHpZVjQyTW9mNWRSc3BqM29wclBfSU1MTi03OW94bDVIS3hCTmszUXNwSlRUek5wRlJDRVN6bzVRUGR1YmpWUlZOOFpURUM0MXJNcXp2Sy01MmxiZ3pyM0FLYm55cXBRS0U5WUg5OWtzdGt0Vkd2UGlIb19KSWwzMk5qNFk4R1pjMEQzM19ka19WR2dYaFdicnRFQnVVVTNqd2VsckI0?oc=5",
   "published_date": "2026-06-01",
   "captured_date": "2026-08-06",
-  "summary": "In 2025, Spanish berry exports reached 2,114 million euros&nbsp;&nbsp;FreshPlaza",
+  "summary": "In 2025, Spain exported 426,527 tons of berries valued at 2,114 million euros, reaffirming their importance in the international fruit and vegetable market. Strawberries remain the leading…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "freshplaza.com"
 }

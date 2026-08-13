@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQb3hqTTAzUU9tVjVxRkVkQkFpd0Rqa0UteldDZWZsX0NyN0FLZ0NHSjNDeXJHWjE4NGVpTTFidGs2N1ZDUG1IRzNrYUhzWDJvSmZMS3pUdjB2WWNRUWRTZzg5MXNyYV9zNmFpSlZ0ZFp1SG1HNmd4NE85TnpTS2JUell5eFFGZGJ2TWlxaXAwbnlSVy1ULXBCQw?oc=5",
   "published_date": "2026-02-05",
   "captured_date": "2026-08-06",
-  "summary": "Weather delays Moroccan seasonal workers' arrival for Huelva's strawberry harvest&nbsp;&nbsp;Yabiladi.com",
+  "summary": "The arrival of seasonal workers recently selected in Morocco for the strawberry and red fruit harvest in Spain’s Huelva region has been delayed due to...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "en.yabiladi.com"
 }

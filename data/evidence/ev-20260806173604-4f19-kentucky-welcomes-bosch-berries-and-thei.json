@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOdGlXWlFaUHpMMEZQUlJxa3ZjQXJKWENvSnNiNEpNVUwxQTBGcGV0Z3d0aDFnVThoZmZaTml1b0ljNW1FV3lZZ0xwVHVoUVZORl9DVkhLZ21YeVJmd2lwdGpROHVvcEhQQURxWDVSVHNGQkdTNWtyVWFXVDRWdnFyTlhSX2o5YXJBVUY5WUt1RjNaNEd1bTRjYzhNTGZ1ZTdjQWdOWFRCd1hHYXNndWtUMGdnckRyYzhoeFp3?oc=5",
   "published_date": "2024-02-13",
   "captured_date": "2026-08-06",
-  "summary": "Kentucky welcomes Bosch Berries and their $50 million investment in Somerset&nbsp;&nbsp;Hortidaily",
+  "summary": "Yesterday, Gov. Andy Beshear officially welcomed Bosch Berries. The international grower and distributor of bell peppers, blackberries, and strawberries will be locating a new greenhouse…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "hortidaily.com"
 }

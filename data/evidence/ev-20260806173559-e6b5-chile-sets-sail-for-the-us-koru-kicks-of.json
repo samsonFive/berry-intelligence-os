@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE83eUhiME45aGNWYzJBZUpvVTRobU05NkV5WmdoZGEwbW5tVVJGNkU2Q290LTk2S2FobHFhUFlIbjAyd0w0eXIydXlVaS1HR3RoUzJjek0wVmdGcU84ZmR3ZUVydjc1MkpUYmFuUUJEaHFqcDhLa3c?oc=5",
   "published_date": "2025-12-02",
   "captured_date": "2026-08-06",
-  "summary": "Chile sets sail for the US: Koru kicks off fruit season with a big first shipment&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "Chile launches its new fruit season with Koru’s first shipment of berries, grapes, and stonefruit bound for the US in a quick 12-day trip.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "freshfruitportal.com"
 }

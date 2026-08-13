@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQT1NnMmlsbnhKbU5yREozdDNaQTZTem1KZnRQT0NGS05ESHY2RjhmaG1Lc3NBOElVZS14aC1NNmVHWEprZE8yeUlXS1o3UFRKa0dTaTRUellqWG5ETlZKZTZrcV9kODAtMDhNYVFEZkZ4amE5QUtlS2dyVGRMVU9EamV2elprYUp5SFU1ZFBqcEFVQVRYdGhhalpJbEl3ejM0Z1BnbU1rNHhPbEI0U1lIUTN1Y1hIaDUyZHVQLWJ5QjVsdFpIUU9uWEtKSWZLUTJaNVE?oc=5",
   "published_date": "2026-01-26",
   "captured_date": "2026-08-06",
-  "summary": "Cherry prices continue to decline as blueberry supply tightens and prices rise&nbsp;&nbsp;FreshPlaza",
+  "summary": "Chilean cherry prices continued to trend downward this week. The main varieties currently available in the market are Kordia and Regina, with smaller volumes of Lapins and Sweetheart. Prices…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "freshplaza.com"
 }

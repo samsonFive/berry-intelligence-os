@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFAtdkYtUUtETWJyRVZiQmY2R2tQazQyM0V6NS1lNXh3ejBqZXJqTl9jYlZrUFFIOHVTcWxOVl9Edkgxb3YyVTVJMVJiSDFIT3NsbXFrMHFuUXdzRTZlaWxkZGdZTDMyekZCU3lBY1hBRl9XVjNHcVE?oc=5",
   "published_date": "2025-09-30",
   "captured_date": "2026-08-06",
-  "summary": "Big, fleshy, and delicious—Malaika raspberries to hit European retail soon&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "In addition to its good looks, Malaika raspberries are cold chain-resilient, reducing shrinkage, and ensuring a great consumer experience.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Raspberry variety license",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88"
+  "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88",
+  "origin_domain": "freshfruitportal.com"
 }

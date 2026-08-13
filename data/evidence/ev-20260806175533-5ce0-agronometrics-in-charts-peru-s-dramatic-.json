@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPRnB2SDYwME9SZVNBU3hGNGlEcWdwbFhYS0dLZFVPRHRjTElLY21oRmZwdGZ2MF9KdnhGSGpBZWJVV2w1SjUzMXlMeWVTbkR0V0pDUTF6aWd5elo3d2RVTU02U2VyWThHaTgxcjEzTV9MRU1tREhuelJXRG91UVZKcVg2eThnOVluSTlfR3E5ZHR5bHlJNU5IOExnOW9mc0Ntaktra3FiWVVraVZ6dk43VXNIamEtOWRVSDRfcw?oc=5",
   "published_date": "2022-01-20",
   "captured_date": "2026-08-06",
-  "summary": "Agronometrics in Charts: Peru’s dramatic increase in blueberry production sends pricing to an all time low&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "A growth of about 37 percent is expected in blueberry quantities shipped to the US by the end of this season year-on-year.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "freshfruitportal.com"
 }

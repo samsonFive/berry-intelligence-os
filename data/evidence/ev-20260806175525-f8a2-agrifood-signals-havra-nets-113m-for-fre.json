@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOVkJrV3Zfa3ZyT21KNmdGcGNDUXR1c3RxYzNIeXZjX1VKTHBwWndNb3BsazZKdUdBa0cxYUVSTF9TM3BGdHlmUV8wbFhYcV96TVk2NUttVzV2aVdoRFhGQjcxS1FhVm1uN25mbzFqWW5IVjB5T28tWTF5NG9fTmZ2T0o2YWl0U0djeWExVDhYQTlXdXRuQ1dYaUNER01vZmVBOUh6VTlvNGtkei04aHdSVUFodzBFQXpYRnJzOHlpUm9pUFZCYzZmN2tPZw?oc=5",
   "published_date": "2026-04-09",
   "captured_date": "2026-08-06",
-  "summary": "Agrifood Signals: Havra nets $113m for fresh produce ERP, ZBiotics GM probiotic expands to hospitality sector&nbsp;&nbsp;AgFunderNews",
+  "summary": "Havra nets $113m for fresh produce ERP, Scentian Bio nets new funds for its digital nose, ZBiotics expands into the hospitality sector.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "agfundernews.com"
 }

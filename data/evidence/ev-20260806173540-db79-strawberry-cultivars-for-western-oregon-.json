@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOOWN5VXR2cXlPUkZLbTJkenA3T2V0Q2w1Q0tMaC1KTzhmQ1J6X0VEZUF3Q2Y0eVd6dHAtMmx6NldlOFJ1SjhIcWtwemQ5QS12emtnZmZOSGR5TEpwLW1hQ1lGNVR0OXNOM3ZDcnpHMm5mQ253NmpuNlNiZXdDYWp3dHZfTnFqVFpGWllwSHVMRVdBVXNLU1B2emx4ZG8?oc=5",
   "published_date": "2025-06-26",
   "captured_date": "2026-08-06",
-  "summary": "Strawberry cultivars for Western Oregon and Washington&nbsp;&nbsp;OSU Extension Service",
+  "summary": "Learn about differences among strawberry varieties such as June-bearing, everbearing and day-neutral types. Discover which cultivars have commercial value and which work well for home gardens.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Strawberry cultivar patent",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89"
+  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
+  "origin_domain": "extension.oregonstate.edu"
 }

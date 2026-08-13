@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQYlBmXzc2N1RlcG9wQ3NBNGhUMUFDcndLODZuOFBMbmRwNDRBMEkxX1hBS0VyTnh0UUExWXBndWJQVU5TSFpXcUFXZUd4ZUNNZi03ZE84RDNBdG5PV3QxN1lxaDBQblJsa0xFVkVqX3VtSERiNW1GYXFMRFpsSFpWbWVtQm1Eb1JKaW8taXMyUk5PSEJqQmI5Z25sNHpkOVN4SnQwdWp4SlR1YVc2NXF5MVhJaWZVYm5lb25xMTFleVFVOVFvTXhB?oc=5",
   "published_date": "2021-11-04",
   "captured_date": "2026-08-06",
-  "summary": "North Bay Produce’s Ryan Lockman Discusses Expanded Strawberry Program Through Mexico and Florida Supplies&nbsp;&nbsp;AndNowUKnow",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "andnowuknow.com"
 }

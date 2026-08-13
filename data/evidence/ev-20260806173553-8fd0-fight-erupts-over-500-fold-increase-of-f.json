@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNRWVocmtFZHp3WGszMEloZUVkN2RSb3hpRWVLVDFDYVBzN2VtZjk3Sl9PRjl2NmlDTlFQNlQ0MTdLV2k2c1daSk1IcmZpTXN2d1B4RHRHcVlNTDNPeXRHc3dDazBQamsyV1Myd1VYd2J4ODV0RmwtdTl4eWNSajNseHRDQWZlbktVMkJkZzNJWmFyTVJ2X1VyM2pyMDJmRmJKdGZpSG9fSXBESzJfazhJbG9ETHBEQjNqekE?oc=5",
   "published_date": "2026-07-18",
   "captured_date": "2026-08-06",
-  "summary": "Fight erupts over 500-fold increase of 'forever chemical' on berries&nbsp;&nbsp;ABC News & Headlines – Australian Broadcasting Corporation",
+  "summary": "A proposal to increase how much pesticide residue is allowed on berries has angered anti-pesticide campaigners, who say the \"forever chemical\" poses too great a risk.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:MRL berry regulation",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'MRL berry regulation'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-0a6b-mrl-berry-regulation-103"
+  "source_id": "source-20260806173428-0a6b-mrl-berry-regulation-103",
+  "origin_domain": "abc.net.au"
 }

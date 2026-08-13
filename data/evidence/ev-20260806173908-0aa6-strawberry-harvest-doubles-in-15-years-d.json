@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOaTYydURib1ZRd3l2eUo2TkRaYlc1NlFURVFxVGpkYmtQaW5MQzlJdGhuSk5wZEY4cFd4U0g3NmJnUnB3VlY0eGxGeFY0LVNFSFNDQWZ3TUhOR0d6dVRmSUl3SGxYSS1pOVdURHlncjVId1VTajg2b0c0TlhoUng3V0R3aXNYWDNnLVpXelpVUWdHNTJoTjdwM2VPVnNpNE9lZUxBRkZHUkJrVF9x?oc=5",
   "published_date": "2025-08-07",
   "captured_date": "2026-08-06",
-  "summary": "Strawberry harvest doubles in 15 years despite smaller cultivated area&nbsp;&nbsp;Centraal Bureau voor de Statistiek | CBS",
+  "summary": "More than 86 million kilograms of strawberries were harvested in 2024, twice as much as in 2010.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Netherlands berry greenhouse'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "cbs.nl"
 }

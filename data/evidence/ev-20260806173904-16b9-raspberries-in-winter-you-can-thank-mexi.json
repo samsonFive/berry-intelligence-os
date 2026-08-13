@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOV2txZzdvUkk2alcyclpaUzVseVA2bEROQ29jeTlxeVlvU3BHZmhXN2ZsVEpjQTFNZWQ4bGRwbzNWN2NtTm1mOTAwSkVpZWhheV9DQWFFdGpqTURveEwwOThxSmo2S1MwbVBHRW9pM1doU2dTVmZBRVJPaW5wa3RJd0hCUQ?oc=5",
   "published_date": "2022-09-17",
   "captured_date": "2026-08-06",
-  "summary": "Raspberries in winter? You can thank Mexico for that.&nbsp;&nbsp;Mexico News Daily",
+  "summary": "Mexico's berry farming is rapidly growing, taking advantage of the warm climate and its proximity to a huge export market — the U.S.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "mexiconewsdaily.com"
 }

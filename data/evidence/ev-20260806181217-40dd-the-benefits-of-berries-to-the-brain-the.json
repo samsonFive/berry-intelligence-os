@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQZXJmY2E2dFJOWmZqTEJpWDNWVVZZNlpjcmg4ZGZjQ1ItSDNsMnF5eUx5SFZFd2lLcDlhUXhIMnNaR0Z2dUd3MVU2Uk9NVkFCM1RIbi1vS3ZPUXo3N2JaamN4LWtPUGNWOUF3cWVXUGQzNmQxcnoxSzd1T2FuRzhsNV85TlhSWmlkb25rU2JxWHRieVNrQXdxeEI4RQ?oc=5",
   "published_date": "2012-04-04",
   "captured_date": "2026-08-06",
-  "summary": "The Benefits of Berries to the Brain&nbsp;&nbsp;The Atlantic",
+  "summary": "The Human Nutrition Research Center on Aging at Tufts University has reviewed the studies and found that berry fruits protect brain cells from damage and prevent inflammation.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92"
+  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+  "origin_domain": "theatlantic.com"
 }

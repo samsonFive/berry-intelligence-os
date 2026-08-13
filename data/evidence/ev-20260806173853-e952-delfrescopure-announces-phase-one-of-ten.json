@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNZkVSR29LbG15VnBQcmx0eTZ5WTBwQW00MDNBQUJsMnRLYXM1STNMUW1YdFB3Y0RSTDFOVlRER0ItYnAzTG9JZlBxQXJOZUVSU3BEWEREYTI5UjAzYUxJdkV0WnQ4dUEwRFBJWDlBdEwtYVdYNjlSWmhGNHM0eEgyRktybUdSQ1d2QUc1eGhwMlltV0VqZzBOXzc2NlhuaTItM3kxTFJnZFBfMU81?oc=5",
   "published_date": "2017-10-04",
   "captured_date": "2026-08-06",
-  "summary": "DelFrescoPure® Announces Phase One of Ten Acre Expansion&nbsp;&nbsp;AndNowUKnow",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry acreage expansion",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101"
+  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101",
+  "origin_domain": "andnowuknow.com"
 }

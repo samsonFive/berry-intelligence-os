@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQMTZEUHg4LTFkOVRubHRmZDFOSWFWdTdnYjktN0R3bUJla19Dd0NZM3hKOEZmSXVfWDQ2VkhXZDJvY1p3UGdkRVR0SF9mQ1RucGhOd29pY2VlTENTTmNpQkI4LWhJSk10aTlXblduTklLQm5feTN5TlREeGowLWNNSVJwU1hDUjlHYldFUGNpSQ?oc=5",
   "published_date": "2026-06-06",
   "captured_date": "2026-08-06",
-  "summary": "Cold weather brings 'bumper' season for Scottish berry growers&nbsp;&nbsp;STV News",
+  "summary": "Growers say wet and cold weather has brought a promising start to the season in Angus amid soaring costs.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "news.stv.tv"
 }

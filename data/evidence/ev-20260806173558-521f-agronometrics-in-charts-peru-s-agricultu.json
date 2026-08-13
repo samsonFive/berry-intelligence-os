@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFBZdUhBUzVaamtpbGwzcWFPR21lS09YTF9MZUR6TmdVa0VESV9lZGVxTTR0MWtUb3E2OE9DSkdvM1NQd0tXUGFmMGg2dnRJZmdYRndMT3ExRWhJUnhyXzI3cnRhc0pKZk15bXVJWEdMOG85cUJQVGNqTk9KQQ?oc=5",
   "published_date": "2026-07-21",
   "captured_date": "2026-08-06",
-  "summary": "Agronometrics in Charts: Peru's agricultural exports to hit $5.4B as El Niño looms&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "Peru's agricultural exports reached $5.4 billion during the first half of 2026, marking a five percent increase from the same period last year.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "freshfruitportal.com"
 }

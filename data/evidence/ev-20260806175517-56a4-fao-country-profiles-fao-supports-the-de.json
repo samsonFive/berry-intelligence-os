@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBqenZWVDhOTmV0V2lzTHl1SnJWN2xZM1VKSEhJTmo1ZFowbFZUeF9sS25OT1R6LXA0VUpEMnlPcFpKNTR6UVBkOVMtNFdOY3ZFR0cyWnlhb09zSHk0TjBLa0ZwaXFnazhtNnpRd0xCTW5mZzc1WFRkTE9ndlp6UQ?oc=5",
   "published_date": "2025-03-11",
   "captured_date": "2026-08-06",
-  "summary": "FAO Country Profiles | FAO supports the development of climate-smart agriculture in Kyrgyzstan&nbsp;&nbsp;Food and Agriculture Organization",
+  "summary": "FAO's Global Information System on Water and Agriculture",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92"
+  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+  "origin_domain": "fao.org"
 }

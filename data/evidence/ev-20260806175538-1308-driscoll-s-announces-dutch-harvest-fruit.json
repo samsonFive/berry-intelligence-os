@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOQ3BSbk5pVUJNOGtsd0lhSTVRV1dId01jeldWMXRjcEFMX2RsVTY5WTRqQ1R0YnBXdVl6eFREWEt1LVdOUC1LZUdwdlY1N1FZbExyWjVRSGhvUWVlWWVlaXBtVUFhUlFrMXo3TUZSdEdKcjkyWGFpSU1oQjBSUmc4aDBEc3otdldBUDRJ?oc=5",
   "published_date": "2014-09-16",
   "captured_date": "2026-08-06",
-  "summary": "Driscoll's announces Dutch harvest&nbsp;&nbsp;Fruitnet",
+  "summary": "Driscoll's is celebrating its first ever autumn crop of Dutch-grown greenhouse blackberries",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Netherlands berry greenhouse",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114"
+  "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+  "origin_domain": "fruitnet.com"
 }

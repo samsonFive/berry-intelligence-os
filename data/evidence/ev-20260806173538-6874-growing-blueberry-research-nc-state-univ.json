@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBmX0tUcVZoSHBRVmNHVnpiblRRUHZTZWFfbWluX05zdkxHWXpnX2MtNVhReEY4WDlQVnVocjg3U1FsWWRtTXNyVnZ1OE5uVnRoWEhKUkhIVTZyaDVTYkhyNmFiZFQ?oc=5",
   "published_date": "2025-06-05",
   "captured_date": "2026-08-06",
-  "summary": "Growing Blueberry Research&nbsp;&nbsp;NC State University",
+  "summary": "Postdoctoral researcher Heeduk Oh's cutting-edge work with blueberries has earned him the Keller Award for doctoral dissertation research for the College of Agriculture and Life Sciences.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Blueberry breeding program",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Blueberry breeding program'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87"
+  "source_id": "source-20260806173428-3785-blueberry-breeding-program-87",
+  "origin_domain": "cals.ncsu.edu"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQeUY5cmNfdkxubTQ0RWR2Tjc0ZXF1Wkw0THZCVHdPTEw5eEo3b0gwRWc3RTVxU2Zja0F3ME9NVW5LX19rV2pxZXBldW1KOS1XRUZvajlSZUdnSnJINzFCUTlOODZhYVVkNWhaTVB0ZFFjNUQxY0VBZWVKZkZwdTlVQkE3ZXFyWkZiN3hKOWtR?oc=5",
   "published_date": "2018-11-16",
   "captured_date": "2026-08-06",
-  "summary": "Blueberries heavily influenced by supply and demand&nbsp;&nbsp;bluebookservices.com",
+  "summary": "Blueberries are very sensitive to supply variations. The lowest prices occur in June and July. In June, California, Georgia, North Carolina, New Jersey, and Oregon fill the market, and in July, supply comes from New Jersey, Oregon, Washington, and Michigan.   On the other hand, high prices occur during the U.S. low season in October […]",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "bluebookservices.com"
 }

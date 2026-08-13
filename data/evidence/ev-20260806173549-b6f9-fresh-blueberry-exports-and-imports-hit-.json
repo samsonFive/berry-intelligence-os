@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5FcTJIQUtZcFJhdV84bUZYNUNod0Npa3B3QWM0OTB2aXh5ZlNrWkxGbWk5UHIzWkdzbjN2RndtSGdOOTlDSEkzTC1wcWxwTWg2NFFkOEV4VFdnOFRiOGxDNWxra1dSeFNSX3JCU3FyRjhsNzJEX2c?oc=5",
   "published_date": "2026-04-27",
   "captured_date": "2026-08-06",
-  "summary": "Fresh blueberry exports and imports hit record highs in 2025&nbsp;&nbsp;FreshFruitPortal.com",
+  "summary": "Organic fresh blueberry export volumes increased 54 percent year over year to a record high of 13.4 million pounds, according to the USDA.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "freshfruitportal.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOdkVQQ0RXY2dpUU1vdVo0Yk03cVc3eVBITHRnakNHM1ZSYnliZzFFSGw5eEJTYzhaRXZRWF9UUlg4SGh5bS1OcnV5TWtrdjdNN0JOdUM4RUtGUWVNaU9oRFVrM1JKSmxUa21QUk0xZzVQME1qLWVvYm1rOXh5aEF1UnIyNjFfTlFkVjNlQTBBUEFUVzZFTUpZMFlKN2RKeEJBajNFZjZFNEFwLWdqWkZjYVFGcnozRjhp?oc=5",
   "published_date": "2025-10-08",
   "captured_date": "2026-08-06",
-  "summary": "Crop report: Santa Cruz County agriculture sees strong gains in berries, produce, nursery crops&nbsp;&nbsp;Lookout Santa Cruz",
+  "summary": "Santa Cruz County’s 2024 crop report shows local farm production up 13% — led by booming berry, nursery and produce yields — while timber values fell nearly 20%.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry nursery partnership",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry nursery partnership'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-9388-berry-nursery-partnership-97"
+  "source_id": "source-20260806173428-9388-berry-nursery-partnership-97",
+  "origin_domain": "lookout.co"
 }

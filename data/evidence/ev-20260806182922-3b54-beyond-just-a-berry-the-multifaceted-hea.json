@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQa2ZYVGJTMlhHVzhhek4wNFpJLVZLMk9lSEkzQ1NOcklIZFRSR1dDeVkwMG5SRmE4WFZpVmpYOTV5c052SmFXYVY1cTUyZnVhWWM3OEZEWUo3ZkpnWjdLTmNnZkI5eHhIY21qWFNOUGF2VFp6d0FOMUgteFVLNl9mZFlKRGVaNDBKYWltb0JSSE9UOEk5Vk1oT0UwRGp0eHRqd0hyRVRNaENEWDVNSnZQU3hQOGtEaWdGR1FHaA?oc=5",
   "published_date": "2024-02-12",
   "captured_date": "2026-08-06",
-  "summary": "Beyond just a berry: The multifaceted health benefits of black chokeberry&nbsp;&nbsp;News-Medical",
+  "summary": "Review highlights the potential of black chokeberry (Aronia melanocarpa) in disease control and prevention, focusing on its rich polyphenol content and the diverse mechanisms through which it exerts anti-disease properties on the human body.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry health research",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry health research'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2e40-berry-health-research-118"
+  "source_id": "source-20260806173428-2e40-berry-health-research-118",
+  "origin_domain": "news-medical.net"
 }

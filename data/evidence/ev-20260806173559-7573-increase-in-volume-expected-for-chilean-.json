@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQOU5fdDJPSWRJREM2eXI0dEZNcXdTUHc0VFZYSTduY1pvZ21NOGtndHIxWWRSTGx0Ry1kOXF5bDRtRUdCcDhKSkRiRzhVZ0ZaS3p0REQxRWtuU3pkcjgzR3UtaDkzUWF1MjE5V1ZWTXdTUFNEYXdscjlQOXNCcFNpLWhIdnE4SC1Ea2syaGd5d3BZa1NaMWtETUxKNDBrbUxZdzhSbllHekpyZw?oc=5",
   "published_date": "2026-01-26",
   "captured_date": "2026-08-06",
-  "summary": "Increase in volume expected for Chilean cherries&nbsp;&nbsp;FreshPlaza",
+  "summary": "For many years, Früchte Widmann has focused not only on marketing but also specifically on its own berry cultivation. After starting its own production in Romania in 2007, further cultivation…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "freshplaza.com"
 }

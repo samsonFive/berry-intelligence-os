@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPR3ZyT1NDSEotQU51VWltTnNYN0RsZTJtOHllWG5iWDBQZVc2RFprNHdSMzVUWWg5aEdyeV9uNksxS1c3SkdTTWs3MEFOVl82dWRBVWRqV3V3TjVhRDdEVmdPQ1dhNzdITUhodmNsdDBHc3NXXzdObmhRSy1wQnIyc1FSbWdHdGdtbVlzM0N2X0ZoM1Y0eWNqZjUwWHJUd045RnVWeEc4UlZEcjhrRTFOakdfQ3VYODFYZ3RuRjY5bw?oc=5",
   "published_date": "2023-04-07",
   "captured_date": "2026-08-06",
-  "summary": "\"In the Canary Islands, just like in Huelva, our strawberry production is down 30%\"&nbsp;&nbsp;Hortidaily",
+  "summary": "Although far behind Huelva, which accounts for more than 96% of the Spanish strawberry production, the latest data on production, area, and crop yields shared by the Spanish Ministry of…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "hortidaily.com"
 }

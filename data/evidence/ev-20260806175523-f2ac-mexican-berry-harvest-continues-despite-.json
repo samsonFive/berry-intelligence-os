@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQeWxLOWNuMkZaei01NWN1TzRFU3VlNU1UWmRCV3h1Tng0eVVXWXQ4S1VVZlVWWXNEM0stS196Z1NjNGd4OWV4aUZVeGYyQjRwMnVmc2E1bUd0b1hRLVZBdi1FQW1ZOXRVQmlFLUpDMnBJcGVDbTFENGFsdi0tdlg2dDhOcUZqOEdnLWZjczdCQzg4UlhQUkRwU09pTGlPbWp5bHpzWVdYd2hYdThVSHNrUzAwaUE?oc=5",
   "published_date": "2020-04-14",
   "captured_date": "2026-08-06",
-  "summary": "Mexican berry harvest continues, despite labor challenges&nbsp;&nbsp;FreshPlaza",
+  "summary": "Mexico is a large producer of berries, and the majority of their exported berries are destined for the US market. Aneberries is the National Association of Berry Exporters in Mexico and is…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "freshplaza.com"
 }

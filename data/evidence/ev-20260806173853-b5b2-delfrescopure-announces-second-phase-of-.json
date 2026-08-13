@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNbUNVeUVKOG9MbERJanhUMWtOX2xZRjU0a0V3bUpEbDc3V2VwR0VjVXBSZnp5TmtHQ2FlYnpSczl2WDdEekJoS1hGVFpESXY4eUhvRVRVYjE0SmFXYTIxc2l2WURaYVhVYWlFcTd4VXVuN01QdDB2c1ZZaS1KZ3JMbmFSaEhiVEJEY1JV?oc=5",
   "published_date": "2018-08-06",
   "captured_date": "2026-08-06",
-  "summary": "DelFrescoPure announces second phase of strawberry expansion&nbsp;&nbsp;producegrower.com",
+  "summary": "The company will grow the berries within 17 acres of greenhouses.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry acreage expansion",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101"
+  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101",
+  "origin_domain": "producegrower.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQR2prRXV0WWxFaFJQVjN2X0c4a3RMMWRLcE5IMWpMMkpKVzNDWWVwNHJoS2Jybno5Y2pNTVFoMmtBMjNLRlQ3MkxtUnp0N0RSdVRSUnJnZm9IZkpEckRRdTc3azBPbUl3YjgwSS05N0o4WmtodVZSYnYtZ18xUnV5bHdYNUJ3UUVYYzZoeGk4TFI3RlpnYjNPQmFXYzNEWnRvX2FvUHM1WGFReHRtVXF5THZpNDRaeWFhdGRLZlEzejB1LVd3cmVDdGxnVkZnakdZZlE?oc=5",
   "published_date": "2025-02-24",
   "captured_date": "2026-08-06",
-  "summary": "California Giant Berry Farms' Tim Youmans Shares Details of Southern Exposure Showcase&nbsp;&nbsp;AndNowUKnow",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry category growth",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-3eee-berry-category-growth-119"
+  "source_id": "source-20260806173428-3eee-berry-category-growth-119",
+  "origin_domain": "andnowuknow.com"
 }

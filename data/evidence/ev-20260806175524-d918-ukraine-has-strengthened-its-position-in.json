@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNd0hmSjhYbUJla1ktWE9IS0lwVktqSjNSVVJoM2l2Zzh0dHU4RHBkNHVhMlp2RnVuSkwzVFZMRjZFeHJ6dWJpSXpGbU9Ra2c3d1NkUWlVVjc1M0RsOWt5Q19PRW41eXRtQ0pVU3k5SHUwMG91djE4RmlqV2g3UGJMNi1lZ1FSRVpPR0pRVFJfRQ?oc=5",
   "published_date": "2026-07-10",
   "captured_date": "2026-08-06",
-  "summary": "Ukraine has strengthened its position in the EU organic berry market&nbsp;&nbsp;UA.NEWS",
+  "summary": "Ukraine remains one of the key suppliers of organic berries to the European Union, and wild-grown berries are in the highest demand among European importers.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "ua.news"
 }

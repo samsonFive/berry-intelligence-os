@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNWGJrUmhBTEdHaWViaFBRNXFEcDJQZVRKTERDR0dSU1lBUnhBYVRoU0Roc0d4SUdDYmdJUmlHcmJVb1NRZC1GYW5vWVZpSzMySmRGcUxYWUpaTVg5dm41R0UyS2Nqd3VpZy1Gdmxoa1lfZVhFNmc3SHZaZnNjYUNiY25HZ3poU0tVbHB3aWc5WFVlVFdkVDF2dmNBczk?oc=5",
   "published_date": "2024-12-13",
   "captured_date": "2026-08-06",
-  "summary": "Peru crowned the top exporter of blueberries&nbsp;&nbsp;Perú Info",
+  "summary": "The success of blueberries is a testament to the country's ability to adapt and thrive in the competitive global agricultural market.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "peru.info"
 }

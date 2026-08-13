@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPNHQxX3pRSmxTZHZGVkl2ZlhzMWZDOGwzMmRjMVU5MnFrQ1l4bWxRR3dOTEh2SklZeG11WXEyWHJUZURnSUVCaXFvakVVYTRpVk4xdXhraUsycEFEbVkwQ0dhR0ZHelZ0aE1vUF94UVUtcG5QOFhNNEZBaGV1dGN3WXR1Y1B1VXBNQjRJ?oc=5",
   "published_date": "2018-02-09",
   "captured_date": "2026-08-06",
-  "summary": "Which Country Eats the Most Strawberries in the World?&nbsp;&nbsp;IndexBox",
+  "summary": "Global strawberry consumption amounted to 8,477 thousand tons in 2015, rising by +4.7% against the previous year level.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'China strawberry market'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "indexbox.io"
 }

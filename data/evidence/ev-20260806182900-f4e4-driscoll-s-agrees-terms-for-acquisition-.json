@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNSy1OLWxYc0pVNzFGTUJqNzR2NkkxUkw4RUx0cVFpaURRZHNpMGNWQUVnbzJBRld2Smc4S0d5VlVUS3JhcDU4TWpGQVpKdE90YW1YU0VZN3JxQVRGZkdycnFVNFhOTmpCQ1h1ZUFkdVc0Y0hmNzE5ekNoT2pxZ09PNHVIM1R2MDY4b0FJSUNxUU1aRHgzZjRwbWZTSUpfbHFQR1RSQTE0N1l2T1F1ZDlNTThGQjdVSHlXV003MTJ3WHRDVjg?oc=5",
   "published_date": "2022-06-23",
   "captured_date": "2026-08-06",
-  "summary": "Driscoll’s agrees terms for acquisition of Berry Gardens Limited&nbsp;&nbsp;Fruitnet",
+  "summary": "World's largest berry company formally agrees terms to buy Berry Gardens Limited, the sales, packaging and distribution arm of Berry Gardens Growers Limited",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Company acquisition berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Company acquisition berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-8498-company-acquisition-berry-95"
+  "source_id": "source-20260806173428-8498-company-acquisition-berry-95",
+  "origin_domain": "fruitnet.com"
 }

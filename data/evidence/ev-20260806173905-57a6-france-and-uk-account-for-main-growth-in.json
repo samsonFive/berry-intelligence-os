@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPeU9UM09ySm1yMVRTbjJQa3M3Vm9IMk9raUNZN1RGOTdZUkJsMHd6WFEyX09IN0xnWlpGcTUzV2xRNnF4RFVkNjNQdXRMcjFmUmt4UzhRSEJSZ3gyRW5pNncyZFdrQVBoOFdzREgwcVIzaDNDWjZiVHUxazZSRklDS2d2U09INWZsd0NheDBIY3hyMVEtLUhOR0hFMUN0TTNieHN5ZldfbXNZdHhkamx1cG02VQ?oc=5",
   "published_date": "2023-07-29",
   "captured_date": "2026-08-06",
-  "summary": "France and UK account for main growth in Morocco’s revenues from fruit exports&nbsp;&nbsp;EastFruit",
+  "summary": "Morocco has been continuously increasing its fruit and berry exports, with France and the UK accounting for the most important part in this growth, as reported by EastFruit. In 2018-2022, Moroccan fruits and berries were available on the markets of 122 countries, with Spain, France, the Netherlands, Russia and the...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Morocco berry exports",
   "berry_ids": [
@@ -46,5 +46,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111"
+  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+  "origin_domain": "east-fruit.com"
 }

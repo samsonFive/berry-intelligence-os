@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQTmZKbTFqZnJfaHlpcEhiSm1RWTd1VU1EQkZZMWVRbEh1SzdqZ2NoMVNhd05RT3NiMV93VzVwMGYwc01kdFNZOWxMU1JWaVMydEhldDZUREFvUElZZTQ5VjVVaEczd0R5T3c0cWpsVEJiRjFWVDRnVHBPNV9fNFhmMk1BR0tOTXFIcGFRcTBjZ3d2V1RxWk1iTmQ4OXNvY3Q0QWstWk5scVFiQWFENHo1Q2QtXzdKWDBNZFlIR2d5QVhzQU1rWjg4NXhn?oc=5",
   "published_date": "2026-05-08",
   "captured_date": "2026-08-06",
-  "summary": "SE Asia Meet Up 2026 to focus on fresh produce consumer and trade trends&nbsp;&nbsp;FreshPlaza",
+  "summary": "Asia Fruit Logistica has announced the program for its SE Asia Meet Up, taking place on 18 May 2026 at the JW Marriott Hotel Bangkok. The conference and networking event will bring together…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry consumption trend",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry consumption trend'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-ff93-berry-consumption-trend-116"
+  "source_id": "source-20260806173428-ff93-berry-consumption-trend-116",
+  "origin_domain": "freshplaza.com"
 }

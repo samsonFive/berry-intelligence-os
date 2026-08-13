@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNeUFYeXVlNWZVMUtLUlg2X1poSXplN3liTDA0NVFhNG14RXR3dnFNdU9JLTZ1Q1FLZWN0RlhfYUxnV0poclgyY0pRQVpMVVUtTXBHWm5odXpFWTJQUXNsZzRyNzBJenBWTTU2VU1JZERnXzFUMnVIZ0Z6VVBCNWRiV0lfVlJvV09CWEVaYkZSQThudUJWWHc?oc=5",
   "published_date": "2026-07-29",
   "captured_date": "2026-08-06",
-  "summary": "USDA Philadelphia Terminal Market Fruit Prices Report for July 29, 2026 - News and Statistics&nbsp;&nbsp;IndexBox",
+  "summary": "USDA Philadelphia Terminal Market Fruit Prices report for July 29, 2026: steady markets for berries, citrus, melons, apples, bananas, and organic fruit, light offerings for raspberries, Hami melons, and cherries, price ranges provided for blackberries, blueberries, strawberries, lemons, limes, watermelons, and more.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:USDA GAIN report berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-1732-usda-gain-report-berry-104"
+  "source_id": "source-20260806173428-1732-usda-gain-report-berry-104",
+  "origin_domain": "indexbox.io"
 }

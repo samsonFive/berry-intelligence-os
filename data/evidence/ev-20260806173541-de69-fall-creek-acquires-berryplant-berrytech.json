@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOZTV5Y19GUVAwMzFVWFFPOWxmeVFxay1mZTY0TXBBQUFnSVdLeS05ZnNvWW95RGtsaUNhY3pPNXFDNjFNQ1VuakVKdXVMeTlVVWtnWXhFNFNoeVBrbDNneWdLQkxKbldXQW5McTNiSllJQkRBcnNULUNhdkViWThWWmxYbEt5cG9haEdUcGs1dzl3UFpo?oc=5",
   "published_date": "2026-06-15",
   "captured_date": "2026-08-06",
-  "summary": "Fall Creek acquires Berryplant, Berrytech to expand genetics portfolio&nbsp;&nbsp;Fruit Growers News",
+  "summary": "Fall Creek has acquired Italy-based Berryplant and Berrytech, adding raspberry and blackberry genetics to its portfolio.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry genetics company",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-80ee-berry-genetics-company-91"
+  "source_id": "source-20260806173428-80ee-berry-genetics-company-91",
+  "origin_domain": "fruitgrowersnews.com"
 }

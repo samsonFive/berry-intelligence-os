@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNNF9GWXNGdXRWX19Ja0RSVzduYXVZZWFncmNTaVZ4ZXN3UkZXZURyM3E4YWFxcHRsVUdIejVxUU9sM3FiMzRkWDBySk53em00UGtkMG52V05hU0dhV2VZUTdGNU9wZmZRV2hRTURPYXlvMU80Y3VrM1A2TFVPNUZJUzloc3Y5QXpsQnZVQ284dFVLb1lRZDgzYTZ5TzBhQjNXNDhveXBGNjE4UnJHcENOS0FTYUxscVdpRnc?oc=5",
   "published_date": "2024-12-24",
   "captured_date": "2026-08-06",
-  "summary": "\"The volume of blueberry exports is still in its early stages\"&nbsp;&nbsp;FreshPlaza",
+  "summary": "The development of the blueberry sector in India over the past several years has been marked by substantial growth, driven by increasing consumer demand, technological advancements, and…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "freshplaza.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQbV9jRnZLN2RNeHhncG5VT2hCLVZfa2R4cnBFV1JmREpKbVlHeUhlUHNjcE5LYWt6aVQ0OWNhV2V5RWlqeFk1Q1A0X2VQMkNMb3ZoejY4VU5tSEcybnhSMUtDejVINV9yek1mR1pHOUZXRXpybVpscHdRWF8tZDZVS3h0ZTAydGI2aDE3YW81WnZWdEhmUUZsLWt4cFR2QQ?oc=5",
   "published_date": "2024-08-27",
   "captured_date": "2026-08-06",
-  "summary": "Morocco posts record blueberry exports in 2023/2024 season&nbsp;&nbsp;northafricapost.com",
+  "summary": "Morocco posted a new  blueberries export record in the 2023/2024 season at 67,300 tons, up 25% from last season, despite drought.Newspapers",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Morocco berry exports",
   "berry_ids": [
@@ -46,5 +46,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111"
+  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+  "origin_domain": "northafricapost.com"
 }

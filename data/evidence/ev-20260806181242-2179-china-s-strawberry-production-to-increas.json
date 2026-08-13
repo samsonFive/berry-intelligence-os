@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNMmExMHlndFF6UFYwR1Z6VVgzbFQ3SnBwbmJzNlRpZ0p4bXBRdlBfLW5kMUs0QVBZWHp4UERZTmdHSm1nNFlFdUpSTnREQmhZbmttSjFsYm01VEUzOEhzSzZISDhZNWdzNy1icjZFa29nMnRhOF9pcVFudmVLVHp3VTl0Ni03d09ZZ2xTd3pUYktZQQ?oc=5",
   "published_date": "2009-06-30",
   "captured_date": "2026-08-06",
-  "summary": "China's strawberry production to increase&nbsp;&nbsp;Fruitnet",
+  "summary": "Exports of the fruit will continue to remain minimal, according to a report by the USDA",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "fruitnet.com"
 }

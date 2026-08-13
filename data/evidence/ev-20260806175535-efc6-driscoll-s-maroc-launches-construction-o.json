@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPRzBOWFlHbFVXNFFCaDZFd0JuV3JqTU5xZE5CSXR3aXdkUjZWYnNiRUpmYmVQOGpIc3ZjRGZzbWl0VThIOGJHLUJ2YkJyR0hOSG9rZGxhSzZOc0NPc1FoMmtHMVFaXzBjVUFZUHhWcktBdy1iaXVlOTJuS2dzREdaOS1wRFd6MUFHbmIwNEZucHpLQk0wOV85RGJzTTJESWZJbzNla0RUdlRZeEZUQVlYcE9tMWFzU08zUzFlZjg4cw?oc=5",
   "published_date": "2024-05-13",
   "captured_date": "2026-08-06",
-  "summary": "Driscoll’s Maroc Launches Construction of Berry Processing Plant in Larache&nbsp;&nbsp;Morocco World News",
+  "summary": "Driscoll’s Maroc, a subsidiary of the US-based berry producer, has launched the construction of a berry processing facility in Larache, located within the Loukkos agricultural hub.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Morocco berry exports",
   "berry_ids": [
@@ -46,5 +46,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111"
+  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+  "origin_domain": "moroccoworldnews.com"
 }

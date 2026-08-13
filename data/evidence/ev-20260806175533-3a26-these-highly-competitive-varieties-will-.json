@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxNUVpQWGk0SXZoWjZaYWk1bXhtZlptc1JaS3V6U1VETkl0TnNCLVlReFdvVnRySXFRWVNibzUwMFJpblZzbnJyWEJPYUxqMGZ4c2gxVm02WDlDWmx6N2Y0aFc4XzhOTHBxTkNXSlgtV3FvN2twQlgxRFJFTkxOWW56QzBfTUlhSGJBbktPTnlYaC1IbEItNnVlUE5hTFlxdGh0UXdKMUpVVEw0V1ZRNXlfcDVzR2Z0cU53UmxKYXhJZU1BNElHWFMwVmVSYmZjQ3d4WVFoYWFaa3M2Tk5t?oc=5",
   "published_date": "2024-03-12",
   "captured_date": "2026-08-06",
-  "summary": "\"These highly competitive varieties will bring new opportunities to the Chinese blueberry market.\"&nbsp;&nbsp;FreshPlaza",
+  "summary": "Imported blueberries dominate the Chinese market, primarily sourced from Peru and Chile, with availability spanning from the latter half of the year until around the Chinese New Year, though…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "freshplaza.com"
 }

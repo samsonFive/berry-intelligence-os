@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBzalBTd09JUzNqTDU2YkJMRXVxcGVfZGtVUnZhU2pWWVBZVjJCOURFRVlVdm16alZQb1U5ZFd0VnRCbl8zdWdNaDFvNVNCMmV5dG5sdFlzRkRMajdnOE11SGVDOE82T0k?oc=5",
   "published_date": "2022-12-21",
   "captured_date": "2026-08-06",
-  "summary": "Merchandising Chilean Fruit&nbsp;&nbsp;Produce Business",
+  "summary": "New transportation arrangements, like the ‘Blueberry Express,’ are expected to correct logistics logjams.\n\n\n\nOriginally printed in the November 2022 issue o",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "producebusiness.com"
 }

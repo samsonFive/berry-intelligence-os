@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNZGhFN0lDb0tJT21fNnlyYXZ4LXFVOHhUVkgwcHkzMlFKQ3FKNUpOWUw5RGE5MUtwMnA2cHZESE1zamFRMDdybENpdDdtVW92dFNIeXVoTVhMekxrWXpZaWtVd1VZOVhhY3NpdkFVSkhuUWFaV0docUtUVzgwMmNLWWVkYk9fczZUUEU3VW5BZ3dJYjNrY09DcXl1aWJ5aVVn?oc=5",
   "published_date": "2024-09-26",
   "captured_date": "2026-08-06",
-  "summary": "Morocco achieves record blueberry exports to Eastern Europe in 2024&nbsp;&nbsp;EastFruit",
+  "summary": "In the first half of 2024, Morocco exported a record volume of fresh blueberries to several Eastern European countries, according to EastFruit. Moroccan exporters surpassed the results of the entire previous calendar year, significantly strengthening their position in the key regional market in Eastern Europe. From January to June 2024,...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -44,5 +44,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "east-fruit.com"
 }

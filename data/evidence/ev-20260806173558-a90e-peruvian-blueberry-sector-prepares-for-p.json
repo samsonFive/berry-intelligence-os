@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNZzVTQ05pajdqOU8zaHJtWHhpcDAwSEQxYjBJUDZRd1g1SlpBa2x0SXgwcnJwd3FoZUtfQV8xSzVWbG0tb3BVeW9pOFNlUHJhMXVnNW9OemE1X3NiMnppR1hvN29VbXZZV19EOUo3ZVR6NG95OUJfT181d1Vzd3gxRmhVakI2bFN4Z25FdV9IdWN5S3pUSzQ4YU9ubVd2dDRJc3lRSVRkV2Zuc294VjNOaWRrbk5YZi1acTU5ak1sRQ?oc=5",
   "published_date": "2026-06-19",
   "captured_date": "2026-08-06",
-  "summary": "Peruvian blueberry sector prepares for potential El Niño impacts&nbsp;&nbsp;FreshPlaza",
+  "summary": "Peru's blueberry industry is entering the 2026/27 season with a larger production base but under continued climate uncertainty linked to the potential development of El Niño conditions.…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Peru blueberry export'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "freshplaza.com"
 }

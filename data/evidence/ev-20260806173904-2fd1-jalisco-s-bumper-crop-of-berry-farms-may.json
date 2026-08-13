@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE52elpGNUJlTmRvQ2lyUFpnWGZzd0NiYUM3U2xsaXNDZmp0UkNjaDZGUUw3OVdDMzF2aHlXcjhLcHdRczJ3aXEzRWp2ZmFmZHFhRE5mQ1lRdmg1SzR6NjFhRlU5T1N3TWN2Sm96M0V0cGFjUm8z?oc=5",
   "published_date": "2022-03-18",
   "captured_date": "2026-08-06",
-  "summary": "Jalisco’s bumper crop of berry farms may hurt locals more than help&nbsp;&nbsp;Mexico News Daily",
+  "summary": "Some residents say a hot export market has reaped a bitter crop in their towns: marred landscapes, depleted resources and exploited workers.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -48,5 +48,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "mexiconewsdaily.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNSUVKZzJIT0wxVUdsT1NtMUNfMnU5dnhWRllXdHhIUnYzTy15MExwcEZxZllNYTdLUzdBMWMyU0RUWjlvMkdHbnk0a2h6NkVfazdDbnFWNWRsaDVPY2FQVzhST0k0QUlpVXp1RWRtclpBbE1ZT2ZwREhOeHhwc1JUR3FSbU4tbHZJ?oc=5",
   "published_date": "2012-01-12",
   "captured_date": "2026-08-06",
-  "summary": "Herriot, a luscious new strawberry, beats out other varieties&nbsp;&nbsp;Cornell Chronicle",
+  "summary": "Herriot is a new tasty strawberry variety with high yields, vigor, disease resistance, eye appeal and a hint of pineapple flavor. (Jan. 12, 2012)",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Raspberry variety license",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Raspberry variety license'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88"
+  "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88",
+  "origin_domain": "news.cornell.edu"
 }

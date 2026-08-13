@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE0wQWtaWFR2SnVmaUludnpPSjFiT2lTTmpVMzJDUkJtRU1pQUJZN1I1UGFkZEJ4R1d2aGZncEZSUnFCbml4RlpxVGo0R1FaY21VQlJLTkZOMjJIbURoOUU1WWVUb2NBam14SnE3eFVkdjhPeUpUUXc?oc=5",
   "published_date": "2026-06-09",
   "captured_date": "2026-08-06",
-  "summary": "Lidl backs British berry sector with £500m investment&nbsp;&nbsp;Grocery Gazette",
+  "summary": "Lidl is to invest £500m in the British berry sector, in a bid to increase volumes of UK-grown berries through new long-term sourcing agreements with suppliers.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry industry investment",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry industry investment'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-69a5-berry-industry-investment-98"
+  "source_id": "source-20260806173428-69a5-berry-industry-investment-98",
+  "origin_domain": "grocerygazette.co.uk"
 }

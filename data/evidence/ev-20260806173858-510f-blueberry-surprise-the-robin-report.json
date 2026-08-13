@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE8weU5CRGZZS2ZqMzVNV3lGQl9ncC00ZnEyeU91WFBZSElId2FucFJHMUl2c1pzZ0lrMWtEVmVVaFlCVE9aMXFFRllfSlZQYWpfclJ5Mkx6aklnQQ?oc=5",
   "published_date": "2025-10-07",
   "captured_date": "2026-08-06",
-  "summary": "Blueberry Surprise&nbsp;&nbsp;The Robin Report",
+  "summary": "Are you enjoying your blueberries? I have a husband who doesn’t eat a lot of fruit. Honestly, he prefers fruit loops, but around 18 months ago, I spotted amazing looking blueberries in lots of grocery stores, and he was suddenly a fruit guy.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry tariff",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-f8a7-berry-tariff-105"
+  "source_id": "source-20260806173428-f8a7-berry-tariff-105",
+  "origin_domain": "therobinreport.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOSDRNeExuQUhmTlFXa1lJQV91T3N6TzdBN2g4NGp4QlJNNklFZTB4Z2lRT1pUaGZKVXpqUzd1WGxvcHJRS3VJbDBvRkVCdXdxQjk1akx0NHcyNFVKYkNlQmJmcW9MZldTc1BCS0hYcWVKM292U3BkTVMyUURKMm1QY3BoRzVWb253MTEzMXJaWElPUkhwWmtrOEFDYnhJaC1jdHFyNEV6Z0txN2NTVnc?oc=5",
   "published_date": "2026-05-04",
   "captured_date": "2026-08-06",
-  "summary": "Major League Blueberries organic harvest&nbsp;&nbsp;Organic Produce Network",
+  "summary": "MLB recovers from frost and hurricane damage with new plants, upgraded systems and a strong organic blueberry harvest.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92"
+  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+  "origin_domain": "organicproducenetwork.com"
 }

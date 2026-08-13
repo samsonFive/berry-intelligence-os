@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOTHVDVTFSZDR1OGtFS2JVLTg2SXcxYUp2VXM3c2hrWGhvNFBHZFltb3A3OER5QzBMVmU5bWJfYlc3VTRBb0NFSDExZWpMNkUzX0lUOWZuSTlvRlhRU1NyQnBES3ZSSXh1cjduUG9OUmluMXowU2JkMWUtXzJtb1VYOUdleXk0dkxGTnVtQU1TSXM0c1NGdnJDMUQxeWhoM3lyMkE?oc=5",
   "published_date": "2019-07-19",
   "captured_date": "2026-08-06",
-  "summary": "No reason to be blue at height of berry season&nbsp;&nbsp;The Register-Guard",
+  "summary": "When pondering states known for blueberries, your mind probably goes to Maine. But actually, Oregon is the nation's top blueberry-producing state. \n Last year, Oregon growers harvested 134 million po…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry harvest forecast'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100"
+  "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+  "origin_domain": "registerguard.com"
 }

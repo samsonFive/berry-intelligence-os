@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9SUW5yQkNxRm5QOXRkMXdJOWFjUDdlNnRyUklhbWM1RUJ5eUlUSzd0LWxvaUZVd0dRRlFheDZuNGNhNWFwc0N0TVJQdXpXY0tISVRNTGdFM3RSOVR0eVlLT2pNcHBUTTJJcDJ1Y09oNFFQMUlzTmV2UktiVThTZw?oc=5",
   "published_date": "2024-12-17",
   "captured_date": "2026-08-06",
-  "summary": "High Strawberry Prices in China This Season&nbsp;&nbsp;Produce Report",
+  "summary": "This year’s strawberry harvest in China has been delayed across many regions, leading to a surge in market prices nationwide.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:China strawberry market",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-01c8-china-strawberry-market-112"
+  "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+  "origin_domain": "producereport.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQa3c5Qk9qazI1Mm5JdW5YMHNnQnAzcXdjdVNybHpnc0E5Q1BSWFBRM0tXNFc4Q21rbkZpaVF6dUZhZGhVRmhuTnZuS2JNeDJUSkg2U1dySkI2TG1tSXNDMHBhcF9pbmlvbkhYc3M4X0ZIR3VRX0xMSG9tNjlHZHVGUFQtQzFvUEZFaER2MVdMa0JCcEFZSnFoZmplblhyZ2dzZC0xeA?oc=5",
   "published_date": "2026-01-20",
   "captured_date": "2026-08-06",
-  "summary": "Spanish Malaika raspberry plantings expand to 200 hectares&nbsp;&nbsp;Hortidaily",
+  "summary": "Onubafruit is expanding its raspberry production with increased plantings of the Malaika variety, scaling cultivated area from initial trials to an estimated 150 to 200 hectares planned for…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry acreage expansion",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry acreage expansion'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101"
+  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101",
+  "origin_domain": "hortidaily.com"
 }

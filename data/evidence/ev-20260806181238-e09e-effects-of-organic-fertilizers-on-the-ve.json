@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPLUJJTTQ2TUJQUEhRMWM0SFZZUzAzQ3RYQUNIMlo1bXlITVBxMkdjV1prTDdhTTB1dVV2UFFRakRjNnEzOU9OcDJuWHVLQndqQmplcEFFMFladWpuSHBfQUhtazR3NENBamkzYnRCcGFFeTRRNDZCcm9VQlYtNXlHSURITld1dw?oc=5",
   "published_date": "2021-07-08",
   "captured_date": "2026-08-06",
-  "summary": "Effects of organic fertilizers on the vegetative, nutritional, and productive parameters of blueberries ’Corona’, ’Legacy’, and ’Liberty’&nbsp;&nbsp;Scielo.cl",
+  "summary": "Effects of organic fertilizers on the vegetative, nutritional, and productive parameters of blueberries 'Corona', 'Legacy', and 'Liberty'\n\nPablo Muñoz-Vega1, Hernán Paillán2, Humberto Serri1, Denise Donnay3, Carlos Sanhueza3, Emilio Merino3, and Juan Hirzel4*",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "scielo.cl"
 }

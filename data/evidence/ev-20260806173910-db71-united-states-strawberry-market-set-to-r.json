@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQT3ZzUFBObzVTeUJOZVFXU1d2UHl0cDE3U0ZpQk1uTTdBQjlJOVI5MmlPNVhBajJZZ2h3bEU2V0RmYWFDR093TnQyVmQyVEZBSnNHa2pyNHFpNk5xdnU3aUY4djJ0Nml2MElIblI1eGNLb2ZiYndaNFkyT3BneHg1OU5mYw?oc=5",
   "published_date": "2026-01-13",
   "captured_date": "2026-08-06",
-  "summary": "United States' Strawberry Market Set to Reach 1.6 Million Tons and $6.8 Billion by 2035&nbsp;&nbsp;IndexBox",
+  "summary": "Analysis of the US strawberry market from 2024 to 2035, covering consumption trends, production, imports, exports, and a forecast for market volume and value growth.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry consumption trend",
   "berry_ids": [],
@@ -43,5 +43,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-ff93-berry-consumption-trend-116"
+  "source_id": "source-20260806173428-ff93-berry-consumption-trend-116",
+  "origin_domain": "indexbox.io"
 }

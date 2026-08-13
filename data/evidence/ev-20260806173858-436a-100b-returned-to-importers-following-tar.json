@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQVW5EUWNEZFpYUUhMYk1Ybi03LXNLLVlVOUFnMFpJdTJBVGJQcTlxOFRLOVM1RlVVQmc5bTdvbDhkdGhZbEJpZUNEUHJfRk1lV0libm9sbUNZUE9sX2RPZkZTM0tBeUVkNTJqS2Q4eEoySWFJUmVQeTBvR2Q3MFA3VmloZUFwYzZObjNUcU1Ha3FOa1k?oc=5",
   "published_date": "2026-08-06",
   "captured_date": "2026-08-06",
-  "summary": "$100B Returned to Importers Following Tariff Court Ruling&nbsp;&nbsp;KABC-AM",
+  "summary": "NBC News says the Trump administration has refunded about $100 billion in tariffs after the Supreme Court struck down duties imposed under emergency e...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry tariff",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry tariff'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-f8a7-berry-tariff-105"
+  "source_id": "source-20260806173428-f8a7-berry-tariff-105",
+  "origin_domain": "kabc.com"
 }

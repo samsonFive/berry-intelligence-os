@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPd0FKc2ZHWTVBRnhaWGRDaVJCajk1RC00WHRDdWhCOWJlUGlXaW8tM3NVT2ZReXhMbmlpb25UbTNnS3JpajdXYWhlbzM0SVZsYnl5ejh0X0NDN0oxN19qX1l0UWRtWnQ0NXJmcG00QUpkNC1FdUhUdklOY05GV2JnQ2w5Ny1KUkE5d0NMM0JxeGxBcDhTTHNpNlJfWnhyWmExbzc3empZWVFveFpu?oc=5",
   "published_date": "2017-10-13",
   "captured_date": "2026-08-06",
-  "summary": "Spain: The future of strawberry depends on more promotion and more varieties&nbsp;&nbsp;eComercio Agrario",
+  "summary": "The unusual heat this winter, which is doing so much damage to other crops, has been a joy for strawberry growers. High temperatures in December and January have ripened fruit at a time in which there is little competition from other producing countries, and that's a start of campaign for optimism.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "ecomercioagrario.com"
 }

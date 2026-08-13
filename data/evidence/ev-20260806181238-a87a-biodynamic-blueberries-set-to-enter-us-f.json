@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNYjFnSkcwT0ozazNJellYQ1p3Q2REaE5qbGZFNkVrREYxd29xNEJ5VjdEaFA4VlN4UndlcTdQSDBOZ0FMdWVWaVpha0htR3NZd2FCTjBsSk5MWmp3NldualpWd1ZJY19LcmctbDV4d2RtQnlCYzRTZE50QXhYa2ZlTHFYaWlvbjdZMDhRellmSVlDZw?oc=5",
   "published_date": "2015-02-10",
   "captured_date": "2026-08-06",
-  "summary": "Biodynamic blueberries set to enter US&nbsp;&nbsp;Fruitnet",
+  "summary": "Chilean firm partners with Gourmet Trading Company to distribute high-quality offering in North America",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Chile blueberry season'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "fruitnet.com"
 }

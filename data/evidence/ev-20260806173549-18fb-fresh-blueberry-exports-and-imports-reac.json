@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNdjJ2T242MDBsMVlFLVJySkE1WERQQVhiVGVNVHpIZFhWRjVVX2YweDFGRjlfN0RsQlJReEwxVGN1b054VDJmV2QyR19UR0dhNzZuQUp2ODNSdVVpQ0xnZWxCQXhiMEFxMk1WYk1EWU9MRENsLWNsT0xLdDFua1VQZXhxM3VicFVvTGFvTkd4QVRRNTh3aGc?oc=5",
   "published_date": "2025-04-15",
   "captured_date": "2026-08-06",
-  "summary": "Fresh blueberry exports and imports reach record highs&nbsp;&nbsp;Capital Press",
+  "summary": "Fresh blueberry exports and imports reached record highs in 2024, according to a recent USDA report. Industry viewpoints on international trade vary, and whether growth will continue with President Donald […]",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Berry export volume'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-2cf5-berry-export-volume-99"
+  "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+  "origin_domain": "capitalpress.com"
 }

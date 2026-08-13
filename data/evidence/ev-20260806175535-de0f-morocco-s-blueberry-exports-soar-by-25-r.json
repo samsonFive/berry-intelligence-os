@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPSkxvRHVmejJmUDRxc0VsQUFCNWl6ZDBQQ2pIR0JGMXBGR0FEYlVUMDRRWHhvZ3BYVlJHTllxVGRDa0hRUkFCUEJsQlIySTZ4c05wcXBMSHVqNGFRS0JyTVVQUTZTTGIwNUFlZURHbjFhWFQ2WXVFb3ZjMmRHOXJNNVhMbmpyUmo1ekdYRVRoR1hkcnhFSDQyVmQ5TTU2X3kwTHZqX1h5ejJ4a2d3N0s0?oc=5",
   "published_date": "2024-08-24",
   "captured_date": "2026-08-06",
-  "summary": "Morocco’s Blueberry Exports Soar by 25%, Reach Record 67,300 Tons&nbsp;&nbsp;Morocco World News",
+  "summary": "Morocco's agricultural sector achieved a significant milestone during the 2023-2024 season, with blueberry exports reaching unprecedented levels.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Morocco berry exports",
   "berry_ids": [
@@ -46,5 +46,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111"
+  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+  "origin_domain": "moroccoworldnews.com"
 }

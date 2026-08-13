@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPNXFsNm9NRmdiR0I1TmdZdzJhRTU3QnFuWVJvaVc3LTJxOE1Xc0toVzh5WFhyQXVtZmk2RGtIUGhqbnVpbk15bHZGU093R0FhTGlZeHZNSEVjdkdrZEtKWDhHalZSdjEzN2t5RGczQWdROHpNNEpRMm1SM0ZheHR6UmVUc2MzWVlqLTBEcW9LMlBhVWpCenVoVGlRelVDb2FsLWlNeFBOaFIzcFlzNGRoVmpQNkJYQQ?oc=5",
   "published_date": "2021-09-29",
   "captured_date": "2026-08-06",
-  "summary": "\"In my opinion the Arana is the best blueberry I have seen\"&nbsp;&nbsp;FreshPlaza",
+  "summary": "The Arana blueberry variety was developed by Costa in Australia and licensed to Driscoll’s exclusively in the Americas, Australia and China (through the Costa Driscoll’s Joint Venture).\nIn…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Exclusive variety license berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Exclusive variety license berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-abbb-exclusive-variety-license-berry-94"
+  "source_id": "source-20260806173428-abbb-exclusive-variety-license-berry-94",
+  "origin_domain": "freshplaza.com"
 }

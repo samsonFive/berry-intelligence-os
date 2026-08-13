@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQZ1hucWhzRGsxXzl4RFMydlJMUXZSUVU0QUpBNDBjTUVPZWtwQTBCbXpkRmFFRWNsVHc1RldkdnczUHh2U21KLUwtRnJ6ZXM1anBRS01tbjBCam1MTjVaTDhBMkZaYWZQVUo1WVN2RUpwRTE3RjY5RHMwTGpCTTROZVNRTFRkMjhoQ3J2RXVCU1VMS1pJWVJoX19xRzhCMEs2RTE2VWRR?oc=5",
   "published_date": "2025-09-25",
   "captured_date": "2026-08-06",
-  "summary": "Growing berries on the Oregon Coast: Raspberries and blackberries&nbsp;&nbsp;OSU Extension Service",
+  "summary": "This guide for Oregon Coast growers covers site preparation, cultivar selection, irrigation, mulching, fertilizing, harvesting, pruning, training and pest basics for raspberries and blackberries.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Blackberry primocane variety",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-d63a-blackberry-primocane-variety-90"
+  "source_id": "source-20260806173428-d63a-blackberry-primocane-variety-90",
+  "origin_domain": "extension.oregonstate.edu"
 }

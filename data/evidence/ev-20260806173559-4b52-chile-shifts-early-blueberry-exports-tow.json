@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNMVFPSzVHRkMtVmVrc3puRmpNX0hlVUpTbEd2NHZjb0xtSE51NjZQMWZneDNyRWVxYzhsLWlqZVNiTDhfZTVPSVAyTEMzNzJESDMzUlUxeWpmeHpMQ3VZTDZfNWE2Z2NLLVB0TnRmaGt3a05aNzBaSVdiaklSRGluT3MwQ3p6Zkw3eWl6bVhQd3I5bVdFdV9DT0FfRGs4MGlKZDJuYmlvYW05dw?oc=5",
   "published_date": "2025-12-05",
   "captured_date": "2026-08-06",
-  "summary": "Chile shifts early blueberry exports toward Asia&nbsp;&nbsp;FreshPlaza",
+  "summary": "Through week 47, Chile exported 3,403 tons of blueberries, 34 per cent more than in the 2024/25 season and equal to 3.7 per cent of the projected total. The increase reflects an earlier…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Chile blueberry season",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-7893-chile-blueberry-season-109"
+  "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+  "origin_domain": "freshplaza.com"
 }

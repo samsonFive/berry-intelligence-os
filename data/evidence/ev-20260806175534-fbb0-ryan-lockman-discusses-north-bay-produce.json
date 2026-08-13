@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNNVBBREJhaHhFak5OUUE3bXB6TEFwOG9uMGJkdWNGbmlra3psbjlvTk94Mzd0YlJkNnpLelR0LWxzdGllbUxEVk9iU1FKWWpobTRqTzdSdGhlUUFGNXZ5eG5rUDI3bVNaNm84enZ3RTQxYnkwU3VjSEVxX29HME5RMWRZVTg2UmJ3TVJoTW95ZTlSSXJ4Y1p2cDhwVmZoTjMzVm44V0F2YUNrRHFYVTJZbmROLVlLVnhYZW1ubmtGejV4VWhmS1lOTHp6NXZodTBUQ0JDcg?oc=5",
   "published_date": "2024-01-10",
   "captured_date": "2026-08-06",
-  "summary": "Ryan Lockman Discusses North Bay Produce Blueberry and Blackberry Retail Programs&nbsp;&nbsp;AndNowUKnow",
+  "summary": "This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Mexico berry production",
   "berry_ids": [
@@ -45,5 +45,6 @@
       "rationale": "Auto-captured from source 'Mexico berry production'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a053-mexico-berry-production-110"
+  "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+  "origin_domain": "andnowuknow.com"
 }

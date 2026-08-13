@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOTHYzNEVyQXNRS0lOTlozdklRaHA0MmJPNE05bVhuQVZCUEZRZDNrRkhKSnNidkhTZTZlLVBQTml5YWRqcTNjcnBQQzhCYmxsR1Q4U09LeFkyYVgwTGd5T3lFRTk0M1pkRjA4UzlaenM2TUtDX1doc1BpckVSOUdaVDNLb29qMjVYREZvN3BLaDFWX0tj?oc=5",
   "published_date": "2024-07-29",
   "captured_date": "2026-08-06",
-  "summary": "Peru remains top blueberry exporter despite drop in 2023&nbsp;&nbsp;bluebookservices.com",
+  "summary": "In 2022, global blueberry production reached 1.875 million tons, with China being the main producer with 525,000 tons, contributing 28 percent of the total, according to Agraria, using data from the market research company Fluctuante. Fluctuante also highlighted that in 2022, Peru was positioned as the second largest producer of blueberries globally with 300,000 tons […]",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "bluebookservices.com"
 }

@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOWHdmZXpNNzZJeWJ0RGVsdE5OVXNGSEN6XzBReVRFWHAya1V0c05GQVZzT19PdDlZSVhkck03WHdYc3MxbkVQVmktcTBZSnRSTE1sRUU5S05OSHFld1AwelZJSVBlcld0TDFpeUFHRmJXbC1wcTlMME95bnM3bnYzN0lhcU55Nk1udnI3RjZXSVRQMGYtVjdBOUZHMGI0b3hwRHo4VlEyQzBpb29DU2Fzaw?oc=5",
   "published_date": "2023-09-03",
   "captured_date": "2026-08-06",
-  "summary": "Morocco Overtakes South Africa as Top Blueberry Exporter to UAE&nbsp;&nbsp;Morocco World News",
+  "summary": "Morocco became the leading blueberry supplier to the UAE in the marketing year 2022/23, leaving behind its previous competitor, South Africa, according to a report from EastFruit.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Morocco berry exports",
   "berry_ids": [
@@ -47,5 +47,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111"
+  "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+  "origin_domain": "moroccoworldnews.com"
 }

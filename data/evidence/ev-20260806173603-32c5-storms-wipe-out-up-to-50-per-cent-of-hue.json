@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPT3dFaGdpWHUwUzZJSGZGbUNFNEhMWVRpcHctVldOZjdWeEFJcDNwY3FycmtpWUViNEFTeGpnVTNvM3ZPWGNJUERpbXZ1eWhnS0NNclE2TXY1MUhjbTR1N0lOLWs5czdBUHY4MnEyZWlWbUFtY3dLajNiQVJGdWpjY3JmWGEwQnFrWWNwYUQzT1dSc25EcG1nZzVkZ0hmY3A0OGdhSXRpSElPVkdTNjlzb3FCV0FMOE0?oc=5",
   "published_date": "2026-02-11",
   "captured_date": "2026-08-06",
-  "summary": "Storms wipe out up to 50 per cent of Huelva’s early strawberry crop&nbsp;&nbsp;Fruitnet",
+  "summary": "Wind and rain have collapsed tunnels, damaged plastic covers and left many farms under water",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "fruitnet.com"
 }

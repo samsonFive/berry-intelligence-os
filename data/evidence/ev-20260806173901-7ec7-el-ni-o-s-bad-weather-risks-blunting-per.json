@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQd09sQVBmd0wxMEU5d3VqYV9Vek95Y2lnSnp4RlZGYmFvNXhHNnNMUWlodVkwRWJaQlNmSEg1bl9sc2pYb3JSOGdJeGotY21QU2dNZHJfOWZCeWZzdUowVS1RblhYQzB0RTRjVGpzTlVXTlM4WGNMVk5zNy1KNEkwcmJsakh6VEkwSXRBVDNGWlIzY2UwLVdwT2JLX1h0azlSRXhfV1dUc2tGYzlhZnh2Sg?oc=5",
   "published_date": "2026-03-04",
   "captured_date": "2026-08-06",
-  "summary": "El Niño’s Bad Weather Risks Blunting Peru’s Farm-Export Boom&nbsp;&nbsp;Bloomberg.com",
+  "summary": "Peru’s agricultural exporters are rushing to prepare for an unexpected year of bad weather that could slow a long growth streak that turned the South American nation into a fruit and vegetable powerhouse.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Peru blueberry export",
   "berry_ids": [
@@ -45,5 +45,6 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-e395-peru-blueberry-export-108"
+  "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+  "origin_domain": "bloomberg.com"
 }

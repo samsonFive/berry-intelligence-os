@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPajVDaFhyQk1RUjRwaV8yOV9lcFktSGdCbWZRRVNKMjBiUGI4YzNydUxEeG0xaklaQzB5cEw1TWRsX2N6VXk0Z1ZBUW90X3VVWHZUNThOWnZEMFh6RW5JZ0h1UDEwTnNBcjRCTEZWc1kzUzdCUWhuV1pucktpbFFiaEFoWnpDdmhzZXoyY2o4Q3A1VnpHRmF2aUxna3BlMkhWT2tHWQ?oc=5",
   "published_date": "2025-09-18",
   "captured_date": "2026-08-06",
-  "summary": "Costa registers five new blueberry varieties in Laos&nbsp;&nbsp;Fruitnet",
+  "summary": "Registration follows successful launch of its Laos blueberry farm earlier this year",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92"
+  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+  "origin_domain": "fruitnet.com"
 }

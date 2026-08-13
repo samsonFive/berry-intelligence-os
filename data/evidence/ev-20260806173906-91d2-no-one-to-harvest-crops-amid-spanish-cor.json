@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOaDIzdk5GYkpjTF9LN0JSV2xlZWx4Vkd3b3FwZTAyNWNUUERGN1Y3R1phN1FkbUtEeHJiR2VOb2g3TVpNbENnMTRVLXRPYV9LSDVQNEM0U0JCck02U0V3QjBKYlgwUDBrTE42aFFkZTFtTW9ZLVNldVBuejZFdkxzSVlDMVFYQU1WbV9yQlhYLVltTlFmcTloUFRzZWt2MEx5alpn0gGjAUFVX3lxTE9NVEY3X0prWWVMWDNxRjFVUVV3NS1tZGF5d0dCZnFFYXR4ZDJZRkhKU2dIYWpxZnBUaTdWc2NSSDl5dXJCT0ZfRkd5MGFydWE5UFBUTEtYUU5fbThLTHUyUkdlOFZJT1ZZWFFxM3ZFdmV6VWt0SnZIUjNCNnRxS2JOY015eG9HV0tYWldHQmdrV0VlOWhDUVhOMm1aTGxyNnhudzQ?oc=5",
   "published_date": "2020-04-15",
   "captured_date": "2026-08-06",
-  "summary": "No one to harvest crops amid Spanish coronavirus lockdown&nbsp;&nbsp;dw.com",
+  "summary": "The restrictions around the coronavirus outbreak have made it impossible for thousands of migrant workers to come and harvest crops in Spanish fields. But that's just one of the many problems local farmers face.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Spain Huelva strawberry",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Spain Huelva strawberry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113"
+  "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+  "origin_domain": "dw.com"
 }

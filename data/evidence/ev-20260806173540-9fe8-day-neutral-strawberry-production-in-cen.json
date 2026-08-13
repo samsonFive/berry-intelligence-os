@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPMEM3U3hpN3BBRjRLMUZkcEpzTnNEc2tDNDhNYTcxY3E0dU00cXV3LWdZMTZiSGFEM1J6anhYeXVjQmtqWHp3bGZOX2FRb3JnQlJMb09vTXFRdzdGWnI1MGJFNU9xbDAxZklUcnVodVRPVWZhOWpDcVY0X01IcFlaWk8xLThUY2E5MGVtaVRkUEo5bk5DUVAybGhxWk9VbEFPWWVSaA?oc=5",
   "published_date": "2023-06-09",
   "captured_date": "2026-08-06",
-  "summary": "Day-neutral Strawberry Production in Central Oregon&nbsp;&nbsp;OSU Extension Service",
+  "summary": "Learn how to grow strawberries commercially in Central Oregon. The high desert region of Central Oregon can be a particularly challenging place to grow strawberries and other horticultural crops. Despite the challenges, strong demand for locally grown crops prompted some Central Oregon growers to explore using adapted cultivars and season-extension approaches to make strawberries a viable crop.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Strawberry cultivar patent",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89"
+  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
+  "origin_domain": "extension.oregonstate.edu"
 }

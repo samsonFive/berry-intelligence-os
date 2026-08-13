@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOOHY2eXBYV3NydVdGVmNtZFhzNnBKTXEzTGZTcGc1LXJvS2pTT2FOczdpdjZRQTVscUNmbUs1N2czektUVmx2LW5NWFN6Q0Qwal8xMFppMUJSTGN1c2JMVVg4dDRwak50QmpzaTJPT2JVYXFtbENIWnlYUGVPMUE1R2h2OFpWOGN2ZHB4OVJOY21nbEE?oc=5",
   "published_date": "2021-07-06",
   "captured_date": "2026-08-06",
-  "summary": "Federal Judge Sours on Fight Over California Strawberries&nbsp;&nbsp;Courthouse News",
+  "summary": "A federal judge isn't convinced a renowned plant scientist stole strawberry strains from produce giant Driscoll's when he opened a competing business.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Strawberry cultivar patent",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89"
+  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
+  "origin_domain": "courthousenews.com"
 }

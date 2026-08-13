@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOWUdWSWhjeFE4RnNvcEIyUDkydjM3Zmg0ZHl6NU9lYkhaTENIemY0bTZvNjE2aktMelp0WUpzQnN4ZFVadG0xX2ZfZl8yYTAzcmMxdU5ja2dzUHMyemdOTU1xYmE0TGN2MzllV2wyQmRiOTNmdUUxTENLS0JQc1gxby1qdHZKMlRSZWlndV96RzdXSDA2T1NnWHhxdzdVX2M?oc=5",
   "published_date": "2025-04-07",
   "captured_date": "2026-08-06",
-  "summary": "California-based strawberry grower faces sour ruling in patent dispute&nbsp;&nbsp;Courthouse News",
+  "summary": "Driscoll's didn't sufficiently prove that a patented plant was used by the defendants in the U.S., a federal judge ruled.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Strawberry cultivar patent",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Strawberry cultivar patent'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89"
+  "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
+  "origin_domain": "courthousenews.com"
 }

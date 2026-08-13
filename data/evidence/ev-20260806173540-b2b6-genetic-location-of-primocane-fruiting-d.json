@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE83OG4tYzI4TnpaOUtwN0xJT2Z5V05YdzAxMHhuaXlfUkRscmVsbjQyVS1FbFg4TTdwRUhleVo1RlRQbkliS2M4WWxBdWhBYjlLNTdQaFZYZ294T0R3?oc=5",
   "published_date": "2026-05-11",
   "captured_date": "2026-08-06",
-  "summary": "Genetic location of primocane-fruiting discovered in blackberries&nbsp;&nbsp;EurekAlert!",
+  "summary": "The genetic region controlling the primocane-fruiting trait in blackberries, or the ability to flower and fruit on first-year canes, remained uncertain recently even though the trait has fueled the rapid growth of the fresh-market blackberry industry. Published in the journal Genetics, a study explains how genome-wide association identified a single genomic region on chromosome Ra03 that is strong associated with the trait. The team also designed two DNA markers that reliably predict whether a blackberry plant will express primocane fruiting. The new research can speed development of improved varieties with better yield, fruit quality and regional adaptability.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Blackberry primocane variety",
   "berry_ids": [
@@ -42,5 +42,6 @@
       "rationale": "Auto-captured from source 'Blackberry primocane variety'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-d63a-blackberry-primocane-variety-90"
+  "source_id": "source-20260806173428-d63a-blackberry-primocane-variety-90",
+  "origin_domain": "eurekalert.org"
 }

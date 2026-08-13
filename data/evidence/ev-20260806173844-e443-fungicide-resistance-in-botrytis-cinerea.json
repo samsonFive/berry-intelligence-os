@@ -8,7 +8,7 @@
   "source_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQNGViX0JmVEp4bjFDVUxXd1hrcWFISTY3RFhxc0JFdEpsRHJwZ181UDhOdGNCQWNoclZUUndDQk1tUHlzMEUyT1JDb2ZxbUpaenMxX21hOVRjWUpJUHZUelA5a3ZqVTdfRm1QYmM5T3dzNXBvR2lMMVoxNlpBbzlkS00xRjJMVTBERUJDV1lVaHpld0I4?oc=5",
   "published_date": "2024-07-21",
   "captured_date": "2026-08-06",
-  "summary": "Fungicide resistance in Botrytis cinerea and identification of Botrytis species associated with blueberry in Michigan&nbsp;&nbsp;Frontiers",
+  "summary": "Botrytis blossom blight and fruit rot, caused by Botrytis cinerea, is a significant threat to blueberries, potentially resulting in substantial economic loss...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
   "berry_ids": [],
@@ -40,5 +40,6 @@
       "rationale": "Auto-captured from source 'Plant variety protection berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92"
+  "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+  "origin_domain": "frontiersin.org"
 }
