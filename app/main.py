@@ -23,6 +23,22 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from jsonschema import Draft202012Validator, FormatChecker
 
+from app.composition import get_domain_services, get_query_services, get_repositories
+from app.queries.timeline import entity_activity, max_priority_level
+from app.services.berries.geography import (
+    REGIONS,
+    REGION_LOOKUP,
+    berry_label,
+    entity_regions,
+    evidence_regions,
+    geography_region,
+)
+from app.services.berries.variety import (
+    _normalize_patent_number,
+    variety_patent_link,
+    variety_trait_profile,
+)
+
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data"
 INBOX_DIR = BASE_DIR / "inbox"
@@ -219,7 +235,7 @@ def load_json_files(folder: Path) -> list[dict[str, Any]]:
 
 
 def all_evidence() -> list[dict[str, Any]]:
-    return load_json_files(DATA_DIR / "evidence")
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.list()
 
 
 def published_evidence() -> list[dict[str, Any]]:
@@ -250,15 +266,16 @@ def unvalidated_auto_captured_evidence() -> list[dict[str, Any]]:
 
 
 def all_entities() -> list[dict[str, Any]]:
-    return load_json_files(DATA_DIR / "entities")
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).entities.list()
 
 
 def entity_index() -> dict[str, dict[str, Any]]:
     return {entity["id"]: entity for entity in all_entities() if entity.get("id")}
 
 
-def berry_label(berry_id: str) -> str:
-    return berry_id.removeprefix("berry-").replace("_", " ").replace("-", " ").title()
+# berry_label() lives in app/services/berries/geography.py (V2 Phase 2B.2)
+# and is imported above; re-exported under this name for every existing
+# caller (templates, scripts/build_static.py, tests).
 
 
 def us_date(value: str | None) -> str:
@@ -336,87 +353,10 @@ templates.env.filters["as_bullets"] = as_bullets
 templates.env.filters["is_redundant_summary"] = is_redundant_summary
 
 
-REGIONS = ["Americas", "Europe", "Oceania", "Middle East & Africa"]
-
-# Default region assignment by geography name. Deliberately not exhaustive --
-# anything not listed here (e.g. China, present in real imported data) has no
-# default region rather than being guessed into the wrong bucket. Always
-# overridable per-geography via attributes.region (see geography_region()).
-REGION_LOOKUP = {
-    "united states": "Americas", "canada": "Americas", "mexico": "Americas",
-    "peru": "Americas", "chile": "Americas", "colombia": "Americas",
-    "brazil": "Americas", "argentina": "Americas", "uruguay": "Americas",
-    "north america": "Americas", "south america": "Americas",
-    "europe": "Europe", "spain": "Europe", "portugal": "Europe",
-    "germany": "Europe", "netherlands": "Europe", "france": "Europe",
-    "poland": "Europe", "italy": "Europe", "united kingdom": "Europe", "uk": "Europe",
-    "australia": "Oceania", "new zealand": "Oceania", "oceania": "Oceania",
-    "morocco": "Middle East & Africa", "south africa": "Middle East & Africa",
-    "zambia": "Middle East & Africa", "zimbabwe": "Middle East & Africa",
-    "egypt": "Middle East & Africa", "kenya": "Middle East & Africa",
-    "nigeria": "Middle East & Africa", "israel": "Middle East & Africa",
-    "saudi arabia": "Middle East & Africa", "uae": "Middle East & Africa",
-    "united arab emirates": "Middle East & Africa",
-}
-
-
-def geography_region(geography_entity: dict[str, Any]) -> str | None:
-    """A geography's region: an explicit attributes.filter_region override
-    always wins (so a wrong or missing default is one edit away to fix),
-    otherwise the fixed lookup table by name.
-
-    Deliberately namespaced as "filter_region", not "region": real imported
-    geography entities already carry their own attributes.region using a
-    different taxonomy (e.g. "Asia-Pacific", "Latin America") for their own
-    purposes. Reusing that key silently adopted their values as if they were
-    corrections to this app's four-bucket scheme, which they were never
-    intended to be -- found by checking Australia's derived region live and
-    getting "Asia-Pacific" back instead of "Oceania"."""
-    override = (geography_entity.get("attributes") or {}).get("filter_region")
-    if override:
-        return override
-    return REGION_LOOKUP.get(geography_entity.get("name", "").strip().lower())
-
-
-def evidence_regions(record: dict[str, Any], entities: dict[str, dict[str, Any]]) -> set[str]:
-    """A geography can be associated with evidence two ways: the dedicated
-    geography_ids array, or just as one of the general entity_ids -- real
-    imported data (predating the geography_ids field) only ever does the
-    latter, so both are checked rather than trusting one convention."""
-    geo_ids = set(record.get("geography_ids") or [])
-    for eid in record.get("entity_ids") or []:
-        entity = entities.get(eid)
-        if entity and entity.get("entity_type") == "geography":
-            geo_ids.add(eid)
-    regions = set()
-    for gid in geo_ids:
-        geo = entities.get(gid)
-        if geo:
-            region = geography_region(geo)
-            if region:
-                regions.add(region)
-    return regions
-
-
-def entity_regions(
-    entity: dict[str, Any],
-    entities: dict[str, dict[str, Any]],
-    evidence: list[dict[str, Any]],
-) -> set[str]:
-    """Which regions an entity touches. A geography entity has its own
-    region. Any other entity's regions are derived, not stored: the union of
-    regions from every geography linked (via geography_ids) to evidence that
-    also links this entity -- so a variety grown/tested/reported on across
-    three continents shows all three automatically, with no extra field to
-    keep in sync."""
-    if entity.get("entity_type") == "geography":
-        region = geography_region(entity)
-        return {region} if region else set()
-    regions: set[str] = set()
-    for record in evidence:
-        if entity.get("id") in (record.get("entity_ids") or []):
-            regions |= evidence_regions(record, entities)
-    return regions
+# REGIONS, REGION_LOOKUP, geography_region(), evidence_regions(),
+# entity_regions() moved to app/services/berries/geography.py (V2 Phase
+# 2B.2) and imported above -- re-exported under these names for every
+# existing caller (templates, scripts/build_static.py, tests).
 
 
 def related_entity_ids(entity_id: str, relationships: list[dict[str, Any]]) -> set[str]:
@@ -659,23 +599,23 @@ def entity_folder(entity_type: str) -> str:
 
 
 def all_facts() -> list[dict[str, Any]]:
-    return load_json_files(DATA_DIR / "facts")
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).facts.list()
 
 
 def all_relationships() -> list[dict[str, Any]]:
-    return load_json_files(DATA_DIR / "relationships")
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).relationships.list()
 
 
 def facts_for_evidence(evidence_id: str) -> list[dict[str, Any]]:
-    return [f for f in all_facts() if evidence_id in (f.get("evidence_ids") or [])]
+    return get_query_services(DATA_DIR, SCHEMAS_DIR).reference.facts_for_evidence(evidence_id)
 
 
 def relationships_for_evidence(evidence_id: str) -> list[dict[str, Any]]:
-    return [r for r in all_relationships() if evidence_id in (r.get("evidence_ids") or [])]
+    return get_query_services(DATA_DIR, SCHEMAS_DIR).reference.relationships_for_evidence(evidence_id)
 
 
 def facts_for_entity(entity_id: str) -> list[dict[str, Any]]:
-    return [f for f in all_facts() if entity_id in (f.get("entity_ids") or [])]
+    return get_query_services(DATA_DIR, SCHEMAS_DIR).entity_intelligence.facts_for_entity(entity_id)
 
 
 def relationships_for_entity(entity_id: str, relationships: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -718,15 +658,15 @@ def grouped_relationships_for_entity(
 
 
 def signals_for_entity(entity_id: str) -> list[dict[str, Any]]:
-    return [s for s in all_signals() if entity_id in (s.get("entity_ids") or [])]
+    return get_query_services(DATA_DIR, SCHEMAS_DIR).entity_intelligence.signals_for_entity(entity_id)
 
 
 def assessments_for_entity(entity_id: str) -> list[dict[str, Any]]:
-    return [a for a in all_assessments() if entity_id in (a.get("entity_ids") or [])]
+    return get_query_services(DATA_DIR, SCHEMAS_DIR).entity_intelligence.assessments_for_entity(entity_id)
 
 
 def recommendations_for_entity(entity_id: str) -> list[dict[str, Any]]:
-    return [r for r in all_recommendations() if entity_id in (r.get("entity_ids") or [])]
+    return get_query_services(DATA_DIR, SCHEMAS_DIR).entity_intelligence.recommendations_for_entity(entity_id)
 
 
 def strategic_questions_for_entity(
@@ -740,474 +680,38 @@ def strategic_questions_for_entity(
     named on its own linked Evidence and on any Signal/Assessment/
     Recommendation that touches it. Generic and core: the mechanism is
     entity-type-agnostic, it just follows the strategic_question_ids field
-    every one of these record types already carries."""
-    sq_ids: set[str] = set()
-    for record in [*linked_evidence, *entity_signals, *entity_assessments, *entity_recommendations]:
-        sq_ids.update(record.get("strategic_question_ids") or [])
-    return [sq for sq in load_strategic_questions() if sq.get("id") in sq_ids]
+    every one of these record types already carries. entity_id is unused
+    (kept for call-site compatibility -- it always was)."""
+    return get_query_services(DATA_DIR, SCHEMAS_DIR).entity_intelligence.strategic_questions_for_entity(
+        linked_evidence, entity_signals, entity_assessments, entity_recommendations
+    )
 
 
-# ---------------------------------------------------------------------------
-# BERRIES DOMAIN PACK PROTOTYPE LOGIC (V2 Phase 1.5B, BL-027/BL-028).
-#
-# Everything in this block reads free-form conventions that exist only
-# inside the Berries dataset's `attributes` dict (attributes.traits[],
-# attributes.patent_number, attributes.breeding_program_id) -- none of it is
-# a core schema guarantee, and no other entity type in this dataset uses
-# these keys. This is exactly the kind of domain-specific assumption the
-# Phase 1.5B findings document (docs/v2/PHASE-1-5-PROTOTYPE-FINDINGS.md)
-# classifies as CORE / DOMAIN PACK / DEFER -- these functions are logged
-# there as DOMAIN PACK candidates, kept here only because Phase 1.5B's
-# purpose is to learn what a future Domain Pack contribution surface needs
-# to support, not to build that mechanism prematurely (04-DOMAIN-PACK-SPEC.md).
-# ---------------------------------------------------------------------------
+# variety_trait_profile(), _normalize_patent_number(), variety_patent_link()
+# moved to app/services/berries/variety.py (V2 Phase 2B.2) and imported
+# above -- re-exported under these names for every existing caller.
 
-def variety_trait_profile(variety: dict[str, Any], entities: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
-    """Resolve a variety's attributes.traits[] entries (already real,
-    structured data -- see data/entities/varieties/*.json) into rows a
-    template can render, honestly distinguishing an owner/marketer CLAIM
-    from an independently-sourced measurement, per this task's explicit
-    instruction not to turn marketer/breeder claims into objective
-    performance statements."""
-    rows = []
-    for entry in (variety.get("attributes") or {}).get("traits") or []:
-        trait_entity = entities.get(entry.get("trait"))
-        provenance = entry.get("provenance")
-        rows.append(
-            {
-                "trait_name": trait_entity["name"] if trait_entity else entry.get("trait"),
-                "value": entry.get("value"),
-                "provenance": provenance,
-                "is_claim": provenance == "owner_or_marketer_claim",
-                "is_unresolved": provenance == "unresolved",
-                "asserted_by": entry.get("asserted_by"),
-                "conditions": entry.get("conditions"),
-                "evidence_ids": entry.get("evidence_ids") or [],
-            }
-        )
-    return rows
-
-
-def _normalize_patent_number(value: str) -> str:
-    return "".join(ch for ch in value.lower() if ch.isalnum())
-
-
-def variety_patent_link(variety: dict[str, Any], patents: list[dict[str, Any]]) -> dict[str, Any] | None:
-    """Best-effort match of a variety's free-text attributes.patent_number
-    (e.g. "US PP28,358") against a live patent entity's id/aliases -- no
-    'protects' relationship (patent -> variety) has any live usage yet
-    (0 of 16 declared predicates used, domain-packs/berries/manifest.json),
-    so this is the only real linkage path available today. Returns None,
-    rather than a guess, when no confident match exists."""
-    patent_number = (variety.get("attributes") or {}).get("patent_number")
-    if not patent_number:
-        return None
-    needle = _normalize_patent_number(patent_number)
-    for patent in patents:
-        candidates = [patent.get("id", ""), *(patent.get("aliases") or [])]
-        if any(_normalize_patent_number(c) == needle for c in candidates):
-            return patent
-    return None
-
-
-# ---------------------------------------------------------------------------
-# BERRIES LANDSCAPE PROTOTYPE LOGIC (V2 Phase 1.5B, BL-026).
-#
-# An "Intelligence Product" that synthesizes a market view is a Core concept
-# (03-DOMAIN-MODEL.md, "Intelligence Product") -- but the specific rollup
-# computed here (variety/patent/geography coverage per company, region
-# derived from geography name lookups) is entirely Berries-shaped. Logged in
-# docs/v2/PHASE-1-5-PROTOTYPE-FINDINGS.md as a DOMAIN PACK "report template"
-# candidate (04-DOMAIN-PACK-SPEC.md Section 6), kept as plain functions here
-# because building the report-template mechanism itself is out of scope for
-# a UX/IA validation prototype.
-#
-# Deliberately absent: any single blended "competitive strength" or "top
-# variety" score. Every count below is a labeled coverage indicator (how
-# much the dataset says about X), never a ranking -- per this task's
-# explicit instruction not to mechanically rank organizations or varieties
-# by record count and call it competitive strength.
-# ---------------------------------------------------------------------------
-
-# V1 seed/demo fixtures, explicitly self-described as fictional
-# ("Fictional ... used as seed data") in their own description field, mixed
-# into the same data/entities and data/evidence folders as real intelligence
-# with no structural flag to distinguish them. Excluded here only -- not
-# from individual entity/evidence pages -- because the Landscape's entire
-# purpose is a truthful picture built from real data (this task's explicit
-# instruction: "do not invent placeholder intelligence when live records
-# can be used"). See docs/v2/PHASE-1-5-PROTOTYPE-FINDINGS.md for this as a
-# documented data-hygiene finding, not a silent fix.
-SEED_FIXTURE_ENTITY_IDS = {
-    "company-example-genetics",
-    "company-example-nursery",
-    "retailer-example-market",
-    "variety-example-blue",
-    "variety-example-red",
-}
-SEED_FIXTURE_EVIDENCE_IDS = {
-    "ev-sample-patent-published",
-    "ev-sample-retail-placement",
-    "ev-sample-variety-launch",
-}
-
-PRIMARY_SOURCE_TYPES = {
-    "government_registry",
-    "patent_record",
-    "plant_breeders_rights_record",
-    "regulatory_or_registry_record",
-    "company_annual_report",
-    "research_program_publication",
-}
-
-
-def landscape_evidence(berry_id: str) -> list[dict[str, Any]]:
-    return [
-        r
-        for r in published_evidence()
-        if berry_id in (r.get("berry_ids") or []) and r["id"] not in SEED_FIXTURE_EVIDENCE_IDS
-    ]
-
-
-def landscape_entities(berry_id: str, entity_type: str | None = None) -> list[dict[str, Any]]:
-    return [
-        e
-        for e in all_entities()
-        if berry_id in (e.get("berry_ids") or [])
-        and e["id"] not in SEED_FIXTURE_ENTITY_IDS
-        and (entity_type is None or e.get("entity_type") == entity_type)
-    ]
-
-
-def landscape_intelligence_objects(
-    berry_id: str, berry_entity_ids: set[str]
-) -> dict[str, list[dict[str, Any]]]:
-    """Signal carries its own berry_ids; Assessment/Recommendation do not
-    (03-DOMAIN-MODEL.md's schemas have no domain/berry-scope field yet --
-    logged as a MISSING QUERY CAPABILITY / possible schema gap in
-    docs/v2/PHASE-1-5-PROTOTYPE-FINDINGS.md), so berry-relevance for those
-    two is derived transitively: an Assessment/Recommendation counts as
-    'about this berry' when it names at least one entity this berry's own
-    entity set contains."""
-    signals = [s for s in all_signals() if berry_id in (s.get("berry_ids") or [])]
-    assessments = [a for a in all_assessments() if berry_entity_ids & set(a.get("entity_ids") or [])]
-    recommendations = [
-        r for r in all_recommendations() if berry_entity_ids & set(r.get("entity_ids") or [])
-    ]
-    return {"signals": signals, "assessments": assessments, "recommendations": recommendations}
-
-
-def landscape_competitive_field(
-    berry_id: str, relationships: list[dict[str, Any]], entities: dict[str, dict[str, Any]]
-) -> list[dict[str, Any]]:
-    companies = landscape_entities(berry_id, "company")
-    company_ids = {c["id"] for c in companies}
-    develops: dict[str, set[str]] = defaultdict(set)
-    owns_patents: dict[str, set[str]] = defaultdict(set)
-    owns_brands: dict[str, set[str]] = defaultdict(set)
-    licenses: dict[str, set[str]] = defaultdict(set)
-    operates_in: dict[str, set[str]] = defaultdict(set)
-    for rel in relationships:
-        subject_id, object_id, predicate = rel.get("subject_id"), rel.get("object_id"), rel.get("predicate")
-        if subject_id not in company_ids:
-            continue
-        obj = entities.get(object_id)
-        if obj is None:
-            continue
-        if predicate == "develops" and obj.get("entity_type") == "variety":
-            develops[subject_id].add(object_id)
-        elif predicate == "owns" and obj.get("entity_type") == "patent":
-            owns_patents[subject_id].add(object_id)
-        elif predicate == "owns" and obj.get("entity_type") == "brand":
-            owns_brands[subject_id].add(object_id)
-        elif predicate == "licenses" and obj.get("entity_type") == "variety":
-            licenses[subject_id].add(object_id)
-        elif predicate == "operates_in" and obj.get("entity_type") == "geography":
-            operates_in[subject_id].add(object_id)
-
-    evidence = landscape_evidence(berry_id)
-    rows = []
-    for company in companies:
-        cid = company["id"]
-        rows.append(
-            {
-                "entity": company,
-                "varieties_developed": len(develops[cid]),
-                "varieties_licensed": len(licenses[cid]),
-                "patents_owned": len(owns_patents[cid]),
-                "brands_owned": len(owns_brands[cid]),
-                "geographies": len(operates_in[cid]),
-                "evidence_count": len([r for r in evidence if cid in (r.get("entity_ids") or [])]),
-                "signals": signals_for_entity(cid),
-                "assessments": assessments_for_entity(cid),
-                "recommendations": recommendations_for_entity(cid),
-            }
-        )
-    # Alphabetical, not by any coverage count -- a table's row order must
-    # not itself imply a ranking.
-    rows.sort(key=lambda r: r["entity"]["name"])
-    return rows
-
-
-def landscape_variety_rollup(berry_id: str, entities: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
-    varieties = landscape_entities(berry_id, "variety")
-    evidence = landscape_evidence(berry_id)
-    rows = []
-    for variety in varieties:
-        vid = variety["id"]
-        breeding_program_id = (variety.get("attributes") or {}).get("breeding_program_id")
-        rows.append(
-            {
-                "entity": variety,
-                "breeder": (variety.get("attributes") or {}).get("breeder"),
-                "breeding_program": entities.get(breeding_program_id) if breeding_program_id else None,
-                "trait_count": len((variety.get("attributes") or {}).get("traits") or []),
-                "has_patent_number": bool((variety.get("attributes") or {}).get("patent_number")),
-                "evidence_count": len([r for r in evidence if vid in (r.get("entity_ids") or [])]),
-                "signals": signals_for_entity(vid),
-                "assessments": assessments_for_entity(vid),
-            }
-        )
-    rows.sort(key=lambda r: r["entity"]["name"])
-    return rows
-
-
-def landscape_geographic_footprint(
-    berry_id: str, relationships: list[dict[str, Any]], entities: dict[str, dict[str, Any]]
-) -> list[dict[str, Any]]:
-    geographies = landscape_entities(berry_id, "geography")
-    buckets: dict[str, dict[str, Any]] = {
-        region: {"geographies": [], "companies": set(), "evidence_count": 0} for region in REGIONS
-    }
-    buckets["Unclassified"] = {"geographies": [], "companies": set(), "evidence_count": 0}
-
-    for geo in geographies:
-        region = geography_region(geo) or "Unclassified"
-        buckets[region]["geographies"].append(geo)
-
-    for rel in relationships:
-        if rel.get("predicate") != "operates_in":
-            continue
-        obj = entities.get(rel.get("object_id"))
-        if not obj or obj.get("entity_type") != "geography":
-            continue
-        region = geography_region(obj) or "Unclassified"
-        buckets[region]["companies"].add(rel.get("subject_id"))
-
-    for record in landscape_evidence(berry_id):
-        for region in evidence_regions(record, entities):
-            if region in buckets:
-                buckets[region]["evidence_count"] += 1
-
-    rows = []
-    for region in [*REGIONS, "Unclassified"]:
-        data = buckets[region]
-        if not data["geographies"] and not data["companies"] and not data["evidence_count"]:
-            continue
-        rows.append(
-            {
-                "region": region,
-                "geography_names": sorted(g["name"] for g in data["geographies"]),
-                "company_count": len(data["companies"]),
-                "evidence_count": data["evidence_count"],
-            }
-        )
-    return rows
-
-
-def landscape_recent_movement(
-    evidence_pool: list[dict[str, Any]],
-    signals: list[dict[str, Any]],
-    assessments: list[dict[str, Any]],
-    recommendations: list[dict[str, Any]],
-    cap: int = 12,
-) -> list[dict[str, Any]]:
-    """'Recent' filtered to evidence connected to something the platform has
-    already judged meaningful (a Signal/Assessment/Recommendation cites it)
-    -- not simply the newest records, per this task's explicit instruction."""
-    important_ids: set[str] = set()
-    for record in [*signals, *assessments, *recommendations]:
-        important_ids.update(record.get("evidence_ids") or [])
-    candidates = [r for r in evidence_pool if r["id"] in important_ids]
-    candidates.sort(key=lambda r: r.get("published_date") or r.get("captured_date") or "", reverse=True)
-    return candidates[:cap]
-
-
-def landscape_evidence_coverage(
-    berry_id: str, berry_entity_ids: set[str], entities: dict[str, dict[str, Any]]
-) -> dict[str, Any]:
-    evidence = landscape_evidence(berry_id)
-    source_type_counts = Counter(r.get("source_type") for r in evidence)
-    primary_count = sum(c for t, c in source_type_counts.items() if t in PRIMARY_SOURCE_TYPES)
-
-    relevant_facts = [f for f in all_facts() if berry_entity_ids & set(f.get("entity_ids") or [])]
-    confidence_counts = Counter(f.get("confidence") for f in relevant_facts)
-    disputed_facts = [f for f in relevant_facts if f.get("status") == "disputed"]
-
-    relevant_rels = [
-        r
-        for r in all_relationships()
-        if r.get("subject_id") in berry_entity_ids or r.get("object_id") in berry_entity_ids
-    ]
-    disputed_rels = [r for r in relevant_rels if r.get("status") == "disputed"]
-
-    unresolved_sqs = [sq for sq in load_strategic_questions() if sq.get("status") == "active"]
-    thin_varieties = [
-        v for v in landscape_entities(berry_id, "variety") if len(v.get("evidence_ids") or []) <= 1
-    ]
-
-    return {
-        "evidence_count": len(evidence),
-        "primary_source_count": primary_count,
-        "source_type_breakdown": source_type_counts.most_common(),
-        "confidence_distribution": confidence_counts,
-        "disputed_fact_count": len(disputed_facts),
-        "disputed_relationship_count": len(disputed_rels),
-        "unresolved_strategic_question_count": len(unresolved_sqs),
-        "thin_coverage_varieties": thin_varieties,
-    }
+# SEED_FIXTURE_ENTITY_IDS, SEED_FIXTURE_EVIDENCE_IDS, PRIMARY_SOURCE_TYPES,
+# and every landscape_*() helper moved to app/services/berries/landscape.py's
+# BerriesLandscapeService (V2 Phase 2B.2). landscape_context() below is now
+# a thin route-facing wrapper -- tests and scripts/build_static.py call
+# main.landscape_context() exactly as before; only its internals changed.
 
 
 def landscape_context(berry_id: str) -> dict[str, Any]:
-    entities = entity_index()
-    relationships = all_relationships()
-    berry_entities = landscape_entities(berry_id)
-    berry_entity_ids = {e["id"] for e in berry_entities}
-    evidence = landscape_evidence(berry_id)
-    intelligence = landscape_intelligence_objects(berry_id, berry_entity_ids)
-
-    dated_evidence = [r for r in evidence if r.get("published_date") or r.get("captured_date")]
-    last_material_update = None
-    if dated_evidence:
-        last_material_update = max(r.get("published_date") or r.get("captured_date") for r in dated_evidence)
-
-    entity_type_counts = Counter(e.get("entity_type") for e in berry_entities)
-
     return {
-        "berry_id": berry_id,
+        **get_domain_services(DATA_DIR).landscape.landscape_context(berry_id),
         "berry_label": berry_label(berry_id),
-        "header_stats": {
-            "evidence_count": len(evidence),
-            "source_count": len({r.get("source_name") for r in evidence if r.get("source_name")}),
-            "last_material_update": last_material_update,
-            "signal_count": len(intelligence["signals"]),
-            "entity_type_counts": entity_type_counts,
-        },
-        "signals": intelligence["signals"],
-        "assessments": intelligence["assessments"],
-        "recommendations": intelligence["recommendations"],
-        "strategic_questions": load_strategic_questions(),
-        "competitive_field": landscape_competitive_field(berry_id, relationships, entities),
-        "variety_rollup": landscape_variety_rollup(berry_id, entities),
-        "geographic_footprint": landscape_geographic_footprint(berry_id, relationships, entities),
-        "recent_movement": landscape_recent_movement(
-            evidence, intelligence["signals"], intelligence["assessments"], intelligence["recommendations"]
-        ),
-        "evidence_coverage": landscape_evidence_coverage(berry_id, berry_entity_ids, entities),
     }
 
 
-def max_priority_level(record: dict[str, Any]) -> str:
-    levels_present = {v.get("level") for v in (record.get("priority") or {}).values()}
-    for level in ("high", "medium", "low"):
-        if level in levels_present:
-            return level
-    return "none"
-
-
-def entity_activity(
-    linked_evidence: list[dict[str, Any]],
-    entity_facts: list[dict[str, Any]],
-    entity_relationships: list[dict[str, Any]],
-    entities: dict[str, dict[str, Any]],
-    evidence_idx: dict[str, dict[str, Any]],
-) -> list[dict[str, Any]]:
-    """A single chronological feed for one entity, merging evidence, facts,
-    and relationships -- the "what's new with company X" view the original
-    approved mockup showed (assets/platform-visual-language.png, panel 4)
-    but was never actually built.
-
-    Only items with a genuine date make the cut. Roughly half of imported
-    evidence (mostly reference material -- company/registry/catalog pages,
-    patent records) has no real published_date, only a captured_date marking
-    when it was pulled into the system. Falling back to captured_date would
-    make evergreen reference pages look like breaking news at the top of the
-    feed, defeating the entire point of a "what's new" view. Undated items
-    are simply excluded here; they remain visible in the Linked Evidence /
-    Facts sections below, just not misrepresented as recent activity.
-
-    Facts use event_date (the real-world date the underlying development
-    happened, backfilled from evidence text) when available, falling back to
-    created_at (when the fact was authored) since that's still a real date --
-    just not necessarily *the* newsworthy one."""
-    items: list[dict[str, Any]] = []
-
-    for record in linked_evidence:
-        date = record.get("published_date")
-        if not date:
-            continue
-        items.append(
-            {
-                "date": date,
-                "type": "evidence",
-                "type_label": record.get("source_type", "evidence").replace("_", " ").title(),
-                "title": record.get("title", ""),
-                "detail": record.get("summary", ""),
-                "url": f"/evidence/{record['id']}",
-                "priority": max_priority_level(record),
-            }
-        )
-
-    for fact in entity_facts:
-        evidence_id = (fact.get("evidence_ids") or [None])[0]
-        evidence = evidence_idx.get(evidence_id) if evidence_id else None
-        fallback_date = evidence.get("published_date") if evidence else None
-        date = fact.get("event_date") or fact.get("created_at") or fallback_date
-        if not date:
-            continue
-        detail = f"{fact.get('confidence', '')} confidence"
-        if fact.get("status") and fact.get("status") != "active":
-            detail += f" · {fact['status']}"
-        items.append(
-            {
-                "date": date,
-                "type": "fact",
-                "type_label": (fact.get("classification") or "fact").title(),
-                "title": fact.get("statement", ""),
-                "detail": detail,
-                "url": f"/evidence/{evidence_id}" if evidence_id else "",
-                "priority": None,
-            }
-        )
-
-    for rel in entity_relationships:
-        evidence_id = (rel.get("evidence_ids") or [None])[0]
-        evidence = evidence_idx.get(evidence_id) if evidence_id else None
-        fallback_date = evidence.get("published_date") if evidence else None
-        date = rel.get("effective_date") or fallback_date
-        if not date:
-            continue
-        subject_name = entities.get(rel.get("subject_id"), {}).get("name", rel.get("subject_id"))
-        object_name = entities.get(rel.get("object_id"), {}).get("name", rel.get("object_id"))
-        predicate = (rel.get("predicate") or "").replace("_", " ")
-        items.append(
-            {
-                "date": date,
-                "type": "relationship",
-                "type_label": predicate.title(),
-                "title": f"{subject_name} {predicate} {object_name}",
-                "detail": rel.get("notes", ""),
-                "url": f"/evidence/{evidence_id}" if evidence_id else "",
-                "priority": None,
-            }
-        )
-
-    items.sort(key=lambda item: item["date"], reverse=True)
-    return items
+# max_priority_level() and entity_activity() moved to app/queries/timeline.py
+# (V2 Phase 2B.2) and imported above -- re-exported under these names for
+# every existing caller.
 
 
 def load_strategic_questions() -> list[dict[str, Any]]:
-    return load_json_files(DATA_DIR / "strategic-questions")
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).strategic_questions.list()
 
 
 def strategic_question_by_id(sq_id: str) -> dict[str, Any] | None:
@@ -1218,7 +722,7 @@ def strategic_question_by_id(sq_id: str) -> dict[str, Any] | None:
 
 
 def evidence_for_strategic_question(sq_id: str) -> list[dict[str, Any]]:
-    return [r for r in published_evidence() if sq_id in (r.get("strategic_question_ids") or [])]
+    return get_query_services(DATA_DIR, SCHEMAS_DIR).reference.evidence_for_strategic_question(sq_id)
 
 
 def resolve_strategic_question_ids(text: str) -> list[str]:
@@ -1236,8 +740,7 @@ def resolve_strategic_question_ids(text: str) -> list[str]:
 
 
 def all_signals() -> list[dict[str, Any]]:
-    records = load_json_files(DATA_DIR / "signals")
-    return sorted(records, key=lambda r: r.get("last_updated", ""), reverse=True)
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).signals.list()
 
 
 def signal_by_id(signal_id: str) -> dict[str, Any] | None:
@@ -1262,8 +765,7 @@ def new_signal_id(title: str) -> str:
 
 
 def all_assessments() -> list[dict[str, Any]]:
-    records = load_json_files(DATA_DIR / "assessments")
-    return sorted(records, key=lambda r: r.get("created_at", ""), reverse=True)
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).assessments.list()
 
 
 def assessment_by_id(assessment_id: str) -> dict[str, Any] | None:
@@ -1288,8 +790,7 @@ def new_assessment_id(title: str) -> str:
 
 
 def all_recommendations() -> list[dict[str, Any]]:
-    records = load_json_files(DATA_DIR / "recommendations")
-    return sorted(records, key=lambda r: r.get("created_at", ""), reverse=True)
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).recommendations.list()
 
 
 def recommendation_by_id(recommendation_id: str) -> dict[str, Any] | None:
@@ -1337,10 +838,7 @@ def sources_file() -> Path:
 
 
 def load_sources() -> list[dict[str, Any]]:
-    path = sources_file()
-    if not path.exists():
-        return []
-    return json.loads(path.read_text(encoding="utf-8"))
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).sources.list()
 
 
 def save_sources(sources: list[dict[str, Any]]) -> None:
@@ -2321,17 +1819,18 @@ def signal_detail(request: Request, signal_id: str) -> HTMLResponse:
     if signal is None:
         raise HTTPException(status_code=404, detail="Signal not found")
     entities = entity_index()
+    lineage = get_query_services(DATA_DIR, SCHEMAS_DIR).lineage
     return templates.TemplateResponse(
         request=request,
         name="signal_detail.html",
         context={
             "signal": signal,
-            "linked_evidence": [r for r in published_evidence() if r["id"] in (signal.get("evidence_ids") or [])],
-            "linked_facts": [f for f in all_facts() if f["id"] in (signal.get("fact_ids") or [])],
-            "linked_entities": [entities[e] for e in (signal.get("entity_ids") or []) if e in entities],
-            "linked_strategic_questions": [
-                sq for sq in load_strategic_questions() if sq["id"] in (signal.get("strategic_question_ids") or [])
-            ],
+            "linked_evidence": lineage.resolve_linked_evidence(signal.get("evidence_ids")),
+            "linked_facts": lineage.resolve_linked_facts(signal.get("fact_ids")),
+            "linked_entities": lineage.resolve_linked_entities(signal.get("entity_ids"), entities),
+            "linked_strategic_questions": lineage.resolve_linked_strategic_questions(
+                signal.get("strategic_question_ids")
+            ),
             "authoring_mode": AUTHORING_MODE,
         },
     )
@@ -2493,21 +1992,22 @@ def assessment_detail(request: Request, assessment_id: str) -> HTMLResponse:
     if assessment is None:
         raise HTTPException(status_code=404, detail="Assessment not found")
     entities = entity_index()
-    fact_idx = {f["id"]: f for f in all_facts()}
+    lineage = get_query_services(DATA_DIR, SCHEMAS_DIR).lineage
     return templates.TemplateResponse(
         request=request,
         name="assessment_detail.html",
         context={
             "assessment": assessment,
-            "linked_facts": [f for f in all_facts() if f["id"] in (assessment.get("fact_ids") or [])],
-            "linked_evidence": [r for r in published_evidence() if r["id"] in (assessment.get("evidence_ids") or [])],
-            "linked_entities": [entities[e] for e in (assessment.get("entity_ids") or []) if e in entities],
-            "linked_strategic_questions": [
-                sq for sq in load_strategic_questions() if sq["id"] in (assessment.get("strategic_question_ids") or [])
-            ],
-            "counterevidence": [
-                fact_idx[cid] for cid in (assessment.get("counterevidence_ids") or []) if cid in fact_idx
-            ],
+            "linked_facts": lineage.resolve_linked_facts(assessment.get("fact_ids")),
+            "linked_evidence": lineage.resolve_linked_evidence(assessment.get("evidence_ids")),
+            "linked_entities": lineage.resolve_linked_entities(assessment.get("entity_ids"), entities),
+            "linked_strategic_questions": lineage.resolve_linked_strategic_questions(
+                assessment.get("strategic_question_ids")
+            ),
+            # counterevidence_ids may reference a fact id or an evidence id
+            # (see the create route's validation) but this view has only
+            # ever resolved the fact half -- preserved exactly, not fixed.
+            "counterevidence": lineage.resolve_linked_facts(assessment.get("counterevidence_ids")),
             "authoring_mode": AUTHORING_MODE,
         },
     )
@@ -2685,25 +2185,20 @@ def recommendation_detail(request: Request, recommendation_id: str) -> HTMLRespo
     if recommendation is None:
         raise HTTPException(status_code=404, detail="Recommendation not found")
     entities = entity_index()
+    lineage = get_query_services(DATA_DIR, SCHEMAS_DIR).lineage
     return templates.TemplateResponse(
         request=request,
         name="recommendation_detail.html",
         context={
             "recommendation": recommendation,
-            "linked_assessments": [
-                a for a in all_assessments() if a["id"] in (recommendation.get("assessment_ids") or [])
-            ],
-            "linked_signals": [s for s in all_signals() if s["id"] in (recommendation.get("signal_ids") or [])],
-            "linked_facts": [f for f in all_facts() if f["id"] in (recommendation.get("fact_ids") or [])],
-            "linked_evidence": [
-                r for r in published_evidence() if r["id"] in (recommendation.get("evidence_ids") or [])
-            ],
-            "linked_entities": [entities[e] for e in (recommendation.get("entity_ids") or []) if e in entities],
-            "linked_strategic_questions": [
-                sq
-                for sq in load_strategic_questions()
-                if sq["id"] in (recommendation.get("strategic_question_ids") or [])
-            ],
+            "linked_assessments": lineage.resolve_linked_assessments(recommendation.get("assessment_ids")),
+            "linked_signals": lineage.resolve_linked_signals(recommendation.get("signal_ids")),
+            "linked_facts": lineage.resolve_linked_facts(recommendation.get("fact_ids")),
+            "linked_evidence": lineage.resolve_linked_evidence(recommendation.get("evidence_ids")),
+            "linked_entities": lineage.resolve_linked_entities(recommendation.get("entity_ids"), entities),
+            "linked_strategic_questions": lineage.resolve_linked_strategic_questions(
+                recommendation.get("strategic_question_ids")
+            ),
             "authoring_mode": AUTHORING_MODE,
         },
     )
