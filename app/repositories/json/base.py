@@ -146,6 +146,23 @@ class JsonRecordRepository:
         self._write(path, record)
         return record
 
+    def create_many(self, records: list[dict[str, Any]]) -> None:
+        """Validated bulk-load hook used by Intelligence Package re-import.
+        It preserves create semantics while avoiding an O(n²) rescan during
+        migration-sized loads; it is not part of route-facing CRUD."""
+        existing = {record.get("id") for _path, record in self._load_all_with_paths()}
+        incoming: set[str] = set()
+        for record in records:
+            record_id = record.get("id")
+            if not record_id:
+                raise InvalidRecord(None, ["record has no 'id' field"])
+            if record_id in existing or record_id in incoming:
+                raise DuplicateRecord(record_id)
+            self._validate(record)
+            incoming.add(record_id)
+        for record in records:
+            self._write(self._new_record_path(record), record)
+
     def update(self, record_id: str, record: dict[str, Any]) -> dict[str, Any]:
         existing_path = self._locate(record_id)
         if existing_path is None:

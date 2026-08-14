@@ -91,6 +91,16 @@ class JsonSourceRepository:
         self._save_all(sources)
         return record
 
+    def create_many(self, records: list[dict[str, Any]]) -> None:
+        existing = {source.get("id") for source in self._load_all()}
+        incoming = [record.get("id") for record in records]
+        if any(record_id is None for record_id in incoming):
+            raise InvalidRecord(None, ["record has no 'id' field"])
+        if existing.intersection(incoming) or len(incoming) != len(set(incoming)):
+            duplicate = next(record_id for record_id in incoming if record_id in existing or incoming.count(record_id) > 1)
+            raise DuplicateRecord(duplicate)
+        self._save_all([*self._load_all(), *records])
+
     def update(self, record_id: str, record: dict[str, Any]) -> dict[str, Any]:
         if record.get("id") != record_id:
             raise InvalidRecord(record_id, ["update() record's 'id' does not match record_id argument"])

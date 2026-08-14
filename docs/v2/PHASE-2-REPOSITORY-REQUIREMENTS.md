@@ -470,3 +470,11 @@ Review/publish now constructs one `JsonUnitOfWork` over Entity, Fact, Relationsh
 Direct filesystem writes remain only for storage surfaces that have no Phase 2 repository: inbox drafts, draft/published attachments, and the blocked-domain configuration list. They are deliberately not converted into improvised repositories in BL-033. Attachment movement still precedes the JSON UoW and therefore retains the flat-file backend's documented best-effort (not fully atomic) character; PostgreSQL work remains untouched.
 
 Acceptance verification added explicit failure injection for every publish boundary: after new-Entity creation, after existing-Entity update, after Fact creation, after Relationship creation, and after Evidence creation via draft-deletion failure. It also proves the final case rolls all structured records back, leaves the draft present, and permits one clean retry without duplicate records or linkage ids.
+
+---
+
+## Part 12 — Phase 2C.1 / BL-035 implementation findings (added 2026-08-14)
+
+`app/exports/intelligence_package.py` exports all nine operational families through supplied repository interfaces, plus the spec-required materialized Claims subset. The deterministic JSON package includes manifest, content hash, package-only reference/depth fields, and source lineage. The minimal re-import strips only package-derived fields, bulk-loads fresh temporary JSON repositories, and compares every persisted field canonically by id.
+
+The live package excludes the five documented fictional V1 Entities and three fictional Evidence records. Four retained records contain back-references to excluded fixture Evidence; those fields remain intact for fidelity and are accepted only because the targets are declared in `manifest.exclusions`. Every other dangling reference invalidates the package. Sources are a documented extension despite having no schema. Attachments are optional and omitted. Workspace is labeled compatibility metadata because no persisted Workspace object exists. The live artifact is ignored and regenerable under `generated/`; BL-034 and PostgreSQL are untouched.
