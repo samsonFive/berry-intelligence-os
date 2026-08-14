@@ -1,0 +1,68 @@
+{
+  "_comment": "V2 Phase 1B (BL-022, docs/v2/10-BACKLOG.md). All 9 live data/strategic-questions/*.json records (2026-08-14), represented as reusable templates -- what a fresh Workspace activating the Berries Domain would be pre-seeded with. Title and description are copied verbatim from the live records. evidence_ids/fact_ids are deliberately NOT copied: those are this specific Workspace's accumulated findings, not template content -- a new activation starts each template's links empty, per docs/v2/04-DOMAIN-PACK-SPEC.md Section 4 ('editable/extendable per Workspace thereafter'). The live strategic-question records themselves are untouched by this file -- this is a template copy, not a migration.",
+  "strategic_question_templates": [
+    {
+      "template_id": "sq-competitor-expansion",
+      "title": "Which organizations appear to be expanding through partnerships, acquisitions, nurseries, licensing networks or commercial plantings?",
+      "description": "Capture dated, evidenced corporate and network developments. Distinguish announced intent from completed transactions, and record the effective date separately from the report date.",
+      "applicable_scope": ["berry-blueberry"],
+      "default_status": "active"
+    },
+    {
+      "template_id": "sq-emerging-varieties",
+      "title": "Which recently introduced or expanding blueberry varieties appear most commercially significant?",
+      "description": "Monitor releases from the last five complete years plus the current year, weighting evidenced commercial plantings, nursery availability and rights filings above launch announcements. A launch announcement is not evidence of commercial success.",
+      "applicable_scope": ["berry-blueberry"],
+      "default_status": "active"
+    },
+    {
+      "template_id": "sq-genetics-geographic-spread",
+      "title": "Which genetics are becoming available in new countries or production regions through licensing or nursery distribution?",
+      "description": "Track nursery listings, licensing announcements and plant-variety-right filings by jurisdiction. Distribution availability does not imply ownership, and a rights filing does not imply commercial planting.",
+      "applicable_scope": ["berry-blueberry"],
+      "default_status": "active"
+    },
+    {
+      "template_id": "sq-global-genetics-reach",
+      "title": "Which breeding programs and genetics owners have the strongest visible global blueberry reach?",
+      "description": "Track evidenced multi-country nursery, licensing and propagation footprints rather than self-described global presence. Reach is counted from evidenced operations, rights filings and named licensees, not from marketing language.",
+      "applicable_scope": ["berry-blueberry"],
+      "default_status": "active"
+    },
+    {
+      "template_id": "sq-premium-flavor",
+      "title": "Which market entities are most likely to challenge premium flavor positioning?",
+      "description": "Track genetics, claims, independent sensory evidence, retailer acceptance, and commercial distribution relevant to premium flavor.",
+      "applicable_scope": ["berry-blueberry"],
+      "default_status": "active"
+    },
+    {
+      "template_id": "sq-premium-trait-challengers",
+      "title": "Which varieties or programs may challenge established premium flavor, firmness, size, shelf-life, yield, harvest-window or machine-harvest positions?",
+      "description": "Separate owner trait claims from named-trial measurements. Only trial or peer-reviewed measurement should escalate testing priority; repeated marketing claims escalate commercial-position priority instead.",
+      "applicable_scope": ["berry-blueberry"],
+      "default_status": "active"
+    },
+    {
+      "template_id": "sq-public-record-gaps",
+      "title": "Where is the public blueberry record incomplete, contradictory, outdated, or dependent on self-reported marketing claims?",
+      "description": "Maintain an explicit register of coverage gaps, source conflicts and marketing-only claims so the dataset's limits stay visible to reviewers and to onboarding teams.",
+      "applicable_scope": ["berry-blueberry"],
+      "default_status": "active"
+    },
+    {
+      "template_id": "sq-repeated-trait-claims",
+      "title": "Which product traits are increasingly repeated across releases and commercial claims?",
+      "description": "Count trait-claim frequency across independent organizations to detect category-level positioning shifts. Repetition across marketers is evidence about positioning, not about the fruit.",
+      "applicable_scope": ["berry-blueberry"],
+      "default_status": "active"
+    },
+    {
+      "template_id": "sq-testing-candidates",
+      "title": "Which varieties merit potential internal product testing based on public evidence?",
+      "description": "Populate the Milestone 4 testing queue. Candidacy requires either an independent measurement or convergent interest from multiple unrelated organizations.",
+      "applicable_scope": ["berry-blueberry"],
+      "default_status": "active"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "_comment": "V2 Phase 1B (BL-019, docs/v2/10-BACKLOG.md). Every id below was verified directly against live data/entities/ (2026-08-14), not copied from docs/v2/04-DOMAIN-PACK-SPEC.md's own illustrative 'Berries example', which listed traits (ownership, headquarters_country, region, filing_date, expiry_date) that do not exist as real trait entities in data/entities/traits/ -- corrected here to match verified data instead of that earlier, unverified example.",
+  "entity_types": [
+    {
+      "id": "company",
+      "label": "Company",
+      "plural_label": "Companies",
+      "traits": [],
+      "live_count": 34,
+      "_comment": "No trait entities are currently linked to company-type entities in live data; company characteristics are recorded as free-form entity.attributes, not the controlled trait vocabulary."
+    },
+    {
+      "id": "variety",
+      "label": "Variety",
+      "plural_label": "Varieties",
+      "traits": [
+        "trait-chilling-requirement",
+        "trait-disease-susceptibility",
+        "trait-eating-quality",
+        "trait-fruit-firmness",
+        "trait-fruit-size",
+        "trait-machine-harvest-suitability",
+        "trait-postharvest-shelf-life",
+        "trait-soluble-solids",
+        "trait-titratable-acidity",
+        "trait-yield"
+      ],
+      "live_count": 42,
+      "_comment": "All 10 trait entities in data/entities/traits/ describe variety-level measurable characteristics -- verified directly, not assumed. Ids match data/entities/traits/*.json exactly (also taxonomies/trait-vocabulary.json's ids), for direct traceability rather than a parallel vocabulary-id namespace."
+    },
+    {
+      "id": "breeding_program",
+      "label": "Breeding Program",
+      "plural_label": "Breeding Programs",
+      "traits": [],
+      "live_count": 9
+    },
+    {
+      "id": "brand",
+      "label": "Brand",
+      "plural_label": "Brands",
+      "traits": [],
+      "live_count": 8
+    },
+    {
+      "id": "geography",
+      "label": "Geography",
+      "plural_label": "Geographies",
+      "traits": [],
+      "live_count": 18,
+      "_comment": "No 'region' trait entity exists in live data (unlike docs/v2/04-DOMAIN-PACK-SPEC.md's illustrative example) -- geography's region grouping is handled by app/main.py's REGION_LOOKUP constant today, not a trait."
+    },
+    {
+      "id": "patent",
+      "label": "Patent",
+      "plural_label": "Patents",
+      "traits": [],
+      "live_count": 38,
+      "_comment": "No 'filing_date'/'expiry_date' trait entities exist in live data -- these are plain entity.attributes fields today, not the controlled trait vocabulary."
+    },
+    {
+      "id": "retailer",
+      "label": "Retailer",
+      "plural_label": "Retailers",
+      "traits": [],
+      "live_count": 2
+    },
+    {
+      "id": "trait",
+      "label": "Trait",
+      "plural_label": "Traits",
+      "traits": [],
+      "live_count": 10,
+      "_comment": "The trait vocabulary's own container entity type -- a trait entity does not itself have traits."
+    },
+    {
+      "id": "berry",
+      "label": "Berry",
+      "plural_label": "Berries",
+      "traits": [],
+      "live_count": 1
+    }
+  ]
+}
