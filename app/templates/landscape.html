@@ -50,12 +50,12 @@
 
 <div id="public-landscape">
 <section class="landscape-section executive-readout" id="executive-readout" data-brief-section>
-  <div class="section-title-row"><div><p class="eyebrow">INTELLIGENCE BRIEF</p><h2>Executive Readout</h2><p class="section-hint">The current external view, grounded in reviewed facts and explicitly labeled working assessments.</p></div><span class="badge badge-public">Public Intelligence</span></div>
-  <div class="executive-lead-grid">
+  <div class="section-title-row"><div><p class="eyebrow">INTELLIGENCE BRIEF</p><h2>Executive Readout</h2><p class="section-hint">Current public view; working assessments stay labeled.</p></div><span class="badge badge-public">Public Intelligence</span></div>
+  <ul class="brief-list executive-brief-list">
     {% for assessment in executive_assessments[:3] %}
-      <article><span class="badge badge-assessment">{{ 'AI-PROPOSED VIEW' if assessment.ai_proposed else 'REVIEWED ASSESSMENT' }}</span><h3><a href="/assessments/{{ assessment.id }}">{{ assessment.title }}</a></h3><p>{{ assessment.why_it_matters }}</p><small>{{ assessment.confidence|upper }} confidence · {{ assessment.supporting_fact_count }} facts · {{ assessment.supporting_evidence_count }} evidence</small></article>
+      <li><a href="/assessments/{{ assessment.id }}">{{ assessment.title }}</a><span><span class="badge badge-assessment">{{ 'AI PROPOSED' if assessment.ai_proposed else 'REVIEWED' }}</span> {{ assessment.confidence|upper }} · {{ assessment.supporting_evidence_count }} evidence</span></li>
     {% endfor %}
-  </div>
+  </ul>
   <div class="landscape-header-stats compact-stats">
     <div><strong id="metric-evidence">{{ header_stats.evidence_count }}</strong><small>Evidence</small></div>
     <div><strong id="metric-sources">{{ header_stats.source_count }}</strong><small>Sources</small></div>
@@ -68,37 +68,28 @@
 
 <section class="landscape-section" id="what-we-think" data-brief-section>
   <h2>What We Think</h2>
-  <p class="section-hint">Five falsifiable views at most. AI-proposed records remain visibly pending human review.</p>
-  <div class="assessment-card-grid">
+  <p class="section-hint">Five falsifiable views; AI proposals remain flagged.</p>
+  <div class="table-wrap"><table class="brief-table assessment-brief-table"><thead><tr><th>View</th><th>Manager readout</th><th>Support</th><th>Would change our view</th></tr></thead><tbody>
     {% for assessment in executive_assessments %}
-      <article>
-        <div class="card-header"><span class="badge badge-assessment">{{ 'AI PROPOSED' if assessment.ai_proposed else 'HUMAN REVIEWED' }}</span><span class="badge badge-muted">{{ assessment.confidence|upper }}</span></div>
-        <h3><a href="/assessments/{{ assessment.id }}">{{ assessment.title }}</a></h3>
-        <p><strong>Conclusion</strong><br>{{ assessment.rationale|truncate(430) }}</p>
-        <p><strong>Why it matters</strong><br>{{ assessment.why_it_matters }}</p>
-        <p><strong>What supports it</strong><br>{{ assessment.supporting_fact_count }} facts · {{ assessment.supporting_evidence_count }} evidence records</p>
-        <p><strong>What could change our view</strong><br>{{ assessment.could_change }}</p>
-      </article>
+      <tr><td><a href="/assessments/{{ assessment.id }}"><strong>{{ assessment.title }}</strong></a><br><span class="badge badge-assessment">{{ 'AI PROPOSED' if assessment.ai_proposed else 'REVIEWED' }}</span> <span class="badge badge-muted">{{ assessment.confidence|upper }}</span></td><td><ul><li>{{ assessment.rationale|truncate(260) }}</li><li>{{ assessment.why_it_matters }}</li></ul></td><td>{{ assessment.supporting_fact_count }} facts<br>{{ assessment.supporting_evidence_count }} evidence</td><td>{{ assessment.could_change }}</td></tr>
     {% endfor %}
-  </div>
+  </tbody></table></div>
 </section>
 
 <section class="landscape-section" id="actors-to-watch" data-brief-section>
   <h2>Competitive Actors to Watch</h2>
-  <p class="section-hint">This watchlist reflects documented current public-intelligence coverage and Signal/Assessment linkage. It is not market share, commercial importance, or a definitive competitor ranking. Regulators, investors, universities and rights bodies are not promoted merely because they are well documented.</p>
-  <div class="actor-watch-grid">
+  <p class="section-hint">Public coverage and intelligence linkage—not market share or a competitor ranking.</p>
+  <div class="table-wrap"><table class="brief-table"><thead><tr><th>Actor</th><th>Coverage rationale</th><th>Platforms / brands</th><th>Regions</th></tr></thead><tbody>
     {% for row in actors_to_watch %}
-      <article class="region-aware" data-regions="{{ region_tokens(row.regions) }}"><h3><a href="/entities/company/{{ row.entity.id }}">{{ row.entity.name }}</a></h3><span class="badge badge-muted">{{ row.archetype|upper }}</span><p>{{ row.why_it_matters }}</p>{% if row.brands %}<small><strong>Platforms/brands:</strong> {{ row.brands|join(', ') }}</small>{% endif %}{% if row.regions %}<small><strong>Documented regions:</strong> {{ row.regions|join(', ') }}</small>{% endif %}</article>
+      <tr class="region-aware" data-regions="{{ region_tokens(row.regions) }}"><td><a href="/entities/company/{{ row.entity.id }}"><strong>{{ row.entity.name }}</strong></a><br><span class="badge badge-muted">{{ row.archetype|upper }}</span></td><td>{{ row.why_it_matters }}</td><td>{{ row.brands|join(', ') if row.brands else '—' }}</td><td>{{ row.regions|join(', ') if row.regions else '—' }}</td></tr>
     {% endfor %}
-  </div>
+  </tbody></table></div>
 </section>
 
 <section class="landscape-section" id="competitive-pressure" data-brief-section>
   <h2>Where Competition Is Concentrating</h2>
-  <p class="section-hint">Documented structured-trait territory—not superiority, strategy, or market share. Lower counts mean low documented public coverage, not confirmed whitespace.</p>
-  <div class="pressure-grid">
-    {% for theme in competitive_themes %}<article><h3>{{ theme.label }}</h3><strong>{{ theme.varieties|length }}</strong><small> documented varieties</small><p>{{ theme.varieties[:5]|join(', ') }}{% if theme.varieties|length > 5 %} +{{ theme.varieties|length - 5 }}{% endif %}</p></article>{% endfor %}
-  </div>
+  <p class="section-hint">Documented trait coverage—not superiority, strategy, or market share.</p>
+  <div class="table-wrap"><table class="brief-table"><thead><tr><th>Theme</th><th>Varieties</th><th>Examples</th></tr></thead><tbody>{% for theme in competitive_themes %}<tr><td><strong>{{ theme.label }}</strong></td><td>{{ theme.varieties|length }}</td><td>{{ theme.varieties[:5]|join(', ') }}{% if theme.varieties|length > 5 %} +{{ theme.varieties|length - 5 }}{% endif %}</td></tr>{% endfor %}</tbody></table></div>
 </section>
 
 <section class="landscape-section" id="regional-briefing" data-brief-section>
@@ -121,23 +112,22 @@
 
 <section class="landscape-section" id="recent-developments" data-brief-section>
   <h2>Recent Developments</h2>
-  <p class="section-hint">The latest published news and trade-press articles in current public coverage. Region views include only articles with explicit geography support; undated and capture-date-only records are excluded.</p>
+  <p class="section-hint">Latest published articles; regional views require explicit geography.</p>
   {% for key, items in recent_developments.items() %}
-  <div class="movement-brief-grid" data-region-news="{{ key }}" hidden>
-    {% for item in items %}<article><time><strong>Published:</strong> {{ item.published_date|us_date }}</time><h3><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3><p><strong>Source:</strong> <a href="{{ item.source_url }}" target="_blank" rel="noopener">{{ item.source_name or 'Open original article' }} ↗</a></p>{% if item.regions %}<p><strong>Region:</strong> {{ item.regions|join(', ') }}</p>{% endif %}</article>{% else %}<p class="empty-state">No recently published news articles have defensible geography support for this region.</p>{% endfor %}
-    {% if key != 'global' and items|length < 3 %}<p class="empty-state">Regional news coverage is still developing; unrelated global articles are not shown.</p>{% endif %}
-  </div>
+  <div class="table-wrap" data-region-news="{{ key }}" hidden><table class="brief-table"><thead><tr><th>Published</th><th>Development</th><th>Source</th><th>Region</th></tr></thead><tbody>
+    {% for item in items %}<tr><td><time>{{ item.published_date|us_date }}</time></td><td><a href="/evidence/{{ item.id }}"><strong>{{ item.title }}</strong></a></td><td><a href="{{ item.source_url }}" target="_blank" rel="noopener">{{ item.source_name or 'Original article' }} ↗</a></td><td>{{ item.regions|join(', ') if item.regions else 'Global / unattributed' }}</td></tr>{% else %}<tr><td colspan="4" class="empty-state">No region-attributed recent articles.</td></tr>{% endfor %}
+  </tbody></table>{% if key != 'global' and items|length < 3 %}<p class="empty-state">Regional coverage is still developing; no global fillers.</p>{% endif %}</div>
   {% endfor %}
 </section>
 
 <section class="landscape-section" id="what-changed" data-brief-section>
-  <h2>What Changed</h2><p class="section-hint">Five recent evidence items already cited by a Signal, Assessment or Recommendation. Event dates are used when recorded, otherwise publication dates; a capture date is explicitly labeled and means ingestion into this system, not when the event occurred.</p>
-  <div class="movement-brief-grid">{% for item in curated_movement %}<article class="region-aware" data-regions="{{ region_tokens(item.regions) }}"><time><strong>{{ item.date_label }}:</strong> {{ item.display_date|us_date }}</time><h3><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3><p><strong>Actor:</strong> {{ item.actor_names|join(', ') if item.actor_names else 'Not explicitly linked' }} · <strong>Region:</strong> {{ item.regions|join(', ') if item.regions else 'Not explicitly attributed' }}</p><p><strong>Why it matters:</strong> {{ item.linked_signal_titles|join('; ') if item.linked_signal_titles else 'Cited by a current assessment or recommendation.' }}</p></article>{% endfor %}</div>
+  <h2>What Changed</h2><p class="section-hint">Intelligence-linked evidence. “Captured” means ingestion, not event date.</p>
+  <div class="table-wrap"><table class="brief-table"><thead><tr><th>Date</th><th>Item</th><th>Actor / region</th><th>Intelligence link</th></tr></thead><tbody>{% for item in curated_movement %}<tr class="region-aware" data-regions="{{ region_tokens(item.regions) }}"><td><strong>{{ item.date_label }}</strong><br>{{ item.display_date|us_date }}</td><td><a href="/evidence/{{ item.id }}"><strong>{{ item.title }}</strong></a></td><td>{{ item.actor_names|join(', ') if item.actor_names else '—' }}<br><small>{{ item.regions|join(', ') if item.regions else 'Unattributed' }}</small></td><td>{{ item.linked_signal_titles|join('; ') if item.linked_signal_titles else 'Assessment / recommendation citation' }}</td></tr>{% endfor %}</tbody></table></div>
 </section>
 
 <section class="landscape-section" id="watching-signals" data-brief-section>
-  <h2>What We're Watching</h2><p class="section-hint">Highest-strength current signals, all still explicitly proposed rather than confirmed.</p>
-  <div class="signal-watch-grid">{% for signal in priority_signals %}<article class="region-aware" data-regions="{{ region_tokens(signal.regions) }}"><div class="card-header"><span class="badge badge-signal">PROPOSED SIGNAL</span><span class="badge badge-muted">{{ signal.strength|upper }}</span></div><h3><a href="/signals/{{ signal.id }}">{{ signal.title }}</a></h3><p><strong>Why we're watching:</strong> {{ signal.why_it_might_matter }}</p><p><strong>Would confirm:</strong> {{ signal.what_would_confirm_it }}</p><p><strong>Would weaken:</strong> {{ signal.what_would_falsify_it }}</p><small>{{ signal.supporting_evidence_count }} supporting evidence records</small></article>{% endfor %}</div>
+  <h2>What We're Watching</h2><p class="section-hint">Highest-strength proposed signals.</p>
+  <div class="table-wrap"><table class="brief-table signal-brief-table"><thead><tr><th>Signal</th><th>Why watch</th><th>Confirm / weaken</th><th>Support</th></tr></thead><tbody>{% for signal in priority_signals %}<tr class="region-aware" data-regions="{{ region_tokens(signal.regions) }}"><td><a href="/signals/{{ signal.id }}"><strong>{{ signal.title }}</strong></a><br><span class="badge badge-signal">PROPOSED</span> <span class="badge badge-muted">{{ signal.strength|upper }}</span></td><td>{{ signal.why_it_might_matter }}</td><td><ul><li><strong>Confirm:</strong> {{ signal.what_would_confirm_it }}</li><li><strong>Weaken:</strong> {{ signal.what_would_falsify_it }}</li></ul></td><td>{{ signal.supporting_evidence_count }} evidence</td></tr>{% endfor %}</tbody></table></div>
 </section>
 
 <section class="landscape-section" id="intelligence-agenda" data-brief-section>
@@ -501,7 +491,7 @@
     document.querySelectorAll('.region-card').forEach(el => el.classList.toggle('is-selected', el.dataset.region === region));
     document.querySelectorAll('[data-region-brief]').forEach(el => el.hidden = region === 'global' || el.dataset.regionBrief !== region);
     document.querySelectorAll('[data-region-news]').forEach(el => el.hidden = el.dataset.regionNews !== region);
-    document.querySelectorAll('[data-region-news]:not([hidden]) article:nth-of-type(n+6)').forEach(el => el.hidden = true);
+    document.querySelectorAll('[data-region-news]:not([hidden]) tbody tr:nth-child(n+6)').forEach(el => el.hidden = true);
     document.querySelector('.global-region-note').hidden = region !== 'global';
     document.querySelector('.landscape-scope').textContent = `Berries / Blueberry / ${labels[region]}`;
     const values = metrics[region];

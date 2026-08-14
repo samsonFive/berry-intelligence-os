@@ -303,15 +303,23 @@ def test_what_changed_dates_disclose_date_semantics() -> None:
 
 def test_landscape_manager_disclosures_and_region_news_render() -> None:
     text = client.get("/landscapes/berries/blueberry").text
-    assert "It is not market share, commercial importance, or a definitive competitor ranking." in text
+    assert "not market share or a competitor ranking" in text
     assert "region-attributed cited evidence record" in text
     assert 'data-region-news="global"' in text
     assert 'data-region-news="asia"' in text
-    assert "capture date is explicitly labeled" in text
+    assert "Captured” means ingestion, not event date" in text
     assert "el.dataset.regionNews !== region" in text
     global_panel = text.split('data-region-news="global"', 1)[1].split('</div>', 1)[0]
-    assert global_panel.count("<article>") == 5
-    assert "article:nth-of-type(n+6)" in text
+    assert global_panel.count("<tr>") == 6  # one header plus five articles
+    assert "tbody tr:nth-child(n+6)" in text
+
+
+def test_landscape_manager_brief_uses_compact_comparison_tables() -> None:
+    text = client.get("/landscapes/berries/blueberry").text
+    assert 'class="brief-list executive-brief-list"' in text
+    assert text.count('class="brief-table') >= 6
+    for heading in ["Manager readout", "Coverage rationale", "Confirm / weaken", "Intelligence link"]:
+        assert heading in text
 
 
 def test_landscape_renders_sticky_quick_navigation_and_explore_layer() -> None:
