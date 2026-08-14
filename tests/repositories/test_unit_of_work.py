@@ -99,6 +99,37 @@ def test_exception_restores_a_record_updated_inside_the_unit_of_work(tmp_path: P
     assert entities.get(original["id"]) == original
 
 
+def test_mixed_create_and_update_rollback_restores_repository_and_cache_state(tmp_path: Path) -> None:
+    entities = EntityRepository(data_dir=tmp_path)
+    original = _entity("pre-existing")
+    original["roles"] = ["original"]
+    entities.create(original)
+
+    with pytest.raises(RuntimeError):
+        with JsonUnitOfWork(entities=entities) as uow:
+            uow.entities.update(original["id"], {**original, "roles": ["changed"]})
+            uow.entities.create(_entity("new"))
+            raise RuntimeError("mixed failure")
+
+    assert entities.get(original["id"]) == original
+    assert entities.get("company-uow-test-new") is None
+    assert entities.list() == [original]
+
+
+def test_repeated_updates_restore_original_pre_transaction_snapshot(tmp_path: Path) -> None:
+    entities = EntityRepository(data_dir=tmp_path)
+    original = _entity("repeated")
+    entities.create(original)
+
+    with pytest.raises(RuntimeError):
+        with JsonUnitOfWork(entities=entities) as uow:
+            uow.entities.update(original["id"], {**original, "name": "First change"})
+            uow.entities.update(original["id"], {**original, "name": "Second change"})
+            raise RuntimeError("failure after repeated updates")
+
+    assert entities.get(original["id"]) == original
+
+
 def test_rollback_cleanup_failure_raises_transaction_error_chained_to_original(tmp_path: Path) -> None:
     entities = EntityRepository(data_dir=tmp_path)
     with pytest.raises(TransactionError) as exc_info:

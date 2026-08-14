@@ -1,6 +1,7 @@
 from datetime import date
 
 import httpx
+import pytest
 from fastapi.testclient import TestClient
 
 from app import main
@@ -386,6 +387,108 @@ def test_publish_creates_entities_facts_relationships_and_updates_feed(monkeypat
     assert any(item["id"] == draft_id for item in feed.json())
 
     assert client.get(f"/intake/{draft_id}").status_code == 404
+
+
+def test_publish_draft_deletion_failure_rolls_back_and_remains_safely_retryable(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    repositories = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    existing = {
+        "id": "company-existing-co", "record_type": "entity", "entity_type": "company",
+        "name": "Existing Co", "status": "active", "evidence_ids": [], "fact_ids": [],
+        "relationship_ids": [],
+    }
+    repositories.entities.create(existing)
+    draft_id = _create_draft("Deletion failure must be retryable")
+    publish_data = {
+        "title": "Deletion failure must be retryable",
+        "summary": "A complete fictional publication used to inject a draft unlink failure.",
+        "companies": "Existing Co, New Co",
+        "varieties": "New Variety",
+        "fact_statement_1": "Existing Co and New Co are linked to this fictional test.",
+        "fact_classification_1": "fact", "fact_confidence_1": "medium",
+        "rel_subject_1": "New Co", "rel_predicate_1": "trials", "rel_object_1": "New Variety",
+        "reviewer": "reviewer@example.invalid",
+    }
+    real_delete_draft = main.delete_draft
+
+    def fail_delete(_draft_id: str) -> None:
+        raise OSError("injected draft deletion failure")
+
+    monkeypatch.setattr(main, "delete_draft", fail_delete)
+    with pytest.raises(OSError, match="injected draft deletion failure"):
+        client.post(f"/review/{draft_id}/publish", data=publish_data)
+
+    assert repositories.entities.get(existing["id"]) == existing
+    assert repositories.entities.get("company-new-co") is None
+    assert repositories.entities.get("variety-new-variety") is None
+    assert repositories.facts.get(f"fact-{draft_id[3:]}-1") is None
+    assert repositories.relationships.get(f"rel-{draft_id[3:]}-1") is None
+    assert repositories.evidence.get(draft_id) is None
+    assert client.get(f"/review/{draft_id}").status_code == 200
+
+    monkeypatch.setattr(main, "delete_draft", real_delete_draft)
+    retry = client.post(f"/review/{draft_id}/publish", data=publish_data, follow_redirects=False)
+    assert retry.status_code == 303
+    assert repositories.evidence.get(draft_id) is not None
+    assert len([record for record in repositories.facts.list() if record["id"].startswith(f"fact-{draft_id[3:]}")]) == 1
+    assert len([record for record in repositories.relationships.list() if record["id"].startswith(f"rel-{draft_id[3:]}")]) == 1
+    assert client.get(f"/review/{draft_id}").status_code == 404
+
+
+@pytest.mark.parametrize(
+    ("case", "use_existing_entity", "include_relationship", "failing_repository"),
+    [
+        ("after_entity_create", False, False, "facts"),
+        ("after_existing_entity_update", True, False, "facts"),
+        ("after_fact_create", False, True, "relationships"),
+        ("after_relationship_create", False, True, "evidence"),
+    ],
+)
+def test_publish_structured_failure_rolls_back_and_keeps_draft(
+    monkeypatch, tmp_path, case, use_existing_entity, include_relationship, failing_repository,
+) -> None:
+    _isolate(monkeypatch, tmp_path)
+    repositories = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    original = None
+    company_name = "Existing Co" if use_existing_entity else "New Co"
+    if use_existing_entity:
+        original = {
+            "id": "company-existing-co", "record_type": "entity", "entity_type": "company",
+            "name": company_name, "status": "active", "evidence_ids": [], "fact_ids": [],
+            "relationship_ids": [],
+        }
+        repositories.entities.create(original)
+    draft_id = _create_draft(f"Injected {case}")
+    publish_data = {
+        "title": f"Injected {case}", "summary": "Fictional failure injection.",
+        "companies": company_name, "fact_statement_1": "A fictional fact.",
+        "fact_classification_1": "fact", "fact_confidence_1": "medium",
+        "reviewer": "reviewer@example.invalid",
+    }
+    if include_relationship:
+        publish_data.update({
+            "varieties": "New Variety", "rel_subject_1": company_name,
+            "rel_predicate_1": "trials", "rel_object_1": "New Variety",
+        })
+
+    repository = getattr(repositories, failing_repository)
+
+    def fail_create(_record):
+        raise RuntimeError(f"injected {case}")
+
+    monkeypatch.setattr(repository, "create", fail_create)
+    with pytest.raises(RuntimeError, match=f"injected {case}"):
+        client.post(f"/review/{draft_id}/publish", data=publish_data)
+
+    if original is not None:
+        assert repositories.entities.get(original["id"]) == original
+    else:
+        assert repositories.entities.get("company-new-co") is None
+    assert repositories.entities.get("variety-new-variety") is None
+    assert repositories.facts.get(f"fact-{draft_id[3:]}-1") is None
+    assert repositories.relationships.get(f"rel-{draft_id[3:]}-1") is None
+    assert repositories.evidence.get(draft_id) is None
+    assert client.get(f"/review/{draft_id}").status_code == 200
 
 
 def test_publish_creates_and_links_geography_entity(monkeypatch, tmp_path) -> None:

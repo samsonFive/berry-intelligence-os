@@ -19,12 +19,12 @@ Phase 2B.3 complete — all persisted Core-object writes now use repositories, a
 Owner decision on the next authorized phase. BL-034, BL-035, PostgreSQL, and all later phases remain not started.
 
 **Last completed:**
-Phase 2B.3 (2026-08-14): BL-033 completed. Evidence validate/purge and every persisted Core-object create/update/delete path now cross repository interfaces. Review/publish uses one UoW across Entity, Fact, Relationship, and Evidence writes; matched existing Entities are restored from prior-value snapshots if a later write fails. Inbox drafts, attachments, and blocked-domain configuration remain documented filesystem exceptions because Phase 2 defines no repositories for them. 354 tests, record validation, and the 1,463-page static build pass.
+Phase 2B.3 (2026-08-14): BL-033 completed. Evidence validate/purge and every persisted Core-object create/update/delete path now cross repository interfaces. Review/publish uses one UoW across Entity, Fact, Relationship, and Evidence writes; matched existing Entities are restored from prior-value snapshots if a later write fails. Acceptance verification moved draft deletion into the UoW so unlink failure compensates structured writes and leaves the draft retryable. Inbox drafts, attachments, and blocked-domain configuration remain documented filesystem exceptions because Phase 2 defines no repositories for them. 361 tests, record validation, and the 1,463-page static build pass.
 
 Previously: Phase 2B.1 (2026-08-14) — the record-repository layer at `app/repositories/`. Before that: Phase 2A (2026-08-14) — `docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md`, D-012 (analytical scope). Before that: tablet navigation breakpoint fix; Phase 1.5B (`BL-026` – `BL-029`).
 
 **Findings worth knowing about (documented, not silently resolved):**
-- **Review/publish's existing-Entity update gap is resolved.** Phase 2B.3 chose Part 10.4's snapshot-and-restore option: `JsonUnitOfWork` captures prior record values for updates and restores them during reverse-order rollback. The draft is deleted only after a successful UoW exit. Attachment moves remain outside the UoW and retain the JSON backend's documented best-effort limitation.
+- **Review/publish's existing-Entity update gap is resolved.** Phase 2B.3 chose Part 10.4's snapshot-and-restore option: `JsonUnitOfWork` captures prior record values for updates and restores them during reverse-order rollback. Draft deletion is the final operation inside the UoW, so deletion failure rolls structured writes back and leaves the draft retryable. Attachment moves remain outside the UoW and retain the JSON backend's documented best-effort limitation.
 - **One direct filesystem read remains in an application read path, and it's justified, not an oversight:** `list_drafts()` (Review Queue, duplicate detection) still reads `inbox/evidence/` directly via `load_json_files()`, because Phase 2B.1 explicitly did not build a `DraftRepository` (only 9 named object types were in scope). `docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` Part 10.3 documents this as deliberate, not deferred-and-forgotten.
 - A single, low-materiality ordering nuance: `EvidenceRepository.list()` (built in Phase 2B.1) sorts by published/captured date descending, matching `published_evidence()`'s existing sort exactly — but `all_evidence()` (unsorted, raw file-path order, before this task) now inherits that same sort too. Verified against every `all_evidence()` call site in `app/main.py`: none depend on its order except `published_evidence()` itself (which already re-sorted identically) — the one exception is `find_possible_duplicates()`'s reviewer-facing duplicate-warning list, whose display order was never a specified or tested contract. Flagged here per this task's transparency requirement, not silently absorbed.
 
@@ -47,7 +47,7 @@ Tag `v1-blueberry-reference` → commit `432a96bd4efce1991df83b60aa1587154ba1952
 Accepted (`docs/v2/00-README.md` through `10-BACKLOG.md`, 2026-08-13). `docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` (2026-08-14, Part 9 addendum added 2026-08-14, Part 10 addendum added 2026-08-14) is the authoritative Phase 2B implementation spec.
 
 **Tests at baseline:**
-354 passed, 0 failed (`pytest -q`). `scripts/validate_records.py` passes with zero schema errors. `scripts/build_static.py` succeeds (1,463 pages). BL-034, BL-035, PostgreSQL, templates, and data records were untouched.
+361 passed, 0 failed (`pytest -q`). `scripts/validate_records.py` passes with zero schema errors. `scripts/build_static.py` succeeds (1,463 pages). BL-034, BL-035, PostgreSQL, templates, and data records were untouched.
 
 **Important decisions — status:**
 (IDs match `docs/v2/08-DECISION-LOG.md`)

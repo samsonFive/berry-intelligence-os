@@ -2878,7 +2878,11 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
         for relationship in relationships_to_save:
             uow.relationships.create(relationship)
         uow.evidence.create(evidence_record)
-    delete_draft(draft_id)
+        # Draft removal is the final publish operation. Keeping it inside
+        # the UoW means an unlink failure compensates every structured write
+        # and leaves the draft safely retryable instead of stranded beside a
+        # committed Evidence record with the same deterministic id.
+        delete_draft(draft_id)
 
     return RedirectResponse(url=f"/evidence/{evidence_id}", status_code=303)
 
