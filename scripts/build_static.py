@@ -33,6 +33,7 @@ from app.main import (  # noqa: E402
     entity_activity,
     entity_index,
     entity_regions,
+    evidence_regions,
     entity_synthesis_context,
     evidence_for_strategic_question,
     facts_for_evidence,
@@ -112,6 +113,21 @@ def build() -> list[Path]:
     written: list[Path] = []
     evidence = published_evidence()
     entities = entity_index()
+    region_tokens = {
+        "Americas": "americas", "Europe": "emea", "Middle East & Africa": "emea",
+        "Oceania": "australia-nz", "Asia": "asia",
+    }
+    static_feed_evidence = [
+        {
+            **record,
+            "filter_regions": sorted({
+                region_tokens[region]
+                for region in evidence_regions(record, entities)
+                if region in region_tokens
+            }),
+        }
+        for record in evidence
+    ]
 
     # base.html calls these as Jinja globals on every single page render (via
     # the sidebar). They're cheap once, but at this record volume calling the
@@ -137,7 +153,7 @@ def build() -> list[Path]:
             "feed.html",
             "/",
             {
-                "evidence": evidence,
+                "evidence": static_feed_evidence,
                 "total_count": len(evidence),
                 "berry_label": berry_label,
                 "options": {"berries": [], "sources": [], "competitors": [], "geographies": []},

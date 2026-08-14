@@ -73,6 +73,10 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert "Static build published item" in index_html
     assert 'href="https://example.invalid/original-article"' in index_html
     assert "Static Test Publisher" in index_html
+    assert 'data-feed-region="global"' in index_html
+    assert 'data-feed-region="asia"' in index_html
+    assert 'data-feed-regions=""' in index_html
+    assert "card.dataset.feedRegions" in index_html
     assert "Secret unpublished draft title" not in index_html
     assert DRAFT_RECORD["id"] not in index_html
 

@@ -81,14 +81,20 @@
   </div>
 </form>
 {% else %}
-  <p class="empty-state">Filtering and search require the local app; this is a static, read-only build.</p>
+  <div class="filters static-region-filters" aria-label="Filter newsfeed by region">
+    <strong>Region</strong>
+    {% for key, label in [('global','Global'),('americas','Americas'),('emea','EMEA'),('australia-nz','Australia / New Zealand'),('asia','Asia')] %}
+      <button type="button" class="filter-chip static-feed-region{% if key == 'global' %} is-active{% endif %}" data-feed-region="{{ key }}">{{ label }}</button>
+    {% endfor %}
+  </div>
+  <p class="empty-state static-feed-note">Static read-only newsfeed. Region filters use explicit geography linkage; records without regional attribution remain in Global only.</p>
 {% endif %}
 
-<p class="result-count">Showing {{ evidence|length }} of {{ total_count }} published items</p>
+<p class="result-count"{% if static_build %} id="static-feed-count"{% endif %}>Showing {{ evidence|length }} of {{ total_count }} published items</p>
 
 <section class="feed">
 {% for item in evidence %}
-  <article class="card source-{{ item.source_type }}">
+  <article class="card source-{{ item.source_type }}"{% if static_build %} data-feed-regions="{{ item.filter_regions|join(' ') }}"{% endif %}>
     <div class="card-header">
       <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
       <time>{{ (item.published_date or item.captured_date)|us_date }}</time>
@@ -156,4 +162,29 @@
   <p class="empty-state">No published evidence matches the current filters.</p>
 {% endfor %}
 </section>
+{% if static_build %}
+<script>
+(() => {
+  const cards = [...document.querySelectorAll('[data-feed-regions]')];
+  const count = document.getElementById('static-feed-count');
+  let region = 'global';
+  function applyRegion() {
+    let visible = 0;
+    cards.forEach(card => {
+      card.hidden = region !== 'global' && !card.dataset.feedRegions.split(/\s+/).includes(region);
+      if (!card.hidden) visible += 1;
+    });
+    document.querySelectorAll('.static-feed-region').forEach(button =>
+      button.classList.toggle('is-active', button.dataset.feedRegion === region));
+    count.textContent = `Showing ${visible} of ${cards.length} published items`;
+    history.replaceState(null, '', `#region=${region}`);
+  }
+  document.querySelectorAll('.static-feed-region').forEach(button =>
+    button.addEventListener('click', () => { region = button.dataset.feedRegion; applyRegion(); }));
+  const state = new URLSearchParams(location.hash.slice(1));
+  if (['global','americas','emea','australia-nz','asia'].includes(state.get('region'))) region = state.get('region');
+  applyRegion();
+})();
+</script>
+{% endif %}
 {% endblock %}

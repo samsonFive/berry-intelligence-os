@@ -501,6 +501,7 @@
     document.querySelectorAll('.region-card').forEach(el => el.classList.toggle('is-selected', el.dataset.region === region));
     document.querySelectorAll('[data-region-brief]').forEach(el => el.hidden = region === 'global' || el.dataset.regionBrief !== region);
     document.querySelectorAll('[data-region-news]').forEach(el => el.hidden = el.dataset.regionNews !== region);
+    document.querySelectorAll('[data-region-news]:not([hidden]) article:nth-of-type(n+6)').forEach(el => el.hidden = true);
     document.querySelector('.global-region-note').hidden = region !== 'global';
     document.querySelector('.landscape-scope').textContent = `Berries / Blueberry / ${labels[region]}`;
     const values = metrics[region];

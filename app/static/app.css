@@ -75,6 +75,9 @@ a{color:#3d5c94}
 .result-count{padding:0 32px;color:#6c778b;font-size:13px}
 
 .feed{display:grid;gap:16px;padding:14px 32px 40px;max-width:1040px}
+.static-region-filters{align-items:center}
+.static-region-filters strong{font-size:13px;color:#3c4a63}
+[data-feed-regions][hidden],[data-region-news][hidden]{display:none!important}
 .feed-compact{padding:0;max-width:none}
 .card,.detail-card{background:white;border:1px solid #e0e5ef;border-radius:10px;padding:18px;box-shadow:0 2px 8px rgba(16,37,72,.05);border-left:4px solid #9aa4b8}
 .card.source-press_release{border-left-color:#6d50c7}

@@ -275,6 +275,7 @@ def test_regional_attention_uses_region_attributed_cited_evidence() -> None:
 
 def test_recent_developments_use_publication_dates_and_region_support() -> None:
     context = main.landscape_context("berry-blueberry")
+    assert len(context["recent_developments"]["global"]) == 5
     for key, items in context["recent_developments"].items():
         assert 0 <= len(items) <= 5
         assert all(item.get("published_date") for item in items)
@@ -308,6 +309,9 @@ def test_landscape_manager_disclosures_and_region_news_render() -> None:
     assert 'data-region-news="asia"' in text
     assert "capture date is explicitly labeled" in text
     assert "el.dataset.regionNews !== region" in text
+    global_panel = text.split('data-region-news="global"', 1)[1].split('</div>', 1)[0]
+    assert global_panel.count("<article>") == 5
+    assert "article:nth-of-type(n+6)" in text
 
 
 def test_landscape_renders_sticky_quick_navigation_and_explore_layer() -> None:
