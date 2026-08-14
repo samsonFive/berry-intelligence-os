@@ -65,6 +65,7 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     monkeypatch.setattr(build_static, "OUTPUT_DIR", output_dir)
 
     assert build_static.main() == 0
+    assert (output_dir / ".nojekyll").is_file()
 
     index_html = (output_dir / "index.html").read_text(encoding="utf-8")
     assert "Static build published item" in index_html
