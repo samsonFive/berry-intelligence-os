@@ -63,14 +63,11 @@ the sense those words have for a real transactional store. Precisely:
   -- there is no write-ahead log. This is a real, accepted limitation of a
   flat-file backend without a staging/atomic-replace mechanism, which this
   task deliberately does not build (see "Alternatives considered" below).
-- `update()`/`delete()` calls issued through a unit of work are tracked for
-  reporting purposes but are **not** compensated on rollback -- reversing
-  an update requires knowing the prior value, which this minimal seam does
-  not capture (a real audit-log/versioning mechanism would be needed, out
-  of scope here). Phase 2B.1's only real multi-repository write pattern
-  (review/publish) is exclusively a sequence of `create()` calls, so this
-  gap does not block that future migration; it is named here so it is not
-  discovered as a surprise later.
+- `update()` calls snapshot the prior record value and restore it on rollback.
+  Phase 2B.2's audit found that review/publish updates linkage arrays on
+  matched existing Entities, so Phase 2B.3 added this bounded compensation.
+  `delete()` calls remain uncompensated; review/publish performs no repository
+  deletes inside its unit of work (the inbox draft is removed only afterward).
 
 ## Alternatives considered, and why the above was chosen
 
@@ -84,11 +81,9 @@ the sense those words have for a real transactional store. Precisely:
   above -- true multi-object atomicity is what PostgreSQL is for (D-001,
   `08-DECISION-LOG.md`), not something worth approximating expensively in
   JSON first.
-- **Rollback backups (copy every file before mutating, restore on
-  failure)**: rejected for the same reason, and because review/publish's
-  real pattern is new-record creation, not mutation of existing files --
-  there is nothing to back up; best-effort delete-what-was-created is
-  already the correct compensation for a create-only workflow.
+- **Whole-file rollback backups** remain unnecessary. The narrower prior-value
+  snapshot used for repository `update()` calls covers the one real mutation
+  review/publish performs without adding a staging or journaling subsystem.
 - **No seam at all until Phase 2B.3**: rejected per this task's own
   explicit instruction -- designing the boundary now, even in this
   minimal form, is what lets Phase 2B.3 build against a stable interface
@@ -109,25 +104,32 @@ backend exists, with no caller-visible change.
 from __future__ import annotations
 
 from types import TracebackType
+from copy import deepcopy
 from typing import Any, Protocol
 
 from app.repositories.base import RepositoryError, TransactionError
 
 
 class _TrackedRepository:
-    """Wraps one repository so create() calls made through a UnitOfWork are
-    recorded for possible rollback. Every other method passes straight
-    through, untracked -- see the module docstring's note on why
-    update()/delete() are not compensated."""
+    """Track creates and prior values for updates made through a UnitOfWork.
+    Other methods pass straight through; deletes are not compensated."""
 
-    def __init__(self, repository: Any, on_create: Any) -> None:
+    def __init__(self, repository: Any, on_create: Any, on_update: Any) -> None:
         self._repository = repository
         self._on_create = on_create
+        self._on_update = on_update
 
     def create(self, record: dict[str, Any]) -> dict[str, Any]:
         created = self._repository.create(record)
         self._on_create(self._repository, created.get("id"))
         return created
+
+    def update(self, record_id: str, record: dict[str, Any]) -> dict[str, Any]:
+        previous = self._repository.get(record_id)
+        updated = self._repository.update(record_id, record)
+        if previous is not None:
+            self._on_update(self._repository, record_id, deepcopy(previous))
+        return updated
 
     def __getattr__(self, name: str) -> Any:
         return getattr(self._repository, name)
@@ -158,19 +160,23 @@ class JsonUnitOfWork:
 
     Each keyword becomes a tracked attribute (`uow.evidence`, `uow.facts`)
     exposing that repository's normal interface, with `create()` calls
-    recorded for best-effort rollback."""
+    recorded for best-effort rollback; `update()` calls also capture the prior
+    value for restoration."""
 
     def __init__(self, **repositories: Any) -> None:
-        self._created: list[tuple[Any, str]] = []
+        self._operations: list[tuple[str, Any, str, dict[str, Any] | None]] = []
         for name, repository in repositories.items():
-            setattr(self, name, _TrackedRepository(repository, self._record_created))
+            setattr(self, name, _TrackedRepository(repository, self._record_created, self._record_updated))
 
     def _record_created(self, repository: Any, record_id: str | None) -> None:
         if record_id:
-            self._created.append((repository, record_id))
+            self._operations.append(("create", repository, record_id, None))
+
+    def _record_updated(self, repository: Any, record_id: str, previous: dict[str, Any]) -> None:
+        self._operations.append(("update", repository, record_id, previous))
 
     def __enter__(self) -> "JsonUnitOfWork":
-        self._created = []
+        self._operations = []
         return self
 
     def __exit__(
@@ -186,9 +192,12 @@ class JsonUnitOfWork:
 
     def _rollback(self, original_error: BaseException) -> None:
         cleanup_failures: list[str] = []
-        for repository, record_id in reversed(self._created):
+        for operation, repository, record_id, previous in reversed(self._operations):
             try:
-                repository.delete(record_id)
+                if operation == "create":
+                    repository.delete(record_id)
+                else:
+                    repository.update(record_id, previous)
             except RepositoryError as cleanup_exc:
                 cleanup_failures.append(f"{record_id}: {cleanup_exc}")
         if cleanup_failures:

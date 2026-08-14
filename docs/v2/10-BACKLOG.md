@@ -81,11 +81,11 @@
 
 ## Phase 2B.3 — Transactional writes and remaining route migration
 
-**Not started.** Depends on Phase 2B.2 (done). Migrates the one multi-object write pattern (review/publish) onto the Unit-of-Work seam Phase 2B.1 already defined, and completes route migration. **Before starting: review `docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` Part 10.4** — Phase 2B.2's re-read of `review_publish()` found that step is not exclusively `create()` calls as `JsonUnitOfWork`'s own docstring currently states: publishing evidence that names an already-known entity performs a genuine `update()` of that entity's linkage arrays, which the current seam does not compensate on rollback. This must be resolved (snapshot-and-restore, or an explicitly accepted narrower guarantee) as part of BL-033, not discovered mid-migration.
+**Done (2026-08-14).** Review/publish now uses `JsonUnitOfWork`; existing-entity updates use prior-value snapshot-and-restore compensation. All remaining persisted core-object writes use repository interfaces. Draft, attachment, and blocked-domain filesystem writes remain explicit exceptions because no repositories exist for those non-core storage surfaces.
 
 | ID | Title | Purpose | Dependencies | Acceptance criteria | Status | Size |
 |---|---|---|---|---|---|---|
-| BL-033 | Refactor remaining routes (facts, relationships, sources, review/publish, signals, assessments, recommendations, strategic questions, landscape, search) onto the interfaces | Complete the abstraction | BL-032 | Same acceptance bar as BL-032, applied repo-wide; review/publish (`docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` Part 1.3, W6) migrates onto `JsonUnitOfWork` (BL-030-uow), not five independent single-record saves | Not started | L |
+| BL-033 | Refactor remaining routes (facts, relationships, sources, review/publish, signals, assessments, recommendations, strategic questions, landscape, search) onto the interfaces | Complete the abstraction | BL-032 | Same acceptance bar as BL-032, applied repo-wide; review/publish (`docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` Part 1.3, W6) migrates onto `JsonUnitOfWork` (BL-030-uow), not five independent single-record saves | **Done** (2026-08-14 — single-record writes delegate to repositories; Evidence validate/purge use update/delete; Source collection rewrites are expressed through Source repository CRUD; review/publish uses one UoW across Entity/Fact/Relationship/Evidence writes; matched existing Entities are snapshot-restored on rollback; 354 tests, record validation, and 1,463-page static build pass) | L |
 
 ## Phase 3 — PostgreSQL parity migration
 

@@ -85,6 +85,20 @@ def test_records_created_outside_the_unit_of_work_are_never_touched_by_rollback(
     assert entities.get("company-uow-test-a") is None
 
 
+def test_exception_restores_a_record_updated_inside_the_unit_of_work(tmp_path: Path) -> None:
+    entities = EntityRepository(data_dir=tmp_path)
+    original = _entity("pre-existing")
+    entities.create(original)
+    changed = {**original, "name": "Changed during publish"}
+
+    with pytest.raises(RuntimeError):
+        with JsonUnitOfWork(entities=entities) as uow:
+            uow.entities.update(original["id"], changed)
+            raise RuntimeError("failure after existing-entity update")
+
+    assert entities.get(original["id"]) == original
+
+
 def test_rollback_cleanup_failure_raises_transaction_error_chained_to_original(tmp_path: Path) -> None:
     entities = EntityRepository(data_dir=tmp_path)
     with pytest.raises(TransactionError) as exc_info:

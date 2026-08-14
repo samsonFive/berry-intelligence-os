@@ -874,6 +874,8 @@ def test_unvalidated_evidence_sorted_by_source_priority_then_oldest_first(monkey
             "source_type": "news_search", "title": "Low priority, older",
             "auto_captured": True, "validated": False, "source_id": "source-low",
             "captured_date": "2026-01-01",
+            "summary": "Summary.", "submitted_by": "test",
+            "priority": {dim: {"level": "none", "rationale": ""} for dim in main.PRIORITY_DIMENSIONS},
         }
     )
     main.save_evidence(
@@ -882,6 +884,8 @@ def test_unvalidated_evidence_sorted_by_source_priority_then_oldest_first(monkey
             "source_type": "news_search", "title": "High priority, newer",
             "auto_captured": True, "validated": False, "source_id": "source-high",
             "captured_date": "2026-06-01",
+            "summary": "Summary.", "submitted_by": "test",
+            "priority": {dim: {"level": "none", "rationale": ""} for dim in main.PRIORITY_DIMENSIONS},
         }
     )
     main.save_evidence(
@@ -890,6 +894,8 @@ def test_unvalidated_evidence_sorted_by_source_priority_then_oldest_first(monkey
             "source_type": "news_search", "title": "High priority, older",
             "auto_captured": True, "validated": False, "source_id": "source-high",
             "captured_date": "2026-01-01",
+            "summary": "Summary.", "submitted_by": "test",
+            "priority": {dim: {"level": "none", "rationale": ""} for dim in main.PRIORITY_DIMENSIONS},
         }
     )
     main.save_sources(

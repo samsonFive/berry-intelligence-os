@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+from copy import deepcopy
 import difflib
 import json
 import os
@@ -24,6 +25,7 @@ from fastapi.templating import Jinja2Templates
 from jsonschema import Draft202012Validator, FormatChecker
 
 from app.composition import get_domain_services, get_query_services, get_repositories
+from app.repositories.unit_of_work import JsonUnitOfWork
 from app.queries.timeline import entity_activity, max_priority_level
 from app.services.berries.geography import (
     REGIONS,
@@ -751,10 +753,7 @@ def signal_by_id(signal_id: str) -> dict[str, Any] | None:
 
 
 def save_signal(record: dict[str, Any]) -> None:
-    folder = DATA_DIR / "signals"
-    folder.mkdir(parents=True, exist_ok=True)
-    path = folder / f"{record['id']}.json"
-    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    get_repositories(DATA_DIR, SCHEMAS_DIR).signals.create(record)
 
 
 def new_signal_id(title: str) -> str:
@@ -776,10 +775,7 @@ def assessment_by_id(assessment_id: str) -> dict[str, Any] | None:
 
 
 def save_assessment(record: dict[str, Any]) -> None:
-    folder = DATA_DIR / "assessments"
-    folder.mkdir(parents=True, exist_ok=True)
-    path = folder / f"{record['id']}.json"
-    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    get_repositories(DATA_DIR, SCHEMAS_DIR).assessments.create(record)
 
 
 def new_assessment_id(title: str) -> str:
@@ -801,10 +797,7 @@ def recommendation_by_id(recommendation_id: str) -> dict[str, Any] | None:
 
 
 def save_recommendation(record: dict[str, Any]) -> None:
-    folder = DATA_DIR / "recommendations"
-    folder.mkdir(parents=True, exist_ok=True)
-    path = folder / f"{record['id']}.json"
-    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    get_repositories(DATA_DIR, SCHEMAS_DIR).recommendations.create(record)
 
 
 def new_recommendation_id(title: str) -> str:
@@ -842,9 +835,16 @@ def load_sources() -> list[dict[str, Any]]:
 
 
 def save_sources(sources: list[dict[str, Any]]) -> None:
-    path = sources_file()
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(sources, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    repository = get_repositories(DATA_DIR, SCHEMAS_DIR).sources
+    desired = {source["id"]: source for source in sources}
+    existing_ids = {source["id"] for source in repository.list()}
+    for source_id in existing_ids - desired.keys():
+        repository.delete(source_id)
+    for source_id, source in desired.items():
+        if source_id in existing_ids:
+            repository.update(source_id, source)
+        else:
+            repository.create(source)
 
 
 def bump_source_tally(source_id: str | None, field: str) -> None:
@@ -1247,31 +1247,23 @@ def unique_entity_id(entity_type: str, name: str, existing_ids: set[str]) -> str
 
 
 def save_entity(record: dict[str, Any]) -> None:
-    folder = DATA_DIR / "entities" / entity_folder(record["entity_type"])
-    folder.mkdir(parents=True, exist_ok=True)
-    path = folder / f"{record['id']}.json"
-    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    repository = get_repositories(DATA_DIR, SCHEMAS_DIR).entities
+    if repository.get(record["id"]) is None:
+        repository.create(record)
+    else:
+        repository.update(record["id"], record)
 
 
 def save_fact(record: dict[str, Any]) -> None:
-    folder = DATA_DIR / "facts"
-    folder.mkdir(parents=True, exist_ok=True)
-    path = folder / f"{record['id']}.json"
-    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    get_repositories(DATA_DIR, SCHEMAS_DIR).facts.create(record)
 
 
 def save_relationship(record: dict[str, Any]) -> None:
-    folder = DATA_DIR / "relationships"
-    folder.mkdir(parents=True, exist_ok=True)
-    path = folder / f"{record['id']}.json"
-    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    get_repositories(DATA_DIR, SCHEMAS_DIR).relationships.create(record)
 
 
 def save_evidence(record: dict[str, Any]) -> None:
-    folder = DATA_DIR / "evidence"
-    folder.mkdir(parents=True, exist_ok=True)
-    path = folder / f"{record['id']}.json"
-    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.create(record)
 
 
 def delete_draft(draft_id: str) -> None:
@@ -1406,12 +1398,12 @@ _ALLOWED_EVIDENCE_ACTION_REDIRECTS = {"/", "/review"}
 def evidence_validate(record_id: str, redirect_to: str = Form("")) -> RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Validating evidence is only available in authoring mode")
-    path = DATA_DIR / "evidence" / f"{record_id}.json"
-    if not path.exists():
+    repository = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence
+    record = repository.get(record_id)
+    if record is None:
         raise HTTPException(status_code=404, detail="Evidence record not found")
-    record = json.loads(path.read_text(encoding="utf-8"))
     record["validated"] = True
-    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    repository.update(record_id, record)
     if record.get("auto_captured"):
         bump_source_tally(record.get("source_id"), "validated_count")
     # Only ever redirects to a fixed, known-safe in-app path -- never the raw
@@ -1424,10 +1416,10 @@ def evidence_validate(record_id: str, redirect_to: str = Form("")) -> RedirectRe
 def evidence_purge(record_id: str, block_domain: bool = Form(False), redirect_to: str = Form("")) -> RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Purging evidence is only available in authoring mode")
-    path = DATA_DIR / "evidence" / f"{record_id}.json"
-    if not path.exists():
+    repository = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence
+    record = repository.get(record_id)
+    if record is None:
         raise HTTPException(status_code=404, detail="Evidence record not found")
-    record = json.loads(path.read_text(encoding="utf-8"))
     if not record.get("auto_captured"):
         raise HTTPException(status_code=400, detail="Purge is only available for auto-captured evidence")
     if record.get("source_id"):
@@ -1442,7 +1434,7 @@ def evidence_purge(record_id: str, block_domain: bool = Form(False), redirect_to
         # every keyword source instead of just one noisy outlet.
         domain = record.get("origin_domain") or domain_of(record.get("source_url", ""))
         add_blocked_domain(domain)
-    path.unlink()
+    repository.delete(record_id)
     destination = redirect_to if redirect_to in _ALLOWED_EVIDENCE_ACTION_REDIRECTS else "/"
     return RedirectResponse(url=destination, status_code=303)
 
@@ -2741,7 +2733,7 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
     entity_ids: list[str] = []
     entities_to_save: list[dict[str, Any]] = []
     name_to_id: dict[str, str] = {}
-    entities_by_id: dict[str, dict[str, Any]] = dict(idx)
+    entities_by_id: dict[str, dict[str, Any]] = deepcopy(idx)
 
     for entity_type, names in all_entity_names_by_type.items():
         for name in names:
@@ -2859,23 +2851,33 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
 
     # All validation passed: link entities to this evidence/facts/relationships,
     # then persist everything together so a failed publish leaves no orphans.
-    for entity_id in set(entity_ids):
-        entity = entities_by_id[entity_id]
-        entity["evidence_ids"] = append_unique(entity.get("evidence_ids", []), evidence_id)
-        entity["fact_ids"] = list(dict.fromkeys([*entity.get("fact_ids", []), *fact_ids]))
-        related_rel_ids = [
-            r["id"] for r in relationships_to_save if r["subject_id"] == entity_id or r["object_id"] == entity_id
-        ]
-        entity["relationship_ids"] = list(dict.fromkeys([*entity.get("relationship_ids", []), *related_rel_ids]))
-        save_entity(entity)
-
-    for fact in facts_to_save:
-        save_fact(fact)
-    for relationship in relationships_to_save:
-        save_relationship(relationship)
-
     evidence_record["attachments"] = move_draft_attachments(draft_id, evidence_id, draft.get("attachments", []))
-    save_evidence(evidence_record)
+    repositories = get_repositories(DATA_DIR, SCHEMAS_DIR)
+    new_entity_ids = {entity["id"] for entity in entities_to_save}
+    with JsonUnitOfWork(
+        entities=repositories.entities,
+        facts=repositories.facts,
+        relationships=repositories.relationships,
+        evidence=repositories.evidence,
+    ) as uow:
+        for entity_id in set(entity_ids):
+            entity = entities_by_id[entity_id]
+            entity["evidence_ids"] = append_unique(entity.get("evidence_ids", []), evidence_id)
+            entity["fact_ids"] = list(dict.fromkeys([*entity.get("fact_ids", []), *fact_ids]))
+            related_rel_ids = [
+                r["id"] for r in relationships_to_save
+                if r["subject_id"] == entity_id or r["object_id"] == entity_id
+            ]
+            entity["relationship_ids"] = list(dict.fromkeys([*entity.get("relationship_ids", []), *related_rel_ids]))
+            if entity_id in new_entity_ids:
+                uow.entities.create(entity)
+            else:
+                uow.entities.update(entity_id, entity)
+        for fact in facts_to_save:
+            uow.facts.create(fact)
+        for relationship in relationships_to_save:
+            uow.relationships.create(relationship)
+        uow.evidence.create(evidence_record)
     delete_draft(draft_id)
 
     return RedirectResponse(url=f"/evidence/{evidence_id}", status_code=303)
