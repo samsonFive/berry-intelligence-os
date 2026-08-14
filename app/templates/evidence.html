@@ -14,7 +14,14 @@
 {% endif %}
 <article class="detail-card">
   <dl data-pagefind-ignore>
-    <dt>Source</dt><dd>{{ record.source_name or "Unknown" }}</dd>
+    <dt>Source</dt>
+    <dd>
+      {% if record.source_url %}
+        <a href="{{ record.source_url }}" target="_blank" rel="noopener">{{ record.source_name or "Open original source" }} ↗</a>
+      {% else %}
+        {{ record.source_name or "Unknown" }} <span class="empty-state">· no external URL recorded</span>
+      {% endif %}
+    </dd>
     <dt>Published</dt><dd>{{ record.published_date|us_date if record.published_date else "—" }}</dd>
     <dt>Captured</dt><dd>{{ record.captured_date|us_date }}</dd>
     <dt>Status</dt><dd>{{ record.status }}</dd>
@@ -103,11 +110,5 @@
     <p class="empty-state">No attachments.</p>
   {% endif %}
 
-  <h2>Provenance</h2>
-  {% if record.source_url %}
-    <p><a href="{{ record.source_url }}">Open original source</a></p>
-  {% else %}
-    <p class="empty-state">No external source URL recorded.</p>
-  {% endif %}
 </article>
 {% endblock %}

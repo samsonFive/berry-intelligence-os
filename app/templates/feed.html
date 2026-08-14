@@ -104,6 +104,14 @@
       </div>
     {% endif %}
     <h2><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h2>
+    <p class="card-byline">
+      <strong>Source:</strong>
+      {% if item.source_url %}
+        <a href="{{ item.source_url }}" target="_blank" rel="noopener">{{ item.source_name or "Open original source" }} ↗</a>
+      {% else %}
+        {{ item.source_name or "Unknown" }} <span class="empty-state">· no external URL recorded</span>
+      {% endif %}
+    </p>
     {% set geo_and_entity_ids = (item.geography_ids or []) + (item.entity_ids or []) %}
     {% if geo_and_entity_ids %}
       <div class="tags tags-linked">

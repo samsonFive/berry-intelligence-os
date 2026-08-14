@@ -1675,6 +1675,13 @@ def test_feed_shows_linked_geography_tags_and_suppresses_redundant_summary(monke
     assert "auto-tagged, unverified" in response.text
     assert "Fictional headline about Peru blueberries&amp;nbsp;" not in response.text
     assert "read the full article" in response.text
+    assert '<strong>Source:</strong>' in response.text
+    assert '<a href="https://example.invalid/x" target="_blank" rel="noopener">Fictional Publisher' in response.text
+
+    detail = client.get("/evidence/ev-fictional-auto-tagged")
+    assert '<dt>Source</dt>' in detail.text
+    assert '<a href="https://example.invalid/x" target="_blank" rel="noopener">Fictional Publisher' in detail.text
+    assert "<h2>Provenance</h2>" not in detail.text
 
 
 def test_entity_page_shows_weighted_searchable_aliases() -> None:

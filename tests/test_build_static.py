@@ -12,6 +12,8 @@ PUBLISHED_RECORD = {
     "record_type": "evidence",
     "status": "published",
     "source_type": "article",
+    "source_name": "Static Test Publisher",
+    "source_url": "https://example.invalid/original-article",
     "title": "Static build published item",
     "captured_date": "2026-08-04",
     "summary": "Should appear in the static build.",
@@ -69,11 +71,16 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
 
     index_html = (output_dir / "index.html").read_text(encoding="utf-8")
     assert "Static build published item" in index_html
+    assert 'href="https://example.invalid/original-article"' in index_html
+    assert "Static Test Publisher" in index_html
     assert "Secret unpublished draft title" not in index_html
     assert DRAFT_RECORD["id"] not in index_html
 
     evidence_html = (output_dir / "evidence" / PUBLISHED_RECORD["id"] / "index.html").read_text(encoding="utf-8")
     assert "Static build published item" in evidence_html
+    assert 'href="https://example.invalid/original-article"' in evidence_html
+    assert "Static Test Publisher" in evidence_html
+    assert "<h2>Provenance</h2>" not in evidence_html
 
     css = (output_dir / "static" / "app.css").read_text(encoding="utf-8")
     assert css
