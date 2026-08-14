@@ -261,7 +261,14 @@ strong.level-low{color:#426aa8}
 .geo-table th,.geo-table td{text-align:left;padding:8px 10px;border-bottom:1px solid #eef1f6;font-size:13px}
 .geo-table th{color:#3c4a63;text-transform:uppercase;font-size:11px;letter-spacing:.04em}
 
-@media(max-width:800px){
+/* 834px, not 800px: covers real tablet-portrait widths (768-834px, e.g.
+   iPad's 810/820/834 breakpoints) that sat just above the old 800px
+   threshold, leaving the full 240px sidebar competing with content on a
+   viewport barely wider than it (docs/v2/PHASE-1-5-VISUAL-REVIEW.md,
+   "MUST FIX BEFORE PHASE 2"). 1024px and wider keep the desktop sidebar
+   unchanged -- this only widens the existing mobile-collapse rule, it
+   doesn't add a new layout mode. */
+@media(max-width:834px){
   .shell{grid-template-columns:1fr}
   .sidebar{display:none}
   .priorities{grid-template-columns:repeat(2,1fr)}

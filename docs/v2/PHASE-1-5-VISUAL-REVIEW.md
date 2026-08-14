@@ -105,10 +105,26 @@ Screenshots: `tablet-landscape-01.png`, `tablet-landscape-02.png`, `tablet-lands
 
 Two concrete, reproducible issues found, both pre-existing in the CSS (not introduced by Phase 1.5B, but made more visible by Phase 1.5B's new, taller pages):
 
-1. **Sidebar does not collapse at tablet width.** `app/static/app.css`'s existing mobile rule is `@media(max-width:800px){ .sidebar{display:none} ... }`. At 820px (a realistic tablet width, and above the 800px threshold), the full ~240px sidebar remains, leaving roughly 580px for content — workable, but visibly cramped, and header text wraps closer to the edge than at desktop width. **MUST FIX BEFORE PHASE 2** — cheap, isolated, no data/schema implications, and it affects every page in the app, not just Phase 1.5B's new ones.
-2. **Wide tables (Competitive field, Variety landscape — 7–8 columns) overflow the tablet content column with no visible scroll affordance.** `tablet-landscape-03-competitive-field-table.png` shows the "BRANDS" column header truncated to "BRA" at the right edge; `overflow-x:auto` is present in the wrapping `<div>` so the table *is* horizontally scrollable, but nothing in the UI signals that to a user — it simply looks cut off. **PHASE 4 / INTELLIGENCE PRODUCTIONIZATION** — specific to the new Landscape tables Phase 1.5B introduced; a real UX gap but not urgent enough to block Phase 2 (a repository/storage-layer task), since it's presentation-only and doesn't affect data correctness.
+1. **Sidebar does not collapse at tablet width.** `app/static/app.css`'s existing mobile rule is `@media(max-width:800px){ .sidebar{display:none} ... }`. At 820px (a realistic tablet width, and above the 800px threshold), the full ~240px sidebar remains, leaving roughly 580px for content — workable, but visibly cramped, and header text wraps closer to the edge than at desktop width. **MUST FIX BEFORE PHASE 2** — cheap, isolated, no data/schema implications, and it affects every page in the app, not just Phase 1.5B's new ones. **RESOLVED 2026-08-14** — see "Resolution" below.
+2. **Wide tables (Competitive field, Variety landscape — 7–8 columns) overflow the tablet content column with no visible scroll affordance.** `tablet-landscape-03-competitive-field-table.png` shows the "BRANDS" column header truncated to "BRA" at the right edge; `overflow-x:auto` is present in the wrapping `<div>` so the table *is* horizontally scrollable, but nothing in the UI signals that to a user — it simply looks cut off. **PHASE 4 / INTELLIGENCE PRODUCTIONIZATION** — specific to the new Landscape tables Phase 1.5B introduced; a real UX gap but not urgent enough to block Phase 2 (a repository/storage-layer task), since it's presentation-only and doesn't affect data correctness. **Still open** — out of scope for the breakpoint fix below, which explicitly targeted only the sidebar-collapse threshold.
 
 No other tablet-specific issues were found — text reflow, card layouts, and badge wrapping all held up correctly at 820px width in every screen captured.
+
+### Resolution (2026-08-14, commit follows this document's own update)
+
+Item 1 is resolved. `app/static/app.css`'s mobile-collapse breakpoint moved from `max-width:800px` to `max-width:834px` — a single-value change, no new layout mode, no navigation redesign, no JS added. This widens the existing "hide sidebar, full-width content" rule to cover the actual tablet-portrait range (768–834px) that previously fell just above the old threshold.
+
+Verified with Playwright against the live dev server at five widths (768, 820, 834, 1024, 1440), on both the Blueberry Landscape and the Costa Group Holdings company page:
+
+| Width | Sidebar | Sidebar width | Page horizontal overflow |
+|---|---|---|---|
+| 768px | hidden | 0px | none |
+| 820px | hidden | 0px | none |
+| 834px | hidden | 0px | none |
+| 1024px | visible | 240px | none |
+| 1440px | visible | 240px | none |
+
+1024px and 1440px are bit-for-bit unchanged from before this fix (both were, and remain, above the breakpoint in both the old and new version). The wide Landscape tables' `overflow-x:auto` scroll behavior was independently re-verified at 1024px and 834px and is unaffected: the table's own scroll container still overflows internally (854px content in a 720–770px wrapper) exactly as designed — this fix did not touch that CSS. Item 2 above remains open and unaffected by this change, exactly as scoped.
 
 ---
 
@@ -134,7 +150,7 @@ Both findings were already identified, without being resolved, in `docs/v2/PHASE
 
 | # | Suggestion | Screen | Classification |
 |---|---|---|---|
-| 1 | Sidebar collapse breakpoint too low for real tablet widths (800px vs. ~768–834px) | All pages (site-wide CSS) | **MUST FIX BEFORE PHASE 2** |
+| 1 | Sidebar collapse breakpoint too low for real tablet widths (800px vs. ~768–834px) | All pages (site-wide CSS) | **MUST FIX BEFORE PHASE 2 — RESOLVED 2026-08-14** (`app/static/app.css`, breakpoint moved to 834px; see Section 5, "Resolution") |
 | 2 | Wide Landscape tables overflow tablet width with no visible scroll cue | Blueberry Landscape | PHASE 4 / INTELLIGENCE PRODUCTIONIZATION |
 | 3 | Intelligence-column badge stacking causes uneven row heights in wide tables | Blueberry Landscape | PHASE 4 / INTELLIGENCE PRODUCTIONIZATION |
 | 4 | Raw entity ids (`breeding_program_id`, `patent_id`, `patent_number`) duplicate the resolved "Breeding program & IP" section one scroll below | Variety (Blue Manila) | PHASE 4 / INTELLIGENCE PRODUCTIONIZATION |
@@ -143,10 +159,12 @@ Both findings were already identified, without being resolved, in `docs/v2/PHASE
 | 7 | Assessment/Recommendation domain-scope gap | Structural (Section 6a) | **DURING PHASE 2** |
 | 8 | Fictional seed-data mixed with real records, no structural flag | Structural (Section 6b) | **BEFORE PHASE 3** |
 
-No suggestion in this document has been implemented. All are recommendations for a future task.
+**Update, 2026-08-14:** item 1 (the only MUST-FIX-BEFORE-PHASE-2 finding) has since been implemented — see Section 5, "Resolution." Every other suggestion in this document, including items 2-8, remains unimplemented and is a recommendation for a future task, not an instruction already acted on.
 
 ---
 
 ## 8. Smoke-test note
 
 Every page captured returned a successful render with no server-side errors (`preview_logs` checked clean before, during, and after the full capture session) and no console errors attributable to the pages themselves. This confirms the screenshots reflect commit `14f12e7`'s actual behavior, not a stale or broken state. No test files were added or modified, and no existing test baseline was touched, per this task's explicit scope.
+
+**Update, 2026-08-14:** the tablet-breakpoint fix (Section 5) was independently re-verified with `pytest -q` (200/200 passed, unchanged) and `python scripts/build_static.py` (1,463 pages, succeeded) against commit `14f12e7` plus the single CSS change — see `PROJECT-STATUS.md` for the commit hash.
