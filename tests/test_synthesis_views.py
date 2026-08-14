@@ -262,6 +262,54 @@ def test_landscape_intelligence_brief_is_prioritized_and_traceable() -> None:
     assert set(context["intelligence_agenda"]) == {"now", "watch", "deeper"}
 
 
+def test_regional_attention_uses_region_attributed_cited_evidence() -> None:
+    context = main.landscape_context("berry-blueberry")
+    attention_ids = {}
+    for key, brief in context["regional_briefings"].items():
+        attention_ids[key] = [item["id"] for item in brief["attention"]]
+        assert all(item["regional_supporting_evidence_count"] > 0 for item in brief["attention"])
+        assert brief["attention_coverage_developing"] == (len(brief["attention"]) < 3)
+    assert attention_ids["americas"] != attention_ids["emea"]
+    assert attention_ids["emea"] != attention_ids["asia"]
+
+
+def test_recent_developments_use_publication_dates_and_region_support() -> None:
+    context = main.landscape_context("berry-blueberry")
+    for key, items in context["recent_developments"].items():
+        assert 0 <= len(items) <= 5
+        assert all(item.get("published_date") for item in items)
+        assert all(item.get("source_url") for item in items)
+        if key != "global":
+            expected_regions = {
+                "americas": "Americas", "emea": "Europe",
+                "australia-nz": "Oceania", "asia": "Asia",
+            }
+            if key != "emea":
+                assert all(expected_regions[key] in item["regions"] for item in items)
+            else:
+                assert all(set(item["regions"]) & {"Europe", "Middle East & Africa"} for item in items)
+
+
+def test_what_changed_dates_disclose_date_semantics() -> None:
+    context = main.landscape_context("berry-blueberry")
+    assert context["curated_movement"]
+    for item in context["curated_movement"]:
+        assert item["date_label"] in {"Event date", "Published", "Captured"}
+        assert item["display_date"]
+        if item["date_label"] == "Captured":
+            assert not item.get("event_date") and not item.get("published_date")
+
+
+def test_landscape_manager_disclosures_and_region_news_render() -> None:
+    text = client.get("/landscapes/berries/blueberry").text
+    assert "It is not market share, commercial importance, or a definitive competitor ranking." in text
+    assert "region-attributed cited evidence record" in text
+    assert 'data-region-news="global"' in text
+    assert 'data-region-news="asia"' in text
+    assert "capture date is explicitly labeled" in text
+    assert "el.dataset.regionNews !== region" in text
+
+
 def test_landscape_renders_sticky_quick_navigation_and_explore_layer() -> None:
     text = client.get("/landscapes/berries/blueberry").text
     for heading in [

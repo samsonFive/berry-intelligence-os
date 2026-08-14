@@ -85,7 +85,7 @@
 
 <section class="landscape-section" id="actors-to-watch" data-brief-section>
   <h2>Competitive Actors to Watch</h2>
-  <p class="section-hint">Prioritized from explicit competitor roles and documented intelligence activity; regulators, investors, universities and rights bodies are not promoted into this list merely because they are well documented.</p>
+  <p class="section-hint">This watchlist reflects documented current public-intelligence coverage and Signal/Assessment linkage. It is not market share, commercial importance, or a definitive competitor ranking. Regulators, investors, universities and rights bodies are not promoted merely because they are well documented.</p>
   <div class="actor-watch-grid">
     {% for row in actors_to_watch %}
       <article class="region-aware" data-regions="{{ region_tokens(row.regions) }}"><h3><a href="/entities/company/{{ row.entity.id }}">{{ row.entity.name }}</a></h3><span class="badge badge-muted">{{ row.archetype|upper }}</span><p>{{ row.why_it_matters }}</p>{% if row.brands %}<small><strong>Platforms/brands:</strong> {{ row.brands|join(', ') }}</small>{% endif %}{% if row.regions %}<small><strong>Documented regions:</strong> {{ row.regions|join(', ') }}</small>{% endif %}</article>
@@ -111,7 +111,7 @@
       <div><strong>Actors to watch</strong><p>{{ brief.actors|map(attribute='entity.name')|join(', ') if brief.actors else 'Coverage developing' }}</p></div>
       <div><strong>Varieties / platforms to know</strong><p>{{ brief.varieties|map(attribute='entity.name')|join(', ') if brief.varieties else 'Coverage developing' }}</p></div>
       <div><strong>Competitive pressure</strong><p>{% for theme in brief.themes %}{{ theme.label }} ({{ theme.variety_count }}){% if not loop.last %}, {% endif %}{% else %}Low documented public coverage{% endfor %}</p></div>
-      <div><strong>What deserves attention</strong><p>{{ brief.signals|map(attribute='title')|join('; ') if brief.signals else 'No region-specific priority signal is safely attributable.' }}</p></div>
+      <div><strong>What deserves attention</strong>{% if brief.attention %}<ul>{% for item in brief.attention %}<li><span class="badge badge-muted">{{ item.type_label|upper }}</span> <a href="{{ item.url }}">{{ item.title }}</a> <small>{{ item.regional_supporting_evidence_count }} region-attributed cited evidence record{{ 's' if item.regional_supporting_evidence_count != 1 else '' }}</small></li>{% endfor %}</ul>{% else %}<p>No region-specific Signal or Assessment has defensible cited-evidence geography.</p>{% endif %}{% if brief.attention_coverage_developing %}<p class="empty-state">Regional synthesis coverage is still developing; unrelated global items are not used as substitutes.</p>{% endif %}</div>
     </div>
     <p class="coverage-gaps"><strong>Coverage gap:</strong> {{ brief.coverage_gap }}</p>
   </article>
@@ -119,9 +119,20 @@
   <p class="global-region-note">Select Americas, EMEA, Australia/New Zealand or Asia for a region-specific brief. Global retains the cross-region readout above.</p>
 </section>
 
+<section class="landscape-section" id="recent-developments" data-brief-section>
+  <h2>Recent Developments</h2>
+  <p class="section-hint">The latest published news and trade-press articles in current public coverage. Region views include only articles with explicit geography support; undated and capture-date-only records are excluded.</p>
+  {% for key, items in recent_developments.items() %}
+  <div class="movement-brief-grid" data-region-news="{{ key }}" hidden>
+    {% for item in items %}<article><time><strong>Published:</strong> {{ item.published_date|us_date }}</time><h3><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3><p><strong>Source:</strong> <a href="{{ item.source_url }}" target="_blank" rel="noopener">{{ item.source_name or 'Open original article' }} ↗</a></p>{% if item.regions %}<p><strong>Region:</strong> {{ item.regions|join(', ') }}</p>{% endif %}</article>{% else %}<p class="empty-state">No recently published news articles have defensible geography support for this region.</p>{% endfor %}
+    {% if key != 'global' and items|length < 3 %}<p class="empty-state">Regional news coverage is still developing; unrelated global articles are not shown.</p>{% endif %}
+  </div>
+  {% endfor %}
+</section>
+
 <section class="landscape-section" id="what-changed" data-brief-section>
-  <h2>What Changed</h2><p class="section-hint">Five most recent items already cited by a Signal, Assessment or Recommendation.</p>
-  <div class="movement-brief-grid">{% for item in curated_movement %}<article class="region-aware" data-regions="{{ region_tokens(item.regions) }}"><time>{{ (item.published_date or item.captured_date)|us_date }}</time><h3><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3><p><strong>Actor:</strong> {{ item.actor_names|join(', ') if item.actor_names else 'Not explicitly linked' }} · <strong>Region:</strong> {{ item.regions|join(', ') if item.regions else 'Not explicitly attributed' }}</p><p><strong>Why it matters:</strong> {{ item.linked_signal_titles|join('; ') if item.linked_signal_titles else 'Cited by a current assessment or recommendation.' }}</p></article>{% endfor %}</div>
+  <h2>What Changed</h2><p class="section-hint">Five recent evidence items already cited by a Signal, Assessment or Recommendation. Event dates are used when recorded, otherwise publication dates; a capture date is explicitly labeled and means ingestion into this system, not when the event occurred.</p>
+  <div class="movement-brief-grid">{% for item in curated_movement %}<article class="region-aware" data-regions="{{ region_tokens(item.regions) }}"><time><strong>{{ item.date_label }}:</strong> {{ item.display_date|us_date }}</time><h3><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3><p><strong>Actor:</strong> {{ item.actor_names|join(', ') if item.actor_names else 'Not explicitly linked' }} · <strong>Region:</strong> {{ item.regions|join(', ') if item.regions else 'Not explicitly attributed' }}</p><p><strong>Why it matters:</strong> {{ item.linked_signal_titles|join('; ') if item.linked_signal_titles else 'Cited by a current assessment or recommendation.' }}</p></article>{% endfor %}</div>
 </section>
 
 <section class="landscape-section" id="watching-signals" data-brief-section>
@@ -489,6 +500,7 @@
     document.querySelectorAll('.lens-filter').forEach(el => el.classList.toggle('is-active', el.dataset.lens === lens));
     document.querySelectorAll('.region-card').forEach(el => el.classList.toggle('is-selected', el.dataset.region === region));
     document.querySelectorAll('[data-region-brief]').forEach(el => el.hidden = region === 'global' || el.dataset.regionBrief !== region);
+    document.querySelectorAll('[data-region-news]').forEach(el => el.hidden = el.dataset.regionNews !== region);
     document.querySelector('.global-region-note').hidden = region !== 'global';
     document.querySelector('.landscape-scope').textContent = `Berries / Blueberry / ${labels[region]}`;
     const values = metrics[region];

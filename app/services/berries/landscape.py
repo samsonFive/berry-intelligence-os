@@ -414,6 +414,37 @@ class BerriesLandscapeService:
             signal["regions"] = sorted(signal_regions)
             signal["supporting_evidence_count"] = len(signal.get("evidence_ids") or [])
 
+        # Regional synthesis is stricter than general entity scope. An actor's
+        # footprint does not regionalize a conclusion: cited evidence must
+        # itself carry defensible geography support.
+        regional_attention = []
+        for type_label, records, path in (
+            ("Signal", intelligence["signals"], "signals"),
+            ("Assessment", intelligence["assessments"], "assessments"),
+        ):
+            for item in records:
+                supporting_records = [
+                    evidence_index[evidence_id]
+                    for evidence_id in (item.get("evidence_ids") or [])
+                    if evidence_id in evidence_index
+                ]
+                supported_regions = (
+                    set().union(*(evidence_regions(record, entities) for record in supporting_records))
+                    if supporting_records else set()
+                )
+                if supported_regions:
+                    evidence_count_by_region = Counter(
+                        region
+                        for record in supporting_records
+                        for region in evidence_regions(record, entities)
+                    )
+                    regional_attention.append({
+                        "id": item["id"], "title": item["title"], "type_label": type_label,
+                        "url": f"/{path}/{item['id']}", "regions": sorted(supported_regions),
+                        "supporting_evidence_count": len(supporting_records),
+                        "evidence_count_by_region": dict(evidence_count_by_region),
+                    })
+
         recent_movement = self.landscape_recent_movement(
             evidence, intelligence["signals"], intelligence["assessments"], intelligence["recommendations"]
         )
@@ -444,6 +475,28 @@ class BerriesLandscapeService:
         )
         curated_movement.sort(key=lambda record: record["intelligence_link_count"], reverse=True)
         curated_movement = curated_movement[:5]
+        for record in curated_movement:
+            if record.get("event_date"):
+                record["display_date"], record["date_label"] = record["event_date"], "Event date"
+            elif record.get("published_date"):
+                record["display_date"], record["date_label"] = record["published_date"], "Published"
+            else:
+                record["display_date"], record["date_label"] = record.get("captured_date"), "Captured"
+
+        news_source_types = {"news_search", "rss_feed", "trade_press", "article"}
+        recent_news = [
+            record for record in evidence
+            if record.get("source_type") in news_source_types
+            and record.get("published_date") and record.get("source_url")
+        ]
+        recent_news.sort(key=lambda record: record["published_date"], reverse=True)
+        for record in recent_news:
+            record["regions"] = sorted(evidence_regions(record, entities))
+        recent_developments = {"global": recent_news[:5]}
+        for key, regions in region_groups.items():
+            recent_developments[key] = [
+                record for record in recent_news if set(record["regions"]) & regions
+            ][:5]
 
         briefing_cues = {
             "assessment-financial-capital-entering-berry-genetics-ownership": {
@@ -573,7 +626,17 @@ class BerriesLandscapeService:
             regional_varieties = [row for row in variety_rollup if set(row["regions"]) & regions]
             regional_varieties.sort(key=lambda row: (-row["evidence_count"], row["entity"]["name"]))
             regional_moves = [row for row in recent_movement if set(row["regions"]) & regions][:5]
-            regional_signal_rows = [row for row in priority_signals if set(row["regions"]) & regions]
+            regional_attention_rows = []
+            for row in regional_attention:
+                regional_count = sum(row["evidence_count_by_region"].get(region, 0) for region in regions)
+                if regional_count:
+                    regional_attention_rows.append({
+                        **row, "regional_supporting_evidence_count": regional_count,
+                    })
+            regional_attention_rows.sort(key=lambda row: (
+                -row["regional_supporting_evidence_count"], row["type_label"], row["title"]
+            ))
+            regional_attention_rows = regional_attention_rows[:5]
             theme_rows = []
             for theme_label in theme_definitions:
                 companies, varieties = set(), set()
@@ -598,7 +661,8 @@ class BerriesLandscapeService:
                 "varieties": regional_varieties[:8],
                 "themes": theme_rows,
                 "moves": regional_moves[:5],
-                "signals": regional_signal_rows[:5],
+                "attention": regional_attention_rows,
+                "attention_coverage_developing": len(regional_attention_rows) < 3,
                 "coverage_gap": (
                     "Records without explicit geography support are excluded from this regional view; public coverage cannot safely answer market share, deployment scale or internal product performance."
                 ),
@@ -637,5 +701,6 @@ class BerriesLandscapeService:
             },
             "recent_movement": recent_movement,
             "curated_movement": curated_movement,
+            "recent_developments": recent_developments,
             "evidence_coverage": self.landscape_evidence_coverage(berry_id, berry_entity_ids, entities),
         }
