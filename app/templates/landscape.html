@@ -195,6 +195,40 @@
   {% endif %}
 </section>
 
+<section class="landscape-section" id="competitive-theme-matrix">
+  <h2>Competitor × Competitive Theme Matrix</h2>
+  <p class="section-hint">Documented trait territory based on structured public variety intelligence. A marked cell means at least one associated variety has a matching documented trait; it does not indicate strategy, superiority, or relative performance. Blank cells indicate no association in current coverage, not confirmed absence.</p>
+  <div class="matrix-wrap">
+    <table class="theme-matrix">
+      <thead><tr><th>Competitor</th>{% for theme in competitive_theme_matrix.themes %}<th>{{ theme }}</th>{% endfor %}</tr></thead>
+      <tbody>
+      {% for row in competitive_theme_matrix.rows %}
+        <tr class="matrix-row" data-original-order="{{ loop.index0 }}">
+          <th><a href="/entities/company/{{ row.company.id }}">{{ row.company.name }}</a><small>{{ row.documented_variety_count }} trait-documented variet{{ 'y' if row.documented_variety_count == 1 else 'ies' }}</small></th>
+          {% for cell in row.cells %}
+            <td class="matrix-cell{% if not cell.associations %} is-empty{% endif %}">
+              <span class="matrix-count">{% if cell.associations %}● {{ cell.associations|length }}{% else %}—{% endif %}</span>
+              {% if cell.associations %}
+              <details><summary>Support</summary><ul>
+                {% for association in cell.associations %}
+                <li class="matrix-association" data-regions="{{ region_tokens(association.regions) }}">
+                  <a href="/entities/variety/{{ association.variety.id }}">{{ association.variety.name }}</a>
+                  <small>{{ association.traits|join(', ') }} · {{ association.evidence_count }} supporting evidence record{{ 's' if association.evidence_count != 1 else '' }}</small>
+                  {% if association.latest_evidence %}<a class="matrix-evidence" href="/evidence/{{ association.latest_evidence.id }}">Latest: {{ association.latest_evidence.title }}</a>{% endif %}
+                </li>
+                {% endfor %}
+              </ul></details>
+              {% endif %}
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="matrix-empty-state" hidden>No defensible competitor-to-theme associations are connected to the selected region in current coverage.</p>
+</section>
+
 {# ------------------------------------------------------------------ #}
 {# Variety landscape -- no invented "top variety" score               #}
 {# ------------------------------------------------------------------ #}
@@ -331,6 +365,30 @@
     document.querySelectorAll('.region-aware').forEach(el => {
       el.hidden = region !== 'global' && !el.dataset.regions.split(/\s+/).includes(region);
     });
+    const matrixRows = [...document.querySelectorAll('.matrix-row')];
+    matrixRows.forEach(row => {
+      let documentedAssociations = 0;
+      row.querySelectorAll('.matrix-cell').forEach(cell => {
+        const associations = [...cell.querySelectorAll('.matrix-association')];
+        associations.forEach(item => {
+          item.hidden = region !== 'global' && !item.dataset.regions.split(/\s+/).includes(region);
+        });
+        const visible = associations.filter(item => !item.hidden).length;
+        documentedAssociations += visible;
+        cell.classList.toggle('is-empty', visible === 0);
+        cell.querySelector('.matrix-count').textContent = visible ? `● ${visible}` : '—';
+        const details = cell.querySelector('details');
+        if (details) details.hidden = visible === 0;
+      });
+      row.dataset.visibleAssociations = documentedAssociations;
+      row.hidden = documentedAssociations === 0;
+    });
+    const matrixBody = document.querySelector('.theme-matrix tbody');
+    matrixRows.sort((a, b) => region === 'global'
+      ? Number(a.dataset.originalOrder) - Number(b.dataset.originalOrder)
+      : Number(b.dataset.visibleAssociations) - Number(a.dataset.visibleAssociations));
+    matrixRows.forEach(row => matrixBody.appendChild(row));
+    document.querySelector('.matrix-empty-state').hidden = matrixRows.some(row => !row.hidden);
     document.querySelectorAll('.trait-table tbody').forEach(body => {
       const rows = [...body.querySelectorAll('tr[data-evidence]')];
       rows.sort((a, b) => region === 'global'

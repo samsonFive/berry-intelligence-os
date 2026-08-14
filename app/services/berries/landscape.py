@@ -316,9 +316,9 @@ class BerriesLandscapeService:
         competitive_field = self.landscape_competitive_field(berry_id, relationships, entities)
         variety_rollup = self.landscape_variety_rollup(berry_id, entities)
         theme_definitions = {
-            "Flavor & sweetness": {"eating quality", "soluble solids"},
-            "Firmness & shelf life": {"fruit firmness", "postharvest shelf life"},
-            "Yield & production": {"yield", "machine harvest suitability"},
+            "Flavor / Sweetness": {"eating quality", "soluble solids"},
+            "Firmness / Shelf Life": {"fruit firmness", "postharvest shelf life"},
+            "Yield / Production": {"yield", "machine harvest suitability"},
             "Climate adaptability": {"chilling requirement"},
             "Fruit size": {"fruit size"},
         }
@@ -331,6 +331,77 @@ class BerriesLandscapeService:
                 competitive_themes.append(
                     {"label": label, "varieties": [row["entity"]["name"] for row in matches]}
                 )
+
+        evidence_index = {record["id"]: record for record in evidence}
+        variety_by_id = {row["entity"]["id"]: row for row in variety_rollup}
+        matrix_rows = []
+        for company in competitive_field:
+            company_id = company["entity"]["id"]
+            associated_ids = {
+                rel.get("object_id")
+                for rel in relationships
+                if rel.get("subject_id") == company_id
+                and rel.get("predicate") in {"develops", "licenses"}
+                and rel.get("object_id") in variety_by_id
+            }
+            associated_varieties = [
+                variety_by_id[variety_id]
+                for variety_id in associated_ids
+                if variety_by_id[variety_id]["trait_labels"]
+            ]
+            if not associated_varieties:
+                continue
+            cells = []
+            for theme_label, trait_names in theme_definitions.items():
+                associations = []
+                for variety in associated_varieties:
+                    matching_traits = [
+                        trait
+                        for trait in variety["traits"]
+                        if trait.get("trait", "").removeprefix("trait-").replace("-", " ") in trait_names
+                    ]
+                    if not matching_traits:
+                        continue
+                    supporting_ids = sorted(
+                        {
+                            evidence_id
+                            for trait in matching_traits
+                            for evidence_id in (trait.get("evidence_ids") or [])
+                            if evidence_id in evidence_index
+                        }
+                    )
+                    supporting_records = [evidence_index[eid] for eid in supporting_ids]
+                    supporting_records.sort(
+                        key=lambda record: record.get("published_date") or record.get("captured_date") or "",
+                        reverse=True,
+                    )
+                    associations.append(
+                        {
+                            "variety": variety["entity"],
+                            "traits": sorted(
+                                {
+                                    trait.get("trait", "").removeprefix("trait-").replace("-", " ")
+                                    for trait in matching_traits
+                                }
+                            ),
+                            "regions": variety["regions"],
+                            "evidence_count": len(supporting_ids),
+                            "latest_evidence": supporting_records[0] if supporting_records else None,
+                        }
+                    )
+                cells.append({"theme": theme_label, "associations": associations})
+            matrix_rows.append(
+                {
+                    "company": company["entity"],
+                    "cells": cells,
+                    "documented_variety_count": len(associated_varieties),
+                    "evidence_count": company["evidence_count"],
+                }
+            )
+        matrix_rows.sort(
+            key=lambda row: (-row["documented_variety_count"], -row["evidence_count"], row["company"]["name"])
+        )
+        matrix_rows = matrix_rows[:12]
         for signal in intelligence["signals"]:
             signal_regions = set()
             for eid in signal.get("entity_ids") or []:
@@ -401,6 +472,10 @@ class BerriesLandscapeService:
             "regional_summaries": regional_summaries,
             "region_metrics": region_metrics,
             "competitive_themes": competitive_themes,
+            "competitive_theme_matrix": {
+                "themes": list(theme_definitions),
+                "rows": matrix_rows,
+            },
             "recent_movement": recent_movement,
             "evidence_coverage": self.landscape_evidence_coverage(berry_id, berry_entity_ids, entities),
         }

@@ -95,6 +95,8 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert 'class="filter-chip region-filter' in landscape_html
     assert "history.replaceState" in landscape_html
     assert 'href="../../../entities/company/' in landscape_html
+    assert "Competitor × Competitive Theme Matrix" in landscape_html
+    assert 'href="../../../entities/variety/' in landscape_html
 
 
 def test_static_build_detects_leak_if_validation_bypassed(monkeypatch, tmp_path) -> None:

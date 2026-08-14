@@ -74,6 +74,27 @@ def test_landscape_asia_filter_uses_real_china_geography() -> None:
     assert context["region_metrics"]["asia"]["geographies"] == 1
 
 
+def test_competitive_theme_matrix_is_relationship_and_trait_derived() -> None:
+    matrix = main.landscape_context("berry-blueberry")["competitive_theme_matrix"]
+    assert matrix["themes"] == [
+        "Flavor / Sweetness",
+        "Firmness / Shelf Life",
+        "Yield / Production",
+        "Climate adaptability",
+        "Fruit size",
+    ]
+    assert len(matrix["rows"]) == 7
+    fall_creek = next(
+        row for row in matrix["rows"] if row["company"]["name"] == "Fall Creek Farm & Nursery, Inc."
+    )
+    firmness = next(cell for cell in fall_creek["cells"] if cell["theme"] == "Firmness / Shelf Life")
+    assert {association["variety"]["name"] for association in firmness["associations"]} >= {
+        "Blue Ribbon",
+        "SEKOYA Beauty",
+    }
+    assert all(association["evidence_count"] > 0 for association in firmness["associations"])
+
+
 def test_variety_trait_profile_distinguishes_claim_from_measurement() -> None:
     entities = main.entity_index()
     blue_manila = entities["variety-blue-manila"]
@@ -216,6 +237,15 @@ def test_landscape_public_preview_has_enrichment_placeholders() -> None:
     ]:
         assert label in text
     assert "portable JSON" in text
+
+
+def test_landscape_renders_static_region_aware_competitive_theme_matrix() -> None:
+    text = client.get("/landscapes/berries/blueberry").text
+    assert "Competitor × Competitive Theme Matrix" in text
+    assert "Blank cells indicate no association in current coverage" in text
+    assert 'class="matrix-association" data-regions=' in text
+    assert "visibleAssociations" in text
+    assert "No defensible competitor-to-theme associations" in text
 
 
 def test_landscape_route_synthesizes_not_just_lists_one_record_type() -> None:
