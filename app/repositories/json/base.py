@@ -24,6 +24,7 @@ save_X() function.
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
@@ -126,11 +127,11 @@ class JsonRecordRepository:
     def get(self, record_id: str) -> dict[str, Any] | None:
         for _path, record in self._load_all_with_paths():
             if record.get("id") == record_id:
-                return record
+                return deepcopy(record)
         return None
 
     def list(self, **filters: Any) -> list[dict[str, Any]]:
-        records = [record for _path, record in self._load_all_with_paths()]
+        records = [deepcopy(record) for _path, record in self._load_all_with_paths()]
         for field, value in filters.items():
             records = [r for r in records if r.get(field) == value]
         return records

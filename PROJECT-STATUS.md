@@ -10,15 +10,17 @@
 Intelligence OS V2
 
 **Current stage:**
-Phase 2C.1 / BL-035 complete — the minimal Intelligence Package exporter, validator, CLI, lineage/orphan checks, and lossless temporary-repository round trip are implemented. Phase 2 remains open because BL-034 is not started.
+Phase 2 implementation complete and ready for architectural acceptance review. BL-034's independent in-memory backend proves the repository seam across all nine families; production remains JSON-backed.
 
 **Current branch:**
 `v2/intelligence-os`
 
 **Next phase:**
-Owner decision on BL-034. PostgreSQL and all later phases remain not started.
+Architectural acceptance review of Phase 2. PostgreSQL and Phase 3 remain not started.
 
 **Last completed:**
+Phase 2C.2 / BL-034 (2026-08-14): independent schema-validating in-memory repositories for all nine families; shared JSON/memory contract coverage; Source parity; defensive-copy mutation isolation; unchanged Core query, Berries domain, and Intelligence Package exporter consumers. Inspection fixed one real JSON leak: `get()`/`list()` now deep-copy cache-owned records. Production composition remains JSON-backed. Phase 2 has no remaining open implementation backlog items.
+
 Phase 2C.1 / BL-035 (2026-08-14): deterministic JSON export of all nine operational families through repository interfaces, plus materialized Claims; explicit exclusion of 5 fictional Entities and 3 fictional Evidence records; validated content hash and zero unaccounted orphans; content-identical re-import through fresh temporary JSON repositories. The regenerable live artifact is `generated/intelligence-package-v2-2026-08-14` (3,259,738 bytes; 1,944 primary-family records plus 54 Claims). Attachments are optional and omitted; Workspace is compatibility manifest metadata because it is not yet persisted.
 
 Phase 2B.3 (2026-08-14): BL-033 completed. Evidence validate/purge and every persisted Core-object create/update/delete path now cross repository interfaces. Review/publish uses one UoW across Entity, Fact, Relationship, and Evidence writes; matched existing Entities are restored from prior-value snapshots if a later write fails. Acceptance verification moved draft deletion into the UoW so unlink failure compensates structured writes and leaves the draft retryable. Inbox drafts, attachments, and blocked-domain configuration remain documented filesystem exceptions because Phase 2 defines no repositories for them. 361 tests, record validation, and the 1,463-page static build pass.
@@ -31,13 +33,13 @@ Previously: Phase 2B.1 (2026-08-14) — the record-repository layer at `app/repo
 - A single, low-materiality ordering nuance: `EvidenceRepository.list()` (built in Phase 2B.1) sorts by published/captured date descending, matching `published_evidence()`'s existing sort exactly — but `all_evidence()` (unsorted, raw file-path order, before this task) now inherits that same sort too. Verified against every `all_evidence()` call site in `app/main.py`: none depend on its order except `published_evidence()` itself (which already re-sorted identically) — the one exception is `find_possible_duplicates()`'s reviewer-facing duplicate-warning list, whose display order was never a specified or tested contract. Flagged here per this task's transparency requirement, not silently absorbed.
 
 **In progress:**
-Nothing. Phase 2C.1 / BL-035 is complete and fully verified; Phase 2 remains open on BL-034.
+Nothing. Phase 2 implementation is complete and awaiting architectural acceptance review.
 
 **Next:**
 Owner authorization for the next bounded phase.
 
 **Next implementation action:**
-Not started — BL-034 requires separate authorization. PostgreSQL and later work remain untouched.
+Not started — Phase 3 requires separate authorization. PostgreSQL remains untouched.
 
 **Blocked by:**
 None.
@@ -49,7 +51,7 @@ Tag `v1-blueberry-reference` → commit `432a96bd4efce1991df83b60aa1587154ba1952
 Accepted (`docs/v2/00-README.md` through `10-BACKLOG.md`, 2026-08-13). `docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` (2026-08-14, Part 9 addendum added 2026-08-14, Part 10 addendum added 2026-08-14) is the authoritative Phase 2B implementation spec.
 
 **Tests at baseline:**
-367 passed, 0 failed (`pytest -q`). `scripts/validate_records.py` passes with zero schema errors. `scripts/build_static.py` succeeds (1,463 pages). BL-034, PostgreSQL, routes, templates, and live data records were untouched.
+394 passed, 0 failed (`pytest -q`). `scripts/validate_records.py` passes with zero schema errors. `scripts/build_static.py` succeeds (1,463 pages). Production remains JSON-backed; PostgreSQL, routes, templates, and live data records were untouched.
 
 **Important decisions — status:**
 (IDs match `docs/v2/08-DECISION-LOG.md`)

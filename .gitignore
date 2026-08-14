@@ -4,6 +4,7 @@ __pycache__/
 .pytest_cache/
 .verify-tmp/
 .pkg-test-tmp*/
+.mem-test*/
 *.egg-info/
 
 # Virtual environment
