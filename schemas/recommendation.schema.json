@@ -25,6 +25,21 @@
     "fact_ids": {"type": "array", "items": {"type": "string"}},
     "evidence_ids": {"type": "array", "items": {"type": "string"}},
     "entity_ids": {"type": "array", "items": {"type": "string"}},
+    "domain_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "V2 Phase 2A (D-012, docs/v2/08-DECISION-LOG.md). Explicit analytical scope -- which Domain(s) this Recommendation applies to. Optional and additive: absent or empty means scope has not been explicitly declared, not that it applies everywhere. Separate from provenance (evidence_ids/entity_ids/assessment_ids/signal_ids above) -- see docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md Part 2."
+    },
+    "market_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "V2 Phase 2A (D-012). Which market/category id(s) within a domain this applies to (for Berries: berry ids). May hold multiple values -- a genuinely cross-market Recommendation is representable without duplicating the record. Optional and additive, same rules as domain_ids."
+    },
+    "geography_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "V2 Phase 2A (D-012). Geography entity id(s) this Recommendation's action is explicitly scoped to, when narrower than the full domain/market. Optional and additive."
+    },
     "strategic_question_ids": {"type": "array", "items": {"type": "string"}},
     "reviewer": {"type": "string", "minLength": 1},
     "ai_proposed": {"type": "boolean"},

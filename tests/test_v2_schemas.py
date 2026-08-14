@@ -222,3 +222,70 @@ def test_strategic_question_status_enum_tightened() -> None:
     # The old V1 enum values are no longer valid.
     assert not _is_valid(validator, {**base, "status": "resolved"})
     assert not _is_valid(validator, {**base, "status": "archived"})
+
+
+# ---------------------------------------------------------------------------
+# D-012 (docs/v2/08-DECISION-LOG.md), V2 Phase 2A: explicit analytical scope
+# (domain_ids/market_ids/geography_ids on Assessment/Recommendation,
+# domain_ids/geography_ids/berry_ids on Signal) is optional and additive --
+# every legacy record without these fields must keep validating unchanged,
+# and a record that does set them must validate too.
+# ---------------------------------------------------------------------------
+
+def test_assessment_scope_fields_are_optional_not_required() -> None:
+    validator = _validator("assessment.schema.json")
+    # VALID_ASSESSMENT (above) sets none of domain_ids/market_ids/geography_ids
+    # and must still validate -- this is the legacy-record case.
+    assert _is_valid(validator, VALID_ASSESSMENT)
+
+
+def test_assessment_scope_fields_validate_when_present_including_cross_market() -> None:
+    validator = _validator("assessment.schema.json")
+    scoped = {
+        **VALID_ASSESSMENT,
+        "domain_ids": ["domain-berries"],
+        "market_ids": ["berry-blueberry", "berry-raspberry"],
+        "geography_ids": ["geography-south-africa"],
+    }
+    assert _is_valid(validator, scoped)
+
+
+def test_recommendation_scope_fields_are_optional_and_validate_when_present() -> None:
+    validator = _validator("recommendation.schema.json")
+    assert _is_valid(validator, VALID_RECOMMENDATION)
+    scoped = {
+        **VALID_RECOMMENDATION,
+        "domain_ids": ["domain-berries"],
+        "market_ids": ["berry-blueberry"],
+        "geography_ids": [],
+    }
+    assert _is_valid(validator, scoped)
+
+
+def test_signal_scope_fields_are_optional_and_validate_when_present() -> None:
+    validator = _validator("signal.schema.json")
+    base = {
+        "id": "sig-scope-test",
+        "record_type": "signal",
+        "title": "A signal used only to test scope fields",
+        "status": "proposed",
+        "strength": "weak",
+        "reviewer": None,
+        "evidence_ids": ["ev-one", "ev-two"],
+    }
+    assert _is_valid(validator, base)
+    scoped = {**base, "berry_ids": ["berry-blueberry"], "domain_ids": ["domain-berries"], "geography_ids": ["geography-morocco"]}
+    assert _is_valid(validator, scoped)
+
+
+def test_all_six_staged_signals_still_validate_with_scope_fields_declared() -> None:
+    # Re-verifies BL-014's own staged-signal fixture (which sets berry_ids,
+    # previously an undeclared-but-accepted property) now validates against
+    # the field being formally declared, not just tolerated.
+    validator = _validator("signal.schema.json")
+    files = sorted(glob.glob(str(STAGED_SIGNALS_DIR / "*.json")))
+    for path in files:
+        record = json.loads(Path(path).read_text(encoding="utf-8"))
+        assert record.get("berry_ids"), f"{record['id']}: expected fixture to already set berry_ids"
+        errors = list(validator.iter_errors(record))
+        assert errors == [], (record["id"], [e.message for e in errors])

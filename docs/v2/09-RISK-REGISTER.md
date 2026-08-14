@@ -138,6 +138,18 @@ Rating scale: **Likelihood** and **Impact** each Low/Medium/High. **Priority** i
 
 ---
 
+## R-12 — Seed/demo-data contamination in the PostgreSQL seed
+
+**Likelihood**: Medium (without an explicit gate) / Low (with it) · **Impact**: Medium-High (fictional data indistinguishable from real intelligence in the permanent operational store is a trust-identity problem, not just clutter) · **Priority**: High
+
+**Description**: **added 2026-08-14, Phase 2A** (`docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` Part 6). The live dataset contains 5 entities and 3 evidence records explicitly self-described in their own `description` field as fictional V1 seed/demo data (`company-example-genetics`, `company-example-nursery`, `retailer-example-market`, `variety-example-blue`, `variety-example-red`, `ev-sample-patent-published`, `ev-sample-retail-placement`, `ev-sample-variety-launch`), stored in the same `data/entities/`/`data/evidence/` folders as real intelligence with no structural field distinguishing them (found during Phase 1.5B, `docs/v2/PHASE-1-5-PROTOTYPE-FINDINGS.md` Section 5). Today, only the Blueberry Landscape's aggregation functions know to exclude them (a hard-coded id list, `app/main.py`); every other route, and any future repository/query/export code that doesn't independently know about that same list, would present them as real.
+
+**Mitigation**: an explicit Phase 3 migration gate, not a Phase 2 requirement — **no Intelligence Package used as the PostgreSQL seed (Phase 3 Step 1, "freeze and archive") may contain unmarked fictional/demo records.** Three candidate mechanisms are evaluated (not chosen) in `docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` Part 6.4: an additive `data_classification: production | demo | seed` field (the preferred candidate — least invasive, self-describing, works uniformly across every object type), separate directories, or package-level exclusion. Whichever is chosen, it must exist and be applied *before* Phase 3 Step 1 freezes the archive that becomes Postgres's permanent seed data — after that point, fictional records loaded as real become exactly the kind of irreversible, hard-to-detect mistake R-01's "zero data loss, bounded, sequential" migration philosophy exists to prevent (the inverse failure mode: not losing real data, but permanently gaining fake data indistinguishable from it).
+
+**Owner/phase**: identified Phase 2A; must be resolved no later than Phase 3 Step 1. May be resolved during Phase 2B if convenient, but is not a Phase 2B acceptance requirement.
+
+---
+
 ## Summary — highest-priority risks
 
 Ranked by this register's own priority assessment (not likelihood alone): **R-01 (migration data loss)**, **R-08 (report hallucination)**, and **R-09 (loss of provenance)** share the top priority tier — each directly threatens either an explicit product-direction requirement (preserving the dataset) or the platform's core identity claim (trustworthy, evidence-traceable intelligence). All three have structural, not just procedural, mitigations specified above and built into the roadmap's acceptance criteria, rather than left as "be careful" guidance.

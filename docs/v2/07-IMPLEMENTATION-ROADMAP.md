@@ -71,20 +71,32 @@ Each phase has a stated goal, a bounded scope (what's in, explicitly what's out)
 
 ## Phase 2 — Repository/storage abstraction
 
-**Goal**: introduce a storage-interface boundary in the application code *before* changing what's behind it, so Phase 3's actual cutover is a swap behind an already-tested seam, not a simultaneous "change the interface and the implementation" risk. Informed directly by Phase 1.5's findings on what rollup queries the real prototypes actually needed.
+**Goal**: introduce a storage-interface boundary in the application code *before* changing what's behind it, so Phase 3's actual cutover is a swap behind an already-tested seam, not a simultaneous "change the interface and the implementation" risk. Informed directly by Phase 1.5's findings on what rollup queries the real prototypes actually needed. **Split into two sub-phases on review (2026-08-14)**: 2A designs the contract from real, observed application query needs; 2B implements it. This split exists because a repository interface designed from planning-doc assumptions rather than the actual Phase 1.5 access patterns risks exactly the "generic CRUD abstraction that doesn't fit the real query shapes" failure mode — 2A's whole job is to prevent that by inventorying real code first.
 
-**Scope**:
-- Define a repository interface per core object type (`EntityRepository`, `EvidenceRepository`, etc.) with the operations the app actually needs (list/filter/get/create/update, plus whatever rollup/query patterns Phase 1.5 found necessary) — modeled on, but not identical to, `load_json_files()`'s existing call sites, which is itself unchanged as the interface's first, only implementation.
-- Refactor `app/main.py` (or its post-split successors, if that reorganization from `06-MIGRATION-MAP.md` happens here rather than later — a sequencing choice for whoever scopes Phase 2 in detail) to call the interface, not `load_json_files()`/direct file I/O, directly.
-- No behavior change is permitted in this phase — it is a refactor, verified by the existing test suite passing unmodified in assertion.
-- **New, added on review**: build a **minimal Intelligence Package exporter** against the repository interface — not the full report/API/export UI (that remains Phase 6), just enough to export the current dataset to the `05-INTELLIGENCE-PACKAGE-SPEC.md` format and validate it can be re-imported without information loss. This exists early for two reasons at once: it's the concrete migration-safety mechanism Phase 3's "freeze and archive" step needs, and it's the earliest possible proof that the long-term downstream-system export contract actually works, not just a paper spec.
+### Phase 2A — Repository contract & scope semantics
 
-**Explicitly out of scope**: PostgreSQL itself (that's Phase 3) — this phase's success is proven by the *same JSON-file backend* working correctly through the new interface. The full report/API/export UI (Phase 6).
+**Status**: Complete (2026-08-14). See `docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` for the full deliverable.
+
+**Scope**: inventory every real data-access pattern in the current application (23 identified, verified against `app/main.py`, not just Phase 1.5's own findings document); classify each Core vs. Domain-Pack-specific; resolve the Assessment/Recommendation/Signal analytical-scope gap Phase 1.5B's findings surfaced (`08-DECISION-LOG.md` D-012 — explicit, optional, additive `domain_ids`/`market_ids`/`geography_ids` fields, separate from provenance); design the repository/query/domain-service boundary (not implement it); specify the shared backend contract-test suite Phase 2B must satisfy; propose Phase 2B's code organization.
+
+**Explicitly out of scope, and not done**: any repository/query code; any change to `app/main.py`'s structure; PostgreSQL; route migration. The only production-code change in Phase 2A is the three additive, optional JSON Schema fields D-012 specifies (verified via `scripts/validate_records.py` to introduce zero validation regressions against live data).
+
+**Acceptance criteria**: all met — see `docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md`'s own closing cross-check against these criteria.
+
+### Phase 2B — Repository/query implementation
+
+**Status**: Not started. Scoped by Phase 2A's deliverable, not by this section's own (now superseded) description below.
+
+**Scope** (per `docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` Parts 3 and 7): implement the record-repository / query-service / domain-service layers specified in Phase 2A, in the `app/repositories/`, `app/queries/`, `app/services/berries/` structure Phase 2A proposed; refactor `app/main.py` to call the new layers instead of `load_json_files()`/direct file I/O; implement the repository contract-test suite Phase 2A specified (Part 8) against the JSON backend, then a second, trivial (e.g. in-memory) backend, proving the seam is real; implement the `scope_disagreements()` detection function D-012 specifies but Phase 2A did not build; build the minimal Intelligence Package exporter against the new repository interface (unchanged from this section's original scope — see below).
+- **Carried forward from this section's original, pre-split scope**: build a **minimal Intelligence Package exporter** against the repository interface — not the full report/API/export UI (that remains Phase 6), just enough to export the current dataset to the `05-INTELLIGENCE-PACKAGE-SPEC.md` format and validate it can be re-imported without information loss. This exists early for two reasons at once: it's the concrete migration-safety mechanism Phase 3's "freeze and archive" step needs, and it's the earliest possible proof that the long-term downstream-system export contract actually works, not just a paper spec.
+
+**Explicitly out of scope**: PostgreSQL itself (that's Phase 3) — this phase's success is proven by the *same JSON-file backend* working correctly through the new interface. The full report/API/export UI (Phase 6). Fixing the seed/demo-data structural gap (`docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` Part 6, `09-RISK-REGISTER.md` R-12) — tracked as a Phase 3 gate, not a Phase 2B requirement, though Phase 2B may implement it if convenient.
 
 **Acceptance criteria**:
-- All 122 existing tests pass against the refactored code with zero test-assertion changes (fixture/setup changes are acceptable if they reflect the new interface, but what a test *checks* should not need to change, since behavior hasn't changed).
+- All existing tests (205 as of Phase 2A, plus whatever Phase 2B itself adds) pass against the refactored code with zero test-assertion changes (fixture/setup changes are acceptable if they reflect the new interface, but what a test *checks* should not need to change, since behavior hasn't changed).
 - No route handler in the application performs direct file I/O anymore — every data access goes through a repository interface, verifiable by code search.
 - A second, trivial repository implementation (even an in-memory one, for test speed) can be swapped in without touching route code, proving the seam is real and not just a renamed function call.
+- The repository contract-test suite (`docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` Part 8.2) exists and passes against both backends.
 - The minimal Intelligence Package exporter produces a valid package from the live dataset, and that package re-imports without information loss (checkable via `source-lineage.json`'s `orphan_check`, per `05-INTELLIGENCE-PACKAGE-SPEC.md`).
 
 ---

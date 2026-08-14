@@ -38,6 +38,21 @@
     },
     "fact_ids": {"type": "array", "items": {"type": "string"}},
     "entity_ids": {"type": "array", "items": {"type": "string"}},
+    "berry_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "V2 Phase 2A (D-012, docs/v2/08-DECISION-LOG.md). Formalizes a field every live Signal record already sets in practice (all 6 imported signals populate berry_ids) but that was never declared in this schema before now -- previously valid only because this schema has no additionalProperties:false restriction. This is Signal's own market-scope field, kept under its existing name rather than renamed to match Assessment/Recommendation's market_ids for cosmetic consistency (D-012's own reasoning: renaming a working field with live data serves no new capability). Optional, not required, so any future non-Berries Signal without a berry concept still validates."
+    },
+    "domain_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "V2 Phase 2A (D-012). Explicit analytical scope -- which Domain(s) this Signal applies to, for consistency with Assessment/Recommendation's scope fields. Optional and additive; absent or empty means not yet explicitly declared. See docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md Part 2.5."
+    },
+    "geography_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "V2 Phase 2A (D-012). Geography entity id(s) this Signal's pattern is explicitly scoped to, when narrower than the full domain/market. Optional and additive."
+    },
     "strategic_question_ids": {"type": "array", "items": {"type": "string"}},
     "first_seen": {
       "type": "string",
