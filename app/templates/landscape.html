@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+{% block title %}{{ berry_label }} Landscape — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">SYNTHESIZED MARKET VIEW — NOT A SINGLE-RECORD PAGE</p>
+    <h1>{{ berry_label }} Landscape</h1>
+    {# Scope selector concept (this task's explicit minimal-prototype instruction):
+       Domain / Market / Geography is application scope, not hard-coded nav
+       identity. Rendered here as a label only -- the full Workspace/Domain
+       switching mechanism is deliberately not built this phase; see
+       docs/v2/PHASE-1-5-PROTOTYPE-FINDINGS.md for what it would require. #}
+    <p class="landscape-scope">Berries / {{ berry_label }} / Global</p>
+  </div>
+</section>
+
+<div class="landscape-header-stats">
+  <div><strong>{{ header_stats.evidence_count }}</strong><small>Evidence records</small></div>
+  <div><strong>{{ header_stats.source_count }}</strong><small>Distinct named sources</small></div>
+  <div><strong>{{ header_stats.last_material_update|us_date if header_stats.last_material_update else "—" }}</strong><small>Most recent evidence date</small></div>
+  <div><strong>{{ header_stats.signal_count }}</strong><small>Active / proposed signals</small></div>
+  <div><strong>{{ header_stats.entity_type_counts.company or 0 }}</strong><small>Companies covered</small></div>
+  <div><strong>{{ header_stats.entity_type_counts.variety or 0 }}</strong><small>Varieties covered</small></div>
+</div>
+<p class="empty-state" style="padding:0 32px 8px">This reflects what has been collected and structured so far, not a complete census of the market — see Evidence coverage &amp; limitations below for what remains thin.</p>
+
+{# ------------------------------------------------------------------ #}
+{# What deserves attention -- an analyst briefing, not a database dump #}
+{# ------------------------------------------------------------------ #}
+<section class="landscape-section">
+  <h2>What deserves attention</h2>
+  <p class="section-hint">Active signals, published assessments, and proposed recommendations touching {{ berry_label }} — the interpretive layer, not a raw record list.</p>
+  <div class="landscape-briefing">
+    {% if signals %}
+      <div class="landscape-briefing-group">
+        <h3>Signals ({{ signals|length }})</h3>
+        <ul class="entity-links">
+          {% for s in signals %}
+            <li><span class="badge badge-signal">SIGNAL</span> <a href="/signals/{{ s.id }}">{{ s.title }}</a> <span class="badge badge-muted">{{ s.status|upper }}</span> <span class="badge badge-muted">{{ s.strength|upper }}</span></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% if assessments %}
+      <div class="landscape-briefing-group">
+        <h3>Assessments ({{ assessments|length }})</h3>
+        <ul class="entity-links">
+          {% for a in assessments %}
+            <li><span class="badge badge-assessment">ASSESSMENT</span> <a href="/assessments/{{ a.id }}">{{ a.title }}</a> <span class="badge badge-muted">{{ a.confidence|upper }} CONFIDENCE</span></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% if recommendations %}
+      <div class="landscape-briefing-group">
+        <h3>Recommendations ({{ recommendations|length }})</h3>
+        <ul class="entity-links">
+          {% for r in recommendations %}
+            <li><span class="badge badge-recommendation">RECOMMENDATION</span> <a href="/recommendations/{{ r.id }}">{{ r.title }}</a>{% if r.priority %} <span class="badge badge-muted">{{ r.priority|upper }} PRIORITY</span>{% endif %}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% if strategic_questions %}
+      <div class="landscape-briefing-group">
+        <h3>Strategic questions ({{ strategic_questions|length }})</h3>
+        <ul class="entity-links">
+          {% for sq in strategic_questions %}
+            <li><a href="/strategic-questions/{{ sq.id }}">{{ sq.title }}</a> <span class="badge badge-muted">{{ sq.status|upper }}</span></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% if not signals and not assessments and not recommendations and not strategic_questions %}
+      <p class="empty-state">Nothing currently flagged for attention.</p>
+    {% endif %}
+  </div>
+</section>
+
+{# ------------------------------------------------------------------ #}
+{# Recent meaningful movement -- not simply the newest records        #}
+{# ------------------------------------------------------------------ #}
+<section class="landscape-section">
+  <h2>Recent meaningful movement</h2>
+  <p class="section-hint">Evidence a Signal, Assessment, or Recommendation has already judged relevant — not just the newest captures.</p>
+  {% if recent_movement %}
+    <section class="feed feed-compact">
+      {% for item in recent_movement %}
+        <article class="card source-{{ item.source_type }}">
+          <div class="card-header">
+            <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
+            <time>{{ (item.published_date or item.captured_date)|us_date }}</time>
+          </div>
+          <h3><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3>
+          {% set summary_lines = item.summary|as_bullets %}
+          {% if summary_lines|length > 1 %}
+            <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+          {% else %}
+            <p>{{ item.summary }}</p>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </section>
+  {% else %}
+    <p class="empty-state">No evidence is currently linked to a Signal, Assessment, or Recommendation.</p>
+  {% endif %}
+</section>
+
+{# ------------------------------------------------------------------ #}
+{# Competitive field -- coverage indicators, never a strength ranking #}
+{# ------------------------------------------------------------------ #}
+<section class="landscape-section">
+  <h2>Competitive field</h2>
+  <p class="section-hint">Every company entity covered, listed alphabetically. Counts are coverage indicators — how much this dataset documents about each company — not a strength ranking.</p>
+  {% if competitive_field %}
+    <div style="overflow-x:auto">
+    <table class="trait-table">
+      <thead><tr><th>Company</th><th>Roles</th><th>Varieties</th><th>Patents</th><th>Brands</th><th>Geographies</th><th>Evidence</th><th>Intelligence</th></tr></thead>
+      <tbody>
+        {% for row in competitive_field %}
+          <tr>
+            <td><a href="/entities/company/{{ row.entity.id }}">{{ row.entity.name }}</a></td>
+            <td>{{ row.entity.roles|join(', ') if row.entity.roles else "—" }}</td>
+            <td>{{ row.varieties_developed }}{% if row.varieties_licensed %} (+{{ row.varieties_licensed }} licensed){% endif %}</td>
+            <td>{{ row.patents_owned }}</td>
+            <td>{{ row.brands_owned }}</td>
+            <td>{{ row.geographies }}</td>
+            <td>{{ row.evidence_count }}</td>
+            <td>
+              {% if row.signals %}<span class="badge badge-signal">{{ row.signals|length }} SIGNAL{{ 'S' if row.signals|length > 1 else '' }}</span>{% endif %}
+              {% if row.assessments %}<span class="badge badge-assessment">{{ row.assessments|length }} ASSESSMENT{{ 'S' if row.assessments|length > 1 else '' }}</span>{% endif %}
+              {% if row.recommendations %}<span class="badge badge-recommendation">{{ row.recommendations|length }} REC.</span>{% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  {% else %}
+    <p class="empty-state">No company entities recorded for {{ berry_label }} yet.</p>
+  {% endif %}
+</section>
+
+{# ------------------------------------------------------------------ #}
+{# Variety landscape -- no invented "top variety" score               #}
+{# ------------------------------------------------------------------ #}
+<section class="landscape-section">
+  <h2>Variety landscape</h2>
+  <p class="section-hint">Every variety entity covered, listed alphabetically. See each variety's own page for its full trait profile with source-of-claim distinctions.</p>
+  {% if variety_rollup %}
+    <div style="overflow-x:auto">
+    <table class="trait-table">
+      <thead><tr><th>Variety</th><th>Breeder</th><th>Breeding program</th><th>Traits documented</th><th>Patent linked</th><th>Evidence</th><th>Intelligence</th></tr></thead>
+      <tbody>
+        {% for row in variety_rollup %}
+          <tr>
+            <td><a href="/entities/variety/{{ row.entity.id }}">{{ row.entity.name }}</a></td>
+            <td>{{ row.breeder or "—" }}</td>
+            <td>{% if row.breeding_program %}<a href="/entities/breeding_program/{{ row.breeding_program.id }}">{{ row.breeding_program.name }}</a>{% else %}—{% endif %}</td>
+            <td>{{ row.trait_count }}</td>
+            <td>{{ "Yes" if row.has_patent_number else "—" }}</td>
+            <td>{{ row.evidence_count }}</td>
+            <td>
+              {% if row.signals %}<span class="badge badge-signal">{{ row.signals|length }} SIGNAL{{ 'S' if row.signals|length > 1 else '' }}</span>{% endif %}
+              {% if row.assessments %}<span class="badge badge-assessment">{{ row.assessments|length }} ASSESSMENT{{ 'S' if row.assessments|length > 1 else '' }}</span>{% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  {% else %}
+    <p class="empty-state">No variety entities recorded for {{ berry_label }} yet.</p>
+  {% endif %}
+</section>
+
+{# ------------------------------------------------------------------ #}
+{# Geographic footprint -- structured table, not a map                #}
+{# ------------------------------------------------------------------ #}
+<section class="landscape-section">
+  <h2>Geographic footprint</h2>
+  <p class="section-hint">Where recorded activity is concentrated, by region. A structured table communicates this dataset's actual geographic coverage more precisely than a map would at this scale.</p>
+  {% if geographic_footprint %}
+    <table class="geo-table">
+      <thead><tr><th>Region</th><th>Geographies</th><th>Companies operating there</th><th>Evidence</th></tr></thead>
+      <tbody>
+        {% for row in geographic_footprint %}
+          <tr>
+            <td>{{ row.region }}</td>
+            <td>{{ row.geography_names|join(', ') if row.geography_names else "—" }}</td>
+            <td>{{ row.company_count }}</td>
+            <td>{{ row.evidence_count }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="empty-state">No geography entities recorded for {{ berry_label }} yet.</p>
+  {% endif %}
+</section>
+
+{# ------------------------------------------------------------------ #}
+{# Evidence coverage / limitations -- what the system DOESN'T know    #}
+{# ------------------------------------------------------------------ #}
+<section class="landscape-section">
+  <h2>Evidence coverage &amp; limitations</h2>
+  <p class="section-hint">What this dataset knows well, and what it doesn't. Read alongside the rest of this page, not as a footnote.</p>
+  <div class="coverage-grid">
+    <div><strong>{{ evidence_coverage.evidence_count }}</strong><small>Total evidence records</small></div>
+    <div><strong>{{ evidence_coverage.primary_source_count }}</strong><small>From primary/registry-grade sources</small></div>
+    <div><strong>{{ evidence_coverage.disputed_fact_count }}</strong><small>Disputed facts</small></div>
+    <div><strong>{{ evidence_coverage.disputed_relationship_count }}</strong><small>Disputed relationships</small></div>
+    <div><strong>{{ evidence_coverage.unresolved_strategic_question_count }}</strong><small>Unresolved strategic questions</small></div>
+    <div><strong>{{ evidence_coverage.thin_coverage_varieties|length }}</strong><small>Varieties with ≤1 evidence record</small></div>
+  </div>
+  {% if evidence_coverage.confidence_distribution %}
+    <p style="margin:14px 0 4px"><strong>Fact confidence distribution:</strong>
+      {% for level, count in evidence_coverage.confidence_distribution.items() %}
+        <span class="badge badge-muted">{{ level|upper }}: {{ count }}</span>
+      {% endfor %}
+    </p>
+  {% endif %}
+  {% if evidence_coverage.source_type_breakdown %}
+    <p style="margin:10px 0 4px"><strong>Source type mix:</strong>
+      {% for type, count in evidence_coverage.source_type_breakdown[:6] %}
+        <span class="badge badge-muted">{{ type|replace('_',' ')|upper }}: {{ count }}</span>
+      {% endfor %}
+      {% if evidence_coverage.source_type_breakdown|length > 6 %}<span class="badge badge-muted">+{{ evidence_coverage.source_type_breakdown|length - 6 }} more</span>{% endif %}
+    </p>
+  {% endif %}
+  {% if evidence_coverage.thin_coverage_varieties %}
+    <div class="coverage-gaps">
+      <strong>Thin coverage — varieties with one or zero linked evidence records:</strong>
+      <ul>
+        {% for v in evidence_coverage.thin_coverage_varieties %}
+          <li><a href="/entities/variety/{{ v.id }}">{{ v.name }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

@@ -11,6 +11,7 @@
     <aside class="sidebar">
       <div class="brand">BERRY<span>INTELLIGENCE OS</span></div>
       <nav aria-label="Primary">
+        <a href="/landscapes/berries/blueberry" {% if request.url.path.startswith('/landscapes') %}class="active" aria-current="page"{% endif %}>Blueberry Landscape</a>
         <a href="/" {% if request.url.path == '/' %}class="active" aria-current="page"{% endif %}>Newsfeed</a>
         <a href="/work-queue" {% if request.url.path == '/work-queue' %}class="active" aria-current="page"{% endif %}>Work Queue</a>
         <a href="/entities/company" {% if request.url.path.startswith('/entities/company') %}class="active" aria-current="page"{% endif %}>Competitors</a>

@@ -33,8 +33,10 @@ from app.main import (  # noqa: E402
     entity_activity,
     entity_index,
     entity_regions,
+    entity_synthesis_context,
     evidence_for_strategic_question,
     facts_for_evidence,
+    landscape_context,
     list_drafts,
     load_strategic_questions,
     published_evidence,
@@ -233,6 +235,7 @@ def build() -> list[Path]:
                     "regions": regions,
                     "berry_label": berry_label,
                     "authoring_mode": False,
+                    **entity_synthesis_context(entity, entities),
                 },
             )
         )
@@ -393,6 +396,15 @@ def build() -> list[Path]:
                 },
             )
         )
+
+    # Blueberry Landscape (V2 Phase 1.5B, BL-026).
+    written.append(
+        write_page(
+            "landscape.html",
+            "/landscapes/berries/blueberry",
+            {**landscape_context("berry-blueberry"), "authoring_mode": False},
+        )
+    )
 
     # Full search-results page. Runs Pagefind's own JS entirely client-side
     # (reads ?q= at load, renders via the site's own card styling) -- no

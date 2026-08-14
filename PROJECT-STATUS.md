@@ -10,47 +10,50 @@
 Intelligence OS V2
 
 **Current stage:**
-Phase 1.5A complete — the intelligence-object portion of Phase 1.5 (BL-024, BL-025 only). Signal, Assessment, and Recommendation are now real, reviewable, JSON-backed objects in the running app. The Landscape/Company/Variety prototypes and findings doc (BL-026 – BL-029) are deliberately **not** part of this task and remain not started.
+Phase 1.5 complete — both the intelligence-object activation (1.5A: BL-024/BL-025) and the synthesis-experience prototype (1.5B: BL-026 – BL-029). Signal, Assessment, and Recommendation are real objects; a Blueberry Landscape view, an enhanced Company portfolio view, and an enhanced Variety intelligence view all synthesize them against real data. **Phase 1.5 is now fully complete.**
 
 **Current branch:**
 `v2/intelligence-os`
 
 **Next phase:**
-Rest of Phase 1.5 (BL-026 – BL-029: Landscape/Company/Variety prototypes, findings doc) — not started, pending owner authorization.
+Phase 2 — Repository/storage abstraction (`docs/v2/07-IMPLEMENTATION-ROADMAP.md`) — not started, pending owner authorization.
 
 **Last completed:**
-`BL-024`, `BL-025` (Phase 1.5A, 2026-08-13). Imported the 6 staged blueberry Signals into `data/signals/` (status/reviewer/dates preserved exactly, no upgrades; stale `not_importable_reason` dropped; all evidence/entity/strategic-question references confirmed resolving against live data before import). Built list/detail/create routes and templates for both Assessment and Recommendation (`app/main.py`, `app/templates/assessment_*.html`, `app/templates/recommendation_*.html`), reusing the existing Signal create-form pattern; human-authored only, no AI-assisted generation. Created one real Assessment (`assessment-financial-capital-entering-berry-genetics-ownership`, medium confidence, grounded in 4 real Facts about Hortifrut/Costa/Planasa ownership changes, with 1 counterevidence fact) and one real Recommendation (`recommendation-treat-costa-driscolls-as-structurally-linked`, `escalate_to_commercial_review`, medium priority) with full traced lineage back to Evidence, verified live in the running app. Added nav entries for Signals/Assessments/Recommendations and trust-distinguishing badges (fact/claim/assessment/signal/recommendation/counterevidence) across every template that renders these types. Added `tests/test_intelligence_lineage.py` (26 tests) closing the referential-integrity gap `scripts/validate_records.py` doesn't cover — every cross-object reference (evidence_ids, fact_ids, entity_ids, strategic_question_ids, assessment_ids, signal_ids, counterevidence_ids) is now checked against live data, failing loudly on orphans.
+`BL-026` – `BL-029` (Phase 1.5B, 2026-08-13). Built `GET /landscapes/berries/blueberry` (`app/templates/landscape.html`), synthesizing Signals, Assessments, Recommendations, Strategic Questions, a company competitive-field rollup, a variety rollup, a geographic-footprint table, "recent meaningful movement" evidence, and an evidence-coverage/limitations summary from real data — with no composite "competitive strength" or "top variety" score anywhere (every count is a labeled coverage indicator). Enhanced the existing generic `entity.html`/`entity_detail()` (not a forked Company/Variety template) with: an "Intelligence touching this record" section (Signals/Assessments/Recommendations linked to any entity), a "Portfolio & network" section (every entity's relationships rendered as direction-honest, evidence-linked edges — `grouped_relationships_for_entity()`, entity-type-agnostic), a "Strategic questions this bears on" section, and — for varieties specifically — a "Trait profile" table resolving the real, previously-unrendered `attributes.traits[]` data with an honest OWNER/MARKETER CLAIM vs. independently-sourced-measurement vs. UNRESOLVED distinction, plus a "Breeding program & IP" section linking to the real breeding-program entity and best-effort-matching the variety's patent number against live patent entities (never guessing when no match exists). Added `tests/test_synthesis_views.py` (20 tests) covering the aggregation functions and the rendered routes. Wrote `docs/v2/PHASE-1-5-PROTOTYPE-FINDINGS.md`, the required Phase 1.5 findings document.
 
-**Findings worth knowing about (documented, not silently resolved):**
-- No compatibility surprises this time (contrast with Phase 1A's Signal-schema finding): the six staged signals' evidence/entity/strategic-question ids were explicitly verified to resolve against current live data before import, not assumed from schema validity alone. Assessment/Recommendation routes were entirely new, so there were no prior live-app constants to reconcile against.
-- The staged signals carry package-specific fields (`observation`, `why_it_might_matter`, `what_would_confirm_it`, `what_would_falsify_it`, `proposed_by`, `proposed_at`) that the pre-existing Signal templates never rendered (they only knew about `description`/`first_seen`/`last_updated`, fields the staged signals don't populate). Extended `signal_list.html`/`signal_detail.html` to fall back to and render these package fields when present, so the six imported signals are actually readable, not just technically present.
+**Findings worth knowing about (documented, not silently resolved — full detail in `docs/v2/PHASE-1-5-PROTOTYPE-FINDINGS.md`):**
+- Zero schema changes were needed to build any of the three synthesis views — a strong signal the Phase 1 domain model is sound.
+- One concrete schema gap found: Assessment and Recommendation have no domain/berry-scope field of their own (unlike Entity/Evidence/Signal), so the Landscape had to derive berry-relevance transitively via `entity_ids` intersection — a working approximation, not a design recommendation. Flagged for Phase 2/3.
+- One real data-hygiene finding: 5 entities + 3 evidence records in the live dataset are explicitly self-described as fictional V1 seed/demo data ("Fictional ... used as seed data" in their own description field) but live in the same folders as real data with no structural flag distinguishing them. Hard-coded-excluded from the Landscape (`SEED_FIXTURE_ENTITY_IDS`/`SEED_FIXTURE_EVIDENCE_IDS`, `app/main.py`) rather than silently included as if real.
+- 9 concrete missing repository-query capabilities and a 9-item Phase 2 repository-interface requirements list, both derived from what this prototype actually needed (not guessed in advance).
+- Every berry-specific assumption introduced is classified CORE / DOMAIN PACK / DEFER in the findings doc — e.g. the entity-relationship rendering is fully generic (CORE), the competitive-field/variety-rollup logic is Domain-Pack-report-template-shaped (DOMAIN PACK), and the seed-fixture exclusion list is neither (DEFER — a data-hygiene problem, not a domain boundary one).
 
 **In progress:**
-Nothing. Phase 1.5A is complete and fully verified.
+Nothing. Phase 1.5 (both 1.5A and 1.5B) is complete and fully verified.
 
 **Next:**
-Owner authorization to begin the rest of Phase 1.5 (BL-026 – BL-029) or Phase 2, per `docs/v2/07-IMPLEMENTATION-ROADMAP.md`.
+Owner authorization to begin Phase 2 (repository/storage abstraction), informed directly by `docs/v2/PHASE-1-5-PROTOTYPE-FINDINGS.md`'s Section 8.
 
 **Next implementation action:**
-Not started — pending owner authorization. Candidates: BL-026 (Blueberry Landscape view), BL-027 (Company portfolio view), BL-028 (Variety intelligence view), BL-029 (Phase 1.5 findings doc), or Phase 2 (repository/storage abstraction).
+Not started — pending owner authorization. Phase 2: define repository interfaces per core object type, covering the query patterns Phase 1.5B's findings identified.
 
 **Blocked by:**
 None.
 
 **Known-good V1 reference:**
-Tag `v1-blueberry-reference` → commit `432a96bd4efce1991df83b60aa1587154ba19528`. Unaffected by Phase 1A/1B/1.5A (all work on `v2/intelligence-os`, `master` untouched).
+Tag `v1-blueberry-reference` → commit `432a96bd4efce1991df83b60aa1587154ba19528`. Unaffected by Phase 1A/1B/1.5A/1.5B (all work on `v2/intelligence-os`, `master` untouched).
 
 **Architecture documents:**
 Accepted (`docs/v2/00-README.md` through `10-BACKLOG.md`, 2026-08-13).
 
 **Tests at baseline:**
-180 passed, 0 failed (`pytest -q`) — 122 original + 11 Phase 1A schema tests + 21 Phase 1B Domain Pack tests + 26 Phase 1.5A referential-integrity tests. `scripts/validate_records.py` passes with zero schema errors. `scripts/build_static.py` succeeds (1,462 pages). No pre-existing production data was rewritten; only additive routes/templates were added (Signal templates were extended, not replaced); no PostgreSQL work; no AI integration; no Collector execution code.
+200 passed, 0 failed (`pytest -q`) — 122 original + 11 Phase 1A schema tests + 21 Phase 1B Domain Pack tests + 26 Phase 1.5A referential-integrity tests + 20 Phase 1.5B synthesis-view tests. `scripts/validate_records.py` passes with zero schema errors (no schema files were touched this phase). `scripts/build_static.py` succeeds (1,463 pages). No pre-existing production data was rewritten; only additive routes/templates were added (existing Signal/entity templates were extended, not replaced); no PostgreSQL work; no AI integration; no Collector execution code.
 
 **Important decisions — status:**
 (IDs match `docs/v2/08-DECISION-LOG.md`)
 - D-001 through D-009 — **ACCEPTED**
 - D-010 — Claim stays a `fact.classification` value — **ACCEPTED (Option A)**, implemented
-- D-011 — Recommendation and Evidence Priority coexist permanently — **ACCEPTED**, implemented (Phase 1.5A's Recommendation workflow does not touch or read from `evidence.priority`'s queues)
-- D-007 (declarative Domain Packs, narrowed Phase 1 scope) — **ACCEPTED**, implemented: `domain-packs/berries/` covers exactly the six required surfaces; report templates/filters/visualization config remain unimplemented, as specified
+- D-011 — Recommendation and Evidence Priority coexist permanently — **ACCEPTED**, implemented (Phase 1.5B's synthesis views do not touch or read from `evidence.priority`'s queues)
+- D-007 (declarative Domain Packs, narrowed Phase 1 scope) — **ACCEPTED**, implemented: `domain-packs/berries/` covers exactly the six required surfaces; report templates/filters/visualization config remain unimplemented, as specified — Phase 1.5B's Landscape logic is exactly the kind of "report template" content `04-DOMAIN-PACK-SPEC.md` Section 6 anticipated, flagged as a DOMAIN PACK candidate in the findings doc rather than built as one prematurely
 
-No decisions remain open. No PostgreSQL, AI integration, or Landscape/Company/Variety synthesis redesign work has begun.
+No decisions remain open. No PostgreSQL, AI integration, or Phase 2 work has begun.

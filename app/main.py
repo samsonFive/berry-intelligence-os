@@ -8,6 +8,7 @@ import re
 import secrets
 import shutil
 import sys
+from collections import Counter, defaultdict
 from contextlib import asynccontextmanager
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -679,6 +680,431 @@ def facts_for_entity(entity_id: str) -> list[dict[str, Any]]:
 
 def relationships_for_entity(entity_id: str, relationships: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return [r for r in relationships if entity_id in (r.get("subject_id"), r.get("object_id"))]
+
+
+def grouped_relationships_for_entity(
+    entity_id: str, relationships: list[dict[str, Any]], entities: dict[str, dict[str, Any]]
+) -> list[dict[str, Any]]:
+    """An entity's relationships as directed, evidence-linked edges to the
+    *other* entity on each one -- generic and entity-type-agnostic (V2 Phase
+    1.5B, BL-027/BL-028). Renders honestly: the predicate itself (owns,
+    licenses, develops, sells, ...) is shown as recorded, never collapsed
+    into a stronger/weaker implied relationship (e.g. a 'licenses' edge is
+    never displayed or treated as if it were 'owns'). 'direction' lets a
+    template phrase it naturally ("X owns Y" vs "Y is owned by X") without
+    guessing which side is more important."""
+    rows = []
+    for rel in relationships_for_entity(entity_id, relationships):
+        if rel.get("subject_id") == entity_id:
+            other_id, direction = rel.get("object_id"), "outgoing"
+        else:
+            other_id, direction = rel.get("subject_id"), "incoming"
+        other = entities.get(other_id)
+        if other is None:
+            continue
+        rows.append(
+            {
+                "predicate": rel.get("predicate"),
+                "direction": direction,
+                "other": other,
+                "status": rel.get("status"),
+                "confidence": rel.get("confidence"),
+                "effective_date": rel.get("effective_date"),
+                "notes": rel.get("notes"),
+                "evidence_ids": rel.get("evidence_ids") or [],
+            }
+        )
+    return rows
+
+
+def signals_for_entity(entity_id: str) -> list[dict[str, Any]]:
+    return [s for s in all_signals() if entity_id in (s.get("entity_ids") or [])]
+
+
+def assessments_for_entity(entity_id: str) -> list[dict[str, Any]]:
+    return [a for a in all_assessments() if entity_id in (a.get("entity_ids") or [])]
+
+
+def recommendations_for_entity(entity_id: str) -> list[dict[str, Any]]:
+    return [r for r in all_recommendations() if entity_id in (r.get("entity_ids") or [])]
+
+
+def strategic_questions_for_entity(
+    entity_id: str,
+    linked_evidence: list[dict[str, Any]],
+    entity_signals: list[dict[str, Any]],
+    entity_assessments: list[dict[str, Any]],
+    entity_recommendations: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Strategic Questions this entity actually bears on -- the union of SQs
+    named on its own linked Evidence and on any Signal/Assessment/
+    Recommendation that touches it. Generic and core: the mechanism is
+    entity-type-agnostic, it just follows the strategic_question_ids field
+    every one of these record types already carries."""
+    sq_ids: set[str] = set()
+    for record in [*linked_evidence, *entity_signals, *entity_assessments, *entity_recommendations]:
+        sq_ids.update(record.get("strategic_question_ids") or [])
+    return [sq for sq in load_strategic_questions() if sq.get("id") in sq_ids]
+
+
+# ---------------------------------------------------------------------------
+# BERRIES DOMAIN PACK PROTOTYPE LOGIC (V2 Phase 1.5B, BL-027/BL-028).
+#
+# Everything in this block reads free-form conventions that exist only
+# inside the Berries dataset's `attributes` dict (attributes.traits[],
+# attributes.patent_number, attributes.breeding_program_id) -- none of it is
+# a core schema guarantee, and no other entity type in this dataset uses
+# these keys. This is exactly the kind of domain-specific assumption the
+# Phase 1.5B findings document (docs/v2/PHASE-1-5-PROTOTYPE-FINDINGS.md)
+# classifies as CORE / DOMAIN PACK / DEFER -- these functions are logged
+# there as DOMAIN PACK candidates, kept here only because Phase 1.5B's
+# purpose is to learn what a future Domain Pack contribution surface needs
+# to support, not to build that mechanism prematurely (04-DOMAIN-PACK-SPEC.md).
+# ---------------------------------------------------------------------------
+
+def variety_trait_profile(variety: dict[str, Any], entities: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    """Resolve a variety's attributes.traits[] entries (already real,
+    structured data -- see data/entities/varieties/*.json) into rows a
+    template can render, honestly distinguishing an owner/marketer CLAIM
+    from an independently-sourced measurement, per this task's explicit
+    instruction not to turn marketer/breeder claims into objective
+    performance statements."""
+    rows = []
+    for entry in (variety.get("attributes") or {}).get("traits") or []:
+        trait_entity = entities.get(entry.get("trait"))
+        provenance = entry.get("provenance")
+        rows.append(
+            {
+                "trait_name": trait_entity["name"] if trait_entity else entry.get("trait"),
+                "value": entry.get("value"),
+                "provenance": provenance,
+                "is_claim": provenance == "owner_or_marketer_claim",
+                "is_unresolved": provenance == "unresolved",
+                "asserted_by": entry.get("asserted_by"),
+                "conditions": entry.get("conditions"),
+                "evidence_ids": entry.get("evidence_ids") or [],
+            }
+        )
+    return rows
+
+
+def _normalize_patent_number(value: str) -> str:
+    return "".join(ch for ch in value.lower() if ch.isalnum())
+
+
+def variety_patent_link(variety: dict[str, Any], patents: list[dict[str, Any]]) -> dict[str, Any] | None:
+    """Best-effort match of a variety's free-text attributes.patent_number
+    (e.g. "US PP28,358") against a live patent entity's id/aliases -- no
+    'protects' relationship (patent -> variety) has any live usage yet
+    (0 of 16 declared predicates used, domain-packs/berries/manifest.json),
+    so this is the only real linkage path available today. Returns None,
+    rather than a guess, when no confident match exists."""
+    patent_number = (variety.get("attributes") or {}).get("patent_number")
+    if not patent_number:
+        return None
+    needle = _normalize_patent_number(patent_number)
+    for patent in patents:
+        candidates = [patent.get("id", ""), *(patent.get("aliases") or [])]
+        if any(_normalize_patent_number(c) == needle for c in candidates):
+            return patent
+    return None
+
+
+# ---------------------------------------------------------------------------
+# BERRIES LANDSCAPE PROTOTYPE LOGIC (V2 Phase 1.5B, BL-026).
+#
+# An "Intelligence Product" that synthesizes a market view is a Core concept
+# (03-DOMAIN-MODEL.md, "Intelligence Product") -- but the specific rollup
+# computed here (variety/patent/geography coverage per company, region
+# derived from geography name lookups) is entirely Berries-shaped. Logged in
+# docs/v2/PHASE-1-5-PROTOTYPE-FINDINGS.md as a DOMAIN PACK "report template"
+# candidate (04-DOMAIN-PACK-SPEC.md Section 6), kept as plain functions here
+# because building the report-template mechanism itself is out of scope for
+# a UX/IA validation prototype.
+#
+# Deliberately absent: any single blended "competitive strength" or "top
+# variety" score. Every count below is a labeled coverage indicator (how
+# much the dataset says about X), never a ranking -- per this task's
+# explicit instruction not to mechanically rank organizations or varieties
+# by record count and call it competitive strength.
+# ---------------------------------------------------------------------------
+
+# V1 seed/demo fixtures, explicitly self-described as fictional
+# ("Fictional ... used as seed data") in their own description field, mixed
+# into the same data/entities and data/evidence folders as real intelligence
+# with no structural flag to distinguish them. Excluded here only -- not
+# from individual entity/evidence pages -- because the Landscape's entire
+# purpose is a truthful picture built from real data (this task's explicit
+# instruction: "do not invent placeholder intelligence when live records
+# can be used"). See docs/v2/PHASE-1-5-PROTOTYPE-FINDINGS.md for this as a
+# documented data-hygiene finding, not a silent fix.
+SEED_FIXTURE_ENTITY_IDS = {
+    "company-example-genetics",
+    "company-example-nursery",
+    "retailer-example-market",
+    "variety-example-blue",
+    "variety-example-red",
+}
+SEED_FIXTURE_EVIDENCE_IDS = {
+    "ev-sample-patent-published",
+    "ev-sample-retail-placement",
+    "ev-sample-variety-launch",
+}
+
+PRIMARY_SOURCE_TYPES = {
+    "government_registry",
+    "patent_record",
+    "plant_breeders_rights_record",
+    "regulatory_or_registry_record",
+    "company_annual_report",
+    "research_program_publication",
+}
+
+
+def landscape_evidence(berry_id: str) -> list[dict[str, Any]]:
+    return [
+        r
+        for r in published_evidence()
+        if berry_id in (r.get("berry_ids") or []) and r["id"] not in SEED_FIXTURE_EVIDENCE_IDS
+    ]
+
+
+def landscape_entities(berry_id: str, entity_type: str | None = None) -> list[dict[str, Any]]:
+    return [
+        e
+        for e in all_entities()
+        if berry_id in (e.get("berry_ids") or [])
+        and e["id"] not in SEED_FIXTURE_ENTITY_IDS
+        and (entity_type is None or e.get("entity_type") == entity_type)
+    ]
+
+
+def landscape_intelligence_objects(
+    berry_id: str, berry_entity_ids: set[str]
+) -> dict[str, list[dict[str, Any]]]:
+    """Signal carries its own berry_ids; Assessment/Recommendation do not
+    (03-DOMAIN-MODEL.md's schemas have no domain/berry-scope field yet --
+    logged as a MISSING QUERY CAPABILITY / possible schema gap in
+    docs/v2/PHASE-1-5-PROTOTYPE-FINDINGS.md), so berry-relevance for those
+    two is derived transitively: an Assessment/Recommendation counts as
+    'about this berry' when it names at least one entity this berry's own
+    entity set contains."""
+    signals = [s for s in all_signals() if berry_id in (s.get("berry_ids") or [])]
+    assessments = [a for a in all_assessments() if berry_entity_ids & set(a.get("entity_ids") or [])]
+    recommendations = [
+        r for r in all_recommendations() if berry_entity_ids & set(r.get("entity_ids") or [])
+    ]
+    return {"signals": signals, "assessments": assessments, "recommendations": recommendations}
+
+
+def landscape_competitive_field(
+    berry_id: str, relationships: list[dict[str, Any]], entities: dict[str, dict[str, Any]]
+) -> list[dict[str, Any]]:
+    companies = landscape_entities(berry_id, "company")
+    company_ids = {c["id"] for c in companies}
+    develops: dict[str, set[str]] = defaultdict(set)
+    owns_patents: dict[str, set[str]] = defaultdict(set)
+    owns_brands: dict[str, set[str]] = defaultdict(set)
+    licenses: dict[str, set[str]] = defaultdict(set)
+    operates_in: dict[str, set[str]] = defaultdict(set)
+    for rel in relationships:
+        subject_id, object_id, predicate = rel.get("subject_id"), rel.get("object_id"), rel.get("predicate")
+        if subject_id not in company_ids:
+            continue
+        obj = entities.get(object_id)
+        if obj is None:
+            continue
+        if predicate == "develops" and obj.get("entity_type") == "variety":
+            develops[subject_id].add(object_id)
+        elif predicate == "owns" and obj.get("entity_type") == "patent":
+            owns_patents[subject_id].add(object_id)
+        elif predicate == "owns" and obj.get("entity_type") == "brand":
+            owns_brands[subject_id].add(object_id)
+        elif predicate == "licenses" and obj.get("entity_type") == "variety":
+            licenses[subject_id].add(object_id)
+        elif predicate == "operates_in" and obj.get("entity_type") == "geography":
+            operates_in[subject_id].add(object_id)
+
+    evidence = landscape_evidence(berry_id)
+    rows = []
+    for company in companies:
+        cid = company["id"]
+        rows.append(
+            {
+                "entity": company,
+                "varieties_developed": len(develops[cid]),
+                "varieties_licensed": len(licenses[cid]),
+                "patents_owned": len(owns_patents[cid]),
+                "brands_owned": len(owns_brands[cid]),
+                "geographies": len(operates_in[cid]),
+                "evidence_count": len([r for r in evidence if cid in (r.get("entity_ids") or [])]),
+                "signals": signals_for_entity(cid),
+                "assessments": assessments_for_entity(cid),
+                "recommendations": recommendations_for_entity(cid),
+            }
+        )
+    # Alphabetical, not by any coverage count -- a table's row order must
+    # not itself imply a ranking.
+    rows.sort(key=lambda r: r["entity"]["name"])
+    return rows
+
+
+def landscape_variety_rollup(berry_id: str, entities: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    varieties = landscape_entities(berry_id, "variety")
+    evidence = landscape_evidence(berry_id)
+    rows = []
+    for variety in varieties:
+        vid = variety["id"]
+        breeding_program_id = (variety.get("attributes") or {}).get("breeding_program_id")
+        rows.append(
+            {
+                "entity": variety,
+                "breeder": (variety.get("attributes") or {}).get("breeder"),
+                "breeding_program": entities.get(breeding_program_id) if breeding_program_id else None,
+                "trait_count": len((variety.get("attributes") or {}).get("traits") or []),
+                "has_patent_number": bool((variety.get("attributes") or {}).get("patent_number")),
+                "evidence_count": len([r for r in evidence if vid in (r.get("entity_ids") or [])]),
+                "signals": signals_for_entity(vid),
+                "assessments": assessments_for_entity(vid),
+            }
+        )
+    rows.sort(key=lambda r: r["entity"]["name"])
+    return rows
+
+
+def landscape_geographic_footprint(
+    berry_id: str, relationships: list[dict[str, Any]], entities: dict[str, dict[str, Any]]
+) -> list[dict[str, Any]]:
+    geographies = landscape_entities(berry_id, "geography")
+    buckets: dict[str, dict[str, Any]] = {
+        region: {"geographies": [], "companies": set(), "evidence_count": 0} for region in REGIONS
+    }
+    buckets["Unclassified"] = {"geographies": [], "companies": set(), "evidence_count": 0}
+
+    for geo in geographies:
+        region = geography_region(geo) or "Unclassified"
+        buckets[region]["geographies"].append(geo)
+
+    for rel in relationships:
+        if rel.get("predicate") != "operates_in":
+            continue
+        obj = entities.get(rel.get("object_id"))
+        if not obj or obj.get("entity_type") != "geography":
+            continue
+        region = geography_region(obj) or "Unclassified"
+        buckets[region]["companies"].add(rel.get("subject_id"))
+
+    for record in landscape_evidence(berry_id):
+        for region in evidence_regions(record, entities):
+            if region in buckets:
+                buckets[region]["evidence_count"] += 1
+
+    rows = []
+    for region in [*REGIONS, "Unclassified"]:
+        data = buckets[region]
+        if not data["geographies"] and not data["companies"] and not data["evidence_count"]:
+            continue
+        rows.append(
+            {
+                "region": region,
+                "geography_names": sorted(g["name"] for g in data["geographies"]),
+                "company_count": len(data["companies"]),
+                "evidence_count": data["evidence_count"],
+            }
+        )
+    return rows
+
+
+def landscape_recent_movement(
+    evidence_pool: list[dict[str, Any]],
+    signals: list[dict[str, Any]],
+    assessments: list[dict[str, Any]],
+    recommendations: list[dict[str, Any]],
+    cap: int = 12,
+) -> list[dict[str, Any]]:
+    """'Recent' filtered to evidence connected to something the platform has
+    already judged meaningful (a Signal/Assessment/Recommendation cites it)
+    -- not simply the newest records, per this task's explicit instruction."""
+    important_ids: set[str] = set()
+    for record in [*signals, *assessments, *recommendations]:
+        important_ids.update(record.get("evidence_ids") or [])
+    candidates = [r for r in evidence_pool if r["id"] in important_ids]
+    candidates.sort(key=lambda r: r.get("published_date") or r.get("captured_date") or "", reverse=True)
+    return candidates[:cap]
+
+
+def landscape_evidence_coverage(
+    berry_id: str, berry_entity_ids: set[str], entities: dict[str, dict[str, Any]]
+) -> dict[str, Any]:
+    evidence = landscape_evidence(berry_id)
+    source_type_counts = Counter(r.get("source_type") for r in evidence)
+    primary_count = sum(c for t, c in source_type_counts.items() if t in PRIMARY_SOURCE_TYPES)
+
+    relevant_facts = [f for f in all_facts() if berry_entity_ids & set(f.get("entity_ids") or [])]
+    confidence_counts = Counter(f.get("confidence") for f in relevant_facts)
+    disputed_facts = [f for f in relevant_facts if f.get("status") == "disputed"]
+
+    relevant_rels = [
+        r
+        for r in all_relationships()
+        if r.get("subject_id") in berry_entity_ids or r.get("object_id") in berry_entity_ids
+    ]
+    disputed_rels = [r for r in relevant_rels if r.get("status") == "disputed"]
+
+    unresolved_sqs = [sq for sq in load_strategic_questions() if sq.get("status") == "active"]
+    thin_varieties = [
+        v for v in landscape_entities(berry_id, "variety") if len(v.get("evidence_ids") or []) <= 1
+    ]
+
+    return {
+        "evidence_count": len(evidence),
+        "primary_source_count": primary_count,
+        "source_type_breakdown": source_type_counts.most_common(),
+        "confidence_distribution": confidence_counts,
+        "disputed_fact_count": len(disputed_facts),
+        "disputed_relationship_count": len(disputed_rels),
+        "unresolved_strategic_question_count": len(unresolved_sqs),
+        "thin_coverage_varieties": thin_varieties,
+    }
+
+
+def landscape_context(berry_id: str) -> dict[str, Any]:
+    entities = entity_index()
+    relationships = all_relationships()
+    berry_entities = landscape_entities(berry_id)
+    berry_entity_ids = {e["id"] for e in berry_entities}
+    evidence = landscape_evidence(berry_id)
+    intelligence = landscape_intelligence_objects(berry_id, berry_entity_ids)
+
+    dated_evidence = [r for r in evidence if r.get("published_date") or r.get("captured_date")]
+    last_material_update = None
+    if dated_evidence:
+        last_material_update = max(r.get("published_date") or r.get("captured_date") for r in dated_evidence)
+
+    entity_type_counts = Counter(e.get("entity_type") for e in berry_entities)
+
+    return {
+        "berry_id": berry_id,
+        "berry_label": berry_label(berry_id),
+        "header_stats": {
+            "evidence_count": len(evidence),
+            "source_count": len({r.get("source_name") for r in evidence if r.get("source_name")}),
+            "last_material_update": last_material_update,
+            "signal_count": len(intelligence["signals"]),
+            "entity_type_counts": entity_type_counts,
+        },
+        "signals": intelligence["signals"],
+        "assessments": intelligence["assessments"],
+        "recommendations": intelligence["recommendations"],
+        "strategic_questions": load_strategic_questions(),
+        "competitive_field": landscape_competitive_field(berry_id, relationships, entities),
+        "variety_rollup": landscape_variety_rollup(berry_id, entities),
+        "geographic_footprint": landscape_geographic_footprint(berry_id, relationships, entities),
+        "recent_movement": landscape_recent_movement(
+            evidence, intelligence["signals"], intelligence["assessments"], intelligence["recommendations"]
+        ),
+        "evidence_coverage": landscape_evidence_coverage(berry_id, berry_entity_ids, entities),
+    }
 
 
 def max_priority_level(record: dict[str, Any]) -> str:
@@ -1565,6 +1991,35 @@ def entity_list(
     )
 
 
+def entity_synthesis_context(entity: dict[str, Any], entities: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    """The generic, entity-type-agnostic synthesis fields added in Phase
+    1.5B (BL-027/BL-028): intelligence objects touching this entity, its
+    relationships to other entities as directed/evidenced edges, and the
+    Strategic Questions it bears on. Shared by the live entity_detail()
+    route and scripts/build_static.py so both stay in sync by construction."""
+    entity_id = entity["id"]
+    linked_evidence = [r for r in published_evidence() if entity_id in (r.get("entity_ids") or [])]
+    entity_signals = signals_for_entity(entity_id)
+    entity_assessments = assessments_for_entity(entity_id)
+    entity_recommendations = recommendations_for_entity(entity_id)
+    context: dict[str, Any] = {
+        "entity_signals": entity_signals,
+        "entity_assessments": entity_assessments,
+        "entity_recommendations": entity_recommendations,
+        "entity_strategic_questions": strategic_questions_for_entity(
+            entity_id, linked_evidence, entity_signals, entity_assessments, entity_recommendations
+        ),
+        "grouped_relationships": grouped_relationships_for_entity(entity_id, all_relationships(), entities),
+    }
+    if entity.get("entity_type") == "variety":
+        all_patents = [e for e in entities.values() if e.get("entity_type") == "patent"]
+        breeding_program_id = (entity.get("attributes") or {}).get("breeding_program_id")
+        context["variety_trait_profile"] = variety_trait_profile(entity, entities)
+        context["variety_patent_link"] = variety_patent_link(entity, all_patents)
+        context["variety_breeding_program"] = entities.get(breeding_program_id) if breeding_program_id else None
+    return context
+
+
 @app.get("/entities/{entity_type}/{entity_id}", response_class=HTMLResponse)
 def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLResponse:
     for entity in all_entities():
@@ -1594,6 +2049,7 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     "regions": regions,
                     "berry_label": berry_label,
                     "authoring_mode": AUTHORING_MODE,
+                    **entity_synthesis_context(entity, entities),
                 },
             )
     raise HTTPException(status_code=404, detail="Entity record not found")
@@ -1680,6 +2136,15 @@ def strategic_question_detail(request: Request, sq_id: str) -> HTMLResponse:
             "berry_label": berry_label,
             "authoring_mode": AUTHORING_MODE,
         },
+    )
+
+
+@app.get("/landscapes/berries/blueberry", response_class=HTMLResponse)
+def landscape_blueberry(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse(
+        request=request,
+        name="landscape.html",
+        context={**landscape_context("berry-blueberry"), "authoring_mode": AUTHORING_MODE},
     )
 
 
