@@ -419,6 +419,123 @@ class BerriesLandscapeService:
         )
         for record in recent_movement:
             record["regions"] = sorted(evidence_regions(record, entities))
+            record["actor_names"] = sorted(
+                entities[eid]["name"]
+                for eid in record.get("entity_ids") or []
+                if eid in entities and entities[eid].get("entity_type") == "company"
+            )
+            record["linked_signal_titles"] = [
+                signal["title"]
+                for signal in intelligence["signals"]
+                if record["id"] in (signal.get("evidence_ids") or [])
+            ]
+            record["intelligence_link_count"] = sum(
+                record["id"] in (item.get("evidence_ids") or [])
+                for item in [
+                    *intelligence["signals"],
+                    *intelligence["assessments"],
+                    *intelligence["recommendations"],
+                ]
+            )
+        curated_movement = sorted(
+            recent_movement,
+            key=lambda record: record.get("published_date") or record.get("captured_date") or "",
+            reverse=True,
+        )
+        curated_movement.sort(key=lambda record: record["intelligence_link_count"], reverse=True)
+        curated_movement = curated_movement[:5]
+
+        briefing_cues = {
+            "assessment-financial-capital-entering-berry-genetics-ownership": {
+                "why_it_matters": "Ownership links can change disclosure, licensing posture and whether nominal competitors remain economically independent.",
+                "could_change": "Transaction reversals, disclosed passive-only holdings, or evidence that licensing and disclosure remain unchanged.",
+            },
+            "assessment-blueberry-genetics-commercialized-through-platforms": {
+                "why_it_matters": "Access terms, membership and marketing support may become as decision-relevant as the cultivar itself.",
+                "could_change": "Evidence that the named platforms are only marketing wrappers over conventional per-variety licences.",
+            },
+            "assessment-public-trait-claims-not-yet-comparable": {
+                "why_it_matters": "Programme rankings built from unmatched public claims would create false precision in testing and commercial decisions.",
+                "could_change": "Comparable independent or internal measurements reproducing the published figures under disclosed protocols.",
+            },
+            "assessment-public-observability-varies-by-breeder": {
+                "why_it_matters": "The most visible pipeline in one registry is not necessarily the largest or most active competitive pipeline.",
+                "could_change": "A systematic multi-jurisdiction sweep showing the apparent asymmetry was caused only by incomplete search.",
+            },
+            "assessment-southern-africa-licensing-enforcement": {
+                "why_it_matters": "Licensing disputes and third-party commercial management reveal whether proprietary control is holding after deployment.",
+                "could_change": "Evidence that the documented enforcement event was isolated and the regional programmes remain commercially marginal.",
+            },
+        }
+        executive_assessments = []
+        recommendation_by_assessment: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        for recommendation in intelligence["recommendations"]:
+            for assessment_id in recommendation.get("assessment_ids") or []:
+                recommendation_by_assessment[assessment_id].append(recommendation)
+        prioritized_assessments = sorted(
+            intelligence["assessments"],
+            key=lambda assessment: (
+                bool(assessment.get("ai_proposed")),
+                {"high": 0, "medium": 1, "low": 2}.get(assessment.get("confidence"), 3),
+                assessment["title"],
+            ),
+        )
+        for assessment in prioritized_assessments[:5]:
+            executive_assessments.append(
+                {
+                    **assessment,
+                    **briefing_cues.get(assessment["id"], {}),
+                    "supporting_evidence_count": len(assessment.get("evidence_ids") or []),
+                    "supporting_fact_count": len(assessment.get("fact_ids") or []),
+                    "linked_recommendations": recommendation_by_assessment[assessment["id"]],
+                }
+            )
+
+        actor_rows = [
+            row for row in competitive_field if "competitor" in (row["entity"].get("roles") or [])
+        ]
+        actor_rows.sort(
+            key=lambda row: (-len(row["signals"]), -row["evidence_count"], -len(row["varieties"]), row["entity"]["name"])
+        )
+        actors_to_watch = []
+        for row in actor_rows[:8]:
+            role_labels = [role.replace("_", " ") for role in row["entity"].get("roles") or [] if role != "competitor"]
+            actors_to_watch.append(
+                {
+                    **row,
+                    "archetype": ", ".join(role_labels[:3]),
+                    "why_it_matters": (
+                        f"{len(row['signals'])} linked signal{'s' if len(row['signals']) != 1 else ''}; "
+                        f"{row['evidence_count']} evidence records; "
+                        f"{len(row['varieties'])} documented developed/licensed varieties."
+                    ),
+                }
+            )
+
+        priority_signals = sorted(
+            intelligence["signals"],
+            key=lambda signal: (
+                {"strong": 0, "moderate": 1, "weak": 2}.get(signal.get("strength"), 3),
+                -signal["supporting_evidence_count"],
+                signal["title"],
+            ),
+        )[:5]
+
+        question_signal_counts = Counter(
+            question_id
+            for signal in intelligence["signals"]
+            for question_id in signal.get("strategic_question_ids") or []
+        )
+        intelligence_agenda = {"now": [], "watch": [], "deeper": []}
+        for question in self._repos.strategic_questions.list():
+            linked_count = question_signal_counts[question["id"]]
+            item = {**question, "linked_signal_count": linked_count}
+            if linked_count >= 2:
+                intelligence_agenda["now"].append(item)
+            elif linked_count == 1:
+                intelligence_agenda["watch"].append(item)
+            else:
+                intelligence_agenda["deeper"].append(item)
 
         region_metrics = {}
         for key, regions in region_groups.items():
@@ -450,6 +567,43 @@ class BerriesLandscapeService:
                 }
             )
 
+        regional_briefings = {}
+        for key, regions in region_groups.items():
+            regional_actors = [row for row in actors_to_watch if set(row["regions"]) & regions]
+            regional_varieties = [row for row in variety_rollup if set(row["regions"]) & regions]
+            regional_varieties.sort(key=lambda row: (-row["evidence_count"], row["entity"]["name"]))
+            regional_moves = [row for row in recent_movement if set(row["regions"]) & regions][:5]
+            regional_signal_rows = [row for row in priority_signals if set(row["regions"]) & regions]
+            theme_rows = []
+            for theme_label in theme_definitions:
+                companies, varieties = set(), set()
+                for matrix_row in matrix_rows:
+                    cell = next(cell for cell in matrix_row["cells"] if cell["theme"] == theme_label)
+                    matches = [a for a in cell["associations"] if set(a["regions"]) & regions]
+                    if matches:
+                        companies.add(matrix_row["company"]["name"])
+                        varieties.update(a["variety"]["name"] for a in matches)
+                if varieties:
+                    theme_rows.append(
+                        {"label": theme_label, "company_count": len(companies), "variety_count": len(varieties)}
+                    )
+            regional_briefings[key] = {
+                "label": regional_summaries[key]["label"],
+                "picture": (
+                    f"Current public coverage connects {len(regional_actors)} prioritized competitive actors, "
+                    f"{len(regional_varieties)} region-attributed varieties and {region_metrics[key]['evidence']} evidence records. "
+                    "These are documented connections, not market-share estimates."
+                ),
+                "actors": regional_actors[:5],
+                "varieties": regional_varieties[:8],
+                "themes": theme_rows,
+                "moves": regional_moves[:5],
+                "signals": regional_signal_rows[:5],
+                "coverage_gap": (
+                    "Records without explicit geography support are excluded from this regional view; public coverage cannot safely answer market share, deployment scale or internal product performance."
+                ),
+            }
+
         return {
             "berry_id": berry_id,
             "header_stats": {
@@ -463,13 +617,18 @@ class BerriesLandscapeService:
                 "entity_type_counts": entity_type_counts,
             },
             "signals": intelligence["signals"],
+            "priority_signals": priority_signals,
             "assessments": intelligence["assessments"],
+            "executive_assessments": executive_assessments,
             "recommendations": intelligence["recommendations"],
+            "actors_to_watch": actors_to_watch,
+            "intelligence_agenda": intelligence_agenda,
             "strategic_questions": self._repos.strategic_questions.list(),
             "competitive_field": competitive_field,
             "variety_rollup": variety_rollup,
             "geographic_footprint": geographic_footprint,
             "regional_summaries": regional_summaries,
+            "regional_briefings": regional_briefings,
             "region_metrics": region_metrics,
             "competitive_themes": competitive_themes,
             "competitive_theme_matrix": {
@@ -477,5 +636,6 @@ class BerriesLandscapeService:
                 "rows": matrix_rows,
             },
             "recent_movement": recent_movement,
+            "curated_movement": curated_movement,
             "evidence_coverage": self.landscape_evidence_coverage(berry_id, berry_entity_ids, entities),
         }

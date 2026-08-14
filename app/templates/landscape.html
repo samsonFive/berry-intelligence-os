@@ -33,25 +33,111 @@
   </div>
 </section>
 
-<div class="landscape-header-stats">
-  <div><strong id="metric-evidence">{{ header_stats.evidence_count }}</strong><small>Evidence records</small></div>
-  <div><strong id="metric-sources">{{ header_stats.source_count }}</strong><small>Sources</small></div>
-  <div><strong>{{ header_stats.last_material_update|us_date if header_stats.last_material_update else "—" }}</strong><small>Most recent evidence date</small></div>
-  <div><strong id="metric-signals">{{ header_stats.signal_count }}</strong><small>Active / proposed signals</small></div>
-  <div><strong id="metric-companies">{{ header_stats.entity_type_counts.company or 0 }}</strong><small>Companies covered</small></div>
-  <div><strong id="metric-varieties">{{ header_stats.entity_type_counts.variety or 0 }}</strong><small>Varieties covered</small></div>
-  <div><strong id="metric-geographies">{{ header_stats.entity_type_counts.geography or 0 }}</strong><small>Geographies covered</small></div>
-</div>
-<p class="empty-state" style="padding:0 32px 8px">This reflects what has been collected and structured so far, not a complete census of the market — see Evidence coverage &amp; limitations below for what remains thin.</p>
+<nav class="landscape-quick-nav" aria-label="Landscape contents">
+  {% for target, label in [('executive-readout','Executive Readout'), ('what-we-think','What We Think'), ('actors-to-watch','Actors to Watch'), ('competitive-pressure','Competitive Pressure'), ('regional-briefing','Regional Briefing'), ('what-changed','What Changed'), ('watching-signals','Signals'), ('intelligence-agenda','Intelligence Agenda'), ('explore-landscape','Explore')] %}
+    <button type="button" data-scroll-target="{{ target }}">{{ label }}</button>
+  {% endfor %}
+</nav>
 
 <section class="landscape-section internal-empty-state" id="internal-empty-state" hidden>
   <span class="badge badge-locked">PROTECTED INTERNAL ENRICHMENT</span>
   <h2 data-empty-lens="observed">No internal observation records are connected in this public prototype.</h2>
   <h2 data-empty-lens="tested" hidden>No internal test records are connected in this environment.</h2>
+  <p data-empty-lens="observed">This future lens answers: “What competitive products are we actually encountering in-market?”</p>
+  <p data-empty-lens="tested" hidden>This future lens answers: “What has actually been evaluated against our own standards?”</p>
   <p>These records can be joined to the portable external Intelligence Package inside a protected internal environment through stable Entity, Brand, Variety, Geography, and evidence/source-context identifiers. No protected records are stored in this public package.</p>
 </section>
 
 <div id="public-landscape">
+<section class="landscape-section executive-readout" id="executive-readout" data-brief-section>
+  <div class="section-title-row"><div><p class="eyebrow">INTELLIGENCE BRIEF</p><h2>Executive Readout</h2><p class="section-hint">The current external view, grounded in reviewed facts and explicitly labeled working assessments.</p></div><span class="badge badge-public">Public Intelligence</span></div>
+  <div class="executive-lead-grid">
+    {% for assessment in executive_assessments[:3] %}
+      <article><span class="badge badge-assessment">{{ 'AI-PROPOSED VIEW' if assessment.ai_proposed else 'REVIEWED ASSESSMENT' }}</span><h3><a href="/assessments/{{ assessment.id }}">{{ assessment.title }}</a></h3><p>{{ assessment.why_it_matters }}</p><small>{{ assessment.confidence|upper }} confidence · {{ assessment.supporting_fact_count }} facts · {{ assessment.supporting_evidence_count }} evidence</small></article>
+    {% endfor %}
+  </div>
+  <div class="landscape-header-stats compact-stats">
+    <div><strong id="metric-evidence">{{ header_stats.evidence_count }}</strong><small>Evidence</small></div>
+    <div><strong id="metric-sources">{{ header_stats.source_count }}</strong><small>Sources</small></div>
+    <div><strong id="metric-signals">{{ header_stats.signal_count }}</strong><small>Signals</small></div>
+    <div><strong id="metric-companies">{{ header_stats.entity_type_counts.company or 0 }}</strong><small>Companies</small></div>
+    <div><strong id="metric-varieties">{{ header_stats.entity_type_counts.variety or 0 }}</strong><small>Varieties</small></div>
+    <div><strong id="metric-geographies">{{ header_stats.entity_type_counts.geography or 0 }}</strong><small>Geographies</small></div>
+  </div>
+</section>
+
+<section class="landscape-section" id="what-we-think" data-brief-section>
+  <h2>What We Think</h2>
+  <p class="section-hint">Five falsifiable views at most. AI-proposed records remain visibly pending human review.</p>
+  <div class="assessment-card-grid">
+    {% for assessment in executive_assessments %}
+      <article>
+        <div class="card-header"><span class="badge badge-assessment">{{ 'AI PROPOSED' if assessment.ai_proposed else 'HUMAN REVIEWED' }}</span><span class="badge badge-muted">{{ assessment.confidence|upper }}</span></div>
+        <h3><a href="/assessments/{{ assessment.id }}">{{ assessment.title }}</a></h3>
+        <p><strong>Conclusion</strong><br>{{ assessment.rationale|truncate(430) }}</p>
+        <p><strong>Why it matters</strong><br>{{ assessment.why_it_matters }}</p>
+        <p><strong>What supports it</strong><br>{{ assessment.supporting_fact_count }} facts · {{ assessment.supporting_evidence_count }} evidence records</p>
+        <p><strong>What could change our view</strong><br>{{ assessment.could_change }}</p>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="landscape-section" id="actors-to-watch" data-brief-section>
+  <h2>Competitive Actors to Watch</h2>
+  <p class="section-hint">Prioritized from explicit competitor roles and documented intelligence activity; regulators, investors, universities and rights bodies are not promoted into this list merely because they are well documented.</p>
+  <div class="actor-watch-grid">
+    {% for row in actors_to_watch %}
+      <article class="region-aware" data-regions="{{ region_tokens(row.regions) }}"><h3><a href="/entities/company/{{ row.entity.id }}">{{ row.entity.name }}</a></h3><span class="badge badge-muted">{{ row.archetype|upper }}</span><p>{{ row.why_it_matters }}</p>{% if row.brands %}<small><strong>Platforms/brands:</strong> {{ row.brands|join(', ') }}</small>{% endif %}{% if row.regions %}<small><strong>Documented regions:</strong> {{ row.regions|join(', ') }}</small>{% endif %}</article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="landscape-section" id="competitive-pressure" data-brief-section>
+  <h2>Where Competition Is Concentrating</h2>
+  <p class="section-hint">Documented structured-trait territory—not superiority, strategy, or market share. Lower counts mean low documented public coverage, not confirmed whitespace.</p>
+  <div class="pressure-grid">
+    {% for theme in competitive_themes %}<article><h3>{{ theme.label }}</h3><strong>{{ theme.varieties|length }}</strong><small> documented varieties</small><p>{{ theme.varieties[:5]|join(', ') }}{% if theme.varieties|length > 5 %} +{{ theme.varieties|length - 5 }}{% endif %}</p></article>{% endfor %}
+  </div>
+</section>
+
+<section class="landscape-section" id="regional-briefing" data-brief-section>
+  <h2>Regional Briefing</h2>
+  <p class="section-hint">The narrative changes with the selected region and excludes records without defensible geography support.</p>
+  {% for key, brief in regional_briefings.items() %}
+  <article class="regional-brief-panel" data-region-brief="{{ key }}" hidden>
+    <h3>{{ brief.label }} competitive picture</h3><p>{{ brief.picture }}</p>
+    <div class="regional-brief-columns">
+      <div><strong>Actors to watch</strong><p>{{ brief.actors|map(attribute='entity.name')|join(', ') if brief.actors else 'Coverage developing' }}</p></div>
+      <div><strong>Varieties / platforms to know</strong><p>{{ brief.varieties|map(attribute='entity.name')|join(', ') if brief.varieties else 'Coverage developing' }}</p></div>
+      <div><strong>Competitive pressure</strong><p>{% for theme in brief.themes %}{{ theme.label }} ({{ theme.variety_count }}){% if not loop.last %}, {% endif %}{% else %}Low documented public coverage{% endfor %}</p></div>
+      <div><strong>What deserves attention</strong><p>{{ brief.signals|map(attribute='title')|join('; ') if brief.signals else 'No region-specific priority signal is safely attributable.' }}</p></div>
+    </div>
+    <p class="coverage-gaps"><strong>Coverage gap:</strong> {{ brief.coverage_gap }}</p>
+  </article>
+  {% endfor %}
+  <p class="global-region-note">Select Americas, EMEA, Australia/New Zealand or Asia for a region-specific brief. Global retains the cross-region readout above.</p>
+</section>
+
+<section class="landscape-section" id="what-changed" data-brief-section>
+  <h2>What Changed</h2><p class="section-hint">Five most recent items already cited by a Signal, Assessment or Recommendation.</p>
+  <div class="movement-brief-grid">{% for item in curated_movement %}<article class="region-aware" data-regions="{{ region_tokens(item.regions) }}"><time>{{ (item.published_date or item.captured_date)|us_date }}</time><h3><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3><p><strong>Actor:</strong> {{ item.actor_names|join(', ') if item.actor_names else 'Not explicitly linked' }} · <strong>Region:</strong> {{ item.regions|join(', ') if item.regions else 'Not explicitly attributed' }}</p><p><strong>Why it matters:</strong> {{ item.linked_signal_titles|join('; ') if item.linked_signal_titles else 'Cited by a current assessment or recommendation.' }}</p></article>{% endfor %}</div>
+</section>
+
+<section class="landscape-section" id="watching-signals" data-brief-section>
+  <h2>What We're Watching</h2><p class="section-hint">Highest-strength current signals, all still explicitly proposed rather than confirmed.</p>
+  <div class="signal-watch-grid">{% for signal in priority_signals %}<article class="region-aware" data-regions="{{ region_tokens(signal.regions) }}"><div class="card-header"><span class="badge badge-signal">PROPOSED SIGNAL</span><span class="badge badge-muted">{{ signal.strength|upper }}</span></div><h3><a href="/signals/{{ signal.id }}">{{ signal.title }}</a></h3><p><strong>Why we're watching:</strong> {{ signal.why_it_might_matter }}</p><p><strong>Would confirm:</strong> {{ signal.what_would_confirm_it }}</p><p><strong>Would weaken:</strong> {{ signal.what_would_falsify_it }}</p><small>{{ signal.supporting_evidence_count }} supporting evidence records</small></article>{% endfor %}</div>
+</section>
+
+<section class="landscape-section" id="intelligence-agenda" data-brief-section>
+  <h2>Intelligence Agenda</h2><p class="section-hint">NOW means linked by at least two current Signals; WATCH means one; DEEPER RESEARCH means no current Signal linkage. This is transparent workflow logic, not a numeric importance score.</p>
+  <div class="agenda-grid">{% for key, label in [('now','NOW'),('watch','WATCH'),('deeper','DEEPER RESEARCH')] %}<div><h3>{{ label }}</h3><ul>{% for question in intelligence_agenda[key] %}<li><a href="/strategic-questions/{{ question.id }}">{{ question.title }}</a>{% if question.linked_signal_count %}<small>{{ question.linked_signal_count }} linked signal{{ 's' if question.linked_signal_count != 1 else '' }}</small>{% endif %}</li>{% else %}<li class="empty-state">None currently.</li>{% endfor %}</ul></div>{% endfor %}</div>
+</section>
+
+<section class="landscape-section explore-shell" id="explore-landscape" data-brief-section>
+  <h2>Explore the Landscape</h2><p class="section-hint">Detailed inventories, provenance and drilldowns remain available without dominating the briefing.</p>
+  <nav class="explore-nav" aria-label="Explore landscape sections">{% for target, label in [('explore-competitors','Competitors'),('explore-varieties','Varieties'),('competitive-theme-matrix','Theme Matrix'),('explore-evidence','Evidence'),('explore-signals','Signals'),('explore-assessments','Assessments'),('explore-recommendations','Recommendations'),('explore-questions','Strategic Questions'),('explore-geography','Geographic Footprint')] %}<button type="button" data-scroll-target="{{ target }}">{{ label }}</button>{% endfor %}</nav>
+  <details id="explore-details"><summary>Open detailed landscape and provenance</summary><div class="explore-content">
 <section class="landscape-section regional-preview">
   <div class="section-title-row"><div><h2>Regional intelligence</h2><p class="section-hint">A coverage-aware preview from structured public intelligence. Core competitive and variety tables remain global in this rapid preview.</p></div><span class="badge badge-public">Public Intelligence</span></div>
   <div class="regional-summary-grid">
@@ -70,7 +156,7 @@
 {# ------------------------------------------------------------------ #}
 {# What deserves attention -- an analyst briefing, not a database dump #}
 {# ------------------------------------------------------------------ #}
-<section class="landscape-section">
+<section class="landscape-section" id="explore-theme-summary">
   <h2>Competitive themes</h2>
   <p class="section-hint">Themes derived only from structured variety traits. Counts indicate documented associations, not market leadership.</p>
   <div class="theme-grid">
@@ -80,7 +166,7 @@
   </div>
 </section>
 
-<section class="landscape-section">
+<section class="landscape-section" id="explore-signals">
   <h2>What deserves attention</h2>
   <p class="section-hint">Active signals, published assessments, and proposed recommendations touching {{ berry_label }} — the interpretive layer, not a raw record list.</p>
   <div class="landscape-briefing">
@@ -95,7 +181,7 @@
       </div>
     {% endif %}
     {% if assessments %}
-      <div class="landscape-briefing-group">
+      <div class="landscape-briefing-group" id="explore-assessments">
         <h3>Assessments ({{ assessments|length }})</h3>
         <ul class="entity-links">
           {% for a in assessments %}
@@ -105,7 +191,7 @@
       </div>
     {% endif %}
     {% if recommendations %}
-      <div class="landscape-briefing-group">
+      <div class="landscape-briefing-group" id="explore-recommendations">
         <h3>Recommendations ({{ recommendations|length }})</h3>
         <ul class="entity-links">
           {% for r in recommendations %}
@@ -115,7 +201,7 @@
       </div>
     {% endif %}
     {% if strategic_questions %}
-      <div class="landscape-briefing-group">
+      <div class="landscape-briefing-group" id="explore-questions">
         <h3>Strategic questions ({{ strategic_questions|length }})</h3>
         <ul class="entity-links">
           {% for sq in strategic_questions %}
@@ -133,7 +219,7 @@
 {# ------------------------------------------------------------------ #}
 {# Recent meaningful movement -- not simply the newest records        #}
 {# ------------------------------------------------------------------ #}
-<section class="landscape-section">
+<section class="landscape-section" id="explore-evidence">
   <h2>Recent meaningful movement</h2>
   <p class="section-hint">Evidence a Signal, Assessment, or Recommendation has already judged relevant — not just the newest captures.</p>
   {% if recent_movement %}
@@ -163,7 +249,7 @@
 {# ------------------------------------------------------------------ #}
 {# Competitive field -- coverage indicators, never a strength ranking #}
 {# ------------------------------------------------------------------ #}
-<section class="landscape-section">
+<section class="landscape-section" id="explore-competitors">
   <h2>Competitive field</h2>
   <p class="section-hint">Every company entity covered, listed alphabetically. Counts are coverage indicators — how much this dataset documents about each company — not a strength ranking.</p>
   {% if competitive_field %}
@@ -232,7 +318,7 @@
 {# ------------------------------------------------------------------ #}
 {# Variety landscape -- no invented "top variety" score               #}
 {# ------------------------------------------------------------------ #}
-<section class="landscape-section">
+<section class="landscape-section" id="explore-varieties">
   <h2>Variety landscape</h2>
   <p class="section-hint">Every variety entity covered, listed alphabetically. See each variety's own page for its full trait profile with source-of-claim distinctions.</p>
   {% if variety_rollup %}
@@ -266,7 +352,7 @@
 {# ------------------------------------------------------------------ #}
 {# Geographic footprint -- structured table, not a map                #}
 {# ------------------------------------------------------------------ #}
-<section class="landscape-section">
+<section class="landscape-section" id="explore-geography">
   <h2>Geographic footprint</h2>
   <p class="section-hint">Where recorded activity is concentrated, by region. A structured table communicates this dataset's actual geographic coverage more precisely than a map would at this scale.</p>
   {% if geographic_footprint %}
@@ -329,6 +415,9 @@
   {% endif %}
 </section>
 
+  </div></details>
+</section>
+
 <section class="landscape-section internal-enrichment">
   <div class="section-title-row"><div><h2>Internal Intelligence Enrichment</h2><p class="section-hint">Protected extension points for authorized internal evidence. These placeholders contain no proprietary data.</p></div><span class="badge badge-locked">LOCKED</span></div>
   <div class="enrichment-grid">
@@ -359,7 +448,7 @@
     const publicView = document.getElementById('public-landscape');
     const emptyView = document.getElementById('internal-empty-state');
     const isPublic = lens === 'all';
-    publicView.hidden = !isPublic;
+    publicView.hidden = false;
     emptyView.hidden = isPublic;
     document.querySelectorAll('[data-empty-lens]').forEach(el => el.hidden = el.dataset.emptyLens !== lens);
     document.querySelectorAll('.region-aware').forEach(el => {
@@ -399,6 +488,8 @@
     document.querySelectorAll('.region-filter').forEach(el => el.classList.toggle('is-active', el.dataset.region === region));
     document.querySelectorAll('.lens-filter').forEach(el => el.classList.toggle('is-active', el.dataset.lens === lens));
     document.querySelectorAll('.region-card').forEach(el => el.classList.toggle('is-selected', el.dataset.region === region));
+    document.querySelectorAll('[data-region-brief]').forEach(el => el.hidden = region === 'global' || el.dataset.regionBrief !== region);
+    document.querySelector('.global-region-note').hidden = region !== 'global';
     document.querySelector('.landscape-scope').textContent = `Berries / Blueberry / ${labels[region]}`;
     const values = metrics[region];
     for (const key of ['companies','varieties','evidence','sources','signals','geographies']) {
@@ -409,6 +500,22 @@
   }
   document.querySelectorAll('.region-filter,.region-card').forEach(el => el.addEventListener('click', () => { region = el.dataset.region; apply(); }));
   document.querySelectorAll('.lens-filter').forEach(el => el.addEventListener('click', () => { lens = el.dataset.lens; apply(); }));
+  document.querySelectorAll('[data-scroll-target]').forEach(button => button.addEventListener('click', () => {
+    const target = document.getElementById(button.dataset.scrollTarget);
+    if (!target) return;
+    const explore = document.getElementById('explore-details');
+    if (explore && explore.contains(target)) explore.open = true;
+    target.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }));
+  if ('IntersectionObserver' in window) {
+    const primaryButtons = [...document.querySelectorAll('.landscape-quick-nav [data-scroll-target]')];
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries.filter(entry => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+      primaryButtons.forEach(button => button.classList.toggle('is-active', button.dataset.scrollTarget === visible.target.id));
+    }, {rootMargin: '-150px 0px -65% 0px', threshold: [0, .2, .5]});
+    document.querySelectorAll('[data-brief-section]').forEach(section => observer.observe(section));
+  }
   const state = new URLSearchParams(location.hash.slice(1));
   document.querySelectorAll('.trait-table tbody tr[data-evidence]').forEach((row, index) => row.dataset.originalOrder = index);
   if (metrics[state.get('region')]) region = state.get('region');

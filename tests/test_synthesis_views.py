@@ -214,7 +214,8 @@ def test_landscape_internal_filters_are_honest_empty_states() -> None:
     assert "No internal observation records are connected in this public prototype." in observed.text
     assert "Berries / Blueberry / Americas" in observed.text
     assert 'id="public-landscape"' in observed.text
-    assert "publicView.hidden = !isPublic" in observed.text
+    assert "publicView.hidden = false" in observed.text
+    assert "What competitive products are we actually encountering in-market?" in observed.text
 
     tested = client.get(
         "/landscapes/berries/blueberry?region=asia&intelligence_state=tested"
@@ -222,6 +223,7 @@ def test_landscape_internal_filters_are_honest_empty_states() -> None:
     assert "No internal test records are connected in this environment." in tested.text
     assert "Berries / Blueberry / Asia" in tested.text
     assert 'data-empty-lens="tested"' in tested.text
+    assert "What has actually been evaluated against our own standards?" in tested.text
 
 
 def test_landscape_public_preview_has_enrichment_placeholders() -> None:
@@ -246,6 +248,39 @@ def test_landscape_renders_static_region_aware_competitive_theme_matrix() -> Non
     assert 'class="matrix-association" data-regions=' in text
     assert "visibleAssociations" in text
     assert "No defensible competitor-to-theme associations" in text
+
+
+def test_landscape_intelligence_brief_is_prioritized_and_traceable() -> None:
+    context = main.landscape_context("berry-blueberry")
+    assert len(context["executive_assessments"]) == 5
+    assert len(context["actors_to_watch"]) <= 8
+    assert all("competitor" in row["entity"]["roles"] for row in context["actors_to_watch"])
+    actor_names = {row["entity"]["name"] for row in context["actors_to_watch"]}
+    assert "University of Florida" not in actor_names
+    assert "Florida Foundation Seed Producers, Inc." not in actor_names
+    assert len(context["priority_signals"]) == 5
+    assert set(context["intelligence_agenda"]) == {"now", "watch", "deeper"}
+
+
+def test_landscape_renders_sticky_quick_navigation_and_explore_layer() -> None:
+    text = client.get("/landscapes/berries/blueberry").text
+    for heading in [
+        "Executive Readout",
+        "What We Think",
+        "Competitive Actors to Watch",
+        "Where Competition Is Concentrating",
+        "Regional Briefing",
+        "What Changed",
+        "What We're Watching",
+        "Intelligence Agenda",
+        "Explore the Landscape",
+    ]:
+        assert heading in text
+    assert 'class="landscape-quick-nav"' in text
+    assert 'data-scroll-target="executive-readout"' in text
+    assert 'id="explore-details"' in text
+    assert "scrollIntoView" in text
+    assert "IntersectionObserver" in text
 
 
 def test_landscape_route_synthesizes_not_just_lists_one_record_type() -> None:

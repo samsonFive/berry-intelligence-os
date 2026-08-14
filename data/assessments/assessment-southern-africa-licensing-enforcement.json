@@ -1,0 +1,37 @@
+{
+  "id": "assessment-southern-africa-licensing-enforcement",
+  "record_type": "assessment",
+  "title": "Southern Africa is a recurring deployment, licensing and enforcement arena for proprietary blueberry genetics",
+  "rationale": "The current evidence connects southern Africa to OZblu licence termination and customs enforcement, Costa/African Blue deployment into Morocco and Zimbabwe, and TopFruit's commercial management of IQ Berries genetics. Together these facts make the region operationally relevant to observing whether proprietary variety control holds beyond launch announcements. The pattern is based on a small number of programmes and one documented enforcement dispute; it should not be generalized to regional market share or assumed to represent all breeders.",
+  "status": "active",
+  "confidence": "medium",
+  "fact_ids": [
+    "fact-ozblu-rotterdam-seizure-2020",
+    "fact-ozblu-rossouw-settlement-2020",
+    "fact-african-blue-morocco-zimbabwe",
+    "fact-megacrisp-iq-berries"
+  ],
+  "evidence_ids": [
+    "ev-ciopora-united-exports-pbr-2020",
+    "ev-harvestsa-rossouw-2020",
+    "ev-costa-african-blue-2023",
+    "ev-topfruit-megacrisp"
+  ],
+  "entity_ids": [
+    "company-united-exports",
+    "company-costa-group-holdings",
+    "company-african-blue",
+    "company-topfruit",
+    "company-iq-berries",
+    "geography-south-africa",
+    "geography-zimbabwe",
+    "geography-morocco"
+  ],
+  "market_ids": ["berry-blueberry"],
+  "geography_ids": ["geography-south-africa", "geography-zimbabwe", "geography-morocco"],
+  "strategic_question_ids": ["sq-genetics-geographic-spread", "sq-global-genetics-reach"],
+  "counterevidence_ids": [],
+  "reviewer": "Codex proposal — pending human review",
+  "ai_proposed": true,
+  "created_at": "2026-08-14"
+}

@@ -298,6 +298,45 @@ strong.level-low{color:#426aa8}
 .matrix-association small,.matrix-evidence{display:block;margin-top:3px;color:#6c778b;font-size:10px;line-height:1.35}
 .matrix-evidence{color:#315f9d}
 .matrix-empty-state{padding:14px;border:1px dashed #ccd3df;border-radius:8px;color:#6c778b;font-size:13px}
+.landscape-quick-nav{position:sticky;top:76px;z-index:4;display:flex;gap:4px;margin:0 32px 22px;max-width:1200px;padding:7px;background:#f5f7fb;border:1px solid #e0e5ef;border-radius:9px;overflow-x:auto;white-space:nowrap;box-shadow:0 3px 10px rgba(30,45,70,.05)}
+.landscape-quick-nav button,.explore-nav button{border:0;background:transparent;color:#52627c;border-radius:6px;padding:8px 10px;font-size:12px;cursor:pointer;white-space:nowrap}
+.landscape-quick-nav button:hover,.landscape-quick-nav button.is-active,.explore-nav button:hover{background:#fff;color:#152443;box-shadow:0 1px 4px rgba(30,45,70,.12)}
+[data-brief-section],#explore-competitors,#explore-varieties,#competitive-theme-matrix,#explore-evidence,#explore-signals,#explore-assessments,#explore-recommendations,#explore-questions,#explore-geography{scroll-margin-top:145px}
+.executive-readout{padding:20px;border:1px solid #dce4ef;border-radius:12px;background:linear-gradient(135deg,#fff,#f7f9fc)}
+.executive-readout .eyebrow{margin:0 0 4px}
+.executive-lead-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.executive-lead-grid article,.assessment-card-grid article,.actor-watch-grid article,.pressure-grid article,.movement-brief-grid article,.signal-watch-grid article{background:#fff;border:1px solid #e0e5ef;border-radius:10px;padding:14px}
+.executive-lead-grid h3,.assessment-card-grid h3,.actor-watch-grid h3,.pressure-grid h3,.movement-brief-grid h3,.signal-watch-grid h3{font-size:15px;line-height:1.35;margin:8px 0}
+.executive-lead-grid p,.actor-watch-grid p,.pressure-grid p,.movement-brief-grid p{font-size:12px;color:#59667b}
+.compact-stats{margin:16px 0 0;grid-template-columns:repeat(6,1fr)}
+.compact-stats div{padding:8px 10px;background:#f8f9fc}
+.compact-stats strong{font-size:17px}
+.assessment-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.assessment-card-grid article:first-child{grid-column:span 2}
+.assessment-card-grid p,.signal-watch-grid p{font-size:12px;line-height:1.45;color:#4f5d72}
+.actor-watch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:12px}
+.actor-watch-grid small{display:block;margin-top:7px;color:#6c778b}
+.pressure-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px}
+.pressure-grid strong{font-size:23px;color:#315f9d}
+.regional-brief-panel{border:1px solid #d7e2ef;background:#f8fbff;border-radius:11px;padding:16px}
+.regional-brief-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.regional-brief-columns div{background:#fff;border:1px solid #e4eaf2;border-radius:8px;padding:11px;font-size:13px}
+.regional-brief-columns p{margin:5px 0 0;color:#59667b}
+.movement-brief-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}
+.movement-brief-grid time{font-size:11px;color:#7d8799}
+.signal-watch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:12px}
+.agenda-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.agenda-grid>div{border:1px solid #e0e5ef;border-radius:10px;padding:14px;background:#fff}
+.agenda-grid h3{font-size:12px;letter-spacing:.05em;color:#315f9d;margin:0 0 10px}
+.agenda-grid ul{margin:0;padding-left:18px}
+.agenda-grid li{margin:0 0 10px;font-size:13px}
+.agenda-grid small{display:block;color:#7d8799}
+.explore-shell{border-top:2px solid #dce3ed;padding-top:22px}
+.explore-nav{display:flex;gap:4px;overflow-x:auto;white-space:nowrap;margin:10px 0}
+#explore-details>summary{cursor:pointer;padding:13px 15px;background:#f5f7fb;border:1px solid #dfe4ec;border-radius:9px;color:#33435e;font-weight:600}
+#explore-details[open]>summary{border-radius:9px 9px 0 0}
+.explore-content{padding:20px 0 0;border:1px solid #e5e9f0;border-top:0;border-radius:0 0 9px 9px}
+.explore-content>.landscape-section{margin-left:18px;margin-right:18px}
 .region-aware[hidden],#public-landscape[hidden],#internal-empty-state[hidden],[data-empty-lens][hidden]{display:none!important}
 
 /* 834px, not 800px: covers real tablet-portrait widths (768-834px, e.g.
@@ -319,5 +358,9 @@ strong.level-low{color:#426aa8}
   .review-split{grid-template-columns:1fr;padding-left:16px;padding-right:16px}
   .cockpit-grid,.queue-table-wrap{padding-left:16px;padding-right:16px}
   .landscape-filter-bar,.landscape-header-stats,.landscape-section{margin-left:16px;margin-right:16px}
+  .landscape-quick-nav{margin-left:16px;margin-right:16px;top:70px}
   .section-title-row{display:block}
+  .executive-lead-grid,.regional-brief-columns,.agenda-grid{grid-template-columns:1fr}
+  .assessment-card-grid article:first-child{grid-column:auto}
+  .compact-stats{grid-template-columns:repeat(3,1fr);margin-left:0;margin-right:0}
 }
