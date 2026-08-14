@@ -61,6 +61,7 @@ from app.repositories.json.signals import SignalRepository
 from app.repositories.json.sources import JsonSourceRepository
 from app.repositories.json.strategic_questions import StrategicQuestionRepository
 from app.repositories.paths import DEFAULT_DATA_DIR, SCHEMAS_DIR
+from app.repositories.unit_of_work import JsonUnitOfWork
 from app.services.berries.landscape import BerriesLandscapeService
 from app.services.berries.variety import BerriesVarietyService
 
@@ -127,3 +128,33 @@ def get_domain_services(data_dir: Path = DEFAULT_DATA_DIR, schemas_dir: Path = S
             variety=BerriesVarietyService(repos),
         )
     return _domain_service_cache[key]
+
+
+def get_unit_of_work(
+    data_dir: Path = DEFAULT_DATA_DIR,
+    schemas_dir: Path = SCHEMAS_DIR,
+    *repository_names: str,
+) -> JsonUnitOfWork:
+    """The transaction-boundary primitive for any caller with genuine
+    multi-object transactional intent (docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md
+    Part 1.3, W6 -- review/publish is the one real example today). Builds a
+    fresh `JsonUnitOfWork` wrapping the named repositories from
+    `get_repositories()` for this `(data_dir, schemas_dir)` -- never a new,
+    independently-instantiated repository, and never a second
+    dependency-wiring mechanism alongside this module.
+
+        uow = get_unit_of_work(DATA_DIR, SCHEMAS_DIR, "entities", "facts", "relationships", "evidence")
+        with uow:
+            uow.entities.create(...)
+            ...
+
+    Returns a new `JsonUnitOfWork` instance on every call (unlike
+    `get_repositories()`/`get_query_services()`/`get_domain_services()`,
+    which cache) -- a unit of work is inherently one-shot, scoped to a
+    single logical transaction, not a long-lived singleton. The
+    repositories it wraps are still the cached, shared instances from
+    `get_repositories()`. A future `PostgresUnitOfWork` replaces this
+    function's body with one that opens a real `BEGIN`/`COMMIT`/`ROLLBACK`
+    -- no caller of `get_unit_of_work()` changes."""
+    repos = get_repositories(data_dir, schemas_dir)
+    return JsonUnitOfWork(**{name: getattr(repos, name) for name in repository_names})

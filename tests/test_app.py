@@ -435,6 +435,60 @@ def test_publish_draft_deletion_failure_rolls_back_and_remains_safely_retryable(
     assert client.get(f"/review/{draft_id}").status_code == 404
 
 
+def test_publish_attachment_survives_structured_failure_and_retry(monkeypatch, tmp_path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    intake = client.post(
+        "/intake",
+        data={
+            "intake_type": "uploaded_report",
+            "title": "Draft with an attachment that must survive a rollback",
+            "summary": "A fictional summary for attachment-rollback testing.",
+            "submitted_by": "tester@example.invalid",
+        },
+        files={"attachment": ("note.txt", b"hello berries", "text/plain")},
+        follow_redirects=False,
+    )
+    assert intake.status_code == 303
+    draft_id = intake.headers["location"].split("created=")[-1]
+
+    publish_data = {
+        "title": "Draft with an attachment that must survive a rollback",
+        "summary": "A fictional summary for attachment-rollback testing.",
+        "companies": "New Co",
+        "fact_statement_1": "A fictional fact.",
+        "fact_classification_1": "fact", "fact_confidence_1": "medium",
+        "reviewer": "reviewer@example.invalid",
+    }
+
+    repositories = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    real_create = repositories.facts.create
+
+    def fail_create(_record):
+        raise RuntimeError("injected failure after attachments were moved")
+
+    monkeypatch.setattr(repositories.facts, "create", fail_create)
+    with pytest.raises(RuntimeError, match="injected failure after attachments were moved"):
+        client.post(f"/review/{draft_id}/publish", data=publish_data)
+
+    # The failed attempt must not leave the attachment stranded at the
+    # (rolled-back) published location, nor lost entirely -- it must be
+    # back where move_draft_attachments() expects to find it on retry.
+    assert not (main.DATA_DIR / "attachments" / draft_id).exists()
+    assert (main.INBOX_DIR / "attachments" / draft_id / "note.txt").exists()
+    assert repositories.evidence.get(draft_id) is None
+
+    monkeypatch.setattr(repositories.facts, "create", real_create)
+    retry = client.post(f"/review/{draft_id}/publish", data=publish_data, follow_redirects=False)
+    assert retry.status_code == 303
+
+    published = repositories.evidence.get(draft_id)
+    assert published is not None
+    assert [a["filename"] for a in published["attachments"]] == ["note.txt"]
+    download = client.get(f"/evidence/{draft_id}/attachments/note.txt")
+    assert download.status_code == 200
+    assert download.content == b"hello berries"
+
+
 @pytest.mark.parametrize(
     ("case", "use_existing_entity", "include_relationship", "failing_repository"),
     [

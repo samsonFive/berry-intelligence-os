@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import asyncio
-from copy import deepcopy
 import difflib
 import json
 import os
@@ -24,8 +23,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from jsonschema import Draft202012Validator, FormatChecker
 
-from app.composition import get_domain_services, get_query_services, get_repositories
-from app.repositories.unit_of_work import JsonUnitOfWork
+from app.composition import get_domain_services, get_query_services, get_repositories, get_unit_of_work
 from app.queries.timeline import entity_activity, max_priority_level
 from app.services.berries.geography import (
     REGIONS,
@@ -40,6 +38,7 @@ from app.services.berries.variety import (
     variety_patent_link,
     variety_trait_profile,
 )
+from app.services.review_publish import PublishRequest, ReviewPublishService
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data"
@@ -1303,6 +1302,28 @@ def move_draft_attachments(draft_id: str, evidence_id: str, attachments: list[di
     if source_dir.exists() and not any(source_dir.iterdir()):
         source_dir.rmdir()
     return moved
+
+
+def restore_draft_attachments(draft_id: str, evidence_id: str, attachments: list[dict[str, str]]) -> None:
+    """Reverse move_draft_attachments() -- used only when a structured-data
+    publish transaction that already moved attachment files out of inbox/
+    subsequently fails and rolls back (ReviewPublishService), so a retry's
+    own move_draft_attachments() call finds the files back where it
+    expects them instead of silently publishing with no attachments."""
+    if not attachments:
+        return
+    source_dir = DATA_DIR / "attachments" / evidence_id
+    if not source_dir.exists():
+        return
+    target_dir = INBOX_DIR / "attachments" / draft_id
+    target_dir.mkdir(parents=True, exist_ok=True)
+    for attachment in attachments:
+        filename = attachment["filename"]
+        source_path = source_dir / filename
+        if source_path.exists():
+            shutil.move(str(source_path), str(target_dir / filename))
+    if source_dir.exists() and not any(source_dir.iterdir()):
+        source_dir.rmdir()
 
 
 _SCHEMA_CACHE: dict[str, Draft202012Validator] = {}
@@ -2739,165 +2760,58 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
             status_code=400,
         )
 
-    # --- entity match-or-create ---
-    idx = entity_index()
-    by_name_type = {(e.get("name", "").strip().lower(), e.get("entity_type")): e for e in idx.values()}
-    existing_ids = set(idx.keys())
-    entity_ids: list[str] = []
-    entities_to_save: list[dict[str, Any]] = []
-    name_to_id: dict[str, str] = {}
-    entities_by_id: dict[str, dict[str, Any]] = deepcopy(idx)
-
-    for entity_type, names in all_entity_names_by_type.items():
-        for name in names:
-            key = (name.strip().lower(), entity_type)
-            existing = by_name_type.get(key)
-            if existing:
-                name_to_id[name] = existing["id"]
-                entity_ids.append(existing["id"])
-                continue
-            entity_id = unique_entity_id(entity_type, name, existing_ids)
-            existing_ids.add(entity_id)
-            new_entity = {
-                "id": entity_id,
-                "record_type": "entity",
-                "entity_type": entity_type,
-                "name": name,
-                "aliases": [],
-                "status": "unverified",
-                "description": "",
-                "roles": [],
-                "berry_ids": list(selected_berries),
-                "evidence_ids": [],
-                "fact_ids": [],
-                "relationship_ids": [],
-                "attributes": {},
-            }
-            by_name_type[key] = new_entity
-            entities_by_id[entity_id] = new_entity
-            entities_to_save.append(new_entity)
-            name_to_id[name] = entity_id
-            entity_ids.append(entity_id)
-
-    evidence_id = draft_id
-
-    fact_ids: list[str] = []
-    facts_to_save: list[dict[str, Any]] = []
-    for i, fact_input in enumerate(facts_input, start=1):
-        fact_id = f"fact-{evidence_id[3:]}-{i}"
-        facts_to_save.append(
-            {
-                "id": fact_id,
-                "record_type": "fact",
-                "statement": fact_input["statement"],
-                "classification": fact_input["classification"],
-                "confidence": fact_input["confidence"],
-                "status": "active",
-                "reviewer": reviewer,
-                "created_at": date.today().isoformat(),
-                "evidence_ids": [evidence_id],
-                "entity_ids": list(entity_ids),
-            }
+    # Persistence orchestration (entity match/create/update, Facts,
+    # Relationships, Evidence, the transactional boundary, and the
+    # Draft-success handoff) lives in ReviewPublishService, not here -- see
+    # app/services/review_publish.py. This route stays limited to HTTP
+    # concerns: parsing the form (above) and turning the service's result
+    # into a response (below).
+    service = ReviewPublishService(
+        repositories=get_repositories(DATA_DIR, SCHEMAS_DIR),
+        unit_of_work_factory=lambda: get_unit_of_work(
+            DATA_DIR, SCHEMAS_DIR, "entities", "facts", "relationships", "evidence"
+        ),
+        get_validator=get_validator,
+        unique_entity_id=unique_entity_id,
+        append_unique=append_unique,
+        move_draft_attachments=move_draft_attachments,
+        restore_draft_attachments=restore_draft_attachments,
+        delete_draft=delete_draft,
+    )
+    result = service.publish(
+        PublishRequest(
+            draft=draft,
+            draft_id=draft_id,
+            title=title,
+            source_type=source_type,
+            source_name=source_name,
+            source_url=source_url,
+            published_date=published_date,
+            captured_date=captured_date,
+            summary=summary,
+            why_it_matters=why_it_matters,
+            tags=tags,
+            selected_berries=selected_berries,
+            all_entity_names_by_type=all_entity_names_by_type,
+            facts_input=facts_input,
+            relationships_input=relationships_input,
+            priority=priority,
+            strategic_question_text=strategic_question_text,
+            reviewer=reviewer,
         )
-        fact_ids.append(fact_id)
+    )
 
-    relationship_ids: list[str] = []
-    relationships_to_save: list[dict[str, Any]] = []
-    for i, rel_input in enumerate(relationships_input, start=1):
-        rel_id = f"rel-{evidence_id[3:]}-{i}"
-        relationships_to_save.append(
-            {
-                "id": rel_id,
-                "record_type": "relationship",
-                "subject_id": name_to_id[rel_input["subject"]],
-                "predicate": rel_input["predicate"],
-                "object_id": name_to_id[rel_input["object"]],
-                "status": "active",
-                "evidence_ids": [evidence_id],
-                "effective_date": rel_input["effective_date"],
-                "notes": "",
-            }
-        )
-        relationship_ids.append(rel_id)
-
-    strategic_questions = load_strategic_questions()
-    sq_ids: list[str] = []
-    for text in strategic_question_text:
-        needle = text.strip().lower()
-        for sq in strategic_questions:
-            if sq.get("id", "").lower() == needle or sq.get("title", "").lower() == needle:
-                sq_ids.append(sq["id"])
-                break
-
-    evidence_record = {
-        "id": evidence_id,
-        "record_type": "evidence",
-        "status": "published",
-        "source_type": source_type,
-        "title": title,
-        "source_name": source_name,
-        "source_url": source_url,
-        "published_date": published_date,
-        "captured_date": captured_date,
-        "summary": summary,
-        "why_it_matters": why_it_matters,
-        "submitted_by": draft.get("submitted_by", ""),
-        "berry_ids": list(selected_berries),
-        "geography_ids": [eid for eid in entity_ids if entities_by_id[eid]["entity_type"] == "geography"],
-        "entity_ids": entity_ids,
-        "fact_ids": fact_ids,
-        "relationship_ids": relationship_ids,
-        "strategic_question_ids": sq_ids,
-        "tags": tags,
-        "attachments": [],
-        "priority": priority,
-    }
-
-    schema_errors = [e.message for e in get_validator("evidence.schema.json").iter_errors(evidence_record)]
-    if schema_errors:
+    if not result.ok:
         return templates.TemplateResponse(
             request=request,
             name="review.html",
-            context=_review_context(draft, values, "This record could not be published: " + "; ".join(schema_errors)),
+            context=_review_context(
+                draft, values, "This record could not be published: " + "; ".join(result.schema_errors)
+            ),
             status_code=400,
         )
 
-    # All validation passed: link entities to this evidence/facts/relationships,
-    # then persist everything together so a failed publish leaves no orphans.
-    evidence_record["attachments"] = move_draft_attachments(draft_id, evidence_id, draft.get("attachments", []))
-    repositories = get_repositories(DATA_DIR, SCHEMAS_DIR)
-    new_entity_ids = {entity["id"] for entity in entities_to_save}
-    with JsonUnitOfWork(
-        entities=repositories.entities,
-        facts=repositories.facts,
-        relationships=repositories.relationships,
-        evidence=repositories.evidence,
-    ) as uow:
-        for entity_id in set(entity_ids):
-            entity = entities_by_id[entity_id]
-            entity["evidence_ids"] = append_unique(entity.get("evidence_ids", []), evidence_id)
-            entity["fact_ids"] = list(dict.fromkeys([*entity.get("fact_ids", []), *fact_ids]))
-            related_rel_ids = [
-                r["id"] for r in relationships_to_save
-                if r["subject_id"] == entity_id or r["object_id"] == entity_id
-            ]
-            entity["relationship_ids"] = list(dict.fromkeys([*entity.get("relationship_ids", []), *related_rel_ids]))
-            if entity_id in new_entity_ids:
-                uow.entities.create(entity)
-            else:
-                uow.entities.update(entity_id, entity)
-        for fact in facts_to_save:
-            uow.facts.create(fact)
-        for relationship in relationships_to_save:
-            uow.relationships.create(relationship)
-        uow.evidence.create(evidence_record)
-        # Draft removal is the final publish operation. Keeping it inside
-        # the UoW means an unlink failure compensates every structured write
-        # and leaves the draft safely retryable instead of stranded beside a
-        # committed Evidence record with the same deterministic id.
-        delete_draft(draft_id)
-
-    return RedirectResponse(url=f"/evidence/{evidence_id}", status_code=303)
+    return RedirectResponse(url=f"/evidence/{result.evidence_id}", status_code=303)
 
 
 @app.get("/api/feed")

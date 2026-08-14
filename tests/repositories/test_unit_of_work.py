@@ -85,6 +85,19 @@ def test_records_created_outside_the_unit_of_work_are_never_touched_by_rollback(
     assert entities.get("company-uow-test-a") is None
 
 
+def test_clean_exit_leaves_an_updated_record_in_its_new_state(tmp_path: Path) -> None:
+    entities = EntityRepository(data_dir=tmp_path)
+    original = _entity("pre-existing")
+    entities.create(original)
+    changed = {**original, "name": "Changed during a successful publish"}
+
+    with JsonUnitOfWork(entities=entities) as uow:
+        uow.entities.update(original["id"], changed)
+
+    # No compensation is attempted on a clean exit -- the update stands.
+    assert entities.get(original["id"]) == changed
+
+
 def test_exception_restores_a_record_updated_inside_the_unit_of_work(tmp_path: Path) -> None:
     entities = EntityRepository(data_dir=tmp_path)
     original = _entity("pre-existing")
