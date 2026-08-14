@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}New Assessment — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">RECORD A HUMAN INTERPRETATION OF EXISTING FACTS</p>
+    <h1>New Assessment</h1>
+  </div>
+</section>
+
+{% if not authoring_mode %}
+  <p class="empty-state" role="alert">Creating assessments is disabled. This deployment is running in read-only mode.</p>
+{% else %}
+
+{% if error %}
+  <div class="banner banner-error" role="alert">{{ error }}</div>
+{% endif %}
+
+<form class="intake-form" action="/assessments" method="post">
+  <div class="form-field">
+    <label for="title">Title *</label>
+    <input id="title" name="title" type="text" required value="{{ values.title }}">
+  </div>
+
+  <div class="form-field">
+    <label for="rationale">Rationale * <small>What this assessment concludes, and why — distinct from the facts it cites.</small></label>
+    <textarea id="rationale" name="rationale" rows="6" required>{{ values.rationale }}</textarea>
+  </div>
+
+  <div class="form-row">
+    <div class="form-field">
+      <label for="confidence">Confidence</label>
+      <select id="confidence" name="confidence">
+        {% for c in confidence_levels %}
+          <option value="{{ c }}" {% if values.confidence == c %}selected{% endif %}>{{ c|title }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-field">
+      <label for="status">Status</label>
+      <select id="status" name="status">
+        {% for s in statuses %}
+          <option value="{{ s }}" {% if values.status == s %}selected{% endif %}>{{ s|title }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="fact_ids">Supporting fact ids *</label>
+    <input id="fact_ids" name="fact_ids" type="text" placeholder="Comma-separated, e.g. fact-sample-id" value="{{ values.fact_ids }}">
+  </div>
+
+  <div class="form-field">
+    <label for="evidence_ids">Supporting evidence ids</label>
+    <input id="evidence_ids" name="evidence_ids" type="text" placeholder="Comma-separated" value="{{ values.evidence_ids }}">
+  </div>
+
+  <div class="form-field">
+    <label for="counterevidence_ids">Counterevidence ids <small>Facts or evidence that push against this interpretation, where relevant.</small></label>
+    <input id="counterevidence_ids" name="counterevidence_ids" type="text" placeholder="Comma-separated" value="{{ values.counterevidence_ids }}">
+  </div>
+
+  <div class="form-field">
+    <label for="entity_ids">Affected entity ids</label>
+    <input id="entity_ids" name="entity_ids" type="text" placeholder="Comma-separated" value="{{ values.entity_ids }}">
+  </div>
+
+  <div class="form-field">
+    <label for="strategic_question_ids">Linked strategic questions (existing id or title)</label>
+    <input id="strategic_question_ids" name="strategic_question_ids" type="text" placeholder="Comma-separated" value="{{ values.strategic_question_ids }}">
+  </div>
+
+  <div class="form-field">
+    <label for="reviewer">Reviewer *</label>
+    <input id="reviewer" name="reviewer" type="text" required value="{{ values.reviewer }}">
+  </div>
+
+  <div class="form-actions">
+    <button type="submit">Save assessment</button>
+  </div>
+</form>
+{% endif %}
+{% endblock %}

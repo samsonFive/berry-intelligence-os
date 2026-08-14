@@ -16,17 +16,20 @@
     {% for signal in signals %}
       <article class="card entity-card">
         <div class="card-header">
-          <span class="badge badge-muted">{{ signal.direction|upper }}</span>
+          <span class="badge badge-signal">SIGNAL</span>
+          <span class="badge badge-muted">{{ signal.status|upper }}</span>
+          {% if signal.direction %}<span class="badge badge-muted">{{ signal.direction|upper }}</span>{% endif %}
           <span class="badge badge-muted">{{ signal.strength|upper }} STRENGTH</span>
         </div>
         <h2><a href="/signals/{{ signal.id }}">{{ signal.title }}</a></h2>
-        {% set description_lines = signal.description|as_bullets %}
+        {% set description_text = signal.description or signal.observation %}
+        {% set description_lines = description_text|as_bullets %}
         {% if description_lines|length > 1 %}
           <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-        {% elif signal.description %}
-          <p>{{ signal.description }}</p>
+        {% elif description_text %}
+          <p>{{ description_text }}</p>
         {% endif %}
-        <p class="draft-meta">{{ signal.evidence_ids|length }} supporting evidence · updated {{ signal.last_updated|us_date }}</p>
+        <p class="draft-meta">{{ signal.evidence_ids|length }} supporting evidence{% if signal.last_updated %} · updated {{ signal.last_updated|us_date }}{% elif signal.proposed_at %} · proposed {{ signal.proposed_at|us_date }}{% endif %}</p>
       </article>
     {% endfor %}
   </section>

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Assessments — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">HUMAN INTERPRETATION OF FACTS — NOT A FACT ITSELF</p>
+    <h1>Assessments</h1>
+  </div>
+  {% if authoring_mode %}
+    <a class="button-link" href="/assessments/new">New Assessment</a>
+  {% endif %}
+</section>
+
+{% if assessments %}
+  <section class="entity-list">
+    {% for assessment in assessments %}
+      <article class="card entity-card">
+        <div class="card-header">
+          <span class="badge badge-assessment">ASSESSMENT</span>
+          <span class="badge badge-muted">{{ assessment.status|upper }}</span>
+          <span class="badge badge-muted">{{ assessment.confidence|upper }} CONFIDENCE</span>
+        </div>
+        <h2><a href="/assessments/{{ assessment.id }}">{{ assessment.title }}</a></h2>
+        <p class="draft-meta">{{ assessment.fact_ids|length }} supporting facts · {{ assessment.reviewer }} · {{ assessment.created_at|us_date }}</p>
+      </article>
+    {% endfor %}
+  </section>
+{% else %}
+  <p class="empty-state">No assessments recorded yet.</p>
+{% endif %}
+{% endblock %}

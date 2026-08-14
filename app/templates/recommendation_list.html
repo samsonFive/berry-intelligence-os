@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Recommendations — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">A PROPOSED ACTION OR DECISION — NOT EVIDENCE TRIAGE</p>
+    <h1>Recommendations</h1>
+  </div>
+  {% if authoring_mode %}
+    <a class="button-link" href="/recommendations/new">New Recommendation</a>
+  {% endif %}
+</section>
+
+{% if recommendations %}
+  <section class="entity-list">
+    {% for rec in recommendations %}
+      <article class="card entity-card">
+        <div class="card-header">
+          <span class="badge badge-recommendation">RECOMMENDATION</span>
+          <span class="badge badge-muted">{{ rec.status|upper }}</span>
+          {% if rec.priority %}<span class="badge badge-muted">{{ rec.priority|upper }} PRIORITY</span>{% endif %}
+        </div>
+        <h2><a href="/recommendations/{{ rec.id }}">{{ rec.title }}</a></h2>
+        <p class="draft-meta">{{ rec.action_type|replace('_',' ') }} · {{ rec.reviewer }} · {{ rec.created_at|us_date }}</p>
+      </article>
+    {% endfor %}
+  </section>
+{% else %}
+  <p class="empty-state">No recommendations recorded yet.</p>
+{% endif %}
+{% endblock %}

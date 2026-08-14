@@ -89,6 +89,15 @@ SIGNAL_STRENGTHS = ["low", "medium", "high"]
 SIGNAL_STATUSES = ["active", "watch", "resolved"]
 PRIORITY_RANK = {"high": 0, "medium": 1, "low": 2, "none": 3}
 
+# Assessment and Recommendation are human-authored interpretation/action
+# objects, downstream of Facts/Evidence and Signals respectively (see
+# docs/v2/03-DOMAIN-MODEL.md's Recommendation -> Assessment/Signal -> Facts
+# -> Evidence -> Source lineage chain). Both reuse FACT_CONFIDENCE_LEVELS'
+# low/medium/high value set for their own confidence/priority scalars rather
+# than redefining an identical list.
+INTELLIGENCE_RECORD_STATUSES = ["active", "superseded", "withdrawn"]
+RECOMMENDATION_PRIORITIES = ["low", "medium", "high"]
+
 SOURCE_TYPES = {
     "rss": "RSS / Atom feed",
     "keyword": "Keyword search",
@@ -786,6 +795,20 @@ def evidence_for_strategic_question(sq_id: str) -> list[dict[str, Any]]:
     return [r for r in published_evidence() if sq_id in (r.get("strategic_question_ids") or [])]
 
 
+def resolve_strategic_question_ids(text: str) -> list[str]:
+    """Same matching rule as the Signal create route: each comma-separated
+    entry may be an existing strategic question's id or its title."""
+    sq_ids: list[str] = []
+    strategic_questions = load_strategic_questions()
+    for entry in split_list(text):
+        needle = entry.strip().lower()
+        for sq in strategic_questions:
+            if sq.get("id", "").lower() == needle or sq.get("title", "").lower() == needle:
+                sq_ids.append(sq["id"])
+                break
+    return sq_ids
+
+
 def all_signals() -> list[dict[str, Any]]:
     records = load_json_files(DATA_DIR / "signals")
     return sorted(records, key=lambda r: r.get("last_updated", ""), reverse=True)
@@ -810,6 +833,58 @@ def new_signal_id(title: str) -> str:
     suffix = secrets.token_hex(2)
     slug = slugify(title)[:40] or "signal"
     return f"signal-{stamp}-{suffix}-{slug}"
+
+
+def all_assessments() -> list[dict[str, Any]]:
+    records = load_json_files(DATA_DIR / "assessments")
+    return sorted(records, key=lambda r: r.get("created_at", ""), reverse=True)
+
+
+def assessment_by_id(assessment_id: str) -> dict[str, Any] | None:
+    for record in all_assessments():
+        if record.get("id") == assessment_id:
+            return record
+    return None
+
+
+def save_assessment(record: dict[str, Any]) -> None:
+    folder = DATA_DIR / "assessments"
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / f"{record['id']}.json"
+    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def new_assessment_id(title: str) -> str:
+    stamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    suffix = secrets.token_hex(2)
+    slug = slugify(title)[:40] or "assessment"
+    return f"assessment-{stamp}-{suffix}-{slug}"
+
+
+def all_recommendations() -> list[dict[str, Any]]:
+    records = load_json_files(DATA_DIR / "recommendations")
+    return sorted(records, key=lambda r: r.get("created_at", ""), reverse=True)
+
+
+def recommendation_by_id(recommendation_id: str) -> dict[str, Any] | None:
+    for record in all_recommendations():
+        if record.get("id") == recommendation_id:
+            return record
+    return None
+
+
+def save_recommendation(record: dict[str, Any]) -> None:
+    folder = DATA_DIR / "recommendations"
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / f"{record['id']}.json"
+    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def new_recommendation_id(title: str) -> str:
+    stamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    suffix = secrets.token_hex(2)
+    slug = slugify(title)[:40] or "recommendation"
+    return f"recommendation-{stamp}-{suffix}-{slug}"
 
 
 def queue_items(dimension: str) -> list[dict[str, Any]]:
@@ -1789,6 +1864,381 @@ def signal_detail(request: Request, signal_id: str) -> HTMLResponse:
             "linked_evidence": [r for r in published_evidence() if r["id"] in (signal.get("evidence_ids") or [])],
             "linked_facts": [f for f in all_facts() if f["id"] in (signal.get("fact_ids") or [])],
             "linked_entities": [entities[e] for e in (signal.get("entity_ids") or []) if e in entities],
+            "linked_strategic_questions": [
+                sq for sq in load_strategic_questions() if sq["id"] in (signal.get("strategic_question_ids") or [])
+            ],
+            "authoring_mode": AUTHORING_MODE,
+        },
+    )
+
+
+@app.get("/assessments", response_class=HTMLResponse)
+def assessment_list(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse(
+        request=request,
+        name="assessment_list.html",
+        context={"assessments": all_assessments(), "authoring_mode": AUTHORING_MODE},
+    )
+
+
+def _default_assessment_values() -> dict[str, Any]:
+    return {
+        "title": "",
+        "rationale": "",
+        "status": "active",
+        "confidence": "medium",
+        "fact_ids": "",
+        "evidence_ids": "",
+        "entity_ids": "",
+        "strategic_question_ids": "",
+        "counterevidence_ids": "",
+        "reviewer": "",
+    }
+
+
+@app.get("/assessments/new", response_class=HTMLResponse)
+def assessment_new(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse(
+        request=request,
+        name="assessment_form.html",
+        context={
+            "values": _default_assessment_values(),
+            "statuses": INTELLIGENCE_RECORD_STATUSES,
+            "confidence_levels": FACT_CONFIDENCE_LEVELS,
+            "error": None,
+            "authoring_mode": AUTHORING_MODE,
+        },
+    )
+
+
+@app.post("/assessments", response_model=None)
+def assessment_create(
+    request: Request,
+    title: str = Form(""),
+    rationale: str = Form(""),
+    status: str = Form("active"),
+    confidence: str = Form(""),
+    fact_ids: str = Form(""),
+    evidence_ids: str = Form(""),
+    entity_ids: str = Form(""),
+    strategic_question_ids: str = Form(""),
+    counterevidence_ids: str = Form(""),
+    reviewer: str = Form(""),
+) -> HTMLResponse | RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Creating assessments is only available in authoring mode")
+
+    values = {
+        "title": title,
+        "rationale": rationale,
+        "status": status or "active",
+        "confidence": confidence or "medium",
+        "fact_ids": fact_ids,
+        "evidence_ids": evidence_ids,
+        "entity_ids": entity_ids,
+        "strategic_question_ids": strategic_question_ids,
+        "counterevidence_ids": counterevidence_ids,
+        "reviewer": reviewer,
+    }
+
+    fact_id_list = split_list(fact_ids)
+    evidence_id_list = split_list(evidence_ids)
+    entity_id_list = split_list(entity_ids)
+    counterevidence_id_list = split_list(counterevidence_ids)
+
+    known_facts = {f["id"] for f in all_facts()}
+    published_ids = {r["id"] for r in published_evidence()}
+    entity_ids_known = set(entity_index().keys())
+
+    errors: list[str] = []
+    if not title.strip():
+        errors.append("Title is required.")
+    if not rationale.strip():
+        errors.append("Rationale is required.")
+    if not reviewer.strip():
+        errors.append("Reviewer is required.")
+    if not fact_id_list:
+        errors.append("At least one supporting fact id is required.")
+    unknown_facts = [f for f in fact_id_list if f not in known_facts]
+    if unknown_facts:
+        errors.append(f"Unknown fact id(s): {', '.join(unknown_facts)}.")
+    unknown_evidence = [e for e in evidence_id_list if e not in published_ids]
+    if unknown_evidence:
+        errors.append(f"Unknown published evidence id(s): {', '.join(unknown_evidence)}.")
+    unknown_entities = [e for e in entity_id_list if e not in entity_ids_known]
+    if unknown_entities:
+        errors.append(f"Unknown entity id(s): {', '.join(unknown_entities)}.")
+    unknown_counterevidence = [e for e in counterevidence_id_list if e not in known_facts and e not in published_ids]
+    if unknown_counterevidence:
+        errors.append(f"Unknown counterevidence id(s): {', '.join(unknown_counterevidence)}.")
+
+    if errors:
+        return templates.TemplateResponse(
+            request=request,
+            name="assessment_form.html",
+            context={
+                "values": values,
+                "statuses": INTELLIGENCE_RECORD_STATUSES,
+                "confidence_levels": FACT_CONFIDENCE_LEVELS,
+                "error": " ".join(errors),
+                "authoring_mode": AUTHORING_MODE,
+            },
+            status_code=400,
+        )
+
+    assessment_id = new_assessment_id(title)
+    record = {
+        "id": assessment_id,
+        "record_type": "assessment",
+        "title": title.strip(),
+        "rationale": rationale.strip(),
+        "status": values["status"],
+        "confidence": values["confidence"],
+        "fact_ids": fact_id_list,
+        "evidence_ids": evidence_id_list,
+        "entity_ids": entity_id_list,
+        "strategic_question_ids": resolve_strategic_question_ids(strategic_question_ids),
+        "counterevidence_ids": counterevidence_id_list,
+        "reviewer": reviewer.strip(),
+        "created_at": date.today().isoformat(),
+    }
+
+    schema_errors = [e.message for e in get_validator("assessment.schema.json").iter_errors(record)]
+    if schema_errors:
+        return templates.TemplateResponse(
+            request=request,
+            name="assessment_form.html",
+            context={
+                "values": values,
+                "statuses": INTELLIGENCE_RECORD_STATUSES,
+                "confidence_levels": FACT_CONFIDENCE_LEVELS,
+                "error": "This assessment could not be saved: " + "; ".join(schema_errors),
+                "authoring_mode": AUTHORING_MODE,
+            },
+            status_code=400,
+        )
+
+    save_assessment(record)
+    return RedirectResponse(url=f"/assessments/{assessment_id}", status_code=303)
+
+
+@app.get("/assessments/{assessment_id}", response_class=HTMLResponse)
+def assessment_detail(request: Request, assessment_id: str) -> HTMLResponse:
+    assessment = assessment_by_id(assessment_id)
+    if assessment is None:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+    entities = entity_index()
+    fact_idx = {f["id"]: f for f in all_facts()}
+    return templates.TemplateResponse(
+        request=request,
+        name="assessment_detail.html",
+        context={
+            "assessment": assessment,
+            "linked_facts": [f for f in all_facts() if f["id"] in (assessment.get("fact_ids") or [])],
+            "linked_evidence": [r for r in published_evidence() if r["id"] in (assessment.get("evidence_ids") or [])],
+            "linked_entities": [entities[e] for e in (assessment.get("entity_ids") or []) if e in entities],
+            "linked_strategic_questions": [
+                sq for sq in load_strategic_questions() if sq["id"] in (assessment.get("strategic_question_ids") or [])
+            ],
+            "counterevidence": [
+                fact_idx[cid] for cid in (assessment.get("counterevidence_ids") or []) if cid in fact_idx
+            ],
+            "authoring_mode": AUTHORING_MODE,
+        },
+    )
+
+
+@app.get("/recommendations", response_class=HTMLResponse)
+def recommendation_list(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse(
+        request=request,
+        name="recommendation_list.html",
+        context={"recommendations": all_recommendations(), "authoring_mode": AUTHORING_MODE},
+    )
+
+
+def _default_recommendation_values() -> dict[str, Any]:
+    return {
+        "title": "",
+        "rationale": "",
+        "action_type": "",
+        "status": "active",
+        "priority": "medium",
+        "assessment_ids": "",
+        "signal_ids": "",
+        "fact_ids": "",
+        "evidence_ids": "",
+        "entity_ids": "",
+        "strategic_question_ids": "",
+        "reviewer": "",
+    }
+
+
+@app.get("/recommendations/new", response_class=HTMLResponse)
+def recommendation_new(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse(
+        request=request,
+        name="recommendation_form.html",
+        context={
+            "values": _default_recommendation_values(),
+            "statuses": INTELLIGENCE_RECORD_STATUSES,
+            "priorities": RECOMMENDATION_PRIORITIES,
+            "error": None,
+            "authoring_mode": AUTHORING_MODE,
+        },
+    )
+
+
+@app.post("/recommendations", response_model=None)
+def recommendation_create(
+    request: Request,
+    title: str = Form(""),
+    rationale: str = Form(""),
+    action_type: str = Form(""),
+    status: str = Form("active"),
+    priority: str = Form(""),
+    assessment_ids: str = Form(""),
+    signal_ids: str = Form(""),
+    fact_ids: str = Form(""),
+    evidence_ids: str = Form(""),
+    entity_ids: str = Form(""),
+    strategic_question_ids: str = Form(""),
+    reviewer: str = Form(""),
+) -> HTMLResponse | RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Creating recommendations is only available in authoring mode")
+
+    values = {
+        "title": title,
+        "rationale": rationale,
+        "action_type": action_type,
+        "status": status or "active",
+        "priority": priority or "medium",
+        "assessment_ids": assessment_ids,
+        "signal_ids": signal_ids,
+        "fact_ids": fact_ids,
+        "evidence_ids": evidence_ids,
+        "entity_ids": entity_ids,
+        "strategic_question_ids": strategic_question_ids,
+        "reviewer": reviewer,
+    }
+
+    assessment_id_list = split_list(assessment_ids)
+    signal_id_list = split_list(signal_ids)
+    fact_id_list = split_list(fact_ids)
+    evidence_id_list = split_list(evidence_ids)
+    entity_id_list = split_list(entity_ids)
+
+    known_assessments = {a["id"] for a in all_assessments()}
+    known_signals = {s["id"] for s in all_signals()}
+    known_facts = {f["id"] for f in all_facts()}
+    published_ids = {r["id"] for r in published_evidence()}
+    entity_ids_known = set(entity_index().keys())
+
+    errors: list[str] = []
+    if not title.strip():
+        errors.append("Title is required.")
+    if not rationale.strip():
+        errors.append("Rationale is required.")
+    if not action_type.strip():
+        errors.append("Action type is required.")
+    if not reviewer.strip():
+        errors.append("Reviewer is required.")
+    if not assessment_id_list and not signal_id_list:
+        errors.append("At least one linked assessment id or signal id is required.")
+    unknown_assessments = [a for a in assessment_id_list if a not in known_assessments]
+    if unknown_assessments:
+        errors.append(f"Unknown assessment id(s): {', '.join(unknown_assessments)}.")
+    unknown_signals = [s for s in signal_id_list if s not in known_signals]
+    if unknown_signals:
+        errors.append(f"Unknown signal id(s): {', '.join(unknown_signals)}.")
+    unknown_facts = [f for f in fact_id_list if f not in known_facts]
+    if unknown_facts:
+        errors.append(f"Unknown fact id(s): {', '.join(unknown_facts)}.")
+    unknown_evidence = [e for e in evidence_id_list if e not in published_ids]
+    if unknown_evidence:
+        errors.append(f"Unknown published evidence id(s): {', '.join(unknown_evidence)}.")
+    unknown_entities = [e for e in entity_id_list if e not in entity_ids_known]
+    if unknown_entities:
+        errors.append(f"Unknown entity id(s): {', '.join(unknown_entities)}.")
+
+    if errors:
+        return templates.TemplateResponse(
+            request=request,
+            name="recommendation_form.html",
+            context={
+                "values": values,
+                "statuses": INTELLIGENCE_RECORD_STATUSES,
+                "priorities": RECOMMENDATION_PRIORITIES,
+                "error": " ".join(errors),
+                "authoring_mode": AUTHORING_MODE,
+            },
+            status_code=400,
+        )
+
+    recommendation_id = new_recommendation_id(title)
+    record = {
+        "id": recommendation_id,
+        "record_type": "recommendation",
+        "title": title.strip(),
+        "rationale": rationale.strip(),
+        "action_type": action_type.strip(),
+        "status": values["status"],
+        "priority": values["priority"],
+        "assessment_ids": assessment_id_list,
+        "signal_ids": signal_id_list,
+        "fact_ids": fact_id_list,
+        "evidence_ids": evidence_id_list,
+        "entity_ids": entity_id_list,
+        "strategic_question_ids": resolve_strategic_question_ids(strategic_question_ids),
+        "reviewer": reviewer.strip(),
+        "created_at": date.today().isoformat(),
+    }
+
+    schema_errors = [e.message for e in get_validator("recommendation.schema.json").iter_errors(record)]
+    if schema_errors:
+        return templates.TemplateResponse(
+            request=request,
+            name="recommendation_form.html",
+            context={
+                "values": values,
+                "statuses": INTELLIGENCE_RECORD_STATUSES,
+                "priorities": RECOMMENDATION_PRIORITIES,
+                "error": "This recommendation could not be saved: " + "; ".join(schema_errors),
+                "authoring_mode": AUTHORING_MODE,
+            },
+            status_code=400,
+        )
+
+    save_recommendation(record)
+    return RedirectResponse(url=f"/recommendations/{recommendation_id}", status_code=303)
+
+
+@app.get("/recommendations/{recommendation_id}", response_class=HTMLResponse)
+def recommendation_detail(request: Request, recommendation_id: str) -> HTMLResponse:
+    recommendation = recommendation_by_id(recommendation_id)
+    if recommendation is None:
+        raise HTTPException(status_code=404, detail="Recommendation not found")
+    entities = entity_index()
+    return templates.TemplateResponse(
+        request=request,
+        name="recommendation_detail.html",
+        context={
+            "recommendation": recommendation,
+            "linked_assessments": [
+                a for a in all_assessments() if a["id"] in (recommendation.get("assessment_ids") or [])
+            ],
+            "linked_signals": [s for s in all_signals() if s["id"] in (recommendation.get("signal_ids") or [])],
+            "linked_facts": [f for f in all_facts() if f["id"] in (recommendation.get("fact_ids") or [])],
+            "linked_evidence": [
+                r for r in published_evidence() if r["id"] in (recommendation.get("evidence_ids") or [])
+            ],
+            "linked_entities": [entities[e] for e in (recommendation.get("entity_ids") or []) if e in entities],
+            "linked_strategic_questions": [
+                sq
+                for sq in load_strategic_questions()
+                if sq["id"] in (recommendation.get("strategic_question_ids") or [])
+            ],
             "authoring_mode": AUTHORING_MODE,
         },
     )

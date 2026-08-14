@@ -1,0 +1,38 @@
+{
+  "id": "sig-registry-participation-is-highly-uneven-between-breeders",
+  "record_type": "signal",
+  "title": "Breeders differ sharply in how far they register blueberry varieties in searchable public registries",
+  "status": "proposed",
+  "strength": "moderate",
+  "observation": "The Canadian plant breeders' rights blueberry register carries 21 Driscoll's denominations plus Fall Creek, Berry Blue, Michigan State, USDA and New Zealand Plant and Food Research entries, but as retrieved carries no blueberry variety held by Costa, Planasa, Hortifrut or Advanced Berry Breeding. Costa's blueberry patents appear instead in the United States jointly with Florida Foundation Seed Producers, and Planasa's Blue Manila appears as US PP31,345 with a CPVO application.",
+  "why_it_might_matter": "Registry participation determines how much of a competitor's pipeline is observable at all. A breeder that files broadly in searchable registries is continuously visible; one that does not is only visible when it chooses to announce. Coverage of the second group will always lag, and that lag is a structural bias in any competitive picture built from public sources.",
+  "what_would_confirm_it": "Systematic registry sweeps across CPVO, IP Australia, USPTO, CFIA and the South African registry showing the same asymmetry by breeder; or explicit statements of filing strategy.",
+  "what_would_falsify_it": "Discovery of substantial Costa, Planasa or Hortifrut blueberry filings in registries not yet swept, which would show the asymmetry is an artefact of incomplete search rather than of filing behaviour.",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-cfia-blueberry-index",
+    "ev-cfia-pbr-drisblueseventeen",
+    "ev-ipaustralia-pvj-33-4",
+    "ev-justia-costa-berry-international",
+    "ev-uspp031345-plablue-1545"
+  ],
+  "entity_ids": [
+    "company-cfia",
+    "company-ip-australia",
+    "company-driscolls",
+    "company-costa-berry-international",
+    "company-planasa",
+    "company-hortifrut",
+    "geography-canada",
+    "geography-australia"
+  ],
+  "strategic_question_ids": [
+    "sq-public-record-gaps",
+    "sq-global-genetics-reach"
+  ],
+  "proposed_by": "research-agent/blueberry-public-pilot-2026-08-03",
+  "proposed_at": "2026-08-03",
+  "reviewer": null
+}

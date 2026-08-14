@@ -23,8 +23,10 @@ from app.main import (  # noqa: E402
     PRIORITY_DIMENSIONS,
     PRIORITY_LEVELS,
     PRIORITY_QUEUE_LABELS,
+    all_assessments,
     all_entities,
     all_facts,
+    all_recommendations,
     all_relationships,
     all_signals,
     berry_label,
@@ -313,6 +315,79 @@ def build() -> list[Path]:
                     "linked_facts": [f for f in all_facts() if f["id"] in (signal.get("fact_ids") or [])],
                     "linked_entities": [
                         entities[e] for e in (signal.get("entity_ids") or []) if e in entities
+                    ],
+                    "linked_strategic_questions": [
+                        sq for sq in questions if sq["id"] in (signal.get("strategic_question_ids") or [])
+                    ],
+                    "authoring_mode": False,
+                },
+            )
+        )
+
+    # Assessments.
+    assessments = all_assessments()
+    fact_idx = {f["id"]: f for f in all_facts()}
+    written.append(
+        write_page("assessment_list.html", "/assessments", {"assessments": assessments, "authoring_mode": False})
+    )
+    for assessment in assessments:
+        written.append(
+            write_page(
+                "assessment_detail.html",
+                f"/assessments/{assessment['id']}",
+                {
+                    "assessment": assessment,
+                    "linked_facts": [f for f in all_facts() if f["id"] in (assessment.get("fact_ids") or [])],
+                    "linked_evidence": [
+                        r for r in evidence if r["id"] in (assessment.get("evidence_ids") or [])
+                    ],
+                    "linked_entities": [
+                        entities[e] for e in (assessment.get("entity_ids") or []) if e in entities
+                    ],
+                    "linked_strategic_questions": [
+                        sq for sq in questions if sq["id"] in (assessment.get("strategic_question_ids") or [])
+                    ],
+                    "counterevidence": [
+                        fact_idx[cid] for cid in (assessment.get("counterevidence_ids") or []) if cid in fact_idx
+                    ],
+                    "authoring_mode": False,
+                },
+            )
+        )
+
+    # Recommendations.
+    recommendations = all_recommendations()
+    written.append(
+        write_page(
+            "recommendation_list.html",
+            "/recommendations",
+            {"recommendations": recommendations, "authoring_mode": False},
+        )
+    )
+    for recommendation in recommendations:
+        written.append(
+            write_page(
+                "recommendation_detail.html",
+                f"/recommendations/{recommendation['id']}",
+                {
+                    "recommendation": recommendation,
+                    "linked_assessments": [
+                        a for a in assessments if a["id"] in (recommendation.get("assessment_ids") or [])
+                    ],
+                    "linked_signals": [
+                        s for s in signals if s["id"] in (recommendation.get("signal_ids") or [])
+                    ],
+                    "linked_facts": [
+                        f for f in all_facts() if f["id"] in (recommendation.get("fact_ids") or [])
+                    ],
+                    "linked_evidence": [
+                        r for r in evidence if r["id"] in (recommendation.get("evidence_ids") or [])
+                    ],
+                    "linked_entities": [
+                        entities[e] for e in (recommendation.get("entity_ids") or []) if e in entities
+                    ],
+                    "linked_strategic_questions": [
+                        sq for sq in questions if sq["id"] in (recommendation.get("strategic_question_ids") or [])
                     ],
                     "authoring_mode": False,
                 },

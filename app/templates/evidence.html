@@ -65,7 +65,7 @@
     <ul class="fact-list">
       {% for fact in facts %}
         <li>
-          <span class="badge badge-muted">{{ fact.classification|upper }}</span>
+          <span class="badge badge-{{ 'fact' if fact.classification == 'fact' else 'claim' }}">{{ fact.classification|upper }}</span>
           <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
           {% set statement_lines = fact.statement|as_bullets %}
           {% if statement_lines|length > 1 %}

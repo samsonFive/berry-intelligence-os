@@ -1,51 +1,26 @@
 {% extends "base.html" %}
-{% block title %}{{ signal.title }} — Berry Intelligence OS{% endblock %}
+{% block title %}{{ assessment.title }} — Berry Intelligence OS{% endblock %}
 {% block content %}
 <section class="page-heading">
   <div>
-    <p class="eyebrow">SIGNAL — {{ signal.status|upper }} · A PATTERN ACROSS EVIDENCE, NOT A CONFIRMED FACT</p>
-    <h1>{{ signal.title }}</h1>
+    <p class="eyebrow">ASSESSMENT — {{ assessment.status|upper }} · INTERPRETATION, NOT A FACT</p>
+    <h1>{{ assessment.title }}</h1>
   </div>
 </section>
 <article class="detail-card">
   <dl data-pagefind-ignore>
-    {% if signal.direction %}<dt>Direction</dt><dd>{{ signal.direction }}</dd>{% endif %}
-    <dt>Strength</dt><dd>{{ signal.strength }}</dd>
-    {% if signal.confidence %}<dt>Confidence</dt><dd>{{ signal.confidence }}</dd>{% endif %}
-    {% if signal.first_seen %}<dt>First seen</dt><dd>{{ signal.first_seen }}</dd>{% endif %}
-    {% if signal.last_updated %}<dt>Last updated</dt><dd>{{ signal.last_updated|us_date }}</dd>{% endif %}
-    {% if signal.proposed_at %}<dt>Proposed</dt><dd>{{ signal.proposed_at|us_date }}</dd>{% endif %}
-    {% if signal.proposed_by %}<dt>Proposed by</dt><dd>{{ signal.proposed_by }}</dd>{% endif %}
-    <dt>Reviewer</dt><dd>{{ signal.reviewer or "Not yet reviewed" }}</dd>
+    <dt>Confidence</dt><dd>{{ assessment.confidence|upper }}</dd>
+    <dt>Reviewer</dt><dd>{{ assessment.reviewer }}</dd>
+    <dt>Created</dt><dd>{{ assessment.created_at|us_date }}</dd>
+    {% if assessment.updated_at %}<dt>Updated</dt><dd>{{ assessment.updated_at|us_date }}</dd>{% endif %}
   </dl>
 
-  {% set description_text = signal.description or signal.observation %}
-  {% set description_lines = description_text|as_bullets %}
-  {% if description_lines|length > 1 %}
-    <h2>Observation</h2>
-    <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-  {% elif description_text %}
-    <h2>Observation</h2><p>{{ description_text }}</p>
-  {% endif %}
-
-  {% if signal.why_it_might_matter %}
-    <h2>Why it might matter</h2>
-    {% set why_lines = signal.why_it_might_matter|as_bullets %}
-    {% if why_lines|length > 1 %}
-      <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-    {% else %}
-      <p>{{ signal.why_it_might_matter }}</p>
-    {% endif %}
-  {% endif %}
-
-  {% if signal.what_would_confirm_it %}
-    <h2>What would confirm it</h2>
-    <p>{{ signal.what_would_confirm_it }}</p>
-  {% endif %}
-
-  {% if signal.what_would_falsify_it %}
-    <h2>What would falsify it</h2>
-    <p>{{ signal.what_would_falsify_it }}</p>
+  <h2>Rationale</h2>
+  {% set rationale_lines = assessment.rationale|as_bullets %}
+  {% if rationale_lines|length > 1 %}
+    <ul class="bullet-list">{% for line in rationale_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+  {% else %}
+    <p>{{ assessment.rationale }}</p>
   {% endif %}
 
   <h2>Linked strategic questions</h2>
@@ -59,7 +34,7 @@
     <p class="empty-state">No strategic questions linked.</p>
   {% endif %}
 
-  <h2>Affected entities</h2>
+  <h2>Linked entities</h2>
   {% if linked_entities %}
     <ul class="entity-links">
       {% for entity in linked_entities %}
@@ -111,6 +86,25 @@
     </section>
   {% else %}
     <p class="empty-state">No evidence linked.</p>
+  {% endif %}
+
+  <h2>Counterevidence</h2>
+  {% if counterevidence %}
+    <ul class="fact-list">
+      {% for fact in counterevidence %}
+        <li>
+          <span class="badge badge-counterevidence">COUNTEREVIDENCE</span>
+          {% set statement_lines = fact.statement|as_bullets %}
+          {% if statement_lines|length > 1 %}
+            <ul class="bullet-list">{% for line in statement_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+          {% else %}
+            <p>{{ fact.statement }}</p>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No counterevidence recorded.</p>
   {% endif %}
 </article>
 {% endblock %}

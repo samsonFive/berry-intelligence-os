@@ -89,6 +89,17 @@ a{color:#3d5c94}
 .badge-status-active{color:#1c6b42;background:#e2f6e9}
 .badge-status-unverified{color:#8a5a10;background:#fdefd9}
 .badge-status-inactive,.badge-status-historical{color:#536076;background:#eef1f6}
+/* Trust-level badges (V2 Phase 1.5A, docs/v2/03-DOMAIN-MODEL.md): distinguish
+   evidence-derived truth (fact) from an unverified statement (claim), a
+   human interpretation of facts (assessment), a cross-evidence pattern
+   (signal), and a proposed action (recommendation) -- so none is mistaken
+   for another at a glance. */
+.badge-fact{color:#1c6b42;background:#e2f6e9}
+.badge-claim{color:#8a5a10;background:#fdefd9}
+.badge-assessment{color:#1d5fa8;background:#e3eefb}
+.badge-signal{color:#3d6cc9;background:#e8edfb}
+.badge-recommendation{color:#a8341d;background:#fbe7e2}
+.badge-counterevidence{color:#8a5a10;background:#fdefd9}
 .card time{color:#7d8799;font-size:12px}
 .card h2,.card h3{font-size:18px;margin:12px 0 8px}
 .card h2 a,.card h3 a{color:#152443;text-decoration:none}
