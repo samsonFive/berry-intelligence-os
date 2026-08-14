@@ -88,6 +88,14 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert 'href="../pagefind/pagefind.js"' in search_html
     assert 'id="search-results"' in search_html
 
+    landscape_html = (
+        output_dir / "landscapes" / "berries" / "blueberry" / "index.html"
+    ).read_text(encoding="utf-8")
+    assert 'href="../../../static/app.css"' in landscape_html
+    assert 'class="filter-chip region-filter' in landscape_html
+    assert "history.replaceState" in landscape_html
+    assert 'href="../../../entities/company/' in landscape_html
+
 
 def test_static_build_detects_leak_if_validation_bypassed(monkeypatch, tmp_path) -> None:
     data_dir = tmp_path / "data"

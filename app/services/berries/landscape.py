@@ -23,7 +23,7 @@ from __future__ import annotations
 from collections import Counter, defaultdict
 from typing import Any
 
-from app.services.berries.geography import evidence_regions, geography_region, REGIONS
+from app.services.berries.geography import entity_regions, evidence_regions, geography_region, REGIONS
 
 # V1 seed/demo fixtures, explicitly self-described as fictional
 # ("Fictional ... used as seed data") in their own description field, mixed
@@ -123,6 +123,12 @@ class BerriesLandscapeService:
         rows = []
         for company in companies:
             cid = company["id"]
+            company_regions = entity_regions(company, entities, evidence)
+            company_regions |= {
+                geography_region(entities[gid])
+                for gid in operates_in[cid]
+                if geography_region(entities[gid])
+            }
             rows.append(
                 {
                     "entity": company,
@@ -131,6 +137,12 @@ class BerriesLandscapeService:
                     "patents_owned": len(owns_patents[cid]),
                     "brands_owned": len(owns_brands[cid]),
                     "geographies": len(operates_in[cid]),
+                    "geography_names": sorted(entities[gid]["name"] for gid in operates_in[cid]),
+                    "regions": sorted(company_regions),
+                    "brands": sorted(entities[eid]["name"] for eid in owns_brands[cid]),
+                    "varieties": sorted(
+                        entities[eid]["name"] for eid in develops[cid] | licenses[cid]
+                    ),
                     "evidence_count": len([r for r in evidence if cid in (r.get("entity_ids") or [])]),
                     "signals": self._queries.entity_intelligence.signals_for_entity(cid),
                     "assessments": self._queries.entity_intelligence.assessments_for_entity(cid),
@@ -149,12 +161,18 @@ class BerriesLandscapeService:
         for variety in varieties:
             vid = variety["id"]
             breeding_program_id = (variety.get("attributes") or {}).get("breeding_program_id")
+            traits = (variety.get("attributes") or {}).get("traits") or []
             rows.append(
                 {
                     "entity": variety,
                     "breeder": (variety.get("attributes") or {}).get("breeder"),
                     "breeding_program": entities.get(breeding_program_id) if breeding_program_id else None,
-                    "trait_count": len((variety.get("attributes") or {}).get("traits") or []),
+                    "trait_count": len(traits),
+                    "traits": traits,
+                    "trait_labels": sorted(
+                        {t.get("trait", "").removeprefix("trait-").replace("-", " ") for t in traits}
+                    ),
+                    "regions": sorted(entity_regions(variety, entities, evidence)),
                     "has_patent_number": bool((variety.get("attributes") or {}).get("patent_number")),
                     "evidence_count": len([r for r in evidence if vid in (r.get("entity_ids") or [])]),
                     "signals": self._queries.entity_intelligence.signals_for_entity(vid),
@@ -264,11 +282,111 @@ class BerriesLandscapeService:
 
         entity_type_counts = Counter(e.get("entity_type") for e in berry_entities)
 
+        geographic_footprint = self.landscape_geographic_footprint(berry_id, relationships, entities)
+        footprint_by_region = {row["region"]: row for row in geographic_footprint}
+
+        def regional_summary(label: str, source_regions: list[str]) -> dict[str, Any]:
+            rows = [footprint_by_region[r] for r in source_regions if r in footprint_by_region]
+            return {
+                "label": label,
+                "geography_names": sorted({name for row in rows for name in row["geography_names"]}),
+                "company_count": sum(row["company_count"] for row in rows),
+                "evidence_count": sum(row["evidence_count"] for row in rows),
+            }
+
+        regional_summaries = {
+            "americas": regional_summary("Americas", ["Americas"]),
+            "emea": regional_summary("EMEA", ["Europe", "Middle East & Africa"]),
+            "australia-nz": regional_summary("Australia / New Zealand", ["Oceania"]),
+            # Asia is intentionally not inferred from entity attributes: the
+            # Berries filter taxonomy does not classify it yet (see geography.py).
+            "asia": regional_summary("Asia", ["Asia"]),
+        }
+
+        region_groups = {
+            "americas": {"Americas"},
+            "emea": {"Europe", "Middle East & Africa"},
+            "australia-nz": {"Oceania"},
+            "asia": {"Asia"},
+        }
+        evidence_by_region = {
+            key: [r for r in evidence if evidence_regions(r, entities) & regions]
+            for key, regions in region_groups.items()
+        }
+        competitive_field = self.landscape_competitive_field(berry_id, relationships, entities)
+        variety_rollup = self.landscape_variety_rollup(berry_id, entities)
+        theme_definitions = {
+            "Flavor & sweetness": {"eating quality", "soluble solids"},
+            "Firmness & shelf life": {"fruit firmness", "postharvest shelf life"},
+            "Yield & production": {"yield", "machine harvest suitability"},
+            "Climate adaptability": {"chilling requirement"},
+            "Fruit size": {"fruit size"},
+        }
+        competitive_themes = []
+        for label, trait_names in theme_definitions.items():
+            matches = [
+                row for row in variety_rollup if set(row["trait_labels"]) & trait_names
+            ]
+            if matches:
+                competitive_themes.append(
+                    {"label": label, "varieties": [row["entity"]["name"] for row in matches]}
+                )
+        for signal in intelligence["signals"]:
+            signal_regions = set()
+            for eid in signal.get("entity_ids") or []:
+                if eid in entities:
+                    signal_regions |= entity_regions(entities[eid], entities, evidence)
+            for evidence_id in signal.get("evidence_ids") or []:
+                record = next((r for r in evidence if r["id"] == evidence_id), None)
+                if record:
+                    signal_regions |= evidence_regions(record, entities)
+            signal["regions"] = sorted(signal_regions)
+            signal["supporting_evidence_count"] = len(signal.get("evidence_ids") or [])
+
+        recent_movement = self.landscape_recent_movement(
+            evidence, intelligence["signals"], intelligence["assessments"], intelligence["recommendations"]
+        )
+        for record in recent_movement:
+            record["regions"] = sorted(evidence_regions(record, entities))
+
+        region_metrics = {}
+        for key, regions in region_groups.items():
+            subset = evidence_by_region[key]
+            regional_companies = [
+                row for row in competitive_field if set(row["regions"]) & regions
+            ]
+            regional_companies.sort(key=lambda row: (-row["evidence_count"], row["entity"]["name"]))
+            regional_varieties = [row for row in variety_rollup if set(row["regions"]) & regions]
+            regional_signals = [s for s in intelligence["signals"] if set(s["regions"]) & regions]
+            region_metrics[key] = {
+                "companies": len(regional_companies),
+                "varieties": len(regional_varieties),
+                "evidence": len(subset),
+                "sources": len({r.get("source_name") for r in subset if r.get("source_name")}),
+                "signals": sum(bool(set(s["regions"]) & regions) for s in intelligence["signals"]),
+                "geographies": sum(
+                    geography_region(e) in regions
+                    for e in berry_entities if e.get("entity_type") == "geography"
+                ),
+            }
+            regional_summaries[key].update(
+                {
+                    "evidence_count": len(subset),
+                    "company_count": len(regional_companies),
+                    "variety_count": len(regional_varieties),
+                    "notable_companies": [row["entity"]["name"] for row in regional_companies[:3]],
+                    "signal_count": len(regional_signals),
+                }
+            )
+
         return {
             "berry_id": berry_id,
             "header_stats": {
                 "evidence_count": len(evidence),
-                "source_count": len({r.get("source_name") for r in evidence if r.get("source_name")}),
+                "source_count": len(self._repos.sources.list()),
+                "named_evidence_source_count": len(
+                    {r.get("source_name") for r in evidence if r.get("source_name")}
+                ),
                 "last_material_update": last_material_update,
                 "signal_count": len(intelligence["signals"]),
                 "entity_type_counts": entity_type_counts,
@@ -277,11 +395,12 @@ class BerriesLandscapeService:
             "assessments": intelligence["assessments"],
             "recommendations": intelligence["recommendations"],
             "strategic_questions": self._repos.strategic_questions.list(),
-            "competitive_field": self.landscape_competitive_field(berry_id, relationships, entities),
-            "variety_rollup": self.landscape_variety_rollup(berry_id, entities),
-            "geographic_footprint": self.landscape_geographic_footprint(berry_id, relationships, entities),
-            "recent_movement": self.landscape_recent_movement(
-                evidence, intelligence["signals"], intelligence["assessments"], intelligence["recommendations"]
-            ),
+            "competitive_field": competitive_field,
+            "variety_rollup": variety_rollup,
+            "geographic_footprint": geographic_footprint,
+            "regional_summaries": regional_summaries,
+            "region_metrics": region_metrics,
+            "competitive_themes": competitive_themes,
+            "recent_movement": recent_movement,
             "evidence_coverage": self.landscape_evidence_coverage(berry_id, berry_entity_ids, entities),
         }

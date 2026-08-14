@@ -700,10 +700,18 @@ def strategic_questions_for_entity(
 # main.landscape_context() exactly as before; only its internals changed.
 
 
-def landscape_context(berry_id: str) -> dict[str, Any]:
+def landscape_context(
+    berry_id: str, region: str = "global", intelligence_state: str = "all"
+) -> dict[str, Any]:
+    allowed_regions = {"global", "americas", "emea", "australia-nz", "asia"}
+    allowed_states = {"all", "observed", "tested"}
+    region = region if region in allowed_regions else "global"
+    intelligence_state = intelligence_state if intelligence_state in allowed_states else "all"
     return {
         **get_domain_services(DATA_DIR).landscape.landscape_context(berry_id),
         "berry_label": berry_label(berry_id),
+        "selected_region": region,
+        "selected_intelligence_state": intelligence_state,
     }
 
 
@@ -1630,11 +1638,16 @@ def strategic_question_detail(request: Request, sq_id: str) -> HTMLResponse:
 
 
 @app.get("/landscapes/berries/blueberry", response_class=HTMLResponse)
-def landscape_blueberry(request: Request) -> HTMLResponse:
+def landscape_blueberry(
+    request: Request, region: str = "global", intelligence_state: str = "all"
+) -> HTMLResponse:
     return templates.TemplateResponse(
         request=request,
         name="landscape.html",
-        context={**landscape_context("berry-blueberry"), "authoring_mode": AUTHORING_MODE},
+        context={
+            **landscape_context("berry-blueberry", region, intelligence_state),
+            "authoring_mode": AUTHORING_MODE,
+        },
     )
 
 

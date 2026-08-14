@@ -15,7 +15,7 @@ from __future__ import annotations
 
 from typing import Any
 
-REGIONS = ["Americas", "Europe", "Oceania", "Middle East & Africa"]
+REGIONS = ["Americas", "Europe", "Oceania", "Middle East & Africa", "Asia"]
 
 # Default region assignment by geography name. Deliberately not exhaustive --
 # anything not listed here (e.g. China, present in real imported data) has no
@@ -30,6 +30,10 @@ REGION_LOOKUP = {
     "germany": "Europe", "netherlands": "Europe", "france": "Europe",
     "poland": "Europe", "italy": "Europe", "united kingdom": "Europe", "uk": "Europe",
     "australia": "Oceania", "new zealand": "Oceania", "oceania": "Oceania",
+    # China is the only Asia geography entity in the current blueberry
+    # package. Its ISO code (CN) and explicit Asia-Pacific attribute make
+    # this assignment authoritative; no other unclassified place is inferred.
+    "china": "Asia",
     "morocco": "Middle East & Africa", "south africa": "Middle East & Africa",
     "zambia": "Middle East & Africa", "zimbabwe": "Middle East & Africa",
     "egypt": "Middle East & Africa", "kenya": "Middle East & Africa",

@@ -1040,8 +1040,10 @@ def test_geography_region_default_lookup_and_unclassified() -> None:
     assert main.geography_region({"name": "Portugal", "attributes": {}}) == "Europe"
     assert main.geography_region({"name": "Australia", "attributes": {}}) == "Oceania"
     assert main.geography_region({"name": "Zambia", "attributes": {}}) == "Middle East & Africa"
-    # Not in the fixed lookup -- left unclassified rather than guessed.
-    assert main.geography_region({"name": "China", "attributes": {}}) is None
+    # China is authoritatively mapped for the current blueberry package;
+    # unsupported geographies remain unclassified rather than guessed.
+    assert main.geography_region({"name": "China", "attributes": {}}) == "Asia"
+    assert main.geography_region({"name": "Japan", "attributes": {}}) is None
 
 
 def test_geography_region_override_beats_lookup() -> None:

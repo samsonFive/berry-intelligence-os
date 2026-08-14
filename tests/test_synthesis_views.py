@@ -66,6 +66,14 @@ def test_landscape_evidence_coverage_reports_real_gaps() -> None:
     assert coverage["evidence_count"] > 0
 
 
+def test_landscape_asia_filter_uses_real_china_geography() -> None:
+    context = main.landscape_context("berry-blueberry")
+    asia = context["regional_summaries"]["asia"]
+    assert asia["geography_names"] == ["China"]
+    assert asia["evidence_count"] > 0
+    assert context["region_metrics"]["asia"]["geographies"] == 1
+
+
 def test_variety_trait_profile_distinguishes_claim_from_measurement() -> None:
     entities = main.entity_index()
     blue_manila = entities["variety-blue-manila"]
@@ -161,6 +169,53 @@ def test_landscape_route_renders_all_required_sections() -> None:
     ]:
         assert heading in response.text
     assert "Berries / Blueberry / Global" in response.text
+
+
+def test_landscape_route_renders_region_and_intelligence_state_filters() -> None:
+    response = client.get("/landscapes/berries/blueberry?region=emea&intelligence_state=all")
+    assert response.status_code == 200
+    assert "Berries / Blueberry / EMEA" in response.text
+    for label in ["Global", "Americas", "EMEA", "Australia / New Zealand", "Asia"]:
+        assert label in response.text
+    for label in ["All Intelligence", "Observed in Store", "Tested Internally"]:
+        assert label in response.text
+    assert "Regional intelligence" in response.text
+    assert "Public Intelligence" in response.text
+    assert 'class="filter-chip region-filter' in response.text
+    assert "history.replaceState" in response.text
+    assert "data-regions=" in response.text
+
+
+def test_landscape_internal_filters_are_honest_empty_states() -> None:
+    observed = client.get(
+        "/landscapes/berries/blueberry?region=americas&intelligence_state=observed"
+    )
+    assert "No internal observation records are connected in this public prototype." in observed.text
+    assert "Berries / Blueberry / Americas" in observed.text
+    assert 'id="public-landscape"' in observed.text
+    assert "publicView.hidden = !isPublic" in observed.text
+
+    tested = client.get(
+        "/landscapes/berries/blueberry?region=asia&intelligence_state=tested"
+    )
+    assert "No internal test records are connected in this environment." in tested.text
+    assert "Berries / Blueberry / Asia" in tested.text
+    assert 'data-empty-lens="tested"' in tested.text
+
+
+def test_landscape_public_preview_has_enrichment_placeholders() -> None:
+    text = client.get("/landscapes/berries/blueberry").text
+    assert "Internal Intelligence Enrichment" in text
+    for label in [
+        "Trial performance",
+        "Deployment / commercial status",
+        "Consumer / sensory",
+        "Grower / field",
+        "Commercial performance",
+        "Competitive observations",
+    ]:
+        assert label in text
+    assert "portable JSON" in text
 
 
 def test_landscape_route_synthesizes_not_just_lists_one_record_type() -> None:
