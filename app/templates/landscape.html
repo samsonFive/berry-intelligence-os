@@ -53,7 +53,7 @@
   <div class="section-title-row"><div><p class="eyebrow">INTELLIGENCE BRIEF</p><h2>Executive Readout</h2><p class="section-hint">Current public view; working assessments stay labeled.</p></div><span class="badge badge-public">Public Intelligence</span></div>
   <ul class="brief-list executive-brief-list">
     {% for assessment in executive_assessments[:3] %}
-      <li><a href="/assessments/{{ assessment.id }}">{{ assessment.title }}</a><span><span class="badge badge-assessment">{{ 'AI PROPOSED' if assessment.ai_proposed else 'REVIEWED' }}</span> {{ assessment.confidence|upper }} · {{ assessment.supporting_evidence_count }} evidence</span></li>
+      <li class="region-aware" data-regions="{{ region_tokens(assessment.regions) }}"><a href="/assessments/{{ assessment.id }}">{{ assessment.title }}</a><span><span class="badge badge-assessment">{{ 'AI PROPOSED' if assessment.ai_proposed else 'REVIEWED' }}</span> {{ assessment.confidence|upper }} · {{ assessment.supporting_evidence_count }} evidence</span></li>
     {% endfor %}
   </ul>
   <div class="landscape-header-stats compact-stats">
@@ -71,7 +71,7 @@
   <p class="section-hint">Five falsifiable views; AI proposals remain flagged.</p>
   <div class="table-wrap"><table class="brief-table assessment-brief-table"><thead><tr><th>View</th><th>Manager readout</th><th>Support</th><th>Would change our view</th></tr></thead><tbody>
     {% for assessment in executive_assessments %}
-      <tr><td><a href="/assessments/{{ assessment.id }}"><strong>{{ assessment.title }}</strong></a><br><span class="badge badge-assessment">{{ 'AI PROPOSED' if assessment.ai_proposed else 'REVIEWED' }}</span> <span class="badge badge-muted">{{ assessment.confidence|upper }}</span></td><td><ul><li>{{ assessment.rationale|truncate(260) }}</li><li>{{ assessment.why_it_matters }}</li></ul></td><td>{{ assessment.supporting_fact_count }} facts<br>{{ assessment.supporting_evidence_count }} evidence</td><td>{{ assessment.could_change }}</td></tr>
+      <tr class="region-aware" data-regions="{{ region_tokens(assessment.regions) }}"><td><a href="/assessments/{{ assessment.id }}"><strong>{{ assessment.title }}</strong></a><br><span class="badge badge-assessment">{{ 'AI PROPOSED' if assessment.ai_proposed else 'REVIEWED' }}</span> <span class="badge badge-muted">{{ assessment.confidence|upper }}</span></td><td><ul><li>{{ assessment.rationale|truncate(260) }}</li><li>{{ assessment.why_it_matters or "Not yet documented for this assessment." }}</li></ul></td><td>{{ assessment.supporting_fact_count }} facts<br>{{ assessment.supporting_evidence_count }} evidence</td><td>{{ assessment.would_change_our_view or "Not yet documented for this assessment." }}</td></tr>
     {% endfor %}
   </tbody></table></div>
 </section>

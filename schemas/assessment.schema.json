@@ -50,6 +50,14 @@
       "type": "boolean",
       "$comment": "True until a human reviewer has approved this Assessment (Core Design Principle #4, AI proposes / humans approve). Absent or false means human-authored or already-approved."
     },
+    "why_it_matters": {
+      "type": "string",
+      "$comment": "Optional. Why this Assessment's conclusion is decision-relevant, in the analyst's own words -- mirrors Evidence's own why_it_matters field so the same concept isn't renamed per object type. Absent means this framing has not been written yet, not that the Assessment doesn't matter; callers must not fabricate this from other fields and must render its absence honestly."
+    },
+    "would_change_our_view": {
+      "type": "string",
+      "$comment": "Optional. What specific new evidence or event would revise or overturn this Assessment's conclusion -- the falsifiability condition surfaced in the Landscape's 'What We Think' view (Core Design Principle: AI proposals stay falsifiable, not just labeled). Absent means this hasn't been articulated yet, not that the Assessment is unfalsifiable."
+    },
     "created_at": {"type": "string", "format": "date"},
     "updated_at": {"type": ["string", "null"], "format": "date"}
   }

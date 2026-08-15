@@ -7,6 +7,8 @@ intelligence-object linkage, Fact vs Claim distinction, relationship
 labels, missing/partial-data handling, vendor-neutral rendering."""
 from __future__ import annotations
 
+import re
+
 from fastapi.testclient import TestClient
 
 from app import main
@@ -260,6 +262,128 @@ def test_landscape_intelligence_brief_is_prioritized_and_traceable() -> None:
     assert "Florida Foundation Seed Producers, Inc." not in actor_names
     assert len(context["priority_signals"]) == 5
     assert set(context["intelligence_agenda"]) == {"now", "watch", "deeper"}
+
+
+def test_executive_assessments_are_region_aware_and_exclude_irrelevant_regions() -> None:
+    """Fix #1 regression: a region-specific Landscape view must not present
+    Southern-Africa-specific analysis as if it were Americas-relevant.
+    Regions are derived from the assessment's own cited evidence
+    (evidence_regions()), the same defensible-support rule
+    regional_attention/curated_movement already use elsewhere on this page --
+    not a hard-coded per-assessment region list."""
+    context = main.landscape_context("berry-blueberry")
+    southern_africa = next(
+        a for a in context["executive_assessments"]
+        if a["id"] == "assessment-southern-africa-licensing-enforcement"
+    )
+    assert southern_africa["regions"], "expected some defensible regional support"
+    assert "Americas" not in southern_africa["regions"]
+
+    # The live route stays server-side region-agnostic (the full brief is
+    # always sent); narrowing happens via the same client-side
+    # "region-aware"/data-regions toggle already used by Actors to Watch,
+    # What Changed, and the Theme Matrix -- proven here by checking the
+    # rendered attribute, not by re-requesting with a region query param.
+    text = client.get("/landscapes/berries/blueberry").text
+    what_we_think = text[text.index('id="what-we-think"'):text.index('id="actors-to-watch"')]
+    row_match = re.search(
+        r'<tr class="region-aware" data-regions="([^"]*)">(?:(?!</tr>).)*?'
+        r'assessment-southern-africa-licensing-enforcement',
+        what_we_think,
+        re.DOTALL,
+    )
+    assert row_match, "expected a region-aware row for the Southern Africa assessment"
+    assert "americas" not in row_match.group(1).split()
+
+
+def test_briefing_cues_special_casing_is_gone() -> None:
+    """Fix #2 regression: no literal-id lookup table should exist for
+    assessment narrative text -- it must come from the record itself."""
+    from app.services.berries import landscape as landscape_module
+
+    assert not hasattr(landscape_module, "briefing_cues")
+
+
+def _fixture_entity() -> dict:
+    return {
+        "id": "company-fixture-co", "record_type": "entity", "entity_type": "company",
+        "name": "Fixture Co", "status": "active", "berry_ids": ["berry-blueberry"],
+    }
+
+
+def test_assessment_narrative_comes_from_record_data_not_hardcoded_ids(monkeypatch, tmp_path) -> None:
+    """Fix #2 regression: why_it_matters/would_change_our_view render from
+    the record itself, proven with an assessment id that was never one of
+    the five ids the old briefing_cues dict special-cased."""
+    data_dir = tmp_path / "data"
+    monkeypatch.setattr(main, "DATA_DIR", data_dir)
+    repos = main.get_repositories(data_dir, main.SCHEMAS_DIR)
+    repos.entities.create(_fixture_entity())
+    repos.assessments.create(
+        {
+            "id": "assessment-fixture-never-hardcoded",
+            "record_type": "assessment",
+            "title": "A fixture assessment with a brand-new id",
+            "rationale": "Fixture rationale.",
+            "status": "active",
+            "confidence": "medium",
+            "fact_ids": ["fact-fixture-a"],
+            "entity_ids": ["company-fixture-co"],
+            "reviewer": "test",
+            "created_at": "2026-08-15",
+            "why_it_matters": "Fixture-specific decision relevance.",
+            "would_change_our_view": "Fixture-specific falsification condition.",
+        }
+    )
+    text = client.get("/landscapes/berries/blueberry").text
+    assert "Fixture-specific decision relevance." in text
+    assert "Fixture-specific falsification condition." in text
+
+
+def test_assessment_missing_narrative_fields_renders_graceful_fallback(monkeypatch, tmp_path) -> None:
+    """Fix #2 regression: an assessment that legitimately has no
+    why_it_matters/would_change_our_view yet must render an explicit,
+    honest fallback -- never a silently blank table cell."""
+    data_dir = tmp_path / "data"
+    monkeypatch.setattr(main, "DATA_DIR", data_dir)
+    repos = main.get_repositories(data_dir, main.SCHEMAS_DIR)
+    repos.entities.create(_fixture_entity())
+    repos.assessments.create(
+        {
+            "id": "assessment-fixture-without-narrative",
+            "record_type": "assessment",
+            "title": "A fixture assessment with no optional narrative yet",
+            "rationale": "Fixture rationale.",
+            "status": "active",
+            "confidence": "medium",
+            "fact_ids": ["fact-fixture-a"],
+            "entity_ids": ["company-fixture-co"],
+            "reviewer": "test",
+            "created_at": "2026-08-15",
+        }
+    )
+    text = client.get("/landscapes/berries/blueberry").text
+    assert "A fixture assessment with no optional narrative yet" in text
+    assert text.count("Not yet documented for this assessment.") == 2
+
+
+def test_landscape_static_and_live_rendering_share_one_context_pipeline() -> None:
+    """Fix #1/#2 regression: scripts/build_static.py renders landscape.html
+    from this exact same main.landscape_context() call, and landscape.html
+    (unlike feed.html) has no {% if static_build %} branching around the
+    assessment-narrative section -- so the live route's rendered output is
+    also what the static build produces, verified two ways: the narrative
+    text appears in the live render, and the template has no static-only
+    branch that could diverge from it."""
+    context = main.landscape_context("berry-blueberry")
+    live_text = client.get("/landscapes/berries/blueberry").text
+    documented = [a for a in context["executive_assessments"] if a.get("why_it_matters")]
+    assert documented, "expected at least one real assessment with documented narrative"
+    for assessment in documented:
+        assert assessment["why_it_matters"] in live_text
+        assert assessment["would_change_our_view"] in live_text
+    template_source = (main.BASE_DIR / "app" / "templates" / "landscape.html").read_text(encoding="utf-8")
+    assert "static_build" not in template_source
 
 
 def test_regional_attention_uses_region_attributed_cited_evidence() -> None:

@@ -414,6 +414,25 @@ class BerriesLandscapeService:
             signal["regions"] = sorted(signal_regions)
             signal["supporting_evidence_count"] = len(signal.get("evidence_ids") or [])
 
+        # An Assessment's own regions, derived only from its cited evidence
+        # (evidence_regions()) -- the same "defensible geography support"
+        # rule regional_attention/curated_movement/recent_news already use
+        # below, deliberately not signals' broader entity_ids-union pattern.
+        # An Assessment's entity_ids routinely names several large,
+        # multi-region companies at once (that's what makes it a synthesis,
+        # not a single-company note); unioning entity_regions() across all
+        # of them saturates to nearly every region regardless of what the
+        # assessment's own argument is actually about, which would make the
+        # region-aware toggle on Executive Readout / What We Think a no-op.
+        # The evidence actually cited is the narrower, defensible signal.
+        for assessment in intelligence["assessments"]:
+            assessment_regions = set()
+            for evidence_id in assessment.get("evidence_ids") or []:
+                record = next((r for r in evidence if r["id"] == evidence_id), None)
+                if record:
+                    assessment_regions |= evidence_regions(record, entities)
+            assessment["regions"] = sorted(assessment_regions)
+
         # Regional synthesis is stricter than general entity scope. An actor's
         # footprint does not regionalize a conclusion: cited evidence must
         # itself carry defensible geography support.
@@ -498,28 +517,13 @@ class BerriesLandscapeService:
                 record for record in recent_news if set(record["regions"]) & regions
             ][:5]
 
-        briefing_cues = {
-            "assessment-financial-capital-entering-berry-genetics-ownership": {
-                "why_it_matters": "Ownership links can change disclosure, licensing posture and whether nominal competitors remain economically independent.",
-                "could_change": "Transaction reversals, disclosed passive-only holdings, or evidence that licensing and disclosure remain unchanged.",
-            },
-            "assessment-blueberry-genetics-commercialized-through-platforms": {
-                "why_it_matters": "Access terms, membership and marketing support may become as decision-relevant as the cultivar itself.",
-                "could_change": "Evidence that the named platforms are only marketing wrappers over conventional per-variety licences.",
-            },
-            "assessment-public-trait-claims-not-yet-comparable": {
-                "why_it_matters": "Programme rankings built from unmatched public claims would create false precision in testing and commercial decisions.",
-                "could_change": "Comparable independent or internal measurements reproducing the published figures under disclosed protocols.",
-            },
-            "assessment-public-observability-varies-by-breeder": {
-                "why_it_matters": "The most visible pipeline in one registry is not necessarily the largest or most active competitive pipeline.",
-                "could_change": "A systematic multi-jurisdiction sweep showing the apparent asymmetry was caused only by incomplete search.",
-            },
-            "assessment-southern-africa-licensing-enforcement": {
-                "why_it_matters": "Licensing disputes and third-party commercial management reveal whether proprietary control is holding after deployment.",
-                "could_change": "Evidence that the documented enforcement event was isolated and the regional programmes remain commercially marginal.",
-            },
-        }
+        # why_it_matters/would_change_our_view come from the Assessment
+        # record itself (assessment.schema.json) -- every Assessment is
+        # eligible for Executive Readout / What We Think on the same terms,
+        # not just five literal ids special-cased in this service. A record
+        # that hasn't had this framing written yet simply omits the field;
+        # the template renders that absence honestly (landscape.html) rather
+        # than this service inventing or hard-coding text for it.
         executive_assessments = []
         recommendation_by_assessment: dict[str, list[dict[str, Any]]] = defaultdict(list)
         for recommendation in intelligence["recommendations"]:
@@ -537,7 +541,6 @@ class BerriesLandscapeService:
             executive_assessments.append(
                 {
                     **assessment,
-                    **briefing_cues.get(assessment["id"], {}),
                     "supporting_evidence_count": len(assessment.get("evidence_ids") or []),
                     "supporting_fact_count": len(assessment.get("fact_ids") or []),
                     "linked_recommendations": recommendation_by_assessment[assessment["id"]],
