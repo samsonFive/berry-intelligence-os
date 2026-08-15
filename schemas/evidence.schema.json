@@ -46,6 +46,27 @@
       "enum": ["low", "medium", "high"],
       "$comment": "V2 Phase 1 addition (BL-012), optional. Confidence in the evidence's information itself, distinct from any fact/assessment later derived from it -- per proposed-schema-enhancements.md P-4."
     },
+    "media_format": {
+      "enum": ["web_article", "podcast", "video", "conference_video"],
+      "$comment": "Audio/Video Intelligence data-model foundation phase, optional and additive. How this Evidence record was published -- orthogonal to `source_type` (source_type is the kind of outlet/document, e.g. 'trade_press' or 'patent_record'; media_format is the physical form that document takes, e.g. a trade-press interview could be a web_article or a podcast). Not backfilled onto existing records: their absence of this field means the format was never explicitly captured, not that they are implicitly 'web_article' -- callers must not assume a default. This is deliberately not a new Entity Type: a podcast or video is a form Evidence takes, the same way an Evidence record is not itself a Source (the publisher/outlet/channel that produced it, tracked separately via `source_id`/`source_name`). The enum is the minimum known set for this phase; extending it later (e.g. a distinct 'newsletter' or 'social_post' format) is an additive schema change, not a redesign."
+    },
+    "transcript": {
+      "type": "object",
+      "$comment": "Audio/Video Intelligence data-model foundation phase, optional and additive. Metadata describing a transcript's state for podcast/video/conference_video Evidence, ahead of any actual transcription pipeline -- no Whisper integration, no automated generation, and no requirement that any current or future audio/video record have a transcript. Entirely absent on every existing record and on any new record that hasn't had this considered yet; presence of this object does not imply a transcript exists (see `status`).",
+      "properties": {
+        "status": {
+          "enum": ["not_available", "pending", "available"],
+          "$comment": "'not_available' is an explicit statement (checked, none exists yet); a record with no `transcript` object at all simply hasn't been considered -- the two are deliberately distinguishable."
+        },
+        "language": {"type": "string", "$comment": "BCP-47-style language tag (e.g. 'en', 'es'), free-form for this phase."},
+        "source": {
+          "enum": ["publisher_provided", "human_provided", "auto_generated"],
+          "$comment": "Provenance of the transcript text itself, mirroring the honesty distinction this project already draws elsewhere (owner claim vs. independent measurement) -- an auto-generated transcript is not the same epistemic weight as a publisher-provided one."
+        },
+        "text": {"type": ["string", "null"], "$comment": "The transcript body, if captured inline. A future transcription workflow populates this; nothing in this phase does."},
+        "url": {"type": ["string", "null"], "$comment": "Link to an externally-hosted transcript, if `text` is not stored inline."}
+      }
+    },
     "priority": {
       "type": "object",
       "required": ["reading", "testing", "commercial_position", "monitoring"],

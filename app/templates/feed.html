@@ -38,6 +38,15 @@
     </select>
   </div>
   <div class="filter-field">
+    <label for="filter-media-format">Media format</label>
+    <select id="filter-media-format" name="media_format">
+      <option value="">All formats</option>
+      {% for m in options.media_formats %}
+        <option value="{{ m }}" {% if filters.media_format == m %}selected{% endif %}>{{ m|replace('_', ' ')|title }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="filter-field">
     <label for="filter-priority">Priority</label>
     <select id="filter-priority" name="priority">
       <option value="">Any priority</option>

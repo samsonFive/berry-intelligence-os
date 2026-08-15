@@ -410,6 +410,7 @@ def filter_evidence(
     competitor: str | None = None,
     geography: str | None = None,
     region: str | None = None,
+    media_format: str | None = None,
     entities: dict[str, dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
     results = records
@@ -435,6 +436,9 @@ def filter_evidence(
 
     if source:
         results = [r for r in results if r.get("source_type") == source]
+
+    if media_format:
+        results = [r for r in results if r.get("media_format") == media_format]
 
     if competitor:
         results = [r for r in results if competitor in (r.get("entity_ids") or [])]
@@ -466,6 +470,7 @@ def filter_evidence(
 def filter_options(records: list[dict[str, Any]], entities: dict[str, dict[str, Any]]) -> dict[str, Any]:
     berries = sorted({b for r in records for b in (r.get("berry_ids") or [])})
     sources = sorted({r.get("source_type") for r in records if r.get("source_type")})
+    media_formats = sorted({r.get("media_format") for r in records if r.get("media_format")})
     competitor_ids = {
         e for r in records for e in (r.get("entity_ids") or []) if entities.get(e, {}).get("entity_type") == "company"
     }
@@ -482,6 +487,7 @@ def filter_options(records: list[dict[str, Any]], entities: dict[str, dict[str, 
     return {
         "berries": berries,
         "sources": sources,
+        "media_formats": media_formats,
         "competitors": competitors,
         "geographies": geographies,
         "regions": REGIONS,
@@ -1346,6 +1352,7 @@ def home(
     competitor: str | None = None,
     geography: str | None = None,
     region: str | None = None,
+    media_format: str | None = None,
 ) -> HTMLResponse:
     evidence = published_evidence()
     entities = entity_index()
@@ -1353,7 +1360,8 @@ def home(
     filtered = filter_evidence(
         evidence,
         q=q, berry=berry, source=source, priority=priority,
-        competitor=competitor, geography=geography, region=region, entities=entities,
+        competitor=competitor, geography=geography, region=region,
+        media_format=media_format, entities=entities,
     )
     return templates.TemplateResponse(
         request=request,
@@ -1372,6 +1380,7 @@ def home(
                 "competitor": competitor or "",
                 "geography": geography or "",
                 "region": region or "",
+                "media_format": media_format or "",
             },
             "priority_dimensions": PRIORITY_DIMENSIONS,
             "priority_levels": PRIORITY_LEVELS,
@@ -2823,11 +2832,13 @@ def api_feed(
     competitor: str | None = None,
     geography: str | None = None,
     region: str | None = None,
+    media_format: str | None = None,
 ) -> list[dict[str, Any]]:
     return filter_evidence(
         published_evidence(),
         q=q, berry=berry, source=source, priority=priority,
         competitor=competitor, geography=geography, region=region,
+        media_format=media_format,
     )
 
 
