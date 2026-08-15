@@ -221,15 +221,15 @@ def test_live_strategic_question_records_untouched() -> None:
 
 
 # ---------------------------------------------------------------------------
-# 9. all 120 source-registry entries are accounted for
+# 9. all live source-registry entries are accounted for
 # ---------------------------------------------------------------------------
 
-def test_all_120_sources_accounted_for() -> None:
+def test_all_live_sources_accounted_for() -> None:
     data = _load("collector-templates.json")
     templates = data["collector_templates"]
     excluded = data.get("excluded", [])
     sources = json.loads((ROOT / "data" / "configuration" / "sources.json").read_text(encoding="utf-8"))
-    assert len(sources) == 120
+    assert len(sources) == 123
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}

@@ -1,5 +1,5 @@
 {
-  "_comment": "V2 Phase 1B (BL-023, docs/v2/10-BACKLOG.md). Generated directly from live data/configuration/sources.json (2026-08-14, all 120 entries) -- not hand-transcribed, to guarantee fidelity and completeness. collector_type separates the platform-level Collector mechanism (rss, keyword_search -- both automatable per docs/v2/02-TARGET-ARCHITECTURE.md Section 7) from reference_manual (a real, valuable source with no automated collection today -- ARCHITECTURE.md: 'Reference sources... aren't polled, mark them checked manually'). All 120 live sources were structurally suitable for templating (consistent shape verified directly; every entry has a non-empty value field); none were excluded. Deliberately NOT copied from the live registry: linked_competitor_ids, last_checked_at, last_status, validated_count, purged_count, created_at -- these are this specific workspace's operational history, not reusable template content, same reasoning as strategic-question-templates.json omitting evidence_ids/fact_ids. This task does not implement or refactor collector execution code, and does not modify check_source() or source polling behavior -- these are declarative templates only, for a future Collector framework to consume.",
+  "_comment": "V2 Phase 1B (BL-023, docs/v2/10-BACKLOG.md). The original 120 templates were generated directly from live data/configuration/sources.json on 2026-08-14; three verified recurring spoken-word Sources were registered in both files on 2026-08-15. collector_type separates the platform-level Collector mechanism (rss, keyword_search -- both automatable per docs/v2/02-TARGET-ARCHITECTURE.md Section 7) from reference_manual (a real, valuable source with no automated collection today -- ARCHITECTURE.md: 'Reference sources... aren't polled, mark them checked manually'). All 123 live sources are represented and structurally suitable for templating; none were excluded. Deliberately NOT copied from the live registry: linked_competitor_ids, last_checked_at, last_status, validated_count, purged_count, created_at -- these are this specific workspace's operational history, not reusable template content, same reasoning as strategic-question-templates.json omitting evidence_ids/fact_ids. This task does not implement or refactor collector execution code, and does not modify check_source() or source polling behavior -- these are declarative templates only, for a future Collector framework to consume.",
   "excluded_count": 0,
   "excluded": [],
   "collector_templates": [
@@ -2484,6 +2484,48 @@
       "update_cadence": "realtime",
       "default_active": true,
       "notes": "Broad category-level growth signal complementing the narrower Euromonitor/Mordor market-sizing reports."
+    },
+    {
+      "id": "source-lucentlands-podcast",
+      "collector_type": "reference_manual",
+      "label": "Lucentlands Podcast",
+      "query_or_url": "https://lucentlands.co.za/agricultural-podcast/",
+      "url": "https://lucentlands.co.za/agricultural-podcast/",
+      "geography_focus": ["africa", "global"],
+      "entity_coverage": ["genetics_company", "grower_marketer", "trade_association", "market_research"],
+      "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"],
+      "monitoring_priority": "high",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "Long-form agricultural interviews with executives, growers, associations, researchers and industry specialists provide context on Southern African production, markets, technology and fresh-produce strategy."
+    },
+    {
+      "id": "source-business-of-blueberries-podcast",
+      "collector_type": "reference_manual",
+      "label": "The Business of Blueberries (USHBC / NABC)",
+      "query_or_url": "https://ushbc.blueberry.org/news-and-information/podcast/",
+      "url": "https://ushbc.blueberry.org/news-and-information/podcast/",
+      "geography_focus": ["north_america", "global"],
+      "entity_coverage": ["trade_association", "grower_marketer", "breeding_program", "market_research"],
+      "berry_coverage": ["berry-blueberry"],
+      "monitoring_priority": "high",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "USHBC/NABC's weekly industry podcast covers blueberry production, markets, research, technology, crop progress, weather, exports and international supply through interviews and crop reports."
+    },
+    {
+      "id": "source-redagricola-on-the-road",
+      "collector_type": "reference_manual",
+      "label": "Redagrícola / Redagrícola On The Road",
+      "query_or_url": "https://redagricola.com/",
+      "url": "https://redagricola.com/",
+      "geography_focus": ["south_america"],
+      "entity_coverage": ["trade_press", "grower_marketer", "genetics_company", "nursery_propagator"],
+      "berry_coverage": ["berry-blueberry"],
+      "monitoring_priority": "high",
+      "update_cadence": "event_driven",
+      "default_active": true,
+      "notes": "First-party field and executive coverage from Latin American farms and agribusinesses surfaces grower operations, varietal renewal, packing, technology, investment and market conditions, especially in Peru and Chile."
     }
   ]
 }

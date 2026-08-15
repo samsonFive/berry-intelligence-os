@@ -3024,5 +3024,91 @@
     "last_status": null,
     "validated_count": 44,
     "purged_count": 11
+  },
+  {
+    "id": "source-lucentlands-podcast",
+    "type": "reference",
+    "label": "Lucentlands Podcast",
+    "value": "https://lucentlands.co.za/agricultural-podcast/",
+    "url": "https://lucentlands.co.za/agricultural-podcast/",
+    "why_it_matters": "Long-form agricultural interviews with executives, growers, associations, researchers and industry specialists provide context on Southern African production, markets, technology and fresh-produce strategy.",
+    "entity_types": [
+      "genetics_company",
+      "grower_marketer",
+      "trade_association",
+      "market_research"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "africa",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-15",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-business-of-blueberries-podcast",
+    "type": "reference",
+    "label": "The Business of Blueberries (USHBC / NABC)",
+    "value": "https://ushbc.blueberry.org/news-and-information/podcast/",
+    "url": "https://ushbc.blueberry.org/news-and-information/podcast/",
+    "why_it_matters": "USHBC/NABC's weekly industry podcast covers blueberry production, markets, research, technology, crop progress, weather, exports and international supply through interviews and crop reports.",
+    "entity_types": [
+      "trade_association",
+      "grower_marketer",
+      "breeding_program",
+      "market_research"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-15",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-redagricola-on-the-road",
+    "type": "reference",
+    "label": "Redagrícola / Redagrícola On The Road",
+    "value": "https://redagricola.com/",
+    "url": "https://redagricola.com/",
+    "why_it_matters": "First-party field and executive coverage from Latin American farms and agribusinesses surfaces grower operations, varietal renewal, packing, technology, investment and market conditions, especially in Peru and Chile.",
+    "entity_types": [
+      "trade_press",
+      "grower_marketer",
+      "genetics_company",
+      "nursery_propagator"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "south_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-15",
+    "last_checked_at": null,
+    "last_status": null
   }
 ]
