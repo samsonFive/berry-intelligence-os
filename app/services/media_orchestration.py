@@ -1,0 +1,521 @@
+"""Operator orchestration from discovered media to reviewable Evidence.
+
+This module coordinates existing discovery, review, transcript, and extraction
+boundaries.  It deliberately does not discover media, acquire/transcribe audio,
+publish Evidence, or approve extracted proposals.
+"""
+
+from __future__ import annotations
+
+from copy import deepcopy
+from dataclasses import dataclass, field
+from datetime import date
+import hashlib
+import json
+from pathlib import Path
+from typing import Any, Protocol
+
+from app.services.transcript_evidence import (
+    PRIORITY_NONE,
+    TranscriptArtifact,
+    TranscriptContractError,
+    TranscriptEvidenceExtractionService,
+)
+
+
+class MediaOrchestrationError(ValueError):
+    """A staged record cannot safely progress without operator correction."""
+
+
+class StagedTranscriptAdapter(Protocol):
+    """Boundary implemented by a normalized transcript producer.
+
+    The returned mapping uses the existing ``TranscriptArtifact`` fields, but
+    ``parent_evidence_id`` may be absent until publication review is complete.
+    """
+
+    def load(self, discovered_item: dict[str, Any]) -> dict[str, Any] | None: ...
+
+
+class JsonStagedTranscriptAdapter:
+    """Conservative filesystem adapter for normalized transcript handoff.
+
+    It does not read acquisition's raw ``_transcripts`` artifacts.  By default
+    it reads ``_normalized_transcripts/<discovered-item-id>.json``; a caller can
+    provide an explicit file produced by another implementation.
+    """
+
+    def __init__(self, inbox_dir: Path, transcript_path: Path | None = None) -> None:
+        self._inbox_dir = inbox_dir
+        self._transcript_path = transcript_path
+
+    def load(self, discovered_item: dict[str, Any]) -> dict[str, Any] | None:
+        path = self._transcript_path or (
+            self._inbox_dir / "discovered_media" / "_normalized_transcripts" / f"{discovered_item['id']}.json"
+        )
+        if not path.exists():
+            return None
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise MediaOrchestrationError(f"could not read normalized transcript {path}: {exc}") from exc
+        if not isinstance(payload, dict):
+            raise MediaOrchestrationError("normalized transcript must be a JSON object")
+        linked_item = payload.get("discovered_item_id") or payload.get("item_id")
+        if linked_item is not None and linked_item != discovered_item["id"]:
+            raise MediaOrchestrationError(
+                f"transcript belongs to discovered item {linked_item!r}, not {discovered_item['id']!r}"
+            )
+        return payload
+
+
+@dataclass(frozen=True)
+class ParentResolution:
+    status: str
+    evidence_id: str | None = None
+    draft_id: str | None = None
+    candidate_ids: tuple[str, ...] = ()
+    message: str = ""
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "status": self.status,
+            "evidence_id": self.evidence_id,
+            "draft_id": self.draft_id,
+            "candidate_ids": list(self.candidate_ids),
+            "message": self.message,
+        }
+
+
+@dataclass
+class OrchestrationResult:
+    item_id: str
+    state: str
+    parent_resolution: ParentResolution
+    transcript_status: str
+    next_action: str
+    dry_run: bool = False
+    publication_draft_id: str | None = None
+    transcript_id: str | None = None
+    transcript_sha256: str | None = None
+    extraction: dict[str, Any] | None = None
+    errors: list[str] = field(default_factory=list)
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "item_id": self.item_id,
+            "state": self.state,
+            "dry_run": self.dry_run,
+            "parent_resolution": self.parent_resolution.as_dict(),
+            "publication_draft_id": self.publication_draft_id,
+            "transcript_status": self.transcript_status,
+            "transcript_id": self.transcript_id,
+            "transcript_sha256": self.transcript_sha256,
+            "extraction": self.extraction,
+            "next_action": self.next_action,
+            "errors": self.errors,
+        }
+
+
+def publication_draft_id(discovered_item: dict[str, Any]) -> str:
+    """Return the stable Evidence identity reserved for one staged item."""
+
+    identity = discovered_item.get("id")
+    if not isinstance(identity, str) or not identity.strip():
+        raise MediaOrchestrationError("discovered item id is required")
+    digest = hashlib.sha256(identity.strip().encode("utf-8")).hexdigest()[:20]
+    return f"ev-media-{digest}"
+
+
+class MediaOrchestrationService:
+    def __init__(
+        self,
+        *,
+        repositories: Any,
+        inbox_dir: Path,
+        evidence_errors: Any,
+        transcript_adapter: StagedTranscriptAdapter,
+        extraction_service: TranscriptEvidenceExtractionService | None = None,
+        today: Any = date.today,
+    ) -> None:
+        self._repos = repositories
+        self._inbox_dir = inbox_dir
+        self._evidence_errors = evidence_errors
+        self._transcript_adapter = transcript_adapter
+        self._extraction_service = extraction_service
+        self._today = today
+
+    def load_item(self, item_id: str) -> dict[str, Any]:
+        path = self._inbox_dir / "discovered_media" / f"{item_id}.json"
+        if not path.exists():
+            raise MediaOrchestrationError(f"discovered item not found: {item_id}")
+        try:
+            item = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise MediaOrchestrationError(f"could not read discovered item {item_id}: {exc}") from exc
+        self._validate_item(item, expected_id=item_id)
+        return item
+
+    def resolve_publication_artifact(self, discovered_item: dict[str, Any]) -> ParentResolution:
+        """Resolve permanent/pending publication representation without guessing."""
+
+        self._validate_item(discovered_item)
+        deterministic_id = publication_draft_id(discovered_item)
+        trusted_ids: set[str] = set()
+
+        deterministic = self._repos.evidence.get(deterministic_id)
+        if self._is_trusted_publication(deterministic):
+            trusted_ids.add(deterministic_id)
+
+        for match in discovered_item.get("possible_evidence_matches", []):
+            if not isinstance(match, dict) or not isinstance(match.get("evidence_id"), str):
+                continue
+            evidence_id = match["evidence_id"]
+            if self._is_trusted_publication(self._repos.evidence.get(evidence_id)):
+                trusted_ids.add(evidence_id)
+
+        source_id = discovered_item["source_id"]
+        canonical_url = discovered_item.get("canonical_url")
+        if canonical_url:
+            for evidence in self._repos.evidence.list():
+                if (
+                    self._is_trusted_publication(evidence)
+                    and evidence.get("source_id") == source_id
+                    and evidence.get("source_url") == canonical_url
+                ):
+                    trusted_ids.add(evidence["id"])
+
+        drafts = self._publication_drafts_for(discovered_item, deterministic_id)
+        representation_ids = set(trusted_ids) | {draft["id"] for draft in drafts}
+        if len(representation_ids) > 1:
+            ids = tuple(sorted(representation_ids))
+            return ParentResolution(
+                status="ambiguous",
+                candidate_ids=ids,
+                message="Multiple publication representations require operator review.",
+            )
+        if trusted_ids:
+            evidence_id = next(iter(trusted_ids))
+            return ParentResolution(
+                status="trusted",
+                evidence_id=evidence_id,
+                candidate_ids=(evidence_id,),
+                message="Existing trusted publication artifact resolved.",
+            )
+        if drafts:
+            draft = drafts[0]
+            rejected = draft.get("status") == "rejected" or draft.get("review_state") == "rejected"
+            return ParentResolution(
+                status="rejected_draft" if rejected else "pending_draft",
+                draft_id=draft["id"],
+                candidate_ids=(draft["id"],),
+                message=(
+                    "Publication draft was rejected; operator disposition is required."
+                    if rejected
+                    else "Publication draft is awaiting human review."
+                ),
+            )
+        return ParentResolution(status="none", message="No publication artifact or draft exists.")
+
+    def prepare_publication_draft(self, discovered_item: dict[str, Any], *, dry_run: bool = False) -> dict[str, Any]:
+        """Build, validate, and optionally persist one untrusted draft."""
+
+        resolution = self.resolve_publication_artifact(discovered_item)
+        if resolution.status != "none":
+            raise MediaOrchestrationError(f"publication representation already exists: {resolution.status}")
+        source = self._repos.sources.get(discovered_item["source_id"])
+        if source is None:
+            raise MediaOrchestrationError(f"Source ID does not resolve: {discovered_item['source_id']}")
+        draft = self._draft_from_item(discovered_item, source)
+        errors = self._evidence_errors(draft)
+        if errors:
+            raise MediaOrchestrationError("publication draft failed Evidence validation: " + "; ".join(errors))
+        if not dry_run:
+            path = self._inbox_dir / "evidence" / f"{draft['id']}.json"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        return draft
+
+    def bind_transcript(
+        self, transcript_payload: dict[str, Any], parent_evidence_id: str
+    ) -> TranscriptArtifact:
+        """Bind parent metadata without mutating transcript content or input."""
+
+        parent = self._repos.evidence.get(parent_evidence_id)
+        if not self._is_trusted_publication(parent):
+            raise MediaOrchestrationError("transcript parent must be a trusted publication_artifact")
+        payload = deepcopy(transcript_payload)
+        embedded_parent = payload.get("parent_evidence_id")
+        if embedded_parent and embedded_parent != parent_evidence_id:
+            raise MediaOrchestrationError(
+                f"transcript parent mismatch: {embedded_parent!r} != {parent_evidence_id!r}"
+            )
+        payload["parent_evidence_id"] = parent_evidence_id
+        payload.pop("discovered_item_id", None)
+        payload.pop("item_id", None)
+        try:
+            return TranscriptArtifact.from_dict(payload)
+        except TranscriptContractError as exc:
+            raise MediaOrchestrationError(f"malformed transcript: {exc}") from exc
+
+    def process(self, item_id: str, *, dry_run: bool = False) -> OrchestrationResult:
+        item = self.load_item(item_id)
+        resolution = self.resolve_publication_artifact(item)
+        transcript_payload, transcript_status, transcript_error = self._load_transcript(item)
+
+        if resolution.status == "ambiguous":
+            return OrchestrationResult(
+                item_id=item_id,
+                state="discovered",
+                parent_resolution=resolution,
+                transcript_status=transcript_status,
+                next_action="Resolve ambiguous publication matches manually.",
+                dry_run=dry_run,
+                errors=[resolution.message],
+            )
+
+        if resolution.status == "none":
+            source = self._repos.sources.get(item["source_id"])
+            if source is None:
+                return OrchestrationResult(
+                    item_id=item_id,
+                    state="discovered",
+                    parent_resolution=resolution,
+                    transcript_status=transcript_status,
+                    next_action="Register or correct the Source ID.",
+                    dry_run=dry_run,
+                    errors=[f"Source ID does not resolve: {item['source_id']}"],
+                )
+            draft = self.prepare_publication_draft(item, dry_run=dry_run)
+            planned = ParentResolution(
+                status="would_create_draft" if dry_run else "pending_draft",
+                draft_id=draft["id"],
+                candidate_ids=(draft["id"],),
+                message=("Publication draft would be created." if dry_run else "Publication draft created for review."),
+            )
+            return OrchestrationResult(
+                item_id=item_id,
+                state="discovered" if dry_run else "awaiting_publication_review",
+                parent_resolution=planned,
+                publication_draft_id=draft["id"],
+                transcript_status=transcript_status,
+                next_action="Create and review the publication draft." if dry_run else "Review the publication draft.",
+                dry_run=dry_run,
+                errors=[transcript_error] if transcript_error else [],
+            )
+
+        if resolution.status in {"pending_draft", "rejected_draft"}:
+            return OrchestrationResult(
+                item_id=item_id,
+                state=("awaiting_publication_review" if resolution.status == "pending_draft" else "publication_rejected"),
+                parent_resolution=resolution,
+                publication_draft_id=resolution.draft_id,
+                transcript_status=transcript_status,
+                next_action=(
+                    "Review the publication draft."
+                    if resolution.status == "pending_draft"
+                    else "Review the rejection before creating another publication draft."
+                ),
+                dry_run=dry_run,
+                errors=[transcript_error] if transcript_error else [],
+            )
+
+        if transcript_error:
+            return OrchestrationResult(
+                item_id=item_id,
+                state="publication_approved",
+                parent_resolution=resolution,
+                transcript_status="malformed",
+                next_action="Correct or regenerate the normalized transcript.",
+                dry_run=dry_run,
+                errors=[transcript_error],
+            )
+        if transcript_payload is None:
+            return OrchestrationResult(
+                item_id=item_id,
+                state="publication_approved",
+                parent_resolution=resolution,
+                transcript_status="missing",
+                next_action="Acquire or transcribe and normalize the media.",
+                dry_run=dry_run,
+            )
+
+        try:
+            transcript = self.bind_transcript(transcript_payload, resolution.evidence_id or "")
+        except MediaOrchestrationError as exc:
+            return OrchestrationResult(
+                item_id=item_id,
+                state="publication_approved",
+                parent_resolution=resolution,
+                transcript_status="malformed",
+                next_action="Correct the transcript association or normalized transcript.",
+                dry_run=dry_run,
+                errors=[str(exc)],
+            )
+
+        content_hash = transcript.content_sha256()
+        if dry_run or self._extraction_service is None:
+            return OrchestrationResult(
+                item_id=item_id,
+                state="ready_for_extraction",
+                parent_resolution=resolution,
+                transcript_status="ready",
+                transcript_id=transcript.transcript_id,
+                transcript_sha256=content_hash,
+                next_action=(
+                    "Run the configured atomic Evidence extractor."
+                    if self._extraction_service is None
+                    else "Atomic Evidence proposals would be created."
+                ),
+                dry_run=dry_run,
+            )
+
+        try:
+            extracted = self._extraction_service.run(transcript)
+        except Exception as exc:  # provider/runtime failures become operator-visible state
+            return OrchestrationResult(
+                item_id=item_id,
+                state="ready_for_extraction",
+                parent_resolution=resolution,
+                transcript_status="ready",
+                transcript_id=transcript.transcript_id,
+                transcript_sha256=content_hash,
+                next_action="Correct the extractor failure and retry.",
+                errors=[f"extractor failed: {exc}"],
+            )
+        summary = {
+            "candidates_found": extracted.candidates_found,
+            "accepted": len(extracted.accepted),
+            "duplicates": len(extracted.duplicates),
+            "invalid": len(extracted.invalid),
+            "proposal_ids": list(extracted.accepted),
+        }
+        return OrchestrationResult(
+            item_id=item_id,
+            state="extraction_complete",
+            parent_resolution=resolution,
+            transcript_status="ready",
+            transcript_id=transcript.transcript_id,
+            transcript_sha256=content_hash,
+            extraction=summary,
+            next_action="Review the atomic Evidence proposals in inbox/evidence/.",
+        )
+
+    def _load_transcript(
+        self, discovered_item: dict[str, Any]
+    ) -> tuple[dict[str, Any] | None, str, str | None]:
+        try:
+            payload = self._transcript_adapter.load(discovered_item)
+        except MediaOrchestrationError as exc:
+            return None, "malformed", str(exc)
+        if payload is None:
+            return None, "missing", None
+        probe = deepcopy(payload)
+        probe.setdefault("parent_evidence_id", "ev-unresolved-publication-artifact")
+        probe.pop("discovered_item_id", None)
+        probe.pop("item_id", None)
+        try:
+            TranscriptArtifact.from_dict(probe)
+        except TranscriptContractError as exc:
+            return payload, "malformed", f"malformed transcript: {exc}"
+        return payload, "ready", None
+
+    def _validate_item(self, item: Any, expected_id: str | None = None) -> None:
+        if not isinstance(item, dict):
+            raise MediaOrchestrationError("discovered item must be a JSON object")
+        required = {
+            "id": str,
+            "record_type": str,
+            "source_id": str,
+            "title": str,
+            "dedupe_key": str,
+            "media_format": str,
+        }
+        missing = [name for name, kind in required.items() if not isinstance(item.get(name), kind) or not item.get(name)]
+        if missing:
+            raise MediaOrchestrationError("malformed discovered item; required fields: " + ", ".join(missing))
+        if item["record_type"] != "discovered_media_item":
+            raise MediaOrchestrationError("record_type must be discovered_media_item")
+        if expected_id is not None and item["id"] != expected_id:
+            raise MediaOrchestrationError("discovered item file name and id do not match")
+
+    def _publication_drafts_for(self, item: dict[str, Any], deterministic_id: str) -> list[dict[str, Any]]:
+        folder = self._inbox_dir / "evidence"
+        if not folder.exists():
+            return []
+        matches: list[dict[str, Any]] = []
+        for path in sorted(folder.glob("*.json")):
+            try:
+                draft = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError) as exc:
+                raise MediaOrchestrationError(f"could not inspect Evidence draft {path}: {exc}") from exc
+            if draft.get("evidence_role") != "publication_artifact":
+                continue
+            if draft.get("id") == deterministic_id or draft.get("discovered_item_id") == item["id"]:
+                matches.append(draft)
+        return matches
+
+    @staticmethod
+    def _is_trusted_publication(record: dict[str, Any] | None) -> bool:
+        return bool(
+            record
+            and record.get("evidence_role") == "publication_artifact"
+            and record.get("status") == "published"
+            and record.get("review_state", "published") == "published"
+        )
+
+    def _draft_from_item(self, item: dict[str, Any], source: dict[str, Any]) -> dict[str, Any]:
+        captured_date = self._date_part(item.get("first_seen_at")) or self._today().isoformat()
+        published_date = self._date_part(item.get("published_date"))
+        source_name = source.get("label") or source.get("name") or source.get("value") or item["source_id"]
+        description = item.get("description")
+        summary = description.strip() if isinstance(description, str) and description.strip() else (
+            f"Discovered {item.get('media_format') or 'media'} item from {source_name}."
+        )
+        return {
+            "id": publication_draft_id(item),
+            "record_type": "evidence",
+            "status": "draft",
+            "review_state": "in_review",
+            "intake_type": "discovered_media_publication",
+            "source_type": "discovered_media",
+            "title": item["title"].strip(),
+            "source_name": source_name,
+            "source_url": item.get("canonical_url") or "",
+            "published_date": published_date,
+            "captured_date": captured_date,
+            "summary": summary,
+            "why_it_matters": "",
+            "submitted_by": "media-orchestration",
+            "berry_ids": [],
+            "geography_ids": [],
+            "entity_ids": [],
+            "fact_ids": [],
+            "relationship_ids": [],
+            "strategic_question_ids": [],
+            "tags": [],
+            "attachments": [],
+            "auto_captured": False,
+            "priority": deepcopy(PRIORITY_NONE),
+            "source_id": item["source_id"],
+            "media_format": item["media_format"],
+            "evidence_role": "publication_artifact",
+            "discovered_item_id": item["id"],
+            "discovery_provenance": {
+                "dedupe_key": item["dedupe_key"],
+                "external_id": item.get("external_id"),
+                "first_seen_at": item.get("first_seen_at"),
+                "last_seen_at": item.get("last_seen_at"),
+            },
+        }
+
+    @staticmethod
+    def _date_part(value: Any) -> str | None:
+        if not isinstance(value, str) or not value.strip():
+            return None
+        candidate = value.strip()[:10]
+        try:
+            date.fromisoformat(candidate)
+        except ValueError as exc:
+            raise MediaOrchestrationError(f"invalid date value: {value!r}") from exc
+        return candidate

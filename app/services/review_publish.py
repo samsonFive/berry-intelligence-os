@@ -248,6 +248,8 @@ class ReviewPublishService:
             "extraction_provenance",
             "transcript_provenance",
             "transcript_excerpt",
+            "discovered_item_id",
+            "discovery_provenance",
         ):
             if field_name in request.draft:
                 evidence_record[field_name] = deepcopy(request.draft[field_name])
