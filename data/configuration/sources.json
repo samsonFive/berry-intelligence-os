@@ -3054,7 +3054,14 @@
     "enabled": true,
     "created_at": "2026-08-15",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "discovery": {
+      "adapter": "podcast_rss",
+      "feed_url": "https://anchor.fm/s/c9b3aba4/podcast/rss",
+      "feed_url_resolved_via": "https://itunes.apple.com/lookup?id=1655947979&entity=podcast",
+      "feed_url_verified_at": "2026-08-15",
+      "notes": "Publisher's own site (lucentlands.co.za/agricultural-podcast/, the 'value'/'url' above) has no machine-readable feed link. Resolved the real first-party feed by looking up the show's Apple Podcasts id (1655947979, present in the source_url of the existing manually-entered ev-lucentlands-scaling-blueberry-industry-2025 record) through Apple's public iTunes Lookup API, which returns the show's actual RSS feed URL (hosted on Anchor/Spotify for Podcasters). No credentials, no paid API, no scraping -- see app/services/media_discovery.py."
+    }
   },
   {
     "id": "source-business-of-blueberries-podcast",
