@@ -8,3 +8,10 @@ feedparser==6.0.11
 httpx==0.28.1
 openpyxl==3.1.5
 playwright==1.62.0
+faster-whisper==1.1.1
+# faster-whisper 1.1.1's own model-download helper (faster_whisper/utils.py)
+# imports `requests` directly but does not declare it as an install
+# dependency (verified: `pip show faster-whisper` lists only av,
+# ctranslate2, huggingface-hub, onnxruntime, tokenizers, tqdm) -- pinned
+# explicitly here so `pip install -r requirements.txt` alone is sufficient.
+requests==2.32.3

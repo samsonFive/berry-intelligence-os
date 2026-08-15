@@ -273,13 +273,28 @@ def _normalize_podcast_rss_entry(entry: Any) -> NormalizedItem:
     media_format = _classify_podcast_media_format(entry)
     transcript_availability = _detect_podcast_transcript_availability(entry)
 
+    raw_enclosures = getattr(entry, "enclosures", None) or []
     raw_metadata = {
         "feed_guid": external_id,
         "feed_link": canonical_url,
         "raw_title": getattr(entry, "title", None),
         "raw_published": getattr(entry, "published", None),
         "raw_itunes_duration": getattr(entry, "itunes_duration", None),
-        "enclosure_types": [e.get("type") for e in (getattr(entry, "enclosures", None) or [])],
+        "enclosure_types": [e.get("type") for e in raw_enclosures],
+        # Added for the downstream media-acquisition/transcription layer
+        # (app/services/media_transcription.py): the enclosure's own
+        # direct media URL, distinct from `canonical_url` (the episode's
+        # webpage link, e.g. a Spotify-for-Podcasters episode page) --
+        # additive only, does not change any previously-emitted field.
+        "enclosures": [
+            {
+                "url": e.get("href"),
+                "type": e.get("type"),
+                "length_bytes": int(e["length"]) if str(e.get("length") or "").isdigit() else None,
+            }
+            for e in raw_enclosures
+            if e.get("href")
+        ],
     }
 
     return NormalizedItem(
