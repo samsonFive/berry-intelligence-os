@@ -24,6 +24,14 @@
     </dd>
     <dt>Published</dt><dd>{{ record.published_date|us_date if record.published_date else "—" }}</dd>
     <dt>Captured</dt><dd>{{ record.captured_date|us_date }}</dd>
+    {% if record.media_format %}<dt>Media format</dt><dd>{{ record.media_format|replace('_',' ')|title }}</dd>{% endif %}
+    {% if record.transcript %}
+      <dt>Transcript</dt>
+      <dd>
+        {{ record.transcript.status|replace('_',' ')|title }}
+        {% if record.transcript.url %} · <a href="{{ record.transcript.url }}" target="_blank" rel="noopener">Open transcript ↗</a>{% endif %}
+      </dd>
+    {% endif %}
     <dt>Status</dt><dd>{{ record.status }}</dd>
     <dt>Berries</dt><dd>{% for b in record.berry_ids %}{{ berry_label(b) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>
     <dt>Geography</dt><dd>{% set geographies = linked_entities|selectattr('entity_type', 'equalto', 'geography')|list %}{% if geographies %}{% for g in geographies %}{{ g.name }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}—{% endif %}</dd>

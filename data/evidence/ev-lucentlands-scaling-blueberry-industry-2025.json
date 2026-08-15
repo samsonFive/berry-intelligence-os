@@ -1,0 +1,59 @@
+{
+  "id": "ev-lucentlands-scaling-blueberry-industry-2025",
+  "record_type": "evidence",
+  "status": "published",
+  "review_state": "published",
+  "source_type": "industry_podcast",
+  "title": "Scaling the Blueberry Industry – Opportunities for Africa and Beyond | Ep. 102",
+  "source_name": "Lucentlands Podcast | Harvesting Agriculture Knowledge",
+  "source_url": "https://podcasts.apple.com/ca/podcast/scaling-the-blueberry-industry-opportunities-for/id1655947979?i=1000733810863",
+  "published_date": "2025-10-28",
+  "captured_date": "2026-08-15",
+  "summary": "Lucentlands hosts Dewald Kirsten and Louise Brodie interview Fall Creek President and CEO Cort Brazelton about the company's international development and the outlook for blueberry production in Southern Africa.",
+  "why_it_matters": "The publisher describes discussion of blueberry genetics, flavor, consumer preferences, investment, professionalization, collaboration and growth opportunities in Africa.",
+  "submitted_by": "human-reviewed spoken-word ingestion spike",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "geography_ids": [
+    "geography-south-africa"
+  ],
+  "entity_ids": [
+    "company-fall-creek-farm-and-nursery",
+    "geography-south-africa"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "blueberry genetics",
+    "southern africa",
+    "industry strategy"
+  ],
+  "auto_captured": false,
+  "validated": true,
+  "source_id": "source-lucentlands-podcast",
+  "origin_domain": "podcasts.apple.com",
+  "media_format": "podcast",
+  "transcript": {
+    "status": "not_available"
+  },
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": ""
+    },
+    "testing": {
+      "level": "none",
+      "rationale": ""
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": ""
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": ""
+    }
+  }
+}

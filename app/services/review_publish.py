@@ -231,6 +231,14 @@ class ReviewPublishService:
             "priority": request.priority,
         }
 
+        # Intake drafts may carry optional, schema-supported publication
+        # metadata that the general review form does not edit. Preserve it
+        # through the same human-review transaction instead of dropping it.
+        # This is format-neutral: legacy text drafts simply omit these keys.
+        for field_name in ("source_id", "media_format", "transcript"):
+            if field_name in request.draft:
+                evidence_record[field_name] = deepcopy(request.draft[field_name])
+
         schema_errors = [e.message for e in self._get_validator("evidence.schema.json").iter_errors(evidence_record)]
         if schema_errors:
             return PublishResult(schema_errors=schema_errors)

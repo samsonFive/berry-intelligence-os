@@ -69,9 +69,10 @@ def test_sources_are_discoverable_in_existing_source_listing() -> None:
         assert label in response.text
 
 
-def test_source_registration_does_not_require_or_invent_evidence() -> None:
+def test_spoken_word_sources_have_only_the_deliberate_real_evidence_spike() -> None:
     evidence = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR).evidence.list()
-    assert not any(record.get("source_id") in SOURCE_IDS for record in evidence)
+    linked = [record for record in evidence if record.get("source_id") in SOURCE_IDS]
+    assert [record["id"] for record in linked] == ["ev-lucentlands-scaling-blueberry-industry-2025"]
 
 
 def test_domain_pack_keeps_new_sources_as_manual_reference_templates() -> None:
