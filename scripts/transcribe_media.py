@@ -5,7 +5,9 @@ Runs the acquisition hierarchy (publisher transcript -> local speech-to-text
 Tier 1/2/3 rationale and why Tier 2/platform-captions auto-discovery is not
 implemented) for exactly one item already staged by
 scripts/discover_media.py, and writes a normalized transcript record to
-inbox/transcripts/ -- either fully resolved (if --parent-evidence-id is
+inbox/discovered_media/_normalized_transcripts/ (the handoff location
+app.services.media_orchestration's default transcript adapter reads from)
+-- either fully resolved (if --parent-evidence-id is
 given) or "staged" (parent_evidence_id: null, promotable later via
 --resolve-parent).
 

@@ -53,7 +53,10 @@ Every tier produces a raw, provider-specific artifact first (a fetched
 VTT/SRT body for Tier 1/2, or a `raw_speech_to_text_artifact` JSON file for
 Tier 3, both staged under `inbox/discovered_media/_transcripts/`) and only
 *then* normalizes it into the provider-neutral shape
-(`normalize_transcript()`) staged under `inbox/transcripts/`. Provider-
+(`normalize_transcript()`) staged under
+`inbox/discovered_media/_normalized_transcripts/` (the handoff location
+`app.services.media_orchestration`'s default transcript adapter reads
+from). Provider-
 specific fields (engine name, model, device, VTT cue formatting, HTTP
 metadata) live only in the raw artifact and in the normalized record's
 `acquisition` block -- never inside `segments`/`provenance`/`language`,
@@ -194,9 +197,10 @@ def _now_iso() -> str:
 
 # ---------------------------------------------------------------------------
 # staging directories -- reuses media_discovery's public staging_dir(); adds
-# inbox/discovered_media/_media/ (raw audio) and inbox/transcripts/
-# (normalized artifacts, staged or resolved). All gitignored via the
-# project's existing blanket `inbox/` rule -- no .gitignore change needed.
+# inbox/discovered_media/_media/ (raw audio) and
+# inbox/discovered_media/_normalized_transcripts/ (normalized artifacts,
+# staged or resolved). All gitignored via the project's existing blanket
+# `inbox/` rule -- no .gitignore change needed.
 # ---------------------------------------------------------------------------
 
 
@@ -216,9 +220,16 @@ def raw_transcripts_dir(inbox_dir: Path) -> Path:
 
 def transcripts_dir(inbox_dir: Path) -> Path:
     """Normalized TranscriptArtifact-shaped JSON, staged or fully resolved
-    (Phase 13). Deliberately a sibling of `discovered_media/`, not nested
-    inside it -- this is the layer's actual output, not raw intake."""
-    return inbox_dir / "transcripts"
+    (Phase 13). Nested under `discovered_media/_normalized_transcripts/`,
+    filed by bare discovered-item id, to match the handoff location
+    `app.services.media_orchestration.JsonStagedTranscriptAdapter`'s default
+    filesystem adapter already reads from -- discovered independently by
+    Codex's concurrent orchestration work. This is the one deliberate
+    integration fix in this module: the record shape was already
+    `TranscriptArtifact.from_dict()`-compatible and already carried a
+    top-level `item_id` matching that adapter's own identity check; only the
+    directory and filename needed to move to be found by it."""
+    return media_discovery.staging_dir(inbox_dir) / "_normalized_transcripts"
 
 
 def _media_meta_path(inbox_dir: Path, item_id: str) -> Path:
@@ -694,14 +705,14 @@ def normalize_transcript(
 
 
 def write_transcript_artifact(inbox_dir: Path, payload: dict[str, Any]) -> Path:
-    path = transcripts_dir(inbox_dir) / f"{payload['id']}.json"
+    path = transcripts_dir(inbox_dir) / f"{payload['item_id']}.json"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return path
 
 
 def load_transcript_artifact(inbox_dir: Path, item_id: str) -> dict[str, Any] | None:
-    path = transcripts_dir(inbox_dir) / f"transcript-{item_id}.json"
+    path = transcripts_dir(inbox_dir) / f"{item_id}.json"
     if not path.exists():
         return None
     return json.loads(path.read_text(encoding="utf-8"))
@@ -722,7 +733,7 @@ def resolve_parent_evidence(inbox_dir: Path, item_id: str, parent_evidence_id: s
         raise TranscriptionError(f"no staged transcript found for item {item_id!r}")
     payload["parent_evidence_id"] = parent_evidence_id
     payload["record_type"] = "transcript_artifact"
-    path = transcripts_dir(inbox_dir) / f"{payload['id']}.json"
+    path = transcripts_dir(inbox_dir) / f"{payload['item_id']}.json"
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return payload
 
