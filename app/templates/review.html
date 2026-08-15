@@ -61,6 +61,10 @@
         <p>{{ draft.why_it_matters }}</p>
       {% endif %}
     {% endif %}
+    {% if draft.transcript_excerpt %}
+      <h3>Supporting transcript excerpt</h3>
+      <p>{{ draft.transcript_excerpt }}</p>
+    {% endif %}
     {% if draft.suggested_competitors or draft.suggested_varieties %}
       <h3>Suggested entities</h3>
       <p>Companies: {{ draft.suggested_competitors|join(', ') if draft.suggested_competitors else '—' }}</p>

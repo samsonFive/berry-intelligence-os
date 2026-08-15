@@ -34,6 +34,14 @@
         {% if record.artifact_locator.speaker_label %} · speaker label: {{ record.artifact_locator.speaker_label }}{% endif %}
       </dd>
     {% endif %}
+    {% if record.transcript_provenance %}
+      <dt>Transcript provenance</dt>
+      <dd>{{ record.transcript_provenance.method|replace('_',' ')|title }} · {{ record.transcript_provenance.created_by }} · {{ record.transcript_provenance.created_at|us_date }}</dd>
+    {% endif %}
+    {% if record.extraction_provenance %}
+      <dt>Extraction provenance</dt>
+      <dd>{{ record.extraction_provenance.method|replace('_',' ')|title }} · {{ record.extraction_provenance.extracted_by }} · {{ record.extraction_provenance.extracted_at|us_date }}</dd>
+    {% endif %}
     {% if record.media_format %}<dt>Media format</dt><dd>{{ record.media_format|replace('_',' ')|title }}</dd>{% endif %}
     {% if record.transcript %}
       <dt>Transcript</dt>
@@ -54,6 +62,11 @@
     <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
   {% else %}
     <p>{{ record.summary }}</p>
+  {% endif %}
+
+  {% if record.transcript_excerpt %}
+    <h2>Supporting transcript excerpt</h2>
+    <p>{{ record.transcript_excerpt }}</p>
   {% endif %}
 
   <h2>Why it matters</h2>

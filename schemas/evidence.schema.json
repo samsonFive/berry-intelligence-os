@@ -76,6 +76,25 @@
       },
       "$comment": "How a proposed atomic Evidence point was produced. This does not imply approval; reviewed_by/reviewed_at and review_state record the independent human decision."
     },
+    "transcript_provenance": {
+      "type": "object",
+      "required": ["transcript_id", "transcript_sha256", "language", "method", "created_by", "created_at", "segment_indexes"],
+      "properties": {
+        "transcript_id": {"type": "string", "minLength": 1},
+        "transcript_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "language": {"type": "string", "minLength": 1},
+        "method": {"enum": ["publisher_provided", "human_provided", "auto_generated"]},
+        "created_by": {"type": "string", "minLength": 1},
+        "created_at": {"type": "string", "format": "date"},
+        "segment_indexes": {"type": "array", "items": {"type": "integer", "minimum": 0}, "minItems": 1, "uniqueItems": true}
+      },
+      "$comment": "Provenance of the transcript material supporting an atomic Evidence proposal. Kept distinct from extraction_provenance because transcript creation and CI statement extraction may use different methods/providers."
+    },
+    "transcript_excerpt": {
+      "type": "string",
+      "minLength": 1,
+      "$comment": "Exact supporting text from the cited transcript segments, retained for human review. This is raw derived material, not the normalized intelligence statement and not automatically trusted."
+    },
     "reviewed_by": {"type": "string", "minLength": 1},
     "reviewed_at": {"type": "string", "format": "date"},
     "media_format": {
