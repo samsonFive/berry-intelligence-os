@@ -12,27 +12,12 @@
 </section>
 
 {% if signals %}
-  <section class="entity-list">
+  <div class="table-wrap public-index-table"><table class="brief-table"><thead><tr><th>Signal</th><th>Status</th><th>Bottom line</th><th>Support / updated</th></tr></thead><tbody>
     {% for signal in signals %}
-      <article class="card entity-card">
-        <div class="card-header">
-          <span class="badge badge-signal">SIGNAL</span>
-          <span class="badge badge-muted">{{ signal.status|upper }}</span>
-          {% if signal.direction %}<span class="badge badge-muted">{{ signal.direction|upper }}</span>{% endif %}
-          <span class="badge badge-muted">{{ signal.strength|upper }} STRENGTH</span>
-        </div>
-        <h2><a href="/signals/{{ signal.id }}">{{ signal.title }}</a></h2>
-        {% set description_text = signal.description or signal.observation %}
-        {% set description_lines = description_text|as_bullets %}
-        {% if description_lines|length > 1 %}
-          <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-        {% elif description_text %}
-          <p>{{ description_text }}</p>
-        {% endif %}
-        <p class="draft-meta">{{ signal.evidence_ids|length }} supporting evidence{% if signal.last_updated %} · updated {{ signal.last_updated|us_date }}{% elif signal.proposed_at %} · proposed {{ signal.proposed_at|us_date }}{% endif %}</p>
-      </article>
+      {% set description_text = signal.description or signal.observation %}
+      <tr><td><a href="/signals/{{ signal.id }}"><strong>{{ signal.title }}</strong></a></td><td><span class="badge badge-signal">{{ signal.strength|upper }}</span> <span class="badge badge-muted">{{ signal.status|upper }}</span>{% if signal.direction %}<br>{{ signal.direction }}{% endif %}</td><td>{{ description_text|truncate(240) }}</td><td>{{ signal.evidence_ids|length }} evidence{% if signal.last_updated %}<br>{{ signal.last_updated|us_date }}{% elif signal.proposed_at %}<br>{{ signal.proposed_at|us_date }}{% endif %}</td></tr>
     {% endfor %}
-  </section>
+  </tbody></table></div>
 {% else %}
   <p class="empty-state">No signals recorded yet.</p>
 {% endif %}

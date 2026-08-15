@@ -12,19 +12,11 @@
 </section>
 
 {% if recommendations %}
-  <section class="entity-list">
+  <div class="table-wrap public-index-table"><table class="brief-table"><thead><tr><th>Recommendation</th><th>Priority</th><th>Rationale</th><th>Owner / date</th></tr></thead><tbody>
     {% for rec in recommendations %}
-      <article class="card entity-card">
-        <div class="card-header">
-          <span class="badge badge-recommendation">RECOMMENDATION</span>
-          <span class="badge badge-muted">{{ rec.status|upper }}</span>
-          {% if rec.priority %}<span class="badge badge-muted">{{ rec.priority|upper }} PRIORITY</span>{% endif %}
-        </div>
-        <h2><a href="/recommendations/{{ rec.id }}">{{ rec.title }}</a></h2>
-        <p class="draft-meta">{{ rec.action_type|replace('_',' ') }} · {{ rec.reviewer }} · {{ rec.created_at|us_date }}</p>
-      </article>
+      <tr><td><a href="/recommendations/{{ rec.id }}"><strong>{{ rec.title }}</strong></a><br><small>{{ rec.action_type|replace('_',' ') }}</small></td><td><span class="badge badge-recommendation">{{ rec.priority|upper if rec.priority else rec.status|upper }}</span></td><td>{{ rec.rationale|truncate(240) }}</td><td>{{ rec.reviewer }}<br>{{ rec.created_at|us_date }}</td></tr>
     {% endfor %}
-  </section>
+  </tbody></table></div>
 {% else %}
   <p class="empty-state">No recommendations recorded yet.</p>
 {% endif %}

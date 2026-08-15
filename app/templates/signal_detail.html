@@ -22,10 +22,10 @@
   {% set description_text = signal.description or signal.observation %}
   {% set description_lines = description_text|as_bullets %}
   {% if description_lines|length > 1 %}
-    <h2>Observation</h2>
+    <h2>Bottom line</h2>
     <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
   {% elif description_text %}
-    <h2>Observation</h2><p>{{ description_text }}</p>
+    <h2>Bottom line</h2><p>{{ description_text }}</p>
   {% endif %}
 
   {% if signal.why_it_might_matter %}
@@ -38,15 +38,7 @@
     {% endif %}
   {% endif %}
 
-  {% if signal.what_would_confirm_it %}
-    <h2>What would confirm it</h2>
-    <p>{{ signal.what_would_confirm_it }}</p>
-  {% endif %}
-
-  {% if signal.what_would_falsify_it %}
-    <h2>What would falsify it</h2>
-    <p>{{ signal.what_would_falsify_it }}</p>
-  {% endif %}
+  {% if signal.what_would_confirm_it or signal.what_would_falsify_it %}<h2>Decision test</h2><table class="brief-table decision-test"><tbody>{% if signal.what_would_confirm_it %}<tr><th>Confirm</th><td>{{ signal.what_would_confirm_it }}</td></tr>{% endif %}{% if signal.what_would_falsify_it %}<tr><th>Weaken</th><td>{{ signal.what_would_falsify_it }}</td></tr>{% endif %}</tbody></table>{% endif %}
 
   <h2>Linked strategic questions</h2>
   {% if linked_strategic_questions %}
@@ -92,23 +84,7 @@
 
   <h2>Supporting evidence</h2>
   {% if linked_evidence %}
-    <section class="feed feed-compact">
-      {% for item in linked_evidence %}
-        <article class="card source-{{ item.source_type }}">
-          <div class="card-header">
-            <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
-            <time>{{ (item.published_date or item.captured_date)|us_date }}</time>
-          </div>
-          <h3 data-pagefind-weight="1"><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3>
-          {% set summary_lines = item.summary|as_bullets %}
-          {% if summary_lines|length > 1 %}
-            <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-          {% else %}
-            <p>{{ item.summary }}</p>
-          {% endif %}
-        </article>
-      {% endfor %}
-    </section>
+    <div class="table-wrap"><table class="brief-table evidence-link-table"><thead><tr><th>Date</th><th>Evidence</th><th>Source</th></tr></thead><tbody>{% for item in linked_evidence %}<tr><td>{{ (item.published_date or item.captured_date)|us_date }}</td><td data-pagefind-weight="1"><a href="/evidence/{{ item.id }}"><strong>{{ item.title }}</strong></a></td><td>{{ item.source_name or item.source_type|replace('_',' ')|title }}</td></tr>{% endfor %}</tbody></table></div>
   {% else %}
     <p class="empty-state">No evidence linked.</p>
   {% endif %}

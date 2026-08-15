@@ -31,6 +31,23 @@ def test_evidence_detail_page_shows_linked_entities() -> None:
     assert "Example Blue" in response.text
 
 
+def test_public_intelligence_pages_use_compact_bluf_tables() -> None:
+    entity_page = client.get("/entities/company/company-costa-group-holdings").text
+    assert "Bottom line" in entity_page
+    assert 'class="trust-summary bluf-metrics"' in entity_page
+    assert 'class="brief-table evidence-link-table"' in entity_page
+
+    for path in ["/signals", "/assessments", "/recommendations", "/strategic-questions"]:
+        text = client.get(path).text
+        assert 'class="table-wrap public-index-table"' in text
+        assert 'class="brief-table"' in text
+
+    signal_page = client.get("/signals/sig-financial-owners-taking-positions-in-berry-genetics").text
+    assert "Bottom line" in signal_page
+    assert "Decision test" in signal_page
+    assert 'class="brief-table evidence-link-table"' in signal_page
+
+
 def test_evidence_detail_404_for_unknown_id() -> None:
     response = client.get("/evidence/does-not-exist")
     assert response.status_code == 404

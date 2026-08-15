@@ -133,9 +133,9 @@
     {% if not summary_is_redundant %}
       {% set summary_lines = item.summary|as_bullets %}
       {% if summary_lines|length > 1 %}
-        <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+        <ul class="bullet-list">{% for line in summary_lines[:3] %}<li>{{ line|truncate(180) }}</li>{% endfor %}</ul>
       {% else %}
-        <p>{{ item.summary }}</p>
+        <p>{{ item.summary|truncate(280) }}</p>
       {% endif %}
     {% elif item.source_url %}
       <p class="empty-state">No summary available from this source — <a href="{{ item.source_url }}" target="_blank" rel="noopener">read the full article ↗</a></p>
@@ -151,9 +151,9 @@
         <strong>Why it matters</strong>
         {% set why_lines = item.why_it_matters|as_bullets %}
         {% if why_lines|length > 1 %}
-          <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+          <ul class="bullet-list">{% for line in why_lines[:2] %}<li>{{ line|truncate(180) }}</li>{% endfor %}</ul>
         {% else %}
-          <p>{{ item.why_it_matters }}</p>
+          <p>{{ item.why_it_matters|truncate(220) }}</p>
         {% endif %}
       </div>
     {% endif %}

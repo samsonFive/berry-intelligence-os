@@ -366,7 +366,7 @@ def test_landscape_route_excludes_fictional_seed_data() -> None:
 def test_company_page_shows_intelligence_summary_and_portfolio() -> None:
     response = client.get("/entities/company/company-costa-group-holdings")
     assert response.status_code == 200
-    assert "Intelligence touching this record" in response.text
+    assert "Bottom line" in response.text
     assert "Portfolio &amp; network" in response.text or "Portfolio & network" in response.text
     assert "Treat Costa Group Holdings and Driscoll" in response.text
 

@@ -12,19 +12,11 @@
 </section>
 
 {% if assessments %}
-  <section class="entity-list">
+  <div class="table-wrap public-index-table"><table class="brief-table"><thead><tr><th>Assessment</th><th>Status</th><th>Bottom line</th><th>Support</th></tr></thead><tbody>
     {% for assessment in assessments %}
-      <article class="card entity-card">
-        <div class="card-header">
-          <span class="badge badge-assessment">ASSESSMENT</span>
-          <span class="badge badge-muted">{{ assessment.status|upper }}</span>
-          <span class="badge badge-muted">{{ assessment.confidence|upper }} CONFIDENCE</span>
-        </div>
-        <h2><a href="/assessments/{{ assessment.id }}">{{ assessment.title }}</a></h2>
-        <p class="draft-meta">{{ assessment.fact_ids|length }} supporting facts · {{ assessment.reviewer }} · {{ assessment.created_at|us_date }}</p>
-      </article>
+      <tr><td><a href="/assessments/{{ assessment.id }}"><strong>{{ assessment.title }}</strong></a></td><td><span class="badge badge-assessment">{{ assessment.confidence|upper }}</span><br>{{ assessment.status }}</td><td>{{ assessment.rationale|truncate(240) }}</td><td>{{ assessment.fact_ids|length }} facts<br>{{ assessment.created_at|us_date }}</td></tr>
     {% endfor %}
-  </section>
+  </tbody></table></div>
 {% else %}
   <p class="empty-state">No assessments recorded yet.</p>
 {% endif %}

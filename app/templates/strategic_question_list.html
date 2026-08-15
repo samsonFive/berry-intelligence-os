@@ -9,23 +9,11 @@
 </section>
 
 {% if questions %}
-  <section class="entity-list">
+  <div class="table-wrap public-index-table"><table class="brief-table"><thead><tr><th>Question</th><th>Status</th><th>Why it matters</th><th>Evidence</th></tr></thead><tbody>
     {% for sq in questions %}
-      <article class="card entity-card">
-        <div class="card-header">
-          <span class="badge badge-status-{{ sq.status }}">{{ sq.status }}</span>
-        </div>
-        <h2><a href="/strategic-questions/{{ sq.id }}">{{ sq.title }}</a></h2>
-        {% set description_lines = sq.description|as_bullets %}
-        {% if description_lines|length > 1 %}
-          <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-        {% elif sq.description %}
-          <p>{{ sq.description }}</p>
-        {% endif %}
-        <p class="draft-meta">{{ counts.get(sq.id, 0) }} linked evidence</p>
-      </article>
+      <tr><td><a href="/strategic-questions/{{ sq.id }}"><strong>{{ sq.title }}</strong></a></td><td><span class="badge badge-status-{{ sq.status }}">{{ sq.status }}</span></td><td>{{ sq.description|truncate(240) if sq.description else '—' }}</td><td>{{ counts.get(sq.id, 0) }}</td></tr>
     {% endfor %}
-  </section>
+  </tbody></table></div>
 {% else %}
   <p class="empty-state">No strategic questions recorded yet.</p>
 {% endif %}

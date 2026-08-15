@@ -26,9 +26,15 @@
     <dt>Region{{ 's' if regions|length > 1 else '' }}</dt><dd>{{ regions|join(', ') if regions else '—' }}</dd>
   </dl>
 
+  <div class="trust-summary bluf-metrics">
+    <div><strong>{{ evidence_count }}</strong><small>Evidence</small></div>
+    <div><strong>{{ source_count }}</strong><small>Sources</small></div>
+    <div><strong>{{ last_updated|us_date if last_updated else "—" }}</strong><small>Updated</small></div>
+  </div>
+
   {# --- What matters: intelligence objects touching this entity (Phase 1.5B) --- #}
   {% if entity_signals or entity_assessments or entity_recommendations %}
-    <h2>Intelligence touching this record</h2>
+    <h2>Bottom line</h2>
     <ul class="entity-links">
       {% for s in entity_signals %}
         <li><span class="badge badge-signal">SIGNAL</span> <a href="/signals/{{ s.id }}">{{ s.title }}</a> <span class="badge badge-muted">{{ s.status|upper }}</span></li>
@@ -64,7 +70,7 @@
             {% if detail_lines|length > 1 %}
               <ul class="bullet-list">{% for line in detail_lines %}<li>{{ line }}</li>{% endfor %}</ul>
             {% elif item.detail %}
-              <p>{{ item.detail }}</p>
+              <p>{{ item.detail|truncate(220) }}</p>
             {% endif %}
           </div>
         </li>
@@ -181,13 +187,6 @@
     </ul>
   {% endif %}
 
-  <h2>Trust summary</h2>
-  <div class="trust-summary">
-    <div><strong>{{ evidence_count }}</strong><small>Linked evidence</small></div>
-    <div><strong>{{ source_count }}</strong><small>Independent sources</small></div>
-    <div><strong>{{ last_updated|us_date if last_updated else "—" }}</strong><small>Last updated</small></div>
-  </div>
-
   <h2>Facts</h2>
   {% if linked_facts %}
     <ul class="fact-list">
@@ -210,25 +209,9 @@
     <p class="empty-state">No facts published about this entity yet.</p>
   {% endif %}
 
-  <h2>Linked evidence</h2>
+  <h2>Evidence</h2>
   {% if linked_evidence %}
-    <section class="feed feed-compact">
-      {% for item in linked_evidence %}
-        <article class="card source-{{ item.source_type }}">
-          <div class="card-header">
-            <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
-            <time>{{ (item.published_date or item.captured_date)|us_date }}</time>
-          </div>
-          <h3 data-pagefind-weight="1"><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3>
-          {% set item_summary_lines = item.summary|as_bullets %}
-          {% if item_summary_lines|length > 1 %}
-            <ul class="bullet-list">{% for line in item_summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-          {% else %}
-            <p>{{ item.summary }}</p>
-          {% endif %}
-        </article>
-      {% endfor %}
-    </section>
+    <div class="table-wrap"><table class="brief-table evidence-link-table"><thead><tr><th>Date</th><th>Evidence</th><th>Source</th></tr></thead><tbody>{% for item in linked_evidence %}<tr><td>{{ (item.published_date or item.captured_date)|us_date }}</td><td data-pagefind-weight="1"><a href="/evidence/{{ item.id }}"><strong>{{ item.title }}</strong></a></td><td>{{ item.source_name or item.source_type|replace('_',' ')|title }}</td></tr>{% endfor %}</tbody></table></div>
   {% else %}
     <p class="empty-state">No published evidence links to this entity yet.</p>
   {% endif %}

@@ -50,25 +50,12 @@
 <p class="result-count">Showing {{ entities|length }} of {{ total_count }} {{ entity_type|replace('_',' ') }} records</p>
 {% endif %}
 
-<section class="entity-list">
+<div class="table-wrap public-index-table"><table class="brief-table"><thead><tr><th>Name</th><th>Status</th><th>Role / code</th><th>Bottom line</th></tr></thead><tbody>
   {% for entity in entities %}
-    <article class="card entity-card">
-      <div class="card-header">
-        <span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span>
-        {% set code = (entity.attributes or {}).get('selection_code') %}
-        {% if code %}<span class="badge badge-muted">{{ code }}</span>{% endif %}
-      </div>
-      <h2><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a></h2>
-      {% set description_lines = entity.description|as_bullets %}
-      {% if description_lines|length > 1 %}
-        <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-      {% elif entity.description %}
-        <p>{{ entity.description }}</p>
-      {% endif %}
-      {% if entity.roles %}<div class="tags">{% for role in entity.roles %}<span>{{ role }}</span>{% endfor %}</div>{% endif %}
-    </article>
+    {% set code = (entity.attributes or {}).get('selection_code') %}
+    <tr><td><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}"><strong>{{ entity.name }}</strong></a></td><td><span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span></td><td>{{ entity.roles|join(', ') if entity.roles else '—' }}{% if code %}<br><span class="badge badge-muted">{{ code }}</span>{% endif %}</td><td>{{ entity.description|truncate(220) if entity.description else '—' }}</td></tr>
   {% else %}
-    <p class="empty-state">No {{ entity_type|replace('_',' ') }} records match the current filters.</p>
+    <tr><td colspan="4" class="empty-state">No matching records.</td></tr>
   {% endfor %}
-</section>
+</tbody></table></div>
 {% endblock %}

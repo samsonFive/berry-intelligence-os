@@ -319,6 +319,13 @@ strong.level-low{color:#426aa8}
 .brief-table ul{margin:0;padding-left:17px}
 .brief-table li+li{margin-top:5px}
 .brief-table small{color:#6c778b}
+.public-index-table{margin:0 32px 40px;max-width:1200px}
+.public-index-table .brief-table{min-width:760px}
+.evidence-link-table{min-width:680px}
+.evidence-link-table th:first-child{width:100px}
+.decision-test{margin-bottom:18px}
+.decision-test th{width:90px}
+.bluf-metrics{margin:0 0 18px}
 .assessment-brief-table{min-width:920px}
 .assessment-brief-table th:first-child{width:24%}
 .signal-brief-table{min-width:980px}
@@ -371,6 +378,7 @@ strong.level-low{color:#426aa8}
   .priorities{grid-template-columns:repeat(2,1fr)}
   .filters{padding:0 16px 10px}
   .feed,.entity-list{padding-left:16px;padding-right:16px}
+  .public-index-table{margin-left:16px;margin-right:16px}
   .detail-card{margin-left:16px;margin-right:16px}
   .form-row{grid-template-columns:1fr}
   .intake-form,.drafts-list,.banner,.intake-tabs{padding-left:16px;padding-right:16px}

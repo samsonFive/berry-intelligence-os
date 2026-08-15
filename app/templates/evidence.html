@@ -29,7 +29,7 @@
     <dt>Geography</dt><dd>{% set geographies = linked_entities|selectattr('entity_type', 'equalto', 'geography')|list %}{% if geographies %}{% for g in geographies %}{{ g.name }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}—{% endif %}</dd>
   </dl>
 
-  <h2>Summary</h2>
+  <h2>Bottom line</h2>
   {% set summary_lines = record.summary|as_bullets %}
   {% if summary_lines|length > 1 %}
     <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
