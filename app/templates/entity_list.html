@@ -50,12 +50,12 @@
 <p class="result-count">Showing {{ entities|length }} of {{ total_count }} {{ entity_type|replace('_',' ') }} records</p>
 {% endif %}
 
-<div class="table-wrap public-index-table"><table class="brief-table"><thead><tr><th>Name</th><th>Status</th><th>Role / code</th><th>Bottom line</th></tr></thead><tbody>
+<section class="entity-list balanced-card-grid public-card-index">
   {% for entity in entities %}
     {% set code = (entity.attributes or {}).get('selection_code') %}
-    <tr><td><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}"><strong>{{ entity.name }}</strong></a></td><td><span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span></td><td>{{ entity.roles|join(', ') if entity.roles else '—' }}{% if code %}<br><span class="badge badge-muted">{{ code }}</span>{% endif %}</td><td>{{ entity.description|truncate(220) if entity.description else '—' }}</td></tr>
+    <article class="card entity-card"><div class="card-header"><span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span>{% if code %}<span class="badge badge-muted">{{ code }}</span>{% endif %}</div><h2><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a></h2>{% if entity.description %}<p>{{ entity.description|truncate(200) }}</p>{% endif %}{% if entity.roles %}<p class="card-kicker">{{ entity.roles|join(' · ')|upper }}</p>{% endif %}</article>
   {% else %}
-    <tr><td colspan="4" class="empty-state">No matching records.</td></tr>
+    <p class="empty-state">No matching records.</p>
   {% endfor %}
-</tbody></table></div>
+</section>
 {% endblock %}

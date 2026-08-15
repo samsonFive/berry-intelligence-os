@@ -79,17 +79,17 @@
 <section class="landscape-section" id="actors-to-watch" data-brief-section>
   <h2>Competitive Actors to Watch</h2>
   <p class="section-hint">Public coverage and intelligence linkage—not market share or a competitor ranking.</p>
-  <div class="table-wrap"><table class="brief-table"><thead><tr><th>Actor</th><th>Coverage rationale</th><th>Platforms / brands</th><th>Regions</th></tr></thead><tbody>
+  <div class="actor-watch-grid balanced-card-grid">
     {% for row in actors_to_watch %}
-      <tr class="region-aware" data-regions="{{ region_tokens(row.regions) }}"><td><a href="/entities/company/{{ row.entity.id }}"><strong>{{ row.entity.name }}</strong></a><br><span class="badge badge-muted">{{ row.archetype|upper }}</span></td><td>{{ row.why_it_matters }}</td><td>{{ row.brands|join(', ') if row.brands else '—' }}</td><td>{{ row.regions|join(', ') if row.regions else '—' }}</td></tr>
+      <article class="region-aware" data-regions="{{ region_tokens(row.regions) }}"><h3><a href="/entities/company/{{ row.entity.id }}">{{ row.entity.name }}</a></h3>{% if row.archetype %}<p class="card-kicker">{{ row.archetype|upper }}</p>{% endif %}<ul class="metric-bullets"><li>{{ row.signals|length }} linked signal{{ 's' if row.signals|length != 1 else '' }}</li><li>{{ row.evidence_count }} evidence records</li><li>{{ row.varieties|length }} documented varieties</li></ul>{% if row.brands %}<small><strong>Platforms:</strong> {{ row.brands|join(', ') }}</small>{% endif %}{% if row.regions %}<small><strong>Regions:</strong> {{ row.regions|join(', ') }}</small>{% endif %}</article>
     {% endfor %}
-  </tbody></table></div>
+  </div>
 </section>
 
 <section class="landscape-section" id="competitive-pressure" data-brief-section>
   <h2>Where Competition Is Concentrating</h2>
   <p class="section-hint">Documented trait coverage—not superiority, strategy, or market share.</p>
-  <div class="table-wrap"><table class="brief-table"><thead><tr><th>Theme</th><th>Varieties</th><th>Examples</th></tr></thead><tbody>{% for theme in competitive_themes %}<tr><td><strong>{{ theme.label }}</strong></td><td>{{ theme.varieties|length }}</td><td>{{ theme.varieties[:5]|join(', ') }}{% if theme.varieties|length > 5 %} +{{ theme.varieties|length - 5 }}{% endif %}</td></tr>{% endfor %}</tbody></table></div>
+  <div class="pressure-grid">{% for theme in competitive_themes %}<article><h3>{{ theme.label }}</h3><strong>{{ theme.varieties|length }}</strong><small> varieties</small><p>{{ theme.varieties[:5]|join(', ') }}{% if theme.varieties|length > 5 %} +{{ theme.varieties|length - 5 }}{% endif %}</p></article>{% endfor %}</div>
 </section>
 
 <section class="landscape-section" id="regional-briefing" data-brief-section>
@@ -102,7 +102,7 @@
       <div><strong>Actors to watch</strong><p>{{ brief.actors|map(attribute='entity.name')|join(', ') if brief.actors else 'Coverage developing' }}</p></div>
       <div><strong>Varieties / platforms to know</strong><p>{{ brief.varieties|map(attribute='entity.name')|join(', ') if brief.varieties else 'Coverage developing' }}</p></div>
       <div><strong>Competitive pressure</strong><p>{% for theme in brief.themes %}{{ theme.label }} ({{ theme.variety_count }}){% if not loop.last %}, {% endif %}{% else %}Low documented public coverage{% endfor %}</p></div>
-      <div><strong>What deserves attention</strong>{% if brief.attention %}<ul>{% for item in brief.attention %}<li><span class="badge badge-muted">{{ item.type_label|upper }}</span> <a href="{{ item.url }}">{{ item.title }}</a> <small>{{ item.regional_supporting_evidence_count }} region-attributed cited evidence record{{ 's' if item.regional_supporting_evidence_count != 1 else '' }}</small></li>{% endfor %}</ul>{% else %}<p>No region-specific Signal or Assessment has defensible cited-evidence geography.</p>{% endif %}{% if brief.attention_coverage_developing %}<p class="empty-state">Regional synthesis coverage is still developing; unrelated global items are not used as substitutes.</p>{% endif %}</div>
+      <div class="regional-attention"><strong>What deserves attention</strong>{% if brief.attention %}<ul>{% for item in brief.attention %}<li><span class="badge badge-muted">{{ item.type_label|upper }}</span><a href="{{ item.url }}">{{ item.title }}</a><small>{{ item.regional_supporting_evidence_count }} regional evidence record{{ 's' if item.regional_supporting_evidence_count != 1 else '' }}</small></li>{% endfor %}</ul>{% else %}<p>No region-linked Signal or Assessment.</p>{% endif %}{% if brief.attention_coverage_developing %}<p class="empty-state">Coverage developing; no global fillers.</p>{% endif %}</div>
     </div>
     <p class="coverage-gaps"><strong>Coverage gap:</strong> {{ brief.coverage_gap }}</p>
   </article>

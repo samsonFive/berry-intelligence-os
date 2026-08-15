@@ -87,7 +87,7 @@ a{color:#3d5c94}
 .card.source-note{border-left-color:#c0581a}
 
 .card-header{display:flex;justify-content:space-between;align-items:center}
-.badge{font-size:11px;font-weight:800;color:#6544bf;background:#eee8ff;padding:5px 7px;border-radius:5px}
+.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:800;color:#6544bf;background:#eee8ff;padding:5px 7px;border-radius:5px;white-space:nowrap;line-height:1.15}
 .badge-muted{color:#536076;background:#eef1f6}
 .badge-status-active{color:#1c6b42;background:#e2f6e9}
 .badge-status-unverified{color:#8a5a10;background:#fdefd9}
@@ -342,6 +342,18 @@ strong.level-low{color:#426aa8}
 .assessment-card-grid p,.signal-watch-grid p{font-size:12px;line-height:1.45;color:#4f5d72}
 .actor-watch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:12px}
 .actor-watch-grid small{display:block;margin-top:7px;color:#6c778b}
+.balanced-card-grid{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.balanced-card-grid article{min-width:0}
+.card-kicker{margin:3px 0 8px!important;color:#64728a!important;font-size:10px!important;font-weight:800;letter-spacing:.025em;overflow-wrap:anywhere}
+.metric-bullets{margin:8px 0;padding-left:18px;color:#4f5d72;font-size:12px;line-height:1.45}
+.regional-attention ul{margin:8px 0 0;padding-left:20px}
+.regional-attention li{margin:0 0 9px;min-width:0}
+.regional-attention li .badge{margin-right:6px;vertical-align:top}
+.regional-attention li a{overflow-wrap:anywhere}
+.regional-attention li small{display:block;margin:3px 0 0;color:#6c778b}
+.public-card-index .card-header{gap:8px;justify-content:flex-start;flex-wrap:wrap}
+.public-card-index .card-header small{margin-left:auto;color:#6c778b}
+.public-card-index .card p{font-size:12px;line-height:1.45}
 .pressure-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px}
 .pressure-grid strong{font-size:23px;color:#315f9d}
 .regional-brief-panel{border:1px solid #d7e2ef;background:#f8fbff;border-radius:11px;padding:16px}

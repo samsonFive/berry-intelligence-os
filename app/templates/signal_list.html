@@ -12,12 +12,12 @@
 </section>
 
 {% if signals %}
-  <div class="table-wrap public-index-table"><table class="brief-table"><thead><tr><th>Signal</th><th>Status</th><th>Bottom line</th><th>Support / updated</th></tr></thead><tbody>
+  <section class="entity-list balanced-card-grid public-card-index">
     {% for signal in signals %}
       {% set description_text = signal.description or signal.observation %}
-      <tr><td><a href="/signals/{{ signal.id }}"><strong>{{ signal.title }}</strong></a></td><td><span class="badge badge-signal">{{ signal.strength|upper }}</span> <span class="badge badge-muted">{{ signal.status|upper }}</span>{% if signal.direction %}<br>{{ signal.direction }}{% endif %}</td><td>{{ description_text|truncate(240) }}</td><td>{{ signal.evidence_ids|length }} evidence{% if signal.last_updated %}<br>{{ signal.last_updated|us_date }}{% elif signal.proposed_at %}<br>{{ signal.proposed_at|us_date }}{% endif %}</td></tr>
+      <article class="card entity-card"><div class="card-header"><span class="badge badge-signal">{{ signal.strength|upper }}</span><span class="badge badge-muted">{{ signal.status|upper }}</span></div><h2><a href="/signals/{{ signal.id }}">{{ signal.title }}</a></h2>{% if description_text %}<p>{{ description_text|truncate(210) }}</p>{% endif %}<small>{{ signal.evidence_ids|length }} evidence{% if signal.last_updated %} · {{ signal.last_updated|us_date }}{% elif signal.proposed_at %} · {{ signal.proposed_at|us_date }}{% endif %}</small></article>
     {% endfor %}
-  </tbody></table></div>
+  </section>
 {% else %}
   <p class="empty-state">No signals recorded yet.</p>
 {% endif %}

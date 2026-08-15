@@ -37,10 +37,15 @@ def test_public_intelligence_pages_use_compact_bluf_tables() -> None:
     assert 'class="trust-summary bluf-metrics"' in entity_page
     assert 'class="brief-table evidence-link-table"' in entity_page
 
-    for path in ["/signals", "/assessments", "/recommendations", "/strategic-questions"]:
+    for path in ["/assessments", "/recommendations"]:
         text = client.get(path).text
         assert 'class="table-wrap public-index-table"' in text
         assert 'class="brief-table"' in text
+
+    for path in ["/entities/company", "/signals", "/strategic-questions"]:
+        text = client.get(path).text
+        assert 'class="entity-list balanced-card-grid public-card-index"' in text
+        assert 'class="card entity-card"' in text
 
     signal_page = client.get("/signals/sig-financial-owners-taking-positions-in-berry-genetics").text
     assert "Bottom line" in signal_page
