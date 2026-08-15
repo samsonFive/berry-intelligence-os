@@ -30,8 +30,8 @@
     "origin_domain": {"type": "string"},
     "auto_tagged": {"type": "boolean"},
     "review_state": {
-      "enum": ["draft", "in_review", "published"],
-      "$comment": "V2 Phase 1 addition (BL-012, docs/v2/10-BACKLOG.md), optional/additive. The unified review-state vocabulary docs/v2/03-DOMAIN-MODEL.md's Evidence section calls for -- one field meaning the same thing regardless of how a record arrived (manual intake, import package, or Collector), replacing the V1 split between `status` (draft/in_review/published/archived/rejected) and `validated` (a boolean meaningful only for auto_captured records). Not required and not backfilled onto existing records in this task -- see the compatibility-bridge note in ARCHITECTURE.md-equivalent V2 docs: `status`/`validated` remain authoritative and unchanged until the Phase 3 migration maps them onto this field (docs/v2/06-MIGRATION-MAP.md's Evidence review-state mapping)."
+      "enum": ["draft", "in_review", "published", "rejected"],
+      "$comment": "V2 Phase 1 addition (BL-012, docs/v2/10-BACKLOG.md), optional/additive. The unified review-state vocabulary means the same thing regardless of how a record arrived (manual intake, import package, or Collector), replacing the V1 split between status and the auto-capture-only validated boolean. The additive rejected value records an explicit human decision on a proposal; it is not published/trusted Evidence. Not required or backfilled onto historical records; status/validated remain the compatibility bridge until Phase 3."
     },
     "source_tier": {
       "enum": ["tier_1_primary", "tier_2_specialist", "tier_3_corroborating", "low_authority"],
@@ -46,6 +46,38 @@
       "enum": ["low", "medium", "high"],
       "$comment": "V2 Phase 1 addition (BL-012), optional. Confidence in the evidence's information itself, distinct from any fact/assessment later derived from it -- per proposed-schema-enhancements.md P-4."
     },
+    "evidence_role": {
+      "enum": ["publication_artifact", "atomic_evidence"],
+      "$comment": "Optional/additive distinction for long-form and other compound publications. publication_artifact is the whole published item; atomic_evidence is one independently reviewable evidence point derived from a parent Evidence record. Historical Evidence without this field keeps its existing semantics and requires no migration."
+    },
+    "parent_evidence_id": {
+      "type": "string",
+      "pattern": "^ev-[a-z0-9-]+$",
+      "$comment": "The publication artifact from which an atomic Evidence point was derived. This is Evidence-to-Evidence provenance, not a Source relationship and not a replacement for source_id."
+    },
+    "artifact_locator": {
+      "type": "object",
+      "required": ["start_seconds"],
+      "properties": {
+        "start_seconds": {"type": "number", "minimum": 0},
+        "end_seconds": {"type": ["number", "null"], "minimum": 0},
+        "section": {"type": ["string", "null"]},
+        "speaker_label": {"type": ["string", "null"], "$comment": "A publisher/transcript label only; it is deliberately not a Person entity relationship."}
+      },
+      "$comment": "A precise location in the parent artifact or transcript. start_seconds is sufficient for a point citation; end_seconds provides a bounded segment when known."
+    },
+    "extraction_provenance": {
+      "type": "object",
+      "required": ["method", "extracted_by", "extracted_at"],
+      "properties": {
+        "method": {"enum": ["human", "ai_assisted", "automated"]},
+        "extracted_by": {"type": "string", "minLength": 1},
+        "extracted_at": {"type": "string", "format": "date"}
+      },
+      "$comment": "How a proposed atomic Evidence point was produced. This does not imply approval; reviewed_by/reviewed_at and review_state record the independent human decision."
+    },
+    "reviewed_by": {"type": "string", "minLength": 1},
+    "reviewed_at": {"type": "string", "format": "date"},
     "media_format": {
       "enum": ["web_article", "podcast", "video", "conference_video"],
       "$comment": "Audio/Video Intelligence data-model foundation phase, optional and additive. How this Evidence record was published -- orthogonal to `source_type` (source_type is the kind of outlet/document, e.g. 'trade_press' or 'patent_record'; media_format is the physical form that document takes, e.g. a trade-press interview could be a web_article or a podcast). Not backfilled onto existing records: their absence of this field means the format was never explicitly captured, not that they are implicitly 'web_article' -- callers must not assume a default. This is deliberately not a new Entity Type: a podcast or video is a form Evidence takes, the same way an Evidence record is not itself a Source (the publisher/outlet/channel that produced it, tracked separately via `source_id`/`source_name`). The enum is the minimum known set for this phase; extending it later (e.g. a distinct 'newsletter' or 'social_post' format) is an additive schema change, not a redesign."
@@ -78,6 +110,12 @@
       }
     }
   },
+  "allOf": [
+    {
+      "if": {"properties": {"evidence_role": {"const": "atomic_evidence"}}, "required": ["evidence_role"]},
+      "then": {"required": ["parent_evidence_id", "artifact_locator", "extraction_provenance"]}
+    }
+  ],
   "$defs": {
     "priorityValue": {
       "type": "object",

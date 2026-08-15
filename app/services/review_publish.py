@@ -229,13 +229,24 @@ class ReviewPublishService:
             "tags": request.tags,
             "attachments": [],
             "priority": request.priority,
+            "review_state": "published",
+            "reviewed_by": request.reviewer,
+            "reviewed_at": date.today().isoformat(),
         }
 
         # Intake drafts may carry optional, schema-supported publication
         # metadata that the general review form does not edit. Preserve it
         # through the same human-review transaction instead of dropping it.
         # This is format-neutral: legacy text drafts simply omit these keys.
-        for field_name in ("source_id", "media_format", "transcript"):
+        for field_name in (
+            "source_id",
+            "media_format",
+            "transcript",
+            "evidence_role",
+            "parent_evidence_id",
+            "artifact_locator",
+            "extraction_provenance",
+        ):
             if field_name in request.draft:
                 evidence_record[field_name] = deepcopy(request.draft[field_name])
 

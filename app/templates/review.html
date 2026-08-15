@@ -247,6 +247,19 @@
         <button type="submit">Publish</button>
       </div>
     </form>
+    <form class="intake-form" style="padding:16px 0 0;max-width:none" action="/review/{{ draft.id }}/reject" method="post">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="reject_reviewer">Reviewer *</label>
+          <input id="reject_reviewer" name="reviewer" type="text" required>
+        </div>
+        <div class="form-field">
+          <label for="rejection_reason">Rejection reason *</label>
+          <input id="rejection_reason" name="rejection_reason" type="text" required>
+        </div>
+      </div>
+      <div class="form-actions"><button type="submit">Reject proposal</button></div>
+    </form>
   </section>
 </div>
 {% endif %}

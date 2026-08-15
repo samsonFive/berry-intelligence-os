@@ -565,6 +565,15 @@ def list_drafts() -> list[dict[str, Any]]:
     return sorted(records, key=lambda r: r.get("captured_date", ""), reverse=True)
 
 
+def list_pending_drafts() -> list[dict[str, Any]]:
+    """Active review queue only; list_drafts() remains the complete audit set.
+
+    Static leak checks and duplicate detection must still see rejected drafts,
+    even though an explicit decision removes them from the active queue.
+    """
+    return [record for record in list_drafts() if record.get("status", "draft") != "rejected"]
+
+
 def get_draft(draft_id: str) -> dict[str, Any] | None:
     path = INBOX_DIR / "evidence" / f"{draft_id}.json"
     if not path.exists():
@@ -1594,7 +1603,7 @@ def work_queue(request: Request) -> HTMLResponse:
         name="work_queue.html",
         context={
             "recent_evidence": evidence[:5],
-            "drafts": list_drafts(),
+            "drafts": list_pending_drafts(),
             "unresolved_entities": unresolved_entities(),
             "high_priority": high_priority[:5],
             "recent_signals": all_signals()[:5],
@@ -2642,6 +2651,8 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
     draft = get_draft(draft_id)
     if draft is None:
         raise HTTPException(status_code=404, detail="Draft not found")
+    if draft.get("status") == "rejected":
+        raise HTTPException(status_code=400, detail="Rejected drafts cannot be published")
 
     form = await request.form()
 
@@ -2821,6 +2832,38 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
         )
 
     return RedirectResponse(url=f"/evidence/{result.evidence_id}", status_code=303)
+
+
+@app.post("/review/{draft_id}/reject")
+def review_reject(
+    draft_id: str,
+    reviewer: str = Form(""),
+    rejection_reason: str = Form(""),
+) -> RedirectResponse:
+    """Record an independent human rejection without publishing Evidence.
+
+    Rejected proposals stay in inbox as audit material but leave the active
+    queue. No parent artifact, sibling proposal, Entity, Fact, or trusted
+    Evidence record is changed.
+    """
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Rejecting drafts is only available in authoring mode")
+    draft = get_draft(draft_id)
+    if draft is None:
+        raise HTTPException(status_code=404, detail="Draft not found")
+    if not reviewer.strip() or not rejection_reason.strip():
+        raise HTTPException(status_code=400, detail="Reviewer and rejection reason are required")
+    draft.update(
+        {
+            "status": "rejected",
+            "review_state": "rejected",
+            "reviewed_by": reviewer.strip(),
+            "reviewed_at": date.today().isoformat(),
+            "rejection_reason": rejection_reason.strip(),
+        }
+    )
+    save_draft(draft)
+    return RedirectResponse(url="/review", status_code=303)
 
 
 @app.get("/api/feed")

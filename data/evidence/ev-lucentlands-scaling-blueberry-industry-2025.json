@@ -34,6 +34,7 @@
   "validated": true,
   "source_id": "source-lucentlands-podcast",
   "origin_domain": "podcasts.apple.com",
+  "evidence_role": "publication_artifact",
   "media_format": "podcast",
   "transcript": {
     "status": "not_available"
