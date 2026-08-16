@@ -477,6 +477,32 @@ def test_resolved_transcript_matches_transcript_artifact_contract(tmp_path: Path
     assert len(artifact.segments) == 2
 
 
+def test_resolving_parent_evidence_does_not_retranscribe(tmp_path: Path, monkeypatch) -> None:
+    """Phase 21 item 14: binding a staged transcript to a real parent
+    Evidence id is a pure metadata promotion -- it must never re-invoke the
+    transcription provider or change the already-produced segments/cache
+    key. `resolve_parent_evidence()` only reads and rewrites the normalized
+    JSON file; it never touches `transcribe_media()`'s raw STT cache at
+    all, so the provider call count staying at exactly 1 (from the original
+    transcription) proves no retranscription occurred."""
+    item = _discovered_item()
+    _mock_audio_get(monkeypatch)
+    provider = _FakeProvider()
+    inbox_dir = tmp_path / "inbox"
+
+    first_outcome = mt.transcribe_discovered_item(inbox_dir, item, provider_factory=lambda: provider, parent_evidence_id=None)
+    assert len(provider.calls) == 1
+    raw_cache_key_before = json.loads((mt.raw_transcripts_dir(inbox_dir) / f"stt-{item['id']}.json").read_text(encoding="utf-8"))["cache_key"]
+
+    resolved = mt.resolve_parent_evidence(inbox_dir, item["id"], PARENT_EVIDENCE_ID)
+
+    assert len(provider.calls) == 1  # provider never called a second time
+    raw_cache_key_after = json.loads((mt.raw_transcripts_dir(inbox_dir) / f"stt-{item['id']}.json").read_text(encoding="utf-8"))["cache_key"]
+    assert raw_cache_key_after == raw_cache_key_before  # raw STT cache entirely untouched
+    assert first_outcome.status == "ok"
+    assert len(resolved["segments"]) == 2  # same segments the original (only) transcription produced
+
+
 def test_transcribe_discovered_item_with_parent_upfront_matches_contract_immediately(tmp_path: Path, monkeypatch) -> None:
     item = _discovered_item()
     _mock_audio_get(monkeypatch)

@@ -2540,6 +2540,20 @@
       "update_cadence": "event_driven",
       "default_active": true,
       "notes": "First-party video channel of the University of Arkansas System Division of Agriculture, carrying the annual Blackberry Field Day recap and AAES 'Behind the Discovery' researcher features (e.g. Amanda McWhirt's blackberry production/trellising work) interleaved with the Division's much broader general Extension outreach content."
+    },
+    {
+      "id": "source-comite-de-arandanos-de-chile-youtube",
+      "collector_type": "reference_manual",
+      "label": "Comité de Arándanos de Chile (YouTube)",
+      "query_or_url": "https://www.youtube.com/channel/UCIlsT5-0R2dIjtn95dW7Irg",
+      "url": "https://www.youtube.com/channel/UCIlsT5-0R2dIjtn95dW7Irg",
+      "geography_focus": ["south_america"],
+      "entity_coverage": ["trade_association"],
+      "berry_coverage": ["berry-blueberry"],
+      "monitoring_priority": "medium",
+      "update_cadence": "event_driven",
+      "default_active": true,
+      "notes": "First-party YouTube channel of the Comité de Arándanos de Chile -- a small (8-video) 2014-2015 catalogue of first-party harvest/packing training material. Onboarded as this feature's real, live Tier-3 (no-usable-captions) proof source; see feature/youtube-tier3-whisper-proof's report."
     }
   ]
 }

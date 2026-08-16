@@ -229,7 +229,7 @@ def test_all_live_sources_accounted_for() -> None:
     templates = data["collector_templates"]
     excluded = data.get("excluded", [])
     sources = json.loads((ROOT / "data" / "configuration" / "sources.json").read_text(encoding="utf-8"))
-    assert len(sources) == 124
+    assert len(sources) == 125
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}
