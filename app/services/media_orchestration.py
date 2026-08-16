@@ -482,6 +482,8 @@ class MediaOrchestrationService:
             "duplicates": len(extracted.duplicates),
             "invalid": len(extracted.invalid),
             "proposal_ids": list(extracted.accepted),
+            "provider_metrics": extracted.provider_metrics,
+            "provider_errors": extracted.provider_errors,
         }
         if extracted.accepted:
             next_action = "Review the atomic Evidence proposals in inbox/evidence/."

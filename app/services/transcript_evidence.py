@@ -171,6 +171,8 @@ class ExtractionRunResult:
     accepted: list[str] = field(default_factory=list)
     duplicates: list[str] = field(default_factory=list)
     invalid: list[str] = field(default_factory=list)
+    provider_metrics: dict[str, Any] = field(default_factory=dict)
+    provider_errors: list[str] = field(default_factory=list)
 
 
 class StructuredCandidateProvider:
@@ -232,7 +234,23 @@ class TranscriptEvidenceExtractionService:
         raw_candidates = self._provider.extract(ExtractionRequest(transcript=transcript, parent_evidence=parent))
         if not isinstance(raw_candidates, list):
             raise TranscriptContractError("extractor output must be a list")
-        result = ExtractionRunResult(candidates_found=len(raw_candidates))
+        provider_report = getattr(self._provider, "last_run_report", None)
+        provider_metrics: dict[str, Any] = {}
+        provider_errors: list[str] = []
+        if provider_report is not None:
+            if hasattr(provider_report, "as_dict"):
+                provider_metrics = provider_report.as_dict()
+            elif isinstance(provider_report, dict):
+                provider_metrics = dict(provider_report)
+            raw_errors = getattr(provider_report, "errors", None)
+            if isinstance(raw_errors, (list, tuple)):
+                provider_errors = [str(error) for error in raw_errors]
+        result = ExtractionRunResult(
+            candidates_found=len(raw_candidates),
+            provider_metrics=provider_metrics,
+            provider_errors=provider_errors,
+        )
+        result.invalid.extend(f"provider: {error}" for error in provider_errors)
         for index, raw in enumerate(raw_candidates):
             try:
                 proposal = self._proposal(transcript, parent, raw)
@@ -301,6 +319,17 @@ class TranscriptEvidenceExtractionService:
             raise TranscriptContractError("berry_ids must resolve to berry entities")
 
         proposal_id = _proposal_id(transcript.parent_evidence_id, locator, statement)
+        extraction_provenance = {
+            "method": self._provider.method,
+            "extracted_by": self._provider.name,
+            "extracted_at": self._today().isoformat(),
+        }
+        provider_provenance = getattr(self._provider, "provenance", None)
+        if isinstance(provider_provenance, dict):
+            for field_name in ("provider", "model", "prompt_version"):
+                value = provider_provenance.get(field_name)
+                if isinstance(value, str) and value:
+                    extraction_provenance[field_name] = value
         proposal = {
             "id": proposal_id,
             "record_type": "evidence",
@@ -330,11 +359,7 @@ class TranscriptEvidenceExtractionService:
             "evidence_role": "atomic_evidence",
             "parent_evidence_id": transcript.parent_evidence_id,
             "artifact_locator": locator,
-            "extraction_provenance": {
-                "method": self._provider.method,
-                "extracted_by": self._provider.name,
-                "extracted_at": self._today().isoformat(),
-            },
+            "extraction_provenance": extraction_provenance,
             "transcript_provenance": {
                 "transcript_id": transcript.transcript_id,
                 "transcript_sha256": transcript.content_sha256(),

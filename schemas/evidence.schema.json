@@ -72,7 +72,10 @@
       "properties": {
         "method": {"enum": ["human", "ai_assisted", "automated"]},
         "extracted_by": {"type": "string", "minLength": 1},
-        "extracted_at": {"type": "string", "format": "date"}
+        "extracted_at": {"type": "string", "format": "date"},
+        "provider": {"type": "string", "minLength": 1},
+        "model": {"type": "string", "minLength": 1},
+        "prompt_version": {"type": "string", "minLength": 1}
       },
       "$comment": "How a proposed atomic Evidence point was produced. This does not imply approval; reviewed_by/reviewed_at and review_state record the independent human decision."
     },
