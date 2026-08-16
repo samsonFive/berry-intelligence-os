@@ -28,24 +28,30 @@ an equivalent "staged transcript" (same segments/provenance, but
    the publisher's own feed already declared via the Podcasting 2.0
    `<podcast:transcript>` tag -- no scraping, no guessing), then normalizes
    the fetched WebVTT/SRT body into timed segments here.
-2. Tier 2 -- platform captions/subtitles: this phase implements
-   *normalization only* (`normalize_platform_captions()`), given an
-   already-legitimately-obtained captions document (e.g. a human operator
-   downloads the platform's own official caption file by hand). It does
-   NOT implement automated platform search/discovery (e.g. "find this
-   episode on YouTube and pull its captions") -- that would require either
-   API credentials (prohibited by this task) or scraping a platform's pages
-   (also prohibited). `transcribe_discovered_item()` therefore only reaches
-   Tier 2 when the caller supplies a captions document directly; absent
-   that, an item whose `transcript_availability.status` is
-   `platform_captions` falls through to Tier 3, exactly like
-   `not_detected`/`unknown` -- never silently, always recorded in the
-   returned `TranscriptionOutcome.tier`.
-3. Tier 3 -- local speech-to-text: downloads the item's audio enclosure
-   (`acquire_media()`) and transcribes it locally with a
-   `TranscriptionProvider` (`FasterWhisperProvider` by default -- see
-   below). Only reached when neither Tier 1 nor an already-supplied Tier 2
-   document is usable.
+2. Tier 2 -- platform captions/subtitles: `normalize_platform_captions()`
+   remains the generic normalization entry point for an already-obtained
+   captions document (e.g. a human operator downloads a platform's official
+   caption file by hand). For YouTube specifically,
+   `transcribe_discovered_item()` now also reaches Tier 2 *automatically*
+   for any item `app/services/youtube_media_acquisition.py` recognizes as a
+   YouTube item (`raw_metadata.yt_video_id` present, populated only by
+   `media_discovery.py`'s `youtube_feed` adapter) -- via yt-dlp's public,
+   credential-free video-info API, never scraping, never OAuth/API
+   credentials. See `youtube_media_acquisition.py`'s module docstring for
+   the full caption-hierarchy/language-selection/cache rationale. For every
+   other platform (or a YouTube item with no usable, confidently-sourced
+   caption track), Tier 2 is a no-op and the item falls through to Tier 3,
+   exactly like `not_detected`/`unknown` -- never silently, always recorded
+   in the returned `TranscriptionOutcome.tier`.
+3. Tier 3 -- local speech-to-text: downloads the item's audio (its RSS
+   enclosure via `acquire_media()`, or -- for a YouTube item -- its best
+   publicly accessible audio-only stream via
+   `youtube_media_acquisition.acquire_youtube_audio()`, dispatched
+   generically by `raw_metadata.yt_video_id`, never by source_id) and
+   transcribes it locally with a `TranscriptionProvider`
+   (`FasterWhisperProvider` by default -- see below), the *same* Whisper
+   integration regardless of where the audio came from. Only reached when
+   neither Tier 1 nor Tier 2 produced a usable transcript/captions.
 
 ## Raw vs. normalized boundary (Phase 3)
 
@@ -833,6 +839,88 @@ def _run_tier1(
     )
 
 
+def _is_youtube_item(item: dict[str, Any]) -> bool:
+    """Cheap, local field check -- deliberately does NOT import
+    `youtube_media_acquisition` (and therefore never requires yt-dlp to be
+    importable) just to answer this question; that module is only imported,
+    lazily, inside the two functions below, and only once an item is
+    already known to need it. Kept in sync with
+    `youtube_media_acquisition.youtube_video_id()`'s own definition of this
+    signal (`raw_metadata.yt_video_id`, populated only by
+    `media_discovery.py`'s `youtube_feed` adapter -- never source_id)."""
+    raw = item.get("raw_metadata") or {}
+    video_id = raw.get("yt_video_id")
+    return isinstance(video_id, str) and bool(video_id.strip())
+
+
+def _run_tier2_youtube_captions(
+    inbox_dir: Path,
+    item: dict[str, Any],
+    *,
+    language: str | None,
+    parent_evidence_id: str | None,
+    created_by: str | None,
+    force: bool,
+    today: Callable[[], date],
+    caption_info_fetcher: Callable[[str], dict[str, Any]] | None,
+    caption_downloader: Callable[[str], str] | None,
+) -> TranscriptionOutcome | None:
+    """Returns None (not a failure) whenever no legitimate YouTube caption
+    result is available -- caller falls through to Tier 3, exactly like
+    `_run_tier1`'s own None-return convention for a missing publisher
+    transcript."""
+    from app.services import youtube_media_acquisition as yt_acq
+
+    result = yt_acq.fetch_captions(
+        inbox_dir,
+        item,
+        language=language,
+        force=force,
+        info_fetcher=caption_info_fetcher,
+        downloader=caption_downloader,
+    )
+    if result is None:
+        return None
+
+    acquisition = {
+        "tier": result.tier,
+        "media_url": None,
+        "source_url": result.source_url,
+        "video_id": yt_acq.youtube_video_id(item),
+        "caption_kind": result.caption_kind,
+        "raw_artifact_checksum_sha256": result.checksum_sha256,
+        "cache_hit": result.cache_hit,
+        "engine": None,
+        "model": None,
+        "device": None,
+    }
+    payload = normalize_transcript(
+        item=item,
+        segments=result.segments,
+        language=result.language,
+        method=result.method,
+        created_by=created_by or result.created_by,
+        created_at=today().isoformat(),
+        parent_evidence_id=parent_evidence_id,
+        acquisition=acquisition,
+    )
+    diagnostics = compute_diagnostics(payload["segments"], media_duration_seconds=item.get("duration_seconds"))
+    payload["diagnostics"] = diagnostics
+    output_path = write_transcript_artifact(inbox_dir, payload)
+    return TranscriptionOutcome(
+        status="ok",
+        tier=result.tier,
+        cache_hit=result.cache_hit,
+        output_path=output_path,
+        segment_count=len(payload["segments"]),
+        detected_language=result.language,
+        media_duration_seconds=item.get("duration_seconds"),
+        transcript_duration_seconds=diagnostics["transcript_end_seconds"],
+        parent_evidence_id=parent_evidence_id,
+        diagnostics=diagnostics,
+    )
+
+
 def _run_tier3(
     inbox_dir: Path,
     item: dict[str, Any],
@@ -845,8 +933,21 @@ def _run_tier3(
     provider_factory: Callable[[], TranscriptionProvider] | None,
     force: bool,
     today: Callable[[], date],
+    youtube_audio_info_fetcher: Callable[[str], dict[str, Any]] | None = None,
+    youtube_audio_downloader: Callable[[str], tuple[bytes, str | None]] | None = None,
 ) -> TranscriptionOutcome:
-    acquired = acquire_media(inbox_dir, item, force=force)
+    if _is_youtube_item(item):
+        from app.services import youtube_media_acquisition as yt_acq
+
+        acquired = yt_acq.acquire_youtube_audio(
+            inbox_dir,
+            item,
+            force=force,
+            info_fetcher=youtube_audio_info_fetcher,
+            downloader=youtube_audio_downloader,
+        )
+    else:
+        acquired = acquire_media(inbox_dir, item, force=force)
     provider = (provider_factory or (lambda: FasterWhisperProvider(model=model, device=device)))()
     raw_artifact, cache_hit = transcribe_media(
         inbox_dir,
@@ -912,14 +1013,27 @@ def transcribe_discovered_item(
     provider_factory: Callable[[], TranscriptionProvider] | None = None,
     force: bool = False,
     today: Callable[[], date] = date.today,
+    caption_info_fetcher: Callable[[str], dict[str, Any]] | None = None,
+    caption_downloader: Callable[[str], str] | None = None,
+    youtube_audio_info_fetcher: Callable[[str], dict[str, Any]] | None = None,
+    youtube_audio_downloader: Callable[[str], tuple[bytes, str | None]] | None = None,
 ) -> TranscriptionOutcome:
-    """Single-item orchestration (Phase 16): Tier 1 -> Tier 3 in that order
-    (Tier 2 is reached only through `normalize_platform_captions()` called
-    directly by a caller that already holds a captions document -- see
-    module docstring). Never raises for an expected operational failure --
-    returns `TranscriptionOutcome(status="error", ...)` instead. A missing
-    `parent_evidence_id` is never a failure (Phase 12): the result is a
-    valid staged transcript."""
+    """Single-item orchestration (Phase 16): Tier 1 -> Tier 2 -> Tier 3 in
+    that order. Tier 2 is reached automatically only for an item
+    `youtube_media_acquisition.is_youtube_item()` recognizes (never by
+    source_id) -- for every other item it remains reachable only through
+    `normalize_platform_captions()` called directly by a caller that already
+    holds a captions document, exactly as before (see module docstring).
+    `caption_info_fetcher`/`caption_downloader` (Tier 2) and
+    `youtube_audio_info_fetcher`/`youtube_audio_downloader` (Tier 3's
+    YouTube-audio branch) exist solely so tests can inject fakes at the
+    yt-dlp/HTTP boundary without touching the network; all four default to
+    the real yt-dlp-backed implementation when omitted -- irrelevant for a
+    non-YouTube item, which never constructs or imports
+    `youtube_media_acquisition` at all. Never raises for an expected
+    operational failure -- returns `TranscriptionOutcome(status="error",
+    ...)` instead. A missing `parent_evidence_id` is never a failure (Phase
+    12): the result is a valid staged transcript."""
     availability = item.get("transcript_availability") or {}
     status_value = availability.get("status")
     acquisition_errors = (MediaAcquisitionError, TranscriptionDependencyError, TranscriptionError, RawTranscriptParseError)
@@ -930,6 +1044,19 @@ def transcribe_discovered_item(
             outcome = _run_tier1(inbox_dir, item, parent_evidence_id=parent_evidence_id, created_by=created_by, today=today)
         except acquisition_errors as exc:
             return TranscriptionOutcome(status="error", error=str(exc), tier="tier_1_publisher_transcript", parent_evidence_id=parent_evidence_id)
+
+    if outcome is None and _is_youtube_item(item):
+        outcome = _run_tier2_youtube_captions(
+            inbox_dir,
+            item,
+            language=language,
+            parent_evidence_id=parent_evidence_id,
+            created_by=created_by,
+            force=force,
+            today=today,
+            caption_info_fetcher=caption_info_fetcher,
+            caption_downloader=caption_downloader,
+        )
 
     if outcome is not None:
         return outcome
@@ -946,6 +1073,8 @@ def transcribe_discovered_item(
             provider_factory=provider_factory,
             force=force,
             today=today,
+            youtube_audio_info_fetcher=youtube_audio_info_fetcher,
+            youtube_audio_downloader=youtube_audio_downloader,
         )
     except acquisition_errors as exc:
         return TranscriptionOutcome(status="error", error=str(exc), tier="tier_3_local_speech_to_text", parent_evidence_id=parent_evidence_id)

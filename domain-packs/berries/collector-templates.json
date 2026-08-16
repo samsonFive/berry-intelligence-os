@@ -2526,6 +2526,20 @@
       "update_cadence": "event_driven",
       "default_active": true,
       "notes": "First-party field and executive coverage from Latin American farms and agribusinesses surfaces grower operations, varietal renewal, packing, technology, investment and market conditions, especially in Peru and Chile."
+    },
+    {
+      "id": "source-university-of-arkansas-division-of-agriculture",
+      "collector_type": "reference_manual",
+      "label": "University of Arkansas System Division of Agriculture (YouTube)",
+      "query_or_url": "https://www.youtube.com/@AginArk",
+      "url": "https://www.youtube.com/@AginArk",
+      "geography_focus": ["north_america"],
+      "entity_coverage": ["academic_journal", "breeding_program"],
+      "berry_coverage": ["berry-blackberry", "berry-blueberry"],
+      "monitoring_priority": "medium",
+      "update_cadence": "event_driven",
+      "default_active": true,
+      "notes": "First-party video channel of the University of Arkansas System Division of Agriculture, carrying the annual Blackberry Field Day recap and AAES 'Behind the Discovery' researcher features (e.g. Amanda McWhirt's blackberry production/trellising work) interleaved with the Division's much broader general Extension outreach content."
     }
   ]
 }
