@@ -22,30 +22,39 @@ ARCHITECTURE.md` "Intake and the inbox").
 
 ## Architecture: one generic adapter mechanism, not a Lucentlands-specific one
 
-A `MediaDiscoveryAdapter` is a `(fetch, normalize)` function pair keyed by an
-`adapter type` string (currently only `"podcast_rss"`). Which adapter type a
-given Source uses, and that adapter's configuration (e.g. its feed URL), is
-read from that Source's own record in `data/configuration/sources.json` --
-an optional `discovery` object (`{"adapter": "podcast_rss", "feed_url":
-"..."}`)  -- not hardcoded per source_id in this module. Registering a
-*second* podcast RSS source therefore requires zero code changes: add the
-same `discovery` block, pointing at that show's own feed, to that source's
-registry entry. `source-lucentlands-podcast` is the only source with a
-`discovery` block populated today (the "one generic adapter, Lucentlands
-only" instruction for this phase); `source-business-of-blueberries-podcast`
-and `source-redagricola-on-the-road` were deliberately left without one --
-see this module's companion report for why extending to them was not
-attempted in this phase (an unverified feed URL is worse than none).
+A `MediaDiscoveryAdapter` is a `(fetch, list_entries, normalize)` function
+triple keyed by an `adapter type` string -- `"podcast_rss"` (any podcast
+RSS/Atom feed) and `"youtube_feed"` (any public YouTube channel/playlist
+Atom feed, `https://www.youtube.com/feeds/videos.xml?channel_id=...` or
+`?playlist_id=...`, no API key or credentials required) as of the
+spoken-word-source-expansion phase. Which adapter type a given Source uses,
+and that adapter's configuration (its feed URL(s)), is read from that
+Source's own record in `data/configuration/sources.json` -- an optional
+`discovery` object (`{"adapter": "podcast_rss", "feed_url": "..."}`, or
+`{"adapter": ..., "feed_urls": [...]}` for a source whose content spans more
+than one feed -- see `discover_source()`) -- not hardcoded per source_id in
+this module. Registering a *second* source on an adapter type that already
+exists therefore requires zero code changes: add the same shape of
+`discovery` block, pointing at that show's own feed(s), to that source's
+registry entry. `source-lucentlands-podcast` and
+`source-business-of-blueberries-podcast` both use `podcast_rss` (with zero
+adapter code changes between them -- see this module's companion report for
+the real, verified comparison); `source-redagricola-on-the-road` uses
+`youtube_feed`, since "Redagricola On The Road" resolves to a YouTube-native
+video series (two per-country playlists), not an RSS podcast. New adapter
+types are added only for a genuinely new publication technology, never for
+a new publisher on an existing one.
 
 ## Dedupe / idempotency
 
 Every normalized item gets a durable identity via `_dedupe_identity()`,
-preferring (in order) a publisher/feed GUID, a platform-native item id (not
-yet exercised by any adapter in this phase), a normalized canonical URL,
-and finally a hash of normalized title+published_date as a last resort.
-The staging record's filename is derived from that identity, never from
-title -- so a publisher correcting a typo in an episode title on a later
-poll does not create a second logical item (`upsert_discovered_item()`
+preferring (in order) a publisher/feed GUID, a platform-native item id
+(exercised by the youtube_feed adapter, which populates `platform_item_id`
+with YouTube's own video id rather than a feed GUID), a normalized
+canonical URL, and finally a hash of normalized title+published_date as a
+last resort. The staging record's filename is derived from that identity,
+never from title -- so a publisher correcting a typo in an episode title on
+a later poll does not create a second logical item (`upsert_discovered_item()`
 below updates the existing record's mutable fields in place instead).
 
 ## Reconciliation, not import
@@ -311,6 +320,105 @@ def _normalize_podcast_rss_entry(entry: Any) -> NormalizedItem:
     )
 
 
+# ---------------------------------------------------------------------------
+# youtube_feed adapter -- YouTube's own public, credential-free channel/
+# playlist Atom feeds (`https://www.youtube.com/feeds/videos.xml?channel_id=
+# ...` or `?playlist_id=...`; verified 2026-08-15 against the real
+# Redagricola channel and its "Redagricola On The Road TV" playlists --
+# see this module's companion report). No API key, no OAuth, no scraping:
+# these are the same public Atom feeds YouTube has served for its
+# subscription/RSS-reader integration for years.
+#
+# Fetching and listing entries is identical to podcast_rss (an HTTP GET
+# followed by feedparser.parse(), then that parsed feed's `.entries`) --
+# feedparser handles YouTube's Atom shape (including its `yt:` namespace)
+# natively, so `_fetch_podcast_rss`/`_podcast_rss_entries` are reused as-is
+# here rather than duplicated; only *normalization* differs per adapter
+# type, per this module's "one generic adapter mechanism" architecture.
+# ---------------------------------------------------------------------------
+
+
+def _detect_youtube_transcript_availability(entry: Any) -> dict[str, Any]:
+    """Unlike podcast_rss's `<podcast:transcript>` tag, YouTube's public
+    channel/playlist Atom feed carries no caption/transcript signal at all
+    -- there is no credential-free, non-scraping way to learn caption
+    availability from this feed alone (the video *page* exposes a caption
+    track list, but fetching and parsing that page is exactly the fragile,
+    publisher-hostile scraping this module's docstring rules out as a
+    mechanism). Reporting TRANSCRIPT_NOT_DETECTED here would be a false
+    claim of a check that was never performed; TRANSCRIPT_UNKNOWN (defined
+    alongside TRANSCRIPT_PLATFORM_CAPTIONS at the top of this module,
+    reserved for exactly this case since before any adapter used it) is the
+    only honest answer. A caller that separately confirms captions exist
+    (e.g. by inspecting the actual video page) is expected to use
+    TRANSCRIPT_PLATFORM_CAPTIONS for that -- and, per this module's
+    docstring, must never treat auto-generated captions as a trusted,
+    publisher-authored transcript."""
+    return {"status": TRANSCRIPT_UNKNOWN, "checked_at": _now_iso(), "url": None, "language": None}
+
+
+def _normalize_youtube_feed_entry(entry: Any) -> NormalizedItem:
+    title = _strip_html(getattr(entry, "title", "") or "(untitled)")
+    description = _strip_html(getattr(entry, "summary", ""))[:4000]
+    canonical_url = getattr(entry, "link", None) or None
+
+    # `yt:videoId` is YouTube's own stable, platform-native identifier for
+    # this upload -- distinct from the feed entry's Atom `<id>` (which is
+    # merely `yt:video:<videoId>`, a derived value, not a separate
+    # publisher-declared GUID) and from `canonical_url` (whose query string
+    # this module's generic `_normalize_url_for_dedupe()` helper would
+    # actually strip, making the URL alone unsuitable as a fallback dedupe
+    # key for every video sharing the same `/watch` path -- exactly why the
+    # dedupe hierarchy's video-id-first preference is a correctness
+    # requirement here, not just a stylistic choice). Populating
+    # `platform_item_id` (not `external_id`) is what makes `_dedupe_identity()`
+    # select DEDUPE_STRATEGY_PLATFORM_ID for every youtube_feed item.
+    video_id = getattr(entry, "yt_videoid", None) or None
+
+    published_parsed = getattr(entry, "published_parsed", None) or getattr(entry, "updated_parsed", None)
+    published_date = None
+    if published_parsed:
+        try:
+            published_date = datetime(*published_parsed[:6], tzinfo=timezone.utc).date().isoformat()
+        except (TypeError, ValueError):
+            published_date = None
+
+    transcript_availability = _detect_youtube_transcript_availability(entry)
+
+    raw_metadata = {
+        "yt_video_id": video_id,
+        "yt_channel_id": getattr(entry, "yt_channelid", None),
+        "feed_entry_id": getattr(entry, "id", None),
+        "raw_title": getattr(entry, "title", None),
+        "raw_published": getattr(entry, "published", None),
+        "media_thumbnail": [t.get("url") for t in (getattr(entry, "media_thumbnail", None) or []) if t.get("url")],
+    }
+
+    return NormalizedItem(
+        # Per Phase 9(c): normalize onto evidence.schema.json's existing
+        # media_format vocabulary, never a new "youtube" semantic type.
+        # Every item from this adapter is a YouTube upload, hence "video"
+        # unconditionally -- no per-source override exists (or is needed)
+        # today, since no YouTube source onboarded in this phase is a
+        # conference archive; a future conference-archive YouTube source
+        # would be a small, separate config field, not a fork of this
+        # function.
+        title=title,
+        media_format="video",
+        canonical_url=canonical_url,
+        external_id=None,
+        platform_item_id=video_id,
+        published_date=published_date,
+        description=description,
+        # Not exposed by this feed at all (unlike itunes:duration on a
+        # podcast feed) -- correctly None (unknown), not a guess, and not
+        # fetched by loading the video page.
+        duration_seconds=None,
+        transcript_availability=transcript_availability,
+        raw_metadata=raw_metadata,
+    )
+
+
 # adapter type -> (fetch, normalize-one-entry, list-entries-from-parsed)
 def _podcast_rss_entries(parsed: Any) -> list[Any]:
     return list(parsed.entries or [])
@@ -318,6 +426,12 @@ def _podcast_rss_entries(parsed: Any) -> list[Any]:
 
 ADAPTER_TYPES: dict[str, tuple[Callable[[str], tuple[Any, bytes]], Callable[[Any], list[Any]], Callable[[Any], NormalizedItem]]] = {
     "podcast_rss": (_fetch_podcast_rss, _podcast_rss_entries, _normalize_podcast_rss_entry),
+    # Reuses the same generic fetch/list-entries pair as podcast_rss (see
+    # the youtube_feed section above) -- only the normalize function
+    # differs, which is precisely the "new publication technology = one
+    # adapter, not new source-specific Python" rule this registry exists
+    # to enforce.
+    "youtube_feed": (_fetch_podcast_rss, _podcast_rss_entries, _normalize_youtube_feed_entry),
 }
 
 
@@ -575,6 +689,15 @@ class DiscoveryRunResult:
     already_known: int = 0
     item_failures: list[ItemFailure] = field(default_factory=list)
     items: list[dict[str, Any]] = field(default_factory=list)
+    # Populated only for a source configured with more than one feed_url
+    # (Phase 7-8's "On The Road" resolves to two separate, per-country
+    # YouTube playlists, not one combined feed -- see discover_source()).
+    # One feed failing does not fail the whole source as long as at least
+    # one of its feeds returned entries; each failure is recorded here so
+    # it's visible in a run report without being conflated with an
+    # item-level failure (a bad individual entry within an otherwise-good
+    # feed) or a whole-source failure (every configured feed unreachable).
+    feed_failures: list[dict[str, str]] = field(default_factory=list)
 
     def as_summary_dict(self) -> dict[str, Any]:
         return {
@@ -587,6 +710,7 @@ class DiscoveryRunResult:
             "item_failures": [
                 {"index": f.index, "identifier": f.identifier, "error": f.error} for f in self.item_failures
             ],
+            "feed_failures": self.feed_failures,
         }
 
 
@@ -604,6 +728,15 @@ def discover_source(
     source with no usable `discovery` configuration), since those indicate
     a bug in the caller, not an operational failure to report and move on
     from.
+
+    A Source's `discovery` config carries either a single `feed_url`
+    (every podcast_rss source registered so far) or a `feed_urls` list
+    (plural -- e.g. Redagricola's "On The Road" resolves to two separate,
+    per-country YouTube playlist feeds with no single combined feed to
+    point at instead). This is a generic capability of every adapter type,
+    not a Redagricola-specific branch: any Source, on any adapter, may
+    have more than one feed. `feed_url` (singular) keeps working exactly
+    as before for every existing single-feed source.
     """
     repos = get_repositories(data_dir, schemas_dir)
     source = repos.sources.get(source_id)
@@ -612,11 +745,12 @@ def discover_source(
 
     discovery_config = source.get("discovery") or {}
     adapter_type = discovery_config.get("adapter")
-    feed_url = discovery_config.get("feed_url")
-    if not adapter_type or not feed_url:
+    feed_urls = discovery_config.get("feed_urls") or ([discovery_config["feed_url"]] if discovery_config.get("feed_url") else [])
+    if not adapter_type or not feed_urls:
         raise DiscoveryError(
             f"source {source_id!r} has no usable 'discovery' configuration "
-            f"(expected {{'adapter': ..., 'feed_url': ...}} on its sources.json record)"
+            f"(expected {{'adapter': ..., 'feed_url': ...}} or {{'adapter': ..., 'feed_urls': [...]}} "
+            f"on its sources.json record)"
         )
     if adapter_type not in ADAPTER_TYPES:
         raise DiscoveryError(f"unknown discovery adapter type: {adapter_type!r}")
@@ -624,15 +758,25 @@ def discover_source(
     fetch, list_entries, normalize = ADAPTER_TYPES[adapter_type]
     now = _now_iso()
 
-    try:
-        parsed, _raw_bytes = fetch(feed_url)
-    except Exception as exc:  # noqa: BLE001 -- any transport/parsing failure is a reportable, non-fatal run result
-        result = DiscoveryRunResult(source_id=source_id, status="error", error=str(exc))
+    entries: list[Any] = []
+    feed_failures: list[dict[str, str]] = []
+    for feed_url in feed_urls:
+        try:
+            parsed, _raw_bytes = fetch(feed_url)
+        except Exception as exc:  # noqa: BLE001 -- any transport/parsing failure is a reportable, non-fatal run result
+            feed_failures.append({"feed_url": feed_url, "error": str(exc)})
+            continue
+        entries.extend(list_entries(parsed))
+
+    if not entries and feed_failures:
+        # Every configured feed failed -- a whole-source error, same shape
+        # callers already handle for the single-feed_url case.
+        combined_error = "; ".join(f"{f['feed_url']}: {f['error']}" for f in feed_failures)
+        result = DiscoveryRunResult(source_id=source_id, status="error", error=combined_error, feed_failures=feed_failures)
         _write_source_discovery_state(inbox_dir, source_id, {**result.as_summary_dict(), "last_checked_at": now})
         return result
 
-    entries = list_entries(parsed)
-    result = DiscoveryRunResult(source_id=source_id, status="ok", found=len(entries))
+    result = DiscoveryRunResult(source_id=source_id, status="ok", found=len(entries), feed_failures=feed_failures)
 
     for index, entry in enumerate(entries):
         identifier = getattr(entry, "id", None) or getattr(entry, "link", None) or getattr(entry, "title", None)

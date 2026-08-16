@@ -3089,7 +3089,14 @@
     "enabled": true,
     "created_at": "2026-08-15",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "discovery": {
+      "adapter": "podcast_rss",
+      "feed_url": "https://feeds.captivate.fm/blueberries/",
+      "feed_url_resolved_via": "https://itunes.apple.com/lookup?id=1515990428&entity=podcast",
+      "feed_url_verified_at": "2026-08-15",
+      "notes": "Publisher's own podcast page (ushbc.blueberry.org/news-and-information/podcast/, the 'value'/'url' above) has no machine-readable feed link or platform links in its page markup. Identified the show's Apple Podcasts id (1515990428) via web search confirming 'The Business of Blueberries' show page at https://podcasts.apple.com/us/podcast/the-business-of-blueberries/id1515990428, hosted by USHBC president Kasey Cronquist. Resolved the real first-party feed by looking that id up through Apple's public iTunes Lookup API, which returns feedUrl https://feeds.captivate.fm/blueberries/ (collectionName 'The Business of Blueberries', artistName 'U.S. Highbush Blueberry Council', trackCount 200 at verification time), hosted on Captivate.fm. No credentials, no paid API, no scraping -- see app/services/media_discovery.py. Verified by fetching the feed directly and confirming channel title/copyright/link all identify USHBC, and that the current top item ('How Peru is Preparing for the Next El Nino', published 2026-07-31) is a real, dated, blueberry-industry-relevant episode featuring USHBC/NABC president Kasey Cronquist and Proarandanos (Peru) general manager Luis Miguel Vegas."
+    }
   },
   {
     "id": "source-redagricola-on-the-road",
@@ -3116,6 +3123,16 @@
     "enabled": true,
     "created_at": "2026-08-15",
     "last_checked_at": null,
-    "last_status": null
+    "last_status": null,
+    "discovery": {
+      "adapter": "youtube_feed",
+      "feed_urls": [
+        "https://www.youtube.com/feeds/videos.xml?playlist_id=PLXO4NRjRC8gIkNoqKBw05iiCEQSCuRmXE",
+        "https://www.youtube.com/feeds/videos.xml?playlist_id=PLXO4NRjRC8gI3fUD1zOQrRgacegEs7Hc6"
+      ],
+      "feed_urls_resolved_via": "Web search for 'Redagricola On The Road podcast OR video series' surfaced two YouTube playlists: 'Redagricola On The Road TV - Peru' (list=PLXO4NRjRC8gIkNoqKBw05iiCEQSCuRmXE) and 'Redagricola On The Road TV - Chile' (list=PLXO4NRjRC8gI3fUD1zOQrRgacegEs7Hc6). Confirmed both belong to the official Redagricola channel (youtube.com/channel/UCz9Pxh-IpB-_AW0qp74naIw, linked from redagricola.com's own footer as its YouTube channel) by fetching each playlist's public Atom feed directly (https://www.youtube.com/feeds/videos.xml?playlist_id=...) and checking its <yt:channelId> and <author> match that same channel id/name.",
+      "feed_url_verified_at": "2026-08-15",
+      "notes": "'On The Road' is a YouTube-native video series, not a podcast: redagricola.com has no RSS feed and no dedicated 'On The Road' page with its own feed link -- the series exists as two separate, per-country YouTube playlists on Redagricola's main channel (which also carries unrelated content), with no single combined feed. Used YouTube's public, credential-free channel/playlist Atom feed endpoint (no API key, no OAuth, no scraping -- the same feed YouTube has long served for RSS-reader subscriptions) via this Source's 'feed_urls' (plural) discovery config, since a single 'feed_url' cannot represent two independent playlists. See app/services/media_discovery.py's youtube_feed adapter and discover_source()'s multi-feed_urls support."
+    }
   }
 ]
