@@ -93,6 +93,7 @@ class _FakeProvider:
         model_name: str = "fake-model",
         segments: list[mt.RawSegment] | None = None,
         language: str = "en",
+        language_probability: float | None = None,
         raises: Exception | None = None,
         calls: list[Path] | None = None,
     ) -> None:
@@ -102,6 +103,7 @@ class _FakeProvider:
             mt.RawSegment(text="Today we discuss blueberries.", start_seconds=2.5, end_seconds=5.0),
         ]
         self._language = language
+        self._language_probability = language_probability
         self._raises = raises
         self.calls = calls if calls is not None else []
 
@@ -117,6 +119,7 @@ class _FakeProvider:
             model=self.model_name,
             device="cpu",
             duration_seconds=5.0,
+            detected_language_probability=self._language_probability,
         )
 
 
@@ -273,6 +276,36 @@ def test_detected_language_is_retained(tmp_path: Path, monkeypatch) -> None:
     assert outcome.detected_language == "af"
     payload = json.loads(outcome.output_path.read_text(encoding="utf-8"))
     assert payload["language"] == "af"
+
+
+def test_detected_language_probability_is_persisted_when_provider_supplies_it(tmp_path: Path, monkeypatch) -> None:
+    item = _discovered_item()
+    _mock_audio_get(monkeypatch)
+    provider = _FakeProvider(language="af", language_probability=0.42)
+
+    outcome = mt.transcribe_discovered_item(tmp_path / "inbox", item, provider_factory=lambda: provider)
+
+    payload = json.loads(outcome.output_path.read_text(encoding="utf-8"))
+    assert payload["acquisition"]["detected_language_probability"] == 0.42
+    raw_path = mt.raw_transcripts_dir(tmp_path / "inbox") / f"stt-{item['id']}.json"
+    raw_artifact = json.loads(raw_path.read_text(encoding="utf-8"))
+    assert raw_artifact["detected_language_probability"] == 0.42
+
+
+def test_detected_language_probability_absent_is_backward_compatible(tmp_path: Path, monkeypatch) -> None:
+    """A provider that doesn't report a confidence (the RawTranscription
+    default, and the behavior of every fixture/artifact predating this
+    field) must not break normalization or persistence -- the field is
+    additive, not required."""
+    item = _discovered_item()
+    _mock_audio_get(monkeypatch)
+    provider = _FakeProvider(language="af")
+
+    outcome = mt.transcribe_discovered_item(tmp_path / "inbox", item, provider_factory=lambda: provider)
+
+    assert outcome.status == "ok"
+    payload = json.loads(outcome.output_path.read_text(encoding="utf-8"))
+    assert payload["acquisition"]["detected_language_probability"] is None
 
 
 # ---------------------------------------------------------------------------

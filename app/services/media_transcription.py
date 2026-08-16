@@ -660,6 +660,14 @@ class RawSegment:
     end_seconds: float | None
 
 
+# detected_language_probability: faster-whisper's own confidence for
+# detected_language (its initial-window language-ID pass, not a per-segment
+# score). Optional/additive -- existing providers/fakes that don't supply it
+# are unaffected. Not used for any decision in this module; persisted so an
+# operator inspecting a transcript with a surprising `language` value (e.g.
+# code-switched or accented audio) has the same signal faster-whisper already
+# computed, instead of having to read transcript segments by hand to judge
+# whether the tag is trustworthy.
 @dataclass(frozen=True)
 class RawTranscription:
     segments: tuple[RawSegment, ...]
@@ -669,6 +677,7 @@ class RawTranscription:
     model: str
     device: str
     duration_seconds: float | None
+    detected_language_probability: float | None = None
 
 
 class TranscriptionProvider(Protocol):
@@ -758,6 +767,7 @@ class FasterWhisperProvider:
             model=self.model_name,
             device=self.device,
             duration_seconds=getattr(info, "duration", None),
+            detected_language_probability=getattr(info, "language_probability", None),
         )
 
 
@@ -819,6 +829,7 @@ def transcribe_media(
         "device": raw.device,
         "language_requested": language,
         "detected_language": raw.detected_language,
+        "detected_language_probability": raw.detected_language_probability,
         "media_duration_seconds": raw.duration_seconds,
         "transcribed_at": now,
         "segments": [
@@ -1154,6 +1165,7 @@ def _run_tier3(
         "device": raw_artifact["device"],
         "transcribed_at": raw_artifact["transcribed_at"],
         "language_requested": language,
+        "detected_language_probability": raw_artifact.get("detected_language_probability"),
         "source_fingerprint": resolve_acquisition_fingerprint(item),
     }
     payload = normalize_transcript(
