@@ -94,6 +94,65 @@ human review in the Atomic Evidence Review Workbench.
   Operational JSON stores only attempts, failures, retry timing, completed
   zero-result extractions, and run summaries.
 
+## YouTube platform-access challenges
+
+`youtube_feed` Sources acquire captions (Tier 2,
+`app/services/youtube_media_acquisition.fetch_captions()`) ahead of local
+Whisper transcription of the resolved audio stream (Tier 3,
+`acquire_youtube_audio()` -> `_resolve_audio_format_real()` ->
+`yt_dlp.YoutubeDL.extract_info()`). Tier 2 is the common case; Tier 3 is
+reached only for the smaller share of items with no usable caption track.
+
+Occasionally, `yt_dlp.YoutubeDL.extract_info()` fails during Tier 3's format
+resolution with YouTube's own access challenge, surfaced verbatim by yt-dlp,
+e.g.:
+
+```
+ERROR: [youtube] <video id>: Sign in to confirm you're not a bot.
+Use --cookies-from-browser or --cookies for the authentication.
+```
+
+This is caught in `_resolve_audio_format_real()` and raised as
+`media_transcription.MediaAcquisitionError`; `transcribe_discovered_item()`
+returns `TranscriptionOutcome(status="error", tier="tier_3_local_speech_to_text",
+...)` without raising, `media_orchestration.py` records
+`transcript_status="acquisition_failed"`, and `collection_runner.py`
+classifies it `failure_class: "retryable"` (no `TERMINAL_MARKERS` match; any
+`"acquisition_failed"` transcript status defaults to retryable unless the
+error text itself signals a terminal condition). The existing publication
+draft is left untouched (`status: draft`, `review_state: in_review`), the
+failure does not cascade to other items in the same run, and no malformed
+transcript is produced. The item is retried automatically, with backoff, up
+to `--retry-limit` (default 3) attempts before escalating to
+`failure_class: "operator"`.
+
+This condition has occurred exactly once in this project's real-network
+history, on one item, in a run where a different item on the same channel
+acquired successfully via Tier 2 moments earlier — consistent with a
+transient, IP/session-reputation-scoped challenge rather than a systemic
+defect or a stale `yt-dlp` pin (the pinned version tracks current upstream
+releases). Treat a single occurrence as expected background noise the
+existing retry/backoff already absorbs safely.
+
+**Operator guidance if this persists** (i.e. the item's `failure_class`
+reaches `"operator"` for this reason specifically): re-run later — this
+class of challenge is commonly tied to request volume or IP reputation and
+often clears on its own. This repository does not currently implement any
+mechanism to supply an authenticated YouTube session (no `cookiefile`,
+`cookiesfrombrowser`, or similar wired into
+`app/services/youtube_media_acquisition.py`); nothing here should be worked
+around by manually editing operational JSON, and no such mechanism should be
+added speculatively. If this specific failure becomes a recurring,
+non-transient pattern (not the single observed instance this note
+documents), `yt-dlp`'s own documented `cookiefile`/`cookiesfrombrowser`
+options are the correct, minimal extension point to revisit — an operator's
+own already-authenticated browser session, supplied locally and voluntarily,
+which is `yt-dlp`'s sanctioned mechanism for this class of problem, not a
+credential bypass. Any such addition must stay confined to
+`youtube_media_acquisition.py` (never framework-wide, never Source-specific),
+must never persist or log cookie contents, and must leave unauthenticated
+operation as the unchanged default.
+
 ## External scheduling
 
 An external scheduler may invoke the same one-shot command. Use its exit code
