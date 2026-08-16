@@ -13,8 +13,9 @@ from datetime import date
 import hashlib
 import json
 from pathlib import Path
-from typing import Any, Protocol
+from typing import Any, Callable, Protocol
 
+from app.services import media_transcription
 from app.services.transcript_evidence import (
     PRIORITY_NONE,
     TranscriptArtifact,
@@ -25,6 +26,10 @@ from app.services.transcript_evidence import (
 
 class MediaOrchestrationError(ValueError):
     """A staged record cannot safely progress without operator correction."""
+
+
+class TranscriptAcquisitionError(MediaOrchestrationError):
+    """The configured transcription service could not produce a transcript."""
 
 
 class StagedTranscriptAdapter(Protocol):
@@ -67,6 +72,85 @@ class JsonStagedTranscriptAdapter:
                 f"transcript belongs to discovered item {linked_item!r}, not {discovered_item['id']!r}"
             )
         return payload
+
+
+class MediaTranscriptionAdapter:
+    """Thin adapter around Claude's public media-transcription service.
+
+    A compatible normalized artifact is loaded without touching audio or the
+    transcription provider.  When it is absent or its requested cache inputs
+    changed, acquisition/cache/transcription decisions remain wholly owned by
+    ``media_transcription.transcribe_discovered_item``.
+    """
+
+    def __init__(
+        self,
+        inbox_dir: Path,
+        *,
+        model: str = media_transcription.DEFAULT_WHISPER_MODEL,
+        device: str | None = None,
+        language: str | None = None,
+        created_by: str | None = None,
+        provider_factory: Callable[[], media_transcription.TranscriptionProvider] | None = None,
+        force: bool = False,
+        transcribe_missing: bool = True,
+    ) -> None:
+        self._inbox_dir = inbox_dir
+        self._model = model
+        self._device = device
+        self._language = language
+        self._created_by = created_by
+        self._provider_factory = provider_factory
+        self._force = force
+        self._transcribe_missing = transcribe_missing
+
+    def load(self, discovered_item: dict[str, Any]) -> dict[str, Any] | None:
+        item_id = discovered_item["id"]
+        cached = media_transcription.load_transcript_artifact(self._inbox_dir, item_id)
+        if cached is not None and self._cache_matches_request(cached, discovered_item):
+            return cached
+        if not self._transcribe_missing:
+            return None
+        outcome = media_transcription.transcribe_discovered_item(
+            self._inbox_dir,
+            discovered_item,
+            model=self._model,
+            device=self._device,
+            language=self._language,
+            parent_evidence_id=None,
+            created_by=self._created_by,
+            provider_factory=self._provider_factory,
+            force=self._force,
+        )
+        if outcome.status != "ok":
+            tier = f" via {outcome.tier}" if outcome.tier else ""
+            raise TranscriptAcquisitionError(f"transcript acquisition failed{tier}: {outcome.error or 'unknown error'}")
+        payload = media_transcription.load_transcript_artifact(self._inbox_dir, item_id)
+        if payload is None:
+            raise TranscriptAcquisitionError(
+                "transcription reported success but no normalized transcript artifact was available"
+            )
+        return payload
+
+    def _cache_matches_request(self, payload: dict[str, Any], item: dict[str, Any]) -> bool:
+        if self._force:
+            return False
+        acquisition = payload.get("acquisition") or {}
+        tier = acquisition.get("tier")
+        if tier == "tier_3_local_speech_to_text":
+            if acquisition.get("model") != self._model:
+                return False
+            if self._language is not None:
+                # Requested language is part of Claude's raw-transcript cache
+                # key but not repeated in the normalized acquisition block.
+                # Delegate this case so that service can make the real cache
+                # decision; a hit still avoids model execution.
+                return False
+            recorded_url = acquisition.get("media_url")
+            current_url = media_transcription.select_enclosure_url(item)
+            if recorded_url != current_url:
+                return False
+        return True
 
 
 @dataclass(frozen=True)
@@ -312,7 +396,11 @@ class MediaOrchestrationService:
                 publication_draft_id=resolution.draft_id,
                 transcript_status=transcript_status,
                 next_action=(
-                    "Review the publication draft."
+                    (
+                        "Review the publication draft; then retry transcript acquisition."
+                        if transcript_status == "acquisition_failed"
+                        else "Review the publication draft."
+                    )
                     if resolution.status == "pending_draft"
                     else "Review the rejection before creating another publication draft."
                 ),
@@ -321,12 +409,17 @@ class MediaOrchestrationService:
             )
 
         if transcript_error:
+            acquisition_failed = transcript_status == "acquisition_failed"
             return OrchestrationResult(
                 item_id=item_id,
                 state="publication_approved",
                 parent_resolution=resolution,
-                transcript_status="malformed",
-                next_action="Correct or regenerate the normalized transcript.",
+                transcript_status=transcript_status,
+                next_action=(
+                    "Correct the acquisition/transcription failure and retry."
+                    if acquisition_failed
+                    else "Correct or regenerate the normalized transcript."
+                ),
                 dry_run=dry_run,
                 errors=[transcript_error],
             )
@@ -390,6 +483,12 @@ class MediaOrchestrationService:
             "invalid": len(extracted.invalid),
             "proposal_ids": list(extracted.accepted),
         }
+        if extracted.accepted:
+            next_action = "Review the atomic Evidence proposals in inbox/evidence/."
+        elif extracted.duplicates:
+            next_action = "No new proposals were created; existing proposals remain in the review workflow."
+        else:
+            next_action = "No atomic Evidence proposals were produced; inspect or configure extractor output."
         return OrchestrationResult(
             item_id=item_id,
             state="extraction_complete",
@@ -398,7 +497,7 @@ class MediaOrchestrationService:
             transcript_id=transcript.transcript_id,
             transcript_sha256=content_hash,
             extraction=summary,
-            next_action="Review the atomic Evidence proposals in inbox/evidence/.",
+            next_action=next_action,
         )
 
     def _load_transcript(
@@ -406,12 +505,15 @@ class MediaOrchestrationService:
     ) -> tuple[dict[str, Any] | None, str, str | None]:
         try:
             payload = self._transcript_adapter.load(discovered_item)
+        except TranscriptAcquisitionError as exc:
+            return None, "acquisition_failed", str(exc)
         except MediaOrchestrationError as exc:
             return None, "malformed", str(exc)
         if payload is None:
             return None, "missing", None
         probe = deepcopy(payload)
-        probe.setdefault("parent_evidence_id", "ev-unresolved-publication-artifact")
+        if not probe.get("parent_evidence_id"):
+            probe["parent_evidence_id"] = "ev-unresolved-publication-artifact"
         probe.pop("discovered_item_id", None)
         probe.pop("item_id", None)
         try:

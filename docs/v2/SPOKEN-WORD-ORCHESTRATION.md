@@ -56,14 +56,22 @@ sets the parent metadata, and validates it with `TranscriptArtifact.from_dict`.
 It does not mutate transcript text or retranscribe; consequently the existing
 segment-content SHA-256 remains stable.
 
-The included filesystem adapter reads either an explicitly supplied path or:
+The production adapter calls Claude's public
+`load_transcript_artifact()` first. A compatible normalized cache is returned
+without acquiring media or constructing a Whisper provider. If no compatible
+normalized result exists, it delegates to `transcribe_discovered_item()`,
+which retains sole ownership of transcript-tier selection, audio acquisition,
+Whisper invocation, cache keys, normalization, and failure outcomes.
+
+The explicit-file adapter remains available for an operator-supplied path.
+Claude's normalized service output lives at:
 
 ```text
 inbox/discovered_media/_normalized_transcripts/<discovered-item-id>.json
 ```
 
-It intentionally does not treat acquisition's raw transcript staging files as
-normalized `TranscriptArtifact` input.
+Neither adapter treats raw transcript staging files as normalized
+`TranscriptArtifact` input.
 
 ## Operator command
 
@@ -74,7 +82,12 @@ python scripts/process_discovered_media.py --item <id> --dry-run
 python scripts/process_discovered_media.py --item <id>
 ```
 
-When a normalized transcript and structured extractor output are available:
+The normal command reuses a compatible normalized cache or invokes Claude's
+existing transcription service when the transcript is missing. `--dry-run`
+never initiates transcription. Model, device, language, and `--force` are
+forwarded directly; no cache logic is duplicated by the CLI.
+
+When structured extractor output is available:
 
 ```bash
 python scripts/process_discovered_media.py \
