@@ -1,0 +1,17 @@
+{
+  "name": "Berry Intelligence OS",
+  "install": "sudo apt-get update -qq && sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq python3.12-venv && python3 -m venv .venv && . .venv/bin/activate && python -m pip install --upgrade pip && pip install -r requirements-dev.txt && pip install pagefind pagefind_bin",
+  "terminals": [
+    {
+      "name": "web",
+      "command": ". .venv/bin/activate && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload",
+      "description": "Berry Intelligence OS FastAPI dev server (authoring mode) on http://localhost:8000"
+    }
+  ],
+  "ports": [
+    {
+      "name": "Berry Intelligence OS web app",
+      "port": 8000
+    }
+  ]
+}
