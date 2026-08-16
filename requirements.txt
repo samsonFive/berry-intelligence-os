@@ -15,3 +15,17 @@ faster-whisper==1.1.1
 # ctranslate2, huggingface-hub, onnxruntime, tokenizers, tqdm) -- pinned
 # explicitly here so `pip install -r requirements.txt` alone is sufficient.
 requests==2.32.3
+# yt-dlp -- YouTube caption/audio metadata resolution for
+# app/services/youtube_media_acquisition.py. No system ffmpeg dependency:
+# used only to inspect a public video's caption tracks and to resolve/
+# download an existing audio-only stream as-is (no --extract-audio/
+# post-processing), which the already-installed faster-whisper decodes
+# itself via its own bundled PyAV/ffmpeg libraries. Pinned to the version
+# verified working against real YouTube videos on 2026-08-16; YouTube
+# changes its player/extraction requirements often enough that yt-dlp
+# ships frequent releases and an old pin can start failing outright (a
+# 2025.8.11 pin, current as of this project's other dependency pins,
+# already failed against real videos during this verification and had to
+# be upgraded) -- operators should expect to bump this pin periodically,
+# independent of this project's own release cadence.
+yt-dlp==2026.7.4
