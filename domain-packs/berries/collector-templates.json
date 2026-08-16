@@ -1,5 +1,5 @@
 {
-  "_comment": "V2 Phase 1B (BL-023, docs/v2/10-BACKLOG.md). The original 120 templates were generated directly from live data/configuration/sources.json on 2026-08-14; three verified recurring spoken-word Sources were registered in both files on 2026-08-15. collector_type separates the platform-level Collector mechanism (rss, keyword_search -- both automatable per docs/v2/02-TARGET-ARCHITECTURE.md Section 7) from reference_manual (a real, valuable source with no automated collection today -- ARCHITECTURE.md: 'Reference sources... aren't polled, mark them checked manually'). All 123 live sources are represented and structurally suitable for templating; none were excluded. Deliberately NOT copied from the live registry: linked_competitor_ids, last_checked_at, last_status, validated_count, purged_count, created_at -- these are this specific workspace's operational history, not reusable template content, same reasoning as strategic-question-templates.json omitting evidence_ids/fact_ids. This task does not implement or refactor collector execution code, and does not modify check_source() or source polling behavior -- these are declarative templates only, for a future Collector framework to consume.",
+  "_comment": "V2 Phase 1B (BL-023, docs/v2/10-BACKLOG.md). The original 120 templates were generated directly from live data/configuration/sources.json on 2026-08-14; three verified recurring spoken-word Sources were registered in both files on 2026-08-15, one more on 2026-08-16, and seven more (configuration-only archive/source-discovery onboarding: source-the-packer-podcast, source-fresh-takes-on-tech-podcast, source-produce-buzzers-podcast, source-global-fresh-series-podcast, source-fresh-cred-podcast, source-lubera-edibles-podcast, source-blueberries-tv-youtube) on 2026-08-16. collector_type separates the platform-level Collector mechanism (rss, keyword_search -- both automatable per docs/v2/02-TARGET-ARCHITECTURE.md Section 7) from reference_manual (a real, valuable source with no automated collection today -- ARCHITECTURE.md: 'Reference sources... aren't polled, mark them checked manually'). All 132 live sources are represented and structurally suitable for templating; none were excluded. Deliberately NOT copied from the live registry: linked_competitor_ids, last_checked_at, last_status, validated_count, purged_count, created_at -- these are this specific workspace's operational history, not reusable template content, same reasoning as strategic-question-templates.json omitting evidence_ids/fact_ids. This task does not implement or refactor collector execution code, and does not modify check_source() or source polling behavior -- these are declarative templates only, for a future Collector framework to consume.",
   "excluded_count": 0,
   "excluded": [],
   "collector_templates": [
@@ -2491,9 +2491,22 @@
       "label": "Lucentlands Podcast",
       "query_or_url": "https://lucentlands.co.za/agricultural-podcast/",
       "url": "https://lucentlands.co.za/agricultural-podcast/",
-      "geography_focus": ["africa", "global"],
-      "entity_coverage": ["genetics_company", "grower_marketer", "trade_association", "market_research"],
-      "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"],
+      "geography_focus": [
+        "africa",
+        "global"
+      ],
+      "entity_coverage": [
+        "genetics_company",
+        "grower_marketer",
+        "trade_association",
+        "market_research"
+      ],
+      "berry_coverage": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-strawberry",
+        "berry-blackberry"
+      ],
       "monitoring_priority": "high",
       "update_cadence": "weekly",
       "default_active": true,
@@ -2505,9 +2518,19 @@
       "label": "The Business of Blueberries (USHBC / NABC)",
       "query_or_url": "https://ushbc.blueberry.org/news-and-information/podcast/",
       "url": "https://ushbc.blueberry.org/news-and-information/podcast/",
-      "geography_focus": ["north_america", "global"],
-      "entity_coverage": ["trade_association", "grower_marketer", "breeding_program", "market_research"],
-      "berry_coverage": ["berry-blueberry"],
+      "geography_focus": [
+        "north_america",
+        "global"
+      ],
+      "entity_coverage": [
+        "trade_association",
+        "grower_marketer",
+        "breeding_program",
+        "market_research"
+      ],
+      "berry_coverage": [
+        "berry-blueberry"
+      ],
       "monitoring_priority": "high",
       "update_cadence": "weekly",
       "default_active": true,
@@ -2519,9 +2542,18 @@
       "label": "Redagrícola / Redagrícola On The Road",
       "query_or_url": "https://redagricola.com/",
       "url": "https://redagricola.com/",
-      "geography_focus": ["south_america"],
-      "entity_coverage": ["trade_press", "grower_marketer", "genetics_company", "nursery_propagator"],
-      "berry_coverage": ["berry-blueberry"],
+      "geography_focus": [
+        "south_america"
+      ],
+      "entity_coverage": [
+        "trade_press",
+        "grower_marketer",
+        "genetics_company",
+        "nursery_propagator"
+      ],
+      "berry_coverage": [
+        "berry-blueberry"
+      ],
       "monitoring_priority": "high",
       "update_cadence": "event_driven",
       "default_active": true,
@@ -2533,9 +2565,17 @@
       "label": "University of Arkansas System Division of Agriculture (YouTube)",
       "query_or_url": "https://www.youtube.com/@AginArk",
       "url": "https://www.youtube.com/@AginArk",
-      "geography_focus": ["north_america"],
-      "entity_coverage": ["academic_journal", "breeding_program"],
-      "berry_coverage": ["berry-blackberry", "berry-blueberry"],
+      "geography_focus": [
+        "north_america"
+      ],
+      "entity_coverage": [
+        "academic_journal",
+        "breeding_program"
+      ],
+      "berry_coverage": [
+        "berry-blackberry",
+        "berry-blueberry"
+      ],
       "monitoring_priority": "medium",
       "update_cadence": "event_driven",
       "default_active": true,
@@ -2547,13 +2587,194 @@
       "label": "Comité de Arándanos de Chile (YouTube)",
       "query_or_url": "https://www.youtube.com/channel/UCIlsT5-0R2dIjtn95dW7Irg",
       "url": "https://www.youtube.com/channel/UCIlsT5-0R2dIjtn95dW7Irg",
-      "geography_focus": ["south_america"],
-      "entity_coverage": ["trade_association"],
-      "berry_coverage": ["berry-blueberry"],
+      "geography_focus": [
+        "south_america"
+      ],
+      "entity_coverage": [
+        "trade_association"
+      ],
+      "berry_coverage": [
+        "berry-blueberry"
+      ],
       "monitoring_priority": "medium",
       "update_cadence": "event_driven",
       "default_active": true,
       "notes": "First-party YouTube channel of the Comité de Arándanos de Chile -- a small (8-video) 2014-2015 catalogue of first-party harvest/packing training material. Onboarded as this feature's real, live Tier-3 (no-usable-captions) proof source; see feature/youtube-tier3-whisper-proof's report."
+    },
+    {
+      "id": "source-the-packer-podcast",
+      "collector_type": "reference_manual",
+      "label": "The Packer Podcast",
+      "query_or_url": "https://www.thepacker.com/",
+      "url": "https://www.thepacker.com/",
+      "geography_focus": [
+        "north_america",
+        "global"
+      ],
+      "entity_coverage": [
+        "trade_press",
+        "grower_marketer",
+        "market_research"
+      ],
+      "berry_coverage": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-strawberry",
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "PMG/Farm Journal's weekly fresh produce industry podcast -- interviews with growers, marketers, buyers and supply-chain executives across the whole produce category, with recurring blueberry-specific coverage (e.g. 'Kevin Hamilton on Driving Desire when Marketing Blueberries'). A spoken-word companion to this dataset's existing prose 'The Packer' trade-press Source (source-20260806173428-47f6-the-packer-72), not a replacement for it -- same publisher, distinct channel/medium, mirroring how source-business-of-blueberries-podcast sits alongside the existing USHBC prose Source."
+    },
+    {
+      "id": "source-fresh-takes-on-tech-podcast",
+      "collector_type": "reference_manual",
+      "label": "Fresh Takes on Tech (International Fresh Produce Association)",
+      "query_or_url": "https://www.freshproduce.com/resources/technology/takes-on-tech-podcast/",
+      "url": "https://www.freshproduce.com/resources/technology/takes-on-tech-podcast/",
+      "geography_focus": [
+        "north_america",
+        "global"
+      ],
+      "entity_coverage": [
+        "trade_association",
+        "market_research"
+      ],
+      "berry_coverage": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-strawberry",
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "medium",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "International Fresh Produce Association's technology-focused podcast covering the intersection of tech and the fresh produce/floral supply chain -- recurring berry-specific coverage confirmed directly in episode descriptions (blueberries, strawberries and blackberries all present across the current 132-episode feed), giving a technology-adoption angle (traceability, automation, ag-tech) this dataset otherwise lacks for berries specifically."
+    },
+    {
+      "id": "source-produce-buzzers-podcast",
+      "collector_type": "reference_manual",
+      "label": "Produce Buzzers",
+      "query_or_url": "http://www.producebuzz.com",
+      "url": "http://www.producebuzz.com",
+      "geography_focus": [
+        "north_america"
+      ],
+      "entity_coverage": [
+        "trade_press",
+        "market_research"
+      ],
+      "berry_coverage": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-strawberry",
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "low",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "Consumer-facing fresh produce podcast ('part informative radio show, part trivia game show') hosted by Theresa Nolan, Edwin Stepp, Rick Stepp and Cynthia Benedetto -- the densest confirmed berry coverage of any candidate in this onboarding batch (blueberry/strawberry/raspberry/blackberry keyword hits all present, strawberry mentioned 18+ times across the current feed), a consumer-demand-signal complement to this dataset's mostly trade/supply-side sources."
+    },
+    {
+      "id": "source-global-fresh-series-podcast",
+      "collector_type": "reference_manual",
+      "label": "Global Fresh Series (The Produce Industry Network)",
+      "query_or_url": "https://theproduceindustrynetwork.com",
+      "url": "https://theproduceindustrynetwork.com",
+      "geography_focus": [
+        "north_america",
+        "south_america",
+        "global"
+      ],
+      "entity_coverage": [
+        "trade_press",
+        "grower_marketer",
+        "market_research"
+      ],
+      "berry_coverage": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-strawberry",
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "The Produce Industry Network's global fresh produce podcast hosted by Juanita Gaglio -- explicit, repeated blueberry-specific episode coverage confirmed directly in the feed ('From Bananas to Blueberries: Fresh Produce Under Threat and Innovation', 'Fresh Perspectives: Avocados, Tomatoes, and Blueberries from Chile to the World', \"Berry Benefits: Unveiling the Wild Blueberry's Global Appeal\"), including explicit Chilean/Southern Hemisphere blueberry supply-chain content."
+    },
+    {
+      "id": "source-fresh-cred-podcast",
+      "collector_type": "reference_manual",
+      "label": "The Fresh CrEd",
+      "query_or_url": "https://thefreshcred.com",
+      "url": "https://thefreshcred.com",
+      "geography_focus": [
+        "north_america"
+      ],
+      "entity_coverage": [
+        "trade_press",
+        "grower_marketer",
+        "market_research"
+      ],
+      "berry_coverage": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-strawberry",
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "medium",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "Ed Bertaud's fresh produce industry podcast covering freight, pricing pressure, sourcing, retail dynamics and supply-chain shifts from the operator/buyer/grower perspective -- a current, high-cadence show (100 episodes, latest published 2026-08-12) with confirmed strawberry-relevant content, adding operational/logistics texture this dataset's mostly institutional/association sources don't provide."
+    },
+    {
+      "id": "source-lubera-edibles-podcast",
+      "collector_type": "reference_manual",
+      "label": "Lubera Edibles Gardeners Radio",
+      "query_or_url": "https://www.luberaedibles.com/en/news",
+      "url": "https://www.luberaedibles.com/en/news",
+      "geography_focus": [
+        "europe"
+      ],
+      "entity_coverage": [
+        "genetics_company",
+        "nursery_propagator",
+        "breeding_program"
+      ],
+      "berry_coverage": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-strawberry"
+      ],
+      "monitoring_priority": "medium",
+      "update_cadence": "event_driven",
+      "default_active": true,
+      "notes": "Lubera Edibles (Swiss fruit-plant breeder/nursery)'s own professional podcast, aimed at production gardeners, final-sales gardeners and green-industry journalists -- direct first-party coverage of the company's own berry breeding and young-plant ('Treelings(R)') genetics, with confirmed dedicated episodes on strawberries ('The Lubera(R) strawberry families', container production), blueberries (container production) and raspberries (cultivation, 'the new raspberry families') -- the European nursery/genetics counterpart to Fall Creek Farm & Nursery's entry in this dataset (source-20260806173428-5498-fall-creek-farm-nursery-3)."
+    },
+    {
+      "id": "source-blueberries-tv-youtube",
+      "collector_type": "reference_manual",
+      "label": "Blueberries TV (Blueberries Consulting)",
+      "query_or_url": "https://www.youtube.com/@BlueberriesTV",
+      "url": "https://www.youtube.com/@BlueberriesTV",
+      "geography_focus": [
+        "south_america",
+        "europe",
+        "africa",
+        "global"
+      ],
+      "entity_coverage": [
+        "market_research",
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-blueberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "event_driven",
+      "default_active": true,
+      "notes": "Official YouTube channel of Blueberries Consulting, the independent, third-party global blueberry-industry consultancy (20+ years, 40+ International Blueberries Seminar editions across Peru, Chile, Mexico, Argentina, Colombia, Spain, Morocco and China) -- first-party video coverage of seminar sessions, sponsor/exhibitor interviews (e.g. Fall Creek, Projar, Water Partners) and Southern Hemisphere/Mediterranean blueberry supply-chain content. Distinct from this dataset's existing source-20260806173428-6938-international-blueberry-organization-ibo-38 (the IBO itself, a producer-representation trade body) and from source-comite-de-arandanos-de-chile-youtube (Chile's national blueberry committee) -- Blueberries Consulting is a private media/consulting company, not a producer or government body, confirmed via this branch's own prior-session research (see this branch's earlier archive-adapter research commit) as the real, verified producer of the seminar video content originally suspected to belong to the IBO directly."
     }
   ]
 }

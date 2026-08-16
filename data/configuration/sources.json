@@ -3198,5 +3198,257 @@
       "feed_url_verified_at": "2026-08-16",
       "notes": "Onboarded specifically as this feature's real, live Tier-3 (no-usable-captions -> audio -> local Whisper) proof source -- see feature/youtube-tier3-whisper-proof's report. Real, live yt-dlp inspection (extract_info(), no scraping, no credentials -- same mechanism as source-redagricola-on-the-road and source-university-of-arkansas-division-of-agriculture) of all 8 videos on this channel found two ('Chilean Blueberry Committee', id -8-iDUFzf7k, and 'Comité de Árandanos de Chile', id IWUv8sUZDvM, both ~164s, uploaded Dec 2014/Feb 2015) with genuinely zero caption tracks of any kind: info['subtitles'] == {} AND info['automatic_captions'] == {} (not merely missing an -orig marker -- YouTube's ASR pipeline never produced automatic captions for either at all) and info['language'] == None, the exact structural condition app/services/youtube_media_acquisition.py's _select_caption_track() is built to recognize and correctly refuse to guess on, falling through to Tier 3. The other 6 videos on this channel (2015-01-09 harvest/packing tutorials plus one from 2015-04-13) all carry a normal es-orig auto-caption track and were not used for this proof. Both zero-caption videos were run through the real, unmodified Tier-3 pipeline (real yt-dlp audio resolution/download, real faster-whisper 'small' CPU transcription, no system ffmpeg present or required) -- see this feature's report for the full run record. RESULT (honestly recorded): both videos turned out, on real Whisper decode, to be instrumental-music-only institutional bumpers with no spoken narration (faster-whisper with vad_filter=False repeatedly hallucinates only the non-speech token 'music'; the production vad_filter=True path correctly returns zero segments, which media_transcription.py correctly treats as a TranscriptionError rather than a malformed transcript -- exactly the Phase 15/18 behavior this proof was also meant to exercise). This channel's zero-caption content is therefore real and structurally genuine but not spoken-word content. An exhaustive follow-up search (~160 real videos checked live via yt-dlp across 20+ other first-party berry/agriculture channels -- university extension, trade associations, breeders, growers -- in English, Spanish, French, Polish, Portuguese and Kannada) found no other genuinely zero-caption video with real narration; YouTube's ASR coverage in 2026 appears to be comprehensive for detected speech in every language checked, so a fully successful real Tier-3 'no captions -> narrated audio -> transcript' proof was not achieved against real, unaltered YouTube content despite this search. See the report's Phase 3-12/16/20 sections for the full account, including the real (non-mocked) evidence this does still provide: real audio acquisition, real Whisper invocation, real cache-hit behavior on the audio layer, and real confirmation that no system ffmpeg is required."
     }
+  },
+  {
+    "id": "source-the-packer-podcast",
+    "type": "reference",
+    "label": "The Packer Podcast",
+    "value": "https://www.thepacker.com/",
+    "url": "https://www.thepacker.com/",
+    "why_it_matters": "PMG/Farm Journal's weekly fresh produce industry podcast -- interviews with growers, marketers, buyers and supply-chain executives across the whole produce category, with recurring blueberry-specific coverage (e.g. 'Kevin Hamilton on Driving Desire when Marketing Blueberries'). A spoken-word companion to this dataset's existing prose 'The Packer' trade-press Source (source-20260806173428-47f6-the-packer-72), not a replacement for it -- same publisher, distinct channel/medium, mirroring how source-business-of-blueberries-podcast sits alongside the existing USHBC prose Source.",
+    "entity_types": [
+      "trade_press",
+      "grower_marketer",
+      "market_research"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-16",
+    "last_checked_at": null,
+    "last_status": null,
+    "discovery": {
+      "adapter": "podcast_rss",
+      "feed_url": "https://www.omnycontent.com/d/playlist/1d004633-2e9e-47f1-9b89-a754011a2aa9/7f548445-fb82-490a-a108-abba00fd963f/6bc7554a-ef92-4961-9299-abba00fe28b5/podcast.rss",
+      "feed_url_resolved_via": "https://itunes.apple.com/lookup?id=1516539657&entity=podcast",
+      "feed_url_verified_at": "2026-08-16",
+      "notes": "Identified the show's Apple Podcasts id (1516539657, 'The Packer Podcast' by 'PMG') via web search, then resolved the real first-party feed by looking that id up through Apple's public iTunes Lookup API, which returns feedUrl on Omny Studio (trackCount 100 at verification time, releaseDate of latest item 2026-07-30). No credentials, no paid API, no scraping. Verified by fetching the feed directly: channel <link> is https://www.thepacker.com/ (matching this Source's own url/value and the existing prose Source's identity), and a real, dated episode titled 'The Packer Podcast: Kevin Hamilton on Driving Desire when Marketing Blueberries' is present in the feed body. Note: the feed is paginated (rel=\"last\" points to page 3 of results); this Source's discovery.feed_url points at page 1 only (100 most recent items), the same single-feed_url convention every other podcast_rss Source in this registry uses -- consistent, not a limitation specific to this source. thepacker.com itself returns HTTP 403 to a direct, non-browser fetch (Cloudflare bot management), which is why identity was confirmed via the feed's own <link> tag rather than a page fetch of thepacker.com -- the feed content itself (real, dated, on-topic episodes) is the actual verification, not the publisher homepage responding to curl."
+    }
+  },
+  {
+    "id": "source-fresh-takes-on-tech-podcast",
+    "type": "reference",
+    "label": "Fresh Takes on Tech (International Fresh Produce Association)",
+    "value": "https://www.freshproduce.com/resources/technology/takes-on-tech-podcast/",
+    "url": "https://www.freshproduce.com/resources/technology/takes-on-tech-podcast/",
+    "why_it_matters": "International Fresh Produce Association's technology-focused podcast covering the intersection of tech and the fresh produce/floral supply chain -- recurring berry-specific coverage confirmed directly in episode descriptions (blueberries, strawberries and blackberries all present across the current 132-episode feed), giving a technology-adoption angle (traceability, automation, ag-tech) this dataset otherwise lacks for berries specifically.",
+    "entity_types": [
+      "trade_association",
+      "market_research"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-16",
+    "last_checked_at": null,
+    "last_status": null,
+    "discovery": {
+      "adapter": "podcast_rss",
+      "feed_url": "https://feeds.captivate.fm/fresh-takes-on-tech/",
+      "feed_url_resolved_via": "https://itunes.apple.com/lookup?id=1516381150&entity=podcast",
+      "feed_url_verified_at": "2026-08-16",
+      "notes": "Identified via web search confirming 'Fresh Takes On Tech' by 'International Fresh Produce Association' on Apple Podcasts (id 1516381150), then resolved the real first-party feed by looking that id up through Apple's public iTunes Lookup API, which returns feedUrl on Captivate.fm (trackCount 132, latest releaseDate 2026-08-04 at verification time). No credentials, no paid API, no scraping. Verified by fetching the feed directly: channel copyright/managingEditor both identify 'International Fresh Produce Association', channel <link> resolves to freshproduce.com's own takes-on-tech-podcast page (this Source's url/value), and grepping the raw feed body for berry keywords found 5 'blueberries', 4 'strawberries'/'strawberry' and 2 'blackberries' mentions in episode descriptions -- real, substantive berry-relevant content, not merely plausible topical fit."
+    }
+  },
+  {
+    "id": "source-produce-buzzers-podcast",
+    "type": "reference",
+    "label": "Produce Buzzers",
+    "value": "http://www.producebuzz.com",
+    "url": "http://www.producebuzz.com",
+    "why_it_matters": "Consumer-facing fresh produce podcast ('part informative radio show, part trivia game show') hosted by Theresa Nolan, Edwin Stepp, Rick Stepp and Cynthia Benedetto -- the densest confirmed berry coverage of any candidate in this onboarding batch (blueberry/strawberry/raspberry/blackberry keyword hits all present, strawberry mentioned 18+ times across the current feed), a consumer-demand-signal complement to this dataset's mostly trade/supply-side sources.",
+    "entity_types": [
+      "trade_press",
+      "market_research"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "low",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-16",
+    "last_checked_at": null,
+    "last_status": null,
+    "discovery": {
+      "adapter": "podcast_rss",
+      "feed_url": "https://anchor.fm/s/589c5ce0/podcast/rss",
+      "feed_url_resolved_via": "https://itunes.apple.com/lookup?id=1583967506&entity=podcast",
+      "feed_url_verified_at": "2026-08-16",
+      "notes": "Identified via web/iTunes search for 'Produce Buzzers' (id 1583967506, 'ProduceBuzz.Com', Home & Garden/Food category), then resolved the real first-party feed by looking that id up through Apple's public iTunes Lookup API, which returns feedUrl on Anchor (trackCount 148, latest releaseDate 2026-07-30 at verification time). No credentials, no paid API, no scraping. Verified by fetching the feed directly: channel <link> is http://www.producebuzz.com (matching this Source's url/value), channel description matches the show's real premise, and grepping the raw feed body for berry keywords found dozens of hits across all four canonical berries in episode descriptions."
+    }
+  },
+  {
+    "id": "source-global-fresh-series-podcast",
+    "type": "reference",
+    "label": "Global Fresh Series (The Produce Industry Network)",
+    "value": "https://theproduceindustrynetwork.com",
+    "url": "https://theproduceindustrynetwork.com",
+    "why_it_matters": "The Produce Industry Network's global fresh produce podcast hosted by Juanita Gaglio -- explicit, repeated blueberry-specific episode coverage confirmed directly in the feed ('From Bananas to Blueberries: Fresh Produce Under Threat and Innovation', 'Fresh Perspectives: Avocados, Tomatoes, and Blueberries from Chile to the World', \"Berry Benefits: Unveiling the Wild Blueberry's Global Appeal\"), including explicit Chilean/Southern Hemisphere blueberry supply-chain content.",
+    "entity_types": [
+      "trade_press",
+      "grower_marketer",
+      "market_research"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "south_america",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-16",
+    "last_checked_at": null,
+    "last_status": null,
+    "discovery": {
+      "adapter": "podcast_rss",
+      "feed_url": "https://feeds.captivate.fm/global-fresh-series/",
+      "feed_url_resolved_via": "https://itunes.apple.com/lookup?id=1765347320&entity=podcast",
+      "feed_url_verified_at": "2026-08-16",
+      "notes": "Identified via iTunes search for 'Global Fresh Series' (id 1765347320, artist 'The Produce Industry Network'), then resolved the real first-party feed by looking that id up through Apple's public iTunes Lookup API, which returns feedUrl on Captivate.fm (trackCount 106, latest releaseDate 2026-08-12 at verification time -- current at time of onboarding). No credentials, no paid API, no scraping. Verified by fetching the feed directly: itunes:summary names host Juanita Gaglio and 'The Produce Industry Network', and three of the most recent episode titles are explicitly blueberry-focused (quoted above), confirming real, substantive berry-relevant content rather than merely plausible topical fit. theproduceindustrynetwork.com (this Source's url/value) independently confirmed reachable (HTTP 200) at verification time."
+    }
+  },
+  {
+    "id": "source-fresh-cred-podcast",
+    "type": "reference",
+    "label": "The Fresh CrEd",
+    "value": "https://thefreshcred.com",
+    "url": "https://thefreshcred.com",
+    "why_it_matters": "Ed Bertaud's fresh produce industry podcast covering freight, pricing pressure, sourcing, retail dynamics and supply-chain shifts from the operator/buyer/grower perspective -- a current, high-cadence show (100 episodes, latest published 2026-08-12) with confirmed strawberry-relevant content, adding operational/logistics texture this dataset's mostly institutional/association sources don't provide.",
+    "entity_types": [
+      "trade_press",
+      "grower_marketer",
+      "market_research"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-16",
+    "last_checked_at": null,
+    "last_status": null,
+    "discovery": {
+      "adapter": "podcast_rss",
+      "feed_url": "https://feed.podbean.com/masonhartung/feed.xml",
+      "feed_url_resolved_via": "https://itunes.apple.com/lookup?id=1566145559&entity=podcast",
+      "feed_url_verified_at": "2026-08-16",
+      "notes": "Identified via iTunes search for 'The Fresh CrEd' (id 1566145559), then resolved the real first-party feed by looking that id up through Apple's public iTunes Lookup API, which returns feedUrl on Podbean (trackCount 100, latest releaseDate 2026-08-05 at verification time). No credentials, no paid API, no scraping. Verified by fetching the feed directly: channel <link> is https://thefreshcred.com (matching this Source's url/value), the channel description names host Ed Bertaud and describes exactly the fresh-produce-operations focus above, and grepping the raw feed body found a strawberry-relevant hit in episode content."
+    }
+  },
+  {
+    "id": "source-lubera-edibles-podcast",
+    "type": "reference",
+    "label": "Lubera Edibles Gardeners Radio",
+    "value": "https://www.luberaedibles.com/en/news",
+    "url": "https://www.luberaedibles.com/en/news",
+    "why_it_matters": "Lubera Edibles (Swiss fruit-plant breeder/nursery)'s own professional podcast, aimed at production gardeners, final-sales gardeners and green-industry journalists -- direct first-party coverage of the company's own berry breeding and young-plant ('Treelings(R)') genetics, with confirmed dedicated episodes on strawberries ('The Lubera(R) strawberry families', container production), blueberries (container production) and raspberries (cultivation, 'the new raspberry families') -- the European nursery/genetics counterpart to Fall Creek Farm & Nursery's entry in this dataset (source-20260806173428-5498-fall-creek-farm-nursery-3).",
+    "entity_types": [
+      "genetics_company",
+      "nursery_propagator",
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "europe"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-16",
+    "last_checked_at": null,
+    "last_status": null,
+    "discovery": {
+      "adapter": "podcast_rss",
+      "feed_url": "https://luberaediblesgardenersradio.podigee.io/feed/mp3",
+      "feed_url_resolved_via": "https://itunes.apple.com/lookup?id=1551627669&entity=podcast",
+      "feed_url_verified_at": "2026-08-16",
+      "notes": "Identified via iTunes search for 'Lubera' (id 1551627669, 'Lubera Edibles Gardeners Radio', artists Markus Kobelt/Frederik Vollert), then resolved the real first-party feed by looking that id up through Apple's public iTunes Lookup API, which returns feedUrl on Podigee (trackCount 22 at verification time). No credentials, no paid API, no scraping. Verified by fetching the feed directly: channel <link> is https://www.luberaedibles.com/en/news (matching this Source's url/value), copyright is 'Lubera Edibles', and grepping episode titles directly confirmed dedicated berry-cultivation episodes (quoted in why_it_matters above), not merely plausible topical fit. HONEST LIMITATION: this feed's lastBuildDate at verification time was 2023-07-02 and its most recent item's pubDate was 2022-04-02 -- the show appears dormant since 2022/2023, not actively publishing as of this onboarding (2026-08-16). Onboarded anyway per this task's instruction not to assume-exclude a verified, real, on-topic source; a discovery run against a dormant feed is expected to report 0 new items on every run until (if ever) the publisher resumes, which is the correct, honest behavior of this adapter, not a bug. A German-language sibling show, 'Lubera Edibles Gaertnerradio' (id 1551627817, also on Podigee, same content in German), exists but was deliberately NOT registered as a second Source -- it is a language edition of the same underlying content, not a distinct publication channel, and registering it would double-count the same episodes under this dataset's per-Source dedupe/reporting model."
+    }
+  },
+  {
+    "id": "source-blueberries-tv-youtube",
+    "type": "reference",
+    "label": "Blueberries TV (Blueberries Consulting)",
+    "value": "https://www.youtube.com/@BlueberriesTV",
+    "url": "https://www.youtube.com/@BlueberriesTV",
+    "why_it_matters": "Official YouTube channel of Blueberries Consulting, the independent, third-party global blueberry-industry consultancy (20+ years, 40+ International Blueberries Seminar editions across Peru, Chile, Mexico, Argentina, Colombia, Spain, Morocco and China) -- first-party video coverage of seminar sessions, sponsor/exhibitor interviews (e.g. Fall Creek, Projar, Water Partners) and Southern Hemisphere/Mediterranean blueberry supply-chain content. Distinct from this dataset's existing source-20260806173428-6938-international-blueberry-organization-ibo-38 (the IBO itself, a producer-representation trade body) and from source-comite-de-arandanos-de-chile-youtube (Chile's national blueberry committee) -- Blueberries Consulting is a private media/consulting company, not a producer or government body, confirmed via this branch's own prior-session research (see this branch's earlier archive-adapter research commit) as the real, verified producer of the seminar video content originally suspected to belong to the IBO directly.",
+    "entity_types": [
+      "market_research",
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "south_america",
+      "europe",
+      "africa",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-16",
+    "last_checked_at": null,
+    "last_status": null,
+    "discovery": {
+      "adapter": "youtube_feed",
+      "feed_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCwypVNJp_DjjoLtqVCwIF4w",
+      "feed_url_resolved_via": "https://www.youtube.com/@BlueberriesTV page markup (ytInitialData externalId field)",
+      "feed_url_verified_at": "2026-08-16",
+      "notes": "Independently re-fetched https://www.youtube.com/@BlueberriesTV this session and extracted its channel id (UCwypVNJp_DjjoLtqVCwIF4w) directly from the page's own embedded ytInitialData -- no scraping beyond reading the publisher's own public page markup, no API key, no OAuth. This channel id matches the one previously named in this branch's prior planning-stage research (bd9c730, 'docs: record archive/index discovery-adapter research'), but was NOT taken on trust from that document -- it is re-derived here from a fresh, independent fetch. The channel's public Atom feed at this feed_url was then fetched directly and confirmed to list real, dated, first-party uploads: the current top entry is 'Mediterranean Meeting - International Berries Seminar Morocco 2026' (published 2026-07-22), followed by 14 videos titled 'XLII Seminario Internacional de Blueberries Trujillo - Peru 2026' (sponsor/session interviews: Quiagral, Dutch Plantin, Luis Miguel Vegas, Projar, Water Partners, Grupo Silvestre, Sansan, Elifab, Fibre Dust, Unitec, Fall Creek, Farmex) -- real, current, on-topic content, not a stale or dormant channel. Same public YouTube Atom feed mechanism as source-redagricola-on-the-road/source-university-of-arkansas-division-of-agriculture/source-comite-de-arandanos-de-chile-youtube (see app/services/media_discovery.py's youtube_feed adapter). IMPORTANT LIMITATION (documented honestly, same as this registry's other youtube_feed Sources): this channel's Atom feed exposes only the ~15 most recent uploads at verification time; the seminar series runs 40+ editions, so this feed surfaces only the most recent handful of seminar events, not the channel's full historical archive."
+    }
   }
 ]
