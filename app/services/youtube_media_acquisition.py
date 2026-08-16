@@ -340,6 +340,8 @@ class YouTubeCaptionAcquisition:
     source_url: str
     checksum_sha256: str
     cache_hit: bool
+    cache_key: str
+    raw_artifact_id: str
 
 
 def fetch_captions(
@@ -397,6 +399,8 @@ def fetch_captions(
                 source_url=existing.get("source_url", vtt_url),
                 checksum_sha256=existing["checksum_sha256"],
                 cache_hit=True,
+                cache_key=cache_key,
+                raw_artifact_id=existing.get("id", f"yt-captions-{item['id']}"),
             )
 
     downloader = downloader or _download_text_real
@@ -444,6 +448,8 @@ def fetch_captions(
         source_url=vtt_url,
         checksum_sha256=checksum,
         cache_hit=False,
+        cache_key=cache_key,
+        raw_artifact_id=artifact["id"],
     )
 
 

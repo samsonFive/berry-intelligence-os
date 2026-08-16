@@ -279,6 +279,178 @@ def select_enclosure_url(item: dict[str, Any]) -> str | None:
     return None
 
 
+_FINGERPRINT_PLATFORM_ITEM = "platform_item"
+_FINGERPRINT_MEDIA_ENCLOSURE = "media_enclosure"
+_FINGERPRINT_PUBLISHER_TRANSCRIPT = "publisher_transcript"
+_FINGERPRINT_CANONICAL_URL = "canonical_url"
+
+
+def resolve_acquisition_fingerprint(
+    item: dict[str, Any], *, preferred_kind: str | None = None
+) -> dict[str, str] | None:
+    """Resolve a stable, platform-neutral identity for an acquisition input.
+
+    Orchestration must not assume every media item has an RSS enclosure.  The
+    discovered-item contract already exposes the right generic primitives:
+    platform-native item identity, media enclosure, publisher transcript URL,
+    and canonical URL.  Acquisition records persist both the selected kind and
+    value so a future adapter can add a new platform without changing
+    orchestration.
+
+    ``preferred_kind`` is used when a tier has already selected its input
+    class (for example publisher timed text versus playable media).  With no
+    preference, playable-media identity is selected in durability order:
+    platform item, RSS enclosure, then canonical URL.
+    """
+
+    availability = item.get("transcript_availability") or {}
+    values: dict[str, Any] = {
+        _FINGERPRINT_PLATFORM_ITEM: item.get("platform_item_id"),
+        _FINGERPRINT_MEDIA_ENCLOSURE: select_enclosure_url(item),
+        _FINGERPRINT_PUBLISHER_TRANSCRIPT: availability.get("url"),
+        _FINGERPRINT_CANONICAL_URL: item.get("canonical_url"),
+    }
+    kinds = (
+        (preferred_kind,)
+        if preferred_kind is not None
+        else (_FINGERPRINT_PLATFORM_ITEM, _FINGERPRINT_MEDIA_ENCLOSURE, _FINGERPRINT_CANONICAL_URL)
+    )
+    for kind in kinds:
+        value = values.get(kind)
+        if isinstance(value, str) and value.strip():
+            return {"kind": kind, "value": value.strip()}
+    return None
+
+
+def _legacy_acquisition_fingerprint_matches(
+    acquisition: dict[str, Any], item: dict[str, Any]
+) -> bool:
+    """Compatibility for normalized artifacts created before fingerprints.
+
+    This intentionally compares generic identity fields.  A YouTube watch URL
+    is accepted because it is the discovered item's canonical URL, not because
+    orchestration (or this compatibility shim) recognizes a particular host.
+    """
+
+    tier = acquisition.get("tier")
+    if tier == "tier_1_publisher_transcript":
+        current = resolve_acquisition_fingerprint(
+            item, preferred_kind=_FINGERPRINT_PUBLISHER_TRANSCRIPT
+        )
+        return bool(current and acquisition.get("source_url") == current["value"])
+
+    if isinstance(acquisition.get("video_id"), str):
+        current = resolve_acquisition_fingerprint(
+            item, preferred_kind=_FINGERPRINT_PLATFORM_ITEM
+        )
+        return bool(current and acquisition["video_id"] == current["value"])
+
+    recorded_url = acquisition.get("media_url")
+    if isinstance(recorded_url, str) and recorded_url:
+        candidates = (
+            resolve_acquisition_fingerprint(item, preferred_kind=_FINGERPRINT_MEDIA_ENCLOSURE),
+            resolve_acquisition_fingerprint(item, preferred_kind=_FINGERPRINT_CANONICAL_URL),
+        )
+        return any(candidate and candidate["value"] == recorded_url for candidate in candidates)
+
+    # Older non-media normalized records may not carry an acquisition input.
+    return tier not in {
+        "tier_1_publisher_transcript",
+        "tier_2_youtube_human_captions",
+        "tier_2_youtube_auto_captions",
+        "tier_3_local_speech_to_text",
+    }
+
+
+def transcript_cache_matches_request(
+    inbox_dir: Path,
+    payload: dict[str, Any],
+    item: dict[str, Any],
+    *,
+    model: str,
+    language: str | None,
+    force: bool = False,
+) -> bool:
+    """Return whether a normalized transcript satisfies the current request.
+
+    This is the single acquisition-aware cache boundary used by orchestration.
+    It checks the persisted source fingerprint plus STT options and any local
+    acquisition checksum metadata already available.  It deliberately does
+    not poll remote caption/media endpoints merely to decide whether a cached
+    transcript can be loaded.
+    """
+
+    if force or payload.get("item_id") not in (None, item.get("id")):
+        return False
+    acquisition = payload.get("acquisition") or {}
+    if not isinstance(acquisition, dict):
+        return False
+
+    fingerprint = acquisition.get("source_fingerprint")
+    if isinstance(fingerprint, dict) and isinstance(fingerprint.get("kind"), str):
+        current = resolve_acquisition_fingerprint(
+            item, preferred_kind=fingerprint["kind"]
+        )
+        if current != fingerprint:
+            return False
+    elif not _legacy_acquisition_fingerprint_matches(acquisition, item):
+        return False
+
+    tier = acquisition.get("tier")
+    if tier == "tier_3_local_speech_to_text":
+        if acquisition.get("model") != model:
+            return False
+        if "language_requested" in acquisition:
+            if acquisition.get("language_requested") != language:
+                return False
+        elif language is not None:
+            # Pre-fingerprint artifacts did not preserve this cache-key input;
+            # delegate conservatively rather than guessing from detected language.
+            return False
+
+        meta_path = _media_meta_path(inbox_dir, item["id"])
+        if meta_path.exists():
+            try:
+                media_meta = json.loads(meta_path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                media_meta = None
+            if isinstance(media_meta, dict):
+                recorded_checksum = acquisition.get("media_checksum_sha256")
+                current_checksum = media_meta.get("checksum_sha256")
+                if recorded_checksum and current_checksum and recorded_checksum != current_checksum:
+                    return False
+    elif tier in {
+        "tier_2_youtube_human_captions",
+        "tier_2_youtube_auto_captions",
+    }:
+        if "language_requested" in acquisition:
+            if acquisition.get("language_requested") != language:
+                return False
+        elif language is not None and payload.get("language") != language:
+            return False
+        raw_artifact_id = acquisition.get("raw_artifact_id")
+        if isinstance(raw_artifact_id, str) and raw_artifact_id:
+            raw_path = raw_transcripts_dir(inbox_dir) / f"{raw_artifact_id}.json"
+            if raw_path.exists():
+                try:
+                    raw_payload = json.loads(raw_path.read_text(encoding="utf-8"))
+                except (OSError, json.JSONDecodeError):
+                    raw_payload = None
+                if isinstance(raw_payload, dict):
+                    pairs = (
+                        ("raw_artifact_checksum_sha256", "checksum_sha256"),
+                        ("cache_key", "cache_key"),
+                    )
+                    if any(
+                        acquisition.get(normalized_key)
+                        and raw_payload.get(raw_key)
+                        and acquisition[normalized_key] != raw_payload[raw_key]
+                        for normalized_key, raw_key in pairs
+                    ):
+                        return False
+    return True
+
+
 _EXTENSION_BY_CONTENT_TYPE = {
     "audio/mpeg": ".mp3",
     "audio/mp3": ".mp3",
@@ -811,6 +983,9 @@ def _run_tier1(
         "engine": None,
         "model": None,
         "device": None,
+        "source_fingerprint": resolve_acquisition_fingerprint(
+            item, preferred_kind=_FINGERPRINT_PUBLISHER_TRANSCRIPT
+        ),
     }
     payload = normalize_transcript(
         item=item,
@@ -890,9 +1065,15 @@ def _run_tier2_youtube_captions(
         "caption_kind": result.caption_kind,
         "raw_artifact_checksum_sha256": result.checksum_sha256,
         "cache_hit": result.cache_hit,
+        "cache_key": result.cache_key,
+        "raw_artifact_id": result.raw_artifact_id,
+        "language_requested": language,
         "engine": None,
         "model": None,
         "device": None,
+        "source_fingerprint": resolve_acquisition_fingerprint(
+            item, preferred_kind=_FINGERPRINT_PLATFORM_ITEM
+        ),
     }
     payload = normalize_transcript(
         item=item,
@@ -972,6 +1153,8 @@ def _run_tier3(
         "model": raw_artifact["model"],
         "device": raw_artifact["device"],
         "transcribed_at": raw_artifact["transcribed_at"],
+        "language_requested": language,
+        "source_fingerprint": resolve_acquisition_fingerprint(item),
     }
     payload = normalize_transcript(
         item=item,

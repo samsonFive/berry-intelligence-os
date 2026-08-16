@@ -7,6 +7,8 @@ from datetime import date
 import json
 from pathlib import Path
 
+import pytest
+
 from app import main
 from app.services import media_transcription
 from app.services.media_orchestration import (
@@ -76,6 +78,44 @@ def _item(item_id: str = "discovered-transcription-orchestration") -> dict:
             "enclosures": [{"url": "https://example.invalid/audio.mp3", "type": "audio/mpeg"}]
         },
     }
+
+
+def _youtube_item(item_id: str = "discovered-youtube-orchestration") -> dict:
+    video_id = "platform-video-123"
+    return {
+        **_item(item_id),
+        "external_id": None,
+        "platform_item_id": video_id,
+        "dedupe_strategy": "platform_item_id",
+        "dedupe_key": video_id,
+        "canonical_url": f"https://video.example.invalid/watch?v={video_id}",
+        "media_format": "video",
+        "transcript_availability": {"status": "unknown"},
+        "raw_metadata": {"yt_video_id": video_id},
+    }
+
+
+def _cached_payload(
+    item: dict, *, tier: str, language: str = "en", language_requested: str | None = None
+) -> dict:
+    acquisition = {
+        "tier": tier,
+        "source_fingerprint": media_transcription.resolve_acquisition_fingerprint(item),
+        "media_url": item.get("canonical_url") if tier == "tier_3_local_speech_to_text" else None,
+        "media_checksum_sha256": "a" * 64 if tier == "tier_3_local_speech_to_text" else None,
+        "model": "small" if tier == "tier_3_local_speech_to_text" else None,
+        "language_requested": language_requested,
+    }
+    return media_transcription.normalize_transcript(
+        item=item,
+        segments=[{"text": "The trial may expand.", "start_seconds": 20, "end_seconds": 24}],
+        language=language,
+        method="auto_generated",
+        created_by="fixture",
+        created_at="2026-08-15",
+        parent_evidence_id=None,
+        acquisition=acquisition,
+    )
 
 
 def _parent(item: dict) -> dict:
@@ -159,6 +199,140 @@ def test_adapter_uses_public_normalized_loader_without_invoking_transcription(mo
     loaded = MediaTranscriptionAdapter(tmp_path / "inbox").load(item)
     assert loaded["transcript_id"] == payload["transcript_id"]
     assert loads == [(tmp_path / "inbox", item["id"])]
+
+
+@pytest.mark.parametrize(
+    ("source_id", "enclosure"),
+    [
+        ("source-lucentlands", "https://anchor.invalid/episode.mp3"),
+        ("source-business-of-blueberries", "https://captivate.invalid/episode.mp3"),
+    ],
+)
+def test_rss_cache_fingerprint_is_host_neutral_and_invalidates_changed_enclosure(
+    tmp_path: Path, source_id: str, enclosure: str
+) -> None:
+    item = _item(f"discovered-{source_id}")
+    item["source_id"] = source_id
+    item["raw_metadata"]["enclosures"] = [{"url": enclosure, "type": "audio/mpeg"}]
+    payload = _cached_payload(item, tier="tier_3_local_speech_to_text")
+    assert payload["acquisition"]["source_fingerprint"] == {
+        "kind": "media_enclosure",
+        "value": enclosure,
+    }
+    assert media_transcription.transcript_cache_matches_request(
+        tmp_path / "inbox", payload, item, model="small", language=None
+    )
+
+    changed = deepcopy(item)
+    changed["raw_metadata"]["enclosures"][0]["url"] = enclosure + "?revision=2"
+    assert not media_transcription.transcript_cache_matches_request(
+        tmp_path / "inbox", payload, changed, model="small", language=None
+    )
+
+
+def test_tier3_cache_invalidates_changed_local_checksum_language_model_and_force(
+    tmp_path: Path,
+) -> None:
+    inbox = tmp_path / "inbox"
+    item = _item()
+    payload = _cached_payload(item, tier="tier_3_local_speech_to_text")
+    media_folder = media_transcription.media_dir(inbox)
+    media_folder.mkdir(parents=True)
+    (media_folder / f"{item['id']}.meta.json").write_text(
+        json.dumps({"checksum_sha256": "b" * 64}), encoding="utf-8"
+    )
+
+    assert not media_transcription.transcript_cache_matches_request(
+        inbox, payload, item, model="small", language=None
+    )
+    assert not media_transcription.transcript_cache_matches_request(
+        tmp_path / "without-sidecar", payload, item, model="medium", language=None
+    )
+    assert not media_transcription.transcript_cache_matches_request(
+        tmp_path / "without-sidecar", payload, item, model="small", language="en"
+    )
+    assert not media_transcription.transcript_cache_matches_request(
+        tmp_path / "without-sidecar", payload, item, model="small", language=None, force=True
+    )
+
+    explicitly_english = _cached_payload(
+        item,
+        tier="tier_3_local_speech_to_text",
+        language_requested="en",
+    )
+    assert not media_transcription.transcript_cache_matches_request(
+        tmp_path / "without-sidecar", explicitly_english, item, model="small", language=None
+    )
+
+
+@pytest.mark.parametrize(
+    ("tier", "language"),
+    [
+        ("tier_2_youtube_auto_captions", "es"),
+        ("tier_2_youtube_human_captions", "en"),
+    ],
+)
+def test_youtube_caption_cache_reuses_platform_identity_without_acquisition(
+    monkeypatch, tmp_path: Path, tier: str, language: str
+) -> None:
+    inbox = tmp_path / "inbox"
+    item = _youtube_item()
+    payload = _cached_payload(
+        item, tier=tier, language=language, language_requested=language
+    )
+    media_transcription.write_transcript_artifact(inbox, payload)
+    monkeypatch.setattr(
+        media_transcription,
+        "transcribe_discovered_item",
+        lambda *args, **kwargs: (_ for _ in ()).throw(
+            AssertionError("valid caption cache must not be reacquired")
+        ),
+    )
+
+    adapter = MediaTranscriptionAdapter(inbox, language=language)
+    assert adapter.load(item) == payload
+    assert adapter.load(item) == payload
+
+
+def test_youtube_tier3_parent_binding_and_extraction_reruns_never_invoke_stt(
+    monkeypatch, tmp_path: Path
+) -> None:
+    repos, inbox, errors = _setup(tmp_path)
+    item = _youtube_item()
+    _write_item(inbox, item)
+    parent = _parent(item)
+    parent["media_format"] = "video"
+    parent["source_url"] = item["canonical_url"]
+    repos.evidence.create(parent)
+    payload = _cached_payload(item, tier="tier_3_local_speech_to_text")
+    before_segments = deepcopy(payload["segments"])
+    media_transcription.write_transcript_artifact(inbox, payload)
+    monkeypatch.setattr(
+        media_transcription,
+        "transcribe_discovered_item",
+        lambda *args, **kwargs: (_ for _ in ()).throw(
+            AssertionError("parent binding/extraction rerun must not invoke STT")
+        ),
+    )
+    extractor = TranscriptEvidenceExtractionService(
+        repositories=repos,
+        inbox_dir=inbox,
+        evidence_errors=errors,
+        provider=StructuredCandidateProvider(
+            [{"normalized_statement": "The trial may expand.", "segment_indexes": [0]}],
+            name="fixture extractor",
+            method="ai_assisted",
+        ),
+        today=lambda: date(2026, 8, 15),
+    )
+    service = _service(repos, inbox, errors, MediaTranscriptionAdapter(inbox), extractor)
+
+    first = service.process(item["id"])
+    second = service.process(item["id"])
+    assert first.state == second.state == "extraction_complete"
+    assert first.extraction["accepted"] == 1
+    assert second.extraction["accepted"] == 0
+    assert media_transcription.load_transcript_artifact(inbox, item["id"])["segments"] == before_segments
 
 
 def test_actual_service_transcribes_missing_item_once_then_reuses_normalized_cache(monkeypatch, tmp_path: Path) -> None:

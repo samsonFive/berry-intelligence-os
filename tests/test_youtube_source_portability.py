@@ -583,35 +583,17 @@ def test_no_evidence_or_downstream_trusted_records_created_for_arkansas(tmp_path
 
 
 # ---------------------------------------------------------------------------
-# 6. Cache-freshness investigation (Phase 17): media_orchestration.py's
-#    MediaTranscriptionAdapter._cache_matches_request() (NOT modified by
-#    this file -- read-only exercise of Codex's existing code) checks
-#    `media_transcription.select_enclosure_url(item)` for any cached
-#    tier_3_local_speech_to_text record. That helper only ever reads
-#    `raw_metadata.enclosures`, a field the youtube_feed adapter never
-#    populates (see media_discovery._normalize_youtube_feed_entry) -- so for
-#    ANY YouTube item that fell through to Tier 3, `current_url` is always
-#    None while the recorded `acquisition.media_url` is always the stable
-#    `https://www.youtube.com/watch?v=<id>` URL `acquire_youtube_audio()`
-#    records. This is a structural, adapter-shape mismatch (RSS-shaped
-#    freshness check applied to a YouTube-native artifact) -- reproducible
-#    for any youtube_feed-sourced item that used Tier 3, not specific to
-#    Redagricola or to Arkansas. This test proves it reproduces for this
-#    second, independent YouTube source too, causing one redundant
-#    transcribe_discovered_item() call on an unchanged, already-cached item
-#    (downstream caches inside that call still prevent any real
-#    re-download/re-transcription -- see the flat downloader/provider call
-#    counts below).
+# 6. Cache-freshness regression: orchestration delegates to the
+#    transcription layer's acquisition fingerprint. A platform-native item
+#    identity therefore works without an RSS enclosure and without any
+#    source-specific orchestration branch.
 # ---------------------------------------------------------------------------
 
 
-def test_youtube_tier3_orchestration_cache_freshness_bug_reproduces_for_arkansas(tmp_path: Path) -> None:
-    """Deterministic, offline unit-level proof (calls the existing, NOT
-    modified, `MediaTranscriptionAdapter._cache_matches_request()` directly
-    on a real-shaped cached Tier-3 record, rather than driving the full
-    `.load()` pipeline -- which would need a real yt-dlp network call on a
-    cache miss, exactly the live-call-in-pytest this project's tests must
-    never perform)."""
+def test_youtube_tier3_orchestration_reuses_platform_fingerprint_for_arkansas(
+    tmp_path: Path, monkeypatch
+) -> None:
+    """A real-shaped Tier-3 cache is reused without reacquisition or STT."""
     item = _arkansas_item()
     info = _info_en(subtitles={}, automatic_captions={})
     provider = _FakeProvider()
@@ -634,35 +616,45 @@ def test_youtube_tier3_orchestration_cache_freshness_bug_reproduces_for_arkansas
 
     adapter = MediaTranscriptionAdapter(inbox_dir, provider_factory=lambda: provider)
 
-    # The bug, reproduced: the SAME item, the SAME just-written cached
-    # payload, nothing changed at all -- yet `_cache_matches_request()`
-    # reports stale (False), because it compares the Tier-3 YouTube
-    # artifact's recorded `acquisition.media_url`
-    # ("https://www.youtube.com/watch?v=<id>", written by
-    # `acquire_youtube_audio()`) against
-    # `media_transcription.select_enclosure_url(item)` -- an RSS-only
-    # helper that reads `raw_metadata.enclosures`, a key the youtube_feed
-    # adapter never populates for ANY YouTube item, Redagricola or Arkansas.
-    # `current_url` is therefore always None for a YouTube item, and
-    # `recorded_url != current_url` is unconditionally True.
-    assert mt.select_enclosure_url(item) is None  # the root cause, directly
+    assert mt.select_enclosure_url(item) is None
     assert cached_payload["acquisition"]["media_url"] == f"https://www.youtube.com/watch?v={ARKANSAS_VIDEO_ID}"
-    assert adapter._cache_matches_request(cached_payload, item) is False
+    assert cached_payload["acquisition"]["source_fingerprint"] == {
+        "kind": "platform_item",
+        "value": ARKANSAS_VIDEO_ID,
+    }
+    assert adapter._cache_matches_request(cached_payload, item) is True
 
-    # Confirms this is structural (any YouTube item, any tier-3 artifact),
-    # not an Arkansas- or Redagricola-specific quirk: the same mismatch
-    # reproduces for a fabricated Redagricola-shaped Tier-3 record too.
+    monkeypatch.setattr(
+        mt,
+        "transcribe_discovered_item",
+        lambda *args, **kwargs: (_ for _ in ()).throw(
+            AssertionError("valid Tier-3 cache must not reacquire or transcribe")
+        ),
+    )
+    assert adapter.load(item) == cached_payload
+    assert len(provider.calls) == 1
+    assert len(audio_dl.calls) == 1
+
+    # Structural, not publisher-specific: another platform item uses the
+    # same fingerprint logic and a changed platform identity invalidates it.
     redagricola_payload = dict(cached_payload)
-    redagricola_payload["acquisition"] = {**cached_payload["acquisition"], "media_url": "https://www.youtube.com/watch?v=TRG0WsxJ1Lw"}
-    redagricola_item = {**item, "source_id": REDAGRICOLA_SOURCE_ID, "raw_metadata": {"yt_video_id": "TRG0WsxJ1Lw"}}
-    assert adapter._cache_matches_request(redagricola_payload, redagricola_item) is False
+    redagricola_payload["acquisition"] = {
+        **cached_payload["acquisition"],
+        "media_url": "https://www.youtube.com/watch?v=TRG0WsxJ1Lw",
+        "source_fingerprint": {"kind": "platform_item", "value": "TRG0WsxJ1Lw"},
+    }
+    redagricola_item = {
+        **item,
+        "source_id": REDAGRICOLA_SOURCE_ID,
+        "platform_item_id": "TRG0WsxJ1Lw",
+        "canonical_url": "https://www.youtube.com/watch?v=TRG0WsxJ1Lw",
+        "raw_metadata": {"yt_video_id": "TRG0WsxJ1Lw"},
+    }
+    assert adapter._cache_matches_request(redagricola_payload, redagricola_item) is True
+    changed_item = {**redagricola_item, "platform_item_id": "different-video"}
+    assert adapter._cache_matches_request(redagricola_payload, changed_item) is False
 
-    # By contrast, a Tier-2 (captions) YouTube record is NOT affected --
-    # `_cache_matches_request()` only inspects `media_url` staleness when
-    # `tier == "tier_3_local_speech_to_text"`, so a captions-tier record is
-    # correctly recognized as fresh. This matches the real Arkansas proof
-    # run (McWhirt video, Tier 2 human captions), where the second
-    # `scripts/transcribe_media.py` run reported a real cache hit.
+    # Tier-2 captions use the same platform identity fingerprint.
     tier2_payload = {**cached_payload, "acquisition": {**cached_payload["acquisition"], "tier": yt_acq.CAPTION_TIER_HUMAN, "media_url": None}}
     assert adapter._cache_matches_request(tier2_payload, item) is True
 

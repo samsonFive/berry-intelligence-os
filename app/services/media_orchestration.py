@@ -133,24 +133,14 @@ class MediaTranscriptionAdapter:
         return payload
 
     def _cache_matches_request(self, payload: dict[str, Any], item: dict[str, Any]) -> bool:
-        if self._force:
-            return False
-        acquisition = payload.get("acquisition") or {}
-        tier = acquisition.get("tier")
-        if tier == "tier_3_local_speech_to_text":
-            if acquisition.get("model") != self._model:
-                return False
-            if self._language is not None:
-                # Requested language is part of Claude's raw-transcript cache
-                # key but not repeated in the normalized acquisition block.
-                # Delegate this case so that service can make the real cache
-                # decision; a hit still avoids model execution.
-                return False
-            recorded_url = acquisition.get("media_url")
-            current_url = media_transcription.select_enclosure_url(item)
-            if recorded_url != current_url:
-                return False
-        return True
+        return media_transcription.transcript_cache_matches_request(
+            self._inbox_dir,
+            payload,
+            item,
+            model=self._model,
+            language=self._language,
+            force=self._force,
+        )
 
 
 @dataclass(frozen=True)
