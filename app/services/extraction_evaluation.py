@@ -476,6 +476,20 @@ def probe_provider(provider: OpenAICompatibleExtractionProvider) -> dict[str, An
     if provider.config.api_key and error:
         error = error.replace(provider.config.api_key, "[REDACTED]")
     reachable = error is None or not any(marker in error for marker in ("transport failure", "timed out"))
+    if error is None:
+        failure_category = None
+    elif "timed out" in error:
+        failure_category = "timeout"
+    elif any(code in error for code in ("(401)", "(403)")):
+        failure_category = "authentication_or_authorization"
+    elif "(404)" in error:
+        failure_category = "endpoint_or_model_unavailable"
+    elif "HTTP failure" in error:
+        failure_category = "http_failure"
+    elif "transport failure" in error:
+        failure_category = "transport_failure"
+    else:
+        failure_category = "structured_response_incompatible"
     metrics = provider.last_run_report.as_dict() if provider.last_run_report else {}
     return {
         "endpoint_configured": bool(provider.config.base_url),
@@ -486,8 +500,10 @@ def probe_provider(provider: OpenAICompatibleExtractionProvider) -> dict[str, An
         "response_format": provider.config.response_format,
         "provider": provider.provenance["provider"],
         "model": provider.provenance["model"],
+        "returned_model_identities": sorted(set(provider.last_response_models)),
         "prompt_version": PROMPT_VERSION,
         "latency_seconds": metrics.get("elapsed_seconds"),
+        "failure_category": failure_category,
         "error": error,
     }
 

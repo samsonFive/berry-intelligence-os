@@ -19,6 +19,11 @@ import re
 from typing import Any, Callable, ContextManager
 
 from app.services.media_discovery import DiscoveryError, DiscoveryRunResult, list_discovered_items
+from app.services.model_qualification import (
+    QUALIFICATION_MARKER_SCHEMA_VERSION,
+    QUALIFICATION_WORKFLOW_VERSION,
+    file_sha256,
+)
 
 
 UTC = timezone.utc
@@ -134,21 +139,55 @@ class ExtractionQualification:
     operator_qualified: bool
     qualified_by: str
     qualified_at: str
+    configuration_fingerprint: str
+    evaluation_run_id: str
+    evaluation_sha256: str
+    evaluation_artifact: str
+    benchmark_id: str
+    benchmark_version: int
+    benchmark_sha256: str
 
     @classmethod
     def load(cls, path: Path) -> "ExtractionQualification":
         payload = _read_json(path)
         if payload is None:
             raise ValueError(f"qualification file not found: {path}")
-        required = ("provider", "model", "prompt_version", "qualified_by", "qualified_at")
+        required = (
+            "provider", "model", "prompt_version", "qualified_by", "qualified_at",
+            "configuration_fingerprint", "evaluation_run_id", "evaluation_sha256", "evaluation_artifact",
+            "benchmark_id", "benchmark_sha256",
+        )
         missing = [key for key in required if not isinstance(payload.get(key), str) or not payload[key].strip()]
-        if missing or payload.get("operator_qualified") is not True:
+        if (
+            missing
+            or payload.get("operator_qualified") is not True
+            or payload.get("qualification_marker_schema_version") != QUALIFICATION_MARKER_SCHEMA_VERSION
+            or payload.get("workflow_version") != QUALIFICATION_WORKFLOW_VERSION
+            or not isinstance(payload.get("benchmark_version"), int)
+        ):
             detail = ", ".join(missing) if missing else "operator_qualified=true"
             raise ValueError(f"invalid model qualification marker; required: {detail}")
         try:
             datetime.fromisoformat(payload["qualified_at"])
         except ValueError as exc:
             raise ValueError("invalid model qualification marker; qualified_at must be ISO-8601") from exc
+        evaluation_path = (path.parent / payload["evaluation_artifact"]).resolve()
+        if not evaluation_path.exists() or file_sha256(evaluation_path) != payload["evaluation_sha256"]:
+            raise ValueError("qualification evaluation artifact is missing or fails its integrity check")
+        evaluation = _read_json(evaluation_path)
+        if (
+            not evaluation
+            or evaluation.get("run_id") != payload["evaluation_run_id"]
+            or evaluation.get("provider") != payload["provider"]
+            or evaluation.get("model") != payload["model"]
+            or evaluation.get("prompt_version") != payload["prompt_version"]
+            or evaluation.get("configuration_fingerprint") != payload["configuration_fingerprint"]
+            or evaluation.get("benchmark_identity", {}).get("id") != payload["benchmark_id"]
+            or evaluation.get("benchmark_identity", {}).get("version") != payload["benchmark_version"]
+            or evaluation.get("benchmark_identity", {}).get("sha256") != payload["benchmark_sha256"]
+            or evaluation.get("complete") is not True
+        ):
+            raise ValueError("qualification marker does not match its complete evaluation artifact")
         return cls(
             provider=payload["provider"],
             model=payload["model"],
@@ -156,14 +195,26 @@ class ExtractionQualification:
             operator_qualified=True,
             qualified_by=payload["qualified_by"],
             qualified_at=payload["qualified_at"],
+            configuration_fingerprint=payload["configuration_fingerprint"],
+            evaluation_run_id=payload["evaluation_run_id"],
+            evaluation_sha256=payload["evaluation_sha256"],
+            evaluation_artifact=payload["evaluation_artifact"],
+            benchmark_id=payload["benchmark_id"],
+            benchmark_version=payload["benchmark_version"],
+            benchmark_sha256=payload["benchmark_sha256"],
         )
 
-    def matches(self, *, provider: str, model: str, prompt_version: str) -> bool:
+    def matches(
+        self, *, provider: str, model: str, prompt_version: str,
+        configuration_fingerprint: str, benchmark_sha256: str,
+    ) -> bool:
         return (
             self.operator_qualified
             and self.provider == provider
             and self.model == model
             and self.prompt_version == prompt_version
+            and self.configuration_fingerprint == configuration_fingerprint
+            and self.benchmark_sha256 == benchmark_sha256
         )
 
 
@@ -193,6 +244,8 @@ def resolve_extraction_gate(
     base_url: str | None,
     prompt_version: str,
     qualification_path: Path | None,
+    configuration_fingerprint: str | None = None,
+    benchmark_sha256: str | None = None,
 ) -> ExtractionGate:
     if not enabled:
         return ExtractionGate(
@@ -231,14 +284,29 @@ def resolve_extraction_gate(
             prompt_version=prompt_version,
             reason=f"extraction ready but model is not qualified: {exc}",
         )
-    if not qualification.matches(provider=provider, model=model, prompt_version=prompt_version):
+    if not configuration_fingerprint or not benchmark_sha256:
         return ExtractionGate(
             enabled=True,
             configured=True,
             provider=provider,
             model=model,
             prompt_version=prompt_version,
-            reason="qualification marker does not match the exact provider/model/prompt version",
+            reason="extraction ready but runtime configuration or benchmark fingerprint is unavailable",
+        )
+    if not qualification.matches(
+        provider=provider,
+        model=model,
+        prompt_version=prompt_version,
+        configuration_fingerprint=configuration_fingerprint,
+        benchmark_sha256=benchmark_sha256,
+    ):
+        return ExtractionGate(
+            enabled=True,
+            configured=True,
+            provider=provider,
+            model=model,
+            prompt_version=prompt_version,
+            reason="qualification marker does not match the exact provider/model/prompt/configuration/benchmark",
         )
     return ExtractionGate(
         enabled=True,
@@ -247,7 +315,7 @@ def resolve_extraction_gate(
         provider=provider,
         model=model,
         prompt_version=prompt_version,
-        reason="exact provider/model/prompt version is operator-qualified",
+        reason="exact provider/model/prompt/configuration is operator-qualified",
     )
 
 

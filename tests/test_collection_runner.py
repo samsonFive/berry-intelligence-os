@@ -21,6 +21,11 @@ from app.services.media_discovery import DiscoveryRunResult
 from app.services.media_orchestration import OrchestrationResult, ParentResolution
 from app.services.media_orchestration import MediaOrchestrationService, MediaTranscriptionAdapter
 from app.services.media_transcription import load_transcript_artifact, transcript_cache_matches_request
+from app.services.model_qualification import (
+    QUALIFICATION_MARKER_SCHEMA_VERSION,
+    QUALIFICATION_WORKFLOW_VERSION,
+    file_sha256,
+)
 from app.services.transcript_evidence import StructuredCandidateProvider, TranscriptEvidenceExtractionService
 
 
@@ -294,6 +299,7 @@ def test_rejected_publication_is_not_recreated_or_retried_by_default(tmp_path: P
 
 
 def test_extraction_gate_requires_enablement_configuration_and_exact_qualification(tmp_path: Path) -> None:
+    fingerprint = "f" * 64
     disabled = resolve_extraction_gate(
         enabled=False, provider="openai-compatible", model="model-a", base_url="http://local",
         prompt_version="atomic-ci-v1", qualification_path=None,
@@ -310,19 +316,32 @@ def test_extraction_gate_requires_enablement_configuration_and_exact_qualificati
     )
     assert missing_qualification.configured and not missing_qualification.qualified
 
+    evaluation = tmp_path / "evaluation.json"
+    evaluation.write_text(json.dumps({
+        "run_id": "evaluation-fixture", "provider": "openai-compatible", "model": "model-a",
+        "prompt_version": "atomic-ci-v1", "configuration_fingerprint": fingerprint, "complete": True,
+        "benchmark_identity": {"id": "fixture", "version": 1, "sha256": "b" * 64},
+    }))
     marker = tmp_path / "qualification.json"
     marker.write_text(json.dumps({
+        "qualification_marker_schema_version": QUALIFICATION_MARKER_SCHEMA_VERSION,
+        "workflow_version": QUALIFICATION_WORKFLOW_VERSION,
         "provider": "openai-compatible", "model": "model-a", "prompt_version": "atomic-ci-v1",
         "operator_qualified": True, "qualified_by": "fixture-operator", "qualified_at": "2026-08-16",
+        "configuration_fingerprint": fingerprint, "evaluation_run_id": "evaluation-fixture",
+        "evaluation_artifact": "evaluation.json", "evaluation_sha256": file_sha256(evaluation),
+        "benchmark_id": "fixture", "benchmark_version": 1, "benchmark_sha256": "b" * 64,
     }))
     qualified = resolve_extraction_gate(
         enabled=True, provider="openai-compatible", model="model-a", base_url="http://local",
-        prompt_version="atomic-ci-v1", qualification_path=marker,
+        prompt_version="atomic-ci-v1", qualification_path=marker, configuration_fingerprint=fingerprint,
+        benchmark_sha256="b" * 64,
     )
     assert qualified.runnable
     mismatch = resolve_extraction_gate(
         enabled=True, provider="openai-compatible", model="model-b", base_url="http://local",
-        prompt_version="atomic-ci-v1", qualification_path=marker,
+        prompt_version="atomic-ci-v1", qualification_path=marker, configuration_fingerprint=fingerprint,
+        benchmark_sha256="b" * 64,
     )
     assert not mismatch.runnable and "does not match" in mismatch.reason
 

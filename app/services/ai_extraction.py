@@ -231,6 +231,7 @@ class OpenAICompatibleExtractionProvider:
             "prompt_version": PROMPT_VERSION,
         }
         self.last_run_report: ProviderRunReport | None = None
+        self.last_response_models: list[str] = []
 
     @property
     def endpoint(self) -> str:
@@ -252,6 +253,7 @@ class OpenAICompatibleExtractionProvider:
         validation, and deduplication path.
         """
         started = self._clock()
+        self.last_response_models = []
         all_windows = build_transcript_windows(
             request.transcript,
             max_chars=self.config.window_chars,
@@ -356,6 +358,9 @@ class OpenAICompatibleExtractionProvider:
             raise ExtractionProviderError(f"model transport failure ({type(exc).__name__})") from exc
         try:
             envelope = response.json()
+            returned_model = envelope.get("model")
+            if isinstance(returned_model, str) and returned_model.strip():
+                self.last_response_models.append(returned_model.strip())
             choice = envelope["choices"][0]
             message = choice["message"]
             content = message["content"]

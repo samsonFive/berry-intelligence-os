@@ -42,6 +42,8 @@ from app.services.media_transcription import (
     load_transcript_artifact,
     transcript_cache_matches_request,
 )
+from app.services.extraction_evaluation import public_configuration
+from app.services.model_qualification import file_sha256, qualification_configuration_fingerprint
 from app.services.transcript_evidence import TranscriptEvidenceExtractionService
 
 
@@ -147,22 +149,10 @@ def main(argv: list[str] | None = None) -> int:
     if qualification_path is None:
         configured_path = os.environ.get("BIOS_COLLECTION_QUALIFICATION_FILE")
         qualification_path = Path(configured_path) if configured_path else None
-    gate = resolve_extraction_gate(
-        enabled=extraction_enabled,
-        provider="openai-compatible",
-        model=extract_model,
-        base_url=extract_base_url,
-        prompt_version=PROMPT_VERSION,
-        qualification_path=qualification_path,
-    )
-
-    schema = json.loads((args.schemas_dir / "evidence.schema.json").read_text(encoding="utf-8"))
-    validator = Draft202012Validator(schema, format_checker=FormatChecker())
-    evidence_errors = lambda record: [error.message for error in validator.iter_errors(record)]
-    repositories = get_repositories(args.data_dir, args.schemas_dir)
-    extraction_service = None
-    if gate.runnable:
-        config = OpenAICompatibleExtractionConfig.from_environment(
+    extraction_config = None
+    configuration_fingerprint = None
+    if extract_base_url and extract_model:
+        extraction_config = OpenAICompatibleExtractionConfig.from_environment(
             api_key_env=args.extract_api_key_env,
             base_url=extract_base_url,
             model=extract_model,
@@ -174,11 +164,40 @@ def main(argv: list[str] | None = None) -> int:
             max_total_candidates=args.extract_max_total_candidates,
             response_format=args.extract_response_format,
         )
+        temporary_provider = OpenAICompatibleExtractionProvider(
+            config=extraction_config,
+            repositories=None,
+        )
+        configuration_fingerprint = qualification_configuration_fingerprint(
+            provider="openai-compatible",
+            model=extract_model,
+            base_url=extract_base_url,
+            prompt_version=PROMPT_VERSION,
+            generation=public_configuration(temporary_provider),
+        )
+    gate = resolve_extraction_gate(
+        enabled=extraction_enabled,
+        provider="openai-compatible",
+        model=extract_model,
+        base_url=extract_base_url,
+        prompt_version=PROMPT_VERSION,
+        qualification_path=qualification_path,
+        configuration_fingerprint=configuration_fingerprint,
+        benchmark_sha256=file_sha256(ROOT / "benchmarks" / "atomic-ci-v1.json"),
+    )
+
+    schema = json.loads((args.schemas_dir / "evidence.schema.json").read_text(encoding="utf-8"))
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    evidence_errors = lambda record: [error.message for error in validator.iter_errors(record)]
+    repositories = get_repositories(args.data_dir, args.schemas_dir)
+    extraction_service = None
+    if gate.runnable:
+        assert extraction_config is not None
         extraction_service = TranscriptEvidenceExtractionService(
             repositories=repositories,
             inbox_dir=args.inbox_dir,
             evidence_errors=evidence_errors,
-            provider=OpenAICompatibleExtractionProvider(config=config, repositories=repositories),
+            provider=OpenAICompatibleExtractionProvider(config=extraction_config, repositories=repositories),
         )
 
     def discover(source_id: str):
