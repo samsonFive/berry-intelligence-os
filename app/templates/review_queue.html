@@ -147,7 +147,24 @@
 {% if workbench.filters.kind != 'atomic' %}
 <section class="generic-review-section">
   <h2>Other intake drafts ({{ drafts|length }})</h2>
-  {% if drafts %}<ul class="draft-items">{% for draft in drafts %}<li><a href="/review/{{ draft.id }}">{{ draft.title }}</a><span class="badge badge-muted">{{ draft.evidence_role|replace('_',' ') if draft.evidence_role else draft.status }}</span><span class="draft-meta">{{ draft.source_name or draft.submitted_by }} · {{ draft.captured_date|us_date }}</span></li>{% endfor %}</ul>
+  {% if drafts %}<ul class="draft-items">{% for draft in drafts %}
+    <li class="draft-review-item">
+      <div class="draft-review-summary">
+        <a href="/review/{{ draft.id }}">{{ draft.title }}</a>
+        <span class="badge badge-muted">{{ draft.evidence_role|replace('_',' ') if draft.evidence_role else draft.status }}</span>
+        <span class="draft-meta">{{ draft.source_name or draft.submitted_by }} · {{ draft.captured_date|us_date }}</span>
+      </div>
+      {% if draft.transcript_readiness %}
+      <aside class="transcript-readiness transcript-readiness-compact" aria-label="Technical transcript readiness">
+        <span class="transcript-readiness-label">Transcript</span>
+        <span class="badge transcript-state-{{ draft.transcript_readiness.state }}">{{ draft.transcript_readiness.state_label }}</span>
+        {% if draft.transcript_readiness.method %}<span>{{ draft.transcript_readiness.method }}</span>{% endif %}
+        {% if draft.transcript_readiness.language %}<span>Detected language: <strong>{{ draft.transcript_readiness.language }}</strong></span>{% endif %}
+        {% if draft.transcript_readiness.failure_category %}<span>{{ draft.transcript_readiness.failure_category }}</span>{% endif %}
+      </aside>
+      {% endif %}
+    </li>
+  {% endfor %}</ul>
   {% else %}<p class="empty-state">No other intake drafts match the active filters.</p>{% endif %}
 </section>
 

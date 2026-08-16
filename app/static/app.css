@@ -178,6 +178,9 @@ a{color:#3d5c94}
 .drafts-list{padding:0 32px 40px;max-width:800px}
 .draft-items{list-style:none;padding:0;display:grid;gap:10px}
 .draft-items li{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border:1px solid #e3e7ef;border-radius:7px;padding:10px 12px;background:white}
+.draft-items .draft-review-item{align-items:stretch;display:grid;gap:8px}.draft-review-summary{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.transcript-readiness{border:1px solid #dfe5ee;border-radius:7px;background:#f8fafc;padding:10px 12px;color:#42516a;font-size:13px}.transcript-readiness p{margin:5px 0}.transcript-readiness h3{margin:0 0 7px}.transcript-readiness-compact{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:7px 9px}.transcript-readiness-label{font-weight:700;color:#213653}.transcript-state-ready{color:#1c6b42;background:#e2f6e9}.transcript-state-not_attempted,.transcript-state-unknown{color:#536076;background:#eef1f6}.transcript-state-retryable_failure{color:#8a5a10;background:#fdefd9}.transcript-state-intervention_required{color:#8b2e2e;background:#fbe5e5}
+.review-state-dimensions{display:grid;grid-template-columns:minmax(130px,.35fr) minmax(0,1fr);gap:10px;margin-bottom:8px}.review-state-dimensions>section:first-child{border:1px solid #dfe5ee;border-radius:7px;padding:10px 12px}.review-state-dimensions>section:first-child h3{margin:0 0 7px}
 .draft-meta{color:#7d8799;font-size:12px}
 
 .review-split{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:0 32px 40px;align-items:start}
@@ -412,7 +415,7 @@ strong.level-low{color:#426aa8}
   .detail-card{margin-left:16px;margin-right:16px}
   .form-row{grid-template-columns:1fr}
   .intake-form,.drafts-list,.banner,.intake-tabs{padding-left:16px;padding-right:16px}
-  .review-split{grid-template-columns:1fr;padding-left:16px;padding-right:16px}
+  .review-split{grid-template-columns:1fr;padding-left:16px;padding-right:16px}.review-state-dimensions{grid-template-columns:1fr}
   .cockpit-grid,.queue-table-wrap{padding-left:16px;padding-right:16px}
   .landscape-filter-bar,.landscape-header-stats,.landscape-section{margin-left:16px;margin-right:16px}
   .landscape-quick-nav{margin-left:16px;margin-right:16px;top:70px}

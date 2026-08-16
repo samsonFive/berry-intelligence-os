@@ -37,6 +37,25 @@
 <div class="review-split">
   <section class="review-pane">
     <h2>{% if draft.evidence_role == 'atomic_evidence' %}Source-grounding record{% else %}Original submission{% endif %}</h2>
+    {% if transcript_readiness %}
+      <div class="review-state-dimensions">
+        <section>
+          <h3>Publication review</h3>
+          <span class="badge badge-status-unverified">{{ draft.review_state|replace('_',' ')|title if draft.review_state else 'Pending' }}</span>
+        </section>
+        <section class="transcript-readiness" aria-label="Technical transcript readiness">
+          <h3>Technical transcript readiness</h3>
+          <p><span class="badge transcript-state-{{ transcript_readiness.state }}">{{ transcript_readiness.state_label }}</span></p>
+          {% if transcript_readiness.method %}<p><strong>Acquisition method:</strong> {{ transcript_readiness.method }}</p>{% endif %}
+          {% if transcript_readiness.language %}<p><strong>Detected language:</strong> {{ transcript_readiness.language }} <small>— verify if unexpected.</small></p>{% endif %}
+          {% if transcript_readiness.failure_category %}<p>{{ transcript_readiness.failure_category }}</p>{% endif %}
+          {% if transcript_readiness.retry_count is not none %}<p><strong>Retry attempts:</strong> {{ transcript_readiness.retry_count }}</p>{% endif %}
+          {% if transcript_readiness.next_retry_at %}<p><strong>Next eligible retry:</strong> {{ transcript_readiness.next_retry_at }}</p>{% endif %}
+          {% if transcript_readiness.updated_at %}<p><strong>Runtime state updated:</strong> {{ transcript_readiness.updated_at }}</p>{% endif %}
+        </section>
+      </div>
+      <p class="context-limit">Transcript readiness is independent of the publication decision.</p>
+    {% endif %}
     {% if draft.evidence_role == 'atomic_evidence' %}
       <div class="atomic-review-summary">
         <span class="badge badge-claim">ATOMIC EVIDENCE PROPOSAL</span>

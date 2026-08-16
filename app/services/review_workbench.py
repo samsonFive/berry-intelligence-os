@@ -7,16 +7,212 @@ display, then leaves every decision to the existing publish/reject routes.
 
 from __future__ import annotations
 
+import json
 from collections import defaultdict
 from copy import deepcopy
 from math import floor
+from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+
+from app.services.media_orchestration import MediaOrchestrationError, publication_draft_id
+from app.services.transcript_evidence import TranscriptArtifact, TranscriptContractError
 
 
 REVIEW_KINDS = {"all", "atomic", "publication"}
 REVIEW_STATES = {"pending", "rejected", "all"}
 REVIEW_SORTS = {"timestamp", "newest", "source", "parent"}
+
+TRANSCRIPT_METHOD_LABELS = {
+    "tier_1_publisher_transcript": "Publisher transcript",
+    "tier_2_youtube_human_captions": "YouTube human captions",
+    "tier_2_youtube_auto_captions": "YouTube auto captions",
+    "tier_3_local_speech_to_text": "Local Whisper",
+}
+
+
+def unknown_transcript_readiness() -> dict[str, Any]:
+    """Return a fail-closed presentation record for an unresolved runtime join."""
+
+    return {
+        "state": "unknown",
+        "state_label": "Status unknown",
+        "method": None,
+        "language": None,
+        "failure_category": None,
+        "retry_count": None,
+        "next_retry_at": None,
+        "updated_at": None,
+    }
+
+
+def _safe_runtime_objects(folder: Path) -> tuple[list[dict[str, Any]], set[str]]:
+    """Read one runtime collection without allowing a bad file to break review.
+
+    The returned stems let the presentation layer distinguish an unreadable
+    item-specific record from a record that genuinely does not exist. Nothing
+    is repaired or written back.
+    """
+
+    records: list[dict[str, Any]] = []
+    unreadable: set[str] = set()
+    if not folder.exists():
+        return records, unreadable
+    for path in sorted(folder.glob("*.json")):
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            unreadable.add(path.stem)
+            continue
+        if not isinstance(payload, dict):
+            unreadable.add(path.stem)
+            continue
+        records.append(payload)
+    return records, unreadable
+
+
+def _valid_transcript(payload: dict[str, Any]) -> bool:
+    probe = deepcopy(payload)
+    if not probe.get("parent_evidence_id"):
+        probe["parent_evidence_id"] = "ev-unresolved-publication-artifact"
+    try:
+        TranscriptArtifact.from_dict(probe)
+    except TranscriptContractError:
+        return False
+    return True
+
+
+def _latest_run_items(runs: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    latest: dict[str, tuple[str, dict[str, Any]]] = {}
+    for run in runs:
+        timestamp = str(run.get("completed_at") or run.get("started_at") or run.get("run_id") or "")
+        for item in run.get("items") or []:
+            if not isinstance(item, dict) or not isinstance(item.get("item_id"), str):
+                continue
+            current = latest.get(item["item_id"])
+            if current is None or timestamp >= current[0]:
+                latest[item["item_id"]] = (timestamp, item)
+    return {item_id: value[1] for item_id, value in latest.items()}
+
+
+def _readiness_for_item(
+    *,
+    transcript: dict[str, Any] | None,
+    transcript_unreadable: bool,
+    operation: dict[str, Any] | None,
+    operation_unreadable: bool,
+    run_item: dict[str, Any] | None,
+) -> dict[str, Any]:
+    if transcript_unreadable or operation_unreadable:
+        return unknown_transcript_readiness()
+
+    if transcript is not None:
+        if not _valid_transcript(transcript):
+            return unknown_transcript_readiness()
+        acquisition = transcript.get("acquisition") or {}
+        provenance = transcript.get("provenance") or {}
+        return {
+            "state": "ready",
+            "state_label": "Ready",
+            "method": TRANSCRIPT_METHOD_LABELS.get(acquisition.get("tier"), "Unknown method"),
+            "language": transcript.get("language") if isinstance(transcript.get("language"), str) else None,
+            "failure_category": None,
+            "retry_count": None,
+            "next_retry_at": None,
+            "updated_at": provenance.get("created_at"),
+        }
+
+    operation = operation or {}
+    run_item = run_item or {}
+    failure_class = operation.get("failure_class") or run_item.get("failure_class")
+    transcript_status = run_item.get("transcript_status")
+    updated_at = operation.get("last_attempted_at")
+
+    if failure_class == "retryable":
+        return {
+            "state": "retryable_failure",
+            "state_label": "Retryable failure",
+            "method": None,
+            "language": None,
+            "failure_category": "Media acquisition challenge; retry remains available.",
+            "retry_count": operation.get("retry_count") if isinstance(operation.get("retry_count"), int) else None,
+            "next_retry_at": operation.get("next_eligible_retry_at"),
+            "updated_at": updated_at,
+        }
+
+    if failure_class == "operator" or transcript_status == "malformed":
+        return {
+            "state": "intervention_required",
+            "state_label": "Unavailable / intervention required",
+            "method": None,
+            "language": None,
+            "failure_category": "Transcript acquisition requires operator intervention.",
+            "retry_count": operation.get("retry_count") if isinstance(operation.get("retry_count"), int) else None,
+            "next_retry_at": None,
+            "updated_at": updated_at,
+        }
+
+    if transcript_status == "missing" and run_item.get("transcription_attempted") is False:
+        return {
+            "state": "not_attempted",
+            "state_label": "Not attempted",
+            "method": None,
+            "language": None,
+            "failure_category": None,
+            "retry_count": None,
+            "next_retry_at": None,
+            "updated_at": updated_at,
+        }
+
+    return unknown_transcript_readiness()
+
+
+def load_publication_transcript_readiness(inbox_dir: Path) -> dict[str, dict[str, Any]]:
+    """Bulk-compose read-only transcript readiness keyed by publication draft.
+
+    Four runtime collections are scanned once. Templates never touch JSON and
+    this function never invokes discovery, acquisition, transcription, retry,
+    or orchestration.
+    """
+
+    discovered, _unreadable_discovered = _safe_runtime_objects(inbox_dir / "discovered_media")
+    transcripts, unreadable_transcripts = _safe_runtime_objects(
+        inbox_dir / "discovered_media" / "_normalized_transcripts"
+    )
+    operations, unreadable_operations = _safe_runtime_objects(inbox_dir / "operations" / "items")
+    runs, unreadable_runs = _safe_runtime_objects(inbox_dir / "operations" / "runs")
+
+    transcript_by_item = {
+        record["item_id"]: record
+        for record in transcripts
+        if isinstance(record.get("item_id"), str)
+    }
+    operation_by_item = {
+        record["item_id"]: record
+        for record in operations
+        if isinstance(record.get("item_id"), str)
+    }
+    # Run filenames cannot safely reveal which items an unreadable summary
+    # contains. Do not infer Not attempted from older history in that case.
+    latest_run_by_item = {} if unreadable_runs else _latest_run_items(runs)
+    result: dict[str, dict[str, Any]] = {}
+    for item in discovered:
+        item_id = item.get("id")
+        if not isinstance(item_id, str) or not item_id:
+            continue
+        try:
+            draft_id = publication_draft_id(item)
+        except MediaOrchestrationError:
+            continue
+        result[draft_id] = _readiness_for_item(
+            transcript=transcript_by_item.get(item_id),
+            transcript_unreadable=item_id in unreadable_transcripts,
+            operation=operation_by_item.get(item_id),
+            operation_unreadable=item_id in unreadable_operations,
+            run_item=latest_run_by_item.get(item_id),
+        )
+
+    return result
 
 
 def format_timestamp(seconds: Any) -> str:
@@ -149,11 +345,13 @@ def build_review_workbench(
     sources: list[dict[str, Any]],
     entities: list[dict[str, Any]],
     berry_labels: dict[str, str],
+    publication_transcript_readiness: dict[str, dict[str, Any]] | None = None,
     filters: dict[str, str | None] | None = None,
 ) -> dict[str, Any]:
     """Build grouped queue data using one bulk list per repository family."""
 
     filters = filters or {}
+    publication_transcript_readiness = publication_transcript_readiness or {}
     kind = filters.get("kind") if filters.get("kind") in REVIEW_KINDS else "all"
     state_filter = filters.get("state") if filters.get("state") in REVIEW_STATES else "pending"
     sort = filters.get("sort") if filters.get("sort") in REVIEW_SORTS else "timestamp"
@@ -303,9 +501,18 @@ def build_review_workbench(
     else:
         generic.sort(key=lambda record: (record.get("title") or "").casefold())
 
+    generic_presentations = []
+    for record in generic:
+        presentation = deepcopy(record)
+        if record.get("evidence_role") == "publication_artifact":
+            presentation["transcript_readiness"] = deepcopy(
+                publication_transcript_readiness.get(record.get("id")) or unknown_transcript_readiness()
+            )
+        generic_presentations.append(presentation)
+
     return {
         "groups": groups,
-        "generic_drafts": generic,
+        "generic_drafts": generic_presentations,
         "filters": {**filters, "kind": kind, "state": state_filter, "sort": sort},
         "options": {
             "sources": sorted(({"id": key, "label": value} for key, value in option_sources.items()), key=lambda value: value["label"].casefold()),

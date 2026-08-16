@@ -40,7 +40,12 @@ from app.services.berries.variety import (
     variety_trait_profile,
 )
 from app.services.review_publish import PublishRequest, ReviewPublishService
-from app.services.review_workbench import build_review_workbench, format_locator
+from app.services.review_workbench import (
+    build_review_workbench,
+    format_locator,
+    load_publication_transcript_readiness,
+    unknown_transcript_readiness,
+)
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data"
@@ -2643,6 +2648,7 @@ def review_queue(
         sources=repositories.sources.list(),
         entities=repositories.entities.list(),
         berry_labels=BERRIES,
+        publication_transcript_readiness=load_publication_transcript_readiness(INBOX_DIR),
         filters=filters,
     )
     stable_params = {
@@ -2723,6 +2729,11 @@ def _review_context(
         for field_name, names in linked_by_field.items():
             if names and not values.get(field_name):
                 values[field_name] = ", ".join(names)
+    transcript_readiness = None
+    if draft.get("evidence_role") == "publication_artifact":
+        transcript_readiness = load_publication_transcript_readiness(INBOX_DIR).get(
+            draft["id"], unknown_transcript_readiness()
+        )
     return {
         "draft": draft,
         "parent": parent,
@@ -2742,6 +2753,7 @@ def _review_context(
         "authoring_mode": AUTHORING_MODE,
         "return_to": _safe_review_return(return_to),
         "rejection_categories": REJECTION_CATEGORIES,
+        "transcript_readiness": transcript_readiness,
     }
 
 
