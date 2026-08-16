@@ -73,6 +73,7 @@ class PublishRequest:
     priority: dict[str, dict[str, str]]
     strategic_question_text: list[str]
     reviewer: str
+    existing_entity_ids: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -121,6 +122,13 @@ class ReviewPublishService:
         new_entity_ids: set[str] = set()
         name_to_id: dict[str, str] = {}
         entities_by_id: dict[str, dict[str, Any]] = deepcopy(entities_idx)
+
+        missing_existing_ids = [value for value in request.existing_entity_ids if value not in entities_idx]
+        if missing_existing_ids:
+            return PublishResult(schema_errors=[
+                "Linked entity IDs no longer resolve: " + ", ".join(sorted(missing_existing_ids))
+            ])
+        entity_ids.extend(request.existing_entity_ids)
 
         for entity_type, names in request.all_entity_names_by_type.items():
             for name in names:
@@ -207,6 +215,7 @@ class ReviewPublishService:
                     break
 
         # --- Evidence -------------------------------------------------
+        entity_ids = list(dict.fromkeys(entity_ids))
         evidence_record = {
             "id": evidence_id,
             "record_type": "evidence",
@@ -253,6 +262,17 @@ class ReviewPublishService:
         ):
             if field_name in request.draft:
                 evidence_record[field_name] = deepcopy(request.draft[field_name])
+
+        if request.draft.get("evidence_role") == "atomic_evidence":
+            original_statement = request.draft.get("summary") or request.draft.get("title") or ""
+            evidence_record["review_outcome"] = {
+                "decision": "approved",
+                "edited_before_approval": (
+                    request.title != request.draft.get("title")
+                    or request.summary != request.draft.get("summary")
+                ),
+                "original_normalized_statement": original_statement,
+            }
 
         schema_errors = [e.message for e in self._get_validator("evidence.schema.json").iter_errors(evidence_record)]
         if schema_errors:

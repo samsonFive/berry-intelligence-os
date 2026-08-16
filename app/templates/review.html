@@ -36,7 +36,29 @@
 
 <div class="review-split">
   <section class="review-pane">
-    <h2>Original submission</h2>
+    <h2>{% if draft.evidence_role == 'atomic_evidence' %}Source-grounding record{% else %}Original submission{% endif %}</h2>
+    {% if draft.evidence_role == 'atomic_evidence' %}
+      <div class="atomic-review-summary">
+        <span class="badge badge-claim">ATOMIC EVIDENCE PROPOSAL</span>
+        <h3>Proposed normalized statement</h3>
+        <p class="proposed-statement">{{ draft.summary }}</p>
+        <h3>Exact supporting transcript · {{ locator_label }}</h3>
+        <blockquote class="transcript-support">{{ draft.transcript_excerpt }}</blockquote>
+        {% if draft.artifact_locator.speaker_label %}<p><strong>Speaker label:</strong> {{ draft.artifact_locator.speaker_label }}</p>{% endif %}
+        <p class="context-limit">The transcript excerpt and locator are protected provenance. Editing the normalized statement does not change them.</p>
+        {% if parent %}
+          <h3>Parent publication</h3>
+          <p><a href="/evidence/{{ parent.id }}">{{ parent.title }}</a><br>{{ parent.source_name }}{% if parent.published_date %} · {{ parent.published_date|us_date }}{% endif %}{% if parent.media_format %} · {{ parent.media_format|replace('_',' ')|title }}{% endif %}</p>
+        {% endif %}
+        {% if linked_entities %}<h3>Current proposed links</h3><div class="proposal-links">{% for entity in linked_entities %}<span>{{ entity.name }} <small>{{ entity.entity_type|replace('_',' ') }}</small></span>{% endfor %}</div>{% endif %}
+        <details class="proposal-metadata"><summary>Extraction provenance</summary><dl>
+          <dt>Provider / model</dt><dd>{{ draft.extraction_provenance.provider or draft.extraction_provenance.extracted_by }}{% if draft.extraction_provenance.model %} / {{ draft.extraction_provenance.model }}{% endif %}</dd>
+          <dt>Version</dt><dd>{{ draft.extraction_provenance.prompt_version or 'Not recorded' }}</dd>
+          <dt>Transcript</dt><dd>{{ draft.transcript_provenance.transcript_id }}</dd>
+          <dt>Transcript hash</dt><dd><code>{{ draft.transcript_provenance.transcript_sha256 }}</code></dd>
+        </dl></details>
+      </div>
+    {% endif %}
     <dl>
       <dt>Intake type</dt><dd>{{ draft.intake_type|replace('_',' ')|title }}</dd>
       <dt>Source</dt><dd>{{ draft.source_name or "—" }}</dd>
@@ -61,7 +83,7 @@
         <p>{{ draft.why_it_matters }}</p>
       {% endif %}
     {% endif %}
-    {% if draft.transcript_excerpt %}
+    {% if draft.transcript_excerpt and draft.evidence_role != 'atomic_evidence' %}
       <h3>Supporting transcript excerpt</h3>
       <p>{{ draft.transcript_excerpt }}</p>
     {% endif %}
@@ -85,10 +107,12 @@
   <section class="review-pane">
     <h2>Proposed structured record</h2>
     <form class="intake-form" style="padding:0;max-width:none" action="/review/{{ draft.id }}/publish" method="post">
+      <input type="hidden" name="return_to" value="{{ return_to }}">
+      {% if draft.evidence_role != 'atomic_evidence' %}
       <div class="form-row">
         <div class="form-field">
           <label for="source_type">Source type</label>
-          <input id="source_type" name="source_type" type="text" value="{{ values.source_type }}">
+          <input id="source_type" name="source_type" type="text" value="{{ values.source_type }}" {% if draft.evidence_role == 'atomic_evidence' %}readonly{% endif %}>
         </div>
         <div class="form-field">
           <label for="title">Title *</label>
@@ -99,36 +123,37 @@
       <div class="form-row">
         <div class="form-field">
           <label for="source_name">Source / Publication</label>
-          <input id="source_name" name="source_name" type="text" value="{{ values.source_name }}">
+          <input id="source_name" name="source_name" type="text" value="{{ values.source_name }}" {% if draft.evidence_role == 'atomic_evidence' %}readonly{% endif %}>
         </div>
         <div class="form-field">
           <label for="source_url">Source URL</label>
-          <input id="source_url" name="source_url" type="text" value="{{ values.source_url }}">
+          <input id="source_url" name="source_url" type="text" value="{{ values.source_url }}" {% if draft.evidence_role == 'atomic_evidence' %}readonly{% endif %}>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-field">
           <label for="published_date">Published date</label>
-          <input id="published_date" name="published_date" type="date" value="{{ values.published_date }}">
+          <input id="published_date" name="published_date" type="date" value="{{ values.published_date }}" {% if draft.evidence_role == 'atomic_evidence' %}readonly{% endif %}>
         </div>
         <div class="form-field">
           <label for="captured_date">Captured date</label>
-          <input id="captured_date" name="captured_date" type="date" value="{{ values.captured_date }}">
+          <input id="captured_date" name="captured_date" type="date" value="{{ values.captured_date }}" {% if draft.evidence_role == 'atomic_evidence' %}readonly{% endif %}>
         </div>
       </div>
+      {% endif %}
 
       <div class="form-field">
-        <label for="summary">Summary *</label>
+        <label for="summary">{% if draft.evidence_role == 'atomic_evidence' %}Final normalized Evidence statement{% else %}Summary{% endif %} *</label>
         <textarea id="summary" name="summary" rows="3" required>{{ values.summary }}</textarea>
       </div>
 
-      <div class="form-field">
+      <div class="form-field" {% if draft.evidence_role == 'atomic_evidence' %}hidden{% endif %}>
         <label for="why_it_matters">Why it matters</label>
         <textarea id="why_it_matters" name="why_it_matters" rows="2">{{ values.why_it_matters }}</textarea>
       </div>
 
-      <div class="form-field">
+      <div class="form-field" {% if draft.evidence_role == 'atomic_evidence' %}hidden{% endif %}>
         <label for="tags">Tags</label>
         <input id="tags" name="tags" type="text" placeholder="Comma-separated" value="{{ values.tags }}">
       </div>
@@ -144,7 +169,7 @@
       </fieldset>
 
       <fieldset class="form-fieldset">
-        <legend>Linked entities (matched by name, created if new)</legend>
+        <legend>{% if draft.evidence_role == 'atomic_evidence' %}Correct proposed links{% else %}Linked entities (matched by name, created if new){% endif %}</legend>
         <div class="form-field">
           <label for="companies">Companies</label>
           <input id="companies" name="companies" type="text" placeholder="Comma-separated" value="{{ values.companies }}">
@@ -163,6 +188,7 @@
         </div>
       </fieldset>
 
+      {% if draft.evidence_role != 'atomic_evidence' %}
       <div class="form-field">
         <label for="strategic_questions">Strategic questions (existing id or title)</label>
         <input id="strategic_questions" name="strategic_questions" type="text" placeholder="Comma-separated" value="{{ values.strategic_questions }}">
@@ -241,6 +267,7 @@
           </div>
         {% endfor %}
       </fieldset>
+      {% endif %}
 
       <div class="form-field">
         <label for="reviewer">Reviewer *</label>
@@ -248,11 +275,16 @@
       </div>
 
       <div class="form-actions">
-        <button type="submit">Publish</button>
+        <button type="submit">{% if draft.evidence_role == 'atomic_evidence' %}Save edits + approve this Evidence{% else %}Publish{% endif %}</button>
       </div>
     </form>
     <form class="intake-form" style="padding:16px 0 0;max-width:none" action="/review/{{ draft.id }}/reject" method="post">
+      <input type="hidden" name="return_to" value="{{ return_to }}">
       <div class="form-row">
+        <div class="form-field">
+          <label for="rejection_category">Reason category</label>
+          <select id="rejection_category" name="rejection_category">{% for value, label in rejection_categories.items() %}<option value="{{ value }}">{{ label }}</option>{% endfor %}</select>
+        </div>
         <div class="form-field">
           <label for="reject_reviewer">Reviewer *</label>
           <input id="reject_reviewer" name="reviewer" type="text" required>

@@ -10,10 +10,11 @@ import shutil
 import sys
 from collections import Counter, defaultdict
 from contextlib import asynccontextmanager
+from copy import deepcopy
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
-from urllib.parse import quote, urlparse
+from urllib.parse import quote, urlencode, urlparse, urlsplit
 
 import feedparser
 import httpx
@@ -39,6 +40,7 @@ from app.services.berries.variety import (
     variety_trait_profile,
 )
 from app.services.review_publish import PublishRequest, ReviewPublishService
+from app.services.review_workbench import build_review_workbench, format_locator
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data"
@@ -101,6 +103,17 @@ FACT_CLASSIFICATIONS = ["fact", "claim"]
 FACT_CONFIDENCE_LEVELS = ["low", "medium", "high"]
 NUM_FACT_ROWS = 3
 NUM_RELATIONSHIP_ROWS = 2
+
+REJECTION_CATEGORIES = {
+    "not_decision_relevant": "Not decision-relevant",
+    "unsupported": "Unsupported by source/transcript",
+    "overstates_source": "Overstates source",
+    "duplicate": "Duplicate",
+    "not_atomic": "Not atomic",
+    "transcript_error": "Transcript error",
+    "wrong_links": "Wrong links/entities",
+    "other": "Other",
+}
 
 SIGNAL_DIRECTIONS = ["strengthening", "weakening", "emerging", "stable"]
 SIGNAL_STRENGTHS = ["low", "medium", "high"]
@@ -195,7 +208,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Berry Intelligence OS", version="0.1.0", lifespan=lifespan)
 app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="static")
 templates = Jinja2Templates(directory=BASE_DIR / "app" / "templates")
-templates.env.globals["pending_review_count"] = lambda: len(list_drafts()) + len(unvalidated_auto_captured_evidence())
+templates.env.globals["pending_review_count"] = lambda: len(list_pending_drafts()) + len(unvalidated_auto_captured_evidence())
 templates.env.globals["queue_counts"] = lambda: queue_counts()
 
 
@@ -2571,14 +2584,89 @@ def intake_attachment(draft_id: str, filename: str) -> FileResponse:
     return FileResponse(target)
 
 
+def _safe_review_return(value: str | None, *, fallback: str = "/review") -> str:
+    if not value:
+        return fallback
+    parsed = urlsplit(value)
+    if parsed.scheme or parsed.netloc or parsed.path != "/review":
+        return fallback
+    return parsed.path + (f"?{parsed.query}" if parsed.query else "")
+
+
+def _review_publish_service() -> ReviewPublishService:
+    return ReviewPublishService(
+        repositories=get_repositories(DATA_DIR, SCHEMAS_DIR),
+        unit_of_work_factory=lambda: get_unit_of_work(
+            DATA_DIR, SCHEMAS_DIR, "entities", "facts", "relationships", "evidence"
+        ),
+        get_validator=get_validator,
+        unique_entity_id=unique_entity_id,
+        append_unique=append_unique,
+        move_draft_attachments=move_draft_attachments,
+        restore_draft_attachments=restore_draft_attachments,
+        delete_draft=delete_draft,
+    )
+
+
 @app.get("/review", response_class=HTMLResponse)
-def review_queue(request: Request) -> HTMLResponse:
-    entities = entity_index()
+def review_queue(
+    request: Request,
+    kind: str | None = None,
+    state: str | None = None,
+    source: str | None = None,
+    parent: str | None = None,
+    media_format: str | None = None,
+    berry: str | None = None,
+    geography: str | None = None,
+    model: str | None = None,
+    version: str | None = None,
+    sort: str | None = None,
+    current: str | None = None,
+) -> HTMLResponse:
+    repositories = get_repositories(DATA_DIR, SCHEMAS_DIR)
+    drafts = list_drafts()
+    filters = {
+        "kind": kind,
+        "state": state,
+        "source": source,
+        "parent": parent,
+        "media_format": media_format,
+        "berry": berry,
+        "geography": geography,
+        "model": model,
+        "version": version,
+        "sort": sort,
+    }
+    workbench = build_review_workbench(
+        drafts=drafts,
+        evidence=repositories.evidence.list(),
+        sources=repositories.sources.list(),
+        entities=repositories.entities.list(),
+        berry_labels=BERRIES,
+        filters=filters,
+    )
+    stable_params = {
+        key: value for key, value in workbench["filters"].items()
+        if value and not (key == "state" and value == "pending")
+    }
+    for group in workbench["groups"]:
+        pending_cards = [card for card in group["cards"] if card["state"] == "pending"]
+        for index, card in enumerate(pending_cards):
+            return_params = {**stable_params, "parent": group["parent_id"]}
+            if index + 1 < len(pending_cards):
+                return_params["current"] = pending_cards[index + 1]["record"]["id"]
+            card["return_to"] = "/review?" + urlencode(return_params)
+            card["edit_url"] = f"/review/{card['record']['id']}?return_to={quote(card['return_to'], safe='')}"
+
+    entities = {record["id"]: record for record in repositories.entities.list() if record.get("id")}
     return templates.TemplateResponse(
         request=request,
         name="review_queue.html",
         context={
-            "drafts": list_drafts(),
+            "drafts": workbench["generic_drafts"],
+            "workbench": workbench,
+            "current_id": current,
+            "rejection_categories": REJECTION_CATEGORIES,
             "unvalidated_evidence": unvalidated_auto_captured_evidence(),
             "entities": entities,
             "authoring_mode": AUTHORING_MODE,
@@ -2613,9 +2701,33 @@ def _default_review_values(draft: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _review_context(draft: dict[str, Any], values: dict[str, Any], error: str | None) -> dict[str, Any]:
+def _review_context(
+    draft: dict[str, Any], values: dict[str, Any], error: str | None, *, return_to: str = "/review"
+) -> dict[str, Any]:
+    repositories = get_repositories(DATA_DIR, SCHEMAS_DIR)
+    parent = repositories.evidence.get(draft.get("parent_evidence_id")) if draft.get("parent_evidence_id") else None
+    entities = {record["id"]: record for record in repositories.entities.list() if record.get("id")}
+    if draft.get("evidence_role") == "atomic_evidence":
+        field_by_type = {
+            "company": "companies",
+            "variety": "varieties",
+            "retailer": "retailers",
+            "geography": "geographies",
+        }
+        linked_by_field: dict[str, list[str]] = {value: [] for value in field_by_type.values()}
+        for entity_id in draft.get("entity_ids") or []:
+            entity = entities.get(entity_id) or {}
+            field_name = field_by_type.get(entity.get("entity_type"))
+            if field_name:
+                linked_by_field[field_name].append(entity.get("name", entity_id))
+        for field_name, names in linked_by_field.items():
+            if names and not values.get(field_name):
+                values[field_name] = ", ".join(names)
     return {
         "draft": draft,
+        "parent": parent,
+        "linked_entities": [entities[value] for value in (draft.get("entity_ids") or []) if value in entities],
+        "locator_label": format_locator(draft.get("artifact_locator")),
         "duplicates": find_possible_duplicates(values["title"] or draft.get("title", ""), exclude_id=draft["id"]),
         "berries": BERRIES,
         "predicates": RELATIONSHIP_PREDICATES,
@@ -2628,6 +2740,8 @@ def _review_context(draft: dict[str, Any], values: dict[str, Any], error: str | 
         "values": values,
         "error": error,
         "authoring_mode": AUTHORING_MODE,
+        "return_to": _safe_review_return(return_to),
+        "rejection_categories": REJECTION_CATEGORIES,
     }
 
 
@@ -2639,7 +2753,12 @@ def review_form(request: Request, draft_id: str) -> HTMLResponse:
     return templates.TemplateResponse(
         request=request,
         name="review.html",
-        context=_review_context(draft, _default_review_values(draft), None),
+        context=_review_context(
+            draft,
+            _default_review_values(draft),
+            None,
+            return_to=request.query_params.get("return_to", "/review"),
+        ),
     )
 
 
@@ -2675,7 +2794,19 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
     geographies = split_list(field("geographies"))
     strategic_question_text = split_list(field("strategic_questions"))
     reviewer = field("reviewer").strip()
+    return_to = _safe_review_return(field("return_to"), fallback="")
     selected_berries = [b for b in form.getlist("berries") if isinstance(b, str)]
+    if draft.get("evidence_role") == "atomic_evidence" and summary:
+        title = summary[:160]
+        # Reviewers may edit the proposed statement and supported links, but
+        # the publication/transcript lineage is not form-editable.
+        source_type = draft.get("source_type", source_type)
+        source_name = draft.get("source_name", source_name)
+        source_url = draft.get("source_url", source_url)
+        published_date = draft.get("published_date")
+        captured_date = draft.get("captured_date", captured_date)
+        why_it_matters = draft.get("why_it_matters", "")
+        tags = list(draft.get("tags") or [])
 
     facts_input = []
     for i in range(1, NUM_FACT_ROWS + 1):
@@ -2710,6 +2841,8 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
         }
         for dim in PRIORITY_DIMENSIONS
     }
+    if draft.get("evidence_role") == "atomic_evidence":
+        priority = deepcopy(draft.get("priority") or priority)
 
     values = {
         "title": title,
@@ -2776,7 +2909,7 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
         return templates.TemplateResponse(
             request=request,
             name="review.html",
-            context=_review_context(draft, values, " ".join(errors)),
+            context=_review_context(draft, values, " ".join(errors), return_to=return_to or "/review"),
             status_code=400,
         )
 
@@ -2786,18 +2919,16 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
     # app/services/review_publish.py. This route stays limited to HTTP
     # concerns: parsing the form (above) and turning the service's result
     # into a response (below).
-    service = ReviewPublishService(
-        repositories=get_repositories(DATA_DIR, SCHEMAS_DIR),
-        unit_of_work_factory=lambda: get_unit_of_work(
-            DATA_DIR, SCHEMAS_DIR, "entities", "facts", "relationships", "evidence"
-        ),
-        get_validator=get_validator,
-        unique_entity_id=unique_entity_id,
-        append_unique=append_unique,
-        move_draft_attachments=move_draft_attachments,
-        restore_draft_attachments=restore_draft_attachments,
-        delete_draft=delete_draft,
-    )
+    service = _review_publish_service()
+    editable_entity_types = {"company", "variety", "retailer", "geography"}
+    entity_index_for_preservation = {
+        entity["id"]: entity for entity in get_repositories(DATA_DIR, SCHEMAS_DIR).entities.list()
+        if entity.get("id")
+    }
+    preserved_entity_ids = [
+        entity_id for entity_id in (draft.get("entity_ids") or [])
+        if (entity_index_for_preservation.get(entity_id) or {}).get("entity_type") not in editable_entity_types
+    ]
     result = service.publish(
         PublishRequest(
             draft=draft,
@@ -2818,6 +2949,7 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
             priority=priority,
             strategic_question_text=strategic_question_text,
             reviewer=reviewer,
+            existing_entity_ids=preserved_entity_ids,
         )
     )
 
@@ -2826,12 +2958,63 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
             request=request,
             name="review.html",
             context=_review_context(
-                draft, values, "This record could not be published: " + "; ".join(result.schema_errors)
+                draft,
+                values,
+                "This record could not be published: " + "; ".join(result.schema_errors),
+                return_to=return_to or "/review",
             ),
             status_code=400,
         )
 
-    return RedirectResponse(url=f"/evidence/{result.evidence_id}", status_code=303)
+    return RedirectResponse(url=return_to or f"/evidence/{result.evidence_id}", status_code=303)
+
+
+@app.post("/review/{draft_id}/approve-atomic")
+def review_approve_atomic(
+    draft_id: str,
+    reviewer: str = Form(""),
+    confirm_individual_review: bool = Form(False),
+    return_to: str = Form("/review"),
+) -> RedirectResponse:
+    """Compact approval action that reuses the normal publish transaction."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Publishing is only available in authoring mode")
+    draft = get_draft(draft_id)
+    if draft is None:
+        raise HTTPException(status_code=404, detail="Draft not found")
+    if draft.get("evidence_role") != "atomic_evidence" or draft.get("status") == "rejected":
+        raise HTTPException(status_code=400, detail="Compact approval is only available for pending atomic Evidence")
+    if not reviewer.strip() or not confirm_individual_review:
+        raise HTTPException(status_code=400, detail="Reviewer and individual-review confirmation are required")
+    priority = draft.get("priority") or {
+        dimension: {"level": "none", "rationale": ""} for dimension in PRIORITY_DIMENSIONS
+    }
+    result = _review_publish_service().publish(
+        PublishRequest(
+            draft=draft,
+            draft_id=draft_id,
+            title=(draft.get("summary") or draft.get("title") or "")[:160],
+            source_type=draft.get("source_type", ""),
+            source_name=draft.get("source_name", ""),
+            source_url=draft.get("source_url", ""),
+            published_date=draft.get("published_date"),
+            captured_date=draft.get("captured_date") or date.today().isoformat(),
+            summary=draft.get("summary") or draft.get("title") or "",
+            why_it_matters=draft.get("why_it_matters", ""),
+            tags=list(draft.get("tags") or []),
+            selected_berries=list(draft.get("berry_ids") or []),
+            all_entity_names_by_type={},
+            facts_input=[],
+            relationships_input=[],
+            priority=priority,
+            strategic_question_text=[],
+            reviewer=reviewer.strip(),
+            existing_entity_ids=list(dict.fromkeys(draft.get("entity_ids") or [])),
+        )
+    )
+    if not result.ok:
+        raise HTTPException(status_code=400, detail="Atomic Evidence could not be published: " + "; ".join(result.schema_errors))
+    return RedirectResponse(url=_safe_review_return(return_to), status_code=303)
 
 
 @app.post("/review/{draft_id}/reject")
@@ -2839,6 +3022,8 @@ def review_reject(
     draft_id: str,
     reviewer: str = Form(""),
     rejection_reason: str = Form(""),
+    rejection_category: str = Form("other"),
+    return_to: str = Form("/review"),
 ) -> RedirectResponse:
     """Record an independent human rejection without publishing Evidence.
 
@@ -2853,6 +3038,8 @@ def review_reject(
         raise HTTPException(status_code=404, detail="Draft not found")
     if not reviewer.strip() or not rejection_reason.strip():
         raise HTTPException(status_code=400, detail="Reviewer and rejection reason are required")
+    if rejection_category not in REJECTION_CATEGORIES:
+        raise HTTPException(status_code=400, detail="Rejection category is invalid")
     draft.update(
         {
             "status": "rejected",
@@ -2860,10 +3047,16 @@ def review_reject(
             "reviewed_by": reviewer.strip(),
             "reviewed_at": date.today().isoformat(),
             "rejection_reason": rejection_reason.strip(),
+            "rejection_category": rejection_category,
+            "review_outcome": {
+                "decision": "rejected",
+                "edited_before_approval": False,
+                "original_normalized_statement": draft.get("summary") or draft.get("title") or "",
+            },
         }
     )
     save_draft(draft)
-    return RedirectResponse(url="/review", status_code=303)
+    return RedirectResponse(url=_safe_review_return(return_to), status_code=303)
 
 
 @app.get("/api/feed")
