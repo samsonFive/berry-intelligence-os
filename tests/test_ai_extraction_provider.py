@@ -227,6 +227,15 @@ def test_same_words_at_materially_different_spans_are_not_deduped(tmp_path: Path
     assert provider.extract(_request(transcript)) == [first, later]
 
 
+def test_same_normalized_claim_on_adjacent_segments_is_deduped(tmp_path: Path) -> None:
+    transcript = _transcript(["The trial may add ten hectares.", "The trial may add ten hectares."])
+    claim = "The trial may add ten hectares."
+    post = SequencePost([FakeResponse(_content([_candidate(claim, [0]), _candidate(claim, [1])]))])
+    provider = _provider(_setup(tmp_path), post)
+    assert provider.extract(_request(transcript)) == [_candidate(claim, [0])]
+    assert provider.last_run_report and provider.last_run_report.duplicates_removed == 1
+
+
 def test_no_intelligence_transcript_may_return_zero_candidates(tmp_path: Path) -> None:
     provider = _provider(_setup(tmp_path), SequencePost([FakeResponse(_content([]))]))
     assert provider.extract(_request(_transcript(["Hello and welcome.", "This message is sponsored."]))) == []

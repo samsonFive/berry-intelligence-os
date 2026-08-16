@@ -19,6 +19,8 @@ Phase 2 implementation complete (acceptance-reviewed). Production remains JSON-b
 Owner sign-off on Phase 2's acceptance review. PostgreSQL and Phase 3 remain not started.
 
 **Last completed:**
+Extraction evaluation harness (2026-08-16): the existing OpenAI-compatible provider now supports repeatable readiness probing, a 12-case company-neutral synthetic benchmark, deterministic sampled/full transcript preview, model/config comparison, structural and behavioral diagnostics, runtime/token accounting, and gitignored run artifacts under `inbox/evaluations/`. Preview never writes Evidence; explicit `--persist-proposals` delegates to the existing `TranscriptEvidenceExtractionService`. `docs/v2/ATOMIC-CI-EVALUATION.md` defines the compact human rubric and a proposed pre-automation quality bar. No endpoint was configured locally, so semantic model quality and real Lucentlands throughput remain unmeasured; no model output was fabricated.
+
 Provider-neutral AI extraction (2026-08-16): `OpenAICompatibleExtractionProvider` implements the existing transcript `ExtractionProvider` boundary with deterministic overlapping context windows, strict structured output, repository-ID allowlists, defensive parsing, partial-window error reporting, cross-window dedupe, `atomic-ci-v1` prompt versioning, and runtime/token metrics. The existing operator command accepts externally configured compatible endpoints/models and still writes only deterministic untrusted drafts to `inbox/evidence/`; human review remains mandatory. No compatible endpoint or extraction credentials were configured locally, so the implementation was proven against mocked HTTP responses and the real cached Lucentlands transcript was not sent to a model. No discovery/source files or trusted production records changed. See `docs/v2/ATOMIC-CI-MODEL-EXTRACTION.md`.
 
 Spoken-word transcription/orchestration integration (2026-08-15): `MediaTranscriptionAdapter` connects Claude's public `load_transcript_artifact()` / `transcribe_discovered_item()` API to `MediaOrchestrationService`. A compatible normalized cache is reused before any provider is constructed; missing or changed cache inputs delegate to Claude's service, and dry-run never transcribes. The existing Lucentlands episode resolved to its trusted publication parent and reused the real 1,212-segment `faster-whisper:small` transcript without changing its normalized/raw/audio hashes or timestamps. The bound transcript validated and crossed the existing extraction boundary with an empty structured-provider proof; no proposals or trusted records were created. This integration gap was subsequently closed by the provider-neutral AI extraction work above; a configured endpoint remains an operational dependency.
@@ -47,10 +49,10 @@ Previously: Phase 2B.1 (2026-08-14) — the record-repository layer at `app/repo
 - A single, low-materiality ordering nuance: `EvidenceRepository.list()` (built in Phase 2B.1) sorts by published/captured date descending, matching `published_evidence()`'s existing sort exactly — but `all_evidence()` (unsorted, raw file-path order, before this task) now inherits that same sort too. Verified against every `all_evidence()` call site in `app/main.py`: none depend on its order except `published_evidence()` itself (which already re-sorted identically) — the one exception is `find_possible_duplicates()`'s reviewer-facing duplicate-warning list, whose display order was never a specified or tested contract. Flagged here per this task's transparency requirement, not silently absorbed.
 
 **In progress:**
-Nothing. The spoken-word operator pipeline is integrated through real-model, untrusted atomic Evidence proposals. A configured compatible model endpoint and scheduling remain operationally absent.
+Nothing. The spoken-word operator pipeline and repeatable extraction evaluation harness are implemented. A configured compatible model endpoint and scheduling remain operationally absent.
 
 **Next:**
-Owner authorization for either Phase 3 (PostgreSQL) or recurring spoken-word collection and model-endpoint configuration. Human publication and atomic Evidence review remain required.
+Configure a compatible model endpoint, run the benchmark plus a five-window Lucentlands sample, and apply the documented human rubric before authorizing recurring extraction. Phase 3 remains separately unauthorized.
 
 **Next implementation action:**
 Not started — both Phase 3 and any Audio/Video ingestion phase require separate authorization. PostgreSQL remains untouched.
@@ -65,7 +67,7 @@ Tag `v1-blueberry-reference` → commit `432a96bd4efce1991df83b60aa1587154ba1952
 Accepted (`docs/v2/00-README.md` through `10-BACKLOG.md`, 2026-08-13). `docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` (2026-08-14, Part 9 addendum added 2026-08-14, Part 10 addendum added 2026-08-14) is the authoritative Phase 2B implementation spec.
 
 **Tests at baseline:**
-549 passed, 0 failed (`pytest`) — including 19 offline real-model-provider contract tests. `scripts/validate_records.py` passes with zero schema errors. `scripts/build_static.py` succeeds (1,471 pages) and excludes unreviewed inbox proposals. Production remains JSON-backed; PostgreSQL and trusted live data records were untouched.
+567 passed, 0 failed (`pytest`) — including offline real-model-provider and evaluation-harness contract tests. `scripts/validate_records.py` passes with zero schema errors. `scripts/build_static.py` succeeds (1,471 pages) and excludes unreviewed inbox/evaluation content. Production remains JSON-backed; PostgreSQL and trusted live data records were untouched.
 
 **Important decisions — status:**
 (IDs match `docs/v2/08-DECISION-LOG.md`)

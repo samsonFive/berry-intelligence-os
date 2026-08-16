@@ -238,12 +238,34 @@ class OpenAICompatibleExtractionProvider:
         return base if base.endswith("/chat/completions") else f"{base}/chat/completions"
 
     def extract(self, request: ExtractionRequest) -> list[dict[str, Any]]:
+        return self.extract_windows(request)
+
+    def extract_windows(
+        self,
+        request: ExtractionRequest,
+        window_numbers: set[int] | None = None,
+    ) -> list[dict[str, Any]]:
+        """Extract all windows, or a deterministic evaluation-only subset.
+
+        Production callers continue to use ``extract``.  Evaluation sampling
+        selects from the exact same windows and runs the same HTTP, parsing,
+        validation, and deduplication path.
+        """
         started = self._clock()
-        windows = build_transcript_windows(
+        all_windows = build_transcript_windows(
             request.transcript,
             max_chars=self.config.window_chars,
             overlap_segments=self.config.overlap_segments,
         )
+        if window_numbers is None:
+            windows = all_windows
+        else:
+            invalid_numbers = sorted(number for number in window_numbers if number < 0 or number >= len(all_windows))
+            if invalid_numbers:
+                raise ValueError(f"window numbers are outside the transcript: {invalid_numbers}")
+            windows = [window for window in all_windows if window.number in window_numbers]
+            if not windows:
+                raise ValueError("at least one transcript window must be selected")
         allowed = self._allowed_links(request)
         accepted: list[dict[str, Any]] = []
         errors: list[str] = []
@@ -413,8 +435,17 @@ Negative examples: "We haven't announced any expansion plans" does not support "
     def _validate_candidate(
         self, raw: Any, window: TranscriptWindow, allowed: dict[str, dict[str, str]]
     ) -> dict[str, Any]:
-        if not isinstance(raw, dict) or set(raw) != _CANDIDATE_FIELDS:
-            raise ExtractionResponseError("candidate fields do not match the contract")
+        if not isinstance(raw, dict):
+            raise ExtractionResponseError("candidate must be an object")
+        unexpected = sorted(set(raw) - _CANDIDATE_FIELDS)
+        missing = sorted(_CANDIDATE_FIELDS - set(raw))
+        if unexpected or missing:
+            detail = []
+            if unexpected:
+                detail.append(f"unexpected fields: {unexpected}")
+            if missing:
+                detail.append(f"missing fields: {missing}")
+            raise ExtractionResponseError("candidate fields do not match the contract (" + "; ".join(detail) + ")")
         statement = raw["normalized_statement"]
         indexes = raw["segment_indexes"]
         if not isinstance(statement, str) or not statement.strip():
@@ -444,6 +475,12 @@ Negative examples: "We haven't announced any expansion plans" does not support "
         key = _statement_key(candidate["normalized_statement"])
         return any(
             key == _statement_key(existing["normalized_statement"])
-            and bool(candidate_indexes.intersection(existing["segment_indexes"]))
+            and (
+                bool(candidate_indexes.intersection(existing["segment_indexes"]))
+                or (
+                    min(candidate_indexes) == max(existing["segment_indexes"]) + 1
+                    or min(existing["segment_indexes"]) == max(candidate_indexes) + 1
+                )
+            )
             for existing in accepted
         )

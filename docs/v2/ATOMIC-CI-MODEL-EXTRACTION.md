@@ -99,3 +99,7 @@ drafts. If every window fails, the operator command fails without proposals.
 Each completed run reports segments, windows, model calls, candidates before
 validation, rejected candidates, overlap duplicates, final candidates, elapsed
 time, provider/model, errors, and token usage when the endpoint supplies it.
+
+Repeatable model probing, synthetic benchmarking, deterministic real-transcript
+sampling, preview-only diagnostics, and the manual quality rubric are described
+in `docs/v2/ATOMIC-CI-EVALUATION.md`.
