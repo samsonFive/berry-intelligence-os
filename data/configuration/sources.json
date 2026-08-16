@@ -3134,5 +3134,38 @@
       "feed_url_verified_at": "2026-08-15",
       "notes": "'On The Road' is a YouTube-native video series, not a podcast: redagricola.com has no RSS feed and no dedicated 'On The Road' page with its own feed link -- the series exists as two separate, per-country YouTube playlists on Redagricola's main channel (which also carries unrelated content), with no single combined feed. Used YouTube's public, credential-free channel/playlist Atom feed endpoint (no API key, no OAuth, no scraping -- the same feed YouTube has long served for RSS-reader subscriptions) via this Source's 'feed_urls' (plural) discovery config, since a single 'feed_url' cannot represent two independent playlists. See app/services/media_discovery.py's youtube_feed adapter and discover_source()'s multi-feed_urls support."
     }
+  },
+  {
+    "id": "source-university-of-arkansas-division-of-agriculture",
+    "type": "reference",
+    "label": "University of Arkansas System Division of Agriculture (YouTube)",
+    "value": "https://www.youtube.com/@AginArk",
+    "url": "https://www.youtube.com/@AginArk",
+    "why_it_matters": "First-party video channel of the University of Arkansas System Division of Agriculture (the parent organization for both the Arkansas Agricultural Experiment Station's world-leading blackberry breeding program -- see source-20260806173428-ae24-university-of-arkansas-fruit-breeding-pr-22 -- and the Cooperative Extension Service). Carries the annual Blackberry Field Day recap video and AAES 'Behind the Discovery' researcher features (e.g. horticulture specialist Amanda McWhirt's blackberry production/trellising work at the Fruit Research Station), interleaved with the Division's much broader general Extension outreach content (produce/food-safety how-tos, 4-H, entomology) -- a first-party publication surface distinct from the AAES fruit-research program's own webpage.",
+    "entity_types": [
+      "academic_journal",
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-blackberry",
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-16",
+    "last_checked_at": null,
+    "last_status": null,
+    "discovery": {
+      "adapter": "youtube_feed",
+      "feed_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCXV6_ND45kOoy2_T9JI-9KA",
+      "feed_url_resolved_via": "https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=Lv8m3q_ytyU&format=json (author_name 'Arkansas Division of Agriculture', author_url https://www.youtube.com/@AginArk) cross-checked against yt-dlp's own extract_info() for the same video (channel_id UCXV6_ND45kOoy2_T9JI-9KA, channel 'Arkansas Division of Agriculture'); the channel's public Atom feed at this feed_url was then fetched directly and confirmed to list real, dated, first-party uploads under that same channel.",
+      "feed_url_verified_at": "2026-08-16",
+      "notes": "Researched real publication surface for University of Arkansas Blackberry Field Day / AAES fruit-research video content rather than assuming a channel or playlist name (per this phase's own instruction). Two existing Sources already cover this program in prose form: source-20260806173428-ae24-university-of-arkansas-fruit-breeding-pr-22 (AAES's fruit-research webpage, aaes.uada.edu/fruit-research/, the Worthington/Clark blackberry breeding program) and source-20260806173428-4728-university-of-arkansas-fruit-research-st-64 (the Clarksville station itself, no URL). Neither has a YouTube presence of its own: AAES (the research arm) publishes no separate YouTube channel -- its own video content (e.g. aaes.uada.edu/videos/building-better-harvests/) is hosted on, and only reachable through, the University of Arkansas System Division of Agriculture's single shared channel (handle @AginArk, channel id UCXV6_ND45kOoy2_T9JI-9KA, display name 'Arkansas Division of Agriculture'), which is jointly used by AAES (research) and the Cooperative Extension Service (outreach) and is NOT scoped to fruit research or blackberries. A candidate 'Blackberry Season | University of Arkansas Fruit Research Station' video (id QsaNt2TqUGk) was found and REJECTED: verified via YouTube's oembed endpoint to actually be published by 'Arkansas Farm Bureau' (author_url youtube.com/@arkansasfarmbureau), a separate third-party organization, not the University -- excluded per this phase's 'no fan/reupload channel' rule despite covering the same research station. No dedicated blackberry/fruit-research playlist exists on the verified @AginArk channel (checked via web search and the channel's own feed); the annual Blackberry Field Day video (id Lv8m3q_ytyU, 'Arkansas Division of Agriculture' confirmed via oembed) is simply one upload among the channel's broader Extension content. Given no scoped playlist exists, this Source uses the whole-channel feed (channel_id, not playlist_id) -- the correct, honest publisher/channel-level Source per this phase's semantics, since 'University of Arkansas Fruit Breeding Program' (the AAES-specific Source) would misrepresent this channel's actual (broader, Division-wide) ownership. This is therefore a new, distinct Source rather than an extension of either existing University of Arkansas Source. No API key, no OAuth, no scraping -- same public YouTube Atom feed mechanism as source-redagricola-on-the-road, see app/services/media_discovery.py's youtube_feed adapter. IMPORTANT LIMITATION (documented honestly): this channel's Atom feed exposes only the ~15 most recent uploads (verified 2026-08-16); because the channel posts frequently on unrelated Extension topics, an annual berry-relevant video (e.g. the June Blackberry Field Day recap) typically scrolls off this feed within weeks of publication and will not be rediscoverable by this mechanism after that -- a real, YouTube-platform-general limitation of a broad, high-frequency, non-berry-scoped channel feed (as opposed to Redagricola's narrowly-scoped, full-history playlist feeds), not a bug in this project's adapter."
+    }
   }
 ]
