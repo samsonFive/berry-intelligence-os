@@ -84,16 +84,38 @@ High-level configuration (all optional environment variables):
   extraction endpoint.
 
 An optional external-AI gateway (`app/services/ai_gateway/`) can route
-extraction through Perplexity's Router API. It is provider-neutral to domain
-code and remains off unless explicitly selected via
-`qualify_extraction_model.py --provider perplexity`:
+extraction through Perplexity. It is provider-neutral to domain code and stays
+off unless explicitly selected. Three distinct provider identities exist:
 
-- `BIOS_PERPLEXITY_BASE_URL` / `BIOS_PERPLEXITY_MODEL` — Router base URL and the
-  exact routed model id (qualification binds to the exact model).
+- `openai-compatible` — the local/LM Studio path (default; unchanged).
+- `perplexity-agent` — Perplexity's Agent API (`POST /v1/agent`), the
+  multi-provider path: one `PERPLEXITY_API_KEY` selects an exact frontier model
+  from OpenAI, Anthropic, Google, xAI, Perplexity, etc. This is the intended
+  first external qualification path. Extraction is closed-book: no tools, no
+  model fallback array.
+- `perplexity-router` — Perplexity's Router API for Perplexity-hosted
+  open-weight models. Router is currently a **private preview**: an ordinary
+  Perplexity key does not necessarily have Router access, and a `403` from
+  Router usually means the account lacks preview access (not that the key is
+  invalid). Router is optional and never the default.
+
+Select a Perplexity provider explicitly, e.g.
+`python scripts/qualify_extraction_model.py probe --provider perplexity-agent --model <id>`.
+Discover current Agent model ids with `python scripts/ai_models.py --provider perplexity-agent`
+(read-only `GET /v1/models`; nothing is persisted). Qualification is per exact
+routed model — switching the model invalidates it.
+
+Perplexity configuration (all optional):
+
+- `BIOS_PERPLEXITY_MODEL` — the exact routed model id to use.
+- `BIOS_PERPLEXITY_AGENT_BASE_URL` / `BIOS_PERPLEXITY_BASE_URL` — Agent / Router
+  base URLs (defaults point at the official endpoints).
+- `BIOS_PERPLEXITY_MAX_OUTPUT_TOKENS` — Agent output cap (default 8192; the
+  Agent API requires a positive value for `anthropic/*` models).
 - `PERPLEXITY_API_KEY` — read from the environment at call time only. It is a
   runtime secret: never written to a file, provenance, status, review, or the
-  static build. Search and research clients are dormant infrastructure seams,
-  not wired into collection.
+  static build. The Search and grounded-research clients are dormant
+  infrastructure seams, separate from extraction and not wired into collection.
 
 ## Runtime state and ignored directories
 
