@@ -48,6 +48,46 @@ from dataclasses import dataclass, field
 from datetime import date
 from typing import Any, Callable
 
+from app.repositories.base import DuplicateRecord
+
+PUBLICATION_IDENTITY_FIELDS = (
+    "title",
+    "source_url",
+    "source_id",
+    "published_date",
+    "source_type",
+    "evidence_role",
+    "discovered_item_id",
+)
+
+
+def _norm(value: Any) -> str:
+    if value is None:
+        return ""
+    return " ".join(str(value).strip().split())
+
+
+def trusted_publication_conflicts(existing: dict[str, Any], proposed: dict[str, Any]) -> list[str]:
+    """Return human-readable identity conflicts between a trusted record and a draft.
+
+    Summary, why_it_matters, tags, and berry/entity suggestions are not identity.
+    A later human review of the same publication must not overwrite trusted data.
+    """
+
+    conflicts: list[str] = []
+    existing_status = existing.get("status")
+    existing_review = existing.get("review_state", existing_status)
+    if existing_status != "published" or existing_review not in {None, "published"}:
+        conflicts.append(
+            f"existing record is {existing_status}/{existing_review}, not a trusted published publication"
+        )
+    for field_name in PUBLICATION_IDENTITY_FIELDS:
+        left = _norm(existing.get(field_name))
+        right = _norm(proposed.get(field_name))
+        if left and right and left != right:
+            conflicts.append(f"{field_name}: trusted={left!r} draft={right!r}")
+    return conflicts
+
 
 @dataclass
 class PublishRequest:
@@ -78,16 +118,17 @@ class PublishRequest:
 
 @dataclass
 class PublishResult:
-    """Either `evidence_id` is set (success) or `schema_errors` is
-    non-empty (the route re-renders the review form with these
-    messages) -- never both."""
+    """Created and already-published are success outcomes. Conflict and
+    schema errors are controlled failures. Never both success and errors."""
 
     evidence_id: str | None = None
     schema_errors: list[str] = field(default_factory=list)
+    outcome: str = "created"
+    conflicts: list[str] = field(default_factory=list)
 
     @property
     def ok(self) -> bool:
-        return self.evidence_id is not None and not self.schema_errors
+        return self.outcome in {"created", "already_published"} and not self.schema_errors and not self.conflicts
 
 
 class ReviewPublishService:
@@ -259,9 +300,23 @@ class ReviewPublishService:
             "transcript_excerpt",
             "discovered_item_id",
             "discovery_provenance",
+            "publisher_description",
         ):
             if field_name in request.draft:
                 evidence_record[field_name] = deepcopy(request.draft[field_name])
+
+        existing_trusted = self._repos.evidence.get(evidence_id)
+        if existing_trusted is not None:
+            conflicts = trusted_publication_conflicts(existing_trusted, evidence_record)
+            if conflicts:
+                return PublishResult(
+                    evidence_id=evidence_id,
+                    outcome="conflict",
+                    conflicts=conflicts,
+                    schema_errors=[],
+                )
+            self._delete_draft(request.draft_id)
+            return PublishResult(evidence_id=evidence_id, outcome="already_published")
 
         if request.draft.get("evidence_role") == "atomic_evidence":
             original_statement = request.draft.get("summary") or request.draft.get("title") or ""
@@ -316,6 +371,21 @@ class ReviewPublishService:
                 # safely retryable instead of stranded beside a committed
                 # Evidence record with the same deterministic id.
                 self._delete_draft(request.draft_id)
+        except DuplicateRecord:
+            if moved_attachments:
+                self._restore_draft_attachments(request.draft_id, evidence_id, moved_attachments)
+            raced = self._repos.evidence.get(evidence_id)
+            if raced is None:
+                raise
+            conflicts = trusted_publication_conflicts(raced, evidence_record)
+            if conflicts:
+                return PublishResult(
+                    evidence_id=evidence_id,
+                    outcome="conflict",
+                    conflicts=conflicts,
+                )
+            self._delete_draft(request.draft_id)
+            return PublishResult(evidence_id=evidence_id, outcome="already_published")
         except Exception:
             # The structured-data transaction rolled back (or never
             # committed) -- undo the one side effect the unit of work
@@ -328,4 +398,4 @@ class ReviewPublishService:
                 self._restore_draft_attachments(request.draft_id, evidence_id, moved_attachments)
             raise
 
-        return PublishResult(evidence_id=evidence_id)
+        return PublishResult(evidence_id=evidence_id, outcome="created")

@@ -1209,9 +1209,10 @@ def transcribe_discovered_item(
     force: bool = False,
     today: Callable[[], date] = date.today,
     caption_info_fetcher: Callable[[str], dict[str, Any]] | None = None,
-    caption_downloader: Callable[[str], str] | None = None,
+    caption_downloader: Callable[[str], str | None] | None = None,
     youtube_audio_info_fetcher: Callable[[str], dict[str, Any]] | None = None,
     youtube_audio_downloader: Callable[[str], tuple[bytes, str | None]] | None = None,
+    max_tier: int = 3,
 ) -> TranscriptionOutcome:
     """Single-item orchestration (Phase 16): Tier 1 -> Tier 2 -> Tier 3 in
     that order. Tier 2 is reached automatically only for an item
@@ -1228,7 +1229,9 @@ def transcribe_discovered_item(
     `youtube_media_acquisition` at all. Never raises for an expected
     operational failure -- returns `TranscriptionOutcome(status="error",
     ...)` instead. A missing `parent_evidence_id` is never a failure (Phase
-    12): the result is a valid staged transcript."""
+    12): the result is a valid staged transcript. `max_tier` caps the
+    hierarchy so operators can skip expensive Whisper (tier 3) after cheap
+    publisher/caption attempts."""
     availability = item.get("transcript_availability") or {}
     status_value = availability.get("status")
     acquisition_errors = (MediaAcquisitionError, TranscriptionDependencyError, TranscriptionError, RawTranscriptParseError)
@@ -1240,7 +1243,7 @@ def transcribe_discovered_item(
         except acquisition_errors as exc:
             return TranscriptionOutcome(status="error", error=str(exc), tier="tier_1_publisher_transcript", parent_evidence_id=parent_evidence_id)
 
-    if outcome is None and _is_youtube_item(item):
+    if outcome is None and max_tier >= 2 and _is_youtube_item(item):
         outcome = _run_tier2_youtube_captions(
             inbox_dir,
             item,
@@ -1255,6 +1258,14 @@ def transcribe_discovered_item(
 
     if outcome is not None:
         return outcome
+
+    if max_tier < 3:
+        return TranscriptionOutcome(
+            status="error",
+            error="expensive local speech-to-text deferred; publisher transcript or captions were not available",
+            tier="deferred_expensive_transcription",
+            parent_evidence_id=parent_evidence_id,
+        )
 
     try:
         return _run_tier3(
