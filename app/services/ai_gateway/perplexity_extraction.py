@@ -8,9 +8,11 @@ contiguous-segment requirement -- is inherited unchanged, so this provider
 cannot silently drift from the qualified local-model contract. No prompt,
 schema, or windowing behavior is reinterpreted for this provider.
 
-Web search is never enabled here: every call sets `disable_search=True` on
-the underlying transport, and no `tools` parameter is ever sent. Extraction
-never grants a Perplexity-routed model network access.
+Web search is never enabled here: no `tools` parameter is ever sent, and the
+Router/Gateway endpoint performs web search only when a `tools` web-search
+entry is supplied. Extraction therefore never grants a Perplexity-routed model
+network access. (The gateway has no `disable_search` flag -- search is off by
+construction, not by a request field.)
 """
 
 from __future__ import annotations
@@ -119,7 +121,6 @@ class PerplexityExtractionProvider(OpenAICompatibleExtractionProvider):
                 messages=messages,
                 response_format=response_format,
                 temperature=self.config.temperature,
-                disable_search=True,
             )
         except GatewayTimeoutError as exc:
             raise ExtractionProviderError("model request timed out") from exc

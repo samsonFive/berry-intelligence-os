@@ -293,14 +293,39 @@ def test_request_body_includes_atomic_ci_json_schema(perplexity_key: str, tmp_pa
 # ---------------------------------------------------------------------------
 
 
-def test_request_body_disables_search_and_sends_no_tools(perplexity_key: str, tmp_path: Path) -> None:
+# The Router/Gateway "Create Chat Completion" endpoint accepts only a defined
+# subset of the OpenAI Chat Completions schema and rejects any unrecognized
+# top-level field with a 400 (docs.perplexity.ai). `disable_search` is NOT in
+# that set -- it belongs to the Sonar/search endpoints -- so it must never be
+# sent to the gateway. Search stays off because no `tools` entry is sent.
+_GATEWAY_HONORED_TOP_LEVEL_FIELDS = {
+    "model", "messages", "stream", "stream_options", "max_completion_tokens",
+    "max_tokens", "temperature", "top_p", "stop", "reasoning_effort",
+    "service_tier", "response_format", "tools", "tool_choice",
+    "parallel_tool_calls", "prompt_cache_key", "user", "safety_identifier",
+    "metadata", "n", "logprobs", "store", "presence_penalty", "frequency_penalty",
+}
+
+
+def test_request_body_is_search_free_and_uses_only_gateway_supported_fields(perplexity_key: str, tmp_path: Path) -> None:
     repos = _setup(tmp_path)
     post = SequencePost([FakeResponse(_content([]))])
     provider = _provider(repos, post)
     provider.extract(_request())
     body = post.calls[0]["json"]
-    assert body["disable_search"] is True
+    # Regression guard: the gateway 400s on unrecognized top-level fields, so
+    # `disable_search` (a Sonar-only field) must not be present.
+    assert "disable_search" not in body
     assert "tools" not in body
+    unsupported = set(body) - _GATEWAY_HONORED_TOP_LEVEL_FIELDS
+    assert unsupported == set(), f"gateway would 400 on unsupported fields: {sorted(unsupported)}"
+
+
+def test_transport_send_omits_disable_search_field(perplexity_key: str) -> None:
+    post = SequencePost([FakeResponse(_content([]))])
+    transport = PerplexityChatTransport(api_key=perplexity_key, base_url=TEST_BASE_URL, post=post)
+    transport.send(model="anthropic/claude-haiku-4-5", messages=[{"role": "user", "content": "hi"}])
+    assert "disable_search" not in post.calls[0]["json"]
 
 
 def test_extraction_provider_has_no_search_or_research_capability() -> None:
