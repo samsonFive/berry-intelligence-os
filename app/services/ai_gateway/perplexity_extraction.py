@@ -43,7 +43,11 @@ from app.services.ai_extraction import (
 )
 from app.services.ai_gateway.credentials import PERPLEXITY_API_KEY_ENV, MissingCredentialError, sanitize
 from app.services.ai_gateway.errors import GatewayError, GatewayMalformedResponseError, GatewayTimeoutError
-from app.services.ai_gateway.perplexity_agent import DEFAULT_PERPLEXITY_AGENT_BASE_URL, PerplexityAgentTransport
+from app.services.ai_gateway.perplexity_agent import (
+    DEFAULT_PERPLEXITY_AGENT_BASE_URL,
+    PerplexityAgentTransport,
+    agent_compatible_response_format,
+)
 from app.services.ai_gateway.perplexity_chat import DEFAULT_PERPLEXITY_BASE_URL, PerplexityChatTransport
 from app.services.transcript_evidence import ExtractionRequest
 
@@ -280,7 +284,13 @@ class PerplexityAgentExtractionProvider(OpenAICompatibleExtractionProvider):
     def _call(
         self, request: ExtractionRequest, window: TranscriptWindow, allowed: dict[str, dict[str, str]]
     ) -> dict[str, Any]:
-        response_format = _json_schema_response_format(self.config.max_candidates_per_window)
+        # The atomic-ci-v1 schema is unchanged; only the wire representation is
+        # adapted for the Agent endpoint, which rejects constraint keywords like
+        # `maxItems`. The per-window candidate cap is still enforced after the
+        # response by the inherited extract_windows() logic.
+        response_format = agent_compatible_response_format(
+            _json_schema_response_format(self.config.max_candidates_per_window)
+        )
         try:
             result = self._transport.complete(
                 model=self.config.model,

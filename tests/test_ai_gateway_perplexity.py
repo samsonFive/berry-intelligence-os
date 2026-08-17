@@ -38,7 +38,9 @@ from app.services.ai_gateway.perplexity_agent import (
     DEFAULT_PERPLEXITY_AGENT_BASE_URL,
     DEFAULT_PERPLEXITY_MODELS_URL,
     PerplexityAgentTransport,
+    agent_compatible_response_format,
     list_agent_models,
+    strip_unsupported_schema_keywords,
 )
 from app.services.ai_gateway.perplexity_chat import DEFAULT_PERPLEXITY_BASE_URL, PerplexityChatTransport
 from app.services.ai_gateway.perplexity_extraction import (
@@ -1051,3 +1053,101 @@ def test_ai_models_cli_defaults_to_perplexity_agent() -> None:
 
     args = ai_models._parser().parse_args([])
     assert args.provider == "perplexity-agent"
+
+
+# ---------------------------------------------------------------------------
+# Live-contract regression: the Agent strict json_schema validator rejects
+# constraint keywords (maxItems/minItems). Reproduces the real 400 and proves
+# the schema is now Agent-compatible while atomic-ci-v1 stays unchanged.
+# ---------------------------------------------------------------------------
+
+
+def test_strip_unsupported_schema_keywords_removes_constraints_keeps_structure() -> None:
+    schema = {
+        "type": "object",
+        "additionalProperties": False,
+        "required": ["candidates"],
+        "properties": {
+            "candidates": {
+                "type": "array",
+                "maxItems": 12,
+                "minItems": 1,
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": ["x"],
+                    "properties": {"x": {"type": "string", "maxLength": 5, "pattern": "^a"}},
+                },
+            }
+        },
+    }
+    cleaned = strip_unsupported_schema_keywords(schema)
+    blob = json.dumps(cleaned)
+    for unsupported in ("maxItems", "minItems", "maxLength", "pattern"):
+        assert unsupported not in blob
+    # Structure preserved.
+    assert cleaned["additionalProperties"] is False
+    assert cleaned["required"] == ["candidates"]
+    assert cleaned["properties"]["candidates"]["items"]["additionalProperties"] is False
+    assert cleaned["properties"]["candidates"]["items"]["required"] == ["x"]
+    assert cleaned["properties"]["candidates"]["items"]["properties"]["x"]["type"] == "string"
+
+
+def test_agent_request_schema_omits_maxitems_and_keeps_atomic_ci_shape(perplexity_key: str, tmp_path: Path) -> None:
+    repos = _setup(tmp_path)
+    post = SequencePost([_agent_response([])])
+    provider = _agent_provider(repos, post)
+    provider.extract(_request())
+    json_schema = post.calls[0]["json"]["response_format"]["json_schema"]
+    schema = json_schema["schema"]
+    # The demonstrated 400 cause -- maxItems -- must not be sent to the Agent API.
+    assert "maxItems" not in json.dumps(schema)
+    # atomic-ci-v1 candidate shape and strictness are preserved.
+    assert json_schema["name"] == "atomic_ci_candidates"
+    assert json_schema["strict"] is True
+    item = schema["properties"]["candidates"]["items"]
+    assert item["additionalProperties"] is False
+    assert set(item["properties"]) == {
+        "normalized_statement", "segment_indexes", "entity_ids", "geography_ids", "berry_ids",
+    }
+    assert sorted(item["required"]) == sorted(item["properties"])
+
+
+def test_shared_response_schema_unchanged_router_and_local_still_emit_maxitems() -> None:
+    # atomic-ci-v1 itself is untouched: only the Agent wire representation is
+    # adapted, so the shared schema (used by local + Router) still carries the cap.
+    from app.services.ai_extraction import _response_schema
+
+    assert "maxItems" in json.dumps(_response_schema(12))
+    # agent_compatible_response_format leaves a non-dict / schema-less format alone.
+    assert agent_compatible_response_format({"type": "json_object"}) == {"type": "json_object"}
+
+
+def test_agent_still_enforces_candidate_cap_after_response(perplexity_key: str, tmp_path: Path) -> None:
+    # With maxItems no longer in the wire schema, the per-window candidate cap is
+    # still enforced client-side: a response exceeding it fails closed.
+    repos = _setup(tmp_path)
+    too_many = [_candidate(f"Synthetic claim {i}.", [1]) for i in range(3)]
+    post = SequencePost([_agent_response(too_many)])
+    provider = _agent_provider(repos, post, max_candidates_per_window=2)
+    with pytest.raises(ExtractionProviderError):
+        provider.extract(_request())
+
+
+def test_agent_400_validation_detail_is_retained_and_sanitized(perplexity_key: str) -> None:
+    body = {"error": {
+        "message": "invalid request",
+        "param": "response_format.json_schema.schema.properties.candidates.maxItems",
+        "type": "invalid_request_error",
+    }}
+    transport = PerplexityAgentTransport(
+        api_key=perplexity_key, base_url=AGENT_TEST_URL,
+        post=SequencePost([FakeJsonResponse(400, body=body)]),
+    )
+    with pytest.raises(GatewayStructuredResponseIncompatibleError) as exc_info:
+        transport.complete(model=AGENT_MODEL, instructions="s", input_text="u",
+                           response_format={"type": "json_schema", "json_schema": {"name": "n", "schema": {}}},
+                           max_output_tokens=64)
+    message = str(exc_info.value)
+    assert "maxItems" in message and "param=" in message
+    assert perplexity_key not in message

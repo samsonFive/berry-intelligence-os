@@ -57,6 +57,54 @@ DEFAULT_PERPLEXITY_AGENT_BASE_URL = "https://api.perplexity.ai/v1/agent"
 DEFAULT_PERPLEXITY_MODELS_URL = "https://api.perplexity.ai/v1/models"
 _STRUCTURED_FORMAT_MARKERS = ("response_format", "json_schema", "schema")
 
+# The Agent API's strict json_schema validator (OpenAI Responses semantics)
+# rejects JSON Schema *constraint* keywords; Perplexity's Agent output-control
+# docs explicitly call out `minItems`/`maxItems` as unsupported and recommend
+# enforcing such bounds client-side. Our shared atomic-ci-v1 schema emits
+# `maxItems` (the per-window candidate cap), so it must be stripped from the
+# wire schema for the Agent endpoint. The cap itself is still enforced after the
+# response by the extraction provider (`extract_windows`), so no semantic
+# requirement is weakened -- only the transport representation changes.
+_AGENT_UNSUPPORTED_SCHEMA_KEYWORDS = frozenset({
+    "minItems", "maxItems", "uniqueItems", "minContains", "maxContains",
+    "minLength", "maxLength", "pattern", "format",
+    "minimum", "maximum", "exclusiveMinimum", "exclusiveMaximum", "multipleOf",
+    "minProperties", "maxProperties",
+})
+
+
+def strip_unsupported_schema_keywords(schema: Any) -> Any:
+    """Deep-copy a JSON Schema with Agent-unsupported constraint keywords removed.
+
+    Structural keywords (type, properties, required, additionalProperties, items,
+    enum, anyOf, $defs, description, ...) are preserved exactly; only the
+    unsupported *constraint* keywords are dropped.
+    """
+
+    if isinstance(schema, dict):
+        return {
+            key: strip_unsupported_schema_keywords(value)
+            for key, value in schema.items()
+            if key not in _AGENT_UNSUPPORTED_SCHEMA_KEYWORDS
+        }
+    if isinstance(schema, list):
+        return [strip_unsupported_schema_keywords(value) for value in schema]
+    return schema
+
+
+def agent_compatible_response_format(response_format: dict[str, Any] | None) -> dict[str, Any] | None:
+    """Return a response_format whose json_schema is Agent-endpoint compatible."""
+
+    if not isinstance(response_format, dict):
+        return response_format
+    rendered = dict(response_format)
+    json_schema = rendered.get("json_schema")
+    if isinstance(json_schema, dict) and "schema" in json_schema:
+        json_schema = dict(json_schema)
+        json_schema["schema"] = strip_unsupported_schema_keywords(json_schema["schema"])
+        rendered["json_schema"] = json_schema
+    return rendered
+
 
 def _validate_base_url(base_url: str) -> str:
     parsed = urlsplit(base_url.strip())
@@ -70,19 +118,39 @@ def agent_auth_headers(api_key: str) -> dict[str, str]:
 
 
 def _error_detail(response: Any) -> str:
+    """Extract the most useful non-secret validation detail from an error body.
+
+    Perplexity error envelopes carry a message plus often a `param`/`path` and a
+    `type`/`code`. Preserving those turns an opaque "invalid request" into
+    something like "... (param=response_format.json_schema.maxItems)" so a future
+    contract 400 is diagnosable. The body never contains the API key, and the
+    caller still runs the result through `sanitize()` before it is surfaced.
+    """
+
     try:
         payload = response.json()
     except ValueError:
         return (getattr(response, "text", "") or "")[:300]
-    if isinstance(payload, dict):
-        error = payload.get("error")
-        if isinstance(error, dict):
-            return str(error.get("message") or error)
-        if isinstance(error, str):
-            return error
-        message = payload.get("message")
-        if isinstance(message, str):
-            return message
+    if not isinstance(payload, dict):
+        return json.dumps(payload)[:300]
+
+    error = payload.get("error")
+    if isinstance(error, dict):
+        message = error.get("message")
+        rendered = message if isinstance(message, str) and message else json.dumps(error)
+        param = error.get("param") or error.get("path")
+        code = error.get("type") or error.get("code")
+        extras = [f"{label}={value}" for label, value in (("param", param), ("type", code)) if isinstance(value, str) and value]
+        return (rendered + (f" ({', '.join(extras)})" if extras else ""))[:300]
+    if isinstance(error, str):
+        return error[:300]
+
+    detail = payload.get("detail")
+    if detail is not None:
+        return (detail if isinstance(detail, str) else json.dumps(detail))[:300]
+    message = payload.get("message")
+    if isinstance(message, str) and message:
+        return message[:300]
     return json.dumps(payload)[:300]
 
 
