@@ -16,6 +16,8 @@ if str(ROOT) not in sys.path:
 from app.composition import get_repositories
 from app.repositories.paths import DEFAULT_DATA_DIR, SCHEMAS_DIR
 from app.services.ai_extraction import PROMPT_VERSION, OpenAICompatibleExtractionConfig, OpenAICompatibleExtractionProvider
+from app.services.ai_gateway.credentials import MissingCredentialError
+from app.services.ai_gateway.perplexity_extraction import PerplexityExtractionProvider, perplexity_config_from_environment
 from app.services.extraction_evaluation import load_benchmark, probe_provider
 from app.services.model_qualification import (
     DEFAULT_REAL_PARENT_ID,
@@ -30,10 +32,11 @@ from app.services.model_qualification import (
 
 
 DEFAULT_BENCHMARK = ROOT / "benchmarks" / "atomic-ci-v1.json"
+PROVIDER_CHOICES = ("openai-compatible", "perplexity")
 
 
 def _provider_options(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument("--provider", choices=("openai-compatible",), default="openai-compatible")
+    parser.add_argument("--provider", choices=PROVIDER_CHOICES, default="openai-compatible")
     parser.add_argument("--endpoint", "--extract-base-url", dest="extract_base_url")
     parser.add_argument("--model", "--extract-model", dest="extract_model")
     parser.add_argument("--extract-api-key-env", default="BIOS_EXTRACT_API_KEY")
@@ -69,7 +72,7 @@ def _parser() -> argparse.ArgumentParser:
     approve = commands.add_parser("approve", help="Explicitly approve one complete, integrity-checked evaluation")
     approve.add_argument("--evaluation", type=Path, required=True)
     approve.add_argument("--operator", required=True)
-    approve.add_argument("--provider", choices=("openai-compatible",), default="openai-compatible")
+    approve.add_argument("--provider", choices=PROVIDER_CHOICES, default="openai-compatible")
     approve.add_argument("--model", required=True)
     approve.add_argument("--prompt-version", default=PROMPT_VERSION)
     approve.add_argument("--marker", type=Path)
@@ -79,7 +82,26 @@ def _parser() -> argparse.ArgumentParser:
     return parser
 
 
-def _configured_provider(args: argparse.Namespace, repositories: object) -> OpenAICompatibleExtractionProvider:
+def _configured_provider(
+    args: argparse.Namespace, repositories: object
+) -> OpenAICompatibleExtractionProvider | PerplexityExtractionProvider:
+    if args.provider == "perplexity":
+        model = args.extract_model or os.environ.get("BIOS_PERPLEXITY_MODEL")
+        if not model:
+            raise QualificationError("missing configuration: BIOS_PERPLEXITY_MODEL or --model")
+        config = perplexity_config_from_environment(
+            base_url=args.extract_base_url,
+            model=model,
+            timeout_seconds=args.extract_timeout,
+            window_chars=args.extract_window_chars,
+            overlap_segments=args.extract_overlap_segments,
+            temperature=args.extract_temperature,
+            max_candidates_per_window=args.extract_max_candidates,
+            max_total_candidates=args.extract_max_total_candidates,
+            response_format=args.extract_response_format,
+        )
+        return PerplexityExtractionProvider(config=config, repositories=repositories)
+
     base_url = args.extract_base_url or os.environ.get("BIOS_EXTRACT_BASE_URL")
     model = args.extract_model or os.environ.get("BIOS_EXTRACT_MODEL")
     missing = []
@@ -170,7 +192,7 @@ def main(argv: list[str] | None = None) -> int:
             ),
         }, indent=2, ensure_ascii=False))
         return 0 if artifact["complete"] else 1
-    except (QualificationError, ValueError, OSError, json.JSONDecodeError) as exc:
+    except (QualificationError, MissingCredentialError, ValueError, OSError, json.JSONDecodeError) as exc:
         print(json.dumps({"state": "error", "error": str(exc)}, indent=2))
         return 2
 
