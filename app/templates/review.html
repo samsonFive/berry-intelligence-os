@@ -3,8 +3,11 @@
 {% block content %}
 <section class="page-heading">
   <div>
-    <p class="eyebrow">REVIEW &amp; STRUCTURE</p>
+    <p class="eyebrow">{% if draft.evidence_role == 'atomic_evidence' %}ATOMIC EVIDENCE REVIEW{% else %}HUMAN PUBLICATION REVIEW{% endif %}</p>
     <h1>{{ draft.title }}</h1>
+    {% if draft.evidence_role != 'atomic_evidence' %}
+    <p class="also-known-as">{{ draft.source_name or 'Source not recorded' }}{% if draft.published_date %} · {{ draft.published_date|us_date }}{% endif %}</p>
+    {% endif %}
   </div>
 </section>
 
@@ -56,22 +59,22 @@
 
 <div class="review-split">
   <section class="review-pane">
-    <h2>{% if draft.evidence_role == 'atomic_evidence' %}Source-grounding record{% else %}Original submission{% endif %}</h2>
+    <h2>{% if draft.evidence_role == 'atomic_evidence' %}Source-grounding record{% else %}Decision brief{% endif %}</h2>
     {% if transcript_readiness %}
       <div class="review-state-dimensions">
         <section>
           <h3>Publication review</h3>
           <span class="badge badge-status-unverified">{{ draft.review_state|replace('_',' ')|title if draft.review_state else 'Pending' }}</span>
         </section>
-        <section class="transcript-readiness" aria-label="Technical transcript readiness">
-          <h3>Technical transcript readiness</h3>
-          <p><span class="badge transcript-state-{{ transcript_readiness.state }}">{{ transcript_readiness.state_label }}</span></p>
+        <section class="transcript-readiness" aria-label="Transcript status">
+          <h3>Transcript status</h3>
+          <p><span class="badge transcript-state-{{ transcript_readiness.state }}">{{ transcript_readiness.analyst_label or transcript_readiness.state_label }}</span></p>
+          {% if transcript_readiness.state != 'ready' %}
+            <p class="context-limit">You can still accept this as trusted publication. Transcript acquisition is a separate technical step.</p>
+          {% endif %}
           {% if transcript_readiness.method %}<p><strong>Acquisition method:</strong> {{ transcript_readiness.method }}</p>{% endif %}
           {% if transcript_readiness.language %}<p><strong>Detected language:</strong> {{ transcript_readiness.language }} <small>— verify if unexpected.</small></p>{% endif %}
           {% if transcript_readiness.failure_category %}<p>{{ transcript_readiness.failure_category }}</p>{% endif %}
-          {% if transcript_readiness.retry_count is not none %}<p><strong>Retry attempts:</strong> {{ transcript_readiness.retry_count }}</p>{% endif %}
-          {% if transcript_readiness.next_retry_at %}<p><strong>Next eligible retry:</strong> {{ transcript_readiness.next_retry_at }}</p>{% endif %}
-          {% if transcript_readiness.updated_at %}<p><strong>Runtime state updated:</strong> {{ transcript_readiness.updated_at }}</p>{% endif %}
         </section>
       </div>
       <p class="context-limit">Transcript readiness is independent of the publication decision.</p>
@@ -97,30 +100,57 @@
           <dt>Transcript hash</dt><dd><code>{{ draft.transcript_provenance.transcript_sha256 }}</code></dd>
         </dl></details>
       </div>
+    {% else %}
+      {% if publication_card and publication_card.why %}
+        <h3>Why this matters</h3>
+        <p>{{ publication_card.why }}</p>
+      {% elif draft.why_it_matters %}
+        <h3>Why this matters</h3>
+        <p>{{ draft.why_it_matters }}</p>
+      {% endif %}
+      {% if publication_card and publication_card.summary %}
+        <h3>Concise summary</h3>
+        <p>{{ publication_card.summary }}</p>
+      {% endif %}
+      {% if publication_card %}
+        <h3>Suggested</h3>
+        <dl>
+          <dt>Berries</dt><dd>{{ publication_card.berries|join(', ') if publication_card.berries else '—' }}</dd>
+          <dt>Entities</dt><dd>{{ publication_card.entities|join(', ') if publication_card.entities else '—' }}</dd>
+          <dt>Geography</dt><dd>{{ publication_card.geographies|join(', ') if publication_card.geographies else '—' }}</dd>
+          <dt>Tags</dt><dd>{{ publication_card.tags|join(', ') if publication_card.tags else '—' }}</dd>
+        </dl>
+        {% if publication_card.ai_untrusted %}<p><span class="badge badge-muted">AI assisted · untrusted</span></p>{% endif %}
+      {% endif %}
     {% endif %}
-    <dl>
-      <dt>Intake type</dt><dd>{{ draft.intake_type|replace('_',' ')|title }}</dd>
-      <dt>Source</dt><dd>{{ draft.source_name or "—" }}</dd>
-      <dt>Source URL</dt><dd>{% if draft.source_url %}<a href="{{ draft.source_url }}">{{ draft.source_url }}</a>{% else %}—{% endif %}</dd>
-      <dt>Published</dt><dd>{{ draft.published_date|us_date if draft.published_date else "—" }}</dd>
-      <dt>Captured</dt><dd>{{ draft.captured_date|us_date }}</dd>
-      <dt>Submitted by</dt><dd>{{ draft.submitted_by }}</dd>
-    </dl>
-    {% if draft.publisher_description %}
-      <h3>Original publisher description</h3>
-      <p>{{ draft.publisher_description }}</p>
-    {% endif %}
+    {% if draft.evidence_role != 'atomic_evidence' %}
+    <details class="proposal-metadata"{% if not draft.publisher_description or (draft.publisher_description|length) < 280 %} open{% endif %}>
+      <summary>Original submission / publisher description</summary>
+      <dl>
+        <dt>Intake type</dt><dd>{{ draft.intake_type|replace('_',' ')|title }}</dd>
+        <dt>Source</dt><dd>{{ draft.source_name or "—" }}</dd>
+        <dt>Source URL</dt><dd>{% if draft.source_url %}<a href="{{ draft.source_url }}">{{ draft.source_url }}</a>{% else %}—{% endif %}</dd>
+        <dt>Published</dt><dd>{{ draft.published_date|us_date if draft.published_date else "—" }}</dd>
+        <dt>Captured</dt><dd>{{ draft.captured_date|us_date }}</dd>
+        <dt>Submitted by</dt><dd>{{ draft.submitted_by }}</dd>
+      </dl>
+      {% if draft.publisher_description %}
+        <h3>Original publisher description</h3>
+        <p>{{ draft.publisher_description }}</p>
+      {% endif %}
+      <h3>Current summary</h3>
+      {% set summary_lines = draft.summary|as_bullets %}
+      {% if summary_lines|length > 1 %}
+        <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+      {% else %}
+        <p>{{ draft.summary }}</p>
+      {% endif %}
+    </details>
     {% if draft.ai_enrichment %}
-      <section class="ai-enrichment" aria-label="Untrusted AI suggestions">
-        <h3>AI suggestions <span class="badge badge-muted">untrusted</span></h3>
-        {% if draft.ai_enrichment.concise_summary %}<p><strong>Concise summary:</strong> {{ draft.ai_enrichment.concise_summary }}</p>{% endif %}
-        {% if draft.ai_enrichment.why_it_matters %}<p><strong>Why it matters:</strong> {{ draft.ai_enrichment.why_it_matters }}</p>{% endif %}
-        {% if draft.ai_enrichment.suggested_berry_ids %}<p><strong>Berries:</strong> {{ draft.ai_enrichment.suggested_berry_ids|join(', ') }}</p>{% endif %}
-        {% if draft.ai_enrichment.suggested_geography_ids %}<p><strong>Geography:</strong> {{ draft.ai_enrichment.suggested_geography_ids|join(', ') }}</p>{% endif %}
-        {% if draft.ai_enrichment.suggested_entity_ids %}<p><strong>Entities:</strong> {{ draft.ai_enrichment.suggested_entity_ids|join(', ') }}</p>{% endif %}
-        {% if draft.ai_enrichment.suggested_tags %}<p><strong>Tags:</strong> {{ draft.ai_enrichment.suggested_tags|join(', ') }}</p>{% endif %}
-        {% if draft.ai_enrichment.topical_relevance %}<p><strong>Relevance:</strong> {{ draft.ai_enrichment.topical_relevance }}</p>{% endif %}
+      <details class="proposal-metadata">
+        <summary>AI provenance <span class="badge badge-muted">untrusted</span></summary>
         {% if draft.ai_enrichment.caveats %}<p><strong>Caveats:</strong> {{ draft.ai_enrichment.caveats }}</p>{% endif %}
+        {% if draft.ai_enrichment.topical_relevance %}<p><strong>Relevance:</strong> {{ draft.ai_enrichment.topical_relevance }}</p>{% endif %}
         {% if draft.ai_enrichment.model_provenance %}
           <p class="context-limit">
             {{ draft.ai_enrichment.model_provenance.provider or 'provider unset' }}
@@ -129,23 +159,17 @@
             · {{ draft.ai_enrichment.model_provenance.trust_state }}
           </p>
         {% endif %}
-      </section>
+      </details>
     {% endif %}
-    <h3>Current summary</h3>
-    {% set summary_lines = draft.summary|as_bullets %}
-    {% if summary_lines|length > 1 %}
-      <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
     {% else %}
-      <p>{{ draft.summary }}</p>
-    {% endif %}
-    {% if draft.why_it_matters %}
-      <h3>Why it might matter</h3>
-      {% set why_lines = draft.why_it_matters|as_bullets %}
-      {% if why_lines|length > 1 %}
-        <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-      {% else %}
-        <p>{{ draft.why_it_matters }}</p>
-      {% endif %}
+    <dl>
+      <dt>Intake type</dt><dd>{{ draft.intake_type|replace('_',' ')|title }}</dd>
+      <dt>Source</dt><dd>{{ draft.source_name or "—" }}</dd>
+      <dt>Source URL</dt><dd>{% if draft.source_url %}<a href="{{ draft.source_url }}">{{ draft.source_url }}</a>{% else %}—{% endif %}</dd>
+      <dt>Published</dt><dd>{{ draft.published_date|us_date if draft.published_date else "—" }}</dd>
+      <dt>Captured</dt><dd>{{ draft.captured_date|us_date }}</dd>
+      <dt>Submitted by</dt><dd>{{ draft.submitted_by }}</dd>
+    </dl>
     {% endif %}
     {% if draft.transcript_excerpt and draft.evidence_role != 'atomic_evidence' %}
       <h3>Supporting transcript excerpt</h3>
@@ -207,14 +231,14 @@
       </div>
       {% endif %}
 
-      <div class="form-field">
-        <label for="summary">{% if draft.evidence_role == 'atomic_evidence' %}Final normalized Evidence statement{% else %}Summary{% endif %} *</label>
-        <textarea id="summary" name="summary" rows="3" required>{{ values.summary }}</textarea>
-      </div>
-
       <div class="form-field" {% if draft.evidence_role == 'atomic_evidence' %}hidden{% endif %}>
         <label for="why_it_matters">Why it matters</label>
         <textarea id="why_it_matters" name="why_it_matters" rows="2">{{ values.why_it_matters }}</textarea>
+      </div>
+
+      <div class="form-field">
+        <label for="summary">{% if draft.evidence_role == 'atomic_evidence' %}Final normalized Evidence statement{% else %}Summary{% endif %} *</label>
+        <textarea id="summary" name="summary" rows="3" required>{{ values.summary }}</textarea>
       </div>
 
       <div class="form-field" {% if draft.evidence_role == 'atomic_evidence' %}hidden{% endif %}>
@@ -258,6 +282,8 @@
         <input id="strategic_questions" name="strategic_questions" type="text" placeholder="Comma-separated" value="{{ values.strategic_questions }}">
       </div>
 
+      <details class="collapsible-form">
+        <summary>Optional facts, relationships, and priorities</summary>
       <fieldset class="form-fieldset">
         <legend>Proposed facts</legend>
         {% for i in range(1, num_fact_rows + 1) %}
@@ -331,6 +357,7 @@
           </div>
         {% endfor %}
       </fieldset>
+      </details>
       {% endif %}
 
       <div class="form-field">

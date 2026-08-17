@@ -43,7 +43,10 @@ from app.repositories.base import DuplicateRecord
 from app.services.deterministic_tagging import apply_known_name_matches, matchers_from_entities
 from app.services.review_publish import PublishRequest, ReviewPublishService
 from app.services.review_workbench import (
+    analyst_transcript_label,
+    attach_publication_card,
     build_review_workbench,
+    build_scanner_summary,
     format_locator,
     load_publication_transcript_readiness,
     unknown_transcript_readiness,
@@ -1648,12 +1651,30 @@ def work_queue(request: Request) -> HTMLResponse:
     high_priority = [
         r for r in evidence if any(v.get("level") == "high" for v in (r.get("priority") or {}).values())
     ]
+    readiness = load_publication_transcript_readiness(INBOX_DIR)
+    pending = pending_publication_drafts()
+    entities = entity_index()
+    review_cards = []
+    for draft in pending[:8]:
+        presentation = deepcopy(draft)
+        presentation["transcript_readiness"] = deepcopy(
+            readiness.get(draft.get("id")) or unknown_transcript_readiness()
+        )
+        attach_publication_card(presentation, entities=entities, berry_labels=BERRIES)
+        review_cards.append(presentation)
     return templates.TemplateResponse(
         request=request,
         name="work_queue.html",
         context={
             "recent_evidence": evidence[:5],
             "drafts": list_pending_drafts(),
+            "review_cards": review_cards,
+            "scanner": build_scanner_summary(
+                inbox_dir=INBOX_DIR,
+                drafts=list_drafts(),
+                published=evidence,
+                transcript_readiness=readiness,
+            ),
             "unresolved_entities": unresolved_entities(),
             "high_priority": high_priority[:5],
             "recent_signals": all_signals()[:5],
@@ -2709,6 +2730,12 @@ def review_queue(
             "rejection_categories": REJECTION_CATEGORIES,
             "unvalidated_evidence": unvalidated_auto_captured_evidence(),
             "entities": entities,
+            "scanner": build_scanner_summary(
+                inbox_dir=INBOX_DIR,
+                drafts=drafts,
+                published=repositories.evidence.list(),
+                transcript_readiness=load_publication_transcript_readiness(INBOX_DIR),
+            ),
             "authoring_mode": AUTHORING_MODE,
         },
     )
@@ -2726,6 +2753,10 @@ def _default_review_values(draft: dict[str, Any]) -> dict[str, Any]:
     for tag in enrichment.get("suggested_tags") or []:
         if tag and tag not in tags:
             tags.append(tag)
+    berries = list(draft.get("berry_ids") or [])
+    for berry_id in enrichment.get("suggested_berry_ids") or []:
+        if berry_id and berry_id not in berries:
+            berries.append(berry_id)
     return {
         "title": draft.get("title", ""),
         "source_type": draft.get("source_type", ""),
@@ -2740,7 +2771,7 @@ def _default_review_values(draft: dict[str, Any]) -> dict[str, Any]:
         "varieties": ", ".join(draft.get("suggested_varieties", [])),
         "retailers": ", ".join(draft.get("suggested_retailers", [])),
         "geographies": ", ".join(draft.get("suggested_geographies", [])),
-        "berries": list(draft.get("berry_ids", [])),
+        "berries": berries,
         "strategic_questions": "",
         "reviewer": "",
         "facts": [{"statement": "", "classification": "fact", "confidence": "medium"} for _ in range(NUM_FACT_ROWS)],
@@ -2807,9 +2838,16 @@ def _review_context(
         transcript_readiness = load_publication_transcript_readiness(INBOX_DIR).get(
             draft["id"], unknown_transcript_readiness()
         )
+        transcript_readiness["analyst_label"] = analyst_transcript_label(transcript_readiness)
     trusted_existing = None
     if draft.get("id"):
         trusted_existing = repositories.evidence.get(draft["id"])
+    publication_card = None
+    if draft.get("evidence_role") == "publication_artifact":
+        presentation = deepcopy(draft)
+        presentation["transcript_readiness"] = transcript_readiness or unknown_transcript_readiness()
+        attach_publication_card(presentation, entities=entities, berry_labels=BERRIES)
+        publication_card = presentation.get("card")
     return {
         "draft": draft,
         "parent": parent,
@@ -2833,6 +2871,7 @@ def _review_context(
         "publish_outcome": publish_outcome,
         "conflicts": conflicts or [],
         "trusted_existing": trusted_existing,
+        "publication_card": publication_card,
         "next_draft_id": adjacent_publication_draft_id(draft.get("id") or ""),
         "prev_draft_id": adjacent_publication_draft_id(draft.get("id") or "", step=-1),
     }

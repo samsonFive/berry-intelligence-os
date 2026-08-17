@@ -1,38 +1,59 @@
 {% extends "base.html" %}
-{% block title %}Work Queue — Berry Intelligence OS{% endblock %}
+{% block title %}Scanner — Berry Intelligence OS{% endblock %}
 {% block content %}
 <section class="page-heading">
   <div>
-    <p class="eyebrow">WHAT DESERVES ATTENTION AND WHAT WORK REMAINS</p>
-    <h1>Work Queue</h1>
+    <p class="eyebrow">THE SYSTEM WATCHES</p>
+    <h1>Scanner</h1>
+    <p class="also-known-as">What the system found, what deserves attention, and what still needs a human decision.</p>
   </div>
+  {% if authoring_mode %}
+    <a class="button-link" href="/review?kind=publication">Open review queue</a>
+  {% endif %}
 </section>
 
+{% include "_scanner_strip.html" %}
+
 <div class="cockpit-grid">
-  <section class="cockpit-card">
-    <h2>Awaiting review ({{ drafts|length }})</h2>
-    {% if drafts %}
-      <ul class="simple-list">
-        {% for draft in drafts[:5] %}
-          <li><a href="/review/{{ draft.id }}">{{ draft.title }}</a> <span class="draft-meta">{{ draft.captured_date|us_date }}</span></li>
+  <section class="cockpit-card cockpit-card-wide">
+    <h2>Needs publication review</h2>
+    {% if review_cards %}
+      <ul class="publication-card-list">
+        {% for draft in review_cards %}
+          <li class="publication-card">
+            <div class="publication-card-top">
+              <h3><a href="/review/{{ draft.id }}">{{ draft.title }}</a></h3>
+              <a class="action-button action-approve" href="/review/{{ draft.id }}">Review</a>
+            </div>
+            <p class="draft-meta">{{ draft.source_name or draft.submitted_by }} · {{ (draft.published_date or draft.captured_date)|us_date }}</p>
+            {% if draft.card %}
+              <div class="publication-card-flags">
+                {% if draft.card.relevance_band %}<span class="badge badge-claim">{{ draft.card.relevance_band }} relevance</span>{% endif %}
+                {% if draft.card.ai_untrusted %}<span class="badge badge-muted">AI assisted · untrusted</span>{% endif %}
+                {% if draft.card.transcript_label %}<span class="badge transcript-state-{{ draft.card.transcript_state }}">{{ draft.card.transcript_label }}</span>{% endif %}
+              </div>
+              {% if draft.card.why %}<div class="why"><strong>Why it matters</strong><p>{{ draft.card.why|truncate(220) }}</p></div>{% endif %}
+              {% if draft.card.summary %}<p>{{ draft.card.summary|truncate(220) }}</p>{% endif %}
+            {% endif %}
+          </li>
         {% endfor %}
       </ul>
-      <a href="/review">View review queue →</a>
+      <a href="/review?kind=publication">View all items that need review →</a>
     {% else %}
-      <p class="empty-state">Nothing waiting for review.</p>
+      <p class="empty-state">Nothing waiting for publication review.</p>
     {% endif %}
   </section>
 
   <section class="cockpit-card">
-    <h2>Unresolved entity matches ({{ unresolved_entities|length }})</h2>
-    {% if unresolved_entities %}
+    <h2>Recently accepted</h2>
+    {% if recent_evidence %}
       <ul class="simple-list">
-        {% for entity in unresolved_entities[:5] %}
-          <li><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a> <span class="badge badge-muted">{{ entity.entity_type|upper }}</span></li>
+        {% for item in recent_evidence %}
+          <li><a href="/evidence/{{ item.id }}">{{ item.title }}</a> <span class="draft-meta">{{ (item.published_date or item.captured_date)|us_date }}</span></li>
         {% endfor %}
       </ul>
     {% else %}
-      <p class="empty-state">No entities are pending verification.</p>
+      <p class="empty-state">Nothing published yet.</p>
     {% endif %}
   </section>
 
@@ -50,15 +71,15 @@
   </section>
 
   <section class="cockpit-card">
-    <h2>Recently published</h2>
-    {% if recent_evidence %}
+    <h2>Unresolved entity matches ({{ unresolved_entities|length }})</h2>
+    {% if unresolved_entities %}
       <ul class="simple-list">
-        {% for item in recent_evidence %}
-          <li><a href="/evidence/{{ item.id }}">{{ item.title }}</a> <span class="draft-meta">{{ (item.published_date or item.captured_date)|us_date }}</span></li>
+        {% for entity in unresolved_entities[:5] %}
+          <li><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a> <span class="badge badge-muted">{{ entity.entity_type|upper }}</span></li>
         {% endfor %}
       </ul>
     {% else %}
-      <p class="empty-state">Nothing published yet.</p>
+      <p class="empty-state">No entities are pending verification.</p>
     {% endif %}
   </section>
 

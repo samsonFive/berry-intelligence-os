@@ -214,11 +214,13 @@ def test_queue_and_detail_render_separate_readiness_without_runtime_side_effects
     after = {path.relative_to(inbox): path.read_bytes() for path in inbox.rglob("*") if path.is_file()}
 
     assert queue.status_code == ready_detail.status_code == generic_detail.status_code == 200
-    assert "Ready" in queue.text and "Not attempted" in queue.text and "Retryable failure" in queue.text
+    assert "Transcript ready" in queue.text
+    assert "Review-ready without transcript" in queue.text
+    assert "Transcript blocked" in queue.text
     assert "Detected language: <strong>af</strong>" in queue.text
     assert "--cookies-from-browser" not in queue.text and "C:/private/path" not in queue.text
     assert "Publication review" in ready_detail.text
-    assert "Technical transcript readiness" in ready_detail.text
+    assert "Transcript status" in ready_detail.text
     assert "Detected language:</strong> af" in ready_detail.text
     assert "verify if unexpected" in ready_detail.text
     assert "Transcript readiness is independent of the publication decision." in ready_detail.text

@@ -635,10 +635,13 @@ def test_publish_blocked_in_readonly_mode(monkeypatch, tmp_path) -> None:
 def test_work_queue_renders() -> None:
     response = client.get("/work-queue")
     assert response.status_code == 200
-    assert "Work Queue" in response.text
-    assert "Recently published" in response.text
+    assert "Scanner" in response.text
+    assert "FOUND" in response.text
+    assert "NEEDS REVIEW" in response.text
+    assert "Recently accepted" in response.text
     assert "High-priority items" in response.text
-    # "Recently published" shows only the most recent few records, so which
+    assert "0 failures" not in response.text.casefold()
+    # "Recently accepted" shows only the most recent few records, so which
     # specific title appears there depends on how much has been published --
     # assert against the live feed instead of a title that may have aged out.
     feed = client.get("/api/feed").json()

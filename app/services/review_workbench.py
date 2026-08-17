@@ -38,12 +38,175 @@ def unknown_transcript_readiness() -> dict[str, Any]:
     return {
         "state": "unknown",
         "state_label": "Status unknown",
+        "analyst_label": "Review-ready without transcript",
         "method": None,
         "language": None,
         "failure_category": None,
         "retry_count": None,
         "next_retry_at": None,
         "updated_at": None,
+    }
+
+
+ANALYST_TRANSCRIPT_LABELS = {
+    "ready": "Transcript ready",
+    "not_attempted": "Review-ready without transcript",
+    "unknown": "Review-ready without transcript",
+    "retryable_failure": "Transcript blocked — retry possible",
+    "intervention_required": "Transcript blocked — needs operator",
+}
+
+
+def analyst_transcript_label(readiness: dict[str, Any] | None) -> str:
+    readiness = readiness or {}
+    state = readiness.get("state")
+    return ANALYST_TRANSCRIPT_LABELS.get(state) or readiness.get("state_label") or "Transcript status unknown"
+
+
+def _display_name(value: str, entities: dict[str, dict[str, Any]], berry_labels: dict[str, str]) -> str:
+    if value in berry_labels:
+        return berry_labels[value]
+    name = (entities.get(value) or {}).get("name")
+    if name:
+        return name
+    if "-" in value:
+        return value.split("-", 1)[-1].replace("-", " ").title()
+    return value
+
+
+def _relevance_band(text: str) -> str:
+    folded = (text or "").strip().casefold()
+    if folded.startswith("high") or folded.startswith("direct"):
+        return "High"
+    if folded.startswith("moderate") or folded.startswith("medium"):
+        return "Moderate"
+    if folded.startswith("low"):
+        return "Low"
+    return "Relevant" if folded else ""
+
+
+def _unique_names(ids: list[Any], entities: dict[str, dict[str, Any]], berry_labels: dict[str, str]) -> list[str]:
+    names: list[str] = []
+    for value in ids or []:
+        if not isinstance(value, str) or not value:
+            continue
+        name = _display_name(value, entities, berry_labels)
+        if name not in names:
+            names.append(name)
+    return names
+
+
+def attach_publication_card(
+    record: dict[str, Any],
+    *,
+    entities: dict[str, dict[str, Any]],
+    berry_labels: dict[str, str],
+) -> dict[str, Any]:
+    """Add analyst-facing card fields without changing stored draft JSON."""
+
+    enrichment = record.get("ai_enrichment") or {}
+    publisher = (record.get("publisher_description") or "").strip()
+    why = (record.get("why_it_matters") or enrichment.get("why_it_matters") or "").strip()
+    summary = (enrichment.get("concise_summary") or "").strip()
+    raw_summary = (record.get("summary") or "").strip()
+    if not summary and raw_summary and raw_summary != publisher:
+        summary = raw_summary
+    provenance = enrichment.get("model_provenance") or {}
+    readiness = record.get("transcript_readiness") or unknown_transcript_readiness()
+    if isinstance(readiness, dict):
+        readiness["analyst_label"] = analyst_transcript_label(readiness)
+        record["transcript_readiness"] = readiness
+    berry_ids = list(record.get("berry_ids") or []) + list(enrichment.get("suggested_berry_ids") or [])
+    entity_ids = list(record.get("entity_ids") or []) + list(enrichment.get("suggested_entity_ids") or [])
+    geo_ids = list(record.get("geography_ids") or []) + list(enrichment.get("suggested_geography_ids") or [])
+    relevance = (enrichment.get("topical_relevance") or "").strip()
+    record["card"] = {
+        "why": why,
+        "summary": summary,
+        "relevance": relevance,
+        "relevance_band": _relevance_band(relevance),
+        "berries": _unique_names(berry_ids, entities, berry_labels),
+        "entities": _unique_names(entity_ids, entities, berry_labels),
+        "geographies": _unique_names(geo_ids, entities, berry_labels),
+        "tags": [tag for tag in (enrichment.get("suggested_tags") or record.get("tags") or []) if tag],
+        "ai_untrusted": provenance.get("trust_state") == "untrusted_suggestion" or provenance.get("status") == "ok",
+        "transcript_label": analyst_transcript_label(readiness),
+        "transcript_state": readiness.get("state"),
+    }
+    return record
+
+
+def build_scanner_summary(
+    *,
+    inbox_dir: Path,
+    drafts: list[dict[str, Any]],
+    published: list[dict[str, Any]],
+    transcript_readiness: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Cheap, read-only scanner counts for the work-queue / review entry screens.
+
+    Uses persisted screening and drafts. Does not orchestrate the full collection
+    pipeline. Missing transcripts are not counted as failures.
+    """
+
+    discovered, _unreadable = _safe_runtime_objects(inbox_dir / "discovered_media")
+    readiness = transcript_readiness if transcript_readiness is not None else load_publication_transcript_readiness(inbox_dir)
+    screened = [
+        item
+        for item in discovered
+        if isinstance(item.get("relevance_screening"), dict) and item.get("relevance_screening")
+    ]
+    pending_pubs = [
+        draft
+        for draft in drafts
+        if draft.get("evidence_role") == "publication_artifact" and draft.get("status", "draft") != "rejected"
+    ]
+    pending_atomic = [
+        draft
+        for draft in drafts
+        if draft.get("evidence_role") == "atomic_evidence" and draft.get("status", "draft") != "rejected"
+    ]
+    accepted = [
+        record
+        for record in published
+        if record.get("evidence_role") == "publication_artifact" and record.get("status") == "published"
+    ]
+    transcript_ready = 0
+    without_transcript = 0
+    transcript_blocked = 0
+    for draft in pending_pubs:
+        state = (readiness.get(draft.get("id")) or {}).get("state")
+        if state == "ready":
+            transcript_ready += 1
+        elif state in {"retryable_failure", "intervention_required"}:
+            transcript_blocked += 1
+        else:
+            without_transcript += 1
+    note = None
+    if pending_pubs and transcript_ready == 0:
+        if transcript_blocked:
+            note = (
+                f"{transcript_blocked} item(s) have a transcript acquisition blocker. "
+                "Items that are review-ready without a transcript are not failures."
+            )
+        else:
+            note = (
+                "Transcripts are not ready yet. That is not a batch failure — "
+                "publication review can proceed without a transcript."
+            )
+    return {
+        "found": len(screened),
+        "important": sum(1 for item in screened if (item.get("relevance_screening") or {}).get("decision") == "process"),
+        "needs_review": len(pending_pubs),
+        "accepted": len(accepted),
+        "attention": transcript_blocked,
+        "skipped": sum(1 for item in screened if (item.get("relevance_screening") or {}).get("decision") == "skip"),
+        "transcript_ready": transcript_ready,
+        "transcript_blocked": transcript_blocked,
+        "review_ready_without_transcript": without_transcript,
+        "atomic_pending": len(pending_atomic),
+        "note": note,
+        "has_recent_scan": bool(screened),
     }
 
 
@@ -205,13 +368,15 @@ def load_publication_transcript_readiness(inbox_dir: Path) -> dict[str, dict[str
             draft_id = publication_draft_id(item)
         except MediaOrchestrationError:
             continue
-        result[draft_id] = _readiness_for_item(
+        payload = _readiness_for_item(
             transcript=transcript_by_item.get(item_id),
             transcript_unreadable=item_id in unreadable_transcripts,
             operation=operation_by_item.get(item_id),
             operation_unreadable=item_id in unreadable_operations,
             run_item=latest_run_by_item.get(item_id),
         )
+        payload["analyst_label"] = analyst_transcript_label(payload)
+        result[draft_id] = payload
 
     return result
 
@@ -513,15 +678,15 @@ def build_review_workbench(
             record for record in generic
             if (record.get("ai_enrichment") or {}).get("model_provenance", {}).get("status") != "ok"
         ]
-    if sort in {"newest", "recent"} or (kind == "publication" and sort == "timestamp"):
+    if sort == "source":
+        generic.sort(key=lambda record: (record.get("source_name") or "").casefold())
+    elif sort == "parent":
+        generic.sort(key=lambda record: (record.get("title") or "").casefold())
+    else:
         generic.sort(
             key=lambda record: record.get("published_date") or record.get("captured_date") or "",
             reverse=True,
         )
-    elif sort == "source":
-        generic.sort(key=lambda record: (record.get("source_name") or "").casefold())
-    else:
-        generic.sort(key=lambda record: (record.get("title") or "").casefold())
 
     generic_presentations = []
     for record in generic:
@@ -530,6 +695,7 @@ def build_review_workbench(
             presentation["transcript_readiness"] = deepcopy(
                 publication_transcript_readiness.get(record.get("id")) or unknown_transcript_readiness()
             )
+            attach_publication_card(presentation, entities=entity_index, berry_labels=berry_labels)
         generic_presentations.append(presentation)
 
     return {

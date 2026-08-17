@@ -1,14 +1,18 @@
 {% extends "base.html" %}
-{% block title %}Atomic Evidence Review Workbench — Berry Intelligence OS{% endblock %}
+{% block title %}Review Queue — Berry Intelligence OS{% endblock %}
 {% block content %}
 <section class="page-heading review-workbench-heading">
   <div>
-    <p class="eyebrow">ITEM-BY-ITEM HUMAN REVIEW</p>
-    <h1>Atomic Evidence Review Workbench</h1>
-    <p class="also-known-as">Review transcript-derived proposals in publication context. Approval remains individual and human-controlled.</p>
+    <p class="eyebrow">AI FINDS WHAT MATTERS · HUMAN DECIDES WHAT IS TRUSTED</p>
+    <h1>{% if workbench.filters.kind == 'atomic' %}Atomic Evidence Review Workbench{% else %}Review Queue{% endif %}</h1>
+    <p class="also-known-as">{% if workbench.filters.kind == 'atomic' %}Review transcript-derived proposals in publication context. Approval remains individual and human-controlled.{% else %}Start with what deserves attention. AI suggestions are untrusted until you accept them.{% endif %}</p>
   </div>
   <aside class="shortcut-key" aria-label="Keyboard shortcuts"><kbd>j</kbd>/<kbd>k</kbd> move · <kbd>a</kbd> approve panel · <kbd>e</kbd> edit · <kbd>r</kbd> reject panel · <kbd>Esc</kbd> close</aside>
 </section>
+
+{% if workbench.filters.kind != 'atomic' %}
+  {% with compact=true %}{% include "_scanner_strip.html" %}{% endwith %}
+{% endif %}
 
 <form class="filters workbench-filters" method="get" action="/review">
   <div class="filter-field"><label for="kind">Item type</label><select id="kind" name="kind">
@@ -42,6 +46,51 @@
   </select></div>
   <div class="filter-actions"><button type="submit">Apply</button><a href="/review">Reset</a></div>
 </form>
+
+{% if workbench.filters.kind != 'atomic' %}
+<section class="generic-review-section">
+  <h2>Needs publication review ({{ drafts|length }})</h2>
+  {% if drafts %}
+  <ul class="publication-card-list publication-card-list-queue">
+    {% for draft in drafts %}
+    <li class="publication-card">
+      <div class="publication-card-top">
+        <h3><a href="/review/{{ draft.id }}">{{ draft.title }}</a></h3>
+        <a class="action-button action-approve" href="/review/{{ draft.id }}">Review</a>
+      </div>
+      <p class="draft-meta">{{ draft.source_name or draft.submitted_by }} · {{ (draft.published_date or draft.captured_date)|us_date }}</p>
+      {% if draft.card %}
+      <div class="publication-card-flags">
+        {% if draft.card.relevance_band %}<span class="badge badge-claim">{{ draft.card.relevance_band }} relevance</span>{% endif %}
+        {% if draft.ai_enrichment and draft.ai_enrichment.model_provenance.status == 'ok' %}<span class="badge badge-claim">ENRICHED</span>{% endif %}
+        {% if draft.card.ai_untrusted %}<span class="badge badge-muted">AI assisted · untrusted</span>{% endif %}
+        {% if draft.card.transcript_label %}<span class="badge transcript-state-{{ draft.card.transcript_state }}">{{ draft.card.transcript_label }}</span>{% endif %}
+      </div>
+      {% if draft.card.why %}<div class="why"><strong>Why it matters</strong><p>{{ draft.card.why|truncate(240) }}</p></div>{% endif %}
+      {% if draft.card.summary %}<p>{{ draft.card.summary|truncate(240) }}</p>{% endif %}
+      {% if draft.card.berries or draft.card.entities or draft.card.geographies %}
+      <p class="suggestion-line">
+        {% if draft.card.berries %}<span>Berries: {{ draft.card.berries|join(', ') }}</span>{% endif %}
+        {% if draft.card.entities %}<span>Entities: {{ draft.card.entities|join(', ') }}</span>{% endif %}
+        {% if draft.card.geographies %}<span>Geography: {{ draft.card.geographies|join(', ') }}</span>{% endif %}
+      </p>
+      {% endif %}
+      {% else %}
+      <span class="badge badge-muted">{{ draft.evidence_role|replace('_',' ') if draft.evidence_role else draft.status }}</span>
+      {% endif %}
+      {% if draft.transcript_readiness %}
+      <aside class="transcript-readiness transcript-readiness-compact" aria-label="Transcript status">
+        <span class="transcript-readiness-label">Transcript</span>
+        <span class="badge transcript-state-{{ draft.transcript_readiness.state }}">{{ draft.transcript_readiness.analyst_label or draft.transcript_readiness.state_label }}</span>
+        {% if draft.transcript_readiness.language %}<span>Detected language: <strong>{{ draft.transcript_readiness.language }}</strong></span>{% endif %}
+      </aside>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}<p class="empty-state">No publication drafts match the active filters.</p>{% endif %}
+</section>
+{% endif %}
 
 {% if workbench.groups %}
 <div class="review-batches" data-review-workbench data-current-id="{{ current_id or '' }}">
@@ -146,35 +195,11 @@
   </section>
   {% endfor %}
 </div>
-{% else %}
-<p class="empty-state">No transcript-derived atomic Evidence proposals match the active filters.</p>
+{% elif workbench.filters.kind == 'atomic' %}
+<p class="empty-state">No transcript-derived Atomic Evidence proposals match the active filters. Extraction requires a qualified model plus a trusted publication with a ready transcript. Untrusted model output is never accepted intelligence.</p>
 {% endif %}
 
 {% if workbench.filters.kind != 'atomic' %}
-<section class="generic-review-section">
-  <h2>Other intake drafts ({{ drafts|length }})</h2>
-  {% if drafts %}<ul class="draft-items">{% for draft in drafts %}
-    <li class="draft-review-item">
-      <div class="draft-review-summary">
-        <a href="/review/{{ draft.id }}">{{ draft.title }}</a>
-        <span class="badge badge-muted">{{ draft.evidence_role|replace('_',' ') if draft.evidence_role else draft.status }}</span>
-        {% if draft.ai_enrichment and draft.ai_enrichment.model_provenance.status == 'ok' %}<span class="badge badge-claim">ENRICHED</span>{% endif %}
-        <span class="draft-meta">{{ draft.source_name or draft.submitted_by }} · {{ (draft.published_date or draft.captured_date)|us_date }}</span>
-      </div>
-      {% if draft.transcript_readiness %}
-      <aside class="transcript-readiness transcript-readiness-compact" aria-label="Technical transcript readiness">
-        <span class="transcript-readiness-label">Transcript</span>
-        <span class="badge transcript-state-{{ draft.transcript_readiness.state }}">{{ draft.transcript_readiness.state_label }}</span>
-        {% if draft.transcript_readiness.method %}<span>{{ draft.transcript_readiness.method }}</span>{% endif %}
-        {% if draft.transcript_readiness.language %}<span>Detected language: <strong>{{ draft.transcript_readiness.language }}</strong></span>{% endif %}
-        {% if draft.transcript_readiness.failure_category %}<span>{{ draft.transcript_readiness.failure_category }}</span>{% endif %}
-      </aside>
-      {% endif %}
-    </li>
-  {% endfor %}</ul>
-  {% else %}<p class="empty-state">No other intake drafts match the active filters.</p>{% endif %}
-</section>
-
 <section class="generic-review-section">
   <h2>Auto-captured evidence awaiting validation ({{ unvalidated_evidence|length }})</h2>
   {% if unvalidated_evidence %}<ul class="draft-items">{% for item in unvalidated_evidence %}<li><a href="/evidence/{{ item.id }}">{{ item.title }}</a><span class="badge badge-claim">UNVALIDATED</span><span class="draft-meta">{{ item.source_name }} · {{ (item.published_date or item.captured_date)|us_date }}</span><form action="/evidence/{{ item.id }}/validate" method="post"><input type="hidden" name="redirect_to" value="/review"><button type="submit">Validate</button></form><form action="/evidence/{{ item.id }}/purge" method="post"><input type="hidden" name="redirect_to" value="/review"><button type="submit">Purge</button></form><form action="/evidence/{{ item.id }}/purge" method="post"><input type="hidden" name="redirect_to" value="/review"><input type="hidden" name="block_domain" value="true"><button type="submit">Purge &amp; block domain</button></form></li>{% endfor %}</ul>
