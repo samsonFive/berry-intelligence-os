@@ -1,19 +1,22 @@
 """Perplexity Router API transport for structured, non-search chat calls.
 
 This is the sole place that knows Perplexity's wire format for structured
-inference. It builds the request, disables web search by default (this
-project's extraction use never enables it), parses the response envelope,
-and maps every failure onto the generic `app.services.ai_gateway.errors`
-taxonomy. Callers receive a `NormalizedChatResponse` or a `GatewayError`/
+inference. It builds the request, parses the response envelope, and maps
+every failure onto the generic `app.services.ai_gateway.errors` taxonomy.
+Callers receive a `NormalizedChatResponse` or a `GatewayError`/
 `GatewayMalformedResponseError` -- never a raw `httpx.Response` or a
 Perplexity-shaped envelope.
 
 Verified against Perplexity's own documentation (docs.perplexity.ai) as of
-2026-08-16: the Router API at `https://api.perplexity.ai/router/v1` serves
-an OpenAI-Chat-Completions-compatible `/chat/completions` endpoint distinct
-from the legacy Sonar chat-completions path (which Perplexity has announced
-sunsetting 2026-09-27), and accepts `disable_search` and a JSON-schema
-`response_format`.
+2026-08-16: the Router/Gateway API at `https://api.perplexity.ai/router/v1`
+serves an OpenAI-Chat-Completions-compatible `/chat/completions` endpoint
+distinct from the legacy Sonar chat-completions path. The gateway accepts
+only a defined subset of the OpenAI schema and rejects any unrecognized
+top-level field with a 400; it exposes a JSON-schema `response_format` (always
+strict; `json_object` is not supported) but has NO `disable_search` flag
+(that belongs to the Sonar/search endpoints). Web search on the gateway is
+opt-in via a `tools` web-search entry, which this transport never sends, so
+structured inference is search-free without needing a disable flag.
 """
 
 from __future__ import annotations
@@ -79,14 +82,19 @@ class PerplexityChatTransport:
         response_format: dict[str, Any] | None = None,
         temperature: float = 0.0,
         max_tokens: int | None = None,
-        disable_search: bool = True,
     ) -> NormalizedChatResponse:
         headers = {"Content-Type": "application/json", "Authorization": f"Bearer {self.api_key}"}
+        # The Router/Gateway endpoint accepts only a defined subset of the
+        # OpenAI Chat Completions schema and rejects any unrecognized top-level
+        # field with a 400 (docs.perplexity.ai "Create Chat Completion"). It has
+        # no `disable_search` flag -- that field belongs to the Sonar/search
+        # endpoints. Web search on the gateway happens only when a `tools`
+        # web-search entry is sent, which this transport never sends, so
+        # structured inference is search-free by construction.
         body: dict[str, Any] = {
             "model": model,
             "messages": messages,
             "temperature": temperature,
-            "disable_search": disable_search,
         }
         if response_format is not None:
             body["response_format"] = response_format
