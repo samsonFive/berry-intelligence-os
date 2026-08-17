@@ -85,9 +85,10 @@ def main(argv: list[str] | None = None) -> int:
         report["sources"][source_id] = source_report
 
     selected: list[dict] = []
+    per_source = max(1, min(args.max_per_source, args.max_total // max(1, len(args.sources))))
     for source_id in args.sources:
         items = sorted(list_discovered_items(args.inbox_dir, source_id), key=_recency, reverse=True)
-        selected.extend(items[: max(0, args.max_per_source)])
+        selected.extend(items[:per_source])
     selected = selected[: max(0, args.max_total)]
     report["totals"]["discovered"] = len(selected)
 
