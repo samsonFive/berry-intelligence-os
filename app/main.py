@@ -217,7 +217,7 @@ templates.env.globals["pending_review_count"] = lambda: len(list_pending_drafts(
 templates.env.globals["queue_counts"] = lambda: queue_counts()
 
 
-_JSON_FOLDER_CACHE: dict[Path, tuple[tuple[tuple[str, int], ...], list[dict[str, Any]]]] = {}
+_JSON_FOLDER_CACHE: dict[Path, tuple[tuple[tuple[str, int, int], ...], list[dict[str, Any]]]] = {}
 
 
 def load_json_files(folder: Path) -> list[dict[str, Any]]:
@@ -237,11 +237,27 @@ def load_json_files(folder: Path) -> list[dict[str, Any]]:
     signature is recomputed from the actual filesystem state on every call,
     so any write through any code path -- save_evidence(), a direct
     path.write_text() elsewhere, even hand-editing a file outside the app --
-    is picked up on the very next call. No dirty flag to forget to set."""
+    is picked up on the very next call. No dirty flag to forget to set.
+
+    The signature includes st_size, not just mtime: some filesystems
+    (notably overlayfs, used by many containers/CI) give coarse mtime
+    granularity, so two writes to the same file within one tick can share an
+    identical st_mtime_ns. Keying on mtime alone silently returned a stale
+    cached read after a same-tick rewrite (e.g. saving a draft then
+    re-listing in the same request). Including the byte size detects every
+    content-length change through any code path; the only remaining blind
+    spot is a same-size rewrite landing in the same mtime tick, which a
+    content hash would close at the cost of the read this cache exists to
+    avoid."""
     if not folder.exists():
         return []
     paths = sorted(folder.rglob("*.json"))
-    signature = tuple((str(p), p.stat().st_mtime_ns) for p in paths)
+
+    def _signature_entry(path: Path) -> tuple[str, int, int]:
+        stat_result = path.stat()
+        return (str(path), stat_result.st_mtime_ns, stat_result.st_size)
+
+    signature = tuple(_signature_entry(p) for p in paths)
     cached = _JSON_FOLDER_CACHE.get(folder)
     if cached is not None and cached[0] == signature:
         return cached[1]
