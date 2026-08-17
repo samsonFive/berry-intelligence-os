@@ -1,4 +1,6 @@
+import os
 from datetime import date
+from pathlib import Path
 
 import httpx
 import pytest
@@ -1740,3 +1742,30 @@ def test_evidence_page_tagged_with_search_type_and_sort_date() -> None:
     # search ordering reflects when the article actually ran, not when this
     # app happened to capture it.
     assert 'data-pagefind-sort="date:2026-07-28"' in response.text
+
+
+def test_load_json_files_detects_same_mtime_rewrite(tmp_path: Path) -> None:
+    """A rewrite that lands in the same mtime tick must not return stale data.
+
+    Filesystems with coarse mtime granularity (e.g. overlayfs, common in
+    containers/CI) can give two successive writes the same st_mtime_ns, so a
+    cache keyed on mtime alone silently served the pre-write records. This
+    forces that exact condition on any filesystem by restoring the original
+    mtime after the second write; the load must reflect the new content.
+    """
+    folder = tmp_path / "evidence"
+    folder.mkdir()
+    record_path = folder / "rec.json"
+    record_path.write_text('{"id": "rec", "status": "draft"}\n', encoding="utf-8")
+    original = record_path.stat()
+
+    main._JSON_FOLDER_CACHE.pop(folder, None)
+    first = main.load_json_files(folder)
+    assert [r["status"] for r in first] == ["draft"]
+
+    record_path.write_text('{"id": "rec", "status": "rejected"}\n', encoding="utf-8")
+    os.utime(record_path, ns=(original.st_atime_ns, original.st_mtime_ns))
+    assert record_path.stat().st_mtime_ns == original.st_mtime_ns
+
+    second = main.load_json_files(folder)
+    assert [r["status"] for r in second] == ["rejected"]
