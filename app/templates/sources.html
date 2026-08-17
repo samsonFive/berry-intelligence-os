@@ -8,14 +8,18 @@
   </div>
 </section>
 
-{% if not authoring_mode %}
+{% if not authoring_mode and not static_build %}
   <p class="empty-state" role="alert">Source management is disabled. This deployment is running in read-only mode.</p>
 {% else %}
+{% if static_build %}
+  <p class="result-count">Read-only source registry from trusted published configuration. Source checks and edits stay on the local Intelligence OS.</p>
+{% endif %}
 
 {% if error %}
   <div class="banner banner-error" role="alert">{{ error }}</div>
 {% endif %}
 
+{% if not static_build %}
 {% if source_polling_enabled %}
   <p class="result-count">RSS/keyword sources are checked automatically every {{ poll_interval_minutes }} minutes; matching items land directly in the newsfeed, marked unvalidated until you confirm or purge them (at most 20 new items per source per check, so a broad first check trickles in over a few cycles). Reference sources (annual reports, government data, association publications) aren't polled — mark them checked manually after you review them.</p>
 {% else %}
@@ -73,16 +77,19 @@
     <a href="/sources">Clear</a>
   </div>
 </form>
+{% endif %}
 
 <p class="result-count">
   Showing {{ sources|length }} of {{ total_count }} sources
+  {% if not static_build %}
   {% if filters.view == 'gaps' %}— Coverage Gaps view (missing berry or region tags){% elif filters.view == 'due' %}— Due for Review view{% endif %}
   · <a href="/sources?view=gaps">Coverage gaps ({{ gaps_count }})</a>
   · <a href="/sources?view=due">Due for review ({{ due_count }})</a>
   {% if filters.view %}· <a href="/sources">Clear view</a>{% endif %}
+  {% endif %}
 </p>
 
-{% if blocked_domains %}
+{% if blocked_domains and not static_build %}
   <details class="collapsible-form">
     <summary>Blocked domains ({{ blocked_domains|length }})</summary>
     <div class="tags" style="padding:14px 0">
@@ -95,6 +102,7 @@
   </details>
 {% endif %}
 
+{% if not static_build %}
 <details class="collapsible-form">
   <summary>Add a source</summary>
   <form class="intake-form" action="/sources" method="post">
@@ -175,6 +183,7 @@
     </div>
   </form>
 </details>
+{% endif %}
 
 {% for group_label, group_sources in grouped_sources %}
   <h2>{{ group_label }} ({{ group_sources|length }})</h2>
@@ -212,6 +221,7 @@
           {% if source.last_status %} · {{ source.last_status }}{% endif %}
           {% if source.validated_count or source.purged_count %} · {{ source.validated_count or 0 }} validated / {{ source.purged_count or 0 }} purged{% endif %}
         </p>
+        {% if not static_build %}
         <div class="form-actions">
           {% if source.type == 'reference' %}
             <form action="/sources/{{ source.id }}/mark-checked" method="post"><button type="submit">Mark checked</button></form>
@@ -221,6 +231,7 @@
           <form action="/sources/{{ source.id }}/toggle" method="post"><button type="submit">{{ "Pause" if source.enabled else "Resume" }}</button></form>
           <form action="/sources/{{ source.id }}/delete" method="post"><button type="submit">Remove</button></form>
         </div>
+        {% endif %}
       </article>
     {% endfor %}
   </section>

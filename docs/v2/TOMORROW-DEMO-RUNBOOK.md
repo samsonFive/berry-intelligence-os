@@ -8,7 +8,7 @@ Runtime copy (gitignored): `inbox/operations/TOMORROW-DEMO-RUNBOOK.md`.
 
 ## BEFORE DEMO CHECKLIST
 
-- Branch: `cursor/tomorrow-demo-readiness-bd27` (do not demo from canonical `v2/intelligence-os` until this is merged).
+- Public github.io is a trusted published snapshot only. Live Scanner review of unpublished drafts is local (`http://127.0.0.1:8000/work-queue`), not GitHub Pages.
 - Start server: `uvicorn app.main:app --reload` from the repo root (venv activated).
 - URL: http://127.0.0.1:8000
 - Runtime artifacts needed (local `inbox/`, gitignored):

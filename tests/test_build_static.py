@@ -56,6 +56,25 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     (evidence_folder / f"{PUBLISHED_RECORD['id']}.json").write_text(
         json.dumps(PUBLISHED_RECORD), encoding="utf-8"
     )
+    config_dir = data_dir / "configuration"
+    config_dir.mkdir(parents=True, exist_ok=True)
+    (config_dir / "sources.json").write_text(
+        json.dumps(
+            [
+                {
+                    "id": "source-static-test",
+                    "type": "rss",
+                    "label": "Static Test Source",
+                    "value": "https://example.invalid/feed.xml",
+                    "enabled": True,
+                    "entity_types": ["trade_press"],
+                    "berry_ids": ["berry-blueberry"],
+                    "region_coverage": [],
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
 
     draft_folder = inbox_dir / "evidence"
     draft_folder.mkdir(parents=True, exist_ok=True)
@@ -109,6 +128,24 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert 'href="../../../entities/company/' in landscape_html
     assert "Competitor × Competitive Theme Matrix" in landscape_html
     assert 'href="../../../entities/variety/' in landscape_html
+
+    scanner_html = (output_dir / "work-queue" / "index.html").read_text(encoding="utf-8")
+    assert "Scanner" in scanner_html
+    assert "FOUND" in scanner_html
+    assert "ACCEPTED" in scanner_html
+    assert "Trusted published snapshot" in scanner_html
+    assert "Interactive publication review is local-only" in scanner_html
+    assert "Secret unpublished draft title" not in scanner_html
+    assert DRAFT_RECORD["id"] not in scanner_html
+    assert 'href="review/' not in scanner_html
+    assert "/review" not in scanner_html
+
+    sources_html = (output_dir / "sources" / "index.html").read_text(encoding="utf-8")
+    assert "Sources" in sources_html
+    assert "Static Test Source" in sources_html
+    assert "Add a source" not in sources_html
+    assert "Check now" not in sources_html
+    assert "Remove" not in sources_html
 
 
 def test_static_build_detects_leak_if_validation_bypassed(monkeypatch, tmp_path) -> None:

@@ -16,31 +16,43 @@
 
 <div class="cockpit-grid">
   <section class="cockpit-card cockpit-card-wide">
-    <h2>Needs publication review</h2>
-    {% if review_cards %}
-      <ul class="publication-card-list">
-        {% for draft in review_cards %}
-          <li class="publication-card">
-            <div class="publication-card-top">
-              <h3><a href="/review/{{ draft.id }}">{{ draft.title }}</a></h3>
-              <a class="action-button action-approve" href="/review/{{ draft.id }}">Review</a>
-            </div>
-            <p class="draft-meta">{{ draft.source_name or draft.submitted_by }} · {{ (draft.published_date or draft.captured_date)|us_date }}</p>
-            {% if draft.card %}
-              <div class="publication-card-flags">
-                {% if draft.card.relevance_band %}<span class="badge badge-claim">{{ draft.card.relevance_band }} relevance</span>{% endif %}
-                {% if draft.card.ai_untrusted %}<span class="badge badge-muted">AI assisted · untrusted</span>{% endif %}
-                {% if draft.card.transcript_label %}<span class="badge transcript-state-{{ draft.card.transcript_state }}">{{ draft.card.transcript_label }}</span>{% endif %}
-              </div>
-              {% if draft.card.why %}<div class="why"><strong>Why it matters</strong><p>{{ draft.card.why|truncate(220) }}</p></div>{% endif %}
-              {% if draft.card.summary %}<p>{{ draft.card.summary|truncate(220) }}</p>{% endif %}
-            {% endif %}
-          </li>
-        {% endfor %}
+    {% if static_build %}
+      <h2>Trusted intelligence</h2>
+      <p class="empty-state">Interactive publication review is local-only. This public snapshot does not include unpublished drafts or untrusted AI proposals.</p>
+      <ul class="simple-list">
+        <li><a href="/landscapes/berries/blueberry">Blueberry Landscape</a></li>
+        <li><a href="/sources">Sources</a></li>
+        <li><a href="/entities/company">Competitors</a></li>
+        <li><a href="/entities/variety">Varieties</a></li>
+        <li><a href="/entities/geography">Geographies</a></li>
       </ul>
-      <a href="/review?kind=publication">View all items that need review →</a>
     {% else %}
-      <p class="empty-state">Nothing waiting for publication review.</p>
+      <h2>Needs publication review</h2>
+      {% if review_cards %}
+        <ul class="publication-card-list">
+          {% for draft in review_cards %}
+            <li class="publication-card">
+              <div class="publication-card-top">
+                <h3><a href="/review/{{ draft.id }}">{{ draft.title }}</a></h3>
+                <a class="action-button action-approve" href="/review/{{ draft.id }}">Review</a>
+              </div>
+              <p class="draft-meta">{{ draft.source_name or draft.submitted_by }} · {{ (draft.published_date or draft.captured_date)|us_date }}</p>
+              {% if draft.card %}
+                <div class="publication-card-flags">
+                  {% if draft.card.relevance_band %}<span class="badge badge-claim">{{ draft.card.relevance_band }} relevance</span>{% endif %}
+                  {% if draft.card.ai_untrusted %}<span class="badge badge-muted">AI assisted · untrusted</span>{% endif %}
+                  {% if draft.card.transcript_label %}<span class="badge transcript-state-{{ draft.card.transcript_state }}">{{ draft.card.transcript_label }}</span>{% endif %}
+                </div>
+                {% if draft.card.why %}<div class="why"><strong>Why it matters</strong><p>{{ draft.card.why|truncate(220) }}</p></div>{% endif %}
+                {% if draft.card.summary %}<p>{{ draft.card.summary|truncate(220) }}</p>{% endif %}
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+        <a href="/review?kind=publication">View all items that need review →</a>
+      {% else %}
+        <p class="empty-state">Nothing waiting for publication review.</p>
+      {% endif %}
     {% endif %}
   </section>
 

@@ -10,7 +10,7 @@ from fastapi.testclient import TestClient
 from app import main
 from app.main import app
 from app.services.media_orchestration import publication_draft_id
-from app.services.review_workbench import build_scanner_summary
+from app.services.review_workbench import build_public_scanner_summary, build_scanner_summary
 
 
 def _write(path: Path, payload: object) -> None:
@@ -105,6 +105,22 @@ def test_scanner_does_not_treat_missing_transcripts_as_failures(tmp_path: Path) 
     assert summary["note"]
     assert "failure" in summary["note"].casefold()
     assert "0 failures" not in summary["note"].casefold()
+
+
+def test_public_scanner_summary_uses_only_published_records() -> None:
+    published = [
+        {"id": "ev-trusted", "status": "published", "evidence_role": "publication_artifact"},
+        {"id": "ev-other", "status": "published"},
+        {"id": "ev-draftish", "status": "draft"},
+    ]
+    summary = build_public_scanner_summary(published)
+    assert summary["public_snapshot"] is True
+    assert summary["accepted"] == 2
+    assert summary["found"] == 0
+    assert summary["needs_review"] == 0
+    assert summary["attention"] == 0
+    assert "inbox" not in summary["note"].casefold()
+    assert "local" in summary["note"].casefold()
 
 
 def test_scanner_and_publication_queue_lead_with_analyst_fields(monkeypatch, tmp_path: Path) -> None:

@@ -16,11 +16,12 @@
         <a href="/work-queue" {% if request.url.path == '/work-queue' %}class="active" aria-current="page"{% endif %}>Scanner</a>
         <a href="/entities/company" {% if request.url.path.startswith('/entities/company') %}class="active" aria-current="page"{% endif %}>Competitors</a>
         <a href="/entities/variety" {% if request.url.path.startswith('/entities/variety') %}class="active" aria-current="page"{% endif %}>Varieties</a>
+        <a href="/entities/geography" {% if request.url.path.startswith('/entities/geography') %}class="active" aria-current="page"{% endif %}>Geographies</a>
         <a href="/strategic-questions" {% if request.url.path.startswith('/strategic-questions') %}class="active" aria-current="page"{% endif %}>Strategic Questions</a>
         <a href="/signals" {% if request.url.path.startswith('/signals') %}class="active" aria-current="page"{% endif %}>Signals</a>
         <a href="/assessments" {% if request.url.path.startswith('/assessments') %}class="active" aria-current="page"{% endif %}>Assessments</a>
         <a href="/recommendations" {% if request.url.path.startswith('/recommendations') %}class="active" aria-current="page"{% endif %}>Recommendations</a>
-        {% if authoring_mode %}
+        {% if authoring_mode or static_build %}
           <a href="/sources" {% if request.url.path.startswith('/sources') %}class="active" aria-current="page"{% endif %}>Sources</a>
         {% endif %}
         <hr>

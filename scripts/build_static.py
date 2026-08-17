@@ -43,8 +43,10 @@ from app.main import (  # noqa: E402
     published_evidence,
     queue_items,
     relationships_for_evidence,
+    sources_page_context,
     templates,
 )
+from app.services.review_workbench import build_public_scanner_summary  # noqa: E402
 
 OUTPUT_DIR = ROOT / "generated"
 
@@ -259,7 +261,7 @@ def build() -> list[Path]:
             )
         )
 
-    # Work queue.
+    # Scanner / work queue — trusted published snapshot only. Never read inbox/.
     high_priority = [r for r in evidence if any(v.get("level") == "high" for v in (r.get("priority") or {}).values())]
     written.append(
         write_page(
@@ -268,12 +270,23 @@ def build() -> list[Path]:
             {
                 "recent_evidence": evidence[:5],
                 "drafts": [],
+                "review_cards": [],
+                "scanner": build_public_scanner_summary(evidence),
                 "unresolved_entities": [e for e in all_entities() if e.get("status") == "unverified"],
                 "high_priority": high_priority[:5],
                 "recent_signals": all_signals()[:5],
                 "queue_summary": {dim: len(queue_items(dim)) for dim in PRIORITY_DIMENSIONS},
                 "authoring_mode": False,
             },
+        )
+    )
+
+    # Read-only Sources registry from trusted configuration.
+    written.append(
+        write_page(
+            "sources.html",
+            "/sources",
+            {**sources_page_context(None, None, None, None, None, "entity_type", None), "authoring_mode": False},
         )
     )
 

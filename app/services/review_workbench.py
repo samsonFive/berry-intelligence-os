@@ -224,6 +224,35 @@ def build_scanner_summary(
         "atomic_pending": len(pending_atomic),
         "note": note,
         "has_recent_scan": bool(screened),
+        "public_snapshot": False,
+    }
+
+
+def build_public_scanner_summary(published: list[dict[str, Any]]) -> dict[str, Any]:
+    """Trusted-only scanner counts for the static public site.
+
+    Never reads `inbox/`. Interactive review, enrichment proposals, and
+    collection screening stay on the local Intelligence OS.
+    """
+
+    accepted = [record for record in published if record.get("status") == "published"]
+    return {
+        "found": 0,
+        "important": 0,
+        "needs_review": 0,
+        "accepted": len(accepted),
+        "attention": 0,
+        "skipped": 0,
+        "transcript_ready": 0,
+        "transcript_blocked": 0,
+        "review_ready_without_transcript": 0,
+        "atomic_pending": 0,
+        "has_recent_scan": False,
+        "public_snapshot": True,
+        "note": (
+            "This public snapshot shows trusted published intelligence only. "
+            "Interactive collection, enrichment, and publication review stay on the local Intelligence OS."
+        ),
     }
 
 

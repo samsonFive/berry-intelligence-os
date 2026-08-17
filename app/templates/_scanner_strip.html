@@ -3,7 +3,9 @@
   <div class="scanner-copy">
     <p class="eyebrow">THE SYSTEM WATCHES</p>
     <h2>Scanner</h2>
-    {% if scanner.has_recent_scan %}
+    {% if scanner.public_snapshot %}
+      <p class="scanner-lede">Trusted published snapshot. Live collection and review run locally and are not part of this public site.</p>
+    {% elif scanner.has_recent_scan %}
       <p class="scanner-lede">{{ scanner.found }} recent items processed · {{ scanner.important }} important · {{ scanner.skipped }} skipped as irrelevant</p>
     {% else %}
       <p class="scanner-lede">Persisted review queue from this runtime. Run a recent batch to refresh scan counts.</p>
@@ -32,12 +34,17 @@
     </div>
   </dl>
   <ul class="scanner-notes">
-    <li>{{ scanner.needs_review }} ready for publication review</li>
-    <li>{{ scanner.transcript_ready }} transcript-ready</li>
-    <li>{{ scanner.review_ready_without_transcript }} review-ready without transcript</li>
-    {% if scanner.skipped %}<li>{{ scanner.skipped }} skipped as irrelevant</li>{% endif %}
-    {% if scanner.transcript_blocked %}<li>{{ scanner.transcript_blocked }} transcript acquisition blocker{{ 's' if scanner.transcript_blocked != 1 else '' }}</li>{% endif %}
-    {% if scanner.atomic_pending %}<li>{{ scanner.atomic_pending }} Atomic Evidence proposal{{ 's' if scanner.atomic_pending != 1 else '' }} waiting</li>{% endif %}
+    {% if scanner.public_snapshot %}
+      <li>{{ scanner.accepted }} trusted published record{{ 's' if scanner.accepted != 1 else '' }}</li>
+      <li>Unpublished drafts and review proposals are not published here</li>
+    {% else %}
+      <li>{{ scanner.needs_review }} ready for publication review</li>
+      <li>{{ scanner.transcript_ready }} transcript-ready</li>
+      <li>{{ scanner.review_ready_without_transcript }} review-ready without transcript</li>
+      {% if scanner.skipped %}<li>{{ scanner.skipped }} skipped as irrelevant</li>{% endif %}
+      {% if scanner.transcript_blocked %}<li>{{ scanner.transcript_blocked }} transcript acquisition blocker{{ 's' if scanner.transcript_blocked != 1 else '' }}</li>{% endif %}
+      {% if scanner.atomic_pending %}<li>{{ scanner.atomic_pending }} Atomic Evidence proposal{{ 's' if scanner.atomic_pending != 1 else '' }} waiting</li>{% endif %}
+    {% endif %}
   </ul>
   {% if scanner.note %}<p class="scanner-caution">{{ scanner.note }}</p>{% endif %}
 </section>
