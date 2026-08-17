@@ -34,9 +34,18 @@ from app.services.ai_gateway.errors import (
     GatewayTimeoutError,
     GatewayUnavailableError,
 )
+from app.services.ai_gateway.perplexity_agent import (
+    DEFAULT_PERPLEXITY_AGENT_BASE_URL,
+    DEFAULT_PERPLEXITY_MODELS_URL,
+    PerplexityAgentTransport,
+    list_agent_models,
+)
 from app.services.ai_gateway.perplexity_chat import DEFAULT_PERPLEXITY_BASE_URL, PerplexityChatTransport
 from app.services.ai_gateway.perplexity_extraction import (
+    PerplexityAgentExtractionProvider,
     PerplexityExtractionProvider,
+    PerplexityRouterExtractionProvider,
+    agent_config_from_environment,
     perplexity_config_from_environment,
 )
 from app.services.ai_gateway.perplexity_research import PerplexityResearchClient
@@ -351,7 +360,7 @@ def test_request_body_uses_exact_configured_model(perplexity_key: str, tmp_path:
 def test_provenance_separates_gateway_from_routed_model(perplexity_key: str, tmp_path: Path) -> None:
     repos = _setup(tmp_path)
     provider = _provider(repos, SequencePost([]), model="anthropic/claude-haiku-4-5")
-    assert provider.provenance["provider"] == "perplexity"
+    assert provider.provenance["provider"] == "perplexity-router"
     assert provider.provenance["model"] == "anthropic/claude-haiku-4-5"
     assert provider.provenance["provider"] != provider.provenance["model"]
 
@@ -489,7 +498,7 @@ def test_perplexity_provider_works_with_probe_provider(perplexity_key: str, tmp_
     provider = _provider(repos, post)
     report = probe_provider(provider)
     assert report["compatible_response_received"] is True
-    assert report["provider"] == "perplexity"
+    assert report["provider"] == "perplexity-router"
 
 
 # ---------------------------------------------------------------------------
@@ -502,7 +511,7 @@ def test_qualification_configuration_includes_gateway_and_model(perplexity_key: 
     repos = _setup(tmp_path)
     provider = _provider(repos, SequencePost([]), model="anthropic/claude-haiku-4-5")
     configuration = provider_qualification_configuration(provider)
-    assert configuration["provider"] == "perplexity"
+    assert configuration["provider"] == "perplexity-router"
     assert configuration["model"] == "anthropic/claude-haiku-4-5"
     assert "endpoint_identity" in configuration
 
@@ -586,7 +595,7 @@ def test_provider_construction_makes_no_network_call(perplexity_key: str, tmp_pa
     post = SequencePost([])  # any call would raise IndexError
     provider = _provider(repos, post)
     assert post.calls == []
-    assert provider.provenance["provider"] == "perplexity"
+    assert provider.provenance["provider"] == "perplexity-router"
 
 
 def test_cli_defaults_to_openai_compatible_when_provider_unspecified() -> None:
@@ -797,3 +806,248 @@ def test_returned_model_matches_after_normalization(perplexity_key: str, tmp_pat
     post = SequencePost([FakeResponse(_content([_candidate("Extracted normally.", [1])]), model="  Anthropic/Claude-Haiku-4-5  ")])
     provider = _provider(repos, post, model="anthropic/claude-haiku-4-5")
     assert provider.extract(_request()) == [_candidate("Extracted normally.", [1])]
+
+
+# ===========================================================================
+# Perplexity AGENT API provider (multi-provider structured extraction).
+# ===========================================================================
+
+AGENT_TEST_URL = "https://perplexity.invalid/v1/agent"
+AGENT_MODEL = "anthropic/claude-haiku-4-5"
+
+
+def _agent_envelope(candidates, *, model=AGENT_MODEL, status="completed", usage=None):
+    return {
+        "id": "resp-agent-1",
+        "model": model,
+        "status": status,
+        "output": [
+            {
+                "type": "message",
+                "role": "assistant",
+                "status": "completed",
+                "content": [{"type": "output_text", "text": _content(candidates)}],
+            }
+        ],
+        "usage": usage or {},
+    }
+
+
+def _agent_response(candidates, *, model=AGENT_MODEL, status="completed", usage=None):
+    return FakeJsonResponse(200, body=_agent_envelope(candidates, model=model, status=status, usage=usage))
+
+
+def _agent_provider(repos, post, *, model=AGENT_MODEL, base_url=AGENT_TEST_URL, **overrides) -> PerplexityAgentExtractionProvider:
+    config = agent_config_from_environment(base_url=base_url, model=model, **overrides)
+    return PerplexityAgentExtractionProvider(config=config, repositories=repos, post=post)
+
+
+def test_agent_default_base_url_and_endpoint_construction(perplexity_key: str, tmp_path: Path) -> None:
+    assert DEFAULT_PERPLEXITY_AGENT_BASE_URL == "https://api.perplexity.ai/v1/agent"
+    repos = _setup(tmp_path)
+    provider = _agent_provider(repos, SequencePost([_agent_response([])]))
+    assert provider.endpoint == AGENT_TEST_URL  # already ends with /agent, not doubled
+    transport = PerplexityAgentTransport(api_key=perplexity_key, base_url="https://api.perplexity.ai/v1")
+    assert transport.endpoint == "https://api.perplexity.ai/v1/agent"
+
+
+def test_agent_request_shape_is_closed_book(perplexity_key: str, tmp_path: Path) -> None:
+    repos = _setup(tmp_path)
+    post = SequencePost([_agent_response([])])
+    provider = _agent_provider(repos, post, model=AGENT_MODEL)
+    provider.extract(_request())
+    body = post.calls[0]["json"]
+    assert body["model"] == AGENT_MODEL
+    assert "instructions" in body and "input" in body
+    assert body["response_format"]["type"] == "json_schema"
+    assert body["response_format"]["json_schema"]["name"] == "atomic_ci_candidates"
+    assert isinstance(body["max_output_tokens"], int) and body["max_output_tokens"] > 0
+    # Closed-book: no tools, no fallback array, no preset.
+    assert "tools" not in body
+    assert "models" not in body
+    assert "preset" not in body
+
+
+def test_agent_structured_schema_properties_preserved(perplexity_key: str, tmp_path: Path) -> None:
+    repos = _setup(tmp_path)
+    post = SequencePost([_agent_response([])])
+    provider = _agent_provider(repos, post)
+    provider.extract(_request())
+    schema = post.calls[0]["json"]["response_format"]["json_schema"]
+    assert set(schema["schema"]["properties"]["candidates"]["items"]["properties"]) == {
+        "normalized_statement", "segment_indexes", "entity_ids", "geography_ids", "berry_ids",
+    }
+
+
+def test_agent_extract_returns_candidates(perplexity_key: str, tmp_path: Path) -> None:
+    repos = _setup(tmp_path)
+    post = SequencePost([_agent_response([_candidate("The speaker may expand the trial.", [1])])])
+    provider = _agent_provider(repos, post)
+    assert provider.extract(_request()) == [_candidate("The speaker may expand the trial.", [1])]
+
+
+def test_agent_provenance_is_perplexity_agent_with_exact_model(perplexity_key: str, tmp_path: Path) -> None:
+    repos = _setup(tmp_path)
+    provider = _agent_provider(repos, SequencePost([]), model=AGENT_MODEL)
+    assert provider.provenance["provider"] == "perplexity-agent"
+    assert provider.provenance["model"] == AGENT_MODEL
+    assert provider.name == f"perplexity-agent:{AGENT_MODEL}:{PROMPT_VERSION}"
+
+
+def test_agent_usage_normalized_into_report(perplexity_key: str, tmp_path: Path) -> None:
+    repos = _setup(tmp_path)
+    post = SequencePost([_agent_response([], usage={"input_tokens": 30, "output_tokens": 6, "total_tokens": 36})])
+    provider = _agent_provider(repos, post)
+    provider.extract(_request())
+    report = provider.last_run_report
+    assert (report.input_tokens, report.output_tokens, report.total_tokens) == (30, 6, 36)
+
+
+def test_agent_missing_key_fails_before_network(monkeypatch, tmp_path: Path) -> None:
+    monkeypatch.delenv(PERPLEXITY_API_KEY_ENV, raising=False)
+    repos = _setup(tmp_path)
+    config = agent_config_from_environment(base_url=AGENT_TEST_URL, model=AGENT_MODEL)
+    with pytest.raises(MissingCredentialError):
+        PerplexityAgentExtractionProvider(config=config, repositories=repos)
+
+
+def test_agent_rejects_json_object_before_any_request(perplexity_key: str, tmp_path: Path) -> None:
+    repos = _setup(tmp_path)
+    post = SequencePost([])
+    with pytest.raises(ValueError, match="json_schema"):
+        _agent_provider(repos, post, response_format="json_object")
+    assert post.calls == []
+
+
+def test_agent_returned_model_mismatch_fails_closed(perplexity_key: str, tmp_path: Path) -> None:
+    repos = _setup(tmp_path)
+    post = SequencePost([_agent_response([_candidate("Should not extract.", [1])], model="anthropic/claude-sonnet-5")])
+    provider = _agent_provider(repos, post, model=AGENT_MODEL)
+    with pytest.raises(ExtractionProviderError) as exc_info:
+        provider.extract(_request())
+    message = str(exc_info.value)
+    assert "anthropic/claude-sonnet-5" in message and AGENT_MODEL in message
+    assert perplexity_key not in message
+
+
+def test_agent_transport_error_mapping(perplexity_key: str) -> None:
+    def transport(response):
+        return PerplexityAgentTransport(api_key=perplexity_key, base_url=AGENT_TEST_URL, post=SequencePost([response]))
+
+    with pytest.raises(GatewayAuthError):
+        transport(FakeJsonResponse(401)).complete(model=AGENT_MODEL, instructions="s", input_text="u", response_format=None, max_output_tokens=64)
+    with pytest.raises(GatewayRateLimitError):
+        transport(FakeJsonResponse(429)).complete(model=AGENT_MODEL, instructions="s", input_text="u", response_format=None, max_output_tokens=64)
+    with pytest.raises(GatewayModelNotFoundError):
+        transport(FakeJsonResponse(404)).complete(model="does/not-exist", instructions="s", input_text="u", response_format=None, max_output_tokens=64)
+
+
+def test_agent_timeout_maps_to_extraction_error(perplexity_key: str, tmp_path: Path) -> None:
+    repos = _setup(tmp_path)
+    post = SequencePost([httpx.TimeoutException("timed out")])
+    provider = _agent_provider(repos, post)
+    with pytest.raises(ExtractionProviderError, match="timed out"):
+        provider.extract(_request())
+
+
+def test_agent_non_completed_status_is_malformed(perplexity_key: str) -> None:
+    transport = PerplexityAgentTransport(api_key=perplexity_key, base_url=AGENT_TEST_URL, post=SequencePost([_agent_response([], status="failed")]))
+    with pytest.raises(GatewayMalformedResponseError):
+        transport.complete(model=AGENT_MODEL, instructions="s", input_text="u", response_format=None, max_output_tokens=64)
+
+
+def test_agent_error_message_sanitizes_key(perplexity_key: str) -> None:
+    transport = PerplexityAgentTransport(
+        api_key=perplexity_key, base_url=AGENT_TEST_URL,
+        post=SequencePost([FakeJsonResponse(401, error_message=f"bad token {perplexity_key}")]),
+    )
+    with pytest.raises(GatewayAuthError) as exc_info:
+        transport.complete(model=AGENT_MODEL, instructions="s", input_text="u", response_format=None, max_output_tokens=64)
+    assert perplexity_key not in str(exc_info.value) and "[REDACTED]" in str(exc_info.value)
+
+
+def test_agent_changing_model_changes_fingerprint(perplexity_key: str, tmp_path: Path) -> None:
+    repos = _setup(tmp_path)
+    a = _agent_provider(repos, SequencePost([]), model="anthropic/claude-haiku-4-5")
+    b = _agent_provider(repos, SequencePost([]), model="openai/gpt-5.6-sol")
+    fp_a = qualification_configuration_fingerprint(
+        provider="perplexity-agent", model=a.config.model, base_url=a.config.base_url,
+        prompt_version=PROMPT_VERSION, generation=public_configuration(a),
+    )
+    fp_b = qualification_configuration_fingerprint(
+        provider="perplexity-agent", model=b.config.model, base_url=b.config.base_url,
+        prompt_version=PROMPT_VERSION, generation=public_configuration(b),
+    )
+    assert fp_a != fp_b
+
+
+def test_agent_provider_has_no_search_or_research_capability() -> None:
+    assert not hasattr(PerplexityAgentExtractionProvider, "search")
+    assert not hasattr(PerplexityAgentExtractionProvider, "research")
+
+
+def test_agent_and_router_are_separate_gateways(perplexity_key: str, tmp_path: Path) -> None:
+    repos = _setup(tmp_path)
+    agent = _agent_provider(repos, SequencePost([]))
+    router = _provider(repos, SequencePost([]), model=AGENT_MODEL)
+    assert agent.provenance["provider"] == "perplexity-agent"
+    assert router.provenance["provider"] == "perplexity-router"
+    assert agent.endpoint.endswith("/agent")
+    assert router.endpoint.endswith("/chat/completions")
+    assert PerplexityExtractionProvider is PerplexityRouterExtractionProvider
+
+
+def test_router_403_classified_as_auth_signals_private_preview(perplexity_key: str) -> None:
+    # A Router 403 typically means the account lacks private-preview access,
+    # not that the API key is invalid. It maps to a gateway auth error whose
+    # (sanitized) message preserves the 403 so operators can tell them apart.
+    transport = PerplexityChatTransport(api_key=perplexity_key, base_url=TEST_BASE_URL, post=SequencePost([FakeJsonResponse(403)]))
+    with pytest.raises(GatewayAuthError) as exc_info:
+        transport.send(model="perplexity/sonar", messages=[{"role": "user", "content": "hi"}])
+    assert "403" in str(exc_info.value)
+    assert perplexity_key not in str(exc_info.value)
+
+
+# ---------------------------------------------------------------------------
+# Model discovery: GET /v1/models normalized, no persistence, no auth required.
+# ---------------------------------------------------------------------------
+
+
+def test_list_agent_models_normalizes_and_sorts_without_auth() -> None:
+    captured = {}
+
+    def fake_get(url, **kwargs):
+        captured["url"] = url
+        captured["headers"] = kwargs.get("headers", {})
+        return FakeJsonResponse(200, body={
+            "object": "list",
+            "data": [
+                {"id": "openai/gpt-5.6-sol", "object": "model", "created": 0, "owned_by": "openai"},
+                {"id": "anthropic/claude-haiku-4-5", "object": "model", "created": 0, "owned_by": "anthropic"},
+                {"id": "", "object": "model", "owned_by": "broken"},
+            ],
+        })
+
+    models = list_agent_models(get=fake_get)
+    assert captured["url"] == DEFAULT_PERPLEXITY_MODELS_URL
+    assert "Authorization" not in captured["headers"]  # no key supplied -> no auth header
+    assert [m["id"] for m in models] == ["anthropic/claude-haiku-4-5", "openai/gpt-5.6-sol"]
+    assert models[0] == {"id": "anthropic/claude-haiku-4-5", "owned_by": "anthropic"}
+
+
+def test_list_agent_models_sends_key_when_supplied() -> None:
+    captured = {}
+
+    def fake_get(url, **kwargs):
+        captured["headers"] = kwargs.get("headers", {})
+        return FakeJsonResponse(200, body={"object": "list", "data": []})
+
+    list_agent_models(api_key=FAKE_KEY, get=fake_get)
+    assert captured["headers"].get("Authorization") == f"Bearer {FAKE_KEY}"
+
+
+def test_ai_models_cli_defaults_to_perplexity_agent() -> None:
+    import scripts.ai_models as ai_models
+
+    args = ai_models._parser().parse_args([])
+    assert args.provider == "perplexity-agent"

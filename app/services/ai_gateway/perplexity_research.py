@@ -2,25 +2,25 @@
 
 `research(prompt, web_enabled=True, citations=True, model=...)` -> a
 normalized response with citations. This is a separate capability from
-plain structured inference: it explicitly opts into web access (the Agent
-API disables all tools, including search, unless a caller lists them), and
-it never bypasses Evidence trust gates -- nothing in this module writes
-Evidence, entities, or any repository record. It exists as a seam for a
-future, separately scoped research/synthesis workflow; no consuming
+plain structured extraction: it explicitly opts into web access (extraction
+never does), and it never bypasses Evidence trust gates -- nothing in this
+module writes Evidence, entities, or any repository record. It exists as a
+seam for a future, separately scoped research/synthesis workflow; no consuming
 workflow is built here.
 
-Verified against docs.perplexity.ai as of 2026-08-16 to the extent the
-documentation summarizes it: `POST https://api.perplexity.ai/v1/agent`,
-bearer auth, request `{"model", "input", "tools", "max_output_tokens"}`
-(`max_output_tokens` is required for anthropic/* models, so it is always
-sent as a positive integer), response
-`{"id", "model", "status", "output": [...], "usage": {...}}` where the
-final message-type output item's `content` holds `output_text` blocks and
-tool-result output items (when `web_search` is enabled) carry citation
-URLs. Because Perplexity's own docs do not fully enumerate the Agent API's
-citation shape, this parses defensively -- an unrecognized shape yields an
-empty citation list rather than raising, since citations here are
-supplementary provenance, not the primary content.
+It shares the Agent transport primitives (auth headers, error mapping, output
+text extraction, usage normalization) with `perplexity_agent`, but keeps its
+own request body (which lists `tools`) and citation parsing, so research and
+extraction never collapse into one code path.
+
+Verified against docs.perplexity.ai (2026-08-17): `POST
+https://api.perplexity.ai/v1/agent`, bearer auth, request `{"model", "input",
+"tools", "max_output_tokens"}` (`max_output_tokens` is required for anthropic/*
+models, so it is always sent as a positive integer), response `{"id", "model",
+"status", "output": [...], "usage": {...}}` where the message-type output item's
+`content` holds `output_text` blocks and tool-result output items (when
+`web_search` is enabled) carry citation URLs. Citations parse defensively -- an
+unrecognized shape yields an empty list rather than raising.
 """
 
 from __future__ import annotations
@@ -33,24 +33,24 @@ import httpx
 
 from app.services.ai_gateway.credentials import sanitize
 from app.services.ai_gateway.errors import (
-    GatewayAuthError,
-    GatewayError,
     GatewayMalformedResponseError,
-    GatewayModelNotFoundError,
-    GatewayRateLimitError,
     GatewayTimeoutError,
     GatewayUnavailableError,
 )
-from app.services.ai_gateway.perplexity_chat import _validate_base_url
-from app.services.ai_gateway.results import NormalizedUsage, ResearchCitation, ResearchResponse
+from app.services.ai_gateway.perplexity_agent import (
+    DEFAULT_PERPLEXITY_AGENT_BASE_URL,
+    _validate_base_url,
+    agent_auth_headers,
+    extract_output_text,
+    normalize_responses_usage,
+    raise_for_agent_status,
+)
+from app.services.ai_gateway.results import ResearchCitation, ResearchResponse
 
 
-DEFAULT_PERPLEXITY_AGENT_URL = "https://api.perplexity.ai/v1/agent"
-# Perplexity's Agent API documents `max_output_tokens` as a shared optional
-# parameter that is REQUIRED for anthropic/* models (a request without it
-# returns HTTP 400: "validation failed: max_output_tokens is required when using
-# Anthropic models"). Always sending a positive limit is valid for every Agent
-# model and keeps this seam provider-neutral -- no per-vendor branching.
+DEFAULT_PERPLEXITY_AGENT_URL = DEFAULT_PERPLEXITY_AGENT_BASE_URL
+# See perplexity_agent for why max_output_tokens is always sent (required for
+# anthropic/* Agent models; provider-neutral).
 DEFAULT_RESEARCH_MAX_OUTPUT_TOKENS = 4096
 
 
@@ -80,18 +80,17 @@ class PerplexityResearchClient:
             raise ValueError("model must be specified explicitly; it is never hardcoded here")
         if not isinstance(max_output_tokens, int) or isinstance(max_output_tokens, bool) or max_output_tokens < 1:
             raise ValueError("max_output_tokens must be a positive integer")
-        headers = {"Content-Type": "application/json", "Authorization": f"Bearer {self.api_key}"}
         body: dict[str, Any] = {
             "model": model,
             "input": prompt,
+            # Research MAY use tools; extraction never does. This is the
+            # structural distinction between the two Agent-backed capabilities.
             "tools": [{"type": "web_search"}] if web_enabled else [],
-            # Required for anthropic/* Agent models; always sent so this seam is
-            # request-valid regardless of which routed model a caller picks.
             "max_output_tokens": max_output_tokens,
         }
         started = self.clock()
         try:
-            response = self.post(self.base_url, headers=headers, json=body, timeout=self.timeout_seconds)
+            response = self.post(self.base_url, headers=agent_auth_headers(self.api_key), json=body, timeout=self.timeout_seconds)
         except httpx.TimeoutException as exc:
             raise GatewayTimeoutError(sanitize("perplexity research request timed out", self.api_key)) from exc
         except httpx.HTTPError as exc:
@@ -101,7 +100,7 @@ class PerplexityResearchClient:
         latency = round(self.clock() - started, 3)
 
         if response.status_code >= 400:
-            self._raise_for_status(response)
+            raise_for_agent_status(response, self.api_key)
 
         try:
             envelope = response.json()
@@ -113,18 +112,11 @@ class PerplexityResearchClient:
         if not isinstance(output, list):
             raise GatewayMalformedResponseError("perplexity research response 'output' must be a list")
 
-        text = self._extract_text(output)
+        text = extract_output_text(output)
         if text is None:
             raise GatewayMalformedResponseError("perplexity research response contained no message text")
         found_citations = self._extract_citations(output) if citations else ()
 
-        usage_raw = envelope.get("usage")
-        usage_raw = usage_raw if isinstance(usage_raw, dict) else {}
-        usage = NormalizedUsage(
-            input_tokens=usage_raw.get("input_tokens"),
-            output_tokens=usage_raw.get("output_tokens"),
-            total_tokens=usage_raw.get("total_tokens"),
-        )
         returned_model = envelope.get("model")
         return ResearchResponse(
             provider="perplexity",
@@ -132,27 +124,10 @@ class PerplexityResearchClient:
             content=text,
             citations=found_citations,
             web_enabled=web_enabled,
-            usage=usage,
+            usage=normalize_responses_usage(envelope.get("usage")),
             latency_seconds=latency,
             request_id=envelope.get("id") if isinstance(envelope.get("id"), str) else None,
         )
-
-    @staticmethod
-    def _extract_text(output: list[Any]) -> str | None:
-        for item in output:
-            if not isinstance(item, dict) or item.get("type") != "message":
-                continue
-            content = item.get("content")
-            if not isinstance(content, list):
-                continue
-            texts = [
-                block.get("text")
-                for block in content
-                if isinstance(block, dict) and block.get("type") == "output_text" and isinstance(block.get("text"), str)
-            ]
-            if texts:
-                return "\n".join(texts)
-        return None
 
     @staticmethod
     def _extract_citations(output: list[Any]) -> tuple[ResearchCitation, ...]:
@@ -171,17 +146,3 @@ class PerplexityResearchClient:
                     title = candidate.get("title")
                     citations.append(ResearchCitation(url=url, title=title if isinstance(title, str) else None))
         return tuple(citations)
-
-    def _raise_for_status(self, response: Any) -> None:
-        status = response.status_code
-        detail = (response.text or "")[:300]
-        message = sanitize(f"perplexity research HTTP failure ({status}): {detail}", self.api_key)
-        if status in (401, 403):
-            raise GatewayAuthError(message)
-        if status == 429:
-            raise GatewayRateLimitError(message)
-        if status == 404:
-            raise GatewayModelNotFoundError(message)
-        if status >= 500:
-            raise GatewayUnavailableError(message)
-        raise GatewayError(message)

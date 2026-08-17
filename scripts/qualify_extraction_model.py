@@ -17,7 +17,12 @@ from app.composition import get_repositories
 from app.repositories.paths import DEFAULT_DATA_DIR, SCHEMAS_DIR
 from app.services.ai_extraction import PROMPT_VERSION, OpenAICompatibleExtractionConfig, OpenAICompatibleExtractionProvider
 from app.services.ai_gateway.credentials import MissingCredentialError
-from app.services.ai_gateway.perplexity_extraction import PerplexityExtractionProvider, perplexity_config_from_environment
+from app.services.ai_gateway.perplexity_extraction import (
+    PerplexityAgentExtractionProvider,
+    PerplexityRouterExtractionProvider,
+    agent_config_from_environment,
+    router_config_from_environment,
+)
 from app.services.extraction_evaluation import load_benchmark, probe_provider
 from app.services.model_qualification import (
     DEFAULT_REAL_PARENT_ID,
@@ -32,7 +37,7 @@ from app.services.model_qualification import (
 
 
 DEFAULT_BENCHMARK = ROOT / "benchmarks" / "atomic-ci-v1.json"
-PROVIDER_CHOICES = ("openai-compatible", "perplexity")
+PROVIDER_CHOICES = ("openai-compatible", "perplexity-agent", "perplexity-router")
 
 
 def _provider_options(parser: argparse.ArgumentParser) -> None:
@@ -84,12 +89,13 @@ def _parser() -> argparse.ArgumentParser:
 
 def _configured_provider(
     args: argparse.Namespace, repositories: object
-) -> OpenAICompatibleExtractionProvider | PerplexityExtractionProvider:
-    if args.provider == "perplexity":
+) -> OpenAICompatibleExtractionProvider | PerplexityAgentExtractionProvider | PerplexityRouterExtractionProvider:
+    if args.provider in ("perplexity-agent", "perplexity-router"):
         model = args.extract_model or os.environ.get("BIOS_PERPLEXITY_MODEL")
         if not model:
             raise QualificationError("missing configuration: BIOS_PERPLEXITY_MODEL or --model")
-        config = perplexity_config_from_environment(
+        build_config = agent_config_from_environment if args.provider == "perplexity-agent" else router_config_from_environment
+        config = build_config(
             base_url=args.extract_base_url,
             model=model,
             timeout_seconds=args.extract_timeout,
@@ -100,7 +106,10 @@ def _configured_provider(
             max_total_candidates=args.extract_max_total_candidates,
             response_format=args.extract_response_format,
         )
-        return PerplexityExtractionProvider(config=config, repositories=repositories)
+        provider_cls = (
+            PerplexityAgentExtractionProvider if args.provider == "perplexity-agent" else PerplexityRouterExtractionProvider
+        )
+        return provider_cls(config=config, repositories=repositories)
 
     base_url = args.extract_base_url or os.environ.get("BIOS_EXTRACT_BASE_URL")
     model = args.extract_model or os.environ.get("BIOS_EXTRACT_MODEL")
