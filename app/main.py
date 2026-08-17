@@ -49,6 +49,7 @@ from app.services.review_workbench import (
     build_scanner_summary,
     format_locator,
     load_publication_transcript_readiness,
+    rank_publication_cards,
     unknown_transcript_readiness,
 )
 
@@ -1655,13 +1656,14 @@ def work_queue(request: Request) -> HTMLResponse:
     pending = pending_publication_drafts()
     entities = entity_index()
     review_cards = []
-    for draft in pending[:8]:
+    for draft in pending:
         presentation = deepcopy(draft)
         presentation["transcript_readiness"] = deepcopy(
             readiness.get(draft.get("id")) or unknown_transcript_readiness()
         )
         attach_publication_card(presentation, entities=entities, berry_labels=BERRIES)
         review_cards.append(presentation)
+    review_cards = rank_publication_cards(review_cards)[:8]
     return templates.TemplateResponse(
         request=request,
         name="work_queue.html",

@@ -136,6 +136,23 @@ def attach_publication_card(
     return record
 
 
+def _attention_tuple(record: dict[str, Any]) -> tuple[int, int, str]:
+    """Higher tuple sorts first when reversed: High relevance, then transcript-ready, then newest."""
+
+    card = record.get("card") or {}
+    enrichment = record.get("ai_enrichment") or {}
+    band = card.get("relevance_band") or _relevance_band(enrichment.get("topical_relevance") or "")
+    band_rank = {"High": 3, "Relevant": 2, "Moderate": 1, "Low": 0}.get(band, 0)
+    state = card.get("transcript_state") or (record.get("transcript_readiness") or {}).get("state")
+    ready = 1 if state == "ready" else 0
+    date = str(record.get("published_date") or record.get("captured_date") or "")
+    return (band_rank, ready, date)
+
+
+def rank_publication_cards(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return sorted(records, key=_attention_tuple, reverse=True)
+
+
 def build_scanner_summary(
     *,
     inbox_dir: Path,
@@ -678,16 +695,6 @@ def build_review_workbench(
             record for record in generic
             if (record.get("ai_enrichment") or {}).get("model_provenance", {}).get("status") != "ok"
         ]
-    if sort == "source":
-        generic.sort(key=lambda record: (record.get("source_name") or "").casefold())
-    elif sort == "parent":
-        generic.sort(key=lambda record: (record.get("title") or "").casefold())
-    else:
-        generic.sort(
-            key=lambda record: record.get("published_date") or record.get("captured_date") or "",
-            reverse=True,
-        )
-
     generic_presentations = []
     for record in generic:
         presentation = deepcopy(record)
@@ -697,6 +704,12 @@ def build_review_workbench(
             )
             attach_publication_card(presentation, entities=entity_index, berry_labels=berry_labels)
         generic_presentations.append(presentation)
+    if sort == "source":
+        generic_presentations.sort(key=lambda record: (record.get("source_name") or "").casefold())
+    elif sort == "parent":
+        generic_presentations.sort(key=lambda record: (record.get("title") or "").casefold())
+    else:
+        generic_presentations = rank_publication_cards(generic_presentations)
 
     return {
         "groups": groups,

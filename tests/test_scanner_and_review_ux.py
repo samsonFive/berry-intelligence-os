@@ -111,6 +111,14 @@ def test_scanner_and_publication_queue_lead_with_analyst_fields(monkeypatch, tmp
     inbox = _isolate(monkeypatch, tmp_path)
     item = _item(inbox, "elnino")
     main.save_draft(_draft(item))
+    weak = _item(inbox, "weak")
+    weak_draft = _draft(weak)
+    weak_draft["title"] = "How DNA Technology Is Transforming Agriculture | Ep. 151"
+    weak_draft["published_date"] = "2026-08-12"
+    weak_draft["ai_enrichment"]["topical_relevance"] = "Low to moderate. Not berry-specific."
+    weak_draft["ai_enrichment"]["why_it_matters"] = "Generic breeding technology, not a berry CI brief."
+    weak_draft["ai_enrichment"]["concise_summary"] = "A generic agriculture podcast."
+    main.save_draft(weak_draft)
     client = TestClient(app)
 
     scanner = client.get("/work-queue")
@@ -118,6 +126,7 @@ def test_scanner_and_publication_queue_lead_with_analyst_fields(monkeypatch, tmp
     assert "FOUND" in scanner.text and "IMPORTANT" in scanner.text and "NEEDS REVIEW" in scanner.text
     assert "0 failures" not in scanner.text.casefold()
     assert "El Niño can disrupt blueberry export timing." in scanner.text
+    assert scanner.text.index("Synthetic blueberry elnino") < scanner.text.index("How DNA Technology")
     assert "Peru supply risk is the CI point." in scanner.text
     assert "AI assisted · untrusted" in scanner.text
 

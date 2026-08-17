@@ -30,7 +30,7 @@ The system watches. AI finds what matters. A human reviews it. Accepted informat
 
 - Screen: http://127.0.0.1:8000/work-queue
 - Record: none yet; this is the entry summary.
-- Clicks: open **Scanner** in the left nav (formerly Work Queue).
+- Clicks: open **Scanner** in the left nav (formerly Work Queue). The first review card should be Peru El Niño (High relevance + transcript ready).
 - Johnny says: “Here is what the system found. Nineteen recent items were processed. Sixteen are important. Sixteen are ready for a human to review. Transcripts are not required to review a publication.”
 - Success: tiles show FOUND / IMPORTANT / NEEDS REVIEW / ACCEPTED / ATTENTION. The caution line must **not** say “0 failures.” It should say transcripts are not a batch failure.
 - Fallback: if Scanner counts are empty, this runtime lost `inbox/`. Open `/review?kind=publication` and use the persisted 16-item queue.
