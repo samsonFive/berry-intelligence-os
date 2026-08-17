@@ -33,7 +33,7 @@ from app.services.ai_extraction import (
     _extract_json,  # noqa: reused deliberately -- see module docstring
     _response_schema,  # noqa: reused deliberately -- see module docstring
 )
-from app.services.ai_gateway.credentials import PERPLEXITY_API_KEY_ENV, MissingCredentialError
+from app.services.ai_gateway.credentials import PERPLEXITY_API_KEY_ENV, MissingCredentialError, sanitize
 from app.services.ai_gateway.errors import GatewayError, GatewayMalformedResponseError, GatewayTimeoutError
 from app.services.ai_gateway.perplexity_chat import DEFAULT_PERPLEXITY_BASE_URL, PerplexityChatTransport
 from app.services.transcript_evidence import ExtractionRequest
@@ -41,6 +41,12 @@ from app.services.transcript_evidence import ExtractionRequest
 
 PERPLEXITY_BASE_URL_ENV = "BIOS_PERPLEXITY_BASE_URL"
 PERPLEXITY_MODEL_ENV = "BIOS_PERPLEXITY_MODEL"
+
+
+def _normalize_model_id(model_id: str) -> str:
+    """Whitespace/case-normalized model identity for exact-match comparison."""
+
+    return " ".join(model_id.strip().casefold().split())
 
 
 def perplexity_config_from_environment(**overrides: Any) -> OpenAICompatibleExtractionConfig:
@@ -83,6 +89,18 @@ class PerplexityExtractionProvider(OpenAICompatibleExtractionProvider):
                 f'  $env:{PERPLEXITY_API_KEY_ENV} = "<key>"'
             )
         super().__init__(config=config, repositories=repositories, post=post, clock=clock)
+        # The Router/Gateway response_format supports only `text` and
+        # `json_schema` (always strict); `json_object` is rejected with a 400.
+        # Fail closed here -- before any HTTP request -- rather than emitting a
+        # call the gateway is known to reject. This validation is specific to
+        # the Perplexity transport; the local/LM Studio provider still accepts
+        # `json_object` unchanged.
+        if self.config.response_format != "json_schema":
+            raise ValueError(
+                "Perplexity Router does not support response_format "
+                f"'{self.config.response_format}'; only 'json_schema' is accepted "
+                "(set BIOS_EXTRACT_RESPONSE_FORMAT=json_schema, which is the default)."
+            )
         self.provenance = {
             "provider": "perplexity",
             "model": config.model,
@@ -131,6 +149,21 @@ class PerplexityExtractionProvider(OpenAICompatibleExtractionProvider):
 
         if result.model:
             self.last_response_models.append(result.model)
+            # Exact routed-model identity gate. The request sends one exact
+            # model and never a fallback array, so a successful response that
+            # names a different model means the platform substituted one. That
+            # substituted model is not the qualified model, so fail closed
+            # before any candidate is produced -- no candidate extraction, no
+            # persistence, no qualification against the wrong model.
+            if _normalize_model_id(result.model) != _normalize_model_id(self.config.model):
+                raise ExtractionResponseError(
+                    sanitize(
+                        f"Perplexity Router returned model {result.model!r} but "
+                        f"{self.config.model!r} was requested; refusing to extract from a "
+                        "substituted, unqualified model (no fallback is enabled).",
+                        self.config.api_key,
+                    )
+                )
         parsed = _extract_json(result.content)
         parsed["_usage"] = {
             "prompt_tokens": result.usage.input_tokens,

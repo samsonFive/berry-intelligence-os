@@ -340,7 +340,9 @@ def test_extraction_provider_has_no_search_or_research_capability() -> None:
 
 def test_request_body_uses_exact_configured_model(perplexity_key: str, tmp_path: Path) -> None:
     repos = _setup(tmp_path)
-    post = SequencePost([FakeResponse(_content([]))])
+    # The gateway echoes back the model it ran; a realistic fixture returns the
+    # requested model (see the returned-model identity gate below).
+    post = SequencePost([FakeResponse(_content([]), model="anthropic/claude-haiku-4-5")])
     provider = _provider(repos, post, model="anthropic/claude-haiku-4-5")
     provider.extract(_request())
     assert post.calls[0]["json"]["model"] == "anthropic/claude-haiku-4-5"
@@ -708,3 +710,90 @@ def test_research_requires_explicit_model() -> None:
     client = PerplexityResearchClient(api_key=FAKE_KEY, post=SequencePost([]))
     with pytest.raises(ValueError):
         client.research("anything", model="")
+
+
+# ---------------------------------------------------------------------------
+# Hardening 1: Agent API research always sends a positive max_output_tokens
+# (required for anthropic/* models; provider-neutral -- always sent).
+# ---------------------------------------------------------------------------
+
+
+def _research_ok_envelope() -> dict:
+    return {
+        "id": "research-x",
+        "model": "anthropic/claude-haiku-4-5",
+        "output": [{"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": "ok"}]}],
+        "usage": {},
+    }
+
+
+def test_research_sends_positive_max_output_tokens_for_anthropic_model() -> None:
+    post = SequencePost([FakeJsonResponse(200, body=_research_ok_envelope())])
+    client = PerplexityResearchClient(api_key=FAKE_KEY, post=post)
+    client.research("what changed?", model="anthropic/claude-haiku-4-5")
+    body = post.calls[0]["json"]
+    assert isinstance(body["max_output_tokens"], int)
+    assert body["max_output_tokens"] > 0
+
+
+def test_research_forwards_custom_max_output_tokens_for_any_model() -> None:
+    post = SequencePost([FakeJsonResponse(200, body=_research_ok_envelope())])
+    client = PerplexityResearchClient(api_key=FAKE_KEY, post=post)
+    client.research("q", model="openai/gpt-5.4-mini", max_output_tokens=256)
+    assert post.calls[0]["json"]["max_output_tokens"] == 256
+
+
+def test_research_rejects_nonpositive_max_output_tokens() -> None:
+    client = PerplexityResearchClient(api_key=FAKE_KEY, post=SequencePost([]))
+    with pytest.raises(ValueError):
+        client.research("q", model="anthropic/claude-haiku-4-5", max_output_tokens=0)
+
+
+# ---------------------------------------------------------------------------
+# Hardening 2: Perplexity Router rejects json_object; fail closed before any
+# HTTP request. The local/LM Studio provider is unaffected.
+# ---------------------------------------------------------------------------
+
+
+def test_perplexity_rejects_json_object_before_any_request(perplexity_key: str, tmp_path: Path) -> None:
+    repos = _setup(tmp_path)
+    post = SequencePost([])  # any HTTP attempt would raise IndexError
+    with pytest.raises(ValueError, match="json_schema"):
+        _provider(repos, post, response_format="json_object")
+    assert post.calls == []
+
+
+def test_local_provider_still_accepts_json_object(tmp_path: Path) -> None:
+    repos = _setup(tmp_path)
+    config = OpenAICompatibleExtractionConfig(
+        base_url="http://model.invalid/v1", model="fixture-model", response_format="json_object"
+    )
+    post = SequencePost([FakeResponse(_content([_candidate("Local json_object still works.", [1])]))])
+    provider = OpenAICompatibleExtractionProvider(config=config, repositories=repos, post=post)
+    assert provider.extract(_request())[0]["normalized_statement"] == "Local json_object still works."
+
+
+# ---------------------------------------------------------------------------
+# Hardening 3: a returned model different from the requested model fails closed
+# (no candidate extraction, no persistence) -- no automatic fallback.
+# ---------------------------------------------------------------------------
+
+
+def test_returned_model_mismatch_fails_closed(perplexity_key: str, tmp_path: Path) -> None:
+    repos = _setup(tmp_path)
+    # Requested haiku, but the response identifies sonnet -- a substitution.
+    post = SequencePost([FakeResponse(_content([_candidate("Should never be extracted.", [1])]), model="anthropic/claude-sonnet-5")])
+    provider = _provider(repos, post, model="anthropic/claude-haiku-4-5")
+    with pytest.raises(ExtractionProviderError) as exc_info:
+        provider.extract(_request())
+    message = str(exc_info.value)
+    assert "anthropic/claude-sonnet-5" in message and "anthropic/claude-haiku-4-5" in message
+    assert perplexity_key not in message
+
+
+def test_returned_model_matches_after_normalization(perplexity_key: str, tmp_path: Path) -> None:
+    repos = _setup(tmp_path)
+    # Same model, only whitespace/case differences -> must be treated as equal.
+    post = SequencePost([FakeResponse(_content([_candidate("Extracted normally.", [1])]), model="  Anthropic/Claude-Haiku-4-5  ")])
+    provider = _provider(repos, post, model="anthropic/claude-haiku-4-5")
+    assert provider.extract(_request()) == [_candidate("Extracted normally.", [1])]

@@ -11,7 +11,9 @@ workflow is built here.
 
 Verified against docs.perplexity.ai as of 2026-08-16 to the extent the
 documentation summarizes it: `POST https://api.perplexity.ai/v1/agent`,
-bearer auth, request `{"model", "input", "tools"}`, response
+bearer auth, request `{"model", "input", "tools", "max_output_tokens"}`
+(`max_output_tokens` is required for anthropic/* models, so it is always
+sent as a positive integer), response
 `{"id", "model", "status", "output": [...], "usage": {...}}` where the
 final message-type output item's `content` holds `output_text` blocks and
 tool-result output items (when `web_search` is enabled) carry citation
@@ -44,6 +46,12 @@ from app.services.ai_gateway.results import NormalizedUsage, ResearchCitation, R
 
 
 DEFAULT_PERPLEXITY_AGENT_URL = "https://api.perplexity.ai/v1/agent"
+# Perplexity's Agent API documents `max_output_tokens` as a shared optional
+# parameter that is REQUIRED for anthropic/* models (a request without it
+# returns HTTP 400: "validation failed: max_output_tokens is required when using
+# Anthropic models"). Always sending a positive limit is valid for every Agent
+# model and keeps this seam provider-neutral -- no per-vendor branching.
+DEFAULT_RESEARCH_MAX_OUTPUT_TOKENS = 4096
 
 
 @dataclass
@@ -64,16 +72,22 @@ class PerplexityResearchClient:
         model: str,
         web_enabled: bool = True,
         citations: bool = True,
+        max_output_tokens: int = DEFAULT_RESEARCH_MAX_OUTPUT_TOKENS,
     ) -> ResearchResponse:
         if not prompt.strip():
             raise ValueError("prompt must be nonempty")
         if not model.strip():
             raise ValueError("model must be specified explicitly; it is never hardcoded here")
+        if not isinstance(max_output_tokens, int) or isinstance(max_output_tokens, bool) or max_output_tokens < 1:
+            raise ValueError("max_output_tokens must be a positive integer")
         headers = {"Content-Type": "application/json", "Authorization": f"Bearer {self.api_key}"}
         body: dict[str, Any] = {
             "model": model,
             "input": prompt,
             "tools": [{"type": "web_search"}] if web_enabled else [],
+            # Required for anthropic/* Agent models; always sent so this seam is
+            # request-valid regardless of which routed model a caller picks.
+            "max_output_tokens": max_output_tokens,
         }
         started = self.clock()
         try:
