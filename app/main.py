@@ -39,6 +39,8 @@ from app.services.berries.variety import (
     variety_patent_link,
     variety_trait_profile,
 )
+from app.repositories.base import DuplicateRecord
+from app.services.deterministic_tagging import apply_known_name_matches, matchers_from_entities
 from app.services.review_publish import PublishRequest, ReviewPublishService
 from app.services.review_workbench import (
     build_review_workbench,
@@ -615,6 +617,33 @@ def get_draft(draft_id: str) -> dict[str, Any] | None:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def pending_publication_drafts() -> list[dict[str, Any]]:
+    drafts = [
+        record
+        for record in list_pending_drafts()
+        if record.get("evidence_role") == "publication_artifact"
+    ]
+    drafts.sort(
+        key=lambda record: record.get("published_date") or record.get("captured_date") or "",
+        reverse=True,
+    )
+    return drafts
+
+
+def adjacent_publication_draft_id(draft_id: str, *, step: int = 1) -> str | None:
+    ids = [record["id"] for record in pending_publication_drafts() if record.get("id")]
+    if not ids:
+        return None
+    try:
+        index = ids.index(draft_id)
+    except ValueError:
+        return ids[0]
+    next_index = index + step
+    if 0 <= next_index < len(ids):
+        return ids[next_index]
+    return None
+
+
 def save_draft(record: dict[str, Any]) -> None:
     folder = INBOX_DIR / "evidence"
     folder.mkdir(parents=True, exist_ok=True)
@@ -1134,17 +1163,8 @@ def name_matchers_for_type(entity_type: str, entities: dict[str, dict[str, Any]]
     chars (shortest is "Peru") -- a shorter floor would risk matching
     common words as false positives (an unfiltered "US" would match the
     pronoun "us" in ordinary prose)."""
-    entities = entities if entities is not None else entity_index()
-    matchers: list[tuple[str, "re.Pattern[str]"]] = []
-    for entity in entities.values():
-        if entity.get("entity_type") != entity_type:
-            continue
-        for name in [entity.get("name", "")] + list(entity.get("aliases") or []):
-            name = name.strip()
-            if len(name) < 4:
-                continue
-            matchers.append((entity["id"], re.compile(r"\b" + re.escape(name) + r"\b", re.IGNORECASE)))
-    return matchers
+    records = entities if entities is not None else entity_index()
+    return matchers_from_entities(records, entity_type)
 
 
 def auto_tag_geography_and_entities(
@@ -1172,16 +1192,12 @@ def auto_tag_geography_and_entities(
         company_matchers = name_matchers_for_type("company")
 
     haystack = f"{record.get('title', '')} {record.get('summary', '')}"
-    matched_geo = {eid for eid, pattern in geo_matchers if pattern.search(haystack)}
-    matched_ent = {eid for eid, pattern in company_matchers if pattern.search(haystack)}
-
-    if matched_geo:
-        record["geography_ids"] = sorted(set(record.get("geography_ids") or []) | matched_geo)
-    if matched_ent:
-        record["entity_ids"] = sorted(set(record.get("entity_ids") or []) | matched_ent)
-    if matched_geo or matched_ent:
-        record["auto_tagged"] = True
-    return record
+    return apply_known_name_matches(
+        record,
+        haystack,
+        geo_matchers=geo_matchers,
+        company_matchers=company_matchers,
+    )
 
 
 def fetch_source_entries(source: dict[str, Any]) -> list[Any]:
@@ -2642,6 +2658,7 @@ def review_queue(
     model: str | None = None,
     version: str | None = None,
     sort: str | None = None,
+    enrichment: str | None = None,
     current: str | None = None,
 ) -> HTMLResponse:
     repositories = get_repositories(DATA_DIR, SCHEMAS_DIR)
@@ -2657,6 +2674,7 @@ def review_queue(
         "model": model,
         "version": version,
         "sort": sort,
+        "enrichment": enrichment,
     }
     workbench = build_review_workbench(
         drafts=drafts,
@@ -2697,6 +2715,17 @@ def review_queue(
 
 
 def _default_review_values(draft: dict[str, Any]) -> dict[str, Any]:
+    enrichment = draft.get("ai_enrichment") or {}
+    concise = (enrichment.get("concise_summary") or "").strip()
+    why = (draft.get("why_it_matters") or enrichment.get("why_it_matters") or "").strip()
+    summary = (draft.get("summary") or "").strip()
+    publisher = (draft.get("publisher_description") or "").strip()
+    if concise and (not summary or summary == publisher):
+        summary = concise
+    tags = list(draft.get("tags") or [])
+    for tag in enrichment.get("suggested_tags") or []:
+        if tag and tag not in tags:
+            tags.append(tag)
     return {
         "title": draft.get("title", ""),
         "source_type": draft.get("source_type", ""),
@@ -2704,9 +2733,9 @@ def _default_review_values(draft: dict[str, Any]) -> dict[str, Any]:
         "source_url": draft.get("source_url", ""),
         "published_date": draft.get("published_date") or "",
         "captured_date": draft.get("captured_date", ""),
-        "summary": draft.get("summary", ""),
-        "why_it_matters": draft.get("why_it_matters", ""),
-        "tags": "",
+        "summary": summary,
+        "why_it_matters": why,
+        "tags": ", ".join(tags),
         "companies": ", ".join(draft.get("suggested_competitors", [])),
         "varieties": ", ".join(draft.get("suggested_varieties", [])),
         "retailers": ", ".join(draft.get("suggested_retailers", [])),
@@ -2724,7 +2753,13 @@ def _default_review_values(draft: dict[str, Any]) -> dict[str, Any]:
 
 
 def _review_context(
-    draft: dict[str, Any], values: dict[str, Any], error: str | None, *, return_to: str = "/review"
+    draft: dict[str, Any],
+    values: dict[str, Any],
+    error: str | None,
+    *,
+    return_to: str = "/review",
+    publish_outcome: str | None = None,
+    conflicts: list[str] | None = None,
 ) -> dict[str, Any]:
     repositories = get_repositories(DATA_DIR, SCHEMAS_DIR)
     parent = repositories.evidence.get(draft.get("parent_evidence_id")) if draft.get("parent_evidence_id") else None
@@ -2745,11 +2780,36 @@ def _review_context(
         for field_name, names in linked_by_field.items():
             if names and not values.get(field_name):
                 values[field_name] = ", ".join(names)
+    elif draft.get("evidence_role") == "publication_artifact":
+        def _names(ids: list[str], entity_type: str | None = None) -> list[str]:
+            names: list[str] = []
+            for entity_id in ids:
+                entity = entities.get(entity_id) or {}
+                if entity_type and entity.get("entity_type") != entity_type:
+                    continue
+                name = entity.get("name")
+                if name and name not in names:
+                    names.append(name)
+            return names
+
+        if not values.get("companies"):
+            values["companies"] = ", ".join(_names(list(draft.get("entity_ids") or []), "company"))
+        if not values.get("geographies"):
+            values["geographies"] = ", ".join(
+                _names(list(draft.get("geography_ids") or []) + list(draft.get("entity_ids") or []), "geography")
+            )
+        if not values.get("varieties"):
+            values["varieties"] = ", ".join(_names(list(draft.get("entity_ids") or []), "variety"))
+        if not values.get("retailers"):
+            values["retailers"] = ", ".join(_names(list(draft.get("entity_ids") or []), "retailer"))
     transcript_readiness = None
     if draft.get("evidence_role") == "publication_artifact":
         transcript_readiness = load_publication_transcript_readiness(INBOX_DIR).get(
             draft["id"], unknown_transcript_readiness()
         )
+    trusted_existing = None
+    if draft.get("id"):
+        trusted_existing = repositories.evidence.get(draft["id"])
     return {
         "draft": draft,
         "parent": parent,
@@ -2770,6 +2830,11 @@ def _review_context(
         "return_to": _safe_review_return(return_to),
         "rejection_categories": REJECTION_CATEGORIES,
         "transcript_readiness": transcript_readiness,
+        "publish_outcome": publish_outcome,
+        "conflicts": conflicts or [],
+        "trusted_existing": trusted_existing,
+        "next_draft_id": adjacent_publication_draft_id(draft.get("id") or ""),
+        "prev_draft_id": adjacent_publication_draft_id(draft.get("id") or "", step=-1),
     }
 
 
@@ -2957,29 +3022,81 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
         entity_id for entity_id in (draft.get("entity_ids") or [])
         if (entity_index_for_preservation.get(entity_id) or {}).get("entity_type") not in editable_entity_types
     ]
-    result = service.publish(
-        PublishRequest(
-            draft=draft,
-            draft_id=draft_id,
-            title=title,
-            source_type=source_type,
-            source_name=source_name,
-            source_url=source_url,
-            published_date=published_date,
-            captured_date=captured_date,
-            summary=summary,
-            why_it_matters=why_it_matters,
-            tags=tags,
-            selected_berries=selected_berries,
-            all_entity_names_by_type=all_entity_names_by_type,
-            facts_input=facts_input,
-            relationships_input=relationships_input,
-            priority=priority,
-            strategic_question_text=strategic_question_text,
-            reviewer=reviewer,
-            existing_entity_ids=preserved_entity_ids,
+    try:
+        result = service.publish(
+            PublishRequest(
+                draft=draft,
+                draft_id=draft_id,
+                title=title,
+                source_type=source_type,
+                source_name=source_name,
+                source_url=source_url,
+                published_date=published_date,
+                captured_date=captured_date,
+                summary=summary,
+                why_it_matters=why_it_matters,
+                tags=tags,
+                selected_berries=selected_berries,
+                all_entity_names_by_type=all_entity_names_by_type,
+                facts_input=facts_input,
+                relationships_input=relationships_input,
+                priority=priority,
+                strategic_question_text=strategic_question_text,
+                reviewer=reviewer,
+                existing_entity_ids=preserved_entity_ids,
+            )
         )
-    )
+    except DuplicateRecord:
+        return templates.TemplateResponse(
+            request=request,
+            name="review.html",
+            context=_review_context(
+                draft,
+                values,
+                "This id already exists as a trusted publication. The trusted record was not changed.",
+                return_to=return_to or "/review",
+                publish_outcome="conflict",
+                conflicts=[f"a trusted record with id {draft_id!r} already exists"],
+            ),
+            status_code=409,
+        )
+
+    advance = field("advance").strip() == "next"
+    next_id = adjacent_publication_draft_id(draft_id) if advance else None
+
+    if result.outcome == "conflict":
+        return templates.TemplateResponse(
+            request=request,
+            name="review.html",
+            context=_review_context(
+                draft,
+                values,
+                "This id already exists as a trusted publication with conflicting identity fields. The trusted record was not changed.",
+                return_to=return_to or "/review",
+                publish_outcome="conflict",
+                conflicts=result.conflicts,
+            ),
+            status_code=409,
+        )
+
+    if result.outcome == "already_published":
+        if next_id:
+            return RedirectResponse(url=f"/review/{next_id}", status_code=303)
+        remaining = get_draft(draft_id)
+        if remaining is None:
+            return RedirectResponse(url=return_to or f"/evidence/{result.evidence_id}", status_code=303)
+        return templates.TemplateResponse(
+            request=request,
+            name="review.html",
+            context=_review_context(
+                remaining,
+                values,
+                None,
+                return_to=return_to or "/review",
+                publish_outcome="already_published",
+            ),
+            status_code=200,
+        )
 
     if not result.ok:
         return templates.TemplateResponse(
@@ -2994,6 +3111,8 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
             status_code=400,
         )
 
+    if next_id:
+        return RedirectResponse(url=f"/review/{next_id}", status_code=303)
     return RedirectResponse(url=return_to or f"/evidence/{result.evidence_id}", status_code=303)
 
 
@@ -3045,6 +3164,38 @@ def review_approve_atomic(
     return RedirectResponse(url=_safe_review_return(return_to), status_code=303)
 
 
+@app.post("/review/{draft_id}/save", response_model=None)
+async def review_save(request: Request, draft_id: str) -> HTMLResponse | RedirectResponse:
+    """Persist reviewer edits on the untrusted draft without publishing."""
+
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Saving drafts is only available in authoring mode")
+    draft = get_draft(draft_id)
+    if draft is None:
+        raise HTTPException(status_code=404, detail="Draft not found")
+    if draft.get("status") == "rejected":
+        raise HTTPException(status_code=400, detail="Rejected drafts cannot be edited")
+    form = await request.form()
+
+    def field(name: str, default: str = "") -> str:
+        value = form.get(name, default)
+        return value if isinstance(value, str) else default
+
+    draft["title"] = field("title").strip() or draft.get("title")
+    draft["summary"] = field("summary").strip() or draft.get("summary")
+    draft["why_it_matters"] = field("why_it_matters").strip()
+    draft["tags"] = split_list(field("tags"))
+    berries = [value for value in form.getlist("berries") if isinstance(value, str)]
+    if berries:
+        draft["berry_ids"] = berries
+    save_draft(draft)
+    if field("advance").strip() == "next":
+        next_id = adjacent_publication_draft_id(draft_id)
+        if next_id:
+            return RedirectResponse(url=f"/review/{next_id}", status_code=303)
+    return RedirectResponse(url=f"/review/{draft_id}", status_code=303)
+
+
 @app.post("/review/{draft_id}/reject")
 def review_reject(
     draft_id: str,
@@ -3052,6 +3203,7 @@ def review_reject(
     rejection_reason: str = Form(""),
     rejection_category: str = Form("other"),
     return_to: str = Form("/review"),
+    advance: str = Form(""),
 ) -> RedirectResponse:
     """Record an independent human rejection without publishing Evidence.
 
@@ -3084,6 +3236,10 @@ def review_reject(
         }
     )
     save_draft(draft)
+    if advance.strip() == "next":
+        next_id = adjacent_publication_draft_id(draft_id)
+        if next_id:
+            return RedirectResponse(url=f"/review/{next_id}", status_code=303)
     return RedirectResponse(url=_safe_review_return(return_to), status_code=303)
 
 

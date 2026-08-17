@@ -37,7 +37,9 @@ Each discovered item receives exactly one operational category:
 - `human_atomic_evidence_review_required`: untrusted proposals await item-by-item review.
 - `retryable_failure`: bounded runner retry remains available.
 - `operator_intervention_required`: malformed state, ambiguity, exhaustion, or another manual correction blocks progress.
-- `completed_no_action`: a legitimate terminal state, including rejection or recorded zero-candidate extraction.
+- `completed_no_action`: a legitimate terminal state, including rejection, recorded zero-candidate extraction, or a relevance screen that skipped transcription.
+
+The same report also includes operational tallies that do not replace those categories: discovered, relevant, skipped irrelevant, transcript ready, enrichment ready, publication review ready, trusted publication, atomic proposals, retryable failure, and intervention. Relevance screening and AI publication enrichment are untrusted triage/suggestions; they never publish Evidence.
 
 Recommended-action precedence is deterministic:
 

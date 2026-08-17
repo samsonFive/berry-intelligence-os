@@ -413,6 +413,28 @@ def test_aggregate_and_per_source_counts_are_exact(tmp_path):
     by_source = {source.source_id: source for source in report.sources}
     assert by_source[SOURCE_A].discovered_items == 1
     assert by_source[SOURCE_B].pending_publication_review == 1
+    assert report.counts["discovered"] == 2
+    assert "publication_review_ready" in report.counts
+    assert "trusted_publication" in report.counts
+    assert "skipped_irrelevant" in report.counts
+
+
+def test_persisted_irrelevant_screening_is_counted(tmp_path):
+    repos, inbox = _setup(tmp_path)
+    item = _item("item-skip")
+    item["title"] = "Celebrity gossip roundup"
+    item["description"] = "Awards night fashion recap."
+    item["relevance_screening"] = {
+        "score": 0,
+        "decision": "skip",
+        "reason": "score 0 <= skip threshold 3 and no strong berry signal",
+        "likely_berry_ids": [],
+        "screener_provenance": {"screener": "deterministic-relevance-v1", "trust_state": "untrusted_triage"},
+    }
+    _stage(inbox, item)
+    report = _service(tmp_path, repos, inbox).build(source_id=SOURCE_A)
+    assert report.counts["skipped_irrelevant"] == 1
+    assert report.items[0].category == "completed_no_action"
 
 
 def test_malformed_item_and_operation_degrade_gracefully(tmp_path):

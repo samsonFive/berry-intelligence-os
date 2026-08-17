@@ -157,6 +157,9 @@ a{color:#3d5c94}
 .banner-error{background:#fdeaea;color:#a3271f;border:1px solid #f4c6c2}
 .banner-warning{background:#fdf3d9;color:#8a5a10;border:1px solid #f0dba4}
 .banner-warning ul{margin:6px 0 0;padding-left:18px}
+.review-nav{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:0 32px 16px;font-size:14px}
+.ai-enrichment{background:#f7f4ff;border:1px solid #e3d9fb;border-radius:8px;padding:12px 14px;margin:12px 0}
+.ai-enrichment h3{margin-top:0}
 
 .auto-captured-banner{margin:0 0 12px;display:flex;align-items:center;gap:10px;font-weight:800;font-size:11px;letter-spacing:.04em}
 .auto-captured-banner form{display:inline;margin:0}

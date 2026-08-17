@@ -54,6 +54,9 @@ def main() -> int:
     parser.add_argument("--extract-max-candidates", type=int, help="Maximum candidates per window")
     parser.add_argument("--extract-max-total-candidates", type=int, help="Maximum candidates retained per run")
     parser.add_argument("--extract-response-format", choices=("json_schema", "json_object"), help="Compatible endpoint output mode")
+    parser.add_argument("--relevance-gate", action="store_true", help="Skip clearly irrelevant items before transcription")
+    parser.add_argument("--enrich", action="store_true", help="Apply deterministic/AI publication-draft enrichment")
+    parser.add_argument("--max-tier", type=int, default=3, help="Stop transcription after this tier (2 skips Whisper)")
     parser.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
     parser.add_argument("--inbox-dir", type=Path, default=ROOT / "inbox")
     args = parser.parse_args()
@@ -112,16 +115,27 @@ def main() -> int:
                 created_by=args.created_by,
                 force=args.force,
                 transcribe_missing=not args.dry_run,
+                max_tier=args.max_tier,
             )
         )
+        completer = None
+        if args.enrich:
+            from app.services.ai_gateway.untrusted_complete import maybe_untrusted_completer
+            completer = maybe_untrusted_completer()
         service = MediaOrchestrationService(
             repositories=repositories,
             inbox_dir=args.inbox_dir,
             evidence_errors=lambda record: [error.message for error in validator.iter_errors(record)],
             transcript_adapter=transcript_adapter,
             extraction_service=extraction_service,
+            complete_json=completer,
         )
-        result = service.process(args.item, dry_run=args.dry_run)
+        result = service.process(
+            args.item,
+            dry_run=args.dry_run,
+            relevance_gate=args.relevance_gate,
+            enrich=args.enrich,
+        )
     except (OSError, ValueError, json.JSONDecodeError, ExtractionProviderError, MediaOrchestrationError) as exc:
         print(json.dumps({"item_id": args.item, "state": "error", "error": str(exc)}, indent=2))
         return 1

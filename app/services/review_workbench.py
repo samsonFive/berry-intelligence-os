@@ -21,7 +21,8 @@ from app.services.transcript_evidence import TranscriptArtifact, TranscriptContr
 
 REVIEW_KINDS = {"all", "atomic", "publication"}
 REVIEW_STATES = {"pending", "rejected", "all"}
-REVIEW_SORTS = {"timestamp", "newest", "source", "parent"}
+REVIEW_SORTS = {"timestamp", "newest", "source", "parent", "recent"}
+REVIEW_ENRICHMENT = {"all", "enriched", "raw"}
 
 TRANSCRIPT_METHOD_LABELS = {
     "tier_1_publisher_transcript": "Publisher transcript",
@@ -355,6 +356,7 @@ def build_review_workbench(
     kind = filters.get("kind") if filters.get("kind") in REVIEW_KINDS else "all"
     state_filter = filters.get("state") if filters.get("state") in REVIEW_STATES else "pending"
     sort = filters.get("sort") if filters.get("sort") in REVIEW_SORTS else "timestamp"
+    enrichment_filter = filters.get("enrichment") if filters.get("enrichment") in REVIEW_ENRICHMENT else "all"
     source_filter = filters.get("source") or ""
     parent_filter = filters.get("parent") or ""
     media_filter = filters.get("media_format") or ""
@@ -476,6 +478,13 @@ def build_review_workbench(
         groups.sort(key=lambda group: group["parent"].get("title", "").casefold())
 
     generic = [record for record in drafts if record.get("evidence_role") != "atomic_evidence"]
+    for record in generic:
+        source_id = record.get("source_id") or ""
+        source_label = record.get("source_name") or source_id
+        if source_id or source_label:
+            option_sources[source_id or source_label] = source_label
+        if record.get("media_format"):
+            option_media.add(record["media_format"])
     if state_filter == "pending":
         generic = [record for record in generic if record.get("status", "draft") != "rejected"]
     elif state_filter == "rejected":
@@ -494,8 +503,21 @@ def build_review_workbench(
         generic = [record for record in generic if berry_filter in (record.get("berry_ids") or [])]
     if geography_filter:
         generic = [record for record in generic if geography_filter in (record.get("geography_ids") or [])]
-    if sort == "newest":
-        generic.sort(key=lambda record: record.get("captured_date") or "", reverse=True)
+    if enrichment_filter == "enriched":
+        generic = [
+            record for record in generic
+            if (record.get("ai_enrichment") or {}).get("model_provenance", {}).get("status") == "ok"
+        ]
+    elif enrichment_filter == "raw":
+        generic = [
+            record for record in generic
+            if (record.get("ai_enrichment") or {}).get("model_provenance", {}).get("status") != "ok"
+        ]
+    if sort in {"newest", "recent"} or (kind == "publication" and sort == "timestamp"):
+        generic.sort(
+            key=lambda record: record.get("published_date") or record.get("captured_date") or "",
+            reverse=True,
+        )
     elif sort == "source":
         generic.sort(key=lambda record: (record.get("source_name") or "").casefold())
     else:
@@ -513,7 +535,7 @@ def build_review_workbench(
     return {
         "groups": groups,
         "generic_drafts": generic_presentations,
-        "filters": {**filters, "kind": kind, "state": state_filter, "sort": sort},
+        "filters": {**filters, "kind": kind, "state": state_filter, "sort": sort, "enrichment": enrichment_filter},
         "options": {
             "sources": sorted(({"id": key, "label": value} for key, value in option_sources.items()), key=lambda value: value["label"].casefold()),
             "parents": sorted(({"id": key, "label": value} for key, value in option_parents.items()), key=lambda value: value["label"].casefold()),

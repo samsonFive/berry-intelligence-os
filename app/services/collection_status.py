@@ -336,6 +336,16 @@ def _classify_item(
         next_eligible_retry_at=operation.get("next_eligible_retry_at"),
         error=operation.get("last_error") or ("; ".join(result.errors) if result.errors else None),
     )
+    screening = item.get("relevance_screening") or {}
+    if screening.get("decision") == "skip" and result.parent_resolution.status in {"none", "skipped", "would_create_draft"}:
+        return ItemStatus(
+            **base,
+            category="completed_no_action",
+            recommended_action="no action",
+            reason=screening.get("reason") or "Screened as clearly irrelevant before transcription.",
+        )
+    if result.state == "skipped_irrelevant":
+        return ItemStatus(**base, category="completed_no_action", recommended_action="no action", reason=base["error"] or "Screened as clearly irrelevant before transcription.")
     if result.state == "publication_rejected":
         return ItemStatus(**base, category="completed_no_action", recommended_action="no action", reason="Publication was rejected by human review.")
     failure = operation.get("failure_class")
@@ -558,10 +568,41 @@ class CollectionStatusService:
                 "note": "Even when ready, extraction creates only untrusted Atomic Evidence proposals.",
             },
         }
+        screening_by_id = {
+            item.get("id"): (item.get("relevance_screening") or {})
+            for item in items
+            if isinstance(item.get("id"), str)
+        }
+        skipped_irrelevant = sum(
+            1
+            for status in item_statuses
+            if (screening_by_id.get(status.item_id) or {}).get("decision") == "skip"
+            or "irrelevant" in (status.reason or "").casefold()
+        )
+        relevant = sum(
+            1
+            for status in item_statuses
+            if (screening_by_id.get(status.item_id) or {}).get("decision") == "process"
+        )
         counts = {
             "sources_configured": len(sources),
             "sources_discoverable": len(discoverable_ids),
             **category_counts,
+            "discovered": len(item_statuses),
+            "relevant": relevant,
+            "skipped_irrelevant": skipped_irrelevant,
+            "transcript_ready": sum(1 for item in item_statuses if item.transcript_state == "ready"),
+            "enrichment_ready": sum(
+                1
+                for draft in drafts
+                if draft.get("evidence_role") == "publication_artifact"
+                and (draft.get("ai_enrichment") or {}).get("model_provenance", {}).get("status") == "ok"
+            ),
+            "publication_review_ready": category_counts.get("human_publication_review_required", 0),
+            "trusted_publication": sum(trusted_by_source.values()),
+            "atomic_proposals": category_counts.get("pending_atomic_proposals", 0),
+            "retryable_failure": category_counts.get("retryable_failure", 0),
+            "intervention": category_counts.get("operator_intervention_required", 0),
         }
         recommended = _action_for_counts(category_counts, lock=lock)
         if recommended == "no action" and collection_ready and any(source.recommended_next_action == "run collection" for source in source_reports):
