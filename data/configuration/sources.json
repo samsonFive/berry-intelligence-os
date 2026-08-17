@@ -1892,6 +1892,12 @@
     "value": "https://www.freshfruitportal.com/tag/berries/feed/",
     "url": "https://www.freshfruitportal.com",
     "why_it_matters": "Explicitly weighted High priority per this list's own coverage-gap note: fastest-moving deal, M&A and variety-launch signal for Latin America-focused berry news, an area annual reports and government statistics cover too slowly. Confirmed 2026-08-06 to have a real, berry-scoped RSS feed (/tag/berries/feed/) with genuine article excerpts, not just repeated headlines -- converted from reference to a live-polled rss source.",
+    "discovery": {
+      "adapter": "article_rss",
+      "feed_url": "https://www.freshfruitportal.com/tag/berries/feed/",
+      "feed_url_verified_at": "2026-08-17",
+      "notes": "Article Ingestion vertical slice pilot source. Same feed already confirmed live and berry-scoped per this record's own why_it_matters (used by the older app/main.py headline-only auto-capture loop); this discovery block onboards it onto the media_discovery.py article_rss adapter so full article bodies (not just headlines/excerpts) flow through the same Scanner -> publication-review pipeline as podcasts/video."
+    },
     "entity_types": [
       "trade_press"
     ],
@@ -1920,6 +1926,12 @@
     "value": "https://www.freshplaza.com",
     "url": "https://www.freshplaza.com",
     "why_it_matters": "Explicitly weighted High priority per this list's own coverage-gap note: global fresh produce news with strong berry coverage, fills the same fast-moving-deal gap as Fresh Fruit Portal but with broader geographic scope.",
+    "discovery": {
+      "adapter": "article_rss",
+      "feed_url": "https://www.freshplaza.com/rss.xml",
+      "feed_url_verified_at": "2026-08-17",
+      "notes": "Article Ingestion vertical slice pilot source. Confirmed live 2026-08-17 (200, application/rss+xml). Unlike Fresh Fruit Portal's berries-tagged feed, this is the site's general produce-news feed -- deliberately chosen as a second pilot source to prove the relevance screen actually discriminates real, diverse agricultural content rather than passing everything from a publisher-pre-filtered feed."
+    },
     "entity_types": [
       "trade_press"
     ],
@@ -2056,6 +2068,12 @@
     "value": "https://www.producereport.com",
     "url": "https://www.producereport.com",
     "why_it_matters": "Explicitly weighted High priority per this list's own coverage-gap note: the primary English-language source for China-focused fresh produce news, already cited in this dataset for SEKOYA's Chinese market expansion statement.",
+    "discovery": {
+      "adapter": "article_rss",
+      "feed_url": "https://www.producereport.com/rss.xml",
+      "feed_url_verified_at": "2026-08-17",
+      "notes": "Article Ingestion vertical slice pilot source. Confirmed live 2026-08-17 (200, application/rss+xml). General China-focused produce feed, not berry-pre-filtered -- a second real diversity check on the relevance screen alongside Fresh Plaza."
+    },
     "entity_types": [
       "trade_press"
     ],

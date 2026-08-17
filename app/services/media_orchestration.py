@@ -458,6 +458,15 @@ class MediaOrchestrationService:
                 errors=[transcript_error],
             )
         if transcript_payload is None:
+            if transcript_status == "not_applicable":
+                return OrchestrationResult(
+                    item_id=item_id,
+                    state="publication_approved",
+                    parent_resolution=resolution,
+                    transcript_status="not_applicable",
+                    next_action="No transcript applies to a written article; its source text is available for a future qualified extraction step.",
+                    dry_run=dry_run,
+                )
             return OrchestrationResult(
                 item_id=item_id,
                 state="publication_approved",
@@ -539,6 +548,14 @@ class MediaOrchestrationService:
     def _load_transcript(
         self, discovered_item: dict[str, Any]
     ) -> tuple[dict[str, Any] | None, str, str | None]:
+        if discovered_item.get("media_format") == "web_article":
+            # A written article has no audio/video to transcribe -- never
+            # attempt Tier 1-3 acquisition for one. Without this guard the
+            # transcript adapter would try and fail to acquire a media
+            # enclosure that was never going to exist, and collection_runner
+            # would classify that failure as retryable, endlessly retrying
+            # a fetch that could never succeed for a text item.
+            return None, "not_applicable", None
         try:
             payload = self._transcript_adapter.load(discovered_item)
         except TranscriptAcquisitionError as exc:

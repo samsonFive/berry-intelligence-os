@@ -215,7 +215,10 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
         "source-global-fresh-series-podcast", "source-fresh-cred-podcast", "source-lubera-edibles-podcast",
         "source-blueberries-tv-youtube",
     }
-    assert report.sources_configured == 132 and report.sources_discoverable == 12
+    # 15 = the 12 podcast_rss/youtube_feed sources this assertion originally
+    # covered, plus 3 article_rss sources onboarded by the Article Ingestion
+    # vertical slice (Fresh Fruit Portal, Fresh Plaza, Produce Report).
+    assert report.sources_configured == 132 and report.sources_discoverable == 15
     assert expected <= {source.source_id for source in report.sources}
 
 

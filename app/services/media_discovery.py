@@ -106,6 +106,12 @@ TRANSCRIPT_UNKNOWN = "unknown"
 TRANSCRIPT_NOT_DETECTED = "not_detected"
 TRANSCRIPT_PUBLISHER = "publisher_transcript"
 TRANSCRIPT_PLATFORM_CAPTIONS = "platform_captions"
+# Distinct from all of the above: a written article has no transcript
+# concept at all, so "not_detected" (checked, none found) would be a false
+# claim that a check for a nonexistent thing was performed. This is the
+# signal app/services/media_orchestration.py's transcription-skip guard
+# keys off of.
+TRANSCRIPT_NOT_APPLICABLE = "not_applicable"
 
 DEDUPE_STRATEGY_GUID = "guid"
 DEDUPE_STRATEGY_PLATFORM_ID = "platform_id"
@@ -419,6 +425,70 @@ def _normalize_youtube_feed_entry(entry: Any) -> NormalizedItem:
     )
 
 
+# ---------------------------------------------------------------------------
+# article_rss adapter -- a plain news/trade-press RSS or Atom feed of
+# written articles. Fetching and listing entries is identical to
+# podcast_rss/youtube_feed (an HTTP GET followed by feedparser.parse());
+# feedparser already handles ordinary news feeds the same way it handles
+# podcast feeds (proven live elsewhere in this project against Fresh Fruit
+# Portal's berries-tagged feed). Only *normalization* differs, per this
+# module's "one generic adapter mechanism" architecture -- this adapter
+# does not fetch the article's HTML body; that is a separate, heavier step
+# owned by app/services/article_acquisition.py, run later against a
+# specific discovered item, not against every entry in a feed on every
+# poll.
+# ---------------------------------------------------------------------------
+
+
+def _normalize_article_rss_entry(entry: Any) -> NormalizedItem:
+    title = _strip_html(getattr(entry, "title", "") or "(untitled)")
+    description = _strip_html(getattr(entry, "summary", "") or getattr(entry, "description", ""))[:4000]
+    canonical_url = getattr(entry, "link", None) or None
+    # Same GUID-preference reasoning as _normalize_podcast_rss_entry(): a
+    # news feed's <guid> is a durable publisher identifier when present,
+    # falls back to the link otherwise (harmless, since dedupe then keys
+    # on canonical_url anyway).
+    external_id = getattr(entry, "id", None) or None
+
+    published_parsed = getattr(entry, "published_parsed", None) or getattr(entry, "updated_parsed", None)
+    published_date = None
+    if published_parsed:
+        try:
+            published_date = datetime(*published_parsed[:6], tzinfo=timezone.utc).date().isoformat()
+        except (TypeError, ValueError):
+            published_date = None
+
+    author = _strip_html(getattr(entry, "author", "") or "") or None
+
+    raw_metadata = {
+        "feed_guid": external_id,
+        "feed_link": canonical_url,
+        "raw_title": getattr(entry, "title", None),
+        "raw_published": getattr(entry, "published", None),
+        "raw_author": author,
+    }
+
+    return NormalizedItem(
+        title=title,
+        media_format="web_article",
+        canonical_url=canonical_url,
+        external_id=external_id,
+        platform_item_id=None,
+        published_date=published_date,
+        description=description,
+        # A written article has no runtime duration -- correctly None
+        # (not applicable), never a guess.
+        duration_seconds=None,
+        transcript_availability={
+            "status": TRANSCRIPT_NOT_APPLICABLE,
+            "checked_at": _now_iso(),
+            "url": None,
+            "language": None,
+        },
+        raw_metadata=raw_metadata,
+    )
+
+
 # adapter type -> (fetch, normalize-one-entry, list-entries-from-parsed)
 def _podcast_rss_entries(parsed: Any) -> list[Any]:
     return list(parsed.entries or [])
@@ -432,6 +502,10 @@ ADAPTER_TYPES: dict[str, tuple[Callable[[str], tuple[Any, bytes]], Callable[[Any
     # adapter, not new source-specific Python" rule this registry exists
     # to enforce.
     "youtube_feed": (_fetch_podcast_rss, _podcast_rss_entries, _normalize_youtube_feed_entry),
+    # Same reuse: a news/article RSS feed is fetched and listed exactly
+    # like a podcast feed (an <item>/<entry> list feedparser already
+    # understands generically); only normalize differs.
+    "article_rss": (_fetch_podcast_rss, _podcast_rss_entries, _normalize_article_rss_entry),
 }
 
 
