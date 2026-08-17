@@ -16,6 +16,8 @@ from pathlib import Path
 from typing import Any, Callable, Protocol
 
 from app.services import media_transcription
+from app.services.publication_enrichment import enrich_publication_draft
+from app.services.relevance_screening import screen_discovered_item
 from app.services.transcript_evidence import (
     PRIORITY_NONE,
     TranscriptArtifact,
@@ -94,6 +96,7 @@ class MediaTranscriptionAdapter:
         provider_factory: Callable[[], media_transcription.TranscriptionProvider] | None = None,
         force: bool = False,
         transcribe_missing: bool = True,
+        max_tier: int = 3,
     ) -> None:
         self._inbox_dir = inbox_dir
         self._model = model
@@ -103,6 +106,7 @@ class MediaTranscriptionAdapter:
         self._provider_factory = provider_factory
         self._force = force
         self._transcribe_missing = transcribe_missing
+        self._max_tier = max_tier
 
     def load(self, discovered_item: dict[str, Any]) -> dict[str, Any] | None:
         item_id = discovered_item["id"]
@@ -121,8 +125,11 @@ class MediaTranscriptionAdapter:
             created_by=self._created_by,
             provider_factory=self._provider_factory,
             force=self._force,
+            max_tier=self._max_tier,
         )
         if outcome.status != "ok":
+            if outcome.tier == "deferred_expensive_transcription":
+                return None
             tier = f" via {outcome.tier}" if outcome.tier else ""
             raise TranscriptAcquisitionError(f"transcript acquisition failed{tier}: {outcome.error or 'unknown error'}")
         payload = media_transcription.load_transcript_artifact(self._inbox_dir, item_id)
@@ -211,6 +218,7 @@ class MediaOrchestrationService:
         transcript_adapter: StagedTranscriptAdapter,
         extraction_service: TranscriptEvidenceExtractionService | None = None,
         today: Any = date.today,
+        complete_json: Callable[..., Any] | None = None,
     ) -> None:
         self._repos = repositories
         self._inbox_dir = inbox_dir
@@ -218,6 +226,7 @@ class MediaOrchestrationService:
         self._transcript_adapter = transcript_adapter
         self._extraction_service = extraction_service
         self._today = today
+        self._complete_json = complete_json
 
     def load_item(self, item_id: str) -> dict[str, Any]:
         path = self._inbox_dir / "discovered_media" / f"{item_id}.json"
@@ -291,7 +300,13 @@ class MediaOrchestrationService:
             )
         return ParentResolution(status="none", message="No publication artifact or draft exists.")
 
-    def prepare_publication_draft(self, discovered_item: dict[str, Any], *, dry_run: bool = False) -> dict[str, Any]:
+    def prepare_publication_draft(
+        self,
+        discovered_item: dict[str, Any],
+        *,
+        dry_run: bool = False,
+        enrich: bool = False,
+    ) -> dict[str, Any]:
         """Build, validate, and optionally persist one untrusted draft."""
 
         resolution = self.resolve_publication_artifact(discovered_item)
@@ -300,7 +315,7 @@ class MediaOrchestrationService:
         source = self._repos.sources.get(discovered_item["source_id"])
         if source is None:
             raise MediaOrchestrationError(f"Source ID does not resolve: {discovered_item['source_id']}")
-        draft = self._draft_from_item(discovered_item, source)
+        draft = self._draft_from_item(discovered_item, source, enrich=enrich)
         errors = self._evidence_errors(draft)
         if errors:
             raise MediaOrchestrationError("publication draft failed Evidence validation: " + "; ".join(errors))
@@ -332,10 +347,39 @@ class MediaOrchestrationService:
         except TranscriptContractError as exc:
             raise MediaOrchestrationError(f"malformed transcript: {exc}") from exc
 
-    def process(self, item_id: str, *, dry_run: bool = False) -> OrchestrationResult:
+    def process(
+        self,
+        item_id: str,
+        *,
+        dry_run: bool = False,
+        relevance_gate: bool = False,
+        enrich: bool = False,
+    ) -> OrchestrationResult:
         item = self.load_item(item_id)
+        screening = screen_discovered_item(item)
+        item["relevance_screening"] = screening.to_dict()
+        if not dry_run:
+            self._write_item(item)
+
+        if relevance_gate and screening.decision == "skip":
+            return OrchestrationResult(
+                item_id=item_id,
+                state="skipped_irrelevant",
+                parent_resolution=ParentResolution(
+                    status="skipped",
+                    message="Item is below the relevance threshold; transcription was not attempted.",
+                ),
+                transcript_status="deferred",
+                next_action="No action; item screened as clearly irrelevant before transcription.",
+                dry_run=dry_run,
+            )
+
         resolution = self.resolve_publication_artifact(item)
-        transcript_payload, transcript_status, transcript_error = self._load_transcript(item)
+        load_transcript = not (relevance_gate and screening.decision == "borderline")
+        if load_transcript:
+            transcript_payload, transcript_status, transcript_error = self._load_transcript(item)
+        else:
+            transcript_payload, transcript_status, transcript_error = None, "deferred", None
 
         if resolution.status == "ambiguous":
             return OrchestrationResult(
@@ -360,7 +404,7 @@ class MediaOrchestrationService:
                     dry_run=dry_run,
                     errors=[f"Source ID does not resolve: {item['source_id']}"],
                 )
-            draft = self.prepare_publication_draft(item, dry_run=dry_run)
+            draft = self.prepare_publication_draft(item, dry_run=dry_run, enrich=enrich and not dry_run)
             planned = ParentResolution(
                 status="would_create_draft" if dry_run else "pending_draft",
                 draft_id=draft["id"],
@@ -558,7 +602,66 @@ class MediaOrchestrationService:
             and record.get("review_state", "published") == "published"
         )
 
-    def _draft_from_item(self, item: dict[str, Any], source: dict[str, Any]) -> dict[str, Any]:
+    def _write_item(self, item: dict[str, Any]) -> None:
+        path = self._inbox_dir / "discovered_media" / f"{item['id']}.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(item, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    def _draft_from_item(self, item: dict[str, Any], source: dict[str, Any], *, enrich: bool = False) -> dict[str, Any]:
+        captured_date = self._date_part(item.get("first_seen_at")) or self._today().isoformat()
+        published_date = self._date_part(item.get("published_date"))
+        source_name = source.get("label") or source.get("name") or source.get("value") or item["source_id"]
+        description = item.get("description")
+        summary = description.strip() if isinstance(description, str) and description.strip() else (
+            f"Discovered {item.get('media_format') or 'media'} item from {source_name}."
+        )
+        draft = {
+            "id": publication_draft_id(item),
+            "record_type": "evidence",
+            "status": "draft",
+            "review_state": "in_review",
+            "intake_type": "discovered_media_publication",
+            "source_type": "discovered_media",
+            "title": item["title"].strip(),
+            "source_name": source_name,
+            "source_url": item.get("canonical_url") or "",
+            "published_date": published_date,
+            "captured_date": captured_date,
+            "summary": summary,
+            "why_it_matters": "",
+            "submitted_by": "media-orchestration",
+            "berry_ids": [],
+            "geography_ids": [],
+            "entity_ids": [],
+            "fact_ids": [],
+            "relationship_ids": [],
+            "strategic_question_ids": [],
+            "tags": [],
+            "attachments": [],
+            "auto_captured": False,
+            "priority": deepcopy(PRIORITY_NONE),
+            "source_id": item["source_id"],
+            "media_format": item["media_format"],
+            "evidence_role": "publication_artifact",
+            "discovered_item_id": item["id"],
+            "discovery_provenance": {
+                "dedupe_key": item["dedupe_key"],
+                "external_id": item.get("external_id"),
+                "first_seen_at": item.get("first_seen_at"),
+                "last_seen_at": item.get("last_seen_at"),
+            },
+        }
+        berries = [record for record in self._repos.entities.list() if record.get("entity_type") == "berry"]
+        geographies = [record for record in self._repos.entities.list() if record.get("entity_type") == "geography"]
+        entities = [record for record in self._repos.entities.list() if record.get("entity_type") == "company"]
+        return enrich_publication_draft(
+            draft,
+            item,
+            berries=berries,
+            geographies=geographies,
+            entities=entities,
+            complete_json=self._complete_json if enrich else None,
+        )
         captured_date = self._date_part(item.get("first_seen_at")) or self._today().isoformat()
         published_date = self._date_part(item.get("published_date"))
         source_name = source.get("label") or source.get("name") or source.get("value") or item["source_id"]

@@ -12,8 +12,28 @@
   <p class="empty-state" role="alert">Review and publishing are disabled. This deployment is running in read-only mode.</p>
 {% else %}
 
-{% if error %}
+{% if publish_outcome == 'already_published' %}
+  <div class="banner banner-success" role="status">
+    This publication is already trusted.
+    {% if trusted_existing %}<a href="/evidence/{{ trusted_existing.id }}">Open trusted record</a>{% endif %}
+    The existing record was not overwritten.
+  </div>
+{% endif %}
+{% if publish_outcome == 'conflict' %}
+  <div class="banner banner-error" role="alert">
+    {{ error or 'This id already exists as a trusted publication with conflicting identity fields. The trusted record was not changed.' }}
+    {% if trusted_existing %}<p><a href="/evidence/{{ trusted_existing.id }}">Open trusted record</a></p>{% endif %}
+    {% if conflicts %}<ul>{% for item in conflicts %}<li>{{ item }}</li>{% endfor %}</ul>{% endif %}
+  </div>
+{% elif error %}
   <div class="banner banner-error" role="alert">{{ error }}</div>
+{% endif %}
+{% if next_draft_id or prev_draft_id %}
+  <p class="review-nav">
+    {% if prev_draft_id %}<a href="/review/{{ prev_draft_id }}">← Previous</a>{% endif %}
+    {% if next_draft_id %}<a href="/review/{{ next_draft_id }}">Next →</a>{% endif %}
+    <span class="shortcut-key" aria-label="Keyboard shortcuts"><kbd>a</kbd> approve · <kbd>s</kbd> save+next · <kbd>r</kbd> reject+next · <kbd>n</kbd>/<kbd>p</kbd> next/prev</span>
+  </p>
 {% endif %}
 
 {% if duplicates %}
@@ -86,7 +106,32 @@
       <dt>Captured</dt><dd>{{ draft.captured_date|us_date }}</dd>
       <dt>Submitted by</dt><dd>{{ draft.submitted_by }}</dd>
     </dl>
-    <h3>Summary</h3>
+    {% if draft.publisher_description %}
+      <h3>Original publisher description</h3>
+      <p>{{ draft.publisher_description }}</p>
+    {% endif %}
+    {% if draft.ai_enrichment %}
+      <section class="ai-enrichment" aria-label="Untrusted AI suggestions">
+        <h3>AI suggestions <span class="badge badge-muted">untrusted</span></h3>
+        {% if draft.ai_enrichment.concise_summary %}<p><strong>Concise summary:</strong> {{ draft.ai_enrichment.concise_summary }}</p>{% endif %}
+        {% if draft.ai_enrichment.why_it_matters %}<p><strong>Why it matters:</strong> {{ draft.ai_enrichment.why_it_matters }}</p>{% endif %}
+        {% if draft.ai_enrichment.suggested_berry_ids %}<p><strong>Berries:</strong> {{ draft.ai_enrichment.suggested_berry_ids|join(', ') }}</p>{% endif %}
+        {% if draft.ai_enrichment.suggested_geography_ids %}<p><strong>Geography:</strong> {{ draft.ai_enrichment.suggested_geography_ids|join(', ') }}</p>{% endif %}
+        {% if draft.ai_enrichment.suggested_entity_ids %}<p><strong>Entities:</strong> {{ draft.ai_enrichment.suggested_entity_ids|join(', ') }}</p>{% endif %}
+        {% if draft.ai_enrichment.suggested_tags %}<p><strong>Tags:</strong> {{ draft.ai_enrichment.suggested_tags|join(', ') }}</p>{% endif %}
+        {% if draft.ai_enrichment.topical_relevance %}<p><strong>Relevance:</strong> {{ draft.ai_enrichment.topical_relevance }}</p>{% endif %}
+        {% if draft.ai_enrichment.caveats %}<p><strong>Caveats:</strong> {{ draft.ai_enrichment.caveats }}</p>{% endif %}
+        {% if draft.ai_enrichment.model_provenance %}
+          <p class="context-limit">
+            {{ draft.ai_enrichment.model_provenance.provider or 'provider unset' }}
+            / {{ draft.ai_enrichment.model_provenance.model or 'no model' }}
+            · {{ draft.ai_enrichment.model_provenance.status }}
+            · {{ draft.ai_enrichment.model_provenance.trust_state }}
+          </p>
+        {% endif %}
+      </section>
+    {% endif %}
+    <h3>Current summary</h3>
     {% set summary_lines = draft.summary|as_bullets %}
     {% if summary_lines|length > 1 %}
       <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
@@ -294,9 +339,25 @@
       </div>
 
       <div class="form-actions">
-        <button type="submit">{% if draft.evidence_role == 'atomic_evidence' %}Save edits + approve this Evidence{% else %}Publish{% endif %}</button>
+        <button type="submit" name="advance" value="" data-approve-action>{% if draft.evidence_role == 'atomic_evidence' %}Save edits + approve this Evidence{% else %}Approve{% endif %}</button>
+        {% if draft.evidence_role != 'atomic_evidence' %}
+        <button type="submit" name="advance" value="next" data-approve-next-action>Approve + Next</button>
+        {% endif %}
       </div>
     </form>
+    {% if draft.evidence_role != 'atomic_evidence' %}
+    <form class="intake-form" style="padding:8px 0 0;max-width:none" action="/review/{{ draft.id }}/save" method="post" data-save-form>
+      <input type="hidden" name="return_to" value="{{ return_to }}">
+      <input type="hidden" name="title" value="{{ values.title }}">
+      <input type="hidden" name="summary" id="save_summary">
+      <input type="hidden" name="why_it_matters" id="save_why">
+      <input type="hidden" name="tags" id="save_tags">
+      <div class="form-actions">
+        <button type="submit" name="advance" value="">Save draft</button>
+        <button type="submit" name="advance" value="next" data-save-next-action>Save + Next</button>
+      </div>
+    </form>
+    {% endif %}
     <form class="intake-form" style="padding:16px 0 0;max-width:none" action="/review/{{ draft.id }}/reject" method="post">
       <input type="hidden" name="return_to" value="{{ return_to }}">
       <div class="form-row">
@@ -313,9 +374,48 @@
           <input id="rejection_reason" name="rejection_reason" type="text" required>
         </div>
       </div>
-      <div class="form-actions"><button type="submit">Reject proposal</button></div>
+      <div class="form-actions">
+        <button type="submit">Reject</button>
+        <button type="submit" name="advance" value="next">Reject + Next</button>
+      </div>
     </form>
   </section>
 </div>
+<script>
+(function () {
+  var saveForm = document.querySelector('[data-save-form]');
+  function copyFields() {
+    if (!saveForm) return;
+    var summary = document.getElementById('summary');
+    var why = document.getElementById('why_it_matters');
+    var tags = document.getElementById('tags');
+    var saveSummary = document.getElementById('save_summary');
+    var saveWhy = document.getElementById('save_why');
+    var saveTags = document.getElementById('save_tags');
+    if (saveSummary && summary) saveSummary.value = summary.value;
+    if (saveWhy && why) saveWhy.value = why.value;
+    if (saveTags && tags) saveTags.value = tags.value;
+  }
+  if (saveForm) saveForm.addEventListener('submit', copyFields);
+  document.addEventListener('keydown', function (event) {
+    if (event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+    if (event.key === 'n' && {{ 'true' if next_draft_id else 'false' }}) {
+      window.location = '/review/{{ next_draft_id }}';
+    } else if (event.key === 'p' && {{ 'true' if prev_draft_id else 'false' }}) {
+      window.location = '/review/{{ prev_draft_id }}';
+    } else if (event.key === 'a') {
+      var button = document.querySelector('[data-approve-next-action]') || document.querySelector('[data-approve-action]');
+      if (button) button.click();
+    } else if (event.key === 's') {
+      copyFields();
+      var saveNext = document.querySelector('[data-save-next-action]');
+      if (saveNext) saveNext.click();
+    } else if (event.key === 'r') {
+      var rejectNext = document.querySelector('form[action$="/reject"] button[name="advance"][value="next"]');
+      if (rejectNext) rejectNext.click();
+    }
+  });
+})();
+</script>
 {% endif %}
 {% endblock %}
