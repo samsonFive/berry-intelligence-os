@@ -52,10 +52,17 @@ from app.services.review_workbench import (
     rank_publication_cards,
     unknown_transcript_readiness,
 )
+from app.runtime_config import (
+    remote_auth_middleware,
+    remote_interactive_enabled,
+    resolve_data_dir,
+    resolve_inbox_dir,
+    validate_remote_interactive_config,
+)
 
 BASE_DIR = Path(__file__).resolve().parents[1]
-DATA_DIR = BASE_DIR / "data"
-INBOX_DIR = BASE_DIR / "inbox"
+DATA_DIR = resolve_data_dir(BASE_DIR)
+INBOX_DIR = resolve_inbox_dir(BASE_DIR)
 SCHEMAS_DIR = BASE_DIR / "schemas"
 
 # Authoring mode permits local writes (intake, review, publish). A future
@@ -204,6 +211,13 @@ SOURCE_CADENCE_DAYS = {
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Fail closed before serving if remote interactive mode is on without
+    # credentials. Skip the hard startup raise under pytest so request-level
+    # tests can observe the 503; uvicorn production still refuses to boot.
+    if "pytest" not in sys.modules:
+        validate_remote_interactive_config()
+    INBOX_DIR.mkdir(parents=True, exist_ok=True)
+    (INBOX_DIR / "evidence").mkdir(parents=True, exist_ok=True)
     # Never poll external sources during tests -- pytest importing this
     # module must not trigger real network calls. Real deployments always
     # have "pytest" absent from sys.modules. Also gated on
@@ -217,10 +231,21 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Berry Intelligence OS", version="0.1.0", lifespan=lifespan)
+app.middleware("http")(remote_auth_middleware)
 app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="static")
 templates = Jinja2Templates(directory=BASE_DIR / "app" / "templates")
 templates.env.globals["pending_review_count"] = lambda: len(list_pending_drafts()) + len(unvalidated_auto_captured_evidence())
 templates.env.globals["queue_counts"] = lambda: queue_counts()
+
+
+@app.get("/healthz")
+def healthz() -> dict[str, Any]:
+    """Liveness probe. Unauthenticated even in remote interactive mode."""
+
+    return {
+        "ok": True,
+        "remote_interactive": remote_interactive_enabled(),
+    }
 
 
 _JSON_FOLDER_CACHE: dict[Path, tuple[tuple[tuple[str, int, int], ...], list[dict[str, Any]]]] = {}
