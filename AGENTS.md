@@ -14,6 +14,10 @@ Do not assume cloud agents can replay a previous batch, open a local review-read
 
 Secrets such as `PERPLEXITY_API_KEY` are unavailable in cloud unless explicitly provisioned for that environment. Never print or persist secrets.
 
+### Python venv
+
+The default Cloud Agent image has Python 3.12 but not `ensurepip`. `python3 -m venv .venv` fails on a from-scratch build until `python3.12-venv` is installed. `.cursor/environment.json` `install` does that with apt, then creates `.venv` and installs `requirements-dev.txt` plus `pagefind` / `pagefind_bin`. A `.venv` without working pip is deleted and recreated. Use `.venv/bin/python` rather than system Python. Do not drop the apt step.
+
 ### Trust gates
 
 Publication review and Atomic Evidence review remain mandatory human gates. Haiku (`anthropic/claude-haiku-4-5`) may be used for **non-trusted** publication enrichment only. It is not extraction-qualified. Never auto-qualify a model and never fall back to an unqualified extractor.
