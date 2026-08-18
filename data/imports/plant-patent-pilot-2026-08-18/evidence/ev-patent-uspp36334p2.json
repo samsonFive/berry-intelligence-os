@@ -1,0 +1,149 @@
+{
+  "id": "ev-patent-uspp36334p2",
+  "record_type": "evidence",
+  "status": "draft",
+  "review_state": "in_review",
+  "verification_state": "unverified",
+  "source_authority": "high",
+  "information_confidence": "unknown",
+  "does_not_prove": [
+    "commercialization or planted acreage",
+    "market adoption or sales success",
+    "commercial launch timing",
+    "that an inventor owns the IP (assignee/applicant may differ)",
+    "licensee identity or exclusive territory"
+  ],
+  "intake_type": "patent_filing",
+  "source_type": "patent_record",
+  "title": "Strawberry plant named ‘FL 20.80-4’",
+  "source_name": "USPTO plant patent (Google Patents discovery)",
+  "source_url": "https://patents.google.com/patent/USPP36334P2/en",
+  "published_date": "2024-12-24",
+  "event_date": "2024-01-09",
+  "captured_date": "2026-08-18",
+  "summary": "USPTO plant patent USPP36334P2 titled 'Strawberry plant named ‘FL 20.80-4’' records cultivar 'FL 20.80-4'. Assignee/applicant as listed: Florida Foundation Seed Producers, Inc.. Inventors as listed: Vance Whitaker. Botanical name: not captured.",
+  "why_it_matters": "A plant-patent filing is an authoritative IP event for FL 20.80-4. Treat it as evidence that this genetics identity was claimed, not as proof of commercial acreage, launch, or market success.",
+  "submitted_by": "patent-monitor",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [
+    "geography-united-states"
+  ],
+  "entity_ids": [
+    "company-florida-foundation-seed-producers"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "patent",
+    "plant-patent",
+    "alternative-data"
+  ],
+  "auto_captured": false,
+  "validated": false,
+  "source_id": "source-uspto-plant-patents",
+  "source_tier": "tier_1_primary",
+  "evidence_role": "publication_artifact",
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": ""
+    },
+    "testing": {
+      "level": "none",
+      "rationale": ""
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": ""
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "New or recently published plant-patent activity on in-scope berry genetics."
+    }
+  },
+  "patent_filing": {
+    "publication_number": "USPP36334P2",
+    "application_number": null,
+    "title": "Strawberry plant named ‘FL 20.80-4’",
+    "filing_date": "2024-01-09",
+    "publication_date": "2024-12-24",
+    "grant_date": "2024-12-24",
+    "inventors": [
+      "Vance Whitaker"
+    ],
+    "applicants": [],
+    "assignees": [
+      "Florida Foundation Seed Producers, Inc."
+    ],
+    "botanical_name": null,
+    "cultivar_name": "FL 20.80-4",
+    "abstract": "What is claimed is: 1. A new and distinct strawberry plant named ‘FL 20.80-4’ as illustrated and described herein.",
+    "jurisdiction": "US",
+    "kind_code": "P2",
+    "claims_locator": "https://patents.google.com/patent/USPP36334P2/en",
+    "source_url": "https://patents.google.com/patent/USPP36334P2/en",
+    "acquired_at": "2026-08-18T05:47:52+00:00",
+    "acquisition_method": "google_patents_json",
+    "content_sha256": "014a1a1f91d31cf79e241e8dbdc97570a32e9d19490b5e44c2b8b429c94517dc"
+  },
+  "entity_link_suggestions": [
+    {
+      "name": "Florida Foundation Seed Producers, Inc.",
+      "role": "assignee",
+      "match_entity_id": "company-florida-foundation-seed-producers",
+      "match_status": "matched",
+      "confidence": "high"
+    },
+    {
+      "name": "Vance Whitaker",
+      "role": "inventor",
+      "match_entity_id": null,
+      "match_status": "unresolved",
+      "confidence": "low"
+    },
+    {
+      "name": "FL 20.80-4",
+      "role": "variety",
+      "match_entity_id": null,
+      "match_status": "unresolved",
+      "confidence": "medium"
+    },
+    {
+      "name": "USPP36334P2",
+      "role": "patent",
+      "match_entity_id": null,
+      "match_status": "unresolved",
+      "confidence": "medium"
+    }
+  ],
+  "evidence_links": [
+    {
+      "predicate": "corroborates",
+      "target_evidence_id": "ev-justia-costa-berry-international",
+      "status": "proposed",
+      "notes": "Assignee/variety entity already linked on existing Evidence; patent filing proposed as additional IP documentation of genetics activity.",
+      "proposed_by": "patent-monitor",
+      "proposed_at": "2026-08-18"
+    },
+    {
+      "predicate": "corroborates",
+      "target_evidence_id": "ev-ffsp-farthing",
+      "status": "proposed",
+      "notes": "Assignee/variety entity already linked on existing Evidence; patent filing proposed as additional IP documentation of genetics activity.",
+      "proposed_by": "patent-monitor",
+      "proposed_at": "2026-08-18"
+    },
+    {
+      "predicate": "corroborates",
+      "target_evidence_id": "ev-ffsp-emerald",
+      "status": "proposed",
+      "notes": "Assignee/variety entity already linked on existing Evidence; patent filing proposed as additional IP documentation of genetics activity.",
+      "proposed_by": "patent-monitor",
+      "proposed_at": "2026-08-18"
+    }
+  ],
+  "source_notes": "Untrusted plant-patent pilot capture; not published to trusted intelligence."
+}

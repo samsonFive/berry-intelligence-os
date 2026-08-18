@@ -1,0 +1,149 @@
+{
+  "id": "ev-patent-uspp35681p2",
+  "record_type": "evidence",
+  "status": "draft",
+  "review_state": "in_review",
+  "verification_state": "unverified",
+  "source_authority": "high",
+  "information_confidence": "unknown",
+  "does_not_prove": [
+    "commercialization or planted acreage",
+    "market adoption or sales success",
+    "commercial launch timing",
+    "that an inventor owns the IP (assignee/applicant may differ)",
+    "licensee identity or exclusive territory"
+  ],
+  "intake_type": "patent_filing",
+  "source_type": "patent_record",
+  "title": "Raspberry plant named ‘HFG 1714’",
+  "source_name": "USPTO plant patent (Google Patents discovery)",
+  "source_url": "https://patents.google.com/patent/USPP35681P2/en",
+  "published_date": "2024-03-12",
+  "event_date": "2022-12-09",
+  "captured_date": "2026-08-18",
+  "summary": "USPTO plant patent USPP35681P2 titled 'Raspberry plant named ‘HFG 1714’' records cultivar 'HFG 1714'. Assignee/applicant as listed: Hortifrut Genetics Limited. Inventors as listed: Ellen Thompson. Botanical name: not captured.",
+  "why_it_matters": "A plant-patent filing is an authoritative IP event for HFG 1714. Treat it as evidence that this genetics identity was claimed, not as proof of commercial acreage, launch, or market success.",
+  "submitted_by": "patent-monitor",
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "geography_ids": [
+    "geography-united-states"
+  ],
+  "entity_ids": [
+    "company-hortifrut"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "patent",
+    "plant-patent",
+    "alternative-data"
+  ],
+  "auto_captured": false,
+  "validated": false,
+  "source_id": "source-uspto-plant-patents",
+  "source_tier": "tier_1_primary",
+  "evidence_role": "publication_artifact",
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": ""
+    },
+    "testing": {
+      "level": "none",
+      "rationale": ""
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": ""
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "New or recently published plant-patent activity on in-scope berry genetics."
+    }
+  },
+  "patent_filing": {
+    "publication_number": "USPP35681P2",
+    "application_number": null,
+    "title": "Raspberry plant named ‘HFG 1714’",
+    "filing_date": "2022-12-09",
+    "publication_date": "2024-03-12",
+    "grant_date": "2024-03-12",
+    "inventors": [
+      "Ellen Thompson"
+    ],
+    "applicants": [],
+    "assignees": [
+      "Hortifrut Genetics Limited"
+    ],
+    "botanical_name": null,
+    "cultivar_name": "HFG 1714",
+    "abstract": "What is claimed is: 1. A new and distinct cultivar of Raspberry plant named ‘HFG 1714’ as described and shown herein.",
+    "jurisdiction": "US",
+    "kind_code": "P2",
+    "claims_locator": "https://patents.google.com/patent/USPP35681P2/en",
+    "source_url": "https://patents.google.com/patent/USPP35681P2/en",
+    "acquired_at": "2026-08-18T05:35:28+00:00",
+    "acquisition_method": "google_patents_json",
+    "content_sha256": "c79f50c60c680602e38d5603fee0953355c76377088384c4ad48da5dcbbc86f9"
+  },
+  "entity_link_suggestions": [
+    {
+      "name": "Hortifrut Genetics Limited",
+      "role": "assignee",
+      "match_entity_id": "company-hortifrut",
+      "match_status": "matched",
+      "confidence": "medium"
+    },
+    {
+      "name": "Ellen Thompson",
+      "role": "inventor",
+      "match_entity_id": null,
+      "match_status": "unresolved",
+      "confidence": "low"
+    },
+    {
+      "name": "HFG 1714",
+      "role": "variety",
+      "match_entity_id": null,
+      "match_status": "unresolved",
+      "confidence": "medium"
+    },
+    {
+      "name": "USPP35681P2",
+      "role": "patent",
+      "match_entity_id": null,
+      "match_status": "unresolved",
+      "confidence": "medium"
+    }
+  ],
+  "evidence_links": [
+    {
+      "predicate": "corroborates",
+      "target_evidence_id": "ev-hortifrut-integrated-report-2023",
+      "status": "proposed",
+      "notes": "Assignee/variety entity already linked on existing Evidence; patent filing proposed as additional IP documentation of genetics activity.",
+      "proposed_by": "patent-monitor",
+      "proposed_at": "2026-08-18"
+    },
+    {
+      "predicate": "corroborates",
+      "target_evidence_id": "ev-ipaustralia-pvj-33-4",
+      "status": "proposed",
+      "notes": "Assignee/variety entity already linked on existing Evidence; patent filing proposed as additional IP documentation of genetics activity.",
+      "proposed_by": "patent-monitor",
+      "proposed_at": "2026-08-18"
+    },
+    {
+      "predicate": "corroborates",
+      "target_evidence_id": "ev-mbg-berry-blue-varieties",
+      "status": "proposed",
+      "notes": "Assignee/variety entity already linked on existing Evidence; patent filing proposed as additional IP documentation of genetics activity.",
+      "proposed_by": "patent-monitor",
+      "proposed_at": "2026-08-18"
+    }
+  ],
+  "source_notes": "Untrusted plant-patent pilot capture; not published to trusted intelligence."
+}

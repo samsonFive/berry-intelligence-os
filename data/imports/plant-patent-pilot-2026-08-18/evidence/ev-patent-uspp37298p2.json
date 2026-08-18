@@ -1,0 +1,149 @@
+{
+  "id": "ev-patent-uspp37298p2",
+  "record_type": "evidence",
+  "status": "draft",
+  "review_state": "in_review",
+  "verification_state": "unverified",
+  "source_authority": "high",
+  "information_confidence": "unknown",
+  "does_not_prove": [
+    "commercialization or planted acreage",
+    "market adoption or sales success",
+    "commercial launch timing",
+    "that an inventor owns the IP (assignee/applicant may differ)",
+    "licensee identity or exclusive territory"
+  ],
+  "intake_type": "patent_filing",
+  "source_type": "patent_record",
+  "title": "Strawberry plant named ‘DrisStrawOneHundredTwelve’",
+  "source_name": "USPTO plant patent (Google Patents discovery)",
+  "source_url": "https://patents.google.com/patent/USPP37298P2/en",
+  "published_date": "2026-03-03",
+  "event_date": "2025-04-25",
+  "captured_date": "2026-08-18",
+  "summary": "USPTO plant patent USPP37298P2 titled 'Strawberry plant named ‘DrisStrawOneHundredTwelve’' records cultivar 'DrisStrawOneHundredTwelve'. Assignee/applicant as listed: Driscoll's, Inc.. Inventors as listed: Omar Carrillo Mendoza. Botanical name: not captured.",
+  "why_it_matters": "A plant-patent filing is an authoritative IP event for DrisStrawOneHundredTwelve. Treat it as evidence that this genetics identity was claimed, not as proof of commercial acreage, launch, or market success.",
+  "submitted_by": "patent-monitor",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "geography_ids": [
+    "geography-united-states"
+  ],
+  "entity_ids": [
+    "company-driscolls"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "patent",
+    "plant-patent",
+    "alternative-data"
+  ],
+  "auto_captured": false,
+  "validated": false,
+  "source_id": "source-uspto-plant-patents",
+  "source_tier": "tier_1_primary",
+  "evidence_role": "publication_artifact",
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": ""
+    },
+    "testing": {
+      "level": "none",
+      "rationale": ""
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": ""
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "New or recently published plant-patent activity on in-scope berry genetics."
+    }
+  },
+  "patent_filing": {
+    "publication_number": "USPP37298P2",
+    "application_number": null,
+    "title": "Strawberry plant named ‘DrisStrawOneHundredTwelve’",
+    "filing_date": "2025-04-25",
+    "publication_date": "2026-03-03",
+    "grant_date": "2026-03-03",
+    "inventors": [
+      "Omar Carrillo Mendoza"
+    ],
+    "applicants": [],
+    "assignees": [
+      "Driscoll's, Inc."
+    ],
+    "botanical_name": null,
+    "cultivar_name": "DrisStrawOneHundredTwelve",
+    "abstract": "A new and distinct variety of strawberry plant named ‘DrisStrawOneHundredTwelve’, particularly selected for its early time of production, high yield potential, fruit size, and disease resistance, is disclosed.",
+    "jurisdiction": "US",
+    "kind_code": "P2",
+    "claims_locator": "https://patents.google.com/patent/USPP37298P2/en",
+    "source_url": "https://patents.google.com/patent/USPP37298P2/en",
+    "acquired_at": "2026-08-18T05:47:52+00:00",
+    "acquisition_method": "google_patents_json",
+    "content_sha256": "f13a2b1fc1c9aa1a56cdb043316494fa254c32e4cf6e739afda7ed75f35f0af5"
+  },
+  "entity_link_suggestions": [
+    {
+      "name": "Driscoll's, Inc.",
+      "role": "assignee",
+      "match_entity_id": "company-driscolls",
+      "match_status": "matched",
+      "confidence": "high"
+    },
+    {
+      "name": "Omar Carrillo Mendoza",
+      "role": "inventor",
+      "match_entity_id": null,
+      "match_status": "unresolved",
+      "confidence": "low"
+    },
+    {
+      "name": "DrisStrawOneHundredTwelve",
+      "role": "variety",
+      "match_entity_id": null,
+      "match_status": "unresolved",
+      "confidence": "medium"
+    },
+    {
+      "name": "USPP37298P2",
+      "role": "patent",
+      "match_entity_id": null,
+      "match_status": "unresolved",
+      "confidence": "medium"
+    }
+  ],
+  "evidence_links": [
+    {
+      "predicate": "corroborates",
+      "target_evidence_id": "ev-20260806173540-1f01-strawberry-patent-infringement-case-turn",
+      "status": "proposed",
+      "notes": "Assignee/variety entity already linked on existing Evidence; patent filing proposed as additional IP documentation of genetics activity.",
+      "proposed_by": "patent-monitor",
+      "proposed_at": "2026-08-18"
+    },
+    {
+      "predicate": "corroborates",
+      "target_evidence_id": "ev-20260806173842-9369-driscoll-s-sues-former-uc-davis-scientis",
+      "status": "proposed",
+      "notes": "Assignee/variety entity already linked on existing Evidence; patent filing proposed as additional IP documentation of genetics activity.",
+      "proposed_by": "patent-monitor",
+      "proposed_at": "2026-08-18"
+    },
+    {
+      "predicate": "corroborates",
+      "target_evidence_id": "ev-20260806173842-a512-driscoll-s-files-complaint-against-calif",
+      "status": "proposed",
+      "notes": "Assignee/variety entity already linked on existing Evidence; patent filing proposed as additional IP documentation of genetics activity.",
+      "proposed_by": "patent-monitor",
+      "proposed_at": "2026-08-18"
+    }
+  ],
+  "source_notes": "Untrusted plant-patent pilot capture; not published to trusted intelligence."
+}

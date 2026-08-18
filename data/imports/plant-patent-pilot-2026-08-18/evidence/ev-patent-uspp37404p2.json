@@ -1,0 +1,149 @@
+{
+  "id": "ev-patent-uspp37404p2",
+  "record_type": "evidence",
+  "status": "draft",
+  "review_state": "in_review",
+  "verification_state": "unverified",
+  "source_authority": "high",
+  "information_confidence": "unknown",
+  "does_not_prove": [
+    "commercialization or planted acreage",
+    "market adoption or sales success",
+    "commercial launch timing",
+    "that an inventor owns the IP (assignee/applicant may differ)",
+    "licensee identity or exclusive territory"
+  ],
+  "intake_type": "patent_filing",
+  "source_type": "patent_record",
+  "title": "Raspberry plant named ‘DrisRaspTwentySix’",
+  "source_name": "USPTO plant patent (Google Patents discovery)",
+  "source_url": "https://patents.google.com/patent/USPP37404P2/en",
+  "published_date": "2026-05-05",
+  "event_date": "2025-09-16",
+  "captured_date": "2026-08-18",
+  "summary": "USPTO plant patent USPP37404P2 titled 'Raspberry plant named ‘DrisRaspTwentySix’' records cultivar 'DrisRaspTwentySix'. Assignee/applicant as listed: Driscoll's, Inc.. Inventors as listed: Luis Miguel Rodriguez. Botanical name: not captured.",
+  "why_it_matters": "A plant-patent filing is an authoritative IP event for DrisRaspTwentySix. Treat it as evidence that this genetics identity was claimed, not as proof of commercial acreage, launch, or market success.",
+  "submitted_by": "patent-monitor",
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "geography_ids": [
+    "geography-united-states"
+  ],
+  "entity_ids": [
+    "company-driscolls"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "patent",
+    "plant-patent",
+    "alternative-data"
+  ],
+  "auto_captured": false,
+  "validated": false,
+  "source_id": "source-uspto-plant-patents",
+  "source_tier": "tier_1_primary",
+  "evidence_role": "publication_artifact",
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": ""
+    },
+    "testing": {
+      "level": "none",
+      "rationale": ""
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": ""
+    },
+    "monitoring": {
+      "level": "high",
+      "rationale": "New or recently published plant-patent activity on in-scope berry genetics."
+    }
+  },
+  "patent_filing": {
+    "publication_number": "USPP37404P2",
+    "application_number": null,
+    "title": "Raspberry plant named ‘DrisRaspTwentySix’",
+    "filing_date": "2025-09-16",
+    "publication_date": "2026-05-05",
+    "grant_date": "2026-05-05",
+    "inventors": [
+      "Luis Miguel Rodriguez"
+    ],
+    "applicants": [],
+    "assignees": [
+      "Driscoll's, Inc."
+    ],
+    "botanical_name": null,
+    "cultivar_name": "DrisRaspTwentySix",
+    "abstract": "A new and distinct variety of raspberry plant named ‘DrisRaspTwentySix’, particularly selected for its fruit quality, yield, flavor, and shelf life, as well as its plant vigor and growth characteristics, is disclosed.",
+    "jurisdiction": "US",
+    "kind_code": "P2",
+    "claims_locator": "https://patents.google.com/patent/USPP37404P2/en",
+    "source_url": "https://patents.google.com/patent/USPP37404P2/en",
+    "acquired_at": "2026-08-18T05:35:28+00:00",
+    "acquisition_method": "google_patents_json",
+    "content_sha256": "772331e2454d5a651426faa0070762cbd1027490a87d3414608c5dc659ab4f44"
+  },
+  "entity_link_suggestions": [
+    {
+      "name": "Driscoll's, Inc.",
+      "role": "assignee",
+      "match_entity_id": "company-driscolls",
+      "match_status": "matched",
+      "confidence": "high"
+    },
+    {
+      "name": "Luis Miguel Rodriguez",
+      "role": "inventor",
+      "match_entity_id": null,
+      "match_status": "unresolved",
+      "confidence": "low"
+    },
+    {
+      "name": "DrisRaspTwentySix",
+      "role": "variety",
+      "match_entity_id": null,
+      "match_status": "unresolved",
+      "confidence": "medium"
+    },
+    {
+      "name": "USPP37404P2",
+      "role": "patent",
+      "match_entity_id": null,
+      "match_status": "unresolved",
+      "confidence": "medium"
+    }
+  ],
+  "evidence_links": [
+    {
+      "predicate": "corroborates",
+      "target_evidence_id": "ev-20260806175538-1308-driscoll-s-announces-dutch-harvest-fruit",
+      "status": "proposed",
+      "notes": "Assignee/variety entity already linked on existing Evidence; patent filing proposed as additional IP documentation of genetics activity.",
+      "proposed_by": "patent-monitor",
+      "proposed_at": "2026-08-18"
+    },
+    {
+      "predicate": "corroborates",
+      "target_evidence_id": "ev-20260806173904-5cbc-mexico-continues-to-be-the-fastest-growi",
+      "status": "proposed",
+      "notes": "Assignee/variety entity already linked on existing Evidence; patent filing proposed as additional IP documentation of genetics activity.",
+      "proposed_by": "patent-monitor",
+      "proposed_at": "2026-08-18"
+    },
+    {
+      "predicate": "corroborates",
+      "target_evidence_id": "ev-uspp032267-drisbluetwentyone",
+      "status": "proposed",
+      "notes": "Assignee/variety entity already linked on existing Evidence; patent filing proposed as additional IP documentation of genetics activity.",
+      "proposed_by": "patent-monitor",
+      "proposed_at": "2026-08-18"
+    }
+  ],
+  "source_notes": "Untrusted plant-patent pilot capture; not published to trusted intelligence."
+}

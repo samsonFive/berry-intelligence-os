@@ -1,0 +1,214 @@
+{
+  "package": "plant-patent-pilot-2026-08-18",
+  "trust": "untrusted_review_drafts",
+  "status": "draft",
+  "verification_state": "unverified",
+  "write_mode": "do_not_import_into_trusted_data",
+  "note": "Selected real USPTO plant-patent drafts from the 2026-08-18 monitor pilot. Inbox copies remain the live review queue. These files are examples, not trusted intelligence.",
+  "pilot_counts": {
+    "discovered_provider_totals": {
+      "strawberry": 80,
+      "raspberry": 26,
+      "blueberry": "google_503",
+      "blackberry": "google_503"
+    },
+    "berry_relevant_inbox": 75,
+    "strawberry": 50,
+    "raspberry": 25,
+    "review_ready": 75,
+    "duplicates": 0,
+    "created_as_trusted": 0
+  },
+  "records": [
+    {
+      "id": "ev-patent-uspp37298p2",
+      "publication_number": "USPP37298P2",
+      "cultivar_name": "DrisStrawOneHundredTwelve",
+      "assignees": [
+        "Driscoll's, Inc."
+      ],
+      "inventors": [
+        "Omar Carrillo Mendoza"
+      ],
+      "grant_date": "2026-03-03",
+      "filing_date": "2025-04-25",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "entity_ids": [
+        "company-driscolls"
+      ],
+      "verification_state": "unverified",
+      "review_path": "/review/ev-patent-uspp37298p2",
+      "proposed_links": [
+        {
+          "predicate": "corroborates",
+          "status": "proposed",
+          "target_evidence_id": "ev-20260806173540-1f01-strawberry-patent-infringement-case-turn"
+        },
+        {
+          "predicate": "corroborates",
+          "status": "proposed",
+          "target_evidence_id": "ev-20260806173842-9369-driscoll-s-sues-former-uc-davis-scientis"
+        },
+        {
+          "predicate": "corroborates",
+          "status": "proposed",
+          "target_evidence_id": "ev-20260806173842-a512-driscoll-s-files-complaint-against-calif"
+        }
+      ]
+    },
+    {
+      "id": "ev-patent-uspp37404p2",
+      "publication_number": "USPP37404P2",
+      "cultivar_name": "DrisRaspTwentySix",
+      "assignees": [
+        "Driscoll's, Inc."
+      ],
+      "inventors": [
+        "Luis Miguel Rodriguez"
+      ],
+      "grant_date": "2026-05-05",
+      "filing_date": "2025-09-16",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "entity_ids": [
+        "company-driscolls"
+      ],
+      "verification_state": "unverified",
+      "review_path": "/review/ev-patent-uspp37404p2",
+      "proposed_links": [
+        {
+          "predicate": "corroborates",
+          "status": "proposed",
+          "target_evidence_id": "ev-20260806175538-1308-driscoll-s-announces-dutch-harvest-fruit"
+        },
+        {
+          "predicate": "corroborates",
+          "status": "proposed",
+          "target_evidence_id": "ev-20260806173904-5cbc-mexico-continues-to-be-the-fastest-growi"
+        },
+        {
+          "predicate": "corroborates",
+          "status": "proposed",
+          "target_evidence_id": "ev-uspp032267-drisbluetwentyone"
+        }
+      ]
+    },
+    {
+      "id": "ev-patent-uspp36783p2",
+      "publication_number": "USPP36783P2",
+      "cultivar_name": "Plared 19140",
+      "assignees": [
+        "Plantas De Navarra S.A."
+      ],
+      "inventors": [
+        "Manuel Rosas"
+      ],
+      "grant_date": "2025-07-01",
+      "filing_date": "2023-06-13",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "entity_ids": [
+        "company-planasa"
+      ],
+      "verification_state": "unverified",
+      "review_path": "/review/ev-patent-uspp36783p2",
+      "proposed_links": [
+        {
+          "predicate": "corroborates",
+          "status": "proposed",
+          "target_evidence_id": "ev-20260806175534-7c5e-planasa-inaugurates-an-r-d-center-in-mex"
+        },
+        {
+          "predicate": "corroborates",
+          "status": "proposed",
+          "target_evidence_id": "ev-uspp031345-plablue-1545"
+        },
+        {
+          "predicate": "corroborates",
+          "status": "proposed",
+          "target_evidence_id": "ev-20260806175543-de24-cinven-deal-boosts-planasa-s-growth-plan"
+        }
+      ]
+    },
+    {
+      "id": "ev-patent-uspp36334p2",
+      "publication_number": "USPP36334P2",
+      "cultivar_name": "FL 20.80-4",
+      "assignees": [
+        "Florida Foundation Seed Producers, Inc."
+      ],
+      "inventors": [
+        "Vance Whitaker"
+      ],
+      "grant_date": "2024-12-24",
+      "filing_date": "2024-01-09",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "entity_ids": [
+        "company-florida-foundation-seed-producers"
+      ],
+      "verification_state": "unverified",
+      "review_path": "/review/ev-patent-uspp36334p2",
+      "proposed_links": [
+        {
+          "predicate": "corroborates",
+          "status": "proposed",
+          "target_evidence_id": "ev-justia-costa-berry-international"
+        },
+        {
+          "predicate": "corroborates",
+          "status": "proposed",
+          "target_evidence_id": "ev-ffsp-farthing"
+        },
+        {
+          "predicate": "corroborates",
+          "status": "proposed",
+          "target_evidence_id": "ev-ffsp-emerald"
+        }
+      ]
+    },
+    {
+      "id": "ev-patent-uspp35681p2",
+      "publication_number": "USPP35681P2",
+      "cultivar_name": "HFG 1714",
+      "assignees": [
+        "Hortifrut Genetics Limited"
+      ],
+      "inventors": [
+        "Ellen Thompson"
+      ],
+      "grant_date": "2024-03-12",
+      "filing_date": "2022-12-09",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "entity_ids": [
+        "company-hortifrut"
+      ],
+      "verification_state": "unverified",
+      "review_path": "/review/ev-patent-uspp35681p2",
+      "proposed_links": [
+        {
+          "predicate": "corroborates",
+          "status": "proposed",
+          "target_evidence_id": "ev-hortifrut-integrated-report-2023"
+        },
+        {
+          "predicate": "corroborates",
+          "status": "proposed",
+          "target_evidence_id": "ev-ipaustralia-pvj-33-4"
+        },
+        {
+          "predicate": "corroborates",
+          "status": "proposed",
+          "target_evidence_id": "ev-mbg-berry-blue-varieties"
+        }
+      ]
+    }
+  ]
+}
