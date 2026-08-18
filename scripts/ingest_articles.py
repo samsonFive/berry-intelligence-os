@@ -38,9 +38,8 @@ if str(ROOT) not in sys.path:
 from jsonschema import Draft202012Validator, FormatChecker
 
 from app.composition import get_repositories
-from app.main import BERRIES
 from app.repositories.paths import DEFAULT_DATA_DIR, SCHEMAS_DIR
-from app.services.ai_gateway.credentials import MissingCredentialError
+from app.services.ai_gateway.untrusted_complete import maybe_untrusted_completer
 from app.services.article_acquisition import ArticleAcquisitionError, fetch_article
 from app.services.media_discovery import discover_source, list_discovered_items
 from app.services.media_orchestration import (
@@ -48,7 +47,7 @@ from app.services.media_orchestration import (
     MediaOrchestrationError,
     MediaOrchestrationService,
 )
-from app.services.publication_enrichment import EnrichmentError, enrichment_model_configured, generate_enrichment
+from app.services.publication_enrichment import enrich_publication_draft
 from app.services.relevance_screen import screen_relevance
 
 
@@ -115,10 +114,10 @@ def main(argv: list[str] | None = None) -> int:
     all_items.sort(key=lambda item: item.get("published_date") or "", reverse=True)
     selected = all_items[: args.max_items]
 
-    entities = repositories.entities.list()
-    allowed_berry_ids = list(BERRIES.keys())
-    allowed_geography_ids = [e["id"] for e in entities if e.get("entity_type") == "geography" and e.get("id")]
-    allowed_entity_ids = [e["id"] for e in entities if e.get("id")]
+    all_entities = repositories.entities.list()
+    berries = [record for record in all_entities if record.get("entity_type") == "berry"]
+    geographies = [record for record in all_entities if record.get("entity_type") == "geography"]
+    companies = [record for record in all_entities if record.get("entity_type") == "company"]
 
     orchestrator = MediaOrchestrationService(
         repositories=repositories,
@@ -128,10 +127,12 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     threshold_kwargs = {"threshold": args.relevance_threshold} if args.relevance_threshold is not None else {}
-    enrichment_available = enrichment_model_configured() and bool(os.environ.get("PERPLEXITY_API_KEY", "").strip())
     if args.enrichment_model:
-        os.environ["BIOS_ENRICHMENT_MODEL"] = args.enrichment_model
-        enrichment_available = bool(os.environ.get("PERPLEXITY_API_KEY", "").strip())
+        os.environ["BERRY_ENRICHMENT_MODEL"] = args.enrichment_model
+    # Shared with the rest of the Scanner pipeline (app/services/ai_gateway/
+    # untrusted_complete.py, also used by scripts/run_recent_batch.py) --
+    # None when PERPLEXITY_API_KEY is not set, never raises.
+    completer = maybe_untrusted_completer()
 
     counts = {
         "discovered": discovery_result.found,
@@ -244,26 +245,41 @@ def main(argv: list[str] | None = None) -> int:
         draft = json.loads(draft_path.read_text(encoding="utf-8"))
         draft["article"] = body.as_dict()
 
-        if enrichment_available:
-            try:
-                suggestion = generate_enrichment(
-                    title=item.get("title") or "",
-                    description=item.get("description") or "",
-                    content_excerpt=body.full_text,
-                    allowed_berry_ids=allowed_berry_ids,
-                    allowed_geography_ids=allowed_geography_ids,
-                    allowed_entity_ids=allowed_entity_ids,
-                )
-            except (MissingCredentialError, EnrichmentError) as exc:
-                entry["enrichment_error"] = str(exc)
-                counts["enrichment_unavailable"] += 1
-            else:
-                draft["ai_enrichment"] = suggestion.as_dict()
+        if completer is not None:
+            # Reuse the shared enrichment mechanism (deterministic tagging +
+            # optional AI suggestion, same trust markers the rest of the
+            # Scanner/review UI already reads via ai_enrichment.model_
+            # provenance.status) rather than a parallel one -- but feed it
+            # the real extracted article text as the "publisher description"
+            # input, not just the RSS blurb already on `item`, since a
+            # generic-agriculture-style summary alone is not enough for a
+            # useful CI summary. publisher_description() checks this field
+            # before falling back to item["description"], so this is
+            # additive, not destructive of the original RSS text.
+            enrichment_item = dict(item)
+            rss_description = (item.get("description") or "").strip()
+            body_excerpt = body.full_text[:4000].strip()
+            enrichment_item["publisher_description"] = (
+                f"{rss_description}\n\nFull article text:\n{body_excerpt}" if rss_description else body_excerpt
+            )[:4000]
+            draft = enrich_publication_draft(
+                draft,
+                enrichment_item,
+                berries=berries,
+                geographies=geographies,
+                entities=companies,
+                complete_json=completer,
+            )
+            status = ((draft.get("ai_enrichment") or {}).get("model_provenance") or {}).get("status")
+            if status == "ok":
                 counts["enriched"] += 1
                 entry["enriched"] = True
+            else:
+                counts["enrichment_unavailable"] += 1
+                entry["enrichment_error"] = (draft.get("ai_enrichment") or {}).get("caveats") or f"enrichment status: {status}"
         else:
             counts["enrichment_unavailable"] += 1
-            entry["enrichment_error"] = "PERPLEXITY_API_KEY or BIOS_ENRICHMENT_MODEL not configured"
+            entry["enrichment_error"] = "PERPLEXITY_API_KEY not configured"
 
         draft_path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         entry["outcome"] = "review_ready"
