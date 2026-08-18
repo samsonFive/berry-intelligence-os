@@ -44,10 +44,10 @@ DNS for `review.example.com` (do not hardcode a real customer domain in this rep
 
 IONOS: this stack needs a **Linux VPS / VPS-like host with Docker Engine + Compose**. IONOS shared web hosting (FTP/PHP/CGI, no long-running processes) cannot run FastAPI this way. Do not bend the app into shared-hosting CGI.
 
-Then enable Caddy TLS:
+Then enable Caddy TLS. The app container is **loopback-only** (`127.0.0.1:8000`). Do not publish port 8000 on `0.0.0.0`.
 
 ```bash
-BIOS_DEMO_SITE=review.example.com docker compose --env-file deploy/.env -f deploy/docker-compose.yml --profile tls up -d
+BIOS_DEMO_SITE=review.example.com docker compose --env-file deploy/.env -f deploy/docker-compose.yml --profile tls up -d --build
 ```
 
 Open `https://review.example.com/work-queue`.
@@ -61,3 +61,5 @@ BIOS_REVIEW_USERNAME=demo BIOS_REVIEW_PASSWORD=demo-local \
   docker compose --env-file /dev/stdin -f deploy/docker-compose.yml up --build -d
 # then: curl -u demo:demo-local http://127.0.0.1:8000/work-queue
 ```
+
+A Linux VPS bootstrap lives in `scripts/vps_bootstrap.sh`. It binds the app to loopback and puts Caddy on 80/443.
