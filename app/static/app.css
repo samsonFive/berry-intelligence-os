@@ -277,6 +277,50 @@ strong.level-low{color:#426aa8}
 .scanner-strip-compact{padding:14px 16px}
 .scanner-strip-compact .scanner-tile dd{font-size:22px}
 
+.intel-filters{display:flex;flex-wrap:wrap;gap:8px;padding:0 32px 18px}
+.intel-filters a{text-decoration:none;color:#3c4a63;background:white;border:1px solid #dfe4ef;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600}
+.intel-filters a.active{background:#173d70;color:white;border-color:#173d70}
+.intel-feed{padding:0 32px 28px;max-width:1080px}
+.intel-card-list{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.intel-card{background:white;border:1px solid #e0e5ef;border-radius:14px;padding:18px 20px;box-shadow:0 8px 24px rgba(16,37,72,.04)}
+.intel-card h3{margin:8px 0 4px;font-size:20px;line-height:1.35}
+.intel-card h3 a{color:#152443;text-decoration:none}
+.intel-card h3 a:hover{color:#3d5c94}
+.intel-card .why{margin-top:10px}
+.intel-card-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.intel-card-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.intel-card-pending{border-left:4px solid #6d50c7}
+.intel-card-trusted{border-left:4px solid #1c6b42}
+.intel-card-attention{border-left:4px solid #c0581a}
+.intel-card-disputed{border-left:4px solid #a3271f}
+.intel-trust-pending{color:#5e65c7;background:#eee8ff}
+.intel-trust-trusted{color:#1c6b42;background:#e2f6e9}
+.intel-trust-attention{color:#8a5a10;background:#fdefd9}
+.intel-trust-disputed{color:#a3271f;background:#fdeaea}
+.intel-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.intel-chip{display:inline-block;background:#e9f1fb;color:#1d5fa8;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:700;text-decoration:none}
+.intel-chip:hover{background:#d7e6f8}
+.intel-chip-muted{background:#eef1f6;color:#536076}
+.intel-secondary{padding-top:8px}
+.intel-reader{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(280px,.9fr);gap:22px;padding:0 32px 48px;max-width:1180px;align-items:start}
+.intel-reader-main,.intel-reader-side{background:white;border:1px solid #e0e5ef;border-radius:14px;padding:22px 24px}
+.intel-reader-side{position:sticky;top:18px;display:grid;gap:18px}
+.intel-reader-side h2,.intel-reader-main h2{margin:0 0 8px;font-size:15px;color:#3c4a63}
+.intel-body p,.intel-transcript p{line-height:1.65;color:#25344e}
+.intel-transcript p{margin:0 0 12px}
+.locator{display:inline-block;min-width:3.2em;margin-right:8px;color:#6d50c7;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+.intel-patent{display:grid;grid-template-columns:140px 1fr;gap:8px 14px;margin:12px 0}
+.intel-patent dt{font-weight:700;color:#3c4a63}
+.intel-patent dd{margin:0;color:#536076}
+.intel-ai-panel{background:#f7f4ff;border:1px solid #e3d9fb;border-radius:10px;padding:12px 14px}
+.intel-promote .login-submit{width:100%}
+.intel-claims{margin-top:28px}
+@media(max-width:834px){
+  .intel-filters,.intel-feed,.intel-reader{padding-left:16px;padding-right:16px}
+  .intel-reader{grid-template-columns:1fr}
+  .intel-reader-side{position:static}
+}
+
 .publication-card-list{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:12px}
 .publication-card{border:1px solid #e3e7ef;border-radius:10px;padding:14px 16px;background:#fbfcfe}
 .publication-card-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}

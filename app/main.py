@@ -49,7 +49,6 @@ from app.services.review_workbench import (
     build_scanner_summary,
     format_locator,
     load_publication_transcript_readiness,
-    rank_publication_cards,
     unknown_transcript_readiness,
 )
 from app.runtime_config import (
@@ -57,8 +56,10 @@ from app.runtime_config import (
     remote_interactive_enabled,
     resolve_data_dir,
     resolve_inbox_dir,
+    review_username,
     validate_remote_interactive_config,
 )
+from app.services.intelligence_feed import build_intelligence_feed, build_reader
 from app.session_auth import (
     EnvSessionMiddleware,
     auth_template_context,
@@ -1753,30 +1754,32 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
 
 
 @app.get("/work-queue", response_class=HTMLResponse)
-def work_queue(request: Request) -> HTMLResponse:
+def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
     evidence = published_evidence()
     high_priority = [
         r for r in evidence if any(v.get("level") == "high" for v in (r.get("priority") or {}).values())
     ]
     readiness = load_publication_transcript_readiness(INBOX_DIR)
-    pending = pending_publication_drafts()
-    entities = entity_index()
-    review_cards = []
-    for draft in pending:
-        presentation = deepcopy(draft)
-        presentation["transcript_readiness"] = deepcopy(
-            readiness.get(draft.get("id")) or unknown_transcript_readiness()
-        )
-        attach_publication_card(presentation, entities=entities, berry_labels=BERRIES)
-        review_cards.append(presentation)
-    review_cards = rank_publication_cards(review_cards)[:8]
+    feed = build_intelligence_feed(
+        drafts=list_drafts(),
+        published=evidence,
+        entities=entity_index(),
+        berry_labels=BERRIES,
+        transcript_readiness=readiness,
+        filter_key=filter,
+        limit=48,
+    )
     return templates.TemplateResponse(
         request=request,
         name="work_queue.html",
         context={
             "recent_evidence": evidence[:5],
             "drafts": list_pending_drafts(),
-            "review_cards": review_cards,
+            "review_cards": [],
+            "feed": feed,
+            "promoted_id": request.query_params.get("promoted") or "",
+            "promoted_title": request.query_params.get("promoted_title") or "",
+            "promoted_date": request.query_params.get("promoted_date") or "",
             "scanner": build_scanner_summary(
                 inbox_dir=INBOX_DIR,
                 drafts=list_drafts(),
@@ -1788,7 +1791,73 @@ def work_queue(request: Request) -> HTMLResponse:
             "recent_signals": all_signals()[:5],
             "queue_summary": queue_counts(),
             "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
         },
+    )
+
+
+def _load_intelligence_record(item_id: str) -> dict[str, Any] | None:
+    draft = get_draft(item_id)
+    if draft is not None and draft.get("status") != "rejected":
+        return draft
+    record = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.get(item_id)
+    if record is not None and record.get("status") == "published":
+        return record
+    return None
+
+
+def _default_reader_reviewer(request: Request, values: dict[str, Any]) -> str:
+    return (
+        str(values.get("reviewer") or "").strip()
+        or session_username(request)
+        or review_username()
+        or ""
+    )
+
+
+def _intelligence_page_context(
+    request: Request,
+    record: dict[str, Any],
+    *,
+    error: str | None = None,
+    values: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    readiness_map = load_publication_transcript_readiness(INBOX_DIR)
+    readiness = deepcopy(readiness_map.get(record.get("id")) or unknown_transcript_readiness())
+    reader = build_reader(
+        record,
+        entities=entity_index(),
+        berry_labels=BERRIES,
+        inbox_dir=INBOX_DIR,
+        published=published_evidence(),
+        atomic_drafts=list_drafts(),
+        transcript_readiness=readiness,
+    )
+    if values is None:
+        values = {} if record.get("status") == "published" else _default_review_values(record)
+    reviewer = _default_reader_reviewer(request, values)
+    values = {**values, "reviewer": reviewer}
+    return {
+        **reader,
+        "record": record,
+        "values": values,
+        "reviewer": reviewer,
+        "authoring_mode": AUTHORING_MODE,
+        "promoted": request.query_params.get("promoted") == "1",
+        "saved": request.query_params.get("saved") == "1",
+        "error": error,
+    }
+
+
+@app.get("/intelligence/{item_id}", response_class=HTMLResponse)
+def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
+    record = _load_intelligence_record(item_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail="Intelligence item not found")
+    return templates.TemplateResponse(
+        request=request,
+        name="intelligence_reader.html",
+        context=_intelligence_page_context(request, record),
     )
 
 
@@ -2754,9 +2823,22 @@ def _safe_review_return(value: str | None, *, fallback: str = "/review") -> str:
     if not value:
         return fallback
     parsed = urlsplit(value)
-    if parsed.scheme or parsed.netloc or parsed.path != "/review":
+    if parsed.scheme or parsed.netloc:
         return fallback
-    return parsed.path + (f"?{parsed.query}" if parsed.query else "")
+    path = parsed.path or ""
+    if not path.startswith("/") or ".." in path or path.startswith("//"):
+        return fallback
+    parts = [segment for segment in path.split("/") if segment]
+    allowed = False
+    if path == "/review" or path.startswith("/review/"):
+        allowed = len(parts) <= 2
+    elif path == "/work-queue":
+        allowed = True
+    elif path.startswith("/intelligence/") or path.startswith("/evidence/"):
+        allowed = len(parts) == 2
+    if not allowed:
+        return fallback
+    return path + (f"?{parsed.query}" if parsed.query else "")
 
 
 def _review_publish_service() -> ReviewPublishService:
@@ -3336,11 +3418,12 @@ async def review_save(request: Request, draft_id: str) -> HTMLResponse | Redirec
     if berries:
         draft["berry_ids"] = berries
     save_draft(draft)
+    return_to = _safe_review_return(field("return_to"), fallback=f"/review/{draft_id}")
     if field("advance").strip() == "next":
         next_id = adjacent_publication_draft_id(draft_id)
         if next_id:
             return RedirectResponse(url=f"/review/{next_id}", status_code=303)
-    return RedirectResponse(url=f"/review/{draft_id}", status_code=303)
+    return RedirectResponse(url=return_to, status_code=303)
 
 
 @app.post("/review/{draft_id}/reject")

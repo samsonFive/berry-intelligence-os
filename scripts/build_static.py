@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from app.main import (  # noqa: E402
+    BERRIES,
     PRIORITY_DIMENSIONS,
     PRIORITY_LEVELS,
     PRIORITY_QUEUE_LABELS,
@@ -46,6 +47,7 @@ from app.main import (  # noqa: E402
     sources_page_context,
     templates,
 )
+from app.services.intelligence_feed import build_intelligence_feed  # noqa: E402
 from app.services.review_workbench import build_public_scanner_summary  # noqa: E402
 
 OUTPUT_DIR = ROOT / "generated"
@@ -263,6 +265,14 @@ def build() -> list[Path]:
 
     # Scanner / work queue — trusted published snapshot only. Never read inbox/.
     high_priority = [r for r in evidence if any(v.get("level") == "high" for v in (r.get("priority") or {}).values())]
+    feed = build_intelligence_feed(
+        drafts=[],
+        published=evidence,
+        entities=entities,
+        berry_labels=BERRIES,
+        filter_key="all",
+        limit=48,
+    )
     written.append(
         write_page(
             "work_queue.html",
@@ -271,6 +281,7 @@ def build() -> list[Path]:
                 "recent_evidence": evidence[:5],
                 "drafts": [],
                 "review_cards": [],
+                "feed": feed,
                 "scanner": build_public_scanner_summary(evidence),
                 "unresolved_entities": [e for e in all_entities() if e.get("status") == "unverified"],
                 "high_priority": high_priority[:5],

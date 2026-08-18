@@ -1,87 +1,74 @@
 {% extends "base.html" %}
-{% block title %}Scanner — Berry Intelligence OS{% endblock %}
+{% block title %}Intelligence — Berry Intelligence OS{% endblock %}
 {% block content %}
 <section class="page-heading">
   <div>
-    <p class="eyebrow">THE SYSTEM WATCHES</p>
+    <p class="eyebrow">LIVE INTELLIGENCE</p>
     <h1>Scanner</h1>
-    <p class="also-known-as">What the system found, what deserves attention, and what still needs a human decision.</p>
+    <p class="also-known-as">What's new. What's important. What needs your attention. What you have already trusted.</p>
   </div>
   {% if authoring_mode %}
-    <a class="button-link" href="/review?kind=publication">Open review queue</a>
+    <a class="button-link" href="/review?kind=publication">Advanced queue</a>
   {% endif %}
 </section>
 
 {% include "_scanner_strip.html" %}
 
-<div class="cockpit-grid">
-  <section class="cockpit-card cockpit-card-wide">
-    {% if static_build %}
-      <h2>Trusted intelligence</h2>
-      <p class="empty-state">Interactive publication review is local-only. This public snapshot does not include unpublished drafts or untrusted AI proposals.</p>
-      <ul class="simple-list">
-        <li><a href="/landscapes/berries/blueberry">Blueberry Landscape</a></li>
-        <li><a href="/sources">Sources</a></li>
-        <li><a href="/entities/company">Competitors</a></li>
-        <li><a href="/entities/variety">Varieties</a></li>
-        <li><a href="/entities/geography">Geographies</a></li>
-      </ul>
-    {% else %}
-      <h2>Needs publication review</h2>
-      {% if review_cards %}
-        <ul class="publication-card-list">
-          {% for draft in review_cards %}
-            <li class="publication-card">
-              <div class="publication-card-top">
-                <h3><a href="/review/{{ draft.id }}">{{ draft.title }}</a></h3>
-                <a class="action-button action-approve" href="/review/{{ draft.id }}">Review</a>
-              </div>
-              <p class="draft-meta">{{ draft.source_name or draft.submitted_by }} · {{ (draft.published_date or draft.captured_date)|us_date }}</p>
-              {% if draft.card %}
-                <div class="publication-card-flags">
-                  {% if draft.card.relevance_band %}<span class="badge badge-claim">{{ draft.card.relevance_band }} relevance</span>{% endif %}
-                  {% if draft.card.ai_untrusted %}<span class="badge badge-muted">AI assisted · untrusted</span>{% endif %}
-                  {% if draft.card.transcript_label %}<span class="badge transcript-state-{{ draft.card.transcript_state }}">{{ draft.card.transcript_label }}</span>{% endif %}
-                </div>
-                {% if draft.card.why %}<div class="why"><strong>Why it matters</strong><p>{{ draft.card.why|truncate(220) }}</p></div>{% endif %}
-                {% if draft.card.summary %}<p>{{ draft.card.summary|truncate(220) }}</p>{% endif %}
-              {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
-        <a href="/review?kind=publication">View all items that need review →</a>
-      {% else %}
-        <p class="empty-state">Nothing waiting for publication review.</p>
-      {% endif %}
-    {% endif %}
-  </section>
+{% if promoted_title %}
+  <div class="banner banner-success" role="status">
+    Promoted to trusted intelligence{% if promoted_date %} · {{ promoted_date }}{% endif %}.
+    {% if promoted_id %}<a href="/intelligence/{{ promoted_id }}">Open item</a>{% endif %}
+  </div>
+{% endif %}
 
-  <section class="cockpit-card">
-    <h2>Recently accepted</h2>
-    {% if recent_evidence %}
-      <ul class="simple-list">
-        {% for item in recent_evidence %}
-          <li><a href="/evidence/{{ item.id }}">{{ item.title }}</a> <span class="draft-meta">{{ (item.published_date or item.captured_date)|us_date }}</span></li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p class="empty-state">Nothing published yet.</p>
-    {% endif %}
-  </section>
+{% if not static_build %}
+<nav class="intel-filters" aria-label="Intelligence filters">
+  {% for option in feed.filters %}
+    <a href="/work-queue{% if option.key != 'all' %}?filter={{ option.key }}{% endif %}" class="{% if feed.filter == option.key %}active{% endif %}" {% if feed.filter == option.key %}aria-current="page"{% endif %}>{{ option.label }}</a>
+  {% endfor %}
+</nav>
+{% endif %}
 
-  <section class="cockpit-card">
-    <h2>High-priority items</h2>
-    {% if high_priority %}
-      <ul class="simple-list">
-        {% for item in high_priority %}
-          <li><a href="/evidence/{{ item.id }}">{{ item.title }}</a></li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p class="empty-state">Nothing is currently marked high priority.</p>
-    {% endif %}
-  </section>
+<section class="intel-feed" aria-label="Intelligence stream">
+  {% if static_build %}
+    <h2>Trusted intelligence</h2>
+    <p class="empty-state">Interactive reading and promotion are local-only. This public snapshot does not include unpublished drafts or untrusted AI proposals.</p>
+  {% endif %}
+  {% if feed.entries %}
+    <ul class="intel-card-list">
+      {% for item in feed.entries %}
+        <li class="intel-card intel-card-{{ item.trust }}">
+          <div class="intel-card-meta">
+            <span class="badge intel-trust-{{ item.trust }}">{{ item.trust_label }}</span>
+            <span class="badge badge-muted">{{ item.kind_label }}</span>
+            {% if item.relevance_band %}<span class="badge badge-claim">{{ item.relevance_band }} relevance</span>{% endif %}
+            {% if item.ai_untrusted %}<span class="badge badge-muted">AI-assisted · pending analyst review</span>{% endif %}
+          </div>
+          <h3><a href="{{ item.href if not static_build else item.trusted_href }}">{{ item.title }}</a></h3>
+          <p class="draft-meta">{{ item.source_name }}{% if item.date %} · {{ item.date|us_date }}{% endif %}</p>
+          {% if item.why %}<div class="why"><strong>Why it matters</strong><p>{{ item.why|truncate(220) }}</p></div>{% endif %}
+          {% if item.summary %}<p>{{ item.summary|truncate(220) }}</p>{% endif %}
+          {% if item.entities %}
+            <div class="intel-chips">
+              {% for entity in item.entities[:6] %}
+                <a class="intel-chip" href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a>
+              {% endfor %}
+            </div>
+          {% endif %}
+          <div class="intel-card-actions">
+            <a class="action-button action-approve" href="{{ item.href if not static_build else item.trusted_href }}">Read</a>
+            {% if item.source_url %}<a class="action-button" href="{{ item.source_url }}" rel="noreferrer">{{ item.source_action_label }}</a>{% endif %}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">Nothing in this stream yet.</p>
+  {% endif %}
+</section>
 
+{% if not static_build %}
+<div class="cockpit-grid intel-secondary">
   <section class="cockpit-card">
     <h2>Unresolved entity matches ({{ unresolved_entities|length }})</h2>
     {% if unresolved_entities %}
@@ -94,7 +81,6 @@
       <p class="empty-state">No entities are pending verification.</p>
     {% endif %}
   </section>
-
   <section class="cockpit-card">
     <h2>Recently updated signals</h2>
     {% if recent_signals %}
@@ -107,7 +93,6 @@
       <p class="empty-state">No signals recorded yet.</p>
     {% endif %}
   </section>
-
   <section class="cockpit-card">
     <h2>Priority queues</h2>
     <ul class="simple-list">
@@ -118,4 +103,5 @@
     </ul>
   </section>
 </div>
+{% endif %}
 {% endblock %}
