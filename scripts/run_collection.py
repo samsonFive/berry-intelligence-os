@@ -22,7 +22,8 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from app.composition import get_repositories
-from app.repositories.paths import DEFAULT_DATA_DIR, SCHEMAS_DIR
+from app.repositories.paths import SCHEMAS_DIR
+from app.runtime_config import resolve_data_dir, resolve_inbox_dir
 from app.services.ai_extraction import (
     PROMPT_VERSION,
     OpenAICompatibleExtractionConfig,
@@ -105,9 +106,17 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--retry-backoff-seconds", type=int, default=1800)
     parser.add_argument("--lock-stale-seconds", type=int, default=21600)
     parser.add_argument("--json", action="store_true", help="Print the complete machine-readable run summary")
-    parser.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
+    parser.add_argument(
+        "--data-dir", type=Path, default=None,
+        help="Defaults to BIOS_RUNTIME_DIR/data (or BIOS_DATA_DIR) if set, else <repo>/data -- "
+        "same resolution app/main.py uses, so a scheduled run against a deployed container's "
+        "mounted runtime volume writes where the app actually reads from, not a container-local path.",
+    )
     parser.add_argument("--schemas-dir", type=Path, default=SCHEMAS_DIR)
-    parser.add_argument("--inbox-dir", type=Path, default=ROOT / "inbox")
+    parser.add_argument(
+        "--inbox-dir", type=Path, default=None,
+        help="Defaults to BIOS_RUNTIME_DIR/inbox (or BIOS_INBOX_DIR) if set, else <repo>/inbox.",
+    )
     parser.add_argument("--operations-dir", type=Path, help="Defaults to <inbox>/operations")
     return parser
 
@@ -148,6 +157,10 @@ def _human_summary(payload: dict) -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = _parser()
     args = parser.parse_args(argv)
+    if args.data_dir is None:
+        args.data_dir = resolve_data_dir(ROOT)
+    if args.inbox_dir is None:
+        args.inbox_dir = resolve_inbox_dir(ROOT)
     for name, value in (
         ("--max-transcriptions", args.max_transcriptions),
         ("--max-items", args.max_items),
