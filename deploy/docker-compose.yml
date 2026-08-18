@@ -12,6 +12,8 @@ services:
       ENABLE_SOURCE_POLLING: "false"
       BIOS_REVIEW_USERNAME: ${BIOS_REVIEW_USERNAME:?set BIOS_REVIEW_USERNAME in deploy/.env}
       BIOS_REVIEW_PASSWORD: ${BIOS_REVIEW_PASSWORD:?set BIOS_REVIEW_PASSWORD in deploy/.env}
+      BIOS_SESSION_SECRET: ${BIOS_SESSION_SECRET:?set BIOS_SESSION_SECRET in deploy/.env}
+      BIOS_BASIC_AUTH: ${BIOS_BASIC_AUTH:-false}
     volumes:
       - ${BIOS_DEMO_RUNTIME:-../demo-runtime}/data:/app/runtime/data
       - ${BIOS_DEMO_RUNTIME:-../demo-runtime}/inbox:/app/runtime/inbox

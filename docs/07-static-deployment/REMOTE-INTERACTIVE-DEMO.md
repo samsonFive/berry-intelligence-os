@@ -20,10 +20,28 @@ The image does **not** bake `inbox/` or credentials. `BIOS_RUNTIME_DIR=/app/runt
 
 When `BIOS_REMOTE_INTERACTIVE=true` (compose default):
 
-- HTTP Basic Auth using `BIOS_REVIEW_USERNAME` / `BIOS_REVIEW_PASSWORD`
-- No default password; process refuses to start if either is missing
-- `/healthz` stays unauthenticated
-- Every other route, including Scanner and review, requires credentials
+- Application login at `GET /login` using `BIOS_REVIEW_USERNAME` / `BIOS_REVIEW_PASSWORD`
+- Signed HttpOnly session cookie using `BIOS_SESSION_SECRET` (must not be the review password)
+- No default password or signing secret; process refuses to start if any required secret is missing
+- Unauthenticated visits to Scanner, review, and other app routes redirect to `/login?next=…`
+- `/healthz` and `/static/*` stay unauthenticated
+- HTTP Basic Auth is **off by default**. Enable only with `BIOS_BASIC_AUTH=true` as an emergency fallback. Do not put Basic Auth in front of `/login`.
+
+Generate the session secret on the host. Do not paste it into chat:
+
+```bash
+# append to an existing deploy/.env (value is not printed)
+python3 - <<'PY'
+from pathlib import Path
+import secrets
+path = Path("/opt/berry-intelligence-os/deploy/.env")
+text = path.read_text()
+if "BIOS_SESSION_SECRET=" not in text:
+    path.write_text(text.rstrip() + "\nBIOS_SESSION_SECRET=" + secrets.token_hex(32) + "\n")
+    path.chmod(0o600)
+print("BIOS_SESSION_SECRET is present in", path)
+PY
+```
 
 ## Shortest VPS procedure
 
@@ -32,7 +50,7 @@ Requires a Linux VPS with Docker Engine + Compose plugin. IONOS **shared** hosti
 ```bash
 python scripts/export_demo_runtime.py --output demo-runtime
 # copy repo + demo-runtime to the VPS
-cp deploy/.env.example deploy/.env   # set username, password, BIOS_DEMO_SITE=review.example.com
+cp deploy/.env.example deploy/.env   # set username, password, session secret, BIOS_DEMO_SITE=review.example.com
 docker compose --env-file deploy/.env -f deploy/docker-compose.yml up -d --build
 ```
 
@@ -50,16 +68,18 @@ Then enable Caddy TLS. The app container is **loopback-only** (`127.0.0.1:8000`)
 BIOS_DEMO_SITE=review.example.com docker compose --env-file deploy/.env -f deploy/docker-compose.yml --profile tls up -d --build
 ```
 
-Open `https://review.example.com/work-queue`.
+Open `https://review.example.com/login`, then Scanner at `/work-queue`.
 
 ## Local proof without DNS
 
 ```bash
 python scripts/export_demo_runtime.py --output demo-runtime
 BIOS_REVIEW_USERNAME=demo BIOS_REVIEW_PASSWORD=demo-local \
+  BIOS_SESSION_SECRET="$(openssl rand -hex 32)" \
   BIOS_DEMO_RUNTIME=../demo-runtime \
   docker compose --env-file /dev/stdin -f deploy/docker-compose.yml up --build -d
-# then: curl -u demo:demo-local http://127.0.0.1:8000/work-queue
+# then: curl -sS -o /dev/null -w '%{http_code} %{redirect_url}\n' http://127.0.0.1:8000/work-queue
+# expected: 302 to /login?next=/work-queue
 ```
 
 A Linux VPS bootstrap lives in `scripts/vps_bootstrap.sh`. It binds the app to loopback and puts Caddy on 80/443.

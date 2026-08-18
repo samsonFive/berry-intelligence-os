@@ -50,10 +50,12 @@ fi
 ENV_FILE=deploy/.env
 if [ ! -f "$ENV_FILE" ]; then
   PASS="$(openssl rand -hex 24)"
+  SESSION_SECRET="$(openssl rand -hex 32)"
   umask 077
   cat > "$ENV_FILE" <<EOF
 BIOS_REVIEW_USERNAME=$USER_NAME
 BIOS_REVIEW_PASSWORD=$PASS
+BIOS_SESSION_SECRET=$SESSION_SECRET
 BIOS_DEMO_SITE=$SITE
 BIOS_DEMO_RUNTIME=../demo-runtime
 BIOS_APP_BIND=127.0.0.1
@@ -61,9 +63,14 @@ BIOS_APP_PORT=8000
 BIOS_HTTP_PORT=80
 BIOS_HTTPS_PORT=443
 EOF
-  echo "Wrote $ENV_FILE. Username is $USER_NAME. Password is not printed; read it on the VPS with: sudo grep BIOS_REVIEW_USERNAME $ROOT/$ENV_FILE"
+  echo "Wrote $ENV_FILE. Username is $USER_NAME. Secrets are not printed; read the username with: sudo grep BIOS_REVIEW_USERNAME $ROOT/$ENV_FILE"
 else
   echo "Keeping existing $ENV_FILE"
+  if ! grep -q '^BIOS_SESSION_SECRET=' "$ENV_FILE"; then
+    umask 077
+    printf '\nBIOS_SESSION_SECRET=%s\n' "$(openssl rand -hex 32)" >> "$ENV_FILE"
+    echo "Added BIOS_SESSION_SECRET to $ENV_FILE (value not printed)"
+  fi
 fi
 
 docker compose --env-file deploy/.env -f deploy/docker-compose.yml --profile tls up -d --build
@@ -83,5 +90,5 @@ if [ "$ok" -ne 1 ]; then
   exit 1
 fi
 
-echo "Loopback healthz OK. Public URL: https://$SITE/work-queue"
+echo "Loopback healthz OK. Public URL: https://$SITE/login"
 echo "App port 8000 is bound to 127.0.0.1 only."
