@@ -53,11 +53,23 @@ from app.services.review_workbench import (
     unknown_transcript_readiness,
 )
 from app.runtime_config import (
-    remote_auth_middleware,
+    credentials_match,
     remote_interactive_enabled,
     resolve_data_dir,
     resolve_inbox_dir,
     validate_remote_interactive_config,
+)
+from app.session_auth import (
+    EnvSessionMiddleware,
+    auth_template_context,
+    clear_login_failures,
+    clear_session,
+    establish_session,
+    login_is_throttled,
+    record_login_failure,
+    remote_auth_middleware,
+    safe_next_path,
+    session_username,
 )
 
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -232,8 +244,12 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Berry Intelligence OS", version="0.1.0", lifespan=lifespan)
 app.middleware("http")(remote_auth_middleware)
+app.add_middleware(EnvSessionMiddleware)
 app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="static")
-templates = Jinja2Templates(directory=BASE_DIR / "app" / "templates")
+templates = Jinja2Templates(
+    directory=BASE_DIR / "app" / "templates",
+    context_processors=[auth_template_context],
+)
 templates.env.globals["pending_review_count"] = lambda: len(list_pending_drafts()) + len(unvalidated_auto_captured_evidence())
 templates.env.globals["queue_counts"] = lambda: queue_counts()
 
@@ -246,6 +262,71 @@ def healthz() -> dict[str, Any]:
         "ok": True,
         "remote_interactive": remote_interactive_enabled(),
     }
+
+
+LOGIN_ERROR = "Username or password is incorrect."
+LOGIN_THROTTLED = "Too many sign-in attempts. Try again in a few minutes."
+
+
+def _login_page(
+    request: Request,
+    *,
+    next_path: str,
+    username: str = "",
+    error: str | None = None,
+) -> HTMLResponse:
+    return templates.TemplateResponse(
+        request=request,
+        name="login.html",
+        context={
+            "next_path": safe_next_path(next_path),
+            "username": username,
+            "error": error,
+        },
+    )
+
+
+@app.get("/login", response_class=HTMLResponse, response_model=None)
+def login_form(request: Request, next: str = "") -> HTMLResponse | RedirectResponse:
+    destination = safe_next_path(next)
+    if session_username(request):
+        return RedirectResponse(url=destination, status_code=303)
+    return _login_page(request, next_path=destination)
+
+
+@app.post("/login", response_model=None)
+async def login_submit(
+    request: Request,
+    username: str = Form(""),
+    password: str = Form(""),
+    next: str = Form(""),
+) -> HTMLResponse | RedirectResponse:
+    destination = safe_next_path(next)
+    presented_username = username.strip()
+    if login_is_throttled(request):
+        return _login_page(
+            request,
+            next_path=destination,
+            username=presented_username,
+            error=LOGIN_THROTTLED,
+        )
+    if credentials_match(presented_username, password):
+        establish_session(request, presented_username)
+        clear_login_failures(request)
+        return RedirectResponse(url=destination, status_code=303)
+    record_login_failure(request)
+    return _login_page(
+        request,
+        next_path=destination,
+        username=presented_username,
+        error=LOGIN_ERROR,
+    )
+
+
+@app.post("/logout")
+async def logout(request: Request) -> RedirectResponse:
+    clear_session(request)
+    return RedirectResponse(url="/login", status_code=303)
 
 
 _JSON_FOLDER_CACHE: dict[Path, tuple[tuple[tuple[str, int, int], ...], list[dict[str, Any]]]] = {}

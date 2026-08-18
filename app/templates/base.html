@@ -166,6 +166,14 @@
             });
           </script>
         {% endif %}
+        {% if analyst_display_name %}
+          <div class="session-control">
+            <span class="session-user">{{ analyst_display_name }}</span>
+            <form action="/logout" method="post">
+              <button type="submit">Sign out</button>
+            </form>
+          </div>
+        {% endif %}
       </header>
       <div data-pagefind-body>
         {% block content %}{% endblock %}

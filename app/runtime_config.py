@@ -5,9 +5,11 @@ root. Remote interactive demo sets `BIOS_RUNTIME_DIR` (and optionally
 `BIOS_DATA_DIR` / `BIOS_INBOX_DIR`) so the same application code runs against
 a bound, persistent runtime tree.
 
-`BIOS_REMOTE_INTERACTIVE=true` enables HTTP Basic Auth driven only by
-`BIOS_REVIEW_USERNAME` / `BIOS_REVIEW_PASSWORD`. There is no default
-password. Missing credentials fail closed at startup.
+`BIOS_REMOTE_INTERACTIVE=true` enables application-session authentication
+driven by `BIOS_REVIEW_USERNAME` / `BIOS_REVIEW_PASSWORD` and signed with
+`BIOS_SESSION_SECRET`. There is no default password. Missing credentials or
+signing secret fail closed at startup. HTTP Basic Auth is opt-in via
+`BIOS_BASIC_AUTH` and is off by default.
 """
 
 from __future__ import annotations
@@ -16,24 +18,26 @@ import os
 import secrets
 from pathlib import Path
 
-from starlette.requests import Request
-from starlette.responses import Response
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 TRUE_VALUES = {"1", "true", "yes", "on"}
 
-INTERACTIVE_PREFIXES = (
-    "/review",
-    "/intake",
-    "/work-queue",
-)
+PUBLIC_WHEN_REMOTE = {"/healthz", "/login", "/logout"}
+PUBLIC_PREFIXES = ("/healthz", "/static/")
 
-PUBLIC_WHEN_REMOTE = {"/healthz"}
+WEAK_SESSION_SECRETS = {
+    "",
+    "replace-me",
+    "replace-me-with-openssl-rand-hex-32",
+    "changeme",
+    "secret",
+}
+
+MIN_SESSION_SECRET_LENGTH = 32
 
 
 class RemoteInteractiveMisconfigured(RuntimeError):
-    """Remote interactive mode is on but credentials are missing."""
+    """Remote interactive mode is on but required secrets are missing."""
 
 
 def env_flag(name: str) -> bool:
@@ -49,6 +53,12 @@ def remote_interactive_enabled() -> bool:
     return env_flag("BIOS_REMOTE_INTERACTIVE")
 
 
+def basic_auth_enabled() -> bool:
+    """Emergency browser prompt. Off unless explicitly enabled."""
+
+    return env_flag("BIOS_BASIC_AUTH")
+
+
 def review_username() -> str:
     return os.environ.get("BIOS_REVIEW_USERNAME", "").strip()
 
@@ -57,6 +67,10 @@ def review_password() -> str:
     # Keep the raw value (including leading/trailing spaces) so operators can
     # choose such a password. Only username is stripped.
     return os.environ.get("BIOS_REVIEW_PASSWORD", "")
+
+
+def session_secret() -> str:
+    return os.environ.get("BIOS_SESSION_SECRET", "")
 
 
 def resolve_data_dir(repo_root: Path | None = None) -> Path:
@@ -89,26 +103,31 @@ def validate_remote_interactive_config() -> None:
             "BIOS_REMOTE_INTERACTIVE is enabled but BIOS_REVIEW_USERNAME and "
             "BIOS_REVIEW_PASSWORD are not both set. Refusing to start."
         )
+    secret = session_secret()
+    if secret in WEAK_SESSION_SECRETS or len(secret) < MIN_SESSION_SECRET_LENGTH:
+        raise RemoteInteractiveMisconfigured(
+            "BIOS_REMOTE_INTERACTIVE is enabled but BIOS_SESSION_SECRET is "
+            "missing or too weak. Refusing to start."
+        )
+    if secrets.compare_digest(secret, review_password()):
+        raise RemoteInteractiveMisconfigured(
+            "BIOS_SESSION_SECRET must not be the same value as "
+            "BIOS_REVIEW_PASSWORD. Refusing to start."
+        )
 
 
 def path_is_protected(path: str, method: str) -> bool:
     normalized = path.rstrip("/") or "/"
-    if normalized in PUBLIC_WHEN_REMOTE or path.startswith("/healthz"):
+    if normalized in PUBLIC_WHEN_REMOTE or path.startswith(PUBLIC_PREFIXES):
+        return False
+    if path == "/static":
         return False
     if not remote_interactive_enabled():
         return False
     # The remote interactive host is the private review instance. GitHub Pages
-    # remains the public trusted snapshot. Protect the whole app except healthz.
+    # remains the public trusted snapshot. Protect the whole app except the
+    # login surface and healthz.
     return True
-
-
-def _unauthorized() -> Response:
-    return Response(
-        content="Authentication required",
-        status_code=401,
-        headers={"WWW-Authenticate": 'Basic realm="Berry Intelligence OS"'},
-        media_type="text/plain",
-    )
 
 
 def credentials_match(username: str, password: str) -> bool:
@@ -119,29 +138,3 @@ def credentials_match(username: str, password: str) -> bool:
     user_ok = secrets.compare_digest(username, expected_user)
     password_ok = secrets.compare_digest(password, expected_password)
     return user_ok and password_ok
-
-
-async def remote_auth_middleware(request: Request, call_next):
-    if not path_is_protected(request.url.path, request.method):
-        return await call_next(request)
-    try:
-        validate_remote_interactive_config()
-    except RemoteInteractiveMisconfigured:
-        return Response(
-            content="Remote interactive mode is misconfigured",
-            status_code=503,
-            media_type="text/plain",
-        )
-    auth = request.headers.get("authorization") or request.headers.get("Authorization")
-    if auth is None or not auth.lower().startswith("basic "):
-        return _unauthorized()
-    try:
-        import base64
-
-        decoded = base64.b64decode(auth.split(" ", 1)[1]).decode("utf-8")
-        username, password = decoded.split(":", 1)
-    except (ValueError, UnicodeDecodeError, OSError):
-        return _unauthorized()
-    if not credentials_match(username, password):
-        return _unauthorized()
-    return await call_next(request)

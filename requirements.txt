@@ -14,6 +14,7 @@ httpx==0.28.1
 # working (2.2.0) against real trade-press article pages during this
 # feature's own pilot run.
 trafilatura==2.2.0
+itsdangerous==2.2.0
 openpyxl==3.1.5
 playwright==1.62.0
 faster-whisper==1.1.1
