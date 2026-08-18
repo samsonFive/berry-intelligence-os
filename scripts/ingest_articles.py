@@ -11,13 +11,16 @@ acquisition (HTTP + readable-text extraction) is a materially different
 operation from audio/video transcription and this is a bounded vertical
 slice, not a recurring-runner redesign.
 
-Relevance is screened twice, deliberately: once cheaply on title+
-description alone (gates whether a publication draft is even created --
-the "before expensive [acquisition and] AI enrichment" discipline), and
-again once the real body is in hand (a more informed score attached to
-the draft for the reviewer, per the task's "use ... article body where
-helpful"). An item screened irrelevant on title+description never reaches
-acquisition or enrichment at all.
+Two-stage relevance, per app/services/relevance_screen.py's design:
+Stage A (title+description) confidently accepts a direct berry mention
+and confidently rejects zero-signal items without ever acquiring
+anything. A Stage A "borderline" result (generic agriculture/pricing
+language, no berry mention -- e.g. an onion or apple-crop story) is
+neither accepted nor rejected yet: the real body is acquired and Stage B
+decides on berry identity alone, never on aggregate score. A confidently
+relevant Stage A result still gets the body acquired (needed for the
+`article` field and enrichment either way), just without needing Stage B
+to decide relevance first.
 """
 
 from __future__ import annotations
@@ -68,8 +71,11 @@ def _human(report: dict) -> str:
         f"Source: {report['source_id']}",
         f"  discovered: {counts['discovered']}",
         f"  selected (most recent, capped): {counts['selected']}",
-        f"  relevant (title/description screen): {counts['relevant']}",
+        f"  relevant (final, stage A + confirmed borderline): {counts['relevant']}",
         f"  skipped (irrelevant): {counts['skipped_irrelevant']}",
+        f"  borderline checked against real body: {counts['borderline_checked']}"
+        f" (confirmed relevant {counts['borderline_confirmed_relevant']},"
+        f" confirmed irrelevant {counts['borderline_confirmed_irrelevant']})",
         f"  acquired (real article body): {counts['acquired']}",
         f"  blocked/failed acquisition: {counts['acquisition_failed']}",
         f"  duplicate (already had a draft/trusted parent): {counts['duplicate']}",
@@ -132,6 +138,9 @@ def main(argv: list[str] | None = None) -> int:
         "selected": len(selected),
         "relevant": 0,
         "skipped_irrelevant": 0,
+        "borderline_checked": 0,
+        "borderline_confirmed_relevant": 0,
+        "borderline_confirmed_irrelevant": 0,
         "acquired": 0,
         "acquisition_failed": 0,
         "duplicate": 0,
@@ -145,27 +154,28 @@ def main(argv: list[str] | None = None) -> int:
         item_id = item["id"]
         entry: dict = {"item_id": item_id, "title": item.get("title")}
 
-        title_screen = screen_relevance(
+        stage_a = screen_relevance(
             title=item.get("title") or "", description=item.get("description") or "", **threshold_kwargs
         )
-        entry["relevance_screen_title_only"] = title_screen.as_dict()
-        if not title_screen.relevant:
+        entry["relevance_screen_stage_a"] = stage_a.as_dict()
+
+        if not stage_a.needs_body_check and not stage_a.relevant:
+            # Confidently irrelevant on metadata alone -- zero signal at
+            # all. Cheapest possible exit: no acquisition, no draft.
             entry["outcome"] = "skipped_irrelevant"
             counts["skipped_irrelevant"] += 1
             report_items.append(entry)
             continue
-        counts["relevant"] += 1
 
-        # Check existing representation *before* creating anything --
-        # orchestrator.process() populates publication_draft_id both when
-        # it creates a brand-new draft and when it finds an already-
-        # existing pending one (same field, two different meanings), so
-        # that field alone can't distinguish "new" from "duplicate." A
-        # prior resolution status of anything but "none" means something
-        # already represents this item (trusted publication, a pending
-        # draft awaiting review, or a rejected draft) -- exactly the "same
-        # article discovered twice -> reuse/skip, idempotent" case, not a
-        # new publication.
+        # Check existing representation *before* acquiring or creating
+        # anything -- orchestrator.process() populates publication_draft_id
+        # both when it creates a brand-new draft and when it finds an
+        # already-existing pending one (same field, two different
+        # meanings), so that field alone can't distinguish "new" from
+        # "duplicate." A prior resolution status of anything but "none"
+        # means something already represents this item (trusted
+        # publication, a pending draft, or a rejected draft) -- exactly the
+        # "same article discovered twice -> reuse/skip, idempotent" case.
         try:
             existing = orchestrator.resolve_publication_artifact(item)
         except MediaOrchestrationError as exc:
@@ -179,6 +189,40 @@ def main(argv: list[str] | None = None) -> int:
             counts["duplicate"] += 1
             report_items.append(entry)
             continue
+
+        # Stage A was either confidently relevant (a direct berry mention)
+        # or borderline (generic agriculture signal, no berry mention) --
+        # either way the real body is needed now: to attach the `article`
+        # field for a confident item, or to let Stage B decide a
+        # borderline one on berry identity alone, never on score.
+        try:
+            body = fetch_article(item.get("canonical_url") or "")
+        except ArticleAcquisitionError as exc:
+            entry["outcome"] = "acquisition_failed"
+            entry["acquisition_failure_category"] = exc.category
+            entry["error"] = str(exc)
+            counts["acquisition_failed"] += 1
+            report_items.append(entry)
+            continue
+        counts["acquired"] += 1
+
+        if stage_a.needs_body_check:
+            counts["borderline_checked"] += 1
+            stage_b = screen_relevance(
+                title=item.get("title") or "",
+                description=item.get("description") or "",
+                body=body.full_text,
+                **threshold_kwargs,
+            )
+            entry["relevance_screen_stage_b"] = stage_b.as_dict()
+            if not stage_b.relevant:
+                counts["borderline_confirmed_irrelevant"] += 1
+                entry["outcome"] = "skipped_irrelevant"
+                report_items.append(entry)
+                continue
+            counts["borderline_confirmed_relevant"] += 1
+
+        counts["relevant"] += 1
 
         try:
             result = orchestrator.process(item_id, dry_run=False)
@@ -196,29 +240,9 @@ def main(argv: list[str] | None = None) -> int:
 
         draft_id = result.publication_draft_id
         entry["draft_id"] = draft_id
-
-        try:
-            body = fetch_article(item.get("canonical_url") or "")
-        except ArticleAcquisitionError as exc:
-            entry["outcome"] = "acquisition_failed"
-            entry["acquisition_failure_category"] = exc.category
-            entry["error"] = str(exc)
-            counts["acquisition_failed"] += 1
-            report_items.append(entry)
-            continue
-
-        counts["acquired"] += 1
         draft_path = args.inbox_dir / "evidence" / f"{draft_id}.json"
         draft = json.loads(draft_path.read_text(encoding="utf-8"))
         draft["article"] = body.as_dict()
-
-        full_screen = screen_relevance(
-            title=item.get("title") or "",
-            description=item.get("description") or "",
-            body=body.full_text,
-            **threshold_kwargs,
-        )
-        entry["relevance_screen_with_body"] = full_screen.as_dict()
 
         if enrichment_available:
             try:
