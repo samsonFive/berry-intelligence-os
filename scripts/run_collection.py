@@ -37,7 +37,12 @@ from app.services.collection_runner import (
     resolve_extraction_gate,
 )
 from app.services.media_discovery import DiscoveryError, discover_source
-from app.services.media_orchestration import MediaOrchestrationService, MediaTranscriptionAdapter
+from app.services.media_orchestration import (
+    MediaOrchestrationService,
+    MediaTranscriptionAdapter,
+    OrchestrationResult,
+    ParentResolution,
+)
 from app.services.media_transcription import (
     AVAILABLE_WHISPER_MODELS,
     DEFAULT_WHISPER_MODEL,
@@ -66,6 +71,15 @@ def _parser() -> argparse.ArgumentParser:
         help="Offline, no-write plan using configured Sources and already-staged items; discovery is not called",
     )
     parser.add_argument("--skip-transcription", action="store_true", help="Reuse valid caches but do not acquire/transcribe missing media")
+    parser.add_argument(
+        "--allow-historical-backfill",
+        action="store_true",
+        help=(
+            "Opt into a spoken-media source's full back-catalog on its first-ever discovery run "
+            "(default: a bounded recent window only -- see app.services.media_discovery.classify_initial_backlog) "
+            "and into drafting already-staged items flagged historical_backlog by a prior run."
+        ),
+    )
     parser.add_argument("--max-transcriptions", type=int, help="Maximum uncached transcription attempts in this run")
     parser.add_argument("--max-items", type=int, help="Maximum staged items processed in deterministic order")
     parser.add_argument("--model", choices=AVAILABLE_WHISPER_MODELS, default=DEFAULT_WHISPER_MODEL)
@@ -208,6 +222,7 @@ def main(argv: list[str] | None = None) -> int:
             inbox_dir=args.inbox_dir,
             data_dir=args.data_dir,
             schemas_dir=args.schemas_dir,
+            allow_historical_backfill=args.allow_historical_backfill,
         )
 
     def transcript_ready(item: dict) -> bool:
@@ -250,12 +265,28 @@ def main(argv: list[str] | None = None) -> int:
             extraction_service=extraction_service if run_extraction else None,
         )
         item = service.load_item(item_id)
+        if item.get("historical_backlog") and not args.allow_historical_backfill:
+            # Staged (never dropped -- see media_discovery.classify_initial_backlog),
+            # but excluded from the recurring pass's normal drafting so a
+            # spoken-media source's bounded-but-still-real back-catalog
+            # doesn't dominate the Scanner review queue. Re-run with
+            # --allow-historical-backfill for intentional backfill.
+            return OrchestrationResult(
+                item_id=item_id,
+                state="historical_backlog_suppressed",
+                parent_resolution=ParentResolution(
+                    status="skipped",
+                    message="Historical backlog item; rerun with --allow-historical-backfill to draft it.",
+                ),
+                transcript_status="deferred",
+                next_action="No action; outside the source's bounded initial-discovery window.",
+            )
         if item.get("media_format") == "web_article":
             # Real acquisition + two-stage body-aware relevance screening +
             # enrichment, the same pipeline scripts/ingest_articles.py uses
             # standalone -- reachable through the normal recurring runner
             # now instead of only a special-purpose pilot CLI.
-            result, _extra = process_discovered_article(
+            result, extra = process_discovered_article(
                 item,
                 orchestrator=service,
                 inbox_dir=args.inbox_dir,
@@ -265,6 +296,7 @@ def main(argv: list[str] | None = None) -> int:
                 companies=article_companies,
                 dry_run=dry_run,
             )
+            result.relevance_tier = extra.get("relevance_tier")
             return result
         return service.process(item_id, dry_run=dry_run)
 

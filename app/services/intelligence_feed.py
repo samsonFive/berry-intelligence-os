@@ -29,6 +29,7 @@ FEED_FILTERS = (
     ("genetics", "Genetics"),
     ("markets", "Markets / supply"),
     ("consumer", "Consumer"),
+    ("adjacent", "Adjacent signals"),
 )
 
 KIND_LABELS = {
@@ -177,16 +178,27 @@ def matches_filter(item: dict[str, Any], filter_key: str) -> bool:
         return bool(tags & MARKET_TAGS)
     if filter_key == "consumer":
         return bool(tags & CONSUMER_TAGS)
+    if filter_key == "adjacent":
+        return item.get("relevance_tier") == "adjacent"
     return False
 
 
 def _feed_sort_key(item: dict[str, Any]) -> tuple:
+    # relevance_tier ("direct"/"adjacent"/None -- see app/services/
+    # relevance_screen.py) is the primary rank: a direct berry story must
+    # outrank an adjacent one regardless of relevance_band/berry_direct,
+    # which are independent AI-enrichment/tagging signals that don't
+    # capture the same "is a berry the real subject, or one incidental
+    # mention" distinction. Items with no tier at all (podcasts, videos,
+    # trusted Evidence, pre-fix article drafts) are tier-neutral -- ranked
+    # with direct, never penalized for predating this field.
+    tier_rank = 0 if item.get("relevance_tier") == "adjacent" else 1
     band = {"High": 4, "Relevant": 3, "Moderate": 2, "Low": 1}.get(item.get("relevance_band") or "", 0)
     berry = 1 if item.get("berry_direct") else 0
     pending = 1 if item.get("trust") in {"pending", "attention", "disputed"} else 0
     ready = 1 if item.get("transcript_state") == "ready" else 0
     date = str(item.get("date") or "")
-    return (band, berry, pending, ready, date)
+    return (tier_rank, band, berry, pending, ready, date)
 
 
 def _published_for_feed(published: list[dict[str, Any]], *, limit: int = 48) -> list[dict[str, Any]]:
@@ -257,6 +269,7 @@ def present_feed_item(
         "source_action_label": source_label,
         "media_format": record.get("media_format") or "",
         "berry_direct": is_berry_direct(record),
+        "relevance_tier": record.get("relevance_tier"),
         "berry_names": card.get("berries") or [],
         "geo_names": card.get("geographies") or [],
         "transcript_state": card.get("transcript_state"),

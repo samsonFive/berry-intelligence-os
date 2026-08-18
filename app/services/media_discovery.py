@@ -118,6 +118,20 @@ DEDUPE_STRATEGY_PLATFORM_ID = "platform_id"
 DEDUPE_STRATEGY_CANONICAL_URL = "canonical_url"
 DEDUPE_STRATEGY_METADATA_HASH = "metadata_hash"
 
+# Bounded initial-discovery policy for spoken media (Continuous Intelligence
+# Refresh, 2026-08-18). A real recurring run against a source with a deep
+# back-catalog (a podcast feed with hundreds of episodes) produced 562 new
+# untranscribed drafts in a single pass the first time it was ever checked --
+# useful diagnostic evidence, but not acceptable recurring behavior. Article
+# sources are deliberately NOT bounded here: their volume is already gated
+# downstream by app/services/relevance_screen.py's body-aware screening
+# before a draft is ever created, so discovery-time item count was never the
+# article flood's cause the way it is for spoken media (podcast/video items
+# get a draft unconditionally -- there is no per-episode relevance screen).
+SPOKEN_MEDIA_FORMATS = {"podcast", "video", "conference_video"}
+INITIAL_DISCOVERY_MAX_ITEMS = 10
+INITIAL_DISCOVERY_LOOKBACK_DAYS = 30
+
 
 class DiscoveryError(Exception):
     """Raised only for programmer-error inputs (unknown source_id, unknown
@@ -178,6 +192,54 @@ def _parse_duration_to_seconds(raw: str | None) -> int | None:
         parts_int.insert(0, 0)
     hours, minutes, seconds = parts_int
     return hours * 3600 + minutes * 60 + seconds
+
+
+def _parse_published_date(value: str | None):
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(value).date()
+    except ValueError:
+        return None
+
+
+def classify_initial_backlog(
+    indexed_items: list[tuple[int, "NormalizedItem"]],
+    *,
+    now: str,
+    allow_historical_backfill: bool = False,
+) -> set[int]:
+    """Returns the subset of `indexed_items`' indexes that should be flagged
+    `historical_backlog` on a spoken-media source's first-ever discovery
+    run. `indexed_items` is `(index, normalized_item)` pairs for exactly one
+    discover_source() call's successfully-normalized entries -- article
+    items are never included by the caller (see SPOKEN_MEDIA_FORMATS above).
+
+    Policy: keep the INITIAL_DISCOVERY_MAX_ITEMS most recent items published
+    within INITIAL_DISCOVERY_LOOKBACK_DAYS of `now`, plus always the single
+    most recent item regardless of age (a dormant show's only recent episode
+    being 40 days old should still yield one item, not zero -- "capture a
+    small useful recent window", not "capture nothing"). Everything else is
+    backlog. `allow_historical_backfill=True` is the explicit operator
+    override for intentional historical backfill -- returns an empty set,
+    keeping every item current."""
+    if allow_historical_backfill or not indexed_items:
+        return set()
+    now_date = _parse_published_date(now[:10]) or datetime.now(timezone.utc).date()
+    ranked = sorted(
+        indexed_items,
+        key=lambda pair: _parse_published_date(pair[1].published_date) or datetime.min.date(),
+        reverse=True,
+    )
+    keep: set[int] = set()
+    for rank, (index, item) in enumerate(ranked):
+        if rank >= INITIAL_DISCOVERY_MAX_ITEMS:
+            break
+        published = _parse_published_date(item.published_date)
+        within_lookback = published is not None and (now_date - published).days <= INITIAL_DISCOVERY_LOOKBACK_DAYS
+        if within_lookback or rank == 0:
+            keep.add(index)
+    return {index for index, _item in ranked if index not in keep}
 
 
 # ---------------------------------------------------------------------------
@@ -761,6 +823,11 @@ class DiscoveryRunResult:
     found: int = 0
     new: int = 0
     already_known: int = 0
+    # Of `new`, how many were flagged historical_backlog by
+    # classify_initial_backlog() on a spoken-media source's first-ever
+    # discovery run -- staged (never dropped), but excluded from the
+    # recurring orchestration pass's normal drafting by default.
+    historical_backlog: int = 0
     item_failures: list[ItemFailure] = field(default_factory=list)
     items: list[dict[str, Any]] = field(default_factory=list)
     # Populated only for a source configured with more than one feed_url
@@ -781,6 +848,7 @@ class DiscoveryRunResult:
             "found": self.found,
             "new": self.new,
             "already_known": self.already_known,
+            "historical_backlog": self.historical_backlog,
             "item_failures": [
                 {"index": f.index, "identifier": f.identifier, "error": f.error} for f in self.item_failures
             ],
@@ -794,6 +862,7 @@ def discover_source(
     inbox_dir: Path,
     data_dir: Path = DEFAULT_DATA_DIR,
     schemas_dir: Path = SCHEMAS_DIR,
+    allow_historical_backfill: bool = False,
 ) -> DiscoveryRunResult:
     """Run discovery for exactly one Source. Never raises for network/feed
     problems (Phase 6's "understanding failures" requirement) -- those
@@ -811,6 +880,15 @@ def discover_source(
     not a Redagricola-specific branch: any Source, on any adapter, may
     have more than one feed. `feed_url` (singular) keeps working exactly
     as before for every existing single-feed source.
+
+    `allow_historical_backfill` is the explicit operator override for
+    intentional historical backfill of a spoken-media source's full
+    back-catalog; by default (False), a source's first-ever successful
+    discovery run only stages a bounded recent window of podcast/video
+    items (see `classify_initial_backlog()`) -- older entries are still
+    staged (never silently dropped) but flagged `historical_backlog: true`
+    so the recurring orchestration pass does not turn them into review
+    drafts by default.
     """
     repos = get_repositories(data_dir, schemas_dir)
     source = repos.sources.get(source_id)
@@ -863,11 +941,34 @@ def discover_source(
 
     result = DiscoveryRunResult(source_id=source_id, status="ok", found=len(entries), feed_failures=feed_failures)
 
+    # Normalize every entry first (same per-entry failure isolation as
+    # before -- one bad entry's normalize() call never aborts the feed) so
+    # the bounded-backlog policy below can see every successfully-normalized
+    # item's media_format/published_date before any of them are staged.
+    normalized_pairs: list[tuple[int, Any, NormalizedItem]] = []
     for index, entry in enumerate(entries):
         identifier = getattr(entry, "id", None) or getattr(entry, "link", None) or getattr(entry, "title", None)
         try:
-            normalized = normalize(entry)
+            normalized_pairs.append((index, entry, normalize(entry)))
+        except Exception as exc:  # noqa: BLE001 -- one bad item must not abort the whole feed
+            result.item_failures.append(ItemFailure(index=index, identifier=str(identifier) if identifier else None, error=str(exc)))
+
+    first_ever_success = prior_last_success_at is None
+    backlog_indexes: set[int] = set()
+    if first_ever_success:
+        spoken_pairs = [
+            (index, item) for index, _entry, item in normalized_pairs if item.media_format in SPOKEN_MEDIA_FORMATS
+        ]
+        backlog_indexes = classify_initial_backlog(
+            spoken_pairs, now=now, allow_historical_backfill=allow_historical_backfill
+        )
+
+    for index, entry, normalized in normalized_pairs:
+        identifier = getattr(entry, "id", None) or getattr(entry, "link", None) or getattr(entry, "title", None)
+        try:
             record, is_new = upsert_discovered_item(inbox_dir, source_id, normalized, now=now)
+            if is_new and index in backlog_indexes:
+                record["historical_backlog"] = True
             record["possible_evidence_matches"] = find_possible_evidence_matches(
                 record["id"], record, source_id, data_dir=data_dir, schemas_dir=schemas_dir
             )
@@ -875,6 +976,8 @@ def discover_source(
             result.items.append(record)
             if is_new:
                 result.new += 1
+                if index in backlog_indexes:
+                    result.historical_backlog += 1
             else:
                 result.already_known += 1
         except Exception as exc:  # noqa: BLE001 -- one bad item must not abort the whole feed

@@ -229,6 +229,97 @@ def test_feed_ranks_high_relevance_above_generic_and_keeps_trusted(monkeypatch, 
     assert {item["kind"] for item in spoken["entries"]} == {"spoken"}
 
 
+def test_feed_ranks_direct_relevance_tier_above_adjacent_at_equal_band_and_date(monkeypatch, tmp_path: Path) -> None:
+    """Continuous Intelligence Refresh requirement: an Aug-17 direct
+    blueberry-market-access story must generally outrank an Aug-17
+    pear-solar (adjacent) story -- relevance_tier is the primary rank,
+    ahead of relevance_band/berry_direct, which don't capture the same
+    distinction (see app/services/intelligence_feed.py's _feed_sort_key)."""
+    _isolate(monkeypatch, tmp_path)
+    repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    _seed_entities(repos)
+    direct = _publication_draft(
+        "direct-tier",
+        media_format="web_article",
+        title="Fresh Peruvian blueberries gain access to Egypt",
+        relevance_tier="direct",
+        published_date="2026-08-17",
+    )
+    adjacent = _publication_draft(
+        "adjacent-tier",
+        media_format="web_article",
+        title="Solar panels above pear trees provide effective heat protection",
+        relevance_tier="adjacent",
+        published_date="2026-08-17",
+    )
+    for draft in [direct, adjacent]:
+        main.save_draft(draft)
+    feed = build_intelligence_feed(
+        drafts=main.list_drafts(),
+        published=repos.evidence.list(),
+        entities=repos.entities.list(),
+        berry_labels=main.BERRIES,
+        limit=24,
+    )
+    titles = [item["title"] for item in feed["entries"]]
+    assert titles.index("Fresh Peruvian blueberries gain access to Egypt") < titles.index(
+        "Solar panels above pear trees provide effective heat protection"
+    )
+
+
+def test_adjacent_filter_surfaces_adjacent_signals_without_hiding_them(monkeypatch, tmp_path: Path) -> None:
+    """Do not hide adjacent signals -- give them their own filter."""
+    _isolate(monkeypatch, tmp_path)
+    repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    _seed_entities(repos)
+    direct = _publication_draft("direct-only", media_format="web_article", relevance_tier="direct")
+    adjacent = _publication_draft(
+        "adjacent-only",
+        media_format="web_article",
+        title="Adjacent agtech story",
+        relevance_tier="adjacent",
+    )
+    for draft in [direct, adjacent]:
+        main.save_draft(draft)
+    feed = build_intelligence_feed(
+        drafts=main.list_drafts(),
+        published=repos.evidence.list(),
+        entities=repos.entities.list(),
+        berry_labels=main.BERRIES,
+        filter_key="adjacent",
+        limit=24,
+    )
+    assert feed["filter"] == "adjacent"
+    assert {item["id"] for item in feed["entries"]} == {"ev-intel-adjacent-only"}
+    assert any(option["key"] == "adjacent" for option in feed["filters"])
+
+
+def test_tier_absent_items_are_not_penalized_below_direct(monkeypatch, tmp_path: Path) -> None:
+    """Podcasts/videos/pre-fix drafts carry no relevance_tier at all --
+    they must rank with direct items, not be treated as adjacent."""
+    _isolate(monkeypatch, tmp_path)
+    repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    _seed_entities(repos)
+    spoken = _spoken_draft("no-tier")
+    adjacent = _publication_draft(
+        "adjacent-vs-notier",
+        media_format="web_article",
+        title="Adjacent agtech story two",
+        relevance_tier="adjacent",
+    )
+    for draft in [spoken, adjacent]:
+        main.save_draft(draft)
+    feed = build_intelligence_feed(
+        drafts=main.list_drafts(),
+        published=repos.evidence.list(),
+        entities=repos.entities.list(),
+        berry_labels=main.BERRIES,
+        limit=24,
+    )
+    titles = [item["title"] for item in feed["entries"]]
+    assert titles.index("Synthetic blueberry podcast no-tier") < titles.index("Adjacent agtech story two")
+
+
 def test_reader_promote_save_and_trusted_feedback(monkeypatch, tmp_path: Path) -> None:
     _isolate(monkeypatch, tmp_path)
     repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)

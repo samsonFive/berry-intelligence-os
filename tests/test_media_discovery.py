@@ -574,3 +574,100 @@ def test_source_registry_last_checked_fields_are_not_touched_by_discovery(tmp_pa
     reloaded = repos.sources.get(SOURCE_ID)
     assert reloaded["last_checked_at"] is None
     assert reloaded["last_status"] is None
+
+
+# ---------------------------------------------------------------------------
+# Continuous Intelligence Refresh (2026-08-18): bounded initial-discovery
+# policy for spoken media. A real recurring run against a source with a
+# deep back-catalog produced 562 new untranscribed drafts in a single pass
+# the first time it was ever checked -- these tests prove the fix: a
+# spoken-media source's first-ever discovery run stages a bounded recent
+# window (never silently drops the rest), and later runs are unaffected.
+# ---------------------------------------------------------------------------
+
+
+def _rfc822(days_ago: int) -> str:
+    from datetime import datetime, timedelta, timezone
+
+    when = datetime.now(timezone.utc) - timedelta(days=days_ago)
+    return when.strftime("%a, %d %b %Y %H:%M:%S GMT")
+
+
+def _episodes(count: int, *, start_days_ago: int, step_days: int = 1, start_index: int = 0) -> list[str]:
+    return [
+        _item_xml(
+            title=f"Episode {start_index + index}",
+            guid=f"guid-backlog-{start_index + index}",
+            link=f"https://example.invalid/backlog-ep{start_index + index}",
+            pub_date=_rfc822(start_days_ago + index * step_days),
+        )
+        for index in range(count)
+    ]
+
+
+def test_first_ever_spoken_media_discovery_bounds_backlog_to_recent_window(tmp_path, source, monkeypatch) -> None:
+    # 10 episodes within the lookback window (1-10 days old), 3 well
+    # outside it (2+ years old) -- a real deep back-catalog shape.
+    recent = _episodes(10, start_days_ago=1)
+    old = _episodes(3, start_days_ago=800, step_days=30, start_index=10)
+    result = _run(tmp_path, source, monkeypatch, _feed(recent + old))
+    assert result.status == "ok"
+    assert result.new == 13
+    assert result.historical_backlog == 3
+
+    items = {item["title"]: item for item in list_discovered_items(tmp_path / "inbox", SOURCE_ID)}
+    for index in range(10):
+        assert items[f"Episode {index}"].get("historical_backlog") is not True
+    for index in range(10, 13):
+        assert items[f"Episode {index}"]["historical_backlog"] is True
+
+
+def test_first_ever_discovery_never_yields_zero_items_for_a_dormant_show(tmp_path, source, monkeypatch) -> None:
+    """A show whose only episode is older than the lookback window should
+    still get one current item, not zero -- "a small useful recent
+    window", never nothing."""
+    old = _episodes(1, start_days_ago=400)
+    result = _run(tmp_path, source, monkeypatch, _feed(old))
+    assert result.new == 1
+    assert result.historical_backlog == 0
+    items = list_discovered_items(tmp_path / "inbox", SOURCE_ID)
+    assert items[0].get("historical_backlog") is not True
+
+
+def test_allow_historical_backfill_stages_the_full_back_catalog(tmp_path, source, monkeypatch) -> None:
+    feed = _feed(_episodes(10, start_days_ago=1) + _episodes(3, start_days_ago=800, step_days=30, start_index=10))
+    monkeypatch.setattr(media_discovery.httpx, "get", lambda *a, **k: _FakeResponse(feed))
+    result = discover_source(
+        SOURCE_ID,
+        inbox_dir=tmp_path / "inbox",
+        data_dir=tmp_path,
+        schemas_dir=SCHEMAS_DIR,
+        allow_historical_backfill=True,
+    )
+    assert result.new == 13
+    assert result.historical_backlog == 0
+    items = list_discovered_items(tmp_path / "inbox", SOURCE_ID)
+    assert not any(item.get("historical_backlog") for item in items)
+
+
+def test_second_discovery_run_does_not_bound_a_genuinely_new_item(tmp_path, source, monkeypatch) -> None:
+    """Once a source has a successful prior run (a real watermark), it is
+    no longer 'first-ever' -- a single genuinely new episode discovered on
+    a later run must never be flagged historical_backlog, regardless of
+    the source's total known item count."""
+    first_feed = _feed(_episodes(10, start_days_ago=1) + _episodes(3, start_days_ago=800, step_days=30, start_index=10))
+    first = _run(tmp_path, source, monkeypatch, first_feed)
+    assert first.historical_backlog == 3
+
+    new_episode = _item_xml(
+        title="Episode Newest",
+        guid="guid-backlog-newest",
+        link="https://example.invalid/backlog-ep-newest",
+        pub_date=_rfc822(0),
+    )
+    second_feed = _feed([new_episode, *_episodes(10, start_days_ago=1), *_episodes(3, start_days_ago=800, step_days=30, start_index=10)])
+    second = _run(tmp_path, source, monkeypatch, second_feed)
+    assert second.new == 1
+    assert second.historical_backlog == 0
+    items = {item["title"]: item for item in list_discovered_items(tmp_path / "inbox", SOURCE_ID)}
+    assert items["Episode Newest"].get("historical_backlog") is not True

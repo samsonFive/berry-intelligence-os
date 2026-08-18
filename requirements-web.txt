@@ -13,3 +13,11 @@ httpx==0.28.1
 itsdangerous==2.2.0
 openpyxl==3.1.5
 requests==2.32.3
+# trafilatura -- readable-article-text extraction for
+# app/services/article_acquisition.py. Continuous Intelligence Refresh
+# (2026-08-18): the recurring collector (scripts/run_collection.py --all
+# --skip-transcription) runs inside this same deployed container, and
+# article body acquisition is cheap/pure-Python (no system deps, unlike
+# faster-whisper/yt-dlp/playwright, which stay local-only). Pinned to the
+# same version as requirements.txt.
+trafilatura==2.2.0
