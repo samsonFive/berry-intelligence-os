@@ -20,6 +20,7 @@ RUN pip install --no-cache-dir -r /app/requirements-web.txt
 COPY app /app/app
 COPY schemas /app/schemas
 COPY scripts /app/scripts
+COPY benchmarks /app/benchmarks
 COPY data /app/seed/data
 COPY docker-entrypoint.sh /app/docker-entrypoint.sh
 

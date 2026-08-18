@@ -60,3 +60,24 @@ def test_explicit_flags_still_override_runtime_dir(monkeypatch, tmp_path: Path) 
     )
     assert args.data_dir == explicit_data
     assert args.inbox_dir == explicit_inbox
+
+
+def test_main_does_not_require_the_benchmark_file_when_extraction_is_disabled(
+    monkeypatch, tmp_path: Path, capsys
+) -> None:
+    """Real failure caught deploying to the VPS: main() unconditionally
+    hashed benchmarks/atomic-ci-v1.json to build the extraction gate, even
+    though resolve_extraction_gate() returns immediately when extraction
+    is disabled without ever looking at that hash -- and the deployed
+    container image never included benchmarks/ at all, since nothing had
+    ever run this exact code path there before. The recurring scheduler
+    always runs with extraction off (Continuous Intelligence Refresh's own
+    resource-boundary rule), so this must never require that file."""
+    monkeypatch.setattr(run_collection, "ROOT", tmp_path)
+    monkeypatch.setenv("BIOS_RUNTIME_DIR", str(tmp_path / "runtime"))
+    assert not (tmp_path / "benchmarks").exists()
+
+    exit_code = run_collection.main(["--all", "--json"])
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["extraction_gate"]["enabled"] is False

@@ -204,6 +204,14 @@ def main(argv: list[str] | None = None) -> int:
             prompt_version=PROMPT_VERSION,
             generation=public_configuration(temporary_provider),
         )
+    # resolve_extraction_gate() returns immediately when extraction is
+    # disabled, before it ever looks at benchmark_sha256 -- so the
+    # benchmark file only needs to exist (and only needs hashing) when
+    # extraction is actually being requested. A deployed container image
+    # that never opted into local extraction (this project's default; the
+    # recurring scheduler always runs with extraction off) has no reason
+    # to require benchmarks/atomic-ci-v1.json to be present at all.
+    benchmark_sha256 = file_sha256(ROOT / "benchmarks" / "atomic-ci-v1.json") if extraction_enabled else None
     gate = resolve_extraction_gate(
         enabled=extraction_enabled,
         provider="openai-compatible",
@@ -212,7 +220,7 @@ def main(argv: list[str] | None = None) -> int:
         prompt_version=PROMPT_VERSION,
         qualification_path=qualification_path,
         configuration_fingerprint=configuration_fingerprint,
-        benchmark_sha256=file_sha256(ROOT / "benchmarks" / "atomic-ci-v1.json"),
+        benchmark_sha256=benchmark_sha256,
     )
 
     schema = json.loads((args.schemas_dir / "evidence.schema.json").read_text(encoding="utf-8"))
