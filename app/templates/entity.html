@@ -43,10 +43,10 @@
         <li>
           {% if item.kind == 'trusted' %}
             <span class="badge badge-status-active">TRUSTED</span>
-            <a href="/evidence/{{ item.record.id }}"><strong>{{ item.record.title }}</strong></a>
+            <a href="{% if static_build %}/evidence/{{ item.record.id }}{% else %}/intelligence/{{ item.record.id }}{% endif %}"><strong>{{ item.record.title }}</strong></a>
           {% else %}
             <span class="badge badge-muted">PENDING REVIEW</span>
-            <a href="/review/{{ item.record.id }}"><strong>{{ item.record.title }}</strong></a>
+            <a href="/intelligence/{{ item.record.id }}"><strong>{{ item.record.title }}</strong></a>
           {% endif %}
           <span class="draft-meta">
             {% if item.date_is_published %}{{ item.date|us_date }}{% elif item.date %}Captured {{ item.date|us_date }}{% else %}Date unknown{% endif %}

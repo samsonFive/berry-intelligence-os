@@ -71,3 +71,65 @@ def test_pending_draft_naming_a_different_entity_is_excluded(monkeypatch):
 
     items = recent_intelligence_for_entity("company-x", linked_evidence=[], include_pending=True)
     assert items == []
+
+
+def test_live_entity_page_opens_recent_intelligence_in_the_reader(monkeypatch, tmp_path) -> None:
+    from copy import deepcopy
+
+    from fastapi.testclient import TestClient
+
+    from app import main
+    from app.main import app
+
+    monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
+    repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    repos.entities.create(
+        {
+            "id": "company-x",
+            "record_type": "entity",
+            "entity_type": "company",
+            "name": "Synthetic Company",
+            "status": "active",
+        }
+    )
+    priority = {
+        dimension: {"level": "none", "rationale": ""}
+        for dimension in ("reading", "testing", "commercial_position", "monitoring")
+    }
+    repos.evidence.create(
+        {
+            "id": "ev-trusted-x",
+            "record_type": "evidence",
+            "status": "published",
+            "source_type": "article",
+            "title": "Trusted company brief",
+            "captured_date": "2026-08-01",
+            "published_date": "2026-08-01",
+            "summary": "Synthetic trusted fixture.",
+            "submitted_by": "fixture",
+            "priority": deepcopy(priority),
+            "entity_ids": ["company-x"],
+        }
+    )
+    main.save_draft(
+        {
+            "id": "ev-pending-x",
+            "record_type": "evidence",
+            "status": "draft",
+            "evidence_role": "publication_artifact",
+            "title": "Pending company discovery",
+            "captured_date": "2026-08-18",
+            "published_date": "2026-08-18",
+            "entity_ids": ["company-x"],
+        }
+    )
+    page = TestClient(app).get("/entities/company/company-x")
+    assert page.status_code == 200
+    assert "Recent intelligence" in page.text
+    assert 'href="/intelligence/ev-trusted-x"' in page.text
+    assert 'href="/intelligence/ev-pending-x"' in page.text
+    assert 'href="/review/ev-pending-x"' not in page.text
+    recent = page.text.split("Recent intelligence", 1)[1].split("Recent activity", 1)[0]
+    assert 'href="/intelligence/ev-trusted-x"' in recent
+    assert 'href="/evidence/ev-trusted-x"' not in recent
