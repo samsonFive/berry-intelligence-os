@@ -1,6 +1,6 @@
 {
   "name": "Berry Intelligence OS",
-  "install": "sudo apt-get update -qq && sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq python3.12-venv && python3 -m venv .venv && . .venv/bin/activate && python -m pip install --upgrade pip && pip install -r requirements-dev.txt && pip install pagefind pagefind_bin",
+  "install": "sudo apt-get update -qq\nsudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq python3.12-venv\nif [ ! -x .venv/bin/python ] || ! .venv/bin/python -m pip --version >/dev/null 2>&1; then rm -rf .venv; python3 -m venv .venv; fi\n.venv/bin/python -m pip install --upgrade pip\n.venv/bin/python -m pip install -r requirements-dev.txt\n.venv/bin/python -m pip install pagefind pagefind_bin",
   "terminals": [
     {
       "name": "web",
