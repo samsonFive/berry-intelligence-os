@@ -10,7 +10,7 @@ Canonical application branch is `v2/intelligence-os`. This Cloud Agent environme
 
 ### Python venv
 
-The default Cloud Agent image has Python 3.12 but **not** `ensurepip`. `python3 -m venv .venv` fails on a from-scratch build until `python3.12-venv` is installed. The environment `install` script does that with apt, then creates `.venv` and installs `requirements-dev.txt` plus `pagefind` / `pagefind_bin`. Do not drop the apt step. Recreating `.venv` is skipped when it already exists.
+The default Cloud Agent image has Python 3.12 but **not** `ensurepip`. `python3 -m venv .venv` fails on a from-scratch build until `python3.12-venv` is installed. The environment `install` script does that with apt, then creates `.venv` and installs `requirements-dev.txt` plus `pagefind` / `pagefind_bin`. Do not drop the apt step. A `.venv` without working pip is deleted and recreated.
 
 Use `.venv/bin/python` / `.venv/bin/pytest` rather than system Python.
 
