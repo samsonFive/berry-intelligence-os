@@ -374,6 +374,20 @@ def _readiness_for_item(
             "updated_at": updated_at,
         }
 
+    if transcript_status == "not_applicable":
+        # A written article -- no transcript concept applies at all, so
+        # "unknown" would falsely suggest something is wrong or pending.
+        return {
+            "state": "not_applicable",
+            "state_label": "Not applicable (written article)",
+            "method": None,
+            "language": None,
+            "failure_category": None,
+            "retry_count": None,
+            "next_retry_at": None,
+            "updated_at": updated_at,
+        }
+
     return unknown_transcript_readiness()
 
 

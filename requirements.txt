@@ -6,6 +6,14 @@ jsonschema==4.25.0
 python-multipart==0.0.20
 feedparser==6.0.11
 httpx==0.28.1
+# trafilatura -- readable-article-text extraction for
+# app/services/article_acquisition.py (Article Ingestion vertical slice).
+# Pulls in lxml/courlan/htmldate/justext as its own transitive
+# dependencies; not pinned individually here, consistent with how this
+# file already treats fastapi/uvicorn's own sub-dependencies. Verified
+# working (2.2.0) against real trade-press article pages during this
+# feature's own pilot run.
+trafilatura==2.2.0
 openpyxl==3.1.5
 playwright==1.62.0
 faster-whisper==1.1.1

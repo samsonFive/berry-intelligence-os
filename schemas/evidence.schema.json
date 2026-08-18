@@ -104,6 +104,40 @@
       "enum": ["web_article", "podcast", "video", "conference_video"],
       "$comment": "Audio/Video Intelligence data-model foundation phase, optional and additive. How this Evidence record was published -- orthogonal to `source_type` (source_type is the kind of outlet/document, e.g. 'trade_press' or 'patent_record'; media_format is the physical form that document takes, e.g. a trade-press interview could be a web_article or a podcast). Not backfilled onto existing records: their absence of this field means the format was never explicitly captured, not that they are implicitly 'web_article' -- callers must not assume a default. This is deliberately not a new Entity Type: a podcast or video is a form Evidence takes, the same way an Evidence record is not itself a Source (the publisher/outlet/channel that produced it, tracked separately via `source_id`/`source_name`). The enum is the minimum known set for this phase; extending it later (e.g. a distinct 'newsletter' or 'social_post' format) is an additive schema change, not a redesign."
     },
+    "article": {
+      "type": "object",
+      "$comment": "Article Ingestion vertical slice, optional and additive. The normalized, readable-text body of a web_article Evidence record -- this project's text-artifact analogue of `transcript`, deliberately a separate object rather than forced into transcript_provenance's audio-segment shape (paragraph index is the locator; there are no timestamps for written text). Present only on web_article drafts/Evidence that completed real HTML acquisition; absence does not imply failure -- see `discovery_provenance`/operational run state for why. This is raw derived material carried for human review and later, qualified-model Atomic Evidence extraction -- it is not itself trusted intelligence and `summary`/`why_it_matters` are never overwritten by it.",
+      "properties": {
+        "paragraphs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["index", "text"],
+            "properties": {
+              "index": {"type": "integer", "minimum": 0},
+              "text": {"type": "string", "minLength": 1}
+            }
+          },
+          "$comment": "Paragraph index is the article's locator, the written-text equivalent of a transcript's segment index -- a future qualified extraction step cites paragraph indexes, never an invented timestamp."
+        },
+        "word_count": {"type": "integer", "minimum": 0},
+        "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "author": {"type": ["string", "null"]},
+        "final_url": {"type": ["string", "null"], "$comment": "Set only when acquisition followed a redirect away from source_url."},
+        "acquisition": {
+          "type": "object",
+          "required": ["method", "extractor", "extractor_version", "fetched_at"],
+          "properties": {
+            "method": {"const": "readable_text_extraction"},
+            "extractor": {"type": "string", "minLength": 1},
+            "extractor_version": {"type": "string", "minLength": 1},
+            "fetched_at": {"type": "string"},
+            "version": {"type": "string"}
+          },
+          "$comment": "Provenance of the article body extraction itself, mirroring transcript_provenance's method/created_by/created_at pattern for the same reason: honest about what produced this derived text and when."
+        }
+      }
+    },
     "transcript": {
       "type": "object",
       "$comment": "Audio/Video Intelligence data-model foundation phase, optional and additive. Metadata describing a transcript's state for podcast/video/conference_video Evidence, ahead of any actual transcription pipeline -- no Whisper integration, no automated generation, and no requirement that any current or future audio/video record have a transcript. Entirely absent on every existing record and on any new record that hasn't had this considered yet; presence of this object does not imply a transcript exists (see `status`).",
