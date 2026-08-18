@@ -453,5 +453,7 @@ strong.level-low{color:#426aa8}
   .section-title-row{display:block}
   .executive-lead-grid,.regional-brief-columns,.agenda-grid{grid-template-columns:1fr}
   .assessment-card-grid article:first-child{grid-column:auto}
-  .compact-stats{grid-template-columns:repeat(3,1fr);margin-left:0;margin-right:0}
-}
+.patent-meta{display:grid;grid-template-columns:minmax(140px,.4fr) minmax(0,1fr);gap:6px 14px;margin:12px 0 16px}
+.patent-meta dt{color:#536076;font-size:13px}
+.patent-meta dd{margin:0}
+.patent-briefing{margin-bottom:12px}

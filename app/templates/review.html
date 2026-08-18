@@ -60,7 +60,68 @@
 <div class="review-split">
   <section class="review-pane">
     <h2>{% if draft.evidence_role == 'atomic_evidence' %}Source-grounding record{% else %}Decision brief{% endif %}</h2>
-    {% if transcript_readiness %}
+    {% if draft.patent_filing %}
+      <div class="review-state-dimensions patent-briefing">
+        <section>
+          <h3>Publication review</h3>
+          <span class="badge badge-status-unverified">{{ draft.review_state|replace('_',' ')|title if draft.review_state else 'Pending' }}</span>
+          <p><span class="badge badge-claim">Plant patent filing</span></p>
+        </section>
+        <section aria-label="Patent filing identity">
+          <h3>What changed</h3>
+          <p><strong>{{ draft.patent_filing.publication_number }}</strong>
+            {% if draft.patent_filing.grant_date %} · granted {{ draft.patent_filing.grant_date|us_date }}{% elif draft.patent_filing.publication_date %} · published {{ draft.patent_filing.publication_date|us_date }}{% endif %}
+            {% if draft.patent_filing.filing_date %} · filed {{ draft.patent_filing.filing_date|us_date }}{% endif %}
+          </p>
+          <p><strong>Cultivar:</strong> {{ draft.patent_filing.cultivar_name or 'Not parsed from title' }}</p>
+          <p><strong>Botanical name:</strong> {{ draft.patent_filing.botanical_name or 'Not captured on this discovery record' }}</p>
+        </section>
+      </div>
+      <dl class="patent-meta">
+        <dt>Who (assignee / applicant)</dt>
+        <dd>{{ draft.patent_filing.assignees|join(', ') if draft.patent_filing.assignees else 'Not listed on this discovery record' }}
+          {% if draft.patent_filing.applicants %} · applicants: {{ draft.patent_filing.applicants|join(', ') }}{% endif %}
+        </dd>
+        <dt>Inventors</dt>
+        <dd>{{ draft.patent_filing.inventors|join(', ') if draft.patent_filing.inventors else 'Not listed — inventor is not assumed to be the assignee' }}</dd>
+        <dt>Source authority</dt>
+        <dd>{{ draft.source_authority|default('high')|replace('_',' ') }} — authoritative filing/source. This is not claim-confidence for commercialization.</dd>
+        <dt>Claim / interpretation confidence</dt>
+        <dd>{{ draft.information_confidence|default('unknown') }} — bibliographic identity is recorded; commercial meaning is untrusted until you say so.</dd>
+        <dt>Verification</dt>
+        <dd>{{ draft.verification_state|default('unverified')|replace('_',' ') }} — ingestion does not make this trusted.</dd>
+      </dl>
+      {% if draft.does_not_prove %}
+        <h3>What this filing does not prove</h3>
+        <ul class="bullet-list">{% for item in draft.does_not_prove %}<li>{{ item }}</li>{% endfor %}</ul>
+      {% endif %}
+      {% if draft.entity_link_suggestions %}
+        <h3>Entity suggestions (untrusted)</h3>
+        <ul class="bullet-list">
+          {% for suggestion in draft.entity_link_suggestions %}
+            <li>{{ suggestion.role }}: {{ suggestion.name }}
+              {% if suggestion.match_status == 'matched' %} → matched {{ suggestion.match_entity_id }} ({{ suggestion.confidence }})
+              {% else %} → unresolved review candidate{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {% if draft.evidence_links %}
+        <h3>Proposed corroboration</h3>
+        <ul class="bullet-list">
+          {% for link in draft.evidence_links %}
+            <li><span class="badge badge-muted">{{ link.status }}</span> {{ link.predicate|replace('_',' ') }}
+              <a href="/evidence/{{ link.target_evidence_id }}">{{ link.target_evidence_id }}</a>
+              {% if link.notes %} — {{ link.notes }}{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+        <p class="context-limit">Proposed links are not trusted. Accepting this publication does not auto-accept corroboration; keep or edit the link during review.</p>
+      {% endif %}
+      {% if draft.patent_filing.source_url %}
+        <p><a href="{{ draft.patent_filing.source_url }}" target="_blank" rel="noopener">Open filing source ↗</a></p>
+      {% endif %}
+    {% elif transcript_readiness %}
       <div class="review-state-dimensions">
         <section>
           <h3>Publication review</h3>

@@ -43,8 +43,78 @@
       "$comment": "V2 Phase 1 addition (BL-012), optional. When the underlying development actually happened, distinct from `captured_date` (when this system captured it) and `published_date` (when it was reported) -- per proposed-schema-enhancements.md P-4. Mirrors `fact.event_date`, added to this repository in an earlier session."
     },
     "information_confidence": {
-      "enum": ["low", "medium", "high"],
-      "$comment": "V2 Phase 1 addition (BL-012), optional. Confidence in the evidence's information itself, distinct from any fact/assessment later derived from it -- per proposed-schema-enhancements.md P-4."
+      "enum": ["low", "medium", "high", "unknown"],
+      "$comment": "Confidence in the *claim or interpretation*, not in whether the source document is authentic. A USPTO plant patent can be high-authority as a filing while information_confidence stays unknown/low for commercialization inferences. 'unknown' is additive for alternative-data sources that have not yet been interpreted."
+    },
+    "source_authority": {
+      "enum": ["high", "medium", "low"],
+      "$comment": "Authority of the source document itself, distinct from information_confidence. A plant-patent grant is high authority; a forum comment is low. High source_authority never implies a commercial fact is proven."
+    },
+    "verification_state": {
+      "enum": ["unverified", "single_source", "corroborated", "verified_primary", "disputed"],
+      "$comment": "Human-gated verification of this Evidence object. Ingestion must leave records unverified. verified_primary is for an authoritative primary document that a reviewer has accepted as itself (e.g. a patent filing exists). corroborated requires accepted evidence_links. Never auto-promoted because a collector succeeded."
+    },
+    "does_not_prove": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "$comment": "Explicit non-inferences. For patents: commercialization, acreage, market success, launch timing, inventor-as-owner."
+    },
+    "evidence_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["predicate", "target_evidence_id", "status"],
+        "properties": {
+          "predicate": {"enum": ["corroborates", "contradicts", "follows_up", "same_signal"]},
+          "target_evidence_id": {"type": "string", "pattern": "^ev-[a-z0-9-]+$"},
+          "status": {"enum": ["proposed", "accepted", "rejected"]},
+          "notes": {"type": "string"},
+          "proposed_by": {"type": "string"},
+          "proposed_at": {"type": "string", "format": "date"}
+        }
+      },
+      "$comment": "Evidence-to-evidence corroboration/contradiction. Kept on Evidence rather than Relationship because Relationship.subject_id/object_id is the entity graph (owns/develops/licenses). Proposed links are untrusted until a human sets status=accepted. Ingestion may only create status=proposed."
+    },
+    "entity_link_suggestions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "role", "match_status"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "role": {"enum": ["assignee", "applicant", "inventor", "variety", "patent"]},
+          "match_entity_id": {"type": ["string", "null"]},
+          "match_status": {"enum": ["matched", "unresolved"]},
+          "confidence": {"enum": ["high", "medium", "low"]}
+        }
+      },
+      "$comment": "Untrusted entity-resolution suggestions. Inventors are never auto-created as Entities. Only match_status=matched ids may be copied onto entity_ids."
+    },
+    "patent_filing": {
+      "type": "object",
+      "required": ["publication_number", "acquired_at", "acquisition_method", "content_sha256"],
+      "properties": {
+        "publication_number": {"type": "string", "minLength": 1},
+        "application_number": {"type": ["string", "null"]},
+        "title": {"type": "string"},
+        "filing_date": {"type": ["string", "null"], "format": "date"},
+        "publication_date": {"type": ["string", "null"], "format": "date"},
+        "grant_date": {"type": ["string", "null"], "format": "date"},
+        "inventors": {"type": "array", "items": {"type": "string"}},
+        "applicants": {"type": "array", "items": {"type": "string"}},
+        "assignees": {"type": "array", "items": {"type": "string"}},
+        "botanical_name": {"type": ["string", "null"]},
+        "cultivar_name": {"type": ["string", "null"]},
+        "abstract": {"type": ["string", "null"]},
+        "jurisdiction": {"type": "string"},
+        "kind_code": {"type": ["string", "null"]},
+        "claims_locator": {"type": ["string", "null"]},
+        "source_url": {"type": "string"},
+        "acquired_at": {"type": "string"},
+        "acquisition_method": {"type": "string", "minLength": 1},
+        "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      },
+      "$comment": "Normalized plant-patent bibliographic payload. Assignees are not inferred from inventor names. A filing is not commercialization."
     },
     "evidence_role": {
       "enum": ["publication_artifact", "atomic_evidence"],

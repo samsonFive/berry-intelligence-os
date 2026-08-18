@@ -3101,7 +3101,7 @@
   {
     "id": "source-redagricola-on-the-road",
     "type": "reference",
-    "label": "Redagrícola / Redagrícola On The Road",
+    "label": "Redagr\u00edcola / Redagr\u00edcola On The Road",
     "value": "https://redagricola.com/",
     "url": "https://redagricola.com/",
     "why_it_matters": "First-party field and executive coverage from Latin American farms and agribusinesses surfaces grower operations, varietal renewal, packing, technology, investment and market conditions, especially in Peru and Chile.",
@@ -3171,10 +3171,10 @@
   {
     "id": "source-comite-de-arandanos-de-chile-youtube",
     "type": "reference",
-    "label": "Comité de Arándanos de Chile (YouTube)",
+    "label": "Comit\u00e9 de Ar\u00e1ndanos de Chile (YouTube)",
     "value": "https://www.youtube.com/channel/UCIlsT5-0R2dIjtn95dW7Irg",
     "url": "https://www.youtube.com/channel/UCIlsT5-0R2dIjtn95dW7Irg",
-    "why_it_matters": "First-party YouTube channel of the Comité de Arándanos de Chile (Chilean Blueberry Committee, already tracked in prose form as source-20260806173428-acce-comite-de-arandanos-de-chile-chilean-blu-45) -- a small, early (2014-2015), first-party catalogue of harvest/packing/handling training videos aimed at Chilean growers, distinct from that prose Source's own institutional coverage.",
+    "why_it_matters": "First-party YouTube channel of the Comit\u00e9 de Ar\u00e1ndanos de Chile (Chilean Blueberry Committee, already tracked in prose form as source-20260806173428-acce-comite-de-arandanos-de-chile-chilean-blu-45) -- a small, early (2014-2015), first-party catalogue of harvest/packing/handling training videos aimed at Chilean growers, distinct from that prose Source's own institutional coverage.",
     "entity_types": [
       "trade_association"
     ],
@@ -3194,9 +3194,9 @@
     "discovery": {
       "adapter": "youtube_feed",
       "feed_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCIlsT5-0R2dIjtn95dW7Irg",
-      "feed_url_resolved_via": "https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=-8-iDUFzf7k&format=json (author_name 'Comité de Arándanos de Chile', author_url https://www.youtube.com/@comitedearandanosdechile6437) cross-checked against yt-dlp's own extract_info() for the same video (channel_id UCIlsT5-0R2dIjtn95dW7Irg, uploader 'Comité de Arándanos de Chile'); the channel's public Atom feed at this feed_url was then fetched directly and confirmed to list the same real, dated, first-party uploads under that same channel (earliest entry published 2014-12-27, 8 videos total at verification time).",
+      "feed_url_resolved_via": "https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=-8-iDUFzf7k&format=json (author_name 'Comit\u00e9 de Ar\u00e1ndanos de Chile', author_url https://www.youtube.com/@comitedearandanosdechile6437) cross-checked against yt-dlp's own extract_info() for the same video (channel_id UCIlsT5-0R2dIjtn95dW7Irg, uploader 'Comit\u00e9 de Ar\u00e1ndanos de Chile'); the channel's public Atom feed at this feed_url was then fetched directly and confirmed to list the same real, dated, first-party uploads under that same channel (earliest entry published 2014-12-27, 8 videos total at verification time).",
       "feed_url_verified_at": "2026-08-16",
-      "notes": "Onboarded specifically as this feature's real, live Tier-3 (no-usable-captions -> audio -> local Whisper) proof source -- see feature/youtube-tier3-whisper-proof's report. Real, live yt-dlp inspection (extract_info(), no scraping, no credentials -- same mechanism as source-redagricola-on-the-road and source-university-of-arkansas-division-of-agriculture) of all 8 videos on this channel found two ('Chilean Blueberry Committee', id -8-iDUFzf7k, and 'Comité de Árandanos de Chile', id IWUv8sUZDvM, both ~164s, uploaded Dec 2014/Feb 2015) with genuinely zero caption tracks of any kind: info['subtitles'] == {} AND info['automatic_captions'] == {} (not merely missing an -orig marker -- YouTube's ASR pipeline never produced automatic captions for either at all) and info['language'] == None, the exact structural condition app/services/youtube_media_acquisition.py's _select_caption_track() is built to recognize and correctly refuse to guess on, falling through to Tier 3. The other 6 videos on this channel (2015-01-09 harvest/packing tutorials plus one from 2015-04-13) all carry a normal es-orig auto-caption track and were not used for this proof. Both zero-caption videos were run through the real, unmodified Tier-3 pipeline (real yt-dlp audio resolution/download, real faster-whisper 'small' CPU transcription, no system ffmpeg present or required) -- see this feature's report for the full run record. RESULT (honestly recorded): both videos turned out, on real Whisper decode, to be instrumental-music-only institutional bumpers with no spoken narration (faster-whisper with vad_filter=False repeatedly hallucinates only the non-speech token 'music'; the production vad_filter=True path correctly returns zero segments, which media_transcription.py correctly treats as a TranscriptionError rather than a malformed transcript -- exactly the Phase 15/18 behavior this proof was also meant to exercise). This channel's zero-caption content is therefore real and structurally genuine but not spoken-word content. An exhaustive follow-up search (~160 real videos checked live via yt-dlp across 20+ other first-party berry/agriculture channels -- university extension, trade associations, breeders, growers -- in English, Spanish, French, Polish, Portuguese and Kannada) found no other genuinely zero-caption video with real narration; YouTube's ASR coverage in 2026 appears to be comprehensive for detected speech in every language checked, so a fully successful real Tier-3 'no captions -> narrated audio -> transcript' proof was not achieved against real, unaltered YouTube content despite this search. See the report's Phase 3-12/16/20 sections for the full account, including the real (non-mocked) evidence this does still provide: real audio acquisition, real Whisper invocation, real cache-hit behavior on the audio layer, and real confirmation that no system ffmpeg is required."
+      "notes": "Onboarded specifically as this feature's real, live Tier-3 (no-usable-captions -> audio -> local Whisper) proof source -- see feature/youtube-tier3-whisper-proof's report. Real, live yt-dlp inspection (extract_info(), no scraping, no credentials -- same mechanism as source-redagricola-on-the-road and source-university-of-arkansas-division-of-agriculture) of all 8 videos on this channel found two ('Chilean Blueberry Committee', id -8-iDUFzf7k, and 'Comit\u00e9 de \u00c1randanos de Chile', id IWUv8sUZDvM, both ~164s, uploaded Dec 2014/Feb 2015) with genuinely zero caption tracks of any kind: info['subtitles'] == {} AND info['automatic_captions'] == {} (not merely missing an -orig marker -- YouTube's ASR pipeline never produced automatic captions for either at all) and info['language'] == None, the exact structural condition app/services/youtube_media_acquisition.py's _select_caption_track() is built to recognize and correctly refuse to guess on, falling through to Tier 3. The other 6 videos on this channel (2015-01-09 harvest/packing tutorials plus one from 2015-04-13) all carry a normal es-orig auto-caption track and were not used for this proof. Both zero-caption videos were run through the real, unmodified Tier-3 pipeline (real yt-dlp audio resolution/download, real faster-whisper 'small' CPU transcription, no system ffmpeg present or required) -- see this feature's report for the full run record. RESULT (honestly recorded): both videos turned out, on real Whisper decode, to be instrumental-music-only institutional bumpers with no spoken narration (faster-whisper with vad_filter=False repeatedly hallucinates only the non-speech token 'music'; the production vad_filter=True path correctly returns zero segments, which media_transcription.py correctly treats as a TranscriptionError rather than a malformed transcript -- exactly the Phase 15/18 behavior this proof was also meant to exercise). This channel's zero-caption content is therefore real and structurally genuine but not spoken-word content. An exhaustive follow-up search (~160 real videos checked live via yt-dlp across 20+ other first-party berry/agriculture channels -- university extension, trade associations, breeders, growers -- in English, Spanish, French, Polish, Portuguese and Kannada) found no other genuinely zero-caption video with real narration; YouTube's ASR coverage in 2026 appears to be comprehensive for detected speech in every language checked, so a fully successful real Tier-3 'no captions -> narrated audio -> transcript' proof was not achieved against real, unaltered YouTube content despite this search. See the report's Phase 3-12/16/20 sections for the full account, including the real (non-mocked) evidence this does still provide: real audio acquisition, real Whisper invocation, real cache-hit behavior on the audio layer, and real confirmation that no system ffmpeg is required."
     }
   },
   {
@@ -3450,5 +3450,34 @@
       "feed_url_verified_at": "2026-08-16",
       "notes": "Independently re-fetched https://www.youtube.com/@BlueberriesTV this session and extracted its channel id (UCwypVNJp_DjjoLtqVCwIF4w) directly from the page's own embedded ytInitialData -- no scraping beyond reading the publisher's own public page markup, no API key, no OAuth. This channel id matches the one previously named in this branch's prior planning-stage research (bd9c730, 'docs: record archive/index discovery-adapter research'), but was NOT taken on trust from that document -- it is re-derived here from a fresh, independent fetch. The channel's public Atom feed at this feed_url was then fetched directly and confirmed to list real, dated, first-party uploads: the current top entry is 'Mediterranean Meeting - International Berries Seminar Morocco 2026' (published 2026-07-22), followed by 14 videos titled 'XLII Seminario Internacional de Blueberries Trujillo - Peru 2026' (sponsor/session interviews: Quiagral, Dutch Plantin, Luis Miguel Vegas, Projar, Water Partners, Grupo Silvestre, Sansan, Elifab, Fibre Dust, Unitec, Fall Creek, Farmex) -- real, current, on-topic content, not a stale or dormant channel. Same public YouTube Atom feed mechanism as source-redagricola-on-the-road/source-university-of-arkansas-division-of-agriculture/source-comite-de-arandanos-de-chile-youtube (see app/services/media_discovery.py's youtube_feed adapter). IMPORTANT LIMITATION (documented honestly, same as this registry's other youtube_feed Sources): this channel's Atom feed exposes only the ~15 most recent uploads at verification time; the seminar series runs 40+ editions, so this feed surfaces only the most recent handful of seminar events, not the channel's full historical archive."
     }
+  },
+  {
+    "id": "source-uspto-plant-patents",
+    "type": "patent_database",
+    "label": "USPTO plant patents",
+    "value": "data/configuration/patent_watchlist.json",
+    "url": "https://data.uspto.gov/",
+    "why_it_matters": "Primary public plant-patent registry for berry cultivar IP. Monitor writes untrusted review drafts only; a filing is not commercialization.",
+    "entity_types": [
+      "patent",
+      "breeding_program",
+      "genetics_company"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-strawberry",
+      "berry-raspberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-18",
+    "last_checked_at": null,
+    "last_status": null
   }
 ]

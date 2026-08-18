@@ -67,6 +67,14 @@ is where humans make publication and Atomic Evidence decisions;
 See `docs/v2/COLLECTION-OPERATIONS-STATUS.md` and
 `docs/v2/RECURRING-COLLECTION-RUNNER.md`.
 
+Plant-patent monitoring is a separate bounded collector:
+
+```bash
+python scripts/monitor_plant_patents.py --max-candidates 40
+```
+
+It writes untrusted `patent_record` drafts into `inbox/evidence/` for the existing `/review` gate. It does not publish Evidence. Watchlist: `data/configuration/patent_watchlist.json`. Official USPTO Open Data Portal is used when `BIOS_USPTO_ODP_API_KEY` is set; otherwise discovery uses Google Patents public JSON search.
+
 ## External AI (optional, off by default)
 
 Semantic extraction is disabled unless explicitly enabled *and* backed by an

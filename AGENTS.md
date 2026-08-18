@@ -30,6 +30,12 @@ Duplicate publish of an already-trusted publication id is not a 500: identical i
 
 `scripts/run_recent_batch.py` continues past per-item failures (YouTube anti-bot, missing captions, API errors). Do not treat one failed item as a batch abort. Do not report "0 failures" when transcript acquisition is blocked; review-ready without transcript is a valid state.
 
+Plant-patent monitoring is a separate bounded collector, not part of `scripts/run_collection.py` (that runner is RSS/media discovery). Command: `python scripts/monitor_plant_patents.py`. Watchlist: `data/configuration/patent_watchlist.json`. State lives in gitignored `inbox/operations/patent_monitor/state.json`. Drafts go to `inbox/evidence/ev-patent-*.json` and use the existing `/review` Approve / Save / Reject gate.
+
+Do not publish patent drafts as trusted intelligence automatically. `verification_state` stays `unverified` and `evidence_links[].status` stays `proposed` until a human decides. `source_authority=high` on a USPTO filing is not commercialization confidence (`information_confidence` remains `unknown` at ingest). Inventors are never auto-created as Entities.
+
+Preferred discovery is USPTO Open Data Portal when `BIOS_USPTO_ODP_API_KEY` is set. Without a key, the monitor uses Google Patents public JSON search (`/xhr/query`). Google frequently returns HTTP 503; per-query failures are isolated and must not abort the run. Do not scrape LinkedIn or Patent Public Search HTML as a workaround.
+
 Standard lint/test/build commands remain those in `README.md`: `pytest`, `python scripts/validate_records.py`, `python scripts/build_static.py`.
 
 GitHub Pages deploys from `.github/workflows/deploy-pages.yml` on push to `v2/intelligence-os` or `master`. Public URL: `https://samsonfive.github.io/berry-intelligence-os/`. The static Scanner is a trusted published snapshot; it never includes `inbox/` drafts, untrusted enrichment, or the local review workbench.

@@ -133,6 +133,11 @@ def attach_publication_card(
         "transcript_label": analyst_transcript_label(readiness),
         "transcript_state": readiness.get("state"),
     }
+    if record.get("patent_filing"):
+        record["card"]["transcript_label"] = "Patent filing"
+        record["card"]["transcript_state"] = "ready"
+        if not record["card"]["relevance_band"]:
+            record["card"]["relevance_band"] = "High"
     return record
 
 

@@ -52,6 +52,9 @@
     {% endif %}
     <dt>Status</dt><dd>{{ record.status }}</dd>
     {% if record.reviewed_by %}<dt>Reviewed</dt><dd>{{ record.reviewed_by }}{% if record.reviewed_at %} · {{ record.reviewed_at|us_date }}{% endif %}</dd>{% endif %}
+    {% if record.source_authority %}<dt>Source authority</dt><dd>{{ record.source_authority }}</dd>{% endif %}
+    {% if record.information_confidence %}<dt>Information confidence</dt><dd>{{ record.information_confidence }}</dd>{% endif %}
+    {% if record.verification_state %}<dt>Verification</dt><dd>{{ record.verification_state|replace('_',' ') }}</dd>{% endif %}
     <dt>Berries</dt><dd>{% for b in record.berry_ids %}{{ berry_label(b) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>
     <dt>Geography</dt><dd>{% set geographies = linked_entities|selectattr('entity_type', 'equalto', 'geography')|list %}{% if geographies %}{% for g in geographies %}{{ g.name }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}—{% endif %}</dd>
   </dl>
@@ -75,6 +78,31 @@
     <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
   {% else %}
     <p>{{ record.why_it_matters }}</p>
+  {% endif %}
+
+  {% if record.patent_filing %}
+    <h2>Patent filing</h2>
+    <dl>
+      <dt>Number</dt><dd>{{ record.patent_filing.publication_number }}</dd>
+      <dt>Cultivar</dt><dd>{{ record.patent_filing.cultivar_name or "—" }}</dd>
+      <dt>Botanical name</dt><dd>{{ record.patent_filing.botanical_name or "—" }}</dd>
+      <dt>Assignee</dt><dd>{{ record.patent_filing.assignees|join(', ') if record.patent_filing.assignees else "—" }}</dd>
+      <dt>Inventors</dt><dd>{{ record.patent_filing.inventors|join(', ') if record.patent_filing.inventors else "—" }}</dd>
+      <dt>Source authority / claim confidence</dt>
+      <dd>{{ record.source_authority|default("—") }} / {{ record.information_confidence|default("unknown") }} ({{ record.verification_state|default("unverified") }})</dd>
+    </dl>
+  {% endif %}
+  {% if record.does_not_prove %}
+    <h2>Does not prove</h2>
+    <ul class="bullet-list">{% for item in record.does_not_prove %}<li>{{ item }}</li>{% endfor %}</ul>
+  {% endif %}
+  {% if record.evidence_links %}
+    <h2>Related evidence</h2>
+    <ul class="bullet-list">
+      {% for link in record.evidence_links %}
+        <li>{{ link.status }} · {{ link.predicate|replace('_',' ') }} · <a href="/evidence/{{ link.target_evidence_id }}">{{ link.target_evidence_id }}</a></li>
+      {% endfor %}
+    </ul>
   {% endif %}
 
   <h2>Priorities</h2>

@@ -144,6 +144,7 @@ SOURCE_TYPES = {
     "rss": "RSS / Atom feed",
     "keyword": "Keyword search",
     "reference": "Reference (manually reviewed)",
+    "patent_database": "Patent / IP database",
 }
 SOURCE_POLL_INTERVAL_SECONDS = 15 * 60
 SOURCE_FETCH_TIMEOUT_SECONDS = 15
@@ -1261,7 +1262,7 @@ def check_all_sources() -> dict[str, Any]:
     total_written = 0
     checked = 0
     for source in sources:
-        if not source.get("enabled", True) or source.get("type") == "reference":
+        if not source.get("enabled", True) or source.get("type") in {"reference", "patent_database"}:
             # Reference sources have nothing to fetch; last_checked_at for
             # them means "a human reviewed it", set only by the manual
             # mark-checked action, never by the automated poll loop.
@@ -2836,7 +2837,7 @@ def _review_context(
         if not values.get("retailers"):
             values["retailers"] = ", ".join(_names(list(draft.get("entity_ids") or []), "retailer"))
     transcript_readiness = None
-    if draft.get("evidence_role") == "publication_artifact":
+    if draft.get("evidence_role") == "publication_artifact" and not draft.get("patent_filing"):
         transcript_readiness = load_publication_transcript_readiness(INBOX_DIR).get(
             draft["id"], unknown_transcript_readiness()
         )
