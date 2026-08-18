@@ -182,11 +182,15 @@ def matches_filter(item: dict[str, Any], filter_key: str) -> bool:
 
 def _feed_sort_key(item: dict[str, Any]) -> tuple:
     band = {"High": 4, "Relevant": 3, "Moderate": 2, "Low": 1}.get(item.get("relevance_band") or "", 0)
+    # Stored article screen only: adjacent (incidental berry mention) ranks
+    # below direct and below drafts with no relevance_tier (spoken/patents).
+    # Do not invent a second relevance model.
+    tier = 0 if item.get("relevance_tier") == "adjacent" else 1
     berry = 1 if item.get("berry_direct") else 0
     pending = 1 if item.get("trust") in {"pending", "attention", "disputed"} else 0
     ready = 1 if item.get("transcript_state") == "ready" else 0
     date = str(item.get("date") or "")
-    return (band, berry, pending, ready, date)
+    return (band, tier, berry, pending, ready, date)
 
 
 def _published_for_feed(published: list[dict[str, Any]], *, limit: int = 48) -> list[dict[str, Any]]:
@@ -238,6 +242,7 @@ def present_feed_item(
     trust = trust_state(record, readiness=presentation.get("transcript_readiness"))
     source_url, source_label = source_action(record, kind)
     chips = entity_chips(record, entities)
+    pending = trust in {"pending", "attention", "disputed"} and record.get("status") != "published"
     return {
         "id": record.get("id"),
         "title": record.get("title") or "Untitled",
@@ -245,6 +250,8 @@ def present_feed_item(
         "kind_label": KIND_LABELS.get(kind, "Intelligence"),
         "trust": trust,
         "trust_label": TRUST_LABELS[trust],
+        "pending": pending,
+        "relevance_tier": record.get("relevance_tier") or "",
         "source_name": record.get("source_name") or record.get("submitted_by") or "Source not recorded",
         "date": record.get("published_date") or record.get("captured_date") or "",
         "why": card.get("why") or "",

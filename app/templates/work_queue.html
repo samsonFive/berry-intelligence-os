@@ -8,17 +8,26 @@
     <p class="also-known-as">What's new. What's important. What needs your attention. What you have already trusted.</p>
   </div>
   {% if authoring_mode %}
-    <a class="button-link" href="/review?kind=publication">Advanced queue</a>
+    <div class="intel-feed-tools">
+      <label class="intel-reviewer" for="feed-reviewer">Reviewer
+        <input id="feed-reviewer" name="reviewer" required value="{{ reviewer }}" autocomplete="name">
+      </label>
+      <p class="shortcut-key" aria-label="Feed keyboard shortcuts"><kbd>j</kbd>/<kbd>k</kbd> move · <kbd>Enter</kbd> read · <kbd>a</kbd> promote · <kbd>s</kbd> save · <kbd>r</kbd> reject</p>
+      <a class="button-link" href="/review?kind=publication">Advanced queue</a>
+    </div>
   {% endif %}
 </section>
 
 {% include "_scanner_strip.html" %}
 
-{% if promoted_title %}
+{% if promoted_id or promoted_title %}
   <div class="banner banner-success" role="status">
     Promoted to trusted intelligence{% if promoted_date %} · {{ promoted_date }}{% endif %}.
     {% if promoted_id %}<a href="/intelligence/{{ promoted_id }}">Open item</a>{% endif %}
   </div>
+{% endif %}
+{% if saved %}
+  <div class="banner banner-success" role="status">Pending item saved. It remains untrusted until you promote it.</div>
 {% endif %}
 
 {% if not static_build %}
@@ -37,14 +46,15 @@
   {% if feed.entries %}
     <ul class="intel-card-list">
       {% for item in feed.entries %}
-        <li class="intel-card intel-card-{{ item.trust }}">
+        <li class="intel-card intel-card-{{ item.trust }}" data-intel-card data-item-id="{{ item.id }}" data-pending="{{ 'true' if item.pending else 'false' }}" tabindex="-1">
           <div class="intel-card-meta">
             <span class="badge intel-trust-{{ item.trust }}">{{ item.trust_label }}</span>
             <span class="badge badge-muted">{{ item.kind_label }}</span>
+            {% if item.relevance_tier == 'adjacent' %}<span class="badge badge-muted">Adjacent</span>{% endif %}
             {% if item.relevance_band %}<span class="badge badge-claim">{{ item.relevance_band }} relevance</span>{% endif %}
             {% if item.ai_untrusted %}<span class="badge badge-muted">AI-assisted · pending analyst review</span>{% endif %}
           </div>
-          <h3><a href="{{ item.href if not static_build else item.trusted_href }}">{{ item.title }}</a></h3>
+          <h3><a href="{{ item.href if not static_build else item.trusted_href }}" data-read>{{ item.title }}</a></h3>
           <p class="draft-meta">{{ item.source_name }}{% if item.date %} · {{ item.date|us_date }}{% endif %}</p>
           {% if item.why %}<div class="why"><strong>Why it matters</strong><p>{{ item.why|truncate(220) }}</p></div>{% endif %}
           {% if item.summary %}<p>{{ item.summary|truncate(220) }}</p>{% endif %}
@@ -56,8 +66,49 @@
             </div>
           {% endif %}
           <div class="intel-card-actions">
-            <a class="action-button action-approve" href="{{ item.href if not static_build else item.trusted_href }}">Read</a>
+            <a class="action-button action-approve" href="{{ item.href if not static_build else item.trusted_href }}" data-read>Read</a>
             {% if item.source_url %}<a class="action-button" href="{{ item.source_url }}" rel="noreferrer">{{ item.source_action_label }}</a>{% endif %}
+            {% if authoring_mode and item.pending and item.values %}
+              <form action="/review/{{ item.id }}/publish" method="post">
+                <input type="hidden" name="return_to" value="/work-queue{{ return_filter }}{% if return_filter %}&{% else %}?{% endif %}promoted={{ item.id }}">
+                <input type="hidden" name="title" value="{{ item.values.title }}">
+                <input type="hidden" name="source_type" value="{{ item.values.source_type }}">
+                <input type="hidden" name="source_name" value="{{ item.values.source_name }}">
+                <input type="hidden" name="source_url" value="{{ item.values.source_url }}">
+                <input type="hidden" name="published_date" value="{{ item.values.published_date }}">
+                <input type="hidden" name="captured_date" value="{{ item.values.captured_date }}">
+                <input type="hidden" name="summary" value="{{ item.values.summary }}">
+                <input type="hidden" name="why_it_matters" value="{{ item.values.why_it_matters }}">
+                <input type="hidden" name="tags" value="{{ item.values.tags }}">
+                <input type="hidden" name="companies" value="{{ item.values.companies }}">
+                <input type="hidden" name="varieties" value="{{ item.values.varieties }}">
+                <input type="hidden" name="retailers" value="{{ item.values.retailers }}">
+                <input type="hidden" name="geographies" value="{{ item.values.geographies }}">
+                {% for berry in item.values.berries %}
+                  <input type="hidden" name="berries" value="{{ berry }}">
+                {% endfor %}
+                <input type="hidden" name="reviewer" value="{{ reviewer }}">
+                <button class="action-button action-approve" type="submit" data-promote>Promote</button>
+              </form>
+              <form action="/review/{{ item.id }}/save" method="post">
+                <input type="hidden" name="return_to" value="/work-queue{{ return_filter }}{% if return_filter %}&{% else %}?{% endif %}saved=1">
+                <input type="hidden" name="title" value="{{ item.values.title }}">
+                <input type="hidden" name="summary" value="{{ item.values.summary }}">
+                <input type="hidden" name="why_it_matters" value="{{ item.values.why_it_matters }}">
+                <input type="hidden" name="tags" value="{{ item.values.tags }}">
+                {% for berry in item.values.berries %}
+                  <input type="hidden" name="berries" value="{{ berry }}">
+                {% endfor %}
+                <button class="action-button" type="submit" data-save>Save</button>
+              </form>
+              <form action="/review/{{ item.id }}/reject" method="post">
+                <input type="hidden" name="return_to" value="/work-queue{{ return_filter }}">
+                <input type="hidden" name="reviewer" value="{{ reviewer }}">
+                <input type="hidden" name="rejection_reason" value="Rejected from intelligence feed">
+                <input type="hidden" name="rejection_category" value="other">
+                <button class="action-button action-reject" type="submit" data-reject>Reject</button>
+              </form>
+            {% endif %}
           </div>
         </li>
       {% endfor %}
@@ -103,5 +154,57 @@
     </ul>
   </section>
 </div>
+{% endif %}
+{% if authoring_mode and not static_build %}
+<script>
+(function () {
+  var cards = Array.prototype.slice.call(document.querySelectorAll("[data-intel-card]"));
+  var active = 0;
+  function inFormField(target) {
+    return target && target.closest && target.closest("input, textarea, select, [contenteditable='true']");
+  }
+  function selectCard(index) {
+    if (!cards.length) return;
+    active = Math.max(0, Math.min(cards.length - 1, index));
+    cards.forEach(function (card, i) {
+      card.classList.toggle("is-current", i === active);
+    });
+    cards[active].focus({ preventScroll: true });
+    cards[active].scrollIntoView({ block: "nearest" });
+  }
+  function current() { return cards[active]; }
+  function submitAction(name) {
+    var card = current();
+    if (!card || card.dataset.pending !== "true") return;
+    var button = card.querySelector("[data-" + name + "]");
+    if (button) button.closest("form").requestSubmit();
+  }
+  function copyReviewer(form) {
+    var reviewer = document.getElementById("feed-reviewer");
+    if (!reviewer) return;
+    var field = form.querySelector("[name=reviewer]");
+    if (field) field.value = reviewer.value;
+  }
+  cards.forEach(function (card, index) {
+    card.addEventListener("click", function () { selectCard(index); });
+  });
+  document.querySelectorAll("[data-intel-card] form").forEach(function (form) {
+    form.addEventListener("submit", function () { copyReviewer(form); });
+  });
+  document.addEventListener("keydown", function (event) {
+    if (inFormField(event.target)) return;
+    if (event.key === "j") { event.preventDefault(); selectCard(active + 1); }
+    else if (event.key === "k") { event.preventDefault(); selectCard(active - 1); }
+    else if (event.key === "Enter" || event.key === "o") {
+      var read = current() && current().querySelector("[data-read]");
+      if (read) { event.preventDefault(); window.location.href = read.href; }
+    }
+    else if (event.key === "a") { event.preventDefault(); submitAction("promote"); }
+    else if (event.key === "s") { event.preventDefault(); submitAction("save"); }
+    else if (event.key === "r") { event.preventDefault(); submitAction("reject"); }
+  });
+  if (cards.length) selectCard(0);
+})();
+</script>
 {% endif %}
 {% endblock %}

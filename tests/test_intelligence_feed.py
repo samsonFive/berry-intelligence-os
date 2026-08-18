@@ -229,6 +229,101 @@ def test_feed_ranks_high_relevance_above_generic_and_keeps_trusted(monkeypatch, 
     assert {item["kind"] for item in spoken["entries"]} == {"spoken"}
 
 
+def test_feed_ranks_adjacent_tier_below_direct_and_unscreened(monkeypatch, tmp_path: Path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    _seed_entities(repos)
+    direct = _publication_draft("direct")
+    direct["relevance_tier"] = "direct"
+    adjacent = _publication_draft("adjacent")
+    adjacent["title"] = "Generic produce adjacent story"
+    adjacent["relevance_tier"] = "adjacent"
+    spoken = _spoken_draft("spoken-neutral")
+    spoken["title"] = "Unscreened blueberry podcast"
+    for draft in (direct, adjacent, spoken):
+        main.save_draft(draft)
+    feed = build_intelligence_feed(
+        drafts=main.list_drafts(),
+        published=repos.evidence.list(),
+        entities=repos.entities.list(),
+        berry_labels=main.BERRIES,
+        limit=24,
+    )
+    titles = [item["title"] for item in feed["entries"]]
+    assert titles.index("Synthetic blueberry article direct") < titles.index("Generic produce adjacent story")
+    assert titles.index("Unscreened blueberry podcast") < titles.index("Generic produce adjacent story")
+    assert any(item["relevance_tier"] == "adjacent" for item in feed["entries"])
+
+
+def test_feed_promote_save_reject_use_existing_review_paths(monkeypatch, tmp_path: Path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    _seed_entities(repos)
+    promote = _publication_draft("feed-promote")
+    save = _publication_draft("feed-save")
+    reject = _publication_draft("feed-reject")
+    for draft in (promote, save, reject):
+        main.save_draft(draft)
+    client = TestClient(app)
+
+    saved = client.post(
+        f"/review/{save['id']}/save",
+        data={
+            "title": save["title"],
+            "summary": save["summary"],
+            "why_it_matters": save["why_it_matters"],
+            "return_to": "/work-queue?saved=1",
+        },
+        follow_redirects=False,
+    )
+    assert saved.status_code == 303
+    assert saved.headers["location"] == "/work-queue?saved=1"
+    saved_page = client.get("/work-queue?saved=1")
+    assert "Pending item saved" in saved_page.text
+    assert main.get_draft(save["id"])["status"] == "draft"
+
+    promoted = client.post(
+        f"/review/{promote['id']}/publish",
+        data={
+            "title": promote["title"],
+            "source_type": promote["source_type"],
+            "source_name": promote["source_name"],
+            "source_url": promote["source_url"],
+            "published_date": promote["published_date"],
+            "captured_date": promote["captured_date"],
+            "summary": promote["summary"],
+            "why_it_matters": promote["why_it_matters"],
+            "tags": "retail",
+            "reviewer": "analyst-fixture",
+            "return_to": f"/work-queue?promoted={promote['id']}",
+        },
+        follow_redirects=False,
+    )
+    assert promoted.status_code == 303
+    assert promoted.headers["location"] == f"/work-queue?promoted={promote['id']}"
+    feed = client.get(promoted.headers["location"])
+    assert "Promoted to trusted intelligence" in feed.text
+    assert f'href="/intelligence/{promote["id"]}"' in feed.text
+    assert repos.evidence.get(promote["id"])["status"] == "published"
+    assert main.get_draft(promote["id"]) is None
+
+    rejected = client.post(
+        f"/review/{reject['id']}/reject",
+        data={
+            "reviewer": "analyst-fixture",
+            "rejection_reason": "Rejected from intelligence feed",
+            "rejection_category": "other",
+            "return_to": "/work-queue",
+        },
+        follow_redirects=False,
+    )
+    assert rejected.status_code == 303
+    assert rejected.headers["location"] == "/work-queue"
+    assert main.get_draft(reject["id"])["status"] == "rejected"
+    after = client.get("/work-queue")
+    assert "Synthetic blueberry article feed-reject" not in after.text
+
+
 def test_reader_promote_save_and_trusted_feedback(monkeypatch, tmp_path: Path) -> None:
     _isolate(monkeypatch, tmp_path)
     repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
@@ -250,6 +345,11 @@ def test_reader_promote_save_and_trusted_feedback(monkeypatch, tmp_path: Path) -
     assert "AI-assisted · pending analyst review" in feed.text
     assert f'href="/intelligence/{draft["id"]}"' in feed.text
     assert "/entities/company/company-hortifrut" in feed.text
+    assert 'data-intel-card' in feed.text
+    assert "<kbd>j</kbd>" in feed.text
+    assert 'data-promote' in feed.text
+    assert 'action="/review/%s/publish"' % draft["id"] in feed.text
+    assert "HUMAN PUBLICATION REVIEW" not in feed.text
 
     reader = client.get(f"/intelligence/{draft['id']}")
     assert reader.status_code == 200

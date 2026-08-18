@@ -1820,6 +1820,14 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
         filter_key=filter,
         limit=48,
     )
+    reviewer = session_username(request) or review_username() or ""
+    for item in feed["entries"]:
+        if not item.get("pending"):
+            continue
+        values = _default_review_values(item["record"])
+        values["reviewer"] = reviewer
+        item["values"] = values
+    return_filter = "" if filter in {"", "all"} else f"?filter={filter}"
     return templates.TemplateResponse(
         request=request,
         name="work_queue.html",
@@ -1828,9 +1836,12 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
             "drafts": list_pending_drafts(),
             "review_cards": [],
             "feed": feed,
+            "reviewer": reviewer,
+            "return_filter": return_filter,
             "promoted_id": request.query_params.get("promoted") or "",
             "promoted_title": request.query_params.get("promoted_title") or "",
             "promoted_date": request.query_params.get("promoted_date") or "",
+            "saved": request.query_params.get("saved") == "1",
             "scanner": build_scanner_summary(
                 inbox_dir=INBOX_DIR,
                 drafts=list_drafts(),
