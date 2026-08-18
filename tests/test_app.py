@@ -65,6 +65,9 @@ def test_company_entity_page_renders() -> None:
     assert response.status_code == 200
     assert "Example Genetics" in response.text
     assert "Example breeder announces" in response.text
+    assert "Recent intelligence" in response.text
+    assert 'href="/intelligence/ev-sample-variety-launch"' in response.text
+    assert 'href="/review/ev-sample-variety-launch"' not in response.text
 
 
 def test_variety_entity_page_renders() -> None:
