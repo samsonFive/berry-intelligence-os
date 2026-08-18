@@ -83,6 +83,7 @@ def process_discovered_article(
 
     stage_a = screen_relevance(title=item.get("title") or "", description=item.get("description") or "", **threshold_kwargs)
     extra["relevance_screen_stage_a"] = stage_a.as_dict()
+    winning_tier = stage_a.tier
     if not stage_a.needs_body_check and not stage_a.relevant:
         return (
             OrchestrationResult(
@@ -124,6 +125,7 @@ def process_discovered_article(
             **threshold_kwargs,
         )
         extra["relevance_screen_stage_b"] = stage_b.as_dict()
+        winning_tier = stage_b.tier
         if not stage_b.relevant:
             return (
                 OrchestrationResult(
@@ -146,6 +148,14 @@ def process_discovered_article(
     draft_path = inbox_dir / "evidence" / f"{result.publication_draft_id}.json"
     draft = json.loads(draft_path.read_text(encoding="utf-8"))
     draft["article"] = body.as_dict()
+    # "direct" | "adjacent" -- never "irrelevant" here, since an
+    # irrelevant/borderline-rejected item never reaches draft creation.
+    # Read by pending_publication_drafts()'s sort so direct berry
+    # intelligence outranks adjacent stories in the review queue by
+    # default, and by the review UI to label items explicitly rather
+    # than presenting every draft as equally high-confidence.
+    draft["relevance_tier"] = winning_tier
+    extra["relevance_tier"] = winning_tier
 
     if completer is not None:
         # Reuse the shared enrichment mechanism (deterministic tagging +

@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Any, Callable, Protocol
 
 from app.services import media_transcription
+from app.services.article_dedup import find_duplicate_article
 from app.services.publication_enrichment import enrich_publication_draft
 from app.services.relevance_screening import screen_discovered_item
 from app.services.transcript_evidence import (
@@ -269,6 +270,21 @@ class MediaOrchestrationService:
                     trusted_ids.add(evidence["id"])
 
         drafts = self._publication_drafts_for(discovered_item, deterministic_id)
+
+        # Cross-pipeline duplicate check: the same real-world article
+        # already trusted or drafted under a *different* discovered-item
+        # id -- a different capture pass, or the publisher's title text
+        # drifting between captures (e.g. one capture kept a trailing
+        # " - Publisher" suffix, another stripped it). The checks above
+        # only ever catch the *same* discovered_item_id or an exact
+        # source_url string match; this is deliberately narrower than a
+        # general similarity search -- normalized canonical URL, or
+        # normalized title + same source + same published date, never
+        # mere title resemblance. See app/services/article_dedup.py.
+        extra_trusted_ids, extra_drafts = self._cross_pipeline_duplicates(discovered_item)
+        trusted_ids |= extra_trusted_ids
+        existing_draft_ids = {draft["id"] for draft in drafts}
+        drafts = drafts + [draft for draft in extra_drafts if draft["id"] not in existing_draft_ids]
         representation_ids = set(trusted_ids) | {draft["id"] for draft in drafts}
         if len(representation_ids) > 1:
             ids = tuple(sorted(representation_ids))
@@ -609,6 +625,37 @@ class MediaOrchestrationService:
             if draft.get("id") == deterministic_id or draft.get("discovered_item_id") == item["id"]:
                 matches.append(draft)
         return matches
+
+    def _cross_pipeline_duplicates(self, item: dict[str, Any]) -> tuple[set[str], list[dict[str, Any]]]:
+        """Trusted Evidence and pending drafts belonging to *other*
+        discovered-item ids, searched for a duplicate of `item` per
+        app/services/article_dedup.py's normalized-URL / conservative
+        title+source+date rules. Returns (trusted_ids, draft_records)
+        exactly like the exact-match checks in resolve_publication_
+        artifact, so a cross-pipeline match folds into the same
+        trusted/pending_draft/ambiguous resolution instead of a third
+        outcome the caller has to special-case."""
+        candidates: list[dict[str, Any]] = list(self._repos.evidence.list())
+        folder = self._inbox_dir / "evidence"
+        if folder.exists():
+            for path in sorted(folder.glob("*.json")):
+                try:
+                    draft = json.loads(path.read_text(encoding="utf-8"))
+                except (OSError, json.JSONDecodeError):
+                    continue
+                if draft.get("evidence_role") == "publication_artifact":
+                    candidates.append(draft)
+        publications = [c for c in candidates if c.get("evidence_role") == "publication_artifact"]
+        match_id = find_duplicate_article(item, existing_records=publications)
+        if match_id is None:
+            return set(), []
+        for record in publications:
+            if record.get("id") != match_id:
+                continue
+            if self._is_trusted_publication(record):
+                return {match_id}, []
+            return set(), [record]
+        return set(), []
 
     @staticmethod
     def _is_trusted_publication(record: dict[str, Any] | None) -> bool:

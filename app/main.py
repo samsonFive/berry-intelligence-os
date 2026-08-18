@@ -726,10 +726,17 @@ def pending_publication_drafts() -> list[dict[str, Any]]:
         for record in list_pending_drafts()
         if record.get("evidence_role") == "publication_artifact"
     ]
+    # Recency first within a tier, but direct berry intelligence must
+    # outrank adjacent stories (agtech/trade/labor/weather with only an
+    # incidental berry mention) by default -- two stable sorts achieve
+    # "tier first, recency second" without a mixed asc/desc sort key.
+    # Podcast/video drafts carry no relevance_tier at all (that screen is
+    # article-specific) and are treated as tier-neutral, same rank as direct.
     drafts.sort(
         key=lambda record: record.get("published_date") or record.get("captured_date") or "",
         reverse=True,
     )
+    drafts.sort(key=lambda record: 1 if record.get("relevance_tier") == "adjacent" else 0)
     return drafts
 
 
