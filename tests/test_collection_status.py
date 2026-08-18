@@ -215,7 +215,7 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
         "source-global-fresh-series-podcast", "source-fresh-cred-podcast", "source-lubera-edibles-podcast",
         "source-blueberries-tv-youtube",
     }
-    assert report.sources_configured == 132 and report.sources_discoverable == 12
+    assert report.sources_configured == 133 and report.sources_discoverable == 12
     assert expected <= {source.source_id for source in report.sources}
 
 
