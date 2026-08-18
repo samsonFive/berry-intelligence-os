@@ -145,12 +145,19 @@
     {% endif %}
   </section>
   <section class="cockpit-card">
-    <h2>Priority queues</h2>
+    <h2>Analyst work</h2>
     <ul class="simple-list">
-      <li><a href="/queues/reading">Reading</a> — {{ queue_summary.reading }}</li>
-      <li><a href="/queues/testing">Testing</a> — {{ queue_summary.testing }}</li>
-      <li><a href="/queues/commercial_position">Commercial Position</a> — {{ queue_summary.commercial_position }}</li>
-      <li><a href="/queues/monitoring">Monitoring</a> — {{ queue_summary.monitoring }}</li>
+      <li><a href="/queues/reading">Reading Queue</a> — <span class="nav-action">{{ nav_work_counts.reading_action }} need attention</span></li>
+      <li><a href="/review?kind=publication">Publication review</a> — <span class="nav-action">{{ pending_review_count() }} need review</span></li>
+      <li><a href="/queues/testing">Claim testing</a> — <span class="nav-action">{{ nav_work_counts.testing_action }} need testing</span></li>
+    </ul>
+  </section>
+  <section class="cockpit-card">
+    <h2>Intelligence views</h2>
+    <ul class="simple-list">
+      <li><a href="/queues/commercial_position">Commercial positions</a> — {{ nav_work_counts.commercial_inventory }} tagged evidence</li>
+      <li><a href="/queues/monitoring">Watches</a> — {{ nav_work_counts.monitoring_inventory }} active</li>
+      <li><a href="/signals">Signals</a> — {% if nav_work_counts.signal_alerts %}<span class="nav-action">{{ nav_work_counts.signal_alerts }} new</span>{% else %}none proposed{% endif %}</li>
     </ul>
   </section>
 </div>

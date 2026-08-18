@@ -7,6 +7,17 @@
     <h1>{{ signal.title }}</h1>
   </div>
 </section>
+{% if authoring_mode and signal.status == 'proposed' and alert_state == 'open' %}
+  <div class="banner">
+    <p>New proposed signal. Confirm or dismiss this alert. The underlying signal record stays in history.</p>
+    <div class="queue-actions">
+      <form action="/signals/{{ signal.id }}/alert-decision" method="post"><input type="hidden" name="action" value="confirm"><button class="action-button action-approve" type="submit">Confirm</button></form>
+      <form action="/signals/{{ signal.id }}/alert-decision" method="post"><input type="hidden" name="action" value="dismiss"><button class="action-button action-reject" type="submit">Dismiss</button></form>
+    </div>
+  </div>
+{% elif alert_state and alert_state != 'open' %}
+  <p class="context-limit">Alert decision: {{ alert_state }}. The signal record is unchanged.</p>
+{% endif %}
 <article class="detail-card">
   <dl data-pagefind-ignore>
     {% if signal.direction %}<dt>Direction</dt><dd>{{ signal.direction }}</dd>{% endif %}

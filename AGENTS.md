@@ -41,3 +41,20 @@ In this Cloud Agent VM, `docker` usually needs `sudo` (the `ubuntu` user is not 
 Remote interactive login is `GET /login`. Unauthenticated `/work-queue` redirects there. The session cookie is Secure only when the request is HTTPS or `X-Forwarded-Proto: https` (Caddy does this). Do not enable `BIOS_BASIC_AUTH` in front of `/login`. Remote interactive mode fails closed without `BIOS_REVIEW_USERNAME`, `BIOS_REVIEW_PASSWORD`, and `BIOS_SESSION_SECRET`.
 
 Live VPS access for this product is the dedicated `cursor` account (groups `docker` and `biosdeploy`, passwordless sudo). Use `ssh -i ~/.ssh/bios_vps_cursor_deploy -o IdentitiesOnly=yes cursor@212.227.236.188`. Do not generate another deploy key unless that exact private key is proven not to match `/home/cursor/.ssh/authorized_keys`. Repo at `/opt/berry-intelligence-os` is `root:biosdeploy`; `git fetch`/`git merge` as `cursor` may need `sudo git` so `.git/objects` stays writable. Never disable Johnny/root, never commit `deploy/.env`, and never print session secrets or API keys. Compose: `sudo docker compose --env-file deploy/.env -f deploy/docker-compose.yml --profile tls up -d --build`. App stays on `127.0.0.1:8000`; Caddy owns 80/443.
+
+### Queue and count semantics
+
+Nav purple pills (`.nav-action`) are **action counts** with a resolution workflow. Grey `.nav-inventory` figures are catalogs, not uncleared work.
+
+| Surface | Count meaning | Resolution |
+|---|---|---|
+| Reading Queue | unread + saved items still to consume | Mark read / Keep / Dismiss / Promote. Show completed. Bulk mark visible unread/saved. |
+| Publication review | pending drafts + unvalidated auto-capture | existing Approve / Save / Reject |
+| Claim testing | tagged evidence still `needs_testing` | Pass / Fail / Defer (Reopen from completed). This is claim verification, not `scripts/qualify_extraction_model.py`. |
+| Watches | **active** monitors only | Pause (1d) / Snooze (7d) / Resume / Stop. Stopped stays auditable. |
+| Signals "N new" | proposed signals not yet confirmed/dismissed | Confirm / Dismiss on the alert. Catalog at `/signals` is inventory. |
+| Commercial positions | tagged evidence (inventory) | not a queue; no Clear. Position proposals (Accept / Edit / Reject) are separate. |
+
+Workflow state lives in `inbox/analyst_queue_state.json` (runtime, gitignored). Do not mutate trusted `data/evidence/*.json` `priority.*` fields to dequeue. Dismiss/Stop/Pass/Reject never delete source history.
+
+A larger navigation rewrite is still open: first-class Position objects do not exist; three monitoring concepts still coexist (evidence `priority.monitoring`, Source `monitoring_priority`, Signal `status`); model qualification stays in scripts. Do not flatten those into one object type without an explicit IA migration.

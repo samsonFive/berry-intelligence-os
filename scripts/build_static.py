@@ -69,6 +69,7 @@ class _FakeRequest:
 
 def render(template_name: str, path: str, context: dict[str, Any]) -> str:
     context = {**context, "request": _FakeRequest(path), "static_build": True}
+    context.setdefault("nav_work_counts", templates.env.globals["nav_work"]())
     return templates.get_template(template_name).render(context)
 
 
@@ -144,6 +145,13 @@ def build() -> list[Path]:
     }
     templates.env.globals["queue_counts"] = lambda: queue_summary_once
     templates.env.globals["pending_review_count"] = lambda: 0
+    templates.env.globals["nav_work"] = lambda: {
+        "reading_action": 0,
+        "testing_action": 0,
+        "commercial_inventory": queue_summary_once.get("commercial_position", 0),
+        "monitoring_inventory": queue_summary_once.get("monitoring", 0),
+        "signal_alerts": 0,
+    }
 
     # Static asset.
     static_out = OUTPUT_DIR / "static"
@@ -307,22 +315,32 @@ def build() -> list[Path]:
         )
     )
 
-    # Priority queues.
+    # Priority-tagged intelligence views (reading/testing/watches/positions).
+    from app.services.analyst_queue import build_dimension_page
+
     for dimension in PRIORITY_DIMENSIONS:
-        items = []
-        for record in queue_items(dimension):
-            linked = [entities[e]["name"] for e in record.get("entity_ids", []) if e in entities]
-            items.append({**record, "linked_entity_names": linked})
+        page = build_dimension_page(
+            dimension=dimension,
+            records=queue_items(dimension),
+            inbox_dir=ROOT / "inbox",
+            entities=entities,
+            berry_labels=BERRIES,
+            signals=all_signals(),
+            show_completed=True,
+        )
         written.append(
             write_page(
                 "queue.html",
                 f"/queues/{dimension}",
                 {
-                    "dimension": dimension,
-                    "label": PRIORITY_QUEUE_LABELS[dimension],
-                    "items": items,
+                    **page,
                     "berry_label": berry_label,
                     "authoring_mode": False,
+                    "static_build": True,
+                    "filters": {"region": ""},
+                    "reviewer": "",
+                    "position_proposals": [],
+                    "signal_alerts": [],
                 },
             )
         )
