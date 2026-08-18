@@ -206,6 +206,71 @@ def test_ambiguous_trusted_matches_block_resolution_and_writes(tmp_path: Path) -
     assert not (inbox / "evidence").exists()
 
 
+def test_cross_pipeline_url_duplicate_resolves_to_existing_trusted_publication(tmp_path: Path) -> None:
+    """A different discovery pass assigns a different discovered-item id
+    to the same real article; only its URL normalizes the same (www /
+    trailing-slash difference), so neither the deterministic-id nor the
+    exact-string source_url checks would catch it -- only the
+    cross-pipeline normalized-URL check should."""
+    service, repos, inbox, _ = _setup(tmp_path)
+    original = _item(item_id="media-fixture-original", canonical_url="https://example.invalid/episode-1")
+    repos.evidence.create(_parent(original))
+
+    rediscovered = _item(
+        item_id="media-fixture-rediscovered",
+        canonical_url="https://www.example.invalid/episode-1/",
+    )
+    _write_item(inbox, rediscovered)
+    result = service.process(rediscovered["id"])
+    assert result.parent_resolution.status == "trusted"
+    assert result.state == "publication_approved"
+    assert not (inbox / "evidence").exists()
+
+
+def test_cross_pipeline_title_source_date_duplicate_resolves_to_existing_pending_draft(tmp_path: Path) -> None:
+    """Same real article, different discovered-item id and different
+    capture URL, but the normalized title (after stripping a trailing
+    publisher suffix) plus matching source and published date identify
+    it as the same story already awaiting review."""
+    service, repos, inbox, _ = _setup(tmp_path)
+    first = _item(item_id="media-fixture-first", canonical_url="https://example.invalid/first-capture")
+    _write_item(inbox, first)
+    first_result = service.process(first["id"])
+    assert first_result.state == "awaiting_publication_review"
+
+    second = _item(
+        item_id="media-fixture-second",
+        title="Fixture episode - Fixture Publisher",
+        canonical_url="https://example.invalid/second-capture-different-url",
+    )
+    _write_item(inbox, second)
+    second_result = service.process(second["id"])
+    assert second_result.parent_resolution.status == "pending_draft"
+    assert second_result.publication_draft_id == first_result.publication_draft_id
+    assert len(list((inbox / "evidence").glob("*.json"))) == 1
+
+
+def test_similar_but_distinct_titles_are_not_treated_as_cross_pipeline_duplicates(tmp_path: Path) -> None:
+    """Two genuinely different stories from the same source on the same
+    day must never be merged just because their titles share words --
+    each gets its own draft."""
+    service, repos, inbox, _ = _setup(tmp_path)
+    first = _item(item_id="media-fixture-first", canonical_url="https://example.invalid/first-capture")
+    _write_item(inbox, first)
+    first_result = service.process(first["id"])
+
+    second = _item(
+        item_id="media-fixture-second",
+        title="Fixture episode two",
+        canonical_url="https://example.invalid/second-capture",
+    )
+    _write_item(inbox, second)
+    second_result = service.process(second["id"])
+    assert second_result.state == "awaiting_publication_review"
+    assert second_result.publication_draft_id != first_result.publication_draft_id
+    assert len(list((inbox / "evidence").glob("*.json"))) == 2
+
+
 def test_transcript_can_exist_before_approval_without_extraction_or_retranscription(tmp_path: Path) -> None:
     service, repos, inbox, adapter = _setup(
         tmp_path,

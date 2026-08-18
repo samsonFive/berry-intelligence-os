@@ -154,7 +154,11 @@ def test_every_live_entity_resolves_to_a_declared_type() -> None:
         record = json.loads(Path(f).read_text(encoding="utf-8"))
         assert record.get("entity_type") in declared, f"{f}: entity_type {record.get('entity_type')!r} not declared"
         total += 1
-    assert total == 162, f"expected 162 live entities, found {total}"
+    # 164 = 162 plus two real company entities (SanLucar, USHBC) added for
+    # the Freshness + Company News Recall sprint's deterministic-matching
+    # coverage -- both real, already-referenced organizations that had no
+    # entity record at all, discovered via a real recall-test gap check.
+    assert total == 164, f"expected 164 live entities, found {total}"
 
 
 # ---------------------------------------------------------------------------

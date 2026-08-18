@@ -3,13 +3,12 @@
 
     python scripts/ingest_articles.py --source <source_id> [--max-items 20]
 
-Mirrors run_collection.py's contract (never aborts a batch on one item's
-failure, never blocks acquisition on a missing AI credential, never
-auto-trusts anything) but is a separate, first-class entry point rather
-than a change to the recurring collection_runner, since article
-acquisition (HTTP + readable-text extraction) is a materially different
-operation from audio/video transcription and this is a bounded vertical
-slice, not a recurring-runner redesign.
+A thin CLI wrapper around app/services/article_refresh.py's
+process_discovered_article() -- the same per-item pipeline (two-stage,
+body-aware relevance screening, real HTML acquisition, enrichment) that
+scripts/refresh_current_intelligence.py now also uses for the normal
+recurring refresh path, so this script and the recurring runner never
+diverge on how an article item gets triaged.
 
 Two-stage relevance, per app/services/relevance_screen.py's design:
 Stage A (title+description) confidently accepts a direct berry mention
@@ -40,15 +39,9 @@ from jsonschema import Draft202012Validator, FormatChecker
 from app.composition import get_repositories
 from app.repositories.paths import DEFAULT_DATA_DIR, SCHEMAS_DIR
 from app.services.ai_gateway.untrusted_complete import maybe_untrusted_completer
-from app.services.article_acquisition import ArticleAcquisitionError, fetch_article
+from app.services.article_refresh import process_discovered_article
 from app.services.media_discovery import discover_source, list_discovered_items
-from app.services.media_orchestration import (
-    JsonStagedTranscriptAdapter,
-    MediaOrchestrationError,
-    MediaOrchestrationService,
-)
-from app.services.publication_enrichment import enrich_publication_draft
-from app.services.relevance_screen import screen_relevance
+from app.services.media_orchestration import JsonStagedTranscriptAdapter, MediaOrchestrationService
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -155,135 +148,59 @@ def main(argv: list[str] | None = None) -> int:
         item_id = item["id"]
         entry: dict = {"item_id": item_id, "title": item.get("title")}
 
-        stage_a = screen_relevance(
-            title=item.get("title") or "", description=item.get("description") or "", **threshold_kwargs
+        result, extra = process_discovered_article(
+            item,
+            orchestrator=orchestrator,
+            inbox_dir=args.inbox_dir,
+            completer=completer,
+            berries=berries,
+            geographies=geographies,
+            companies=companies,
+            relevance_threshold=args.relevance_threshold,
         )
-        entry["relevance_screen_stage_a"] = stage_a.as_dict()
+        entry.update(extra)
+        if result.errors:
+            entry["error"] = "; ".join(result.errors)
 
-        if not stage_a.needs_body_check and not stage_a.relevant:
-            # Confidently irrelevant on metadata alone -- zero signal at
-            # all. Cheapest possible exit: no acquisition, no draft.
+        if extra.get("acquired"):
+            counts["acquired"] += 1
+        if "relevance_screen_stage_b" in extra:
+            counts["borderline_checked"] += 1
+
+        if result.state == "article_acquisition_failed":
+            entry["outcome"] = "acquisition_failed"
+            counts["acquisition_failed"] += 1
+        elif result.state == "skipped_irrelevant":
             entry["outcome"] = "skipped_irrelevant"
             counts["skipped_irrelevant"] += 1
-            report_items.append(entry)
-            continue
-
-        # Check existing representation *before* acquiring or creating
-        # anything -- orchestrator.process() populates publication_draft_id
-        # both when it creates a brand-new draft and when it finds an
-        # already-existing pending one (same field, two different
-        # meanings), so that field alone can't distinguish "new" from
-        # "duplicate." A prior resolution status of anything but "none"
-        # means something already represents this item (trusted
-        # publication, a pending draft, or a rejected draft) -- exactly the
-        # "same article discovered twice -> reuse/skip, idempotent" case.
-        try:
-            existing = orchestrator.resolve_publication_artifact(item)
-        except MediaOrchestrationError as exc:
-            entry["outcome"] = "orchestration_error"
-            entry["error"] = str(exc)
-            report_items.append(entry)
-            continue
-        if existing.status != "none":
-            entry["outcome"] = "duplicate"
-            entry["parent_resolution_status"] = existing.status
-            counts["duplicate"] += 1
-            report_items.append(entry)
-            continue
-
-        # Stage A was either confidently relevant (a direct berry mention)
-        # or borderline (generic agriculture signal, no berry mention) --
-        # either way the real body is needed now: to attach the `article`
-        # field for a confident item, or to let Stage B decide a
-        # borderline one on berry identity alone, never on score.
-        try:
-            body = fetch_article(item.get("canonical_url") or "")
-        except ArticleAcquisitionError as exc:
-            entry["outcome"] = "acquisition_failed"
-            entry["acquisition_failure_category"] = exc.category
-            entry["error"] = str(exc)
-            counts["acquisition_failed"] += 1
-            report_items.append(entry)
-            continue
-        counts["acquired"] += 1
-
-        if stage_a.needs_body_check:
-            counts["borderline_checked"] += 1
-            stage_b = screen_relevance(
-                title=item.get("title") or "",
-                description=item.get("description") or "",
-                body=body.full_text,
-                **threshold_kwargs,
-            )
-            entry["relevance_screen_stage_b"] = stage_b.as_dict()
-            if not stage_b.relevant:
+            if "relevance_screen_stage_b" in extra:
                 counts["borderline_confirmed_irrelevant"] += 1
-                entry["outcome"] = "skipped_irrelevant"
-                report_items.append(entry)
-                continue
-            counts["borderline_confirmed_relevant"] += 1
-
-        counts["relevant"] += 1
-
-        try:
-            result = orchestrator.process(item_id, dry_run=False)
-        except MediaOrchestrationError as exc:
+        elif result.state == "orchestration_error":
             entry["outcome"] = "orchestration_error"
-            entry["error"] = str(exc)
-            report_items.append(entry)
-            continue
-
-        if result.publication_draft_id is None:
-            entry["outcome"] = "orchestration_error"
-            entry["error"] = "no publication draft id after process() despite a fresh resolution"
-            report_items.append(entry)
-            continue
-
-        draft_id = result.publication_draft_id
-        entry["draft_id"] = draft_id
-        draft_path = args.inbox_dir / "evidence" / f"{draft_id}.json"
-        draft = json.loads(draft_path.read_text(encoding="utf-8"))
-        draft["article"] = body.as_dict()
-
-        if completer is not None:
-            # Reuse the shared enrichment mechanism (deterministic tagging +
-            # optional AI suggestion, same trust markers the rest of the
-            # Scanner/review UI already reads via ai_enrichment.model_
-            # provenance.status) rather than a parallel one -- but feed it
-            # the real extracted article text as the "publisher description"
-            # input, not just the RSS blurb already on `item`, since a
-            # generic-agriculture-style summary alone is not enough for a
-            # useful CI summary. publisher_description() checks this field
-            # before falling back to item["description"], so this is
-            # additive, not destructive of the original RSS text.
-            enrichment_item = dict(item)
-            rss_description = (item.get("description") or "").strip()
-            body_excerpt = body.full_text[:4000].strip()
-            enrichment_item["publisher_description"] = (
-                f"{rss_description}\n\nFull article text:\n{body_excerpt}" if rss_description else body_excerpt
-            )[:4000]
-            draft = enrich_publication_draft(
-                draft,
-                enrichment_item,
-                berries=berries,
-                geographies=geographies,
-                entities=companies,
-                complete_json=completer,
-            )
-            status = ((draft.get("ai_enrichment") or {}).get("model_provenance") or {}).get("status")
-            if status == "ok":
+        elif result.publication_draft_id is not None and result.state == "awaiting_publication_review" and (
+            (result.parent_resolution.message or "") == "Publication draft created for review."
+        ):
+            # A brand-new draft this run -- process_discovered_article()
+            # already attached article body + enrichment to the file.
+            if "relevance_screen_stage_b" in extra:
+                counts["borderline_confirmed_relevant"] += 1
+            counts["relevant"] += 1
+            entry["draft_id"] = result.publication_draft_id
+            if extra.get("enrichment_status") == "ok":
                 counts["enriched"] += 1
                 entry["enriched"] = True
             else:
                 counts["enrichment_unavailable"] += 1
-                entry["enrichment_error"] = (draft.get("ai_enrichment") or {}).get("caveats") or f"enrichment status: {status}"
+                entry["enrichment_error"] = extra.get("enrichment_caveats") or extra.get("enrichment_status") or "PERPLEXITY_API_KEY not configured"
+            entry["outcome"] = "review_ready"
+            counts["review_ready"] += 1
         else:
-            counts["enrichment_unavailable"] += 1
-            entry["enrichment_error"] = "PERPLEXITY_API_KEY not configured"
+            # Any other resolution (existing draft/trusted/rejected parent)
+            # is a duplicate discovery of something already represented.
+            entry["outcome"] = "duplicate"
+            entry["parent_resolution_status"] = result.parent_resolution.status
+            counts["duplicate"] += 1
 
-        draft_path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-        entry["outcome"] = "review_ready"
-        counts["review_ready"] += 1
         report_items.append(entry)
 
     report = {"state": "ok", "source_id": args.source, "counts": counts, "items": report_items}
