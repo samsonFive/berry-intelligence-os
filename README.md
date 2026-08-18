@@ -138,7 +138,8 @@ safely.
 - `docs/v2/00-README.md` — V2 / Intelligence OS documentation entry point
 - `docs/01-prd/PRD.md` — canonical product requirements
 - `docs/04-technical-architecture/ARCHITECTURE.md` — implementation direction
-- `docs/07-static-deployment/STATIC-DEPLOYMENT.md` — static build and deploy
+- `docs/07-static-deployment/STATIC-DEPLOYMENT.md` — static GitHub Pages snapshot
+- `docs/07-static-deployment/REMOTE-INTERACTIVE-DEMO.md` — authenticated FastAPI + Docker review host
 - `schemas/` — authoritative JSON schemas
 - `data/` — versioned, trusted, published intelligence records
 - `app/` — local web application and services

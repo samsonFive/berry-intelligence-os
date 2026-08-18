@@ -35,3 +35,5 @@ Standard lint/test/build commands remain those in `README.md`: `pytest`, `python
 GitHub Pages deploys from `.github/workflows/deploy-pages.yml` on push to `v2/intelligence-os` or `master`. Public URL: `https://samsonfive.github.io/berry-intelligence-os/`. The static Scanner is a trusted published snapshot; it never includes `inbox/` drafts, untrusted enrichment, or the local review workbench.
 
 Remote interactive review (Scanner, publication review, Approve/Save/Reject) is the Docker deployment in `deploy/`, documented in `docs/07-static-deployment/REMOTE-INTERACTIVE-DEMO.md`. It uses `BIOS_REMOTE_INTERACTIVE` plus HTTP Basic Auth env vars. Do not expose an unauthenticated localhost app. Do not commit `demo-runtime/` or `deploy/.env`.
+
+In this Cloud Agent VM, `docker` usually needs `sudo` (the `ubuntu` user is not in the `docker` group). Host port 8000 is often already taken by a leftover local uvicorn; set `BIOS_APP_PORT` (for example `18000`) instead of killing that process by name. `docker compose config` interpolates `BIOS_REVIEW_PASSWORD` into rendered YAML — do not paste that output.

@@ -36,7 +36,13 @@ cp deploy/.env.example deploy/.env   # set username, password, BIOS_DEMO_SITE=re
 docker compose --env-file deploy/.env -f deploy/docker-compose.yml up -d --build
 ```
 
-DNS: **A record** `review` → VPS IPv4 (or AAAA for IPv6). Use CNAME only if pointing at another hostname you control, not at the app container.
+DNS for `review.example.com` (do not hardcode a real customer domain in this repo):
+
+- **A record** `review` → the VPS public IPv4. This is the normal path.
+- **AAAA record** `review` → the VPS public IPv6 if the host has one.
+- **CNAME** only if `review` should alias another hostname you already control (for example a load-balancer name). Do not CNAME at the Docker container.
+
+IONOS: this stack needs a **Linux VPS / VPS-like host with Docker Engine + Compose**. IONOS shared web hosting (FTP/PHP/CGI, no long-running processes) cannot run FastAPI this way. Do not bend the app into shared-hosting CGI.
 
 Then enable Caddy TLS:
 
