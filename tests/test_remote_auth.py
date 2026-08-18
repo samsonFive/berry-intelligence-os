@@ -70,6 +70,9 @@ def test_anonymous_protected_routes_redirect_to_login(monkeypatch) -> None:
     assert "Docker" not in login.text
     assert "Basic Auth" not in login.text
     assert "BIOS_" not in login.text
+    assert "<style>" in login.text
+    assert ".login-card" in login.text
+    assert "max-width: 420px" in login.text
     assert client.get("/static/app.css").status_code == 200
 
 
