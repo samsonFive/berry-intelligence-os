@@ -43,7 +43,13 @@ from app.repositories.base import DuplicateRecord
 from app.services.deterministic_tagging import apply_known_name_matches, matchers_from_entities
 from app.services.media_discovery import list_discovered_items, read_source_discovery_state
 from app.services.review_publish import PublishRequest, ReviewPublishService
-from app.services.source_freshness import FRESHNESS_LABELS, SOURCE_CADENCE_DAYS, classify_source_freshness, latest_item_dates
+from app.services.source_freshness import (
+    FRESHNESS_LABELS,
+    SOURCE_CADENCE_DAYS,
+    aggregate_source_coverage,
+    classify_source_freshness,
+    latest_item_dates,
+)
 from app.services.review_workbench import (
     analyst_transcript_label,
     attach_publication_card,
@@ -2590,6 +2596,7 @@ def sources_page_context(
         "gaps_count": len([s for s in all_sources if source_has_coverage_gap(s)]),
         "due_count": len([s for s in all_sources if source_is_due(s)]),
         "freshness_by_source": freshness_by_source,
+        "source_coverage": aggregate_source_coverage(freshness_by_source),
         "freshness_states": FRESHNESS_LABELS,
         "source_types": SOURCE_TYPES,
         "source_entity_types": SOURCE_ENTITY_TYPES,

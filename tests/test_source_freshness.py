@@ -17,6 +17,7 @@ from app.services.source_freshness import (
     FAILING,
     MANUAL,
     STALE,
+    aggregate_source_coverage,
     classify_source_freshness,
     is_discoverable,
     latest_item_dates,
@@ -130,3 +131,50 @@ def test_as_dict_is_json_serializable_shape():
     payload = result.as_dict()
     assert payload["state"] == MANUAL
     assert "reason" in payload
+
+
+# ---------------------------------------------------------------------------
+# Continuous Intelligence Refresh (2026-08-18): compact SOURCE COVERAGE
+# aggregation for the operator status line on /sources.
+# ---------------------------------------------------------------------------
+
+
+def test_aggregate_source_coverage_counts_each_state():
+    freshness_by_source = {
+        "source-a": classify_source_freshness(
+            _source(id="source-a"), discovery_state={"status": "ok", "last_success_at": "2026-08-17"}, today=date(2026, 8, 18)
+        ).as_dict(),
+        "source-b": classify_source_freshness(
+            _source(id="source-b"), discovery_state={"status": "ok", "last_success_at": "2026-08-09"}, today=date(2026, 8, 18)
+        ).as_dict(),
+        "source-c": classify_source_freshness(
+            _source(id="source-c"), discovery_state={"status": "error", "error": "timeout", "last_success_at": "2026-08-01"}, today=date(2026, 8, 18)
+        ).as_dict(),
+        "source-manual": classify_source_freshness({"id": "source-manual"}, discovery_state=None).as_dict(),
+    }
+    coverage = aggregate_source_coverage(freshness_by_source)
+    assert coverage["sources_total"] == 4
+    assert coverage["current"] == 1
+    assert coverage["due"] == 1
+    assert coverage["failing"] == 1
+    assert coverage["manual"] == 1
+    assert coverage["stale"] == 0
+
+
+def test_aggregate_source_coverage_last_refresh_is_the_most_recent_success():
+    freshness_by_source = {
+        "source-a": classify_source_freshness(
+            _source(id="source-a"), discovery_state={"status": "ok", "last_success_at": "2026-08-10"}, today=date(2026, 8, 18)
+        ).as_dict(),
+        "source-b": classify_source_freshness(
+            _source(id="source-b"), discovery_state={"status": "ok", "last_success_at": "2026-08-17"}, today=date(2026, 8, 18)
+        ).as_dict(),
+    }
+    coverage = aggregate_source_coverage(freshness_by_source)
+    assert coverage["last_refresh_at"] == "2026-08-17"
+
+
+def test_aggregate_source_coverage_never_fabricates_a_next_run_time():
+    coverage = aggregate_source_coverage({})
+    assert "next_scheduled_refresh" not in coverage
+    assert "next_refresh_at" not in coverage

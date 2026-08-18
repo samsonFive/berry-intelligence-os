@@ -89,6 +89,13 @@
   {% endif %}
 </p>
 
+{% if not static_build and source_coverage %}
+<p class="result-count" title="{{ source_coverage.manual }} reference/manual source(s), reviewed by hand, are not counted in this line.">
+  SOURCE COVERAGE — {{ source_coverage.current }} current · {{ source_coverage.due }} due · {{ source_coverage.stale }} stale · {{ source_coverage.failing }} failing
+  {% if source_coverage.last_refresh_at %}· Last refresh: {{ source_coverage.last_refresh_at }}{% endif %}
+</p>
+{% endif %}
+
 {% if blocked_domains and not static_build %}
   <details class="collapsible-form">
     <summary>Blocked domains ({{ blocked_domains|length }})</summary>

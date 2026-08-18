@@ -326,6 +326,10 @@ class SourceResult:
     found: int = 0
     new: int = 0
     known: int = 0
+    # Of `new`, how many a spoken-media source's first-ever discovery run
+    # flagged historical_backlog (see media_discovery.classify_initial_backlog)
+    # -- staged, but excluded from this run's normal drafting.
+    historical_backlog: int = 0
     error: str | None = None
 
 
@@ -344,6 +348,13 @@ class ItemResult:
     failure_class: str | None = None
     error: str | None = None
     next_action: str = ""
+    media_format: str | None = None
+    # "direct" | "adjacent" | None -- set only for web_article items that
+    # passed through relevance_screen.py this run (see run_collection.py's
+    # orchestrate()); absent for every other media_format and for an
+    # article whose draft predates this field.
+    relevance_tier: str | None = None
+    historical_backlog: bool = False
 
 
 @dataclass
@@ -510,6 +521,7 @@ class CollectionRunner:
                     found=result.found,
                     new=result.new,
                     known=result.already_known,
+                    historical_backlog=result.historical_backlog,
                     error=result.error,
                 )
             )
@@ -546,6 +558,8 @@ class CollectionRunner:
                         failure_class="operator" if prior_class == "operator" or exhausted else "retryable",
                         error=prior.get("last_error"),
                         next_action=retry_block,
+                        media_format=item.get("media_format"),
+                        historical_backlog=bool(item.get("historical_backlog")),
                     )
                 )
                 continue
@@ -640,6 +654,9 @@ class CollectionRunner:
             failure_class=failure_class,
             error=error,
             next_action=result.next_action,
+            media_format=item.get("media_format"),
+            relevance_tier=getattr(result, "relevance_tier", None),
+            historical_backlog=bool(item.get("historical_backlog")),
         )
 
     def _failure_result(self, item: dict[str, Any], state: str, error: str) -> ItemResult:
@@ -650,6 +667,8 @@ class CollectionRunner:
             failure_class=self._classify_failure(state, "unknown", error) or "operator",
             error=error,
             next_action="Inspect the operational error before retrying.",
+            media_format=item.get("media_format"),
+            historical_backlog=bool(item.get("historical_backlog")),
         )
 
     @staticmethod
@@ -733,6 +752,7 @@ class CollectionRunner:
     def _counts(summary: CollectionRunSummary) -> dict[str, int]:
         states = [item.state for item in summary.items]
         failures = [item.failure_class for item in summary.items]
+        review_ready_states = {"awaiting_publication_review", "publication_approved"}
         return {
             "sources_checked": len(summary.sources),
             "sources_succeeded": sum(result.status in {"ok", "planned"} for result in summary.sources),
@@ -740,7 +760,24 @@ class CollectionRunner:
             "items_discovered": sum(result.found for result in summary.sources),
             "items_new": sum(result.new for result in summary.sources),
             "items_known": sum(result.known for result in summary.sources),
+            # Of items_new, how many a spoken-media source's first-ever
+            # discovery run held back as historical backlog (staged, not
+            # drafted) -- see media_discovery.classify_initial_backlog.
+            "historical_backlog_discovered": sum(result.historical_backlog for result in summary.sources),
+            "historical_backlog_suppressed": states.count("historical_backlog_suppressed"),
             "items_processed": len(summary.items),
+            "direct_review_ready": sum(
+                1 for item in summary.items if item.relevance_tier == "direct" and item.state in review_ready_states
+            ),
+            "adjacent_review_ready": sum(
+                1 for item in summary.items if item.relevance_tier == "adjacent" and item.state in review_ready_states
+            ),
+            "irrelevant_rejected": states.count("skipped_irrelevant"),
+            "transcript_needed": sum(
+                1
+                for item in summary.items
+                if item.media_format in {"podcast", "video", "conference_video"} and item.transcript_status == "missing"
+            ),
             "publication_drafts_created": sum(item.publication_draft_created for item in summary.items),
             "awaiting_publication_review": states.count("awaiting_publication_review"),
             "publication_rejected": states.count("publication_rejected"),

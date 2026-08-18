@@ -557,3 +557,83 @@ def test_real_runner_creates_publication_draft_once_and_waits_for_human_review(t
     assert len(draft_files) == 1
     draft = json.loads(draft_files[0].read_text())
     assert draft["status"] == "draft" and draft["review_state"] == "in_review"
+
+
+# ---------------------------------------------------------------------------
+# Continuous Intelligence Refresh (2026-08-18): post-run queue hygiene
+# reporting -- direct-vs-adjacent review-ready counts, irrelevant-rejected,
+# historical-backlog discovered/suppressed, transcript-needed. Requirement:
+# a scheduled run's report must show what's genuinely new, not just a
+# re-walk of the whole backlog.
+# ---------------------------------------------------------------------------
+
+
+def test_counts_report_direct_and_adjacent_review_ready_separately(tmp_path: Path) -> None:
+    repos = _repos(tmp_path)
+    inbox = tmp_path / "inbox"
+    _stage(inbox, _item("item-direct", "source-a"))
+    _stage(inbox, _item("item-adjacent", "source-a"))
+    _stage(inbox, _item("item-no-tier", "source-a"))
+
+    direct = _result("item-direct", "awaiting_publication_review", created=True)
+    direct.relevance_tier = "direct"
+    adjacent = _result("item-adjacent", "awaiting_publication_review", created=True)
+    adjacent.relevance_tier = "adjacent"
+    no_tier = _result("item-no-tier", "awaiting_publication_review", created=True)
+
+    orchestrator = FakeOrchestrator({"item-direct": direct, "item-adjacent": adjacent, "item-no-tier": no_tier})
+    summary = _runner(tmp_path, repos, orchestrator).run(source_id="source-a")
+    assert summary.counts["direct_review_ready"] == 1
+    assert summary.counts["adjacent_review_ready"] == 1
+    item_by_id = {item.item_id: item for item in summary.items}
+    assert item_by_id["item-direct"].relevance_tier == "direct"
+    assert item_by_id["item-adjacent"].relevance_tier == "adjacent"
+    assert item_by_id["item-no-tier"].relevance_tier is None
+
+
+def test_counts_report_irrelevant_rejected_and_transcript_needed(tmp_path: Path) -> None:
+    repos = _repos(tmp_path)
+    inbox = tmp_path / "inbox"
+    _stage(inbox, _item("item-irrelevant", "source-a"))
+    _stage(inbox, _item("item-needs-transcript", "source-a"))
+
+    irrelevant = _result("item-irrelevant", "skipped_irrelevant", transcript_status="deferred")
+    needs_transcript = _result("item-needs-transcript", "awaiting_publication_review", transcript_status="missing")
+    orchestrator = FakeOrchestrator({"item-irrelevant": irrelevant, "item-needs-transcript": needs_transcript})
+    summary = _runner(tmp_path, repos, orchestrator).run(source_id="source-a")
+    assert summary.counts["irrelevant_rejected"] == 1
+    assert summary.counts["transcript_needed"] == 1
+
+
+def test_counts_report_historical_backlog_discovered_and_suppressed(tmp_path: Path) -> None:
+    """Mirrors run_collection.py's orchestrate(): a discovery pass that
+    flagged spoken-media backlog reports it at the source level
+    (historical_backlog_discovered), and an item whose orchestration was
+    skipped as backlog reports it at the item level
+    (historical_backlog_suppressed) -- distinct from a normal
+    awaiting_publication_review outcome."""
+    repos = _repos(tmp_path)
+    inbox = tmp_path / "inbox"
+    backlog_item = _item("item-backlog", "source-a")
+    backlog_item["historical_backlog"] = True
+    _stage(inbox, backlog_item)
+    _stage(inbox, _item("item-current", "source-a"))
+
+    def discover(source_id: str) -> DiscoveryRunResult:
+        return DiscoveryRunResult(source_id=source_id, status="ok", found=5, new=5, historical_backlog=2)
+
+    suppressed = OrchestrationResult(
+        item_id="item-backlog",
+        state="historical_backlog_suppressed",
+        parent_resolution=ParentResolution(status="skipped", message="Historical backlog item."),
+        transcript_status="deferred",
+        next_action="No action; outside the source's bounded initial-discovery window.",
+    )
+    current = _result("item-current", "awaiting_publication_review", created=True)
+    orchestrator = FakeOrchestrator({"item-backlog": suppressed, "item-current": current})
+    summary = _runner(tmp_path, repos, orchestrator, discover=discover).run(source_id="source-a")
+    assert summary.counts["historical_backlog_discovered"] == 2
+    assert summary.counts["historical_backlog_suppressed"] == 1
+    item_by_id = {item.item_id: item for item in summary.items}
+    assert item_by_id["item-backlog"].historical_backlog is True
+    assert item_by_id["item-current"].historical_backlog is False

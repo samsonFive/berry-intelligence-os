@@ -169,6 +169,38 @@ def classify_source_freshness(
     )
 
 
+def aggregate_source_coverage(freshness_by_source: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    """Compact analyst-facing summary across every discoverable source's
+    already-computed freshness (SourceFreshness.as_dict(), e.g.
+    app/main.py's sources_page_context() freshness_by_source) -- "SOURCE
+    COVERAGE / N current / N due / N failing" (Continuous Intelligence
+    Refresh, 2026-08-18). Reuses classify_source_freshness()'s own
+    per-source state rather than re-deriving freshness; this is purely an
+    aggregation. Deliberately does NOT report a "next scheduled refresh" --
+    this module has no way to know whether a recurring scheduler is
+    actually installed or what its real cadence is, and fabricating a
+    next-run time was explicitly ruled out. A caller that knows the real
+    scheduler configuration (e.g. the deployed bios-collection.timer's
+    OnCalendar=) may report that separately."""
+    counts = {CURRENT: 0, DUE: 0, STALE: 0, FAILING: 0, MANUAL: 0}
+    last_refresh: str | None = None
+    for freshness in freshness_by_source.values():
+        state = freshness.get("state")
+        counts[state] = counts.get(state, 0) + 1
+        success_at = freshness.get("last_success_at")
+        if success_at and (last_refresh is None or success_at > last_refresh):
+            last_refresh = success_at
+    return {
+        "sources_total": len(freshness_by_source),
+        "current": counts[CURRENT],
+        "due": counts[DUE],
+        "stale": counts[STALE],
+        "failing": counts[FAILING],
+        "manual": counts[MANUAL],
+        "last_refresh_at": last_refresh,
+    }
+
+
 def latest_item_dates(
     *,
     discovered_items: list[dict[str, Any]],

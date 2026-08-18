@@ -182,6 +182,13 @@ class OrchestrationResult:
     transcript_sha256: str | None = None
     extraction: dict[str, Any] | None = None
     errors: list[str] = field(default_factory=list)
+    # "direct" | "adjacent" | None -- only ever set for a web_article result
+    # by callers that ran it through relevance_screen.py (see
+    # scripts/run_collection.py's orchestrate()); optional/additive so every
+    # existing caller/test that never sets it is unaffected. Lets
+    # CollectionRunner report direct-vs-adjacent review-ready counts without
+    # this module importing anything article-specific itself.
+    relevance_tier: str | None = None
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -194,6 +201,7 @@ class OrchestrationResult:
             "transcript_id": self.transcript_id,
             "transcript_sha256": self.transcript_sha256,
             "extraction": self.extraction,
+            "relevance_tier": self.relevance_tier,
             "next_action": self.next_action,
             "errors": self.errors,
         }
