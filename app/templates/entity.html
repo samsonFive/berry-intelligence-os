@@ -32,6 +32,31 @@
     <div><strong>{{ last_updated|us_date if last_updated else "—" }}</strong><small>Updated</small></div>
   </div>
 
+  {# --- Recent intelligence: what's happened with this entity recently,
+       recency-first across trusted Evidence and (live app only, never on
+       the public static build) pending-review discoveries -- each item
+       clearly marked so an unreviewed article can never read as trusted. --- #}
+  {% if recent_intelligence %}
+    <h2>Recent intelligence</h2>
+    <ul class="entity-links" data-pagefind-ignore>
+      {% for item in recent_intelligence %}
+        <li>
+          {% if item.kind == 'trusted' %}
+            <span class="badge badge-status-active">TRUSTED</span>
+            <a href="/evidence/{{ item.record.id }}"><strong>{{ item.record.title }}</strong></a>
+          {% else %}
+            <span class="badge badge-muted">PENDING REVIEW</span>
+            <a href="/review/{{ item.record.id }}"><strong>{{ item.record.title }}</strong></a>
+          {% endif %}
+          <span class="draft-meta">
+            {% if item.date_is_published %}{{ item.date|us_date }}{% elif item.date %}Captured {{ item.date|us_date }}{% else %}Date unknown{% endif %}
+            {% if item.record.source_name %} · {{ item.record.source_name }}{% endif %}
+          </span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
   {# --- What matters: intelligence objects touching this entity (Phase 1.5B) --- #}
   {% if entity_signals or entity_assessments or entity_recommendations %}
     <h2>Bottom line</h2>

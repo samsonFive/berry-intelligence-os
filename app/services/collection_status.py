@@ -20,13 +20,14 @@ from app.services.collection_runner import (
     ExtractionGate,
     OperationalStateStore,
 )
-from app.services.media_discovery import list_discovered_items
+from app.services.media_discovery import list_discovered_items, read_source_discovery_state
 from app.services.media_orchestration import (
     MediaOrchestrationError,
     MediaOrchestrationService,
     MediaTranscriptionAdapter,
 )
 from app.services.review_workbench import build_review_workbench
+from app.services.source_freshness import classify_source_freshness, latest_item_dates
 
 
 UTC = timezone.utc
@@ -88,6 +89,7 @@ class SourceStatus:
     last_discovery_status: str | None = None
     last_discovery_new: int | None = None
     recommended_next_action: str = "run collection"
+    freshness: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -515,6 +517,17 @@ class CollectionStatusService:
             statuses = [item for item in item_statuses if item.source_id == sid]
             source_problems = [problem for problem in relevant_problems if problem.source_id == sid]
             last_source = latest_source_results.get(sid, {})
+            discovery_state = read_source_discovery_state(self._inbox, sid)
+            published_at, captured_at = latest_item_dates(
+                discovered_items=all_items, published_evidence=evidence, source_id=sid,
+            )
+            freshness = classify_source_freshness(
+                source,
+                discovery_state=discovery_state,
+                latest_item_published_at=published_at,
+                latest_item_captured_at=captured_at,
+                today=now.date(),
+            )
             report = SourceStatus(
                 source_id=sid,
                 name=_source_name(source),
@@ -531,6 +544,7 @@ class CollectionStatusService:
                 completed_no_action=sum(item.category == "completed_no_action" for item in statuses),
                 last_discovery_status=last_source.get("status"),
                 last_discovery_new=last_source.get("new") if isinstance(last_source.get("new"), int) else None,
+                freshness=freshness.as_dict(),
             )
             local_counts = {category: sum(item.category == category for item in statuses) for category in STATUS_CATEGORIES}
             local_counts["operator_intervention_required"] += len(source_problems)

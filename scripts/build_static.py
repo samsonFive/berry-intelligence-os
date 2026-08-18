@@ -256,7 +256,7 @@ def build() -> list[Path]:
                     "regions": regions,
                     "berry_label": berry_label,
                     "authoring_mode": False,
-                    **entity_synthesis_context(entity, entities),
+                    **entity_synthesis_context(entity, entities, include_pending=False),
                 },
             )
         )

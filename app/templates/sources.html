@@ -197,6 +197,10 @@
           {% endif %}
           <span class="badge {% if source.enabled %}badge-status-active{% else %}badge-muted{% endif %}">{{ "enabled" if source.enabled else "paused" }}</span>
           {% if source_has_coverage_gap(source) %}<span class="badge badge-muted">coverage gap</span>{% endif %}
+          {% set freshness = freshness_by_source.get(source.id) %}
+          {% if freshness %}
+            <span class="badge {% if freshness.state in ('STALE', 'FAILING') %}level-high{% elif freshness.state == 'DUE' %}badge-muted{% elif freshness.state == 'MANUAL' %}badge-muted{% else %}badge-status-active{% endif %}" title="{{ freshness.reason }}">{{ freshness_states.get(freshness.state, freshness.state) }}</span>
+          {% endif %}
         </div>
         <h2>{{ source.label }}</h2>
         {% set why_lines = source.why_it_matters|as_bullets %}
@@ -221,6 +225,14 @@
           {% if source.last_status %} · {{ source.last_status }}{% endif %}
           {% if source.validated_count or source.purged_count %} · {{ source.validated_count or 0 }} validated / {{ source.purged_count or 0 }} purged{% endif %}
         </p>
+        {% if freshness and freshness.state != 'MANUAL' %}
+        <p class="draft-meta">
+          Automated discovery:
+          {% if freshness.last_success_at %}last succeeded {{ freshness.last_success_at[:10]|us_date }}{% elif freshness.last_checked_at %}last attempted {{ freshness.last_checked_at[:10]|us_date }} (no success yet){% else %}never run{% endif %}
+          {% if freshness.latest_item_published_at %} · newest item published {{ freshness.latest_item_published_at[:10]|us_date }}{% endif %}
+          {% if freshness.next_check_due %} · next check due {{ freshness.next_check_due|us_date }}{% endif %}
+        </p>
+        {% endif %}
         {% if not static_build %}
         <div class="form-actions">
           {% if source.type == 'reference' %}

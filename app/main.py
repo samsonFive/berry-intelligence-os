@@ -41,7 +41,9 @@ from app.services.berries.variety import (
 )
 from app.repositories.base import DuplicateRecord
 from app.services.deterministic_tagging import apply_known_name_matches, matchers_from_entities
+from app.services.media_discovery import list_discovered_items, read_source_discovery_state
 from app.services.review_publish import PublishRequest, ReviewPublishService
+from app.services.source_freshness import FRESHNESS_LABELS, SOURCE_CADENCE_DAYS, classify_source_freshness, latest_item_dates
 from app.services.review_workbench import (
     analyst_transcript_label,
     attach_publication_card,
@@ -209,15 +211,6 @@ SOURCE_CADENCES = {
     "quarterly": "Quarterly Data Release",
     "annual": "Annual Report",
     "event_driven": "Event-driven",
-}
-SOURCE_CADENCE_DAYS = {
-    "realtime": 1,
-    "weekly": 7,
-    "biweekly": 14,
-    "monthly": 30,
-    "quarterly": 90,
-    "annual": 365,
-    # event_driven has no fixed schedule -- never "due", only checked manually.
 }
 
 
@@ -1688,12 +1681,60 @@ def entity_list(
     )
 
 
-def entity_synthesis_context(entity: dict[str, Any], entities: dict[str, dict[str, Any]]) -> dict[str, Any]:
+def recent_intelligence_for_entity(
+    entity_id: str,
+    *,
+    linked_evidence: list[dict[str, Any]],
+    include_pending: bool,
+    limit: int = 8,
+) -> list[dict[str, Any]]:
+    """Recency-first feed of what's actually known about this entity,
+    trusted Evidence first-class and (live app only, never on the public
+    static build -- see entity_synthesis_context()'s include_pending) any
+    pending-review discoveries that already name it, each item clearly
+    marked TRUSTED or PENDING REVIEW so an unreviewed article can never be
+    mistaken for trusted intelligence. Sorted by real publication date,
+    falling back to capture date only when no publication date exists --
+    the same date-preference convention published_evidence() and
+    pending_publication_drafts() already use, so recency ordering is
+    consistent everywhere in the app, not just here."""
+    items: list[dict[str, Any]] = [
+        {
+            "kind": "trusted",
+            "record": record,
+            "date": record.get("published_date") or record.get("captured_date"),
+            "date_is_published": bool(record.get("published_date")),
+        }
+        for record in linked_evidence
+    ]
+    if include_pending:
+        items.extend(
+            {
+                "kind": "pending",
+                "record": record,
+                "date": record.get("published_date") or record.get("captured_date"),
+                "date_is_published": bool(record.get("published_date")),
+            }
+            for record in pending_publication_drafts()
+            if entity_id in (record.get("entity_ids") or [])
+        )
+    items.sort(key=lambda item: item["date"] or "", reverse=True)
+    return items[:limit]
+
+
+def entity_synthesis_context(
+    entity: dict[str, Any], entities: dict[str, dict[str, Any]], *, include_pending: bool = True
+) -> dict[str, Any]:
     """The generic, entity-type-agnostic synthesis fields added in Phase
     1.5B (BL-027/BL-028): intelligence objects touching this entity, its
     relationships to other entities as directed/evidenced edges, and the
     Strategic Questions it bears on. Shared by the live entity_detail()
-    route and scripts/build_static.py so both stay in sync by construction."""
+    route and scripts/build_static.py so both stay in sync by construction.
+    `include_pending` gates the "Recent Intelligence" pending-review feed
+    (added for cross-object freshness/recall): the live app defaults to
+    True, but scripts/build_static.py must always pass False -- pending
+    drafts live in gitignored inbox/ and must never appear in the public
+    GitHub Pages build alongside trusted intelligence."""
     entity_id = entity["id"]
     linked_evidence = [r for r in published_evidence() if entity_id in (r.get("entity_ids") or [])]
     entity_signals = signals_for_entity(entity_id)
@@ -1707,6 +1748,9 @@ def entity_synthesis_context(entity: dict[str, Any], entities: dict[str, dict[st
             entity_id, linked_evidence, entity_signals, entity_assessments, entity_recommendations
         ),
         "grouped_relationships": grouped_relationships_for_entity(entity_id, all_relationships(), entities),
+        "recent_intelligence": recent_intelligence_for_entity(
+            entity_id, linked_evidence=linked_evidence, include_pending=include_pending
+        ),
     }
     if entity.get("entity_type") == "variety":
         all_patents = [e for e in entities.values() if e.get("entity_type") == "patent"]
@@ -2442,12 +2486,35 @@ def sources_page_context(
         ({"id": e["id"], "name": e["name"]} for e in all_entities() if e.get("entity_type") == "company"),
         key=lambda c: c["name"],
     )
+    # Cadence-aware automated-discovery freshness, distinct from the
+    # human-review last_checked_at/next_check_due above -- "no new stories"
+    # (CURRENT/DUE) is a different fact from "we haven't successfully
+    # checked this source lately" (STALE/FAILING), and an analyst needs to
+    # tell them apart. Cheap: reads small per-source JSON state files, no
+    # network calls or per-item orchestration dry-run.
+    discovered_items = list_discovered_items(INBOX_DIR)
+    published = published_evidence()
+
+    def _freshness_for(source: dict[str, Any]) -> dict[str, Any]:
+        published_at, captured_at = latest_item_dates(
+            discovered_items=discovered_items, published_evidence=published, source_id=source["id"],
+        )
+        return classify_source_freshness(
+            source,
+            discovery_state=read_source_discovery_state(INBOX_DIR, source["id"]),
+            latest_item_published_at=published_at,
+            latest_item_captured_at=captured_at,
+        ).as_dict()
+
+    freshness_by_source = {source["id"]: _freshness_for(source) for source in all_sources if source.get("id")}
     return {
         "sources": filtered,
         "total_count": len(all_sources),
         "grouped_sources": group_sources(filtered, group_by),
         "gaps_count": len([s for s in all_sources if source_has_coverage_gap(s)]),
         "due_count": len([s for s in all_sources if source_is_due(s)]),
+        "freshness_by_source": freshness_by_source,
+        "freshness_states": FRESHNESS_LABELS,
         "source_types": SOURCE_TYPES,
         "source_entity_types": SOURCE_ENTITY_TYPES,
         "source_regions": SOURCE_REGIONS,

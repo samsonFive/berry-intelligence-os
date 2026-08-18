@@ -28,6 +28,8 @@ from app.services.ai_extraction import (
     OpenAICompatibleExtractionConfig,
     OpenAICompatibleExtractionProvider,
 )
+from app.services.ai_gateway.untrusted_complete import maybe_untrusted_completer
+from app.services.article_refresh import process_discovered_article
 from app.services.collection_runner import (
     CollectionLockedError,
     CollectionRunner,
@@ -221,6 +223,16 @@ def main(argv: list[str] | None = None) -> int:
             )
         )
 
+    # web_article items have no transcript to acquire -- they need real HTML
+    # acquisition and body-aware relevance screening instead. Computed once
+    # per run, not per item, since entity lists and the AI completer are the
+    # same for every article this run considers.
+    all_entities = repositories.entities.list()
+    article_berries = [record for record in all_entities if record.get("entity_type") == "berry"]
+    article_geographies = [record for record in all_entities if record.get("entity_type") == "geography"]
+    article_companies = [record for record in all_entities if record.get("entity_type") == "company"]
+    article_completer = maybe_untrusted_completer()
+
     def orchestrate(item_id: str, allow_transcription: bool, run_extraction: bool, dry_run: bool):
         adapter = MediaTranscriptionAdapter(
             args.inbox_dir,
@@ -237,6 +249,23 @@ def main(argv: list[str] | None = None) -> int:
             transcript_adapter=adapter,
             extraction_service=extraction_service if run_extraction else None,
         )
+        item = service.load_item(item_id)
+        if item.get("media_format") == "web_article":
+            # Real acquisition + two-stage body-aware relevance screening +
+            # enrichment, the same pipeline scripts/ingest_articles.py uses
+            # standalone -- reachable through the normal recurring runner
+            # now instead of only a special-purpose pilot CLI.
+            result, _extra = process_discovered_article(
+                item,
+                orchestrator=service,
+                inbox_dir=args.inbox_dir,
+                completer=article_completer,
+                berries=article_berries,
+                geographies=article_geographies,
+                companies=article_companies,
+                dry_run=dry_run,
+            )
+            return result
         return service.process(item_id, dry_run=dry_run)
 
     runner = CollectionRunner(

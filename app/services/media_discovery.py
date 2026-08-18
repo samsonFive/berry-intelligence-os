@@ -842,12 +842,23 @@ def discover_source(
             continue
         entries.extend(list_entries(parsed))
 
+    # last_success_at is carried forward across a failed attempt rather than
+    # overwritten -- distinct from last_checked_at (this attempt), it is
+    # what cadence-aware freshness (app/services/source_freshness.py) needs
+    # to tell "no new stories since our last real check" apart from "we
+    # haven't actually managed to check this source lately."
+    prior_state = read_source_discovery_state(inbox_dir, source_id) or {}
+    prior_last_success_at = prior_state.get("last_success_at")
+
     if not entries and feed_failures:
         # Every configured feed failed -- a whole-source error, same shape
         # callers already handle for the single-feed_url case.
         combined_error = "; ".join(f"{f['feed_url']}: {f['error']}" for f in feed_failures)
         result = DiscoveryRunResult(source_id=source_id, status="error", error=combined_error, feed_failures=feed_failures)
-        _write_source_discovery_state(inbox_dir, source_id, {**result.as_summary_dict(), "last_checked_at": now})
+        _write_source_discovery_state(
+            inbox_dir, source_id,
+            {**result.as_summary_dict(), "last_checked_at": now, "last_success_at": prior_last_success_at},
+        )
         return result
 
     result = DiscoveryRunResult(source_id=source_id, status="ok", found=len(entries), feed_failures=feed_failures)
@@ -869,7 +880,10 @@ def discover_source(
         except Exception as exc:  # noqa: BLE001 -- one bad item must not abort the whole feed
             result.item_failures.append(ItemFailure(index=index, identifier=str(identifier) if identifier else None, error=str(exc)))
 
-    _write_source_discovery_state(inbox_dir, source_id, {**result.as_summary_dict(), "last_checked_at": now})
+    _write_source_discovery_state(
+        inbox_dir, source_id,
+        {**result.as_summary_dict(), "last_checked_at": now, "last_success_at": now},
+    )
     return result
 
 

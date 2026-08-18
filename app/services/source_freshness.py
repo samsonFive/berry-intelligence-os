@@ -1,0 +1,200 @@
+"""Cadence-aware freshness classification for a monitored Source.
+
+Extends the existing operational-status model (app/services/collection_status.py,
+app/services/media_discovery.py's per-source discovery state) rather than
+building a parallel dashboard. The key distinction this module exists to
+make legible to an analyst: "no new stories since we last checked" (CURRENT
+or DUE, depending on cadence) is not the same fact as "we haven't actually
+managed to check this source lately" (STALE or FAILING) -- both can look
+identical from a headline count alone, but they call for very different
+operator action.
+
+A source's discovery `update_cadence` governs what "on time" means: a
+weekly trade-press feed is not stale after one quiet day, and a quarterly
+data release is not stale after a quiet month. Freshness state is always
+computed from `last_success_at` (a check that actually completed), never
+from `last_checked_at` alone (an attempt, which may have failed).
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from datetime import date, datetime, timedelta
+from typing import Any
+
+CURRENT = "CURRENT"
+DUE = "DUE"
+STALE = "STALE"
+FAILING = "FAILING"
+MANUAL = "MANUAL"
+
+FRESHNESS_LABELS = {
+    CURRENT: "Current",
+    DUE: "Due for a check",
+    STALE: "Stale",
+    FAILING: "Failing",
+    MANUAL: "Manual / non-automated",
+}
+
+# Canonical home for cadence-to-days; app/main.py imports this rather than
+# keeping its own copy, so the UI's "next check due" math and this module's
+# freshness classification can never silently drift apart.
+SOURCE_CADENCE_DAYS: dict[str, int] = {
+    "realtime": 1,
+    "weekly": 7,
+    "biweekly": 14,
+    "monthly": 30,
+    "quarterly": 90,
+    "annual": 365,
+    # event_driven has no fixed schedule -- never "due", only checked manually.
+}
+
+
+def _parse_date(value: Any) -> date | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    try:
+        return datetime.fromisoformat(value).date()
+    except ValueError:
+        return None
+
+
+def is_discoverable(source: dict[str, Any]) -> bool:
+    discovery = source.get("discovery") or {}
+    return bool(discovery.get("adapter") and (discovery.get("feed_url") or discovery.get("feed_urls")))
+
+
+@dataclass(frozen=True)
+class SourceFreshness:
+    state: str
+    label: str
+    last_checked_at: str | None
+    last_success_at: str | None
+    next_check_due: str | None
+    latest_item_published_at: str | None
+    latest_item_captured_at: str | None
+    reason: str
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "state": self.state,
+            "label": self.label,
+            "last_checked_at": self.last_checked_at,
+            "last_success_at": self.last_success_at,
+            "next_check_due": self.next_check_due,
+            "latest_item_published_at": self.latest_item_published_at,
+            "latest_item_captured_at": self.latest_item_captured_at,
+            "reason": self.reason,
+        }
+
+
+def classify_source_freshness(
+    source: dict[str, Any],
+    *,
+    discovery_state: dict[str, Any] | None,
+    latest_item_published_at: str | None = None,
+    latest_item_captured_at: str | None = None,
+    today: date | None = None,
+) -> SourceFreshness:
+    today = today or date.today()
+    last_checked_at = (discovery_state or {}).get("last_checked_at")
+    last_success_at = (discovery_state or {}).get("last_success_at")
+    cadence = source.get("update_cadence")
+    cadence_days = SOURCE_CADENCE_DAYS.get(cadence)
+
+    if not is_discoverable(source):
+        return SourceFreshness(
+            state=MANUAL, label=FRESHNESS_LABELS[MANUAL],
+            last_checked_at=last_checked_at, last_success_at=last_success_at, next_check_due=None,
+            latest_item_published_at=latest_item_published_at, latest_item_captured_at=latest_item_captured_at,
+            reason="No discovery adapter configured; this source is reviewed manually, not automatically checked.",
+        )
+
+    if discovery_state is None:
+        return SourceFreshness(
+            state=STALE, label=FRESHNESS_LABELS[STALE],
+            last_checked_at=None, last_success_at=None, next_check_due=None,
+            latest_item_published_at=latest_item_published_at, latest_item_captured_at=latest_item_captured_at,
+            reason="Discoverable, but no discovery run has ever been recorded for this source.",
+        )
+
+    if (discovery_state or {}).get("status") == "error":
+        return SourceFreshness(
+            state=FAILING, label=FRESHNESS_LABELS[FAILING],
+            last_checked_at=last_checked_at, last_success_at=last_success_at, next_check_due=None,
+            latest_item_published_at=latest_item_published_at, latest_item_captured_at=latest_item_captured_at,
+            reason=discovery_state.get("error") or "Most recent discovery attempt failed.",
+        )
+
+    if not last_success_at:
+        return SourceFreshness(
+            state=STALE, label=FRESHNESS_LABELS[STALE],
+            last_checked_at=last_checked_at, last_success_at=None, next_check_due=None,
+            latest_item_published_at=latest_item_published_at, latest_item_captured_at=latest_item_captured_at,
+            reason="Discovery has been attempted but has never yet completed successfully.",
+        )
+
+    last_success_date = _parse_date(last_success_at)
+    if cadence_days is None or last_success_date is None:
+        return SourceFreshness(
+            state=CURRENT, label=FRESHNESS_LABELS[CURRENT],
+            last_checked_at=last_checked_at, last_success_at=last_success_at, next_check_due=None,
+            latest_item_published_at=latest_item_published_at, latest_item_captured_at=latest_item_captured_at,
+            reason="Event-driven or uncadenced source; last check succeeded and no fixed schedule applies.",
+        )
+
+    due_date = last_success_date + timedelta(days=cadence_days)
+    due_iso = due_date.isoformat()
+    if today < due_date:
+        return SourceFreshness(
+            state=CURRENT, label=FRESHNESS_LABELS[CURRENT],
+            last_checked_at=last_checked_at, last_success_at=last_success_at, next_check_due=due_iso,
+            latest_item_published_at=latest_item_published_at, latest_item_captured_at=latest_item_captured_at,
+            reason=f"Checked successfully within its {cadence or 'expected'} cadence.",
+        )
+
+    overdue_days = (today - due_date).days
+    if overdue_days > cadence_days:
+        return SourceFreshness(
+            state=STALE, label=FRESHNESS_LABELS[STALE],
+            last_checked_at=last_checked_at, last_success_at=last_success_at, next_check_due=due_iso,
+            latest_item_published_at=latest_item_published_at, latest_item_captured_at=latest_item_captured_at,
+            reason=f"Overdue by {overdue_days} days -- more than a full {cadence or ''} cycle past its last successful check.",
+        )
+    return SourceFreshness(
+        state=DUE, label=FRESHNESS_LABELS[DUE],
+        last_checked_at=last_checked_at, last_success_at=last_success_at, next_check_due=due_iso,
+        latest_item_published_at=latest_item_published_at, latest_item_captured_at=latest_item_captured_at,
+        reason=f"Past its {cadence or 'expected'} cadence window; due for another check.",
+    )
+
+
+def latest_item_dates(
+    *,
+    discovered_items: list[dict[str, Any]],
+    published_evidence: list[dict[str, Any]],
+    source_id: str,
+) -> tuple[str | None, str | None]:
+    """Newest real publication date and newest capture date this project
+    actually has on file for a source, across both pending discoveries and
+    trusted published Evidence -- so "no new stories" can be judged against
+    what we would show an analyst, not only what has cleared review."""
+    published_dates = [
+        item.get("published_date") for item in discovered_items
+        if item.get("source_id") == source_id and item.get("published_date")
+    ]
+    captured_dates = [
+        item.get("first_seen_at") for item in discovered_items
+        if item.get("source_id") == source_id and item.get("first_seen_at")
+    ]
+    for record in published_evidence:
+        if record.get("source_id") != source_id:
+            continue
+        if record.get("published_date"):
+            published_dates.append(record["published_date"])
+        if record.get("captured_date"):
+            captured_dates.append(record["captured_date"])
+    return (
+        max(published_dates) if published_dates else None,
+        max(captured_dates) if captured_dates else None,
+    )

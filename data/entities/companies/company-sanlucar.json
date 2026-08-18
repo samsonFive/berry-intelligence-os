@@ -1,0 +1,22 @@
+{
+  "id": "company-sanlucar",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "SanLucar Group",
+  "aliases": [
+    "SanLucar"
+  ],
+  "status": "active",
+  "description": "Germany-headquartered global fresh produce marketer and grower group, active across multiple fruit and vegetable categories including berries. Registered here from real article-pilot coverage of its stake acquisition in Twin River Berries as a real, matchable company entity so future berry-industry coverage of SanLucar resolves deterministically -- evidence_ids/fact_ids/relationship_ids are intentionally left empty pending normal trusted-evidence review, not backfilled from the untrusted article alone.",
+  "roles": [
+    "marketer",
+    "grower"
+  ],
+  "berry_ids": [],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "headquarters": "Valencia, Spain / Landsberg am Lech, Germany"
+  }
+}
