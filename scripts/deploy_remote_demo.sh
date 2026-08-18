@@ -29,8 +29,8 @@ case "$cmd" in
       echo "Set real BIOS_REVIEW_USERNAME and BIOS_REVIEW_PASSWORD in deploy/.env" >&2
       exit 1
     fi
-    docker compose --env-file deploy/.env -f deploy/docker-compose.yml up -d --build
-    echo "App is on port ${BIOS_APP_PORT:-8000}. Optional TLS: docker compose --env-file deploy/.env -f deploy/docker-compose.yml --profile tls up -d"
+    docker compose --env-file deploy/.env -f deploy/docker-compose.yml --profile tls up -d --build
+    echo "App is loopback-only (${BIOS_APP_BIND:-127.0.0.1}:${BIOS_APP_PORT:-8000}). Public HTTPS is Caddy on 80/443."
     ;;
   down)
     docker compose --env-file deploy/.env -f deploy/docker-compose.yml --profile tls down
@@ -42,9 +42,10 @@ Remote interactive demo
 1. python scripts/export_demo_runtime.py --output demo-runtime
 2. Copy the repo plus demo-runtime/ to the VPS
 3. cp deploy/.env.example deploy/.env && edit credentials and BIOS_DEMO_SITE
-4. docker compose --env-file deploy/.env -f deploy/docker-compose.yml up -d --build
-5. Point DNS A record for review.example.com at the VPS
-6. docker compose --env-file deploy/.env -f deploy/docker-compose.yml --profile tls up -d
+4. docker compose --env-file deploy/.env -f deploy/docker-compose.yml --profile tls up -d --build
+5. Point DNS A record at the VPS before enabling TLS
+6. Open https://<BIOS_DEMO_SITE>/work-queue
+The app container is published on 127.0.0.1 only. Do not map host 8000 to 0.0.0.0.
 EOF
     ;;
 esac
