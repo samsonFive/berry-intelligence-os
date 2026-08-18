@@ -1,0 +1,46 @@
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: berry-intelligence-os:demo
+    restart: unless-stopped
+    environment:
+      BIOS_REMOTE_INTERACTIVE: "true"
+      BIOS_RUNTIME_DIR: /app/runtime
+      BIOS_MODE: authoring
+      ENABLE_SOURCE_POLLING: "false"
+      BIOS_REVIEW_USERNAME: ${BIOS_REVIEW_USERNAME:?set BIOS_REVIEW_USERNAME in deploy/.env}
+      BIOS_REVIEW_PASSWORD: ${BIOS_REVIEW_PASSWORD:?set BIOS_REVIEW_PASSWORD in deploy/.env}
+    volumes:
+      - ${BIOS_DEMO_RUNTIME:-../demo-runtime}/data:/app/runtime/data
+      - ${BIOS_DEMO_RUNTIME:-../demo-runtime}/inbox:/app/runtime/inbox
+    expose:
+      - "8000"
+    ports:
+      - "${BIOS_APP_PORT:-8000}:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz')"]
+      interval: 15s
+      timeout: 5s
+      retries: 8
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "${BIOS_HTTP_PORT:-80}:80"
+      - "${BIOS_HTTPS_PORT:-443}:443"
+    environment:
+      BIOS_DEMO_SITE: ${BIOS_DEMO_SITE:-http://localhost}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    profiles: ["tls"]
+
+volumes:
+  caddy-data:
+  caddy-config:

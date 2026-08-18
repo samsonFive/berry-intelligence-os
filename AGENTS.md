@@ -33,3 +33,5 @@ Duplicate publish of an already-trusted publication id is not a 500: identical i
 Standard lint/test/build commands remain those in `README.md`: `pytest`, `python scripts/validate_records.py`, `python scripts/build_static.py`.
 
 GitHub Pages deploys from `.github/workflows/deploy-pages.yml` on push to `v2/intelligence-os` or `master`. Public URL: `https://samsonfive.github.io/berry-intelligence-os/`. The static Scanner is a trusted published snapshot; it never includes `inbox/` drafts, untrusted enrichment, or the local review workbench.
+
+Remote interactive review (Scanner, publication review, Approve/Save/Reject) is the Docker deployment in `deploy/`, documented in `docs/07-static-deployment/REMOTE-INTERACTIVE-DEMO.md`. It uses `BIOS_REMOTE_INTERACTIVE` plus HTTP Basic Auth env vars. Do not expose an unauthenticated localhost app. Do not commit `demo-runtime/` or `deploy/.env`.

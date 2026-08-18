@@ -13,6 +13,8 @@ __pycache__/
 # Runtime-created, untrusted, or disposable (see docs/04-technical-architecture/ARCHITECTURE.md)
 inbox/
 generated/
+demo-runtime/
+deploy/.env
 review/*
 !review/review-backlog-2026-08-06.xlsx
 review/~$*

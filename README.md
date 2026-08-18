@@ -77,6 +77,12 @@ High-level configuration (all optional environment variables):
 
 - `BIOS_MODE` — `authoring` (default) enables local write/review; `readonly`
   disables write endpoints.
+- `BIOS_RUNTIME_DIR` — optional runtime root containing `data/` and `inbox/`
+  (used by the remote interactive demo container).
+- `BIOS_REMOTE_INTERACTIVE` — when `true`, require HTTP Basic Auth
+  (`BIOS_REVIEW_USERNAME` / `BIOS_REVIEW_PASSWORD`, no defaults) for the
+  interactive app. `/healthz` stays public. See
+  `docs/07-static-deployment/REMOTE-INTERACTIVE-DEMO.md`.
 - `ENABLE_SOURCE_POLLING` — opt-in background source polling (off by default).
 - `BIOS_EXTRACT_BASE_URL` / `BIOS_EXTRACT_MODEL` / `BIOS_EXTRACT_RESPONSE_FORMAT`
   — OpenAI-compatible (e.g. local LM Studio) extraction settings.
