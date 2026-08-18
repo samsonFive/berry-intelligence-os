@@ -349,6 +349,9 @@ def test_reader_promote_save_and_trusted_feedback(monkeypatch, tmp_path: Path) -
     assert "<kbd>j</kbd>" in feed.text
     assert 'data-promote' in feed.text
     assert 'action="/review/%s/publish"' % draft["id"] in feed.text
+    assert 'name="title" value="%s"' % draft["title"] in feed.text
+    assert 'name="summary" value="' in feed.text
+    assert 'name="title" value="">' not in feed.text
     assert "HUMAN PUBLICATION REVIEW" not in feed.text
 
     reader = client.get(f"/intelligence/{draft['id']}")

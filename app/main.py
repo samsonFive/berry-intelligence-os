@@ -1826,7 +1826,7 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
             continue
         values = _default_review_values(item["record"])
         values["reviewer"] = reviewer
-        item["values"] = values
+        item["review_values"] = values
     return_filter = "" if filter in {"", "all"} else f"?filter={filter}"
     return templates.TemplateResponse(
         request=request,
