@@ -144,7 +144,9 @@ def test_scanner_and_publication_queue_lead_with_analyst_fields(monkeypatch, tmp
     assert "El Niño can disrupt blueberry export timing." in scanner.text
     assert scanner.text.index("Synthetic blueberry elnino") < scanner.text.index("How DNA Technology")
     assert "Peru supply risk is the CI point." in scanner.text
-    assert "AI assisted · untrusted" in scanner.text
+    assert "AI-assisted · pending analyst review" in scanner.text
+    assert 'href="/intelligence/' in scanner.text
+    assert "Promote publication" not in scanner.text
 
     queue = client.get("/review?kind=publication")
     assert queue.status_code == 200

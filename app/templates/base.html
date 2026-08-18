@@ -13,7 +13,7 @@
       <nav aria-label="Primary">
         <a href="/landscapes/berries/blueberry" {% if request.url.path.startswith('/landscapes') %}class="active" aria-current="page"{% endif %}>Blueberry Landscape</a>
         <a href="/" {% if request.url.path == '/' %}class="active" aria-current="page"{% endif %}>Newsfeed</a>
-        <a href="/work-queue" {% if request.url.path == '/work-queue' %}class="active" aria-current="page"{% endif %}>Scanner</a>
+        <a href="/work-queue" {% if request.url.path == '/work-queue' or request.url.path.startswith('/intelligence/') %}class="active" aria-current="page"{% endif %}>Intelligence</a>
         <a href="/entities/company" {% if request.url.path.startswith('/entities/company') %}class="active" aria-current="page"{% endif %}>Competitors</a>
         <a href="/entities/variety" {% if request.url.path.startswith('/entities/variety') %}class="active" aria-current="page"{% endif %}>Varieties</a>
         <a href="/entities/geography" {% if request.url.path.startswith('/entities/geography') %}class="active" aria-current="page"{% endif %}>Geographies</a>
