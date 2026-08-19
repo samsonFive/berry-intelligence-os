@@ -25,7 +25,7 @@ Duplicate publish of an already-trusted publication id is not a 500: identical i
 1. Discover: `python scripts/discover_media.py --source <source-id>` or `scripts/run_recent_batch.py`
 2. Relevance screening is cheap metadata triage stored on the discovered item. Clearly irrelevant items should not be Whispered.
 3. `scripts/process_discovered_media.py --item <id> --relevance-gate --enrich --max-tier 2` creates/reviews drafts without Whisper. `--max-tier 3` enables local speech-to-text.
-4. Intelligence feed is `/work-queue`. Opening an item uses `/intelligence/{id}` (read → promote in place). Company/entity **Recent intelligence** uses the same reader in the live app; the public static snapshot still links trusted items to `/evidence/{id}` and never includes pending drafts. Advanced publication review remains `/review?kind=publication` and `/review/{id}`. Approve / Save / Reject have `+ Next` variants on the advanced form. AI suggestions are untrusted and visible with provenance.
+4. Intelligence feed is `/work-queue`. Opening an item uses `/intelligence/{id}` (read → promote in place). Pending cards can also be judged in the feed: `j`/`k` move, `Enter`/`o` open the reader, `a` promote, `s` save, `r` reject. Those actions POST the existing `/review/{id}/publish|save|reject` paths; they do not skip publication review. In `work_queue.html`, pending form fields live on `item.review_values` — do not use `item.values` (Jinja treats that as `dict.values`). Company/entity **Recent intelligence** uses the same reader in the live app; the public static snapshot still links trusted items to `/evidence/{id}` and never includes pending drafts. Advanced publication review remains `/review?kind=publication` and `/review/{id}`. Approve / Save / Reject have `+ Next` variants on the advanced form. AI suggestions are untrusted and visible with provenance. Feed ranking consumes stored `relevance_tier` (`adjacent` ranks below direct / unscreened spoken) and existing card `relevance_band` — do not invent a second relevance model.
 5. `python scripts/collection_status.py` reports discovered / relevant / skipped / transcript-ready / enrichment-ready / publication-review-ready / trusted / extraction / atomic / retry / intervention counts.
 
 `scripts/run_recent_batch.py` continues past per-item failures (YouTube anti-bot, missing captions, API errors). Do not treat one failed item as a batch abort. Do not report "0 failures" when transcript acquisition is blocked; review-ready without transcript is a valid state.
@@ -39,3 +39,20 @@ Remote interactive review (Scanner, publication review, Approve/Save/Reject) is 
 In this Cloud Agent VM, `docker` usually needs `sudo` (the `ubuntu` user is not in the `docker` group). Host port 8000 is often already taken by a leftover local uvicorn; set `BIOS_APP_PORT` (for example `18000`) instead of killing that process by name. VPS compose binds the app to `127.0.0.1` by default so Docker does not publish 8000 on the public interface. `docker compose config` interpolates `BIOS_REVIEW_PASSWORD` and `BIOS_SESSION_SECRET` into rendered YAML — do not paste that output.
 
 Remote interactive login is `GET /login`. Unauthenticated `/work-queue` redirects there. The session cookie is Secure only when the request is HTTPS or `X-Forwarded-Proto: https` (Caddy does this). Do not enable `BIOS_BASIC_AUTH` in front of `/login`. Remote interactive mode fails closed without `BIOS_REVIEW_USERNAME`, `BIOS_REVIEW_PASSWORD`, and `BIOS_SESSION_SECRET`.
+
+### Analyst workspace
+
+Nav purple pills (`.nav-action`) are **action counts** with a resolution workflow. Grey `.nav-inventory` figures are catalogs, not uncleared work.
+
+| Surface | Count meaning | Resolution |
+|---|---|---|
+| Reading Queue | unread + saved items still to consume | Mark read / Keep / Dismiss / Promote. Show completed. Bulk mark visible unread/saved. |
+| Publication review | pending drafts + unvalidated auto-capture | existing Approve / Save / Reject |
+| Claim testing | tagged evidence still `needs_testing` | Pass / Fail / Defer (Reopen from completed). This is claim verification, not `scripts/qualify_extraction_model.py`. |
+| Watches | **active** monitors only | Pause (1d) / Snooze (7d) / Resume / Stop. Stopped stays auditable. |
+| Alerts "N new" | proposed signals not yet confirmed/dismissed | Confirm / Dismiss on the alert. Catalog at `/signals` is inventory. |
+| Commercial positions | tagged evidence (inventory) | not a queue; no Clear. Position proposals (Accept / Edit / Reject) are separate. |
+
+Workflow state lives in `inbox/analyst_queue_state.json` (runtime, gitignored). Do not mutate trusted `data/evidence/*.json` `priority.*` fields to dequeue. Dismiss/Stop/Pass/Reject never delete source history. Reading state is independent of trust state.
+
+A larger object-model rewrite is still open: first-class Position objects do not exist; three monitoring concepts still coexist (evidence `priority.monitoring`, Source `monitoring_priority`, Signal `status`); model qualification stays in scripts. Do not flatten those into one object type without an explicit IA migration.

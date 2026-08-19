@@ -278,6 +278,11 @@ def present_feed_item(
         "status": record.get("status"),
         "record": record,
         "card": card,
+        "pending": (
+            trust in {"pending", "attention", "disputed"}
+            and record.get("status") != "published"
+            and record.get("evidence_role") != "atomic_evidence"
+        ),
     }
 
 

@@ -294,6 +294,81 @@ def test_adjacent_filter_surfaces_adjacent_signals_without_hiding_them(monkeypat
     assert any(option["key"] == "adjacent" for option in feed["filters"])
 
 
+def test_feed_promote_save_reject_use_existing_review_paths(monkeypatch, tmp_path: Path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    _seed_entities(repos)
+    promote = _publication_draft("feed-promote")
+    save = _publication_draft("feed-save")
+    reject = _publication_draft("feed-reject")
+    for draft in (promote, save, reject):
+        main.save_draft(draft)
+    client = TestClient(app)
+
+    page = client.get("/work-queue")
+    assert page.status_code == 200
+    assert 'name="review_values"' not in page.text
+    assert f'value="{promote["title"]}"' in unescape(page.text)
+    assert "event.key === \"j\"" in page.text
+
+    saved = client.post(
+        f"/review/{save['id']}/save",
+        data={
+            "title": save["title"],
+            "summary": save["summary"],
+            "why_it_matters": save["why_it_matters"],
+            "return_to": "/work-queue?saved=1",
+        },
+        follow_redirects=False,
+    )
+    assert saved.status_code == 303
+    assert saved.headers["location"] == "/work-queue?saved=1"
+    saved_page = client.get("/work-queue?saved=1")
+    assert "Pending item saved" in saved_page.text
+    assert main.get_draft(save["id"])["status"] == "draft"
+
+    promoted = client.post(
+        f"/review/{promote['id']}/publish",
+        data={
+            "title": promote["title"],
+            "source_type": promote["source_type"],
+            "source_name": promote["source_name"],
+            "source_url": promote["source_url"],
+            "published_date": promote["published_date"],
+            "captured_date": promote["captured_date"],
+            "summary": promote["summary"],
+            "why_it_matters": promote["why_it_matters"],
+            "tags": "retail",
+            "reviewer": "analyst-fixture",
+            "return_to": f"/work-queue?promoted={promote['id']}",
+        },
+        follow_redirects=False,
+    )
+    assert promoted.status_code == 303
+    assert promoted.headers["location"] == f"/work-queue?promoted={promote['id']}"
+    feed = client.get(promoted.headers["location"])
+    assert "Promoted to trusted intelligence" in feed.text
+    assert f'href="/intelligence/{promote["id"]}"' in feed.text
+    assert repos.evidence.get(promote["id"])["status"] == "published"
+    assert main.get_draft(promote["id"]) is None
+
+    rejected = client.post(
+        f"/review/{reject['id']}/reject",
+        data={
+            "reviewer": "analyst-fixture",
+            "rejection_reason": "Rejected from intelligence feed",
+            "rejection_category": "other",
+            "return_to": "/work-queue",
+        },
+        follow_redirects=False,
+    )
+    assert rejected.status_code == 303
+    assert rejected.headers["location"] == "/work-queue"
+    assert main.get_draft(reject["id"])["status"] == "rejected"
+    after = client.get("/work-queue")
+    assert "Synthetic blueberry article feed-reject" not in after.text
+
+
 def test_tier_absent_items_are_not_penalized_below_direct(monkeypatch, tmp_path: Path) -> None:
     """Podcasts/videos/pre-fix drafts carry no relevance_tier at all --
     they must rank with direct items, not be treated as adjacent."""

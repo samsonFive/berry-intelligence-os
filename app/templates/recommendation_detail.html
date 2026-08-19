@@ -7,6 +7,17 @@
     <h1>{{ recommendation.title }}</h1>
   </div>
 </section>
+{% if authoring_mode and proposal_state == 'open' and (recommendation.ai_proposed or 'pending' in (recommendation.reviewer or '')|lower) %}
+  <div class="banner">
+    <p>This is a position proposal awaiting a human decision. Accept or reject does not delete the recommendation record.</p>
+    <div class="queue-actions">
+      <form action="/recommendations/{{ recommendation.id }}/proposal-decision" method="post"><input type="hidden" name="action" value="accept"><button class="action-button action-approve" type="submit">Accept</button></form>
+      <form action="/recommendations/{{ recommendation.id }}/proposal-decision" method="post"><input type="hidden" name="action" value="reject"><button class="action-button action-reject" type="submit">Reject</button></form>
+    </div>
+  </div>
+{% elif proposal_state and proposal_state != 'open' %}
+  <p class="context-limit">Proposal decision: {{ proposal_state }}. The recommendation record is unchanged.</p>
+{% endif %}
 <article class="detail-card">
   <dl data-pagefind-ignore>
     <dt>Action type</dt><dd>{{ recommendation.action_type|replace('_',' ')|title }}</dd>

@@ -11,27 +11,41 @@
     <aside class="sidebar">
       <div class="brand">BERRY<span>INTELLIGENCE OS</span></div>
       <nav aria-label="Primary">
+        <p class="nav-group">Live intelligence</p>
+        <a href="/work-queue" {% if request.url.path == '/work-queue' or request.url.path.startswith('/intelligence/') %}class="active" aria-current="page"{% endif %}>Feed</a>
+        <a href="/queues/reading" {% if request.url.path == '/queues/reading' %}class="active" aria-current="page"{% endif %}>Reading Queue{% if nav_work_counts.reading_action %}<span class="nav-action">{{ nav_work_counts.reading_action }} need attention</span>{% endif %}</a>
+
+        {% if authoring_mode %}
+        <p class="nav-group">Review</p>
+        <a href="/review?kind=publication" {% if request.url.path.startswith('/review') and 'atomic' not in request.url.query %}class="active" aria-current="page"{% endif %}>Publications{% if pending_review_count() %}<span class="nav-action">{{ pending_review_count() }} need review</span>{% endif %}</a>
+        <a href="/review?kind=atomic" {% if request.url.path.startswith('/review') and 'atomic' in request.url.query %}class="active" aria-current="page"{% endif %}>Claims</a>
+        {% endif %}
+
+        <p class="nav-group">Monitoring</p>
+        <a href="/queues/monitoring" {% if request.url.path == '/queues/monitoring' %}class="active" aria-current="page"{% endif %}>Watches{% if nav_work_counts.monitoring_inventory %}<span class="nav-inventory">{{ nav_work_counts.monitoring_inventory }} active</span>{% endif %}</a>
+        <a href="/queues/monitoring#alerts">Alerts{% if nav_work_counts.signal_alerts %}<span class="nav-action">{{ nav_work_counts.signal_alerts }} new</span>{% endif %}</a>
+        <a href="/signals" {% if request.url.path.startswith('/signals') %}class="active" aria-current="page"{% endif %}>Signals</a>
+        {% if authoring_mode or static_build %}
+          <a href="/sources" {% if request.url.path.startswith('/sources') %}class="active" aria-current="page"{% endif %}>Source health</a>
+        {% endif %}
+
+        <p class="nav-group">Intelligence</p>
         <a href="/landscapes/berries/blueberry" {% if request.url.path.startswith('/landscapes') %}class="active" aria-current="page"{% endif %}>Blueberry Landscape</a>
         <a href="/" {% if request.url.path == '/' %}class="active" aria-current="page"{% endif %}>Newsfeed</a>
-        <a href="/work-queue" {% if request.url.path == '/work-queue' or request.url.path.startswith('/intelligence/') %}class="active" aria-current="page"{% endif %}>Intelligence</a>
-        <a href="/entities/company" {% if request.url.path.startswith('/entities/company') %}class="active" aria-current="page"{% endif %}>Competitors</a>
+        <a href="/entities/company" {% if request.url.path.startswith('/entities/company') %}class="active" aria-current="page"{% endif %}>Companies</a>
+        <a href="/queues/commercial_position" {% if request.url.path == '/queues/commercial_position' %}class="active" aria-current="page"{% endif %}>Commercial positions</a>
         <a href="/entities/variety" {% if request.url.path.startswith('/entities/variety') %}class="active" aria-current="page"{% endif %}>Varieties</a>
         <a href="/entities/geography" {% if request.url.path.startswith('/entities/geography') %}class="active" aria-current="page"{% endif %}>Geographies</a>
         <a href="/strategic-questions" {% if request.url.path.startswith('/strategic-questions') %}class="active" aria-current="page"{% endif %}>Strategic Questions</a>
-        <a href="/signals" {% if request.url.path.startswith('/signals') %}class="active" aria-current="page"{% endif %}>Signals</a>
         <a href="/assessments" {% if request.url.path.startswith('/assessments') %}class="active" aria-current="page"{% endif %}>Assessments</a>
         <a href="/recommendations" {% if request.url.path.startswith('/recommendations') %}class="active" aria-current="page"{% endif %}>Recommendations</a>
-        {% if authoring_mode or static_build %}
-          <a href="/sources" {% if request.url.path.startswith('/sources') %}class="active" aria-current="page"{% endif %}>Sources</a>
-        {% endif %}
-        <hr>
+
         {% if authoring_mode %}
-          <a href="/review" {% if request.url.path.startswith('/review') %}class="active" aria-current="page"{% endif %}>Review Queue{% if pending_review_count() %} ({{ pending_review_count() }}){% endif %}</a>
+        <p class="nav-group">System</p>
+        <a href="/queues/testing" {% if request.url.path == '/queues/testing' %}class="active" aria-current="page"{% endif %}>Claim testing{% if nav_work_counts.testing_action %}<span class="nav-action">{{ nav_work_counts.testing_action }} need testing</span>{% endif %}</a>
+        {% else %}
+        <a href="/queues/testing" {% if request.url.path == '/queues/testing' %}class="active" aria-current="page"{% endif %}>Claim testing</a>
         {% endif %}
-        <a href="/queues/reading" {% if request.url.path == '/queues/reading' %}class="active" aria-current="page"{% endif %}>Reading Queue{% if queue_counts().reading %} ({{ queue_counts().reading }}){% endif %}</a>
-        <a href="/queues/testing" {% if request.url.path == '/queues/testing' %}class="active" aria-current="page"{% endif %}>Testing Queue{% if queue_counts().testing %} ({{ queue_counts().testing }}){% endif %}</a>
-        <a href="/queues/commercial_position" {% if request.url.path == '/queues/commercial_position' %}class="active" aria-current="page"{% endif %}>Commercial Position{% if queue_counts().commercial_position %} ({{ queue_counts().commercial_position }}){% endif %}</a>
-        <a href="/queues/monitoring" {% if request.url.path == '/queues/monitoring' %}class="active" aria-current="page"{% endif %}>Monitoring{% if queue_counts().monitoring %} ({{ queue_counts().monitoring }}){% endif %}</a>
       </nav>
     </aside>
     <main class="main">
