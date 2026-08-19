@@ -37,8 +37,8 @@ def _names_for(entity: dict[str, Any]) -> list[str]:
     return [value for value in values if isinstance(value, str) and value.strip()]
 
 
-def _index(entities: list[dict[str, Any]], types: tuple[str, ...]) -> list[tuple[str, str, dict[str, Any]]]:
-    rows: list[tuple[str, str, dict[str, Any]]] = []
+def _index(entities: list[dict[str, Any]], types: tuple[str, ...]) -> list[tuple[str, str, dict[str, Any], str]]:
+    rows: list[tuple[str, str, dict[str, Any], str]] = []
     for entity in entities:
         if entity.get("entity_type") not in types or not entity.get("id"):
             continue
@@ -46,22 +46,28 @@ def _index(entities: list[dict[str, Any]], types: tuple[str, ...]) -> list[tuple
             folded = _fold(name)
             if len(folded) < 4:
                 continue
-            rows.append((folded, entity["id"], entity))
+            # The original (unfolded) name/alias string that produced this
+            # index row -- carried through to a matched suggestion as
+            # matched_alias, so a reviewer (or a downstream consumer like
+            # Cursor's pending-draft triage) can see exactly which
+            # canonical alias/name the filing string matched against, not
+            # just the resulting entity id.
+            rows.append((folded, entity["id"], entity, name))
     rows.sort(key=lambda row: len(row[0]), reverse=True)
     return rows
 
 
 def _match_name(
     name: str,
-    index: list[tuple[str, str, dict[str, Any]]],
+    index: list[tuple[str, str, dict[str, Any], str]],
     *,
     filing_berry_ids: list[str] | None = None,
     require_berry_overlap: bool = False,
-) -> tuple[str, str] | None:
+) -> tuple[str, str, str] | None:
     folded = _fold(name)
     if len(folded) < 4:
         return None
-    matches: list[tuple[int, int, str, str]] = []
+    matches: list[tuple[int, int, str, str, str]] = []
     type_rank = {
         "company": 0,
         "brand": 1,
@@ -72,7 +78,7 @@ def _match_name(
     }
     folded_tokens = folded.split()
     filing_berries = set(filing_berry_ids or [])
-    for candidate, entity_id, entity in index:
+    for candidate, entity_id, entity, original_name in index:
         if require_berry_overlap:
             entity_berries = set(entity.get("berry_ids") or [])
             if entity_berries and filing_berries and not (entity_berries & filing_berries):
@@ -80,22 +86,22 @@ def _match_name(
         entity_type = entity.get("entity_type") or ""
         candidate_tokens = candidate.split()
         if folded == candidate:
-            matches.append((0, type_rank.get(entity_type, 9), entity_id, "high"))
+            matches.append((0, type_rank.get(entity_type, 9), entity_id, "high", original_name))
             continue
         if len(candidate_tokens) == 1 and len(candidate) >= 8 and candidate_tokens[0] in folded_tokens:
-            matches.append((1, type_rank.get(entity_type, 9), entity_id, "medium"))
+            matches.append((1, type_rank.get(entity_type, 9), entity_id, "medium", original_name))
             continue
         # Alias/shorter official name contained in the filing string
         # ("Fall Creek" ⊂ "Fall Creek Farm & Nursery, Inc.").
         # Do not match the reverse: a short filing name is not the longer
         # breeding-program title ("Driscoll's, Inc." ⊄ programme name).
         if len(candidate_tokens) >= 2 and _contiguous(candidate_tokens, folded_tokens):
-            matches.append((1, type_rank.get(entity_type, 9), entity_id, "medium"))
+            matches.append((1, type_rank.get(entity_type, 9), entity_id, "medium", original_name))
     if not matches:
         return None
-    matches.sort()
-    _rank, _type, entity_id, confidence = matches[0]
-    return entity_id, confidence
+    matches.sort(key=lambda row: row[:4])
+    _rank, _type, entity_id, confidence, matched_alias = matches[0]
+    return entity_id, confidence, matched_alias
 
 
 def _contiguous(needle: list[str], haystack: list[str]) -> bool:
@@ -119,7 +125,7 @@ def suggest_entity_links(
     def add(
         name: str,
         role: str,
-        index: list[tuple[str, str, dict[str, Any]]],
+        index: list[tuple[str, str, dict[str, Any], str]],
         *,
         require_berry_overlap: bool = False,
     ) -> None:
@@ -133,7 +139,7 @@ def suggest_entity_links(
             require_berry_overlap=require_berry_overlap,
         )
         if matched:
-            entity_id, confidence = matched
+            entity_id, confidence, matched_alias = matched
             suggestions.append(
                 {
                     "name": cleaned,
@@ -141,6 +147,7 @@ def suggest_entity_links(
                     "match_entity_id": entity_id,
                     "match_status": "matched",
                     "confidence": confidence,
+                    "matched_alias": matched_alias,
                 }
             )
         else:

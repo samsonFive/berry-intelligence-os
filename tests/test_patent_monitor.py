@@ -174,6 +174,47 @@ def test_entity_suggestions_match_assignee_not_inventor_creation() -> None:
     ]
 
 
+def test_matched_suggestion_exposes_which_canonical_alias_matched() -> None:
+    """A reviewer (or a downstream consumer like Cursor's pending-draft
+    triage) needs to see exactly which of an entity's name/alias strings
+    the filing text matched, not just the resulting entity id -- e.g. did
+    "Fall Creek" match the full legal name or a short alias."""
+    entities = [
+        {
+            "id": "company-fall-creek-farm-and-nursery",
+            "entity_type": "company",
+            "name": "Fall Creek Farm & Nursery, Inc.",
+            "aliases": ["Fall Creek"],
+        }
+    ]
+    suggestions = suggest_entity_links(_filing(), entities)
+    assignee = next(row for row in suggestions if row["role"] == "assignee")
+    assert assignee["matched_alias"] == "Fall Creek Farm & Nursery, Inc."
+
+    # A filing assignee spelled as just the short alias should surface
+    # that alias, not the longer legal name, as matched_alias.
+    short_form = suggest_entity_links(_filing(assignees=["Fall Creek"]), entities)
+    assignee_short = next(row for row in short_form if row["role"] == "assignee")
+    assert assignee_short["matched_alias"] == "Fall Creek"
+
+
+def test_draft_carries_relevance_tier_direct_for_morning_brief_ranking() -> None:
+    """Every patent draft already passed relevance_decision()'s named-berry
+    match -- without relevance_tier="direct", a patent falls through
+    app/services/morning_brief.py's relevance_tier-based ranking as
+    neither direct nor adjacent, which would silently drop it from
+    Cursor's delta-driven brief."""
+    draft = build_review_draft(
+        _filing(),
+        berry_ids=["berry-blueberry"],
+        suggestions=[],
+        evidence_links=[],
+        source_id="source-uspto-plant-patents",
+        captured_date="2026-08-19",
+    )
+    assert draft["relevance_tier"] == "direct"
+
+
 def test_corroboration_link_is_proposed_only() -> None:
     trusted = [
         {
