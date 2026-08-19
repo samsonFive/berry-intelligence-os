@@ -116,7 +116,7 @@
   <p class="context-limit">Company deltas from Evidence and review-ready drafts. Each bullet is a stored record, not a generated essay.</p>
   {% for company in brief.company_deltas %}
     <article class="brief-company">
-      <h3><a href="{{ company.href }}">{{ company.name }}</a> — {{ company.new_count or company.count }} new development{{ 's' if (company.new_count or company.count) != 1 else '' }}</h3>
+      <h3><a href="{{ company.href }}">{{ company.name }}</a> — {% if company.new_count %}{{ company.new_count }} new development{{ 's' if company.new_count != 1 else '' }}{% else %}{{ company.count }} recent development{{ 's' if company.count != 1 else '' }}{% endif %}</h3>
       <ul class="brief-bullets">
         {% for bullet in company.bullets %}
           <li><a href="{{ bullet.href }}">{{ bullet.label }}</a> · {{ bullet.source_name }}{% if bullet.date %} · {{ bullet.date|us_date }}{% endif %}</li>

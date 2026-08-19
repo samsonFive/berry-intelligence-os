@@ -109,14 +109,22 @@ def record_date(record: dict[str, Any]) -> str:
     return str(record.get("published_date") or record.get("captured_date") or "")
 
 
-def activity_stamp(record: dict[str, Any]) -> datetime | None:
+def activity_stamp(record: dict[str, Any], *, first_seen_at: str | None = None) -> datetime | None:
     """When this record became visible to the analyst, not merely its story date."""
 
-    for key in ("first_seen_at", "captured_date", "reviewed_at", "proposed_at", "updated_at"):
+    extra = _parse_stamp(first_seen_at or str(record.get("first_seen_at") or ""))
+    if extra:
+        return extra
+    stamp = None
+    for key in ("captured_date", "reviewed_at", "proposed_at", "updated_at"):
         stamp = _parse_stamp(str(record.get(key) or ""))
         if stamp:
-            return stamp
-    return _parse_stamp(record_date(record))
+            break
+    if stamp is None:
+        stamp = _parse_stamp(record_date(record))
+    if stamp and stamp.time() == datetime.min.time():
+        return datetime.combine(stamp.date(), datetime.max.time().replace(microsecond=0))
+    return stamp
 
 
 def frontier_date(records: list[dict[str, Any]]) -> date:
@@ -300,6 +308,7 @@ def _hot_entity_ids(
     last_seen: str | None,
     state: dict[str, dict[str, dict[str, Any]]],
     entities: dict[str, dict[str, Any]],
+    first_seen_by_discovered: dict[str, str] | None = None,
 ) -> set[str]:
     hot: set[str] = set()
     seen_at = _parse_stamp(last_seen)
@@ -310,7 +319,10 @@ def _hot_entity_ids(
             if entity_id in watch_entities:
                 hot.add(str(entity_id))
     for draft in drafts:
-        stamp = activity_stamp(draft)
+        stamp = activity_stamp(
+            draft,
+            first_seen_at=(first_seen_by_discovered or {}).get(str(draft.get("discovered_item_id") or "")),
+        )
         if seen_at and stamp and stamp <= seen_at:
             continue
         subject = primary_subject(draft, entities)
@@ -360,7 +372,8 @@ def rank_item(
     age_days = (frontier - item_day).days if item_day else 999
     calendar_age = (today - item_day).days if item_day else 999
     cutoff: datetime | None = ctx.get("since_cutoff")
-    stamp = activity_stamp(record)
+    first_seen = (ctx.get("first_seen_by_discovered") or {}).get(str(record.get("discovered_item_id") or ""))
+    stamp = activity_stamp(record, first_seen_at=first_seen)
     new_since = bool(cutoff and stamp and stamp > cutoff)
     primary = primary_subject(record, entities)
     title_hits = title_matched_entities(record, entities)
@@ -1019,6 +1032,11 @@ def build_morning_brief(
     universe = reading_records + pending_pool
     frontier = frontier_date(universe or published)
     watch_entities = _watch_entity_ids(published, state, entity_index)
+    first_seen_by_discovered = {
+        str(item.get("id")): str(item.get("first_seen_at") or "")
+        for item in discovered_rows
+        if item.get("id") and item.get("first_seen_at")
+    }
     hot_entities = _hot_entity_ids(
         watch_entities=watch_entities,
         signals=signal_rows,
@@ -1026,6 +1044,7 @@ def build_morning_brief(
         last_seen=last_seen,
         state=state,
         entities=entity_index,
+        first_seen_by_discovered=first_seen_by_discovered,
     )
     source_index = {str(source.get("id")): source for source in (sources or []) if source.get("id")}
     ctx = {
@@ -1040,6 +1059,7 @@ def build_morning_brief(
         "since_cutoff": since_cutoff,
         "watch_entities": watch_entities,
         "hot_entities": hot_entities,
+        "first_seen_by_discovered": first_seen_by_discovered,
     }
     ranked_reading = assign_buckets(
         sorted(
