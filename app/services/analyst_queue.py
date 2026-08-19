@@ -58,6 +58,10 @@ READING_LABELS = {
     "dismissed": "Dismissed",
     "promoted": "Promoted",
 }
+PENDING_DEFAULT = "open"
+PENDING_ACTIONS = {"dismiss": "dismissed", "restore": "open"}
+PENDING_LABELS = {"open": "Open", "dismissed": "Dismissed"}
+PENDING_ACTIVE = {"open"}
 TESTING_LABELS = {
     "needs_testing": "Needs testing",
     "pass": "Pass",
@@ -78,6 +82,7 @@ def _empty_state() -> dict[str, dict[str, dict[str, Any]]]:
         "monitoring": {},
         "proposals": {},
         "signals": {},
+        "pending": {},
         "meta": {},
     }
 
@@ -152,6 +157,15 @@ def signal_alert_state(item_id: str, state: dict[str, dict[str, dict[str, Any]]]
     return value if value in SIGNAL_ALERT_LABELS else SIGNAL_ALERT_DEFAULT
 
 
+def pending_workflow_state(item_id: str, state: dict[str, dict[str, dict[str, Any]]]) -> str:
+    value = str(_entry(item_id, "pending", state).get("state") or PENDING_DEFAULT)
+    return value if value in PENDING_LABELS else PENDING_DEFAULT
+
+
+def is_pending_dismissed(item_id: str, state: dict[str, dict[str, dict[str, Any]]]) -> bool:
+    return pending_workflow_state(item_id, state) == "dismissed"
+
+
 def is_pending_proposal(record: dict[str, Any], state: dict[str, dict[str, dict[str, Any]]]) -> bool:
     if proposal_state(str(record.get("id") or ""), state) != PROPOSAL_DEFAULT:
         return False
@@ -208,6 +222,11 @@ def apply_action(
         if not next_state:
             raise ValueError(f"Unknown signal-alert action: {action}")
         bucket = "signals"
+    elif dimension == "pending":
+        next_state = PENDING_ACTIONS.get(action)
+        if not next_state:
+            raise ValueError(f"Unknown pending action: {action}")
+        bucket = "pending"
     else:
         raise ValueError(f"No workflow actions on {dimension}")
     payload: dict[str, Any] = {
@@ -230,6 +249,18 @@ def bulk_mark_read(inbox_dir: Path, item_ids: list[str], *, reviewer: str = "") 
         if not item_id:
             continue
         apply_action(inbox_dir, dimension="reading", item_id=item_id, action="mark_read", reviewer=reviewer)
+        count += 1
+    return count
+
+
+def bulk_dismiss_pending(inbox_dir: Path, item_ids: list[str], *, reviewer: str = "") -> int:
+    """Hide selected pending drafts from triage. Does not reject or publish."""
+
+    count = 0
+    for item_id in item_ids:
+        if not item_id:
+            continue
+        apply_action(inbox_dir, dimension="pending", item_id=item_id, action="dismiss", reviewer=reviewer)
         count += 1
     return count
 

@@ -46,13 +46,15 @@ Nav purple pills (`.nav-action`) are **action counts** with a resolution workflo
 
 Morning Brief (`/brief`) is the daily starting point after login. It ranks existing intelligence; it does not create a second store and does not mark items read or trusted when viewed. Last-seen lives in `inbox/analyst_queue_state.json` under `meta.brief` (`last_seen_at` plus a compact `source_states` snapshot used only to detect source failure/recovery). **New** (activity after last visit) and **Important** (high-value unresolved regardless of age) are separate sections.
 
-Watch “Because” copy names the primary subject (title name-match / aliases), not a co-mentioned company. Co-mentions use “mentions watched X”.
+Watch “Because” copy names the primary subject (title / alias / newsroom identity), not a co-mentioned company. Co-mentions use “mentions watched X”. Primary watch match ranks above mention match; a company primary watch ranks above a geography primary watch so Mexico/Canada headlines do not bury company-specific intelligence.
+
+Pending drafts are triaged on `/brief#pending-triage` into Review now / Review soon / Adjacent / Likely ignore / Older backlog using stored `relevance_tier`, berry-direct, reading priority, source `monitoring_priority`, primary subject, watch-match quality, recency, and duplicate-title warnings. This is not a second AI score. Untrusted entity suggestions come from `app/services/draft_attribution.py` (canonical name, aliases, legal names, newsroom `linked_competitor_ids`) and are not written onto trusted `entity_ids`. Dismiss uses `analyst_queue_state.json` `pending` and keeps the draft file; Reject/Promote/Save still POST the existing `/review/{id}` routes. Bulk dismiss requires explicit selection and never publishes or auto-rejects.
 
 | Surface | Count meaning | Resolution |
 |---|---|---|
 | Morning Brief | new-since-last + important unresolved this cycle | Reader → Mark read / Keep / Dismiss / Promote |
 | Reading Queue | unread + saved items still to consume | Mark read / Keep / Dismiss / Promote. Show completed. Bulk mark visible top-priority unread/saved. Buckets: top / saved / adjacent / backlog. |
-| Publication review | pending drafts + unvalidated auto-capture | existing Approve / Save / Reject |
+| Publication review | Review now pending drafts (action). Remaining pending is inventory. | existing Approve / Save / Reject; triage Dismiss keeps history |
 | Claim testing | tagged evidence still `needs_testing` | Pass / Fail / Defer (Reopen from completed). This is claim verification, not `scripts/qualify_extraction_model.py`. |
 | Watches | **active** monitors only | Pause (1d) / Snooze (7d) / Resume / Stop. Stopped stays auditable. |
 | Alerts "N new" | proposed signals not yet confirmed/dismissed | Confirm / Dismiss on the alert. Catalog at `/signals` is inventory. |
@@ -60,6 +62,6 @@ Watch “Because” copy names the primary subject (title name-match / aliases),
 
 Workflow state lives in `inbox/analyst_queue_state.json` (runtime, gitignored). Do not mutate trusted `data/evidence/*.json` `priority.*` fields to dequeue. Dismiss/Stop/Pass/Reject never delete source history. Reading state is independent of trust state.
 
-Brief ranking is deterministic: direct > adjacent (stored `relevance_tier`), high reading priority, primary-subject watch match (title/alias; co-mentions are weaker and labeled honestly), recency relative to last brief and calendar date, current `web_article` drafts, company/variety linkage, source `monitoring_priority`, unread vs already read. Do not invent an opaque AI score. Consume Claude’s article sources and source-health states; do not add ingestion adapters.
+Brief ranking is deterministic: direct > adjacent (stored `relevance_tier`), high reading priority, **primary** watch match (company ≫ variety ≫ geography; co-mentions are weaker and labeled “mention”), recency relative to last brief and calendar date, current `web_article` drafts, company/variety linkage, source `monitoring_priority`, unread vs already read. Do not invent an opaque AI score. Consume Claude’s article sources and source-health states; do not add ingestion adapters.
 
 A larger object-model rewrite is still open: first-class Position objects do not exist; three monitoring concepts still coexist (evidence `priority.monitoring`, Source `monitoring_priority`, Signal `status`); model qualification stays in scripts. Do not flatten those into one object type without an explicit IA migration.

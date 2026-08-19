@@ -160,6 +160,27 @@
         {% if item.ai_untrusted %}<p class="context-limit">AI-assisted · pending analyst review. This is not trusted intelligence.</p>{% endif %}
       </section>
     {% endif %}
+    {% if attribution and (attribution.primary or attribution.suggested) %}
+      <section>
+        <h2>Primary subject</h2>
+        {% if attribution.primary %}
+          <p>
+            {% if attribution.primary.id %}
+              <a class="intel-chip" href="/entities/{{ attribution.primary.entity_type }}/{{ attribution.primary.id }}">{{ attribution.primary.name }}</a>
+            {% else %}
+              <span class="intel-chip intel-chip-muted">{{ attribution.primary.name }}</span>
+            {% endif %}
+            <span class="badge badge-muted">{{ attribution.primary.method|replace('_',' ') }} · {{ attribution.primary.strength }}</span>
+          </p>
+          <p class="context-limit">Deterministic suggestion for pending content. Trusted entity links are not rewritten until you promote.</p>
+        {% else %}
+          <p class="empty-state">No primary subject from title, newsroom identity, or alias match.</p>
+        {% endif %}
+        {% if attribution.mentions %}
+          <p class="context-limit">Mentioned, not primary: {{ attribution.mentions|map(attribute='name')|join(', ') }}</p>
+        {% endif %}
+      </section>
+    {% endif %}
     {% if item.entities or item.berry_names or item.geo_names %}
       <section>
         <h2>Entities</h2>

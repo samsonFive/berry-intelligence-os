@@ -12,6 +12,7 @@
     <p class="queue-metric queue-metric-action">{{ brief.counts.new_developments or 0 }} new developments</p>
     <p class="queue-metric queue-metric-inventory">{{ brief.counts.important or 0 }} still important</p>
     <p class="queue-metric queue-metric-inventory">{{ brief.unresolved }} still in Reading Queue</p>
+    <p class="queue-metric queue-metric-action">{{ brief.counts.review_now or 0 }} review now</p>
   </div>
 </section>
 
@@ -159,12 +160,50 @@
 </section>
 {% endif %}
 
-<section class="brief-section" id="needs-decision">
-  <h2>Needs your decision</h2>
-  <p class="context-limit">Pending publication or unvalidated capture. Trust gates are unchanged.</p>
-  {% if brief.needs_decision %}
-    {% for item in brief.needs_decision %}
-      {% include "_brief_item.html" %}
+<section class="brief-section" id="pending-triage">
+  <h2>Pending draft triage</h2>
+  <p class="context-limit">Pending drafts are not equally actionable. Buckets use stored relevance, recency, source authority, primary subject, and watch-match quality — not an opaque AI score. Dismiss hides a draft from triage and keeps the file for audit. Reject still uses the existing rejection path. Promote/Save use the existing review services.</p>
+  <ul class="brief-delta-strip">
+    <li><a href="#triage-review_now">Review now</a><strong>{{ brief.pending_triage.counts.review_now or 0 }}</strong></li>
+    <li><a href="#triage-review_soon">Review soon</a><strong>{{ brief.pending_triage.counts.review_soon or 0 }}</strong></li>
+    <li><a href="#triage-adjacent">Adjacent</a><strong>{{ brief.pending_triage.counts.adjacent or 0 }}</strong></li>
+    <li><a href="#triage-likely_ignore">Likely ignore</a><strong>{{ brief.pending_triage.counts.likely_ignore or 0 }}</strong></li>
+    <li><a href="#triage-older_backlog">Older backlog</a><strong>{{ brief.pending_triage.counts.older_backlog or 0 }}</strong></li>
+  </ul>
+  {% if brief.pending_triage and brief.pending_triage.buckets %}
+    {% for group in brief.pending_triage.buckets %}
+      <article class="brief-delta-group" id="triage-{{ group.key }}">
+        <h3>{{ group.label }} — {{ group.count }}</h3>
+        {% if group.key == 'review_now' %}
+          <p class="context-limit">Direct blueberry intelligence, tracked-company primary subject, primary watch match, current article, or high-authority source.</p>
+        {% elif group.allow_bulk_dismiss %}
+          <p class="context-limit">Low-risk cleanup. Select explicitly, then bulk dismiss. This does not reject or publish.</p>
+        {% endif %}
+        {% if group.entries %}
+          {% for item in group.entries %}
+            <div class="triage-row">
+              {% if group.allow_bulk_dismiss and authoring_mode and not static_build %}
+                <input form="triage-bulk-{{ group.key }}" type="checkbox" name="item_id" value="{{ item.id }}" aria-label="Select {{ item.title }}">
+              {% endif %}
+              <div class="triage-row-body">
+                {% include "_brief_item.html" %}
+              </div>
+            </div>
+          {% endfor %}
+          {% if group.allow_bulk_dismiss and authoring_mode and not static_build %}
+            <form id="triage-bulk-{{ group.key }}" class="triage-bulk" action="/queues/pending/bulk-dismiss" method="post">
+              <input type="hidden" name="reviewer" value="{{ reviewer }}">
+              <input type="hidden" name="return_to" value="/brief#pending-triage">
+              <button class="action-button" type="submit">Dismiss selected</button>
+            </form>
+          {% endif %}
+        {% else %}
+          <p class="empty-state">Nothing in this bucket.</p>
+        {% endif %}
+        {% if group.remainder %}
+          <p class="context-limit">{{ group.remainder }} more in this bucket. Open publication review for the rest.</p>
+        {% endif %}
+      </article>
     {% endfor %}
   {% else %}
     <p class="empty-state">No pending drafts or unvalidated captures in this runtime.</p>
