@@ -57,6 +57,7 @@ from app.services.analyst_queue import (
     bulk_dismiss_pending,
     bulk_mark_read,
     is_open_signal_alert,
+    is_pending_dismissed,
     load_state as load_analyst_queue_state,
     pending_position_proposals,
     proposal_state,
@@ -2148,7 +2149,15 @@ def story_thread_reader(request: Request, item_id: str) -> HTMLResponse:
     if int(thread.get("source_count") or 0) <= 1:
         return RedirectResponse(url=f"/intelligence/{item_id}", status_code=303)
     reviewer = session_username(request) or review_username() or ""
-    _attach_pending_decision_actions(thread.get("members") or [], reviewer)
+    state = load_analyst_queue_state(INBOX_DIR)
+    for member in thread.get("members") or []:
+        if is_pending_dismissed(str(member.get("id") or ""), state):
+            member["dismissed_redundant"] = True
+            member["trust_label"] = "Dismissed (kept)"
+    _attach_pending_decision_actions(
+        [member for member in (thread.get("members") or []) if not member.get("dismissed_redundant")],
+        reviewer,
+    )
     return templates.TemplateResponse(
         request=request,
         name="story_thread.html",
