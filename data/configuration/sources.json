@@ -3689,5 +3689,32 @@
     "created_at": "2026-08-19",
     "last_checked_at": null,
     "last_status": null
+  },
+  {
+    "id": "source-uspto-plant-patents",
+    "type": "reference",
+    "label": "USPTO plant patents",
+    "value": "data/configuration/patent_watchlist.json",
+    "url": "https://data.uspto.gov/",
+    "why_it_matters": "Primary public plant-patent registry for berry cultivar IP. The monitor (scripts/monitor_plant_patents.py) writes untrusted review drafts only -- a filing is evidence that an IP claim exists, never proof of commercial launch, planted acreage, or market success. Uses the USPTO Open Data Portal when BIOS_USPTO_ODP_API_KEY is set, falling back to Google Patents' public search JSON (the same endpoint its own search UI calls) otherwise -- never scrapes a restricted page.",
+    "entity_types": [
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-strawberry",
+      "berry-raspberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-19",
+    "last_checked_at": null,
+    "last_status": null
   }
 ]

@@ -221,8 +221,11 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
     # Report) plus 7 onboarded by the Intelligence Acquisition mission
     # (2026-08-19): Growing Produce Berries, Blue Book Services, HortiDaily,
     # International Blueberry Organization, SanLucar Newsroom, Hortifrut
-    # Newsroom, Planasa Newsroom.
-    assert report.sources_configured == 139 and report.sources_discoverable == 22
+    # Newsroom, Planasa Newsroom. source-uspto-plant-patents (140th source,
+    # Patent Monitor v2) has no discovery.adapter -- it runs via
+    # scripts/monitor_plant_patents.py, not the RSS collection runner -- so
+    # sources_discoverable does not change.
+    assert report.sources_configured == 140 and report.sources_discoverable == 22
     assert expected <= {source.source_id for source in report.sources}
 
 
