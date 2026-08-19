@@ -349,7 +349,18 @@ strong.level-low{color:#426aa8}
 .queue-metric{margin:0;font-size:13px;font-weight:800}
 .queue-metric-action{color:#5e65c7}
 .queue-metric-inventory{color:#536076}
-.queue-actions{display:flex;flex-wrap:wrap;gap:6px}
+.brief-metrics{display:grid;gap:4px;text-align:right}
+.brief-window,.brief-coverage{margin:0 32px 18px;color:#536076;font-size:13px;max-width:760px}
+.brief-section{padding:0 32px 28px;max-width:860px}
+.brief-section h2{font-size:18px;margin:0 0 6px}
+.brief-item{border:1px solid #e0e5ef;border-radius:10px;padding:14px 16px;margin:0 0 10px;background:#fff}
+.brief-item-priority{border-color:#c9c0ea;box-shadow:0 1px 0 rgba(109,80,199,.08)}
+.brief-item h3{margin:6px 0 4px;font-size:16px}
+.brief-item h3 a{color:#152443;text-decoration:none}
+.brief-why{margin:4px 0 8px;color:#5e65c7;font-size:12px;font-weight:700}
+.brief-bullets{margin:6px 0 10px;padding-left:18px}
+.brief-company{margin:0 0 16px}
+.brief-company h3{font-size:15px;margin:0 0 6px}
 .queue-actions form{margin:0}
 .queue-table,.trait-table{border-collapse:collapse;width:100%;background:white;border:1px solid #e0e5ef;border-radius:10px;overflow:hidden}
 .queue-table th,.queue-table td,.trait-table th,.trait-table td{text-align:left;padding:10px 14px;border-bottom:1px solid #eef1f6;font-size:13px}

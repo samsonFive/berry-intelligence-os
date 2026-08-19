@@ -79,6 +79,7 @@ from app.runtime_config import (
     validate_remote_interactive_config,
 )
 from app.services.intelligence_feed import build_intelligence_feed, build_reader
+from app.services.morning_brief import build_morning_brief
 from app.session_auth import (
     EnvSessionMiddleware,
     auth_template_context,
@@ -259,16 +260,44 @@ app.add_middleware(EnvSessionMiddleware)
 app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="static")
 
 
+def _assemble_morning_brief(*, mark_seen: bool = False, include_coverage: bool = False) -> dict[str, Any]:
+    published = published_evidence()
+    coverage = {}
+    if include_coverage:
+        coverage = sources_page_context(None, None, None, None, None, "entity_type", None).get("source_coverage") or {}
+    return build_morning_brief(
+        inbox_dir=INBOX_DIR,
+        published=published,
+        drafts=list_pending_drafts(),
+        unvalidated=unvalidated_auto_captured_evidence(),
+        signals=all_signals(),
+        entities=entity_index(),
+        sources=load_sources(),
+        berry_labels=BERRIES,
+        source_coverage=coverage,
+        mark_seen=mark_seen,
+    )
+
+
 def nav_work_template_context(request: Request) -> dict[str, Any]:
     """Compute action/inventory nav counts once per HTML render."""
 
-    return {
-        "nav_work_counts": work_counts(
-            inbox_dir=INBOX_DIR,
-            published=published_evidence(),
-            signals=all_signals(),
-        )
-    }
+    published = published_evidence()
+    signals = all_signals()
+    counts = work_counts(inbox_dir=INBOX_DIR, published=published, signals=signals)
+    brief = build_morning_brief(
+        inbox_dir=INBOX_DIR,
+        published=published,
+        drafts=list_pending_drafts(),
+        unvalidated=unvalidated_auto_captured_evidence(),
+        signals=signals,
+        entities=entity_index(),
+        sources=load_sources(),
+        berry_labels=BERRIES,
+        mark_seen=False,
+    )
+    counts["brief_action"] = int((brief.get("counts") or {}).get("top_priority") or 0)
+    return {"nav_work_counts": counts}
 
 
 templates = Jinja2Templates(
@@ -1840,6 +1869,22 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
     raise HTTPException(status_code=404, detail="Entity record not found")
 
 
+@app.get("/brief", response_class=HTMLResponse)
+def morning_brief_page(request: Request) -> HTMLResponse:
+    brief = _assemble_morning_brief(mark_seen=True, include_coverage=True)
+    return templates.TemplateResponse(
+        request=request,
+        name="morning_brief.html",
+        context={
+            "brief": brief,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "reviewer": session_username(request) or review_username() or "",
+            "return_to": "/brief",
+        },
+    )
+
+
 @app.get("/work-queue", response_class=HTMLResponse)
 def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
     evidence = published_evidence()
@@ -1996,6 +2041,17 @@ def priority_queue(
         if dimension == "monitoring"
         else []
     )
+    reading_buckets: list[dict[str, Any]] = []
+    reading_bucket_counts: dict[str, int] = {}
+    if dimension == "reading" and not completed:
+        brief = _assemble_morning_brief(mark_seen=False, include_coverage=False)
+        reading_buckets = [group for group in brief.get("reading_buckets") or [] if group.get("key") != "needs_review"]
+        if region:
+            allowed = {record["id"] for record in all_items if record.get("id")}
+            for group in reading_buckets:
+                group["entries"] = [item for item in group.get("entries") or [] if item.get("id") in allowed]
+                group["count"] = len(group["entries"])
+        reading_bucket_counts = {group["key"]: group["count"] for group in reading_buckets}
     return templates.TemplateResponse(
         request=request,
         name="queue.html",
@@ -2009,6 +2065,9 @@ def priority_queue(
             "reviewer": session_username(request) or review_username() or "",
             "position_proposals": proposals,
             "signal_alerts": alerts,
+            "reading_buckets": reading_buckets,
+            "reading_bucket_counts": reading_bucket_counts,
+            "return_to": f"/queues/{dimension}",
         },
     )
 
@@ -2020,9 +2079,12 @@ async def reading_bulk_read(request: Request) -> RedirectResponse:
     form = await request.form()
     reviewer = str(form.get("reviewer") or "").strip() or session_username(request) or review_username() or ""
     region = str(form.get("region") or "")
+    return_to = safe_next_path(str(form.get("return_to") or ""))
     allowed = {record["id"] for record in queue_items("reading") if record.get("id")}
     ids = [value for value in form.getlist("item_id") if isinstance(value, str) and value in allowed]
     bulk_mark_read(INBOX_DIR, ids, reviewer=reviewer)
+    if return_to and return_to.startswith("/brief"):
+        return RedirectResponse(url="/brief", status_code=303)
     suffix = f"?region={region}" if region else ""
     return RedirectResponse(url=f"/queues/reading{suffix}", status_code=303)
 
@@ -2036,6 +2098,7 @@ def queue_item_action(
     reviewer: str = Form(""),
     show_completed: str = Form(""),
     region: str = Form(""),
+    return_to: str = Form(""),
 ) -> RedirectResponse:
     if dimension not in {"reading", "testing", "monitoring"}:
         raise HTTPException(status_code=404, detail="Unknown queue workflow")
@@ -2056,6 +2119,11 @@ def queue_item_action(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     if dimension == "reading" and action == "promote":
         return RedirectResponse(url=f"/intelligence/{item_id}", status_code=303)
+    destination = safe_next_path(return_to) if return_to else ""
+    if destination and destination not in {"/brief"} and not destination.startswith("/queues/"):
+        destination = ""
+    if destination:
+        return RedirectResponse(url=destination, status_code=303)
     params = []
     if region:
         params.append(f"region={region}")
