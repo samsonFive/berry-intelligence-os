@@ -59,6 +59,43 @@ def test_pending_and_trusted_interleave_by_recency_when_included(monkeypatch):
     assert items[1]["kind"] == "trusted"
 
 
+def test_pending_about_entity_is_not_crowded_out_by_older_trusted_limit(monkeypatch):
+    import app.main as main_module
+
+    pending_draft = {
+        "id": "ev-pending-hf",
+        "title": "Hortifrut expands berry genetics platform",
+        "published_date": "2026-07-30",
+        "captured_date": "2026-08-19",
+        "entity_ids": ["company-hortifrut"],
+        "source_id": "source-20260819-hortifrut-newsroom",
+    }
+    monkeypatch.setattr(main_module, "pending_publication_drafts", lambda: [pending_draft])
+    linked = [
+        _trusted(f"ev-trusted-{i}", published_date="2026-08-04", captured_date="2026-08-04")
+        for i in range(8)
+    ]
+    items = recent_intelligence_for_entity("company-hortifrut", linked_evidence=linked, include_pending=True)
+    assert items[0]["kind"] == "pending"
+    assert items[0]["record"]["id"] == "ev-pending-hf"
+    assert sum(1 for item in items if item["kind"] == "pending") == 1
+
+
+def test_pending_body_comention_is_not_treated_as_about_the_company(monkeypatch):
+    import app.main as main_module
+
+    draft = {
+        "id": "ev-pending-index",
+        "title": "Plant Breeders' Rights - blueberry variety index",
+        "published_date": "2026-08-17",
+        "summary": "The index lists Planasa among many applicants.",
+        "entity_ids": [],
+    }
+    monkeypatch.setattr(main_module, "pending_publication_drafts", lambda: [draft])
+    items = recent_intelligence_for_entity("company-planasa", linked_evidence=[], include_pending=True)
+    assert items == []
+
+
 def test_pending_draft_naming_a_different_entity_is_excluded(monkeypatch):
     import app.main as main_module
 

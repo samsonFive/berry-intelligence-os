@@ -1795,11 +1795,12 @@ def recent_intelligence_for_entity(
         }
         for record in linked_evidence
     ]
+    pending_items: list[dict[str, Any]] = []
     if include_pending:
         entities = entity_index()
         source_index = {str(source.get("id")): source for source in load_sources() if source.get("id")}
         entity = entities.get(entity_id) or {"id": entity_id}
-        items.extend(
+        pending_items = [
             {
                 "kind": "pending",
                 "record": record,
@@ -1808,8 +1809,14 @@ def recent_intelligence_for_entity(
             }
             for record in pending_publication_drafts()
             if draft_matches_entity(record, entity, entities, sources=source_index)
-        )
+        ]
+        pending_items.sort(key=lambda item: item["date"] or "", reverse=True)
     items.sort(key=lambda item: item["date"] or "", reverse=True)
+    if include_pending and pending_items:
+        pinned = pending_items[:4]
+        seen = {str((row.get("record") or {}).get("id")) for row in pinned}
+        rest = [row for row in items if str((row.get("record") or {}).get("id")) not in seen]
+        return (pinned + rest)[:limit]
     return items[:limit]
 
 
