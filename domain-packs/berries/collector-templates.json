@@ -2775,6 +2775,127 @@
       "update_cadence": "event_driven",
       "default_active": true,
       "notes": "Official YouTube channel of Blueberries Consulting, the independent, third-party global blueberry-industry consultancy (20+ years, 40+ International Blueberries Seminar editions across Peru, Chile, Mexico, Argentina, Colombia, Spain, Morocco and China) -- first-party video coverage of seminar sessions, sponsor/exhibitor interviews (e.g. Fall Creek, Projar, Water Partners) and Southern Hemisphere/Mediterranean blueberry supply-chain content. Distinct from this dataset's existing source-20260806173428-6938-international-blueberry-organization-ibo-38 (the IBO itself, a producer-representation trade body) and from source-comite-de-arandanos-de-chile-youtube (Chile's national blueberry committee) -- Blueberries Consulting is a private media/consulting company, not a producer or government body, confirmed via this branch's own prior-session research (see this branch's earlier archive-adapter research commit) as the real, verified producer of the seminar video content originally suspected to belong to the IBO directly."
+    },
+    {
+      "id": "source-20260819-growing-produce-berries",
+      "collector_type": "rss",
+      "label": "Growing Produce - Berries",
+      "query_or_url": "https://www.growingproduce.com/fruits/berries/feed/",
+      "url": "https://www.growingproduce.com/category/fruits/berries/",
+      "geography_focus": [
+        "north_america",
+        "global"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-strawberry",
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "Berry-scoped category feed from a major US grower-trade publisher (Meister Media), covering production practices, variety trials, and grower-facing agronomy news not always covered by the Latin-America-weighted Fresh Fruit Portal feed. Confirmed live 2026-08-19 (200, application/rss+xml), berry-tagged content confirmed on inspection."
+    },
+    {
+      "id": "source-20260819-blue-book-services",
+      "collector_type": "rss",
+      "label": "Blue Book Services",
+      "query_or_url": "http://www.bluebookservices.com/feed/",
+      "url": "https://www.producebluebook.com/",
+      "geography_focus": [
+        "north_america",
+        "global"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [],
+      "monitoring_priority": "medium",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "General produce-industry trade press (buyer/seller credit, supply chain, company moves) -- a second, independently-editorialized diversity check on the relevance screen alongside Fresh Plaza/Produce Report, per the same rationale those two pilot sources were chosen for. Confirmed live 2026-08-19 (redirects to bluebookservices.com, 200, application/rss+xml)."
+    },
+    {
+      "id": "source-20260819-hortidaily",
+      "collector_type": "rss",
+      "label": "HortiDaily",
+      "query_or_url": "https://www.hortidaily.com/rss.xml",
+      "url": "https://www.hortidaily.com/",
+      "geography_focus": [
+        "global"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [],
+      "monitoring_priority": "low",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "General produce/greenhouse-industry news from the same publisher family as Fresh Plaza (Milfords/HortiFlorNext) -- a further diversity check on the relevance screen, and a real channel for protected-cultivation/greenhouse berry-growing signal. Confirmed live 2026-08-19 (200, application/rss+xml)."
+    },
+    {
+      "id": "source-20260819-international-blueberry-organization",
+      "collector_type": "rss",
+      "label": "International Blueberry Organization",
+      "query_or_url": "https://www.internationalblueberry.org/feed/",
+      "url": "https://www.internationalblueberry.org/",
+      "geography_focus": [
+        "global"
+      ],
+      "entity_coverage": [
+        "trade_association"
+      ],
+      "berry_coverage": [
+        "berry-blueberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "Global blueberry-industry trade association -- real content confirmed on inspection 2026-08-19 (import-duty policy across Chile/Peru/Morocco, market-access news in Egypt/China/UK), directly matching the berry trade + industry-association coverage categories this mission was asked to close. Confirmed live (200, application/rss+xml)."
+    },
+    {
+      "id": "source-20260819-sanlucar-newsroom",
+      "collector_type": "rss",
+      "label": "SanLucar Newsroom",
+      "query_or_url": "https://sanlucar.com/en/feed/",
+      "url": "https://sanlucar.com/en/news/",
+      "geography_focus": [
+        "europe",
+        "global"
+      ],
+      "entity_coverage": [
+        "grower_marketer"
+      ],
+      "berry_coverage": [],
+      "monitoring_priority": "medium",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "SanLucar's own company newsroom feed -- direct first-party source for an existing tracked company entity (company-sanlucar), closing a real company-newsroom coverage gap identified in Phase B1's coverage map. Confirmed live 2026-08-19 (200, application/rss+xml); content is a mix of brand/marketing posts and real business news, so expect a lower direct-relevance hit rate than trade press -- acceptable for a first-party source under the existing relevance screen."
+    },
+    {
+      "id": "source-20260819-hortifrut-newsroom",
+      "collector_type": "rss",
+      "label": "Hortifrut Newsroom",
+      "query_or_url": "https://www.hortifrut.com/feed/",
+      "url": "https://www.hortifrut.com/en/news/",
+      "geography_focus": [
+        "south_america",
+        "global"
+      ],
+      "entity_coverage": [
+        "grower_marketer"
+      ],
+      "berry_coverage": [
+        "berry-blueberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "Hortifrut's own company newsroom feed -- direct first-party source for an existing tracked company entity (company-hortifrut), closing a real company-newsroom coverage gap identified in Phase B1's coverage map. Confirmed live 2026-08-19 (200, application/rss+xml); content confirmed genuinely substantive on inspection (Naturipe/Hortifrut berry-genetics platform expansion, H1 sales results, BFruit stake acquisition) -- one of the strongest first-party feeds found in this pass."
     }
   ]
 }
