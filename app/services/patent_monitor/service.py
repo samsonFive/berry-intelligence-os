@@ -124,6 +124,13 @@ def build_review_draft(
         "source_tier": "tier_1_primary",
         "verification_state": "unverified",
         "does_not_prove": list(PATENT_DOES_NOT_PROVE),
+        # Every patent draft here already passed relevance_decision()'s
+        # named-berry match in discover() -- the same one-mention-is-enough
+        # bar app/services/relevance_screen.py documents for its own DIRECT
+        # tier. Without this, a patent falls through app/services/
+        # morning_brief.py's relevance_tier-based ranking as neither direct
+        # nor adjacent.
+        "relevance_tier": "direct",
         "intake_type": "patent_filing",
         "source_type": "patent_record",
         "title": filing.get("title") or filing["publication_number"],
