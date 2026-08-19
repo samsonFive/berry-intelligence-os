@@ -205,6 +205,13 @@
         <p><a class="action-button" href="/queues/monitoring">View watches</a></p>
       </section>
     {% endif %}
+    {% if story_thread %}
+      <section>
+        <h2>Developing story</h2>
+        <p class="context-limit">This source is grouped with related coverage. The grouping is not a trusted conclusion.</p>
+        <p><a class="action-button" href="{{ story_thread.href }}">Open thread · {{ story_thread.source_count }} sources</a></p>
+      </section>
+    {% endif %}
     {% if related %}
       <section>
         <h2>Related trusted intelligence</h2>

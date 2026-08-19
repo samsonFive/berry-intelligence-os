@@ -253,12 +253,14 @@ def test_real_reading_queue_morning_workload_is_smaller_than_unresolved() -> Non
     assert backlog >= 1
     top_items = brief["top_developments"]
     assert 3 <= len(top_items) <= 7
-    companies = {item["cluster"] for item in top_items}
+    companies = {item.get("cluster") or item.get("id") for item in top_items}
     assert len(companies) >= 3
     for item in top_items:
         assert item.get("why_ranked")
-        assert item.get("href", "").startswith("/intelligence/")
-        assert int(item.get("age_days") or 0) <= 21 or "watch" in (item.get("why_ranked") or "").casefold()
+        href = item.get("href") or ""
+        assert href.startswith("/intelligence/") or href.startswith("/threads/")
+        age = int(item.get("age_days") or (item.get("primary") or {}).get("age_days") or 0)
+        assert age <= 21 or "watch" in (item.get("why_ranked") or "").casefold() or item.get("is_thread")
         assert "ABN Lookup" not in (item.get("title") or "")
     top10_titles = [item["title"] for item in brief["reading_buckets"][0]["entries"][:10]]
     assert not any("ABN Lookup" in title for title in top10_titles)

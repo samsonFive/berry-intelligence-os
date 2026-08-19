@@ -361,7 +361,8 @@ strong.level-low{color:#426aa8}
 .brief-bullets{margin:6px 0 10px;padding-left:18px}
 .brief-company{margin:0 0 16px}
 .brief-company h3{font-size:15px;margin:0 0 6px}
-.brief-item-new{border-color:#b9d4c2}
+.brief-thread{border-color:#c9c0ea;background:#fbfaff}
+.brief-thread h3{font-size:16px}
 .brief-delta-strip{display:flex;flex-wrap:wrap;gap:10px;list-style:none;padding:0;margin:0 0 16px}
 .brief-delta-strip li{background:#f5f7fb;border:1px solid #e0e5ef;border-radius:10px;padding:8px 12px;min-width:140px}
 .brief-delta-strip a{display:block;font-size:12px;color:#3c4a63;text-decoration:none}
