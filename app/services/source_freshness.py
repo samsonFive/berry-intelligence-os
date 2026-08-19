@@ -26,6 +26,8 @@ CURRENT = "CURRENT"
 DUE = "DUE"
 STALE = "STALE"
 FAILING = "FAILING"
+BLOCKED = "BLOCKED"
+QUIET = "QUIET"
 MANUAL = "MANUAL"
 
 FRESHNESS_LABELS = {
@@ -33,8 +35,25 @@ FRESHNESS_LABELS = {
     DUE: "Due for a check",
     STALE: "Stale",
     FAILING: "Failing",
+    BLOCKED: "Blocked",
+    QUIET: "Quiet",
     MANUAL: "Manual / non-automated",
 }
+
+# Text signals confirming the *publisher itself* rejected the request (a
+# bot-wall or access-control response), not a transport/parse failure on
+# our end. Deliberately narrow and status-code-anchored -- this only
+# labels an already-captured error string, it never changes how the
+# request was made (no user-agent spoofing, no bypass logic). Real example
+# this exists for: Growing Produce's WAF returning 403 Forbidden to the
+# collector's honest, self-identifying User-Agent (see
+# app/services/article_acquisition.py's ARTICLE_FETCH_USER_AGENT).
+_BLOCKED_SIGNALS = (
+    "403 forbidden",
+    "401 unauthorized",
+    "access denied",
+    "access to this page has been denied",
+)
 
 # Canonical home for cadence-to-days; app/main.py imports this rather than
 # keeping its own copy, so the UI's "next check due" math and this module's
@@ -57,6 +76,13 @@ def _parse_date(value: Any) -> date | None:
         return datetime.fromisoformat(value).date()
     except ValueError:
         return None
+
+
+def _looks_blocked(error_text: str | None) -> bool:
+    if not error_text:
+        return False
+    lowered = error_text.lower()
+    return any(signal in lowered for signal in _BLOCKED_SIGNALS)
 
 
 def is_discoverable(source: dict[str, Any]) -> bool:
@@ -119,11 +145,19 @@ def classify_source_freshness(
         )
 
     if (discovery_state or {}).get("status") == "error":
+        error_text = discovery_state.get("error")
+        if _looks_blocked(error_text):
+            return SourceFreshness(
+                state=BLOCKED, label=FRESHNESS_LABELS[BLOCKED],
+                last_checked_at=last_checked_at, last_success_at=last_success_at, next_check_due=None,
+                latest_item_published_at=latest_item_published_at, latest_item_captured_at=latest_item_captured_at,
+                reason=error_text,
+            )
         return SourceFreshness(
             state=FAILING, label=FRESHNESS_LABELS[FAILING],
             last_checked_at=last_checked_at, last_success_at=last_success_at, next_check_due=None,
             latest_item_published_at=latest_item_published_at, latest_item_captured_at=latest_item_captured_at,
-            reason=discovery_state.get("error") or "Most recent discovery attempt failed.",
+            reason=error_text or "Most recent discovery attempt failed.",
         )
 
     if not last_success_at:
@@ -146,6 +180,21 @@ def classify_source_freshness(
     due_date = last_success_date + timedelta(days=cadence_days)
     due_iso = due_date.isoformat()
     if today < due_date:
+        # "new" is only present on runs that actually recorded per-source
+        # counts (app/services/media_discovery.py's discovery-state write).
+        # A source that checked fine but found nothing new is QUIET, not a
+        # weaker form of CURRENT -- an analyst reading "no new stories"
+        # should not have to wonder whether the check even ran. Missing
+        # "new" (older/legacy state) falls back to CURRENT rather than
+        # guessing.
+        new_count = (discovery_state or {}).get("new")
+        if new_count == 0:
+            return SourceFreshness(
+                state=QUIET, label=FRESHNESS_LABELS[QUIET],
+                last_checked_at=last_checked_at, last_success_at=last_success_at, next_check_due=due_iso,
+                latest_item_published_at=latest_item_published_at, latest_item_captured_at=latest_item_captured_at,
+                reason=f"Checked successfully within its {cadence or 'expected'} cadence; no new items found.",
+            )
         return SourceFreshness(
             state=CURRENT, label=FRESHNESS_LABELS[CURRENT],
             last_checked_at=last_checked_at, last_success_at=last_success_at, next_check_due=due_iso,
@@ -182,7 +231,7 @@ def aggregate_source_coverage(freshness_by_source: dict[str, dict[str, Any]]) ->
     next-run time was explicitly ruled out. A caller that knows the real
     scheduler configuration (e.g. the deployed bios-collection.timer's
     OnCalendar=) may report that separately."""
-    counts = {CURRENT: 0, DUE: 0, STALE: 0, FAILING: 0, MANUAL: 0}
+    counts = {CURRENT: 0, DUE: 0, STALE: 0, FAILING: 0, BLOCKED: 0, QUIET: 0, MANUAL: 0}
     last_refresh: str | None = None
     for freshness in freshness_by_source.values():
         state = freshness.get("state")
@@ -196,6 +245,8 @@ def aggregate_source_coverage(freshness_by_source: dict[str, dict[str, Any]]) ->
         "due": counts[DUE],
         "stale": counts[STALE],
         "failing": counts[FAILING],
+        "blocked": counts[BLOCKED],
+        "quiet": counts[QUIET],
         "manual": counts[MANUAL],
         "last_refresh_at": last_refresh,
     }

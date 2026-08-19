@@ -2896,6 +2896,30 @@
       "update_cadence": "weekly",
       "default_active": true,
       "notes": "Hortifrut's own company newsroom feed -- direct first-party source for an existing tracked company entity (company-hortifrut), closing a real company-newsroom coverage gap identified in Phase B1's coverage map. Confirmed live 2026-08-19 (200, application/rss+xml); content confirmed genuinely substantive on inspection (Naturipe/Hortifrut berry-genetics platform expansion, H1 sales results, BFruit stake acquisition) -- one of the strongest first-party feeds found in this pass."
+    },
+    {
+      "id": "source-20260819-planasa-newsroom",
+      "collector_type": "rss",
+      "label": "Planasa Newsroom",
+      "query_or_url": "https://planasa.com/feed",
+      "url": "https://planasa.com/en/news",
+      "geography_focus": [
+        "europe",
+        "global"
+      ],
+      "entity_coverage": [
+        "breeding_program",
+        "nursery_propagator"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "Planasa's own company newsroom feed -- direct first-party source for an existing tracked company entity (company-planasa), closing a real company-newsroom coverage gap identified in Phase B1/B4 (Planasa's strongest coverage previously came from third-party trade press, not a first-party feed). Confirmed live 2026-08-19 (200, real WordPress RSS 2.0) with genuinely substantive, berry-specific content on inspection: breeding-program awards, variety launches (RedSayra strawberry, Blue Maldiva blueberry, Pink Hudson raspberry), and the real Illinois Foundation Seeds acquisition already tracked as trusted evidence."
     }
   ]
 }

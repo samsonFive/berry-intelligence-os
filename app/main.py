@@ -41,6 +41,7 @@ from app.services.berries.variety import (
 )
 from app.repositories.base import DuplicateRecord
 from app.services.deterministic_tagging import apply_known_name_matches, matchers_from_entities
+from app.services.entity_alias_recall import linked_evidence_for_entity
 from app.services.media_discovery import list_discovered_items, read_source_discovery_state
 from app.services.review_publish import PublishRequest, ReviewPublishService
 from app.services.source_freshness import (
@@ -1819,7 +1820,7 @@ def entity_synthesis_context(
     drafts live in gitignored inbox/ and must never appear in the public
     GitHub Pages build alongside trusted intelligence."""
     entity_id = entity["id"]
-    linked_evidence = [r for r in published_evidence() if entity_id in (r.get("entity_ids") or [])]
+    linked_evidence = linked_evidence_for_entity(entity, published_evidence())
     entity_signals = signals_for_entity(entity_id)
     entity_assessments = assessments_for_entity(entity_id)
     entity_recommendations = recommendations_for_entity(entity_id)
@@ -1848,9 +1849,7 @@ def entity_synthesis_context(
 def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLResponse:
     for entity in all_entities():
         if entity.get("id") == entity_id and entity.get("entity_type") == entity_type:
-            linked_evidence = [
-                r for r in published_evidence() if entity_id in (r.get("entity_ids") or [])
-            ]
+            linked_evidence = linked_evidence_for_entity(entity, published_evidence())
             independent_sources = {r.get("source_name") for r in linked_evidence if r.get("source_name")}
             last_updated = linked_evidence[0].get("published_date") or linked_evidence[0].get("captured_date") if linked_evidence else None
             entities = entity_index()

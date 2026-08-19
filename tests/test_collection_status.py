@@ -215,14 +215,14 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
         "source-global-fresh-series-podcast", "source-fresh-cred-podcast", "source-lubera-edibles-podcast",
         "source-blueberries-tv-youtube",
     }
-    # 21 = the 12 podcast_rss/youtube_feed sources this assertion originally
-    # covered, plus 9 article_rss sources: the 3 onboarded by the Article
+    # 22 = the 12 podcast_rss/youtube_feed sources this assertion originally
+    # covered, plus 10 article_rss sources: the 3 onboarded by the Article
     # Ingestion vertical slice (Fresh Fruit Portal, Fresh Plaza, Produce
-    # Report) plus 6 onboarded by the Intelligence Acquisition mission
+    # Report) plus 7 onboarded by the Intelligence Acquisition mission
     # (2026-08-19): Growing Produce Berries, Blue Book Services, HortiDaily,
     # International Blueberry Organization, SanLucar Newsroom, Hortifrut
-    # Newsroom.
-    assert report.sources_configured == 138 and report.sources_discoverable == 21
+    # Newsroom, Planasa Newsroom.
+    assert report.sources_configured == 139 and report.sources_discoverable == 22
     assert expected <= {source.source_id for source in report.sources}
 
 

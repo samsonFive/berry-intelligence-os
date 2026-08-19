@@ -12,10 +12,12 @@ from __future__ import annotations
 from datetime import date
 
 from app.services.source_freshness import (
+    BLOCKED,
     CURRENT,
     DUE,
     FAILING,
     MANUAL,
+    QUIET,
     STALE,
     aggregate_source_coverage,
     classify_source_freshness,
@@ -55,6 +57,75 @@ def test_most_recent_attempt_failed_is_failing_even_with_a_past_success():
     result = classify_source_freshness(source, discovery_state=state, today=date(2026, 8, 18))
     assert result.state == FAILING
     assert result.last_success_at == "2026-08-10T00:00:00+00:00"
+
+
+# ---------------------------------------------------------------------------
+# Intelligence Acquisition mission (2026-08-19): distinguish a publisher's
+# bot-wall (BLOCKED) from a generic technical failure (FAILING) from a
+# healthy check that simply found nothing new (QUIET). Real case: Growing
+# Produce's WAF returns 403 Forbidden to the collector's honest
+# User-Agent -- this must never look like "no news" (that's QUIET's job)
+# nor get silently conflated with a DNS/timeout/parse failure a human
+# would investigate completely differently.
+# ---------------------------------------------------------------------------
+
+
+def test_403_forbidden_is_blocked_not_generic_failing():
+    source = _source()
+    state = {
+        "status": "error",
+        "error": "https://www.growingproduce.com/fruits/berries/feed/: Client error '403 Forbidden' for url "
+        "'https://www.growingproduce.com/fruits/berries/feed/'",
+        "last_checked_at": "2026-08-19T00:00:00+00:00",
+        "last_success_at": None,
+    }
+    result = classify_source_freshness(source, discovery_state=state, today=date(2026, 8, 19))
+    assert result.state == BLOCKED
+    assert "403 Forbidden" in result.reason
+
+
+def test_401_unauthorized_is_also_blocked():
+    source = _source()
+    state = {"status": "error", "error": "401 Unauthorized", "last_success_at": None}
+    result = classify_source_freshness(source, discovery_state=state, today=date(2026, 8, 19))
+    assert result.state == BLOCKED
+
+
+def test_generic_technical_failure_stays_failing_not_blocked():
+    source = _source()
+    state = {"status": "error", "error": "feed unreachable: 503 Service Unavailable", "last_success_at": None}
+    result = classify_source_freshness(source, discovery_state=state, today=date(2026, 8, 19))
+    assert result.state == FAILING
+
+
+def test_successful_check_with_zero_new_items_is_quiet_not_current():
+    source = _source(update_cadence="weekly")
+    state = {
+        "status": "ok", "new": 0, "found": 3,
+        "last_checked_at": "2026-08-17T00:00:00+00:00", "last_success_at": "2026-08-17T00:00:00+00:00",
+    }
+    result = classify_source_freshness(source, discovery_state=state, today=date(2026, 8, 18))
+    assert result.state == QUIET
+    assert "no new items" in result.reason.casefold()
+
+
+def test_successful_check_with_new_items_stays_current_not_quiet():
+    source = _source(update_cadence="weekly")
+    state = {
+        "status": "ok", "new": 5, "found": 5,
+        "last_checked_at": "2026-08-17T00:00:00+00:00", "last_success_at": "2026-08-17T00:00:00+00:00",
+    }
+    result = classify_source_freshness(source, discovery_state=state, today=date(2026, 8, 18))
+    assert result.state == CURRENT
+
+
+def test_missing_new_count_falls_back_to_current_not_quiet():
+    # Legacy/older discovery-state records may not carry a "new" count at
+    # all -- must never be guessed into QUIET.
+    source = _source(update_cadence="weekly")
+    state = {"status": "ok", "last_checked_at": "2026-08-17T00:00:00+00:00", "last_success_at": "2026-08-17T00:00:00+00:00"}
+    result = classify_source_freshness(source, discovery_state=state, today=date(2026, 8, 18))
+    assert result.state == CURRENT
 
 
 def test_checked_but_never_succeeded_is_stale_not_current():
@@ -159,6 +230,8 @@ def test_aggregate_source_coverage_counts_each_state():
     assert coverage["failing"] == 1
     assert coverage["manual"] == 1
     assert coverage["stale"] == 0
+    assert coverage["blocked"] == 0
+    assert coverage["quiet"] == 0
 
 
 def test_aggregate_source_coverage_last_refresh_is_the_most_recent_success():
