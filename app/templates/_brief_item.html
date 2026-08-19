@@ -11,7 +11,7 @@
   </div>
   <h3><a href="{{ item.href }}">{{ item.title }}</a></h3>
   <p class="draft-meta">{{ item.source_name }}{% if item.date %} · {{ item.date|us_date }}{% endif %}</p>
-  {% if item.why_decision %}<p class="brief-why">{{ item.why_decision }}</p>{% endif %}
+  {% if item.why_decision and item.triage_bucket == 'review_now' %}<p class="brief-why">{{ item.why_decision }}</p>{% endif %}
   {% if item.why_ranked %}<p class="brief-why">{{ item.why_ranked }}</p>{% endif %}
   {% if item.why %}<p>{{ item.why|truncate(180) }}</p>{% endif %}
   {% if item.entities %}
