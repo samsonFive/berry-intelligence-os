@@ -151,6 +151,7 @@ def build() -> list[Path]:
         "commercial_inventory": queue_summary_once.get("commercial_position", 0),
         "monitoring_inventory": queue_summary_once.get("monitoring", 0),
         "signal_alerts": 0,
+        "brief_action": 0,
     }
 
     # Static asset.
@@ -306,6 +307,33 @@ def build() -> list[Path]:
         )
     )
 
+    from app.services.morning_brief import build_morning_brief
+
+    static_brief = build_morning_brief(
+        inbox_dir=ROOT / "inbox",
+        published=evidence,
+        drafts=[],
+        unvalidated=[],
+        signals=all_signals(),
+        entities=entities,
+        sources=[],
+        berry_labels=BERRIES,
+        source_coverage={},
+        mark_seen=False,
+    )
+    written.append(
+        write_page(
+            "morning_brief.html",
+            "/brief",
+            {
+                "brief": static_brief,
+                "authoring_mode": False,
+                "return_to": "/brief",
+                "reviewer": "",
+            },
+        )
+    )
+
     # Read-only Sources registry from trusted configuration.
     written.append(
         write_page(
@@ -341,6 +369,9 @@ def build() -> list[Path]:
                     "reviewer": "",
                     "position_proposals": [],
                     "signal_alerts": [],
+                    "reading_buckets": [],
+                    "reading_bucket_counts": {},
+                    "return_to": "",
                 },
             )
         )

@@ -72,7 +72,14 @@ MONITORING_LABELS = {
 
 
 def _empty_state() -> dict[str, dict[str, dict[str, Any]]]:
-    return {"reading": {}, "testing": {}, "monitoring": {}, "proposals": {}, "signals": {}}
+    return {
+        "reading": {},
+        "testing": {},
+        "monitoring": {},
+        "proposals": {},
+        "signals": {},
+        "meta": {},
+    }
 
 
 def state_path(inbox_dir: Path) -> Path:

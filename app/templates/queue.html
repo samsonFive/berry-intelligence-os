@@ -9,6 +9,9 @@
   </div>
   {% if dimension == 'reading' %}
     <p class="queue-metric queue-metric-action" aria-label="Unread or saved reading items">{{ needs_consume_count }} need attention</p>
+    {% if reading_buckets %}
+      <p class="queue-metric queue-metric-inventory">{{ reading_bucket_counts.top_priority }} top · {{ reading_bucket_counts.saved }} saved · {{ reading_bucket_counts.adjacent }} adjacent · {{ reading_bucket_counts.backlog }} backlog</p>
+    {% endif %}
   {% elif dimension == 'testing' %}
     <p class="queue-metric queue-metric-action" aria-label="Claims still needing a test decision">{{ active_count }} need testing</p>
   {% elif dimension == 'commercial_position' %}
@@ -89,11 +92,88 @@
 </section>
 {% endif %}
 
-{% if items %}
+{% if dimension == 'reading' and reading_buckets and not show_completed %}
+  {% if authoring_mode and not static_build %}
+    <form class="queue-bulk" action="/queues/reading/bulk-read" method="post">
+      <input type="hidden" name="reviewer" value="{{ reviewer }}">
+      <input type="hidden" name="region" value="{{ filters.region }}">
+      <input type="hidden" name="return_to" value="{{ return_to }}">
+      {% for bucket in reading_buckets %}
+            {% if bucket.key == 'top_priority' %}
+          {% for item in bucket.entries %}
+            {% if item.needs_consume %}<input type="hidden" name="item_id" value="{{ item.id }}">{% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+      <button class="action-button" type="submit">Bulk mark visible top-priority unread/saved as read</button>
+    </form>
+  {% endif %}
+  {% for bucket in reading_buckets %}
+    <section class="queue-section" id="bucket-{{ bucket.key }}">
+      <h2>{{ bucket.label }} ({{ bucket.count }})</h2>
+      {% if bucket.key == 'top_priority' %}
+        <p class="context-limit">Deserve time this morning. Ranked from stored signals, not an opaque score.</p>
+      {% elif bucket.key == 'saved' %}
+        <p class="context-limit">You asked to keep these. They stay in the action count until you mark read, dismiss, or promote.</p>
+      {% elif bucket.key == 'adjacent' %}
+        <p class="context-limit">Stored adjacent relevance — available, not equally urgent.</p>
+      {% elif bucket.key == 'backlog' %}
+        <p class="context-limit">Older or redundant coverage. Still auditable; not deleted.</p>
+      {% elif bucket.key == 'needs_review' %}
+        <p class="context-limit">Pending trust decisions belong on Review / the Morning Brief. Published reading items rarely land here.</p>
+      {% endif %}
+    </section>
+    {% if bucket.entries %}
+      <div class="queue-table-wrap">
+        <table class="queue-table">
+          <thead>
+            <tr>
+              <th scope="col">Item</th>
+              <th scope="col">State</th>
+              <th scope="col">Why this is here</th>
+              <th scope="col">Added</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in bucket.entries %}
+              <tr>
+                <td>
+                  <a href="{{ item.href }}">{{ item.title }}</a>
+                  <p class="draft-meta">{{ item.source_name or item.source_type }}</p>
+                </td>
+                <td><span class="badge">{{ item.workflow_label }}</span></td>
+                <td>{{ item.why_ranked or item.why }}</td>
+                <td>{{ item.date|us_date }}</td>
+                <td>
+                  {% if authoring_mode and not static_build and item.is_active %}
+                    <div class="queue-actions">
+                      {% if item.needs_consume %}
+                        <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="mark_read"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="region" value="{{ filters.region }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="action-button" type="submit">Mark read</button></form>
+                        <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="keep"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="region" value="{{ filters.region }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="action-button" type="submit">Keep</button></form>
+                      {% endif %}
+                      <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="dismiss"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="region" value="{{ filters.region }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="action-button action-reject" type="submit">Dismiss</button></form>
+                      <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="promote"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button action-approve" type="submit">Promote / review</button></form>
+                      <a class="action-button" href="{{ item.href }}">Open</a>
+                      {% if item.source_url %}<a class="action-button" href="{{ item.source_url }}" rel="noreferrer">Open original</a>{% endif %}
+                    </div>
+                  {% else %}
+                    —
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% elif items %}
   {% if dimension == 'reading' and authoring_mode and not static_build %}
     <form class="queue-bulk" action="/queues/reading/bulk-read" method="post">
       <input type="hidden" name="reviewer" value="{{ reviewer }}">
       <input type="hidden" name="region" value="{{ filters.region }}">
+      <input type="hidden" name="return_to" value="{{ return_to }}">
       {% for item in items %}
         {% if item.needs_consume %}<input type="hidden" name="item_id" value="{{ item.id }}">{% endif %}
       {% endfor %}
@@ -156,10 +236,10 @@
                 {% if authoring_mode and not static_build and item.is_active %}
                   <div class="queue-actions">
                     {% if item.needs_consume %}
-                      <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="mark_read"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="region" value="{{ filters.region }}"><input type="hidden" name="show_completed" value="{{ '1' if show_completed else '' }}"><button class="action-button" type="submit">Mark read</button></form>
-                      <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="keep"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="region" value="{{ filters.region }}"><button class="action-button" type="submit">Keep</button></form>
+                      <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="mark_read"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="region" value="{{ filters.region }}"><input type="hidden" name="show_completed" value="{{ '1' if show_completed else '' }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="action-button" type="submit">Mark read</button></form>
+                      <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="keep"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="region" value="{{ filters.region }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="action-button" type="submit">Keep</button></form>
                     {% endif %}
-                    <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="dismiss"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="region" value="{{ filters.region }}"><button class="action-button action-reject" type="submit">Dismiss</button></form>
+                    <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="dismiss"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="region" value="{{ filters.region }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="action-button action-reject" type="submit">Dismiss</button></form>
                     <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="promote"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button action-approve" type="submit">Promote / review</button></form>
                     <a class="action-button" href="{{ item.href }}">Open</a>
                     {% if item.source_url %}<a class="action-button" href="{{ item.source_url }}" rel="noreferrer">Open original</a>{% endif %}

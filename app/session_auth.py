@@ -31,7 +31,7 @@ from app.runtime_config import (
 
 SESSION_COOKIE_NAME = "bios_session"
 SESSION_MAX_AGE_SECONDS = 12 * 60 * 60
-DEFAULT_NEXT_PATH = "/work-queue"
+DEFAULT_NEXT_PATH = "/brief"
 LOGIN_FAILURE_LIMIT = 8
 LOGIN_FAILURE_WINDOW_SECONDS = 15 * 60
 

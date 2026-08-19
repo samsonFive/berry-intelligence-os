@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}Morning Brief — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">LIVE INTELLIGENCE</p>
+    <h1>Morning Brief</h1>
+    <p class="also-known-as">What actually changed. What deserves time this morning. What can wait. What we are already watching.</p>
+  </div>
+  <div class="brief-metrics">
+    <p class="queue-metric queue-metric-action">{{ brief.counts.top_priority }} top priority</p>
+    <p class="queue-metric queue-metric-inventory">{{ brief.unresolved }} still in Reading Queue</p>
+  </div>
+</section>
+
+<p class="brief-window">Ranking uses stored fields only (direct/adjacent tier, reading priority, watches, company links, publication date). Viewing this page does not mark items read or trusted.{% if brief.last_seen_at %} Last check: {{ brief.last_seen_at }}.{% else %} First brief this session — “new since last check” uses the current intelligence cycle.{% endif %}</p>
+
+<section class="brief-section" id="top-developments">
+  <h2>Top developments</h2>
+  <p class="context-limit">Highest-value current items. Open the Reader, then mark read, keep, dismiss, or promote.</p>
+  {% if brief.top_developments %}
+    {% for item in brief.top_developments %}
+      {% include "_brief_item.html" %}
+    {% endfor %}
+  {% else %}
+    <p class="empty-state">Nothing is currently ranked as top priority.</p>
+  {% endif %}
+</section>
+
+{% if brief.watch_activity %}
+<section class="brief-section" id="watchlist">
+  <h2>Watchlist activity</h2>
+  <p class="context-limit">New matching intelligence around active watches — not a dump of every watch row.</p>
+  <ul class="simple-list">
+    {% for watch in brief.watch_activity %}
+      <li>
+        <a href="{{ watch.href }}">{{ watch.name }}</a>
+        — {{ watch.item_count }} current item{{ 's' if watch.item_count != 1 else '' }}
+        {% if watch.signal_count %} · <span class="nav-action">{{ watch.signal_label }}</span>{% endif %}
+        <ul class="brief-bullets">
+          {% for item in watch.entries %}
+            <li><a href="{{ item.href }}">{{ item.title }}</a></li>
+          {% endfor %}
+          {% for signal in watch.signals[:3] %}
+            <li><a href="{{ signal.href }}">{{ signal.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+{% if brief.company_deltas %}
+<section class="brief-section" id="company-moves">
+  <h2>Company moves</h2>
+  <p class="context-limit">What changed, from Evidence — not a generated essay.</p>
+  {% for company in brief.company_deltas %}
+    <article class="brief-company">
+      <h3><a href="{{ company.href }}">{{ company.name }}</a> — {{ company.count }} new development{{ 's' if company.count != 1 else '' }}</h3>
+      <ul class="brief-bullets">
+        {% for bullet in company.bullets %}
+          <li><a href="{{ bullet.href }}">{{ bullet.label }}</a> · {{ bullet.source_name }}</li>
+        {% endfor %}
+      </ul>
+    </article>
+  {% endfor %}
+</section>
+{% endif %}
+
+{% if brief.genetics %}
+<section class="brief-section" id="genetics">
+  <h2>Genetics / variety / IP</h2>
+  <p class="context-limit">Items with patent or variety metadata only.</p>
+  {% for item in brief.genetics %}
+    {% include "_brief_item.html" %}
+  {% endfor %}
+</section>
+{% endif %}
+
+{% if brief.markets %}
+<section class="brief-section" id="markets">
+  <h2>Markets / supply</h2>
+  <p class="context-limit">Items tagged with stored market/supply metadata only.</p>
+  {% for item in brief.markets %}
+    {% include "_brief_item.html" %}
+  {% endfor %}
+</section>
+{% endif %}
+
+<section class="brief-section" id="needs-decision">
+  <h2>Needs your decision</h2>
+  <p class="context-limit">Pending publication or unvalidated capture. Trust gates are unchanged.</p>
+  {% if brief.needs_decision %}
+    {% for item in brief.needs_decision %}
+      {% include "_brief_item.html" %}
+    {% endfor %}
+  {% else %}
+    <p class="empty-state">No pending drafts or unvalidated captures in this runtime.</p>
+  {% endif %}
+</section>
+
+<section class="brief-section" id="source-coverage">
+  <h2>Source coverage</h2>
+  {% if brief.source_coverage %}
+    <p class="brief-coverage">
+      {{ brief.source_coverage.current or 0 }} current
+      · {{ brief.source_coverage.due or 0 }} due
+      · {{ brief.source_coverage.stale or 0 }} stale
+      · <span class="{% if brief.source_coverage.failing %}queue-metric-action{% endif %}">{{ brief.source_coverage.failing or 0 }} failing</span>
+      · {{ brief.source_coverage.sources_total or 0 }} sources
+    </p>
+    <p class="context-limit"><a href="/sources">Open source health</a> for the operational list. This brief does not replace collection.</p>
+  {% else %}
+    <p class="empty-state">Source freshness is not available in this snapshot.</p>
+  {% endif %}
+</section>
+
+<section class="brief-section">
+  <h2>Attention buckets</h2>
+  <p class="context-limit">The Reading Queue still holds every unresolved item. These buckets stop 100+ rows looking equally urgent.</p>
+  <ul class="simple-list">
+    {% for bucket in brief.reading_buckets %}
+      <li><a href="/queues/reading#bucket-{{ bucket.key }}">{{ bucket.label }}</a> — {{ bucket.count }}</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

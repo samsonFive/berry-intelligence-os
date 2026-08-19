@@ -1,0 +1,36 @@
+<div class="brief-item{% if item.bucket == 'top_priority' %} brief-item-priority{% endif %}">
+  <div class="intel-card-meta">
+    {% if item.trust_label %}<span class="badge intel-trust-{{ item.trust }}">{{ item.trust_label }}</span>{% endif %}
+    {% if item.kind_label %}<span class="badge badge-muted">{{ item.kind_label }}</span>{% endif %}
+    {% if item.relevance_tier == 'adjacent' %}<span class="badge badge-muted">Adjacent</span>{% endif %}
+    {% if item.reading_label %}<span class="badge">{{ item.reading_label }}</span>{% endif %}
+    {% if item.new_since_last %}<span class="badge badge-claim">New since last check</span>{% endif %}
+  </div>
+  <h3><a href="{{ item.href }}">{{ item.title }}</a></h3>
+  <p class="draft-meta">{{ item.source_name }}{% if item.date %} · {{ item.date|us_date }}{% endif %}</p>
+  {% if item.why_ranked %}<p class="brief-why">{{ item.why_ranked }}</p>{% endif %}
+  {% if item.why %}<p>{{ item.why|truncate(180) }}</p>{% endif %}
+  {% if item.entities %}
+    <div class="intel-chips">
+      {% for entity in item.entities[:5] %}
+        <a class="intel-chip" href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% if authoring_mode and not static_build %}
+    <div class="queue-actions">
+      <a class="action-button action-approve" href="{{ item.href }}">Open</a>
+      {% if item.company_href %}<a class="action-button" href="{{ item.company_href }}">Company</a>{% endif %}
+      {% if item.source_url %}<a class="action-button" href="{{ item.source_url }}" rel="noreferrer">Open original</a>{% endif %}
+      {% if item.status == 'published' and item.is_active and item.needs_consume %}
+        <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="mark_read"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="action-button" type="submit">Mark read</button></form>
+        <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="keep"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="action-button" type="submit">Keep</button></form>
+      {% endif %}
+      {% if item.status == 'published' and item.is_active %}
+        <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="dismiss"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="action-button action-reject" type="submit">Dismiss</button></form>
+        <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="promote"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button action-approve" type="submit">Promote / review</button></form>
+      {% endif %}
+      <a class="action-button" href="/queues/monitoring">Watch</a>
+    </div>
+  {% endif %}
+</div>
