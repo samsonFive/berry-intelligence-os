@@ -83,7 +83,7 @@ from app.runtime_config import (
 )
 from app.services.intelligence_feed import build_intelligence_feed, build_reader
 from app.services.morning_brief import build_morning_brief
-from app.services.story_threads import compress_recent_intelligence, thread_for_item
+from app.services.story_threads import compress_recent_intelligence, expand_with_related, thread_for_item
 from app.session_auth import (
     EnvSessionMiddleware,
     auth_template_context,
@@ -2121,6 +2121,27 @@ def story_thread_reader(request: Request, item_id: str) -> HTMLResponse:
         row["date"] = row.get("published_date") or row.get("captured_date") or ""
         row["trust"] = "trusted" if row.get("status") == "published" else "pending"
         row["trust_label"] = "Trusted" if row.get("status") == "published" else "Pending"
+    published_rows = []
+    for rec in published_evidence():
+        rec = dict(rec)
+        for entity_id in rec.get("entity_ids") or []:
+            entity = entities.get(entity_id) or {}
+            if entity.get("entity_type") in {"company", "variety"}:
+                rec["primary_subject"] = {
+                    "id": entity_id,
+                    "name": entity.get("name") or entity_id,
+                    "entity_type": entity.get("entity_type"),
+                }
+                break
+        rec["href"] = f"/intelligence/{rec.get('id')}"
+        rec["date"] = rec.get("published_date") or rec.get("captured_date") or ""
+        rec["trust"] = "trusted"
+        rec["trust_label"] = "Trusted"
+        published_rows.append(rec)
+    universe = expand_with_related(universe, published_rows)
+    for row in universe:
+        if not row.get("href"):
+            row["href"] = f"/intelligence/{row.get('id')}"
     thread = thread_for_item(item_id, universe)
     if thread is None:
         raise HTTPException(status_code=404, detail="Story thread not found")
