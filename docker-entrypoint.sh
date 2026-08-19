@@ -28,9 +28,15 @@ fi
 # (inbox/discovered_media/_state/*.json), which stays environment-local.
 # Non-fatal: a sync problem must never block app startup.
 if [ -d /app/seed/data ]; then
-    python3 /app/scripts/sync_trusted_data.py \
+    # Module invocation (not a bare file path) so sync_trusted_data's
+    # `from scripts.sync_source_config import ...` resolves `scripts` as a
+    # package -- running it as `python3 /app/scripts/sync_trusted_data.py`
+    # puts /app/scripts (not /app) on sys.path[0] and fails with
+    # ModuleNotFoundError, silently no-op'ing the whole sync via the
+    # fallback below. /app is the Dockerfile's WORKDIR, so this resolves.
+    (cd /app && python3 -m scripts.sync_trusted_data \
         --seed /app/seed/data \
-        --runtime "$DATA_DIR" \
+        --runtime "$DATA_DIR") \
         || echo "warning: trusted data sync failed; continuing with existing runtime data" >&2
 fi
 
