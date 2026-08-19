@@ -45,6 +45,20 @@ TRADE_SOURCE_HINTS = (
     "fresh fruit",
     "trade",
 )
+WEAK_EXTRA = {
+    "berry",
+    "berries",
+    "blueberry",
+    "blueberries",
+    "strawberry",
+    "strawberries",
+    "raspberry",
+    "fruit",
+    "plant",
+    "named",
+    "season",
+    "industry",
+}
 STOPWORDS = {
     "about", "after", "amplian", "and", "con", "completa", "completas",
     "comprehensive", "de", "del", "expand", "for", "from", "host", "into",
@@ -276,10 +290,10 @@ def _strong_event_edge(left: dict[str, Any], right: dict[str, Any]) -> bool:
     company_tokens = _name_tokens(left) | _name_tokens(right)
     residual_left = left_tokens - company_tokens
     residual_right = right_tokens - company_tokens
-    shared_extra = residual_left & residual_right
+    shared_extra = (residual_left & residual_right) - WEAK_EXTRA
     if _jaccard(residual_left, residual_right) >= MIN_EVENT_JACCARD and shared_extra:
         return True
-    if gap <= DATE_PROXIMITY_TRANSLATION_DAYS and len(shared_extra) >= 1 and len(left_tokens & right_tokens) >= 2:
+    if gap <= DATE_PROXIMITY_TRANSLATION_DAYS and len(shared_extra) >= 1 and len((left_tokens & right_tokens) - WEAK_EXTRA) >= 2:
         return True
     return False
 
@@ -599,6 +613,21 @@ def thread_for_item(item_id_value: str, items: list[dict[str, Any]]) -> dict[str
         return None
     threads = group_story_threads(items)
     return threads_by_item_id(threads).get(item_id_value)
+
+
+def expand_with_related(items: list[dict[str, Any]], extra: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Add published/other records that share a conservative edge with `items`."""
+
+    known = {item_id(item) for item in items}
+    out = list(items)
+    for record in extra:
+        rid = item_id(record)
+        if not rid or rid in known:
+            continue
+        if any(items_form_thread(record, item) for item in items):
+            out.append(record)
+            known.add(rid)
+    return out
 
 
 def compression_report(items: list[dict[str, Any]]) -> dict[str, Any]:
