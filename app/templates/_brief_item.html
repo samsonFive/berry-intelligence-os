@@ -1,10 +1,12 @@
-<div class="brief-item{% if item.bucket == 'top_priority' %} brief-item-priority{% endif %}">
+<div class="brief-item{% if item.bucket == 'top_priority' %} brief-item-priority{% endif %}{% if item.new_since_last %} brief-item-new{% endif %}">
   <div class="intel-card-meta">
     {% if item.trust_label %}<span class="badge intel-trust-{{ item.trust }}">{{ item.trust_label }}</span>{% endif %}
     {% if item.kind_label %}<span class="badge badge-muted">{{ item.kind_label }}</span>{% endif %}
+    {% if item.change_label %}<span class="badge">{{ item.change_label }}</span>{% endif %}
     {% if item.relevance_tier == 'adjacent' %}<span class="badge badge-muted">Adjacent</span>{% endif %}
     {% if item.reading_label %}<span class="badge">{{ item.reading_label }}</span>{% endif %}
     {% if item.new_since_last %}<span class="badge badge-claim">New since last check</span>{% endif %}
+    {% if item.primary_subject %}<span class="badge badge-muted">{{ item.primary_subject.name }}</span>{% endif %}
   </div>
   <h3><a href="{{ item.href }}">{{ item.title }}</a></h3>
   <p class="draft-meta">{{ item.source_name }}{% if item.date %} · {{ item.date|us_date }}{% endif %}</p>

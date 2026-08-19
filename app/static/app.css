@@ -361,6 +361,14 @@ strong.level-low{color:#426aa8}
 .brief-bullets{margin:6px 0 10px;padding-left:18px}
 .brief-company{margin:0 0 16px}
 .brief-company h3{font-size:15px;margin:0 0 6px}
+.brief-item-new{border-color:#b9d4c2}
+.brief-delta-strip{display:flex;flex-wrap:wrap;gap:10px;list-style:none;padding:0;margin:0 0 16px}
+.brief-delta-strip li{background:#f5f7fb;border:1px solid #e0e5ef;border-radius:10px;padding:8px 12px;min-width:140px}
+.brief-delta-strip a{display:block;font-size:12px;color:#3c4a63;text-decoration:none}
+.brief-delta-strip strong{display:block;font-size:18px;color:#152443}
+.brief-delta-group{margin:0 0 16px}
+.brief-delta-group h3{font-size:15px;margin:0 0 8px}
+.brief-change-label{font-weight:700;color:#5e65c7}
 .queue-actions form{margin:0}
 .queue-table,.trait-table{border-collapse:collapse;width:100%;background:white;border:1px solid #e0e5ef;border-radius:10px;overflow:hidden}
 .queue-table th,.queue-table td,.trait-table th,.trait-table td{text-align:left;padding:10px 14px;border-bottom:1px solid #eef1f6;font-size:13px}
