@@ -38,8 +38,8 @@
       <li class="activity-item">
         <p class="draft-meta">{{ member.date|us_date if member.date else 'Date unknown' }} · {{ member.source_name }}{% if member.is_primary_source %} · primary{% elif member.coverage_role == 'trade_reprint' %} · reprint{% endif %}</p>
         <p><a href="{{ member.href }}"><strong>{{ member.title }}</strong></a></p>
-        <p class="draft-meta"><span class="badge intel-trust-{{ member.trust }}">{{ member.trust_label }}</span> {% if member.kind_label %}<span class="badge badge-muted">{{ member.kind_label }}</span>{% endif %}</p>
-        {% if authoring_mode and not static_build %}
+        <p class="draft-meta"><span class="badge intel-trust-{{ member.trust }}">{{ member.trust_label }}</span> {% if member.kind_label %}<span class="badge badge-muted">{{ member.kind_label }}</span>{% endif %}{% if member.dismissed_redundant %}<span class="badge badge-muted">Redundant coverage dismissed</span>{% endif %}</p>
+        {% if authoring_mode and not static_build and not member.dismissed_redundant %}
           <div class="queue-actions pending-decision-actions">
             <a class="action-button action-approve" href="{{ member.href }}">Read source</a>
             {% if member.status != 'published' and member.review_values %}
