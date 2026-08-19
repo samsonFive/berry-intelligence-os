@@ -44,11 +44,13 @@ Remote interactive login is `GET /login`. Unauthenticated `/work-queue` redirect
 
 Nav purple pills (`.nav-action`) are **action counts** with a resolution workflow. Grey `.nav-inventory` figures are catalogs, not uncleared work.
 
-Morning Brief (`/brief`) is the daily starting point after login. It ranks existing intelligence; it does not create a second store and does not mark items read or trusted when viewed. Last-seen lives in `inbox/analyst_queue_state.json` under `meta.brief`.
+Morning Brief (`/brief`) is the daily starting point after login. It ranks existing intelligence; it does not create a second store and does not mark items read or trusted when viewed. Last-seen lives in `inbox/analyst_queue_state.json` under `meta.brief` (`last_seen_at` plus a compact `source_states` snapshot used only to detect source failure/recovery). **New** (activity after last visit) and **Important** (high-value unresolved regardless of age) are separate sections.
+
+Watch “Because” copy names the primary subject (title name-match / aliases), not a co-mentioned company. Co-mentions use “mentions watched X”.
 
 | Surface | Count meaning | Resolution |
 |---|---|---|
-| Morning Brief | top-priority items this cycle | Reader → Mark read / Keep / Dismiss / Promote |
+| Morning Brief | new-since-last + important unresolved this cycle | Reader → Mark read / Keep / Dismiss / Promote |
 | Reading Queue | unread + saved items still to consume | Mark read / Keep / Dismiss / Promote. Show completed. Bulk mark visible top-priority unread/saved. Buckets: top / saved / adjacent / backlog. |
 | Publication review | pending drafts + unvalidated auto-capture | existing Approve / Save / Reject |
 | Claim testing | tagged evidence still `needs_testing` | Pass / Fail / Defer (Reopen from completed). This is claim verification, not `scripts/qualify_extraction_model.py`. |
@@ -58,6 +60,6 @@ Morning Brief (`/brief`) is the daily starting point after login. It ranks exist
 
 Workflow state lives in `inbox/analyst_queue_state.json` (runtime, gitignored). Do not mutate trusted `data/evidence/*.json` `priority.*` fields to dequeue. Dismiss/Stop/Pass/Reject never delete source history. Reading state is independent of trust state.
 
-Brief ranking is deterministic: direct > adjacent (stored `relevance_tier`), high reading priority, active-watch entity overlap (especially with new signals), recency relative to the newest captured item, company/variety linkage, source `monitoring_priority`, unread vs already read. Do not invent an opaque AI score.
+Brief ranking is deterministic: direct > adjacent (stored `relevance_tier`), high reading priority, primary-subject watch match (title/alias; co-mentions are weaker and labeled honestly), recency relative to last brief and calendar date, current `web_article` drafts, company/variety linkage, source `monitoring_priority`, unread vs already read. Do not invent an opaque AI score. Consume Claude’s article sources and source-health states; do not add ingestion adapters.
 
 A larger object-model rewrite is still open: first-class Position objects do not exist; three monitoring concepts still coexist (evidence `priority.monitoring`, Source `monitoring_priority`, Signal `status`); model qualification stays in scripts. Do not flatten those into one object type without an explicit IA migration.

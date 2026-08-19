@@ -263,8 +263,15 @@ app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="s
 def _assemble_morning_brief(*, mark_seen: bool = False, include_coverage: bool = False) -> dict[str, Any]:
     published = published_evidence()
     coverage = {}
+    freshness = {}
+    discovered: list[dict[str, Any]] = []
+    recommendations: list[dict[str, Any]] = []
     if include_coverage:
-        coverage = sources_page_context(None, None, None, None, None, "entity_type", None).get("source_coverage") or {}
+        sources_ctx = sources_page_context(None, None, None, None, None, "entity_type", None)
+        coverage = sources_ctx.get("source_coverage") or {}
+        freshness = sources_ctx.get("freshness_by_source") or {}
+        discovered = list_discovered_items(INBOX_DIR)
+        recommendations = all_recommendations()
     return build_morning_brief(
         inbox_dir=INBOX_DIR,
         published=published,
@@ -275,6 +282,9 @@ def _assemble_morning_brief(*, mark_seen: bool = False, include_coverage: bool =
         sources=load_sources(),
         berry_labels=BERRIES,
         source_coverage=coverage,
+        freshness_by_source=freshness,
+        discovered=discovered,
+        recommendations=recommendations,
         mark_seen=mark_seen,
     )
 

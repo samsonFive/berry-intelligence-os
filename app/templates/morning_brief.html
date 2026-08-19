@@ -5,19 +5,76 @@
   <div>
     <p class="eyebrow">LIVE INTELLIGENCE</p>
     <h1>Morning Brief</h1>
-    <p class="also-known-as">What actually changed. What deserves time this morning. What can wait. What we are already watching.</p>
+    <p class="also-known-as">What changed since last check. What is new. What is still important. What can wait.</p>
   </div>
   <div class="brief-metrics">
-    <p class="queue-metric queue-metric-action">{{ brief.counts.top_priority }} top priority</p>
+    <p class="queue-metric queue-metric-action">{{ brief.since_last.counts.total or 0 }} new since last brief</p>
+    <p class="queue-metric queue-metric-action">{{ brief.counts.new_developments or 0 }} new developments</p>
+    <p class="queue-metric queue-metric-inventory">{{ brief.counts.important or 0 }} still important</p>
     <p class="queue-metric queue-metric-inventory">{{ brief.unresolved }} still in Reading Queue</p>
   </div>
 </section>
 
-<p class="brief-window">Ranking uses stored fields only (direct/adjacent tier, reading priority, watches, company links, publication date). Viewing this page does not mark items read or trusted.{% if brief.last_seen_at %} Last check: {{ brief.last_seen_at }}.{% else %} First brief this session — “new since last check” uses the current intelligence cycle.{% endif %}</p>
+<p class="brief-window">Deltas use the persisted last-brief timestamp. Viewing this page does not mark items read or trusted.{% if brief.last_seen_at %} Last check: {{ brief.last_seen_at }}.{% else %} First brief this session — “new” means activity in the last day.{% endif %} New and important are separate: current activity does not hide unresolved high-value records.</p>
+
+<section class="brief-section" id="since-last">
+  <h2>Since your last brief</h2>
+  <p class="context-limit">Genuinely new activity since the last visit. Compact counts, not another ops dashboard.</p>
+  <ul class="brief-delta-strip">
+    {% for group in brief.since_last.groups %}
+      <li>
+        <a href="#delta-{{ group.key }}">{{ group.label }}</a>
+        <strong>{{ group.count }}</strong>
+      </li>
+    {% endfor %}
+  </ul>
+  {% for group in brief.since_last.groups %}
+    {% if group.key in ['new_discovery', 'new_review_ready', 'new_trusted', 'new_signal'] and group.count %}
+      <article class="brief-delta-group" id="delta-{{ group.key }}">
+        <h3>{{ group.label }} — {{ group.count }}</h3>
+        {% if group.entries %}
+          {% for item in group.entries %}
+            {% include "_brief_item.html" %}
+          {% endfor %}
+        {% endif %}
+        {% if group.remainder %}
+          <p class="context-limit">{{ group.remainder }} more not listed. Open Feed or Publications to process the rest.</p>
+        {% endif %}
+      </article>
+    {% endif %}
+  {% endfor %}
+  {% if not brief.since_last.counts.total %}
+    <p class="empty-state">No new discovery, review-ready items, trusted publishes, signals, or source-state changes since last check.</p>
+  {% endif %}
+</section>
+
+<section class="brief-section" id="new-developments">
+  <h2>New developments</h2>
+  <p class="context-limit">Berry-relevant items that became visible since last check. Generic produce noise stays out of this list.</p>
+  {% if brief.new_developments %}
+    {% for item in brief.new_developments %}
+      {% include "_brief_item.html" %}
+    {% endfor %}
+  {% else %}
+    <p class="empty-state">Nothing new and berry-relevant since last check.</p>
+  {% endif %}
+</section>
+
+<section class="brief-section" id="important">
+  <h2>Important</h2>
+  <p class="context-limit">High-value unresolved intelligence regardless of age. These stay visible so yesterday’s work is not crowded out by today’s intake.</p>
+  {% if brief.important %}
+    {% for item in brief.important %}
+      {% include "_brief_item.html" %}
+    {% endfor %}
+  {% else %}
+    <p class="empty-state">No separate important backlog this morning.</p>
+  {% endif %}
+</section>
 
 <section class="brief-section" id="top-developments">
   <h2>Top developments</h2>
-  <p class="context-limit">Highest-value current items. Open the Reader, then mark read, keep, dismiss, or promote.</p>
+  <p class="context-limit">The morning attention set used by the nav count. Open the Reader, then mark read, keep, dismiss, or promote.</p>
   {% if brief.top_developments %}
     {% for item in brief.top_developments %}
       {% include "_brief_item.html" %}
@@ -30,21 +87,23 @@
 {% if brief.watch_activity %}
 <section class="brief-section" id="watchlist">
   <h2>Watchlist activity</h2>
-  <p class="context-limit">New matching intelligence around active watches — not a dump of every watch row.</p>
+  <p class="context-limit">What happened since last check around the watched subject — not a silent score bump.</p>
   <ul class="simple-list">
     {% for watch in brief.watch_activity %}
       <li>
         <a href="{{ watch.href }}">{{ watch.name }}</a>
-        — {{ watch.item_count }} current item{{ 's' if watch.item_count != 1 else '' }}
+        — {{ watch.happened }}
+        {% if watch.kind_summary %} · {{ watch.kind_summary }}{% endif %}
         {% if watch.signal_count %} · <span class="nav-action">{{ watch.signal_label }}</span>{% endif %}
         <ul class="brief-bullets">
           {% for item in watch.entries %}
-            <li><a href="{{ item.href }}">{{ item.title }}</a></li>
+            <li><a href="{{ item.href }}">{{ item.change_label or item.title }}</a>{% if item.source_name %} · {{ item.source_name }}{% endif %}</li>
           {% endfor %}
           {% for signal in watch.signals[:3] %}
             <li><a href="{{ signal.href }}">{{ signal.title }}</a></li>
           {% endfor %}
         </ul>
+        <p class="context-limit"><a href="{{ watch.href }}">Review activity</a></p>
       </li>
     {% endfor %}
   </ul>
@@ -53,18 +112,30 @@
 
 {% if brief.company_deltas %}
 <section class="brief-section" id="company-moves">
-  <h2>Company moves</h2>
-  <p class="context-limit">What changed, from Evidence — not a generated essay.</p>
+  <h2>What changed</h2>
+  <p class="context-limit">Company deltas from Evidence and review-ready drafts. Each bullet is a stored record, not a generated essay.</p>
   {% for company in brief.company_deltas %}
     <article class="brief-company">
-      <h3><a href="{{ company.href }}">{{ company.name }}</a> — {{ company.count }} new development{{ 's' if company.count != 1 else '' }}</h3>
+      <h3><a href="{{ company.href }}">{{ company.name }}</a> — {{ company.new_count or company.count }} new development{{ 's' if (company.new_count or company.count) != 1 else '' }}</h3>
       <ul class="brief-bullets">
         {% for bullet in company.bullets %}
-          <li><a href="{{ bullet.href }}">{{ bullet.label }}</a> · {{ bullet.source_name }}</li>
+          <li><a href="{{ bullet.href }}">{{ bullet.label }}</a> · {{ bullet.source_name }}{% if bullet.date %} · {{ bullet.date|us_date }}{% endif %}</li>
         {% endfor %}
       </ul>
     </article>
   {% endfor %}
+</section>
+{% endif %}
+
+{% if brief.trust_transitions %}
+<section class="brief-section" id="trust-transitions">
+  <h2>Trust transitions</h2>
+  <p class="context-limit">State changes with a stored timestamp after last check. No fabricated history.</p>
+  <ul class="simple-list">
+    {% for row in brief.trust_transitions %}
+      <li><span class="brief-change-label">{{ row.label }}</span> — <a href="{{ row.href }}">{{ row.title }}</a>{% if row.detail %} · {{ row.detail }}{% endif %}</li>
+    {% endfor %}
+  </ul>
 </section>
 {% endif %}
 
@@ -102,6 +173,13 @@
 
 <section class="brief-section" id="source-coverage">
   <h2>Source coverage</h2>
+  {% if brief.source_changes %}
+    <ul class="simple-list">
+      {% for row in brief.source_changes %}
+        <li><a href="{{ row.href }}">{{ row.label }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
   {% if brief.source_coverage %}
     <p class="brief-coverage">
       {{ brief.source_coverage.current or 0 }} current
@@ -110,7 +188,7 @@
       · <span class="{% if brief.source_coverage.failing %}queue-metric-action{% endif %}">{{ brief.source_coverage.failing or 0 }} failing</span>
       · {{ brief.source_coverage.sources_total or 0 }} sources
     </p>
-    <p class="context-limit"><a href="/sources">Open source health</a> for the operational list. This brief does not replace collection.</p>
+    <p class="context-limit"><a href="/sources">Open source health</a> for the operational list. This brief surfaces only useful changes, not the full collector dashboard.</p>
   {% else %}
     <p class="empty-state">Source freshness is not available in this snapshot.</p>
   {% endif %}
