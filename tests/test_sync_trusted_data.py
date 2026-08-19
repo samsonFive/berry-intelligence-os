@@ -17,6 +17,8 @@ rather than being overwritten wholesale.
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 from scripts.sync_trusted_data import sync_trusted_data
@@ -112,3 +114,34 @@ def test_a_freshly_synced_runtime_gains_the_real_missing_entities(tmp_path: Path
     assert "entities/companies/company-sanlucar.json" in result["files_added"]
     assert "entities/companies/company-ushbc.json" in result["files_added"]
     assert result["sources"]["added"], "sources.json should also populate from an empty runtime"
+
+
+def test_cli_invocation_via_module_flag_does_not_raise_module_not_found(tmp_path: Path) -> None:
+    """Real deploy bug: docker-entrypoint.sh originally ran this as a bare
+    file path (`python3 /app/scripts/sync_trusted_data.py`), which fails
+    with ModuleNotFoundError on `from scripts.sync_source_config import
+    ...` because that invocation style puts the script's own directory
+    (not the repo root) on sys.path[0] -- `scripts` never resolves as a
+    package. The entrypoint's `|| echo warning ...` fallback swallowed the
+    crash silently, so the sync ran as a total no-op on every deploy and
+    the real VPS runtime stayed missing company-sanlucar/company-ushbc
+    even after this fix merged. This test runs the exact `-m` invocation
+    docker-entrypoint.sh now uses (`python -m scripts.sync_trusted_data`
+    from the repo root) so any regression back to file-path invocation
+    fails pytest instead of only failing silently in production."""
+    seed = tmp_path / "seed"
+    runtime = tmp_path / "runtime"
+    (seed / "entities" / "companies").mkdir(parents=True)
+    (seed / "entities" / "companies" / "company-a.json").write_text('{"id": "company-a"}', encoding="utf-8")
+
+    result = subprocess.run(
+        [sys.executable, "-m", "scripts.sync_trusted_data", "--seed", str(seed), "--runtime", str(runtime)],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, f"stderr: {result.stderr}"
+    assert "ModuleNotFoundError" not in result.stderr
+    assert (runtime / "entities" / "companies" / "company-a.json").is_file()
