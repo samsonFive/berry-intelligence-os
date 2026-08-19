@@ -3653,5 +3653,41 @@
     "created_at": "2026-08-19",
     "last_checked_at": null,
     "last_status": null
+  },
+  {
+    "id": "source-20260819-planasa-newsroom",
+    "type": "rss",
+    "label": "Planasa Newsroom",
+    "value": "https://planasa.com/feed",
+    "url": "https://planasa.com/en/news",
+    "why_it_matters": "Planasa's own company newsroom feed -- direct first-party source for an existing tracked company entity (company-planasa), closing a real company-newsroom coverage gap identified in Phase B1/B4 (Planasa's strongest coverage previously came from third-party trade press, not a first-party feed). Confirmed live 2026-08-19 (200, real WordPress RSS 2.0) with genuinely substantive, berry-specific content on inspection: breeding-program awards, variety launches (RedSayra strawberry, Blue Maldiva blueberry, Pink Hudson raspberry), and the real Illinois Foundation Seeds acquisition already tracked as trusted evidence.",
+    "discovery": {
+      "adapter": "article_rss",
+      "feed_url": "https://planasa.com/feed",
+      "feed_url_verified_at": "2026-08-19",
+      "notes": "Intelligence Acquisition mission (2026-08-19), Phase B4 onboarding. Company-newsroom source for company-planasa. Driscoll's, BerryWorld, Naturipe, Fall Creek, and USHBC were also checked for a real, native RSS/Atom feed at this time; none has one -- only XML sitemaps (a URL index, not an article feed usable by the existing article_rss adapter) or dead/soft-404 paths. Not onboarded to avoid building a new sitemap-scraping adapter, which would cross into the brittle/general scraping this project explicitly avoids."
+    },
+    "entity_types": [
+      "breeding_program",
+      "nursery_propagator"
+    ],
+    "berry_ids": [
+      "berry-strawberry",
+      "berry-blueberry",
+      "berry-raspberry"
+    ],
+    "region_coverage": [
+      "europe",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [
+      "company-planasa"
+    ],
+    "enabled": true,
+    "created_at": "2026-08-19",
+    "last_checked_at": null,
+    "last_status": null
   }
 ]

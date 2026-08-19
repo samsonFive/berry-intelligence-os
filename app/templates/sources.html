@@ -206,7 +206,7 @@
           {% if source_has_coverage_gap(source) %}<span class="badge badge-muted">coverage gap</span>{% endif %}
           {% set freshness = freshness_by_source.get(source.id) %}
           {% if freshness %}
-            <span class="badge {% if freshness.state in ('STALE', 'FAILING') %}level-high{% elif freshness.state == 'DUE' %}badge-muted{% elif freshness.state == 'MANUAL' %}badge-muted{% else %}badge-status-active{% endif %}" title="{{ freshness.reason }}">{{ freshness_states.get(freshness.state, freshness.state) }}</span>
+            <span class="badge {% if freshness.state in ('STALE', 'FAILING', 'BLOCKED') %}level-high{% elif freshness.state in ('DUE', 'MANUAL', 'QUIET') %}badge-muted{% else %}badge-status-active{% endif %}" title="{{ freshness.reason }}">{{ freshness_states.get(freshness.state, freshness.state) }}</span>
           {% endif %}
         </div>
         <h2>{{ source.label }}</h2>
