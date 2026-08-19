@@ -4,8 +4,8 @@
 <section class="page-heading review-workbench-heading">
   <div>
     <p class="eyebrow">AI FINDS WHAT MATTERS · HUMAN DECIDES WHAT IS TRUSTED</p>
-    <h1>{% if workbench.filters.kind == 'atomic' %}Atomic Evidence Review Workbench{% else %}Review Queue{% endif %}</h1>
-    <p class="also-known-as">{% if workbench.filters.kind == 'atomic' %}Review transcript-derived proposals in publication context. Approval remains individual and human-controlled.{% else %}Start with what deserves attention. AI suggestions are untrusted until you accept them.{% endif %}</p>
+    <h1>{% if workbench.filters.kind == 'atomic' %}Claim review{% else %}Publication review{% endif %}</h1>
+    <p class="also-known-as">{% if workbench.filters.kind == 'atomic' %}Review transcript-derived proposals in publication context. Approval remains individual and human-controlled.{% else %}Decide what becomes trusted. AI suggestions stay untrusted until you accept them.{% endif %}</p>
   </div>
   <aside class="shortcut-key" aria-label="Keyboard shortcuts"><kbd>j</kbd>/<kbd>k</kbd> move · <kbd>a</kbd> approve panel · <kbd>e</kbd> edit · <kbd>r</kbd> reject panel · <kbd>Esc</kbd> close</aside>
 </section>

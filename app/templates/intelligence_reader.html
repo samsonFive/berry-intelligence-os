@@ -177,6 +177,13 @@
         {% if item.ai_untrusted %}<p class="context-limit">Suggested links stay untrusted until review accepts them.</p>{% endif %}
       </section>
     {% endif %}
+    {% if authoring_mode and not pending %}
+      <section>
+        <h2>Monitoring</h2>
+        <p class="context-limit">Watches are intentional. This does not rewrite trusted Evidence.</p>
+        <p><a class="action-button" href="/queues/monitoring">View watches</a></p>
+      </section>
+    {% endif %}
     {% if related %}
       <section>
         <h2>Related trusted intelligence</h2>

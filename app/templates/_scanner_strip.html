@@ -12,23 +12,23 @@
     {% endif %}
   </div>
   <dl class="scanner-tiles">
-    <div class="scanner-tile">
+    <div class="scanner-tile scanner-tile-inventory">
       <dt>FOUND</dt>
       <dd>{{ scanner.found }}</dd>
     </div>
-    <div class="scanner-tile">
+    <div class="scanner-tile scanner-tile-inventory">
       <dt>IMPORTANT</dt>
       <dd>{{ scanner.important }}</dd>
     </div>
-    <div class="scanner-tile scanner-tile-review">
+    <div class="scanner-tile scanner-tile-action scanner-tile-review">
       <dt>NEEDS REVIEW</dt>
       <dd>{{ scanner.needs_review }}</dd>
     </div>
-    <div class="scanner-tile">
+    <div class="scanner-tile scanner-tile-inventory">
       <dt>ACCEPTED</dt>
       <dd>{{ scanner.accepted }}</dd>
     </div>
-    <div class="scanner-tile{% if scanner.attention %} scanner-tile-attention{% endif %}">
+    <div class="scanner-tile scanner-tile-{% if scanner.attention %}action scanner-tile-attention{% else %}inventory{% endif %}">
       <dt>ATTENTION</dt>
       <dd>{{ scanner.attention }}</dd>
     </div>
@@ -38,7 +38,7 @@
       <li>{{ scanner.accepted }} trusted published record{{ 's' if scanner.accepted != 1 else '' }}</li>
       <li>Unpublished drafts and review proposals are not published here</li>
     {% else %}
-      <li>{{ scanner.needs_review }} ready for publication review</li>
+      <li>{{ scanner.needs_review }} need publication review</li>
       <li>{{ scanner.transcript_ready }} transcript-ready</li>
       <li>{{ scanner.review_ready_without_transcript }} review-ready without transcript</li>
       {% if scanner.skipped %}<li>{{ scanner.skipped }} skipped as irrelevant</li>{% endif %}

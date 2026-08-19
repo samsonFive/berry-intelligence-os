@@ -50,6 +50,17 @@ from app.services.source_freshness import (
     classify_source_freshness,
     latest_item_dates,
 )
+from app.services.analyst_queue import (
+    apply_action as apply_queue_action,
+    build_dimension_page,
+    bulk_mark_read,
+    is_open_signal_alert,
+    load_state as load_analyst_queue_state,
+    pending_position_proposals,
+    proposal_state,
+    signal_alert_state,
+    work_counts,
+)
 from app.services.review_workbench import (
     analyst_transcript_label,
     attach_publication_card,
@@ -246,12 +257,31 @@ app = FastAPI(title="Berry Intelligence OS", version="0.1.0", lifespan=lifespan)
 app.middleware("http")(remote_auth_middleware)
 app.add_middleware(EnvSessionMiddleware)
 app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="static")
+
+
+def nav_work_template_context(request: Request) -> dict[str, Any]:
+    """Compute action/inventory nav counts once per HTML render."""
+
+    return {
+        "nav_work_counts": work_counts(
+            inbox_dir=INBOX_DIR,
+            published=published_evidence(),
+            signals=all_signals(),
+        )
+    }
+
+
 templates = Jinja2Templates(
     directory=BASE_DIR / "app" / "templates",
-    context_processors=[auth_template_context],
+    context_processors=[auth_template_context, nav_work_template_context],
 )
 templates.env.globals["pending_review_count"] = lambda: len(list_pending_drafts()) + len(unvalidated_auto_captured_evidence())
 templates.env.globals["queue_counts"] = lambda: queue_counts()
+templates.env.globals["nav_work"] = lambda: work_counts(
+    inbox_dir=INBOX_DIR,
+    published=published_evidence(),
+    signals=all_signals(),
+)
 
 
 @app.get("/healthz")
@@ -1826,6 +1856,14 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
         filter_key=filter,
         limit=48,
     )
+    reviewer = session_username(request) or review_username() or ""
+    for item in feed["entries"]:
+        if not item.get("pending"):
+            continue
+        values = _default_review_values(item["record"])
+        values["reviewer"] = reviewer
+        item["review_values"] = values
+    return_filter = "" if filter in {"", "all"} else f"?filter={filter}"
     return templates.TemplateResponse(
         request=request,
         name="work_queue.html",
@@ -1834,9 +1872,12 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
             "drafts": list_pending_drafts(),
             "review_cards": [],
             "feed": feed,
+            "reviewer": reviewer,
+            "return_filter": return_filter,
             "promoted_id": request.query_params.get("promoted") or "",
             "promoted_title": request.query_params.get("promoted_title") or "",
             "promoted_date": request.query_params.get("promoted_date") or "",
+            "saved": request.query_params.get("saved") == "1",
             "scanner": build_scanner_summary(
                 inbox_dir=INBOX_DIR,
                 drafts=list_drafts(),
@@ -1920,37 +1961,156 @@ def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
 
 PRIORITY_QUEUE_LABELS = {
     "reading": "Reading Queue",
-    "testing": "Testing Queue",
-    "commercial_position": "Commercial Position Queue",
-    "monitoring": "Monitoring Queue",
+    "testing": "Claim testing",
+    "commercial_position": "Commercial positions",
+    "monitoring": "Watches",
 }
 
 
 @app.get("/queues/{dimension}", response_class=HTMLResponse)
-def priority_queue(request: Request, dimension: str, region: str | None = None) -> HTMLResponse:
+def priority_queue(
+    request: Request,
+    dimension: str,
+    region: str | None = None,
+    show_completed: str | None = None,
+) -> HTMLResponse:
     if dimension not in PRIORITY_DIMENSIONS:
         raise HTTPException(status_code=404, detail="Unknown priority dimension")
     entities = entity_index()
     all_items = queue_items(dimension)
     if region:
         all_items = [r for r in all_items if region in evidence_regions(r, entities)]
-    items = []
-    for record in all_items:
-        linked = [entities[e]["name"] for e in record.get("entity_ids", []) if e in entities]
-        items.append({**record, "linked_entity_names": linked})
+    completed = show_completed in {"1", "true", "on", "yes"}
+    page = build_dimension_page(
+        dimension=dimension,
+        records=all_items,
+        inbox_dir=INBOX_DIR,
+        entities=entities,
+        berry_labels=BERRIES,
+        signals=all_signals(),
+        show_completed=completed,
+    )
+    proposals = pending_position_proposals(all_recommendations(), INBOX_DIR) if dimension == "commercial_position" else []
+    alerts = (
+        [signal for signal in all_signals() if is_open_signal_alert(signal, load_analyst_queue_state(INBOX_DIR))]
+        if dimension == "monitoring"
+        else []
+    )
     return templates.TemplateResponse(
         request=request,
         name="queue.html",
         context={
-            "dimension": dimension,
-            "label": PRIORITY_QUEUE_LABELS[dimension],
-            "items": items,
+            **page,
             "berry_label": berry_label,
             "regions": REGIONS,
             "filters": {"region": region or ""},
             "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "reviewer": session_username(request) or review_username() or "",
+            "position_proposals": proposals,
+            "signal_alerts": alerts,
         },
     )
+
+
+@app.post("/queues/reading/bulk-read")
+async def reading_bulk_read(request: Request) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Queue actions are only available in authoring mode")
+    form = await request.form()
+    reviewer = str(form.get("reviewer") or "").strip() or session_username(request) or review_username() or ""
+    region = str(form.get("region") or "")
+    allowed = {record["id"] for record in queue_items("reading") if record.get("id")}
+    ids = [value for value in form.getlist("item_id") if isinstance(value, str) and value in allowed]
+    bulk_mark_read(INBOX_DIR, ids, reviewer=reviewer)
+    suffix = f"?region={region}" if region else ""
+    return RedirectResponse(url=f"/queues/reading{suffix}", status_code=303)
+
+
+@app.post("/queues/{dimension}/{item_id}")
+def queue_item_action(
+    request: Request,
+    dimension: str,
+    item_id: str,
+    action: str = Form(...),
+    reviewer: str = Form(""),
+    show_completed: str = Form(""),
+    region: str = Form(""),
+) -> RedirectResponse:
+    if dimension not in {"reading", "testing", "monitoring"}:
+        raise HTTPException(status_code=404, detail="Unknown queue workflow")
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Queue actions are only available in authoring mode")
+    allowed = {record["id"] for record in queue_items(dimension) if record.get("id")}
+    if item_id not in allowed:
+        raise HTTPException(status_code=404, detail="Item is not in this queue")
+    try:
+        apply_queue_action(
+            INBOX_DIR,
+            dimension=dimension,
+            item_id=item_id,
+            action=action,
+            reviewer=reviewer.strip() or session_username(request) or review_username() or "",
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    if dimension == "reading" and action == "promote":
+        return RedirectResponse(url=f"/intelligence/{item_id}", status_code=303)
+    params = []
+    if region:
+        params.append(f"region={region}")
+    if show_completed:
+        params.append("show_completed=1")
+    suffix = ("?" + "&".join(params)) if params else ""
+    return RedirectResponse(url=f"/queues/{dimension}{suffix}", status_code=303)
+
+
+@app.post("/recommendations/{recommendation_id}/proposal-decision")
+def recommendation_proposal_decision(
+    request: Request,
+    recommendation_id: str,
+    action: str = Form(...),
+    reviewer: str = Form(""),
+) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Proposal decisions are only available in authoring mode")
+    if recommendation_by_id(recommendation_id) is None:
+        raise HTTPException(status_code=404, detail="Recommendation not found")
+    try:
+        apply_queue_action(
+            INBOX_DIR,
+            dimension="proposals",
+            item_id=recommendation_id,
+            action=action,
+            reviewer=reviewer.strip() or session_username(request) or review_username() or "",
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return RedirectResponse(url="/queues/commercial_position", status_code=303)
+
+
+@app.post("/signals/{signal_id}/alert-decision")
+def signal_alert_decision(
+    request: Request,
+    signal_id: str,
+    action: str = Form(...),
+    reviewer: str = Form(""),
+) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Signal-alert decisions are only available in authoring mode")
+    if signal_by_id(signal_id) is None:
+        raise HTTPException(status_code=404, detail="Signal not found")
+    try:
+        apply_queue_action(
+            INBOX_DIR,
+            dimension="signals",
+            item_id=signal_id,
+            action=action,
+            reviewer=reviewer.strip() or session_username(request) or review_username() or "",
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return RedirectResponse(url="/queues/monitoring", status_code=303)
 
 
 @app.get("/strategic-questions", response_class=HTMLResponse)
@@ -2181,6 +2341,7 @@ def signal_detail(request: Request, signal_id: str) -> HTMLResponse:
                 signal.get("strategic_question_ids")
             ),
             "authoring_mode": AUTHORING_MODE,
+            "alert_state": signal_alert_state(signal_id, load_analyst_queue_state(INBOX_DIR)),
         },
     )
 
@@ -2549,6 +2710,7 @@ def recommendation_detail(request: Request, recommendation_id: str) -> HTMLRespo
                 recommendation.get("strategic_question_ids")
             ),
             "authoring_mode": AUTHORING_MODE,
+            "proposal_state": proposal_state(recommendation_id, load_analyst_queue_state(INBOX_DIR)),
         },
     )
 

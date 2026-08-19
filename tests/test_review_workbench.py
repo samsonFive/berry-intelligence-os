@@ -136,7 +136,7 @@ def test_workbench_renders_grounding_actions_and_safe_keyboard_handlers(monkeypa
     response = TestClient(app).get("/review?kind=atomic")
     assert response.status_code == 200
     text = response.text
-    assert "Atomic Evidence Review Workbench" in text
+    assert "Claim review" in text
     assert "Exact synthetic transcript support 3." in text and 'class="transcript-support"' in text
     assert "5:00–5:20" in text and "Speaker A" in text
     assert "Synthetic Company" in text and "Synthetic Region" in text
