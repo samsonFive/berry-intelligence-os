@@ -39,3 +39,13 @@ Remote interactive review (Scanner, publication review, Approve/Save/Reject) is 
 In this Cloud Agent VM, `docker` usually needs `sudo` (the `ubuntu` user is not in the `docker` group). Host port 8000 is often already taken by a leftover local uvicorn; set `BIOS_APP_PORT` (for example `18000`) instead of killing that process by name. VPS compose binds the app to `127.0.0.1` by default so Docker does not publish 8000 on the public interface. `docker compose config` interpolates `BIOS_REVIEW_PASSWORD` and `BIOS_SESSION_SECRET` into rendered YAML — do not paste that output.
 
 Remote interactive login is `GET /login`. Unauthenticated `/work-queue` redirects there. The session cookie is Secure only when the request is HTTPS or `X-Forwarded-Proto: https` (Caddy does this). Do not enable `BIOS_BASIC_AUTH` in front of `/login`. Remote interactive mode fails closed without `BIOS_REVIEW_USERNAME`, `BIOS_REVIEW_PASSWORD`, and `BIOS_SESSION_SECRET`.
+
+Live VPS access is the dedicated `cursor` account (groups `docker` and `biosdeploy`, passwordless sudo). Use `ssh -i ~/.ssh/bios_vps_cursor_deploy -o IdentitiesOnly=yes cursor@212.227.236.188`. Do not generate another deploy key unless that exact private key is proven not to match `/home/cursor/.ssh/authorized_keys`. Repo at `/opt/berry-intelligence-os` is `root:biosdeploy`; `git fetch`/`git merge` as `cursor` may need `sudo git`. Never disable Johnny/root, never commit `deploy/.env`, and never print session secrets or API keys. Compose: `sudo docker compose --env-file deploy/.env -f deploy/docker-compose.yml --profile tls up -d --build`. App stays on `127.0.0.1:8000`; Caddy owns 80/443.
+
+### Demo freeze (2026-08-18)
+
+Live VPS is pinned to canonical `v2/intelligence-os` @ `ed5977ad8104d03f506b1f2b566e6fe8ea3cbe23` (merge of PR #20). Marker on the VPS: `/opt/berry-intelligence-os/DEMO-FREEZE.txt`.
+
+Do not deploy feature branches or rebuild the demo from a non-canonical SHA until after the demo.
+
+Open PRs #17 (feed keyboard), #19 (queue-count semantics), and #11 (patent monitor) are draft and conflict with canonical. Leave them unmerged for this freeze.
