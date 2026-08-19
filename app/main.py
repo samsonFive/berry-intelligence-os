@@ -54,6 +54,7 @@ from app.services.source_freshness import (
 from app.services.analyst_queue import (
     apply_action as apply_queue_action,
     build_dimension_page,
+    bulk_dismiss_pending,
     bulk_mark_read,
     is_open_signal_alert,
     load_state as load_analyst_queue_state,
@@ -62,6 +63,7 @@ from app.services.analyst_queue import (
     signal_alert_state,
     work_counts,
 )
+from app.services.draft_attribution import attribute_draft, draft_matches_entity
 from app.services.review_workbench import (
     analyst_transcript_label,
     attach_publication_card,
@@ -308,6 +310,8 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
         mark_seen=False,
     )
     counts["brief_action"] = int((brief.get("counts") or {}).get("top_priority") or 0)
+    counts["review_now"] = int((brief.get("counts") or {}).get("review_now") or 0)
+    counts["pending_open"] = int((brief.get("counts") or {}).get("pending_open") or 0)
     return {"nav_work_counts": counts}
 
 
@@ -1792,6 +1796,9 @@ def recent_intelligence_for_entity(
         for record in linked_evidence
     ]
     if include_pending:
+        entities = entity_index()
+        source_index = {str(source.get("id")): source for source in load_sources() if source.get("id")}
+        entity = entities.get(entity_id) or {"id": entity_id}
         items.extend(
             {
                 "kind": "pending",
@@ -1800,7 +1807,7 @@ def recent_intelligence_for_entity(
                 "date_is_published": bool(record.get("published_date")),
             }
             for record in pending_publication_drafts()
-            if entity_id in (record.get("entity_ids") or [])
+            if draft_matches_entity(record, entity, entities, sources=source_index)
         )
     items.sort(key=lambda item: item["date"] or "", reverse=True)
     return items[:limit]
@@ -1878,9 +1885,38 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
     raise HTTPException(status_code=404, detail="Entity record not found")
 
 
+def _overlay_attribution_companies(values: dict[str, Any], item: dict[str, Any]) -> dict[str, Any]:
+    if str(values.get("companies") or "").strip():
+        return values
+    names: list[str] = []
+    primary = item.get("primary_subject") or {}
+    if primary.get("entity_type") == "company" and primary.get("name"):
+        names.append(str(primary["name"]))
+    for company in item.get("title_companies") or []:
+        name = str(company.get("name") or "")
+        if name and name not in names:
+            names.append(name)
+    if names:
+        values["companies"] = ", ".join(names)
+    return values
+
+
+def _attach_pending_decision_actions(items: list[dict[str, Any]], reviewer: str) -> None:
+    for item in items:
+        if item.get("status") == "published" or not item.get("id"):
+            continue
+        values = _default_review_values(item)
+        values["reviewer"] = reviewer
+        item["review_values"] = _overlay_attribution_companies(values, item)
+        item["show_pending_actions"] = True
+
+
 @app.get("/brief", response_class=HTMLResponse)
 def morning_brief_page(request: Request) -> HTMLResponse:
     brief = _assemble_morning_brief(mark_seen=True, include_coverage=True)
+    reviewer = session_username(request) or review_username() or ""
+    for group in (brief.get("pending_triage") or {}).get("buckets") or []:
+        _attach_pending_decision_actions(group.get("entries") or [], reviewer)
     return templates.TemplateResponse(
         request=request,
         name="morning_brief.html",
@@ -1888,8 +1924,8 @@ def morning_brief_page(request: Request) -> HTMLResponse:
             "brief": brief,
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
-            "reviewer": session_username(request) or review_username() or "",
-            "return_to": "/brief",
+            "reviewer": reviewer,
+            "return_to": "/brief#pending-triage",
         },
     )
 
@@ -1911,12 +1947,20 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
         limit=48,
     )
     reviewer = session_username(request) or review_username() or ""
+    entities = entity_index()
+    source_index = {str(source.get("id")): source for source in load_sources() if source.get("id")}
     for item in feed["entries"]:
         if not item.get("pending"):
             continue
+        attribution = attribute_draft(item["record"], entities, sources=source_index)
+        item["primary_subject"] = attribution.get("primary")
+        item["title_companies"] = [
+            hit for hit in (attribution.get("suggested") or [])
+            if hit.get("entity_type") == "company" and hit.get("location") in {"title", "source"}
+        ]
         values = _default_review_values(item["record"])
         values["reviewer"] = reviewer
-        item["review_values"] = values
+        item["review_values"] = _overlay_attribution_companies(values, item)
     return_filter = "" if filter in {"", "all"} else f"?filter={filter}"
     return templates.TemplateResponse(
         request=request,
@@ -1989,6 +2033,11 @@ def _intelligence_page_context(
         values = {} if record.get("status") == "published" else _default_review_values(record)
     reviewer = _default_reader_reviewer(request, values)
     values = {**values, "reviewer": reviewer}
+    attribution = attribute_draft(record, entity_index(), sources={str(source.get("id")): source for source in load_sources() if source.get("id")})
+    if record.get("status") != "published":
+        values = _overlay_attribution_companies(values, {"primary_subject": attribution.get("primary"), "title_companies": [
+            hit for hit in (attribution.get("suggested") or []) if hit.get("entity_type") == "company" and hit.get("location") == "title"
+        ]})
     return {
         **reader,
         "record": record,
@@ -1998,6 +2047,7 @@ def _intelligence_page_context(
         "promoted": request.query_params.get("promoted") == "1",
         "saved": request.query_params.get("saved") == "1",
         "error": error,
+        "attribution": attribution,
     }
 
 
@@ -2096,6 +2146,46 @@ async def reading_bulk_read(request: Request) -> RedirectResponse:
         return RedirectResponse(url="/brief", status_code=303)
     suffix = f"?region={region}" if region else ""
     return RedirectResponse(url=f"/queues/reading{suffix}", status_code=303)
+
+
+@app.post("/queues/pending/bulk-dismiss")
+async def pending_bulk_dismiss(request: Request) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Queue actions are only available in authoring mode")
+    form = await request.form()
+    reviewer = str(form.get("reviewer") or "").strip() or session_username(request) or review_username() or ""
+    return_to = safe_next_path(str(form.get("return_to") or "")) or "/brief#pending-triage"
+    allowed = {record["id"] for record in list_pending_drafts() if record.get("id")}
+    ids = [value for value in form.getlist("item_id") if isinstance(value, str) and value in allowed]
+    bulk_dismiss_pending(INBOX_DIR, ids, reviewer=reviewer)
+    return RedirectResponse(url=return_to if return_to.startswith("/brief") else "/brief#pending-triage", status_code=303)
+
+
+@app.post("/queues/pending/{item_id}")
+def pending_item_action(
+    request: Request,
+    item_id: str,
+    action: str = Form(...),
+    reviewer: str = Form(""),
+    return_to: str = Form(""),
+) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Queue actions are only available in authoring mode")
+    allowed = {record["id"] for record in list_pending_drafts() if record.get("id")}
+    if item_id not in allowed:
+        raise HTTPException(status_code=404, detail="Pending draft not found")
+    try:
+        apply_queue_action(
+            INBOX_DIR,
+            dimension="pending",
+            item_id=item_id,
+            action=action,
+            reviewer=reviewer.strip() or session_username(request) or review_username() or "",
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    next_url = safe_next_path(return_to) or "/brief#pending-triage"
+    return RedirectResponse(url=next_url, status_code=303)
 
 
 @app.post("/queues/{dimension}/{item_id}")

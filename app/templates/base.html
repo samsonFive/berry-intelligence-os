@@ -18,7 +18,7 @@
 
         {% if authoring_mode %}
         <p class="nav-group">Review</p>
-        <a href="/review?kind=publication" {% if request.url.path.startswith('/review') and 'atomic' not in request.url.query %}class="active" aria-current="page"{% endif %}>Publications{% if pending_review_count() %}<span class="nav-action">{{ pending_review_count() }} need review</span>{% endif %}</a>
+        <a href="/review?kind=publication" {% if request.url.path.startswith('/review') and 'atomic' not in request.url.query %}class="active" aria-current="page"{% endif %}>Publications{% if nav_work_counts.review_now %}<span class="nav-action">{{ nav_work_counts.review_now }} review now</span>{% elif pending_review_count() %}<span class="nav-inventory">{{ pending_review_count() }} pending</span>{% endif %}</a>
         <a href="/review?kind=atomic" {% if request.url.path.startswith('/review') and 'atomic' in request.url.query %}class="active" aria-current="page"{% endif %}>Claims</a>
         {% endif %}
 

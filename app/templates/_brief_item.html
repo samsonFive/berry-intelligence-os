@@ -6,10 +6,12 @@
     {% if item.relevance_tier == 'adjacent' %}<span class="badge badge-muted">Adjacent</span>{% endif %}
     {% if item.reading_label %}<span class="badge">{{ item.reading_label }}</span>{% endif %}
     {% if item.new_since_last %}<span class="badge badge-claim">New since last check</span>{% endif %}
-    {% if item.primary_subject %}<span class="badge badge-muted">{{ item.primary_subject.name }}</span>{% endif %}
+    {% if item.watch_match == 'primary' %}<span class="badge">Primary watch</span>{% elif item.watch_match == 'mention' %}<span class="badge badge-muted">Mention watch</span>{% endif %}
+    {% if item.primary_subject %}<span class="badge badge-muted">{{ item.primary_subject.name }}{% if item.primary_subject.method %} · {{ item.primary_subject.method|replace('_',' ') }}{% endif %}</span>{% endif %}
   </div>
   <h3><a href="{{ item.href }}">{{ item.title }}</a></h3>
   <p class="draft-meta">{{ item.source_name }}{% if item.date %} · {{ item.date|us_date }}{% endif %}</p>
+  {% if item.why_decision %}<p class="brief-why">{{ item.why_decision }}</p>{% endif %}
   {% if item.why_ranked %}<p class="brief-why">{{ item.why_ranked }}</p>{% endif %}
   {% if item.why %}<p>{{ item.why|truncate(180) }}</p>{% endif %}
   {% if item.entities %}
@@ -34,5 +36,8 @@
       {% endif %}
       <a class="action-button" href="/queues/monitoring">Watch</a>
     </div>
+  {% endif %}
+  {% if item.show_pending_actions %}
+    {% include "_pending_decision_actions.html" %}
   {% endif %}
 </div>

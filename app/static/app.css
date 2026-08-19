@@ -369,6 +369,10 @@ strong.level-low{color:#426aa8}
 .brief-delta-group{margin:0 0 16px}
 .brief-delta-group h3{font-size:15px;margin:0 0 8px}
 .brief-change-label{font-weight:700;color:#5e65c7}
+.pending-decision-actions{margin-top:10px;flex-wrap:wrap}
+.triage-row{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;margin:0 0 10px}
+.triage-row .brief-item{margin:0}
+.triage-bulk{margin:8px 0 16px}
 .queue-actions form{margin:0}
 .queue-table,.trait-table{border-collapse:collapse;width:100%;background:white;border:1px solid #e0e5ef;border-radius:10px;overflow:hidden}
 .queue-table th,.queue-table td,.trait-table th,.trait-table td{text-align:left;padding:10px 14px;border-bottom:1px solid #eef1f6;font-size:13px}

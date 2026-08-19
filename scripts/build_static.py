@@ -152,6 +152,8 @@ def build() -> list[Path]:
         "monitoring_inventory": queue_summary_once.get("monitoring", 0),
         "signal_alerts": 0,
         "brief_action": 0,
+        "review_now": 0,
+        "pending_open": 0,
     }
 
     # Static asset.

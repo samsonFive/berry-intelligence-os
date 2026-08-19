@@ -1,0 +1,53 @@
+{# One-click pending decisions. Reuses existing /review/{id}/publish|save|reject and /queues/pending/{id}. #}
+{% if authoring_mode and not static_build and item.status != 'published' and item.status != 'rejected' and item.id %}
+  <div class="queue-actions pending-decision-actions">
+    <a class="action-button action-approve" href="/intelligence/{{ item.id }}">Read</a>
+    {% if item.review_values %}
+      <form action="/review/{{ item.id }}/publish" method="post">
+        <input type="hidden" name="return_to" value="{{ return_to or '/brief' }}">
+        <input type="hidden" name="title" value="{{ item.review_values.title }}">
+        <input type="hidden" name="source_type" value="{{ item.review_values.source_type }}">
+        <input type="hidden" name="source_name" value="{{ item.review_values.source_name }}">
+        <input type="hidden" name="source_url" value="{{ item.review_values.source_url }}">
+        <input type="hidden" name="published_date" value="{{ item.review_values.published_date }}">
+        <input type="hidden" name="captured_date" value="{{ item.review_values.captured_date }}">
+        <input type="hidden" name="summary" value="{{ item.review_values.summary }}">
+        <input type="hidden" name="why_it_matters" value="{{ item.review_values.why_it_matters }}">
+        <input type="hidden" name="tags" value="{{ item.review_values.tags }}">
+        <input type="hidden" name="companies" value="{{ item.review_values.companies }}">
+        <input type="hidden" name="varieties" value="{{ item.review_values.varieties }}">
+        <input type="hidden" name="retailers" value="{{ item.review_values.retailers }}">
+        <input type="hidden" name="geographies" value="{{ item.review_values.geographies }}">
+        {% for berry in item.review_values.berries %}
+          <input type="hidden" name="berries" value="{{ berry }}">
+        {% endfor %}
+        <input type="hidden" name="reviewer" value="{{ reviewer }}">
+        <button class="action-button action-approve" type="submit">Promote</button>
+      </form>
+      <form action="/review/{{ item.id }}/save" method="post">
+        <input type="hidden" name="return_to" value="{{ return_to or '/brief' }}">
+        <input type="hidden" name="title" value="{{ item.review_values.title }}">
+        <input type="hidden" name="summary" value="{{ item.review_values.summary }}">
+        <input type="hidden" name="why_it_matters" value="{{ item.review_values.why_it_matters }}">
+        <input type="hidden" name="tags" value="{{ item.review_values.tags }}">
+        {% for berry in item.review_values.berries %}
+          <input type="hidden" name="berries" value="{{ berry }}">
+        {% endfor %}
+        <button class="action-button" type="submit">Save</button>
+      </form>
+    {% endif %}
+    <form action="/queues/pending/{{ item.id }}" method="post">
+      <input type="hidden" name="action" value="dismiss">
+      <input type="hidden" name="reviewer" value="{{ reviewer }}">
+      <input type="hidden" name="return_to" value="{{ return_to or '/brief#pending-triage' }}">
+      <button class="action-button" type="submit">Dismiss</button>
+    </form>
+    <form action="/review/{{ item.id }}/reject" method="post">
+      <input type="hidden" name="return_to" value="{{ return_to or '/brief#pending-triage' }}">
+      <input type="hidden" name="reviewer" value="{{ reviewer }}">
+      <input type="hidden" name="rejection_reason" value="Rejected from pending triage">
+      <input type="hidden" name="rejection_category" value="other">
+      <button class="action-button action-reject" type="submit">Reject</button>
+    </form>
+  </div>
+{% endif %}

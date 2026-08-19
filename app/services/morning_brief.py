@@ -19,6 +19,7 @@ from app.services.analyst_queue import (
     READING_LABELS,
     READING_RESOLVED,
     is_open_signal_alert,
+    is_pending_dismissed,
     load_state,
     monitoring_state,
     present_queue_item,
@@ -28,6 +29,7 @@ from app.services.analyst_queue import (
     signal_alert_state,
     MONITORING_ACTIVE,
 )
+from app.services.draft_attribution import attribute_draft, watch_match_quality
 from app.services.intelligence_feed import (
     MARKET_TAGS,
     classify_kind,
@@ -47,6 +49,13 @@ BUCKETS = (
     ("backlog", "Backlog / older"),
 )
 WATCH_ENTITY_TYPES = {"company", "variety", "geography", "person"}
+PENDING_TRIAGE_BUCKETS = (
+    ("review_now", "Review now"),
+    ("review_soon", "Review soon"),
+    ("adjacent", "Adjacent / context"),
+    ("likely_ignore", "Likely ignore"),
+    ("older_backlog", "Older backlog"),
+)
 TOP_PER_CLUSTER = 2
 TOP_DEVELOPMENTS_LIMIT = 7
 NEW_DEVELOPMENTS_LIMIT = 10
@@ -220,21 +229,28 @@ def title_matched_entities(
     return [entity for _length, entity in hits]
 
 
+def _title_key(value: str | None) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", str(value or "").casefold()).strip()
+
+
 def primary_subject(
     record: dict[str, Any],
     entities: dict[str, dict[str, Any]],
+    sources: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any] | None:
-    """Strongest declared subject: title name-match, then linked title hits.
+    """Single presentation subject from deterministic evidence.
 
-    Does not use AI suggested entities. Does not fall back to lexicographic
-    ``entity_ids`` — that is what made co-mentions look like the subject.
+    Title company beats newsroom identity. Body-only mentions and stored
+    ``entity_ids`` without a title/newsroom hit are not the primary subject.
+    Does not use AI suggested entities.
     """
 
-    title_hits = title_matched_entities(record, entities)
-    if title_hits:
-        companies = [entity for entity in title_hits if entity.get("entity_type") == "company"]
-        return companies[0] if companies else title_hits[0]
-    return None
+    attribution = attribute_draft(record, entities, sources=sources)
+    primary = attribution.get("primary") or {}
+    entity_id = str(primary.get("id") or "")
+    if not entity_id:
+        return None
+    return entities.get(entity_id)
 
 
 def is_berry_relevant(record: dict[str, Any]) -> bool:
@@ -309,6 +325,7 @@ def _hot_entity_ids(
     state: dict[str, dict[str, dict[str, Any]]],
     entities: dict[str, dict[str, Any]],
     first_seen_by_discovered: dict[str, str] | None = None,
+    sources: dict[str, dict[str, Any]] | None = None,
 ) -> set[str]:
     hot: set[str] = set()
     seen_at = _parse_stamp(last_seen)
@@ -325,14 +342,9 @@ def _hot_entity_ids(
         )
         if seen_at and stamp and stamp <= seen_at:
             continue
-        subject = primary_subject(draft, entities)
-        if subject and str(subject.get("id")) in watch_entities:
+        subject = primary_subject(draft, entities, sources=sources)
+        if subject and subject.get("entity_type") == "company" and str(subject.get("id")) in watch_entities:
             hot.add(str(subject.get("id")))
-            continue
-        for entity in title_matched_entities(draft, entities):
-            entity_id = str(entity.get("id") or "")
-            if entity_id in watch_entities:
-                hot.add(entity_id)
     return hot
 
 
@@ -375,22 +387,35 @@ def rank_item(
     first_seen = (ctx.get("first_seen_by_discovered") or {}).get(str(record.get("discovered_item_id") or ""))
     stamp = activity_stamp(record, first_seen_at=first_seen)
     new_since = bool(cutoff and stamp and stamp > cutoff)
-    primary = primary_subject(record, entities)
+    sources = ctx.get("sources") or {}
+    attribution = attribute_draft(record, entities, sources=sources)
+    primary = primary_subject(record, entities, sources=sources)
+    primary_meta = attribution.get("primary") or {}
     title_hits = title_matched_entities(record, entities)
-    linked_ids = {str(entity_id) for entity_id in (record.get("entity_ids") or []) if entity_id}
-    primary_id = str((primary or {}).get("id") or "")
-    title_ids = {str(entity.get("id")) for entity in title_hits if entity.get("id")}
-    strong_watch = sorted((title_ids | ({primary_id} if primary_id else set())) & ctx["watch_entities"])
-    co_watch = sorted((linked_ids - title_ids - ({primary_id} if primary_id else set())) & ctx["watch_entities"])
-    hot_hit = sorted((title_ids | ({primary_id} if primary_id else set())) & ctx["hot_entities"])
+    watch_match, watch_entity_id = watch_match_quality(attribution, ctx["watch_entities"])
     chips = entity_chips(record, entities)
+    for suggestion in attribution.get("suggested") or []:
+        if suggestion.get("id") and suggestion["id"] not in {chip.get("id") for chip in chips}:
+            chips.append(
+                {
+                    "id": suggestion["id"],
+                    "name": suggestion.get("name") or suggestion["id"],
+                    "entity_type": suggestion.get("entity_type") or "company",
+                    "suggested": True,
+                    "method": suggestion.get("method") or "",
+                }
+            )
     companies = [chip for chip in chips if chip.get("entity_type") == "company"]
     varieties = [chip for chip in chips if chip.get("entity_type") == "variety"]
     tags = {str(tag).casefold() for tag in (record.get("tags") or feed.get("tags") or [])}
-    source = ctx["sources"].get(str(record.get("source_id") or "")) or {}
+    source = sources.get(str(record.get("source_id") or "")) or {}
     source_priority = str(source.get("monitoring_priority") or "")
     kind = feed.get("kind") or classify_kind(record)
+    trusted_keys = ctx.get("trusted_title_keys") or set()
+    title_key = _title_key(str(record.get("title") or ""))
+    duplicate_of_trusted = bool(title_key and title_key in trusted_keys and record.get("status") != "published")
     reasons: list[str] = []
+    decision_reasons: list[str] = []
     score = 0
 
     if tier == "adjacent":
@@ -399,10 +424,13 @@ def rank_item(
     elif tier == "direct":
         score += 14
         reasons.append("direct berry intelligence")
+        decision_reasons.append("direct blueberry intelligence")
     if is_berry_direct(record) and tier != "adjacent":
         score += 8
         if "direct berry intelligence" not in reasons:
             reasons.append("direct berry intelligence")
+        if "direct blueberry intelligence" not in decision_reasons:
+            decision_reasons.append("direct blueberry intelligence")
     if is_berry_relevant(record) and "direct berry intelligence" not in reasons and tier != "adjacent":
         score += 6
         reasons.append("berry-relevant coverage")
@@ -421,18 +449,25 @@ def rank_item(
     if band == "High":
         reasons.append("high relevance")
 
-    if hot_hit:
-        score += 36
-        name = str((entities.get(hot_hit[0]) or {}).get("name") or hot_hit[0])
-        reasons.append(f"{name} watch")
-    elif strong_watch:
-        score += 22
-        name = str((entities.get(strong_watch[0]) or {}).get("name") or strong_watch[0])
-        reasons.append(f"{name} watch")
-    elif co_watch:
-        score += 6
-        name = str((entities.get(co_watch[0]) or {}).get("name") or co_watch[0])
-        reasons.append(f"mentions watched {name}")
+    watch_name = str((entities.get(watch_entity_id) or {}).get("name") or watch_entity_id or "")
+    primary_kind = str((primary or {}).get("entity_type") or (attribution.get("primary") or {}).get("entity_type") or "")
+    if watch_match == "primary" and primary_kind == "company":
+        score += 40
+        reasons.append(f"{watch_name} watch")
+        decision_reasons.append("tracked company primary subject")
+        decision_reasons.append("active watch")
+        if watch_entity_id in ctx["hot_entities"]:
+            score += 8
+    elif watch_match == "primary" and primary_kind == "variety":
+        score += 28
+        reasons.append(f"{watch_name} watch")
+        decision_reasons.append("active watch")
+    elif watch_match == "primary" and primary_kind == "geography":
+        score += 12
+        reasons.append(f"primary geography watch · {watch_name}")
+    elif watch_match == "mention":
+        score += 4
+        reasons.append(f"mentions watched {watch_name}")
 
     if new_since:
         score += 16
@@ -440,6 +475,7 @@ def rank_item(
     if kind == "article" and calendar_age <= 7 and is_berry_relevant(record):
         score += 28
         reasons.append("current article")
+        decision_reasons.append("current article")
     if calendar_age <= 1:
         score += 20
         reasons.append("published today")
@@ -460,6 +496,11 @@ def rank_item(
     if primary and primary.get("entity_type") == "company":
         score += 8
         reasons.append("linked company")
+        if "tracked company primary subject" not in decision_reasons:
+            decision_reasons.append("tracked company primary subject")
+        if "newsroom" in str(record.get("source_name") or "").casefold():
+            score += 6
+            reasons.append("company newsroom")
     elif companies:
         score += 3
     if varieties:
@@ -474,6 +515,7 @@ def rank_item(
     if source_priority == "high":
         score += 10
         reasons.append("high-priority source")
+        decision_reasons.append("high-authority source")
     elif source_priority == "medium":
         score += 5
     if tags & MARKET_TAGS:
@@ -483,20 +525,41 @@ def rank_item(
     if not is_berry_relevant(record) and kind == "article":
         score -= 24
         reasons.append("generic produce coverage")
+    if duplicate_of_trusted:
+        score += 10
+        reasons.append("unresolved duplicate warning")
+        decision_reasons.append("corroborates existing Evidence")
+        decision_reasons.append("unresolved duplicate warning")
 
+    cluster = _cluster_key(record, entities, primary)
     primary_chip = None
     if primary:
         primary_chip = {
             "id": str(primary.get("id") or ""),
             "name": str(primary.get("name") or primary.get("id") or ""),
             "entity_type": str(primary.get("entity_type") or "company"),
+            "method": str(primary_meta.get("method") or "title_match"),
+            "location": str(primary_meta.get("location") or "title"),
         }
-    cluster = _cluster_key(record, entities, primary)
+    elif primary_meta.get("entity_type") == "market":
+        primary_chip = {
+            "id": "",
+            "name": str(primary_meta.get("name") or "Markets / supply"),
+            "entity_type": "market",
+            "method": str(primary_meta.get("method") or "market_tag"),
+            "location": "tags",
+        }
     presented.update(
         {
             "score": score,
             "reasons": reasons,
+            "decision_reasons": list(dict.fromkeys(decision_reasons)),
             "why_ranked": ("Because: " + " · ".join(reasons[:4])) if reasons else "Because: tagged for reading",
+            "why_decision": (
+                "Why this needs your decision: " + " · ".join(dict.fromkeys(decision_reasons))
+                if decision_reasons
+                else ""
+            ),
             "age_days": age_days,
             "calendar_age": calendar_age,
             "new_since_last": new_since,
@@ -510,6 +573,12 @@ def rank_item(
             "entities": chips,
             "companies": companies,
             "primary_subject": primary_chip,
+            "attribution_method": str((primary_chip or {}).get("method") or ""),
+            "attribution_suggestions": attribution.get("suggested") or [],
+            "attribution_mentions": attribution.get("mentions") or [],
+            "watch_match": watch_match,
+            "watch_match_entity_id": watch_entity_id or "",
+            "duplicate_of_trusted": duplicate_of_trusted,
             "title_companies": [
                 {
                     "id": str(entity.get("id") or ""),
@@ -519,7 +588,7 @@ def rank_item(
                 for entity in title_hits
                 if entity.get("entity_type") == "company"
             ],
-            "company_href": f"/entities/company/{primary_chip['id']}" if primary_chip and primary_chip.get("entity_type") == "company" else (
+            "company_href": f"/entities/company/{primary_chip['id']}" if primary_chip and primary_chip.get("entity_type") == "company" and primary_chip.get("id") else (
                 f"/entities/company/{companies[0]['id']}" if companies else ""
             ),
             "cluster": cluster,
@@ -582,6 +651,95 @@ def assign_buckets(ranked: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return ranked
 
 
+def assign_pending_triage(ranked: list[dict[str, Any]], *, state: dict[str, dict[str, dict[str, Any]]]) -> list[dict[str, Any]]:
+    """Deterministic pending buckets. Not an opaque AI score."""
+
+    for item in ranked:
+        item_id = str(item.get("id") or "")
+        if is_pending_dismissed(item_id, state):
+            item["triage_bucket"] = "dismissed"
+            continue
+        screening = item.get("relevance_screening") or {}
+        skip = screening.get("decision") == "skip" or "generic produce coverage" in (item.get("reasons") or [])
+        adjacent = item.get("relevance_tier") == "adjacent"
+        calendar_age = int(item.get("calendar_age") or 0)
+        primary = item.get("primary_subject") or {}
+        recent = calendar_age <= 45
+        company_or_variety = primary.get("entity_type") in {"company", "variety"} and bool(primary.get("id"))
+        company_primary = primary.get("entity_type") == "company" and bool(primary.get("id"))
+        geography_primary = primary.get("entity_type") == "geography"
+        primary_company_watch = item.get("watch_match") == "primary" and company_primary
+        high_value_recent = (
+            (company_or_variety and recent)
+            or (primary_company_watch and recent)
+            or ("high reading priority" in (item.get("reasons") or []) and recent)
+            or (item.get("duplicate_of_trusted") and recent)
+        )
+        berryish = is_berry_relevant(item) or item.get("relevance_tier") == "direct"
+        if adjacent and not primary_company_watch:
+            item["triage_bucket"] = "adjacent"
+        elif calendar_age > 45:
+            item["triage_bucket"] = "older_backlog"
+        elif skip and not company_primary and not primary_company_watch:
+            item["triage_bucket"] = "likely_ignore"
+        elif berryish and high_value_recent and not geography_primary:
+            item["triage_bucket"] = "review_now"
+        elif berryish:
+            item["triage_bucket"] = "review_soon"
+        else:
+            item["triage_bucket"] = "likely_ignore"
+        if item["triage_bucket"] == "review_now" and not item.get("why_decision"):
+            fallback = [reason for reason in (item.get("reasons") or []) if reason]
+            item["why_decision"] = "Why this needs your decision: " + " · ".join(fallback[:4]) if fallback else "Why this needs your decision: pending trust decision"
+    cluster_now: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for item in ranked:
+        if item.get("triage_bucket") != "review_now":
+            continue
+        cluster_now[str(item.get("cluster") or item.get("id") or "")].append(item)
+    for items in cluster_now.values():
+        def _keep_rank(row: dict[str, Any]) -> tuple[int, int]:
+            newsroom = 1 if "newsroom" in str(row.get("source_name") or "").casefold() else 0
+            return (newsroom, int(row.get("score") or 0))
+        items.sort(key=_keep_rank, reverse=True)
+        for extra in items[1:]:
+            extra["triage_bucket"] = "review_soon"
+            extra["reasons"] = list(extra.get("reasons") or []) + ["similar coverage already ranked"]
+            extra["why_ranked"] = "Because: " + " · ".join((extra.get("reasons") or [])[-4:])
+    return ranked
+
+
+def _pending_triage_groups(ranked: list[dict[str, Any]]) -> dict[str, Any]:
+    by_key: dict[str, list[dict[str, Any]]] = {key: [] for key, _ in PENDING_TRIAGE_BUCKETS}
+    dismissed = 0
+    for item in ranked:
+        key = str(item.get("triage_bucket") or "review_soon")
+        if key == "dismissed":
+            dismissed += 1
+            continue
+        by_key.setdefault(key, []).append(item)
+    buckets = []
+    counts = {"dismissed": dismissed}
+    open_total = 0
+    for key, label in PENDING_TRIAGE_BUCKETS:
+        entries = by_key.get(key) or []
+        entries.sort(key=lambda row: int(row.get("score") or 0), reverse=True)
+        counts[key] = len(entries)
+        open_total += len(entries)
+        preview = entries if key == "review_now" else entries[:8]
+        buckets.append(
+            {
+                "key": key,
+                "label": label,
+                "entries": preview,
+                "count": len(entries),
+                "remainder": max(0, len(entries) - len(preview)),
+                "allow_bulk_dismiss": key in {"likely_ignore", "older_backlog"},
+            }
+        )
+    counts["total"] = open_total
+    return {"counts": counts, "buckets": buckets}
+
+
 def _bucket_groups(ranked: list[dict[str, Any]]) -> list[dict[str, Any]]:
     by_key: dict[str, list[dict[str, Any]]] = {key: [] for key, _ in BUCKETS}
     for item in ranked:
@@ -621,6 +779,7 @@ def _company_deltas(ranked: list[dict[str, Any]], *, limit: int = COMPANY_DELTA_
         if item not in preferred
         and (
             item.get("bucket") in {"top_priority", "needs_review", "saved"}
+            or item.get("triage_bucket") in {"review_now", "review_soon"}
             or item.get("new_since_last")
             or int(item.get("calendar_age") or 0) <= 14
         )
@@ -700,14 +859,11 @@ def _watch_activity(
     for item in ranked:
         if item.get("bucket") == "backlog" and not item.get("new_since_last"):
             continue
-        strong_ids: set[str] = set()
+        if item.get("watch_match") != "primary":
+            continue
         primary = item.get("primary_subject") or {}
-        if primary.get("id"):
-            strong_ids.add(str(primary["id"]))
-        for company in item.get("title_companies") or []:
-            if company.get("id"):
-                strong_ids.add(str(company["id"]))
-        for entity_id in strong_ids & watch_entities:
+        entity_id = str(primary.get("id") or "")
+        if entity_id and entity_id in watch_entities:
             bucket = _bucket_for(entity_id)
             if item.get("id") not in {row.get("id") for row in bucket["entries"]}:
                 bucket["entries"].append(item)
@@ -772,8 +928,9 @@ def _present_discovered(
     draft: dict[str, Any] | None,
 ) -> dict[str, Any]:
     source = ctx["sources"].get(str(record.get("source_id") or "")) or {}
+    attribution = attribute_draft(record, ctx["entities"], sources=ctx.get("sources") or {})
     title_hits = title_matched_entities(record, ctx["entities"])
-    primary = primary_subject(record, ctx["entities"])
+    primary = primary_subject(record, ctx["entities"], sources=ctx.get("sources") or {})
     screening = record.get("relevance_screening") or {}
     href = f"/intelligence/{draft['id']}" if draft else (record.get("canonical_url") or record.get("source_url") or "/work-queue?filter=articles")
     date_value = record.get("published_date") or record.get("first_seen_at") or ""
@@ -811,9 +968,12 @@ def _present_discovered(
             "id": str(primary.get("id") or ""),
             "name": str(primary.get("name") or primary.get("id") or ""),
             "entity_type": str(primary.get("entity_type") or "company"),
+            "method": str((attribution.get("primary") or {}).get("method") or "title_match"),
         }
         if primary
         else None,
+        "attribution_method": str((attribution.get("primary") or {}).get("method") or ""),
+        "watch_match": watch_match_quality(attribution, ctx.get("watch_entities") or set())[0],
         "score": 40 if is_berry_relevant(record) else 8,
         "is_active": False,
         "needs_consume": False,
@@ -1037,6 +1197,7 @@ def build_morning_brief(
         for item in discovered_rows
         if item.get("id") and item.get("first_seen_at")
     }
+    source_index = {str(source.get("id")): source for source in (sources or []) if source.get("id")}
     hot_entities = _hot_entity_ids(
         watch_entities=watch_entities,
         signals=signal_rows,
@@ -1045,8 +1206,13 @@ def build_morning_brief(
         state=state,
         entities=entity_index,
         first_seen_by_discovered=first_seen_by_discovered,
+        sources=source_index,
     )
-    source_index = {str(source.get("id")): source for source in (sources or []) if source.get("id")}
+    trusted_title_keys = {
+        _title_key(str(record.get("title") or ""))
+        for record in published
+        if record.get("status") == "published" and record.get("title")
+    }
     ctx = {
         "entities": entity_index,
         "berry_labels": berry_labels or {},
@@ -1060,6 +1226,7 @@ def build_morning_brief(
         "watch_entities": watch_entities,
         "hot_entities": hot_entities,
         "first_seen_by_discovered": first_seen_by_discovered,
+        "trusted_title_keys": trusted_title_keys,
     }
     ranked_reading = assign_buckets(
         sorted(
@@ -1068,13 +1235,17 @@ def build_morning_brief(
             reverse=True,
         )
     )
-    ranked_pending = assign_buckets(
-        sorted(
-            [rank_item(record, ctx=ctx) for record in pending_pool],
-            key=lambda item: int(item.get("score") or 0),
-            reverse=True,
-        )
+    ranked_pending = assign_pending_triage(
+        assign_buckets(
+            sorted(
+                [rank_item(record, ctx=ctx) for record in pending_pool],
+                key=lambda item: int(item.get("score") or 0),
+                reverse=True,
+            )
+        ),
+        state=state,
     )
+    open_pending = [item for item in ranked_pending if item.get("triage_bucket") != "dismissed"]
     for item in ranked_pending:
         reviewed = _parse_stamp(str(item.get("reviewed_at") or ""))
         if item.get("status") == "published" and item.get("new_since_last") and reviewed and since_cutoff and reviewed > since_cutoff:
@@ -1091,9 +1262,9 @@ def build_morning_brief(
     counts = {group["key"]: group["count"] for group in reading_groups}
     counts["unresolved"] = sum(1 for item in ranked_reading if item.get("reading_state") in READING_ACTIVE)
     counts["needs_review"] = counts.get("needs_review", 0) + sum(
-        1 for item in ranked_pending if item.get("bucket") == "needs_review"
+        1 for item in open_pending if item.get("bucket") == "needs_review"
     )
-    counts["new_since_last"] = sum(1 for item in ranked_reading + ranked_pending if item.get("new_since_last"))
+    counts["new_since_last"] = sum(1 for item in ranked_reading + open_pending if item.get("new_since_last"))
 
     draft_by_discovered = {
         str(draft.get("discovered_item_id")): draft
@@ -1114,10 +1285,10 @@ def build_morning_brief(
         presented = _present_discovered(item, ctx=ctx, draft=linked_draft)
         new_discoveries.append(presented)
 
-    ranked_all = ranked_reading + ranked_pending
+    ranked_all = ranked_reading + open_pending
     new_review_ready = [
         item
-        for item in ranked_pending
+        for item in open_pending
         if item.get("new_since_last") and item.get("status") != "published"
     ]
     new_trusted = [
@@ -1189,21 +1360,24 @@ def build_morning_brief(
         item for item in ranked_reading if item.get("bucket") == "top_priority"
     ][:TOP_DEVELOPMENTS_LIMIT]
     if len(top) < 3:
-        extra = [item for item in ranked_pending if item.get("bucket") == "needs_review"]
+        extra = [item for item in open_pending if item.get("triage_bucket") == "review_now"]
         top = (top + extra)[:TOP_DEVELOPMENTS_LIMIT]
 
     genetics = _section_items(
-        ranked_reading + ranked_pending,
+        ranked_reading + open_pending,
         lambda item: item.get("kind") == "patent" or any(chip.get("entity_type") == "variety" for chip in (item.get("entities") or [])),
     )
     markets = _section_items(
-        ranked_reading + ranked_pending,
+        ranked_reading + open_pending,
         lambda item: bool({str(tag).casefold() for tag in (item.get("tags") or [])} & MARKET_TAGS),
     )
-    needs_decision = [item for item in ranked_pending if item.get("bucket") == "needs_review"][:10]
+    pending_triage = _pending_triage_groups(ranked_pending)
+    needs_decision = next((group["entries"] for group in pending_triage["buckets"] if group["key"] == "review_now"), [])
+    counts["review_now"] = pending_triage["counts"].get("review_now", 0)
+    counts["pending_open"] = pending_triage["counts"].get("total", 0)
     watch_rows = _watch_activity(
         published=published,
-        ranked=ranked_reading + ranked_pending,
+        ranked=ranked_reading + open_pending,
         signals=signal_rows,
         entities=entity_index,
         state=state,
@@ -1302,10 +1476,11 @@ def build_morning_brief(
         "new_developments": new_developments,
         "important": important,
         "watch_activity": watch_rows,
-        "company_deltas": _company_deltas(ranked_reading + ranked_pending),
+        "company_deltas": _company_deltas(ranked_reading + open_pending),
         "genetics": genetics,
         "markets": markets,
         "needs_decision": needs_decision,
+        "pending_triage": pending_triage,
         "source_coverage": source_coverage or {},
         "source_changes": source_changes,
         "trust_transitions": transitions,
