@@ -83,6 +83,7 @@ from app.runtime_config import (
 )
 from app.services.intelligence_feed import build_intelligence_feed, build_reader
 from app.services.morning_brief import build_morning_brief
+from app.services.story_threads import compress_recent_intelligence, thread_for_item
 from app.session_auth import (
     EnvSessionMiddleware,
     auth_template_context,
@@ -1811,12 +1812,18 @@ def recent_intelligence_for_entity(
             if draft_matches_entity(record, entity, entities, sources=source_index)
         ]
         pending_items.sort(key=lambda item: item["date"] or "", reverse=True)
+        for row in pending_items:
+            record = row["record"]
+            attribution = attribute_draft(record, entities, sources=source_index)
+            primary = attribution.get("primary") or {}
+            if primary.get("id") or primary.get("name"):
+                record["primary_subject"] = primary
     items.sort(key=lambda item: item["date"] or "", reverse=True)
     if include_pending and pending_items:
-        pinned = pending_items[:4]
+        pinned = pending_items[:6]
         seen = {str((row.get("record") or {}).get("id")) for row in pinned}
         rest = [row for row in items if str((row.get("record") or {}).get("id")) not in seen]
-        return (pinned + rest)[:limit]
+        return compress_recent_intelligence((pinned + rest)[: limit + 6])[:limit]
     return items[:limit]
 
 
@@ -1910,6 +1917,11 @@ def _overlay_attribution_companies(values: dict[str, Any], item: dict[str, Any])
 
 def _attach_pending_decision_actions(items: list[dict[str, Any]], reviewer: str) -> None:
     for item in items:
+        if item.get("is_thread"):
+            _attach_pending_decision_actions(item.get("members") or [], reviewer)
+            if item.get("primary"):
+                _attach_pending_decision_actions([item["primary"]], reviewer)
+            continue
         if item.get("status") == "published" or not item.get("id"):
             continue
         values = _default_review_values(item)
@@ -2045,6 +2057,26 @@ def _intelligence_page_context(
         values = _overlay_attribution_companies(values, {"primary_subject": attribution.get("primary"), "title_companies": [
             hit for hit in (attribution.get("suggested") or []) if hit.get("entity_type") == "company" and hit.get("location") == "title"
         ]})
+    story_thread = None
+    if record.get("id"):
+        universe = [row for row in list_pending_drafts() if row.get("id")]
+        if record.get("status") == "published":
+            universe.append(record)
+        elif not any(str(row.get("id")) == str(record.get("id")) for row in universe):
+            universe.append(record)
+        for row in universe:
+            if row.get("primary_subject"):
+                continue
+            row_attr = attribute_draft(
+                row,
+                entity_index(),
+                sources={str(source.get("id")): source for source in load_sources() if source.get("id")},
+            )
+            if row_attr.get("primary"):
+                row["primary_subject"] = row_attr["primary"]
+        found = thread_for_item(str(record.get("id")), universe)
+        if found and int(found.get("source_count") or 0) > 1:
+            story_thread = found
     return {
         **reader,
         "record": record,
@@ -2055,6 +2087,7 @@ def _intelligence_page_context(
         "saved": request.query_params.get("saved") == "1",
         "error": error,
         "attribution": attribution,
+        "story_thread": story_thread,
     }
 
 
@@ -2067,6 +2100,43 @@ def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
         request=request,
         name="intelligence_reader.html",
         context=_intelligence_page_context(request, record),
+    )
+
+
+@app.get("/threads/{item_id}", response_class=HTMLResponse)
+def story_thread_reader(request: Request, item_id: str) -> HTMLResponse:
+    seed = _load_intelligence_record(item_id)
+    if seed is None:
+        raise HTTPException(status_code=404, detail="Story thread not found")
+    source_index = {str(source.get("id")): source for source in load_sources() if source.get("id")}
+    entities = entity_index()
+    universe = [row for row in list_pending_drafts() if row.get("id")]
+    if seed.get("status") == "published" or not any(str(row.get("id")) == item_id for row in universe):
+        universe.append(seed)
+    for row in universe:
+        attribution = attribute_draft(row, entities, sources=source_index)
+        if attribution.get("primary"):
+            row["primary_subject"] = attribution["primary"]
+        row["href"] = f"/intelligence/{row.get('id')}"
+        row["date"] = row.get("published_date") or row.get("captured_date") or ""
+        row["trust"] = "trusted" if row.get("status") == "published" else "pending"
+        row["trust_label"] = "Trusted" if row.get("status") == "published" else "Pending"
+    thread = thread_for_item(item_id, universe)
+    if thread is None:
+        raise HTTPException(status_code=404, detail="Story thread not found")
+    if int(thread.get("source_count") or 0) <= 1:
+        return RedirectResponse(url=f"/intelligence/{item_id}", status_code=303)
+    reviewer = session_username(request) or review_username() or ""
+    _attach_pending_decision_actions(thread.get("members") or [], reviewer)
+    return templates.TemplateResponse(
+        request=request,
+        name="story_thread.html",
+        context={
+            "thread": thread,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "reviewer": reviewer,
+        },
     )
 
 
