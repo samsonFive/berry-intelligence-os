@@ -27,13 +27,18 @@ def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--dry-run", action="store_true", help="Discover and score; do not write drafts or state")
     parser.add_argument("--max-candidates", type=int, default=40, help="Cap berry-relevant unique filings this run")
-    parser.add_argument("--watchlist", type=Path, default=ROOT / "data" / "configuration" / "patent_watchlist.json")
-    # data_dir/inbox_dir default to None here (not a repo-relative path) and
-    # are resolved via BIOS_RUNTIME_DIR-aware resolve_data_dir()/
-    # resolve_inbox_dir() below -- scripts/run_collection.py had the same
-    # bug once (a deployed container's scheduled run silently wrote to a
-    # container-local path the app never reads, "succeeding" every run
-    # while feeding nothing) and this must not repeat it.
+    # watchlist/data_dir/inbox_dir all default to None here (never a bare
+    # repo-relative path) and are resolved below via BIOS_RUNTIME_DIR-aware
+    # resolve_data_dir()/resolve_inbox_dir() -- scripts/run_collection.py
+    # had the same bug once for data_dir/inbox_dir (a deployed container's
+    # scheduled run silently wrote to a container-local path the app never
+    # reads, "succeeding" every run while feeding nothing), and this
+    # script's own first deploy repeated it for --watchlist specifically:
+    # its old default (ROOT / "data" / ...) resolves to /app/data/... in
+    # the container, which never exists -- only /app/seed/data/... (the
+    # image's build-time copy) and the real runtime data dir (synced by
+    # scripts/sync_trusted_data.py) do.
+    parser.add_argument("--watchlist", type=Path, default=None)
     parser.add_argument("--data-dir", type=Path, default=None)
     parser.add_argument("--inbox-dir", type=Path, default=None)
     parser.add_argument("--json", action="store_true", help="Print machine-readable summary")
@@ -71,6 +76,8 @@ def main(argv: list[str] | None = None) -> int:
         args.data_dir = resolve_data_dir(ROOT)
     if args.inbox_dir is None:
         args.inbox_dir = resolve_inbox_dir(ROOT)
+    if args.watchlist is None:
+        args.watchlist = args.data_dir / "configuration" / "patent_watchlist.json"
     payload = run_patent_monitor(
         data_dir=args.data_dir,
         inbox_dir=args.inbox_dir,
