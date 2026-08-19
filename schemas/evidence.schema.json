@@ -69,7 +69,7 @@
         "type": "object",
         "required": ["predicate", "target_evidence_id", "status"],
         "properties": {
-          "predicate": {"enum": ["corroborates", "contradicts", "follows_up", "same_signal"]},
+          "predicate": {"enum": ["corroborates", "contradicts", "follows_up", "same_signal", "duplicates"]},
           "target_evidence_id": {"type": "string", "pattern": "^ev-[a-z0-9-]+$"},
           "status": {"enum": ["proposed", "accepted", "contested", "rejected"]},
           "notes": {"type": "string"},
@@ -77,7 +77,7 @@
           "proposed_at": {"type": "string", "format": "date"}
         }
       },
-      "$comment": "Patent Monitor v2 addition (2026-08-19), optional. Evidence-to-Evidence corroboration proposals -- ingestion may only ever write status=proposed; a human reviewer promotes to accepted/contested/rejected. Never a replacement for entity_ids/relationship_ids, which link Evidence to Entities, not to other Evidence. app/services/intelligence_feed.py's trust_state() already treats any status=contested link as grounds to flag the record as disputed."
+      "$comment": "Patent Monitor v2 addition (2026-08-19), optional. Evidence-to-Evidence corroboration proposals -- ingestion may only ever write status=proposed; a human reviewer promotes to accepted/contested/rejected. Never a replacement for entity_ids/relationship_ids, which link Evidence to Entities, not to other Evidence. app/services/intelligence_feed.py's trust_state() already treats any status=contested link as grounds to flag the record as disputed. 'duplicates' added for Corroboration + Signal Formation (2026-08-19): distinct from 'same_signal' (two records about the same developing pattern, still each independently informative) -- 'duplicates' marks that one record IS the other's origin (a reprint, syndication, or a second pull of the same first-party announcement), the exact case app/services/source_independence.py's clustering exists to keep out of a Signal's independent source count."
     },
     "intake_type": {
       "type": "string",
