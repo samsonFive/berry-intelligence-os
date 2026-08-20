@@ -10,7 +10,7 @@
   <a class="button-link" href="/signals">Trusted catalog</a>
 </section>
 
-<p class="brief-window">Review Now is the bounded attention set. Same-origin reprints stay in Same-origin / weak even when the document count looks large. Confirm never creates a trusted Signal by itself.</p>
+<p class="brief-window">Review Now is the bounded attention set. Same-origin reprints stay in Same-origin / weak even when the document count looks large. Limited source evidence stays visible and is not treated as equivalent to verified source content. Confirm never creates a trusted Signal by itself. Counts come from the current live candidate set, not a frozen snapshot.</p>
 
 <ul class="brief-delta-strip">
   {% for group in triage.buckets %}
@@ -19,6 +19,10 @@
       <strong>{{ group.count }}</strong>
     </li>
   {% endfor %}
+  <li>
+    <a href="#triage-limited-evidence">Limited evidence</a>
+    <strong>{{ triage.counts.limited_evidence }}</strong>
+  </li>
 </ul>
 
 {% for group in triage.buckets %}
@@ -44,4 +48,16 @@
     {% endif %}
   </section>
 {% endfor %}
+
+<section class="brief-section" id="triage-limited-evidence">
+  <h2>Limited evidence — {{ triage.counts.limited_evidence }}</h2>
+  <p class="context-limit">Overlay, not a replacement bucket. These candidates remain in Review now / soon / weak / low confidence. They currently lack verified source content such as a transcript.</p>
+  {% if triage.limited_evidence %}
+    {% for item in triage.limited_evidence %}
+      {% include "_signal_card.html" %}
+    {% endfor %}
+  {% else %}
+    <p class="empty-state">No limited-evidence candidates in the live set.</p>
+  {% endif %}
+</section>
 {% endblock %}

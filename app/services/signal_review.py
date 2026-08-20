@@ -58,6 +58,66 @@ TRIAGE_BUCKETS = (
     ("deferred", "Deferred"),
 )
 CONFIDENCE_RANK = {"high": 3, "medium": 2, "low": 1}
+REVIEWED_STATUSES = {"confirmed", "dismissed", "deferred"}
+GENERIC_ENTITY_PREFIXES = ("trait-",)
+QUALITY_FULL = "full"
+QUALITY_LIMITED = "limited"
+SPOKEN_MEDIA_FORMATS = {"podcast", "video", "conference_video", "audio"}
+TRANSCRIPT_UNAVAILABLE_DETAIL = (
+    "Transcript unavailable. This Signal currently relies on the publisher's "
+    "episode description rather than verified transcript content."
+)
+TRANSCRIPT_PENDING_DETAIL = (
+    "Transcript is not yet available. Supporting text may be a publisher "
+    "description rather than verified transcript content."
+)
+INSUFFICIENT_TRANSCRIPT_DETAIL = (
+    "Source evidence does not include verified transcript content."
+)
+AUDIT_DIR_NAME = "signal_candidate_audit"
+
+
+class StaleSignalCandidateError(LookupError):
+    """The posted candidate id is not in the live review set."""
+
+
+def audit_candidates_dir(inbox_dir: Path) -> Path:
+    return inbox_dir / AUDIT_DIR_NAME
+
+
+def _read_candidate_file(path: Path) -> dict[str, Any] | None:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return payload if isinstance(payload, dict) else None
+
+
+def load_audit_candidates(inbox_dir: Path) -> list[dict[str, Any]]:
+    target = audit_candidates_dir(inbox_dir)
+    if not target.is_dir():
+        return []
+    out = []
+    for path in sorted(target.glob("*.json")):
+        payload = _read_candidate_file(path)
+        if payload:
+            out.append(payload)
+    return out
+
+
+def lookup_candidate(inbox_dir: Path, candidate_id: str) -> tuple[dict[str, Any] | None, str | None]:
+    """Resolve by opaque candidate id only. Live set first, then audit."""
+
+    wanted = str(candidate_id or "")
+    if not wanted:
+        return None, None
+    for candidate in load_candidates(inbox_dir):
+        if candidate.get("id") == wanted:
+            return candidate, "live"
+    for candidate in load_audit_candidates(inbox_dir):
+        if candidate.get("id") == wanted:
+            return candidate, "audit"
+    return None, None
 
 
 def persist_reviewed_candidate(candidate: dict[str, Any], *, inbox_dir: Path) -> Path:
@@ -65,11 +125,26 @@ def persist_reviewed_candidate(candidate: dict[str, Any], *, inbox_dir: Path) ->
 
     persist_candidates() is additive and never overwrites a file that may
     already carry a human decision. This is the matching write for review.
+    Decisions attach only to the live file whose basename and stored id
+    equal this candidate's opaque id. A missing live file is stale: never
+    create a candidate from a decision, and never copy the decision onto
+    a different id.
     """
 
+    candidate_id = str(candidate.get("id") or "")
+    if not candidate_id:
+        raise StaleSignalCandidateError("candidate id is required")
     target = candidates_dir(inbox_dir)
-    target.mkdir(parents=True, exist_ok=True)
-    path = target / f"{candidate['id']}.json"
+    path = target / f"{candidate_id}.json"
+    if not path.is_file():
+        raise StaleSignalCandidateError(
+            f"candidate {candidate_id} is not in the live review set"
+        )
+    stored = _read_candidate_file(path) or {}
+    if str(stored.get("id") or "") != candidate_id:
+        raise StaleSignalCandidateError(
+            f"live file for {candidate_id} does not match the stored candidate id"
+        )
     path.write_text(json.dumps(candidate, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return path
 
@@ -81,17 +156,55 @@ def apply_and_persist_decision(
     reviewer: str,
     notes: str | None = None,
     inbox_dir: Path,
+    expected_id: str | None = None,
 ) -> dict[str, Any]:
+    candidate_id = str(candidate.get("id") or "")
+    if expected_id and candidate_id != str(expected_id):
+        raise StaleSignalCandidateError("decision target id does not match the loaded candidate")
     updated = apply_review_decision(candidate, decision=decision, reviewer=reviewer, notes=notes)
     persist_reviewed_candidate(updated, inbox_dir=inbox_dir)
     return updated
 
 
 def candidate_by_id(inbox_dir: Path, candidate_id: str) -> dict[str, Any] | None:
-    for candidate in load_candidates(inbox_dir):
-        if candidate.get("id") == candidate_id:
-            return candidate
-    return None
+    candidate, location = lookup_candidate(inbox_dir, candidate_id)
+    if location != "live":
+        return None
+    return candidate
+
+
+def archive_candidates_absent_from(
+    generated: list[dict[str, Any]],
+    *,
+    inbox_dir: Path,
+) -> list[Path]:
+    """Move live files whose ids are not in the current generated set to audit/.
+
+    Preserves analyst decisions on the original opaque id. Does not copy
+    those decisions onto regenerated ids. Live counts then reflect only
+    the current generated set.
+    """
+
+    live_ids = {str(candidate.get("id") or "") for candidate in generated if candidate.get("id")}
+    target = candidates_dir(inbox_dir)
+    if not target.is_dir():
+        return []
+    audit = audit_candidates_dir(inbox_dir)
+    audit.mkdir(parents=True, exist_ok=True)
+    archived: list[Path] = []
+    for path in sorted(target.glob("*.json")):
+        payload = _read_candidate_file(path)
+        candidate_id = str((payload or {}).get("id") or path.stem)
+        if candidate_id in live_ids:
+            continue
+        dest = audit / path.name
+        if dest.exists():
+            path.unlink()
+            archived.append(dest)
+            continue
+        path.replace(dest)
+        archived.append(dest)
+    return archived
 
 
 def _parse_day(value: Any) -> date | None:
@@ -158,12 +271,95 @@ def _watch_match(
     if not watch_entities:
         return ""
     primary_id = str((subject or {}).get("id") or candidate.get("primary_entity_id") or "")
-    if primary_id and primary_id in watch_entities:
+    if primary_id and primary_id in watch_entities and not _is_generic_entity_tag(primary_id):
         return "primary"
     for entity_id in candidate.get("entity_ids") or []:
+        if _is_generic_entity_tag(str(entity_id)):
+            continue
         if str(entity_id) in watch_entities:
             return "mention"
     return ""
+
+
+def _is_generic_entity_tag(entity_id: str) -> bool:
+    text = str(entity_id or "")
+    return any(text.startswith(prefix) for prefix in GENERIC_ENTITY_PREFIXES)
+
+
+def _explicit_evidence_quality(record: dict[str, Any]) -> tuple[str, str] | None:
+    raw = record.get("evidence_quality")
+    if isinstance(raw, dict):
+        level = str(raw.get("level") or raw.get("status") or "")
+        detail = str(raw.get("detail") or raw.get("message") or "").strip()
+        if level in {QUALITY_FULL, QUALITY_LIMITED}:
+            return level, detail
+        return None
+    if raw in {QUALITY_FULL, QUALITY_LIMITED}:
+        return str(raw), ""
+    return None
+
+
+def evidence_quality_for_record(record: dict[str, Any]) -> dict[str, Any]:
+    """Generic evidence-quality view. Driven by stored fields, not outlet type."""
+
+    explicit = _explicit_evidence_quality(record)
+    if explicit:
+        level, detail = explicit
+        return _quality_view(level, detail or None, source="explicit")
+    transcript = record.get("transcript") if isinstance(record.get("transcript"), dict) else {}
+    status = str(transcript.get("status") or "")
+    media_format = str(record.get("media_format") or "").lower()
+    transcript_text = str(transcript.get("text") or "").strip()
+    if status == "not_available":
+        return _quality_view(QUALITY_LIMITED, TRANSCRIPT_UNAVAILABLE_DETAIL, source="transcript")
+    if status == "pending":
+        return _quality_view(QUALITY_LIMITED, TRANSCRIPT_PENDING_DETAIL, source="transcript")
+    if status == "available" and (transcript_text or transcript.get("url")):
+        return _quality_view(QUALITY_FULL, None, source="transcript")
+    if media_format in SPOKEN_MEDIA_FORMATS and status != "available":
+        return _quality_view(QUALITY_LIMITED, INSUFFICIENT_TRANSCRIPT_DETAIL, source="media_format")
+    return _quality_view(QUALITY_FULL, None, source="default")
+
+
+def _quality_view(level: str, detail: str | None, *, source: str) -> dict[str, Any]:
+    limited = level == QUALITY_LIMITED
+    return {
+        "level": level,
+        "limited": limited,
+        "label": "Limited source evidence" if limited else "Full source evidence",
+        "headline": "LIMITED EVIDENCE" if limited else "FULL SOURCE EVIDENCE",
+        "detail": detail or (
+            "This Signal currently relies on incomplete source evidence rather than verified source content."
+            if limited
+            else "Supporting Evidence includes the published source content used for this Signal."
+        ),
+        "source": source,
+    }
+
+
+def evidence_quality_for_candidate(
+    candidate: dict[str, Any],
+    records: list[dict[str, Any]],
+) -> dict[str, Any]:
+    explicit = _explicit_evidence_quality(candidate)
+    if explicit:
+        level, detail = explicit
+        view = _quality_view(level, detail or None, source="candidate")
+        limited_count = sum(1 for record in records if evidence_quality_for_record(record)["limited"])
+        view["limited_evidence_count"] = limited_count if view["limited"] else 0
+        view["full_evidence_count"] = max(0, len(records) - view["limited_evidence_count"])
+        return view
+    per_record = [evidence_quality_for_record(record) for record in records]
+    limited = [row for row in per_record if row.get("limited")]
+    if limited:
+        view = _quality_view(QUALITY_LIMITED, str(limited[0].get("detail") or ""), source="supporting_evidence")
+        view["limited_evidence_count"] = len(limited)
+        view["full_evidence_count"] = len(per_record) - len(limited)
+        return view
+    view = _quality_view(QUALITY_FULL, None, source="supporting_evidence")
+    view["limited_evidence_count"] = 0
+    view["full_evidence_count"] = len(per_record)
+    return view
 
 
 def _has_patent(records: list[dict[str, Any]]) -> bool:
@@ -232,7 +428,8 @@ def _triage_bucket(
     if confidence == "low":
         return "low_confidence"
     subject_kind = str((subject or {}).get("entity_type") or "")
-    focused_subject = subject_kind in {"company", "variety", "brand"}
+    primary_id = str((subject or {}).get("id") or candidate.get("primary_entity_id") or "")
+    focused_subject = subject_kind in {"company", "variety", "brand"} and not _is_generic_entity_tag(primary_id)
     recent = recency_days <= 90
     if (
         confidence in {"medium", "high"}
@@ -272,6 +469,7 @@ def present_candidate(
     independent = int(independence.get("independent_source_count") or 0)
     evidence_count = int(independence.get("total_evidence_count") or len(records))
     label = _deterministic_label(candidate, subject)
+    quality = evidence_quality_for_candidate(candidate, records)
     return {
         **candidate,
         "independence": independence,
@@ -286,6 +484,8 @@ def present_candidate(
         "support_label": f"{evidence_count} Evidence · {independent} independent origin{'s' if independent != 1 else ''}",
         "evidence_count": evidence_count,
         "independent_source_count": independent,
+        "evidence_quality": quality,
+        "limited_evidence": bool(quality.get("limited")),
         "berry_direct": berry_direct,
         "watch_match": watch_match,
         "latest_date": latest.isoformat() if latest else "",
@@ -339,7 +539,11 @@ def emerging_signals(presented: list[dict[str, Any]], *, limit: int = EMERGING_L
     independent-count clusters stay in Review Soon instead of crowding
     the brief."""
 
-    emerging = [row for row in presented if row.get("is_emerging")]
+    emerging = [
+        row
+        for row in presented
+        if row.get("is_emerging") and not _is_generic_entity_tag(str(row.get("primary_entity_id") or ""))
+    ]
     buckets = (
         lambda row: row.get("triage_bucket") == "review_now",
         lambda row: row.get("triage_bucket") == "same_origin_weak" and int(row.get("recency_days") or 999) <= 90,
@@ -366,9 +570,18 @@ def triage_groups(presented: list[dict[str, Any]]) -> dict[str, Any]:
         entries = [row for row in presented if row.get("triage_bucket") == key]
         counts[key] = len(entries)
         buckets.append({"key": key, "label": label, "count": len(entries), "entries": entries})
+    limited = [row for row in presented if row.get("limited_evidence")]
     counts["total"] = len(presented)
     counts["open"] = sum(1 for row in presented if str(row.get("status") or "") in OPEN_STATUSES)
-    return {"buckets": buckets, "counts": counts}
+    counts["limited_evidence"] = len(limited)
+    counts["deferred_or_reviewed"] = sum(
+        1 for row in presented if str(row.get("status") or "") in REVIEWED_STATUSES
+    )
+    return {
+        "buckets": buckets,
+        "counts": counts,
+        "limited_evidence": limited,
+    }
 
 
 def open_signals_for_entity(
@@ -379,10 +592,8 @@ def open_signals_for_entity(
         row
         for row in presented
         if str(row.get("status") or "") in OPEN_STATUSES
-        and (
-            str(row.get("primary_entity_id") or "") == entity_id
-            or entity_id in {str(eid) for eid in (row.get("entity_ids") or [])}
-        )
+        and str(row.get("primary_entity_id") or "") == entity_id
+        and not _is_generic_entity_tag(entity_id)
     ]
     return {
         "emerging": [row for row in matching if str(row.get("status") or "") in EMERGING_STATUSES],
@@ -404,6 +615,7 @@ def present_evidence_support(
     thread: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     trust = record.get("trust") or trust_state(record)
+    quality = evidence_quality_for_record(record)
     return {
         "id": record.get("id"),
         "title": record.get("title") or record.get("id"),
@@ -415,6 +627,8 @@ def present_evidence_support(
         "trust_label": TRUST_LABELS.get(str(trust), str(trust).replace("_", " ").title()),
         "source_authority": record.get("source_authority") or "",
         "source_url": record.get("source_url") or record.get("canonical_url") or "",
+        "evidence_quality": quality,
+        "limited_evidence": bool(quality.get("limited")),
         "story_thread": (
             {
                 "id": thread.get("id"),
@@ -555,6 +769,7 @@ def present_review(
         "independence_view": present_independence(candidate, evidence_by_id),
         "relationships": present_stored_relationships(records, evidence_by_id),
         "story_threads": threads,
+        "story_thread_count": len(threads),
         "review_decisions": REVIEW_DECISIONS,
     }
 

@@ -4,11 +4,18 @@
     <span class="badge badge-signal">Emerging signal</span>
     <span class="badge">{{ item.status_label }}</span>
     <span class="badge badge-muted">Confidence {{ item.confidence_label }}</span>
+    {% if item.limited_evidence %}<span class="badge badge-limited-evidence">Limited evidence</span>{% endif %}
     {% if item.watch_match == 'primary' %}<span class="badge">Watched subject</span>{% elif item.watch_match == 'mention' %}<span class="badge badge-muted">Mentions watched subject</span>{% endif %}
     {% if item.berry_direct %}<span class="badge badge-muted">Direct berry</span>{% endif %}
   </div>
   <h3><a href="{{ item.href }}">{{ item.label }}</a></h3>
   <p class="draft-meta">{{ item.support_label }}{% if item.latest_date %} · latest {{ item.latest_date|us_date }}{% endif %}</p>
+  {% if item.limited_evidence and item.evidence_quality %}
+    <div class="evidence-quality evidence-quality-limited">
+      <p class="evidence-quality-kicker">{{ item.evidence_quality.headline }}</p>
+      <p>{{ item.evidence_quality.detail }}</p>
+    </div>
+  {% endif %}
   {% if item.primary_subject %}
     <p>Primary subject: <strong>{% if item.primary_subject.href %}<a href="{{ item.primary_subject.href }}">{{ item.primary_subject.name }}</a>{% else %}{{ item.primary_subject.name }}{% endif %}</strong> · {{ item.primary_subject.label }}</p>
   {% endif %}

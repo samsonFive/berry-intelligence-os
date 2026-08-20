@@ -86,9 +86,11 @@ from app.services.intelligence_feed import build_intelligence_feed, build_reader
 from app.services.morning_brief import build_morning_brief
 from app.services.signal_candidates import SignalCandidateError
 from app.services.signal_review import (
+    StaleSignalCandidateError,
     apply_and_persist_decision,
     candidate_by_id,
     candidates_for_thread,
+    lookup_candidate,
     open_signals_for_entity,
     present_candidates,
     present_review,
@@ -2493,9 +2495,23 @@ def signal_candidate_review(request: Request) -> HTMLResponse:
 
 @app.get("/signals/candidates/{candidate_id}", response_class=HTMLResponse)
 def signal_candidate_page(request: Request, candidate_id: str) -> HTMLResponse:
-    candidate = candidate_by_id(INBOX_DIR, candidate_id)
+    candidate, location = lookup_candidate(INBOX_DIR, candidate_id)
     if candidate is None:
         raise HTTPException(status_code=404, detail="Signal candidate not found")
+    if location == "audit":
+        return templates.TemplateResponse(
+            request=request,
+            name="signal_candidate_gone.html",
+            context={
+                "candidate_id": candidate_id,
+                "status": candidate.get("status") or "",
+                "reviewer": candidate.get("reviewer") or "",
+                "reviewed_at": candidate.get("reviewed_at") or "",
+                "review_notes": candidate.get("review_notes") or "",
+                "authoring_mode": AUTHORING_MODE,
+            },
+            status_code=410,
+        )
     evidence_by_id = _evidence_index()
     review = present_review(
         candidate,
@@ -2529,6 +2545,12 @@ def signal_candidate_decision(
         raise HTTPException(status_code=403, detail="Signal-candidate decisions are only available in authoring mode")
     candidate = candidate_by_id(INBOX_DIR, candidate_id)
     if candidate is None:
+        _archived, location = lookup_candidate(INBOX_DIR, candidate_id)
+        if location == "audit":
+            raise HTTPException(
+                status_code=410,
+                detail="This candidate is no longer in the live review set. The prior decision was preserved and was not applied to any regenerated candidate.",
+            )
         raise HTTPException(status_code=404, detail="Signal candidate not found")
     actor = reviewer.strip() or session_username(request) or review_username() or ""
     try:
@@ -2538,7 +2560,10 @@ def signal_candidate_decision(
             reviewer=actor,
             notes=notes,
             inbox_dir=INBOX_DIR,
+            expected_id=candidate_id,
         )
+    except StaleSignalCandidateError as exc:
+        raise HTTPException(status_code=410, detail=str(exc)) from exc
     except SignalCandidateError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     target = safe_next_path(return_to)

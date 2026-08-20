@@ -13,8 +13,12 @@ from app import main
 from app.main import app
 from app.services.signal_candidates import persist_candidates
 from app.services.signal_review import (
+    StaleSignalCandidateError,
     apply_and_persist_decision,
+    archive_candidates_absent_from,
     emerging_signals,
+    lookup_candidate,
+    open_signals_for_entity,
     present_candidate,
     present_independence,
     present_review,
@@ -116,6 +120,18 @@ def _entities() -> dict[str, dict]:
             "id": "company-planasa",
             "entity_type": "company",
             "name": "Planasa",
+            "status": "active",
+        },
+        "company-fall-creek-farm-and-nursery": {
+            "id": "company-fall-creek-farm-and-nursery",
+            "entity_type": "company",
+            "name": "Fall Creek Farm & Nursery",
+            "status": "active",
+        },
+        "trait-flavor": {
+            "id": "trait-flavor",
+            "entity_type": "trait",
+            "name": "Flavor",
             "status": "active",
         },
     }
@@ -403,3 +419,195 @@ def test_static_brief_omits_inbox_candidates(monkeypatch, tmp_path: Path) -> Non
     )
     assert brief["emerging_signals"] == []
     assert "sigcand-must-not-leak" not in json.dumps(brief)
+
+
+def test_limited_evidence_from_transcript_status_not_podcast_branch() -> None:
+    spoken = _evidence(
+        "ev-spoken",
+        title="Scaling the blueberry industry",
+        source_name="Industry audio",
+        media_format="podcast",
+        transcript={"status": "not_available"},
+        source_type="industry_podcast",
+    )
+    written = _evidence("ev-written", source_name="The Packer", published_date="2026-08-10")
+    card = present_candidate(
+        _candidate(
+            id="sigcand-limited-aaaa1111",
+            supporting_evidence_ids=["ev-spoken", "ev-written"],
+        ),
+        evidence_by_id={"ev-spoken": spoken, "ev-written": written},
+        entities=_entities(),
+        today=date(2026, 8, 20),
+    )
+    assert card["limited_evidence"] is True
+    assert card["evidence_quality"]["headline"] == "LIMITED EVIDENCE"
+    assert "Transcript unavailable" in card["evidence_quality"]["detail"]
+    assert "episode description" in card["evidence_quality"]["detail"]
+    video = present_candidate(
+        _candidate(id="sigcand-video-bbbb2222", supporting_evidence_ids=["ev-video", "ev-b"]),
+        evidence_by_id={
+            "ev-video": _evidence("ev-video", media_format="video", title="Conference talk"),
+            "ev-b": _evidence("ev-b", source_name="The Packer"),
+        },
+        entities=_entities(),
+        today=date(2026, 8, 20),
+    )
+    assert video["limited_evidence"] is True
+    assert "verified transcript content" in video["evidence_quality"]["detail"]
+    full = present_candidate(
+        _candidate(id="sigcand-full-cccc3333"),
+        evidence_by_id={
+            "ev-a": _evidence("ev-a"),
+            "ev-b": _evidence("ev-b", source_name="The Packer"),
+        },
+        entities=_entities(),
+        today=date(2026, 8, 20),
+    )
+    assert full["limited_evidence"] is False
+    assert full["evidence_quality"]["headline"] == "FULL SOURCE EVIDENCE"
+
+
+def test_opaque_ids_keep_same_company_candidates_independent(tmp_path: Path) -> None:
+    inbox = tmp_path / "inbox"
+    first = _candidate(
+        id="sigcand-repeated-company-activity-fall-creek-farm-and-nursery-aaaa1111",
+        primary_entity_id="company-fall-creek-farm-and-nursery",
+        entity_ids=["company-fall-creek-farm-and-nursery"],
+        supporting_evidence_ids=["ev-a", "ev-b"],
+    )
+    second = _candidate(
+        id="sigcand-repeated-company-activity-fall-creek-farm-and-nursery-bbbb2222",
+        primary_entity_id="company-fall-creek-farm-and-nursery",
+        entity_ids=["company-fall-creek-farm-and-nursery"],
+        supporting_evidence_ids=["ev-c", "ev-d"],
+    )
+    persist_candidates([first, second], inbox_dir=inbox)
+    apply_and_persist_decision(
+        first,
+        decision="defer",
+        reviewer="analyst",
+        notes="Need a later window.",
+        inbox_dir=inbox,
+        expected_id=first["id"],
+    )
+    saved_first = json.loads((inbox / "signal_candidates" / f"{first['id']}.json").read_text())
+    saved_second = json.loads((inbox / "signal_candidates" / f"{second['id']}.json").read_text())
+    assert saved_first["status"] == "deferred"
+    assert saved_second["status"] == "proposed"
+    assert saved_second["reviewer"] is None
+
+
+def test_trait_primary_does_not_create_cross_company_prominence() -> None:
+    evidence = {
+        "ev-a": _evidence("ev-a", entity_ids=["trait-flavor", "company-hortifrut", "company-planasa"]),
+        "ev-b": _evidence(
+            "ev-b",
+            source_name="The Packer",
+            entity_ids=["trait-flavor", "company-hortifrut", "company-planasa"],
+        ),
+    }
+    card = present_candidate(
+        _candidate(
+            id="sigcand-multi-source-corroboration-trait-flavor-deadbeef",
+            primary_entity_id="trait-flavor",
+            entity_ids=["trait-flavor", "company-hortifrut", "company-planasa"],
+        ),
+        evidence_by_id=evidence,
+        entities=_entities(),
+        today=date(2026, 8, 20),
+    )
+    assert card["triage_bucket"] != "review_now"
+    assert emerging_signals([card]) == []
+    hortifrut = open_signals_for_entity("company-hortifrut", [card])
+    planasa = open_signals_for_entity("company-planasa", [card])
+    assert hortifrut == {"emerging": [], "confirmed": [], "deferred": []}
+    assert planasa == {"emerging": [], "confirmed": [], "deferred": []}
+
+
+def test_regeneration_archives_stale_id_and_does_not_reassign_decision(monkeypatch, tmp_path: Path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    _seed_repos(
+        [
+            _evidence("ev-a", title="Hortifrut newsroom genetics platform", source_name="Hortifrut Newsroom"),
+            _evidence("ev-b", title="Trade coverage of Hortifrut genetics", source_name="The Packer", published_date="2026-08-10"),
+        ]
+    )
+    old = _candidate(id="sigcand-multi-source-corroboration-hortifrut")
+    persist_candidates([old], inbox_dir=main.INBOX_DIR)
+    apply_and_persist_decision(
+        old,
+        decision="defer",
+        reviewer="analyst",
+        notes="Old colliding id.",
+        inbox_dir=main.INBOX_DIR,
+        expected_id=old["id"],
+    )
+    regenerated = _candidate(id="sigcand-multi-source-corroboration-hortifrut-abcd1234")
+    persist_candidates([regenerated], inbox_dir=main.INBOX_DIR)
+    archived = archive_candidates_absent_from([regenerated], inbox_dir=main.INBOX_DIR)
+    assert archived
+    assert not (main.INBOX_DIR / "signal_candidates" / f"{old['id']}.json").exists()
+    audit_path = main.INBOX_DIR / "signal_candidate_audit" / f"{old['id']}.json"
+    assert json.loads(audit_path.read_text())["status"] == "deferred"
+    live = json.loads((main.INBOX_DIR / "signal_candidates" / f"{regenerated['id']}.json").read_text())
+    assert live["status"] == "proposed"
+    assert live["reviewer"] is None
+    found, location = lookup_candidate(main.INBOX_DIR, old["id"])
+    assert location == "audit"
+    assert found["status"] == "deferred"
+    client = TestClient(app)
+    gone = client.get(f"/signals/candidates/{old['id']}")
+    assert gone.status_code == 410
+    assert "no longer in the live review set" in gone.text
+    assert "not applied to any regenerated candidate" in gone.text
+    blocked = client.post(
+        f"/signals/candidates/{old['id']}/decision",
+        data={"decision": "confirm", "reviewer": "analyst", "return_to": "/brief"},
+        follow_redirects=False,
+    )
+    assert blocked.status_code == 410
+    live_again = json.loads((main.INBOX_DIR / "signal_candidates" / f"{regenerated['id']}.json").read_text())
+    assert live_again["status"] == "proposed"
+    missing = client.get("/signals/candidates/sigcand-does-not-exist")
+    assert missing.status_code == 404
+    try:
+        apply_and_persist_decision(
+            old,
+            decision="confirm",
+            reviewer="analyst",
+            inbox_dir=main.INBOX_DIR,
+            expected_id=old["id"],
+        )
+        raise AssertionError("stale decision should not persist")
+    except StaleSignalCandidateError:
+        pass
+
+
+def test_limited_evidence_is_visible_on_reviewer(monkeypatch, tmp_path: Path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    _seed_repos(
+        [
+            _evidence(
+                "ev-spoken",
+                title="Scaling the blueberry industry",
+                source_name="Industry audio",
+                media_format="podcast",
+                transcript={"status": "not_available"},
+            ),
+            _evidence("ev-b", title="Trade coverage", source_name="The Packer", published_date="2026-08-10"),
+        ]
+    )
+    persist_candidates(
+        [_candidate(id="sigcand-limited-aaaa1111", supporting_evidence_ids=["ev-spoken", "ev-b"])],
+        inbox_dir=main.INBOX_DIR,
+    )
+    client = TestClient(app)
+    page = client.get("/signals/candidates/sigcand-limited-aaaa1111")
+    assert page.status_code == 200
+    assert "LIMITED EVIDENCE" in page.text
+    assert "Transcript unavailable" in page.text
+    workspace = client.get("/signals/review")
+    assert workspace.status_code == 200
+    assert "Limited evidence" in workspace.text
+    assert "LIMITED EVIDENCE" in workspace.text

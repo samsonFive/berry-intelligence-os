@@ -994,8 +994,10 @@ def _watch_activity(
     for candidate in signal_candidates or []:
         if not candidate.get("is_emerging"):
             continue
-        entity_ids = {str(candidate.get("primary_entity_id") or "")}
-        entity_ids.update(str(eid) for eid in (candidate.get("entity_ids") or []))
+        primary = str(candidate.get("primary_entity_id") or "")
+        if not primary or primary.startswith("trait-"):
+            continue
+        entity_ids = {primary}
         for entity_id in entity_ids:
             if entity_id not in watch_entities:
                 continue

@@ -5,6 +5,9 @@ clusters it by shared entity + real published_date via
 app/services/signal_candidates.py, and writes any new candidate to
 inbox/signal_candidates/ -- never to data/signals/. Existing candidate
 files (which may carry a human review decision) are never overwritten.
+After a non-dry run, live files whose ids are absent from the current
+generated set are moved to inbox/signal_candidate_audit/ so counts
+reflect the live set and prior decisions are not reassigned.
 
 Usage:
     python scripts/generate_signal_candidates.py
@@ -24,6 +27,7 @@ if str(ROOT) not in sys.path:
 
 from app.runtime_config import resolve_data_dir, resolve_inbox_dir
 from app.services.signal_candidates import generate_candidates, persist_candidates
+from app.services.signal_review import archive_candidates_absent_from
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -61,6 +65,7 @@ def main(argv: list[str] | None = None) -> int:
     records = _load_evidence(args.data_dir, args.inbox_dir)
     candidates = generate_candidates(records)
     written = [] if args.dry_run else persist_candidates(candidates, inbox_dir=args.inbox_dir)
+    archived = [] if args.dry_run else archive_candidates_absent_from(candidates, inbox_dir=args.inbox_dir)
 
     by_pattern: dict[str, int] = {}
     for candidate in candidates:
@@ -70,6 +75,7 @@ def main(argv: list[str] | None = None) -> int:
         "evidence_considered": len(records),
         "candidates_generated": len(candidates),
         "candidates_written": len(written),
+        "candidates_archived": len(archived),
         "by_pattern": by_pattern,
         "dry_run": args.dry_run,
     }
@@ -79,6 +85,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Evidence considered: {summary['evidence_considered']}")
         print(f"Candidates generated: {summary['candidates_generated']}")
         print(f"Candidates written: {summary['candidates_written']}")
+        print(f"Stale candidates archived: {summary['candidates_archived']}")
         for pattern, count in sorted(by_pattern.items()):
             print(f"  {pattern}: {count}")
     return 0

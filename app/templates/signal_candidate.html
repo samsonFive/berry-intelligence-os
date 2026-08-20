@@ -29,6 +29,16 @@
     {% endif %}
   </dl>
 
+  {% if review.evidence_quality %}
+    <div class="evidence-quality {% if review.limited_evidence %}evidence-quality-limited{% else %}evidence-quality-full{% endif %}">
+      <p class="evidence-quality-kicker">{{ review.evidence_quality.headline }}</p>
+      <p>{{ review.evidence_quality.detail }}</p>
+      {% if review.limited_evidence %}
+        <p class="context-limit">Limited source evidence is not equivalent to verified source content.</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
   <h2>Why this may matter</h2>
   {% if review.why_it_may_matter %}
     <p>{{ review.why_it_may_matter }}</p>
@@ -86,6 +96,7 @@
           <th>Authority</th>
           <th>Original</th>
           <th>Story thread</th>
+          <th>Evidence quality</th>
         </tr>
       </thead>
       <tbody>
@@ -103,6 +114,13 @@
                 <span class="draft-meta">{{ item.story_thread.source_count }} sources</span>
               {% else %}
                 —
+              {% endif %}
+            </td>
+            <td>
+              {% if item.limited_evidence %}
+                <span class="badge badge-limited-evidence">Limited</span>
+              {% else %}
+                <span class="badge">Full</span>
               {% endif %}
             </td>
           </tr>

@@ -369,6 +369,12 @@ strong.level-low{color:#426aa8}
 .does-not-prove-prominent{border-width:2px;margin:16px 0}
 .does-not-prove-kicker{margin:0 0 4px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#a3271f}
 .does-not-prove ul{margin:4px 0 8px;padding-left:18px}
+.evidence-quality{border-radius:8px;padding:10px 12px;margin:10px 0}
+.evidence-quality-full{border:1px solid #b7c9b0;background:#f3f8f1}
+.evidence-quality-limited{border:1px solid #d6b35c;background:#fff8e5}
+.evidence-quality-kicker{margin:0 0 4px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#8a5a00}
+.evidence-quality-full .evidence-quality-kicker{color:#2f6b32}
+.badge-limited-evidence{color:#8a5a00;background:#fff1c9}
 .independence-cluster{margin:0 0 12px}
 .independence-tree{list-style:none;margin:4px 0 0;padding:0}
 .independence-reprint{margin-left:18px;color:#3c4a63}
