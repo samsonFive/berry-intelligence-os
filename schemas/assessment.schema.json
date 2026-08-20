@@ -22,6 +22,11 @@
       "minItems": 1,
       "$comment": "Structurally required (BL-010): an Assessment always interprets at least one Fact -- this is what keeps it from being a bare, untraceable opinion. Not conditional on status; a draft Assessment with zero facts isn't a meaningful assessment at any stage."
     },
+    "signal_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "Signal to Analyst Assessment Contract audit (2026-08-20), optional and additive. Lets an Assessment interpret a corroborated multi-evidence Signal directly, not only a Fact -- mirrors recommendation.schema.json's own signal_ids field exactly, the working precedent for citing a Signal by id without copying its content. Never required: fact_ids remains the one structurally-enforced anchor (BL-010, above), and a Signal never auto-creates or auto-populates an Assessment -- a human always adds this id deliberately through the existing reviewer-gated creation form."
+    },
     "evidence_ids": {"type": "array", "items": {"type": "string"}},
     "entity_ids": {"type": "array", "items": {"type": "string"}},
     "domain_ids": {

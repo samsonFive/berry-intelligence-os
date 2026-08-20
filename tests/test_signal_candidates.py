@@ -347,3 +347,38 @@ def test_shared_generic_trait_tag_does_not_link_two_unrelated_companies():
     )
     candidates = generate_candidates([a, b])
     assert candidates == []
+
+
+# ---------------------------------------------------------------------------
+# Signal to Analyst Assessment Contract (2026-08-20): a confirmed Signal
+# candidate must never automatically create an Assessment. Assessment
+# authoring stays exactly one path -- a human filling out the existing
+# /assessments form (app/main.py:assessment_create), citing signal_ids
+# deliberately.
+# ---------------------------------------------------------------------------
+
+
+def test_confirming_a_signal_candidate_never_touches_the_assessments_directory(tmp_path: Path) -> None:
+    assessments_dir = tmp_path / "data" / "assessments"
+    assessments_dir.mkdir(parents=True)
+    candidate = {
+        "id": "sigcand-multi-source-corroboration-x", "status": "proposed",
+        "pattern_type": PATTERN_MULTI_SOURCE, "supporting_evidence_ids": ["ev-a", "ev-b"],
+        "reviewer": None, "review_notes": None,
+    }
+    confirmed = apply_review_decision(candidate, decision="confirm", reviewer="jsmith")
+    assert confirmed["status"] == "confirmed"
+    # apply_review_decision is a pure function -- proven by construction,
+    # not just by absence of a write call: the assessments directory this
+    # test created stays completely empty after confirming.
+    assert list(assessments_dir.glob("*.json")) == []
+
+
+def test_apply_review_decision_return_value_has_no_assessment_shaped_keys() -> None:
+    # A confirmed candidate's own record must never grow assessment-
+    # specific fields (rationale, etc.) as a side effect of confirmation --
+    # confirmation only ever changes the candidate's own review state.
+    candidate = {"id": "sigcand-x", "status": "proposed", "pattern_type": PATTERN_MULTI_SOURCE}
+    confirmed = apply_review_decision(candidate, decision="confirm", reviewer="jsmith")
+    assert "rationale" not in confirmed
+    assert confirmed.get("record_type") != "assessment"

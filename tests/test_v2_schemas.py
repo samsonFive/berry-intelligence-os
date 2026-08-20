@@ -66,6 +66,58 @@ def test_assessment_invalid_example_fails_without_supporting_facts() -> None:
 
 
 # ---------------------------------------------------------------------------
+# Signal to Analyst Assessment Contract (2026-08-20): assessment.schema.json
+# gains signal_ids, mirroring recommendation.schema.json's own field exactly.
+# Optional and additive -- fact_ids remains the one structurally-required
+# anchor (BL-010, unchanged); an Assessment citing a Signal is a deliberate
+# addition a human makes, never a replacement for the Fact requirement.
+# ---------------------------------------------------------------------------
+
+
+def test_assessment_with_signal_ids_validates() -> None:
+    validator = _validator("assessment.schema.json")
+    record = {**VALID_ASSESSMENT, "signal_ids": ["sig-financial-owners-taking-positions-in-berry-genetics"]}
+    errors = list(validator.iter_errors(record))
+    assert errors == [], [e.message for e in errors]
+
+
+def test_assessment_with_multiple_signal_ids_validates() -> None:
+    validator = _validator("assessment.schema.json")
+    record = {**VALID_ASSESSMENT, "signal_ids": ["sig-alpha", "sig-beta", "sig-gamma"]}
+    errors = list(validator.iter_errors(record))
+    assert errors == [], [e.message for e in errors]
+
+
+def test_assessment_without_signal_ids_still_validates() -> None:
+    # Backward compatibility: every existing Assessment on disk today has
+    # no signal_ids key at all -- the field must not become required.
+    validator = _validator("assessment.schema.json")
+    assert "signal_ids" not in VALID_ASSESSMENT
+    errors = list(validator.iter_errors(VALID_ASSESSMENT))
+    assert errors == [], [e.message for e in errors]
+
+
+def test_assessment_fact_ids_still_the_only_required_lineage_anchor() -> None:
+    # signal_ids must never become a second way to satisfy the structural
+    # requirement -- an Assessment with signal_ids but zero fact_ids is
+    # still invalid.
+    validator = _validator("assessment.schema.json")
+    invalid = {**VALID_ASSESSMENT, "fact_ids": [], "signal_ids": ["sig-financial-owners-taking-positions-in-berry-genetics"]}
+    assert not _is_valid(validator, invalid)
+
+
+def test_recommendation_schema_is_unchanged_by_the_assessment_signal_ids_addition() -> None:
+    # Recommendation's own signal_ids field and anyOf(assessment_ids,
+    # signal_ids) requirement must be untouched by this addition.
+    validator = _validator("recommendation.schema.json")
+    errors = list(validator.iter_errors(VALID_RECOMMENDATION))
+    assert errors == [], [e.message for e in errors]
+    signal_only = {k: v for k, v in VALID_RECOMMENDATION.items() if k != "assessment_ids"}
+    signal_only["signal_ids"] = ["sig-financial-owners-taking-positions-in-berry-genetics"]
+    assert _is_valid(validator, signal_only)
+
+
+# ---------------------------------------------------------------------------
 # BL-011: recommendation.schema.json
 # ---------------------------------------------------------------------------
 
