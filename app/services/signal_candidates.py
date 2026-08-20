@@ -27,6 +27,7 @@ Evidence ids and independence reasoning that produced it.
 
 from __future__ import annotations
 
+import hashlib
 import json
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -159,7 +160,21 @@ def _candidate(
     geography_ids = sorted({g for r in records for g in (r.get("geography_ids") or [])})
     all_entity_ids = sorted({e for r in records for e in (r.get("entity_ids") or [])})
     record_ids = sorted(r["id"] for r in records)
-    candidate_id = "sigcand-" + "-".join([pattern_type.replace("_", "-"), entity_id.replace("company-", "")])
+    # A real deterministic bug this fixes (found auditing real VPS output,
+    # 2026-08-19): the same (pattern_type, entity_id) pair recurs across
+    # multiple genuinely distinct evidence clusters -- Fall Creek alone
+    # produced 9 separate real multi_source_corroboration clusters, all
+    # colliding onto one id under the old scheme. persist_candidates()'s
+    # additive-only "never overwrite an existing file" rule then silently
+    # dropped 8 of them as if they were re-generations of the same
+    # candidate, when they were 8 different real signals. The fingerprint
+    # is over the evidence id set specifically (not a random uuid) so the
+    # same real cluster always reproduces the same id across runs --
+    # required for "never overwrite a reviewed file" to mean anything.
+    fingerprint = hashlib.sha256("|".join(record_ids).encode("utf-8")).hexdigest()[:8]
+    candidate_id = "sigcand-" + "-".join(
+        [pattern_type.replace("_", "-"), entity_id.replace("company-", ""), fingerprint]
+    )
     return {
         "id": candidate_id,
         "record_type": "signal_candidate",
