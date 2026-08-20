@@ -337,6 +337,17 @@ def _quality_view(level: str, detail: str | None, *, source: str) -> dict[str, A
     }
 
 
+def _claude_spoken_media_caveat(candidate: dict[str, Any]) -> str | None:
+    """Prefer Claude's calibrated does_not_prove stamp over a second inference."""
+
+    for item in candidate.get("does_not_prove") or []:
+        text = str(item or "").strip()
+        lowered = text.casefold()
+        if "has no transcript" in lowered or "verified spoken content" in lowered:
+            return text
+    return None
+
+
 def evidence_quality_for_candidate(
     candidate: dict[str, Any],
     records: list[dict[str, Any]],
@@ -347,6 +358,13 @@ def evidence_quality_for_candidate(
         view = _quality_view(level, detail or None, source="candidate")
         limited_count = sum(1 for record in records if evidence_quality_for_record(record)["limited"])
         view["limited_evidence_count"] = limited_count if view["limited"] else 0
+        view["full_evidence_count"] = max(0, len(records) - view["limited_evidence_count"])
+        return view
+    claude_caveat = _claude_spoken_media_caveat(candidate)
+    if claude_caveat:
+        view = _quality_view(QUALITY_LIMITED, claude_caveat, source="candidate_does_not_prove")
+        limited_count = sum(1 for record in records if evidence_quality_for_record(record)["limited"])
+        view["limited_evidence_count"] = limited_count or 1
         view["full_evidence_count"] = max(0, len(records) - view["limited_evidence_count"])
         return view
     per_record = [evidence_quality_for_record(record) for record in records]

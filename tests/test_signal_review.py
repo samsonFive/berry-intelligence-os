@@ -468,6 +468,29 @@ def test_limited_evidence_from_transcript_status_not_podcast_branch() -> None:
     assert full["evidence_quality"]["headline"] == "FULL SOURCE EVIDENCE"
 
 
+def test_limited_evidence_consumes_claude_does_not_prove_caveat() -> None:
+    card = present_candidate(
+        _candidate(
+            id="sigcand-claude-caveat-aaaa1111",
+            does_not_prove=[
+                "that the underlying development is commercially significant",
+                "verified spoken content -- at least one podcast/video record here has no transcript; "
+                "its summary reflects the publisher's own episode description, not a checked quote",
+            ],
+        ),
+        evidence_by_id={
+            "ev-a": _evidence("ev-a"),
+            "ev-b": _evidence("ev-b", source_name="The Packer"),
+        },
+        entities=_entities(),
+        today=date(2026, 8, 20),
+    )
+    assert card["limited_evidence"] is True
+    assert card["evidence_quality"]["source"] == "candidate_does_not_prove"
+    assert "has no transcript" in card["evidence_quality"]["detail"]
+    assert "episode description" in card["evidence_quality"]["detail"]
+
+
 def test_opaque_ids_keep_same_company_candidates_independent(tmp_path: Path) -> None:
     inbox = tmp_path / "inbox"
     first = _candidate(
