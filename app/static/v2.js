@@ -201,5 +201,5 @@
     else if (event.key === "s") { event.preventDefault(); submitAction("save"); }
     else if (event.key === "r") { event.preventDefault(); submitAction("reject"); }
   });
-  if (cards.length) selectCard(0, { skipFocus: true });
+  if (cards.length) active = 0;
 })();

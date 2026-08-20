@@ -1,5 +1,5 @@
 {# Compact feed/brief intelligence card. Hover/current exposes DecisionBar. #}
-<li class="v2-card intel-card intel-card-{{ item.trust }}{% if item.pending and item.relevance_band == 'High' %} v2-card--feature{% endif %}" data-intel-card data-item-id="{{ item.id }}" data-pending="{{ 'true' if item.pending else 'false' }}" tabindex="-1">
+<li class="v2-card intel-card intel-card-{{ item.trust }}" data-intel-card data-item-id="{{ item.id }}" data-pending="{{ 'true' if item.pending else 'false' }}" tabindex="-1">
   <p class="v2-card-kicker">
     <span class="v2-source">{{ item.source_name }}</span>
     {% if item.date %}<time class="v2-meta">{{ item.date|us_date }}</time>{% endif %}

@@ -265,7 +265,7 @@
 .v2-feed-grid .v2-card-list,
 .v2-feed-grid.v2-feed .intel-card-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: var(--v2-space-4);
 }
 .v2-card--feature {
