@@ -1,0 +1,5 @@
+{% if item.is_thread %}
+  {% include "_story_thread_card.html" %}
+{% else %}
+  {% include "_brief_item.html" %}
+{% endif %}

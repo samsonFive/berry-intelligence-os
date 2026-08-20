@@ -35,7 +35,7 @@
         <h3>{{ group.label }} — {{ group.count }}</h3>
         {% if group.entries %}
           {% for item in group.entries %}
-            {% include "_brief_item.html" %}
+            {% include "_brief_entry.html" %}
           {% endfor %}
         {% endif %}
         {% if group.remainder %}
@@ -54,7 +54,7 @@
   <p class="context-limit">Berry-relevant items that became visible since last check. Generic produce noise stays out of this list.</p>
   {% if brief.new_developments %}
     {% for item in brief.new_developments %}
-      {% include "_brief_item.html" %}
+      {% include "_brief_entry.html" %}
     {% endfor %}
   {% else %}
     <p class="empty-state">Nothing new and berry-relevant since last check.</p>
@@ -66,7 +66,7 @@
   <p class="context-limit">High-value unresolved intelligence regardless of age. These stay visible so yesterday’s work is not crowded out by today’s intake.</p>
   {% if brief.important %}
     {% for item in brief.important %}
-      {% include "_brief_item.html" %}
+      {% include "_brief_entry.html" %}
     {% endfor %}
   {% else %}
     <p class="empty-state">No separate important backlog this morning.</p>
@@ -78,7 +78,7 @@
   <p class="context-limit">The morning attention set used by the nav count. Open the Reader, then mark read, keep, dismiss, or promote.</p>
   {% if brief.top_developments %}
     {% for item in brief.top_developments %}
-      {% include "_brief_item.html" %}
+      {% include "_brief_entry.html" %}
     {% endfor %}
   {% else %}
     <p class="empty-state">Nothing is currently ranked as top priority.</p>
@@ -98,7 +98,11 @@
         {% if watch.signal_count %} · <span class="nav-action">{{ watch.signal_label }}</span>{% endif %}
         <ul class="brief-bullets">
           {% for item in watch.entries %}
-            <li><a href="{{ item.href }}">{{ item.change_label or item.title }}</a>{% if item.source_name %} · {{ item.source_name }}{% endif %}</li>
+            {% if item.is_thread %}
+              <li><a href="{{ item.href }}">{{ item.title }}</a> · {{ item.source_count }} sources{% if item.primary_source_name %} · {{ item.primary_source_name }}{% endif %}</li>
+            {% else %}
+              <li><a href="{{ item.href }}">{{ item.change_label or item.title }}</a>{% if item.source_name %} · {{ item.source_name }}{% endif %}</li>
+            {% endif %}
           {% endfor %}
           {% for signal in watch.signals[:3] %}
             <li><a href="{{ signal.href }}">{{ signal.title }}</a></li>
@@ -144,9 +148,9 @@
 <section class="brief-section" id="genetics">
   <h2>Genetics / variety / IP</h2>
   <p class="context-limit">Items with patent or variety metadata only.</p>
-  {% for item in brief.genetics %}
-    {% include "_brief_item.html" %}
-  {% endfor %}
+      {% for item in brief.genetics %}
+        {% include "_brief_entry.html" %}
+      {% endfor %}
 </section>
 {% endif %}
 
@@ -154,9 +158,9 @@
 <section class="brief-section" id="markets">
   <h2>Markets / supply</h2>
   <p class="context-limit">Items tagged with stored market/supply metadata only.</p>
-  {% for item in brief.markets %}
-    {% include "_brief_item.html" %}
-  {% endfor %}
+      {% for item in brief.markets %}
+        {% include "_brief_entry.html" %}
+      {% endfor %}
 </section>
 {% endif %}
 
@@ -173,9 +177,11 @@
   {% if brief.pending_triage and brief.pending_triage.buckets %}
     {% for group in brief.pending_triage.buckets %}
       <article class="brief-delta-group" id="triage-{{ group.key }}">
-        <h3>{{ group.label }} — {{ group.count }}</h3>
+        <h3>{{ group.label }} — {{ group.count }}{% if group.story_count and group.story_count < group.count %} · {{ group.story_count }} stor{{ 'y' if group.story_count == 1 else 'ies' }}{% endif %}</h3>
         {% if group.key == 'review_now' %}
-          <p class="context-limit">Direct blueberry intelligence, tracked-company primary subject, primary watch match, current article, or high-authority source.</p>
+          <p class="context-limit">Direct blueberry intelligence, tracked-company primary subject, primary watch match, current article, or high-authority source. Related reprints collapse into a developing story; they are not deleted.</p>
+        {% elif group.key == 'review_soon' %}
+          <p class="context-limit">Related coverage of one event is grouped as a developing story. Remaining rows are distinct decisions. Grouping is organizational only.</p>
         {% elif group.allow_bulk_dismiss %}
           <p class="context-limit">Low-risk cleanup. Select explicitly, then bulk dismiss. This does not reject or publish.</p>
         {% endif %}
@@ -186,7 +192,7 @@
                 <input form="triage-bulk-{{ group.key }}" type="checkbox" name="item_id" value="{{ item.id }}" aria-label="Select {{ item.title }}">
               {% endif %}
               <div class="triage-row-body">
-                {% include "_brief_item.html" %}
+                {% include "_brief_entry.html" %}
               </div>
             </div>
           {% endfor %}

@@ -41,17 +41,30 @@
     <ul class="entity-links" data-pagefind-ignore>
       {% for item in recent_intelligence %}
         <li>
-          {% if item.kind == 'trusted' %}
+          {% if item.is_thread %}
+            <span class="badge">Developing</span>
+            {% if item.kind == 'trusted' %}
+              <span class="badge badge-status-active">TRUSTED SOURCES</span>
+            {% else %}
+              <span class="badge badge-muted">PENDING REVIEW</span>
+            {% endif %}
+            <a href="{{ item.thread.href }}"><strong>{{ item.developing_label or item.thread.title }}</strong></a>
+            <span class="draft-meta">{{ item.sources_count }} sources · latest {% if item.date %}{{ item.date|us_date }}{% else %}unknown{% endif %}</span>
+          {% elif item.kind == 'trusted' %}
             <span class="badge badge-status-active">TRUSTED</span>
             <a href="{% if static_build %}/evidence/{{ item.record.id }}{% else %}/intelligence/{{ item.record.id }}{% endif %}"><strong>{{ item.record.title }}</strong></a>
+            <span class="draft-meta">
+              {% if item.date_is_published %}{{ item.date|us_date }}{% elif item.date %}Captured {{ item.date|us_date }}{% else %}Date unknown{% endif %}
+              {% if item.record.source_name %} · {{ item.record.source_name }}{% endif %}
+            </span>
           {% else %}
             <span class="badge badge-muted">PENDING REVIEW</span>
             <a href="/intelligence/{{ item.record.id }}"><strong>{{ item.record.title }}</strong></a>
+            <span class="draft-meta">
+              {% if item.date_is_published %}{{ item.date|us_date }}{% elif item.date %}Captured {{ item.date|us_date }}{% else %}Date unknown{% endif %}
+              {% if item.record.source_name %} · {{ item.record.source_name }}{% endif %}
+            </span>
           {% endif %}
-          <span class="draft-meta">
-            {% if item.date_is_published %}{{ item.date|us_date }}{% elif item.date %}Captured {{ item.date|us_date }}{% else %}Date unknown{% endif %}
-            {% if item.record.source_name %} · {{ item.record.source_name }}{% endif %}
-          </span>
         </li>
       {% endfor %}
     </ul>
