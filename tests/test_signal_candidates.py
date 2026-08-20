@@ -225,3 +225,46 @@ def test_persist_candidates_never_overwrites_an_existing_reviewed_file(tmp_path:
     assert written == []
     loaded = load_candidates(inbox_dir)
     assert loaded == [original]
+
+
+def test_two_distinct_clusters_for_the_same_company_get_different_ids():
+    """Real bug found auditing real VPS output: Fall Creek alone produced
+    9 separate real multi_source_corroboration clusters (different
+    evidence, different underlying events) that all collided onto one id
+    under the old (pattern_type, entity_id)-only scheme -- persist_
+    candidates()'s additive-only rule then silently dropped 8 of 9 as if
+    they were re-generations of the same candidate. Two genuinely
+    different clusters for the same company and pattern must produce two
+    different, independently-persistable candidate ids."""
+    cluster_a = [
+        _evidence("ev-a1", source_name="Fruitnet", entity_ids=["company-fall-creek-farm-and-nursery"], title="Fall Creek reveals Romanian acquisition", published_date="2024-03-01"),
+        _evidence("ev-a2", source_name="Agrovision", entity_ids=["company-fall-creek-farm-and-nursery"], title="Fall Creek Romania acquisition reported", published_date="2024-03-05"),
+    ]
+    cluster_b = [
+        _evidence("ev-b1", source_name="Produce Report", entity_ids=["company-fall-creek-farm-and-nursery"], title="Fall Creek launches Sekoya Nova blueberry variety", published_date="2026-02-01"),
+        _evidence("ev-b2", source_name="FreshPlaza", entity_ids=["company-fall-creek-farm-and-nursery"], title="Sekoya Nova from Fall Creek reported in Chile", published_date="2026-02-06"),
+    ]
+    candidates = generate_candidates(cluster_a + cluster_b)
+    multi = [c for c in candidates if c["pattern_type"] == PATTERN_MULTI_SOURCE]
+    assert len(multi) == 2
+    assert multi[0]["id"] != multi[1]["id"]
+    # Reproducibility: the same real cluster, regenerated later, must
+    # still land on the same id -- required for "never overwrite a
+    # reviewed candidate file" to mean anything across repeated runs.
+    rerun = generate_candidates(cluster_a + cluster_b)
+    rerun_multi = [c for c in rerun if c["pattern_type"] == PATTERN_MULTI_SOURCE]
+    assert {c["id"] for c in multi} == {c["id"] for c in rerun_multi}
+
+
+def test_regenerating_the_same_cluster_never_produces_a_second_persisted_file(tmp_path: Path):
+    inbox_dir = tmp_path / "inbox"
+    cluster = [
+        _evidence("ev-a", source_name="Fruitnet", entity_ids=["company-x"], title="Company X does the thing"),
+        _evidence("ev-b", source_name="The Packer", entity_ids=["company-x"], title="X thing reported elsewhere", published_date="2026-07-05"),
+    ]
+    first = generate_candidates(cluster)
+    persist_candidates(first, inbox_dir=inbox_dir)
+    second = generate_candidates(cluster)
+    written_again = persist_candidates(second, inbox_dir=inbox_dir)
+    assert written_again == []
+    assert len(load_candidates(inbox_dir)) == len(first)
