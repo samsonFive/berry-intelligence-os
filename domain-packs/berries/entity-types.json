@@ -1,13 +1,13 @@
 {
-  "_comment": "V2 Phase 1B (BL-019, docs/v2/10-BACKLOG.md). Every id below was verified directly against live data/entities/ (2026-08-14), not copied from docs/v2/04-DOMAIN-PACK-SPEC.md's own illustrative 'Berries example', which listed traits (ownership, headquarters_country, region, filing_date, expiry_date) that do not exist as real trait entities in data/entities/traits/ -- corrected here to match verified data instead of that earlier, unverified example.",
+  "_comment": "V2 Phase 1B (BL-019, docs/v2/10-BACKLOG.md). Every id below was verified directly against live data/entities/ (2026-08-14), not copied from docs/v2/04-DOMAIN-PACK-SPEC.md's own illustrative 'Berries example', which listed traits (ownership, headquarters_country, region, filing_date, expiry_date) that do not exist as real trait entities in data/entities/traits/ -- corrected here to match verified data instead of that earlier, unverified example. live_count fields were re-verified and updated 2026-08-20 for the multi-berry portability audit (company/breeding_program/trait/berry counts changed; see each entry's own note).",
   "entity_types": [
     {
       "id": "company",
       "label": "Company",
       "plural_label": "Companies",
       "traits": [],
-      "live_count": 34,
-      "_comment": "No trait entities are currently linked to company-type entities in live data; company characteristics are recorded as free-form entity.attributes, not the controlled trait vocabulary."
+      "live_count": 39,
+      "_comment": "No trait entities are currently linked to company-type entities in live data; company characteristics are recorded as free-form entity.attributes, not the controlled trait vocabulary. 39 = 34 (2026-08-14) + 2 real companies from the Freshness + Company News Recall sprint (SanLucar, USHBC) + 3 real companies from the 2026-08-20 multi-berry portability audit (California Berry Cultivars, The Summer Berry Company, Plant Sciences Genetics)."
     },
     {
       "id": "variety",
@@ -23,17 +23,20 @@
         "trait-postharvest-shelf-life",
         "trait-soluble-solids",
         "trait-titratable-acidity",
-        "trait-yield"
+        "trait-yield",
+        "trait-fruiting-habit",
+        "trait-flowering-habit"
       ],
       "live_count": 42,
-      "_comment": "All 10 trait entities in data/entities/traits/ describe variety-level measurable characteristics -- verified directly, not assumed. Ids match data/entities/traits/*.json exactly (also taxonomies/trait-vocabulary.json's ids), for direct traceability rather than a parallel vocabulary-id namespace."
+      "_comment": "All 12 trait entities in data/entities/traits/ describe variety-level characteristics -- verified directly, not assumed. Ids match data/entities/traits/*.json exactly (also taxonomies/trait-vocabulary.json's ids), for direct traceability rather than a parallel vocabulary-id namespace. trait-fruiting-habit and trait-flowering-habit added 2026-08-20 (multi-berry portability audit) -- no live variety record has been tagged with either yet, since no real strawberry/raspberry/blackberry variety entities exist yet (data population gap noted, not fabricated)."
     },
     {
       "id": "breeding_program",
       "label": "Breeding Program",
       "plural_label": "Breeding Programs",
       "traits": [],
-      "live_count": 9
+      "live_count": 10,
+      "_comment": "10 = 9 (2026-08-14) + breeding_program-uc-davis-strawberry, added 2026-08-20 (multi-berry portability audit)."
     },
     {
       "id": "brand",
@@ -70,15 +73,16 @@
       "label": "Trait",
       "plural_label": "Traits",
       "traits": [],
-      "live_count": 10,
-      "_comment": "The trait vocabulary's own container entity type -- a trait entity does not itself have traits."
+      "live_count": 12,
+      "_comment": "The trait vocabulary's own container entity type -- a trait entity does not itself have traits. 12 = 10 (2026-08-14) + trait-fruiting-habit + trait-flowering-habit, added 2026-08-20 (multi-berry portability audit)."
     },
     {
       "id": "berry",
       "label": "Berry",
       "plural_label": "Berries",
       "traits": [],
-      "live_count": 1
+      "live_count": 4,
+      "_comment": "4 = berry-blueberry (2026-08-14) + berry-strawberry/berry-raspberry/berry-blackberry, added 2026-08-20 (multi-berry portability audit) -- the platform referenced these berry_ids everywhere but had shipped no resolvable entity record for any of them, the same gap berry-blueberry's own record documents having already been fixed for blueberry only."
     }
   ]
 }

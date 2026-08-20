@@ -158,7 +158,18 @@ def test_every_live_entity_resolves_to_a_declared_type() -> None:
     # the Freshness + Company News Recall sprint's deterministic-matching
     # coverage -- both real, already-referenced organizations that had no
     # entity record at all, discovered via a real recall-test gap check.
-    assert total == 164, f"expected 164 live entities, found {total}"
+    # 173 = 164 plus 9 real entities added for the multi-berry portability
+    # audit (2026-08-20): berry-strawberry/berry-raspberry/berry-blackberry
+    # (the platform referenced these berry_ids everywhere but shipped no
+    # resolvable entity, same gap berry-blueberry itself documents having
+    # already had); company-california-berry-cultivars, company-the-summer-
+    # berry-company, company-plant-sciences-genetics (real companies backing
+    # already-existing but previously unlinked strawberry/raspberry/
+    # blackberry Evidence); breeding_program-uc-davis-strawberry; and
+    # trait-fruiting-habit/trait-flowering-habit (primocane/floricane and
+    # day-neutral/short-day -- categorical variety traits with no blueberry
+    # equivalent, absent from the original blueberry-only trait vocabulary).
+    assert total == 173, f"expected 173 live entities, found {total}"
 
 
 # ---------------------------------------------------------------------------

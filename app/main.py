@@ -2451,15 +2451,18 @@ def strategic_question_detail(request: Request, sq_id: str) -> HTMLResponse:
     )
 
 
-@app.get("/landscapes/berries/blueberry", response_class=HTMLResponse)
-def landscape_blueberry(
-    request: Request, region: str = "global", intelligence_state: str = "all"
+@app.get("/landscapes/berries/{berry_slug}", response_class=HTMLResponse)
+def landscape_berry(
+    request: Request, berry_slug: str, region: str = "global", intelligence_state: str = "all"
 ) -> HTMLResponse:
+    berry_id = f"berry-{berry_slug}"
+    if berry_id not in BERRIES:
+        raise HTTPException(status_code=404, detail="Unknown berry")
     return templates.TemplateResponse(
         request=request,
         name="landscape.html",
         context={
-            **landscape_context("berry-blueberry", region, intelligence_state),
+            **landscape_context(berry_id, region, intelligence_state),
             "authoring_mode": AUTHORING_MODE,
         },
     )

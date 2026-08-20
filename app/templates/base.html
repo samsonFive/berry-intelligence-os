@@ -31,7 +31,10 @@
         {% endif %}
 
         <p class="nav-group">Intelligence</p>
-        <a href="/landscapes/berries/blueberry" {% if request.url.path.startswith('/landscapes') %}class="active" aria-current="page"{% endif %}>Blueberry Landscape</a>
+        <a href="/landscapes/berries/blueberry" {% if request.url.path == '/landscapes/berries/blueberry' %}class="active" aria-current="page"{% endif %}>Blueberry Landscape</a>
+        <a href="/landscapes/berries/strawberry" {% if request.url.path == '/landscapes/berries/strawberry' %}class="active" aria-current="page"{% endif %}>Strawberry Landscape</a>
+        <a href="/landscapes/berries/raspberry" {% if request.url.path == '/landscapes/berries/raspberry' %}class="active" aria-current="page"{% endif %}>Raspberry Landscape</a>
+        <a href="/landscapes/berries/blackberry" {% if request.url.path == '/landscapes/berries/blackberry' %}class="active" aria-current="page"{% endif %}>Blackberry Landscape</a>
         <a href="/" {% if request.url.path == '/' %}class="active" aria-current="page"{% endif %}>Newsfeed</a>
         <a href="/entities/company" {% if request.url.path.startswith('/entities/company') %}class="active" aria-current="page"{% endif %}>Companies</a>
         <a href="/queues/commercial_position" {% if request.url.path == '/queues/commercial_position' %}class="active" aria-current="page"{% endif %}>Commercial positions</a>

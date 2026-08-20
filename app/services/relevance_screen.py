@@ -86,7 +86,7 @@ CATEGORIES: tuple[_RelevanceCategory, ...] = (
             # regex below either. Treated exactly like a species name
             # since it's an unambiguous, always-berry-specific term, same
             # category the product asks for: "known company/entity".
-            "aneberries", "ushbc",
+            "aneberries", "ushbc", "narba",
         ),
     ),
     # The generic, unspecific "berry"/"berries" alone deliberately does

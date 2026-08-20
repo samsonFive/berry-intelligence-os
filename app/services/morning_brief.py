@@ -430,13 +430,13 @@ def rank_item(
     elif tier == "direct":
         score += 14
         reasons.append("direct berry intelligence")
-        decision_reasons.append("direct blueberry intelligence")
+        decision_reasons.append("direct berry intelligence")
     if is_berry_direct(record) and tier != "adjacent":
         score += 8
         if "direct berry intelligence" not in reasons:
             reasons.append("direct berry intelligence")
-        if "direct blueberry intelligence" not in decision_reasons:
-            decision_reasons.append("direct blueberry intelligence")
+        if "direct berry intelligence" not in decision_reasons:
+            decision_reasons.append("direct berry intelligence")
     if is_berry_relevant(record) and "direct berry intelligence" not in reasons and tier != "adjacent":
         score += 6
         reasons.append("berry-relevant coverage")

@@ -1,0 +1,34 @@
+{
+  "id": "berry-blackberry",
+  "record_type": "entity",
+  "entity_type": "berry",
+  "name": "Blackberry",
+  "aliases": [
+    "Rubus fruticosus aggregate",
+    "Rubus subgenus Rubus",
+    "mora",
+    "mora nera",
+    "mûre"
+  ],
+  "status": "active",
+  "description": "Blackberry (genus Rubus, subgenus Rubus, the Rubus fruticosus aggregate; most modern commercial cultivars are complex interspecific hybrids). Like raspberry, commercial cultivars split into floricane (summer-fruiting) and primocane (fall-fruiting) types, and separately into erect, semi-erect and trailing cane habits and thorny vs. thornless selections -- distinctions that drive trellising, machine-harvest suitability and regional fit. Created as part of the multi-berry portability audit (2026-08-20) to give berry_ids a resolvable target for berry-blackberry, mirroring berry-blueberry's own record and the same previously-identified gap (schema-assessment.md A-3, proposed-schema-enhancements.md P-1) that had only been fixed for blueberry.",
+  "roles": [],
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "genus": "Rubus",
+    "subgenus": "Rubus",
+    "primary_species": "Rubus fruticosus aggregate",
+    "commercial_types": [
+      "floricane (summer-fruiting)",
+      "primocane (fall-fruiting)",
+      "erect / semi-erect / trailing cane habit",
+      "thorny / thornless"
+    ],
+    "package_note": "Attributes are taxonomic scaffolding, not evidence-derived claims."
+  }
+}

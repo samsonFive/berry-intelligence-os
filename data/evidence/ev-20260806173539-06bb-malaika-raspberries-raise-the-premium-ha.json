@@ -17,7 +17,9 @@
   "geography_ids": [
     "geography-portugal"
   ],
-  "entity_ids": [],
+  "entity_ids": [
+    "company-the-summer-berry-company"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],

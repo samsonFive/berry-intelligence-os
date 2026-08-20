@@ -1,0 +1,32 @@
+{
+  "id": "berry-raspberry",
+  "record_type": "entity",
+  "entity_type": "berry",
+  "name": "Raspberry",
+  "aliases": [
+    "Rubus idaeus",
+    "red raspberry",
+    "frambuesa",
+    "lampone",
+    "framboise"
+  ],
+  "status": "active",
+  "description": "Raspberry (genus Rubus, subgenus Idaeobatus, primarily Rubus idaeus for red raspberry; Rubus occidentalis for black raspberry). Commercial fresh-market cultivars split into floricane (summer-fruiting, bearing on second-year canes) and primocane (fall-fruiting / everbearing, bearing on first-year canes), a distinction that drives pruning regime, harvest window and protected-culture suitability. Created as part of the multi-berry portability audit (2026-08-20) to give berry_ids a resolvable target for berry-raspberry, mirroring berry-blueberry's own record and the same previously-identified gap (schema-assessment.md A-3, proposed-schema-enhancements.md P-1) that had only been fixed for blueberry.",
+  "roles": [],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "genus": "Rubus",
+    "subgenus": "Idaeobatus",
+    "primary_species": "Rubus idaeus",
+    "commercial_types": [
+      "floricane (summer-fruiting)",
+      "primocane (fall-fruiting / everbearing)"
+    ],
+    "package_note": "Attributes are taxonomic scaffolding, not evidence-derived claims."
+  }
+}

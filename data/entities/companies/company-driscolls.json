@@ -8,7 +8,7 @@
     "Driscolls"
   ],
   "status": "active",
-  "description": "Privately held United States berry breeder, licensor and marketer headquartered in Watsonville, California. It breeds proprietary blueberry varieties under the 'DrisBlue...' denomination series, does not sell its plants, and grows through a network of independent licensed growers. Also a member of the consortium that took Costa Group private in February 2024.",
+  "description": "Privately held United States berry marketer headquartered in Watsonville, California, active across all four berries -- blueberries and strawberries have real, dedicated evidence in this dataset; raspberries and blackberries are documented at the company-wide level (Mexico sourcing, Dutch harvest coverage) but do not yet have berry-specific evidence of their own. It breeds proprietary blueberry varieties under the 'DrisBlue...' denomination series and proprietary strawberry varieties under a closed-genetics program, does not sell its plants, and grows through a network of independent licensed growers. Also a member of the consortium that took Costa Group private in February 2024. Its closed-genetics strawberry program has been in patent-infringement litigation against California Berry Cultivars (founded by former UC Davis breeder Douglas Shaw) since 2023; CBC won summary judgment in district court in 2025 and Driscoll's has appealed.",
   "roles": [
     "breeder",
     "genetics_licensor",
@@ -18,7 +18,10 @@
     "competitor"
   ],
   "berry_ids": [
-    "berry-blueberry"
+    "berry-blueberry",
+    "berry-strawberry",
+    "berry-raspberry",
+    "berry-blackberry"
   ],
   "evidence_ids": [
     "ev-cfia-blueberry-index",
@@ -28,7 +31,20 @@
     "ev-driscolls-cbc-appeal-2025",
     "ev-cafc-driscolls-25-1747",
     "ev-ipaustralia-pvj-33-4",
-    "ev-costa-ownership-2024"
+    "ev-costa-ownership-2024",
+    "ev-20260806173540-1f01-strawberry-patent-infringement-case-turn",
+    "ev-20260806173842-9369-driscoll-s-sues-former-uc-davis-scientis",
+    "ev-20260806173842-a512-driscoll-s-files-complaint-against-calif",
+    "ev-20260806173540-99d6-california-berry-cultivars-wins-summary-",
+    "ev-20260806173540-2869-driscoll-s-loses-us-strawberry-patent-su",
+    "ev-20260806173540-42f9-driscoll-s-confident-it-can-overturn-cbc",
+    "ev-20260806173540-993a-driscoll-s-filed-appeal-in-strawberry-pa",
+    "ev-20260806173540-aff3-driscoll-s-loses-us-strawberry-patent-ca",
+    "ev-20260806173540-ac29-california-based-strawberry-grower-faces",
+    "ev-20260806173540-178b-jury-sides-with-uc-davis-in-strawberry-b",
+    "ev-20260806173540-56fd-uc-davis-ends-strawberry-licensing-agree",
+    "ev-20260806173904-5cbc-mexico-continues-to-be-the-fastest-growi",
+    "ev-20260806175538-1308-driscoll-s-announces-dutch-harvest-fruit"
   ],
   "fact_ids": [
     "fact-driscolls-closed-plant-model",
