@@ -638,14 +638,12 @@ def test_publish_blocked_in_readonly_mode(monkeypatch, tmp_path) -> None:
 def test_work_queue_renders() -> None:
     response = client.get("/work-queue")
     assert response.status_code == 200
-    assert "Scanner" in response.text
-    assert "FOUND" in response.text
-    assert "NEEDS REVIEW" in response.text
-    assert "LIVE INTELLIGENCE" in response.text
-    assert "0 failures" not in response.text.casefold()
+    assert "Live Intelligence" in response.text
+    assert "WORK" in response.text
     assert "intel-card" in response.text
     assert "Read" in response.text
     assert "Trusted" in response.text
+    assert "0 failures" not in response.text.casefold()
 
 
 def test_reading_queue_includes_all_nonnone_levels() -> None:

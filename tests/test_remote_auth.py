@@ -109,7 +109,7 @@ def test_successful_login_creates_session_and_reaches_scanner(monkeypatch) -> No
     assert PASSWORD not in cookie
     scanner = client.get("/work-queue")
     assert scanner.status_code == 200
-    assert "Scanner" in scanner.text
+    assert "Live Intelligence" in scanner.text
     assert "Sign out" in scanner.text
     assert "Demo-Operator" in scanner.text or "demo-operator" in scanner.text
 

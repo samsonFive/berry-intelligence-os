@@ -47,7 +47,7 @@ from app.main import (  # noqa: E402
     sources_page_context,
     templates,
 )
-from app.services.intelligence_feed import build_intelligence_feed  # noqa: E402
+from app.services.intelligence_feed import annotate_feed_semantics, build_intelligence_feed  # noqa: E402
 from app.services.review_workbench import build_public_scanner_summary  # noqa: E402
 
 OUTPUT_DIR = ROOT / "generated"
@@ -70,6 +70,18 @@ class _FakeRequest:
 def render(template_name: str, path: str, context: dict[str, Any]) -> str:
     context = {**context, "request": _FakeRequest(path), "static_build": True}
     context.setdefault("nav_work_counts", templates.env.globals["nav_work"]())
+    context.setdefault(
+        "ui_context",
+        {
+            "berry": "global",
+            "berry_label": "Global",
+            "feed_view": "grid",
+            "landscape_href": "/entities/berry",
+            "options": [{"id": "global", "label": "Global", "slug": ""}],
+            "is_global": True,
+        },
+    )
+    context.setdefault("berries", BERRIES)
     return templates.get_template(template_name).render(context)
 
 
@@ -154,6 +166,7 @@ def build() -> list[Path]:
         "brief_action": 0,
         "review_now": 0,
         "pending_open": 0,
+        "emerging_signals": 0,
     }
 
     # Static asset.
@@ -161,6 +174,11 @@ def build() -> list[Path]:
     static_out.mkdir(parents=True, exist_ok=True)
     shutil.copy2(ROOT / "app" / "static" / "app.css", static_out / "app.css")
     shutil.copy2(ROOT / "app" / "static" / "search-core.js", static_out / "search-core.js")
+    shutil.copy2(ROOT / "app" / "static" / "v2.css", static_out / "v2.css")
+    shutil.copy2(ROOT / "app" / "static" / "v2.js", static_out / "v2.js")
+    vendor_src = ROOT / "app" / "static" / "vendor"
+    if vendor_src.is_dir():
+        shutil.copytree(vendor_src, static_out / "vendor", dirs_exist_ok=True)
 
     # Newsfeed.
     written.append(
@@ -284,6 +302,7 @@ def build() -> list[Path]:
         filter_key="all",
         limit=48,
     )
+    annotate_feed_semantics(feed["entries"], signals=all_signals(), candidates=[])
     written.append(
         write_page(
             "work_queue.html",
@@ -293,6 +312,7 @@ def build() -> list[Path]:
                 "drafts": [],
                 "review_cards": [],
                 "feed": feed,
+                "feed_view": "grid",
                 "reviewer": "",
                 "return_filter": "",
                 "promoted_id": "",
