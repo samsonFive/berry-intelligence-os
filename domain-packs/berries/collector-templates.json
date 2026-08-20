@@ -2945,6 +2945,49 @@
       "update_cadence": "weekly",
       "default_active": true,
       "notes": "Berry plant-patent watchlist executed by scripts/monitor_plant_patents.py, not the RSS/media collection runner. Writes untrusted Evidence drafts only; a filing is not commercialization."
+    },
+    {
+      "id": "source-freshuelva-news",
+      "collector_type": "rss",
+      "label": "Freshuelva (Asociación Onubense de Productores y Exportadores de Fresas)",
+      "query_or_url": "https://freshuelva.es/feed/",
+      "url": "https://freshuelva.es/noticias/",
+      "geography_focus": [
+        "europe"
+      ],
+      "entity_coverage": [
+        "trade_association"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "event_driven",
+      "default_active": true,
+      "notes": "Huelva, Spain red-fruit growers/exporters association since 1983 -- Huelva is the dominant Spanish and one of the dominant European strawberry production regions. Added for the Strawberry Vertical V1 depth mission (2026-08-20)."
+    },
+    {
+      "id": "source-nova-siri-genetics-news",
+      "collector_type": "rss",
+      "label": "Nova Siri Genetics (NSG)",
+      "query_or_url": "https://www.novasirigenetics.com/feed/",
+      "url": "https://www.novasirigenetics.com/news-ed-eventi/",
+      "geography_focus": [
+        "europe"
+      ],
+      "entity_coverage": [
+        "genetics_company"
+      ],
+      "berry_coverage": [
+        "berry-strawberry"
+      ],
+      "monitoring_priority": "medium",
+      "update_cadence": "event_driven",
+      "default_active": true,
+      "notes": "Italian strawberry breeder (Melissa, Marimbella) with growing real plantings in Huelva, Spain. Added for the Strawberry Vertical V1 depth mission (2026-08-20)."
     }
   ]
 }

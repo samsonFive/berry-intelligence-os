@@ -6,8 +6,8 @@
       "label": "Company",
       "plural_label": "Companies",
       "traits": [],
-      "live_count": 39,
-      "_comment": "No trait entities are currently linked to company-type entities in live data; company characteristics are recorded as free-form entity.attributes, not the controlled trait vocabulary. 39 = 34 (2026-08-14) + 2 real companies from the Freshness + Company News Recall sprint (SanLucar, USHBC) + 3 real companies from the 2026-08-20 multi-berry portability audit (California Berry Cultivars, The Summer Berry Company, Plant Sciences Genetics)."
+      "live_count": 44,
+      "_comment": "No trait entities are currently linked to company-type entities in live data; company characteristics are recorded as free-form entity.attributes, not the controlled trait vocabulary. 44 = 34 (2026-08-14) + 2 (Freshness + Company News Recall sprint: SanLucar, USHBC) + 3 (multi-berry portability audit: California Berry Cultivars, The Summer Berry Company, Plant Sciences Genetics) + 5 (Strawberry Vertical V1, 2026-08-20: Nova Siri Genetics, CIV Italy, Eurosemillas, Rijk Zwaan, Freshuelva)."
     },
     {
       "id": "variety",
@@ -27,16 +27,16 @@
         "trait-fruiting-habit",
         "trait-flowering-habit"
       ],
-      "live_count": 42,
-      "_comment": "All 12 trait entities in data/entities/traits/ describe variety-level characteristics -- verified directly, not assumed. Ids match data/entities/traits/*.json exactly (also taxonomies/trait-vocabulary.json's ids), for direct traceability rather than a parallel vocabulary-id namespace. trait-fruiting-habit and trait-flowering-habit added 2026-08-20 (multi-berry portability audit) -- no live variety record has been tagged with either yet, since no real strawberry/raspberry/blackberry variety entities exist yet (data population gap noted, not fabricated)."
+      "live_count": 47,
+      "_comment": "All 12 trait entities in data/entities/traits/ describe variety-level characteristics -- verified directly, not assumed. Ids match data/entities/traits/*.json exactly (also taxonomies/trait-vocabulary.json's ids), for direct traceability rather than a parallel vocabulary-id namespace. trait-fruiting-habit and trait-flowering-habit added 2026-08-20 (multi-berry portability audit). 47 = 42 (2026-08-14) + 5 real strawberry varieties added for the Strawberry Vertical V1 depth mission (2026-08-20): variety-redsayra, variety-melissa, variety-marimbella, variety-flavia, variety-rutgers-dlight -- none yet tagged with trait-fruiting-habit/trait-flowering-habit (those apply to caneberry/day-length habit, not measured for these releases in available Evidence)."
     },
     {
       "id": "breeding_program",
       "label": "Breeding Program",
       "plural_label": "Breeding Programs",
       "traits": [],
-      "live_count": 10,
-      "_comment": "10 = 9 (2026-08-14) + breeding_program-uc-davis-strawberry, added 2026-08-20 (multi-berry portability audit)."
+      "live_count": 11,
+      "_comment": "11 = 9 (2026-08-14) + breeding_program-uc-davis-strawberry (multi-berry portability audit) + breeding_program-njaes-rutgers-strawberry (Strawberry Vertical V1, 2026-08-20)."
     },
     {
       "id": "brand",

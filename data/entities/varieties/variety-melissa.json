@@ -1,0 +1,26 @@
+{
+  "id": "variety-melissa",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Melissa",
+  "aliases": [],
+  "status": "active",
+  "description": "Patented strawberry cultivar bred by Nova Siri Genetics, reported by FreshPlaza as a new release from the company's strawberry genetic-improvement programme (underway since 2006).",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [
+    "ev-20260806173842-dc19-new-melissa-strawberry-cultivar-freshpla"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-nova-siri-genetics-develops-melissa"
+  ],
+  "attributes": {
+    "breeder": "Nova Siri Genetics",
+    "package_note": "No public trait datasheet (firmness, Brix, shelf life) was found in the available Evidence -- not fabricated."
+  }
+}

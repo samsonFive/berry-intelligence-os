@@ -1,0 +1,29 @@
+{
+  "id": "breeding_program-njaes-rutgers-strawberry",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Rutgers NJAES Strawberry Breeding Program",
+  "aliases": [
+    "NJAES",
+    "New Jersey Agricultural Experiment Station"
+  ],
+  "status": "active",
+  "description": "Public strawberry breeding program at Rutgers University's New Jersey Agricultural Experiment Station (NJAES), School of Environmental and Biological Sciences (SEBS). Released the Rutgers D'Light strawberry cultivar, bred for flavor.",
+  "roles": [
+    "public_breeding_program"
+  ],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [
+    "ev-20260806173540-c8f4-bred-for-flavor-njaes-researchers-releas"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-njaes-rutgers-develops-dlight"
+  ],
+  "attributes": {
+    "country": "United States",
+    "institution": "Rutgers University, New Jersey Agricultural Experiment Station (NJAES)"
+  }
+}

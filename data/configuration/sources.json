@@ -3716,5 +3716,68 @@
     "created_at": "2026-08-19",
     "last_checked_at": null,
     "last_status": null
+  },
+  {
+    "id": "source-freshuelva-news",
+    "type": "reference",
+    "label": "Freshuelva (Asociación Onubense de Productores y Exportadores de Fresas)",
+    "value": "https://freshuelva.es/noticias/",
+    "url": "https://freshuelva.es/noticias/",
+    "why_it_matters": "Huelva, Spain strawberry/red-fruit growers and exporters association, operating since 1983 -- Huelva is the dominant Spanish and one of the dominant European strawberry production regions. Its news section and member-company directory are a primary-source track for Huelva variety adoption, export volumes, and season conditions, verified live 2026-08-20 (real homepage/news URL, not assumed).",
+    "entity_types": [
+      "trade_association"
+    ],
+    "berry_ids": [
+      "berry-strawberry",
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "europe"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-20",
+    "last_checked_at": null,
+    "last_status": null,
+    "discovery": {
+      "adapter": "article_rss",
+      "feed_url": "https://freshuelva.es/feed/",
+      "feed_url_verified_at": "2026-08-20",
+      "notes": "Strawberry Vertical V1 depth mission (2026-08-20). Verified live RSS 2.0 feed."
+    }
+  },
+  {
+    "id": "source-nova-siri-genetics-news",
+    "type": "reference",
+    "label": "Nova Siri Genetics (NSG)",
+    "value": "https://www.novasirigenetics.com/news-ed-eventi/",
+    "url": "https://www.novasirigenetics.com/news-ed-eventi/",
+    "why_it_matters": "Italian strawberry breeder (Policoro, Basilicata) behind the Melissa and Marimbella cultivars, with growing real plantings in Huelva, Spain -- its own news section is the primary source for new variety announcements ahead of third-party trade coverage. Verified live 2026-08-20 (real homepage/news URL, not assumed).",
+    "entity_types": [
+      "genetics_company"
+    ],
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "europe"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-20",
+    "last_checked_at": null,
+    "last_status": null,
+    "discovery": {
+      "adapter": "article_rss",
+      "feed_url": "https://www.novasirigenetics.com/feed/",
+      "feed_url_verified_at": "2026-08-20",
+      "notes": "Strawberry Vertical V1 depth mission (2026-08-20). Verified live RSS 2.0 feed."
+    }
   }
 ]
