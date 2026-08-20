@@ -45,6 +45,17 @@
     <p class="empty-state">No entities linked.</p>
   {% endif %}
 
+  <h2>Supporting signals</h2>
+  {% if linked_signals %}
+    <ul class="entity-links">
+      {% for s in linked_signals %}
+        <li><a href="/signals/{{ s.id }}">{{ s.title }}</a> <span class="badge badge-muted">{{ s.strength|upper }} STRENGTH</span></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No signals linked.</p>
+  {% endif %}
+
   <h2>Supporting facts</h2>
   {% if linked_facts %}
     <ul class="fact-list">

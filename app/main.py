@@ -2768,6 +2768,7 @@ def _default_assessment_values() -> dict[str, Any]:
         "status": "active",
         "confidence": "medium",
         "fact_ids": "",
+        "signal_ids": "",
         "evidence_ids": "",
         "entity_ids": "",
         "strategic_question_ids": "",
@@ -2799,6 +2800,7 @@ def assessment_create(
     status: str = Form("active"),
     confidence: str = Form(""),
     fact_ids: str = Form(""),
+    signal_ids: str = Form(""),
     evidence_ids: str = Form(""),
     entity_ids: str = Form(""),
     strategic_question_ids: str = Form(""),
@@ -2814,6 +2816,7 @@ def assessment_create(
         "status": status or "active",
         "confidence": confidence or "medium",
         "fact_ids": fact_ids,
+        "signal_ids": signal_ids,
         "evidence_ids": evidence_ids,
         "entity_ids": entity_ids,
         "strategic_question_ids": strategic_question_ids,
@@ -2822,11 +2825,13 @@ def assessment_create(
     }
 
     fact_id_list = split_list(fact_ids)
+    signal_id_list = split_list(signal_ids)
     evidence_id_list = split_list(evidence_ids)
     entity_id_list = split_list(entity_ids)
     counterevidence_id_list = split_list(counterevidence_ids)
 
     known_facts = {f["id"] for f in all_facts()}
+    known_signals = {s["id"] for s in all_signals()}
     published_ids = {r["id"] for r in published_evidence()}
     entity_ids_known = set(entity_index().keys())
 
@@ -2842,6 +2847,9 @@ def assessment_create(
     unknown_facts = [f for f in fact_id_list if f not in known_facts]
     if unknown_facts:
         errors.append(f"Unknown fact id(s): {', '.join(unknown_facts)}.")
+    unknown_signals = [s for s in signal_id_list if s not in known_signals]
+    if unknown_signals:
+        errors.append(f"Unknown signal id(s): {', '.join(unknown_signals)}.")
     unknown_evidence = [e for e in evidence_id_list if e not in published_ids]
     if unknown_evidence:
         errors.append(f"Unknown published evidence id(s): {', '.join(unknown_evidence)}.")
@@ -2875,6 +2883,7 @@ def assessment_create(
         "status": values["status"],
         "confidence": values["confidence"],
         "fact_ids": fact_id_list,
+        "signal_ids": signal_id_list,
         "evidence_ids": evidence_id_list,
         "entity_ids": entity_id_list,
         "strategic_question_ids": resolve_strategic_question_ids(strategic_question_ids),
@@ -2915,6 +2924,7 @@ def assessment_detail(request: Request, assessment_id: str) -> HTMLResponse:
         context={
             "assessment": assessment,
             "linked_facts": lineage.resolve_linked_facts(assessment.get("fact_ids")),
+            "linked_signals": lineage.resolve_linked_signals(assessment.get("signal_ids")),
             "linked_evidence": lineage.resolve_linked_evidence(assessment.get("evidence_ids")),
             "linked_entities": lineage.resolve_linked_entities(assessment.get("entity_ids"), entities),
             "linked_strategic_questions": lineage.resolve_linked_strategic_questions(

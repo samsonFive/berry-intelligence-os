@@ -130,6 +130,28 @@ def test_every_assessment_fact_id_resolves() -> None:
         assert not missing, f"{assessment['id']}: unresolved fact_ids {missing}"
 
 
+def test_every_assessment_signal_id_resolves() -> None:
+    # Signal to Analyst Assessment Contract (2026-08-20): mirrors
+    # test_every_recommendation_signal_id_resolves exactly -- the same
+    # "existing reference rule" this project already applies to every
+    # other id-linkage field, now applied to Assessment's new signal_ids.
+    signal_ids = _ids(ROOT / "data" / "signals")
+    for assessment in _assessments():
+        missing = _unresolved(assessment.get("signal_ids"), signal_ids)
+        assert not missing, f"{assessment['id']}: unresolved signal_ids {missing}"
+
+
+def test_unresolved_helper_flags_a_fabricated_bad_signal_id() -> None:
+    # Direct proof that the existing reference-resolution mechanism itself
+    # -- not just today's real data, which happens to have zero assessments
+    # with signal_ids yet -- correctly detects an invalid signal id.
+    real_signal_ids = _ids(ROOT / "data" / "signals")
+    fabricated = "sig-this-id-does-not-exist-anywhere"
+    assert fabricated not in real_signal_ids
+    missing = _unresolved(["sig-financial-owners-taking-positions-in-berry-genetics", fabricated], real_signal_ids)
+    assert missing == [fabricated]
+
+
 def test_every_assessment_evidence_id_resolves() -> None:
     evidence_ids = _ids(ROOT / "data" / "evidence")
     for assessment in _assessments():
