@@ -125,3 +125,61 @@ def test_real_canonical_data_correctly_splits_a_lawsuit_from_an_unrelated_patent
     )
     report = independence_report([lawsuit, patent])
     assert report["independent_source_count"] == 2
+
+
+# ---------------------------------------------------------------------------
+# Signal-Candidate Calibration mission (2026-08-19): a real false-
+# separation found auditing real VPS candidate output. EastFruit
+# republished a Fruitnet/Eurofruit story about Fall Creek's Romanian land
+# acquisition 4 days later -- EastFruit's own summary literally says
+# "According Fruitnet". The original DATE_WINDOW_DAYS=1 killed the match
+# before any text comparison ran; the combined title+summary+why_it_matters
+# similarity (0.15) was also diluted by each outlet's own added detail,
+# even though the headlines themselves were 83% identical by token
+# overlap. Recalibrated: DATE_WINDOW_DAYS widened to 5 (realistic
+# republication lag), and a near-identical-title fast path (still gated
+# on at least one shared entity) that overrides the date gate entirely.
+# ---------------------------------------------------------------------------
+
+
+def test_near_identical_titles_four_days_apart_are_recognized_as_same_origin():
+    a = _evidence(
+        "ev-a", source_name="EastFruit", published_date="2024-06-10",
+        entity_ids=["company-fall-creek-farm-and-nursery"],
+        title="Fall Creek reveals Romanian acquisition - EastFruit",
+        summary="Fall Creek has announced the acquisition of a 50ha land parcel in Moara Vlasiei, Romania, from real estate developer Portland Trust. According Fruitnet...",
+    )
+    b = _evidence(
+        "ev-b", source_name="Eurofruit / Fruitnet", published_date="2024-06-06",
+        entity_ids=["company-fall-creek-farm-and-nursery"],
+        title="Fall Creek reveals Romanian acquisition",
+        summary="Report by Carl Collen that Fall Creek acquired a Romanian site of about 50 hectares.",
+    )
+    assert same_origin(a, b) is True
+
+
+def test_similar_titles_without_any_shared_entity_do_not_false_merge():
+    # The title fast path requires at least one shared entity so two
+    # different companies' near-identical generic-template headlines
+    # ("X launches new Y variety") cannot false-merge on boilerplate
+    # phrasing alone.
+    a = _evidence("ev-a", entity_ids=["company-a"], title="Company launches new blueberry variety", published_date="2026-01-01")
+    b = _evidence("ev-b", entity_ids=["company-b"], title="Company launches new blueberry variety", published_date="2026-06-01")
+    assert same_origin(a, b) is False
+
+
+def test_five_day_window_does_not_merge_genuinely_different_same_week_events():
+    # Real case checked as a negative control during calibration: two
+    # BerryWorld/Agroberries acquisition articles from different outlets
+    # one day apart, with genuinely different headline wording (not a
+    # reprint -- two journalists' own framing of the same press release),
+    # correctly stay independent even under the widened date window.
+    a = _evidence(
+        "ev-a", source_name="Perishable News", entity_ids=["company-berryworld"], published_date="2024-09-18",
+        title="Agroberries and BerryWorld Group Combine to Create the Second Largest Berry Company",
+    )
+    b = _evidence(
+        "ev-b", source_name="Fruitnet", entity_ids=["company-berryworld"], published_date="2024-09-17",
+        title="Agroberries announces full acquisition of BerryWorld",
+    )
+    assert same_origin(a, b) is False

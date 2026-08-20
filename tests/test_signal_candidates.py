@@ -108,8 +108,9 @@ def test_a_patent_is_a_primary_source_for_followup_purposes():
 
 
 def test_repeated_activity_requires_at_least_three_independent_dated_events():
+    titles = ["Company X opens new packing facility", "Company X wins export award", "Company X names new chief breeder"]
     records = [
-        _evidence(f"ev-{i}", source_name=f"Outlet {i}", entity_ids=["company-x"], title=f"X event {i}", published_date=d)
+        _evidence(f"ev-{i}", source_name=f"Outlet {i}", entity_ids=["company-x"], title=titles[i], published_date=d)
         for i, d in enumerate(["2026-01-01", "2026-03-01", "2026-05-01"])
     ]
     candidates = generate_candidates(records)
@@ -156,8 +157,8 @@ def test_no_evidence_links_means_no_contradiction_is_ever_inferred():
 
 
 def test_every_candidate_carries_does_not_prove():
-    a = _evidence("ev-a", source_name="Fruitnet", entity_ids=["company-x"], title="X does a thing")
-    b = _evidence("ev-b", source_name="The Packer", entity_ids=["company-x"], title="X thing reported elsewhere", published_date="2026-07-05")
+    a = _evidence("ev-a", source_name="Fruitnet", entity_ids=["company-x"], title="Company X opens new packing facility")
+    b = _evidence("ev-b", source_name="The Packer", entity_ids=["company-x"], title="Company X wins export award", published_date="2026-07-05")
     candidates = generate_candidates([a, b])
     assert candidates
     assert all(c["does_not_prove"] for c in candidates)
@@ -236,13 +237,19 @@ def test_two_distinct_clusters_for_the_same_company_get_different_ids():
     they were re-generations of the same candidate. Two genuinely
     different clusters for the same company and pattern must produce two
     different, independently-persistable candidate ids."""
+    # Titles are deliberately differently-worded (not near-duplicates) so
+    # each pair correctly registers as 2 independent origins rather than
+    # collapsing via the recalibrated same-origin detection -- this test
+    # is about id collisions across clusters, not independence detection
+    # itself (see test_near_identical_titles_... in test_source_independence.py
+    # for that).
     cluster_a = [
-        _evidence("ev-a1", source_name="Fruitnet", entity_ids=["company-fall-creek-farm-and-nursery"], title="Fall Creek reveals Romanian acquisition", published_date="2024-03-01"),
-        _evidence("ev-a2", source_name="Agrovision", entity_ids=["company-fall-creek-farm-and-nursery"], title="Fall Creek Romania acquisition reported", published_date="2024-03-05"),
+        _evidence("ev-a1", source_name="Fruitnet", entity_ids=["company-fall-creek-farm-and-nursery"], title="Fall Creek buys land parcel near Bucharest", published_date="2024-03-01"),
+        _evidence("ev-a2", source_name="Agrovision", entity_ids=["company-fall-creek-farm-and-nursery"], title="Trade sources confirm European expansion by Fall Creek", published_date="2024-03-05"),
     ]
     cluster_b = [
-        _evidence("ev-b1", source_name="Produce Report", entity_ids=["company-fall-creek-farm-and-nursery"], title="Fall Creek launches Sekoya Nova blueberry variety", published_date="2026-02-01"),
-        _evidence("ev-b2", source_name="FreshPlaza", entity_ids=["company-fall-creek-farm-and-nursery"], title="Sekoya Nova from Fall Creek reported in Chile", published_date="2026-02-06"),
+        _evidence("ev-b1", source_name="Produce Report", entity_ids=["company-fall-creek-farm-and-nursery"], title="Fall Creek launches Sekoya Nova variety", published_date="2026-02-01"),
+        _evidence("ev-b2", source_name="FreshPlaza", entity_ids=["company-fall-creek-farm-and-nursery"], title="Growers welcome new high-chill release from Fall Creek", published_date="2026-02-06"),
     ]
     candidates = generate_candidates(cluster_a + cluster_b)
     multi = [c for c in candidates if c["pattern_type"] == PATTERN_MULTI_SOURCE]
@@ -268,3 +275,75 @@ def test_regenerating_the_same_cluster_never_produces_a_second_persisted_file(tm
     written_again = persist_candidates(second, inbox_dir=inbox_dir)
     assert written_again == []
     assert len(load_candidates(inbox_dir)) == len(first)
+
+
+# ---------------------------------------------------------------------------
+# Signal-Candidate Calibration mission (2026-08-19): the one real spoken-
+# media Evidence in this dataset (a Lucentlands podcast interview with Fall
+# Creek's CEO) has transcript={"status": "not_available"} -- its summary is
+# built entirely from the publisher's own Apple Podcasts episode
+# description, not a verified transcript quote. Real, independently-
+# reported Evidence, but weaker grounding than a transcribed record.
+# ---------------------------------------------------------------------------
+
+
+_STRATEGY_TITLES = [
+    "Podcast host interviews Company X leadership",
+    "Company X opens new packing facility",
+    "Company X wins export quality award",
+    "Company X names new chief breeder",
+]
+
+
+def _four_source_cluster(transcript_status: str) -> list[dict]:
+    podcast = _evidence(
+        "ev-podcast", source_name="Some Podcast", entity_ids=["company-x"],
+        title=_STRATEGY_TITLES[0], media_format="podcast", published_date="2026-07-01",
+    )
+    podcast["transcript"] = {"status": transcript_status}
+    others = [
+        _evidence(f"ev-{i}", source_name=f"Outlet {i}", entity_ids=["company-x"], title=_STRATEGY_TITLES[i + 1], published_date="2026-07-02")
+        for i in range(3)
+    ]
+    return [podcast] + others
+
+
+def test_untranscribed_spoken_media_caps_confidence_below_high():
+    candidates = generate_candidates(_four_source_cluster("not_available"))
+    multi = [c for c in candidates if c["pattern_type"] == PATTERN_MULTI_SOURCE]
+    assert multi
+    assert multi[0]["independence"]["independent_source_count"] == 4
+    assert all(c["signal_confidence"] != "high" for c in multi)
+
+
+def test_untranscribed_spoken_media_adds_an_explicit_does_not_prove_caveat():
+    candidates = generate_candidates(_four_source_cluster("not_available"))
+    assert candidates
+    assert any("transcript" in item for c in candidates for item in c["does_not_prove"])
+
+
+def test_transcribed_spoken_media_does_not_cap_confidence_or_add_the_caveat():
+    candidates = generate_candidates(_four_source_cluster("ready"))
+    multi = [c for c in candidates if c["pattern_type"] == PATTERN_MULTI_SOURCE]
+    assert multi
+    assert multi[0]["independence"]["independent_source_count"] == 4
+    assert any(c["signal_confidence"] == "high" for c in multi)
+    assert not any("transcript" in item for c in multi for item in c["does_not_prove"])
+
+
+def test_shared_generic_trait_tag_does_not_link_two_unrelated_companies():
+    """Real false positive found auditing real candidate output: a
+    shared trait-* entity id (a claimed agronomic characteristic, not an
+    actor) linked Fall Creek's field-forum coverage to Costa Group's
+    unrelated variety launch -- two competing companies' two unrelated
+    stories, joined only by both referencing "postharvest shelf life"."""
+    a = _evidence(
+        "ev-a", source_name="FreshFruitPortal", entity_ids=["company-fall-creek-farm-and-nursery", "trait-postharvest-shelf-life"],
+        title="Fall Creek high-chill field forum coverage",
+    )
+    b = _evidence(
+        "ev-b", source_name="Produce Report", entity_ids=["company-costa-group-holdings", "trait-postharvest-shelf-life"],
+        title="Costa launches BluGenix with five blueberry varieties", published_date="2026-07-03",
+    )
+    candidates = generate_candidates([a, b])
+    assert candidates == []

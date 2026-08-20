@@ -26,8 +26,10 @@ import re
 from typing import Any
 
 MIN_TOKEN_LENGTH = 4
+MIN_TITLE_TOKENS_FOR_FAST_PATH = 3
 TITLE_SUMMARY_JACCARD_THRESHOLD = 0.2
-DATE_WINDOW_DAYS = 1
+TITLE_ONLY_JACCARD_THRESHOLD = 0.6
+DATE_WINDOW_DAYS = 5
 
 _STOPWORDS = {
     "with", "from", "that", "this", "have", "will", "their", "about",
@@ -44,6 +46,10 @@ def _tokens(text: str) -> set[str]:
 def _content_tokens(record: dict[str, Any]) -> set[str]:
     parts = [record.get("title") or "", record.get("summary") or "", record.get("why_it_matters") or ""]
     return _tokens(" ".join(parts))
+
+
+def _title_tokens(record: dict[str, Any]) -> set[str]:
+    return _tokens(record.get("title") or "")
 
 
 def _jaccard(a: set[str], b: set[str]) -> float:
@@ -85,10 +91,31 @@ def same_origin(a: dict[str, Any], b: dict[str, Any]) -> bool:
     name_a, name_b = a.get("source_name"), b.get("source_name")
     if name_a and name_b and name_a == name_b:
         return True
-    if not _dates_close(a, b):
-        return False
     entities_a, entities_b = set(a.get("entity_ids") or []), set(b.get("entity_ids") or [])
     shared_entities = entities_a & entities_b
+    # Real case found auditing real candidate output (Signal-Candidate
+    # Calibration, 2026-08-19): EastFruit republished a Fruitnet/Eurofruit
+    # story about Fall Creek's Romanian land acquisition 4 days later --
+    # EastFruit's own summary literally says "According Fruitnet". Titles
+    # were "Fall Creek reveals Romanian acquisition[ - EastFruit]",
+    # title-only Jaccard 0.83, but the DATE_WINDOW_DAYS gate (then 1 day)
+    # killed the match before the text check ever ran, and the combined
+    # title+summary+why_it_matters similarity (0.15) was diluted by each
+    # outlet's own added detail. A near-identical headline is checked
+    # first and, if strong enough, overrides the date gate entirely --
+    # still requires at least one shared entity, so two different
+    # companies' near-identical generic-template headlines ("X launches
+    # new Y variety") can't false-merge just from boilerplate phrasing.
+    title_tokens_a, title_tokens_b = _title_tokens(a), _title_tokens(b)
+    if (
+        shared_entities
+        and len(title_tokens_a) >= MIN_TITLE_TOKENS_FOR_FAST_PATH
+        and len(title_tokens_b) >= MIN_TITLE_TOKENS_FOR_FAST_PATH
+        and _jaccard(title_tokens_a, title_tokens_b) >= TITLE_ONLY_JACCARD_THRESHOLD
+    ):
+        return True
+    if not _dates_close(a, b):
+        return False
     similarity = _jaccard(_content_tokens(a), _content_tokens(b))
     # Real-world same-event coverage from different outlets paraphrases
     # heavily -- a curated internal write-up, a press-release-style

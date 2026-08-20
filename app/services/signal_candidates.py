@@ -97,10 +97,28 @@ def _dated_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return [r for r in records if r.get("id") and _parse_date(r.get("published_date")) is not None]
 
 
+# Real false positive found auditing real candidate output (Signal-
+# Candidate Calibration, 2026-08-19): grouping by a shared trait-*
+# entity id linked Fall Creek's high-chill field-forum coverage to
+# Costa Group's unrelated BluGenix variety launch -- two competing
+# companies' two unrelated announcements, joined only because both
+# happened to reference the same generic agronomic characteristic
+# ("postharvest shelf life"). A trait is a claimed characteristic, not
+# an actor a developing pattern is *about* -- unlike a shared company,
+# variety, brand, or patent id, two records sharing a trait id say
+# nothing about whether they concern the same underlying development.
+# Excluded from clustering entirely, not just down-weighted: "entity
+# overlap too broad" is exactly the false-positive class this guards
+# against, per the mission's own list of known risk categories.
+EXCLUDED_ENTITY_PREFIXES = ("trait-",)
+
+
 def _entity_groups(records: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
     groups: dict[str, list[dict[str, Any]]] = {}
     for record in records:
         for entity_id in record.get("entity_ids") or []:
+            if entity_id.startswith(EXCLUDED_ENTITY_PREFIXES):
+                continue
             groups.setdefault(entity_id, []).append(record)
     return groups
 
@@ -123,11 +141,41 @@ def _within_window(records: list[dict[str, Any]], *, window_days: int) -> list[l
     return [c for c in clusters if len(c) >= 2]
 
 
-def _does_not_prove(pattern_type: str) -> list[str]:
-    return list(DOES_NOT_PROVE_BY_PATTERN.get(pattern_type, ()))
+SPOKEN_MEDIA_FORMATS = ("podcast", "video", "conference_video")
 
 
-def _signal_confidence(pattern_type: str, independent_source_count: int) -> str:
+def _has_untranscribed_spoken_media(records: list[dict[str, Any]]) -> bool:
+    """True when the cluster leans on a podcast/video record with no
+    actual transcript -- real case found auditing real candidate output
+    (Signal-Candidate Calibration, 2026-08-19): the one real spoken-media
+    Evidence in this dataset (a Lucentlands podcast interview with Fall
+    Creek's CEO) has transcript={"status": "not_available"} -- its
+    summary/why_it_matters is built entirely from the publisher's own
+    Apple Podcasts episode description, not a verified transcript quote.
+    That is real, independently-reported Evidence (a genuine interview,
+    not a reprint), but weaker evidentiary grounding than a transcribed
+    record, and a Signal candidate should say so rather than silently
+    treat it as equally strong."""
+    for record in records:
+        if record.get("media_format") not in SPOKEN_MEDIA_FORMATS:
+            continue
+        status = (record.get("transcript") or {}).get("status")
+        if status != "ready":
+            return True
+    return False
+
+
+def _does_not_prove(pattern_type: str, records: list[dict[str, Any]]) -> list[str]:
+    items = list(DOES_NOT_PROVE_BY_PATTERN.get(pattern_type, ()))
+    if _has_untranscribed_spoken_media(records):
+        items.append(
+            "verified spoken content -- at least one podcast/video record here has no transcript; "
+            "its summary reflects the publisher's own episode description, not a checked quote"
+        )
+    return items
+
+
+def _signal_confidence(pattern_type: str, independent_source_count: int, records: list[dict[str, Any]]) -> str:
     """Deterministic, conservative confidence -- never source_authority
     (how authoritative one document is) and never a single record's
     information_confidence (how well one record supports its own claim).
@@ -136,12 +184,17 @@ def _signal_confidence(pattern_type: str, independent_source_count: int) -> str:
     "high" no matter how many follow-ups pile onto the same origin,
     because piling on same-origin repeats is exactly the inflation this
     module exists to prevent. CONTRADICTION is always "low" -- a flagged
-    disagreement is not itself a confirmed pattern."""
+    disagreement is not itself a confirmed pattern. An untranscribed
+    spoken-media record in the cluster also caps confidence below "high":
+    "HIGH should normally require genuinely independent support and
+    strong alignment" (mission requirement) -- a publisher-description-only
+    podcast record is real Evidence but not strong alignment on its own."""
     if pattern_type == PATTERN_PRIMARY_PLUS_FOLLOWUP:
         return "low"
     if pattern_type == PATTERN_CONTRADICTION:
         return "low"
-    if independent_source_count >= 4:
+    untranscribed_cap = _has_untranscribed_spoken_media(records)
+    if independent_source_count >= 4 and not untranscribed_cap:
         return "high"
     if independent_source_count >= 2:
         return "medium"
@@ -186,9 +239,9 @@ def _candidate(
         "geography_ids": geography_ids,
         "supporting_evidence_ids": record_ids,
         "independence": report,
-        "signal_confidence": _signal_confidence(pattern_type, report["independent_source_count"]),
+        "signal_confidence": _signal_confidence(pattern_type, report["independent_source_count"], records),
         "reason": reason,
-        "does_not_prove": _does_not_prove(pattern_type),
+        "does_not_prove": _does_not_prove(pattern_type, records),
         "generated_by": "signal_candidates.generate_candidates",
         "reviewer": None,
         "review_notes": None,
