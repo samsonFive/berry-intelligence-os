@@ -215,6 +215,7 @@ def _triage_bucket(
     berry_direct: bool,
     watch_match: str,
     recency_days: int,
+    subject: dict[str, Any] | None,
 ) -> str | None:
     status = str(candidate.get("status") or "proposed")
     if status == "deferred":
@@ -230,9 +231,15 @@ def _triage_bucket(
         return "review_now"
     if confidence == "low":
         return "low_confidence"
-    recent = recency_days <= 60
-    if confidence in {"medium", "high"} and independent >= 2 and (
-        berry_direct or watch_match == "primary" or recent
+    subject_kind = str((subject or {}).get("entity_type") or "")
+    focused_subject = subject_kind in {"company", "variety", "brand"}
+    recent = recency_days <= 90
+    if (
+        confidence in {"medium", "high"}
+        and independent >= 2
+        and recent
+        and focused_subject
+        and (berry_direct or watch_match == "primary")
     ):
         return "review_now"
     return "review_soon"
@@ -297,6 +304,7 @@ def present_candidate(
             berry_direct=berry_direct,
             watch_match=watch_match,
             recency_days=recency_days,
+            subject=subject,
         ),
         "is_emerging": status in EMERGING_STATUSES,
     }
@@ -326,8 +334,30 @@ def present_candidates(
 
 
 def emerging_signals(presented: list[dict[str, Any]], *, limit: int = EMERGING_LIMIT) -> list[dict[str, Any]]:
+    """Bounded morning-brief set: current review-now first, then recent
+    same-origin teaching cases, then other recent candidates. Stale high
+    independent-count clusters stay in Review Soon instead of crowding
+    the brief."""
+
     emerging = [row for row in presented if row.get("is_emerging")]
-    return emerging[:limit]
+    buckets = (
+        lambda row: row.get("triage_bucket") == "review_now",
+        lambda row: row.get("triage_bucket") == "same_origin_weak" and int(row.get("recency_days") or 999) <= 90,
+        lambda row: row.get("triage_bucket") == "review_soon" and int(row.get("recency_days") or 999) <= 180,
+        lambda row: True,
+    )
+    ordered: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for predicate in buckets:
+        for row in emerging:
+            row_id = str(row.get("id") or "")
+            if not row_id or row_id in seen or not predicate(row):
+                continue
+            seen.add(row_id)
+            ordered.append(row)
+            if len(ordered) >= limit:
+                return ordered
+    return ordered
 
 
 def triage_groups(presented: list[dict[str, Any]]) -> dict[str, Any]:

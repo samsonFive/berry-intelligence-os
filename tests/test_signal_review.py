@@ -156,6 +156,33 @@ def test_emerging_signals_are_capped_and_skip_deferred() -> None:
     assert "0." not in emerging[0]["confidence_label"]
 
 
+def test_emerging_brief_prefers_recent_review_now_over_stale_high_counts() -> None:
+    recent = present_candidate(
+        _candidate(id="sigcand-recent", signal_confidence="medium"),
+        evidence_by_id={
+            "ev-a": _evidence("ev-a", published_date="2026-08-18"),
+            "ev-b": _evidence("ev-b", source_name="The Packer", published_date="2026-08-19"),
+        },
+        entities=_entities(),
+        today=date(2026, 8, 20),
+    )
+    stale = present_candidate(
+        _candidate(
+            id="sigcand-stale-high",
+            signal_confidence="high",
+            independence={"total_evidence_count": 6, "independent_source_count": 6, "clusters": []},
+        ),
+        evidence_by_id={
+            "ev-old-a": _evidence("ev-old-a", published_date="2019-01-01"),
+            "ev-old-b": _evidence("ev-old-b", source_name="The Packer", published_date="2019-01-10"),
+        },
+        entities=_entities(),
+        today=date(2026, 8, 20),
+    )
+    ordered = emerging_signals([stale, recent], limit=7)
+    assert ordered[0]["id"] == "sigcand-recent"
+
+
 def test_same_origin_three_documents_are_one_origin() -> None:
     evidence = {
         "ev-newsroom": _evidence(
@@ -231,9 +258,23 @@ def test_review_now_requires_independent_origins() -> None:
         entities=_entities(),
         today=date(2026, 8, 20),
     )
-    groups = {group["key"]: group for group in triage_groups([strong, weak])["buckets"]}
+    stale = present_candidate(
+        _candidate(
+            id="sigcand-stale",
+            signal_confidence="high",
+            supporting_evidence_ids=["ev-old-a", "ev-old-b"],
+        ),
+        evidence_by_id={
+            "ev-old-a": _evidence("ev-old-a", published_date="2020-01-01"),
+            "ev-old-b": _evidence("ev-old-b", source_name="The Packer", published_date="2020-01-10"),
+        },
+        entities=_entities(),
+        today=date(2026, 8, 20),
+    )
+    groups = {group["key"]: group for group in triage_groups([strong, weak, stale])["buckets"]}
     assert strong["id"] in {row["id"] for row in groups["review_now"]["entries"]}
     assert weak["id"] in {row["id"] for row in groups["same_origin_weak"]["entries"]}
+    assert stale["id"] in {row["id"] for row in groups["review_soon"]["entries"]}
 
 
 def test_confirm_persists_candidate_and_does_not_write_trusted_signal(tmp_path: Path) -> None:
