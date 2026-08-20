@@ -352,6 +352,13 @@ def evidence_quality_for_candidate(
     candidate: dict[str, Any],
     records: list[dict[str, Any]],
 ) -> dict[str, Any]:
+    existing = candidate.get("evidence_quality")
+    if (
+        isinstance(existing, dict)
+        and existing.get("headline") in {"LIMITED EVIDENCE", "FULL SOURCE EVIDENCE"}
+        and "limited" in existing
+    ):
+        return existing
     explicit = _explicit_evidence_quality(candidate)
     if explicit:
         level, detail = explicit
