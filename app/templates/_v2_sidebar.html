@@ -17,6 +17,7 @@
   </a>
 
   <p class="v2-nav-group">Decide</p>
+  {% if not static_build %}
   <a href="/brief#pending-triage" class="v2-nav-link">
     Pending Review
     {% if nav_work_counts.review_now %}<span class="v2-count v2-count-action">{{ nav_work_counts.review_now }}</span>{% endif %}
@@ -25,6 +26,7 @@
     Signal Review
     {% if nav_work_counts.emerging_signals %}<span class="v2-count v2-count-action">{{ nav_work_counts.emerging_signals }}</span>{% endif %}
   </a>
+  {% endif %}
   <a href="/assessments" class="v2-nav-link{% if path.startswith('/assessments') %} is-active{% endif %}">Assessments</a>
 
   <p class="v2-nav-group">Monitor</p>
