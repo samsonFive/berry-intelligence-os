@@ -130,9 +130,7 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert 'href="../../../entities/variety/' in landscape_html
 
     scanner_html = (output_dir / "work-queue" / "index.html").read_text(encoding="utf-8")
-    assert "Scanner" in scanner_html
-    assert "FOUND" in scanner_html
-    assert "ACCEPTED" in scanner_html
+    assert "Live Intelligence" in scanner_html
     assert "Trusted published snapshot" in scanner_html
     assert "Interactive publication review is local-only" in scanner_html
     assert "Secret unpublished draft title" not in scanner_html

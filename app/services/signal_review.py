@@ -511,6 +511,7 @@ def present_candidate(
         "independent_source_count": independent,
         "evidence_quality": quality,
         "limited_evidence": bool(quality.get("limited")),
+        "berry_ids": list(candidate.get("berry_ids") or []),
         "berry_direct": berry_direct,
         "watch_match": watch_match,
         "latest_date": latest.isoformat() if latest else "",
