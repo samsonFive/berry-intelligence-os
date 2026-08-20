@@ -12,6 +12,9 @@
   {% elif item.summary %}
     <p class="v2-card-summary">{{ item.summary|truncate(140) }}</p>
   {% endif %}
+  {% if item.ai_untrusted %}
+    <p class="v2-meta">AI-assisted · pending analyst review</p>
+  {% endif %}
   {% if item.primary_subject %}
     <p class="v2-card-subject">{{ item.primary_subject.name }}</p>
   {% endif %}
