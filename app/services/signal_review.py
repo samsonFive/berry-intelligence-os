@@ -344,7 +344,6 @@ def emerging_signals(presented: list[dict[str, Any]], *, limit: int = EMERGING_L
         lambda row: row.get("triage_bucket") == "review_now",
         lambda row: row.get("triage_bucket") == "same_origin_weak" and int(row.get("recency_days") or 999) <= 90,
         lambda row: row.get("triage_bucket") == "review_soon" and int(row.get("recency_days") or 999) <= 180,
-        lambda row: True,
     )
     ordered: list[dict[str, Any]] = []
     seen: set[str] = set()
