@@ -8,17 +8,21 @@
     "UADA"
   ],
   "status": "active",
-  "description": "United States public research and extension institution. Publishes independent blueberry variety trial results with stated harvest windows and measured Brix, pH and titratable acidity.",
+  "description": "United States public research and extension institution. Publishes independent blueberry variety trial results with stated harvest windows and measured Brix, pH and titratable acidity. Also runs the Worthington/Clark blackberry breeding program, the world's largest public blackberry program, with 43+ varieties released including the Prime-Ark(R) and Sweet-Ark(TM) series.",
   "roles": [
     "public_research_institution",
     "independent_trial_publisher",
-    "extension_publisher"
+    "extension_publisher",
+    "breeder"
   ],
   "berry_ids": [
-    "berry-blueberry"
+    "berry-blueberry",
+    "berry-blackberry"
   ],
   "evidence_ids": [
-    "ev-uaex-blueberry-trial-2024"
+    "ev-uaex-blueberry-trial-2024",
+    "ev-20260806173540-30a7-top-performing-arkansas-blackberry-recei",
+    "ev-20260806173540-749e-arkansas-blackberry-season-is-here-witho"
   ],
   "fact_ids": [
     "fact-uaex-trial-design-2024",

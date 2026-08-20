@@ -498,14 +498,21 @@ def build() -> list[Path]:
             )
         )
 
-    # Blueberry Landscape (V2 Phase 1.5B, BL-026).
-    written.append(
-        write_page(
-            "landscape.html",
-            "/landscapes/berries/blueberry",
-            {**landscape_context("berry-blueberry"), "authoring_mode": False},
+    # Berry Landscapes (V2 Phase 1.5B, BL-026; genericized for all four
+    # berries in the 2026-08-20 multi-berry portability audit -- this loop
+    # previously rendered only "/landscapes/berries/blueberry", the same
+    # hardcoding already fixed in the live route (app/main.py) and the nav
+    # (base.html); left unfixed here, the static site would have kept
+    # serving a 404 for the other three even after those two fixes).
+    for berry_id in BERRIES:
+        berry_slug = berry_id.removeprefix("berry-")
+        written.append(
+            write_page(
+                "landscape.html",
+                f"/landscapes/berries/{berry_slug}",
+                {**landscape_context(berry_id), "authoring_mode": False},
+            )
         )
-    )
 
     # Full search-results page. Runs Pagefind's own JS entirely client-side
     # (reads ?q= at load, renders via the site's own card styling) -- no

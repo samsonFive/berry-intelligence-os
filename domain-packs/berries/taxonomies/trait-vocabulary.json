@@ -72,6 +72,20 @@
       "description": "Harvested fruit per plant or per hectare, normally reported with a location and season.",
       "measurement_type": "numeric",
       "unit": "fruit per plant or per hectare"
+    },
+    {
+      "id": "trait-fruiting-habit",
+      "label": "Fruiting habit",
+      "description": "Whether a caneberry cultivar fruits on first-year canes (primocane, fall-fruiting) or second-year canes (floricane, summer-fruiting), or both. Added for the multi-berry portability audit (2026-08-20) -- the original 10 traits above were all derived from the blueberry-only pilot and had no entry for this categorical growth-habit distinction, which is the primary variety-differentiator for raspberry and blackberry breeding.",
+      "measurement_type": "categorical",
+      "unit": null
+    },
+    {
+      "id": "trait-flowering-habit",
+      "label": "Flowering habit",
+      "description": "Whether a strawberry cultivar flowers in response to short daylength (short-day / June-bearing) or largely independent of daylength (day-neutral / everbearing). Added for the multi-berry portability audit (2026-08-20), same reason as trait-fruiting-habit.",
+      "measurement_type": "categorical",
+      "unit": null
     }
   ],
   "unresolved_overlap_candidates": [

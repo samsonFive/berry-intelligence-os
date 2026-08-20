@@ -28,7 +28,17 @@ BERRY_POSITIVE: tuple[tuple[str, tuple[str, ...]], ...] = (
     ),
     (
         "berry-strawberry",
-        ("strawberry", "strawberries", "fragaria", "frutilla", "fresa"),
+        (
+            "strawberry",
+            "strawberries",
+            "fragaria",
+            "fragaria x ananassa",
+            "fragaria vesca",
+            "day-neutral",
+            "june-bearing",
+            "frutilla",
+            "fresa",
+        ),
     ),
     (
         "berry-raspberry",
@@ -38,11 +48,25 @@ BERRY_POSITIVE: tuple[tuple[str, tuple[str, ...]], ...] = (
             "rubus idaeus",
             "rubus occidentalis",
             "rubus idaeus subsp",
+            "rubus strigosus",
+            "primocane",
+            "floricane",
+            "frambuesa",
         ),
     ),
     (
         "berry-blackberry",
-        ("blackberry", "blackberries", "rubus ursinus", "trailing blackberry"),
+        (
+            "blackberry",
+            "blackberries",
+            "rubus ursinus",
+            "trailing blackberry",
+            "rubus fruticosus",
+            "rubus laciniatus",
+            "primocane",
+            "floricane",
+            "mora",
+        ),
     ),
 )
 
