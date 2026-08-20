@@ -155,6 +155,11 @@ def build() -> list[Path]:
         dim: sum(1 for r in evidence if (r.get("priority") or {}).get(dim, {}).get("level", "none") != "none")
         for dim in PRIORITY_DIMENSIONS
     }
+    previous_globals = {
+        "queue_counts": templates.env.globals.get("queue_counts"),
+        "pending_review_count": templates.env.globals.get("pending_review_count"),
+        "nav_work": templates.env.globals.get("nav_work"),
+    }
     templates.env.globals["queue_counts"] = lambda: queue_summary_once
     templates.env.globals["pending_review_count"] = lambda: 0
     templates.env.globals["nav_work"] = lambda: {
@@ -539,6 +544,11 @@ def build() -> list[Path]:
     # server-side content to pass here, unlike every other page above.
     written.append(write_page("search.html", "/search", {"authoring_mode": False}))
 
+    for key, value in previous_globals.items():
+        if value is None:
+            templates.env.globals.pop(key, None)
+        else:
+            templates.env.globals[key] = value
     return written
 
 
