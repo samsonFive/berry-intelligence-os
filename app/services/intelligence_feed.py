@@ -250,6 +250,12 @@ def present_feed_item(
     trust = trust_state(record, readiness=presentation.get("transcript_readiness"))
     source_url, source_label = source_action(record, kind)
     chips = entity_chips(record, entities)
+    enrichment = record.get("ai_enrichment") or {}
+    berry_ids = [
+        str(value)
+        for value in list(record.get("berry_ids") or []) + list(enrichment.get("suggested_berry_ids") or [])
+        if value
+    ]
     return {
         "id": record.get("id"),
         "title": record.get("title") or "Untitled",
@@ -257,6 +263,7 @@ def present_feed_item(
         "kind_label": KIND_LABELS.get(kind, "Intelligence"),
         "trust": trust,
         "trust_label": TRUST_LABELS[trust],
+        "berry_ids": berry_ids,
         "source_name": record.get("source_name") or record.get("submitted_by") or "Source not recorded",
         "date": record.get("published_date") or record.get("captured_date") or "",
         "why": card.get("why") or "",
@@ -283,7 +290,61 @@ def present_feed_item(
             and record.get("status") != "published"
             and record.get("evidence_role") != "atomic_evidence"
         ),
+        "story_thread": None,
+        "related_signals": [],
+        "related_candidates": [],
     }
+
+
+def annotate_feed_semantics(
+    entries: list[dict[str, Any]],
+    *,
+    signals: list[dict[str, Any]] | None = None,
+    candidates: list[dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
+    """Attach Story / Signal marks without changing Feed ranking."""
+
+    from app.services.story_threads import group_story_threads, threads_by_item_id
+
+    threads = group_story_threads(entries)
+    by_item = threads_by_item_id(threads)
+    signal_index: dict[str, list[dict[str, Any]]] = {}
+    for signal in signals or []:
+        for evidence_id in signal.get("evidence_ids") or []:
+            signal_index.setdefault(str(evidence_id), []).append(signal)
+    candidate_index: dict[str, list[dict[str, Any]]] = {}
+    for candidate in candidates or []:
+        for evidence_id in candidate.get("supporting_evidence_ids") or []:
+            candidate_index.setdefault(str(evidence_id), []).append(candidate)
+    for item in entries:
+        item_id = str(item.get("id") or "")
+        thread = by_item.get(item_id)
+        if thread and int(thread.get("source_count") or 0) > 1:
+            item["story_thread"] = {
+                "id": thread.get("id"),
+                "href": thread.get("href"),
+                "source_count": thread.get("source_count"),
+                "title": thread.get("title"),
+            }
+        item["related_signals"] = [
+            {
+                "id": signal.get("id"),
+                "title": signal.get("title") or signal.get("label") or signal.get("id"),
+                "href": f"/signals/{signal.get('id')}",
+                "status": signal.get("status") or "",
+            }
+            for signal in signal_index.get(item_id, [])[:3]
+        ]
+        item["related_candidates"] = [
+            {
+                "id": candidate.get("id"),
+                "title": candidate.get("label") or candidate.get("pattern_type") or candidate.get("id"),
+                "href": f"/signals/candidates/{candidate.get('id')}",
+                "status": candidate.get("status") or "",
+            }
+            for candidate in candidate_index.get(item_id, [])[:3]
+        ]
+    return entries
 
 
 def build_intelligence_feed(

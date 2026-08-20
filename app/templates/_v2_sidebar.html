@@ -1,0 +1,73 @@
+{% set suffix = nav_id_suffix|default('') %}
+{% set path = request.url.path %}
+{% set ui = ui_context if ui_context is defined else {"berry": "global", "berry_label": "Global", "landscape_href": "/entities/berry", "feed_view": "grid"} %}
+<div class="v2-brand">BERRY<span>INTELLIGENCE OS</span></div>
+<nav class="v2-nav" aria-label="Primary">
+  <p class="v2-nav-group">Work</p>
+  <a href="/brief" class="v2-nav-link{% if path == '/brief' %} is-active{% endif %}"{% if path == '/brief' %} aria-current="page"{% endif %}>
+    Morning Brief
+    {% if nav_work_counts.brief_action %}<span class="v2-count v2-count-action">{{ nav_work_counts.brief_action }}</span>{% endif %}
+  </a>
+  <a href="/work-queue" class="v2-nav-link{% if path == '/work-queue' or path.startswith('/intelligence/') or path.startswith('/threads/') %} is-active{% endif %}"{% if path == '/work-queue' %} aria-current="page"{% endif %}>
+    Live Intelligence
+  </a>
+  <a href="/queues/reading" class="v2-nav-link{% if path == '/queues/reading' %} is-active{% endif %}">
+    Reading Queue
+    {% if nav_work_counts.reading_action %}<span class="v2-count v2-count-action">{{ nav_work_counts.reading_action }}</span>{% endif %}
+  </a>
+
+  <p class="v2-nav-group">Decide</p>
+  {% if not static_build %}
+  <a href="/brief#pending-triage" class="v2-nav-link">
+    Pending Review
+    {% if nav_work_counts.review_now %}<span class="v2-count v2-count-action">{{ nav_work_counts.review_now }}</span>{% endif %}
+  </a>
+  <a href="/signals/review" class="v2-nav-link{% if path.startswith('/signals/review') or path.startswith('/signals/candidates') %} is-active{% endif %}"{% if path.startswith('/signals/review') %} aria-current="page"{% endif %}>
+    Signal Review
+    {% if nav_work_counts.emerging_signals %}<span class="v2-count v2-count-action">{{ nav_work_counts.emerging_signals }}</span>{% endif %}
+  </a>
+  {% endif %}
+  <a href="/assessments" class="v2-nav-link{% if path.startswith('/assessments') %} is-active{% endif %}">Assessments</a>
+
+  <p class="v2-nav-group">Monitor</p>
+  <a href="/queues/monitoring" class="v2-nav-link{% if path == '/queues/monitoring' %} is-active{% endif %}">
+    Watches
+    {% if nav_work_counts.monitoring_inventory %}<span class="v2-count v2-count-inventory">{{ nav_work_counts.monitoring_inventory }}</span>{% endif %}
+  </a>
+  <a href="/queues/monitoring#alerts" class="v2-nav-link">
+    Alerts
+    {% if nav_work_counts.signal_alerts %}<span class="v2-count v2-count-action">{{ nav_work_counts.signal_alerts }}</span>{% endif %}
+  </a>
+  {% if authoring_mode or static_build %}
+  <a href="/sources" class="v2-nav-link{% if path.startswith('/sources') %} is-active{% endif %}">Source Health</a>
+  {% endif %}
+
+  <p class="v2-nav-group">Library</p>
+  <a href="/entities/company" class="v2-nav-link{% if path.startswith('/entities/company') %} is-active{% endif %}">Companies</a>
+  <a href="/entities/variety" class="v2-nav-link{% if path.startswith('/entities/variety') %} is-active{% endif %}">Varieties</a>
+  <a href="/entities/geography" class="v2-nav-link{% if path.startswith('/entities/geography') %} is-active{% endif %}">Geographies</a>
+  <a href="{{ ui.landscape_href }}" class="v2-nav-link{% if path.startswith('/landscapes') or path.startswith('/entities/berry') %} is-active{% endif %}">Landscape</a>
+
+  <p class="v2-nav-group">
+    <button class="v2-nav-disclosure" type="button" data-bs-toggle="collapse" data-bs-target="#v2-system-nav{{ suffix }}" aria-expanded="false" aria-controls="v2-system-nav{{ suffix }}">System</button>
+  </p>
+  <div class="collapse{% if path.startswith('/intake') or path.startswith('/review') or path == '/queues/testing' or path == '/' or path.startswith('/signals') and not path.startswith('/signals/review') and not path.startswith('/signals/candidates') or path.startswith('/recommendations') or path.startswith('/strategic-questions') or path == '/queues/commercial_position' %} show{% endif %}" id="v2-system-nav{{ suffix }}">
+    {% if authoring_mode %}
+    <a href="/intake" class="v2-nav-link{% if path.startswith('/intake') %} is-active{% endif %}">Intake</a>
+    <a href="/review?kind=publication" class="v2-nav-link{% if path.startswith('/review') and 'atomic' not in request.url.query %} is-active{% endif %}">
+      Publications
+      {% if nav_work_counts.review_now %}<span class="v2-count v2-count-action">{{ nav_work_counts.review_now }}</span>{% elif pending_review_count() %}<span class="v2-count v2-count-inventory">{{ pending_review_count() }}</span>{% endif %}
+    </a>
+    <a href="/review?kind=atomic" class="v2-nav-link{% if path.startswith('/review') and 'atomic' in request.url.query %} is-active{% endif %}">Claims</a>
+    {% endif %}
+    <a href="/queues/testing" class="v2-nav-link{% if path == '/queues/testing' %} is-active{% endif %}">
+      Claim testing
+      {% if nav_work_counts.testing_action %}<span class="v2-count v2-count-action">{{ nav_work_counts.testing_action }}</span>{% endif %}
+    </a>
+    <a href="/signals" class="v2-nav-link{% if path == '/signals' or path.startswith('/signals/new') or (path.startswith('/signals/') and not path.startswith('/signals/review') and not path.startswith('/signals/candidates')) %} is-active{% endif %}">Signal catalog</a>
+    <a href="/" class="v2-nav-link{% if path == '/' %} is-active{% endif %}">Newsfeed</a>
+    <a href="/queues/commercial_position" class="v2-nav-link{% if path == '/queues/commercial_position' %} is-active{% endif %}">Commercial positions</a>
+    <a href="/strategic-questions" class="v2-nav-link{% if path.startswith('/strategic-questions') %} is-active{% endif %}">Strategic Questions</a>
+    <a href="/recommendations" class="v2-nav-link{% if path.startswith('/recommendations') %} is-active{% endif %}">Recommendations</a>
+  </div>
+</nav>
