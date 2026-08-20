@@ -40,6 +40,10 @@ In this Cloud Agent VM, `docker` usually needs `sudo` (the `ubuntu` user is not 
 
 Remote interactive login is `GET /login`. Unauthenticated `/work-queue` redirects there. The session cookie is Secure only when the request is HTTPS or `X-Forwarded-Proto: https` (Caddy does this). Do not enable `BIOS_BASIC_AUTH` in front of `/login`. Remote interactive mode fails closed without `BIOS_REVIEW_USERNAME`, `BIOS_REVIEW_PASSWORD`, and `BIOS_SESSION_SECRET`.
 
+### Visual system
+
+Do not begin a V2 reskin unless explicitly asked. Current-state audit: `docs/v2/UI-UX-V2-DESIGN-READINESS.md`. Landscape remains blueberry-hardcoded (`/landscapes/berries/blueberry` in nav and route). At `max-width: 834px` the sidebar is hidden with no replacement nav. The stack is FastAPI + Jinja + `app/static/app.css`; a React/Vue admin kit is not a drop-in.
+
 ### Analyst workspace
 
 Nav purple pills (`.nav-action`) are **action counts** with a resolution workflow. Grey `.nav-inventory` figures are catalogs, not uncleared work.
