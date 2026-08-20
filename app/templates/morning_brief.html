@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 {% block title %}Morning Brief — Berry Intelligence OS{% endblock %}
 {% block content %}
-<section class="page-heading">
+<div class="v2-page">
+<section class="page-heading v2-page-header">
   <div>
-    <p class="eyebrow">LIVE INTELLIGENCE</p>
+    <p class="eyebrow">WORK</p>
     <h1>Morning Brief</h1>
     <p class="also-known-as">What changed since last check. What is new. What is still important. What can wait.</p>
   </div>
-  <div class="brief-metrics">
-    <p class="queue-metric queue-metric-action">{{ brief.since_last.counts.total or 0 }} new since last brief</p>
-    <p class="queue-metric queue-metric-action">{{ brief.counts.new_developments or 0 }} new developments</p>
-    <p class="queue-metric queue-metric-inventory">{{ brief.counts.important or 0 }} still important</p>
-    <p class="queue-metric queue-metric-inventory">{{ brief.unresolved }} still in Reading Queue</p>
-    <p class="queue-metric queue-metric-action">{{ brief.counts.review_now or 0 }} review now</p>
-  </div>
 </section>
+
+<p class="v2-action-summary" aria-label="Action summary">
+  <a href="#new-developments"><strong>{{ brief.counts.new_developments or 0 }}</strong> new developments</a>
+  <a href="#emerging-signals"><strong>{{ brief.counts.emerging_signals or 0 }}</strong> emerging signals</a>
+  <a href="#pending-triage"><strong>{{ brief.counts.review_now or 0 }}</strong> decisions</a>
+</p>
 
 <p class="brief-window">Deltas use the persisted last-brief timestamp. Viewing this page does not mark items read or trusted.{% if brief.last_seen_at %} Last check: {{ brief.last_seen_at }}.{% else %} First brief this session — “new” means activity in the last day.{% endif %} New and important are separate: current activity does not hide unresolved high-value records.</p>
 
@@ -106,8 +106,8 @@
         <a href="{{ watch.href }}">{{ watch.name }}</a>
         — {{ watch.happened }}
         {% if watch.kind_summary %} · {{ watch.kind_summary }}{% endif %}
-        {% if watch.emerging_signal_count %}<span class="nav-action">{{ watch.emerging_signal_count }} emerging</span>{% endif %}
-        {% if watch.signal_count %} · <span class="nav-action">{{ watch.signal_label }}</span>{% endif %}
+        {% if watch.emerging_signal_count %}<span class="v2-count v2-count-action">{{ watch.emerging_signal_count }} emerging</span>{% endif %}
+        {% if watch.signal_count %} · <span class="v2-mark v2-mark-confirmed">{{ watch.signal_label }}</span>{% endif %}
         <ul class="brief-bullets">
           {% for item in watch.entries %}
             {% if item.is_thread %}
@@ -263,4 +263,5 @@
     {% endfor %}
   </ul>
 </section>
+</div>
 {% endblock %}

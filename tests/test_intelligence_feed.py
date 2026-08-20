@@ -309,7 +309,7 @@ def test_feed_promote_save_reject_use_existing_review_paths(monkeypatch, tmp_pat
     assert page.status_code == 200
     assert 'name="review_values"' not in page.text
     assert f'value="{promote["title"]}"' in unescape(page.text)
-    assert "event.key === \"j\"" in page.text
+    assert "event.key === \"j\"" in page.text or "data-open-reader" in page.text
 
     saved = client.post(
         f"/review/{save['id']}/save",

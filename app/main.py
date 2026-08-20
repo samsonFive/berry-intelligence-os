@@ -51,6 +51,14 @@ from app.services.source_freshness import (
     classify_source_freshness,
     latest_item_dates,
 )
+from app.services.ui_context import (
+    apply_ui_cookies,
+    matches_berry_context,
+    parse_berry,
+    parse_feed_view,
+    persist_ui_prefs,
+    read_ui_context,
+)
 from app.services.analyst_queue import (
     apply_action as apply_queue_action,
     build_dimension_page,
@@ -82,14 +90,15 @@ from app.runtime_config import (
     review_username,
     validate_remote_interactive_config,
 )
-from app.services.intelligence_feed import build_intelligence_feed, build_reader
+from app.services.intelligence_feed import annotate_feed_semantics, build_intelligence_feed, build_reader
 from app.services.morning_brief import build_morning_brief
-from app.services.signal_candidates import SignalCandidateError
+from app.services.signal_candidates import SignalCandidateError, load_candidates
 from app.services.signal_review import (
     StaleSignalCandidateError,
     apply_and_persist_decision,
     candidate_by_id,
     candidates_for_thread,
+    evidence_quality_for_record,
     lookup_candidate,
     open_signals_for_entity,
     present_candidates,
@@ -327,7 +336,11 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     counts["review_now"] = int((brief.get("counts") or {}).get("review_now") or 0)
     counts["pending_open"] = int((brief.get("counts") or {}).get("pending_open") or 0)
     counts["emerging_signals"] = int((brief.get("counts") or {}).get("emerging_signals") or 0)
-    return {"nav_work_counts": counts}
+    return {
+        "nav_work_counts": counts,
+        "ui_context": read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR),
+        "berries": BERRIES,
+    }
 
 
 templates = Jinja2Templates(
@@ -416,6 +429,22 @@ async def login_submit(
 async def logout(request: Request) -> RedirectResponse:
     clear_session(request)
     return RedirectResponse(url="/login", status_code=303)
+
+
+@app.post("/ui/context")
+async def set_ui_context(
+    request: Request,
+    berry: str = Form(default="global"),
+    view: str = Form(default=""),
+    next: str = Form(default="/brief"),
+) -> RedirectResponse:
+    current = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    berry_id = parse_berry(berry, BERRIES)
+    feed_view = parse_feed_view(view or current["feed_view"])
+    persist_ui_prefs(INBOX_DIR, berry=berry_id, feed_view=feed_view)
+    response = RedirectResponse(url=safe_next_path(next), status_code=303)
+    apply_ui_cookies(response, berry=berry_id, feed_view=feed_view)
+    return response
 
 
 _JSON_FOLDER_CACHE: dict[Path, tuple[tuple[tuple[str, int, int], ...], list[dict[str, Any]]]] = {}
@@ -1960,10 +1989,42 @@ def _attach_pending_decision_actions(items: list[dict[str, Any]], reviewer: str)
         item["show_pending_actions"] = True
 
 
+def _filter_items_for_berry(items: list[dict[str, Any]] | None, berry: str) -> list[dict[str, Any]]:
+    return [item for item in (items or []) if matches_berry_context(item, berry)]
+
+
+def _filter_brief_for_berry(brief: dict[str, Any], berry: str) -> dict[str, Any]:
+    if berry == "global":
+        return brief
+    brief["new_developments"] = _filter_items_for_berry(brief.get("new_developments"), berry)
+    brief["important"] = _filter_items_for_berry(brief.get("important"), berry)
+    brief["emerging_signals"] = _filter_items_for_berry(brief.get("emerging_signals"), berry)
+    brief["top_developments"] = _filter_items_for_berry(brief.get("top_developments"), berry)
+    pending = dict(brief.get("pending_triage") or {})
+    buckets = []
+    for group in pending.get("buckets") or []:
+        entries = _filter_items_for_berry(group.get("entries"), berry)
+        buckets.append({**group, "entries": entries, "count": len(entries)})
+    pending["buckets"] = buckets
+    pending_counts = dict(pending.get("counts") or {})
+    for group in buckets:
+        pending_counts[str(group.get("key") or "")] = int(group.get("count") or 0)
+    pending["counts"] = pending_counts
+    brief["pending_triage"] = pending
+    counts = dict(brief.get("counts") or {})
+    counts["new_developments"] = len(brief.get("new_developments") or [])
+    counts["emerging_signals"] = len(brief.get("emerging_signals") or [])
+    counts["review_now"] = int(pending_counts.get("review_now") or 0)
+    brief["counts"] = counts
+    return brief
+
+
 @app.get("/brief", response_class=HTMLResponse)
 def morning_brief_page(request: Request) -> HTMLResponse:
     brief = _assemble_morning_brief(mark_seen=True, include_coverage=True)
     reviewer = session_username(request) or review_username() or ""
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    brief = _filter_brief_for_berry(brief, ui["berry"])
     for group in (brief.get("pending_triage") or {}).get("buckets") or []:
         _attach_pending_decision_actions(group.get("entries") or [], reviewer)
     return templates.TemplateResponse(
@@ -2010,8 +2071,17 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
         values = _default_review_values(item["record"])
         values["reviewer"] = reviewer
         item["review_values"] = _overlay_attribution_companies(values, item)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    if request.query_params.get("view") or request.query_params.get("berry"):
+        persist_ui_prefs(INBOX_DIR, berry=ui["berry"], feed_view=ui["feed_view"])
+    feed["entries"] = [item for item in feed["entries"] if matches_berry_context(item, ui["berry"])]
+    annotate_feed_semantics(
+        feed["entries"],
+        signals=all_signals(),
+        candidates=load_candidates(INBOX_DIR) if INBOX_DIR else [],
+    )
     return_filter = "" if filter in {"", "all"} else f"?filter={filter}"
-    return templates.TemplateResponse(
+    response = templates.TemplateResponse(
         request=request,
         name="work_queue.html",
         context={
@@ -2019,6 +2089,7 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
             "drafts": list_pending_drafts(),
             "review_cards": [],
             "feed": feed,
+            "feed_view": ui["feed_view"],
             "reviewer": reviewer,
             "return_filter": return_filter,
             "promoted_id": request.query_params.get("promoted") or "",
@@ -2039,6 +2110,8 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
             "static_build": False,
         },
     )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
 
 
 def _load_intelligence_record(item_id: str) -> dict[str, Any] | None:
@@ -2107,6 +2180,28 @@ def _intelligence_page_context(
         found = thread_for_item(str(record.get("id")), universe)
         if found and int(found.get("source_count") or 0) > 1:
             story_thread = found
+    item_id = str(record.get("id") or "")
+    related_signals = [
+        {
+            "id": signal.get("id"),
+            "title": signal.get("title") or signal.get("label") or signal.get("id"),
+            "href": f"/signals/{signal.get('id')}",
+            "status": signal.get("status") or "",
+        }
+        for signal in all_signals()
+        if item_id and item_id in (signal.get("evidence_ids") or [])
+    ]
+    related_candidates = [
+        {
+            "id": candidate.get("id"),
+            "title": candidate.get("label") or candidate.get("pattern_type") or candidate.get("id"),
+            "href": f"/signals/candidates/{candidate.get('id')}",
+            "status": candidate.get("status") or "",
+        }
+        for candidate in (load_candidates(INBOX_DIR) if INBOX_DIR else [])
+        if item_id and item_id in (candidate.get("supporting_evidence_ids") or [])
+    ]
+    quality = evidence_quality_for_record(record)
     return {
         **reader,
         "record": record,
@@ -2118,6 +2213,10 @@ def _intelligence_page_context(
         "error": error,
         "attribution": attribution,
         "story_thread": story_thread,
+        "related_signals": related_signals,
+        "related_candidates": related_candidates,
+        "evidence_quality": quality,
+        "limited_evidence": bool(quality.get("limited")),
     }
 
 
@@ -2130,6 +2229,23 @@ def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
         request=request,
         name="intelligence_reader.html",
         context=_intelligence_page_context(request, record),
+    )
+
+
+@app.get("/api/intelligence/{item_id}/reader", response_class=HTMLResponse)
+def intelligence_reader_fragment(request: Request, item_id: str) -> HTMLResponse:
+    record = _load_intelligence_record(item_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail="Intelligence item not found")
+    return templates.TemplateResponse(
+        request=request,
+        name="_reader_panel.html",
+        context={
+            **_intelligence_page_context(request, record),
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "overlay": True,
+        },
     )
 
 
@@ -2484,6 +2600,8 @@ def signal_candidate_review(request: Request) -> HTMLResponse:
         evidence_by_id=_evidence_index(),
         entities=entity_index(),
     )
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    presented = [row for row in presented if matches_berry_context(row, ui["berry"])]
     return templates.TemplateResponse(
         request=request,
         name="signal_candidate_review.html",

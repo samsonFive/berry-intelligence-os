@@ -139,7 +139,9 @@ def test_scanner_and_publication_queue_lead_with_analyst_fields(monkeypatch, tmp
 
     scanner = client.get("/work-queue")
     assert scanner.status_code == 200
-    assert "FOUND" in scanner.text and "IMPORTANT" in scanner.text and "NEEDS REVIEW" in scanner.text
+    assert "Live Intelligence" in scanner.text
+    assert "v2-feed-grid" in scanner.text or "intel-card" in scanner.text
+    assert "FOUND" not in scanner.text
     assert "0 failures" not in scanner.text.casefold()
     assert "El Niño can disrupt blueberry export timing." in scanner.text
     assert scanner.text.index("Synthetic blueberry elnino") < scanner.text.index("How DNA Technology")
