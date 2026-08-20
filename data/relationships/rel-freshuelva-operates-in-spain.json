@@ -1,0 +1,14 @@
+{
+  "id": "rel-freshuelva-operates-in-spain",
+  "record_type": "relationship",
+  "subject_id": "company-freshuelva",
+  "predicate": "operates_in",
+  "object_id": "geography-spain",
+  "status": "active",
+  "evidence_ids": [
+    "ev-20260806173603-e188-spain-freshuelva-estimates-a-50-drop-in-",
+    "ev-20260806173603-e48c-spain-freshuelva-calls-for-more-moroccan"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Freshuelva is the Huelva, Spain red-fruit growers/exporters association, quoted directly in both articles."
+}

@@ -1,0 +1,31 @@
+{
+  "id": "company-civ-italy",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "CIV (Consorzio Italiano Vivaisti)",
+  "aliases": [
+    "CIV",
+    "Consorzio Italiano Vivaisti"
+  ],
+  "status": "active",
+  "description": "Italian nursery/breeding consortium. FreshPlaza reports its patented strawberry cultivar Flavia -- early-ripening, mid-vigor -- is being trialed by many growers.",
+  "roles": [
+    "breeder",
+    "nursery",
+    "genetics_licensor",
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [
+    "ev-20260806173842-b741-early-ripening-strawberry-variety-flavia"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-civ-develops-flavia"
+  ],
+  "attributes": {
+    "country": "Italy"
+  }
+}

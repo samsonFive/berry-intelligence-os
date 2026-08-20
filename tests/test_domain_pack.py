@@ -169,7 +169,18 @@ def test_every_live_entity_resolves_to_a_declared_type() -> None:
     # trait-fruiting-habit/trait-flowering-habit (primocane/floricane and
     # day-neutral/short-day -- categorical variety traits with no blueberry
     # equivalent, absent from the original blueberry-only trait vocabulary).
-    assert total == 173, f"expected 173 live entities, found {total}"
+    # 184 = 173 plus 11 real entities added for the Strawberry Vertical V1
+    # depth mission (2026-08-20): company-nova-siri-genetics, company-civ-
+    # italy, company-eurosemillas, company-rijk-zwaan, company-freshuelva
+    # (5 real companies/breeders/associations backing already-existing but
+    # previously unlinked strawberry Evidence -- Melissa/Marimbella,
+    # Flavia, the former UC Davis strawberry licensee, a genuine
+    # cross-berry breeder, and the Huelva growers' association);
+    # breeding_program-njaes-rutgers-strawberry (1); and 5 real variety
+    # entities with a named breeder in Evidence (variety-redsayra,
+    # variety-melissa, variety-marimbella, variety-flavia, variety-
+    # rutgers-dlight).
+    assert total == 184, f"expected 184 live entities, found {total}"
 
 
 # ---------------------------------------------------------------------------
@@ -183,7 +194,13 @@ def test_every_live_relationship_resolves_to_a_declared_predicate() -> None:
         record = json.loads(Path(f).read_text(encoding="utf-8"))
         assert record.get("predicate") in declared, f"{f}: predicate {record.get('predicate')!r} not declared"
         total += 1
-    assert total == 204, f"expected 204 live relationships, found {total}"
+    # 210 = 204 plus 6 real relationships added for the Strawberry Vertical
+    # V1 depth mission (2026-08-20), one per new variety/company link:
+    # rel-planasa-develops-redsayra, rel-nova-siri-genetics-develops-
+    # melissa, rel-nova-siri-genetics-develops-marimbella, rel-civ-
+    # develops-flavia, rel-freshuelva-operates-in-spain, rel-njaes-
+    # rutgers-develops-dlight.
+    assert total == 210, f"expected 210 live relationships, found {total}"
 
 
 def test_all_ten_v1_predicates_and_six_extensions_present() -> None:
@@ -244,7 +261,12 @@ def test_all_live_sources_accounted_for() -> None:
     templates = data["collector_templates"]
     excluded = data.get("excluded", [])
     sources = json.loads((ROOT / "data" / "configuration" / "sources.json").read_text(encoding="utf-8"))
-    assert len(sources) == 140
+    # 142 = 140 plus source-freshuelva-news and source-nova-siri-genetics-
+    # news, added (with matching collector_templates entries) for the
+    # Strawberry Vertical V1 depth mission (2026-08-20); both real,
+    # live-verified URLs (freshuelva.es/noticias/, novasirigenetics.com/
+    # news-ed-eventi/), not assumed.
+    assert len(sources) == 142
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}

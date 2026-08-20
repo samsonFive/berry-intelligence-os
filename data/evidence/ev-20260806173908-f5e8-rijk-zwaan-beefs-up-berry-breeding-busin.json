@@ -18,7 +18,9 @@
     "berry-blackberry"
   ],
   "geography_ids": [],
-  "entity_ids": [],
+  "entity_ids": [
+    "company-rijk-zwaan"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],

@@ -18,7 +18,9 @@
     "geography-morocco",
     "geography-spain"
   ],
-  "entity_ids": [],
+  "entity_ids": [
+    "company-freshuelva"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],

@@ -15,7 +15,10 @@
     "berry-strawberry"
   ],
   "geography_ids": [],
-  "entity_ids": [],
+  "entity_ids": [
+    "breeding_program-njaes-rutgers-strawberry",
+    "variety-rutgers-dlight"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],

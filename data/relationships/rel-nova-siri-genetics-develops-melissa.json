@@ -1,0 +1,13 @@
+{
+  "id": "rel-nova-siri-genetics-develops-melissa",
+  "record_type": "relationship",
+  "subject_id": "company-nova-siri-genetics",
+  "predicate": "develops",
+  "object_id": "variety-melissa",
+  "status": "active",
+  "evidence_ids": [
+    "ev-20260806173842-dc19-new-melissa-strawberry-cultivar-freshpla"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; FreshPlaza reports Melissa as a Nova Siri Genetics patented cultivar, quoting the company directly."
+}

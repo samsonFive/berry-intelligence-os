@@ -77,6 +77,25 @@ CATEGORIES: tuple[_RelevanceCategory, ...] = (
         (
             "blueberry", "blueberries", "strawberry", "strawberries", "raspberry", "raspberries",
             "blackberry", "blackberries", "highbush", "southern highbush",
+            # Non-English species names -- this category previously had zero
+            # non-English coverage of any kind, discovered when a real,
+            # live-verified Italian-language source (Nova Siri Genetics,
+            # onboarded for the Strawberry Vertical V1 depth mission,
+            # 2026-08-20) was systematically screened irrelevant on every
+            # item despite genuinely covering strawberry breeding, because
+            # "fragola"/"fragole" (Italian for strawberry) matched nothing
+            # here. A large share of this dataset's real sources are
+            # Spanish-language (Huelva/Freshuelva) or Italian-language
+            # (Nova Siri Genetics, CIV) -- added symmetrically across all
+            # four berries rather than patching strawberry alone.
+            "fresa", "fresas", "fragola", "fragole",
+            "arándano", "arándanos", "arandano", "arandanos", "mirtillo", "mirtilli",
+            "frambuesa", "frambuesas", "lampone", "lamponi",
+            "mora", "moras",
+            # Italian "more" (blackberries, plural) deliberately excluded --
+            # it collides with the extremely common English word "more"
+            # even under word-boundary matching (_word_present), which
+            # would false-positive on ordinary English text constantly.
             # Known berry-industry trade association names, not generic
             # species words -- found missing a real article that discusses
             # "the Mexican berry industry" throughout via Aneberries (the

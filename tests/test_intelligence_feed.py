@@ -611,7 +611,15 @@ def test_runtime_feed_uses_real_records_when_present() -> None:
     patents = client.get("/work-queue?filter=patents")
     articles = client.get("/work-queue?filter=articles")
     assert spoken.status_code == articles.status_code == patents.status_code == 200
-    if any(path.name.startswith("ev-media-") for path in inbox.glob("*.json")):
+    # The "ev-media-" id prefix is shared by media_discovery.py's whole
+    # adapter family (podcast_rss/youtube_feed *and* article_rss), so it is
+    # not itself proof of spoken media -- classify_kind() on the record's
+    # own media_format is the same check the real /work-queue route uses.
+    has_spoken_draft = any(
+        classify_kind(json.loads(path.read_text(encoding="utf-8"))) == "spoken"
+        for path in inbox.glob("ev-media-*.json")
+    )
+    if has_spoken_draft:
         assert "Spoken media" in spoken.text
         assert "Pending" in spoken.text
     if any("lucentlands" in path.name for path in data.glob("*.json")):
