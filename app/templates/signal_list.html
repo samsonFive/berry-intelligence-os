@@ -5,10 +5,13 @@
   <div>
     <p class="eyebrow">WHAT PATTERN MAY BE EMERGING, AND WHAT SUPPORTS IT</p>
     <h1>Signals</h1>
-    <p class="also-known-as">This list is the signal catalog. New proposed signals that still need a decision appear as an action count in Monitoring, not as a pile of uncleared inventory.</p>
+    <p class="also-known-as">This list is the trusted signal catalog. Untrusted candidates are reviewed separately so they cannot be mistaken for published Signals.</p>
   </div>
   {% if authoring_mode %}
-    <a class="button-link" href="/signals/new">New Signal</a>
+    <div class="queue-actions">
+      <a class="button-link" href="/signals/review">Review candidates</a>
+      <a class="button-link" href="/signals/new">New Signal</a>
+    </div>
   {% endif %}
 </section>
 

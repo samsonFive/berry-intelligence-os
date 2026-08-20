@@ -40,6 +40,12 @@ from app.services.intelligence_feed import (
 )
 from app.services.review_workbench import _relevance_band
 from app.services.source_freshness import CURRENT, DUE, FAILING, STALE
+from app.services.signal_review import emerging_signals, present_candidates
+from app.services.story_threads import (
+    compress_entries,
+    group_story_threads,
+    threads_by_item_id,
+)
 
 BUCKETS = (
     ("top_priority", "Top priority"),
@@ -708,7 +714,10 @@ def assign_pending_triage(ranked: list[dict[str, Any]], *, state: dict[str, dict
     return ranked
 
 
-def _pending_triage_groups(ranked: list[dict[str, Any]]) -> dict[str, Any]:
+def _pending_triage_groups(
+    ranked: list[dict[str, Any]],
+    threads_by_id: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
     by_key: dict[str, list[dict[str, Any]]] = {key: [] for key, _ in PENDING_TRIAGE_BUCKETS}
     dismissed = 0
     for item in ranked:
@@ -720,19 +729,30 @@ def _pending_triage_groups(ranked: list[dict[str, Any]]) -> dict[str, Any]:
     buckets = []
     counts = {"dismissed": dismissed}
     open_total = 0
+    occupied: set[str] = set()
+    index = threads_by_id or {}
     for key, label in PENDING_TRIAGE_BUCKETS:
         entries = by_key.get(key) or []
         entries.sort(key=lambda row: int(row.get("score") or 0), reverse=True)
-        counts[key] = len(entries)
-        open_total += len(entries)
-        preview = entries if key == "review_now" else entries[:8]
+        raw_count = len(entries)
+        counts[key] = raw_count
+        open_total += raw_count
+        if key in {"review_now", "review_soon"} and index:
+            presented, used = compress_entries(entries, index, occupied_ids=occupied)
+            occupied |= used
+            preview = presented
+        else:
+            presented = entries
+            preview = entries if key == "review_now" else entries[:8]
+        story_count = len(presented)
         buckets.append(
             {
                 "key": key,
                 "label": label,
                 "entries": preview,
-                "count": len(entries),
-                "remainder": max(0, len(entries) - len(preview)),
+                "count": raw_count,
+                "story_count": story_count,
+                "remainder": max(0, len(presented) - len(preview)),
                 "allow_bulk_dismiss": key in {"likely_ignore", "older_backlog"},
             }
         )
@@ -827,6 +847,89 @@ def _company_deltas(ranked: list[dict[str, Any]], *, limit: int = COMPANY_DELTA_
     return [row for row in deltas if row["count"] >= 1]
 
 
+def _compress_company_deltas(
+    deltas: list[dict[str, Any]],
+    threads_by_id: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    if not threads_by_id:
+        return deltas
+    for company in deltas:
+        bullets = list(company.get("bullets") or [])
+        seen: set[str] = set()
+        compressed: list[dict[str, Any]] = []
+        for bullet in bullets:
+            bullet_id = str(bullet.get("id") or "")
+            if not bullet_id or bullet_id in seen:
+                continue
+            thread = threads_by_id.get(bullet_id)
+            member_ids = {str(member_id) for member_id in (thread.get("member_ids") if thread else []) or []}
+            local = [row for row in bullets if str(row.get("id") or "") in member_ids] if thread else []
+            if thread and len(local) > 1:
+                compressed.append(
+                    {
+                        "id": thread.get("id"),
+                        "label": f"Developing: {thread.get('title')}",
+                        "title": thread.get("title"),
+                        "href": thread.get("href"),
+                        "source_name": f"{len(local)} sources",
+                        "date": thread.get("latest") or thread.get("date"),
+                        "new_since_last": any(row.get("new_since_last") for row in local),
+                        "is_thread": True,
+                    }
+                )
+                seen |= {str(row.get("id") or "") for row in local}
+                continue
+            compressed.append(bullet)
+            seen.add(bullet_id)
+        company["bullets"] = compressed[:4]
+        company["count"] = len(compressed)
+    return deltas
+
+
+def _compress_ranked_list(
+    entries: list[dict[str, Any]],
+    threads_by_id: dict[str, dict[str, Any]],
+    *,
+    limit: int | None = None,
+) -> list[dict[str, Any]]:
+    compressed, _ = compress_entries(entries, threads_by_id)
+    return compressed[:limit] if limit else compressed
+
+
+def _compress_watch_activity(
+    rows: list[dict[str, Any]],
+    threads_by_id: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    for bucket in rows:
+        raw_entries = list(bucket.get("entries") or [])
+        if threads_by_id:
+            compressed, _ = compress_entries(raw_entries, threads_by_id)
+        else:
+            compressed = raw_entries
+        story_count = len(compressed)
+        item_count = int(bucket.get("item_count") or len(raw_entries))
+        emerging_count = int(bucket.get("emerging_signal_count") or 0)
+        bucket["story_count"] = story_count
+        bucket["entries"] = compressed[:4]
+        happened_parts = []
+        if emerging_count:
+            happened_parts.append(
+                f"{emerging_count} emerging signal" + ("" if emerging_count == 1 else "s")
+            )
+        if story_count:
+            noun = "story" if story_count == 1 else "stories"
+            happened_parts.append(f"{story_count} developing {noun}")
+        if item_count:
+            item_noun = "item" if item_count == 1 else "items"
+            happened_parts.append(f"{item_count} source {item_noun}")
+        if happened_parts:
+            bucket["happened"] = " · ".join(happened_parts)
+        if story_count and story_count < item_count:
+            item_noun = "item" if item_count == 1 else "items"
+            bucket["kind_summary"] = f"{item_count} source {item_noun}"
+    return rows
+
+
 def _watch_activity(
     *,
     published: list[dict[str, Any]],
@@ -835,6 +938,7 @@ def _watch_activity(
     entities: dict[str, dict[str, Any]],
     state: dict[str, dict[str, dict[str, Any]]],
     last_seen: str | None,
+    signal_candidates: list[dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
     watch_entities = _watch_entity_ids(published, state, entities)
     if not watch_entities:
@@ -853,6 +957,7 @@ def _watch_activity(
                 "href": f"/entities/{entity.get('entity_type') or 'company'}/{entity_id}",
                 "entries": [],
                 "signals": [],
+                "emerging_signals": [],
             },
         )
 
@@ -886,14 +991,39 @@ def _watch_activity(
                     "kind_label": "signal",
                 }
             )
+    for candidate in signal_candidates or []:
+        if not candidate.get("is_emerging"):
+            continue
+        primary = str(candidate.get("primary_entity_id") or "")
+        if not primary or primary.startswith("trait-"):
+            continue
+        entity_ids = {primary}
+        for entity_id in entity_ids:
+            if entity_id not in watch_entities:
+                continue
+            bucket = _bucket_for(entity_id)
+            if candidate.get("id") in {row.get("id") for row in bucket["emerging_signals"]}:
+                continue
+            bucket["emerging_signals"].append(
+                {
+                    "id": candidate.get("id"),
+                    "title": candidate.get("label") or candidate.get("reason"),
+                    "href": candidate.get("href"),
+                    "kind_label": "emerging signal",
+                    "support_label": candidate.get("support_label"),
+                }
+            )
     rows = []
     for bucket in by_entity.values():
         item_count = len(bucket["entries"])
         signal_count = len(bucket["signals"])
-        if item_count == 0 and signal_count == 0:
+        emerging_count = len(bucket["emerging_signals"])
+        if item_count == 0 and signal_count == 0 and emerging_count == 0:
             continue
         kind_counts = Counter(str(item.get("kind_label") or item.get("kind") or "item") for item in bucket["entries"])
         kind_bits = [f"{count} {label.lower()}" for label, count in kind_counts.most_common(3)]
+        if emerging_count:
+            kind_bits.append(f"{emerging_count} emerging signal" + ("" if emerging_count == 1 else "s"))
         if signal_count:
             kind_bits.append(f"{signal_count} patent signal" if signal_count == 1 else f"{signal_count} signals")
         if last_seen:
@@ -903,6 +1033,7 @@ def _watch_activity(
         new_items = sum(1 for item in bucket["entries"] if item.get("new_since_last"))
         bucket["item_count"] = item_count
         bucket["signal_count"] = signal_count
+        bucket["emerging_signal_count"] = emerging_count
         bucket["new_item_count"] = new_items
         bucket["signal_label"] = signal_label
         bucket["kind_summary"] = " · ".join(kind_bits) if kind_bits else f"{item_count} current item{'s' if item_count != 1 else ''}"
@@ -911,7 +1042,7 @@ def _watch_activity(
             if last_seen
             else f"{item_count} current item{'s' if item_count != 1 else ''}"
         )
-        bucket["entries"] = bucket["entries"][:4]
+        bucket["entries"] = bucket["entries"][:8]
         rows.append(bucket)
     rows.sort(key=lambda row: (row["new_item_count"], row["signal_count"], row["item_count"]), reverse=True)
     return rows[:8]
@@ -1161,6 +1292,7 @@ def build_morning_brief(
     discovered: list[dict[str, Any]] | None = None,
     recommendations: list[dict[str, Any]] | None = None,
     mark_seen: bool = False,
+    include_signal_candidates: bool = True,
 ) -> dict[str, Any]:
     entity_index = entities or {}
     signal_rows = signals or []
@@ -1371,17 +1503,42 @@ def build_morning_brief(
         ranked_reading + open_pending,
         lambda item: bool({str(tag).casefold() for tag in (item.get("tags") or [])} & MARKET_TAGS),
     )
-    pending_triage = _pending_triage_groups(ranked_pending)
+    story_threads = group_story_threads(ranked_reading + open_pending)
+    threads_by_id = threads_by_item_id(story_threads)
+    evidence_by_id = {
+        str(record.get("id")): record
+        for record in list(published) + list(draft_rows) + list(extra_pending)
+        if record.get("id")
+    }
+    candidate_cards: list[dict[str, Any]] = []
+    if include_signal_candidates:
+        candidate_cards = present_candidates(
+            inbox_dir,
+            evidence_by_id=evidence_by_id,
+            entities=entity_index,
+            watch_entities=watch_entities,
+        )
+    emerging = emerging_signals(candidate_cards)
+    counts["emerging_signals"] = len(emerging)
+    new_developments = _compress_ranked_list(new_developments, threads_by_id, limit=NEW_DEVELOPMENTS_LIMIT)
+    important = _compress_ranked_list(important, threads_by_id, limit=IMPORTANT_LIMIT)
+    top = _compress_ranked_list(top, threads_by_id, limit=TOP_DEVELOPMENTS_LIMIT)
+    new_review_ready = _compress_ranked_list(new_review_ready, threads_by_id)
+    pending_triage = _pending_triage_groups(ranked_pending, threads_by_id)
     needs_decision = next((group["entries"] for group in pending_triage["buckets"] if group["key"] == "review_now"), [])
     counts["review_now"] = pending_triage["counts"].get("review_now", 0)
     counts["pending_open"] = pending_triage["counts"].get("total", 0)
-    watch_rows = _watch_activity(
-        published=published,
-        ranked=ranked_reading + open_pending,
-        signals=signal_rows,
-        entities=entity_index,
-        state=state,
-        last_seen=last_seen,
+    watch_rows = _compress_watch_activity(
+        _watch_activity(
+            published=published,
+            ranked=ranked_reading + open_pending,
+            signals=signal_rows,
+            entities=entity_index,
+            state=state,
+            last_seen=last_seen,
+            signal_candidates=candidate_cards,
+        ),
+        threads_by_id,
     )
     source_changes = _source_deltas(
         freshness_by_source=freshness_by_source or {},
@@ -1438,7 +1595,11 @@ def build_morning_brief(
         {
             "key": "watch_activity",
             "label": "Watch activity",
-            "count": sum(1 for row in watch_rows if row.get("new_item_count") or row.get("signal_count")),
+            "count": sum(
+                1
+                for row in watch_rows
+                if row.get("new_item_count") or row.get("signal_count") or row.get("emerging_signal_count")
+            ),
             "entries": [],
             "remainder": 0,
         },
@@ -1476,7 +1637,12 @@ def build_morning_brief(
         "new_developments": new_developments,
         "important": important,
         "watch_activity": watch_rows,
-        "company_deltas": _company_deltas(ranked_reading + open_pending),
+        "emerging_signals": emerging,
+        "company_deltas": _compress_company_deltas(
+            _company_deltas(ranked_reading + open_pending),
+            threads_by_id,
+        ),
+        "story_threads": story_threads,
         "genetics": genetics,
         "markets": markets,
         "needs_decision": needs_decision,

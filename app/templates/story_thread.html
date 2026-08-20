@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% block title %}{{ thread.title }} — Developing story{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">DEVELOPING STORY</p>
+    <h1>{{ thread.title }}</h1>
+    <p class="also-known-as">{{ thread.source_count }} sources{% if thread.first_seen %} · first seen {{ thread.first_seen|us_date }}{% endif %}{% if thread.latest %} · latest {{ thread.latest|us_date }}{% endif %}</p>
+  </div>
+  <a class="button-link" href="/brief#pending-triage">Back to brief</a>
+</section>
+
+<p class="brief-window">This is an organizational grouping of related sources. It is not a Fact, Assessment, Position, Signal, or trusted conclusion. Each source stays independently inspectable. A story thread may support an emerging signal; it is not itself a signal.</p>
+
+{% if supporting_signals %}
+<section class="brief-section">
+  <h2>May support these emerging signals</h2>
+  <p class="context-limit">Presentation link only. Opening a signal is a separate review. There is no trust-thread action.</p>
+  <ul class="simple-list">
+    {% for item in supporting_signals %}
+      <li>
+        <span class="badge badge-signal">Emerging signal</span>
+        <a href="{{ item.href }}">{{ item.label }}</a>
+        · {{ item.support_label }}
+        · {{ item.status_label }}
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<section class="brief-section">
+  <h2>What happened</h2>
+  <p class="context-limit">Stored summary from the primary source only. No generated synthesis.</p>
+  {% if thread.what_happened %}
+    <p>{{ thread.what_happened }}</p>
+  {% else %}
+    <p class="empty-state">No stored summary on the primary source.</p>
+  {% endif %}
+</section>
+
+<section class="brief-section">
+  <h2>Primary source</h2>
+  {% if thread.primary %}
+    <p><a href="{{ thread.primary.href }}">{{ thread.primary.title }}</a></p>
+    <p class="draft-meta">{{ thread.primary_source_name }}{% if thread.primary.date %} · {{ thread.primary.date|us_date }}{% endif %} · {{ thread.primary.trust_label }}</p>
+    {% if thread.primary.source_url %}<p><a class="action-button" href="{{ thread.primary.source_url }}" rel="noreferrer">Read original</a></p>{% endif %}
+  {% endif %}
+</section>
+
+<section class="brief-section">
+  <h2>Timeline</h2>
+  <ol class="activity-timeline">
+    {% for member in thread.members %}
+      <li class="activity-item">
+        <p class="draft-meta">{{ member.date|us_date if member.date else 'Date unknown' }} · {{ member.source_name }}{% if member.is_primary_source %} · primary{% elif member.coverage_role == 'trade_reprint' %} · reprint{% endif %}</p>
+        <p><a href="{{ member.href }}"><strong>{{ member.title }}</strong></a></p>
+        <p class="draft-meta"><span class="badge intel-trust-{{ member.trust }}">{{ member.trust_label }}</span> {% if member.kind_label %}<span class="badge badge-muted">{{ member.kind_label }}</span>{% endif %}{% if member.dismissed_redundant %}<span class="badge badge-muted">Redundant coverage dismissed</span>{% endif %}</p>
+        {% if authoring_mode and not static_build and not member.dismissed_redundant %}
+          <div class="queue-actions pending-decision-actions">
+            <a class="action-button action-approve" href="{{ member.href }}">Read source</a>
+            {% if member.status != 'published' and member.review_values %}
+              <form action="/review/{{ member.id }}/publish" method="post">
+                <input type="hidden" name="return_to" value="/threads/{{ thread.id }}">
+                <input type="hidden" name="title" value="{{ member.review_values.title }}">
+                <input type="hidden" name="source_type" value="{{ member.review_values.source_type }}">
+                <input type="hidden" name="source_name" value="{{ member.review_values.source_name }}">
+                <input type="hidden" name="source_url" value="{{ member.review_values.source_url }}">
+                <input type="hidden" name="published_date" value="{{ member.review_values.published_date }}">
+                <input type="hidden" name="captured_date" value="{{ member.review_values.captured_date }}">
+                <input type="hidden" name="summary" value="{{ member.review_values.summary }}">
+                <input type="hidden" name="why_it_matters" value="{{ member.review_values.why_it_matters }}">
+                <input type="hidden" name="tags" value="{{ member.review_values.tags }}">
+                <input type="hidden" name="companies" value="{{ member.review_values.companies }}">
+                <input type="hidden" name="varieties" value="{{ member.review_values.varieties }}">
+                <input type="hidden" name="retailers" value="{{ member.review_values.retailers }}">
+                <input type="hidden" name="geographies" value="{{ member.review_values.geographies }}">
+                {% for berry in member.review_values.berries %}
+                  <input type="hidden" name="berries" value="{{ berry }}">
+                {% endfor %}
+                <input type="hidden" name="reviewer" value="{{ reviewer }}">
+                <button class="action-button action-approve" type="submit">Promote source</button>
+              </form>
+            {% endif %}
+            {% if member.status != 'published' and not member.is_primary_source %}
+              <form action="/queues/pending/{{ member.id }}" method="post">
+                <input type="hidden" name="action" value="dismiss">
+                <input type="hidden" name="reviewer" value="{{ reviewer }}">
+                <input type="hidden" name="return_to" value="/threads/{{ thread.id }}">
+                <button class="action-button" type="submit">Dismiss redundant coverage</button>
+              </form>
+            {% elif member.status != 'published' %}
+              <form action="/queues/pending/{{ member.id }}" method="post">
+                <input type="hidden" name="action" value="dismiss">
+                <input type="hidden" name="reviewer" value="{{ reviewer }}">
+                <input type="hidden" name="return_to" value="/brief#pending-triage">
+                <button class="action-button" type="submit">Dismiss</button>
+              </form>
+            {% endif %}
+            {% if member.status == 'published' and member.is_active and member.needs_consume %}
+              <form action="/queues/reading/{{ member.id }}" method="post">
+                <input type="hidden" name="action" value="mark_read">
+                <input type="hidden" name="reviewer" value="{{ reviewer }}">
+                <input type="hidden" name="return_to" value="/threads/{{ thread.id }}">
+                <button class="action-button" type="submit">Mark read</button>
+              </form>
+              <form action="/queues/reading/{{ member.id }}" method="post">
+                <input type="hidden" name="action" value="keep">
+                <input type="hidden" name="reviewer" value="{{ reviewer }}">
+                <input type="hidden" name="return_to" value="/threads/{{ thread.id }}">
+                <button class="action-button" type="submit">Keep</button>
+              </form>
+            {% endif %}
+          </div>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+</section>
+
+{% if thread.additional_coverage %}
+<section class="brief-section">
+  <h2>Related coverage</h2>
+  <ul class="simple-list">
+    {% for source in thread.additional_coverage %}
+      <li>
+        <a href="{{ source.href }}">{{ source.title }}</a>
+        · {{ source.name }}
+        {% if source.role == 'trade_reprint' %}<span class="badge badge-muted">reprint</span>{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<section class="brief-section">
+  <h2>Companies / varieties / geographies</h2>
+  <div class="intel-chips">
+    {% for entity in thread.companies %}
+      <a class="intel-chip" href="/entities/{{ entity.entity_type or 'company' }}/{{ entity.id }}">{{ entity.name }}</a>
+    {% endfor %}
+    {% for entity in thread.varieties %}
+      <a class="intel-chip" href="/entities/variety/{{ entity.id }}">{{ entity.name }}</a>
+    {% endfor %}
+    {% for entity in thread.geographies %}
+      <a class="intel-chip" href="/entities/geography/{{ entity.id }}">{{ entity.name }}</a>
+    {% endfor %}
+    {% if not thread.companies and not thread.varieties and not thread.geographies %}
+      <p class="empty-state">No deterministic entity attribution on these sources yet.</p>
+    {% endif %}
+  </div>
+</section>
+
+<section class="brief-section">
+  <h2>Trust status per item</h2>
+  <ul class="simple-list">
+    {% for member in thread.members %}
+      <li><span class="badge intel-trust-{{ member.trust }}">{{ member.trust_label }}</span> <a href="{{ member.href }}">{{ member.title }}</a> · {{ member.source_name }}</li>
+    {% endfor %}
+  </ul>
+</section>
+
+{% if thread.proposed_links %}
+<section class="brief-section">
+  <h2>Proposed corroboration / contradiction</h2>
+  <p class="context-limit">Stored evidence_links only. Proposed links are not accepted trust.</p>
+  <ul class="simple-list">
+    {% for link in thread.proposed_links %}
+      <li>
+        {{ link.predicate }}
+        · <a href="/intelligence/{{ link.from_id }}">{{ link.from_title }}</a>
+        → <a href="/intelligence/{{ link.target_id }}">{{ link.target_title }}</a>
+        <span class="badge badge-muted">{{ link.status }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+{% endblock %}

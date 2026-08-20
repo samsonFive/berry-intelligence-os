@@ -32,6 +32,34 @@
     <div><strong>{{ last_updated|us_date if last_updated else "—" }}</strong><small>Updated</small></div>
   </div>
 
+  {% if open_signals and (open_signals.emerging or open_signals.confirmed or open_signals.deferred) %}
+    <h2>Open signals</h2>
+    <p class="context-limit" data-pagefind-ignore>Untrusted Signal candidates that name this subject. Emerging is not confirmed. Every row links back to supporting Evidence.</p>
+    <ul class="entity-links" data-pagefind-ignore>
+      {% for item in open_signals.emerging %}
+        <li>
+          <span class="badge badge-signal">Emerging</span>
+          <a href="{{ item.href }}"><strong>{{ item.label }}</strong></a>
+          <span class="draft-meta">{{ item.support_label }}</span>
+        </li>
+      {% endfor %}
+      {% for item in open_signals.confirmed %}
+        <li>
+          <span class="badge badge-status-active">Confirmed</span>
+          <a href="{{ item.href }}"><strong>{{ item.label }}</strong></a>
+          <span class="draft-meta">{{ item.support_label }}</span>
+        </li>
+      {% endfor %}
+      {% for item in open_signals.deferred %}
+        <li>
+          <span class="badge badge-muted">Deferred</span>
+          <a href="{{ item.href }}"><strong>{{ item.label }}</strong></a>
+          <span class="draft-meta">{{ item.support_label }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
   {# --- Recent intelligence: what's happened with this entity recently,
        recency-first across trusted Evidence and (live app only, never on
        the public static build) pending-review discoveries -- each item
@@ -41,17 +69,30 @@
     <ul class="entity-links" data-pagefind-ignore>
       {% for item in recent_intelligence %}
         <li>
-          {% if item.kind == 'trusted' %}
+          {% if item.is_thread %}
+            <span class="badge">Developing</span>
+            {% if item.kind == 'trusted' %}
+              <span class="badge badge-status-active">TRUSTED SOURCES</span>
+            {% else %}
+              <span class="badge badge-muted">PENDING REVIEW</span>
+            {% endif %}
+            <a href="{{ item.thread.href }}"><strong>{{ item.developing_label or item.thread.title }}</strong></a>
+            <span class="draft-meta">{{ item.sources_count }} sources · latest {% if item.date %}{{ item.date|us_date }}{% else %}unknown{% endif %}</span>
+          {% elif item.kind == 'trusted' %}
             <span class="badge badge-status-active">TRUSTED</span>
             <a href="{% if static_build %}/evidence/{{ item.record.id }}{% else %}/intelligence/{{ item.record.id }}{% endif %}"><strong>{{ item.record.title }}</strong></a>
+            <span class="draft-meta">
+              {% if item.date_is_published %}{{ item.date|us_date }}{% elif item.date %}Captured {{ item.date|us_date }}{% else %}Date unknown{% endif %}
+              {% if item.record.source_name %} · {{ item.record.source_name }}{% endif %}
+            </span>
           {% else %}
             <span class="badge badge-muted">PENDING REVIEW</span>
             <a href="/intelligence/{{ item.record.id }}"><strong>{{ item.record.title }}</strong></a>
+            <span class="draft-meta">
+              {% if item.date_is_published %}{{ item.date|us_date }}{% elif item.date %}Captured {{ item.date|us_date }}{% else %}Date unknown{% endif %}
+              {% if item.record.source_name %} · {{ item.record.source_name }}{% endif %}
+            </span>
           {% endif %}
-          <span class="draft-meta">
-            {% if item.date_is_published %}{{ item.date|us_date }}{% elif item.date %}Captured {{ item.date|us_date }}{% else %}Date unknown{% endif %}
-            {% if item.record.source_name %} · {{ item.record.source_name }}{% endif %}
-          </span>
         </li>
       {% endfor %}
     </ul>

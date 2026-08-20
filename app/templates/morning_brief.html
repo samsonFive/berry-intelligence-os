@@ -35,7 +35,7 @@
         <h3>{{ group.label }} — {{ group.count }}</h3>
         {% if group.entries %}
           {% for item in group.entries %}
-            {% include "_brief_item.html" %}
+            {% include "_brief_entry.html" %}
           {% endfor %}
         {% endif %}
         {% if group.remainder %}
@@ -54,19 +54,30 @@
   <p class="context-limit">Berry-relevant items that became visible since last check. Generic produce noise stays out of this list.</p>
   {% if brief.new_developments %}
     {% for item in brief.new_developments %}
-      {% include "_brief_item.html" %}
+      {% include "_brief_entry.html" %}
     {% endfor %}
   {% else %}
     <p class="empty-state">Nothing new and berry-relevant since last check.</p>
   {% endif %}
 </section>
 
+{% if brief.emerging_signals %}
+<section class="brief-section" id="emerging-signals">
+  <h2>Emerging signals</h2>
+  <p class="context-limit">A bounded set of evidence-backed patterns, ranked from stored confidence, independent origins, recency, berry relevance, watch/primary subject, evidence support, and contradiction or decision state. Not every candidate. Not an opaque AI score. A developing story is not a signal.</p>
+  {% for item in brief.emerging_signals %}
+    {% include "_signal_card.html" %}
+  {% endfor %}
+  <p class="context-limit"><a href="/signals/review">Open signal review</a> for the rest of the candidate buckets.</p>
+</section>
+{% endif %}
+
 <section class="brief-section" id="important">
   <h2>Important</h2>
   <p class="context-limit">High-value unresolved intelligence regardless of age. These stay visible so yesterday’s work is not crowded out by today’s intake.</p>
   {% if brief.important %}
     {% for item in brief.important %}
-      {% include "_brief_item.html" %}
+      {% include "_brief_entry.html" %}
     {% endfor %}
   {% else %}
     <p class="empty-state">No separate important backlog this morning.</p>
@@ -78,7 +89,7 @@
   <p class="context-limit">The morning attention set used by the nav count. Open the Reader, then mark read, keep, dismiss, or promote.</p>
   {% if brief.top_developments %}
     {% for item in brief.top_developments %}
-      {% include "_brief_item.html" %}
+      {% include "_brief_entry.html" %}
     {% endfor %}
   {% else %}
     <p class="empty-state">Nothing is currently ranked as top priority.</p>
@@ -95,10 +106,18 @@
         <a href="{{ watch.href }}">{{ watch.name }}</a>
         — {{ watch.happened }}
         {% if watch.kind_summary %} · {{ watch.kind_summary }}{% endif %}
+        {% if watch.emerging_signal_count %}<span class="nav-action">{{ watch.emerging_signal_count }} emerging</span>{% endif %}
         {% if watch.signal_count %} · <span class="nav-action">{{ watch.signal_label }}</span>{% endif %}
         <ul class="brief-bullets">
           {% for item in watch.entries %}
-            <li><a href="{{ item.href }}">{{ item.change_label or item.title }}</a>{% if item.source_name %} · {{ item.source_name }}{% endif %}</li>
+            {% if item.is_thread %}
+              <li><span class="badge">Developing story</span> <a href="{{ item.href }}">{{ item.title }}</a> · {{ item.source_count }} sources{% if item.primary_source_name %} · {{ item.primary_source_name }}{% endif %}</li>
+            {% else %}
+              <li><a href="{{ item.href }}">{{ item.change_label or item.title }}</a>{% if item.source_name %} · {{ item.source_name }}{% endif %}</li>
+            {% endif %}
+          {% endfor %}
+          {% for signal in watch.emerging_signals[:3] %}
+            <li><span class="badge badge-signal">Emerging signal</span> <a href="{{ signal.href }}">{{ signal.title }}</a>{% if signal.support_label %} · {{ signal.support_label }}{% endif %}</li>
           {% endfor %}
           {% for signal in watch.signals[:3] %}
             <li><a href="{{ signal.href }}">{{ signal.title }}</a></li>
@@ -144,9 +163,9 @@
 <section class="brief-section" id="genetics">
   <h2>Genetics / variety / IP</h2>
   <p class="context-limit">Items with patent or variety metadata only.</p>
-  {% for item in brief.genetics %}
-    {% include "_brief_item.html" %}
-  {% endfor %}
+      {% for item in brief.genetics %}
+        {% include "_brief_entry.html" %}
+      {% endfor %}
 </section>
 {% endif %}
 
@@ -154,9 +173,9 @@
 <section class="brief-section" id="markets">
   <h2>Markets / supply</h2>
   <p class="context-limit">Items tagged with stored market/supply metadata only.</p>
-  {% for item in brief.markets %}
-    {% include "_brief_item.html" %}
-  {% endfor %}
+      {% for item in brief.markets %}
+        {% include "_brief_entry.html" %}
+      {% endfor %}
 </section>
 {% endif %}
 
@@ -173,9 +192,11 @@
   {% if brief.pending_triage and brief.pending_triage.buckets %}
     {% for group in brief.pending_triage.buckets %}
       <article class="brief-delta-group" id="triage-{{ group.key }}">
-        <h3>{{ group.label }} — {{ group.count }}</h3>
+        <h3>{{ group.label }} — {{ group.count }}{% if group.story_count and group.story_count < group.count %} · {{ group.story_count }} stor{{ 'y' if group.story_count == 1 else 'ies' }}{% endif %}</h3>
         {% if group.key == 'review_now' %}
-          <p class="context-limit">Direct blueberry intelligence, tracked-company primary subject, primary watch match, current article, or high-authority source.</p>
+          <p class="context-limit">Direct blueberry intelligence, tracked-company primary subject, primary watch match, current article, or high-authority source. Related reprints collapse into a developing story; they are not deleted.</p>
+        {% elif group.key == 'review_soon' %}
+          <p class="context-limit">Related coverage of one event is grouped as a developing story. Remaining rows are distinct decisions. Grouping is organizational only.</p>
         {% elif group.allow_bulk_dismiss %}
           <p class="context-limit">Low-risk cleanup. Select explicitly, then bulk dismiss. This does not reject or publish.</p>
         {% endif %}
@@ -186,7 +207,7 @@
                 <input form="triage-bulk-{{ group.key }}" type="checkbox" name="item_id" value="{{ item.id }}" aria-label="Select {{ item.title }}">
               {% endif %}
               <div class="triage-row-body">
-                {% include "_brief_item.html" %}
+                {% include "_brief_entry.html" %}
               </div>
             </div>
           {% endfor %}

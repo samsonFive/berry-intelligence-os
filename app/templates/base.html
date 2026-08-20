@@ -13,7 +13,7 @@
       <nav aria-label="Primary">
         <p class="nav-group">Live intelligence</p>
         <a href="/brief" {% if request.url.path == '/brief' %}class="active" aria-current="page"{% endif %}>Morning Brief{% if nav_work_counts.brief_action %}<span class="nav-action">{{ nav_work_counts.brief_action }} this morning</span>{% endif %}</a>
-        <a href="/work-queue" {% if request.url.path == '/work-queue' or request.url.path.startswith('/intelligence/') %}class="active" aria-current="page"{% endif %}>Feed</a>
+        <a href="/work-queue" {% if request.url.path == '/work-queue' or request.url.path.startswith('/intelligence/') or request.url.path.startswith('/threads/') %}class="active" aria-current="page"{% endif %}>Feed</a>
         <a href="/queues/reading" {% if request.url.path == '/queues/reading' %}class="active" aria-current="page"{% endif %}>Reading Queue{% if nav_work_counts.reading_action %}<span class="nav-action">{{ nav_work_counts.reading_action }} need attention</span>{% endif %}</a>
 
         {% if authoring_mode %}
@@ -25,7 +25,7 @@
         <p class="nav-group">Monitoring</p>
         <a href="/queues/monitoring" {% if request.url.path == '/queues/monitoring' %}class="active" aria-current="page"{% endif %}>Watches{% if nav_work_counts.monitoring_inventory %}<span class="nav-inventory">{{ nav_work_counts.monitoring_inventory }} active</span>{% endif %}</a>
         <a href="/queues/monitoring#alerts">Alerts{% if nav_work_counts.signal_alerts %}<span class="nav-action">{{ nav_work_counts.signal_alerts }} new</span>{% endif %}</a>
-        <a href="/signals" {% if request.url.path.startswith('/signals') %}class="active" aria-current="page"{% endif %}>Signals</a>
+        <a href="/signals" {% if request.url.path.startswith('/signals') %}class="active" aria-current="page"{% endif %}>Signals{% if nav_work_counts.emerging_signals %}<span class="nav-action">{{ nav_work_counts.emerging_signals }} emerging</span>{% endif %}</a>
         {% if authoring_mode or static_build %}
           <a href="/sources" {% if request.url.path.startswith('/sources') %}class="active" aria-current="page"{% endif %}>Source health</a>
         {% endif %}
