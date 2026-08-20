@@ -84,6 +84,16 @@ from app.runtime_config import (
 )
 from app.services.intelligence_feed import build_intelligence_feed, build_reader
 from app.services.morning_brief import build_morning_brief
+from app.services.signal_candidates import SignalCandidateError
+from app.services.signal_review import (
+    apply_and_persist_decision,
+    candidate_by_id,
+    candidates_for_thread,
+    open_signals_for_entity,
+    present_candidates,
+    present_review,
+    triage_groups,
+)
 from app.services.story_threads import compress_recent_intelligence, expand_with_related, thread_for_item
 from app.session_auth import (
     EnvSessionMiddleware,
@@ -314,6 +324,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     counts["brief_action"] = int((brief.get("counts") or {}).get("top_priority") or 0)
     counts["review_now"] = int((brief.get("counts") or {}).get("review_now") or 0)
     counts["pending_open"] = int((brief.get("counts") or {}).get("pending_open") or 0)
+    counts["emerging_signals"] = int((brief.get("counts") or {}).get("emerging_signals") or 0)
     return {"nav_work_counts": counts}
 
 
@@ -464,6 +475,15 @@ def all_evidence() -> list[dict[str, Any]]:
 def published_evidence() -> list[dict[str, Any]]:
     records = [r for r in all_evidence() if r.get("status") == "published"]
     return sorted(records, key=lambda r: r.get("published_date") or r.get("captured_date", ""), reverse=True)
+
+
+def _evidence_index() -> dict[str, dict[str, Any]]:
+    rows: dict[str, dict[str, Any]] = {}
+    for record in published_evidence() + list_pending_drafts() + unvalidated_auto_captured_evidence():
+        record_id = str(record.get("id") or "")
+        if record_id:
+            rows[record_id] = record
+    return rows
 
 
 def unvalidated_auto_captured_evidence() -> list[dict[str, Any]]:
@@ -1857,6 +1877,7 @@ def entity_synthesis_context(
         "recent_intelligence": recent_intelligence_for_entity(
             entity_id, linked_evidence=linked_evidence, include_pending=include_pending
         ),
+        "open_signals": {"emerging": [], "confirmed": [], "deferred": []},
     }
     if entity.get("entity_type") == "variety":
         all_patents = [e for e in entities.values() if e.get("entity_type") == "patent"]
@@ -1880,6 +1901,11 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
             entity_relationships = relationships_for_entity(entity_id, all_relationships())
             evidence_idx = {r["id"]: r for r in all_evidence() if r.get("id")}
             activity = entity_activity(linked_evidence, entity_facts, entity_relationships, entities, evidence_idx)
+            presented_candidates = present_candidates(
+                INBOX_DIR,
+                evidence_by_id=_evidence_index(),
+                entities=entities,
+            )
             return templates.TemplateResponse(
                 request=request,
                 name="entity.html",
@@ -1895,6 +1921,7 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     "berry_label": berry_label,
                     "authoring_mode": AUTHORING_MODE,
                     **entity_synthesis_context(entity, entities),
+                    "open_signals": open_signals_for_entity(entity_id, presented_candidates),
                 },
             )
     raise HTTPException(status_code=404, detail="Entity record not found")
@@ -2158,6 +2185,12 @@ def story_thread_reader(request: Request, item_id: str) -> HTMLResponse:
         [member for member in (thread.get("members") or []) if not member.get("dismissed_redundant")],
         reviewer,
     )
+    presented_candidates = present_candidates(
+        INBOX_DIR,
+        evidence_by_id=_evidence_index(),
+        entities=entities,
+    )
+    member_ids = {str(member.get("id") or "") for member in (thread.get("members") or [])}
     return templates.TemplateResponse(
         request=request,
         name="story_thread.html",
@@ -2166,6 +2199,7 @@ def story_thread_reader(request: Request, item_id: str) -> HTMLResponse:
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
             "reviewer": reviewer,
+            "supporting_signals": candidates_for_thread(member_ids, presented_candidates),
         },
     )
 
@@ -2436,6 +2470,79 @@ def signal_list(request: Request) -> HTMLResponse:
         name="signal_list.html",
         context={"signals": all_signals(), "authoring_mode": AUTHORING_MODE},
     )
+
+
+@app.get("/signals/review", response_class=HTMLResponse)
+def signal_candidate_review(request: Request) -> HTMLResponse:
+    presented = present_candidates(
+        INBOX_DIR,
+        evidence_by_id=_evidence_index(),
+        entities=entity_index(),
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="signal_candidate_review.html",
+        context={
+            "triage": triage_groups(presented),
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "reviewer": session_username(request) or review_username() or "",
+        },
+    )
+
+
+@app.get("/signals/candidates/{candidate_id}", response_class=HTMLResponse)
+def signal_candidate_page(request: Request, candidate_id: str) -> HTMLResponse:
+    candidate = candidate_by_id(INBOX_DIR, candidate_id)
+    if candidate is None:
+        raise HTTPException(status_code=404, detail="Signal candidate not found")
+    evidence_by_id = _evidence_index()
+    review = present_review(
+        candidate,
+        evidence_by_id=evidence_by_id,
+        entities=entity_index(),
+        extra_records=list(evidence_by_id.values()),
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="signal_candidate.html",
+        context={
+            "review": review,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "reviewer": session_username(request) or review_username() or "",
+            "return_to": request.query_params.get("return_to") or "/brief#emerging-signals",
+        },
+    )
+
+
+@app.post("/signals/candidates/{candidate_id}/decision")
+def signal_candidate_decision(
+    request: Request,
+    candidate_id: str,
+    decision: str = Form(...),
+    reviewer: str = Form(""),
+    notes: str = Form(""),
+    return_to: str = Form("/brief#emerging-signals"),
+) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Signal-candidate decisions are only available in authoring mode")
+    candidate = candidate_by_id(INBOX_DIR, candidate_id)
+    if candidate is None:
+        raise HTTPException(status_code=404, detail="Signal candidate not found")
+    actor = reviewer.strip() or session_username(request) or review_username() or ""
+    try:
+        apply_and_persist_decision(
+            candidate,
+            decision=decision,
+            reviewer=actor,
+            notes=notes,
+            inbox_dir=INBOX_DIR,
+        )
+    except SignalCandidateError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    target = safe_next_path(return_to)
+    return RedirectResponse(url=target, status_code=303)
 
 
 def _default_signal_values() -> dict[str, Any]:

@@ -363,6 +363,17 @@ strong.level-low{color:#426aa8}
 .brief-company h3{font-size:15px;margin:0 0 6px}
 .brief-thread{border-color:#c9c0ea;background:#fbfaff}
 .brief-thread h3{font-size:16px}
+.brief-signal{border-color:#8aa7d9;background:#f5f8ff}
+.brief-signal-disputed{border-color:#d9a39f;background:#fff7f6}
+.does-not-prove{border:1px solid #e2b4b0;background:#fdeaea;border-radius:8px;padding:10px 12px;margin:10px 0}
+.does-not-prove-prominent{border-width:2px;margin:16px 0}
+.does-not-prove-kicker{margin:0 0 4px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#a3271f}
+.does-not-prove ul{margin:4px 0 8px;padding-left:18px}
+.independence-cluster{margin:0 0 12px}
+.independence-tree{list-style:none;margin:4px 0 0;padding:0}
+.independence-reprint{margin-left:18px;color:#3c4a63}
+.signal-review-notes{display:grid;gap:8px;max-width:640px}
+.signal-review-notes textarea{width:100%;border:1px solid #dfe4ef;border-radius:7px;padding:8px 10px;font:inherit}
 .brief-delta-strip{display:flex;flex-wrap:wrap;gap:10px;list-style:none;padding:0;margin:0 0 16px}
 .brief-delta-strip li{background:#f5f7fb;border:1px solid #e0e5ef;border-radius:10px;padding:8px 12px;min-width:140px}
 .brief-delta-strip a{display:block;font-size:12px;color:#3c4a63;text-decoration:none}

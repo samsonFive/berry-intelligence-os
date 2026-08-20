@@ -322,6 +322,7 @@ def build() -> list[Path]:
         berry_labels=BERRIES,
         source_coverage={},
         mark_seen=False,
+        include_signal_candidates=False,
     )
     written.append(
         write_page(

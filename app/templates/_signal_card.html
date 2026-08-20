@@ -1,0 +1,36 @@
+{# Emerging-signal card. Evidence-backed pattern — not a developing story and not a trusted Signal. #}
+<article class="brief-item brief-signal{% if item.status == 'disputed' %} brief-signal-disputed{% endif %}">
+  <div class="intel-card-meta">
+    <span class="badge badge-signal">Emerging signal</span>
+    <span class="badge">{{ item.status_label }}</span>
+    <span class="badge badge-muted">Confidence {{ item.confidence_label }}</span>
+    {% if item.watch_match == 'primary' %}<span class="badge">Watched subject</span>{% elif item.watch_match == 'mention' %}<span class="badge badge-muted">Mentions watched subject</span>{% endif %}
+    {% if item.berry_direct %}<span class="badge badge-muted">Direct berry</span>{% endif %}
+  </div>
+  <h3><a href="{{ item.href }}">{{ item.label }}</a></h3>
+  <p class="draft-meta">{{ item.support_label }}{% if item.latest_date %} · latest {{ item.latest_date|us_date }}{% endif %}</p>
+  {% if item.primary_subject %}
+    <p>Primary subject: <strong>{% if item.primary_subject.href %}<a href="{{ item.primary_subject.href }}">{{ item.primary_subject.name }}</a>{% else %}{{ item.primary_subject.name }}{% endif %}</strong> · {{ item.primary_subject.label }}</p>
+  {% endif %}
+  {% if item.why_it_may_matter %}
+    <p class="brief-why">Why this may matter</p>
+    <p>{{ item.why_it_may_matter }}</p>
+  {% endif %}
+  {% if item.does_not_prove %}
+    <div class="does-not-prove">
+      <p class="does-not-prove-kicker">Does not prove</p>
+      <ul>
+        {% for bound in item.does_not_prove %}
+          <li>{{ bound }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  <p class="context-limit">A broader evidence-backed pattern. Not a developing story and not a trusted conclusion.</p>
+  {% if authoring_mode and not static_build %}
+    <div class="queue-actions">
+      <a class="action-button action-approve" href="{{ item.href }}">Review signal</a>
+      {% if item.primary_subject and item.primary_subject.href %}<a class="action-button" href="{{ item.primary_subject.href }}">Company</a>{% endif %}
+    </div>
+  {% endif %}
+</article>

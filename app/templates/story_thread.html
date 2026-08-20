@@ -10,7 +10,24 @@
   <a class="button-link" href="/brief#pending-triage">Back to brief</a>
 </section>
 
-<p class="brief-window">This is an organizational grouping of related sources. It is not a Fact, Assessment, Position, Signal, or trusted conclusion. Each source stays independently inspectable.</p>
+<p class="brief-window">This is an organizational grouping of related sources. It is not a Fact, Assessment, Position, Signal, or trusted conclusion. Each source stays independently inspectable. A story thread may support an emerging signal; it is not itself a signal.</p>
+
+{% if supporting_signals %}
+<section class="brief-section">
+  <h2>May support these emerging signals</h2>
+  <p class="context-limit">Presentation link only. Opening a signal is a separate review. There is no trust-thread action.</p>
+  <ul class="simple-list">
+    {% for item in supporting_signals %}
+      <li>
+        <span class="badge badge-signal">Emerging signal</span>
+        <a href="{{ item.href }}">{{ item.label }}</a>
+        · {{ item.support_label }}
+        · {{ item.status_label }}
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
 
 <section class="brief-section">
   <h2>What happened</h2>

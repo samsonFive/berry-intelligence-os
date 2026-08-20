@@ -40,6 +40,7 @@ from app.services.intelligence_feed import (
 )
 from app.services.review_workbench import _relevance_band
 from app.services.source_freshness import CURRENT, DUE, FAILING, STALE
+from app.services.signal_review import emerging_signals, present_candidates
 from app.services.story_threads import (
     compress_entries,
     group_story_threads,
@@ -899,19 +900,32 @@ def _compress_watch_activity(
     rows: list[dict[str, Any]],
     threads_by_id: dict[str, dict[str, Any]],
 ) -> list[dict[str, Any]]:
-    if not threads_by_id:
-        return rows
     for bucket in rows:
         raw_entries = list(bucket.get("entries") or [])
-        compressed, _ = compress_entries(raw_entries, threads_by_id)
+        if threads_by_id:
+            compressed, _ = compress_entries(raw_entries, threads_by_id)
+        else:
+            compressed = raw_entries
         story_count = len(compressed)
         item_count = int(bucket.get("item_count") or len(raw_entries))
+        emerging_count = int(bucket.get("emerging_signal_count") or 0)
         bucket["story_count"] = story_count
         bucket["entries"] = compressed[:4]
-        if story_count and story_count < item_count:
+        happened_parts = []
+        if emerging_count:
+            happened_parts.append(
+                f"{emerging_count} emerging signal" + ("" if emerging_count == 1 else "s")
+            )
+        if story_count:
             noun = "story" if story_count == 1 else "stories"
+            happened_parts.append(f"{story_count} developing {noun}")
+        if item_count:
             item_noun = "item" if item_count == 1 else "items"
-            bucket["happened"] = f"{story_count} developing {noun}"
+            happened_parts.append(f"{item_count} source {item_noun}")
+        if happened_parts:
+            bucket["happened"] = " · ".join(happened_parts)
+        if story_count and story_count < item_count:
+            item_noun = "item" if item_count == 1 else "items"
             bucket["kind_summary"] = f"{item_count} source {item_noun}"
     return rows
 
@@ -924,6 +938,7 @@ def _watch_activity(
     entities: dict[str, dict[str, Any]],
     state: dict[str, dict[str, dict[str, Any]]],
     last_seen: str | None,
+    signal_candidates: list[dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
     watch_entities = _watch_entity_ids(published, state, entities)
     if not watch_entities:
@@ -942,6 +957,7 @@ def _watch_activity(
                 "href": f"/entities/{entity.get('entity_type') or 'company'}/{entity_id}",
                 "entries": [],
                 "signals": [],
+                "emerging_signals": [],
             },
         )
 
@@ -975,14 +991,37 @@ def _watch_activity(
                     "kind_label": "signal",
                 }
             )
+    for candidate in signal_candidates or []:
+        if not candidate.get("is_emerging"):
+            continue
+        entity_ids = {str(candidate.get("primary_entity_id") or "")}
+        entity_ids.update(str(eid) for eid in (candidate.get("entity_ids") or []))
+        for entity_id in entity_ids:
+            if entity_id not in watch_entities:
+                continue
+            bucket = _bucket_for(entity_id)
+            if candidate.get("id") in {row.get("id") for row in bucket["emerging_signals"]}:
+                continue
+            bucket["emerging_signals"].append(
+                {
+                    "id": candidate.get("id"),
+                    "title": candidate.get("label") or candidate.get("reason"),
+                    "href": candidate.get("href"),
+                    "kind_label": "emerging signal",
+                    "support_label": candidate.get("support_label"),
+                }
+            )
     rows = []
     for bucket in by_entity.values():
         item_count = len(bucket["entries"])
         signal_count = len(bucket["signals"])
-        if item_count == 0 and signal_count == 0:
+        emerging_count = len(bucket["emerging_signals"])
+        if item_count == 0 and signal_count == 0 and emerging_count == 0:
             continue
         kind_counts = Counter(str(item.get("kind_label") or item.get("kind") or "item") for item in bucket["entries"])
         kind_bits = [f"{count} {label.lower()}" for label, count in kind_counts.most_common(3)]
+        if emerging_count:
+            kind_bits.append(f"{emerging_count} emerging signal" + ("" if emerging_count == 1 else "s"))
         if signal_count:
             kind_bits.append(f"{signal_count} patent signal" if signal_count == 1 else f"{signal_count} signals")
         if last_seen:
@@ -992,6 +1031,7 @@ def _watch_activity(
         new_items = sum(1 for item in bucket["entries"] if item.get("new_since_last"))
         bucket["item_count"] = item_count
         bucket["signal_count"] = signal_count
+        bucket["emerging_signal_count"] = emerging_count
         bucket["new_item_count"] = new_items
         bucket["signal_label"] = signal_label
         bucket["kind_summary"] = " · ".join(kind_bits) if kind_bits else f"{item_count} current item{'s' if item_count != 1 else ''}"
@@ -1250,6 +1290,7 @@ def build_morning_brief(
     discovered: list[dict[str, Any]] | None = None,
     recommendations: list[dict[str, Any]] | None = None,
     mark_seen: bool = False,
+    include_signal_candidates: bool = True,
 ) -> dict[str, Any]:
     entity_index = entities or {}
     signal_rows = signals or []
@@ -1462,6 +1503,21 @@ def build_morning_brief(
     )
     story_threads = group_story_threads(ranked_reading + open_pending)
     threads_by_id = threads_by_item_id(story_threads)
+    evidence_by_id = {
+        str(record.get("id")): record
+        for record in list(published) + list(draft_rows) + list(extra_pending)
+        if record.get("id")
+    }
+    candidate_cards: list[dict[str, Any]] = []
+    if include_signal_candidates:
+        candidate_cards = present_candidates(
+            inbox_dir,
+            evidence_by_id=evidence_by_id,
+            entities=entity_index,
+            watch_entities=watch_entities,
+        )
+    emerging = emerging_signals(candidate_cards)
+    counts["emerging_signals"] = len(emerging)
     new_developments = _compress_ranked_list(new_developments, threads_by_id, limit=NEW_DEVELOPMENTS_LIMIT)
     important = _compress_ranked_list(important, threads_by_id, limit=IMPORTANT_LIMIT)
     top = _compress_ranked_list(top, threads_by_id, limit=TOP_DEVELOPMENTS_LIMIT)
@@ -1478,6 +1534,7 @@ def build_morning_brief(
             entities=entity_index,
             state=state,
             last_seen=last_seen,
+            signal_candidates=candidate_cards,
         ),
         threads_by_id,
     )
@@ -1536,7 +1593,11 @@ def build_morning_brief(
         {
             "key": "watch_activity",
             "label": "Watch activity",
-            "count": sum(1 for row in watch_rows if row.get("new_item_count") or row.get("signal_count")),
+            "count": sum(
+                1
+                for row in watch_rows
+                if row.get("new_item_count") or row.get("signal_count") or row.get("emerging_signal_count")
+            ),
             "entries": [],
             "remainder": 0,
         },
@@ -1574,6 +1635,7 @@ def build_morning_brief(
         "new_developments": new_developments,
         "important": important,
         "watch_activity": watch_rows,
+        "emerging_signals": emerging,
         "company_deltas": _compress_company_deltas(
             _company_deltas(ranked_reading + open_pending),
             threads_by_id,

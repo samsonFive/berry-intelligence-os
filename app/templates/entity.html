@@ -32,6 +32,34 @@
     <div><strong>{{ last_updated|us_date if last_updated else "—" }}</strong><small>Updated</small></div>
   </div>
 
+  {% if open_signals and (open_signals.emerging or open_signals.confirmed or open_signals.deferred) %}
+    <h2>Open signals</h2>
+    <p class="context-limit" data-pagefind-ignore>Untrusted Signal candidates that name this subject. Emerging is not confirmed. Every row links back to supporting Evidence.</p>
+    <ul class="entity-links" data-pagefind-ignore>
+      {% for item in open_signals.emerging %}
+        <li>
+          <span class="badge badge-signal">Emerging</span>
+          <a href="{{ item.href }}"><strong>{{ item.label }}</strong></a>
+          <span class="draft-meta">{{ item.support_label }}</span>
+        </li>
+      {% endfor %}
+      {% for item in open_signals.confirmed %}
+        <li>
+          <span class="badge badge-status-active">Confirmed</span>
+          <a href="{{ item.href }}"><strong>{{ item.label }}</strong></a>
+          <span class="draft-meta">{{ item.support_label }}</span>
+        </li>
+      {% endfor %}
+      {% for item in open_signals.deferred %}
+        <li>
+          <span class="badge badge-muted">Deferred</span>
+          <a href="{{ item.href }}"><strong>{{ item.label }}</strong></a>
+          <span class="draft-meta">{{ item.support_label }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
   {# --- Recent intelligence: what's happened with this entity recently,
        recency-first across trusted Evidence and (live app only, never on
        the public static build) pending-review discoveries -- each item

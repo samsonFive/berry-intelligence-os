@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block title %}{{ review.label }} — Signal candidate{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">SIGNAL CANDIDATE — NOT A TRUSTED SIGNAL</p>
+    <h1>{{ review.label }}</h1>
+    <p class="also-known-as">{{ review.support_label }}{% if review.pattern_label %} · {{ review.pattern_label }}{% endif %}</p>
+  </div>
+  <a class="button-link" href="/brief#emerging-signals">Back to brief</a>
+</section>
+
+<p class="brief-window">This is an untrusted Signal candidate. A developing story groups related coverage of one event. An emerging signal is a broader evidence-backed pattern. A story thread may support a signal; a story thread is not itself a signal. Nothing here becomes trusted automatically.</p>
+
+<article class="detail-card">
+  <dl>
+    <dt>Status</dt><dd><span class="badge">{{ review.status_label }}</span></dd>
+    <dt>Confidence</dt><dd>{{ review.confidence_label }}</dd>
+    <dt>Support</dt><dd>{{ review.support_label }}</dd>
+    {% if review.primary_subject %}
+      <dt>Primary subject</dt>
+      <dd>{% if review.primary_subject.href %}<a href="{{ review.primary_subject.href }}">{{ review.primary_subject.name }}</a>{% else %}{{ review.primary_subject.name }}{% endif %} · {{ review.primary_subject.label }}</dd>
+    {% endif %}
+    {% if review.reviewer %}
+      <dt>Last reviewer</dt><dd>{{ review.reviewer }}{% if review.reviewed_at %} · {{ review.reviewed_at }}{% endif %}</dd>
+    {% endif %}
+    {% if review.review_notes %}
+      <dt>Review notes</dt><dd>{{ review.review_notes }}</dd>
+    {% endif %}
+  </dl>
+
+  <h2>Why this may matter</h2>
+  {% if review.why_it_may_matter %}
+    <p>{{ review.why_it_may_matter }}</p>
+  {% else %}
+    <p class="empty-state">No stored rationale on this candidate.</p>
+  {% endif %}
+
+  <div class="does-not-prove does-not-prove-prominent">
+    <p class="does-not-prove-kicker">This may suggest</p>
+    <p>{{ review.why_it_may_matter or review.pattern_label }}</p>
+    <p class="does-not-prove-kicker">This does not prove</p>
+    {% if review.does_not_prove %}
+      <ul>
+        {% for bound in review.does_not_prove %}
+          <li>{{ bound }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No stored boundaries on this candidate.</p>
+    {% endif %}
+    <p class="context-limit">Read this before Confirm. Confirming the candidate does not create a trusted Signal record.</p>
+  </div>
+</article>
+
+<section class="brief-section">
+  <h2>Independence analysis</h2>
+  <p class="context-limit">Document count is not origin count. Reprints of one announcement stay one origin.</p>
+  <p><strong>{{ review.independence_view.headline }}</strong></p>
+  {% if review.independence_view.same_origin_collapsed %}
+    <p class="brief-why">These documents collapse to fewer independent origins.</p>
+  {% endif %}
+  {% for cluster in review.independence_view.clusters %}
+    <div class="independence-cluster">
+      <p><strong>{{ cluster.origin_label }}</strong>{% if cluster.document_count > 1 %} · {{ cluster.document_count }} documents, 1 origin{% endif %}</p>
+      <ul class="independence-tree">
+        <li>{{ cluster.origin.source_name or cluster.origin_label }}{% if cluster.origin.title %} — <a href="{{ cluster.origin.href }}">{{ cluster.origin.title }}</a>{% endif %}</li>
+        {% for reprint in cluster.reprints %}
+          <li class="independence-reprint">↳ {{ reprint.source_name or 'Reprint' }}{% if reprint.title %} — <a href="{{ reprint.href }}">{{ reprint.title }}</a>{% endif %}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+</section>
+
+<section class="brief-section">
+  <h2>Supported by</h2>
+  <div class="table-wrap">
+    <table class="brief-table evidence-link-table">
+      <thead>
+        <tr>
+          <th>Evidence</th>
+          <th>Source</th>
+          <th>Date</th>
+          <th>Trust</th>
+          <th>Authority</th>
+          <th>Original</th>
+          <th>Story thread</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in review.supporting_evidence %}
+          <tr>
+            <td><a href="{{ item.href }}"><strong>{{ item.title }}</strong></a></td>
+            <td>{{ item.source_name or "—" }}</td>
+            <td>{{ item.date|us_date if item.date else "—" }}</td>
+            <td><span class="badge intel-trust-{{ item.trust }}">{{ item.trust_label }}</span></td>
+            <td>{{ item.source_authority or "—" }}</td>
+            <td>{% if item.source_url %}<a href="{{ item.source_url }}" rel="noreferrer">Original source</a>{% else %}—{% endif %}</td>
+            <td>
+              {% if item.story_thread %}
+                <a href="{{ item.story_thread.href }}">{{ item.story_thread.title }}</a>
+                <span class="draft-meta">{{ item.story_thread.source_count }} sources</span>
+              {% else %}
+                —
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% if review.story_threads %}
+<section class="brief-section">
+  <h2>Related developing stories</h2>
+  <p class="context-limit">Organizational grouping of related coverage. Not a Signal.</p>
+  <ul class="simple-list">
+    {% for thread in review.story_threads %}
+      <li>
+        <span class="badge">Developing story</span>
+        <a href="{{ thread.href }}">{{ thread.title }}</a>
+        · {{ thread.source_count }} sources
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<section class="brief-section">
+  <h2>Corroboration / contradiction</h2>
+  <p class="context-limit">Stored evidence_links only. The reviewer does not infer new relationships.</p>
+  {% if review.relationships %}
+    <ul class="simple-list">
+      {% for link in review.relationships %}
+        <li>
+          <span class="badge">{{ link.predicate_label }}</span>
+          <a href="{{ link.from_href }}">{{ link.from_title }}</a>
+          →
+          <a href="{{ link.target_href }}">{{ link.target_title }}</a>
+          {% if link.status %}<span class="badge badge-muted">{{ link.status }}</span>{% endif %}
+          {% if link.notes %}<span class="draft-meta">{{ link.notes }}</span>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No stored corroborates / follows up / same signal / duplicates / contradicts links on this supporting Evidence.</p>
+  {% endif %}
+</section>
+
+{% if authoring_mode and not static_build %}
+<section class="brief-section" id="human-decision">
+  <h2>Human decision</h2>
+  <p class="context-limit">These actions use the existing Signal-candidate review service. Confirm does not write a trusted Signal. Nothing confirms automatically.</p>
+  <form class="signal-review-notes" action="/signals/candidates/{{ review.id }}/decision" method="post">
+    <input type="hidden" name="reviewer" value="{{ reviewer }}">
+    <input type="hidden" name="return_to" value="{{ return_to }}">
+    <label for="review-notes">Notes (required for Edit; optional otherwise)</label>
+    <textarea id="review-notes" name="notes" rows="3" placeholder="Correction, caveat, or why this is deferred/disputed">{{ review.review_notes or '' }}</textarea>
+    <div class="queue-actions">
+      <button class="action-button action-approve" type="submit" name="decision" value="confirm">Confirm</button>
+      <button class="action-button" type="submit" name="decision" value="edit">Edit</button>
+      <button class="action-button" type="submit" name="decision" value="defer">Defer</button>
+      <button class="action-button action-reject" type="submit" name="decision" value="dismiss">Dismiss</button>
+      <button class="action-button action-reject" type="submit" name="decision" value="dispute">Mark disputed</button>
+    </div>
+  </form>
+</section>
+{% endif %}
+{% endblock %}

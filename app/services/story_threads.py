@@ -22,7 +22,7 @@ DATE_PROXIMITY_EXACT_TITLE_DAYS = 14
 DATE_PROXIMITY_EVENT_DAYS = 7
 DATE_PROXIMITY_TRANSLATION_DAYS = 1
 MIN_EVENT_JACCARD = 0.45
-THREAD_LINK_PREDICATES = {"corroborates", "contradicts", "follows_up", "same_signal"}
+THREAD_LINK_PREDICATES = {"corroborates", "contradicts", "follows_up", "same_signal", "duplicates"}
 STRONG_LINK_PREDICATES = {"follows_up", "same_signal"}
 PRIMARY_SOURCE_HINTS = (
     "newsroom",
