@@ -165,4 +165,5 @@ def test_assessment_authoring_form_still_requires_facts() -> None:
     form = client.get("/assessments/new")
     assert form.status_code == 200
     assert "Supporting fact ids" in form.text
-    assert 'name="market_ids"' not in form.text
+    assert 'name="market_ids"' in form.text
+    assert 'value="berry-blueberry"' in form.text

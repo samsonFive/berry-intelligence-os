@@ -1,9 +1,8 @@
 """Assessment repository (V2 Phase 2B.1).
 
 Exercised by the live application today: get, list (`all_assessments()`),
-create (`POST /assessments` -- not migrated by this task). No route edits
-or removes an Assessment -- update/delete are not exercised by any
-current application behavior.
+create (`POST /assessments`), and update (`POST /assessments/{id}`).
+No route deletes an Assessment.
 
 `list()` returns records ordered by `created_at` descending, the exact
 sort `all_assessments()` uses today."""

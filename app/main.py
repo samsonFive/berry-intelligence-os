@@ -96,10 +96,16 @@ from app.services.intelligence_feed import (
     build_reader,
     present_feed_item,
 )
-from app.services.assessment_scope import attach_assessment_scope, assessment_berry_scope
-from app.services.morning_brief import build_morning_brief
+from app.services.assessment_scope import (
+    assessment_berry_scope,
+    assessment_market_berry_ids,
+    attach_assessment_scope,
+    parse_assessment_market_ids,
+)
+from app.services.morning_brief import brief_last_seen, build_morning_brief
 from app.services.signal_candidates import SignalCandidateError, load_candidates
 from app.services.signal_review import (
+    EMERGING_STATUSES,
     StaleSignalCandidateError,
     apply_and_persist_decision,
     candidate_by_id,
@@ -362,31 +368,60 @@ def _nav_work_cache_key() -> tuple[Any, ...]:
     )
 
 
+def _record_activity_stamp(record: dict[str, Any]) -> str:
+    return str(
+        record.get("captured_date")
+        or record.get("published_date")
+        or record.get("reviewed_at")
+        or record.get("created_at")
+        or ""
+    )
+
+
 def _compute_nav_work_counts() -> dict[str, Any]:
+    """Cheap HTML-nav badges. Ranked Brief / Pending work stays on those pages."""
+
     published = published_evidence()
     signals = all_signals()
     counts = work_counts(inbox_dir=INBOX_DIR, published=published, signals=signals)
-    brief = build_morning_brief(
-        inbox_dir=INBOX_DIR,
-        published=published,
-        drafts=list_pending_drafts(),
-        unvalidated=unvalidated_auto_captured_evidence(),
-        signals=signals,
-        entities=entity_index(),
-        sources=load_sources(),
-        berry_labels=BERRIES,
-        mark_seen=False,
-        mode="nav",
+    state = load_analyst_queue_state(INBOX_DIR)
+    pending_rows = list(list_pending_drafts())
+    pending_rows.extend(
+        record
+        for record in published
+        if record.get("auto_captured") and not record.get("validated")
     )
-    counts["brief_action"] = int((brief.get("counts") or {}).get("top_priority") or 0)
-    counts["review_now"] = int((brief.get("counts") or {}).get("review_now") or 0)
-    counts["pending_open"] = int((brief.get("counts") or {}).get("pending_open") or 0)
-    counts["emerging_signals"] = int((brief.get("counts") or {}).get("emerging_signals") or 0)
+    pending_open = 0
+    for record in pending_rows:
+        item_id = str(record.get("id") or "")
+        if item_id and not is_pending_dismissed(item_id, state):
+            pending_open += 1
+    counts["pending_open"] = pending_open
+    # Nav Pending is uncleared decisions, not ranked Review-now.
+    counts["review_now"] = pending_open
+    last_seen = brief_last_seen(INBOX_DIR)
+    if last_seen:
+        seen_ids: set[str] = set()
+        brief_action = 0
+        for record in [*published, *pending_rows]:
+            item_id = str(record.get("id") or "")
+            if not item_id or item_id in seen_ids:
+                continue
+            seen_ids.add(item_id)
+            stamp = _record_activity_stamp(record)
+            if stamp and stamp > last_seen and not is_pending_dismissed(item_id, state):
+                brief_action += 1
+        counts["brief_action"] = brief_action
+    else:
+        counts["brief_action"] = int(counts.get("reading_action") or 0)
+    counts["emerging_signals"] = sum(
+        1 for candidate in load_candidates(INBOX_DIR) if candidate.get("status") in EMERGING_STATUSES
+    )
     return counts
 
 
 def nav_work_template_context(request: Request) -> dict[str, Any]:
-    """Nav action counts for HTML pages. Overlay fragments skip Morning Brief."""
+    """Nav action counts for HTML pages. Overlay fragments skip nav work entirely."""
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     if str(getattr(request.url, "path", "") or "").startswith("/api/"):
@@ -1168,6 +1203,10 @@ def assessment_by_id(assessment_id: str) -> dict[str, Any] | None:
 
 def save_assessment(record: dict[str, Any]) -> None:
     get_repositories(DATA_DIR, SCHEMAS_DIR).assessments.create(record)
+
+
+def update_assessment(record: dict[str, Any]) -> None:
+    get_repositories(DATA_DIR, SCHEMAS_DIR).assessments.update(record["id"], record)
 
 
 def new_assessment_id(title: str) -> str:
@@ -3177,6 +3216,10 @@ def assessment_list(request: Request) -> HTMLResponse:
     )
 
 
+def _join_ids(values: list[str] | None) -> str:
+    return ", ".join(item for item in (values or []) if item)
+
+
 def _default_assessment_values() -> dict[str, Any]:
     return {
         "title": "",
@@ -3190,22 +3233,142 @@ def _default_assessment_values() -> dict[str, Any]:
         "strategic_question_ids": "",
         "counterevidence_ids": "",
         "reviewer": "",
+        "market_ids": [],
     }
 
 
-@app.get("/assessments/new", response_class=HTMLResponse)
-def assessment_new(request: Request) -> HTMLResponse:
+def _assessment_values_from_record(record: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "title": record.get("title") or "",
+        "rationale": record.get("rationale") or "",
+        "status": record.get("status") or "active",
+        "confidence": record.get("confidence") or "medium",
+        "fact_ids": _join_ids(record.get("fact_ids")),
+        "signal_ids": _join_ids(record.get("signal_ids")),
+        "evidence_ids": _join_ids(record.get("evidence_ids")),
+        "entity_ids": _join_ids(record.get("entity_ids")),
+        "strategic_question_ids": _join_ids(record.get("strategic_question_ids")),
+        "counterevidence_ids": _join_ids(record.get("counterevidence_ids")),
+        "reviewer": record.get("reviewer") or "",
+        "market_ids": assessment_market_berry_ids(record),
+    }
+
+
+def _assessment_form_response(
+    request: Request,
+    *,
+    values: dict[str, Any],
+    error: str | None = None,
+    status_code: int = 200,
+    form_action: str = "/assessments",
+    form_title: str = "New Assessment",
+) -> HTMLResponse:
     return templates.TemplateResponse(
         request=request,
         name="assessment_form.html",
         context={
-            "values": _default_assessment_values(),
+            "values": values,
             "statuses": INTELLIGENCE_RECORD_STATUSES,
             "confidence_levels": FACT_CONFIDENCE_LEVELS,
-            "error": None,
+            "error": error,
             "authoring_mode": AUTHORING_MODE,
+            "form_action": form_action,
+            "form_title": form_title,
+            "berries": BERRIES,
         },
+        status_code=status_code,
     )
+
+
+def _assessment_form_errors(values: dict[str, Any]) -> str | None:
+    fact_id_list = split_list(values.get("fact_ids") or "")
+    signal_id_list = split_list(values.get("signal_ids") or "")
+    evidence_id_list = split_list(values.get("evidence_ids") or "")
+    entity_id_list = split_list(values.get("entity_ids") or "")
+    counterevidence_id_list = split_list(values.get("counterevidence_ids") or "")
+
+    known_facts = {f["id"] for f in all_facts()}
+    known_signals = {s["id"] for s in all_signals()}
+    published_ids = {r["id"] for r in published_evidence()}
+    entity_ids_known = set(entity_index().keys())
+
+    errors: list[str] = []
+    if not str(values.get("title") or "").strip():
+        errors.append("Title is required.")
+    if not str(values.get("rationale") or "").strip():
+        errors.append("Rationale is required.")
+    if not str(values.get("reviewer") or "").strip():
+        errors.append("Reviewer is required.")
+    if not fact_id_list:
+        errors.append("At least one supporting fact id is required.")
+    unknown_facts = [item for item in fact_id_list if item not in known_facts]
+    if unknown_facts:
+        errors.append(f"Unknown fact id(s): {', '.join(unknown_facts)}.")
+    unknown_signals = [item for item in signal_id_list if item not in known_signals]
+    if unknown_signals:
+        errors.append(f"Unknown signal id(s): {', '.join(unknown_signals)}.")
+    unknown_evidence = [item for item in evidence_id_list if item not in published_ids]
+    if unknown_evidence:
+        errors.append(f"Unknown published evidence id(s): {', '.join(unknown_evidence)}.")
+    unknown_entities = [item for item in entity_id_list if item not in entity_ids_known]
+    if unknown_entities:
+        errors.append(f"Unknown entity id(s): {', '.join(unknown_entities)}.")
+    unknown_counterevidence = [
+        item for item in counterevidence_id_list if item not in known_facts and item not in published_ids
+    ]
+    if unknown_counterevidence:
+        errors.append(f"Unknown counterevidence id(s): {', '.join(unknown_counterevidence)}.")
+    return " ".join(errors) if errors else None
+
+
+def _assessment_record_from_values(
+    values: dict[str, Any],
+    *,
+    assessment_id: str,
+    existing: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    record: dict[str, Any] = dict(existing or {})
+    record.update(
+        {
+            "id": assessment_id,
+            "record_type": "assessment",
+            "title": str(values.get("title") or "").strip(),
+            "rationale": str(values.get("rationale") or "").strip(),
+            "status": values.get("status") or "active",
+            "confidence": values.get("confidence") or "medium",
+            "fact_ids": split_list(values.get("fact_ids") or ""),
+            "signal_ids": split_list(values.get("signal_ids") or ""),
+            "evidence_ids": split_list(values.get("evidence_ids") or ""),
+            "entity_ids": split_list(values.get("entity_ids") or ""),
+            "strategic_question_ids": resolve_strategic_question_ids(values.get("strategic_question_ids") or ""),
+            "counterevidence_ids": split_list(values.get("counterevidence_ids") or ""),
+            "reviewer": str(values.get("reviewer") or "").strip(),
+        }
+    )
+    market_ids = parse_assessment_market_ids(values.get("market_ids") or [])
+    if market_ids:
+        record["market_ids"] = market_ids
+    else:
+        record.pop("market_ids", None)
+    if existing is None:
+        record["created_at"] = date.today().isoformat()
+        record.pop("updated_at", None)
+    else:
+        record["created_at"] = existing.get("created_at") or date.today().isoformat()
+        record["updated_at"] = date.today().isoformat()
+    return record
+
+
+def _assessment_schema_error(record: dict[str, Any]) -> str | None:
+    schema_errors = [error.message for error in get_validator("assessment.schema.json").iter_errors(record)]
+    if not schema_errors:
+        return None
+    return "This assessment could not be saved: " + "; ".join(schema_errors)
+
+
+@app.get("/assessments/new", response_class=HTMLResponse)
+def assessment_new(request: Request) -> HTMLResponse:
+    return _assessment_form_response(request, values=_default_assessment_values())
 
 
 @app.post("/assessments", response_model=None)
@@ -3222,6 +3385,7 @@ def assessment_create(
     strategic_question_ids: str = Form(""),
     counterevidence_ids: str = Form(""),
     reviewer: str = Form(""),
+    market_ids: list[str] = Form(default=[]),
 ) -> HTMLResponse | RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Creating assessments is only available in authoring mode")
@@ -3238,92 +3402,97 @@ def assessment_create(
         "strategic_question_ids": strategic_question_ids,
         "counterevidence_ids": counterevidence_ids,
         "reviewer": reviewer,
+        "market_ids": parse_assessment_market_ids(market_ids),
     }
-
-    fact_id_list = split_list(fact_ids)
-    signal_id_list = split_list(signal_ids)
-    evidence_id_list = split_list(evidence_ids)
-    entity_id_list = split_list(entity_ids)
-    counterevidence_id_list = split_list(counterevidence_ids)
-
-    known_facts = {f["id"] for f in all_facts()}
-    known_signals = {s["id"] for s in all_signals()}
-    published_ids = {r["id"] for r in published_evidence()}
-    entity_ids_known = set(entity_index().keys())
-
-    errors: list[str] = []
-    if not title.strip():
-        errors.append("Title is required.")
-    if not rationale.strip():
-        errors.append("Rationale is required.")
-    if not reviewer.strip():
-        errors.append("Reviewer is required.")
-    if not fact_id_list:
-        errors.append("At least one supporting fact id is required.")
-    unknown_facts = [f for f in fact_id_list if f not in known_facts]
-    if unknown_facts:
-        errors.append(f"Unknown fact id(s): {', '.join(unknown_facts)}.")
-    unknown_signals = [s for s in signal_id_list if s not in known_signals]
-    if unknown_signals:
-        errors.append(f"Unknown signal id(s): {', '.join(unknown_signals)}.")
-    unknown_evidence = [e for e in evidence_id_list if e not in published_ids]
-    if unknown_evidence:
-        errors.append(f"Unknown published evidence id(s): {', '.join(unknown_evidence)}.")
-    unknown_entities = [e for e in entity_id_list if e not in entity_ids_known]
-    if unknown_entities:
-        errors.append(f"Unknown entity id(s): {', '.join(unknown_entities)}.")
-    unknown_counterevidence = [e for e in counterevidence_id_list if e not in known_facts and e not in published_ids]
-    if unknown_counterevidence:
-        errors.append(f"Unknown counterevidence id(s): {', '.join(unknown_counterevidence)}.")
-
-    if errors:
-        return templates.TemplateResponse(
-            request=request,
-            name="assessment_form.html",
-            context={
-                "values": values,
-                "statuses": INTELLIGENCE_RECORD_STATUSES,
-                "confidence_levels": FACT_CONFIDENCE_LEVELS,
-                "error": " ".join(errors),
-                "authoring_mode": AUTHORING_MODE,
-            },
-            status_code=400,
-        )
+    error = _assessment_form_errors(values)
+    if error:
+        return _assessment_form_response(request, values=values, error=error, status_code=400)
 
     assessment_id = new_assessment_id(title)
-    record = {
-        "id": assessment_id,
-        "record_type": "assessment",
-        "title": title.strip(),
-        "rationale": rationale.strip(),
-        "status": values["status"],
-        "confidence": values["confidence"],
-        "fact_ids": fact_id_list,
-        "signal_ids": signal_id_list,
-        "evidence_ids": evidence_id_list,
-        "entity_ids": entity_id_list,
-        "strategic_question_ids": resolve_strategic_question_ids(strategic_question_ids),
-        "counterevidence_ids": counterevidence_id_list,
-        "reviewer": reviewer.strip(),
-        "created_at": date.today().isoformat(),
-    }
-
-    schema_errors = [e.message for e in get_validator("assessment.schema.json").iter_errors(record)]
-    if schema_errors:
-        return templates.TemplateResponse(
-            request=request,
-            name="assessment_form.html",
-            context={
-                "values": values,
-                "statuses": INTELLIGENCE_RECORD_STATUSES,
-                "confidence_levels": FACT_CONFIDENCE_LEVELS,
-                "error": "This assessment could not be saved: " + "; ".join(schema_errors),
-                "authoring_mode": AUTHORING_MODE,
-            },
-            status_code=400,
-        )
+    record = _assessment_record_from_values(values, assessment_id=assessment_id)
+    schema_error = _assessment_schema_error(record)
+    if schema_error:
+        return _assessment_form_response(request, values=values, error=schema_error, status_code=400)
 
     save_assessment(record)
+    return RedirectResponse(url=f"/assessments/{assessment_id}", status_code=303)
+
+
+@app.get("/assessments/{assessment_id}/edit", response_class=HTMLResponse)
+def assessment_edit(request: Request, assessment_id: str) -> HTMLResponse:
+    assessment = assessment_by_id(assessment_id)
+    if assessment is None:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+    return _assessment_form_response(
+        request,
+        values=_assessment_values_from_record(assessment),
+        form_action=f"/assessments/{assessment_id}",
+        form_title="Edit Assessment",
+    )
+
+
+@app.post("/assessments/{assessment_id}", response_model=None)
+def assessment_update(
+    request: Request,
+    assessment_id: str,
+    title: str = Form(""),
+    rationale: str = Form(""),
+    status: str = Form("active"),
+    confidence: str = Form(""),
+    fact_ids: str = Form(""),
+    signal_ids: str = Form(""),
+    evidence_ids: str = Form(""),
+    entity_ids: str = Form(""),
+    strategic_question_ids: str = Form(""),
+    counterevidence_ids: str = Form(""),
+    reviewer: str = Form(""),
+    market_ids: list[str] = Form(default=[]),
+) -> HTMLResponse | RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Editing assessments is only available in authoring mode")
+    existing = assessment_by_id(assessment_id)
+    if existing is None:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+
+    values = {
+        "title": title,
+        "rationale": rationale,
+        "status": status or "active",
+        "confidence": confidence or "medium",
+        "fact_ids": fact_ids,
+        "signal_ids": signal_ids,
+        "evidence_ids": evidence_ids,
+        "entity_ids": entity_ids,
+        "strategic_question_ids": strategic_question_ids,
+        "counterevidence_ids": counterevidence_ids,
+        "reviewer": reviewer,
+        "market_ids": parse_assessment_market_ids(market_ids),
+    }
+    form_action = f"/assessments/{assessment_id}"
+    error = _assessment_form_errors(values)
+    if error:
+        return _assessment_form_response(
+            request,
+            values=values,
+            error=error,
+            status_code=400,
+            form_action=form_action,
+            form_title="Edit Assessment",
+        )
+
+    record = _assessment_record_from_values(values, assessment_id=assessment_id, existing=existing)
+    schema_error = _assessment_schema_error(record)
+    if schema_error:
+        return _assessment_form_response(
+            request,
+            values=values,
+            error=schema_error,
+            status_code=400,
+            form_action=form_action,
+            form_title="Edit Assessment",
+        )
+
+    update_assessment(record)
     return RedirectResponse(url=f"/assessments/{assessment_id}", status_code=303)
 
 
