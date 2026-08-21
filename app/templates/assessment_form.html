@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-{% block title %}New Assessment — Berry Intelligence OS{% endblock %}
+{% block title %}{{ form_title|default('New Assessment') }} — Berry Intelligence OS{% endblock %}
 {% block content %}
 <section class="page-heading">
   <div>
     <p class="eyebrow">RECORD A HUMAN INTERPRETATION OF EXISTING FACTS</p>
-    <h1>New Assessment</h1>
+    <h1>{{ form_title|default('New Assessment') }}</h1>
   </div>
 </section>
 
@@ -16,7 +16,7 @@
   <div class="banner banner-error" role="alert">{{ error }}</div>
 {% endif %}
 
-<form class="intake-form" action="/assessments" method="post">
+<form class="intake-form" action="{{ form_action|default('/assessments') }}" method="post">
   <div class="form-field">
     <label for="title">Title *</label>
     <input id="title" name="title" type="text" required value="{{ values.title }}">
@@ -45,6 +45,17 @@
       </select>
     </div>
   </div>
+
+  <fieldset class="form-fieldset">
+    <legend>Berry scope</legend>
+    <p class="brief-window">Optional. Leave all unchecked for company-wide / unscoped. Stored as <code>market_ids</code> only — never inferred from the title, rationale, or company names.</p>
+    {% for berry_id, label in berries.items() %}
+      <label class="checkbox-label">
+        <input type="checkbox" name="market_ids" value="{{ berry_id }}" {% if berry_id in values.market_ids %}checked{% endif %}>
+        {{ label }}
+      </label>
+    {% endfor %}
+  </fieldset>
 
   <div class="form-field">
     <label for="fact_ids">Supporting fact ids *</label>

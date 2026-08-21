@@ -19,6 +19,30 @@ SCOPE_LABELS = {
     SCOPE_MULTI_BERRY: "Multi-berry",
 }
 
+# Authoring may only declare these four berry market ids. Empty means unscoped.
+ALLOWED_MARKET_BERRY_IDS = (
+    "berry-blueberry",
+    "berry-strawberry",
+    "berry-raspberry",
+    "berry-blackberry",
+)
+
+
+def parse_assessment_market_ids(raw: list[str] | tuple[str, ...] | None) -> list[str]:
+    """Keep declared berry ids only. Ignore unknown values. Do not infer."""
+
+    allowed = {berry_id: index for index, berry_id in enumerate(ALLOWED_MARKET_BERRY_IDS)}
+    seen: set[str] = set()
+    selected: list[str] = []
+    for value in raw or []:
+        text = str(value or "").strip()
+        if text not in allowed or text in seen:
+            continue
+        seen.add(text)
+        selected.append(text)
+    selected.sort(key=lambda berry_id: allowed[berry_id])
+    return selected
+
 
 def assessment_market_berry_ids(record: dict[str, Any]) -> list[str]:
     ids: list[str] = []

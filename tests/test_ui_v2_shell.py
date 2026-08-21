@@ -232,7 +232,7 @@ def test_company_profile_is_v2_and_multi_berry() -> None:
     assert "Blueberry Landscape" not in page.text
 
 
-def test_html_nav_uses_brief_nav_mode(monkeypatch, tmp_path: Path) -> None:
+def test_html_nav_does_not_rank_brief_for_unrelated_pages(monkeypatch, tmp_path: Path) -> None:
     _isolate(monkeypatch, tmp_path)
     main._NAV_WORK_CACHE["key"] = None
     main._NAV_WORK_CACHE["value"] = None
@@ -247,12 +247,11 @@ def test_html_nav_uses_brief_nav_mode(monkeypatch, tmp_path: Path) -> None:
     client = TestClient(app)
     feed = client.get("/work-queue")
     assert feed.status_code == 200
-    assert modes == ["nav"]
     testing = client.get("/queues/testing")
     assert testing.status_code == 200
     assessments = client.get("/assessments")
     assert assessments.status_code == 200
-    assert modes == ["nav"]
+    assert modes == []
 
 
 def test_reading_queue_uses_brief_nav_mode(monkeypatch, tmp_path: Path) -> None:
@@ -288,9 +287,7 @@ def test_pending_page_uses_pending_brief_mode(monkeypatch, tmp_path: Path) -> No
     monkeypatch.setattr(main, "build_morning_brief", wrapped)
     page = TestClient(app).get("/pending")
     assert page.status_code == 200
-    assert "nav" in modes
-    assert "pending" in modes
-    assert "full" not in modes
+    assert modes == ["pending"]
 
 
 def test_compact_marks_do_not_repeat_kind() -> None:
@@ -302,6 +299,17 @@ def test_compact_marks_do_not_repeat_kind() -> None:
     assert "item.kind_label" not in footer
     assert "v2-mark-pending" in footer
     assert "v2-mark-trusted" in footer
+
+
+def test_cold_unrelated_html_nav_does_not_run_ranked_brief() -> None:
+    client = TestClient(app)
+    main._NAV_WORK_CACHE["key"] = None
+    main._NAV_WORK_CACHE["value"] = None
+    started = time.perf_counter()
+    page = client.get("/assessments")
+    elapsed_ms = (time.perf_counter() - started) * 1000
+    assert page.status_code == 200
+    assert elapsed_ms < 800, f"cold Assessments still paid ranked nav work: {elapsed_ms:.1f}ms"
 
 
 def test_landscape_region_js_uses_berry_label() -> None:

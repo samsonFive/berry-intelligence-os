@@ -18,8 +18,8 @@ these as Open UI-lane items):
 
 | Withdrawn ID | This register |
 |---|---|
-| TD-UI-001 | TD-001 **resolved** (residual cold ranking is KL-011) |
-| TD-UI-002 | TD-002 **resolved** (remaining authoring gap is TD-012) |
+| TD-UI-001 | TD-001 **resolved** (cold ranking closed as KL-011) |
+| TD-UI-002 | TD-002 **resolved** (authoring gap closed as TD-012) |
 | TD-UI-003 | TD-003 **resolved** |
 | TD-UI-004 | TD-004 **resolved** |
 | TD-ACQ-001 | TD-006 **active** |
@@ -126,22 +126,6 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Owner lane** | data |
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `docs/v2/09-RISK-REGISTER.md` R-12 |
-
-### TD-012 — Assessment authoring form cannot declare `market_ids`
-
-| Field | Value |
-|---|---|
-| **Severity** | Medium |
-| **Area** | assessments / authoring |
-| **Date discovered** | 2026-08-21 |
-| **Evidence** | Schema already stores optional `market_ids`. Live records: 4 blueberry-specific, 1 unscoped, 0 multi-berry. `GET/POST /assessments/new` (`assessment_form.html`) has no berry-scope field, so new Assessments are always unscoped unless an operator edits JSON. |
-| **Impact** | Analysts cannot declare berry-specific vs company-wide at write time. UI labeling (TD-002) can only show what was stored. |
-| **Workaround** | Edit the Assessment JSON `market_ids` array (`berry-*` ids). Do not infer from title text. |
-| **Recommended resolution** | Smallest additive UI: optional berry checkboxes on the existing form that write `market_ids`. Empty remains unscoped. Do not invent inferred trust metadata. |
-| **Status** | active |
-| **Owner lane** | product |
-| **PR/SHA when resolved** | — |
-| **Regression-test reference** | `tests/test_assessment_scope.py`; `app/templates/assessment_form.html` |
 
 ### TD-THREAD-002 — Live `/threads` universe is pending + one seed only
 
@@ -302,7 +286,6 @@ Unique withdrawn-draft items below keep their original IDs.
 | KL-007 | Analyst workflow state lives in gitignored `inbox/analyst_queue_state.json` | Runtime overlay; never mutates trusted `data/evidence`. |
 | KL-008 | `market_ids` absent means scope undeclared, not “applies everywhere” | D-012. UI must label unscoped, not invent a berry. |
 | KL-009 | ~120 reference sources have no automated discovery | Registry by design until a Source gets a `discovery` block. |
-| KL-011 | Cold HTML nav still ranks reading+pending (~2.1s) | Signature cache makes unrelated warm pages ~10ms. Do not cache trust/review beyond the folder signature. Further cuts are precomputed counts, not stale badges. |
 
 ---
 
@@ -312,10 +295,12 @@ Unique withdrawn-draft items below keep their original IDs.
 |---|---|---|---|
 | TD-THREAD-001 | Company-primary vs variety-primary false separation | 2026-08-20 PR #51 `807e059` | `_cross_subject_event_edge()` in `app/services/story_threads.py`. Tests in `tests/test_story_threads.py`. |
 | TD-001b | Overlay Reader paid Morning Brief | 2026-08-21 prototype hardening | `/api/` paths skip nav Brief. Warm overlay ~18–20ms on the then-current runtime. |
-| TD-001 | Global HTML nav rebuilt full Morning Brief presentation | 2026-08-21 decision-workflow | Function-level `mode=full` median 2772ms → `mode=nav` 2089ms. Overlay 20ms. Warm `/assessments` 10ms. Residual ranking on cold miss is KL-011. Withdrawn draft ID: TD-UI-001 (was still Open there). |
-| TD-002 | Company Bottom Line berry-scope unlabeled | 2026-08-21 decision-workflow | Classify from stored `market_ids` only; label unscoped vs berry-specific; do not hide. Remaining authoring gap is TD-012. |
+| TD-001 | Global HTML nav rebuilt full Morning Brief presentation | 2026-08-21 decision-workflow | Function-level `mode=full` median 2772ms → `mode=nav` 2089ms. Overlay 20ms. Residual cold ranking closed as KL-011. Withdrawn draft ID: TD-UI-001 (was still Open there). |
+| TD-002 | Company Bottom Line berry-scope unlabeled | 2026-08-21 decision-workflow | Classify from stored `market_ids` only; label unscoped vs berry-specific; do not hide. Authoring gap closed as TD-012. |
 | TD-003 | Compact repeated kind + status marks | 2026-08-21 decision-workflow | Type stays on `.v2-card-line`. Footer marks are Direct / Watch / Pending\|Trusted / Story / Signal. |
 | TD-004 | Landscape JS breadcrumb hardcoded Blueberry | 2026-08-21 decision-workflow | Reads `data-berry-label`. Landscape itself remains unmigrated (KL-004). |
-| TD-011 | Reading Queue rebuilt full Morning Brief | 2026-08-21 decision-workflow | `/queues/reading` uses `mode="nav"`. |
+| TD-011 | Reading Queue rebuilt full Morning Brief | 2026-08-21 decision-workflow | `/queues/reading` uses `mode="nav"` for its own page buckets. Nav badges no longer call Brief (KL-011). |
+| TD-012 | Assessment authoring form cannot declare `market_ids` | 2026-08-21 `cursor/assessment-scope-nav-perf-bd27` | Root cause: schema already had optional `market_ids`; create form never wrote it, so new records were always unscoped. Solution: optional four-berry checkboxes on create/edit; empty omits the field (unscoped, not “all berries”); no prose inference. Timing: form GET/POST only. Tests: `tests/test_assessment_scope.py` (create one/multi/unscoped, edit round-trip, company labels stored scope). |
+| KL-011 | Cold HTML nav ranked reading+pending for badges (~2.1s) | 2026-08-21 `cursor/assessment-scope-nav-perf-bd27` | Root cause: `_compute_nav_work_counts()` called `build_morning_brief(mode=nav)` on every cold HTML page. Ranked Review-now / top-priority are page concerns. Solution: cheap repository/state counts (open pending, reading_action, emerging candidate statuses, new-since-last-seen) + existing signature cache. Timing (this VM, cold cache-cleared): nav compute 2131ms → 35ms; Assessments 2144ms → 58ms; Company 2710ms → 635ms; Feed 2595ms → 519ms. Pending/Reading still pay their own page ranking (1387ms / 2307ms). Tests: `tests/test_ui_v2_shell.py` (`test_html_nav_does_not_rank_brief_for_unrelated_pages`, `test_cold_unrelated_html_nav_does_not_run_ranked_brief`). |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

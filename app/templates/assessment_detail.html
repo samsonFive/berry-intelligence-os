@@ -11,6 +11,9 @@
       Signal confirmation does not create this record.
     </p>
   </div>
+  {% if authoring_mode %}
+    <a class="button-link" href="/assessments/{{ assessment.id }}/edit">Edit</a>
+  {% endif %}
 </section>
 <article class="detail-card v2-assessment-detail">
   <dl data-pagefind-ignore>
