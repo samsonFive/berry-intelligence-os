@@ -2,7 +2,7 @@
 
 *Maintained by Claude. Updated at the end of each work session that changes project state. Keep short — this is a status check, not a changelog (see `docs/reviews/CURRENT-STATE-AUDIT.md` and `docs/v2/` for detail).*
 
-**Last updated:** 2026-08-21, PR for TD-012 + KL-011 on canonical `4629c61`
+**Last updated:** 2026-08-21, PR #54 on canonical `4629c61`
 
 **Governing roadmap for the post-foundation expansion phase:** `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`, adopted 2026-08-20 — read it before proposing new acquisition, domain-depth, variety, alternative-data, or UI V2 work. Its companions, both live and required reading alongside it: `docs/v2/TECHNICAL-DEBT-REGISTER.md` (every known unresolved bug/limitation, by lane) and `docs/v2/INTELLIGENCE-COVERAGE-MATRIX.md` (the live berry × source-class × geography coverage map).
 
@@ -21,7 +21,7 @@ Phase 2 implementation complete (acceptance-reviewed). Production remains JSON-b
 **Sprint 1 — Mainstream News + Regulatory Recall Benchmark V1** (Expansion Guide §20). Do not start Landscape migration. PostgreSQL and Phase 3 remain not started. Unattended VPS collection remains unauthorized.
 
 **Last completed:**
-Assessment scope authoring + nav badge performance (2026-08-21, branch `cursor/assessment-scope-nav-perf-bd27`): closed TD-012 and KL-011 only. Optional four-berry `market_ids` checkboxes on Assessment create/edit; empty remains unscoped (field omitted, not “all berries”); edit round-trips stored scope; Company Bottom Line still labels stored scope only. HTML nav badges no longer call `build_morning_brief`; cheap repository/state counts. Cold nav compute 2131ms → 35ms; cold Assessments 2144ms → 58ms on this VM. Pending/Reading still pay their own page ranking. No additional UI migration.
+Assessment scope authoring + nav badge performance (2026-08-21, branch `cursor/assessment-scope-nav-perf-bd27`, PR #54): closed TD-012 and KL-011 only. Optional four-berry `market_ids` checkboxes on Assessment create/edit; empty remains unscoped (field omitted, not “all berries”); edit round-trips stored scope; Company Bottom Line still labels stored scope only. HTML nav badges no longer call `build_morning_brief`; cheap repository/state counts. Cold nav compute 2131ms → 35ms; cold Assessments 2144ms → 58ms on this VM. Pending/Reading still pay their own page ranking. No additional UI migration.
 
 V2 decision workflow Gate 0 (2026-08-21, branch `cursor/v2-decision-workflow-bd27`, PR #52): migrated Pending Review (`GET /pending` decision workspace; bulk dismiss never publishes), Reading Queue compact cards, and Assessments V2 list/detail onto the approved AppShell. Overlay `/api/` skips Brief; `/brief` stays `mode="full"`; `/pending` uses `mode="pending"`. Assessment berry scope is labeled from stored `market_ids` only (unscoped ≠ every berry). Compact footer no longer repeats `kind_label`. Landscape JS breadcrumb reads `data-berry-label` (Landscape itself unmigrated). Rebased onto later governance at `8158021` (PR #53 expansion guide + PR #51 Story Thread). The expansion guide is preserved verbatim from canonical. Companion register/matrix from this PR fold unique acquisition/entity/thread/test items from the withdrawn expansion-guide-session drafts (TD-THREAD-002, TD-ACQ-002..004, TD-ENT-001..003, TD-REVIEW-001, TD-TEST-001) without reopening UI-lane items: TD-001..004 and TD-011 stay resolved. Stop gate: no Landscape / Monitor / admin migration.
 
