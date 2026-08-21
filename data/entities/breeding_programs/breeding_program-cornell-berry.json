@@ -1,0 +1,33 @@
+{
+  "id": "breeding_program-cornell-berry",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Cornell University Berry Breeding Program",
+  "aliases": [
+    "Cornell berry breeding program"
+  ],
+  "status": "active",
+  "description": "Public breeding program at Cornell University releasing both raspberry and strawberry cultivars. Released raspberries Double Gold and Crimson Night (2012, aimed at small-scale growers and home gardeners, vigorous and disease resistant) and, in 2019, the raspberry Crimson Treasure alongside the strawberry Dickens -- both described as producing large, vibrantly colored fruit with flavor that holds longer than most heritage varieties.",
+  "roles": [
+    "public_breeding_program"
+  ],
+  "berry_ids": [
+    "berry-raspberry",
+    "berry-strawberry"
+  ],
+  "evidence_ids": [
+    "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie",
+    "ev-20260806173539-147e-cornell-berry-breeding-program-releases-",
+    "ev-20260806173539-a9c7-new-high-yield-strawberry-raspberry-vari"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-cornell-berry-develops-double-gold",
+    "rel-cornell-berry-develops-crimson-night",
+    "rel-cornell-berry-develops-crimson-treasure"
+  ],
+  "attributes": {
+    "country": "United States",
+    "institution": "Cornell University"
+  }
+}

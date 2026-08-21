@@ -15,7 +15,10 @@
     "berry-raspberry"
   ],
   "geography_ids": [],
-  "entity_ids": [],
+  "entity_ids": [
+    "company-global-plant-genetics",
+    "company-james-hutton-ltd"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],

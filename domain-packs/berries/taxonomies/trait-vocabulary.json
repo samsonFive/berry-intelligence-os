@@ -86,6 +86,13 @@
       "description": "Whether a strawberry cultivar flowers in response to short daylength (short-day / June-bearing) or largely independent of daylength (day-neutral / everbearing). Added for the multi-berry portability audit (2026-08-20), same reason as trait-fruiting-habit.",
       "measurement_type": "categorical",
       "unit": null
+    },
+    {
+      "id": "trait-fruit-color",
+      "label": "Fruit color",
+      "description": "Reported fruit color or color intensity of a variety. Added for the Raspberry Vertical V1 depth mission (2026-08-20) -- a real, generic gap found while adding Cornell's raspberry release Crimson Treasure, whose own coverage described 'vibrant colors' as a stated selling point with no existing trait entity to record it against. Applicable across all four berries, not raspberry-specific.",
+      "measurement_type": "qualitative_or_colorimetric",
+      "unit": null
     }
   ],
   "unresolved_overlap_candidates": [
