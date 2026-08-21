@@ -269,6 +269,17 @@ def main(argv: list[str] | None = None) -> int:
     article_companies = [record for record in all_entities if record.get("entity_type") == "company"]
     article_completer = maybe_untrusted_completer()
 
+    # Sources explicitly registered as government_regulatory are pre-scoped
+    # by their own search query (e.g. a Federal Register search built from
+    # "strawberries antidumping") -- a docket-only headline from one of them
+    # should always get a real Stage B body read rather than being dropped
+    # by Stage A's generic-web metadata gate. See article_refresh.py's
+    # always_body_check docstring for why this is scoped to the source, not
+    # a global relevance-screen change.
+    regulatory_source_ids = {
+        s["id"] for s in repositories.sources.list() if "government_regulatory" in (s.get("entity_types") or [])
+    }
+
     def orchestrate(item_id: str, allow_transcription: bool, run_extraction: bool, dry_run: bool):
         adapter = MediaTranscriptionAdapter(
             args.inbox_dir,
@@ -316,6 +327,7 @@ def main(argv: list[str] | None = None) -> int:
                 geographies=article_geographies,
                 companies=article_companies,
                 dry_run=dry_run,
+                always_body_check=item.get("source_id") in regulatory_source_ids,
             )
             result.relevance_tier = extra.get("relevance_tier")
             return result
