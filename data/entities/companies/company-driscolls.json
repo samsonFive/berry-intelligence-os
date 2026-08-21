@@ -70,7 +70,10 @@
     "rel-driscolls-operates-in-canada",
     "rel-driscolls-operates-in-portugal",
     "rel-driscolls-operates-in-australia",
-    "rel-driscolls-owns-costa"
+    "rel-driscolls-owns-costa",
+    "rel-driscolls-owns-drisblueseventeen",
+    "rel-driscolls-markets-zara",
+    "rel-driscolls-markets-victoria"
   ],
   "attributes": {
     "headquarters": "345 Westridge Drive, Watsonville, California 95076, USA",

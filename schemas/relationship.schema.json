@@ -8,7 +8,7 @@
     "id": {"type": "string", "pattern": "^rel-[a-z0-9-]+$"},
     "record_type": {"const": "relationship"},
     "subject_id": {"type": "string"},
-    "predicate": {"enum": ["owns", "develops", "licenses", "distributes", "grows", "trials", "sells", "carries", "partners_with", "operates_in"]},
+    "predicate": {"enum": ["owns", "develops", "licenses", "distributes", "grows", "trials", "sells", "carries", "partners_with", "operates_in", "markets"]},
     "object_id": {"type": "string"},
     "status": {"enum": ["active", "historical", "disputed"]},
     "evidence_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},

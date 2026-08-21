@@ -215,16 +215,17 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
         "source-global-fresh-series-podcast", "source-fresh-cred-podcast", "source-lubera-edibles-podcast",
         "source-blueberries-tv-youtube",
     }
-    # 29 = the 24 sources this assertion previously covered, plus 5 more
-    # added for the Mainstream News + Regulatory Coverage Recall Benchmark
-    # V1 mission (2026-08-21): 2 Federal Register government_register_json
-    # sources and 3 Google News news_search_rss sources, all with real
-    # discovery.adapter blocks, proven against real network traffic. 147 =
-    # 142 plus those same 5 new sources. source-uspto-plant-patents (140th
-    # source, Patent Monitor v2) has no discovery.adapter -- it runs via
-    # scripts/monitor_plant_patents.py, not the RSS collection runner -- so
-    # it never counted toward sources_discoverable.
-    assert report.sources_configured == 147 and report.sources_discoverable == 29
+    # 29 unchanged (source-cpvo-public-register, like source-uspto-plant-
+    # patents, has no discovery.adapter -- it runs via
+    # scripts/monitor_cpvo_registry.py, not the RSS collection runner, so
+    # it never counts toward sources_discoverable). 148 = 147 plus
+    # source-cpvo-public-register, added for the Variety Intelligence
+    # Backbone V1 mission (2026-08-21). 147 = 142 plus 5 sources added for
+    # the Mainstream News + Regulatory Coverage Recall Benchmark V1 mission
+    # (2026-08-21): 2 Federal Register government_register_json sources
+    # and 3 Google News news_search_rss sources, all with real
+    # discovery.adapter blocks, proven against real network traffic.
+    assert report.sources_configured == 148 and report.sources_discoverable == 29
     assert expected <= {source.source_id for source in report.sources}
 
 

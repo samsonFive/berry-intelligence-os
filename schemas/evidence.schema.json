@@ -87,6 +87,29 @@
       "type": "object",
       "$comment": "Patent Monitor v2 addition (2026-08-19), optional, present only on patent Evidence. Normalized bibliographic data (publication_number, filing/grant dates, inventors, assignees, botanical/cultivar name, source_url) as discovered -- see app/services/patent_monitor/normalize.py. Presence of this object alone (even without intake_type/source_type) is enough for intelligence_feed.classify_kind() to render the record as a patent."
     },
+    "commercial_observation": {
+      "type": "object",
+      "$comment": "Variety Intelligence Backbone V1 addition (2026-08-21), optional, present only on a market/retail observation Evidence record (source_type=field_observation, mirroring the pre-existing ev-sample-retail-placement seed convention -- see docs/v2/VARIETY-INTELLIGENCE-BACKBONE.md Part 7). Structured facts about ONE observed commercial listing at ONE point in time -- retailer/market/variety/brand/pack/price/claims as actually stated on the listing, nothing inferred. This is an observation of a listing, not proof of market scale, distribution, or commercial success (does_not_prove should say so explicitly, the same discipline patent_filing already follows). entity_ids still carries the resolved retailer/variety/marketer entity ids for generic querying (EntityIntelligenceQueryService etc.); this object exists only for the structured facts no generic entity/geography field already captures. All fields optional -- record only what the listing itself actually stated.",
+      "properties": {
+        "retailer_entity_id": {"type": ["string", "null"], "$comment": "Resolved retailer/channel Entity id, if the retailer is already tracked; null if not yet resolved (do not invent a Retailer entity from a single observation)."},
+        "retailer_name": {"type": ["string", "null"], "$comment": "The retailer/channel name as it actually appeared, independent of whether it resolved to an entity."},
+        "channel": {"enum": ["online", "physical", "unknown"]},
+        "market_country": {"type": ["string", "null"], "$comment": "The market/country the listing was observed in (e.g. 'United Kingdom'), free text -- distinct from origin_geography_id, which is where the product itself is stated to originate."},
+        "variety_entity_id": {"type": ["string", "null"], "$comment": "Resolved Variety entity id if the listing named a specific cultivar/denomination the analyst could confidently match; null when the listing only shows a brand and the underlying variety is genuinely ambiguous -- do not guess."},
+        "brand": {"type": ["string", "null"]},
+        "marketer_entity_id": {"type": ["string", "null"]},
+        "grower_packer": {"type": ["string", "null"], "$comment": "As stated on the listing/pack, when visible -- free text, not assumed to resolve to an entity."},
+        "origin_geography_id": {"type": ["string", "null"], "$comment": "Resolved Geography entity id for the stated country/region of origin, if the listing disclosed one."},
+        "price": {"type": ["number", "null"]},
+        "currency": {"type": ["string", "null"], "$comment": "ISO 4217 code (e.g. 'GBP'), free text -- not schema-enforced to a fixed list."},
+        "pack_size": {"type": ["string", "null"]},
+        "promotion": {"type": ["string", "null"], "$comment": "Any promotional claim on the listing (e.g. '2 for GBP3'), verbatim or closely paraphrased."},
+        "claims": {"type": "array", "items": {"type": "string"}, "$comment": "Marketing/quality claims as stated on the listing (e.g. 'extra sweet', 'jumbo berries') -- these are the retailer/marketer's own claims, never silently promoted to a trusted trait Fact."},
+        "observed_at": {"type": "string", "format": "date"},
+        "observer_method": {"enum": ["public_listing_review", "analyst_submitted_photo", "other"]},
+        "image_reference": {"type": ["string", "null"], "$comment": "A reference to a retained image, if any -- this project does not store scraped images inline; a URL or local reference only."}
+      }
+    },
     "entity_link_suggestions": {
       "type": "array",
       "items": {

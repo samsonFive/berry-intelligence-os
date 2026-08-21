@@ -1,0 +1,26 @@
+{
+  "id": "variety-victoria",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Victoria",
+  "aliases": [
+    "Driscoll's Victoria"
+  ],
+  "status": "active",
+  "description": "Driscoll's blackberry variety -- large, sweet fruit, in commercial production in California since 2005 and grown in the UK (Kent) by Berry Gardens, a Driscoll's growing partner. Won HortWeek's Best New Variety (Top/Soft Fruit) award. Real, multi-source-confirmed commercial name; no plant-patent or PVR filing has been linked yet (added for the Variety Intelligence Backbone V1 mission's UK retail observation pilot, 2026-08-21, not from a registry filing).",
+  "roles": ["cultivar"],
+  "berry_ids": ["berry-blackberry"],
+  "evidence_ids": [
+    "ev-hortweek-driscolls-victoria-award"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-driscolls-markets-victoria"
+  ],
+  "attributes": {
+    "commercial_name": "Victoria",
+    "breeder": "Driscoll's, Inc.",
+    "grower_uk": "Berry Gardens (Salman's Farm, Kent)",
+    "package_note": "No trait datasheet, patent, or PVR filing found for this denomination as of 2026-08-21 -- not fabricated. Real-world UK retail observation and trade-press award coverage are the only current evidence classes for this variety."
+  }
+}

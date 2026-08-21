@@ -198,10 +198,10 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Severity** | Low |
 | **Area** | domain model |
 | **Date discovered** | 2026-08-20 |
-| **Evidence** | `relationship-predicates.json` declares 16 predicates; `schemas/relationship.schema.json` enum accepts 10. Raspberry V1 could not use `administers_license_for` and fell back to `licenses`. |
-| **Impact** | Documented extensions are unusable at validation time. |
-| **Workaround** | Use one of the enforced 10 predicates. |
-| **Recommended resolution** | Either extend the live schema enum or correct the domain-pack spec to the enforced set. |
+| **Evidence** | `relationship-predicates.json` declares 16 predicates; `schemas/relationship.schema.json` enum accepted 10 (now 11). Raspberry V1 could not use `administers_license_for` and fell back to `licenses`. **Variety Intelligence Backbone V1 mission (2026-08-21) closed one of the six**: `markets` was added to the schema enum after finding a real, already-live, explicitly-disclaimed substitution (`rel-berryworld-sells-eureka.json`'s own `notes`: *"Substituted predicate: 'sells' stands in for 'markets', which the schema does not provide"*) -- that record was corrected to the real predicate, and two new real `markets` relationships were added (`rel-driscolls-markets-zara`, `rel-driscolls-markets-victoria`). The remaining five (`exhibits_claimed_trait`, `protects`, `offers`, `administers_license_for`, `subsidiary_of`) are still declared-only/unenforced -- none had a real, live substitution case found this mission, so none were added speculatively (same discipline: schema changes only follow demonstrated need). |
+| **Impact** | 5 of 6 documented extensions remain unusable at validation time. |
+| **Workaround** | Use one of the enforced 11 predicates. |
+| **Recommended resolution** | Add the remaining 5 only if/when a real relationship needs one and has to substitute, mirroring exactly how `markets` was resolved this mission -- do not add speculatively. |
 | **Status** | active |
 | **Owner lane** | data |
 | **PR/SHA when resolved** | — |
@@ -214,7 +214,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Severity** | Low |
 | **Area** | entity resolution |
 | **Date discovered** | 2026-08-20 |
-| **Evidence** | Raspberry patent drafts “ABB 135”/“ABB 136” assigned to Allberry B.V., not Advanced Berry Breeding B.V. Shared ABB naming + inventor Niels Arts is circumstantial only. Left unlinked. |
+| **Evidence** | Raspberry patent drafts “ABB 135”/“ABB 136” assigned to Allberry B.V., not Advanced Berry Breeding B.V. Shared ABB naming + inventor Niels Arts is circumstantial only. Left unlinked. **Further real corroboration found by the Variety Intelligence Backbone V1 mission (2026-08-21)**: CPVO's public register independently shows real raspberry varieties Shani, Rafiki, and Sarafina (all already tracked as Advanced Berry Breeding varieties) registered with applicant "Allberry B.V.", not "Advanced Berry Breeding B.V." -- the same identity question, now with 3 more real data points, still not resolved to a confirmed link (see `docs/v2/VARIETY-INTELLIGENCE-BACKBONE.md` Part 5/13). |
 | **Impact** | Those drafts stay unresolved assignees. |
 | **Workaround** | Do not force-alias. |
 | **Recommended resolution** | Netherlands KVK (or equivalent) lookup before linking. |
@@ -270,6 +270,118 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Owner lane** | platform |
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_morning_brief.py` |
+
+### TD-018 — Trait-evidence linkage is a JSON convention, not schema-enforced
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data quality / domain model |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | `attributes.traits[]` entries on a Variety carry per-claim `evidence_ids`, but `entity.schema.json`'s `attributes` field is untyped -- a trait claim with an empty or missing `evidence_ids` would still pass schema validation. No `exhibits_claimed_trait` Variety->Trait relationship exists in live data (declared, `live_count: 0`). |
+| **Impact** | Nothing currently exploits this gap (every real trait entry sampled does carry evidence), but the platform has no structural guarantee against a future unevidenced trait claim. |
+| **Workaround** | Manual review discipline; `app/services/berries/variety.py`'s `variety_trait_profile()` already surfaces `provenance` so a reviewer can judge claim strength. |
+| **Recommended resolution** | A lint/validation script checking `attributes.traits[].evidence_ids` is non-empty on every live Variety record; do not add `exhibits_claimed_trait` as a real relationship type until a real case needs Variety->Trait to be a first-class queryable edge rather than an embedded array entry. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none yet |
+
+### TD-019 — CPVO public register `species`/`specieId` query params do not filter server-side
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | collection / registry integration |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | Live-tested against `online.plantvarieties.eu/api/publicSearch/v3/publicSearch`: `?specieId=FRA01` and `?species=FRA01` both return the same unfiltered default result set as no species filter at all. Only `denomination`(`+denominationSearchType`) and `breedersReference` were confirmed to actually filter. `app/services/cpvo_registry.py` works around this by client-side filtering every result's `speciesName` against `CPVO_SPECIES_TO_BERRY` after the fact. |
+| **Impact** | None currently (client-side filtering is correct and tested), but it means CPVO cannot be queried "give me everything in Fragaria x ananassa" directly -- only by denomination/breeder-reference, which is why this integration is query-per-known-variety-name rather than a browsable crawl. |
+| **Workaround** | Client-side species filtering (already implemented). |
+| **Recommended resolution** | Re-test if CPVO's API changes; the UI's own species dropdown may use a different, undiscovered parameter name this mission's live testing did not find. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_cpvo_registry.py::test_berry_id_for_species_maps_real_cpvo_species_strings` covers the workaround, not the upstream limitation itself. |
+
+### TD-020 — No confirmed stable per-record CPVO permalink
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data quality / provenance |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | `normalize_cpvo_register_row()` sets `source_url` to the equivalent search query URL (`https://online.plantvarieties.eu/publicSearch?denomination=X&denominationSearchType=equals`), not a per-record deep link -- no stable permalink pattern was confirmed working during this mission's live testing. |
+| **Impact** | A reviewer clicking the source_url gets a fresh search for the same denomination, not necessarily the exact single record, if a denomination has multiple real filings (see the real "Cargo"/"Blue Ribbon" two-filings-per-denomination case, `docs/v2/VARIETY-INTELLIGENCE-BACKBONE.md` Part 13). |
+| **Workaround** | The draft's `cpvo_filing` object carries the real `application_number`/`grant_number`/`exam_office_name`, sufficient for a human to disambiguate manually. |
+| **Recommended resolution** | Investigate whether CPVO's SPA supports an `?applicationNumber=X`-style deep link (not attempted this mission -- time-bounded). |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none |
+
+### TD-021 — Open Food Facts search endpoint instability
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | collection / UK retail research |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | Both `world.openfoodfacts.org/api/v2/search` and the legacy `/cgi/search.pl` endpoint returned HTTP 503 consistently throughout this mission's research window; the individual-product endpoint (`/api/v2/product/{barcode}.json`) worked reliably throughout. |
+| **Impact** | The UK retail observation pilot (`docs/v2/VARIETY-INTELLIGENCE-BACKBONE.md` Part 9) had to source real product barcodes via targeted web search rather than a direct category/country search query -- more manual, harder to fully automate. |
+| **Workaround** | Web-search-then-individual-fetch, as done this mission. |
+| **Recommended resolution** | Re-test the search endpoint before building any recurring/automated UK observation collector; if still unstable, consider a maintained curated barcode list instead of live search. |
+| **Status** | monitoring |
+| **Owner lane** | ops |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none (external service issue, not this project's code) |
+
+### TD-022 — UK retail variety-name exposure is genuinely rare
+
+| Field | Value |
+|---|---|
+| **Severity** | Low (structural, not a bug) |
+| **Area** | data availability |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | 16 of 18 real UK observations gathered this mission correctly recorded `variety_entity_id: null` -- the retailer listing genuinely did not name a cultivar. Only premium/named lines (Driscoll's Zara, Driscoll's Victoria) exposed a real variety name. |
+| **Impact** | Future UK-observation volume will structurally skew toward "brand/origin known, variety unknown" rather than fully variety-identified competitive intelligence, unless a wider set of premium/named product lines is specifically targeted. |
+| **Workaround** | None needed -- `commercial_observation.variety_entity_id: null` is an explicitly supported, expected state, not an error. |
+| **Recommended resolution** | If UK retail observation continues, prioritize premium/branded lines (Driscoll's, other named-variety marketers) over generic own-label for variety-identification yield. |
+| **Status** | accepted (real market characteristic, not something to "fix") |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none |
+
+### TD-023 — Registry-matched varieties and observed varieties are currently disjoint
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data coverage |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | `varieties_with_ip_activity_and_commercial_observation()` (`app/services/variety_footprint.py`), run against the real dataset, returns an empty list -- the 28 CPVO-matched varieties and the 2 variety-identified UK observations (Zara, Victoria) do not currently overlap. |
+| **Impact** | The mission's Section 11 "which varieties have both IP activity and commercial observations" query works correctly but has nothing real to show yet -- an honest current-state gap, not a broken query (`docs/v2/VARIETY-INTELLIGENCE-BACKBONE.md` Part 11/16 report this directly rather than omitting the null result). |
+| **Workaround** | None needed; the query is correct and will surface real overlap as soon as either data source grows to include a shared variety. |
+| **Recommended resolution** | A future mission expanding either registry coverage or retail-observation breadth should re-run this query and expect (eventually) a real non-empty result. |
+| **Status** | accepted |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_variety_footprint.py::test_ip_and_commercial_overlap_requires_both_sides` (fixture-based positive case; the real-data empty result is reported in the mission doc, not asserted in a test, since it is expected to change). |
+
+### TD-ENT-004 — Breeding-program entity and its parent company show identical variety lists
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | entity resolution / presentation |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | `competing_varieties_in_berry_market(berry_id="berry-blueberry")`'s real output lists "Fall Creek Blueberry Breeding Program" and "Fall Creek Farm & Nursery, Inc." as two separate rows with identical variety lists -- both entities carry real, independent `develops` relationships to the same varieties. |
+| **Impact** | Correct data modeling (a breeding program and its parent company are legitimately distinct real entities), but could read as a duplicate/redundant pair in a future UI without explanatory context. |
+| **Workaround** | None needed at the data layer; a future UI should decide whether to visually group a breeding program with its parent company. |
+| **Recommended resolution** | Cursor's UI-layer decision, not a backend fix -- flagged here so it is not rediscovered as a "bug" later. |
+| **Status** | accepted |
+| **Owner lane** | product |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none |
 
 ---
 

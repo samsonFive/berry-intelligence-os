@@ -3097,6 +3097,31 @@
       "update_cadence": "realtime",
       "default_active": true,
       "notes": "Topic-scoped mainstream monitor for future trade-remedy cases generically. Added for the Mainstream News + Regulatory Coverage Recall Benchmark V1 mission (2026-08-21)."
+    },
+    {
+      "id": "source-cpvo-public-register",
+      "collector_type": "keyword_search",
+      "label": "CPVO Community Plant Variety Right public register",
+      "query_or_url": "app/services/cpvo_registry.py (queries every tracked Variety name/alias)",
+      "url": "https://online.plantvarieties.eu/publicSearch",
+      "geography_focus": [
+        "europe"
+      ],
+      "entity_coverage": [
+        "patent",
+        "variety",
+        "genetics_company"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "event_driven",
+      "default_active": true,
+      "notes": "Real, unauthenticated public register API (distinct from the registration-gated Variety Finder aggregator), queried per-known-variety-name by app/services/cpvo_registry.py, not polled on a cadence -- collector_type is reference_manual (mirroring source-uspto-plant-patents precedent) since there is no discovery.adapter feed to poll. Added for the Variety Intelligence Backbone V1 mission (2026-08-21)."
     }
   ]
 }
