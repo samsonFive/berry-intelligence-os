@@ -14,7 +14,7 @@
        switching mechanism is deliberately not built this phase; see
        docs/v2/PHASE-1-5-PROTOTYPE-FINDINGS.md for what it would require. #}
     {% set region_labels = {'global':'Global', 'americas':'Americas', 'emea':'EMEA', 'australia-nz':'Australia / New Zealand', 'asia':'Asia'} %}
-    <p class="landscape-scope">Berries / {{ berry_label }} / {{ region_labels[selected_region] }}</p>
+    <p class="landscape-scope" data-berry-label="{{ berry_label }}">Berries / {{ berry_label }} / {{ region_labels[selected_region] }}</p>
   </div>
 </section>
 
@@ -493,7 +493,8 @@
     document.querySelectorAll('[data-region-news]').forEach(el => el.hidden = el.dataset.regionNews !== region);
     document.querySelectorAll('[data-region-news]:not([hidden]) tbody tr:nth-child(n+6)').forEach(el => el.hidden = true);
     document.querySelector('.global-region-note').hidden = region !== 'global';
-    document.querySelector('.landscape-scope').textContent = `Berries / Blueberry / ${labels[region]}`;
+    const berryLabel = document.querySelector('.landscape-scope').dataset.berryLabel || 'Blueberry';
+    document.querySelector('.landscape-scope').textContent = `Berries / ${berryLabel} / ${labels[region]}`;
     const values = metrics[region];
     for (const key of ['companies','varieties','evidence','sources','signals','geographies']) {
       document.getElementById(`metric-${key}`).textContent = values[key];

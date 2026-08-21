@@ -56,7 +56,7 @@
 
   <p class="v2-nav-group">Decide</p>
   {% if not static_build %}
-  <a href="/brief#pending-triage" class="v2-nav-link" title="Pending Review" aria-label="Pending Review{{ count_label(nav_work_counts.review_now) }}">
+  <a href="/pending" class="v2-nav-link{% if path == '/pending' %} is-active{% endif %}" title="Pending Review" aria-label="Pending Review{{ count_label(nav_work_counts.review_now) }}"{% if path == '/pending' %} aria-current="page"{% endif %}>
     {{ nav_icon('review') }}<span class="v2-nav-text">Pending Review</span>
     {% if nav_work_counts.review_now %}<span class="v2-count v2-count-action">{{ nav_work_counts.review_now }}</span>{% endif %}
   </a>

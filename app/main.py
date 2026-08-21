@@ -96,6 +96,7 @@ from app.services.intelligence_feed import (
     build_reader,
     present_feed_item,
 )
+from app.services.assessment_scope import attach_assessment_scope, assessment_berry_scope
 from app.services.morning_brief import build_morning_brief
 from app.services.signal_candidates import SignalCandidateError, load_candidates
 from app.services.signal_review import (
@@ -291,7 +292,9 @@ app.add_middleware(EnvSessionMiddleware)
 app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="static")
 
 
-def _assemble_morning_brief(*, mark_seen: bool = False, include_coverage: bool = False) -> dict[str, Any]:
+def _assemble_morning_brief(
+    *, mark_seen: bool = False, include_coverage: bool = False, mode: str = "full"
+) -> dict[str, Any]:
     published = published_evidence()
     coverage = {}
     freshness = {}
@@ -317,6 +320,7 @@ def _assemble_morning_brief(*, mark_seen: bool = False, include_coverage: bool =
         discovered=discovered,
         recommendations=recommendations,
         mark_seen=mark_seen,
+        mode=mode,
     )
 
 
@@ -372,6 +376,7 @@ def _compute_nav_work_counts() -> dict[str, Any]:
         sources=load_sources(),
         berry_labels=BERRIES,
         mark_seen=False,
+        mode="nav",
     )
     counts["brief_action"] = int((brief.get("counts") or {}).get("top_priority") or 0)
     counts["review_now"] = int((brief.get("counts") or {}).get("review_now") or 0)
@@ -2097,7 +2102,7 @@ def entity_synthesis_context(
     entity_id = entity["id"]
     linked_evidence = linked_evidence_for_entity(entity, published_evidence())
     entity_signals = signals_for_entity(entity_id)
-    entity_assessments = assessments_for_entity(entity_id)
+    entity_assessments = attach_assessment_scope(assessments_for_entity(entity_id), BERRIES)
     entity_recommendations = recommendations_for_entity(entity_id)
     context: dict[str, Any] = {
         "entity_signals": entity_signals,
@@ -2254,7 +2259,7 @@ def _filter_brief_for_berry(brief: dict[str, Any], berry: str) -> dict[str, Any]
 
 @app.get("/brief", response_class=HTMLResponse)
 def morning_brief_page(request: Request) -> HTMLResponse:
-    brief = _assemble_morning_brief(mark_seen=True, include_coverage=True)
+    brief = _assemble_morning_brief(mark_seen=True, include_coverage=True, mode="full")
     reviewer = session_username(request) or review_username() or ""
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     brief = _filter_brief_for_berry(brief, ui["berry"])
@@ -2269,6 +2274,32 @@ def morning_brief_page(request: Request) -> HTMLResponse:
             "static_build": False,
             "reviewer": reviewer,
             "return_to": "/brief#pending-triage",
+        },
+    )
+
+
+@app.get("/pending", response_class=HTMLResponse)
+def pending_review_page(request: Request) -> HTMLResponse:
+    """Decision workspace for pending publication drafts. Not a Feed clone."""
+
+    brief = _assemble_morning_brief(mark_seen=False, include_coverage=False, mode="pending")
+    reviewer = session_username(request) or review_username() or ""
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    brief = _filter_brief_for_berry(brief, ui["berry"])
+    for group in (brief.get("pending_triage") or {}).get("buckets") or []:
+        _attach_pending_decision_actions(group.get("entries") or [], reviewer)
+        for item in group.get("entries") or []:
+            item["pending"] = True
+    return templates.TemplateResponse(
+        request=request,
+        name="pending_review.html",
+        context={
+            "brief": brief,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "reviewer": reviewer,
+            "return_to": "/pending",
+            "ui_context": ui,
         },
     )
 
@@ -2610,7 +2641,7 @@ def priority_queue(
     reading_buckets: list[dict[str, Any]] = []
     reading_bucket_counts: dict[str, int] = {}
     if dimension == "reading" and not completed:
-        brief = _assemble_morning_brief(mark_seen=False, include_coverage=False)
+        brief = _assemble_morning_brief(mark_seen=False, include_coverage=False, mode="nav")
         reading_buckets = [group for group in brief.get("reading_buckets") or [] if group.get("key") != "needs_review"]
         if region:
             allowed = {record["id"] for record in all_items if record.get("id")}
@@ -2618,6 +2649,16 @@ def priority_queue(
                 group["entries"] = [item for item in group.get("entries") or [] if item.get("id") in allowed]
                 group["count"] = len(group["entries"])
         reading_bucket_counts = {group["key"]: group["count"] for group in reading_buckets}
+        candidates = load_candidates(INBOX_DIR) if INBOX_DIR else []
+        for group in reading_buckets:
+            annotate_feed_semantics(
+                group.get("entries") or [],
+                signals=all_signals(),
+                candidates=candidates,
+            )
+            for item in group.get("entries") or []:
+                item["show_reading_actions"] = bool(item.get("is_active"))
+                item["reading_open"] = bool(item.get("needs_consume"))
     return templates.TemplateResponse(
         request=request,
         name="queue.html",
@@ -2665,7 +2706,10 @@ async def pending_bulk_dismiss(request: Request) -> RedirectResponse:
     allowed = {record["id"] for record in list_pending_drafts() if record.get("id")}
     ids = [value for value in form.getlist("item_id") if isinstance(value, str) and value in allowed]
     bulk_dismiss_pending(INBOX_DIR, ids, reviewer=reviewer)
-    return RedirectResponse(url=return_to if return_to.startswith("/brief") else "/brief#pending-triage", status_code=303)
+    return RedirectResponse(
+        url=return_to if return_to.startswith(("/brief", "/pending")) else "/pending",
+        status_code=303,
+    )
 
 
 @app.post("/queues/pending/{item_id}")
@@ -2691,7 +2735,7 @@ def pending_item_action(
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
-    next_url = safe_next_path(return_to) or "/brief#pending-triage"
+    next_url = safe_next_path(return_to) or "/pending"
     return RedirectResponse(url=next_url, status_code=303)
 
 
@@ -3126,7 +3170,10 @@ def assessment_list(request: Request) -> HTMLResponse:
     return templates.TemplateResponse(
         request=request,
         name="assessment_list.html",
-        context={"assessments": all_assessments(), "authoring_mode": AUTHORING_MODE},
+        context={
+            "assessments": attach_assessment_scope(all_assessments(), BERRIES),
+            "authoring_mode": AUTHORING_MODE,
+        },
     )
 
 
@@ -3292,6 +3339,7 @@ def assessment_detail(request: Request, assessment_id: str) -> HTMLResponse:
         name="assessment_detail.html",
         context={
             "assessment": assessment,
+            "berry_scope": assessment_berry_scope(assessment, BERRIES),
             "linked_facts": lineage.resolve_linked_facts(assessment.get("fact_ids")),
             "linked_signals": lineage.resolve_linked_signals(assessment.get("signal_ids")),
             "linked_evidence": lineage.resolve_linked_evidence(assessment.get("evidence_ids")),

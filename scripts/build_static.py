@@ -47,6 +47,7 @@ from app.main import (  # noqa: E402
     sources_page_context,
     templates,
 )
+from app.services.assessment_scope import assessment_berry_scope, attach_assessment_scope  # noqa: E402
 from app.services.intelligence_feed import annotate_feed_semantics, build_intelligence_feed  # noqa: E402
 from app.services.review_workbench import build_public_scanner_summary  # noqa: E402
 
@@ -454,7 +455,7 @@ def build() -> list[Path]:
         )
 
     # Assessments.
-    assessments = all_assessments()
+    assessments = attach_assessment_scope(all_assessments(), BERRIES)
     fact_idx = {f["id"]: f for f in all_facts()}
     written.append(
         write_page("assessment_list.html", "/assessments", {"assessments": assessments, "authoring_mode": False})
@@ -466,6 +467,7 @@ def build() -> list[Path]:
                 f"/assessments/{assessment['id']}",
                 {
                     "assessment": assessment,
+                    "berry_scope": assessment.get("berry_scope") or assessment_berry_scope(assessment, BERRIES),
                     "linked_facts": [f for f in all_facts() if f["id"] in (assessment.get("fact_ids") or [])],
                     "linked_evidence": [
                         r for r in evidence if r["id"] in (assessment.get("evidence_ids") or [])

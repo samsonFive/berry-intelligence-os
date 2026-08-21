@@ -8,9 +8,10 @@
     <a href="{{ item.href if not static_build else item.trusted_href }}" data-read data-open-reader>{{ item.title }}</a>
   </h3>
   <p class="v2-card-line">
-    {% if item.kind_label %}{{ item.kind_label }}{% endif %}
+    {% if item.kind_label %}<span class="v2-meta">{{ item.kind_label }}</span>{% endif %}
     {% if item.primary_subject %}{% if item.kind_label %} · {% endif %}{{ item.primary_subject.name }}{% endif %}
     {% if item.ai_untrusted %}{% if item.kind_label or item.primary_subject %} · {% endif %}AI-assisted{% endif %}
+    {% if item.workflow_label and item.show_reading_actions %}{% if item.kind_label or item.primary_subject or item.ai_untrusted %} · {% endif %}{{ item.workflow_label }}{% endif %}
   </p>
   {% if item.why %}
     <p class="v2-card-summary">{{ item.why|truncate(140) }}</p>
@@ -42,7 +43,6 @@
     {% if item.trust == 'pending' %}<span class="v2-mark v2-mark-pending">Pending</span>{% elif item.trust == 'trusted' %}<span class="v2-mark v2-mark-trusted">Trusted</span>{% endif %}
     {% if item.story_thread or item.is_thread %}<span class="v2-mark v2-mark-story">Story</span>{% endif %}
     {% if item.related_candidates %}<span class="v2-mark v2-mark-signal">Emerging signal</span>{% elif item.related_signals %}<span class="v2-mark v2-mark-confirmed">Signal</span>{% endif %}
-    {% if item.kind_label %}<span class="v2-meta">{{ item.kind_label }}</span>{% endif %}
   </footer>
   <div class="v2-card-actions intel-card-actions">
     <a class="v2-btn v2-btn-quiet" href="{{ item.href if not static_build else item.trusted_href }}" data-read data-open-reader>Read</a>
@@ -86,6 +86,33 @@
         {% endfor %}
         <input type="hidden" name="reviewer" value="{{ reviewer }}">
         <button class="v2-btn v2-btn-primary" type="submit" data-promote>Promote</button>
+      </form>
+    {% endif %}
+    {% if authoring_mode and item.show_reading_actions %}
+      {% if item.reading_open %}
+        <form action="/queues/reading/{{ item.id }}" method="post">
+          <input type="hidden" name="action" value="mark_read">
+          <input type="hidden" name="reviewer" value="{{ reviewer }}">
+          <input type="hidden" name="return_to" value="{{ return_to or '/queues/reading' }}">
+          <button class="v2-btn v2-btn-quiet" type="submit">Mark read</button>
+        </form>
+        <form action="/queues/reading/{{ item.id }}" method="post">
+          <input type="hidden" name="action" value="keep">
+          <input type="hidden" name="reviewer" value="{{ reviewer }}">
+          <input type="hidden" name="return_to" value="{{ return_to or '/queues/reading' }}">
+          <button class="v2-btn v2-btn-quiet" type="submit">Keep</button>
+        </form>
+      {% endif %}
+      <form action="/queues/reading/{{ item.id }}" method="post">
+        <input type="hidden" name="action" value="dismiss">
+        <input type="hidden" name="reviewer" value="{{ reviewer }}">
+        <input type="hidden" name="return_to" value="{{ return_to or '/queues/reading' }}">
+        <button class="v2-btn v2-btn-danger" type="submit">Dismiss</button>
+      </form>
+      <form action="/queues/reading/{{ item.id }}" method="post">
+        <input type="hidden" name="action" value="promote">
+        <input type="hidden" name="reviewer" value="{{ reviewer }}">
+        <button class="v2-btn v2-btn-primary" type="submit">Promote</button>
       </form>
     {% endif %}
   </div>

@@ -1293,6 +1293,7 @@ def build_morning_brief(
     recommendations: list[dict[str, Any]] | None = None,
     mark_seen: bool = False,
     include_signal_candidates: bool = True,
+    mode: str = "full",
 ) -> dict[str, Any]:
     entity_index = entities or {}
     signal_rows = signals or []
@@ -1360,13 +1361,15 @@ def build_morning_brief(
         "first_seen_by_discovered": first_seen_by_discovered,
         "trusted_title_keys": trusted_title_keys,
     }
-    ranked_reading = assign_buckets(
-        sorted(
-            [rank_item(record, ctx=ctx) for record in reading_records],
-            key=lambda item: int(item.get("score") or 0),
-            reverse=True,
+    ranked_reading: list[dict[str, Any]] = []
+    if mode != "pending":
+        ranked_reading = assign_buckets(
+            sorted(
+                [rank_item(record, ctx=ctx) for record in reading_records],
+                key=lambda item: int(item.get("score") or 0),
+                reverse=True,
+            )
         )
-    )
     ranked_pending = assign_pending_triage(
         assign_buckets(
             sorted(
@@ -1397,6 +1400,41 @@ def build_morning_brief(
         1 for item in open_pending if item.get("bucket") == "needs_review"
     )
     counts["new_since_last"] = sum(1 for item in ranked_reading + open_pending if item.get("new_since_last"))
+
+    if mode in {"nav", "pending"}:
+        threads_by_id: dict[str, dict[str, Any]] = {}
+        if mode == "pending":
+            pending_threads = group_story_threads(open_pending)
+            threads_by_id = threads_by_item_id(pending_threads)
+        pending_triage = _pending_triage_groups(ranked_pending, threads_by_id or None)
+        counts["review_now"] = int(pending_triage["counts"].get("review_now") or 0)
+        counts["pending_open"] = int(pending_triage["counts"].get("total") or 0)
+        counts["brief_action"] = int(counts.get("top_priority") or 0)
+        counts["emerging_signals"] = 0
+        if include_signal_candidates:
+            evidence_by_id = {
+                str(record.get("id")): record
+                for record in list(published) + list(draft_rows) + list(extra_pending)
+                if record.get("id")
+            }
+            candidate_cards = present_candidates(
+                inbox_dir,
+                evidence_by_id=evidence_by_id,
+                entities=entity_index,
+                watch_entities=watch_entities,
+            )
+            counts["emerging_signals"] = len(emerging_signals(candidate_cards))
+        return {
+            "generated_at": _now(),
+            "last_seen_at": last_seen,
+            "frontier": frontier.isoformat(),
+            "counts": counts,
+            "reading_buckets": reading_groups,
+            "pending_triage": pending_triage,
+            "emerging_signals": [],
+            "story_threads": [],
+            "mode": mode,
+        }
 
     draft_by_discovered = {
         str(draft.get("discovered_item_id")): draft
