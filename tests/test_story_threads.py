@@ -304,6 +304,208 @@ def test_patent_and_article_thread_when_follows_up_and_variety_overlap():
     assert thread["primary"]["id"] in {"ev-patent-jewel", "draft-jewel-newsroom"}
 
 
+def test_company_primary_and_variety_primary_thread_on_real_malaika_case():
+    """Real case (Raspberry Vertical V1, 2026-08-20): Fruitnet's headline
+    led with the company, so attribute_draft() resolved its primary_subject
+    to The Summer Berry Company; AICEP's headline led with the variety, so
+    its primary_subject resolved to Malaika. Same real harvest announcement,
+    4 days apart -- previously false-separated because plain primary_entity_id
+    equality never fires across a company/variety type mismatch."""
+
+    fruitnet = {
+        "id": "ev-tsbc-harvests-malaika",
+        "title": "The Summer Berry Company harvests premium Malaika raspberry variety in Portugal",
+        "source_name": "Fruitnet",
+        "published_date": "2025-09-29",
+        "primary_subject": {
+            "id": "company-the-summer-berry-company", "name": "The Summer Berry Company", "entity_type": "company",
+        },
+        "entities": [
+            {"id": "company-the-summer-berry-company", "name": "The Summer Berry Company", "entity_type": "company"},
+            {"id": "variety-malaika", "name": "Malaika", "entity_type": "variety"},
+        ],
+    }
+    aicep = {
+        "id": "ev-malaika-raises-premium-harvest",
+        "title": "Malaika Raspberries Raise the Premium Harvest in Portugal",
+        "source_name": "AICEP",
+        "published_date": "2025-10-03",
+        "primary_subject": {"id": "variety-malaika", "name": "Malaika", "entity_type": "variety"},
+        "entities": [
+            {"id": "variety-malaika", "name": "Malaika", "entity_type": "variety"},
+            {"id": "company-the-summer-berry-company", "name": "The Summer Berry Company", "entity_type": "company"},
+        ],
+    }
+    assert items_form_thread(fruitnet, aicep)
+    thread = present_thread([fruitnet, aicep])
+    assert thread["source_count"] == 2
+
+
+def test_company_primary_and_variety_primary_do_not_thread_on_same_company_alone():
+    """Same real company (The Summer Berry Company) named as primary_subject
+    on both sides is not sufficient by itself -- the variety-primary side
+    must also independently reference this specific company, not just any
+    company, and the company-primary side must independently reference this
+    specific variety. Here the variety-primary article names a different
+    real ABB variety (Zawadi) that the company-primary article never
+    mentions, so the pair must stay separate even though both are close in
+    date and both involve TSBC."""
+
+    company_primary = {
+        "id": "ev-tsbc-harvests-malaika-2",
+        "title": "The Summer Berry Company harvests premium Malaika raspberry variety in Portugal",
+        "source_name": "Fruitnet",
+        "published_date": "2025-09-29",
+        "primary_subject": {
+            "id": "company-the-summer-berry-company", "name": "The Summer Berry Company", "entity_type": "company",
+        },
+        "entities": [
+            {"id": "company-the-summer-berry-company", "name": "The Summer Berry Company", "entity_type": "company"},
+            {"id": "variety-malaika", "name": "Malaika", "entity_type": "variety"},
+        ],
+    }
+    variety_primary_different_variety = {
+        "id": "ev-zawadi-separate-story",
+        "title": "Zawadi raspberry variety trial results published",
+        "source_name": "Hort News",
+        "published_date": "2025-10-01",
+        "primary_subject": {"id": "variety-zawadi", "name": "Zawadi", "entity_type": "variety"},
+        "entities": [
+            {"id": "variety-zawadi", "name": "Zawadi", "entity_type": "variety"},
+            {"id": "company-the-summer-berry-company", "name": "The Summer Berry Company", "entity_type": "company"},
+        ],
+    }
+    assert not items_form_thread(company_primary, variety_primary_different_variety)
+
+
+def test_shared_variety_alone_does_not_thread_unrelated_company_events():
+    """Same real variety (Malaika) named on both sides is not sufficient by
+    itself -- a company-primary article about an unrelated company event
+    (e.g. a routine portfolio update) that happens to mention Malaika only
+    in passing must not thread with a genuinely Malaika-specific story just
+    because the variety name co-occurs. The company-primary side here does
+    not independently confirm this specific company on the variety-primary
+    side (no shared company chip), so the pair stays separate."""
+
+    unrelated_company_news = {
+        "id": "ev-abb-unrelated-portfolio-update",
+        "title": "Advanced Berry Breeding expands raspberry portfolio",
+        "source_name": "Fruitnet",
+        "published_date": "2025-09-30",
+        "primary_subject": {
+            "id": "company-advanced-berry-breeding", "name": "Advanced Berry Breeding", "entity_type": "company",
+        },
+        "entities": [
+            {"id": "company-advanced-berry-breeding", "name": "Advanced Berry Breeding", "entity_type": "company"},
+        ],
+    }
+    malaika_taste_award = {
+        "id": "ev-malaika-taste-award",
+        "title": "Malaika wins taste award",
+        "source_name": "FreshFruitPortal",
+        "published_date": "2025-09-30",
+        "primary_subject": {"id": "variety-malaika", "name": "Malaika", "entity_type": "variety"},
+        "entities": [{"id": "variety-malaika", "name": "Malaika", "entity_type": "variety"}],
+    }
+    assert not items_form_thread(unrelated_company_news, malaika_taste_award)
+
+
+def test_generic_species_overlap_does_not_satisfy_cross_subject_edge():
+    """Two unrelated company/variety events that only share generic crop
+    words (raspberry, berry) -- never a real company or variety match --
+    must stay separate. Distinctive named entities only, never trait-*
+    or species words, per the calibration lesson this mission carries
+    forward."""
+
+    company_event = {
+        "id": "ev-chambers-raspberry-trial",
+        "title": "Chambers launches major raspberry trial",
+        "source_name": "Fruitnet",
+        "published_date": "2020-09-08",
+        "primary_subject": {"id": "company-chambers", "name": "Chambers", "entity_type": "company"},
+        "entities": [{"id": "company-chambers", "name": "Chambers", "entity_type": "company"}],
+    }
+    variety_event = {
+        "id": "ev-double-gold-release",
+        "title": "Cornell releases two new raspberry varieties",
+        "source_name": "Cornell Chronicle",
+        "published_date": "2020-09-10",
+        "primary_subject": {"id": "variety-double-gold", "name": "Double Gold", "entity_type": "variety"},
+        "entities": [{"id": "variety-double-gold", "name": "Double Gold", "entity_type": "variety"}],
+    }
+    assert not items_form_thread(company_event, variety_event)
+
+
+def test_company_newsroom_and_trade_reprint_thread_on_real_redsayra_case():
+    """Real case (Strawberry Vertical V1, 2026-08-20): Planasa's own
+    newsroom article resolves company-primary via newsroom_identity
+    attribution (the source itself, not the title, names the company);
+    Fruitnet's third-party trade coverage of the identical claim resolves
+    variety-primary. Same real event (RedSayra's market-share claim), same
+    day -- the company-newsroom-to-trade-reprint pattern Section 6
+    describes, now recognized as one developing story."""
+
+    planasa_newsroom = {
+        "id": "ev-planasa-redsayra-newsroom",
+        "title": "RedSayra positions itself as the most widely grown strawberry variety in Spain",
+        "source_name": "Planasa Newsroom",
+        "published_date": "2026-03-16",
+        "primary_subject": {"id": "company-planasa", "name": "Plantas de Navarra, S.A.", "entity_type": "company"},
+        "entities": [
+            {"id": "company-planasa", "name": "Plantas de Navarra, S.A.", "entity_type": "company"},
+            {"id": "variety-redsayra", "name": "RedSayra", "entity_type": "variety"},
+        ],
+    }
+    fruitnet_reprint = {
+        "id": "ev-redsayra-most-planted-fruitnet",
+        "title": "RedSayra becomes Spain's most planted strawberry",
+        "source_name": "Fruitnet",
+        "published_date": "2026-03-16",
+        "primary_subject": {"id": "variety-redsayra", "name": "RedSayra", "entity_type": "variety"},
+        "entities": [
+            {"id": "variety-redsayra", "name": "RedSayra", "entity_type": "variety"},
+            {"id": "company-planasa", "name": "Plantas de Navarra, S.A.", "entity_type": "company"},
+        ],
+    }
+    assert items_form_thread(planasa_newsroom, fruitnet_reprint)
+
+
+def test_different_patent_filings_for_same_breeder_stay_separate():
+    """Two different plant-patent filings from the same real breeder
+    (Planasa) for two different real varieties, years apart, must stay
+    separate -- same-company mention (even patent-assignee mention) is
+    never enough on its own, and there is no deterministic follows_up/
+    same_signal evidence_links entry connecting them."""
+
+    blue_manila_patent = {
+        "id": "ev-patent-blue-manila",
+        "title": "Blueberry plant named 'Blue Manila'",
+        "source_name": "USPTO plant patent",
+        "source_type": "patent_record",
+        "published_date": "2020-01-14",
+        "kind": "patent",
+        "primary_subject": {"id": "company-planasa", "name": "Plantas de Navarra, S.A.", "entity_type": "company"},
+        "entities": [
+            {"id": "company-planasa", "name": "Plantas de Navarra, S.A.", "entity_type": "company"},
+            {"id": "variety-blue-manila", "name": "Blue Manila", "entity_type": "variety"},
+        ],
+    }
+    blue_maldiva_patent = {
+        "id": "ev-patent-blue-maldiva",
+        "title": "Blueberry plant named 'Blue Maldiva'",
+        "source_name": "USPTO plant patent",
+        "source_type": "patent_record",
+        "published_date": "2022-06-01",
+        "kind": "patent",
+        "primary_subject": {"id": "company-planasa", "name": "Plantas de Navarra, S.A.", "entity_type": "company"},
+        "entities": [
+            {"id": "company-planasa", "name": "Plantas de Navarra, S.A.", "entity_type": "company"},
+            {"id": "variety-blue-maldiva", "name": "Blue Maldiva", "entity_type": "variety"},
+        ],
+    }
+    assert not items_form_thread(blue_manila_patent, blue_maldiva_patent)
+
+
 def test_brief_review_soon_collapses_reprint_into_review_now_thread(monkeypatch, tmp_path: Path) -> None:
     _isolate(monkeypatch, tmp_path)
     repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)

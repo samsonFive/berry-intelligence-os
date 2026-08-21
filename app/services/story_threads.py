@@ -6,6 +6,16 @@ state only: not a Fact, Assessment, Position, Signal, or trusted conclusion.
 
 Membership is conservative and deterministic. False separation is preferred
 to merging unrelated stories. Same-company mention is never enough.
+
+_strong_event_edge() requires the two records' primary_subject to resolve
+to the exact same entity, which false-separates a real single event when
+headline phrasing sends one article's primary_subject to a company and
+the other's to a variety (e.g. "COMPANY launches VARIETY" vs. "VARIETY
+expands into MARKET"). _cross_subject_event_edge() adds one narrow,
+conservative edge for exactly that mismatch: both a shared company AND a
+shared named variety must be independently confirmed on both sides, plus
+date proximity -- same-company-only or same-variety-only still stays
+separate. See its own docstring for the full rule.
 """
 
 from __future__ import annotations
@@ -301,6 +311,59 @@ def _strong_event_edge(left: dict[str, Any], right: dict[str, Any]) -> bool:
     return False
 
 
+def _mentions_entity(item: dict[str, Any], entity_id: str, entity_name: str) -> bool:
+    """Whether `item` independently references this specific company or
+    variety -- via its own resolved entity chips (entity_ids, the same
+    field _member_entities() already reads) or the entity's distinctive
+    name appearing verbatim in its title. Never via a generic word: the
+    caller only ever passes a real company/variety name, and title_tokens()
+    already drops short/stopword tokens, so a bare species word like
+    "raspberry" can never satisfy this on its own."""
+
+    if entity_id:
+        for chip in item.get("entities") or []:
+            if str(chip.get("id") or "") == entity_id:
+                return True
+        primary = _primary(item)
+        if str(primary.get("id") or "") == entity_id:
+            return True
+    name_tokens = title_tokens(entity_name)
+    return bool(name_tokens) and name_tokens <= title_tokens(item_title(item))
+
+
+def _cross_subject_event_edge(left: dict[str, Any], right: dict[str, Any]) -> bool:
+    """Conservative edge for the company-primary vs. variety-primary false
+    separation: headline phrasing ("COMPANY launches VARIETY" vs. "VARIETY
+    expands into MARKET") can describe one real event while sending each
+    article's primary_subject to a different entity type, so the plain
+    primary_entity_id equality _strong_event_edge() requires never fires.
+
+    Fires only when the SAME company and the SAME named variety are each
+    independently confirmed on BOTH sides (never one alone -- same-company-
+    only stays separate, matching _strong_event_edge's own rule), plus the
+    same tight date-proximity window _strong_event_edge uses. Does not
+    replace or loosen _strong_event_edge; this is an additional, narrower
+    edge for exactly the company<->variety type mismatch."""
+
+    left_type, right_type = primary_entity_type(left), primary_entity_type(right)
+    if {left_type, right_type} != {"company", "variety"}:
+        return False
+    company_item, variety_item = (left, right) if left_type == "company" else (right, left)
+    company, variety = _primary(company_item), _primary(variety_item)
+    company_id, company_name = str(company.get("id") or ""), str(company.get("name") or "")
+    variety_id, variety_name = str(variety.get("id") or ""), str(variety.get("name") or "")
+    if not company_name or not variety_name:
+        return False
+    gap = _date_diff(left, right)
+    if gap is None or gap > DATE_PROXIMITY_EVENT_DAYS:
+        return False
+    if not _mentions_entity(company_item, variety_id, variety_name):
+        return False
+    if not _mentions_entity(variety_item, company_id, company_name):
+        return False
+    return True
+
+
 def items_form_thread(left: dict[str, Any], right: dict[str, Any]) -> bool:
     if item_id(left) == item_id(right):
         return False
@@ -311,6 +374,8 @@ def items_form_thread(left: dict[str, Any], right: dict[str, Any]) -> bool:
     if _evidence_edge(left, right):
         return True
     if _strong_event_edge(left, right):
+        return True
+    if _cross_subject_event_edge(left, right):
         return True
     return False
 
