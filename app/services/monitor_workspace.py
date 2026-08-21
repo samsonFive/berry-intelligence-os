@@ -288,29 +288,29 @@ def present_monitor_alerts(
             "key": "signals",
             "label": "Proposed signals",
             "count": len(signal_alerts),
-            "copy": "Trusted Signal records still proposed. Confirm / Dismiss is the existing alert workflow.",
-            "items": signal_alerts,
+            "blurb": "Trusted Signal records still proposed. Confirm / Dismiss is the existing alert action workflow.",
+            "rows": signal_alerts,
         },
         {
             "key": "candidates",
             "label": "Signal candidates on watches",
             "count": len(candidate_alerts),
-            "copy": "Untrusted candidates. Deep-link to Signal Review. A Watch never confirms a Signal.",
-            "items": candidate_alerts,
+            "blurb": "Untrusted candidates. Deep-link to Signal Review. A Watch never confirms a Signal.",
+            "rows": candidate_alerts,
         },
         {
             "key": "watch_activity",
             "label": "New watch activity",
             "count": len(activity_alerts),
-            "copy": "Something changed on an inventory Watch. Open the Reader; do not decide here.",
-            "items": activity_alerts,
+            "blurb": "Something changed on an inventory Watch. Open the Reader; do not decide here.",
+            "rows": activity_alerts,
         },
         {
             "key": "sources",
             "label": "Sources needing attention",
             "count": len(source_alerts),
-            "copy": "Collection failed or was blocked. Open Source Health. This is not intelligence recall.",
-            "items": source_alerts,
+            "blurb": "Collection failed or was blocked. Open Source Health. This is not intelligence recall.",
+            "rows": source_alerts,
         },
     ]
     return groups
@@ -435,9 +435,9 @@ def group_source_health(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "key": state.lower(),
                 "state": state,
                 "label": label,
-                "copy": copy,
+                "blurb": copy,
                 "count": len(items),
-                "items": items,
+                "rows": items,
             }
         )
     return groups

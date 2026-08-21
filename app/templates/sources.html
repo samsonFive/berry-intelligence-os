@@ -105,10 +105,10 @@
 {% for group in health_groups %}
   <section class="brief-section v2-monitor-section" id="health-{{ group.key }}">
     <h2>{{ group.label }} ({{ group.count }})</h2>
-    <p class="context-limit">{{ group.copy }}</p>
-    {% if group.items %}
+    <p class="context-limit">{{ group.blurb }}</p>
+    {% if group.rows %}
       <ul class="v2-health-list">
-        {% for source in group.items %}
+        {% for source in group.rows %}
           <li class="v2-card v2-health-row" id="source-{{ source.id }}">
             <p class="v2-card-kicker">
               <span class="v2-mark v2-mark-source v2-mark-health-{{ group.key }}">{{ source.health_label }}</span>

@@ -51,10 +51,14 @@ def _published(record_id: str, **overrides) -> dict:
         "review_state": "published",
         "source_type": "news_search",
         "source_name": "FreshPlaza",
+        "source_url": "https://example.invalid/" + record_id,
         "title": record_id,
         "summary": "Fixture.",
         "published_date": "2026-08-18",
         "captured_date": "2026-08-18",
+        "submitted_by": "reviewer",
+        "reviewed_by": "reviewer",
+        "reviewed_at": "2026-08-18",
         "priority": deepcopy(PRIORITY),
         "entity_ids": [],
         "berry_ids": ["berry-blueberry"],
@@ -138,11 +142,11 @@ def test_alerts_are_action_not_watch_inventory() -> None:
     ]
     groups = {group["key"]: group for group in present_monitor_alerts(signals=signals, state=state, watches=watches, candidates=candidates)}
     assert groups["signals"]["count"] == 1
-    assert groups["candidates"]["items"][0]["decision_href"].startswith("/signals/candidates/cand-1")
+    assert groups["candidates"]["rows"][0]["decision_href"].startswith("/signals/candidates/cand-1")
     assert groups["watch_activity"]["count"] == 1
-    assert "action" in groups["signals"]["copy"].lower()
-    assert "inventory" not in groups["signals"]["copy"].lower()
-    assert "Watch never confirms" in groups["candidates"]["copy"]
+    assert "action" in groups["signals"]["blurb"].lower()
+    assert "inventory" not in groups["signals"]["blurb"].lower()
+    assert "Watch never confirms" in groups["candidates"]["blurb"]
 
 
 def test_source_health_distinguishes_quiet_failing_blocked_manual() -> None:
@@ -171,11 +175,11 @@ def test_source_health_distinguishes_quiet_failing_blocked_manual() -> None:
         cadence_labels=main.SOURCE_CADENCES,
     )
     grouped = {group["state"]: group for group in group_source_health(rows)}
-    assert grouped[QUIET]["items"][0]["label"] == "Quiet trade"
-    assert grouped[FAILING]["items"][0]["source_class_labels"] == ["Government / Regulatory / Statistical Agency"]
+    assert grouped[QUIET]["rows"][0]["label"] == "Quiet trade"
+    assert grouped[FAILING]["rows"][0]["source_class_labels"] == ["Government / Regulatory / Statistical Agency"]
     assert grouped[BLOCKED]["count"] == 1
-    assert grouped[MANUAL]["items"][0]["discoverable"] is False
-    html_labels = " ".join(group["copy"] for group in group_source_health(rows))
+    assert grouped[MANUAL]["rows"][0]["discoverable"] is False
+    html_labels = " ".join(group["blurb"] for group in group_source_health(rows))
     assert "recall" not in html_labels.lower()
 
 

@@ -23,10 +23,10 @@
   {% for group in monitor_alerts %}
     <section class="v2-alert-group" id="alerts-{{ group.key }}">
       <h3>{% if group.key == 'signals' %}{{ group.count }} new signal{{ 's' if group.count != 1 else '' }}{% else %}{{ group.label }} ({{ group.count }}){% endif %}</h3>
-      <p class="context-limit">{% if group.key == 'signals' %}Proposed signals need a human decision. This is an action count, separate from active watches. {{ group.copy }}{% else %}{{ group.copy }}{% endif %}</p>
-      {% if group.items %}
+      <p class="context-limit">{% if group.key == 'signals' %}Proposed signals need a human decision. This is an action count, separate from active watches. {{ group.blurb }}{% else %}{{ group.blurb }}{% endif %}</p>
+      {% if group.rows %}
         <ul class="v2-alert-list">
-          {% for alert in group.items %}
+          {% for alert in group.rows %}
             <li class="v2-card v2-alert-card">
               <p class="v2-card-kicker">
                 <span class="v2-count v2-count-action">Alert</span>
