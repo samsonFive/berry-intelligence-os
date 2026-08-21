@@ -40,10 +40,15 @@ def test_public_intelligence_pages_use_compact_bluf_tables() -> None:
     assert 'class="brief-table evidence-link-table"' in entity_page
     assert "v2-company" in entity_page
 
-    for path in ["/assessments", "/recommendations"]:
+    for path in ["/recommendations"]:
         text = client.get(path).text
         assert 'class="table-wrap public-index-table"' in text
         assert 'class="brief-table"' in text
+
+    assessments = client.get("/assessments").text
+    assert "v2-assessment-list" in assessments
+    assert "DECIDE" in assessments
+    assert "never auto-created from Signal confirmation" in assessments
 
     for path in ["/entities/company", "/signals", "/strategic-questions"]:
         text = client.get(path).text

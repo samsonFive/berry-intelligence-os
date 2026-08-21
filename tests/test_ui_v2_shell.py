@@ -230,3 +230,85 @@ def test_company_profile_is_v2_and_multi_berry() -> None:
     assert "STRAWBERRY" in page.text
     assert "Strawberry context" in page.text or "strawberry context" in page.text.casefold()
     assert "Blueberry Landscape" not in page.text
+
+
+def test_html_nav_uses_brief_nav_mode(monkeypatch, tmp_path: Path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    main._NAV_WORK_CACHE["key"] = None
+    main._NAV_WORK_CACHE["value"] = None
+    modes: list[str] = []
+    original = main.build_morning_brief
+
+    def wrapped(*args, **kwargs):
+        modes.append(str(kwargs.get("mode") or "full"))
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(main, "build_morning_brief", wrapped)
+    client = TestClient(app)
+    feed = client.get("/work-queue")
+    assert feed.status_code == 200
+    assert modes == ["nav"]
+    testing = client.get("/queues/testing")
+    assert testing.status_code == 200
+    assessments = client.get("/assessments")
+    assert assessments.status_code == 200
+    assert modes == ["nav"]
+
+
+def test_reading_queue_uses_brief_nav_mode(monkeypatch, tmp_path: Path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    main._NAV_WORK_CACHE["key"] = None
+    main._NAV_WORK_CACHE["value"] = None
+    modes: list[str] = []
+    original = main.build_morning_brief
+
+    def wrapped(*args, **kwargs):
+        modes.append(str(kwargs.get("mode") or "full"))
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(main, "build_morning_brief", wrapped)
+    page = TestClient(app).get("/queues/reading")
+    assert page.status_code == 200
+    assert modes
+    assert all(mode == "nav" for mode in modes)
+    assert "full" not in modes
+
+
+def test_pending_page_uses_pending_brief_mode(monkeypatch, tmp_path: Path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    main._NAV_WORK_CACHE["key"] = None
+    main._NAV_WORK_CACHE["value"] = None
+    modes: list[str] = []
+    original = main.build_morning_brief
+
+    def wrapped(*args, **kwargs):
+        modes.append(str(kwargs.get("mode") or "full"))
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(main, "build_morning_brief", wrapped)
+    page = TestClient(app).get("/pending")
+    assert page.status_code == 200
+    assert "nav" in modes
+    assert "pending" in modes
+    assert "full" not in modes
+
+
+def test_compact_marks_do_not_repeat_kind() -> None:
+    card = (Path(__file__).resolve().parents[1] / "app" / "templates" / "_intelligence_card.html").read_text(
+        encoding="utf-8"
+    )
+    footer = card.split("v2-card-footer", 1)[1]
+    assert "item.kind_label" in card
+    assert "item.kind_label" not in footer
+    assert "v2-mark-pending" in footer
+    assert "v2-mark-trusted" in footer
+
+
+def test_landscape_region_js_uses_berry_label() -> None:
+    html = (Path(__file__).resolve().parents[1] / "app" / "templates" / "landscape.html").read_text(encoding="utf-8")
+    assert 'data-berry-label="{{ berry_label }}"' in html
+    assert "dataset.berryLabel" in html
+    assert "Berries / Blueberry / ${region}" not in html
+    page = TestClient(app).get("/landscapes/berries/strawberry")
+    assert page.status_code == 200
+    assert 'data-berry-label="Strawberry"' in page.text
