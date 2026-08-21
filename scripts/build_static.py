@@ -374,6 +374,7 @@ def build() -> list[Path]:
 
     # Priority-tagged intelligence views (reading/testing/watches/positions).
     from app.services.analyst_queue import build_dimension_page
+    from app.services.monitor_workspace import monitor_page_model
 
     for dimension in PRIORITY_DIMENSIONS:
         page = build_dimension_page(
@@ -385,6 +386,23 @@ def build() -> list[Path]:
             signals=all_signals(),
             show_completed=True,
         )
+        monitor = {
+            "watch_items": page["items"],
+            "monitor_alerts": [],
+        }
+        if dimension == "monitoring":
+            monitor = monitor_page_model(
+                watch_items=page["items"],
+                entities=entities,
+                berry_labels=BERRIES,
+                published=evidence,
+                drafts=[],
+                signals=all_signals(),
+                candidates=[],
+                inbox_dir=None,
+                health_rows=[],
+                include_drafts=False,
+            )
         written.append(
             write_page(
                 "queue.html",
@@ -401,6 +419,7 @@ def build() -> list[Path]:
                     "reading_buckets": [],
                     "reading_bucket_counts": {},
                     "return_to": "",
+                    **monitor,
                 },
             )
         )

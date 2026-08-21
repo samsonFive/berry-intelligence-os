@@ -49,7 +49,7 @@ from app.services.source_freshness import (
     SOURCE_CADENCE_DAYS,
     aggregate_source_coverage,
     classify_source_freshness,
-    latest_item_dates,
+    index_latest_item_dates,
 )
 from app.services.ui_context import (
     apply_ui_cookies,
@@ -103,6 +103,13 @@ from app.services.assessment_scope import (
     parse_assessment_market_ids,
 )
 from app.services.morning_brief import brief_last_seen, build_morning_brief
+from app.services.monitor_workspace import (
+    failing_source_health_rows,
+    group_source_health,
+    monitor_page_model,
+    present_source_health_rows,
+    retry_hints_by_source,
+)
 from app.services.signal_candidates import SignalCandidateError, load_candidates
 from app.services.signal_review import (
     EMERGING_STATUSES,
@@ -2679,6 +2686,12 @@ def priority_queue(
     )
     reading_buckets: list[dict[str, Any]] = []
     reading_bucket_counts: dict[str, int] = {}
+    monitor = {
+        "watch_items": page["items"],
+        "monitor_alerts": [],
+        "alert_action_count": 0,
+        "last_seen_at": None,
+    }
     if dimension == "reading" and not completed:
         brief = _assemble_morning_brief(mark_seen=False, include_coverage=False, mode="nav")
         reading_buckets = [group for group in brief.get("reading_buckets") or [] if group.get("key") != "needs_review"]
@@ -2698,6 +2711,20 @@ def priority_queue(
             for item in group.get("entries") or []:
                 item["show_reading_actions"] = bool(item.get("is_active"))
                 item["reading_open"] = bool(item.get("needs_consume"))
+    elif dimension == "monitoring":
+        candidates = load_candidates(INBOX_DIR) if INBOX_DIR else []
+        monitor = monitor_page_model(
+            watch_items=page["items"],
+            entities=entities,
+            berry_labels=BERRIES,
+            published=published_evidence(),
+            drafts=list_pending_drafts(),
+            signals=all_signals(),
+            candidates=candidates,
+            inbox_dir=INBOX_DIR,
+            health_rows=failing_source_health_rows(load_sources(), inbox_dir=INBOX_DIR),
+            include_drafts=True,
+        )
     return templates.TemplateResponse(
         request=request,
         name="queue.html",
@@ -2714,6 +2741,7 @@ def priority_queue(
             "reading_buckets": reading_buckets,
             "reading_bucket_counts": reading_bucket_counts,
             "return_to": f"/queues/{dimension}",
+            **monitor,
         },
     )
 
@@ -2867,7 +2895,7 @@ def signal_alert_decision(
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
-    return RedirectResponse(url="/queues/monitoring", status_code=303)
+    return RedirectResponse(url="/queues/monitoring#alerts", status_code=303)
 
 
 @app.get("/strategic-questions", response_class=HTMLResponse)
@@ -3740,11 +3768,10 @@ def sources_page_context(
     # network calls or per-item orchestration dry-run.
     discovered_items = list_discovered_items(INBOX_DIR)
     published = published_evidence()
+    latest_by_source = index_latest_item_dates(discovered_items=discovered_items, published_evidence=published)
 
     def _freshness_for(source: dict[str, Any]) -> dict[str, Any]:
-        published_at, captured_at = latest_item_dates(
-            discovered_items=discovered_items, published_evidence=published, source_id=source["id"],
-        )
+        published_at, captured_at = latest_by_source.get(source["id"], (None, None))
         return classify_source_freshness(
             source,
             discovery_state=read_source_discovery_state(INBOX_DIR, source["id"]),
@@ -3753,10 +3780,20 @@ def sources_page_context(
         ).as_dict()
 
     freshness_by_source = {source["id"]: _freshness_for(source) for source in all_sources if source.get("id")}
+    health_rows = present_source_health_rows(
+        filtered,
+        freshness_by_source=freshness_by_source,
+        entity_type_labels=SOURCE_ENTITY_TYPES,
+        berry_labels=BERRIES,
+        region_labels=SOURCE_REGIONS,
+        cadence_labels=SOURCE_CADENCES,
+        retry_hints=retry_hints_by_source(INBOX_DIR),
+    )
     return {
         "sources": filtered,
         "total_count": len(all_sources),
         "grouped_sources": group_sources(filtered, group_by),
+        "health_groups": group_source_health(health_rows),
         "gaps_count": len([s for s in all_sources if source_has_coverage_gap(s)]),
         "due_count": len([s for s in all_sources if source_is_due(s)]),
         "freshness_by_source": freshness_by_source,

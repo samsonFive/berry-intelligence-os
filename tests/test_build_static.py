@@ -141,6 +141,7 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert "event.key === \"j\"" not in scanner_html
 
     sources_html = (output_dir / "sources" / "index.html").read_text(encoding="utf-8")
+    assert "Source Health" in sources_html
     assert "Sources" in sources_html
     assert "Static Test Source" in sources_html
     assert "Add a source" not in sources_html
