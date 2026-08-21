@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import time
 from copy import deepcopy
 from pathlib import Path
 
@@ -106,6 +107,7 @@ def test_feed_grid_compact_and_reader_fragment(monkeypatch, tmp_path: Path) -> N
     assert "Synthetic strawberry article v2-shell" in grid.text
     compact = client.get("/work-queue?view=compact")
     assert "v2-feed-compact" in compact.text
+    assert "v2-card-line" in compact.text
     blueberry = client.get("/work-queue?berry=blueberry")
     assert "Synthetic strawberry article v2-shell" not in blueberry.text
     strawberry = client.get("/work-queue?berry=strawberry")
@@ -132,3 +134,99 @@ def test_reader_overlay_endpoint_is_not_a_full_page(monkeypatch, tmp_path: Path)
     client = TestClient(app)
     missing = client.get("/api/intelligence/does-not-exist/reader")
     assert missing.status_code == 404
+
+
+def test_collapsed_sidebar_is_an_icon_rail(monkeypatch, tmp_path: Path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    client = TestClient(app)
+    page = client.get("/brief")
+    assert 'class="v2-nav-icon"' in page.text
+    assert 'aria-label="Morning Brief"' in page.text
+    assert 'title="Morning Brief"' in page.text
+    css = (Path(__file__).resolve().parents[1] / "app" / "static" / "v2.css").read_text(encoding="utf-8")
+    assert "grid-template-columns: 4.5rem minmax(0, 1fr)" in css
+    assert "grid-template-columns: 0 minmax(0, 1fr)" not in css
+
+
+def test_compact_feed_hides_browsing_chrome() -> None:
+    css = (Path(__file__).resolve().parents[1] / "app" / "static" / "v2.css").read_text(encoding="utf-8")
+    assert ".v2-feed-compact .v2-card-summary" in css
+    assert ".v2-feed-compact .v2-card-chips" in css
+    assert ".v2-feed-compact .v2-card-actions" in css
+    assert ".v2-feed-compact .v2-card.is-current .v2-card-actions" in css
+
+
+def test_reader_overlay_skips_morning_brief(monkeypatch, tmp_path: Path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    main._NAV_WORK_CACHE["key"] = None
+    main._NAV_WORK_CACHE["value"] = None
+    calls = {"n": 0}
+    original = main.build_morning_brief
+
+    def wrapped(*args, **kwargs):
+        calls["n"] += 1
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(main, "build_morning_brief", wrapped)
+    draft = {
+        "id": "ev-overlay-skip-brief",
+        "record_type": "evidence",
+        "status": "draft",
+        "review_state": "in_review",
+        "intake_type": "article_or_url",
+        "source_type": "article",
+        "source_name": "Timing Journal",
+        "title": "Overlay skip brief",
+        "summary": "Short.",
+        "submitted_by": "fixture",
+        "evidence_role": "publication_artifact",
+        "berry_ids": ["berry-strawberry"],
+        "priority": deepcopy(PRIORITY),
+        "article": {"paragraphs": [{"locator": "p1", "text": "Body."}]},
+    }
+    _write(tmp_path / "inbox" / "evidence" / f"{draft['id']}.json", draft)
+    client = TestClient(app)
+    fragment = client.get(f"/api/intelligence/{draft['id']}/reader")
+    assert fragment.status_code == 200
+    assert calls["n"] == 0
+    assert "Body." in fragment.text
+
+
+def test_reader_overlay_warm_is_under_500ms() -> None:
+    client = TestClient(app)
+    item_id = "ev-sample-variety-launch"
+    warm = client.get(f"/api/intelligence/{item_id}/reader")
+    assert warm.status_code == 200
+    started = time.perf_counter()
+    again = client.get(f"/api/intelligence/{item_id}/reader")
+    elapsed_ms = (time.perf_counter() - started) * 1000
+    assert again.status_code == 200
+    assert elapsed_ms < 500, f"warm overlay took {elapsed_ms:.1f}ms"
+
+
+def test_company_profile_is_v2_and_multi_berry() -> None:
+    client = TestClient(app)
+    page = client.get("/entities/company/company-driscolls")
+    assert page.status_code == 200
+    html = page.text
+    assert "v2-company" in html
+    assert "v2-berry-portfolio" in html
+    assert ">STRAWBERRY<" in html
+    assert ">BLUEBERRY<" in html
+    assert ">RASPBERRY<" in html
+    assert ">BLACKBERRY<" in html
+    assert "What changed" in html
+    assert "Recent intelligence" in html
+    assert "Varieties / genetics" in html
+    assert "Geographic activity" in html
+    assert "Network / relationships" in html
+    assert 'class="trust-summary bluf-metrics"' not in html
+    assert 'id="v2ReaderOffcanvas"' in html
+    assert "data-open-reader" in html
+    strawberry = TestClient(app)
+    strawberry.cookies.set("bios_berry", "berry-strawberry")
+    page = strawberry.get("/entities/company/company-driscolls")
+    assert page.status_code == 200
+    assert "STRAWBERRY" in page.text
+    assert "Strawberry context" in page.text or "strawberry context" in page.text.casefold()
+    assert "Blueberry Landscape" not in page.text
