@@ -48,7 +48,7 @@ V2 product direction is **approved**. Do not reopen AppShell, context bar, Compa
 
 Migrated V2 surfaces: Morning Brief, Live Intelligence Grid/Compact, ReaderOffcanvas, Signal Review, Company Profile, Pending Review (`/pending`), Reading Queue, Assessments.
 
-Do **not** migrate Landscape, Watches, Alerts, Sources / Source Health, or admin/system except global regression fixes. Landscape waits until Variety / Retail / Registry expansion requirements settle. `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md` is **not in this repository**; do not invent it.
+Do **not** migrate Landscape, Watches, Alerts, Sources / Source Health, or admin/system except global regression fixes. Landscape waits until Variety / Retail / Registry workstreams in `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md` settle (Workstreams C, D, E, H). After this decision-workflow gate, the first major expansion mission is Mainstream News + Regulatory Recall Benchmark V1 — not another UI surface.
 
 Bootstrap 5.3 is vendored at `app/static/vendor/bootstrap/` for offcanvas/collapse/grid conventions only. Do not import Mirbal, Mooli, or chart/calendar vendor bundles. Nav action counts use `.v2-count-action` (not purple inventory pills). Berry context is a selector, not a per-crop theme; unmigrated Landscape in Library still follows the selected berry (`/entities/berry` when Global). Desktop hamburger collapses the persistent sidebar into an accessible icon rail (`title` + `aria-label` + action counts); below 1100px it opens `#v2NavOffcanvas`.
 

@@ -1,8 +1,8 @@
 # Intelligence Coverage Matrix
 
-Living **coverage-control** document. Counts come from committed records and
-`data/configuration/sources.json` as of the Raspberry Vertical V1 canonical
-plus this branch. This is not marketing.
+Living **coverage-control** document for
+`docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`. Counts come from committed
+records and `data/configuration/sources.json`. This is not marketing.
 
 **Do not fabricate coverage.** If a class is empty, write `NONE`.
 If a class is blueberry-only with a live pipeline elsewhere, write `PILOT`.
@@ -11,14 +11,15 @@ Update this file when sources, entities, or trusted evidence change.
 **As-of:** 2026-08-21 · published Evidence `1,264` · Sources `142` ·
 inbox drafts are runtime-only and noted separately.
 
-Maturity labels:
+Maturity labels (guide vocabulary):
 
 | Label | Meaning |
 |---|---|
 | `NONE` | Zero trusted records and no dedicated source class in the corpus |
 | `PILOT` | Few trusted records, one berry only, and/or unpublished pipeline only |
 | `PARTIAL` | Real trusted records on more than one berry, still thin vs blueberry |
-| `PRODUCTION` | Material trusted corpus used in Live Intelligence / Company / Brief |
+| `OPERATIONAL` | Material trusted corpus used in Live Intelligence / Company / Brief |
+| `STRONG` | Not used yet. Requires a recall-benchmarked class, not volume alone |
 
 Berry assignment uses **explicit `berry_ids`**. `574` published `news_search`
 records have empty `berry_ids` (untagged mainstream news). They are counted
@@ -56,12 +57,12 @@ tagged berry. Inbox drafts are **not** added to these cells.
 
 | Class | Blueberry | Strawberry | Raspberry | Blackberry | Untagged | Maturity |
 |---|---:|---:|---:|---:|---:|---|
-| Company / breeder | 50 | 1 | 0 | 0 | 0 | PRODUCTION (blue) / PILOT (strawberry) / NONE (rasp, black) |
+| Company / breeder | 50 | 1 | 0 | 0 | 0 | OPERATIONAL (blue) / PILOT (strawberry) / NONE (rasp, black) |
 | Trade press | 19 | 0 | 0 | 0 | 0 | PILOT |
-| Mainstream news | 362 | 289 | 190 | 145 | 574 | PRODUCTION |
+| Mainstream news | 362 | 289 | 190 | 145 | 574 | OPERATIONAL — keyword-news volume, not recall-benchmarked |
 | Association | 6 | 0 | 0 | 0 | 0 | PILOT |
 | Regulatory / government | 1 | 0 | 0 | 0 | 0 | PILOT |
-| Patent | 23 | 1 | 1* | 0 | 0 | PRODUCTION (blue) / PILOT (pipeline) |
+| Patent | 23 | 1 | 1* | 0 | 0 | OPERATIONAL (blue) / PILOT (pipeline) |
 | PVR / variety registry | 16 | 0 | 0 | 0 | 0 | PILOT |
 | Podcast / video | 1 | 0 | 0 | 0 | 0 | PILOT |
 | Insider newsletter | 3 | 0 | 0 | 0 | 0 | PILOT |
@@ -118,7 +119,7 @@ vertical is production.
 
 Keyword monitors (33) drive the Mainstream news auto-capture that dominates
 strawberry / raspberry / blackberry published counts. That is **keyword-news
-production**, not company-page or PVR production for those berries.
+volume**, not company-page or PVR coverage, and not a recall benchmark.
 
 ---
 
@@ -143,5 +144,7 @@ example Morocco weather coverage). They are not a dedicated intelligence class.
 - Signal candidates, Assessments (5 records, 4 blueberry-scoped, 1 unscoped),
   and Recommendations are interpretation objects, not source coverage.
 
-When a future expansion guide lands, keep this file as the numeric control
-surface. Do not copy aspiration into the cells.
+Governing program: `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`.
+Keep this file as the numeric control surface. Do not copy aspiration into
+the cells. Next expansion mission after the V2 decision-workflow gate is
+Mainstream News + Regulatory Recall Benchmark V1.

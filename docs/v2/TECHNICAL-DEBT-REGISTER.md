@@ -144,7 +144,7 @@ Owner lanes: `platform` · `product` · `data` · `ops`
 | KL-007 | Analyst workflow state lives in gitignored `inbox/analyst_queue_state.json` | Runtime overlay; never mutates trusted `data/evidence`. |
 | KL-008 | `market_ids` absent means scope undeclared, not “applies everywhere” | D-012. UI must label unscoped, not invent a berry. |
 | KL-009 | ~120 reference sources have no automated discovery | Registry by design until a Source gets a `discovery` block. |
-| KL-010 | `INTELLIGENCE-EXPANSION-BUILD-GUIDE.md` is not in this repository yet | Do not invent it. Coverage control lives in `INTELLIGENCE-COVERAGE-MATRIX.md`. |
+| KL-011 | Cold HTML nav still ranks reading+pending (~2.1s) | Signature cache makes unrelated warm pages ~10ms. Do not cache trust/review beyond the folder signature. Further cuts are precomputed counts, not stale badges. |
 
 ---
 
@@ -153,7 +153,7 @@ Owner lanes: `platform` · `product` · `data` · `ops`
 | ID | Title | Resolved | Notes |
 |---|---|---|---|
 | TD-001b | Overlay Reader paid Morning Brief | 2026-08-21 prototype hardening | `/api/` paths skip nav Brief. Warm overlay ~18–20ms on the then-current runtime. |
-| TD-001 | Global HTML nav rebuilt full Morning Brief presentation | 2026-08-21 decision-workflow | Nav uses `mode="nav"` (rank for counts, skip Brief presentation / discovery deltas / story-thread grouping). `/brief` remains `mode="full"`. Signature cache still invalidates on inbox/data change. |
+| TD-001 | Global HTML nav rebuilt full Morning Brief presentation | 2026-08-21 decision-workflow | Function-level `mode=full` median 2772ms → `mode=nav` 2089ms. Overlay 20ms. Warm `/assessments` 10ms. Residual ranking on cold miss is KL-011. |
 | TD-002 | Company Bottom Line berry-scope unlabeled | 2026-08-21 decision-workflow | Classify from stored `market_ids` only; label unscoped vs berry-specific; do not hide. Remaining authoring gap is TD-012. |
 | TD-003 | Compact repeated kind + status marks | 2026-08-21 decision-workflow | Type stays on `.v2-card-line`. Footer marks are Direct / Watch / Pending\|Trusted / Story / Signal. |
 | TD-004 | Landscape JS breadcrumb hardcoded Blueberry | 2026-08-21 decision-workflow | Reads `data-berry-label`. Landscape itself remains unmigrated (KL-004). |
