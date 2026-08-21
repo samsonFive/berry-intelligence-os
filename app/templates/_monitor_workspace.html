@@ -1,0 +1,69 @@
+{% set monitor_alerts = monitor_alerts if monitor_alerts is defined else [] %}
+{% set watch_items = watch_items if watch_items is defined else items %}
+<p class="brief-window">Watches are monitoring inventory — what you intend to follow, not a queue to clear. Alerts are action: something changed and may need a decision on an existing surface (Pending, Signal Review, Reader, or Source Health).</p>
+
+<ul class="brief-delta-strip" aria-label="Monitor sections">
+  <li>
+    <a href="#watches">
+      <span>Active watches</span>
+      <strong>{{ inventory_count }}</strong>
+    </a>
+  </li>
+  <li>
+    <a href="#alerts">
+      <span>Alert groups</span>
+      <strong>{{ monitor_alerts|sum(attribute='count') }}</strong>
+    </a>
+  </li>
+</ul>
+
+<section class="brief-section v2-monitor-section" id="alerts">
+  <h2>Alerts</h2>
+  <p class="context-limit">Action, not inventory. Confirming a Signal Candidate is not a trusted Signal and does not create an Assessment. Do not decide publications here — use Pending.</p>
+  {% for group in monitor_alerts %}
+    <section class="v2-alert-group" id="alerts-{{ group.key }}">
+      <h3>{% if group.key == 'signals' %}{{ group.count }} new signal{{ 's' if group.count != 1 else '' }}{% else %}{{ group.label }} ({{ group.count }}){% endif %}</h3>
+      <p class="context-limit">{% if group.key == 'signals' %}Proposed signals need a human decision. This is an action count, separate from active watches. {{ group.blurb }}{% else %}{{ group.blurb }}{% endif %}</p>
+      {% if group.rows %}
+        <ul class="v2-alert-list">
+          {% for alert in group.rows %}
+            <li class="v2-card v2-alert-card">
+              <p class="v2-card-kicker">
+                <span class="v2-count v2-count-action">Alert</span>
+                <span class="v2-meta">{{ alert.kind|replace('_',' ') }}</span>
+              </p>
+              <h4 class="v2-card-title"><a href="{{ alert.decision_href }}">{{ alert.title }}</a></h4>
+              <p class="v2-card-summary">{{ alert.why }}</p>
+              <div class="v2-card-actions">
+                {% if alert.kind == 'proposed_signal' and authoring_mode and not static_build %}
+                  <form action="/signals/{{ alert.id }}/alert-decision" method="post"><input type="hidden" name="action" value="confirm"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="v2-btn v2-btn-primary" type="submit">Confirm</button></form>
+                  <form action="/signals/{{ alert.id }}/alert-decision" method="post"><input type="hidden" name="action" value="dismiss"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="v2-btn v2-btn-danger" type="submit">Dismiss</button></form>
+                {% endif %}
+                <a class="v2-btn v2-btn-quiet" href="{{ alert.decision_href }}">{% if alert.kind == 'signal_candidate' %}Signal Review{% elif alert.kind == 'source_health' %}Source Health{% elif alert.kind == 'watch_activity' %}Open watch{% else %}Open{% endif %}</a>
+                {% if alert.reader_item_id and not static_build %}
+                  <a class="v2-btn v2-btn-quiet" href="/intelligence/{{ alert.reader_item_id }}" data-open-reader data-item-id="{{ alert.reader_item_id }}">Read</a>
+                {% endif %}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="empty-state">Nothing in this alert group.</p>
+      {% endif %}
+    </section>
+  {% endfor %}
+</section>
+
+<section class="brief-section v2-monitor-section" id="watches">
+  <h2>Watches</h2>
+  <p class="context-limit">Inventory of monitoring intent. Pause or remove a watch; do not treat the count as uncleared work. Click recent intelligence to read it in the shared Reader.</p>
+  {% if watch_items %}
+    <div class="v2-watch-list">
+      {% for item in watch_items %}
+        {% include "_watch_card.html" %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty-state">{% if show_completed %}Nothing recorded in this view.{% else %}No active watches.{% endif %}</p>
+  {% endif %}
+</section>

@@ -252,6 +252,39 @@ def aggregate_source_coverage(freshness_by_source: dict[str, dict[str, Any]]) ->
     }
 
 
+def index_latest_item_dates(
+    *,
+    discovered_items: list[dict[str, Any]],
+    published_evidence: list[dict[str, Any]],
+) -> dict[str, tuple[str | None, str | None]]:
+    """One-pass latest dates per source. Avoids O(sources × items) on Source Health."""
+
+    published_dates: dict[str, list[str]] = {}
+    captured_dates: dict[str, list[str]] = {}
+
+    def _add(source_id: Any, published: Any, captured: Any) -> None:
+        text = str(source_id or "")
+        if not text:
+            return
+        if published:
+            published_dates.setdefault(text, []).append(str(published))
+        if captured:
+            captured_dates.setdefault(text, []).append(str(captured))
+
+    for item in discovered_items:
+        _add(item.get("source_id"), item.get("published_date"), item.get("first_seen_at"))
+    for record in published_evidence:
+        _add(record.get("source_id"), record.get("published_date"), record.get("captured_date"))
+    source_ids = set(published_dates) | set(captured_dates)
+    return {
+        source_id: (
+            max(published_dates[source_id]) if source_id in published_dates else None,
+            max(captured_dates[source_id]) if source_id in captured_dates else None,
+        )
+        for source_id in source_ids
+    }
+
+
 def latest_item_dates(
     *,
     discovered_items: list[dict[str, Any]],
@@ -261,7 +294,12 @@ def latest_item_dates(
     """Newest real publication date and newest capture date this project
     actually has on file for a source, across both pending discoveries and
     trusted published Evidence -- so "no new stories" can be judged against
-    what we would show an analyst, not only what has cleared review."""
+    what we would show an analyst, not only what has cleared review.
+
+    Single-source scan for callers that already hold the item lists and need
+    one id (collection status). Source Health uses `index_latest_item_dates`
+    once per page instead of calling this in a loop.
+    """
     published_dates = [
         item.get("published_date") for item in discovered_items
         if item.get("source_id") == source_id and item.get("published_date")

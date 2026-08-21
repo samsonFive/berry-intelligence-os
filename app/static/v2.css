@@ -625,16 +625,41 @@
   pointer-events: auto;
 }
 
+.v2-watch-list { display: grid; gap: 16px; margin: 0 0 32px; }
+.v2-watch-card { padding: 18px; overflow-wrap: anywhere; }
+.v2-watch-activity { margin: 8px 0 12px; }
+.v2-watch-activity .v2-card { box-shadow: none; }
+.v2-watch-links { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 6px; }
+.v2-watch-actions { position: static; opacity: 1; pointer-events: auto; flex-wrap: wrap; }
+.v2-alert-list { list-style: none; margin: 0 0 20px; padding: 0; display: grid; gap: 10px; }
+.v2-alert-card { padding: 14px 16px; border-left: 3px solid var(--v2-action); overflow-wrap: anywhere; }
+.v2-alert-group h3 { font-size: 1rem; margin: 16px 0 6px; }
+.v2-monitor-section { padding: 0 0 28px; }
+.v2-health-list { list-style: none; margin: 0 0 24px; padding: 0; display: grid; gap: 10px; }
+.v2-health-row { padding: 14px 16px; overflow-wrap: anywhere; word-break: break-word; }
+.v2-health-row .v2-card-title { margin: 0 0 6px; font-size: 1rem; }
+.v2-health-meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+.v2-mark-health-failing, .v2-mark-health-blocked { color: var(--v2-danger); }
+.v2-mark-health-quiet { color: var(--v2-inventory); }
+.v2-mark-health-current { color: var(--v2-trusted); }
+.v2-mark-health-manual { color: var(--v2-text-muted); }
+.v2-health-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.v2-health-actions .v2-btn, .v2-health-actions button { opacity: 1; pointer-events: auto; }
+.v2-recall-note { max-width: 52rem; }
+
 @media (max-width: 1099px) {
   .v2-app { grid-template-columns: 1fr; }
   .v2-app--sidebar-collapsed { grid-template-columns: 1fr; }
   .v2-sidebar { display: none; }
   .v2-card--feature { grid-column: auto; }
 }
+
 @media (max-width: 767px) {
   .v2-reader-offcanvas { --bs-offcanvas-width: 100vw; }
   .v2-feed-grid .v2-card-actions,
   .v2-reading-list .v2-card-actions,
+  .v2-watch-actions,
+  .v2-health-actions,
   .v2-decision-row .pending-decision-actions { opacity: 1; pointer-events: auto; }
   .v2-topbar { height: auto; min-height: 64px; flex-wrap: wrap; padding: 10px 12px; }
   .v2-search { width: 100%; flex-basis: 100%; }

@@ -2,7 +2,7 @@
 
 Local-first, evidence-based competitive intelligence for berry crops.
 
-**Expansion phase:** Before planning new acquisition, domain-depth, variety, alternative-data, or UI V2 work, read `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`. Unresolved platform debt must be recorded in `docs/v2/TECHNICAL-DEBT-REGISTER.md`; source/domain expansion should update `docs/v2/INTELLIGENCE-COVERAGE-MATRIX.md`.
+**Expansion phase:** Before planning new acquisition, domain-depth, variety, alternative-data, or UI V2 work, read `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`. Unresolved platform debt must be recorded in `docs/v2/TECHNICAL-DEBT-REGISTER.md`; source/domain expansion should update `docs/v2/INTELLIGENCE-COVERAGE-MATRIX.md`. Variety backbone (Workstream C) is `docs/v2/VARIETY-INTELLIGENCE-BACKBONE.md` — do not alter Variety backend/domain schemas, CPVO registry, `variety_footprint`, or `commercial_observation` during UI Monitor work.
 
 ## Cursor Cloud specific instructions
 
@@ -48,13 +48,23 @@ Remote interactive login is `GET /login`. Unauthenticated `/work-queue` redirect
 
 V2 product direction is **approved**. Do not reopen AppShell, context bar, Compact vs Grid, ReaderOffcanvas, or Company Profile.
 
-Migrated V2 surfaces: Morning Brief, Live Intelligence Grid/Compact, ReaderOffcanvas, Signal Review, Company Profile, Pending Review (`/pending`), Reading Queue, Assessments.
+Migrated V2 surfaces: Morning Brief, Live Intelligence Grid/Compact, ReaderOffcanvas, Signal Review, Company Profile, Pending Review (`/pending`), Reading Queue, Assessments, **Monitor** — Watches + Alerts (`/queues/monitoring`), Source Health (`/sources`).
 
-Do **not** migrate Landscape, Watches, Alerts, Sources / Source Health, or admin/system except global regression fixes. Landscape waits until Variety / Retail / Registry workstreams in `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md` settle (Workstreams C, D, E, H). After this decision-workflow gate, the first major expansion mission is Mainstream News + Regulatory Recall Benchmark V1 — not another UI surface.
+Do **not** migrate Landscape, Sources inventory/config admin, Variety Intelligence UI, or admin/system except global regression fixes. Landscape waits until Variety / Retail / Registry workstreams in `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md` settle (Workstreams C, D, E, H). Stop after Monitor: do not begin Landscape or Variety UI in the same change.
+
+**Watches are inventory / monitoring intent**, not Alerts and not KPI tiles. They answer what is being watched, why, what changed recently, and whether there is new actionable activity. Supported watch-match entity types remain `company`, `variety`, `geography`, `person` — do not invent types. Pause/remove/resume overlay `inbox/analyst_queue_state.json`; never mutate trusted Evidence `priority.*` to dequeue.
+
+**Alerts are action.** Derive them from existing stores (proposed Signals, watch-matched Signal Candidates, new watch activity, failing/blocked Source Health). Do not create a parallel Watch/Alert intelligence store. Confirm/Dismiss on proposed Signals is the existing alert workflow and does not change Signal JSON status. A Watch never confirms a Signal. Alerts deep-link into existing decision surfaces (Pending, Signal Review, Reader, Assessment, Source Health) — do not duplicate those workflows inside Alerts.
+
+**Source Health ≠ coverage/recall.** `/sources` is operational collection health (healthy / quiet / due / stale / failing / blocked / not configured for discovery). Quiet means a successful check found nothing new. Failing means collection errored. Blocked means publisher rejection. Manual means no discovery adapter. Never present source count, item volume, or health buckets as intelligence recall. The Coverage Matrix (`docs/v2/INTELLIGENCE-COVERAGE-MATRIX.md`) remains the authoritative maturity record. Source class chips come from existing `entity_types` / type metadata — do not hard-code recall-mission source ids.
+
+Watch recent intelligence reuses `#v2ReaderOffcanvas` (`data-open-reader` / `[data-intel-card]`). Do not invent a Watch-specific article modal. Open Signal Candidates deep-link to `/signals/review` or `/signals/candidates/{id}`.
+
+`/queues/monitoring` must not call `build_morning_brief`, `annotate_feed_semantics` / Story Thread grouping, or `list_discovered_items`. Source Health may scan discovered items for last-item dates; Watch/Alert pages use per-source discovery JSON only for failing/blocked alerts.
 
 Bootstrap 5.3 is vendored at `app/static/vendor/bootstrap/` for offcanvas/collapse/grid conventions only. Do not import Mirbal, Mooli, or chart/calendar vendor bundles. Nav action counts use `.v2-count-action` (not purple inventory pills). Berry context is a selector, not a per-crop theme; unmigrated Landscape in Library still follows the selected berry (`/entities/berry` when Global). Desktop hamburger collapses the persistent sidebar into an accessible icon rail (`title` + `aria-label` + action counts); below 1100px it opens `#v2NavOffcanvas`.
 
-Feed overlay is `#v2ReaderOffcanvas` and is shared with Company Recent Intelligence, Pending Review, and Reading Queue. `j`/`k` while it is open load adjacent `[data-intel-card]` items into the same pane. Escape closes it and returns focus to the triggering control. Compact is throughput mode (SOURCE · TIME / headline / metadata / marks; actions on hover, keyboard-current, or focus). Status marks and record type stay distinct: do not repeat `kind_label` in the compact footer.
+Feed overlay is `#v2ReaderOffcanvas` and is shared with Company Recent Intelligence, Pending Review, Reading Queue, and Watch recent intelligence. `j`/`k` while it is open load adjacent `[data-intel-card]` items into the same pane. Escape closes it and returns focus to the triggering control. Compact is throughput mode (SOURCE · TIME / headline / metadata / marks; actions on hover, keyboard-current, or focus). Status marks and record type stay distinct: do not repeat `kind_label` in the compact footer.
 
 Derived intelligence calculations must not silently run on unrelated synchronous page paths. Overlay `/api/intelligence/{id}/reader` skips Morning Brief entirely. HTML nav badges use cheap repository/state counts (`work_counts`, open pending, emerging candidate statuses, new-since-last-seen) plus the folder-signature `_NAV_WORK_CACHE`. Do **not** call `build_morning_brief` to paint nav badges. `/brief` stays `mode="full"`. `/pending` uses `mode="pending"` (pending ranking + story threads). `/queues/reading` may use `mode="nav"` for its own page buckets. Do not cache trust/review state beyond that signature; a publish/dismiss/read must recompute counts.
 
@@ -84,8 +94,8 @@ Related pending/current items may be presented as a **developing story / story t
 | Reading Queue | unread + saved items still to consume | Mark read / Keep / Dismiss / Promote. Show completed. Bulk mark visible top-priority unread/saved. Buckets: top / saved / adjacent / backlog. |
 | Publication review | Review now pending drafts (action). Remaining pending is inventory. | existing Approve / Save / Reject; triage Dismiss keeps history |
 | Claim testing | tagged evidence still `needs_testing` | Pass / Fail / Defer (Reopen from completed). This is claim verification, not `scripts/qualify_extraction_model.py`. |
-| Watches | **active** monitors only | Pause (1d) / Snooze (7d) / Resume / Stop. Stopped stays auditable. |
-| Alerts "N new" | proposed signals not yet confirmed/dismissed | Confirm / Dismiss on the alert. Catalog at `/signals` is inventory. |
+| Watches | **active** monitors only (inventory, not a queue) | Pause (1d) / Remove watch / Resume. Stopped stays auditable. Recent intelligence opens ReaderOffcanvas. |
+| Alerts "N new" | proposed signals not yet confirmed/dismissed (action). Other alert groups deep-link; they are not a second inbox. | Confirm / Dismiss on proposed Signals. Candidates → Signal Review. Activity → Reader. Failing sources → Source Health. Catalog at `/signals` is inventory. |
 | Commercial positions | tagged evidence (inventory) | not a queue; no Clear. Position proposals (Accept / Edit / Reject) are separate. |
 
 Workflow state lives in `inbox/analyst_queue_state.json` (runtime, gitignored). Do not mutate trusted `data/evidence/*.json` `priority.*` fields to dequeue. Dismiss/Stop/Pass/Reject never delete source history. Reading state is independent of trust state.

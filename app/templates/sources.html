@@ -1,36 +1,51 @@
 {% extends "base.html" %}
-{% block title %}Sources — Berry Intelligence OS{% endblock %}
+{% set health_groups = health_groups if health_groups is defined else [] %}
+{% block title %}Source Health — Berry Intelligence OS{% endblock %}
 {% block content %}
-<section class="page-heading">
+<div class="v2-page">
+<section class="page-heading v2-page-header">
   <div>
-    <p class="eyebrow">WHAT THE APP WATCHES FOR YOU</p>
-    <h1>Sources</h1>
+    <p class="eyebrow">MONITOR</p>
+    <h1>Source Health</h1>
+    <p class="also-known-as">Sources as operational collection health. This is not intelligence recall.</p>
   </div>
 </section>
 
+<p class="brief-window v2-recall-note">Healthy vs quiet vs failed vs not configured for discovery are collection states. Source volume must never be presented as recall. The Coverage Matrix remains the authoritative maturity record.</p>
+
 {% if not authoring_mode and not static_build %}
-  <p class="empty-state" role="alert">Source management is disabled. This deployment is running in read-only mode.</p>
-{% else %}
-{% if static_build %}
-  <p class="result-count">Read-only source registry from trusted published configuration. Source checks and edits stay on the local Intelligence OS.</p>
+  <p class="empty-state" role="status">Source edits are disabled in this deployment. Health below is still the live registry.</p>
 {% endif %}
 
 {% if error %}
   <div class="banner banner-error" role="alert">{{ error }}</div>
 {% endif %}
 
-{% if not static_build %}
-{% if source_polling_enabled %}
-  <p class="result-count">RSS/keyword sources are checked automatically every {{ poll_interval_minutes }} minutes; matching items land directly in the newsfeed, marked unvalidated until you confirm or purge them (at most 20 new items per source per check, so a broad first check trickles in over a few cycles). Reference sources (annual reports, government data, association publications) aren't polled — mark them checked manually after you review them.</p>
-{% else %}
-  <div class="banner banner-warning" role="status">Automatic polling is off (set <code>ENABLE_SOURCE_POLLING=true</code> to turn it on for a real deployment). Use "Check now" on any RSS/keyword source below to fetch it manually — nothing runs in the background on a plain restart.</div>
+{% if static_build %}
+  <p class="result-count">Read-only source registry from trusted published configuration. Source checks and edits stay on the local Intelligence OS.</p>
 {% endif %}
 
+{% if not static_build %}
+{% if source_polling_enabled %}
+  <p class="context-limit">RSS/keyword sources can be checked automatically every {{ poll_interval_minutes }} minutes. Reference sources without a discovery adapter are manual.</p>
+{% else %}
+  <div class="banner banner-warning" role="status">Automatic polling is off. Use Check now on a discoverable source when you need a fetch. Nothing runs in the background on a plain restart.</div>
+{% endif %}
+{% endif %}
+
+{% if source_coverage %}
+<p class="result-count" title="Operational health, not recall.">
+  SOURCE HEALTH — {{ source_coverage.current }} healthy · {{ source_coverage.quiet }} quiet · {{ source_coverage.failing }} failing · {{ source_coverage.blocked }} blocked · {{ source_coverage.stale }} stale · {{ source_coverage.manual }} not configured for discovery
+  {% if source_coverage.last_refresh_at %}· Last successful collection: {{ source_coverage.last_refresh_at }}{% endif %}
+</p>
+{% endif %}
+
+{% if not static_build %}
 <form class="filters" action="/sources" method="get" aria-label="Filter sources">
   <div class="filter-field">
-    <label for="filter-entity-type">Entity type</label>
+    <label for="filter-entity-type">Source class</label>
     <select id="filter-entity-type" name="entity_type">
-      <option value="">All entity types</option>
+      <option value="">All classes</option>
       {% for key, label in source_entity_types.items() %}
         <option value="{{ key }}" {% if filters.entity_type == key %}selected{% endif %}>{{ label }}</option>
       {% endfor %}
@@ -63,15 +78,8 @@
       {% endfor %}
     </select>
   </div>
-  <div class="filter-field">
-    <label for="filter-group-by">Group by</label>
-    <select id="filter-group-by" name="group_by">
-      <option value="entity_type" {% if filters.group_by == 'entity_type' %}selected{% endif %}>Entity type</option>
-      <option value="berry" {% if filters.group_by == 'berry' %}selected{% endif %}>Berry</option>
-      <option value="region" {% if filters.group_by == 'region' %}selected{% endif %}>Region</option>
-    </select>
-  </div>
   <input type="hidden" name="view" value="{{ filters.view }}">
+  <input type="hidden" name="group_by" value="{{ filters.group_by }}">
   <div class="filter-actions">
     <button type="submit">Apply filters</button>
     <a href="/sources">Clear</a>
@@ -79,22 +87,78 @@
 </form>
 {% endif %}
 
-<p class="result-count">
-  Showing {{ sources|length }} of {{ total_count }} sources
-  {% if not static_build %}
-  {% if filters.view == 'gaps' %}— Coverage Gaps view (missing berry or region tags){% elif filters.view == 'due' %}— Due for Review view{% endif %}
-  · <a href="/sources?view=gaps">Coverage gaps ({{ gaps_count }})</a>
-  · <a href="/sources?view=due">Due for review ({{ due_count }})</a>
-  {% if filters.view %}· <a href="/sources">Clear view</a>{% endif %}
-  {% endif %}
-</p>
+<ul class="brief-delta-strip" aria-label="Source health buckets">
+  {% for group in health_groups %}
+    <li>
+      <a href="#health-{{ group.key }}">
+        <span>{{ group.label }}</span>
+        <strong>{{ group.count }}</strong>
+      </a>
+    </li>
+  {% endfor %}
+</ul>
 
-{% if not static_build and source_coverage %}
-<p class="result-count" title="{{ source_coverage.manual }} reference/manual source(s), reviewed by hand, are not counted in this line.">
-  SOURCE COVERAGE — {{ source_coverage.current }} current · {{ source_coverage.due }} due · {{ source_coverage.stale }} stale · {{ source_coverage.failing }} failing
-  {% if source_coverage.last_refresh_at %}· Last refresh: {{ source_coverage.last_refresh_at }}{% endif %}
-</p>
+{% if total_count == 0 %}
+  <p class="empty-state">No sources yet. Add an RSS/Atom feed, a keyword to search for, or a reference source to track.</p>
 {% endif %}
+
+{% for group in health_groups %}
+  <section class="brief-section v2-monitor-section" id="health-{{ group.key }}">
+    <h2>{{ group.label }} ({{ group.count }})</h2>
+    <p class="context-limit">{{ group.blurb }}</p>
+    {% if group.rows %}
+      <ul class="v2-health-list">
+        {% for source in group.rows %}
+          <li class="v2-card v2-health-row" id="source-{{ source.id }}">
+            <p class="v2-card-kicker">
+              <span class="v2-mark v2-mark-source v2-mark-health-{{ group.key }}">{{ source.health_label }}</span>
+              {% if source.monitoring_priority %}<span class="v2-meta">{{ source.monitoring_priority }} priority</span>{% endif %}
+              {% if source.adapter %}<span class="v2-meta">{{ source.adapter }}</span>{% endif %}
+              {% if not source.enabled %}<span class="v2-meta">paused</span>{% endif %}
+            </p>
+            <h3 class="v2-card-title">{{ source.label }}</h3>
+            {% if source.value %}<p class="v2-meta">{{ source.value }}</p>{% endif %}
+            <div class="v2-health-meta">
+              {% for label in source.source_class_labels %}
+                <span class="v2-chip">{{ label }}</span>
+              {% endfor %}
+              {% for label in source.berry_labels %}
+                <span class="v2-chip v2-chip-berry">{{ label }}</span>
+              {% endfor %}
+              {% for label in source.region_labels %}
+                <span class="v2-chip v2-chip-entity">{{ label }}</span>
+              {% endfor %}
+            </div>
+            <p class="v2-card-line">
+              <span class="v2-meta">Cadence</span> {{ source.cadence_label }}
+              {% if source.freshness.last_success_at %} · last successful collection {{ source.freshness.last_success_at[:10]|us_date }}{% elif source.discoverable %} · no successful collection yet{% endif %}
+              {% if source.freshness.latest_item_published_at %} · last item {{ source.freshness.latest_item_published_at[:10]|us_date }}{% endif %}
+              {% if source.freshness.next_check_due %} · next due {{ source.freshness.next_check_due|us_date }}{% endif %}
+            </p>
+            {% if source.retry.retry_count %}
+              <p class="v2-card-line"><span class="v2-mark v2-mark-warning">Retry / backoff</span> attempt {{ source.retry.retry_count }}{% if source.retry.next_eligible_retry_at %} · next eligible {{ source.retry.next_eligible_retry_at[:16] }}{% endif %}</p>
+            {% endif %}
+            {% if source.freshness.reason %}
+              <p class="v2-card-summary">{{ source.freshness.reason }}</p>
+            {% endif %}
+            {% if authoring_mode and not static_build %}
+              <div class="v2-health-actions">
+                {% if source.type == 'reference' and not source.discoverable %}
+                  <form action="/sources/{{ source.id }}/mark-checked" method="post"><button class="v2-btn v2-btn-quiet" type="submit">Mark checked</button></form>
+                {% elif source.type != 'reference' or source.discoverable %}
+                  <form action="/sources/{{ source.id }}/check-now" method="post"><button class="v2-btn v2-btn-quiet" type="submit">Check now</button></form>
+                {% endif %}
+                <form action="/sources/{{ source.id }}/toggle" method="post"><button class="v2-btn v2-btn-quiet" type="submit">{{ "Pause" if source.enabled else "Resume" }}</button></form>
+              </div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty-state">No sources in this state.</p>
+    {% endif %}
+  </section>
+{% endfor %}
 
 {% if blocked_domains and not static_build %}
   <details class="collapsible-form">
@@ -109,7 +173,7 @@
   </details>
 {% endif %}
 
-{% if not static_build %}
+{% if authoring_mode and not static_build %}
 <details class="collapsible-form">
   <summary>Add a source</summary>
   <form class="intake-form" action="/sources" method="post">
@@ -124,24 +188,24 @@
       </div>
       <div class="form-field">
         <label for="label">Label</label>
-        <input id="label" name="label" type="text" required placeholder="e.g. Fresh Fruit Portal">
+        <input id="label" name="label" type="text" required>
       </div>
     </div>
     <div class="form-field">
-      <label for="value">Feed URL, search term, or homepage URL</label>
-      <input id="value" name="value" type="text" required placeholder="https://example.com/feed.xml — a keyword phrase — or a homepage URL for a reference source">
+      <label for="value">Value (feed URL or search term)</label>
+      <input id="value" name="value" type="text" required>
     </div>
     <div class="form-field">
-      <label for="url">URL / contact (optional, if different from above)</label>
-      <input id="url" name="url" type="text" placeholder="https://example.com">
+      <label for="url">Canonical URL</label>
+      <input id="url" name="url" type="url">
     </div>
     <div class="form-field">
       <label for="why_it_matters">Why it matters</label>
-      <textarea id="why_it_matters" name="why_it_matters" rows="2" placeholder="What unique signal does this source provide, and what decision does it support?"></textarea>
+      <textarea id="why_it_matters" name="why_it_matters" rows="3"></textarea>
     </div>
     <div class="form-row">
       <div class="form-field">
-        <label for="monitoring_priority">Monitoring priority</label>
+        <label for="monitoring_priority">Priority</label>
         <select id="monitoring_priority" name="monitoring_priority">
           <option value="">—</option>
           {% for key, label in source_priorities.items() %}
@@ -160,7 +224,7 @@
       </div>
     </div>
     <fieldset class="form-fieldset">
-      <legend>Entity type</legend>
+      <legend>Source class</legend>
       {% for key, label in source_entity_types.items() %}
         <label class="checkbox-label"><input type="checkbox" name="entity_types" value="{{ key }}"> {{ label }}</label>
       {% endfor %}
@@ -191,76 +255,5 @@
   </form>
 </details>
 {% endif %}
-
-{% for group_label, group_sources in grouped_sources %}
-  <h2>{{ group_label }} ({{ group_sources|length }})</h2>
-  <section class="entity-list">
-    {% for source in group_sources %}
-      <article class="card entity-card">
-        <div class="card-header">
-          <span class="badge badge-muted">{{ source_types.get(source.type, source.type)|upper }}</span>
-          {% if source.monitoring_priority %}
-            <strong class="level-{{ source.monitoring_priority }}">{{ source.monitoring_priority }}</strong>
-          {% endif %}
-          <span class="badge {% if source.enabled %}badge-status-active{% else %}badge-muted{% endif %}">{{ "enabled" if source.enabled else "paused" }}</span>
-          {% if source_has_coverage_gap(source) %}<span class="badge badge-muted">coverage gap</span>{% endif %}
-          {% set freshness = freshness_by_source.get(source.id) %}
-          {% if freshness %}
-            <span class="badge {% if freshness.state in ('STALE', 'FAILING', 'BLOCKED') %}level-high{% elif freshness.state in ('DUE', 'MANUAL', 'QUIET') %}badge-muted{% else %}badge-status-active{% endif %}" title="{{ freshness.reason }}">{{ freshness_states.get(freshness.state, freshness.state) }}</span>
-          {% endif %}
-        </div>
-        <h2>{{ source.label }}</h2>
-        {% set why_lines = source.why_it_matters|as_bullets %}
-        {% if why_lines|length > 1 %}
-          <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-        {% elif source.why_it_matters %}
-          <p>{{ source.why_it_matters }}</p>
-        {% endif %}
-        <p class="draft-meta">{{ source.value }}{% if source.url and source.url != source.value %} · <a href="{{ source.url }}">{{ source.url }}</a>{% endif %}</p>
-        {% if source.entity_types or source.berry_ids or source.region_coverage %}
-          <div class="tags">
-            {% for t in source.entity_types %}<span>{{ source_entity_types.get(t, t) }}</span>{% endfor %}
-            {% for b in source.berry_ids %}<span>{{ berries.get(b, b) }}</span>{% endfor %}
-            {% for r in source.region_coverage %}<span>{{ source_regions.get(r, r) }}</span>{% endfor %}
-          </div>
-        {% endif %}
-        <p class="draft-meta">
-          {% if source.update_cadence %}{{ source_cadences.get(source.update_cadence, source.update_cadence) }} · {% endif %}
-          {% if source.last_checked_at %}Last checked {{ source.last_checked_at[:10]|us_date }}{% else %}Never checked yet{% endif %}
-          {% set due = next_check_due(source) %}
-          {% if due %} · Next due {{ due|us_date }}{% if source_is_due(source) %} <strong class="level-high">overdue</strong>{% endif %}{% endif %}
-          {% if source.last_status %} · {{ source.last_status }}{% endif %}
-          {% if source.validated_count or source.purged_count %} · {{ source.validated_count or 0 }} validated / {{ source.purged_count or 0 }} purged{% endif %}
-        </p>
-        {% if freshness and freshness.state != 'MANUAL' %}
-        <p class="draft-meta">
-          Automated discovery:
-          {% if freshness.last_success_at %}last succeeded {{ freshness.last_success_at[:10]|us_date }}{% elif freshness.last_checked_at %}last attempted {{ freshness.last_checked_at[:10]|us_date }} (no success yet){% else %}never run{% endif %}
-          {% if freshness.latest_item_published_at %} · newest item published {{ freshness.latest_item_published_at[:10]|us_date }}{% endif %}
-          {% if freshness.next_check_due %} · next check due {{ freshness.next_check_due|us_date }}{% endif %}
-        </p>
-        {% endif %}
-        {% if not static_build %}
-        <div class="form-actions">
-          {% if source.type == 'reference' %}
-            <form action="/sources/{{ source.id }}/mark-checked" method="post"><button type="submit">Mark checked</button></form>
-          {% else %}
-            <form action="/sources/{{ source.id }}/check-now" method="post"><button type="submit">Check now</button></form>
-          {% endif %}
-          <form action="/sources/{{ source.id }}/toggle" method="post"><button type="submit">{{ "Pause" if source.enabled else "Resume" }}</button></form>
-          <form action="/sources/{{ source.id }}/delete" method="post"><button type="submit">Remove</button></form>
-        </div>
-        {% endif %}
-      </article>
-    {% endfor %}
-  </section>
-{% else %}
-  {% if total_count == 0 %}
-    <p class="empty-state">No sources yet. Add an RSS/Atom feed, a keyword to search for, or a reference source to track.</p>
-  {% else %}
-    <p class="empty-state">No sources match the current filters.</p>
-  {% endif %}
-{% endfor %}
-
-{% endif %}
+</div>
 {% endblock %}

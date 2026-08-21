@@ -443,11 +443,11 @@ def build_dimension_page(
         completed = []
     else:
         purpose = (
-            "Intentional watches on tagged evidence. The count is active monitors, "
-            "not items you need to clear."
+            "Monitoring inventory: companies, varieties, geographies, and other supported entities you intend to follow. "
+            "The count is active watches, not uncleared work. Alerts (below) are the action list."
         )
         label = "Watches"
-        eyebrow = "WHAT WE ARE WATCHING"
+        eyebrow = "MONITOR — INVENTORY, NOT A QUEUE"
     return {
         "dimension": dimension,
         "label": label,

@@ -1,0 +1,81 @@
+<article class="v2-card v2-watch-card" id="watch-{{ item.id }}">
+  <p class="v2-card-kicker">
+    <span class="v2-mark v2-mark-watch">Watch</span>
+    <span class="v2-meta">{{ item.workflow_label }}</span>
+    {% if item.watch_type and item.watch_type != 'evidence' %}
+      <span class="v2-meta">{{ item.watch_type|replace('_',' ')|title }}</span>
+    {% endif %}
+    {% for name in item.berry_context[:3] %}
+      <span class="v2-chip v2-chip-berry">{{ name }}</span>
+    {% endfor %}
+  </p>
+  <h3 class="v2-card-title">
+    {% if item.watched_entities %}
+      {% for entity in item.watched_entities %}
+        <a href="{{ entity.href }}">{{ entity.name }}</a>{% if not loop.last %}<span class="v2-meta"> · </span>{% endif %}
+      {% endfor %}
+    {% else %}
+      <a href="{{ item.evidence_href }}">{{ item.watch_what }}</a>
+    {% endif %}
+  </h3>
+  {% if item.watched_entities %}
+    <p class="v2-card-line">{{ item.watch_what }}</p>
+  {% endif %}
+  {% if item.watch_why %}
+    <p class="v2-card-summary"><span class="v2-meta">Why</span> {{ item.watch_why }}</p>
+  {% endif %}
+  <p class="v2-card-line">
+    {% if item.new_since_last_count %}
+      <span class="v2-mark v2-mark-pending">{{ item.new_since_last_count }} new</span>
+    {% else %}
+      <span class="v2-meta">No new activity since last brief visit</span>
+    {% endif %}
+    {% if item.open_signal_count %}
+      <span class="v2-mark v2-mark-confirmed">{{ item.open_signal_count }} open signal{{ 's' if item.open_signal_count != 1 else '' }}</span>
+    {% endif %}
+    {% if item.open_candidate_count %}
+      <a class="v2-mark v2-mark-signal" href="/signals/review?return_to=/queues/monitoring">{{ item.open_candidate_count }} candidate{{ 's' if item.open_candidate_count != 1 else '' }}</a>
+    {% endif %}
+  </p>
+  {% if item.last_development %}
+    <p class="v2-card-line"><span class="v2-meta">Last development</span> {{ item.last_development }}{% if item.last_development_at %} · {{ item.last_development_at|us_date }}{% endif %}</p>
+  {% endif %}
+  {% if item.recent_activity %}
+    <p class="v2-meta">Recent intelligence</p>
+    <ul class="intel-card-list v2-card-list v2-feed-compact v2-watch-activity">
+      {% for activity_item in item.recent_activity %}
+        {% with item = activity_item %}
+          {% include "_intelligence_card.html" %}
+        {% endwith %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+  {% if item.open_candidates %}
+    <p class="v2-meta">Open signal candidates — review there; a Watch does not confirm.</p>
+    <ul class="v2-watch-links">
+      {% for candidate in item.open_candidates %}
+        <li><a href="/signals/candidates/{{ candidate.id }}?return_to=/queues/monitoring">{{ candidate.title or candidate.id }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <div class="v2-card-actions v2-watch-actions">
+    <a class="v2-btn v2-btn-quiet" href="{{ item.evidence_href }}">Open</a>
+    {% if item.recent_activity %}
+      <a class="v2-btn v2-btn-quiet" href="/intelligence/{{ item.recent_activity[0].id }}" data-open-reader data-item-id="{{ item.recent_activity[0].id }}">Review activity</a>
+    {% endif %}
+    {% if item.open_candidates %}
+      <a class="v2-btn v2-btn-quiet" href="/signals/candidates/{{ item.open_candidates[0].id }}?return_to=/queues/monitoring">Signal Review</a>
+    {% endif %}
+    {% if authoring_mode and not static_build %}
+      {% if item.workflow_state == 'active' %}
+        <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="pause"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="v2-btn v2-btn-quiet" type="submit">Pause 1d</button></form>
+        <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="stop"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="v2-btn v2-btn-quiet" type="submit">Remove watch</button></form>
+      {% elif item.workflow_state == 'snoozed' %}
+        <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="resume"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="v2-btn v2-btn-quiet" type="submit">Resume</button></form>
+        <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="stop"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="v2-btn v2-btn-quiet" type="submit">Remove watch</button></form>
+      {% else %}
+        <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="resume"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="v2-btn v2-btn-quiet" type="submit">Resume</button></form>
+      {% endif %}
+    {% endif %}
+  </div>
+</article>
