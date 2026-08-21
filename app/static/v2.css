@@ -666,6 +666,10 @@
   .v2-berry-portfolio,
   .v2-company-lede,
   .v2-company-section { margin-left: 16px; margin-right: 16px; padding-left: 0; padding-right: 0; }
+  .v2-variety .v2-page-header,
+  .v2-variety-list,
+  .v2-observation-list,
+  .v2-variety-section { margin-left: 12px; margin-right: 12px; }
 }
 .v2-reading-list .v2-card-actions,
 .v2-decision-list .v2-card-actions,
@@ -710,6 +714,71 @@
 }
 .v2-assessment-row .v2-card-title { margin: 0 0 8px; font-size: 1.05rem; }
 .v2-assessment-detail .v2-mark { margin-right: 8px; }
+
+.v2-variety .v2-page-header { padding: 24px 32px 8px; }
+.v2-variety .brief-delta-strip { padding: 0 32px 16px; }
+.v2-variety-list,
+.v2-observation-list {
+  display: grid;
+  gap: 10px;
+  padding: 0 32px 32px;
+  max-width: 980px;
+}
+.v2-variety-card,
+.v2-observation-card {
+  padding: 14px 16px;
+  overflow-wrap: anywhere;
+}
+.v2-variety-card .v2-card-title,
+.v2-observation-card .v2-card-title {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+}
+.v2-variety-card .v2-card-line,
+.v2-observation-card .v2-card-line {
+  margin: 0 0 4px;
+  font-size: var(--v2-body);
+}
+.v2-variety-aka { color: var(--v2-text-muted); }
+.v2-observation-card.is-draft {
+  background: var(--v2-pending-bg);
+  border-style: dashed;
+  opacity: 0.92;
+}
+.v2-observation-card:not(.is-draft) {
+  border-left: 3px solid var(--v2-trusted);
+}
+.v2-role-list {
+  display: grid;
+  grid-template-columns: minmax(9rem, 14rem) minmax(0, 1fr);
+  gap: 6px 16px;
+  margin: 12px 0 0;
+}
+.v2-role-list dt {
+  font-size: var(--v2-label);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--v2-text-muted);
+}
+.v2-role-list dd { margin: 0; }
+.v2-compete-groups {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.v2-variety-section { padding: 0 32px 28px; max-width: 980px; }
+.v2-variety-section h2 { font-size: var(--v2-section); margin: 0 0 8px; }
+.v2-variety .filters { padding-left: 32px; padding-right: 32px; }
+.v2-variety .checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  font-size: var(--v2-body);
+}
+.v2-variety-detail .v2-observation-list { padding-left: 0; padding-right: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   .offcanvas { transition: none !important; }

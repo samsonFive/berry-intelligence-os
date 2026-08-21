@@ -110,6 +110,14 @@ from app.services.monitor_workspace import (
     present_source_health_rows,
     retry_hints_by_source,
 )
+from app.services.variety_workspace import (
+    VIEWS as VARIETY_VIEWS,
+    berry_inventory,
+    present_competition,
+    present_observation_workspace,
+    present_variety_detail,
+    present_variety_index,
+)
 from app.services.signal_candidates import SignalCandidateError, load_candidates
 from app.services.signal_review import (
     EMERGING_STATUSES,
@@ -895,7 +903,11 @@ def filter_entities(
                     " ".join(entity.get("aliases", [])),
                     entity.get("description", ""),
                     str(attrs.get("selection_code", "")),
+                    str(attrs.get("breeder_code", "")),
                     str(attrs.get("patent_number", "")),
+                    str(attrs.get("trade_name", "")),
+                    str(attrs.get("commercial_name", "")),
+                    str(attrs.get("denomination", "")),
                 ]
             )
             return text_matches(needle, haystack)
@@ -1897,6 +1909,11 @@ def entity_list(
     berry: str | None = None,
     region: str | None = None,
     company: str | None = None,
+    view: str | None = None,
+    has_rights: str | None = None,
+    has_observation: str | None = None,
+    market: str | None = None,
+    ip_and_observation: str | None = None,
 ) -> HTMLResponse:
     all_of_type = sorted(
         (e for e in all_entities() if e.get("entity_type") == entity_type),
@@ -1904,6 +1921,10 @@ def entity_list(
     )
     if not all_of_type:
         raise HTTPException(status_code=404, detail=f"No entities found for type '{entity_type}'")
+
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    if entity_type == "variety" and "berry" not in request.query_params and ui["berry"] != "global":
+        berry = ui["berry"]
 
     entities_idx = entity_index()
     evidence = published_evidence()
@@ -1915,20 +1936,89 @@ def entity_list(
         ({"id": e["id"], "name": e["name"]} for e in all_entities() if e.get("entity_type") == "company"),
         key=lambda c: c["name"],
     )
-    return templates.TemplateResponse(
+    context: dict[str, Any] = {
+        "entities": filtered,
+        "total_count": len(all_of_type),
+        "entity_type": entity_type,
+        "berries": BERRIES,
+        "regions": REGIONS,
+        "companies": companies,
+        "filters": {
+            "q": q or "",
+            "berry": berry or "",
+            "region": region or "",
+            "company": company or "",
+            "has_rights": has_rights or "",
+            "has_observation": has_observation or "",
+            "market": market or "",
+            "ip_and_observation": ip_and_observation or "",
+        },
+        "authoring_mode": AUTHORING_MODE,
+        "ui_context": ui,
+        "variety_view": "index",
+        "variety_cards": [],
+        "berry_inventory": [],
+        "unnamed_observation_count": 0,
+        "observation_total_count": 0,
+        "observation_workspace": {},
+        "competition": {},
+        "geographies": [],
+    }
+    if entity_type == "variety":
+        variety_view = view if view in VARIETY_VIEWS else "index"
+        drafts = list_pending_drafts()
+        geographies = sorted(
+            ({"id": e["id"], "name": e["name"]} for e in entities_idx.values() if e.get("entity_type") == "geography"),
+            key=lambda row: row["name"],
+        )
+        context.update(
+            {
+                "variety_view": variety_view,
+                "berry_inventory": berry_inventory(all_of_type, BERRIES),
+                "geographies": geographies,
+            }
+        )
+        if variety_view == "index":
+            index_model = present_variety_index(
+                varieties=filtered,
+                entities=list(entities_idx.values()),
+                relationships=relationships,
+                published_evidence=evidence,
+                berry_labels=BERRIES,
+                inbox_drafts=drafts,
+                signals=all_signals(),
+                candidates=load_candidates(INBOX_DIR) if INBOX_DIR else [],
+                filters={"has_rights": has_rights or "", "has_observation": has_observation or ""},
+            )
+            context["variety_cards"] = index_model["cards"]
+            context["unnamed_observation_count"] = index_model["unnamed_observation_count"]
+            context["observation_total_count"] = index_model["observation_total_count"]
+        elif variety_view == "observations":
+            context["observation_workspace"] = present_observation_workspace(
+                entities=list(entities_idx.values()),
+                published_evidence=evidence,
+                inbox_drafts=drafts,
+                berry_labels=BERRIES,
+                berry_id=berry,
+            )
+        elif variety_view == "compete":
+            context["competition"] = present_competition(
+                berry_id=berry,
+                country_geo_id=market,
+                entities=list(entities_idx.values()),
+                relationships=relationships,
+                published_evidence=evidence,
+                inbox_drafts=drafts,
+                berry_labels=BERRIES,
+                ip_and_observation=ip_and_observation in {"1", "true", "yes", "on"},
+            )
+    response = templates.TemplateResponse(
         request=request,
         name="entity_list.html",
-        context={
-            "entities": filtered,
-            "total_count": len(all_of_type),
-            "entity_type": entity_type,
-            "berries": BERRIES,
-            "regions": REGIONS,
-            "companies": companies,
-            "filters": {"q": q or "", "berry": berry or "", "region": region or "", "company": company or ""},
-            "authoring_mode": AUTHORING_MODE,
-        },
+        context=context,
     )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
 
 
 def recent_intelligence_for_entity(
@@ -2216,6 +2306,27 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                         open_signals=open_signals,
                         linked_evidence=linked_evidence,
                         berry=ui["berry"],
+                    )
+                )
+            elif entity.get("entity_type") == "variety":
+                synthesis["open_signals"] = open_signals
+                story_threads = [
+                    item["thread"]
+                    for item in synthesis.get("recent_intelligence") or []
+                    if item.get("is_thread") and item.get("thread")
+                ]
+                synthesis.update(
+                    present_variety_detail(
+                        entity,
+                        entities=entities,
+                        relationships=all_relationships(),
+                        published_evidence=published_evidence(),
+                        grouped_relationships=synthesis["grouped_relationships"],
+                        recent_intelligence=synthesis["recent_intelligence"],
+                        berry_labels=BERRIES,
+                        inbox_drafts=list_pending_drafts(),
+                        story_threads=story_threads,
+                        signals=all_signals(),
                     )
                 )
             else:

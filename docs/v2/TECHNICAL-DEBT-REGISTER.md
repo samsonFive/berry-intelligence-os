@@ -392,7 +392,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | KL-001 | Human publication + atomic review gates | Trust model. AI never auto-publishes. |
 | KL-002 | Signal candidate confirm ≠ trusted Signal and does not create an Assessment | Object model. Documented in `AGENTS.md`. |
 | KL-003 | Story threads are organizational only | No “trust thread” action. |
-| KL-004 | Landscape / Sources inventory-config admin / Variety Intelligence UI / admin unmigrated | Deliberate stop gate. Monitor (Watches, Alerts, Source Health) migrated 2026-08-21. Landscape waits on Variety / Retail / Registry expansion. |
+| KL-004 | Landscape / Sources inventory-config admin / admin unmigrated | Deliberate stop gate. Monitor migrated 2026-08-21. Variety Intelligence UI migrated 2026-08-21 (`/entities/variety`). Landscape waits on Trade / Retail / Registry expansion. |
 | KL-005 | Static GitHub Pages is a trusted snapshot | No inbox drafts, no review workbench. |
 | KL-006 | Haiku enrichment is not extraction-qualified | Non-trusted publication enrichment only. |
 | KL-007 | Analyst workflow state lives in gitignored `inbox/analyst_queue_state.json` | Runtime overlay; never mutates trusted `data/evidence`. |

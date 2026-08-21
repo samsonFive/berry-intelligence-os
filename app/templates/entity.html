@@ -3,6 +3,8 @@
 {% block content %}
 {% if entity.entity_type == 'company' %}
 {% include "_company_profile.html" %}
+{% elif entity.entity_type == 'variety' %}
+{% include "_variety_profile.html" %}
 {% else %}
 <section class="page-heading" data-pagefind-filter="type:entity">
   <div>

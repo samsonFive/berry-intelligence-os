@@ -1,0 +1,274 @@
+{% set ui = ui_context if ui_context is defined else {"berry": "global", "berry_label": "Global", "feed_view": "grid"} %}
+{% set identity = identity if identity is defined else {"canonical_name": entity.name, "aliases": entity.aliases or [], "commercial_names": [], "denomination": "", "breeder_code": "", "package_note": ""} %}
+{% set roles = roles if roles is defined else {} %}
+<div class="v2-page v2-variety v2-variety-detail">
+<section class="page-heading v2-page-header" data-pagefind-filter="type:entity">
+  <div>
+    <p class="eyebrow">VARIETY</p>
+    <h1>{{ identity.canonical_name }}</h1>
+    {% if identity.aliases %}
+      <p class="also-known-as" data-pagefind-weight="10">Aliases: {{ identity.aliases|join(', ') }}</p>
+    {% endif %}
+    {% if identity.commercial_names or identity.denomination or identity.breeder_code %}
+      <p class="v2-company-meta">
+        {% if identity.commercial_names %}<span class="v2-meta">Commercial name {{ identity.commercial_names|join(', ') }}</span>{% endif %}
+        {% if identity.denomination %}<span class="v2-meta">Denomination {{ identity.denomination }}</span>{% endif %}
+        {% if identity.breeder_code %}<span class="v2-meta">Breeder code {{ identity.breeder_code }}</span>{% endif %}
+      </p>
+    {% endif %}
+    <p class="v2-company-meta">
+      <span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span>
+      {% for berry_id in entity.berry_ids %}
+        <span class="v2-chip v2-chip-berry">{{ berry_label(berry_id) }}</span>
+      {% endfor %}
+      {% if ui.berry != 'global' %}<span class="v2-mark v2-mark-direct">{{ ui.berry_label }} context</span>{% endif %}
+    </p>
+  </div>
+  <div class="v2-company-actions">
+    <a class="v2-btn v2-btn-quiet" href="/entities/variety">Variety index</a>
+    {% if landscape_href %}<a class="v2-btn v2-btn-quiet" href="{{ landscape_href }}">Landscape context</a>{% endif %}
+    <a class="v2-btn v2-btn-primary" href="#recent-intelligence">Open Evidence</a>
+  </div>
+</section>
+
+{% if entity.description %}
+  <p class="v2-company-lede">{{ entity.description|truncate(360) }}</p>
+{% endif %}
+{% if identity.package_note %}
+  <p class="context-limit">{{ identity.package_note }}</p>
+{% endif %}
+{% if uk_named_pilot %}
+  <p class="brief-window">UK retail pilot named-variety case. Only two listings in that 18-observation pilot named a cultivar. Absence of other UK listings here does not mean this variety is unknown globally.</p>
+{% endif %}
+
+<section class="v2-company-section" id="roles">
+  <h2>Who is involved</h2>
+  <p class="context-limit">Roles stay distinct. The same company may appear twice when two facts are evidenced (for example breeder and rights holder).</p>
+  <dl class="v2-role-list">
+    {% for bucket, label in role_labels.items() %}
+      <dt>{{ label }}</dt>
+      <dd>
+        {% if roles[bucket] %}
+          {% for party in roles[bucket] %}<a href="{{ party.href }}">{{ party.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+        {% else %}—{% endif %}
+      </dd>
+    {% endfor %}
+  </dl>
+</section>
+
+<section class="v2-company-section" id="rights">
+  <h2>Rights / IP</h2>
+  <p class="context-limit">USPTO, CPVO, and other filings as recorded. Pending-review drafts are not trusted grants.</p>
+  <dl data-pagefind-ignore>
+    <dt>Breeding program</dt>
+    <dd>
+      {% if variety_breeding_program %}
+        <a href="/entities/breeding_program/{{ variety_breeding_program.id }}">{{ variety_breeding_program.name }}</a>
+      {% else %}
+        — not linked in the dataset
+      {% endif %}
+    </dd>
+    <dt>Patent / IP right</dt>
+    <dd>
+      {% if variety_patent_link %}
+        <a href="/entities/patent/{{ variety_patent_link.id }}">{{ variety_patent_link.name }}</a>
+      {% elif entity.attributes and entity.attributes.patent_number %}
+        {{ entity.attributes.patent_number }} — no matching patent record found in the dataset
+      {% else %}
+        — no patent number recorded
+      {% endif %}
+    </dd>
+  </dl>
+  {% if rights_published or rights_drafts %}
+    <ul class="entity-links">
+      {% for row in rights_published %}
+        <li>
+          <span class="v2-mark v2-mark-trusted">Trusted</span>
+          <span class="v2-meta">{{ row.kind }}</span>
+          <a href="{% if static_build %}{{ row.trusted_href }}{% else %}{{ row.href }}{% endif %}" {% if not static_build %}data-open-reader data-item-id="{{ row.id }}"{% endif %}><strong>{{ row.title }}</strong></a>
+          {% if row.published_date %}<span class="draft-meta">{{ row.published_date|us_date }}</span>{% endif %}
+        </li>
+      {% endfor %}
+      {% for row in rights_drafts %}
+        <li>
+          <span class="v2-mark v2-mark-pending">Pending review</span>
+          <span class="v2-meta">{{ row.kind }}</span>
+          {% if static_build %}
+            <strong>{{ row.title }}</strong>
+          {% else %}
+            <a href="{{ row.href }}" data-open-reader data-item-id="{{ row.id }}"><strong>{{ row.title }}</strong></a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="commercial-footprint">
+  <h2>Commercial footprint</h2>
+  <p class="context-limit">Derived from commercial_observation Evidence at call time. An observation is not proof of market scale.</p>
+  <p class="v2-card-line">
+    <span class="v2-meta">Countries observed</span>
+    {% if countries_observed %}
+      {% for geo in countries_observed %}{% if geo.href %}<a href="{{ geo.href }}">{{ geo.name }}</a>{% else %}{{ geo.name }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}
+    {% else %}None recorded{% endif %}
+  </p>
+  <p class="v2-card-line">
+    <span class="v2-meta">Retailers / channels</span>
+    {% if retailers_observed %}
+      {% for party in retailers_observed %}<a href="{{ party.href }}">{{ party.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+    {% else %}None recorded{% endif %}
+  </p>
+  <p class="v2-card-line">
+    <span class="v2-meta">First observed</span> {% if footprint.first_observed %}{{ footprint.first_observed|us_date }}{% else %}—{% endif %}
+    · <span class="v2-meta">Latest observed</span> {% if footprint.latest_observed %}{{ footprint.latest_observed|us_date }}{% else %}—{% endif %}
+  </p>
+  {% if observations %}
+    <div class="v2-observation-list">
+      {% for obs in observations %}
+        {% include "_commercial_observation.html" %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty-state">No commercial observations linked to this variety.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="traits">
+  <h2>Trait profile</h2>
+  <p class="context-limit">Evidence-backed rows only as recorded on the Variety. Owner/marketer claims are labeled and are not trusted Facts (TD-018: trait–evidence linkage is a convention).</p>
+  {% if variety_trait_profile %}
+    <table class="trait-table">
+      <thead><tr><th>Trait</th><th>Reported value</th><th>Source of claim</th><th>Asserted by</th></tr></thead>
+      <tbody>
+        {% for row in variety_trait_profile %}
+          <tr>
+            <td>{{ row.trait_name|replace('_',' ')|title }}</td>
+            <td>{{ row.value }}{% if row.conditions %}<br><small class="draft-meta">{{ row.conditions }}</small>{% endif %}{% if row.evidence_ids %}<br><small class="draft-meta">Evidence {{ row.evidence_ids|join(', ') }}</small>{% endif %}</td>
+            <td>
+              {% if row.is_unresolved %}
+                <span class="badge badge-counterevidence">UNRESOLVED</span>
+              {% elif row.is_claim %}
+                <span class="badge badge-claim">OWNER/MARKETER CLAIM</span>
+              {% else %}
+                <span class="badge badge-fact">{{ row.provenance|replace('_',' ')|upper }}</span>
+              {% endif %}
+            </td>
+            <td>{{ row.asserted_by or "—" }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="empty-state">No structured trait data recorded for this variety yet — see Facts and Linked evidence below for unstructured mentions.</p>
+  {% endif %}
+</section>
+
+{% if open_signals and (open_signals.emerging or open_signals.confirmed or open_signals.deferred) %}
+<section class="v2-company-section" id="open-signals">
+  <h2>Open signals</h2>
+  <p class="context-limit" data-pagefind-ignore>Untrusted Signal candidates that name this variety. Emerging is not confirmed. Confirm does not publish a trusted Signal or create an Assessment.</p>
+  <ul class="entity-links" data-pagefind-ignore>
+    {% for item in open_signals.emerging %}
+      <li><span class="v2-mark v2-mark-signal">Emerging</span> <a href="{{ item.href }}"><strong>{{ item.label }}</strong></a> <span class="draft-meta">{{ item.support_label }}</span></li>
+    {% endfor %}
+    {% for item in open_signals.confirmed %}
+      <li><span class="v2-mark v2-mark-confirmed">Confirmed</span> <a href="{{ item.href }}"><strong>{{ item.label }}</strong></a> <span class="draft-meta">{{ item.support_label }}</span></li>
+    {% endfor %}
+    {% for item in open_signals.deferred %}
+      <li><span class="v2-mark">Deferred</span> <a href="{{ item.href }}"><strong>{{ item.label }}</strong></a> <span class="draft-meta">{{ item.support_label }}</span></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+{% if entity_signals or entity_assessments or entity_recommendations %}
+<section class="v2-company-section" id="bottom-line">
+  <h2>Signals / assessments</h2>
+  <ul class="entity-links">
+    {% for s in entity_signals %}
+      <li><span class="badge badge-signal">SIGNAL</span> <a href="/signals/{{ s.id }}">{{ s.title }}</a> <span class="badge badge-muted">{{ s.status|upper }}</span></li>
+    {% endfor %}
+    {% for a in entity_assessments %}
+      <li>
+        <span class="badge badge-assessment">ASSESSMENT</span>
+        {% if a.berry_scope %}<span class="v2-mark v2-mark-scope v2-mark-scope-{{ a.berry_scope.kind }}">{{ a.berry_scope.label }}</span>{% endif %}
+        <a href="/assessments/{{ a.id }}">{{ a.title }}</a>
+      </li>
+    {% endfor %}
+    {% for r in entity_recommendations %}
+      <li><span class="badge badge-recommendation">RECOMMENDATION</span> <a href="/recommendations/{{ r.id }}">{{ r.title }}</a></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<section class="v2-company-section" id="recent-intelligence">
+  <h2>Recent intelligence</h2>
+  <p class="context-limit">Story Threads and Evidence. Opening an item uses the shared Reader overlay. Escape returns focus.</p>
+  {% if recent_cards %}
+    <ul class="intel-card-list v2-card-list v2-company-feed">
+      {% for item in recent_cards %}
+        {% include "_intelligence_card.html" %}
+      {% endfor %}
+    </ul>
+  {% elif recent_intelligence %}
+    <ul class="entity-links" data-pagefind-ignore>
+      {% for item in recent_intelligence %}
+        <li>
+          {% if item.is_thread %}
+            <span class="v2-mark v2-mark-story">Story</span>
+            <a href="{{ item.thread.href }}"><strong>{{ item.developing_label or item.thread.title }}</strong></a>
+          {% elif item.kind == 'trusted' %}
+            <span class="v2-mark v2-mark-trusted">Trusted</span>
+            <a href="{% if static_build %}/evidence/{{ item.record.id }}{% else %}/intelligence/{{ item.record.id }}{% endif %}" {% if not static_build %}data-open-reader data-item-id="{{ item.record.id }}"{% endif %}><strong>{{ item.record.title }}</strong></a>
+          {% else %}
+            <span class="v2-mark v2-mark-pending">Pending</span>
+            {% if not static_build %}<a href="/intelligence/{{ item.record.id }}" data-open-reader data-item-id="{{ item.record.id }}"><strong>{{ item.record.title }}</strong></a>{% endif %}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No recent intelligence linked to this variety.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="network">
+  <h2>Network</h2>
+  <p class="context-limit">Directed, evidenced edges. <code>markets</code> is a marketer role, not ownership.</p>
+  {% if grouped_relationships %}
+    <ul class="relationship-list">
+      {% for rel in grouped_relationships %}
+        <li>
+          {% if rel.direction == 'outgoing' %}
+            <strong>{{ entity.name }}</strong> {{ rel.predicate|replace('_',' ') }}
+            <a href="/entities/{{ rel.other.entity_type }}/{{ rel.other.id }}">{{ rel.other.name }}</a>
+          {% else %}
+            <a href="/entities/{{ rel.other.entity_type }}/{{ rel.other.id }}">{{ rel.other.name }}</a>
+            {{ rel.predicate|replace('_',' ') }} <strong>{{ entity.name }}</strong>
+          {% endif %}
+          <span class="badge badge-muted">{{ rel.other.entity_type|replace('_',' ')|upper }}</span>
+          {% if rel.predicate == 'markets' %}<span class="v2-mark">Marketer</span>{% endif %}
+          {% if rel.predicate == 'develops' %}<span class="v2-mark">Breeder</span>{% endif %}
+          {% if rel.predicate == 'owns' %}<span class="v2-mark">Owner / rights holder</span>{% endif %}
+          {% if rel.predicate == 'licenses' %}<span class="v2-mark">Licensee</span>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No recorded relationships to other entities yet.</p>
+  {% endif %}
+</section>
+
+{% if linked_facts %}
+<section class="v2-company-section" id="facts">
+  <h2>Facts</h2>
+  <ul class="entity-links">
+    {% for fact in linked_facts %}
+      <li><a href="/facts/{{ fact.id }}">{{ fact.statement }}</a></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+</div>
