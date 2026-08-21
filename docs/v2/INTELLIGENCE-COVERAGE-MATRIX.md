@@ -148,3 +148,66 @@ Governing program: `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`.
 Keep this file as the numeric control surface. Do not copy aspiration into
 the cells. Next expansion mission after the V2 decision-workflow gate is
 Mainstream News + Regulatory Recall Benchmark V1.
+
+A withdrawn expansion-guide-session draft marked Mainstream news `NONE`
+across all berries (treating keyword-news as a non-class). This file does
+**not** adopt that cell. `574` untagged plus per-berry `news_search` counts
+are real trusted Evidence; they are OPERATIONAL keyword-news volume, not a
+recall benchmark, and not `STRONG`.
+
+---
+
+## Source berry tags (configuration intent)
+
+`data/configuration/sources.json` (142 sources). A tagged source is not
+coverage until trusted Evidence exists.
+
+| | Blueberry | Strawberry | Raspberry | Blackberry |
+|---|---:|---:|---:|---:|
+| Total tagged sources | 89 | 68 | 62 | 63 |
+| Discoverable (`discovery.adapter`) | 20 | 14 | 13 | 12 |
+
+Three discoverable sources are berry-unscoped (Blue Book Services,
+HortiDaily, SanLucar Newsroom). Known gaps: Growing Produce 403
+(TD-ACQ-002); NARBA empty feed (TD-ACQ-003).
+
+---
+
+## Source `region_coverage` (intent, not Evidence geography)
+
+| Region | Sources tagged |
+|---|---:|
+| Global | 65 |
+| North America | 58 |
+| South America | 23 |
+| Europe | 23 |
+| Asia-Pacific | 14 |
+| Africa | 7 |
+
+This is registry intent. Evidence-level geography is the table above
+(`geography_ids` on records). No Asian domestic-market first-party breeder
+source is onboarded.
+
+---
+
+## Patent Monitor recall (last measured 2026-08-20)
+
+Google Patents JSON provider, per-berry `plant_named` query. Watchlist is
+symmetric; curation is not.
+
+| | Blueberry | Strawberry | Raspberry | Blackberry |
+|---|---:|---:|---:|---:|
+| Provider hits (most recent real run) | 55 | 80 | 26 | 15 |
+| Kept (per-query cap) | 15 | 15 | 15 | 15 |
+| Trusted patent **entities** curated | 37 | 0 | 0 | 0 |
+
+Strawberry / raspberry / blackberry have real linked drafts in runtime
+inbox; those are unpublished and are not coverage. See TD-REVIEW-001.
+
+---
+
+## How to refresh the evidence-class counts
+
+Re-count committed `data/evidence/*.json` by stored `source_type` /
+`media_format` and explicit `berry_ids`. Do not hand-edit a cell without
+re-running the inventory. Inbox drafts stay out of the class table.
