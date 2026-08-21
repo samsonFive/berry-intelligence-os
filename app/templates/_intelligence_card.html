@@ -7,13 +7,18 @@
   <h3 class="v2-card-title">
     <a href="{{ item.href if not static_build else item.trusted_href }}" data-read data-open-reader>{{ item.title }}</a>
   </h3>
+  <p class="v2-card-line">
+    {% if item.kind_label %}{{ item.kind_label }}{% endif %}
+    {% if item.primary_subject %}{% if item.kind_label %} · {% endif %}{{ item.primary_subject.name }}{% endif %}
+    {% if item.ai_untrusted %}{% if item.kind_label or item.primary_subject %} · {% endif %}AI-assisted{% endif %}
+  </p>
   {% if item.why %}
     <p class="v2-card-summary">{{ item.why|truncate(140) }}</p>
   {% elif item.summary %}
     <p class="v2-card-summary">{{ item.summary|truncate(140) }}</p>
   {% endif %}
   {% if item.ai_untrusted %}
-    <p class="v2-meta">AI-assisted · pending analyst review</p>
+    <p class="v2-meta v2-card-ai">AI-assisted · pending analyst review</p>
   {% endif %}
   {% if item.primary_subject %}
     <p class="v2-card-subject">{{ item.primary_subject.name }}</p>

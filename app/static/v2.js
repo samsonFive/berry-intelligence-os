@@ -55,15 +55,13 @@
   }
 
   var cards = Array.prototype.slice.call(document.querySelectorAll("[data-intel-card]"));
-  if (!cards.length) return;
-
-  var active = 0;
   var overlay = document.getElementById("v2ReaderOffcanvas");
   var overlayBody = document.getElementById("v2ReaderBody");
   var overlayInstance = null;
   var lastTrigger = null;
   var overlayOpen = false;
   var loadGen = 0;
+  var active = 0;
 
   function inFormField(target) {
     return target && target.closest && target.closest("input, textarea, select, [contenteditable='true']");
@@ -105,15 +103,9 @@
     heading.setAttribute("tabindex", "-1");
     heading.focus();
   }
-  function loadReader(index) {
-    var card = cards[index];
-    if (!card || !overlay || !overlayBody) return;
-    selectCard(index, { skipFocus: true });
-    lastTrigger = card.querySelector("[data-open-reader]") || card;
-    var id = itemIdFromCard(card);
-    var gen = ++loadGen;
-    overlayBody.innerHTML = "<p class=\"empty-state\">Loading…</p>";
-    if (!overlayInstance && window.bootstrap) {
+  function ensureOverlay() {
+    if (!overlay || !window.bootstrap) return null;
+    if (!overlayInstance) {
       overlayInstance = window.bootstrap.Offcanvas.getOrCreateInstance(overlay, { backdrop: true, keyboard: false });
       overlay.addEventListener("shown.bs.offcanvas", function () {
         overlayOpen = true;
@@ -124,7 +116,16 @@
         if (lastTrigger && lastTrigger.focus) lastTrigger.focus();
       });
     }
-    if (overlayInstance) overlayInstance.show();
+    return overlayInstance;
+  }
+  function loadReaderById(id, trigger, cardIndex) {
+    if (!id || !overlay || !overlayBody) return;
+    if (typeof cardIndex === "number") selectCard(cardIndex, { skipFocus: true });
+    lastTrigger = trigger || lastTrigger;
+    var gen = ++loadGen;
+    overlayBody.innerHTML = "<p class=\"empty-state\">Loading…</p>";
+    var instance = ensureOverlay();
+    if (instance) instance.show();
     fetch("/api/intelligence/" + encodeURIComponent(id) + "/reader", { credentials: "same-origin" })
       .then(function (res) {
         if (!res.ok) throw new Error("Reader unavailable");
@@ -146,6 +147,11 @@
         overlayBody.innerHTML = "<p class=\"empty-state\">Could not load this item. <a href=\"/intelligence/" + encodeURIComponent(id) + "\">Open full reader</a></p>";
       });
   }
+  function loadReader(index) {
+    var card = cards[index];
+    if (!card) return;
+    loadReaderById(itemIdFromCard(card), card.querySelector("[data-open-reader]") || card, index);
+  }
 
   cards.forEach(function (card, index) {
     card.addEventListener("click", function (event) {
@@ -166,14 +172,29 @@
       });
     });
   });
+  document.querySelectorAll("[data-open-reader]").forEach(function (link) {
+    if (link.closest("[data-intel-card]")) return;
+    link.addEventListener("click", function (event) {
+      if (!overlay || event.metaKey || event.ctrlKey) return;
+      var id = link.getAttribute("data-item-id");
+      if (!id) {
+        var match = (link.getAttribute("href") || "").match(/\/intelligence\/([^/?#]+)/);
+        id = match ? decodeURIComponent(match[1]) : "";
+      }
+      if (!id) return;
+      event.preventDefault();
+      var cardIndex = cards.findIndex(function (card) { return itemIdFromCard(card) === id; });
+      loadReaderById(id, link, cardIndex >= 0 ? cardIndex : undefined);
+    });
+  });
   document.querySelectorAll("[data-intel-card] form").forEach(function (form) {
     form.addEventListener("submit", function () { copyReviewer(form); });
   });
 
   var prev = document.getElementById("v2ReaderPrev");
   var next = document.getElementById("v2ReaderNext");
-  if (prev) prev.addEventListener("click", function () { loadReader(active - 1); });
-  if (next) next.addEventListener("click", function () { loadReader(active + 1); });
+  if (prev) prev.addEventListener("click", function () { if (cards.length) loadReader(active - 1); });
+  if (next) next.addEventListener("click", function () { if (cards.length) loadReader(active + 1); });
 
   document.addEventListener("keydown", function (event) {
     if (inFormField(event.target)) return;
@@ -182,6 +203,7 @@
       closeOverlay();
       return;
     }
+    if (!cards.length) return;
     if (event.key === "j") {
       event.preventDefault();
       if (overlayOpen) loadReader(active + 1);
