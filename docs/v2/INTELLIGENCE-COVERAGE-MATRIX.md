@@ -79,7 +79,7 @@ tagged berry. Inbox drafts are **not** added to these cells.
 | Careers / jobs | 0 | 0 | 0 | 0 | 0 | NONE |
 | Conferences / events | 0 | 0 | 0 | 0 | 0 | NONE |
 | Customs / trade | 0 | 0 | 0 | 0 | 0 | NONE -> **PILOT** -- 6 real quantitative trade-flow lanes (untrusted drafts, see below); published count stays 0 until human review |
-| Weather | 0 | 0 | 0 | 0 | 0 | NONE |
+| Weather | 0 | 0 | 0 | 0 | 0 | NONE -> **PILOT** -- 5 real production-region weather observations (untrusted drafts, see below); published count stays 0 until human review |
 | Satellite | 0 | 0 | 0 | 0 | 0 | NONE |
 
 \*Raspberry published Patent = `ev-sample-patent-published` (system seed).
@@ -210,13 +210,14 @@ future re-run of that benchmark shows otherwise.
 
 ## Source berry tags (configuration intent)
 
-`data/configuration/sources.json` (147 sources -- 142 plus 5 added
-2026-08-21 by the Recall Benchmark mission). A tagged source is not
-coverage until trusted Evidence exists.
+`data/configuration/sources.json` (150 sources as of the Weather / Climate
+Context V1 mission, 2026-08-21 -- see PROJECT-STATUS.md "Last completed" for
+the full addition history). A tagged source is not coverage until trusted
+Evidence exists.
 
 | | Blueberry | Strawberry | Raspberry | Blackberry |
 |---|---:|---:|---:|---:|
-| Total tagged sources | 93 | 72 | 65 | 66 |
+| Total tagged sources | 96 | 75 | 68 | 69 |
 | Discoverable (`discovery.adapter`) | 24 | 18 | 16 | 15 |
 
 Three discoverable sources are berry-unscoped (Blue Book Services,
@@ -279,6 +280,22 @@ Full detail, methodology, and real query proof: `docs/v2/TRADE-INTELLIGENCE-V1.m
 **Berry/HS honesty**: strawberry is cleanly HS-separable (fresh 081010, frozen 081110); raspberry and blackberry are **never separable** in official 6-digit HS data (combined at 081020/081120); blueberry shares its fresh code with cranberries/other *Vaccinium* (081040) and its frozen code is a generic "other fruit" basket (081190) not blueberry-specific at all. Every affected draft is tagged `berry_code_purity: "multi_berry_combined"` and states the limitation in `does_not_prove` directly.
 
 Not `OPERATIONAL`: one adapter (UN Comtrade, 6-digit HS only), 7 geographies (the pilot's own required set, not a general lookup), no revision/resubmission handling, an unresolved US Census API-key gap that would add 10-digit granularity. See `docs/v2/TECHNICAL-DEBT-REGISTER.md` TD-024 through TD-029.
+
+---
+
+## Weather / Climate Context (2026-08-21)
+
+Full detail, methodology, and real query proof: `docs/v2/WEATHER-CLIMATE-CONTEXT-V1.md`. This section is the numeric control-surface pointer, not a duplicate.
+
+**Weather / Climate — NONE -> PILOT.** Source audit (NOAA CDO, ERA5/Copernicus CDS, USDA climate/drought products, NASA POWER) found NASA POWER's keyless public daily point API is the only source that is simultaneously global, unauthenticated, and live-verified working (NOAA CDO and ERA5/CDS both require a self-registered account/token, the same access-barrier pattern as Trade Intelligence V1's US Census gap); integrated as this mission's one adapter (`app/services/weather_intelligence.py` + `scripts/monitor_weather_intelligence.py`). Real pilot: 5 production regions (Chile-Maule blueberry, Peru-La Libertad blueberry, South Africa-Western Cape blueberry, Morocco-Gharb/Loukkos blueberry, Mexico-Michoacan/Guanajuato strawberry), each a real daily series (2025-01..2026-06) plus a compact 10-year (2015-2024) climatological baseline, all untrusted `inbox/evidence/` drafts, idempotent on a real second run (5/5 duplicates, 0 new).
+
+**Real corroboration findings** (via `weather_context_for_trade_anomaly()` against Trade Intelligence V1's own real trade-anomaly periods): Chile's real -42.0%/-76.1% (Feb/Mar) YoY US blueberry export decline overlaps a real 3-day extreme-heat run (2025-12-29..31, +7.18C above baseline) roughly 8-13 weeks earlier, plus March precipitation at ~363% of the climatological baseline (heavy rain during a blueberry harvest window is a real, documented volume/quality risk) -- one real, proposed-only `corroborates` evidence_link was added from the weather draft to the Chile trade draft, not auto-accepted. South Africa's real -84.4% (Feb) decline has **no matching precipitation/frost/heat anomaly in its own window** -- reported honestly as no meaningful weather explanation found, not forced; a real extreme-heat run (2026-03-09..15, +8.61C) does overlap the +68.5% March recovery, noted as a real, honest observation without claiming it caused the rebound. Mexico's real regulatory-driven strawberry decline (already explained by the antidumping Determination in Trade Intelligence V1) was used as a **control**: no precipitation or frost anomaly was found in its window either, correctly demonstrating the system does not manufacture a weather narrative when a regulatory one already exists. Peru's real +10.3%/+33.1% growth also overlaps precipitation ~376-392% above baseline -- reported as a real, honest complexity (the same weather-condition type, excess precipitation, appears alongside both a decline in one country and growth in another), explicitly not treated as evidence that rain helps or hurts blueberry supply in general.
+
+**Leading-indicator finding**: Chile's real December heat anomaly ended 59 real days before the Feb trade period's month-end and 90 real days before the March period's month-end -- a genuine, honestly-computed lead time, not a forecast claim (`leading_indicator_lead_time()`, a simple calendar calculation, conservative vs. Comtrade's real publication lag).
+
+**Interpretation-risk finding**: this pilot's own bidirectional `unusual_temperature_window()` check, at default thresholds, flagged all 7 real test windows including Peru's growth cases and the Mexico control -- too low-specificity to feature as evidence; this mission's own findings above rely only on the more discriminating `extreme_heat_event`/`precipitation_deficit`/`precipitation_excess` functions (see TD-035).
+
+Not `OPERATIONAL`: one adapter (NASA POWER, ~50km grid), 5 piloted production regions (4 more documented in config but not queried), a 10-year pragmatic baseline (not a 30-year climate normal), no revision/backfill handling for near-real-time dates. See `docs/v2/TECHNICAL-DEBT-REGISTER.md` TD-030 through TD-037.
 
 ---
 

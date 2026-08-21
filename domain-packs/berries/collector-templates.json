@@ -3145,6 +3145,29 @@
       "update_cadence": "monthly",
       "default_active": true,
       "notes": "Real, unauthenticated public preview API (one period per HTTP request, 500-record cap), queried per (reporter, partner, flow, HS code) lane by app/services/trade_intelligence.py, not a feed to poll -- collector_type is keyword_search (mirroring source-cpvo-public-register precedent) since there is no discovery.adapter feed. Added for the Global Trade / Customs Intelligence V1 mission (2026-08-21)."
+    },
+    {
+      "id": "source-nasa-power-daily-point",
+      "collector_type": "keyword_search",
+      "label": "NASA POWER daily point API (weather/climate)",
+      "query_or_url": "app/services/weather_intelligence.py (queried per production region defined in data/configuration/weather_pilot_regions.json)",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point",
+      "geography_focus": [
+        "global"
+      ],
+      "entity_coverage": [
+        "geography"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "daily",
+      "default_active": true,
+      "notes": "Real, unauthenticated public daily point API (arbitrary contiguous date range per request, unlike Comtrade's one-period cap), queried per production-region centroid by app/services/weather_intelligence.py, not a feed to poll -- collector_type is keyword_search (mirroring source-un-comtrade-public-preview precedent) since there is no discovery.adapter feed. Added for the Weather / Climate Context V1 mission (2026-08-21)."
     }
   ]
 }

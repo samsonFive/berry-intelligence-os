@@ -608,4 +608,132 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | none yet |
 
+### TD-030 — Weather observation spatial resolution is a single ~50km grid point, not the full named production region
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | data quality |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | NASA POWER's own documented native grid is ~0.5 degrees (~50km). Every production region in `data/configuration/weather_production_regions.json` is queried at one representative centroid, but real named regions (e.g. "Maule Region, Chile") span a much larger area than one grid cell. This is carried on every draft as `spatial_resolution_note`/`coverage_caveat`, not hidden, but is not otherwise mitigated. |
+| **Impact** | A real, local weather event (e.g. a frost pocket in one valley) can be entirely missed or diluted by a single coarse point; conversely a point-level anomaly may not reflect the whole region's real production footprint. |
+| **Workaround** | `does_not_prove` and `spatial_resolution_note` make this explicit on every record; a human reviewer is expected to treat this as coarse context, not field-level ground truth. |
+| **Recommended resolution** | If a future mission needs finer resolution, NASA POWER's `regional` (not `point`) endpoint returns a bounding-box grid rather than one centroid -- a real, not-yet-explored option -- or a higher-resolution reanalysis product (ERA5, credential-gated, see TD-036). |
+| **Status** | accepted (deliberately scoped for this pilot) |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none yet |
+
+### TD-031 — Production-region centroids are a pragmatic mapping choice, not independently verified against grower footprint data
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | data quality |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | Each entry in `weather_production_regions.json` cites a real, publicly-known agricultural region (e.g. Maule for Chilean blueberries, La Libertad for Peruvian blueberries) with a `source` note, but the exact centroid coordinate was chosen by this mission's own judgment, not sourced from a grower-density map, USDA FAS GAIN report coordinate, or satellite land-cover product. |
+| **Impact** | Two reasonable analysts could pick different representative points for the same named region, producing different anomaly readings for the identical real event. |
+| **Workaround** | `source`/`coverage_caveat` fields on every region entry make the basis for the choice auditable and correctable. |
+| **Recommended resolution** | If a future mission needs stronger grounding, cross-reference centroids against a real production-density dataset (e.g. USDA FAS GAIN report maps, or a satellite-derived land-cover product -- see the Global Trade / Customs mission's own Workstream G.4 satellite note) rather than analyst judgment alone. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none yet |
+
+### TD-032 — Baseline period (2015-2024) is a pilot choice, not a peer-reviewed climate normal
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data quality |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | `weather_pilot_regions.json` uses a fixed 2015-01-01..2024-12-31 (10-year) window as every region's climatological baseline. The World Meteorological Organization's own standard climate normal is a 30-year window; this pilot's shorter window was chosen for a bounded, fast real pilot, not for climatological rigor. |
+| **Impact** | Anomaly magnitudes (e.g. "+7.18C above baseline") are somewhat sensitive to which 10-year window is chosen; a different baseline window could shift the computed deviation, though not the underlying raw readings. |
+| **Workaround** | `baseline_period` is recorded explicitly on every draft, so the choice is auditable, not hidden. |
+| **Recommended resolution** | If anomaly precision becomes load-bearing for a future mission, extend the baseline query to a full 30-year (1994-2023 or similar) window -- a single extra NASA POWER request per region, cheap to do. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none yet |
+
+### TD-033 — NASA POWER's upstream model (MERRA2 vs GEOSIT) is recorded per-query, not verified per-day, and can change on reprocessing
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data quality |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | Live-confirmed 2026-08-21: a query for very recent dates (within ~3 weeks of "today") returns `sources: ["GEOSIT", "POWER"]` (a near-real-time product); the same date range queried again once older reports `sources: ["MERRA2", "POWER"]` (NASA's own final reanalysis) -- i.e. NASA reprocesses recent days from GEOSIT into MERRA2 over time. This mission's `source_model` field is set once per HTTP response (the query-level `sources` list), not independently verified per calendar day, so a query spanning the reprocessing boundary reports one model for the whole range even if some of those days have already been revised. |
+| **Impact** | A day's exact reading can change slightly between an early (GEOSIT) pull and a later (MERRA2) pull of the same date -- a real, live-observed revision risk, structurally similar to Trade Intelligence V1's TD-027 (no revision/resubmission handling), not yet mitigated here either. |
+| **Workaround** | `source_model` is carried on every series entry so the provenance is at least visible, not silently assumed constant. |
+| **Recommended resolution** | If revision-sensitivity becomes load-bearing, re-query and diff already-drafted recent-window dates on a delay (e.g. 30+ days later) the same way a future trade-revision fix (TD-027) would. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none yet |
+
+### TD-034 — Near-real-time NASA POWER data has a ~2-3 day release latency with no automatic backfill
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data quality |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | Live-confirmed 2026-08-21: a query for the most recent ~3 calendar days returned NASA POWER's own documented fill value (-999.0) for those dates, correctly recorded as `is_provisional: true` with the metric set to `null`, never as a real zero. |
+| **Impact** | A weather observation drafted near "today" will always have a small provisional tail; nothing currently re-runs the acquisition once those specific dates are released to backfill them onto the existing draft. |
+| **Workaround** | The idempotency signature is keyed on the requested comparison-range window, not on individual dates, so a plain re-run does not create a duplicate draft -- but it also does not update the existing one with the now-available days. |
+| **Recommended resolution** | A future recurring-collection integration (mirroring the existing patent/CPVO/trade monitor cadence) would re-fetch and merge newly-released provisional dates into the existing draft rather than leaving them permanently null. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_weather_intelligence.py::test_data_not_yet_released_is_not_treated_as_a_failure` |
+
+### TD-035 — `unusual_temperature_window()`'s bidirectional consecutive-run check has low real-world specificity at default thresholds
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | data quality / interpretation risk |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | Real, live-computed finding: at the function's own default thresholds (3.0C deviation, 3+ consecutive days, either direction), `unusual_temperature_window()` returned `flagged: true` for all 7 of this mission's real trade-anomaly test windows -- including Peru's two real growth cases (BM-M-style +10.3%/+33.1% YoY) and the Mexico strawberry control case that already has a clean regulatory explanation. A run can average a small deviation (e.g. 0.66C) while still satisfying the per-day absolute-value threshold, because the function allows sign to flip within one run. |
+| **Impact** | If used uncritically, this specific function would make nearly every real window look "weather-explained," undermining the mission's own explicit instruction not to inflate correlation into causation. This mission's own completion report does not feature `unusual_temperature_window` flags as meaningful evidence for exactly this reason -- `extreme_heat_event` (same-direction runs only) and `precipitation_deficit`/`precipitation_excess` proved far more discriminating (flagged in only 3 of 7 real cases, correctly absent for the Mexico control). |
+| **Workaround** | Treat `unusual_temperature_window` as a broad screening signal only, never as standalone corroboration; prefer the unidirectional/magnitude-specific functions for anything proposed as an `evidence_links` entry. |
+| **Recommended resolution** | Require same-sign deviation across the whole run (like `extreme_heat_event` already does) before calling `unusual_temperature_window` "flagged," or raise its default threshold/consecutive-day requirement based on a real false-positive-rate study across more historical windows. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_weather_intelligence.py::test_unusual_temperature_window_is_bidirectional` |
+
+### TD-036 — NOAA Climate Data Online and ERA5/Copernicus CDS both require a self-registered API key this session could not provision
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data access / ops |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | Live web research (not assumed): NOAA CDO requires an email-registered token (5 req/sec, 10,000 req/day limit once issued); ERA5/Copernicus CDS requires a free account plus a personal access token stored in `~/.cdsapirc`. Both are real, credential-gated barriers this mission's agent session could not self-provision, the same pattern as Trade Intelligence V1's TD-025 (US Census). |
+| **Impact** | US-specific higher-resolution NOAA station data and ERA5's finer reanalysis grid remain unavailable; NASA POWER's coarser ~50km grid is the only weather source this mission could integrate. |
+| **Workaround** | None needed for this pilot's real test cases -- NASA POWER answered all of them. |
+| **Recommended resolution** | A real, low-effort follow-up for whoever holds operator credentials: register a NOAA CDO token and/or a CDS account, then add either as a second, higher-resolution regional adapter alongside NASA POWER (not a replacement). |
+| **Status** | active |
+| **Owner lane** | ops |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | — |
+
+### TD-037 — Weather production-region mapping is config-only, not a first-class sub-national Geography entity
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data model |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | `data/configuration/weather_production_regions.json` associates a production region with a country-level Geography entity id (`geography_id`), but the region itself ("Maule Region, Chile") has no corresponding Entity record -- it exists only as config, the same pattern already used for `trade_hs_taxonomy.json`. This mission deliberately did not create new Geography entities or touch Landscape/Variety UI, per its own explicit scope. |
+| **Impact** | A future UI surface wanting to browse/filter by sub-national production region (rather than country) would need real entity-model work this mission did not do. |
+| **Workaround** | The config file is the single source of truth for the region->geography mapping; any future consumer can read it directly. |
+| **Recommended resolution** | If a future mission needs sub-national geography as a first-class, queryable entity (not just weather-specific config), design it as a generic Geography sub-type, not a weather-specific one -- likely a Landscape/UI-adjacent decision, out of scope for a backend-only pilot. |
+| **Status** | accepted (deliberately scoped, not a bug) |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | — |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

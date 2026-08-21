@@ -3997,5 +3997,33 @@
     "created_at": "2026-08-21",
     "last_checked_at": null,
     "last_status": null
+  },
+  {
+    "id": "source-nasa-power-daily-point",
+    "type": "reference",
+    "label": "NASA POWER daily point API (weather/climate)",
+    "value": "https://power.larc.nasa.gov/api/temporal/daily/point",
+    "url": "https://power.larc.nasa.gov/api/temporal/daily/point",
+    "why_it_matters": "Official, unauthenticated NASA global weather/climate API (daily max/min temperature and precipitation, 1981-present, ~0.5-degree grid) -- the one official weather-data adapter this mission integrates. Live-verified 2026-08-21 for the Weather / Climate Context V1 mission. Polled per production-region centroid by app/services/weather_intelligence.py / scripts/monitor_weather_intelligence.py, not the RSS/media collection runner -- type stays reference, mirroring source-un-comtrade-public-preview / source-cpvo-public-register precedent.",
+    "entity_types": [
+      "government_regulatory",
+      "market_research"
+    ],
+    "berry_ids": [
+      "berry-strawberry",
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "daily",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-21",
+    "last_checked_at": null,
+    "last_status": null
   }
 ]

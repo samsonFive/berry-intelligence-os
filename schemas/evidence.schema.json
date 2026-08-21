@@ -152,6 +152,70 @@
         }
       }
     },
+    "weather_observation": {
+      "type": "object",
+      "$comment": "Weather / Climate Context V1 addition (2026-08-21), optional, present only on a quantitative weather/climate Evidence record (source_type=weather_climate_record). One record covers one production-region observation window (see data/configuration/weather_production_regions.json), with `series[]` holding one entry per acquired day -- deliberately NOT one Evidence record per daily reading, and deliberately NOT the full multi-year baseline range (that is reduced to a compact `baseline_by_month` summary, never stored as raw daily readings). A weather observation is a raw acquired daily reading plus a climatological baseline for comparison -- it is not an interpretation. Frost/heat/precipitation-deficit/precipitation-excess/drought-anomaly/unusual-window derivations are computed on demand by app/services/weather_intelligence.py, never stored here and never auto-promoted to a Signal or a causal claim. does_not_prove should always be populated: a weather anomaly does not by itself prove crop damage, yield loss, or that it caused any observed trade/market movement.",
+      "properties": {
+        "production_region_id": {"type": ["string", "null"], "$comment": "Key into data/configuration/weather_production_regions.json, e.g. 'chile-maule-blueberry' -- a named, coarse, publicly-documented agricultural region, not a farm coordinate."},
+        "region_label": {"type": ["string", "null"]},
+        "geography_id": {"type": ["string", "null"], "$comment": "Resolved country-level Geography entity id this production region sits within, if tracked."},
+        "berry_ids": {"type": "array", "items": {"type": "string"}},
+        "centroid": {
+          "type": "object",
+          "properties": {
+            "latitude": {"type": "number", "minimum": -90, "maximum": 90},
+            "longitude": {"type": "number", "minimum": -180, "maximum": 180}
+          },
+          "$comment": "The single representative point queried for this region -- real production spans a wider area than one grid cell; see coverage_caveat."
+        },
+        "spatial_resolution_note": {"type": ["string", "null"], "$comment": "Honest caveat about how coarse this observation is relative to the actual production region (e.g. NASA POWER's ~0.5-degree / ~50km native grid vs. a country- or province-scale growing region)."},
+        "metrics_tracked": {"type": "array", "items": {"type": "string"}},
+        "baseline_period": {
+          "type": "object",
+          "properties": {
+            "start": {"type": "string", "format": "date"},
+            "end": {"type": "string", "format": "date"}
+          },
+          "$comment": "The historical window this pilot chose as its climatological baseline -- a pragmatic pilot choice, not a peer-reviewed 30-year WMO climate normal."
+        },
+        "baseline_by_month": {
+          "type": "object",
+          "$comment": "Compact per-calendar-month climatological means over baseline_period, keyed '01'..'12' -- e.g. {t2m_max_mean_c, t2m_min_mean_c, precipitation_mean_mm}. Computed once from the baseline query, never stored as raw daily baseline readings.",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "t2m_max_mean_c": {"type": ["number", "null"]},
+              "t2m_min_mean_c": {"type": ["number", "null"]},
+              "precipitation_mean_mm": {"type": ["number", "null"]}
+            }
+          }
+        },
+        "series": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["date"],
+            "properties": {
+              "date": {"type": "string", "format": "date"},
+              "t2m_max_c": {"type": ["number", "null"]},
+              "t2m_min_c": {"type": ["number", "null"]},
+              "precipitation_mm": {"type": ["number", "null"]},
+              "source_model": {"type": ["string", "null"], "$comment": "NASA POWER's own upstream model for this reading (e.g. MERRA2 for reanalysis-era dates, GEOSIT for near-real-time dates) -- carried through, not harmonized; a real provenance detail, not assumed constant across the series."},
+              "is_provisional": {"type": ["boolean", "null"], "$comment": "True when the source returned its fill value for this date (not yet released), distinct from a genuine zero reading."}
+            }
+          }
+        },
+        "source_provenance": {
+          "type": "object",
+          "properties": {
+            "api": {"type": "string"},
+            "endpoint": {"type": "string"},
+            "community": {"type": "string"},
+            "retrieved_at": {"type": "string"}
+          }
+        }
+      }
+    },
     "entity_link_suggestions": {
       "type": "array",
       "items": {
