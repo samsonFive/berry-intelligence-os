@@ -37,17 +37,24 @@ The raspberry published-patent cell notes the seed row.
 | Entity | Total | Blueberry | Strawberry | Raspberry | Blackberry |
 |---|---:|---:|---:|---:|---:|
 | Companies | 49 | 36 | 11 | 12 | 7 |
-| Varieties | 58 | 41 | 5 | 12 | 0 |
+| Varieties | 60 | 41 | 6 | 12 | 1 |
 | Breeding programs | 12 | 9 | 3 | 1 | 0 |
+| Retailers | 8 | -- | -- | -- | -- |
 
 Raspberry Vertical V1 (PR #49) added real raspberry companies/varieties
 (Wish Farms, Global Plant Genetics, James Hutton Ltd, Chambers, Berrytech,
-Cornell raspberry releases, Advanced Berry Breeding cultivars). Blackberry
-still has **no variety entities** and **no breeding-program entities**.
+Cornell raspberry releases, Advanced Berry Breeding cultivars). Variety
+Intelligence Backbone V1 (2026-08-21) added 2 real, multi-source-confirmed
+varieties (Zara/strawberry, Victoria/blackberry -- **blackberry's first
+variety entity**) and 6 real UK retailers (Tesco, Sainsbury's, Waitrose,
+M&S, Morrisons, Asda) for the retail-observation pilot. Blackberry still
+has **no breeding-program entity**.
 
-Geography entities on disk (18): Australia, Canada, Chile, China, Colombia,
+Geography entities on disk (19): Australia, Canada, Chile, China, Colombia,
 Europe, Germany, Mexico, Morocco, Netherlands, North America, Peru, Portugal,
-South Africa, Spain, United States, Zambia, Zimbabwe.
+South Africa, Spain, **United Kingdom** (added 2026-08-21 -- a real gap: the
+platform's own first retail-observation pilot market had no Geography
+entity until this mission), United States, Zambia, Zimbabwe.
 
 ---
 
@@ -64,10 +71,10 @@ tagged berry. Inbox drafts are **not** added to these cells.
 | Association | 6 | 0 | 0 | 0 | 0 | PILOT |
 | Regulatory / government | 1 | 0 | 0 | 0 | 0 | PILOT — 2 new sources added, still US-only, still not developing-story-threaded (TD-THREAD-003) |
 | Patent | 23 | 1 | 1* | 0 | 0 | OPERATIONAL (blue) / PILOT (pipeline) |
-| PVR / variety registry | 16 | 0 | 0 | 0 | 0 | PILOT |
+| PVR / variety registry | 16 | 0 | 0 | 0 | 0 | PILOT -> **PARTIAL** — 28 real CPVO EU filings found (blue/straw/rasp), still all untrusted drafts pending review, not yet reflected in this published-only table (see below) |
 | Podcast / video | 1 | 0 | 0 | 0 | 0 | PILOT |
 | Insider newsletter | 3 | 0 | 0 | 0 | 0 | PILOT |
-| Retail observation | 1 | 0 | 0 | 0 | 0 | PILOT |
+| Retail observation | 1 | 0 | 0 | 0 | 0 | PILOT — 18 real UK draft observations added (see below), still 1 published (the fictional seed; Landscape already excludes it) |
 | Social | 0 | 0 | 0 | 0 | 0 | NONE |
 | Careers / jobs | 0 | 0 | 0 | 0 | 0 | NONE |
 | Conferences / events | 0 | 0 | 0 | 0 | 0 | NONE |
@@ -248,6 +255,18 @@ symmetric; curation is not.
 
 Strawberry / raspberry / blackberry have real linked drafts in runtime
 inbox; those are unpublished and are not coverage. See TD-REVIEW-001.
+
+---
+
+## Variety Intelligence Backbone (2026-08-21)
+
+Full detail, methodology, and real query proof: `docs/v2/VARIETY-INTELLIGENCE-BACKBONE.md`. This section is the numeric control-surface pointer, not a duplicate.
+
+**Variety Knowledge — PARTIAL.** Identity contract (canonical name / commercial name / breeder code / PVR denomination, all via existing `name`+`aliases[]`, no schema change) proven with real data: 132 real CPVO queries against all 58 pre-mission variety names+aliases produced 28 real matches and **zero duplicate Variety entities created** — every match resolved to an existing id via the existing (already-generic) `entity_link.py` matcher. Ownership/rights model proven to separate breeder/owner/marketer without collapsing (`variety-drisblueseventeen`: real `develops` + real `owns`, same evidence, two distinct facts; `markets` added to the relationship schema enum after a real disclaimed-substitution case). Deep for blueberry (20+ competing varieties across 6 real companies via `competing_varieties_in_berry_market()`), genuinely thin for blackberry (1 variety, 0 rights filings, reported as such — not padded).
+
+**PVR / Registry — PILOT -> PARTIAL.** Global audit (US/UPOV/CPVO/UK/Australia + 6 named country candidates, `docs/v2/VARIETY-INTELLIGENCE-BACKBONE.md` Part 4) found only one cleanly-public, unauthenticated, working API: CPVO's real public register (`online.plantvarieties.eu`) — UPOV PLUTO and the CPVO "Variety Finder" aggregator are both account-gated; IP Australia PBR has a public web UI but no discoverable API; UK PVRO has no unified public database at all. Integrated: `app/services/cpvo_registry.py` + `scripts/monitor_cpvo_registry.py`, real run = 28 real EU filings across blueberry/strawberry/raspberry (zero blackberry), all untrusted drafts, idempotent on a real second run (28 duplicates, 0 new). Not `OPERATIONAL`: single jurisdiction (EU only), no US+EU combined view yet, no developing-story threading of a variety's filing history.
+
+**Retail / Commercial Observations — PILOT.** New additive `commercial_observation` Evidence object (schema, not a new entity type or parallel trust system). UK retail research across Tesco/Sainsbury's/Waitrose/M&S/Morrisons/Asda found variety-name exposure is genuinely rare (16 of 18 real observations correctly recorded no variety — own-label listings do not name cultivars; only 2 premium/named lines did: Driscoll's Zara, Driscoll's Victoria). 18 real observations captured (via Open Food Facts, a public open-licensed product database mirroring real retailer listings — not direct retailer scraping), all untrusted drafts. Not `OPERATIONAL`: one market (UK), one real acquisition mechanism proven at small scale, no automated/recurring collection.
 
 ---
 

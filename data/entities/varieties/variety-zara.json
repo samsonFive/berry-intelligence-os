@@ -1,0 +1,29 @@
+{
+  "id": "variety-zara",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Zara",
+  "aliases": [
+    "Driscoll's Zara"
+  ],
+  "status": "active",
+  "description": "Driscoll's strawberry variety sold in the UK under the Driscoll's brand and, separately, retailer own-label packaging (e.g. Tesco's 'British Zara Strawberries'). Named the Guardian's 'best overall supermarket strawberry' in a 2026 taste test of 10 major UK retailers' strawberries. Real, multi-source-confirmed commercial name; no plant-patent or PVR filing has been linked yet (added for the Variety Intelligence Backbone V1 mission's UK retail observation pilot, 2026-08-21, not from a registry filing).",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [
+    "ev-fruitnet-driscolls-zara-best-strawberry"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-driscolls-markets-zara"
+  ],
+  "attributes": {
+    "commercial_name": "Zara",
+    "breeder": "Driscoll's, Inc.",
+    "package_note": "No trait datasheet, patent, or PVR filing found for this denomination as of 2026-08-21 -- not fabricated. Real-world UK retail observation is the only current evidence class for this variety."
+  }
+}

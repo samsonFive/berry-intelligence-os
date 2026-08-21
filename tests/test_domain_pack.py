@@ -193,7 +193,16 @@ def test_every_live_entity_resolves_to_a_declared_type() -> None:
     # treasure, variety-malaika, variety-zawadi, variety-sarafina,
     # variety-rafiki, variety-baridi, variety-shani, variety-kwanza,
     # variety-amalia-rossa).
-    assert total == 202, f"expected 202 live entities, found {total}"
+    # 211 = 202 plus 9 real entities added for the Variety Intelligence
+    # Backbone V1 mission (2026-08-21): variety-zara and variety-victoria
+    # (2, real multi-source-confirmed Driscoll's commercial names --
+    # Victoria is blackberry's first variety entity), geography-united-
+    # kingdom (1, a real gap: the platform's own first retail-observation
+    # pilot market had no Geography entity at all), and 6 real UK
+    # retailers (retailer-tesco, retailer-sainsburys, retailer-waitrose,
+    # retailer-marks-and-spencer, retailer-morrisons, retailer-asda) for
+    # the UK retail commercial-observation pilot.
+    assert total == 211, f"expected 211 live entities, found {total}"
 
 
 # ---------------------------------------------------------------------------
@@ -221,7 +230,16 @@ def test_every_live_relationship_resolves_to_a_declared_predicate() -> None:
     # rel-berrytech-develops-amalia-rossa, rel-abb-develops-sarafina,
     # rel-abb-develops-rafiki, rel-abb-develops-baridi, rel-abb-develops-
     # shani, rel-abb-develops-kwanza, rel-gpg-represents-james-hutton.
-    assert total == 223, f"expected 223 live relationships, found {total}"
+    # 226 = 223 plus 3 real relationships added for the Variety
+    # Intelligence Backbone V1 mission (2026-08-21): rel-driscolls-owns-
+    # drisblueseventeen (a real rights-holder edge, distinct from the
+    # pre-existing develops edge, same underlying PBR-grant evidence),
+    # rel-driscolls-markets-zara, rel-driscolls-markets-victoria (real
+    # marketer edges using the newly schema-valid 'markets' predicate --
+    # rel-berryworld-sells-eureka.json's predicate was also corrected from
+    # a disclaimed 'sells' substitution to real 'markets' in place, not
+    # counted as a new relationship).
+    assert total == 226, f"expected 226 live relationships, found {total}"
 
 
 def test_all_ten_v1_predicates_and_six_extensions_present() -> None:
@@ -282,16 +300,19 @@ def test_all_live_sources_accounted_for() -> None:
     templates = data["collector_templates"]
     excluded = data.get("excluded", [])
     sources = json.loads((ROOT / "data" / "configuration" / "sources.json").read_text(encoding="utf-8"))
-    # 147 = 142 plus 5 sources added (with matching collector_templates
-    # entries) for the Mainstream News + Regulatory Coverage Recall
-    # Benchmark V1 mission (2026-08-21): 2 Federal Register
-    # government_register_json sources (real documents.json search API,
-    # live-verified) and 3 Google News news_search_rss sources (Driscoll's,
-    # Costa Group, a generic berry-trade-remedy topic query), all proven
-    # against real network traffic. 142 = 140 plus source-freshuelva-news
-    # and source-nova-siri-genetics-news, added for the Strawberry Vertical
-    # V1 depth mission (2026-08-20).
-    assert len(sources) == 147
+    # 148 = 147 plus source-cpvo-public-register, added (with a matching
+    # collector_templates entry) for the Variety Intelligence Backbone V1
+    # mission (2026-08-21) -- CPVO's real, unauthenticated public register
+    # API, live-verified. 147 = 142 plus 5 sources added for the Mainstream
+    # News + Regulatory Coverage Recall Benchmark V1 mission (2026-08-21):
+    # 2 Federal Register government_register_json sources (real
+    # documents.json search API, live-verified) and 3 Google News
+    # news_search_rss sources (Driscoll's, Costa Group, a generic
+    # berry-trade-remedy topic query), all proven against real network
+    # traffic. 142 = 140 plus source-freshuelva-news and source-nova-siri-
+    # genetics-news, added for the Strawberry Vertical V1 depth mission
+    # (2026-08-20).
+    assert len(sources) == 148
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}

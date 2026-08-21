@@ -1,0 +1,29 @@
+{
+  "id": "geography-united-kingdom",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "United Kingdom",
+  "aliases": [
+    "UK",
+    "Great Britain"
+  ],
+  "status": "active",
+  "description": "Real gap found and closed by the Variety Intelligence Backbone V1 mission (2026-08-21): the UK -- this project's own first retail-observation pilot market, and a real production/consumption market for all 4 tracked berries -- had no Geography entity at all despite 18 other countries/regions already tracked.",
+  "roles": [],
+  "berry_ids": [
+    "berry-strawberry",
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-blackberry"
+  ],
+  "evidence_ids": [
+    "ev-fruitnet-driscolls-zara-best-strawberry",
+    "ev-hortweek-driscolls-victoria-award"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "iso_3166_1_alpha_2": "GB",
+    "region": "Europe"
+  }
+}

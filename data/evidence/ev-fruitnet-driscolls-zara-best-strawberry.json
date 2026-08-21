@@ -1,0 +1,35 @@
+{
+  "id": "ev-fruitnet-driscolls-zara-best-strawberry",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "trade_press",
+  "title": "Driscoll's Zara named 'best overall supermarket strawberry'",
+  "source_name": "Fruitnet",
+  "source_url": "https://www.fruitnet.com/fresh-produce-journal/driscolls-zara-named-best-overall-supermarket-strawberry/271913.article",
+  "published_date": "2026-06-23",
+  "captured_date": "2026-08-21",
+  "summary": "The Guardian's taste test of strawberries from 10 major UK retailers named Driscoll's Zara the best overall supermarket strawberry. Zara is sold in the UK both under the Driscoll's brand and via retailer own-label packaging (e.g. Tesco's 'British Zara Strawberries').",
+  "why_it_matters": "Confirms Zara as a real, named, commercially significant Driscoll's strawberry variety with independent (Guardian) taste-test corroboration, not just a marketing label -- the grounding evidence for variety-zara.",
+  "submitted_by": "variety-intelligence-backbone-mission",
+  "berry_ids": ["berry-strawberry"],
+  "geography_ids": ["geography-united-kingdom"],
+  "entity_ids": ["variety-zara", "company-driscolls"],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": ["variety", "retail", "uk", "taste-test"],
+  "auto_captured": false,
+  "validated": true,
+  "source_authority": "medium",
+  "verification_state": "single_source",
+  "does_not_prove": [
+    "market share or sales volume",
+    "that Zara is exclusive to Driscoll's-branded punnets (retailer own-label packaging also uses the name)"
+  ],
+  "priority": {
+    "reading": {"level": "low", "rationale": "Background grounding for a Variety entity, not an active analyst task."},
+    "testing": {"level": "none", "rationale": "No claim requiring independent testing."},
+    "commercial_position": {"level": "medium", "rationale": "Shows which named variety a major UK taste test rated highest."},
+    "monitoring": {"level": "low", "rationale": "A taste-test ranking is a point-in-time result, not a recurring signal."}
+  }
+}
