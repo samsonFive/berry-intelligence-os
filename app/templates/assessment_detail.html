@@ -1,18 +1,23 @@
 {% extends "base.html" %}
 {% block title %}{{ assessment.title }} — Berry Intelligence OS{% endblock %}
 {% block content %}
-<section class="page-heading">
+<div class="v2-page">
+<section class="page-heading v2-page-header">
   <div>
     <p class="eyebrow">ASSESSMENT — {{ assessment.status|upper }} · INTERPRETATION, NOT A FACT</p>
     <h1>{{ assessment.title }}</h1>
+    <p class="also-known-as">
+      {% if berry_scope %}<span class="v2-mark v2-mark-scope v2-mark-scope-{{ berry_scope.kind }}">{{ berry_scope.label }}</span>{% endif %}
+      Signal confirmation does not create this record.
+    </p>
   </div>
 </section>
-<article class="detail-card">
+<article class="detail-card v2-assessment-detail">
   <dl data-pagefind-ignore>
     <dt>Confidence</dt><dd>{{ assessment.confidence|upper }}</dd>
     <dt>Reviewer</dt><dd>{{ assessment.reviewer }}</dd>
     <dt>Created</dt><dd>{{ assessment.created_at|us_date }}</dd>
-    {% if assessment.updated_at %}<dt>Updated</dt><dd>{{ assessment.updated_at|us_date }}</dd>{% endif %}
+    {% if berry_scope %}<dt>Berry scope</dt><dd>{{ berry_scope.label }}{% if berry_scope.berry_names %} · {{ berry_scope.berry_names|join(', ') }}{% endif %}</dd>{% endif %}
   </dl>
 
   <h2>Bottom line</h2>
@@ -21,6 +26,13 @@
     <ul class="bullet-list">{% for line in rationale_lines %}<li>{{ line }}</li>{% endfor %}</ul>
   {% else %}
     <p>{{ assessment.rationale }}</p>
+  {% endif %}
+
+  <h2>Would change our view</h2>
+  {% if assessment.would_change_our_view %}
+    <p>{{ assessment.would_change_our_view }}</p>
+  {% else %}
+    <p class="empty-state">Not yet articulated. Absence is not unfalsifiability.</p>
   {% endif %}
 
   <h2>Linked strategic questions</h2>
@@ -102,4 +114,5 @@
     <p class="empty-state">No counterevidence recorded.</p>
   {% endif %}
 </article>
+</div>
 {% endblock %}

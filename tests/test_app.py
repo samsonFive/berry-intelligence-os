@@ -36,13 +36,19 @@ def test_evidence_detail_page_shows_linked_entities() -> None:
 def test_public_intelligence_pages_use_compact_bluf_tables() -> None:
     entity_page = client.get("/entities/company/company-costa-group-holdings").text
     assert "Bottom line" in entity_page
-    assert 'class="trust-summary bluf-metrics"' in entity_page
+    assert 'class="trust-summary bluf-metrics"' not in entity_page
     assert 'class="brief-table evidence-link-table"' in entity_page
+    assert "v2-company" in entity_page
 
-    for path in ["/assessments", "/recommendations"]:
+    for path in ["/recommendations"]:
         text = client.get(path).text
         assert 'class="table-wrap public-index-table"' in text
         assert 'class="brief-table"' in text
+
+    assessments = client.get("/assessments").text
+    assert "v2-assessment-list" in assessments
+    assert "DECIDE" in assessments
+    assert "never auto-created from Signal confirmation" in assessments
 
     for path in ["/entities/company", "/signals", "/strategic-questions"]:
         text = client.get(path).text
@@ -638,14 +644,12 @@ def test_publish_blocked_in_readonly_mode(monkeypatch, tmp_path) -> None:
 def test_work_queue_renders() -> None:
     response = client.get("/work-queue")
     assert response.status_code == 200
-    assert "Scanner" in response.text
-    assert "FOUND" in response.text
-    assert "NEEDS REVIEW" in response.text
-    assert "LIVE INTELLIGENCE" in response.text
-    assert "0 failures" not in response.text.casefold()
+    assert "Live Intelligence" in response.text
+    assert "WORK" in response.text
     assert "intel-card" in response.text
     assert "Read" in response.text
     assert "Trusted" in response.text
+    assert "0 failures" not in response.text.casefold()
 
 
 def test_reading_queue_includes_all_nonnone_levels() -> None:
@@ -1354,7 +1358,6 @@ def test_entity_activity_falls_back_to_created_at_without_event_date() -> None:
 def test_entity_page_shows_recent_activity_with_us_formatted_dates() -> None:
     response = client.get("/entities/company/company-example-genetics")
     assert response.status_code == 200
-    assert "Recent activity" in response.text
     assert "7/28/2026" in response.text
 
 
@@ -1716,12 +1719,13 @@ def test_entity_page_shows_weighted_searchable_aliases() -> None:
     assert 'data-pagefind-weight="10"' in response.text
     assert "Also known as:" in response.text
     assert "MBO" in response.text
-    # Aliases must not be inside the ignored metadata block -- that's the
+    # Aliases must not be inside an ignored metadata block -- that's the
     # regression this test guards against (an alias that isn't indexed at
     # all can't be found by searching it, regardless of weight).
-    ignored_block_start = response.text.index('<dl data-pagefind-ignore>')
-    ignored_block_end = response.text.index('</dl>', ignored_block_start)
-    assert "Also known as" not in response.text[ignored_block_start:ignored_block_end]
+    if "<dl data-pagefind-ignore>" in response.text:
+        ignored_block_start = response.text.index("<dl data-pagefind-ignore>")
+        ignored_block_end = response.text.index("</dl>", ignored_block_start)
+        assert "Also known as" not in response.text[ignored_block_start:ignored_block_end]
 
 
 def test_entity_page_omits_aliases_line_when_none() -> None:

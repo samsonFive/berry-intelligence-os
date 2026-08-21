@@ -1,0 +1,257 @@
+<article class="detail-card">
+  <dl data-pagefind-ignore>
+    <dt>Status</dt><dd><span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span></dd>
+    <dt>Roles</dt><dd>{% if entity.roles %}{{ entity.roles|join(', ') }}{% else %}—{% endif %}</dd>
+    <dt>Berries</dt><dd>{% for b in entity.berry_ids %}{{ berry_label(b) }}{% if not loop.last %}, {% endif %}{% else %}—{% endfor %}</dd>
+    <dt>Region{{ 's' if regions|length > 1 else '' }}</dt><dd>{{ regions|join(', ') if regions else '—' }}</dd>
+  </dl>
+
+  <div class="trust-summary bluf-metrics">
+    <div><strong>{{ evidence_count }}</strong><small>Evidence</small></div>
+    <div><strong>{{ source_count }}</strong><small>Sources</small></div>
+    <div><strong>{{ last_updated|us_date if last_updated else "—" }}</strong><small>Updated</small></div>
+  </div>
+
+  {% if open_signals and (open_signals.emerging or open_signals.confirmed or open_signals.deferred) %}
+    <h2>Open signals</h2>
+    <p class="context-limit" data-pagefind-ignore>Untrusted Signal candidates that name this subject. Emerging is not confirmed. Every row links back to supporting Evidence.</p>
+    <ul class="entity-links" data-pagefind-ignore>
+      {% for item in open_signals.emerging %}
+        <li>
+          <span class="badge badge-signal">Emerging</span>
+          <a href="{{ item.href }}"><strong>{{ item.label }}</strong></a>
+          <span class="draft-meta">{{ item.support_label }}</span>
+        </li>
+      {% endfor %}
+      {% for item in open_signals.confirmed %}
+        <li>
+          <span class="badge badge-status-active">Confirmed</span>
+          <a href="{{ item.href }}"><strong>{{ item.label }}</strong></a>
+          <span class="draft-meta">{{ item.support_label }}</span>
+        </li>
+      {% endfor %}
+      {% for item in open_signals.deferred %}
+        <li>
+          <span class="badge badge-muted">Deferred</span>
+          <a href="{{ item.href }}"><strong>{{ item.label }}</strong></a>
+          <span class="draft-meta">{{ item.support_label }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if recent_intelligence %}
+    <h2>Recent intelligence</h2>
+    <ul class="entity-links" data-pagefind-ignore>
+      {% for item in recent_intelligence %}
+        <li>
+          {% if item.is_thread %}
+            <span class="badge">Developing</span>
+            {% if item.kind == 'trusted' %}
+              <span class="badge badge-status-active">TRUSTED SOURCES</span>
+            {% else %}
+              <span class="badge badge-muted">PENDING REVIEW</span>
+            {% endif %}
+            <a href="{{ item.thread.href }}"><strong>{{ item.developing_label or item.thread.title }}</strong></a>
+            <span class="draft-meta">{{ item.sources_count }} sources · latest {% if item.date %}{{ item.date|us_date }}{% else %}unknown{% endif %}</span>
+          {% elif item.kind == 'trusted' %}
+            <span class="badge badge-status-active">TRUSTED</span>
+            <a href="{% if static_build %}/evidence/{{ item.record.id }}{% else %}/intelligence/{{ item.record.id }}{% endif %}"><strong>{{ item.record.title }}</strong></a>
+            <span class="draft-meta">
+              {% if item.date_is_published %}{{ item.date|us_date }}{% elif item.date %}Captured {{ item.date|us_date }}{% else %}Date unknown{% endif %}
+              {% if item.record.source_name %} · {{ item.record.source_name }}{% endif %}
+            </span>
+          {% else %}
+            <span class="badge badge-muted">PENDING REVIEW</span>
+            <a href="/intelligence/{{ item.record.id }}"><strong>{{ item.record.title }}</strong></a>
+            <span class="draft-meta">
+              {% if item.date_is_published %}{{ item.date|us_date }}{% elif item.date %}Captured {{ item.date|us_date }}{% else %}Date unknown{% endif %}
+              {% if item.record.source_name %} · {{ item.record.source_name }}{% endif %}
+            </span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if entity_signals or entity_assessments or entity_recommendations %}
+    <h2>Bottom line</h2>
+    <ul class="entity-links">
+      {% for s in entity_signals %}
+        <li><span class="badge badge-signal">SIGNAL</span> <a href="/signals/{{ s.id }}">{{ s.title }}</a> <span class="badge badge-muted">{{ s.status|upper }}</span></li>
+      {% endfor %}
+      {% for a in entity_assessments %}
+        <li><span class="badge badge-assessment">ASSESSMENT</span> <a href="/assessments/{{ a.id }}">{{ a.title }}</a> <span class="badge badge-muted">{{ a.confidence|upper }} CONFIDENCE</span></li>
+      {% endfor %}
+      {% for r in entity_recommendations %}
+        <li><span class="badge badge-recommendation">RECOMMENDATION</span> <a href="/recommendations/{{ r.id }}">{{ r.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <h2>Recent activity</h2>
+  {% if activity %}
+    <ol class="activity-timeline">
+      {% for item in activity %}
+        <li class="activity-item">
+          <time data-pagefind-ignore>{{ item.date|us_date }}</time>
+          <div class="activity-item-body">
+            <div class="activity-item-badges" data-pagefind-ignore>
+              <span class="badge badge-muted">{{ item.type_label }}</span>
+              {% if item.priority and item.priority != 'none' %}
+                <strong class="level-{{ item.priority }}">{{ item.priority }}</strong>
+              {% endif %}
+            </div>
+            {% if item.url %}
+              <a href="{{ item.url }}">{{ item.title }}</a>
+            {% else %}
+              <span>{{ item.title }}</span>
+            {% endif %}
+            {% set detail_lines = item.detail|as_bullets %}
+            {% if detail_lines|length > 1 %}
+              <ul class="bullet-list">{% for line in detail_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+            {% elif item.detail %}
+              <p>{{ item.detail|truncate(220) }}</p>
+            {% endif %}
+          </div>
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p class="empty-state">No recorded activity yet.</p>
+  {% endif %}
+
+  {% if entity.description %}
+    <h2>Description</h2>
+    {% set description_lines = entity.description|as_bullets %}
+    {% if description_lines|length > 1 %}
+      <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+    {% else %}
+      <p>{{ entity.description }}</p>
+    {% endif %}
+  {% endif %}
+
+  {% if entity.attributes %}
+    <h2>Attributes</h2>
+    <dl class="attributes">
+      {% for key, value in entity.attributes.items() %}
+        {% if key != 'traits' %}
+          <dt>{{ key|replace('_',' ')|title }}</dt>
+          <dd>{% if value is iterable and value is not string %}{{ value|join(', ') }}{% else %}{{ value }}{% endif %}</dd>
+        {% endif %}
+      {% endfor %}
+    </dl>
+  {% endif %}
+
+  {% if entity.entity_type == 'variety' %}
+    <h2>Trait profile</h2>
+    {% if variety_trait_profile %}
+      <table class="trait-table">
+        <thead><tr><th>Trait</th><th>Reported value</th><th>Source of claim</th><th>Asserted by</th></tr></thead>
+        <tbody>
+          {% for row in variety_trait_profile %}
+            <tr>
+              <td>{{ row.trait_name|replace('_',' ')|title }}</td>
+              <td>{{ row.value }}{% if row.conditions %}<br><small class="draft-meta">{{ row.conditions }}</small>{% endif %}</td>
+              <td>
+                {% if row.is_unresolved %}
+                  <span class="badge badge-counterevidence">UNRESOLVED</span>
+                {% elif row.is_claim %}
+                  <span class="badge badge-claim">OWNER/MARKETER CLAIM</span>
+                {% else %}
+                  <span class="badge badge-fact">{{ row.provenance|replace('_',' ')|upper }}</span>
+                {% endif %}
+              </td>
+              <td>{{ row.asserted_by or "—" }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="empty-state">No structured trait data recorded for this variety yet — see Facts and Linked evidence below for unstructured mentions.</p>
+    {% endif %}
+
+    <h2>Breeding program &amp; IP</h2>
+    <dl data-pagefind-ignore>
+      <dt>Breeding program</dt>
+      <dd>
+        {% if variety_breeding_program %}
+          <a href="/entities/breeding_program/{{ variety_breeding_program.id }}">{{ variety_breeding_program.name }}</a>
+        {% else %}
+          — not linked in the dataset
+        {% endif %}
+      </dd>
+      <dt>Patent / IP right</dt>
+      <dd>
+        {% if variety_patent_link %}
+          <a href="/entities/patent/{{ variety_patent_link.id }}">{{ variety_patent_link.name }}</a>
+        {% elif entity.attributes and entity.attributes.patent_number %}
+          {{ entity.attributes.patent_number }} — no matching patent record found in the dataset
+        {% else %}
+          — no patent number recorded
+        {% endif %}
+      </dd>
+    </dl>
+  {% endif %}
+
+  <h2>Portfolio &amp; network</h2>
+  {% if grouped_relationships %}
+    <ul class="relationship-list">
+      {% for rel in grouped_relationships %}
+        <li>
+          {% if rel.direction == 'outgoing' %}
+            <strong>{{ entity.name }}</strong> {{ rel.predicate|replace('_',' ') }}
+            <a href="/entities/{{ rel.other.entity_type }}/{{ rel.other.id }}">{{ rel.other.name }}</a>
+          {% else %}
+            <a href="/entities/{{ rel.other.entity_type }}/{{ rel.other.id }}">{{ rel.other.name }}</a>
+            {{ rel.predicate|replace('_',' ') }} <strong>{{ entity.name }}</strong>
+          {% endif %}
+          <span class="badge badge-muted">{{ rel.other.entity_type|replace('_',' ')|upper }}</span>
+          {% if rel.status and rel.status != 'active' %}<span class="badge badge-counterevidence">{{ rel.status|upper }}</span>{% endif %}
+          {% if rel.confidence %}<span class="badge badge-muted">{{ rel.confidence|upper }} CONFIDENCE</span>{% endif %}
+          {% if rel.effective_date %}<small class="draft-meta">effective {{ rel.effective_date|us_date }}</small>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No recorded relationships to other entities yet.</p>
+  {% endif %}
+
+  {% if entity_strategic_questions %}
+    <h2>Strategic questions this bears on</h2>
+    <ul class="entity-links">
+      {% for sq in entity_strategic_questions %}
+        <li><a href="/strategic-questions/{{ sq.id }}">{{ sq.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <h2>Facts</h2>
+  {% if linked_facts %}
+    <ul class="fact-list">
+      {% for fact in linked_facts %}
+        <li>
+          <span class="badge badge-{{ 'fact' if fact.classification == 'fact' else 'claim' }}">{{ fact.classification|upper }}</span>
+          <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
+          {% if fact.status and fact.status != 'active' %}<span class="badge badge-counterevidence">{{ fact.status|upper }}</span>{% endif %}
+          {% set statement_lines = fact.statement|as_bullets %}
+          {% if statement_lines|length > 1 %}
+            <ul class="bullet-list">{% for line in statement_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+          {% else %}
+            <p>{{ fact.statement }}</p>
+          {% endif %}
+          <small>Reviewed by {{ fact.reviewer }} on {{ fact.created_at|us_date }} · {{ fact.status }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No facts published about this entity yet.</p>
+  {% endif %}
+
+  <h2>Evidence</h2>
+  {% if linked_evidence %}
+    <div class="table-wrap"><table class="brief-table evidence-link-table"><thead><tr><th>Date</th><th>Evidence</th><th>Source</th></tr></thead><tbody>{% for item in linked_evidence %}<tr><td>{{ (item.published_date or item.captured_date)|us_date }}</td><td data-pagefind-weight="1"><a href="/evidence/{{ item.id }}"><strong>{{ item.title }}</strong></a></td><td>{{ item.source_name or item.source_type|replace('_',' ')|title }}</td></tr>{% endfor %}</tbody></table></div>
+  {% else %}
+    <p class="empty-state">No published evidence links to this entity yet.</p>
+  {% endif %}
+</article>

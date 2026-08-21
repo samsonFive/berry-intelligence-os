@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block title %}{{ label }} — Berry Intelligence OS{% endblock %}
 {% block content %}
-<section class="page-heading">
+<div class="{% if dimension == 'reading' %}v2-page{% endif %}">
+<section class="page-heading{% if dimension == 'reading' %} v2-page-header{% endif %}">
   <div>
     <p class="eyebrow">{{ eyebrow }}</p>
     <h1>{{ label }}</h1>
@@ -124,48 +125,11 @@
       {% endif %}
     </section>
     {% if bucket.entries %}
-      <div class="queue-table-wrap">
-        <table class="queue-table">
-          <thead>
-            <tr>
-              <th scope="col">Item</th>
-              <th scope="col">State</th>
-              <th scope="col">Why this is here</th>
-              <th scope="col">Added</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for item in bucket.entries %}
-              <tr>
-                <td>
-                  <a href="{{ item.href }}">{{ item.title }}</a>
-                  <p class="draft-meta">{{ item.source_name or item.source_type }}</p>
-                </td>
-                <td><span class="badge">{{ item.workflow_label }}</span></td>
-                <td>{{ item.why_ranked or item.why }}</td>
-                <td>{{ item.date|us_date }}</td>
-                <td>
-                  {% if authoring_mode and not static_build and item.is_active %}
-                    <div class="queue-actions">
-                      {% if item.needs_consume %}
-                        <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="mark_read"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="region" value="{{ filters.region }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="action-button" type="submit">Mark read</button></form>
-                        <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="keep"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="region" value="{{ filters.region }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="action-button" type="submit">Keep</button></form>
-                      {% endif %}
-                      <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="dismiss"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="region" value="{{ filters.region }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="action-button action-reject" type="submit">Dismiss</button></form>
-                      <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="promote"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button action-approve" type="submit">Promote / review</button></form>
-                      <a class="action-button" href="{{ item.href }}">Open</a>
-                      {% if item.source_url %}<a class="action-button" href="{{ item.source_url }}" rel="noreferrer">Open original</a>{% endif %}
-                    </div>
-                  {% else %}
-                    —
-                  {% endif %}
-                </td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
+      <ul class="intel-card-list v2-card-list v2-feed-compact v2-reading-list">
+        {% for item in bucket.entries %}
+          {% include "_intelligence_card.html" %}
+        {% endfor %}
+      </ul>
     {% endif %}
   {% endfor %}
 {% elif items %}
@@ -326,4 +290,5 @@
 {% else %}
   <p class="empty-state">{% if show_completed %}Nothing recorded in this view.{% elif dimension == 'commercial_position' %}No evidence is tagged for commercial-position thinking.{% else %}Nothing needs attention in this view.{% endif %}</p>
 {% endif %}
+</div>
 {% endblock %}

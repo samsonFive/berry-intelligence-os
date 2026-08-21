@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Signal candidate review — Berry Intelligence OS{% endblock %}
 {% block content %}
-<section class="page-heading">
+<div class="v2-page">
+<section class="page-heading v2-page-header">
   <div>
-    <p class="eyebrow">SIGNAL CANDIDATES — HUMAN REVIEW</p>
+    <p class="eyebrow">DECIDE</p>
     <h1>Signal review</h1>
     <p class="also-known-as">Untrusted candidates only. This is not the trusted Signal catalog and not a developing-story queue.</p>
   </div>
@@ -60,4 +61,5 @@
     <p class="empty-state">No limited-evidence candidates in the live set.</p>
   {% endif %}
 </section>
+</div>
 {% endblock %}

@@ -1,0 +1,119 @@
+{# Compact feed/brief intelligence card. Hover/current exposes DecisionBar. #}
+<li class="v2-card intel-card intel-card-{{ item.trust }}" data-intel-card data-item-id="{{ item.id }}" data-pending="{{ 'true' if item.pending else 'false' }}" tabindex="-1">
+  <p class="v2-card-kicker">
+    <span class="v2-source">{{ item.source_name }}</span>
+    {% if item.date %}<time class="v2-meta">{{ item.date|us_date }}</time>{% endif %}
+  </p>
+  <h3 class="v2-card-title">
+    <a href="{{ item.href if not static_build else item.trusted_href }}" data-read data-open-reader>{{ item.title }}</a>
+  </h3>
+  <p class="v2-card-line">
+    {% if item.kind_label %}<span class="v2-meta">{{ item.kind_label }}</span>{% endif %}
+    {% if item.primary_subject %}{% if item.kind_label %} · {% endif %}{{ item.primary_subject.name }}{% endif %}
+    {% if item.ai_untrusted %}{% if item.kind_label or item.primary_subject %} · {% endif %}AI-assisted{% endif %}
+    {% if item.workflow_label and item.show_reading_actions %}{% if item.kind_label or item.primary_subject or item.ai_untrusted %} · {% endif %}{{ item.workflow_label }}{% endif %}
+  </p>
+  {% if item.why %}
+    <p class="v2-card-summary">{{ item.why|truncate(140) }}</p>
+  {% elif item.summary %}
+    <p class="v2-card-summary">{{ item.summary|truncate(140) }}</p>
+  {% endif %}
+  {% if item.ai_untrusted %}
+    <p class="v2-meta v2-card-ai">AI-assisted · pending analyst review</p>
+  {% endif %}
+  {% if item.primary_subject %}
+    <p class="v2-card-subject">{{ item.primary_subject.name }}</p>
+  {% endif %}
+  <div class="v2-card-chips">
+    {% for entity in (item.entities or [])[:3] %}
+      {% if entity.entity_type == 'company' %}
+        <a class="v2-chip v2-chip-entity" href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a>
+      {% endif %}
+    {% endfor %}
+    {% for name in (item.berry_names or [])[:2] %}
+      <span class="v2-chip v2-chip-berry">{{ name }}</span>
+    {% endfor %}
+    {% for name in (item.geo_names or [])[:2] %}
+      <span class="v2-chip v2-chip-entity">{{ name }}</span>
+    {% endfor %}
+  </div>
+  <footer class="v2-card-footer">
+    {% if item.berry_direct %}<span class="v2-mark v2-mark-direct">Direct</span>{% endif %}
+    {% if item.watch_match == 'primary' %}<span class="v2-mark v2-mark-watch">Watch</span>{% endif %}
+    {% if item.trust == 'pending' %}<span class="v2-mark v2-mark-pending">Pending</span>{% elif item.trust == 'trusted' %}<span class="v2-mark v2-mark-trusted">Trusted</span>{% endif %}
+    {% if item.story_thread or item.is_thread %}<span class="v2-mark v2-mark-story">Story</span>{% endif %}
+    {% if item.related_candidates %}<span class="v2-mark v2-mark-signal">Emerging signal</span>{% elif item.related_signals %}<span class="v2-mark v2-mark-confirmed">Signal</span>{% endif %}
+  </footer>
+  <div class="v2-card-actions intel-card-actions">
+    <a class="v2-btn v2-btn-quiet" href="{{ item.href if not static_build else item.trusted_href }}" data-read data-open-reader>Read</a>
+    {% if item.source_url %}<a class="v2-btn v2-btn-quiet" href="{{ item.source_url }}" rel="noreferrer">{{ item.source_action_label }}</a>{% endif %}
+    {% if authoring_mode and item.pending and item.review_values %}
+      <form action="/review/{{ item.id }}/save" method="post">
+        <input type="hidden" name="return_to" value="/work-queue{{ return_filter }}{% if return_filter %}&{% else %}?{% endif %}saved=1">
+        <input type="hidden" name="title" value="{{ item.review_values.title }}">
+        <input type="hidden" name="summary" value="{{ item.review_values.summary }}">
+        <input type="hidden" name="why_it_matters" value="{{ item.review_values.why_it_matters }}">
+        <input type="hidden" name="tags" value="{{ item.review_values.tags }}">
+        {% for berry in item.review_values.berries %}
+          <input type="hidden" name="berries" value="{{ berry }}">
+        {% endfor %}
+        <button class="v2-btn v2-btn-quiet" type="submit" data-save>Keep</button>
+      </form>
+      <form action="/review/{{ item.id }}/reject" method="post">
+        <input type="hidden" name="return_to" value="/work-queue{{ return_filter }}">
+        <input type="hidden" name="reviewer" value="{{ reviewer }}">
+        <input type="hidden" name="rejection_reason" value="Rejected from intelligence feed">
+        <input type="hidden" name="rejection_category" value="other">
+        <button class="v2-btn v2-btn-danger" type="submit" data-reject>Dismiss</button>
+      </form>
+      <form action="/review/{{ item.id }}/publish" method="post">
+        <input type="hidden" name="return_to" value="/work-queue{{ return_filter }}{% if return_filter %}&{% else %}?{% endif %}promoted={{ item.id }}">
+        <input type="hidden" name="title" value="{{ item.review_values.title }}">
+        <input type="hidden" name="source_type" value="{{ item.review_values.source_type }}">
+        <input type="hidden" name="source_name" value="{{ item.review_values.source_name }}">
+        <input type="hidden" name="source_url" value="{{ item.review_values.source_url }}">
+        <input type="hidden" name="published_date" value="{{ item.review_values.published_date }}">
+        <input type="hidden" name="captured_date" value="{{ item.review_values.captured_date }}">
+        <input type="hidden" name="summary" value="{{ item.review_values.summary }}">
+        <input type="hidden" name="why_it_matters" value="{{ item.review_values.why_it_matters }}">
+        <input type="hidden" name="tags" value="{{ item.review_values.tags }}">
+        <input type="hidden" name="companies" value="{{ item.review_values.companies }}">
+        <input type="hidden" name="varieties" value="{{ item.review_values.varieties }}">
+        <input type="hidden" name="retailers" value="{{ item.review_values.retailers }}">
+        <input type="hidden" name="geographies" value="{{ item.review_values.geographies }}">
+        {% for berry in item.review_values.berries %}
+          <input type="hidden" name="berries" value="{{ berry }}">
+        {% endfor %}
+        <input type="hidden" name="reviewer" value="{{ reviewer }}">
+        <button class="v2-btn v2-btn-primary" type="submit" data-promote>Promote</button>
+      </form>
+    {% endif %}
+    {% if authoring_mode and item.show_reading_actions %}
+      {% if item.reading_open %}
+        <form action="/queues/reading/{{ item.id }}" method="post">
+          <input type="hidden" name="action" value="mark_read">
+          <input type="hidden" name="reviewer" value="{{ reviewer }}">
+          <input type="hidden" name="return_to" value="{{ return_to or '/queues/reading' }}">
+          <button class="v2-btn v2-btn-quiet" type="submit">Mark read</button>
+        </form>
+        <form action="/queues/reading/{{ item.id }}" method="post">
+          <input type="hidden" name="action" value="keep">
+          <input type="hidden" name="reviewer" value="{{ reviewer }}">
+          <input type="hidden" name="return_to" value="{{ return_to or '/queues/reading' }}">
+          <button class="v2-btn v2-btn-quiet" type="submit">Keep</button>
+        </form>
+      {% endif %}
+      <form action="/queues/reading/{{ item.id }}" method="post">
+        <input type="hidden" name="action" value="dismiss">
+        <input type="hidden" name="reviewer" value="{{ reviewer }}">
+        <input type="hidden" name="return_to" value="{{ return_to or '/queues/reading' }}">
+        <button class="v2-btn v2-btn-danger" type="submit">Dismiss</button>
+      </form>
+      <form action="/queues/reading/{{ item.id }}" method="post">
+        <input type="hidden" name="action" value="promote">
+        <input type="hidden" name="reviewer" value="{{ reviewer }}">
+        <button class="v2-btn v2-btn-primary" type="submit">Promote</button>
+      </form>
+    {% endif %}
+  </div>
+</li>

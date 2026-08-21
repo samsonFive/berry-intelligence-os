@@ -1,0 +1,7 @@
+Bootstrap 5.3.3 (MIT)
+
+Vendored from the official Bootstrap distribution for offcanvas, collapse,
+dropdown, and grid conventions used by the V2 AppShell prototype.
+
+This repository does not include the Mirbal Laravel template, Mooli, charts,
+calendars, or other admin-kit vendor plugins.

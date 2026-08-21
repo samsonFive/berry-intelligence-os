@@ -8,6 +8,8 @@ Local-first, evidence-based competitive intelligence for berry crops.
 
 Canonical branch is `v2/intelligence-os`. Do not commit to it directly.
 
+Feature branches can fall behind later governance (expansion guide, `PROJECT-STATUS.md`, `AGENTS.md` pointer). Rebase onto `origin/v2/intelligence-os` before merge. Preserve the canonical expansion guide verbatim. Reconcile `TECHNICAL-DEBT-REGISTER.md` and `INTELLIGENCE-COVERAGE-MATRIX.md` — do not reopen resolved UI-lane items (TD-001..004) and do not replace evidence-class counts with withdrawn drafts that marked keyword-news as `NONE`.
+
 ### Local vs cloud runtime
 
 Cloud agents do not automatically see an operator's local `inbox/` runtime. `inbox/` is gitignored. Drafts, discovered media, transcripts, and collection run artifacts exist only on the machine that created them unless they were copied into a snapshot or explicitly provisioned.
@@ -27,7 +29,7 @@ Duplicate publish of an already-trusted publication id is not a 500: identical i
 1. Discover: `python scripts/discover_media.py --source <source-id>` or `scripts/run_recent_batch.py`
 2. Relevance screening is cheap metadata triage stored on the discovered item. Clearly irrelevant items should not be Whispered.
 3. `scripts/process_discovered_media.py --item <id> --relevance-gate --enrich --max-tier 2` creates/reviews drafts without Whisper. `--max-tier 3` enables local speech-to-text.
-4. Intelligence feed is `/work-queue`. The daily starting view is `/brief` (Morning Brief). Opening an item uses `/intelligence/{id}` (read → promote in place). Pending cards can also be judged in the feed: `j`/`k` move, `Enter`/`o` open the reader, `a` promote, `s` save, `r` reject. Those actions POST the existing `/review/{id}/publish|save|reject` paths; they do not skip publication review. In `work_queue.html`, pending form fields live on `item.review_values` — do not use `item.values` (Jinja treats that as `dict.values`). Company/entity **Recent intelligence** uses the same reader in the live app; the public static snapshot still links trusted items to `/evidence/{id}` and never includes pending drafts. Advanced publication review remains `/review?kind=publication` and `/review/{id}`. Approve / Save / Reject have `+ Next` variants on the advanced form. AI suggestions are untrusted and visible with provenance. Feed ranking consumes stored `relevance_tier` (`adjacent` ranks below direct / unscreened spoken) and existing card `relevance_band` — do not invent a second relevance model.
+4. Intelligence feed is `/work-queue` (Live Intelligence). The daily starting view is `/brief` (Morning Brief). Feed `Enter`/`o` opens the slide-over Reader when the V2 overlay is present; `/intelligence/{id}` remains the full reader. Pending cards can also be judged in the feed: `j`/`k` move, `a` promote, `s` keep/save, `r` dismiss/reject. Those actions POST the existing `/review/{id}/publish|save|reject` paths; they do not skip publication review. In `work_queue.html`, pending form fields live on `item.review_values` — do not use `item.values` (Jinja treats that as `dict.values`). Company/entity **Recent intelligence** uses the same reader in the live app; the public static snapshot still links trusted items to `/evidence/{id}` and never includes pending drafts. Advanced publication review remains `/review?kind=publication` and `/review/{id}`. Approve / Save / Reject have `+ Next` variants on the advanced form. AI suggestions are untrusted and visible with provenance. Feed ranking consumes stored `relevance_tier` (`adjacent` ranks below direct / unscreened spoken) and existing card `relevance_band` — do not invent a second relevance model.
 5. `python scripts/collection_status.py` reports discovered / relevant / skipped / transcript-ready / enrichment-ready / publication-review-ready / trusted / extraction / atomic / retry / intervention counts.
 
 `scripts/run_recent_batch.py` continues past per-item failures (YouTube anti-bot, missing captions, API errors). Do not treat one failed item as a batch abort. Do not report "0 failures" when transcript acquisition is blocked; review-ready without transcript is a valid state.
@@ -42,6 +44,28 @@ In this Cloud Agent VM, `docker` usually needs `sudo` (the `ubuntu` user is not 
 
 Remote interactive login is `GET /login`. Unauthenticated `/work-queue` redirects there. The session cookie is Secure only when the request is HTTPS or `X-Forwarded-Proto: https` (Caddy does this). Do not enable `BIOS_BASIC_AUTH` in front of `/login`. Remote interactive mode fails closed without `BIOS_REVIEW_USERNAME`, `BIOS_REVIEW_PASSWORD`, and `BIOS_SESSION_SECRET`.
 
+### V2 shell (approved)
+
+V2 product direction is **approved**. Do not reopen AppShell, context bar, Compact vs Grid, ReaderOffcanvas, or Company Profile.
+
+Migrated V2 surfaces: Morning Brief, Live Intelligence Grid/Compact, ReaderOffcanvas, Signal Review, Company Profile, Pending Review (`/pending`), Reading Queue, Assessments.
+
+Do **not** migrate Landscape, Watches, Alerts, Sources / Source Health, or admin/system except global regression fixes. Landscape waits until Variety / Retail / Registry workstreams in `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md` settle (Workstreams C, D, E, H). After this decision-workflow gate, the first major expansion mission is Mainstream News + Regulatory Recall Benchmark V1 — not another UI surface.
+
+Bootstrap 5.3 is vendored at `app/static/vendor/bootstrap/` for offcanvas/collapse/grid conventions only. Do not import Mirbal, Mooli, or chart/calendar vendor bundles. Nav action counts use `.v2-count-action` (not purple inventory pills). Berry context is a selector, not a per-crop theme; unmigrated Landscape in Library still follows the selected berry (`/entities/berry` when Global). Desktop hamburger collapses the persistent sidebar into an accessible icon rail (`title` + `aria-label` + action counts); below 1100px it opens `#v2NavOffcanvas`.
+
+Feed overlay is `#v2ReaderOffcanvas` and is shared with Company Recent Intelligence, Pending Review, and Reading Queue. `j`/`k` while it is open load adjacent `[data-intel-card]` items into the same pane. Escape closes it and returns focus to the triggering control. Compact is throughput mode (SOURCE · TIME / headline / metadata / marks; actions on hover, keyboard-current, or focus). Status marks and record type stay distinct: do not repeat `kind_label` in the compact footer.
+
+Derived intelligence calculations must not silently run on unrelated synchronous page paths. Overlay `/api/intelligence/{id}/reader` skips Morning Brief entirely. HTML nav badges use `build_morning_brief(..., mode="nav")` plus the folder-signature `_NAV_WORK_CACHE`. `/brief` stays `mode="full"`. `/pending` uses `mode="pending"` (pending ranking + story threads, no reading-universe ranking). Do not cache trust/review state beyond that signature; a publish/dismiss/read must recompute counts.
+
+Active technical debt belongs in `docs/v2/TECHNICAL-DEBT-REGISTER.md`. Source or domain expansion updates `docs/v2/INTELLIGENCE-COVERAGE-MATRIX.md` with proven counts only — never fabricate coverage.
+
+Pending Review is a **decision workspace**, not a Feed clone: Review now / Review soon / Adjacent / Likely ignore / Older backlog. Bulk dismiss requires explicit selection and never publishes or auto-rejects. Advanced publication form remains `/review?kind=publication`.
+
+Reading state remains in `inbox/analyst_queue_state.json` and is independent of trust. Do not create another reading-state store.
+
+Assessment is analyst interpretation of Facts. Signal ≠ Assessment. Signal Candidate ≠ Signal. Confirming a candidate does **not** create an Assessment. Berry scope is stored `market_ids` only; absent `market_ids` means undeclared / company-wide, not “every berry.” Do not infer berry from title, rationale, or company names, and do not hide unscoped Bottom Line rows.
+
 ### Analyst workspace
 
 Nav purple pills (`.nav-action`) are **action counts** with a resolution workflow. Grey `.nav-inventory` figures are catalogs, not uncleared work.
@@ -50,7 +74,7 @@ Morning Brief (`/brief`) is the daily starting point after login. It ranks exist
 
 Watch “Because” copy names the primary subject (title / alias / newsroom identity), not a co-mentioned company. Co-mentions use “mentions watched X”. Primary watch match ranks above mention match; a company primary watch ranks above a geography primary watch so Mexico/Canada headlines do not bury company-specific intelligence.
 
-Pending drafts are triaged on `/brief#pending-triage` into Review now / Review soon / Adjacent / Likely ignore / Older backlog using stored `relevance_tier`, berry-direct, reading priority, source `monitoring_priority`, primary subject, watch-match quality, recency, and duplicate-title warnings. This is not a second AI score. Untrusted entity suggestions come from `app/services/draft_attribution.py` (canonical name, aliases, legal names, newsroom `linked_competitor_ids`) and are not written onto trusted `entity_ids`. Dismiss uses `analyst_queue_state.json` `pending` and keeps the draft file; Reject/Promote/Save still POST the existing `/review/{id}` routes. Bulk dismiss requires explicit selection and never publishes or auto-rejects.
+Pending drafts are triaged on `/pending` (and still summarized on `/brief#pending-triage`) into Review now / Review soon / Adjacent / Likely ignore / Older backlog using stored `relevance_tier`, berry-direct, reading priority, source `monitoring_priority`, primary subject, watch-match quality, recency, and duplicate-title warnings. This is not a second AI score. Untrusted entity suggestions come from `app/services/draft_attribution.py` (canonical name, aliases, legal names, newsroom `linked_competitor_ids`) and are not written onto trusted `entity_ids`. Dismiss uses `analyst_queue_state.json` `pending` and keeps the draft file; Reject/Promote/Save still POST the existing `/review/{id}` routes. Bulk dismiss requires explicit selection and never publishes or auto-rejects.
 
 Related pending/current items may be presented as a **developing story / story thread** (`app/services/story_threads.py`, `/threads/{id}`). That is organizational grouping only — not a Fact, Assessment, Position, Signal, or trusted conclusion. There is no “trust thread” action. Membership is conservative (canonical URL, exact normalized title, stored `evidence_links` that are actually same-event, or same primary company/variety plus strong title/date evidence). Same-company mention is not enough. Generic patent-monitor “assignee already linked” corroboration does not merge unrelated filings with trade articles. Patents participate as generic Evidence when deterministic edges exist; do not add patent-specific UI. Dismiss redundant coverage uses the existing pending-dismiss path and preserves the file. Review Soon strip counts remain raw item counts; the bucket heading also shows distinct stories after compression.
 

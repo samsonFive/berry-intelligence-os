@@ -51,6 +51,14 @@ from app.services.source_freshness import (
     classify_source_freshness,
     latest_item_dates,
 )
+from app.services.ui_context import (
+    apply_ui_cookies,
+    matches_berry_context,
+    parse_berry,
+    parse_feed_view,
+    persist_ui_prefs,
+    read_ui_context,
+)
 from app.services.analyst_queue import (
     apply_action as apply_queue_action,
     build_dimension_page,
@@ -82,14 +90,21 @@ from app.runtime_config import (
     review_username,
     validate_remote_interactive_config,
 )
-from app.services.intelligence_feed import build_intelligence_feed, build_reader
+from app.services.intelligence_feed import (
+    annotate_feed_semantics,
+    build_intelligence_feed,
+    build_reader,
+    present_feed_item,
+)
+from app.services.assessment_scope import attach_assessment_scope, assessment_berry_scope
 from app.services.morning_brief import build_morning_brief
-from app.services.signal_candidates import SignalCandidateError
+from app.services.signal_candidates import SignalCandidateError, load_candidates
 from app.services.signal_review import (
     StaleSignalCandidateError,
     apply_and_persist_decision,
     candidate_by_id,
     candidates_for_thread,
+    evidence_quality_for_record,
     lookup_candidate,
     open_signals_for_entity,
     present_candidates,
@@ -277,7 +292,9 @@ app.add_middleware(EnvSessionMiddleware)
 app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="static")
 
 
-def _assemble_morning_brief(*, mark_seen: bool = False, include_coverage: bool = False) -> dict[str, Any]:
+def _assemble_morning_brief(
+    *, mark_seen: bool = False, include_coverage: bool = False, mode: str = "full"
+) -> dict[str, Any]:
     published = published_evidence()
     coverage = {}
     freshness = {}
@@ -303,12 +320,49 @@ def _assemble_morning_brief(*, mark_seen: bool = False, include_coverage: bool =
         discovered=discovered,
         recommendations=recommendations,
         mark_seen=mark_seen,
+        mode=mode,
     )
 
 
-def nav_work_template_context(request: Request) -> dict[str, Any]:
-    """Compute action/inventory nav counts once per HTML render."""
+_NAV_WORK_CACHE: dict[str, Any] = {"key": None, "value": None}
+COMPANY_BERRY_ORDER = ("berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry")
+COMPANY_WHAT_CHANGED_DAYS = 30
 
+
+def _path_sig(path: Path) -> tuple[str, int, int]:
+    try:
+        st = path.stat()
+    except OSError:
+        return (str(path), 0, 0)
+    return (str(path), int(st.st_mtime_ns), int(st.st_size))
+
+
+def _json_folder_sig(folder: Path) -> tuple[tuple[str, int, int], ...]:
+    if not folder.is_dir():
+        return ()
+    rows: list[tuple[str, int, int]] = []
+    for path in folder.glob("*.json"):
+        try:
+            st = path.stat()
+        except OSError:
+            continue
+        rows.append((path.name, int(st.st_mtime_ns), int(st.st_size)))
+    return tuple(sorted(rows))
+
+
+def _nav_work_cache_key() -> tuple[Any, ...]:
+    return (
+        str(INBOX_DIR),
+        str(DATA_DIR),
+        _json_folder_sig(INBOX_DIR / "evidence"),
+        _path_sig(INBOX_DIR / "analyst_queue_state.json"),
+        _json_folder_sig(INBOX_DIR / "signal_candidates"),
+        _json_folder_sig(DATA_DIR / "evidence"),
+        _json_folder_sig(DATA_DIR / "signals"),
+    )
+
+
+def _compute_nav_work_counts() -> dict[str, Any]:
     published = published_evidence()
     signals = all_signals()
     counts = work_counts(inbox_dir=INBOX_DIR, published=published, signals=signals)
@@ -322,12 +376,34 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
         sources=load_sources(),
         berry_labels=BERRIES,
         mark_seen=False,
+        mode="nav",
     )
     counts["brief_action"] = int((brief.get("counts") or {}).get("top_priority") or 0)
     counts["review_now"] = int((brief.get("counts") or {}).get("review_now") or 0)
     counts["pending_open"] = int((brief.get("counts") or {}).get("pending_open") or 0)
     counts["emerging_signals"] = int((brief.get("counts") or {}).get("emerging_signals") or 0)
-    return {"nav_work_counts": counts}
+    return counts
+
+
+def nav_work_template_context(request: Request) -> dict[str, Any]:
+    """Nav action counts for HTML pages. Overlay fragments skip Morning Brief."""
+
+    ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    if str(getattr(request.url, "path", "") or "").startswith("/api/"):
+        return {
+            "nav_work_counts": {},
+            "ui_context": ui_context,
+            "berries": BERRIES,
+        }
+    key = _nav_work_cache_key()
+    if _NAV_WORK_CACHE["key"] != key or _NAV_WORK_CACHE["value"] is None:
+        _NAV_WORK_CACHE["key"] = key
+        _NAV_WORK_CACHE["value"] = _compute_nav_work_counts()
+    return {
+        "nav_work_counts": _NAV_WORK_CACHE["value"],
+        "ui_context": ui_context,
+        "berries": BERRIES,
+    }
 
 
 templates = Jinja2Templates(
@@ -416,6 +492,22 @@ async def login_submit(
 async def logout(request: Request) -> RedirectResponse:
     clear_session(request)
     return RedirectResponse(url="/login", status_code=303)
+
+
+@app.post("/ui/context")
+async def set_ui_context(
+    request: Request,
+    berry: str = Form(default="global"),
+    view: str = Form(default=""),
+    next: str = Form(default="/brief"),
+) -> RedirectResponse:
+    current = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    berry_id = parse_berry(berry, BERRIES)
+    feed_view = parse_feed_view(view or current["feed_view"])
+    persist_ui_prefs(INBOX_DIR, berry=berry_id, feed_view=feed_view)
+    response = RedirectResponse(url=safe_next_path(next), status_code=303)
+    apply_ui_cookies(response, berry=berry_id, feed_view=feed_view)
+    return response
 
 
 _JSON_FOLDER_CACHE: dict[Path, tuple[tuple[tuple[str, int, int], ...], list[dict[str, Any]]]] = {}
@@ -1850,6 +1942,150 @@ def recent_intelligence_for_entity(
     return items[:limit]
 
 
+def company_berry_portfolio(entity: dict[str, Any]) -> list[dict[str, str]]:
+    ids = [str(value) for value in (entity.get("berry_ids") or []) if value]
+    ordered = [berry_id for berry_id in COMPANY_BERRY_ORDER if berry_id in ids]
+    ordered.extend(berry_id for berry_id in ids if berry_id not in ordered)
+    return [
+        {
+            "id": berry_id,
+            "label": berry_label(berry_id).upper(),
+            "slug": berry_id.removeprefix("berry-"),
+        }
+        for berry_id in ordered
+    ]
+
+
+def _matches_company_berry(item: dict[str, Any], berry: str) -> bool:
+    if berry == "global":
+        return True
+    if matches_berry_context(item, berry):
+        return True
+    record = item.get("record")
+    if isinstance(record, dict) and matches_berry_context(record, berry):
+        return True
+    thread = item.get("thread") if isinstance(item.get("thread"), dict) else {}
+    for member in thread.get("members") or []:
+        if isinstance(member, dict) and matches_berry_context(member, berry):
+            return True
+    return False
+
+
+def _filter_recent_by_berry(items: list[dict[str, Any]], berry: str) -> list[dict[str, Any]]:
+    if berry == "global":
+        return list(items)
+    return [item for item in items if _matches_company_berry(item, berry)]
+
+
+def _filter_open_signals_by_berry(
+    open_signals: dict[str, list[dict[str, Any]]], berry: str
+) -> dict[str, list[dict[str, Any]]]:
+    if berry == "global":
+        return open_signals
+    return {
+        key: [row for row in (open_signals.get(key) or []) if matches_berry_context(row, berry)]
+        for key in ("emerging", "confirmed", "deferred")
+    }
+
+
+def _filter_relationships_by_berry(
+    rows: list[dict[str, Any]], berry: str
+) -> list[dict[str, Any]]:
+    if berry == "global":
+        return list(rows)
+    out: list[dict[str, Any]] = []
+    for row in rows:
+        other = row.get("other") or {}
+        if matches_berry_context(other, berry) or not (other.get("berry_ids") or []):
+            out.append(row)
+    return out
+
+
+def _company_is_watched(linked_evidence: list[dict[str, Any]]) -> bool:
+    for record in linked_evidence:
+        level = ((record.get("priority") or {}).get("monitoring") or {}).get("level")
+        if level and str(level) != "none":
+            return True
+    return False
+
+
+def _company_feed_cards(
+    items: list[dict[str, Any]],
+    entities: dict[str, dict[str, Any]],
+    *,
+    include_candidates: bool,
+) -> list[dict[str, Any]]:
+    cards: list[dict[str, Any]] = []
+    for item in items:
+        record = item.get("record") or {}
+        if not record.get("id"):
+            continue
+        card = present_feed_item(record, entities=entities, berry_labels=BERRIES)
+        if item.get("is_thread"):
+            card["is_thread"] = True
+            card["story_thread"] = item.get("thread")
+            card["title"] = item.get("developing_label") or card["title"]
+        cards.append(card)
+    candidates = load_candidates(INBOX_DIR) if include_candidates and INBOX_DIR else []
+    annotate_feed_semantics(cards, signals=all_signals(), candidates=candidates)
+    return cards
+
+
+def company_profile_context(
+    entity: dict[str, Any],
+    entities: dict[str, dict[str, Any]],
+    *,
+    recent_intelligence: list[dict[str, Any]],
+    grouped_relationships: list[dict[str, Any]],
+    open_signals: dict[str, list[dict[str, Any]]],
+    linked_evidence: list[dict[str, Any]],
+    berry: str = "global",
+    include_candidates: bool = True,
+) -> dict[str, Any]:
+    recent = _filter_recent_by_berry(recent_intelligence, berry)
+    cutoff = (date.today() - timedelta(days=COMPANY_WHAT_CHANGED_DAYS)).isoformat()
+    what_changed = [item for item in recent if str(item.get("date") or "") >= cutoff]
+    varieties = _filter_relationships_by_berry(
+        [
+            row
+            for row in grouped_relationships
+            if row.get("predicate") == "develops" and (row.get("other") or {}).get("entity_type") == "variety"
+        ],
+        berry,
+    )
+    geos = _filter_relationships_by_berry(
+        [
+            row
+            for row in grouped_relationships
+            if row.get("predicate") == "operates_in" and (row.get("other") or {}).get("entity_type") == "geography"
+        ],
+        berry,
+    )
+    variety_ids = {str((row.get("other") or {}).get("id") or "") for row in varieties}
+    geo_ids = {str((row.get("other") or {}).get("id") or "") for row in geos}
+    network = [
+        row
+        for row in grouped_relationships
+        if str((row.get("other") or {}).get("id") or "") not in variety_ids
+        and str((row.get("other") or {}).get("id") or "") not in geo_ids
+    ]
+    return {
+        "company_portfolio": company_berry_portfolio(entity),
+        "company_what_changed": _company_feed_cards(
+            what_changed, entities, include_candidates=include_candidates
+        ),
+        "company_recent_cards": _company_feed_cards(
+            recent, entities, include_candidates=include_candidates
+        ),
+        "open_signals": _filter_open_signals_by_berry(open_signals, berry),
+        "company_varieties": varieties,
+        "company_geographies": geos,
+        "company_network": network,
+        "company_watched": _company_is_watched(linked_evidence),
+        "company_berry_filter": berry,
+    }
+
+
 def entity_synthesis_context(
     entity: dict[str, Any], entities: dict[str, dict[str, Any]], *, include_pending: bool = True
 ) -> dict[str, Any]:
@@ -1866,7 +2102,7 @@ def entity_synthesis_context(
     entity_id = entity["id"]
     linked_evidence = linked_evidence_for_entity(entity, published_evidence())
     entity_signals = signals_for_entity(entity_id)
-    entity_assessments = assessments_for_entity(entity_id)
+    entity_assessments = attach_assessment_scope(assessments_for_entity(entity_id), BERRIES)
     entity_recommendations = recommendations_for_entity(entity_id)
     context: dict[str, Any] = {
         "entity_signals": entity_signals,
@@ -1887,6 +2123,19 @@ def entity_synthesis_context(
         context["variety_trait_profile"] = variety_trait_profile(entity, entities)
         context["variety_patent_link"] = variety_patent_link(entity, all_patents)
         context["variety_breeding_program"] = entities.get(breeding_program_id) if breeding_program_id else None
+    if entity.get("entity_type") == "company":
+        context.update(
+            company_profile_context(
+                entity,
+                entities,
+                recent_intelligence=context["recent_intelligence"],
+                grouped_relationships=context["grouped_relationships"],
+                open_signals=context["open_signals"],
+                linked_evidence=linked_evidence,
+                berry="global",
+                include_candidates=include_pending,
+            )
+        )
     return context
 
 
@@ -1908,7 +2157,24 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                 evidence_by_id=_evidence_index(),
                 entities=entities,
             )
-            return templates.TemplateResponse(
+            synthesis = entity_synthesis_context(entity, entities)
+            open_signals = open_signals_for_entity(entity_id, presented_candidates)
+            ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+            if entity.get("entity_type") == "company":
+                synthesis.update(
+                    company_profile_context(
+                        entity,
+                        entities,
+                        recent_intelligence=synthesis["recent_intelligence"],
+                        grouped_relationships=synthesis["grouped_relationships"],
+                        open_signals=open_signals,
+                        linked_evidence=linked_evidence,
+                        berry=ui["berry"],
+                    )
+                )
+            else:
+                synthesis["open_signals"] = open_signals
+            response = templates.TemplateResponse(
                 request=request,
                 name="entity.html",
                 context={
@@ -1922,10 +2188,11 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     "regions": regions,
                     "berry_label": berry_label,
                     "authoring_mode": AUTHORING_MODE,
-                    **entity_synthesis_context(entity, entities),
-                    "open_signals": open_signals_for_entity(entity_id, presented_candidates),
+                    **synthesis,
                 },
             )
+            apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+            return response
     raise HTTPException(status_code=404, detail="Entity record not found")
 
 
@@ -1960,10 +2227,42 @@ def _attach_pending_decision_actions(items: list[dict[str, Any]], reviewer: str)
         item["show_pending_actions"] = True
 
 
+def _filter_items_for_berry(items: list[dict[str, Any]] | None, berry: str) -> list[dict[str, Any]]:
+    return [item for item in (items or []) if matches_berry_context(item, berry)]
+
+
+def _filter_brief_for_berry(brief: dict[str, Any], berry: str) -> dict[str, Any]:
+    if berry == "global":
+        return brief
+    brief["new_developments"] = _filter_items_for_berry(brief.get("new_developments"), berry)
+    brief["important"] = _filter_items_for_berry(brief.get("important"), berry)
+    brief["emerging_signals"] = _filter_items_for_berry(brief.get("emerging_signals"), berry)
+    brief["top_developments"] = _filter_items_for_berry(brief.get("top_developments"), berry)
+    pending = dict(brief.get("pending_triage") or {})
+    buckets = []
+    for group in pending.get("buckets") or []:
+        entries = _filter_items_for_berry(group.get("entries"), berry)
+        buckets.append({**group, "entries": entries, "count": len(entries)})
+    pending["buckets"] = buckets
+    pending_counts = dict(pending.get("counts") or {})
+    for group in buckets:
+        pending_counts[str(group.get("key") or "")] = int(group.get("count") or 0)
+    pending["counts"] = pending_counts
+    brief["pending_triage"] = pending
+    counts = dict(brief.get("counts") or {})
+    counts["new_developments"] = len(brief.get("new_developments") or [])
+    counts["emerging_signals"] = len(brief.get("emerging_signals") or [])
+    counts["review_now"] = int(pending_counts.get("review_now") or 0)
+    brief["counts"] = counts
+    return brief
+
+
 @app.get("/brief", response_class=HTMLResponse)
 def morning_brief_page(request: Request) -> HTMLResponse:
-    brief = _assemble_morning_brief(mark_seen=True, include_coverage=True)
+    brief = _assemble_morning_brief(mark_seen=True, include_coverage=True, mode="full")
     reviewer = session_username(request) or review_username() or ""
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    brief = _filter_brief_for_berry(brief, ui["berry"])
     for group in (brief.get("pending_triage") or {}).get("buckets") or []:
         _attach_pending_decision_actions(group.get("entries") or [], reviewer)
     return templates.TemplateResponse(
@@ -1975,6 +2274,32 @@ def morning_brief_page(request: Request) -> HTMLResponse:
             "static_build": False,
             "reviewer": reviewer,
             "return_to": "/brief#pending-triage",
+        },
+    )
+
+
+@app.get("/pending", response_class=HTMLResponse)
+def pending_review_page(request: Request) -> HTMLResponse:
+    """Decision workspace for pending publication drafts. Not a Feed clone."""
+
+    brief = _assemble_morning_brief(mark_seen=False, include_coverage=False, mode="pending")
+    reviewer = session_username(request) or review_username() or ""
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    brief = _filter_brief_for_berry(brief, ui["berry"])
+    for group in (brief.get("pending_triage") or {}).get("buckets") or []:
+        _attach_pending_decision_actions(group.get("entries") or [], reviewer)
+        for item in group.get("entries") or []:
+            item["pending"] = True
+    return templates.TemplateResponse(
+        request=request,
+        name="pending_review.html",
+        context={
+            "brief": brief,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "reviewer": reviewer,
+            "return_to": "/pending",
+            "ui_context": ui,
         },
     )
 
@@ -2010,8 +2335,17 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
         values = _default_review_values(item["record"])
         values["reviewer"] = reviewer
         item["review_values"] = _overlay_attribution_companies(values, item)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    if request.query_params.get("view") or request.query_params.get("berry"):
+        persist_ui_prefs(INBOX_DIR, berry=ui["berry"], feed_view=ui["feed_view"])
+    feed["entries"] = [item for item in feed["entries"] if matches_berry_context(item, ui["berry"])]
+    annotate_feed_semantics(
+        feed["entries"],
+        signals=all_signals(),
+        candidates=load_candidates(INBOX_DIR) if INBOX_DIR else [],
+    )
     return_filter = "" if filter in {"", "all"} else f"?filter={filter}"
-    return templates.TemplateResponse(
+    response = templates.TemplateResponse(
         request=request,
         name="work_queue.html",
         context={
@@ -2019,6 +2353,7 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
             "drafts": list_pending_drafts(),
             "review_cards": [],
             "feed": feed,
+            "feed_view": ui["feed_view"],
             "reviewer": reviewer,
             "return_filter": return_filter,
             "promoted_id": request.query_params.get("promoted") or "",
@@ -2039,6 +2374,8 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
             "static_build": False,
         },
     )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
 
 
 def _load_intelligence_record(item_id: str) -> dict[str, Any] | None:
@@ -2060,35 +2397,73 @@ def _default_reader_reviewer(request: Request, values: dict[str, Any]) -> str:
     )
 
 
+def _source_index() -> dict[str, dict[str, Any]]:
+    return {str(source.get("id")): source for source in load_sources() if source.get("id")}
+
+
+def _related_signal_rows(item_id: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    related_signals = [
+        {
+            "id": signal.get("id"),
+            "title": signal.get("title") or signal.get("label") or signal.get("id"),
+            "href": f"/signals/{signal.get('id')}",
+            "status": signal.get("status") or "",
+        }
+        for signal in all_signals()
+        if item_id and item_id in (signal.get("evidence_ids") or [])
+    ]
+    related_candidates = [
+        {
+            "id": candidate.get("id"),
+            "title": candidate.get("label") or candidate.get("pattern_type") or candidate.get("id"),
+            "href": f"/signals/candidates/{candidate.get('id')}",
+            "status": candidate.get("status") or "",
+        }
+        for candidate in (load_candidates(INBOX_DIR) if INBOX_DIR else [])
+        if item_id and item_id in (candidate.get("supporting_evidence_ids") or [])
+    ]
+    return related_signals, related_candidates
+
+
 def _intelligence_page_context(
     request: Request,
     record: dict[str, Any],
     *,
     error: str | None = None,
     values: dict[str, Any] | None = None,
+    overlay: bool = False,
 ) -> dict[str, Any]:
-    readiness_map = load_publication_transcript_readiness(INBOX_DIR)
-    readiness = deepcopy(readiness_map.get(record.get("id")) or unknown_transcript_readiness())
+    entities = entity_index()
+    source_index = _source_index()
+    if overlay:
+        readiness = unknown_transcript_readiness()
+        published: list[dict[str, Any]] = []
+        atomic_drafts: list[dict[str, Any]] = []
+    else:
+        readiness_map = load_publication_transcript_readiness(INBOX_DIR)
+        readiness = deepcopy(readiness_map.get(record.get("id")) or unknown_transcript_readiness())
+        published = published_evidence()
+        atomic_drafts = list_drafts()
     reader = build_reader(
         record,
-        entities=entity_index(),
+        entities=entities,
         berry_labels=BERRIES,
         inbox_dir=INBOX_DIR,
-        published=published_evidence(),
-        atomic_drafts=list_drafts(),
+        published=published,
+        atomic_drafts=atomic_drafts,
         transcript_readiness=readiness,
     )
     if values is None:
         values = {} if record.get("status") == "published" else _default_review_values(record)
     reviewer = _default_reader_reviewer(request, values)
     values = {**values, "reviewer": reviewer}
-    attribution = attribute_draft(record, entity_index(), sources={str(source.get("id")): source for source in load_sources() if source.get("id")})
+    attribution = attribute_draft(record, entities, sources=source_index)
     if record.get("status") != "published":
         values = _overlay_attribution_companies(values, {"primary_subject": attribution.get("primary"), "title_companies": [
             hit for hit in (attribution.get("suggested") or []) if hit.get("entity_type") == "company" and hit.get("location") == "title"
         ]})
     story_thread = None
-    if record.get("id"):
+    if not overlay and record.get("id"):
         universe = [row for row in list_pending_drafts() if row.get("id")]
         if record.get("status") == "published":
             universe.append(record)
@@ -2097,16 +2472,15 @@ def _intelligence_page_context(
         for row in universe:
             if row.get("primary_subject"):
                 continue
-            row_attr = attribute_draft(
-                row,
-                entity_index(),
-                sources={str(source.get("id")): source for source in load_sources() if source.get("id")},
-            )
+            row_attr = attribute_draft(row, entities, sources=source_index)
             if row_attr.get("primary"):
                 row["primary_subject"] = row_attr["primary"]
         found = thread_for_item(str(record.get("id")), universe)
         if found and int(found.get("source_count") or 0) > 1:
             story_thread = found
+    item_id = str(record.get("id") or "")
+    related_signals, related_candidates = _related_signal_rows(item_id)
+    quality = evidence_quality_for_record(record)
     return {
         **reader,
         "record": record,
@@ -2118,6 +2492,11 @@ def _intelligence_page_context(
         "error": error,
         "attribution": attribution,
         "story_thread": story_thread,
+        "related_signals": related_signals,
+        "related_candidates": related_candidates,
+        "evidence_quality": quality,
+        "limited_evidence": bool(quality.get("limited")),
+        "overlay": overlay,
     }
 
 
@@ -2130,6 +2509,22 @@ def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
         request=request,
         name="intelligence_reader.html",
         context=_intelligence_page_context(request, record),
+    )
+
+
+@app.get("/api/intelligence/{item_id}/reader", response_class=HTMLResponse)
+def intelligence_reader_fragment(request: Request, item_id: str) -> HTMLResponse:
+    record = _load_intelligence_record(item_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail="Intelligence item not found")
+    return templates.TemplateResponse(
+        request=request,
+        name="_reader_panel.html",
+        context={
+            **_intelligence_page_context(request, record, overlay=True),
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
     )
 
 
@@ -2246,7 +2641,7 @@ def priority_queue(
     reading_buckets: list[dict[str, Any]] = []
     reading_bucket_counts: dict[str, int] = {}
     if dimension == "reading" and not completed:
-        brief = _assemble_morning_brief(mark_seen=False, include_coverage=False)
+        brief = _assemble_morning_brief(mark_seen=False, include_coverage=False, mode="nav")
         reading_buckets = [group for group in brief.get("reading_buckets") or [] if group.get("key") != "needs_review"]
         if region:
             allowed = {record["id"] for record in all_items if record.get("id")}
@@ -2254,6 +2649,16 @@ def priority_queue(
                 group["entries"] = [item for item in group.get("entries") or [] if item.get("id") in allowed]
                 group["count"] = len(group["entries"])
         reading_bucket_counts = {group["key"]: group["count"] for group in reading_buckets}
+        candidates = load_candidates(INBOX_DIR) if INBOX_DIR else []
+        for group in reading_buckets:
+            annotate_feed_semantics(
+                group.get("entries") or [],
+                signals=all_signals(),
+                candidates=candidates,
+            )
+            for item in group.get("entries") or []:
+                item["show_reading_actions"] = bool(item.get("is_active"))
+                item["reading_open"] = bool(item.get("needs_consume"))
     return templates.TemplateResponse(
         request=request,
         name="queue.html",
@@ -2301,7 +2706,10 @@ async def pending_bulk_dismiss(request: Request) -> RedirectResponse:
     allowed = {record["id"] for record in list_pending_drafts() if record.get("id")}
     ids = [value for value in form.getlist("item_id") if isinstance(value, str) and value in allowed]
     bulk_dismiss_pending(INBOX_DIR, ids, reviewer=reviewer)
-    return RedirectResponse(url=return_to if return_to.startswith("/brief") else "/brief#pending-triage", status_code=303)
+    return RedirectResponse(
+        url=return_to if return_to.startswith(("/brief", "/pending")) else "/pending",
+        status_code=303,
+    )
 
 
 @app.post("/queues/pending/{item_id}")
@@ -2327,7 +2735,7 @@ def pending_item_action(
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
-    next_url = safe_next_path(return_to) or "/brief#pending-triage"
+    next_url = safe_next_path(return_to) or "/pending"
     return RedirectResponse(url=next_url, status_code=303)
 
 
@@ -2484,6 +2892,8 @@ def signal_candidate_review(request: Request) -> HTMLResponse:
         evidence_by_id=_evidence_index(),
         entities=entity_index(),
     )
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    presented = [row for row in presented if matches_berry_context(row, ui["berry"])]
     return templates.TemplateResponse(
         request=request,
         name="signal_candidate_review.html",
@@ -2760,7 +3170,10 @@ def assessment_list(request: Request) -> HTMLResponse:
     return templates.TemplateResponse(
         request=request,
         name="assessment_list.html",
-        context={"assessments": all_assessments(), "authoring_mode": AUTHORING_MODE},
+        context={
+            "assessments": attach_assessment_scope(all_assessments(), BERRIES),
+            "authoring_mode": AUTHORING_MODE,
+        },
     )
 
 
@@ -2926,6 +3339,7 @@ def assessment_detail(request: Request, assessment_id: str) -> HTMLResponse:
         name="assessment_detail.html",
         context={
             "assessment": assessment,
+            "berry_scope": assessment_berry_scope(assessment, BERRIES),
             "linked_facts": lineage.resolve_linked_facts(assessment.get("fact_ids")),
             "linked_signals": lineage.resolve_linked_signals(assessment.get("signal_ids")),
             "linked_evidence": lineage.resolve_linked_evidence(assessment.get("evidence_ids")),

@@ -1,8 +1,8 @@
 {# Developing-story card. Organizational grouping only — not a trusted conclusion. #}
 <article class="brief-item brief-thread{% if item.new_since_last %} brief-item-new{% endif %}">
   <div class="intel-card-meta">
-    <span class="badge">Developing story</span>
-    <span class="badge badge-muted">Not a conclusion</span>
+    <span class="v2-mark v2-mark-story">Developing story</span>
+    <span class="v2-meta">Not a conclusion</span>
     {% if item.source_count %}<span class="badge badge-muted">{{ item.source_count }} source{{ 's' if item.source_count != 1 else '' }}</span>{% endif %}
     {% if item.new_since_last %}<span class="badge badge-claim">New since last check</span>{% endif %}
   </div>
