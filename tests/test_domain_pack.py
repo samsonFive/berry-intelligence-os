@@ -300,10 +300,13 @@ def test_all_live_sources_accounted_for() -> None:
     templates = data["collector_templates"]
     excluded = data.get("excluded", [])
     sources = json.loads((ROOT / "data" / "configuration" / "sources.json").read_text(encoding="utf-8"))
-    # 149 = 148 plus source-un-comtrade-public-preview, added (with a
-    # matching collector_templates entry) for the Global Trade / Customs
-    # Intelligence V1 mission (2026-08-21) -- UN Comtrade's real,
-    # unauthenticated public preview API, live-verified. 148 = 147 plus
+    # 150 = 149 plus source-nasa-power-daily-point, added (with a matching
+    # collector_templates entry) for the Weather / Climate Context V1
+    # mission (2026-08-21) -- NASA POWER's real, unauthenticated daily
+    # point API, live-verified. 149 = 148 plus source-un-comtrade-public-preview,
+    # added (with a matching collector_templates entry) for the Global
+    # Trade / Customs Intelligence V1 mission (2026-08-21) -- UN Comtrade's
+    # real, unauthenticated public preview API, live-verified. 148 = 147 plus
     # source-cpvo-public-register, added (with a matching
     # collector_templates entry) for the Variety Intelligence Backbone V1
     # mission (2026-08-21) -- CPVO's real, unauthenticated public register
@@ -316,7 +319,7 @@ def test_all_live_sources_accounted_for() -> None:
     # traffic. 142 = 140 plus source-freshuelva-news and source-nova-siri-
     # genetics-news, added for the Strawberry Vertical V1 depth mission
     # (2026-08-20).
-    assert len(sources) == 149
+    assert len(sources) == 150
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}

@@ -215,10 +215,12 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
         "source-global-fresh-series-podcast", "source-fresh-cred-podcast", "source-lubera-edibles-podcast",
         "source-blueberries-tv-youtube",
     }
-    # 29 unchanged (source-un-comtrade-public-preview, like
-    # source-cpvo-public-register, has no discovery.adapter -- it runs via
-    # scripts/monitor_trade_intelligence.py, not the RSS collection runner,
-    # so it never counts toward sources_discoverable). 149 = 148 plus
+    # 29 unchanged (source-nasa-power-daily-point, like
+    # source-un-comtrade-public-preview, has no discovery.adapter -- it runs
+    # via scripts/monitor_weather_intelligence.py, not the RSS collection
+    # runner, so it never counts toward sources_discoverable). 150 = 149
+    # plus source-nasa-power-daily-point, added for the Weather / Climate
+    # Context V1 mission (2026-08-21). 149 = 148 plus
     # source-un-comtrade-public-preview, added for the Global Trade /
     # Customs Intelligence V1 mission (2026-08-21). 148 = 147 plus
     # source-cpvo-public-register, added for the Variety Intelligence
@@ -227,7 +229,7 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
     # (2026-08-21): 2 Federal Register government_register_json sources
     # and 3 Google News news_search_rss sources, all with real
     # discovery.adapter blocks, proven against real network traffic.
-    assert report.sources_configured == 149 and report.sources_discoverable == 29
+    assert report.sources_configured == 150 and report.sources_discoverable == 29
     assert expected <= {source.source_id for source in report.sources}
 
 
