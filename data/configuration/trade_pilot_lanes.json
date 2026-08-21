@@ -1,0 +1,64 @@
+{
+  "kind": "berry-intelligence-os-trade-pilot-lanes",
+  "notes": "Global Trade / Customs Intelligence V1 mission (2026-08-21). Periods span 2025-01..2025-06 (prior-year baseline) plus 2026-01..2026-06 (current, the most recent period UN Comtrade's public preview API had real data for as of this mission's live testing -- 2026-07 returned zero records, a genuine not-yet-released period, not a failure) so year-over-year comparison is computable for every lane out of the box.",
+  "periods": [
+    "2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06",
+    "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"
+  ],
+  "lanes": [
+    {
+      "id": "us-imports-mexico-strawberry-fresh",
+      "reporter_geo": "geography-united-states",
+      "partner_geo": "geography-mexico",
+      "flow_code": "M",
+      "hs_code": "081010",
+      "periods": ["202501","202502","202503","202504","202505","202506","202601","202602","202603","202604","202605","202606"],
+      "why": "Required mission test case -- the Mexico strawberry antidumping proceeding's real quantitative trace."
+    },
+    {
+      "id": "us-imports-peru-blueberry-fresh",
+      "reporter_geo": "geography-united-states",
+      "partner_geo": "geography-peru",
+      "flow_code": "M",
+      "hs_code": "081040",
+      "periods": ["202501","202502","202503","202504","202505","202506","202601","202602","202603","202604","202605","202606"],
+      "why": "Required mission test case -- Peru is the US's largest blueberry supplier."
+    },
+    {
+      "id": "us-imports-chile-blueberry-fresh",
+      "reporter_geo": "geography-united-states",
+      "partner_geo": "geography-chile",
+      "flow_code": "M",
+      "hs_code": "081040",
+      "periods": ["202501","202502","202503","202504","202505","202506","202601","202602","202603","202604","202605","202606"],
+      "why": "Required mission test case."
+    },
+    {
+      "id": "uk-imports-morocco-blueberry-fresh",
+      "reporter_geo": "geography-united-kingdom",
+      "partner_geo": "geography-morocco",
+      "flow_code": "M",
+      "hs_code": "081040",
+      "periods": ["202501","202502","202503","202504","202505","202506","202601","202602","202603","202604","202605","202606"],
+      "why": "Required mission test case. Queried from the UK (importer) side -- Morocco's own export statistics were live-tested and found not to disaggregate by partner country for this commodity (see docs/v2/TRADE-INTELLIGENCE-V1.md)."
+    },
+    {
+      "id": "uk-imports-south-africa-blueberry-fresh",
+      "reporter_geo": "geography-united-kingdom",
+      "partner_geo": "geography-south-africa",
+      "flow_code": "M",
+      "hs_code": "081040",
+      "periods": ["202501","202502","202503","202504","202505","202506","202601","202602","202603","202604","202605","202606"],
+      "why": "Required mission test case. Also queried mirror-side (UK import) -- South Africa's own export statistics were live-tested and, like Morocco's, did not disaggregate by partner country for this commodity."
+    },
+    {
+      "id": "us-imports-mexico-caneberry-fresh",
+      "reporter_geo": "geography-united-states",
+      "partner_geo": "geography-mexico",
+      "flow_code": "M",
+      "hs_code": "081020",
+      "periods": ["202501","202502","202503","202504","202505","202506","202601","202602","202603","202604","202605","202606"],
+      "why": "Demonstrates the real combined raspberry+blackberry HS code (081020) end to end -- the figure is NOT separable into raspberry vs. blackberry; do not report it as either alone."
+    }
+  ]
+}
