@@ -2,6 +2,8 @@
 
 Local-first, evidence-based competitive intelligence for berry crops.
 
+**Expansion phase:** Before planning new acquisition, domain-depth, variety, alternative-data, or UI V2 work, read `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`. Unresolved platform debt must be recorded in `docs/v2/TECHNICAL-DEBT-REGISTER.md`; source/domain expansion should update `docs/v2/INTELLIGENCE-COVERAGE-MATRIX.md`.
+
 ## Cursor Cloud specific instructions
 
 Canonical branch is `v2/intelligence-os`. Do not commit to it directly.
