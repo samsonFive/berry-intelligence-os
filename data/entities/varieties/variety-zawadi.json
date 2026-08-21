@@ -1,0 +1,27 @@
+{
+  "id": "variety-zawadi",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Zawadi",
+  "aliases": [],
+  "status": "active",
+  "description": "Raspberry variety bred by Advanced Berry Breeding (ABB). Named alongside Malaika in Fruitnet's report of The Summer Berry Company's five-year deal with ABB to grow both varieties in Portugal.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "evidence_ids": [
+    "ev-20260806173539-b7ed-tsbc-secures-rights-to-grow-innovative-r"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-abb-develops-zawadi"
+  ],
+  "attributes": {
+    "breeder": "Advanced Berry Breeding",
+    "licensed_grower": "The Summer Berry Company (Portugal)",
+    "package_note": "Only named in passing alongside Malaika in the available Evidence -- no independent trait or performance data found, not fabricated."
+  }
+}

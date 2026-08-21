@@ -15,7 +15,11 @@
     "berry-raspberry"
   ],
   "geography_ids": [],
-  "entity_ids": [],
+  "entity_ids": [
+    "breeding_program-cornell-berry",
+    "variety-crimson-night",
+    "variety-double-gold"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],

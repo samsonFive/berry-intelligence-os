@@ -180,7 +180,20 @@ def test_every_live_entity_resolves_to_a_declared_type() -> None:
     # entities with a named breeder in Evidence (variety-redsayra,
     # variety-melissa, variety-marimbella, variety-flavia, variety-
     # rutgers-dlight).
-    assert total == 184, f"expected 184 live entities, found {total}"
+    # 202 = 184 plus 18 real entities added for the Raspberry Vertical V1
+    # depth mission (2026-08-20): company-wish-farms, company-global-plant-
+    # genetics, company-james-hutton-ltd, company-chambers, company-
+    # berrytech (5 real companies/breeders backing already-existing but
+    # previously unlinked raspberry Evidence); breeding_program-cornell-
+    # berry (1); trait-fruit-color (1, a real generic gap found while
+    # adding Cornell's Crimson Treasure, whose own coverage described
+    # "vibrant colors" with no existing trait to record it against); and
+    # 11 real raspberry varieties with a named real breeder in Evidence
+    # (variety-double-gold, variety-crimson-night, variety-crimson-
+    # treasure, variety-malaika, variety-zawadi, variety-sarafina,
+    # variety-rafiki, variety-baridi, variety-shani, variety-kwanza,
+    # variety-amalia-rossa).
+    assert total == 202, f"expected 202 live entities, found {total}"
 
 
 # ---------------------------------------------------------------------------
@@ -200,7 +213,15 @@ def test_every_live_relationship_resolves_to_a_declared_predicate() -> None:
     # melissa, rel-nova-siri-genetics-develops-marimbella, rel-civ-
     # develops-flavia, rel-freshuelva-operates-in-spain, rel-njaes-
     # rutgers-develops-dlight.
-    assert total == 210, f"expected 210 live relationships, found {total}"
+    # 223 = 210 plus 13 real relationships added for the Raspberry Vertical
+    # V1 depth mission (2026-08-20), one per new variety/company link:
+    # rel-cornell-berry-develops-double-gold, rel-cornell-berry-develops-
+    # crimson-night, rel-cornell-berry-develops-crimson-treasure, rel-abb-
+    # develops-malaika, rel-abb-develops-zawadi, rel-tsbc-grows-malaika,
+    # rel-berrytech-develops-amalia-rossa, rel-abb-develops-sarafina,
+    # rel-abb-develops-rafiki, rel-abb-develops-baridi, rel-abb-develops-
+    # shani, rel-abb-develops-kwanza, rel-gpg-represents-james-hutton.
+    assert total == 223, f"expected 223 live relationships, found {total}"
 
 
 def test_all_ten_v1_predicates_and_six_extensions_present() -> None:

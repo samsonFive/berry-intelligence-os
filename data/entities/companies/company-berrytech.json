@@ -1,0 +1,26 @@
+{
+  "id": "company-berrytech",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Berrytech",
+  "aliases": [],
+  "status": "active",
+  "description": "Italian raspberry breeder. Signed a deal with The Summer Berry Company (TSBC) for TSBC to exclusively grow and distribute Berrytech's raspberry variety Amalia Rossa across the UK, Republic of Ireland and Portugal.",
+  "roles": [
+    "breeder",
+    "genetics_licensor"
+  ],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "evidence_ids": [
+    "ev-20260806173539-86c2-tsbc-partners-with-berrytech-on-new-rasp"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-berrytech-develops-amalia-rossa"
+  ],
+  "attributes": {
+    "country": "Italy"
+  }
+}

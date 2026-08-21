@@ -1,0 +1,27 @@
+{
+  "id": "variety-amalia-rossa",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Amalia Rossa",
+  "aliases": [],
+  "status": "active",
+  "description": "Raspberry variety bred by the Italian breeder Berrytech. The Summer Berry Company (TSBC) signed a deal for exclusive growing and distribution rights across the UK, Republic of Ireland and Portugal, per Hort News.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "evidence_ids": [
+    "ev-20260806173539-86c2-tsbc-partners-with-berrytech-on-new-rasp"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-berrytech-develops-amalia-rossa"
+  ],
+  "attributes": {
+    "breeder": "Berrytech",
+    "licensed_grower": "The Summer Berry Company (UK, Republic of Ireland, Portugal)",
+    "package_note": "No public quantitative trait datasheet was found in the available Evidence -- not fabricated."
+  }
+}
