@@ -78,7 +78,7 @@ tagged berry. Inbox drafts are **not** added to these cells.
 | Social | 0 | 0 | 0 | 0 | 0 | NONE |
 | Careers / jobs | 0 | 0 | 0 | 0 | 0 | NONE |
 | Conferences / events | 0 | 0 | 0 | 0 | 0 | NONE |
-| Customs / trade | 0 | 0 | 0 | 0 | 0 | NONE |
+| Customs / trade | 0 | 0 | 0 | 0 | 0 | NONE -> **PILOT** -- 6 real quantitative trade-flow lanes (untrusted drafts, see below); published count stays 0 until human review |
 | Weather | 0 | 0 | 0 | 0 | 0 | NONE |
 | Satellite | 0 | 0 | 0 | 0 | 0 | NONE |
 
@@ -267,6 +267,18 @@ Full detail, methodology, and real query proof: `docs/v2/VARIETY-INTELLIGENCE-BA
 **PVR / Registry — PILOT -> PARTIAL.** Global audit (US/UPOV/CPVO/UK/Australia + 6 named country candidates, `docs/v2/VARIETY-INTELLIGENCE-BACKBONE.md` Part 4) found only one cleanly-public, unauthenticated, working API: CPVO's real public register (`online.plantvarieties.eu`) — UPOV PLUTO and the CPVO "Variety Finder" aggregator are both account-gated; IP Australia PBR has a public web UI but no discoverable API; UK PVRO has no unified public database at all. Integrated: `app/services/cpvo_registry.py` + `scripts/monitor_cpvo_registry.py`, real run = 28 real EU filings across blueberry/strawberry/raspberry (zero blackberry), all untrusted drafts, idempotent on a real second run (28 duplicates, 0 new). Not `OPERATIONAL`: single jurisdiction (EU only), no US+EU combined view yet, no developing-story threading of a variety's filing history.
 
 **Retail / Commercial Observations — PILOT.** New additive `commercial_observation` Evidence object (schema, not a new entity type or parallel trust system). UK retail research across Tesco/Sainsbury's/Waitrose/M&S/Morrisons/Asda found variety-name exposure is genuinely rare (16 of 18 real observations correctly recorded no variety — own-label listings do not name cultivars; only 2 premium/named lines did: Driscoll's Zara, Driscoll's Victoria). 18 real observations captured (via Open Food Facts, a public open-licensed product database mirroring real retailer listings — not direct retailer scraping), all untrusted drafts. Not `OPERATIONAL`: one market (UK), one real acquisition mechanism proven at small scale, no automated/recurring collection.
+
+---
+
+## Global Trade / Customs Intelligence (2026-08-21)
+
+Full detail, methodology, and real query proof: `docs/v2/TRADE-INTELLIGENCE-V1.md`. This section is the numeric control-surface pointer, not a duplicate.
+
+**Customs / Trade — NONE -> PILOT.** Source audit (US Census, UN Comtrade, USDA/FAS, Eurostat, UK HMRC, national Mexico/Peru/Chile sources, Agronometrics-as-secondary-only) found UN Comtrade's keyless public preview API is the only source that is simultaneously official, unauthenticated, and live-verified working; integrated as this mission's one adapter (`app/services/trade_intelligence.py` + `scripts/monitor_trade_intelligence.py`). Real pilot: 6 lanes (US<-Mexico strawberry, US<-Peru blueberry, US<-Chile blueberry, UK<-Morocco blueberry, UK<-South Africa blueberry, US<-Mexico raspberry+blackberry combined), 12 months each (2025-01..06 + 2026-01..06 for real year-over-year comparability), all untrusted `inbox/evidence/` drafts, idempotent on a real second run (6/6 duplicates, 0 new). Real derived-metric findings: a 36.4%/56.2% (qty/value) YoY decline in US strawberry imports from Mexico in 2026-04, following the real Federal Register antidumping "Determination" by about a month (a real, proposed-only `follows_up` evidence_link was added, not auto-accepted); a sharp Chile-vs-Peru divergence in US blueberry imports (Chile -76.1% qty YoY in 2026-03 vs. Peru +33.1%); real volatility in the much-smaller Morocco/South Africa-to-UK lanes.
+
+**Berry/HS honesty**: strawberry is cleanly HS-separable (fresh 081010, frozen 081110); raspberry and blackberry are **never separable** in official 6-digit HS data (combined at 081020/081120); blueberry shares its fresh code with cranberries/other *Vaccinium* (081040) and its frozen code is a generic "other fruit" basket (081190) not blueberry-specific at all. Every affected draft is tagged `berry_code_purity: "multi_berry_combined"` and states the limitation in `does_not_prove` directly.
+
+Not `OPERATIONAL`: one adapter (UN Comtrade, 6-digit HS only), 7 geographies (the pilot's own required set, not a general lookup), no revision/resubmission handling, an unresolved US Census API-key gap that would add 10-digit granularity. See `docs/v2/TECHNICAL-DEBT-REGISTER.md` TD-024 through TD-029.
 
 ---
 
