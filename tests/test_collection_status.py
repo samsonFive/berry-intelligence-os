@@ -215,20 +215,16 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
         "source-global-fresh-series-podcast", "source-fresh-cred-podcast", "source-lubera-edibles-podcast",
         "source-blueberries-tv-youtube",
     }
-    # 24 = the 12 podcast_rss/youtube_feed sources this assertion originally
-    # covered, plus 12 article_rss sources: the 3 onboarded by the Article
-    # Ingestion vertical slice (Fresh Fruit Portal, Fresh Plaza, Produce
-    # Report), 7 onboarded by the Intelligence Acquisition mission
-    # (2026-08-19): Growing Produce Berries, Blue Book Services, HortiDaily,
-    # International Blueberry Organization, SanLucar Newsroom, Hortifrut
-    # Newsroom, Planasa Newsroom -- plus 2 onboarded by the Strawberry
-    # Vertical V1 depth mission (2026-08-20): Freshuelva, Nova Siri Genetics
-    # (both real, live-verified article_rss news feeds). 142 = 140 plus
-    # those same 2 new sources. source-uspto-plant-patents (140th source,
-    # Patent Monitor v2) has no discovery.adapter -- it runs via
+    # 29 = the 24 sources this assertion previously covered, plus 5 more
+    # added for the Mainstream News + Regulatory Coverage Recall Benchmark
+    # V1 mission (2026-08-21): 2 Federal Register government_register_json
+    # sources and 3 Google News news_search_rss sources, all with real
+    # discovery.adapter blocks, proven against real network traffic. 147 =
+    # 142 plus those same 5 new sources. source-uspto-plant-patents (140th
+    # source, Patent Monitor v2) has no discovery.adapter -- it runs via
     # scripts/monitor_plant_patents.py, not the RSS collection runner -- so
     # it never counted toward sources_discoverable.
-    assert report.sources_configured == 142 and report.sources_discoverable == 24
+    assert report.sources_configured == 147 and report.sources_discoverable == 29
     assert expected <= {source.source_id for source in report.sources}
 
 

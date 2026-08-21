@@ -282,12 +282,16 @@ def test_all_live_sources_accounted_for() -> None:
     templates = data["collector_templates"]
     excluded = data.get("excluded", [])
     sources = json.loads((ROOT / "data" / "configuration" / "sources.json").read_text(encoding="utf-8"))
-    # 142 = 140 plus source-freshuelva-news and source-nova-siri-genetics-
-    # news, added (with matching collector_templates entries) for the
-    # Strawberry Vertical V1 depth mission (2026-08-20); both real,
-    # live-verified URLs (freshuelva.es/noticias/, novasirigenetics.com/
-    # news-ed-eventi/), not assumed.
-    assert len(sources) == 142
+    # 147 = 142 plus 5 sources added (with matching collector_templates
+    # entries) for the Mainstream News + Regulatory Coverage Recall
+    # Benchmark V1 mission (2026-08-21): 2 Federal Register
+    # government_register_json sources (real documents.json search API,
+    # live-verified) and 3 Google News news_search_rss sources (Driscoll's,
+    # Costa Group, a generic berry-trade-remedy topic query), all proven
+    # against real network traffic. 142 = 140 plus source-freshuelva-news
+    # and source-nova-siri-genetics-news, added for the Strawberry Vertical
+    # V1 depth mission (2026-08-20).
+    assert len(sources) == 147
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}

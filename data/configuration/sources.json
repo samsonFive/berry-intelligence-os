@@ -3779,5 +3779,168 @@
       "feed_url_verified_at": "2026-08-20",
       "notes": "Strawberry Vertical V1 depth mission (2026-08-20). Verified live RSS 2.0 feed."
     }
+  },
+  {
+    "id": "source-federal-register-strawberry-antidumping",
+    "type": "rss",
+    "label": "Federal Register -- Fresh Strawberries from Mexico (antidumping/CVD docket)",
+    "value": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bterm%5D=strawberries%20antidumping%20Mexico&per_page=20&order=newest",
+    "url": "https://www.federalregister.gov/",
+    "discovery": {
+      "adapter": "government_register_json",
+      "feed_url": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bterm%5D=strawberries%20antidumping%20Mexico&per_page=20&order=newest",
+      "feed_url_verified_at": "2026-08-20",
+      "notes": "Mainstream News + Regulatory Coverage Recall Benchmark V1 (2026-08-20). Federal Register's public documents.json search API (no auth, no scraping) -- the RSS search endpoint at the same path returns an access-gate HTML page for an ordinary client (live-verified 2026-08-20); the JSON API returns real results for the identical query -- the authoritative US primary source for the real Fresh Winter Strawberries from Mexico antidumping proceeding (Commerce case A-201-869, petition filed 2025-12-31). Registers under the existing new government_register_json adapter (the one genuinely new adapter this mission adds -- every other new source reuses an existing one). entity_types includes government_regulatory so process_discovered_article() always fetches the body for its items (a docket-number headline may carry no berry species word at all)."
+    },
+    "why_it_matters": "Primary-source government documents for the Mexico strawberry antidumping case (initiation, preliminary/final determinations, ITC notices) -- the benchmark's own required acceptance case found zero existing primary-government-source coverage of this proceeding anywhere in the dataset.",
+    "entity_types": [
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-20",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-federal-register-berries-trade-regulatory",
+    "type": "rss",
+    "label": "Federal Register -- Berries (general trade-remedy/phytosanitary/pesticide notices)",
+    "value": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bterm%5D=berries%20strawberries%20blueberries%20raspberries%20blackberries&per_page=20&order=newest",
+    "url": "https://www.federalregister.gov/",
+    "discovery": {
+      "adapter": "government_register_json",
+      "feed_url": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bterm%5D=berries%20strawberries%20blueberries%20raspberries%20blackberries&per_page=20&order=newest",
+      "feed_url_verified_at": "2026-08-20",
+      "notes": "Mainstream News + Regulatory Coverage Recall Benchmark V1 (2026-08-20). Broader companion to the strawberry-antidumping-specific Federal Register source above -- catches future trade-remedy, APHIS phytosanitary, and EPA/FDA pesticide-residue notices naming any of the four berries, not just the one case already known. Deliberately broad rather than one-off so the mechanism proves generic per the mission's own 'discover equivalent future stories generically' requirement."
+    },
+    "why_it_matters": "General primary-source regulatory monitor across all four berries -- APHIS/USDA/EPA/ITC/Commerce notices. Prior to this mission the registry had 16 government_regulatory reference entries but zero polled regulatory sources of any kind.",
+    "entity_types": [
+      "government_regulatory"
+    ],
+    "berry_ids": [
+      "berry-strawberry",
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-20",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-news-search-driscolls",
+    "type": "rss",
+    "label": "Mainstream news search -- Driscoll's",
+    "value": "https://news.google.com/rss/search?q=Driscoll%27s%20strawberries%20OR%20blueberries%20OR%20raspberries%20OR%20blackberries&hl=en-US&gl=US&ceid=US:en",
+    "url": "https://news.google.com/",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=Driscoll%27s%20strawberries%20OR%20blueberries%20OR%20raspberries%20OR%20blackberries&hl=en-US&gl=US&ceid=US:en",
+      "feed_url_verified_at": "2026-08-20",
+      "notes": "Mainstream News + Regulatory Coverage Recall Benchmark V1 (2026-08-20). Generic company-name mainstream/reputational monitor for the platform's most-covered competitor, run through the modern discover -> screen -> acquire -> draft pipeline (not the older app/main.py keyword-source loop that already exists for other companies) so items get real body-aware relevance screening and sit in inbox/evidence/ for human review rather than writing straight to data/evidence/ as validated=false. This is generic entity monitoring, not a hardcoded story: it will surface *any* future Driscoll's mainstream coverage (litigation, recalls, reputational, or otherwise), not only the specific 2026 NYT feature / PFAS lawsuits / boycott cases the benchmark used as acceptance tests."
+    },
+    "why_it_matters": "Driscoll's is the platform's deepest-covered company (66+ existing Evidence records) but the benchmark found zero mainstream-press or reputational-risk coverage captured -- every existing record is trade press. This closes that specific, demonstrated gap for the single highest-value company.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-strawberry",
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [
+      "company-driscolls"
+    ],
+    "enabled": true,
+    "created_at": "2026-08-20",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-news-search-costa-group",
+    "type": "rss",
+    "label": "Mainstream news search -- Costa Group",
+    "value": "https://news.google.com/rss/search?q=Costa%20Group%20blueberries&hl=en-US&gl=US&ceid=US:en",
+    "url": "https://news.google.com/",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=Costa%20Group%20blueberries&hl=en-US&gl=US&ceid=US:en",
+      "feed_url_verified_at": "2026-08-20",
+      "notes": "Mainstream News + Regulatory Coverage Recall Benchmark V1 (2026-08-20). Proves the news_search_rss mechanism generalizes to a second tracked company, not just Driscoll's."
+    },
+    "why_it_matters": "Second-largest tracked company by Evidence volume; mainstream/reputational coverage class was equally absent for Costa Group before this mission.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [
+      "company-costa-group-holdings"
+    ],
+    "enabled": true,
+    "created_at": "2026-08-20",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-news-search-berry-trade-remedy",
+    "type": "rss",
+    "label": "Mainstream news search -- berry tariffs/antidumping/trade remedy",
+    "value": "https://news.google.com/rss/search?q=berry%20OR%20berries%20antidumping%20OR%20tariff%20OR%20%22trade%20remedy%22&hl=en-US&gl=US&ceid=US:en",
+    "url": "https://news.google.com/",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=berry%20OR%20berries%20antidumping%20OR%20tariff%20OR%20%22trade%20remedy%22&hl=en-US&gl=US&ceid=US:en",
+      "feed_url_verified_at": "2026-08-20",
+      "notes": "Mainstream News + Regulatory Coverage Recall Benchmark V1 (2026-08-20). Topic-scoped (not company-scoped) mainstream monitor -- catches trade-press and mainstream reporting *about* any future berry trade-remedy case (not just Mexico strawberries), complementing the Federal Register primary-source feeds above rather than duplicating them."
+    },
+    "why_it_matters": "Mainstream/trade reporting on trade-remedy proceedings (as distinct from the primary government documents themselves) was entirely uncaptured before this mission.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-strawberry",
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "medium",
+    "update_cadence": "realtime",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-20",
+    "last_checked_at": null,
+    "last_status": null
   }
 ]

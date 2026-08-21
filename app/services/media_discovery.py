@@ -551,6 +551,113 @@ def _normalize_article_rss_entry(entry: Any) -> NormalizedItem:
     )
 
 
+# ---------------------------------------------------------------------------
+# news_search_rss adapter -- a Google News RSS *search* feed (already this
+# project's proven mechanism for mainstream/keyword monitoring, via the
+# older app/main.py "keyword" source loop and its google_news_rss_url()).
+# Fetching/listing is identical to article_rss/podcast_rss -- it is still
+# plain RSS. The one real difference: every <item>'s own <link> is a
+# news.google.com redirect, never the publisher's URL, so the *real*
+# publisher must be recovered from Google's own <source> tag on the entry
+# (entry.source.title/href) -- app/main.py's build_auto_evidence() already
+# established this exact recovery precedent for the older pipeline; this
+# adapter ports the same recovery into the modern discover -> screen ->
+# acquire -> draft pipeline (media_discovery.py -> article_refresh.py ->
+# inbox/evidence/ review) so mainstream-press items get real body-aware
+# relevance screening and a human review gate, instead of the older
+# pipeline's direct, unreviewed write to data/evidence/ as validated=false.
+# ---------------------------------------------------------------------------
+
+
+def _normalize_news_search_entry(entry: Any) -> NormalizedItem:
+    base = _normalize_article_rss_entry(entry)
+    origin = getattr(entry, "source", None)
+    publisher_name = (origin.get("title") if origin else None) or None
+    publisher_url = (origin.get("href") if origin else None) or None
+    raw_metadata = dict(base.raw_metadata)
+    raw_metadata["origin_publisher_name"] = publisher_name
+    raw_metadata["origin_publisher_url"] = publisher_url
+    # canonical_url deliberately stays the news.google.com redirect (not
+    # replaced by publisher_url): the redirect is a real, stable, working
+    # link to the article, and this project's existing keyword-source
+    # precedent (app/main.py's build_auto_evidence()) does the same --
+    # only the *publisher attribution* is recovered, not a rewritten URL.
+    return NormalizedItem(
+        title=base.title,
+        media_format=base.media_format,
+        canonical_url=base.canonical_url,
+        external_id=base.external_id,
+        platform_item_id=base.platform_item_id,
+        published_date=base.published_date,
+        description=base.description,
+        duration_seconds=base.duration_seconds,
+        transcript_availability=base.transcript_availability,
+        raw_metadata=raw_metadata,
+    )
+
+
+# ---------------------------------------------------------------------------
+# government_register_json adapter -- Federal Register's own public
+# documents.json search API (no auth, no scraping; api.federalregister.gov
+# doubles as www.federalregister.gov/api/v1/documents.json). A genuinely new
+# fetch/list pair, not a reuse of the RSS trio: this project verified live
+# (2026-08-20) that Federal Register's *RSS* search endpoint
+# (documents/search.rss?...) returns an access-gate HTML page for an
+# ordinary httpx client, while the JSON API at the same path prefix returns
+# real results for the identical query and User-Agent -- so RSS is not a
+# usable transport for this source, even though it is for article_rss/
+# news_search_rss. This is the one genuinely new adapter this mission adds;
+# every other new source reuses an existing adapter (see sources.json).
+# ---------------------------------------------------------------------------
+
+
+def _fetch_federal_register_json(feed_url: str) -> tuple[Any, bytes]:
+    response = httpx.get(
+        feed_url,
+        timeout=MEDIA_DISCOVERY_FETCH_TIMEOUT_SECONDS,
+        headers={"User-Agent": MEDIA_DISCOVERY_USER_AGENT},
+        follow_redirects=True,
+    )
+    response.raise_for_status()
+    return response.json(), response.content
+
+
+def _federal_register_entries(parsed: Any) -> list[Any]:
+    return list((parsed or {}).get("results") or [])
+
+
+def _normalize_federal_register_entry(entry: Any) -> NormalizedItem:
+    entry = entry or {}
+    title = (entry.get("title") or "(untitled)").strip()
+    description = (entry.get("abstract") or "")[:4000]
+    canonical_url = entry.get("html_url") or None
+    external_id = entry.get("document_number") or None
+    published_date = entry.get("publication_date") or None
+    raw_metadata = {
+        "document_number": external_id,
+        "agencies": [a.get("name") for a in (entry.get("agencies") or []) if isinstance(a, dict) and a.get("name")],
+        "document_type": entry.get("type"),
+        "pdf_url": entry.get("pdf_url"),
+    }
+    return NormalizedItem(
+        title=title,
+        media_format="web_article",
+        canonical_url=canonical_url,
+        external_id=external_id,
+        platform_item_id=None,
+        published_date=published_date,
+        description=description,
+        duration_seconds=None,
+        transcript_availability={
+            "status": TRANSCRIPT_NOT_APPLICABLE,
+            "checked_at": _now_iso(),
+            "url": None,
+            "language": None,
+        },
+        raw_metadata=raw_metadata,
+    )
+
+
 # adapter type -> (fetch, normalize-one-entry, list-entries-from-parsed)
 def _podcast_rss_entries(parsed: Any) -> list[Any]:
     return list(parsed.entries or [])
@@ -566,8 +673,18 @@ ADAPTER_TYPES: dict[str, tuple[Callable[[str], tuple[Any, bytes]], Callable[[Any
     "youtube_feed": (_fetch_podcast_rss, _podcast_rss_entries, _normalize_youtube_feed_entry),
     # Same reuse: a news/article RSS feed is fetched and listed exactly
     # like a podcast feed (an <item>/<entry> list feedparser already
-    # understands generically); only normalize differs.
+    # understands generically); only normalize differs. A government
+    # register's own search-RSS feed (e.g. Federal Register) is also
+    # ordinary RSS with real canonical URLs -- it registers under this same
+    # adapter, not a new one; see data/configuration/sources.json.
     "article_rss": (_fetch_podcast_rss, _podcast_rss_entries, _normalize_article_rss_entry),
+    # Google News RSS search -- mainstream/keyword-company monitoring
+    # through the modern review pipeline. See module docstring above.
+    "news_search_rss": (_fetch_podcast_rss, _podcast_rss_entries, _normalize_news_search_entry),
+    # Federal Register's public JSON search API. See section above.
+    "government_register_json": (
+        _fetch_federal_register_json, _federal_register_entries, _normalize_federal_register_entry,
+    ),
 }
 
 

@@ -2988,6 +2988,115 @@
       "update_cadence": "event_driven",
       "default_active": true,
       "notes": "Italian strawberry breeder (Melissa, Marimbella) with growing real plantings in Huelva, Spain. Added for the Strawberry Vertical V1 depth mission (2026-08-20)."
+    },
+    {
+      "id": "source-federal-register-strawberry-antidumping",
+      "collector_type": "rss",
+      "label": "Federal Register -- Fresh Strawberries from Mexico (antidumping/CVD docket)",
+      "query_or_url": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bterm%5D=strawberries+antidumping+Mexico",
+      "url": "https://www.federalregister.gov/",
+      "geography_focus": [
+        "north_america"
+      ],
+      "entity_coverage": [
+        "government_regulatory"
+      ],
+      "berry_coverage": [
+        "berry-strawberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "Federal Register public documents.json search API for the real Fresh Winter Strawberries from Mexico antidumping proceeding (Commerce case A-201-869). Added for the Mainstream News + Regulatory Coverage Recall Benchmark V1 mission (2026-08-21)."
+    },
+    {
+      "id": "source-federal-register-berries-trade-regulatory",
+      "collector_type": "rss",
+      "label": "Federal Register -- Berries (general trade-remedy/phytosanitary/pesticide notices)",
+      "query_or_url": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bterm%5D=berries+strawberries+blueberries+raspberries+blackberries",
+      "url": "https://www.federalregister.gov/",
+      "geography_focus": [
+        "north_america"
+      ],
+      "entity_coverage": [
+        "government_regulatory"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "medium",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "Broader companion regulatory search across all 4 berries. Added for the Mainstream News + Regulatory Coverage Recall Benchmark V1 mission (2026-08-21)."
+    },
+    {
+      "id": "source-news-search-driscolls",
+      "collector_type": "keyword_search",
+      "label": "Mainstream news search -- Driscoll's",
+      "query_or_url": "Driscoll's strawberries OR blueberries OR raspberries OR blackberries",
+      "url": "https://news.google.com/",
+      "geography_focus": [
+        "global"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "realtime",
+      "default_active": true,
+      "notes": "Generic mainstream/reputational company monitor, run through the modern review pipeline (not the older keyword-source loop). Added for the Mainstream News + Regulatory Coverage Recall Benchmark V1 mission (2026-08-21)."
+    },
+    {
+      "id": "source-news-search-costa-group",
+      "collector_type": "keyword_search",
+      "label": "Mainstream news search -- Costa Group",
+      "query_or_url": "Costa Group blueberries",
+      "url": "https://news.google.com/",
+      "geography_focus": [
+        "global"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-blueberry"
+      ],
+      "monitoring_priority": "medium",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "Proves the news_search_rss mechanism generalizes to a second company. Added for the Mainstream News + Regulatory Coverage Recall Benchmark V1 mission (2026-08-21)."
+    },
+    {
+      "id": "source-news-search-berry-trade-remedy",
+      "collector_type": "keyword_search",
+      "label": "Mainstream news search -- berry tariffs/antidumping/trade remedy",
+      "query_or_url": "berry OR berries antidumping OR tariff OR \"trade remedy\"",
+      "url": "https://news.google.com/",
+      "geography_focus": [
+        "global"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "medium",
+      "update_cadence": "realtime",
+      "default_active": true,
+      "notes": "Topic-scoped mainstream monitor for future trade-remedy cases generically. Added for the Mainstream News + Regulatory Coverage Recall Benchmark V1 mission (2026-08-21)."
     }
   ]
 }

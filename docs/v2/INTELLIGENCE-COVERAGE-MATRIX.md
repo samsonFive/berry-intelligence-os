@@ -8,8 +8,9 @@ records and `data/configuration/sources.json`. This is not marketing.
 If a class is blueberry-only with a live pipeline elsewhere, write `PILOT`.
 Update this file when sources, entities, or trusted evidence change.
 
-**As-of:** 2026-08-21 · published Evidence `1,264` · Sources `142` ·
-inbox drafts are runtime-only and noted separately.
+**As-of:** 2026-08-21 · published Evidence `1,264` · Sources `147` (142 plus
+5 added same-day by the Mainstream News + Regulatory Coverage Recall
+Benchmark V1 mission) · inbox drafts are runtime-only and noted separately.
 
 Maturity labels (guide vocabulary):
 
@@ -59,9 +60,9 @@ tagged berry. Inbox drafts are **not** added to these cells.
 |---|---:|---:|---:|---:|---:|---|
 | Company / breeder | 50 | 1 | 0 | 0 | 0 | OPERATIONAL (blue) / PILOT (strawberry) / NONE (rasp, black) |
 | Trade press | 19 | 0 | 0 | 0 | 0 | PILOT |
-| Mainstream news | 362 | 289 | 190 | 145 | 574 | OPERATIONAL — keyword-news volume, not recall-benchmarked |
+| Mainstream news | 362 | 289 | 190 | 145 | 574 | **PARTIAL — now recall-benchmarked (see below); volume does not mean recall** |
 | Association | 6 | 0 | 0 | 0 | 0 | PILOT |
-| Regulatory / government | 1 | 0 | 0 | 0 | 0 | PILOT |
+| Regulatory / government | 1 | 0 | 0 | 0 | 0 | PILOT — 2 new sources added, still US-only, still not developing-story-threaded (TD-THREAD-003) |
 | Patent | 23 | 1 | 1* | 0 | 0 | OPERATIONAL (blue) / PILOT (pipeline) |
 | PVR / variety registry | 16 | 0 | 0 | 0 | 0 | PILOT |
 | Podcast / video | 1 | 0 | 0 | 0 | 0 | PILOT |
@@ -106,20 +107,58 @@ vertical is production.
 
 ## Source configuration (intent, not corpus)
 
-`data/configuration/sources.json`: **142** sources.
+`data/configuration/sources.json`: **147** sources (142 plus 5 added
+2026-08-21 by the Mainstream News + Regulatory Coverage Recall Benchmark V1
+mission).
 
 | `type` | Count |
 |---|---:|
 | `reference` | 101 |
 | `keyword` | 33 |
-| `rss` | 8 |
+| `rss` | 13 |
 
-`discovery.adapter` present on 24 sources: `article_rss` 12, `podcast_rss` 8,
-`youtube_feed` 4.
+`discovery.adapter` present on 29 sources: `article_rss` 12, `podcast_rss` 8,
+`youtube_feed` 4, **`government_register_json` 2** (new), **`news_search_rss`
+3** (new).
 
-Keyword monitors (33) drive the Mainstream news auto-capture that dominates
-strawberry / raspberry / blackberry published counts. That is **keyword-news
-volume**, not company-page or PVR coverage, and not a recall benchmark.
+Keyword monitors (33, the older `app/main.py` pipeline) drive the Mainstream
+news auto-capture that dominates strawberry / raspberry / blackberry
+published counts. That is **keyword-news volume**, not company-page or PVR
+coverage. The 3 new `news_search_rss` sources are a *different* mechanism
+(same underlying Google News RSS technique, but run through the modern
+discover -> screen -> acquire -> draft pipeline instead, so items get
+body-aware relevance screening and sit in `inbox/evidence/` for human review
+rather than writing straight to `data/evidence/` as `validated: false`).
+
+---
+
+## Mainstream News + Regulatory recall benchmark (2026-08-21)
+
+The volume/maturity table above answers "how much mainstream-tagged
+Evidence exists"; it does not answer "does the platform actually catch
+important mainstream/regulatory stories." `docs/v2/INTELLIGENCE-RECALL-BENCHMARK.md`
+answers that directly, against a 50-event benchmark spanning all 4 berries
+and 5 intelligence classes, built from live external research rather than
+selected because the OS already contained the events.
+
+**Overall event-level recall: 11/50 (22%) before this mission -> 15/50
+(30%) after**, all newly-captured events sitting as untrusted drafts
+pending human review (the trust gate is untouched by this mission). Recall
+by class ranges from 0% (Commercial/Market) to 83% (Genetics/Varieties);
+Regulatory/Trade recall stayed at 9% despite 2 new Federal Register
+sources, because most regulatory misses in the benchmark are separate
+events/documents the new sources' specific queries did not happen to
+surface, not a source-coverage-class gap. **Per the maturity legend above,
+this is the real basis for marking Mainstream News PARTIAL (not
+OPERATIONAL) and Regulatory/Government PILOT: a large keyword-news corpus
+and 2 new government sources exist, but measured event-level recall does
+not support a stronger label for either.**
+
+Full methodology, the event table, root-cause distribution, and the 4
+required Driscoll's/antidumping acceptance cases' individual detail are in
+`docs/v2/INTELLIGENCE-RECALL-BENCHMARK.md` -- this section is a pointer and
+summary, not a duplicate of it; update the benchmark doc first on any
+future re-run and update this pointer's numbers to match.
 
 ---
 
@@ -146,26 +185,32 @@ example Morocco weather coverage). They are not a dedicated intelligence class.
 
 Governing program: `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`.
 Keep this file as the numeric control surface. Do not copy aspiration into
-the cells. Next expansion mission after the V2 decision-workflow gate is
-Mainstream News + Regulatory Recall Benchmark V1.
+the cells. **Mainstream News + Regulatory Recall Benchmark V1 completed
+2026-08-21** (`docs/v2/INTELLIGENCE-RECALL-BENCHMARK.md`); see that mission's
+own report for its next-lane recommendation.
 
 A withdrawn expansion-guide-session draft marked Mainstream news `NONE`
-across all berries (treating keyword-news as a non-class). This file does
-**not** adopt that cell. `574` untagged plus per-berry `news_search` counts
-are real trusted Evidence; they are OPERATIONAL keyword-news volume, not a
-recall benchmark, and not `STRONG`.
+across all berries (treating keyword-news as a non-class). This file still
+does **not** adopt that cell -- `574` untagged plus per-berry `news_search`
+counts are real trusted Evidence, real volume. But the Recall Benchmark
+mission (above) measured actual event-level recall against that volume for
+the first time and found it well short of comprehensive (11/50 -> 15/50
+across the full benchmark; 9%-38% by class excluding Genetics) -- the
+correct, now-evidenced label is `PARTIAL`, not `OPERATIONAL`, until a
+future re-run of that benchmark shows otherwise.
 
 ---
 
 ## Source berry tags (configuration intent)
 
-`data/configuration/sources.json` (142 sources). A tagged source is not
+`data/configuration/sources.json` (147 sources -- 142 plus 5 added
+2026-08-21 by the Recall Benchmark mission). A tagged source is not
 coverage until trusted Evidence exists.
 
 | | Blueberry | Strawberry | Raspberry | Blackberry |
 |---|---:|---:|---:|---:|
-| Total tagged sources | 89 | 68 | 62 | 63 |
-| Discoverable (`discovery.adapter`) | 20 | 14 | 13 | 12 |
+| Total tagged sources | 93 | 72 | 65 | 66 |
+| Discoverable (`discovery.adapter`) | 24 | 18 | 16 | 15 |
 
 Three discoverable sources are berry-unscoped (Blue Book Services,
 HortiDaily, SanLucar Newsroom). Known gaps: Growing Produce 403
@@ -177,8 +222,8 @@ HortiDaily, SanLucar Newsroom). Known gaps: Growing Produce 403
 
 | Region | Sources tagged |
 |---|---:|
-| Global | 65 |
-| North America | 58 |
+| Global | 68 |
+| North America | 60 |
 | South America | 23 |
 | Europe | 23 |
 | Asia-Pacific | 14 |
