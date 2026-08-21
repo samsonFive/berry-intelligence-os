@@ -584,6 +584,36 @@ strong.level-low{color:#426aa8}
 .login-error{background:#fdeaea;color:#a3271f;border:1px solid #f4c6c2;border-radius:8px;padding:10px 12px;margin:0 0 16px;font-size:14px}
 .login-foot{margin:18px 0 0;text-align:center;color:#7d8799;font-size:13px}
 .login-motif-copy{margin:22px 0 0;letter-spacing:.18em;text-transform:uppercase;font-size:11px;font-weight:700;color:#9db4d6}
+
+/* Bootstrap Reboot restorations for unmigrated pages. Do not redesign those
+   surfaces here — only undo global list/link/button collisions. */
+.v2-canvas ul,
+.v2-canvas ol{padding-left:1.25rem}
+.v2-canvas .entity-links,
+.v2-canvas .activity-timeline,
+.v2-canvas .fact-list,
+.v2-canvas .relationship-list,
+.v2-canvas .simple-list,
+.v2-canvas .brief-list,
+.v2-canvas .intel-card-list,
+.v2-canvas .brief-delta-strip,
+.v2-canvas .v2-card-list,
+.v2-canvas .pagefind-ui__results{padding-left:0}
+.v2-canvas a{color:#3d5c94}
+.v2-nav-link,
+.v2-nav-offcanvas a,
+.v2-sidebar a{color:#dce8ff}
+.v2-canvas .v2-btn,
+.v2-canvas .v2-view-btn,
+.v2-canvas .v2-chip,
+.v2-canvas .v2-berry-chip{color:inherit}
+.v2-canvas .v2-btn-primary{color:#fff}
+.v2-canvas table{caption-side:top}
+button.filter-chip,
+.landscape-quick-nav button,
+.explore-nav button{-webkit-appearance:none;appearance:none}
+.bullet-list{padding-left:20px}
+
 @media(max-width:834px){
   .login-card{padding:28px 22px}
   .session-user{max-width:40vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}

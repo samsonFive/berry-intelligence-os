@@ -1,12 +1,16 @@
 {# Emerging-signal card. Evidence-backed pattern — not a developing story and not a trusted Signal. #}
-<article class="brief-item brief-signal{% if item.status == 'disputed' %} brief-signal-disputed{% endif %}">
-  <div class="intel-card-meta">
-    <span class="badge badge-signal">Emerging signal</span>
-    <span class="badge">{{ item.status_label }}</span>
-    <span class="badge badge-muted">Confidence {{ item.confidence_label }}</span>
-    {% if item.limited_evidence %}<span class="badge badge-limited-evidence">Limited evidence</span>{% endif %}
-    {% if item.watch_match == 'primary' %}<span class="badge">Watched subject</span>{% elif item.watch_match == 'mention' %}<span class="badge badge-muted">Mentions watched subject</span>{% endif %}
-    {% if item.berry_direct %}<span class="badge badge-muted">Direct berry</span>{% endif %}
+<article class="v2-signal-card brief-item brief-signal{% if item.status == 'disputed' %} brief-signal-disputed{% endif %}{% if item.status == 'confirmed' %} v2-signal-confirmed{% endif %}">
+  <div class="v2-signal-identity">
+    {% if item.status == 'confirmed' %}
+      <span class="v2-mark v2-mark-confirmed">Confirmed signal</span>
+    {% else %}
+      <span class="v2-mark v2-mark-signal">Emerging signal</span>
+    {% endif %}
+    <span class="v2-confidence" data-level="{{ item.confidence_label|lower }}" title="Stored confidence">
+      <span class="v2-confidence-meter" aria-hidden="true"></span>
+      Confidence {{ item.confidence_label }}
+    </span>
+    <span class="v2-meta">{{ item.status_label }}</span>
   </div>
   <h3><a href="{{ item.href }}">{{ item.label }}</a></h3>
   <p class="draft-meta">{{ item.support_label }}{% if item.latest_date %} · latest {{ item.latest_date|us_date }}{% endif %}</p>
@@ -33,11 +37,16 @@
       </ul>
     </div>
   {% endif %}
-  <p class="context-limit">A broader evidence-backed pattern. Not a developing story and not a trusted conclusion.</p>
+  <footer class="v2-card-footer">
+    {% if item.berry_direct %}<span class="v2-mark v2-mark-direct">Direct</span>{% endif %}
+    {% if item.watch_match == 'primary' %}<span class="v2-mark v2-mark-watch">Watch</span>{% elif item.watch_match == 'mention' %}<span class="v2-meta">Mentions watched subject</span>{% endif %}
+    {% if item.independent_source_count %}<span class="v2-meta">{{ item.independent_source_count }} independent origin{{ 's' if item.independent_source_count != 1 else '' }}</span>{% endif %}
+  </footer>
+  <p class="context-limit">A broader evidence-backed pattern. Not a developing story and not a trusted conclusion. Confirm does not publish a trusted Signal.</p>
   {% if authoring_mode and not static_build %}
-    <div class="queue-actions">
-      <a class="action-button action-approve" href="{{ item.href }}">Review signal</a>
-      {% if item.primary_subject and item.primary_subject.href %}<a class="action-button" href="{{ item.primary_subject.href }}">Company</a>{% endif %}
+    <div class="v2-decision-bar queue-actions">
+      <a class="v2-btn v2-btn-primary" href="{{ item.href }}">Review signal</a>
+      {% if item.primary_subject and item.primary_subject.href %}<a class="v2-btn v2-btn-quiet" href="{{ item.primary_subject.href }}">Company</a>{% endif %}
     </div>
   {% endif %}
 </article>

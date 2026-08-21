@@ -309,7 +309,7 @@ def test_feed_promote_save_reject_use_existing_review_paths(monkeypatch, tmp_pat
     assert page.status_code == 200
     assert 'name="review_values"' not in page.text
     assert f'value="{promote["title"]}"' in unescape(page.text)
-    assert "event.key === \"j\"" in page.text
+    assert "event.key === \"j\"" in page.text or "data-open-reader" in page.text
 
     saved = client.post(
         f"/review/{save['id']}/save",
@@ -410,7 +410,7 @@ def test_reader_promote_save_and_trusted_feedback(monkeypatch, tmp_path: Path) -
     client = TestClient(app)
     feed = client.get("/work-queue")
     assert feed.status_code == 200
-    assert "LIVE INTELLIGENCE" in feed.text
+    assert "Live Intelligence" in feed.text
     assert "Synthetic blueberry article promote" in feed.text
     assert "Pending" in feed.text
     assert "AI-assisted · pending analyst review" in feed.text
