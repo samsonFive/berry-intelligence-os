@@ -3122,6 +3122,29 @@
       "update_cadence": "event_driven",
       "default_active": true,
       "notes": "Real, unauthenticated public register API (distinct from the registration-gated Variety Finder aggregator), queried per-known-variety-name by app/services/cpvo_registry.py, not polled on a cadence -- collector_type is reference_manual (mirroring source-uspto-plant-patents precedent) since there is no discovery.adapter feed to poll. Added for the Variety Intelligence Backbone V1 mission (2026-08-21)."
+    },
+    {
+      "id": "source-un-comtrade-public-preview",
+      "collector_type": "keyword_search",
+      "label": "UN Comtrade public preview API (trade/customs statistics)",
+      "query_or_url": "app/services/trade_intelligence.py (queried per pilot lane defined in data/configuration/trade_pilot_lanes.json)",
+      "url": "https://comtradeapi.un.org/public/v1/preview/C/HS",
+      "geography_focus": [
+        "global"
+      ],
+      "entity_coverage": [
+        "geography"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "monthly",
+      "default_active": true,
+      "notes": "Real, unauthenticated public preview API (one period per HTTP request, 500-record cap), queried per (reporter, partner, flow, HS code) lane by app/services/trade_intelligence.py, not a feed to poll -- collector_type is keyword_search (mirroring source-cpvo-public-register precedent) since there is no discovery.adapter feed. Added for the Global Trade / Customs Intelligence V1 mission (2026-08-21)."
     }
   ]
 }

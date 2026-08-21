@@ -512,4 +512,100 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | None yet -- the finding was produced by an ad hoc reproduction script, not a committed test. |
 
+### TD-024 — HS codes cannot separate raspberry/blackberry, or blueberry/cranberry
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | data quality / trade intelligence |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | Live-verified against UN Comtrade's H6 (HS 2022) classification: HS 081020/081120 (fresh/frozen) combine raspberries, blackberries, mulberries, and loganberries into one code; HS 081040 (fresh blueberry) combines blueberries with cranberries and other *Vaccinium* species; HS 081190 (frozen blueberry) is a generic "other fruit, frozen" basket, not blueberry-specific at all at 6 digits. Only the US's own 10-digit HTS extension (0811.90.20) isolates frozen blueberries, and this mission's adapter (UN Comtrade) reports at 6 digits. Full detail: `docs/v2/TRADE-INTELLIGENCE-V1.md` Part 2, `data/configuration/trade_hs_taxonomy.json`. |
+| **Impact** | Any raspberry- or blackberry-specific quantity/value claim from this pilot's `081020`/`081120` lane is not defensible without independent corroboration; frozen blueberry figures from `081190` are directional at best. Every affected draft's `trade_observation.berry_code_purity` is set to `multi_berry_combined` and `does_not_prove` states the limitation directly, so this is surfaced on every record, not just in this register. |
+| **Workaround** | Use fresh strawberry (081010) and frozen strawberry (081110) with full confidence; treat every other code's figures as directional/combined. |
+| **Recommended resolution** | A national 10-digit source (US HTS via Census, once TD-025's key gap is resolved) would separate frozen blueberry; no researched source separates raspberry from blackberry at any digit depth found this mission -- may be a genuine, permanent limit of official HS-based trade statistics for these two crops specifically. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_trade_intelligence.py::test_build_review_draft_never_auto_trusts_and_flags_combined_hs_code` |
+
+### TD-025 — US Census International Trade API requires a key this session could not self-provision
+
+| Field | Value |
+|---|---|
+| **Severity** | Low (real, but a credential-provisioning gap, not a research gap) |
+| **Area** | collection / access |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | Live-tested `api.census.gov/data/timeseries/intltrade/imports/hs`: returns an HTML "Missing Key" page without a registered API key. Census keys are free, self-service, email-registration-based -- but registering one requires a human with an email inbox, which this mission's agent session does not have. |
+| **Impact** | This mission used UN Comtrade instead (Part 1/4 of `docs/v2/TRADE-INTELLIGENCE-V1.md`), which is real and sufficient for the pilot's own required test cases, but Census would provide 10-digit HTS granularity (resolving part of TD-024's frozen-blueberry problem) that Comtrade's 6-digit H6 classification cannot. |
+| **Workaround** | UN Comtrade for 6-digit-level analysis (current state). |
+| **Recommended resolution** | A human operator registers a free Census API key (https://api.census.gov/data/key_signup.html) and provisions it as an environment variable; a Census adapter mirroring `trade_intelligence.py`'s shape would then be a small addition, not a redesign. |
+| **Status** | active |
+| **Owner lane** | ops |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | — |
+
+### TD-026 — UN Comtrade preview endpoint has an undocumented rate limit
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | collection / reliability |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | Real, live-observed HTTP 429 responses during both this mission's manual research testing and the real pilot run (4 of 72 period-requests failed with 429 on the first run; 4 more on a deliberate second idempotency-proof run). No published rate-limit number was found for the keyless preview endpoint. A 1-second delay was added between period requests within one lane (`COMTRADE_REQUEST_DELAY_SECONDS`), but **no delay exists between the last request of one lane and the first request of the next lane** -- a real, un-fixed gap in the current implementation, not yet closed. |
+| **Impact** | A handful of periods per pilot run are genuinely missing (not wrong, just absent) -- 3 of 6 lanes in the real pilot have fewer than 12 of their 12 requested periods purely due to this. |
+| **Workaround** | Re-run the monitor; already-captured periods are correctly skipped as duplicates (idempotent), so a re-run only needs to backfill genuine gaps. |
+| **Recommended resolution** | Apply the same inter-request delay between lanes, not only within a lane; consider exponential backoff on a 429 specifically rather than treating it identically to any other request failure. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | — |
+
+### TD-027 — No revision/resubmission handling for "final" trade periods
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data quality |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | A reporting country can revise an already-published month's trade figures after the fact (a real, well-known characteristic of official trade statistics generally). `trade_intelligence.py`'s dedup state is keyed on `(lane_id, sorted periods present)` -- once a period is captured and marked `release_status: "final"`, a later re-run will never re-fetch or diff it against a possible revision, even if the source's own figure changed. |
+| **Impact** | A trusted-eventually trade observation could silently go stale relative to the source's own later-revised number. Not observed this mission (no real revision was caught in the act), but a real, structural gap. |
+| **Workaround** | None; a human reviewer would need to manually re-query a specific period if a revision is suspected. |
+| **Recommended resolution** | Periodically re-fetch the most recent 2-3 already-captured periods (revisions are typically issued soon after initial release) and diff against the stored figure, flagging (not silently overwriting) a detected change. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | — |
+
+### TD-028 — Trade geography lookup covers only 7 countries
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data coverage |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | `COMTRADE_COUNTRY_CODES` in `app/services/trade_intelligence.py` hard-codes 7 UN M49/Comtrade reporter codes (US, Mexico, Peru, Chile, UK, Morocco, South Africa) -- exactly this mission's own required pilot geographies, not a general lookup. A lane request for any other country silently fails with "unknown geography" rather than resolving. |
+| **Impact** | Expected and scoped -- this mission was explicitly bounded, not a general customs warehouse. A future mission adding a new country pair needs to extend this dict first. |
+| **Workaround** | Add the real UN M49 code for a new geography before building a new lane. |
+| **Recommended resolution** | If trade-source breadth becomes the next mission (not this mission's own recommendation -- see `docs/v2/TRADE-INTELLIGENCE-V1.md` Part 15), expand this table alongside it. |
+| **Status** | accepted (deliberately scoped, not a bug) |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | — |
+
+### TD-029 — CIF/FOB value basis is carried but not yet surfaced in any derived metric
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data quality |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | `normalize_series_row()` correctly tags each period `value_basis: "CIF"` (imports) or `"FOB"` (exports) -- real, live-confirmed UN Comtrade convention (import value includes cost/insurance/freight, export value does not). `year_over_year_change()`/`partner_flow_changes()` compare quantity and value within the SAME lane (always the same flow direction, so always the same basis) -- safe today -- but neither function checks or asserts this, so a future caller comparing an import lane's value against an export lane's value for "the same" flow would silently mix bases without any guard rejecting it. |
+| **Impact** | None observed this mission (no real caller does this yet). A real latent correctness risk for a future derived-metric extension. |
+| **Workaround** | Manual reviewer discipline; the `value_basis` field is present on every series entry for exactly this reason. |
+| **Recommended resolution** | Add an explicit assertion/guard in any future derived-metric function that compares `trade_value` across two records, requiring matching `value_basis`. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none yet |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
