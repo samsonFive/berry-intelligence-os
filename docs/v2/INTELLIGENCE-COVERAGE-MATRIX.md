@@ -385,6 +385,22 @@ Not `OPERATIONAL`: SEC-sourced drafts cannot self-verify relevance (structurally
 
 ---
 
+## Regional Coverage V4 -- Live Market Recall (2026-08-22)
+
+Full detail: `docs/v2/REGIONAL-LIVE-RECALL-SET-V1.md`. This mission introduced a second, permanent acceptance set separate from the fixed 50-event benchmark above: **Regional Live Recall Set V1**, testing whether the OS discovers real, unseen, *current* competitive events across UK/Mexico/Spain/Chile/Peru/Morocco/South Africa without an analyst naming the event first. No source or code changed -- every event came from re-running sources already configured before this mission.
+
+**Fixed benchmark: unchanged at 33/50 (66%)** -- no code or source changes this mission. **Regional Live Recall Set V1: 23/25 core events CAPTURED (92%)** (UK 3/4, Mexico 4/4, Spain 3/3, Chile 4/4, Peru 4/4+1, Morocco 2/3, South Africa 3/3). The two numbers measure different things (historical headline recall vs. current unknown-event discovery) and are never combined.
+
+**Geography**: Spain (previously zero fixed-benchmark coverage) now has 3 real `direct` captures via a pre-existing, previously-unprocessed source (`source-freshuelva-news`). Chile and Peru both proved real recurrence of prior-mission source investment (4/4 and 4/4+1 respectively) with zero new sources. Morocco's French-language discovery produced its first non-blueberry (strawberry) capture. South Africa's existing sources missed nothing tested; Zimbabwe's first-ever China blueberry export was captured as a real, regional-adjacent bonus event.
+
+**Global trade press marginal value measured directly**: IBO 10/10 window items berry-relevant (100%, small single-topic feed); FreshPlaza 4-8/69 items berry-relevant by direct inspection (roughly 6-12%, large low-precision global horticulture firehose -- 66 of 69 currently-discovered items had never been screened at all before this mission, see TD-070); Fruitnet 0/2 this window (too sparse to judge). None of the three materially reduces the need for the region-specific `news_search_rss` sources that produced most of this mission's real recall.
+
+**Berry distribution across the Regional Live Recall Set's 25 core events**: Blueberry 15/25 (60%), Strawberry 5/25 (20%), Blackberry 1/25 (4%), **Raspberry 0/25 (0%)** -- a real, honest finding that blueberry volume is masking caneberry blindness; no regional query source built or reused this mission targets raspberry specifically.
+
+Registered `docs/v2/TECHNICAL-DEBT-REGISTER.md` TD-069 (major UK/global retailers not registered as Company entities, blocking corroboration for the retailer-commercial event class) and TD-070 (`article_rss` sources skip Stage A relevance screening at discovery time, unlike `news_search_rss`).
+
+---
+
 ## Learner Mode capability maturity (2026-08-22)
 
 Learner Mode (Workstream K, `docs/v2/feature-requests/LEARNER-MODE.md`) is a formalized product requirement, not an implemented capability. **Every cell below is `NONE`** -- no Learner Mode content, schema, source, or UI exists in canonical as of this entry. The feature request's own source citations (university extension guides, peer-reviewed journals, trade-fair sensory panels, Wikimedia Commons, etc.) are a recommended source base for a future mission, not evidence of current coverage -- a source appearing in a requirements document does not count toward this matrix.

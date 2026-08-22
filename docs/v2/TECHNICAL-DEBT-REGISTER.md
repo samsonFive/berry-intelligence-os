@@ -1091,4 +1091,36 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | — |
 
+### TD-069 — Major UK (and likely global) retailers are not registered as Company entities, disabling corroboration for the entire retailer-commercial event class
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | knowledge graph / entity coverage |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | Regional Coverage V4's UK Live Recall Set tested a real, current headline -- "Sainsbury's signs five-year contracts with 62 UK berry farms" -- and found Stage A scored it only 1 (generic "berry" match, BORDERLINE, no corroboration eligible). `ls data/entities/companies/ \| grep -iE "sainsbury\|tesco\|asda\|co-?op\|marks"` returns empty: **no major UK grocery retailer is a registered Company entity at all**, confirmed by reading three real existing entity files (`company-costa-group-holdings.json`, `company-african-blue.json`, `company-agrovision.json`) to verify every current entity requires real, trusted `evidence_ids`/`fact_ids` backing before it exists. |
+| **Impact** | `geography_corroboration_matchers()` / `matchers_from_entities()` (built Mission 2, `app/services/relevance_screen.py`, `app/services/deterministic_tagging.py`) can only corroborate a borderline item against a *registered* entity -- an entire class of real competitive events (retailer sourcing commitments, private-label moves, retailer sustainability/local-sourcing announcements) structurally cannot benefit from corroboration no matter how well-configured the source is, because the counterparty side of the relationship was never modeled. This is not UK-specific in principle -- it is untested for Costco, Walmart, Kroger, Aldi, Carrefour, etc., and likely has the same gap. |
+| **Workaround** | None systemic. A human reviewer can still manually publish a captured item once discovered; this only affects the automated corroboration path, not final human trust review. |
+| **Recommended resolution** | Do **not** create entities ad hoc from a single uncorroborated headline (would violate the established evidence-grounding discipline this mission deliberately upheld). Instead, a future mission should identify major retailers with *already-existing* trusted Evidence/Fact coverage in the corpus (there may already be enough real published retailer-relationship evidence to ground 3-5 initial UK retailer entities properly) and register only those, rather than force-creating ungrounded entities to close this one Sainsbury's gap. |
+| **Status** | active |
+| **Owner lane** | data / entities |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | — |
+
+### TD-070 — `article_rss` sources do not run Stage A relevance screening at discovery time, unlike `news_search_rss`
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | collection / operational |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | Regional Coverage V4 compared `relevance_screening` presence across all currently-discovered items for the three global trade-press sources. `news_search_rss` sources (e.g. `source-news-search-chile-blueberry-es`) carry a populated `relevance_screening` block (`score`, `decision`, `likely_berry_ids`, `matched_terms`) immediately after `discover_media.py` runs, before any `process_discovered_media.py` call. `article_rss` sources do not: of FreshPlaza's 69 currently-discovered items, only the 3 already run through `process_discovered_media.py` in a prior mission carry a `relevance_screening` value; the other 66 -- untouched since discovery -- have no screening field at all. IBO shows `process` on all 10 only because all 10 happen to already be fully processed, not because discovery itself screened them. |
+| **Impact** | An operator scanning `article_rss` backlog cannot cheaply see which items are berry-relevant without either reading titles by hand (as this mission did for FreshPlaza, finding 4/69 real hits) or running the full, more expensive `process_discovered_media.py` pipeline on every item. For a low-precision firehose source like FreshPlaza (94% non-berry in the current window), this makes backlog triage manual rather than queryable. |
+| **Workaround** | Manual title-scan (used successfully this mission) -- cheap for a 69-item window, would not scale to a much larger `article_rss` backlog. |
+| **Recommended resolution** | Extend the same cheap, deterministic Stage A screener (`deterministic-relevance-v1`) that `news_search_rss` already runs at discovery time to the `article_rss` adapter path, so every discovered item gets a `process`/`skip` triage signal immediately, independent of whether/when a human later runs the full relevance-gate pipeline on it. Scoped, mechanical change; not attempted this mission (collection-orchestration changes are out of this mission's own stated scope). |
+| **Status** | active |
+| **Owner lane** | collection/runtime |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | — |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
