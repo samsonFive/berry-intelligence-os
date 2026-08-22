@@ -4,6 +4,8 @@ Local-first, evidence-based competitive intelligence for berry crops.
 
 **Expansion phase:** Before planning new acquisition, domain-depth, variety, alternative-data, or UI V2 work, read `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`. Unresolved platform debt must be recorded in `docs/v2/TECHNICAL-DEBT-REGISTER.md`; source/domain expansion should update `docs/v2/INTELLIGENCE-COVERAGE-MATRIX.md`. Variety backbone (Workstream C) is `docs/v2/VARIETY-INTELLIGENCE-BACKBONE.md`. Trade is `docs/v2/TRADE-INTELLIGENCE-V1.md`. Weather is `docs/v2/WEATHER-CLIMATE-CONTEXT-V1.md`. Do not alter Variety backend/domain schemas, CPVO registry, `variety_footprint`, `commercial_observation`, Trade/Customs (`trade_observation`, Comtrade adapter), or Weather (`weather_observation`, NASA POWER adapter) unless a genuine blocker is found.
 
+**Learner Mode (Workstream K, requirements only, not implemented):** Any agent working on agronomy, plant biology, IPM, harvest/agtech, sensory/flavor science, or visual learning content must read `docs/v2/feature-requests/LEARNER-MODE.md` and `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md` section 12a first. Learner Mode is explanatory knowledge, not a trust shortcut into Signals or Assessments.
+
 ## Cursor Cloud specific instructions
 
 Canonical branch is `v2/intelligence-os`. Do not commit to it directly.
