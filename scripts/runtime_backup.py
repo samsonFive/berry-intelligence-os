@@ -12,7 +12,8 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from app.runtime_config import env_path
-from app.services.runtime_backup import create_backup, restore_backup, verify_backup
+from app.services.pipeline_lock import pipeline_lock
+from app.services.runtime_backup import create_backup, restore_backup, rotate_backups, verify_backup
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -21,6 +22,10 @@ def _parser() -> argparse.ArgumentParser:
     backup = sub.add_parser("create")
     backup.add_argument("--runtime-dir", type=Path, default=env_path("BIOS_RUNTIME_DIR") or ROOT)
     backup.add_argument("--output-dir", type=Path, required=True)
+    rotate = sub.add_parser("rotate")
+    rotate.add_argument("--runtime-dir", type=Path, default=env_path("BIOS_RUNTIME_DIR") or ROOT)
+    rotate.add_argument("--output-dir", type=Path, default=env_path("BIOS_BACKUP_DIR"))
+    rotate.add_argument("--keep", type=int, default=14)
     verify = sub.add_parser("verify")
     verify.add_argument("archive", type=Path)
     restore = sub.add_parser("restore")
@@ -32,8 +37,14 @@ def _parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     if args.command == "create":
-        archive = create_backup(args.runtime_dir, args.output_dir)
+        with pipeline_lock(args.runtime_dir / "inbox", "runtime-backup"):
+            archive = create_backup(args.runtime_dir, args.output_dir)
         payload = {"state": "created_and_verified", "archive": str(archive), **verify_backup(archive)}
+    elif args.command == "rotate":
+        if args.output_dir is None:
+            raise SystemExit("rotate requires --output-dir or BIOS_BACKUP_DIR")
+        with pipeline_lock(args.runtime_dir / "inbox", "runtime-backup"):
+            payload = rotate_backups(args.runtime_dir, args.output_dir, keep=args.keep)
     elif args.command == "verify":
         payload = {"state": "verified", "archive": str(args.archive), **verify_backup(args.archive)}
     else:

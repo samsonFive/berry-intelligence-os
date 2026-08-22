@@ -1,5 +1,5 @@
 [Unit]
-Description=Berry Intelligence OS recurring collection (scripts/collection_cron.sh)
+Description=Berry Intelligence OS production collection operations
 # Only makes sense once the app container is actually up; does not require
 # or restart it -- if the container is down, docker compose exec fails
 # fast and this unit fails, which the timer's Persistent= setting alone
@@ -17,4 +17,4 @@ ExecStart=/opt/berry-intelligence-os/scripts/collection_cron.sh
 # bounded generously above CollectionRunner's own per-source timeouts and
 # retry/backoff so a real long-running-but-healthy run is never killed
 # mid-way, while a genuinely wedged process still gets reclaimed.
-TimeoutStartSec=1800
+TimeoutStartSec=7200

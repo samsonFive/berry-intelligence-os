@@ -34,6 +34,7 @@ from typing import Any
 from scripts.sync_source_config import sync_source_config
 
 SOURCES_RELATIVE_PATH = Path("configuration") / "sources.json"
+AUTHORITATIVE_CONFIG_PATHS = {Path("configuration") / "collection_pipelines.json"}
 
 
 def sync_trusted_data(seed_data_dir: Path, runtime_data_dir: Path) -> dict[str, Any]:
@@ -43,13 +44,21 @@ def sync_trusted_data(seed_data_dir: Path, runtime_data_dir: Path) -> dict[str, 
     other files newly copied in (paths relative to the data/ root).
     """
     if not seed_data_dir.is_dir():
-        return {"skipped_missing_seed": True, "sources": None, "files_added": []}
+        return {"skipped_missing_seed": True, "sources": None, "files_added": [], "files_updated": []}
 
     sources_result = sync_source_config(
         seed_data_dir / SOURCES_RELATIVE_PATH, runtime_data_dir / SOURCES_RELATIVE_PATH
     )
 
     files_added: list[str] = []
+    files_updated: list[str] = []
+    for relative in AUTHORITATIVE_CONFIG_PATHS:
+        seed_file = seed_data_dir / relative
+        runtime_file = runtime_data_dir / relative
+        if seed_file.is_file() and runtime_file.is_file() and seed_file.read_bytes() != runtime_file.read_bytes():
+            runtime_file.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(seed_file, runtime_file)
+            files_updated.append(str(relative).replace("\\", "/"))
     for seed_file in seed_data_dir.rglob("*"):
         if not seed_file.is_file():
             continue
@@ -57,6 +66,8 @@ def sync_trusted_data(seed_data_dir: Path, runtime_data_dir: Path) -> dict[str, 
         if relative == SOURCES_RELATIVE_PATH:
             continue
         runtime_file = runtime_data_dir / relative
+        if relative in AUTHORITATIVE_CONFIG_PATHS and runtime_file.exists():
+            continue
         if runtime_file.exists():
             continue
         runtime_file.parent.mkdir(parents=True, exist_ok=True)
@@ -67,6 +78,7 @@ def sync_trusted_data(seed_data_dir: Path, runtime_data_dir: Path) -> dict[str, 
         "skipped_missing_seed": False,
         "sources": sources_result,
         "files_added": sorted(files_added),
+        "files_updated": sorted(files_updated),
     }
 
 
@@ -90,6 +102,8 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  - {path}")
     else:
         print("No other trusted data files needed syncing.")
+    if result["files_updated"]:
+        print(f"Updated canonical operational configuration: {', '.join(result['files_updated'])}")
     return 0
 
 

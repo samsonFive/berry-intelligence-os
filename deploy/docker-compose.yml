@@ -8,6 +8,7 @@ services:
     environment:
       BIOS_REMOTE_INTERACTIVE: "true"
       BIOS_RUNTIME_DIR: /app/runtime
+      BIOS_BACKUP_DIR: /app/backups
       BIOS_MODE: authoring
       ENABLE_SOURCE_POLLING: "false"
       BIOS_REVIEW_USERNAME: ${BIOS_REVIEW_USERNAME:?set BIOS_REVIEW_USERNAME in deploy/.env}
@@ -17,6 +18,7 @@ services:
     volumes:
       - ${BIOS_DEMO_RUNTIME:-../demo-runtime}/data:/app/runtime/data
       - ${BIOS_DEMO_RUNTIME:-../demo-runtime}/inbox:/app/runtime/inbox
+      - ${BIOS_BACKUP_HOST_DIR:-/var/backups/berry-intelligence-os}:/app/backups
     expose:
       - "8000"
     ports:

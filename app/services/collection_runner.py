@@ -453,6 +453,7 @@ class CollectionRunner:
         self,
         *,
         source_id: str | None = None,
+        source_ids: list[str] | None = None,
         dry_run: bool = False,
         skip_transcription: bool = False,
         max_transcriptions: int | None = None,
@@ -462,17 +463,24 @@ class CollectionRunner:
         started = self._now()
         run_id = self._run_id_factory(started)
         eligible = self.eligible_source_ids()
+        if source_id is not None and source_ids is not None:
+            raise ValueError("source_id and source_ids are mutually exclusive")
         if source_id is not None:
             if source_id not in eligible:
                 raise DiscoveryError(f"source {source_id!r} has no usable discovery configuration")
-            source_ids = [source_id]
+            selected_source_ids = [source_id]
+        elif source_ids is not None:
+            unknown = sorted(set(source_ids) - set(eligible))
+            if unknown:
+                raise DiscoveryError(f"sources have no usable discovery configuration: {', '.join(unknown)}")
+            selected_source_ids = list(source_ids)
         else:
-            source_ids = eligible
+            selected_source_ids = eligible
         summary = CollectionRunSummary(
             run_id=run_id,
             started_at=_iso(started),
             dry_run=dry_run,
-            source_scope=source_id or "all",
+            source_scope=source_id or ("group" if source_ids is not None else "all"),
             extraction_gate=self._gate.as_dict(),
         )
         lock: ContextManager[Any]
@@ -485,10 +493,10 @@ class CollectionRunner:
         with lock as acquired_lock:
             if acquired_lock is not None:
                 summary.stale_lock_recovered = acquired_lock.recovered_stale_lock
-            self._run_sources(summary, source_ids, dry_run=dry_run)
+            self._run_sources(summary, selected_source_ids, dry_run=dry_run)
             self._run_items(
                 summary,
-                source_ids,
+                selected_source_ids,
                 dry_run=dry_run,
                 skip_transcription=skip_transcription,
                 max_transcriptions=max_transcriptions,

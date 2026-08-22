@@ -81,7 +81,7 @@ def test_missing_seed_dir_is_a_safe_no_op(tmp_path: Path) -> None:
 
     result = sync_trusted_data(seed, runtime)
 
-    assert result == {"skipped_missing_seed": True, "sources": None, "files_added": []}
+    assert result == {"skipped_missing_seed": True, "sources": None, "files_added": [], "files_updated": []}
     assert json.loads((runtime / "evidence" / "ev-1.json").read_text(encoding="utf-8")) == {"id": "ev-1"}
 
 
@@ -95,6 +95,21 @@ def test_running_twice_is_idempotent(tmp_path: Path) -> None:
 
     assert first["files_added"] == ["entities/companies/company-a.json"]
     assert second["files_added"] == []
+
+
+def test_pipeline_registry_is_authoritative_without_overwriting_trusted_records(tmp_path: Path) -> None:
+    seed = tmp_path / "seed"
+    runtime = tmp_path / "runtime"
+    _write_json(seed / "configuration/collection_pipelines.json", {"schema_version": 2})
+    _write_json(runtime / "configuration/collection_pipelines.json", {"schema_version": 1})
+    _write_json(seed / "evidence/ev-1.json", {"id": "ev-1", "status": "seed"})
+    _write_json(runtime / "evidence/ev-1.json", {"id": "ev-1", "status": "operator"})
+
+    result = sync_trusted_data(seed, runtime)
+
+    assert result["files_updated"] == ["configuration/collection_pipelines.json"]
+    assert json.loads((runtime / "configuration/collection_pipelines.json").read_text())["schema_version"] == 2
+    assert json.loads((runtime / "evidence/ev-1.json").read_text())["status"] == "operator"
 
 
 def test_a_freshly_synced_runtime_gains_the_real_missing_entities(tmp_path: Path) -> None:

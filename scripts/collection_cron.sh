@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
-# Recurring collection entry point for a scheduled (systemd timer / cron)
-# invocation against the deployed remote-demo container. Wraps the existing
-# scripts/run_collection.py --all through docker compose exec -- no second
-# acquisition architecture, no new mechanism inside the app itself.
+# Production collection-operations dispatcher for a scheduled systemd
+# invocation against the deployed container. Cadence and runner commands are
+# owned by collection_pipelines.json; this remains one scheduler framework.
 #
 # Bounded and safe to schedule frequently:
-#   - --skip-transcription: never launches Whisper on the VPS; spoken-media
-#     items are discovered (cheap RSS/Atom) but stay "transcript needed"
-#     until an operator explicitly runs transcription elsewhere.
+#   - The spoken-media registry command carries --skip-transcription, so this
+#     dispatcher never launches Whisper implicitly.
 #   - CollectionRunner's own file lock (inbox/operations/collection.lock)
 #     makes an overlapping invocation a fast, safe no-op rather than two
 #     concurrent runs; systemd's own oneshot semantics add a second layer
@@ -22,7 +20,7 @@
 #
 # Environment:
 #   BIOS_COLLECTION_LOG_DIR   Where to write timestamped run logs (default: deployed demo-runtime/inbox/operations/cron-logs)
-#   BIOS_COLLECTION_EXTRA_ARGS  Extra args appended to run_collection.py (e.g. --allow-historical-backfill for a one-time deliberate backfill)
+#   BIOS_COLLECTION_OPERATIONS_ARGS  Optional dispatcher arguments (normally empty)
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -33,16 +31,16 @@ cd "$ROOT"
 LOG_DIR="${BIOS_COLLECTION_LOG_DIR:-$ROOT/demo-runtime/inbox/operations/cron-logs}"
 mkdir -p "$LOG_DIR"
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
-LOG_FILE="$LOG_DIR/collection-$STAMP.json"
+LOG_FILE="$LOG_DIR/operations-$STAMP.json"
 
 # shellcheck disable=SC2086
-if docker compose --env-file deploy/.env -f deploy/docker-compose.yml exec -T app \
-    python scripts/run_collection.py --all --skip-transcription --json ${BIOS_COLLECTION_EXTRA_ARGS:-} \
+if docker compose --env-file deploy/.env -f deploy/docker-compose.yml exec -T --user 1000:1000 app \
+    python scripts/run_due_pipelines.py ${BIOS_COLLECTION_OPERATIONS_ARGS:-} \
     > "$LOG_FILE" 2> "$LOG_FILE.stderr"; then
-  echo "Collection run complete: $LOG_FILE"
+  echo "Collection operations complete: $LOG_FILE"
   exit 0
 else
   status=$?
-  echo "Collection run failed (exit $status); see $LOG_FILE and $LOG_FILE.stderr" >&2
+  echo "Collection operations failed (exit $status); see $LOG_FILE and $LOG_FILE.stderr" >&2
   exit "$status"
 fi

@@ -106,6 +106,8 @@ class CollectionStatusReport:
     items: list[ItemStatus] = field(default_factory=list)
     problems: list[StatusProblem] = field(default_factory=list)
     last_run: dict[str, Any] | None = None
+    review_backlog: dict[str, Any] = field(default_factory=dict)
+    detail_mode: str = "audit"
     recommended_next_action: str = "no action"
 
     def as_dict(self) -> dict[str, Any]:
@@ -123,6 +125,8 @@ class CollectionStatusReport:
             "items": [asdict(item) for item in self.items],
             "problems": [asdict(problem) for problem in self.problems],
             "last_run": self.last_run,
+            "review_backlog": self.review_backlog,
+            "detail_mode": self.detail_mode,
         }
 
 
@@ -272,10 +276,22 @@ def _lock_status(
 
 
 def _last_run(operations_dir: Path, problems: list[StatusProblem]) -> dict[str, Any] | None:
-    runs = _safe_runtime_records(operations_dir / "runs", kind="collection run", problems=problems)
-    if not runs:
+    folder = operations_dir / "runs"
+    candidates = sorted(folder.glob("*.json")) if folder.is_dir() else []
+    if not candidates:
         return None
-    selected = max(runs, key=lambda run: str(run.get("started_at") or run.get("run_id") or ""))
+    path = candidates[-1]
+    try:
+        selected = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(selected, dict):
+            raise ValueError("JSON root must be an object")
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        problems.append(StatusProblem(
+            kind="collection run",
+            identity=path.name,
+            message=f"Malformed collection run: {exc}",
+        ))
+        return None
     return {
         "run_id": selected.get("run_id"),
         "started_at": selected.get("started_at"),
@@ -284,6 +300,30 @@ def _last_run(operations_dir: Path, problems: list[StatusProblem]) -> dict[str, 
         "counts": selected.get("counts") if isinstance(selected.get("counts"), dict) else {},
         "sources": selected.get("sources") if isinstance(selected.get("sources"), list) else [],
     }
+
+
+def _draft_backlog(drafts: list[dict[str, Any]]) -> tuple[dict[str, int], dict[str, int]]:
+    by_source: dict[str, int] = {}
+    counts = {
+        "publication_review": 0,
+        "atomic_review": 0,
+        "enrichment_ready": 0,
+    }
+    for draft in drafts:
+        rejected = draft.get("status") == "rejected" or draft.get("review_state") == "rejected"
+        if rejected:
+            continue
+        role = draft.get("evidence_role")
+        if role == "publication_artifact":
+            counts["publication_review"] += 1
+            source_id = draft.get("source_id")
+            if isinstance(source_id, str):
+                by_source[source_id] = by_source.get(source_id, 0) + 1
+            if (draft.get("ai_enrichment") or {}).get("model_provenance", {}).get("status") == "ok":
+                counts["enrichment_ready"] += 1
+        elif role == "atomic_evidence":
+            counts["atomic_review"] += 1
+    return counts, by_source
 
 
 def _atomic_by_parent(
@@ -415,7 +455,181 @@ class CollectionStatusService:
         self._retry_limit = retry_limit
         self._lock_stale_after = lock_stale_after
 
-    def build(self, *, source_id: str | None = None) -> CollectionStatusReport:
+    def build(
+        self,
+        *,
+        source_id: str | None = None,
+        persisted_only: bool = False,
+    ) -> CollectionStatusReport:
+        if persisted_only and source_id is None:
+            report = self._build_persisted()
+            if report is not None:
+                return report
+        return self._build_audit(source_id=source_id)
+
+    def _build_persisted(self) -> CollectionStatusReport | None:
+        """Build the operator view from persisted run and review state only.
+
+        The scheduled runner already persisted the expensive orchestration
+        decisions. Replaying MediaOrchestrationService for every discovered
+        item made the read-only status command quadratic in Evidence/draft
+        files and exceeded 35 minutes in production. This path intentionally
+        does not derive per-item decisions; ``_build_audit`` remains available
+        for an explicit deep audit.
+        """
+
+        now = self._now().astimezone(UTC)
+        problems: list[StatusProblem] = []
+        last_run = _last_run(self._operations.operations_dir, problems)
+        if last_run is None:
+            return None
+        sources = sorted(self._repos.sources.list(), key=lambda source: source.get("id", ""))
+        source_index = {source["id"]: source for source in sources if source.get("id")}
+        eligibility_probe = CollectionRunner(
+            repositories=self._repos,
+            inbox_dir=self._inbox,
+            operations=self._operations,
+            discover=lambda _source_id: None,
+            orchestrate=lambda *_args: None,
+            transcript_cache_ready=lambda _item: False,
+        )
+        discoverable_ids = eligibility_probe.eligible_source_ids()
+        drafts = _safe_runtime_records(self._inbox / "evidence", kind="Evidence draft", problems=problems)
+        backlog, backlog_by_source = _draft_backlog(drafts)
+        evidence = self._repos.evidence.list()
+        trusted_by_source: dict[str, int] = {}
+        for record in evidence:
+            if record.get("evidence_role") == "publication_artifact" and record.get("status") == "published":
+                sid = record.get("source_id")
+                if isinstance(sid, str):
+                    trusted_by_source[sid] = trusted_by_source.get(sid, 0) + 1
+
+        lock = _lock_status(
+            self._operations.lock_path,
+            now=now,
+            stale_after=self._lock_stale_after,
+            problems=problems,
+        )
+        run_counts = dict(last_run.get("counts") or {})
+        failed_sources = [
+            result
+            for result in last_run.get("sources", [])
+            if isinstance(result, dict) and result.get("status") not in {"ok", "planned"}
+        ]
+        for result in failed_sources:
+            problems.append(StatusProblem(
+                kind="source collection",
+                identity=str(result.get("source_id") or "unknown-source"),
+                source_id=result.get("source_id") if isinstance(result.get("source_id"), str) else None,
+                message=str(result.get("error") or result.get("status") or "source collection failed"),
+            ))
+
+        item_total = int(run_counts.get("items_processed", 0) or 0)
+        retryable = int(run_counts.get("retryable_failures", 0) or 0)
+        intervention = int(run_counts.get("operator_action_items", 0) or 0)
+        skipped = int(run_counts.get("irrelevant_rejected", 0) or 0)
+        extraction_ready = int(run_counts.get("ready_for_extraction", 0) or 0)
+        completed = max(0, item_total - backlog["publication_review"] - retryable - intervention - extraction_ready)
+        counts = {
+            "sources_configured": len(sources),
+            "sources_discoverable": len(discoverable_ids),
+            "ready_to_advance": 0,
+            "human_publication_review_required": backlog["publication_review"],
+            "extraction_ready": extraction_ready if self._gate.runnable else 0,
+            "extraction_blocked": extraction_ready if not self._gate.runnable else 0,
+            "human_atomic_evidence_review_required": backlog["atomic_review"],
+            "retryable_failure": retryable,
+            "operator_intervention_required": intervention,
+            "completed_no_action": completed,
+            "pending_atomic_proposals": backlog["atomic_review"],
+            "discovered": item_total,
+            "relevant": int(run_counts.get("direct_review_ready", 0) or 0) + int(run_counts.get("adjacent_review_ready", 0) or 0),
+            "skipped_irrelevant": skipped,
+            "transcript_ready": int(run_counts.get("transcripts_ready", 0) or 0),
+            "enrichment_ready": backlog["enrichment_ready"],
+            "publication_review_ready": backlog["publication_review"],
+            "trusted_publication": sum(trusted_by_source.values()),
+            "atomic_proposals": backlog["atomic_review"],
+            "intervention": intervention,
+        }
+        latest_source_results = {
+            result.get("source_id"): result
+            for result in last_run.get("sources", [])
+            if isinstance(result, dict) and isinstance(result.get("source_id"), str)
+        }
+        source_reports: list[SourceStatus] = []
+        for sid in discoverable_ids:
+            source = source_index[sid]
+            result = latest_source_results.get(sid, {})
+            failed = result.get("status") not in {None, "ok", "planned"}
+            source_reports.append(SourceStatus(
+                source_id=sid,
+                name=_source_name(source),
+                adapter=(source.get("discovery") or {}).get("adapter"),
+                discoverable=True,
+                discovered_items=int(result.get("found", 0) or 0),
+                pending_publication_review=backlog_by_source.get(sid, 0),
+                trusted_publications=trusted_by_source.get(sid, 0),
+                retryable_failures=0,
+                operator_intervention=1 if failed else 0,
+                last_discovery_status=result.get("status"),
+                last_discovery_new=result.get("new") if isinstance(result.get("new"), int) else None,
+                recommended_next_action="resolve operator-action failure" if failed else "no action",
+            ))
+
+        collection_blockers: list[str] = []
+        if lock.get("active"):
+            collection_blockers.append("a collection run currently owns the runner lock")
+        if lock.get("state") == "malformed":
+            collection_blockers.append("runner lock is malformed and requires operator inspection")
+        readiness = {
+            "collection_only": {
+                "state": "READY" if not collection_blockers else "BLOCKED",
+                "blockers": collection_blockers,
+                "note": "A qualified semantic extraction model is not required for collection-only operation.",
+            },
+            "extraction_enabled": {
+                "state": "READY" if not collection_blockers and self._gate.runnable else "BLOCKED",
+                "blockers": [*collection_blockers, *self._extraction_blockers],
+                "note": "Even when ready, extraction creates only untrusted Atomic Evidence proposals.",
+            },
+        }
+        if lock.get("active"):
+            recommended = "no action"
+        elif intervention or failed_sources:
+            recommended = "resolve operator-action failure"
+        elif backlog["atomic_review"]:
+            recommended = "review atomic evidence"
+        elif backlog["publication_review"]:
+            recommended = "review publication"
+        else:
+            recommended = "no action"
+        created = int(run_counts.get("publication_drafts_created", 0) or 0)
+        return CollectionStatusReport(
+            generated_at=_iso(now),
+            source_filter=None,
+            sources_configured=len(sources),
+            sources_discoverable=len(discoverable_ids),
+            lock=lock,
+            extraction={**self._gate.as_dict(), "blockers": list(self._extraction_blockers)},
+            pilot_readiness=readiness,
+            counts=counts,
+            sources=source_reports,
+            items=[],
+            problems=problems,
+            last_run=last_run,
+            review_backlog={
+                "publication_review": backlog["publication_review"],
+                "atomic_review": backlog["atomic_review"],
+                "drafts_created_last_run": created,
+                "backlog_to_last_run_created_ratio": round(backlog["publication_review"] / created, 2) if created else None,
+                "trend": "growth_pressure" if created > 0 else "flat_or_unknown",
+            },
+            detail_mode="persisted",
+            recommended_next_action=recommended,
+        )
+
+    def _build_audit(self, *, source_id: str | None = None) -> CollectionStatusReport:
         now = self._now().astimezone(UTC)
         problems: list[StatusProblem] = []
         sources = sorted(self._repos.sources.list(), key=lambda source: source.get("id", ""))

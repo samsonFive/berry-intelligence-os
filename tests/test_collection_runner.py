@@ -190,6 +190,21 @@ def test_all_sources_iterate_generically_and_failure_isolated(tmp_path: Path) ->
     assert persisted["counts"] == summary.counts
 
 
+def test_registered_source_group_runs_only_selected_eligible_sources(tmp_path: Path) -> None:
+    repos = _repos(tmp_path)
+    calls: list[str] = []
+    orchestrator = FakeOrchestrator({})
+    summary = _runner(
+        tmp_path,
+        repos,
+        orchestrator,
+        discover=lambda source_id: calls.append(source_id) or DiscoveryRunResult(source_id=source_id, status="ok"),
+    ).run(source_ids=["source-b"])
+    assert calls == ["source-b"]
+    assert summary.source_scope == "group"
+    assert summary.counts["sources_checked"] == 1
+
+
 def test_one_source_selection_and_discovery_rerun_are_idempotent(tmp_path: Path) -> None:
     repos = _repos(tmp_path)
     inbox = tmp_path / "inbox"

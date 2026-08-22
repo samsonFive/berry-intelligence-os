@@ -84,9 +84,10 @@ pattern (`articles`/`spoken`/`patents`/etc.).
 
 ## Cadence and resource boundaries
 
-- **~Every 4 hours** (`deploy/systemd/bios-collection.timer`,
-  `OnCalendar=*-*-* 0/4:00:00`), the closest fixed-clock approximation of
-  "every 4 hours" systemd timers support cleanly.
+- **Every 15 minutes**, the single systemd dispatcher checks the pipeline
+  registry. Article/news is due every 6 hours; spoken discovery daily; plant
+  patent and CPVO weekly; runtime backup daily. Trade and weather remain
+  manual while their configurations are fixed historical pilots.
 - **No automatic transcription.** The scheduled command always passes
   `--skip-transcription` — spoken-media items are discovered (cheap
   RSS/Atom, no audio download) but never transcribed automatically. A

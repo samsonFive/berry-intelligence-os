@@ -503,3 +503,34 @@ def test_status_is_strictly_read_only_and_never_calls_network_transcription_or_m
 def test_status_is_not_connected_to_public_static_generation():
     assert "collection_status" not in (ROOT / "scripts" / "build_static.py").read_text(encoding="utf-8")
     assert "collection_status" not in (ROOT / "app" / "main.py").read_text(encoding="utf-8")
+
+
+def test_persisted_operator_status_does_not_recompute_item_orchestration(tmp_path, monkeypatch):
+    repos, inbox = _setup(tmp_path)
+    item = _item("item-persisted")
+    _stage(inbox, item)
+    _draft(inbox, item)
+    runs = inbox / "operations" / "runs"
+    runs.mkdir(parents=True)
+    (runs / "collection-20260816T120000Z.json").write_text(json.dumps({
+        "run_id": "collection-persisted",
+        "started_at": "2026-08-16T12:00:00+00:00",
+        "completed_at": "2026-08-16T12:00:05+00:00",
+        "sources": [{"source_id": SOURCE_A, "status": "ok", "found": 1, "new": 1}],
+        "counts": {
+            "items_processed": 1,
+            "publication_drafts_created": 1,
+            "awaiting_publication_review": 1,
+            "sources_failed": 0,
+            "sources_succeeded": 1,
+        },
+        "items": [{"item_id": item["id"], "state": "awaiting_publication_review"}],
+    }), encoding="utf-8")
+    monkeypatch.setattr(
+        "app.services.collection_status._StatusOrchestrationService.process",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("broad item recomputation called")),
+    )
+    report = _service(tmp_path, repos, inbox).build(persisted_only=True)
+    assert report.detail_mode == "persisted" and report.items == []
+    assert report.counts["human_publication_review_required"] == 1
+    assert report.review_backlog["publication_review"] == 1
