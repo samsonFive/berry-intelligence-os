@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+{% block title %}{{ item.title }} — Claim testing{% endblock %}
+{% block content %}
+<div class="v2-page v2-testing v2-testing-detail">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">CLAIM TESTING — {{ item.workflow_label|upper }} · NOT A FACT</p>
+    <h1>{{ item.title }}</h1>
+    <p class="also-known-as">
+      Analyst verification of a concrete claim. Pass does not publish a Fact. This is not Learner Mode.
+    </p>
+  </div>
+  <a class="button-link" href="/queues/testing">Back to queue</a>
+</section>
+
+<article class="detail-card v2-testing-article">
+  <section class="v2-testing-block" id="source-claim">
+    <h2>Source claim</h2>
+    <p class="context-limit">The published Evidence that carried the claim. Exact source wording stays below.</p>
+    <p class="v2-card-kicker">
+      <span class="v2-mark v2-mark-testing">Source claim</span>
+      <span class="v2-mark v2-mark-testing-state v2-mark-testing-{{ item.workflow_state }}">{{ item.workflow_label }}</span>
+    </p>
+    <p><strong>{{ item.source_name or item.source_type }}</strong>{% if item.date %} · {{ item.date|us_date }}{% endif %}</p>
+    {% if item.source_url %}<p><a href="{{ item.source_url }}" rel="noreferrer">Original source</a></p>{% endif %}
+    {% if item.summary %}
+      <blockquote class="v2-testing-quote">{{ item.summary }}</blockquote>
+    {% endif %}
+    <div class="v2-testing-actions">
+      {% if not static_build %}
+        <a class="v2-btn v2-btn-quiet" href="{{ item.reader_href }}" data-open-reader data-item-id="{{ item.id }}">Read source</a>
+        <a class="v2-btn v2-btn-quiet" href="{{ item.reader_href }}">Open full reader</a>
+      {% else %}
+        <a class="v2-btn v2-btn-quiet" href="{{ item.trusted_href }}">Open published evidence</a>
+      {% endif %}
+      {% if not static_build and item.search_href %}
+        <a class="v2-btn v2-btn-quiet" href="{{ item.search_href }}">Search {{ item.search_term }}</a>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="v2-testing-block" id="normalized-claims">
+    <h2>Normalized claims</h2>
+    <p class="context-limit">Linked Fact records classified as <code>claim</code>. Classification <code>fact</code> is a different object and is listed separately.</p>
+    {% if item.claim_facts %}
+      <ul class="fact-list">
+        {% for fact in item.claim_facts %}
+          <li>
+            <span class="badge badge-claim">CLAIM</span>
+            <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
+            {% if fact.status %}<span class="badge badge-muted">{{ fact.status }}</span>{% endif %}
+            <p>{{ fact.statement }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty-state">No normalized claim Fact is linked. The source title and wording above remain the claim under test.</p>
+    {% endif %}
+  </section>
+
+  <section class="v2-testing-block" id="why">
+    <h2>Why it matters</h2>
+    {% if item.why %}
+      <p>{{ item.why }}</p>
+    {% endif %}
+    {% if item.why_it_matters and item.why_it_matters != item.why %}
+      <p>{{ item.why_it_matters }}</p>
+    {% endif %}
+    {% if not item.why and not item.why_it_matters %}
+      <p class="empty-state">No testing rationale is recorded on this Evidence.</p>
+    {% endif %}
+  </section>
+
+  <section class="v2-testing-block" id="entities">
+    <h2>Company / variety / berry / geography</h2>
+    <p class="context-limit">Canonical entity profiles. Variety links open Variety Intelligence. This page does not duplicate those profiles.</p>
+    {% if item.linked_entities or item.berry_links %}
+      <ul class="entity-links">
+        {% for berry in item.berry_links %}
+          <li><a href="{{ berry.href }}">{{ berry.name }}</a> <span class="badge badge-muted">BERRY</span></li>
+        {% endfor %}
+        {% for entity in item.linked_entities %}
+          <li>
+            <a href="{{ entity.href }}">{{ entity.name }}</a>
+            <span class="badge badge-muted">{{ entity.entity_type|replace('_',' ')|upper }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty-state">No company, variety, berry, or geography is linked on this Evidence.</p>
+    {% endif %}
+  </section>
+
+  <section class="v2-testing-block" id="supporting">
+    <h2>Supporting evidence</h2>
+    <p class="context-limit">Evidence links with predicate <code>corroborates</code>. Same-source repeats are flagged and are not independent corroboration.</p>
+    {% if item.supporting %}
+      <ul class="v2-testing-evidence-list">
+        {% for row in item.supporting %}
+          <li data-intel-card data-item-id="{{ row.id }}">
+            <span class="v2-mark v2-mark-support">Supporting</span>
+            {% if row.status %}<span class="badge badge-muted">{{ row.status }}</span>{% endif %}
+            {% if row.inbound %}<span class="badge badge-muted">inbound</span>{% endif %}
+            <p>
+              {% if not static_build and row.href %}
+                <a href="{{ row.href }}" data-open-reader data-item-id="{{ row.id }}"><strong>{{ row.title }}</strong></a>
+              {% elif row.static_href %}
+                <a href="{{ row.static_href }}"><strong>{{ row.title }}</strong></a>
+              {% else %}
+                <strong>{{ row.title }}</strong>
+              {% endif %}
+            </p>
+            <p class="v2-card-line">{{ row.source_name }}{% if row.independence_note %} · {{ row.independence_note }}{% endif %}</p>
+            {% if row.notes %}<p class="v2-card-summary">{{ row.notes }}</p>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty-state">No supporting Evidence links are recorded. Repeating the same claim in another article would not appear here automatically.</p>
+    {% endif %}
+  </section>
+
+  <section class="v2-testing-block" id="contradicting">
+    <h2>Contradicting evidence</h2>
+    <p class="context-limit">Evidence links with predicate <code>contradicts</code>. This is not a Fact and not a Testing Fail.</p>
+    {% if item.contradicting %}
+      <ul class="v2-testing-evidence-list">
+        {% for row in item.contradicting %}
+          <li data-intel-card data-item-id="{{ row.id }}">
+            <span class="v2-mark v2-mark-contradict">Contradicting</span>
+            {% if row.status %}<span class="badge badge-muted">{{ row.status }}</span>{% endif %}
+            {% if row.inbound %}<span class="badge badge-muted">inbound</span>{% endif %}
+            <p>
+              {% if not static_build and row.href %}
+                <a href="{{ row.href }}" data-open-reader data-item-id="{{ row.id }}"><strong>{{ row.title }}</strong></a>
+              {% elif row.static_href %}
+                <a href="{{ row.static_href }}"><strong>{{ row.title }}</strong></a>
+              {% else %}
+                <strong>{{ row.title }}</strong>
+              {% endif %}
+            </p>
+            <p class="v2-card-line">{{ row.source_name }}</p>
+            {% if row.notes %}<p class="v2-card-summary">{{ row.notes }}</p>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty-state">No contradicting Evidence links are recorded.</p>
+    {% endif %}
+  </section>
+
+  <section class="v2-testing-block" id="unknown">
+    <h2>Still unknown</h2>
+    {% if item.does_not_prove %}
+      <ul class="bullet-list">
+        {% for gap in item.does_not_prove %}<li>{{ gap }}</li>{% endfor %}
+      </ul>
+    {% endif %}
+    {% if item.still_unknown %}
+      <ul class="bullet-list">
+        {% for gap in item.still_unknown %}<li>{{ gap }}</li>{% endfor %}
+      </ul>
+    {% endif %}
+    {% if not item.does_not_prove and not item.still_unknown %}
+      <p class="empty-state">No explicit limitations are recorded on this Evidence.</p>
+    {% endif %}
+    {% if item.verification_state %}
+      <p class="v2-card-line">Evidence verification state: {{ item.verification_state|replace('_',' ') }} — not a Testing disposition.</p>
+    {% endif %}
+    {% if item.information_confidence %}
+      <p class="v2-card-line">Information confidence: {{ item.information_confidence }} — confidence in this Evidence, not Fact status.</p>
+    {% endif %}
+  </section>
+
+  <section class="v2-testing-block" id="linked-facts">
+    <h2>Linked Facts</h2>
+    <p class="context-limit">Facts already published through the normal trust path. A Testing Pass does not create these.</p>
+    {% if item.trusted_facts %}
+      <ul class="fact-list">
+        {% for fact in item.trusted_facts %}
+          <li>
+            <span class="badge badge-fact">FACT</span>
+            <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
+            {% if fact.status %}<span class="badge badge-muted">{{ fact.status }}</span>{% endif %}
+            <p>{{ fact.statement }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty-state">No linked Fact with classification <code>fact</code>.</p>
+    {% endif %}
+  </section>
+
+  <section class="v2-testing-block" id="analyst-conclusion">
+    <h2>Analyst conclusion</h2>
+    <p class="context-limit">{{ item.analyst_conclusion.note }}</p>
+    <dl class="v2-role-list">
+      <dt>Disposition</dt><dd>{{ item.analyst_conclusion.label }}</dd>
+      <dt>Last reviewer</dt><dd>{{ item.analyst_conclusion.reviewer or "—" }}</dd>
+      <dt>Last updated</dt><dd>{{ item.analyst_conclusion.updated_at or "—" }}</dd>
+      <dt>Creates a Fact?</dt><dd>No</dd>
+    </dl>
+    <p class="context-limit">Only the last overlay disposition is stored. Older reviewer actions are not retained as a history log.</p>
+    {% if authoring_mode and not static_build %}
+      <div class="v2-testing-actions">
+        {% if item.is_active %}
+          <form action="/queues/testing/{{ item.id }}" method="post"><input type="hidden" name="action" value="pass"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="return_to" value="/queues/testing/{{ item.id }}"><button class="action-button action-approve" type="submit">Pass</button></form>
+          <form action="/queues/testing/{{ item.id }}" method="post"><input type="hidden" name="action" value="fail"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="return_to" value="/queues/testing/{{ item.id }}"><button class="action-button action-reject" type="submit">Fail</button></form>
+          <form action="/queues/testing/{{ item.id }}" method="post"><input type="hidden" name="action" value="defer"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="return_to" value="/queues/testing/{{ item.id }}"><button class="action-button" type="submit">Defer</button></form>
+        {% else %}
+          <form action="/queues/testing/{{ item.id }}" method="post"><input type="hidden" name="action" value="reopen"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="return_to" value="/queues/testing/{{ item.id }}"><button class="action-button" type="submit">Reopen</button></form>
+        {% endif %}
+      </div>
+    {% endif %}
+  </section>
+
+  <p class="context-limit">A future Learner Mode “Explain this concept” link may belong here. It is not built. Claim Testing must not create Learner topics or agronomy pages.</p>
+</article>
+</div>
+{% endblock %}

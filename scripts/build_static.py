@@ -430,18 +430,30 @@ def build() -> list[Path]:
 
     # Priority-tagged intelligence views (reading/testing/watches/positions).
     from app.services.analyst_queue import build_dimension_page
+    from app.services.claim_testing import build_testing_detail, build_testing_workspace
     from app.services.monitor_workspace import monitor_page_model
 
     for dimension in PRIORITY_DIMENSIONS:
-        page = build_dimension_page(
-            dimension=dimension,
-            records=queue_items(dimension),
-            inbox_dir=ROOT / "inbox",
-            entities=entities,
-            berry_labels=BERRIES,
-            signals=all_signals(),
-            show_completed=True,
-        )
+        if dimension == "testing":
+            page = build_testing_workspace(
+                records=queue_items(dimension),
+                state={},
+                entities=entities,
+                berry_labels=BERRIES,
+                facts=all_facts(),
+                published=evidence,
+                show_completed=True,
+            )
+        else:
+            page = build_dimension_page(
+                dimension=dimension,
+                records=queue_items(dimension),
+                inbox_dir=ROOT / "inbox",
+                entities=entities,
+                berry_labels=BERRIES,
+                signals=all_signals() if dimension == "monitoring" else [],
+                show_completed=True,
+            )
         monitor = {
             "watch_items": page["items"],
             "monitor_alerts": [],
@@ -468,7 +480,7 @@ def build() -> list[Path]:
                     "berry_label": berry_label,
                     "authoring_mode": False,
                     "static_build": True,
-                    "filters": {"region": ""},
+                    "filters": page.get("filters") or {"region": ""},
                     "reviewer": "",
                     "position_proposals": [],
                     "signal_alerts": [],
@@ -479,6 +491,28 @@ def build() -> list[Path]:
                 },
             )
         )
+        if dimension == "testing":
+            for record in queue_items("testing"):
+                item = build_testing_detail(
+                    record,
+                    state={},
+                    entities=entities,
+                    berry_labels=BERRIES,
+                    facts=all_facts(),
+                    published=evidence,
+                )
+                written.append(
+                    write_page(
+                        "testing_detail.html",
+                        f"/queues/testing/{record['id']}",
+                        {
+                            "item": item,
+                            "authoring_mode": False,
+                            "static_build": True,
+                            "reviewer": "",
+                        },
+                    )
+                )
 
     # Strategic questions.
     questions = load_strategic_questions()

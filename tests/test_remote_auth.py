@@ -59,6 +59,8 @@ def test_anonymous_protected_routes_redirect_to_login(monkeypatch) -> None:
     assert "www-authenticate" not in {key.lower() for key in blocked.headers.keys()}
     assert client.get("/review").status_code == 302
     assert client.get("/intelligence/ev-sample-variety-launch").status_code == 302
+    assert client.get("/queues/testing").status_code == 302
+    assert client.get("/queues/testing/ev-sample-variety-launch").status_code == 302
     assert client.get("/").status_code == 302
     assert client.get("/healthz").status_code == 200
     login = client.get("/login")

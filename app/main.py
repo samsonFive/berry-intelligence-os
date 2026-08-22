@@ -73,6 +73,7 @@ from app.services.analyst_queue import (
     signal_alert_state,
     work_counts,
 )
+from app.services.claim_testing import build_testing_detail, build_testing_workspace
 from app.services.draft_attribution import attribute_draft, draft_matches_entity
 from app.services.review_workbench import (
     analyst_transcript_label,
@@ -2787,12 +2788,44 @@ PRIORITY_QUEUE_LABELS = {
 }
 
 
+@app.get("/queues/testing/{item_id}", response_class=HTMLResponse)
+def testing_claim_detail(request: Request, item_id: str) -> HTMLResponse:
+    record = next((item for item in queue_items("testing") if item.get("id") == item_id), None)
+    if record is None:
+        raise HTTPException(status_code=404, detail="Claim is not in the testing queue")
+    item = build_testing_detail(
+        record,
+        state=load_analyst_queue_state(INBOX_DIR),
+        entities=entity_index(),
+        berry_labels=BERRIES,
+        facts=all_facts(),
+        published=published_evidence(),
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="testing_detail.html",
+        context={
+            "item": item,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "reviewer": session_username(request) or review_username() or "",
+        },
+    )
+
+
 @app.get("/queues/{dimension}", response_class=HTMLResponse)
 def priority_queue(
     request: Request,
     dimension: str,
     region: str | None = None,
     show_completed: str | None = None,
+    state: str | None = None,
+    berry: str | None = None,
+    company: str | None = None,
+    variety: str | None = None,
+    geography: str | None = None,
+    source: str | None = None,
+    level: str | None = None,
 ) -> HTMLResponse:
     if dimension not in PRIORITY_DIMENSIONS:
         raise HTTPException(status_code=404, detail="Unknown priority dimension")
@@ -2801,13 +2834,56 @@ def priority_queue(
     if region:
         all_items = [r for r in all_items if region in evidence_regions(r, entities)]
     completed = show_completed in {"1", "true", "on", "yes"}
+    if dimension == "testing":
+        ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+        page = build_testing_workspace(
+            records=all_items,
+            state=load_analyst_queue_state(INBOX_DIR),
+            entities=entities,
+            berry_labels=BERRIES,
+            facts=all_facts(),
+            published=published_evidence(),
+            filters={
+                "state": state or "",
+                "berry": berry or "",
+                "company": company or "",
+                "variety": variety or "",
+                "geography": geography or "",
+                "source": source or "",
+                "level": level or "",
+                "region": region or "",
+            },
+            berry_context=ui.get("berry") or "global",
+            show_completed=completed,
+        )
+        return templates.TemplateResponse(
+            request=request,
+            name="queue.html",
+            context={
+                **page,
+                "berry_label": berry_label,
+                "regions": REGIONS,
+                "authoring_mode": AUTHORING_MODE,
+                "static_build": False,
+                "reviewer": session_username(request) or review_username() or "",
+                "position_proposals": [],
+                "signal_alerts": [],
+                "reading_buckets": [],
+                "reading_bucket_counts": {},
+                "return_to": "/queues/testing",
+                "watch_items": [],
+                "monitor_alerts": [],
+                "alert_action_count": 0,
+                "last_seen_at": None,
+            },
+        )
     page = build_dimension_page(
         dimension=dimension,
         records=all_items,
         inbox_dir=INBOX_DIR,
         entities=entities,
         berry_labels=BERRIES,
-        signals=all_signals(),
+        signals=all_signals() if dimension == "monitoring" else [],
         show_completed=completed,
     )
     proposals = pending_position_proposals(all_recommendations(), INBOX_DIR) if dimension == "commercial_position" else []
