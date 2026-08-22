@@ -84,6 +84,19 @@ Then open `http://localhost:8080/`.
   `generated/` as-is; no rewrite rules are required because every page is
   `.../index.html` and every link is relative.
 
+### GitHub Pages workflow
+
+`.github/workflows/deploy-pages.yml` builds and deploys on pushes to
+`master` or `v2/intelligence-os`, and can also be run manually with
+**Actions → Deploy static site to GitHub Pages → Run workflow**. The build
+creates `generated/.nojekyll`, verifies both the site root and Blueberry
+Landscape output, and uploads `generated/` with the official Pages artifact
+and deployment actions.
+
+The repository's one-time Pages setting must be **Settings → Pages → Build
+and deployment → Source → GitHub Actions**. Project-site URLs need no build
+configuration because all generated links are relative.
+
 ## What's intentionally excluded
 
 Per the architecture's runtime modes, a static build is read-only: it never

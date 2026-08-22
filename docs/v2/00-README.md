@@ -1,6 +1,6 @@
 # Intelligence OS V2 — Planning Document Set
 
-**Status: reviewed and accepted with revisions, 2026-08-13 (see `08-DECISION-LOG.md`). Implementation still has not begun — see `PROJECT-STATUS.md`; the next action is Phase 0 / `BL-001` only.**
+**Status: this directory is the original architecture *planning* pass (reviewed and accepted with revisions, 2026-08-13 — see `08-DECISION-LOG.md`). Implementation has since progressed well beyond planning: the recurring collection pipeline (source discovery, media acquisition, transcription), human-reviewed transcript→Atomic Evidence extraction, and an optional external-AI gateway now exist in the codebase. For the current operational path and status, see the root `README.md`, `PROJECT-STATUS.md`, `COLLECTION-OPERATIONS-STATUS.md`, and `RECURRING-COLLECTION-RUNNER.md`. Read the numbered documents below as the design rationale, not as a description of unbuilt work.**
 
 This directory is the architecture planning pass for the controlled transition from Berry Intelligence OS V1 into a generalized Intelligence OS, per the product direction: an independently hosted platform that can monitor arbitrary industries/markets/geographies, with Berry Intelligence becoming the first Domain Pack and reference implementation rather than the platform's architectural identity.
 

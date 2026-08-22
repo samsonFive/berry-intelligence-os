@@ -29,6 +29,317 @@
     "source_id": {"type": ["string", "null"]},
     "origin_domain": {"type": "string"},
     "auto_tagged": {"type": "boolean"},
+    "review_state": {
+      "enum": ["draft", "in_review", "published", "rejected"],
+      "$comment": "V2 Phase 1 addition (BL-012, docs/v2/10-BACKLOG.md), optional/additive. The unified review-state vocabulary means the same thing regardless of how a record arrived (manual intake, import package, or Collector), replacing the V1 split between status and the auto-capture-only validated boolean. The additive rejected value records an explicit human decision on a proposal; it is not published/trusted Evidence. Not required or backfilled onto historical records; status/validated remain the compatibility bridge until Phase 3."
+    },
+    "source_tier": {
+      "enum": ["tier_1_primary", "tier_2_specialist", "tier_3_corroborating", "low_authority"],
+      "$comment": "V2 Phase 1 addition (BL-012), optional. Per the blueberry import package's own proposed-schema-enhancements.md P-4: today this only exists informally as a plain string inside `tags` (e.g. \"tier-1\"), indistinguishable from unrelated tags. Not backfilled from `tags` in this task -- a data-migration concern, not a schema one."
+    },
+    "event_date": {
+      "type": ["string", "null"],
+      "format": "date",
+      "$comment": "V2 Phase 1 addition (BL-012), optional. When the underlying development actually happened, distinct from `captured_date` (when this system captured it) and `published_date` (when it was reported) -- per proposed-schema-enhancements.md P-4. Mirrors `fact.event_date`, added to this repository in an earlier session."
+    },
+    "information_confidence": {
+      "enum": ["low", "medium", "high"],
+      "$comment": "V2 Phase 1 addition (BL-012), optional. Confidence in the evidence's information itself, distinct from any fact/assessment later derived from it -- per proposed-schema-enhancements.md P-4."
+    },
+    "evidence_role": {
+      "enum": ["publication_artifact", "atomic_evidence"],
+      "$comment": "Optional/additive distinction for long-form and other compound publications. publication_artifact is the whole published item; atomic_evidence is one independently reviewable evidence point derived from a parent Evidence record. Historical Evidence without this field keeps its existing semantics and requires no migration."
+    },
+    "source_authority": {
+      "enum": ["high", "medium", "low"],
+      "$comment": "Patent Monitor v2 addition (2026-08-19), optional. How authoritative the *source itself* is (e.g. a government patent registry is high) -- deliberately distinct from information_confidence (confidence in what the record's information actually establishes) and from verification_state (how independently corroborated the claim is). A patent filing can be source_authority=high while still information_confidence=unknown on any commercial claim: the filing proves the IP event happened, nothing about market outcomes. app/services/intelligence_feed.py already reads this field generically for any Evidence kind, not only patents."
+    },
+    "verification_state": {
+      "enum": ["unverified", "single_source", "corroborated", "verified_primary", "disputed"],
+      "$comment": "Patent Monitor v2 addition (2026-08-19), optional. How independently corroborated this record's claim is -- unverified/single_source/corroborated are ingestion-time states; verified_primary and disputed are human review decisions, never set automatically. app/services/intelligence_feed.py's trust_state() already reads this generically: disputed evidence is flagged even if otherwise published."
+    },
+    "does_not_prove": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "Patent Monitor v2 addition (2026-08-19), optional. Explicit, human-readable claims this record does NOT establish by itself (e.g. a plant-patent filing proves an IP claim exists, not commercialization, acreage, or market success). Keeps source_authority from being silently read as claim confidence. app/services/intelligence_feed.py renders this generically for any Evidence kind."
+    },
+    "evidence_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["predicate", "target_evidence_id", "status"],
+        "properties": {
+          "predicate": {"enum": ["corroborates", "contradicts", "follows_up", "same_signal", "duplicates"]},
+          "target_evidence_id": {"type": "string", "pattern": "^ev-[a-z0-9-]+$"},
+          "status": {"enum": ["proposed", "accepted", "contested", "rejected"]},
+          "notes": {"type": "string"},
+          "proposed_by": {"type": "string"},
+          "proposed_at": {"type": "string", "format": "date"}
+        }
+      },
+      "$comment": "Patent Monitor v2 addition (2026-08-19), optional. Evidence-to-Evidence corroboration proposals -- ingestion may only ever write status=proposed; a human reviewer promotes to accepted/contested/rejected. Never a replacement for entity_ids/relationship_ids, which link Evidence to Entities, not to other Evidence. app/services/intelligence_feed.py's trust_state() already treats any status=contested link as grounds to flag the record as disputed. 'duplicates' added for Corroboration + Signal Formation (2026-08-19): distinct from 'same_signal' (two records about the same developing pattern, still each independently informative) -- 'duplicates' marks that one record IS the other's origin (a reprint, syndication, or a second pull of the same first-party announcement), the exact case app/services/source_independence.py's clustering exists to keep out of a Signal's independent source count."
+    },
+    "intake_type": {
+      "type": "string",
+      "$comment": "Patent Monitor v2 addition (2026-08-19), optional. How this Evidence entered the pipeline when that's a meaningful distinction beyond source_type (currently only \"patent_filing\"). app/services/intelligence_feed.py's classify_kind() reads this (or source_type=patent_record, or a patent_filing dict) to route the record to the Reader's patent rendering -- patents are otherwise just another Evidence record, not a separate object type."
+    },
+    "patent_filing": {
+      "type": "object",
+      "$comment": "Patent Monitor v2 addition (2026-08-19), optional, present only on patent Evidence. Normalized bibliographic data (publication_number, filing/grant dates, inventors, assignees, botanical/cultivar name, source_url) as discovered -- see app/services/patent_monitor/normalize.py. Presence of this object alone (even without intake_type/source_type) is enough for intelligence_feed.classify_kind() to render the record as a patent."
+    },
+    "commercial_observation": {
+      "type": "object",
+      "$comment": "Variety Intelligence Backbone V1 addition (2026-08-21), optional, present only on a market/retail observation Evidence record (source_type=field_observation, mirroring the pre-existing ev-sample-retail-placement seed convention -- see docs/v2/VARIETY-INTELLIGENCE-BACKBONE.md Part 7). Structured facts about ONE observed commercial listing at ONE point in time -- retailer/market/variety/brand/pack/price/claims as actually stated on the listing, nothing inferred. This is an observation of a listing, not proof of market scale, distribution, or commercial success (does_not_prove should say so explicitly, the same discipline patent_filing already follows). entity_ids still carries the resolved retailer/variety/marketer entity ids for generic querying (EntityIntelligenceQueryService etc.); this object exists only for the structured facts no generic entity/geography field already captures. All fields optional -- record only what the listing itself actually stated.",
+      "properties": {
+        "retailer_entity_id": {"type": ["string", "null"], "$comment": "Resolved retailer/channel Entity id, if the retailer is already tracked; null if not yet resolved (do not invent a Retailer entity from a single observation)."},
+        "retailer_name": {"type": ["string", "null"], "$comment": "The retailer/channel name as it actually appeared, independent of whether it resolved to an entity."},
+        "channel": {"enum": ["online", "physical", "unknown"]},
+        "market_country": {"type": ["string", "null"], "$comment": "The market/country the listing was observed in (e.g. 'United Kingdom'), free text -- distinct from origin_geography_id, which is where the product itself is stated to originate."},
+        "variety_entity_id": {"type": ["string", "null"], "$comment": "Resolved Variety entity id if the listing named a specific cultivar/denomination the analyst could confidently match; null when the listing only shows a brand and the underlying variety is genuinely ambiguous -- do not guess."},
+        "brand": {"type": ["string", "null"]},
+        "marketer_entity_id": {"type": ["string", "null"]},
+        "grower_packer": {"type": ["string", "null"], "$comment": "As stated on the listing/pack, when visible -- free text, not assumed to resolve to an entity."},
+        "origin_geography_id": {"type": ["string", "null"], "$comment": "Resolved Geography entity id for the stated country/region of origin, if the listing disclosed one."},
+        "price": {"type": ["number", "null"]},
+        "currency": {"type": ["string", "null"], "$comment": "ISO 4217 code (e.g. 'GBP'), free text -- not schema-enforced to a fixed list."},
+        "pack_size": {"type": ["string", "null"]},
+        "promotion": {"type": ["string", "null"], "$comment": "Any promotional claim on the listing (e.g. '2 for GBP3'), verbatim or closely paraphrased."},
+        "claims": {"type": "array", "items": {"type": "string"}, "$comment": "Marketing/quality claims as stated on the listing (e.g. 'extra sweet', 'jumbo berries') -- these are the retailer/marketer's own claims, never silently promoted to a trusted trait Fact."},
+        "observed_at": {"type": "string", "format": "date"},
+        "observer_method": {"enum": ["public_listing_review", "analyst_submitted_photo", "other"]},
+        "image_reference": {"type": ["string", "null"], "$comment": "A reference to a retained image, if any -- this project does not store scraped images inline; a URL or local reference only."}
+      }
+    },
+    "trade_observation": {
+      "type": "object",
+      "$comment": "Global Trade / Customs Intelligence V1 addition (2026-08-21), optional, present only on a quantitative trade-statistics Evidence record (source_type=trade_statistics_record). One record covers one (reporter, partner, flow, HS code) lane, with `series[]` holding one entry per reported period -- deliberately NOT one Evidence record per monthly data point (the mission's own instruction: 'do not treat every monthly data point as an Evidence paragraph'). A trade observation is an official government-reported statistic, not an interpretation -- YoY/trend/unusual-movement derivations are computed on demand by app/services/trade_intelligence.py, never stored here and never auto-promoted to a Signal. does_not_prove should always be populated (an HS-code volume figure does not by itself prove a cause, e.g. it does not prove an antidumping ruling's effect without independent corroboration).",
+      "properties": {
+        "reporter_geography_id": {"type": ["string", "null"], "$comment": "Resolved Geography entity id for the reporting country, if tracked."},
+        "reporter_name": {"type": ["string", "null"]},
+        "partner_geography_id": {"type": ["string", "null"], "$comment": "Resolved Geography entity id for the partner country; null/omitted for a world-aggregate row (partner code 0)."},
+        "partner_name": {"type": ["string", "null"]},
+        "flow": {"enum": ["import", "export"]},
+        "hs_code": {"type": "string", "$comment": "6-digit HS code as reported by the source; see data/configuration/trade_hs_taxonomy.json for the berry mapping and known code-purity limitations."},
+        "hs_revision": {"type": "string"},
+        "berry_code_purity": {"enum": ["single_berry", "multi_berry_combined"], "$comment": "Mirrors trade_hs_taxonomy.json's own field -- carried onto the record itself so a reviewer never has to cross-reference the taxonomy file to know whether this lane's figures are berry-exclusive."},
+        "fresh_or_frozen": {"enum": ["fresh", "frozen"]},
+        "series": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["period"],
+            "properties": {
+              "period": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}$", "$comment": "ISO-ish YYYY-MM. A trade 'period' is a reporting month, not an event date -- deliberately not reusing evidence.event_date/published_date semantics."},
+              "quantity": {"type": ["number", "null"]},
+              "quantity_unit": {"type": ["string", "null"], "$comment": "Free text as resolved from the source's own unit code (e.g. 'kg')."},
+              "trade_value": {"type": ["number", "null"]},
+              "currency": {"type": ["string", "null"]},
+              "value_basis": {"enum": ["CIF", "FOB", "unspecified"], "$comment": "Cost-Insurance-Freight (typical for import value) vs Free-On-Board (typical for export value) -- the two are not directly comparable without adjustment; never silently treated as equivalent."},
+              "is_estimated": {"type": ["boolean", "null"]},
+              "is_reported": {"type": ["boolean", "null"], "$comment": "Whether the source itself flags this row as an actually-reported figure vs. a derived/aggregate one -- carried through, not discarded."},
+              "release_status": {"enum": ["final", "provisional", "revised", "unspecified"]}
+            }
+          }
+        },
+        "source_provenance": {
+          "type": "object",
+          "properties": {
+            "api": {"type": "string"},
+            "endpoint": {"type": "string"},
+            "retrieved_at": {"type": "string"},
+            "classification_code": {"type": "string"}
+          }
+        }
+      }
+    },
+    "weather_observation": {
+      "type": "object",
+      "$comment": "Weather / Climate Context V1 addition (2026-08-21), optional, present only on a quantitative weather/climate Evidence record (source_type=weather_climate_record). One record covers one production-region observation window (see data/configuration/weather_production_regions.json), with `series[]` holding one entry per acquired day -- deliberately NOT one Evidence record per daily reading, and deliberately NOT the full multi-year baseline range (that is reduced to a compact `baseline_by_month` summary, never stored as raw daily readings). A weather observation is a raw acquired daily reading plus a climatological baseline for comparison -- it is not an interpretation. Frost/heat/precipitation-deficit/precipitation-excess/drought-anomaly/unusual-window derivations are computed on demand by app/services/weather_intelligence.py, never stored here and never auto-promoted to a Signal or a causal claim. does_not_prove should always be populated: a weather anomaly does not by itself prove crop damage, yield loss, or that it caused any observed trade/market movement.",
+      "properties": {
+        "production_region_id": {"type": ["string", "null"], "$comment": "Key into data/configuration/weather_production_regions.json, e.g. 'chile-maule-blueberry' -- a named, coarse, publicly-documented agricultural region, not a farm coordinate."},
+        "region_label": {"type": ["string", "null"]},
+        "geography_id": {"type": ["string", "null"], "$comment": "Resolved country-level Geography entity id this production region sits within, if tracked."},
+        "berry_ids": {"type": "array", "items": {"type": "string"}},
+        "centroid": {
+          "type": "object",
+          "properties": {
+            "latitude": {"type": "number", "minimum": -90, "maximum": 90},
+            "longitude": {"type": "number", "minimum": -180, "maximum": 180}
+          },
+          "$comment": "The single representative point queried for this region -- real production spans a wider area than one grid cell; see coverage_caveat."
+        },
+        "spatial_resolution_note": {"type": ["string", "null"], "$comment": "Honest caveat about how coarse this observation is relative to the actual production region (e.g. NASA POWER's ~0.5-degree / ~50km native grid vs. a country- or province-scale growing region)."},
+        "metrics_tracked": {"type": "array", "items": {"type": "string"}},
+        "baseline_period": {
+          "type": "object",
+          "properties": {
+            "start": {"type": "string", "format": "date"},
+            "end": {"type": "string", "format": "date"}
+          },
+          "$comment": "The historical window this pilot chose as its climatological baseline -- a pragmatic pilot choice, not a peer-reviewed 30-year WMO climate normal."
+        },
+        "baseline_by_month": {
+          "type": "object",
+          "$comment": "Compact per-calendar-month climatological means over baseline_period, keyed '01'..'12' -- e.g. {t2m_max_mean_c, t2m_min_mean_c, precipitation_mean_mm}. Computed once from the baseline query, never stored as raw daily baseline readings.",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "t2m_max_mean_c": {"type": ["number", "null"]},
+              "t2m_min_mean_c": {"type": ["number", "null"]},
+              "precipitation_mean_mm": {"type": ["number", "null"]}
+            }
+          }
+        },
+        "series": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["date"],
+            "properties": {
+              "date": {"type": "string", "format": "date"},
+              "t2m_max_c": {"type": ["number", "null"]},
+              "t2m_min_c": {"type": ["number", "null"]},
+              "precipitation_mm": {"type": ["number", "null"]},
+              "source_model": {"type": ["string", "null"], "$comment": "NASA POWER's own upstream model for this reading (e.g. MERRA2 for reanalysis-era dates, GEOSIT for near-real-time dates) -- carried through, not harmonized; a real provenance detail, not assumed constant across the series."},
+              "is_provisional": {"type": ["boolean", "null"], "$comment": "True when the source returned its fill value for this date (not yet released), distinct from a genuine zero reading."}
+            }
+          }
+        },
+        "source_provenance": {
+          "type": "object",
+          "properties": {
+            "api": {"type": "string"},
+            "endpoint": {"type": "string"},
+            "community": {"type": "string"},
+            "retrieved_at": {"type": "string"}
+          }
+        }
+      }
+    },
+    "entity_link_suggestions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "role", "match_status"],
+        "properties": {
+          "name": {"type": "string"},
+          "role": {"enum": ["assignee", "applicant", "inventor", "variety", "patent"]},
+          "match_entity_id": {"type": ["string", "null"]},
+          "match_status": {"enum": ["matched", "unresolved"]},
+          "confidence": {"enum": ["high", "medium", "low"]}
+        }
+      },
+      "$comment": "Patent Monitor v2 addition (2026-08-19), optional. Deterministic, ingestion-proposed Entity-name matches for a patent filing's parties -- never auto-creates an Entity and never silently promotes an unresolved name to entity_ids. A human reviewer resolves match_status=unresolved suggestions during Approve, same as any other ambiguous-entity review."
+    },
+    "parent_evidence_id": {
+      "type": "string",
+      "pattern": "^ev-[a-z0-9-]+$",
+      "$comment": "The publication artifact from which an atomic Evidence point was derived. This is Evidence-to-Evidence provenance, not a Source relationship and not a replacement for source_id."
+    },
+    "artifact_locator": {
+      "type": "object",
+      "required": ["start_seconds"],
+      "properties": {
+        "start_seconds": {"type": "number", "minimum": 0},
+        "end_seconds": {"type": ["number", "null"], "minimum": 0},
+        "section": {"type": ["string", "null"]},
+        "speaker_label": {"type": ["string", "null"], "$comment": "A publisher/transcript label only; it is deliberately not a Person entity relationship."}
+      },
+      "$comment": "A precise location in the parent artifact or transcript. start_seconds is sufficient for a point citation; end_seconds provides a bounded segment when known."
+    },
+    "extraction_provenance": {
+      "type": "object",
+      "required": ["method", "extracted_by", "extracted_at"],
+      "properties": {
+        "method": {"enum": ["human", "ai_assisted", "automated"]},
+        "extracted_by": {"type": "string", "minLength": 1},
+        "extracted_at": {"type": "string", "format": "date"},
+        "provider": {"type": "string", "minLength": 1},
+        "model": {"type": "string", "minLength": 1},
+        "prompt_version": {"type": "string", "minLength": 1}
+      },
+      "$comment": "How a proposed atomic Evidence point was produced. This does not imply approval; reviewed_by/reviewed_at and review_state record the independent human decision."
+    },
+    "transcript_provenance": {
+      "type": "object",
+      "required": ["transcript_id", "transcript_sha256", "language", "method", "created_by", "created_at", "segment_indexes"],
+      "properties": {
+        "transcript_id": {"type": "string", "minLength": 1},
+        "transcript_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "language": {"type": "string", "minLength": 1},
+        "method": {"enum": ["publisher_provided", "human_provided", "auto_generated"]},
+        "created_by": {"type": "string", "minLength": 1},
+        "created_at": {"type": "string", "format": "date"},
+        "segment_indexes": {"type": "array", "items": {"type": "integer", "minimum": 0}, "minItems": 1, "uniqueItems": true}
+      },
+      "$comment": "Provenance of the transcript material supporting an atomic Evidence proposal. Kept distinct from extraction_provenance because transcript creation and CI statement extraction may use different methods/providers."
+    },
+    "transcript_excerpt": {
+      "type": "string",
+      "minLength": 1,
+      "$comment": "Exact supporting text from the cited transcript segments, retained for human review. This is raw derived material, not the normalized intelligence statement and not automatically trusted."
+    },
+    "reviewed_by": {"type": "string", "minLength": 1},
+    "reviewed_at": {"type": "string", "format": "date"},
+    "media_format": {
+      "enum": ["web_article", "podcast", "video", "conference_video"],
+      "$comment": "Audio/Video Intelligence data-model foundation phase, optional and additive. How this Evidence record was published -- orthogonal to `source_type` (source_type is the kind of outlet/document, e.g. 'trade_press' or 'patent_record'; media_format is the physical form that document takes, e.g. a trade-press interview could be a web_article or a podcast). Not backfilled onto existing records: their absence of this field means the format was never explicitly captured, not that they are implicitly 'web_article' -- callers must not assume a default. This is deliberately not a new Entity Type: a podcast or video is a form Evidence takes, the same way an Evidence record is not itself a Source (the publisher/outlet/channel that produced it, tracked separately via `source_id`/`source_name`). The enum is the minimum known set for this phase; extending it later (e.g. a distinct 'newsletter' or 'social_post' format) is an additive schema change, not a redesign."
+    },
+    "relevance_tier": {
+      "enum": ["direct", "adjacent"],
+      "$comment": "Freshness + Company News Recall sprint, optional and additive. Set only on web_article publication drafts that passed relevance screening: 'direct' means a berry species/cultivar or known berry company recurs as a real subject of the piece; 'adjacent' means a genuine strategic-adjacent story (agtech, trade policy, labor, weather/climate) that only mentions a berry once in passing, retained for review but never presented as high-confidence berry relevance. Absent on records this screen never ran against (podcast/video drafts, trusted published Evidence, anything predating this field) -- absence is not evidence of either tier, callers must not assume 'direct' by default."
+    },
+    "article": {
+      "type": "object",
+      "$comment": "Article Ingestion vertical slice, optional and additive. The normalized, readable-text body of a web_article Evidence record -- this project's text-artifact analogue of `transcript`, deliberately a separate object rather than forced into transcript_provenance's audio-segment shape (paragraph index is the locator; there are no timestamps for written text). Present only on web_article drafts/Evidence that completed real HTML acquisition; absence does not imply failure -- see `discovery_provenance`/operational run state for why. This is raw derived material carried for human review and later, qualified-model Atomic Evidence extraction -- it is not itself trusted intelligence and `summary`/`why_it_matters` are never overwritten by it.",
+      "properties": {
+        "paragraphs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["index", "text"],
+            "properties": {
+              "index": {"type": "integer", "minimum": 0},
+              "text": {"type": "string", "minLength": 1}
+            }
+          },
+          "$comment": "Paragraph index is the article's locator, the written-text equivalent of a transcript's segment index -- a future qualified extraction step cites paragraph indexes, never an invented timestamp."
+        },
+        "word_count": {"type": "integer", "minimum": 0},
+        "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "author": {"type": ["string", "null"]},
+        "final_url": {"type": ["string", "null"], "$comment": "Set only when acquisition followed a redirect away from source_url."},
+        "acquisition": {
+          "type": "object",
+          "required": ["method", "extractor", "extractor_version", "fetched_at"],
+          "properties": {
+            "method": {"const": "readable_text_extraction"},
+            "extractor": {"type": "string", "minLength": 1},
+            "extractor_version": {"type": "string", "minLength": 1},
+            "fetched_at": {"type": "string"},
+            "version": {"type": "string"}
+          },
+          "$comment": "Provenance of the article body extraction itself, mirroring transcript_provenance's method/created_by/created_at pattern for the same reason: honest about what produced this derived text and when."
+        }
+      }
+    },
+    "transcript": {
+      "type": "object",
+      "$comment": "Audio/Video Intelligence data-model foundation phase, optional and additive. Metadata describing a transcript's state for podcast/video/conference_video Evidence, ahead of any actual transcription pipeline -- no Whisper integration, no automated generation, and no requirement that any current or future audio/video record have a transcript. Entirely absent on every existing record and on any new record that hasn't had this considered yet; presence of this object does not imply a transcript exists (see `status`).",
+      "properties": {
+        "status": {
+          "enum": ["not_available", "pending", "available"],
+          "$comment": "'not_available' is an explicit statement (checked, none exists yet); a record with no `transcript` object at all simply hasn't been considered -- the two are deliberately distinguishable."
+        },
+        "language": {"type": "string", "$comment": "BCP-47-style language tag (e.g. 'en', 'es'), free-form for this phase."},
+        "source": {
+          "enum": ["publisher_provided", "human_provided", "auto_generated"],
+          "$comment": "Provenance of the transcript text itself, mirroring the honesty distinction this project already draws elsewhere (owner claim vs. independent measurement) -- an auto-generated transcript is not the same epistemic weight as a publisher-provided one."
+        },
+        "text": {"type": ["string", "null"], "$comment": "The transcript body, if captured inline. A future transcription workflow populates this; nothing in this phase does."},
+        "url": {"type": ["string", "null"], "$comment": "Link to an externally-hosted transcript, if `text` is not stored inline."}
+      }
+    },
     "priority": {
       "type": "object",
       "required": ["reading", "testing", "commercial_position", "monitoring"],
@@ -40,6 +351,12 @@
       }
     }
   },
+  "allOf": [
+    {
+      "if": {"properties": {"evidence_role": {"const": "atomic_evidence"}}, "required": ["evidence_role"]},
+      "then": {"required": ["parent_evidence_id", "artifact_locator", "extraction_provenance"]}
+    }
+  ],
   "$defs": {
     "priorityValue": {
       "type": "object",

@@ -1,0 +1,11 @@
+{
+  "id": "rel-abb-develops-shani",
+  "record_type": "relationship",
+  "subject_id": "company-advanced-berry-breeding",
+  "predicate": "develops",
+  "object_id": "variety-shani",
+  "status": "active",
+  "evidence_ids": ["ev-abb-varieties"],
+  "effective_date": null,
+  "notes": "confidence=high; Advanced Berry Breeding's own published variety list names Shani."
+}

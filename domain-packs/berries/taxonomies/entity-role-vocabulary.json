@@ -1,0 +1,112 @@
+{
+  "_comment": "V2 Phase 1B (BL-021, docs/v2/10-BACKLOG.md). Union of every role string actually observed in live data/entities/*.json (2026-08-14, all 162 entities) and the 16-role vocabulary data/imports/blueberry-public-pilot-2026-08-03/proposed-schema-enhancements.md's P-9 proposed. 'source' is live_data (observed in data/, not in P-9), blueberry_proposal_p9 (in P-9, not yet observed live), or both. This is a controlled vocabulary in the sense of 'everything currently in use, named once, in one place' -- it does NOT resolve the overlaps documented in unresolved_synonym_candidates below; per BL-021's explicit instruction, those are documented rather than silently collapsed. Live usage spans every entity type (patents, varieties, geographies, traits), not just companies, which is broader than P-9's own scope (P-9 was written with company-type entities specifically in mind, per its own text) -- worth noting for whoever eventually tightens this into an enforced enum.",
+  "entity_roles": [
+    {"id": "acquirer", "live_count": 1, "source": "live_data"},
+    {"id": "brand_owner", "live_count": 1, "source": "live_data"},
+    {"id": "branded_berry_company", "live_count": 0, "source": "blueberry_proposal_p9"},
+    {"id": "breeder", "live_count": 10, "source": "both"},
+    {"id": "breeding_entity", "live_count": 1, "source": "live_data"},
+    {"id": "breeding_joint_venture_partner", "live_count": 2, "source": "live_data"},
+    {"id": "closed_variety_platform", "live_count": 3, "source": "live_data"},
+    {"id": "competitor", "live_count": 9, "source": "live_data"},
+    {"id": "consumer_brand", "live_count": 7, "source": "live_data"},
+    {"id": "cooperative", "live_count": 0, "source": "blueberry_proposal_p9"},
+    {"id": "costa_group_member", "live_count": 1, "source": "live_data"},
+    {"id": "cultivar", "live_count": 17, "source": "live_data"},
+    {"id": "distributor", "live_count": 0, "source": "blueberry_proposal_p9"},
+    {"id": "exclusive_retail_partner", "live_count": 1, "source": "live_data"},
+    {"id": "exporter", "live_count": 3, "source": "both"},
+    {"id": "extension_publisher", "live_count": 2, "source": "live_data"},
+    {"id": "genetics_group", "live_count": 1, "source": "live_data"},
+    {"id": "genetics_licensee", "live_count": 2, "source": "live_data"},
+    {"id": "genetics_licensor", "live_count": 8, "source": "live_data"},
+    {"id": "genetics_owner", "live_count": 1, "source": "both"},
+    {"id": "genetics_platform_partner", "live_count": 1, "source": "live_data"},
+    {"id": "genetics_provider", "live_count": 1, "source": "live_data"},
+    {"id": "genetics_sub_licensor", "live_count": 3, "source": "live_data"},
+    {"id": "government_regulator", "live_count": 2, "source": "live_data"},
+    {"id": "grocery_retailer", "live_count": 1, "source": "live_data"},
+    {"id": "grower", "live_count": 6, "source": "live_data"},
+    {"id": "grower_cooperative", "live_count": 1, "source": "live_data"},
+    {"id": "grower_shipper", "live_count": 0, "source": "blueberry_proposal_p9"},
+    {"id": "importer", "live_count": 0, "source": "blueberry_proposal_p9"},
+    {"id": "independent_examiner", "live_count": 1, "source": "live_data"},
+    {"id": "independent_trial_publisher", "live_count": 1, "source": "live_data"},
+    {"id": "industry_association", "live_count": 1, "source": "live_data"},
+    {"id": "institutional_investor", "live_count": 1, "source": "live_data"},
+    {"id": "intellectual_property_right", "live_count": 38, "source": "live_data"},
+    {"id": "investor", "live_count": 1, "source": "live_data"},
+    {"id": "ip_advocacy_body", "live_count": 1, "source": "live_data"},
+    {"id": "license_administrator", "live_count": 0, "source": "blueberry_proposal_p9"},
+    {"id": "licensee", "live_count": 1, "source": "live_data"},
+    {"id": "licensing_body", "live_count": 2, "source": "live_data"},
+    {"id": "licensor", "live_count": 1, "source": "live_data"},
+    {"id": "managed_variety_platform", "live_count": 1, "source": "live_data"},
+    {"id": "marketer", "live_count": 8, "source": "both"},
+    {"id": "measurable_attribute", "live_count": 10, "source": "live_data"},
+    {"id": "nursery", "live_count": 3, "source": "both"},
+    {"id": "packer", "live_count": 3, "source": "both"},
+    {"id": "patent_assignee", "live_count": 5, "source": "live_data"},
+    {"id": "planasa_group_member", "live_count": 1, "source": "live_data"},
+    {"id": "plant_breeders_rights_registry", "live_count": 2, "source": "live_data"},
+    {"id": "plant_producer", "live_count": 1, "source": "live_data"},
+    {"id": "private_breeding_program", "live_count": 8, "source": "live_data"},
+    {"id": "private_equity_investor", "live_count": 2, "source": "live_data"},
+    {"id": "production_or_regulatory_jurisdiction", "live_count": 6, "source": "live_data"},
+    {"id": "propagator", "live_count": 0, "source": "blueberry_proposal_p9"},
+    {"id": "public_breeding_program", "live_count": 1, "source": "live_data"},
+    {"id": "public_research_institution", "live_count": 2, "source": "live_data"},
+    {"id": "research_institution", "live_count": 0, "source": "blueberry_proposal_p9"},
+    {"id": "retailer", "live_count": 1, "source": "both"},
+    {"id": "retailer_supplier", "live_count": 1, "source": "live_data"},
+    {"id": "rights_holder", "live_count": 7, "source": "live_data"},
+    {"id": "shipper", "live_count": 1, "source": "live_data"},
+    {"id": "umbrella_brand", "live_count": 1, "source": "live_data"},
+    {"id": "university_breeding_program", "live_count": 0, "source": "blueberry_proposal_p9"},
+    {"id": "variety_club_operator", "live_count": 1, "source": "live_data"},
+    {"id": "variety_manager", "live_count": 2, "source": "live_data"},
+    {"id": "variety_platform", "live_count": 3, "source": "live_data"}
+  ],
+  "unresolved_synonym_candidates": [
+    {
+      "roles": ["genetics_owner", "genetics_provider"],
+      "note": "P-9's own noted reconciliation target -- 'currently mean the same thing under two names' (proposed-schema-enhancements.md P-9, verbatim). Not merged here."
+    },
+    {
+      "roles": ["genetics_owner", "genetics_provider", "genetics_licensor", "genetics_licensee", "genetics_sub_licensor", "genetics_group", "genetics_platform_partner"],
+      "note": "The wider genetics_* cluster P-9's own note didn't cover. Several of these look like they encode a licensing-chain position (owner vs. licensor vs. sub-licensor vs. licensee) that may be a real, worth-keeping distinction rather than pure duplication -- flagged for a human to review with real cases in hand, not resolved here."
+    },
+    {
+      "roles": ["breeding_entity", "private_breeding_program", "public_breeding_program", "university_breeding_program"],
+      "note": "university_breeding_program (P-9) has 0 live uses; the closest live equivalents are private_breeding_program (8) and public_breeding_program (1), which may already cover the same distinction P-9 intended under different names."
+    },
+    {
+      "roles": ["grower", "grower_shipper", "grower_cooperative", "cooperative"],
+      "note": "grower_shipper and cooperative (both P-9) have 0 live uses; live data instead uses plain grower (6) and the more specific grower_cooperative (1)."
+    },
+    {
+      "roles": ["license_administrator", "licensing_body", "genetics_sub_licensor"],
+      "note": "license_administrator (P-9, 0 live uses) may already be covered by licensing_body (2) and/or genetics_sub_licensor (3) -- the new administers_license_for relationship predicate (relationship-predicates.json) may make some of this role-level distinction redundant at the relationship level instead."
+    },
+    {
+      "roles": ["research_institution", "public_research_institution"],
+      "note": "research_institution (P-9, 0 live uses) vs. public_research_institution (2, live) -- live data specified 'public' where P-9 didn't; unclear whether a private-research-institution case exists that would need the unqualified P-9 term."
+    },
+    {
+      "roles": ["branded_berry_company", "consumer_brand", "umbrella_brand", "brand_owner"],
+      "note": "branded_berry_company (P-9, 0 live uses) vs. three different live brand-related roles (consumer_brand 7, umbrella_brand 1, brand_owner 1) -- P-9's single proposed term does not obviously map to any one of these three, or may have been intended to cover all of them."
+    },
+    {
+      "roles": ["retailer", "retailer_supplier", "grocery_retailer", "exclusive_retail_partner"],
+      "note": "retailer (both P-9 and live, 1 use) vs. three more specific live-only variants -- retailer is also a core entity_type (entity-types.json), so 'retailer' as a role on a non-retailer-type entity (e.g. a company that supplies retailers) vs. 'retailer' as the entity's own type is a distinction worth keeping visible."
+    },
+    {
+      "roles": ["investor", "institutional_investor", "private_equity_investor"],
+      "note": "Three granularities of the same concept, all live, none in P-9 -- likely a genuine, worth-keeping specificity gradient rather than duplication, included here rather than in a 'probably redundant' framing."
+    },
+    {
+      "roles": ["variety_platform", "closed_variety_platform", "managed_variety_platform", "variety_club_operator", "variety_manager"],
+      "note": "Five related but distinct live-only roles describing different positions around a branded-variety-platform structure (docs/v2/03-DOMAIN-MODEL.md's Recommendation section notes this exact market pattern, 'Breeding programmes becoming consumer platforms', from the same blueberry research). Not in P-9 at all -- P-9 predates this observation. Kept distinct pending a human review of whether all five are load-bearing."
+    }
+  ]
+}

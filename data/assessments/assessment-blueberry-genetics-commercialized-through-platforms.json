@@ -1,0 +1,36 @@
+{
+  "id": "assessment-blueberry-genetics-commercialized-through-platforms",
+  "record_type": "assessment",
+  "title": "Named genetics platforms are becoming a visible commercial layer above individual blueberry cultivars",
+  "rationale": "Costa's 2026 BluGenix launch, Fall Creek's three-route commercial model including the closed SEKOYA platform, and United Exports' OZblu commercialization each place a named platform or brand between the breeding programme and individual cultivar denominations. The supported conclusion is that platform identity is now a material part of how several documented programmes are presented and accessed; the public record does not yet establish that growers choose platforms over cultivars or that commercial terms differ systematically, so this is not a claim that platform selling has replaced variety licensing.",
+  "status": "active",
+  "confidence": "medium",
+  "fact_ids": [
+    "fact-blugenix-launch-2026",
+    "fact-fall-creek-commercial-platforms-2026-1",
+    "fact-fall-creek-commercial-platforms-2026-2",
+    "fact-united-exports-joint-titleholder-2016"
+  ],
+  "evidence_ids": [
+    "ev-producereport-blugenix-2026",
+    "ev-fall-creek-commercial-platforms-2026",
+    "ev-sekoya-story",
+    "ev-ciopora-united-exports-pbr-2020"
+  ],
+  "entity_ids": [
+    "company-costa-group-holdings",
+    "brand-blugenix",
+    "company-fall-creek-farm-and-nursery",
+    "brand-sekoya",
+    "company-united-exports",
+    "brand-ozblu"
+  ],
+  "market_ids": ["berry-blueberry"],
+  "strategic_question_ids": ["sq-emerging-varieties", "sq-competitor-expansion"],
+  "counterevidence_ids": ["fact-fall-creek-commercial-platforms-2026-3"],
+  "reviewer": "Codex proposal — pending human review",
+  "ai_proposed": true,
+  "why_it_matters": "Access terms, membership and marketing support may become as decision-relevant as the cultivar itself.",
+  "would_change_our_view": "Evidence that the named platforms are only marketing wrappers over conventional per-variety licences.",
+  "created_at": "2026-08-14"
+}

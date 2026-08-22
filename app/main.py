@@ -8,11 +8,14 @@ import re
 import secrets
 import shutil
 import sys
+import time
+from collections import Counter, defaultdict
 from contextlib import asynccontextmanager
+from copy import deepcopy
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
-from urllib.parse import quote, urlparse
+from urllib.parse import quote, urlencode, urlparse, urlsplit
 
 import feedparser
 import httpx
@@ -22,9 +25,139 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from jsonschema import Draft202012Validator, FormatChecker
 
+from app.composition import get_domain_services, get_query_services, get_repositories, get_unit_of_work
+from app.queries.timeline import entity_activity, max_priority_level
+from app.services.berries.geography import (
+    REGIONS,
+    REGION_LOOKUP,
+    berry_label,
+    entity_regions,
+    evidence_regions,
+    geography_region,
+)
+from app.services.berries.variety import (
+    _normalize_patent_number,
+    variety_patent_link,
+    variety_trait_profile,
+)
+from app.repositories.base import DuplicateRecord
+from app.services.deterministic_tagging import apply_known_name_matches, matchers_from_entities
+from app.services.entity_alias_recall import linked_evidence_for_entity
+from app.services.media_discovery import list_discovered_items, read_source_discovery_state
+from app.services.review_publish import PublishRequest, ReviewPublishService
+from app.services.source_freshness import (
+    FRESHNESS_LABELS,
+    SOURCE_CADENCE_DAYS,
+    aggregate_source_coverage,
+    classify_source_freshness,
+    index_latest_item_dates,
+)
+from app.services.ui_context import (
+    apply_ui_cookies,
+    matches_berry_context,
+    parse_berry,
+    parse_feed_view,
+    persist_ui_prefs,
+    read_ui_context,
+)
+from app.services.analyst_queue import (
+    apply_action as apply_queue_action,
+    build_dimension_page,
+    bulk_dismiss_pending,
+    bulk_mark_read,
+    is_open_signal_alert,
+    is_pending_dismissed,
+    load_state as load_analyst_queue_state,
+    pending_position_proposals,
+    present_queue_item,
+    proposal_state,
+    signal_alert_state,
+    work_counts,
+)
+from app.services.testing_workspace import enrich_testing_item, related_indexes, testing_page_model
+from app.services.draft_attribution import attribute_draft, draft_matches_entity
+from app.services.review_workbench import (
+    analyst_transcript_label,
+    attach_publication_card,
+    build_review_workbench,
+    build_scanner_summary,
+    format_locator,
+    load_publication_transcript_readiness,
+    unknown_transcript_readiness,
+)
+from app.runtime_config import (
+    credentials_match,
+    remote_interactive_enabled,
+    resolve_data_dir,
+    resolve_inbox_dir,
+    review_username,
+    validate_remote_interactive_config,
+)
+from app.services.intelligence_feed import (
+    annotate_feed_semantics,
+    build_intelligence_feed,
+    build_reader,
+    present_feed_item,
+)
+from app.services.assessment_scope import (
+    assessment_berry_scope,
+    assessment_market_berry_ids,
+    attach_assessment_scope,
+    parse_assessment_market_ids,
+)
+from app.services.morning_brief import brief_last_seen, build_morning_brief
+from app.services.monitor_workspace import (
+    failing_source_health_rows,
+    group_source_health,
+    monitor_page_model,
+    present_source_health_rows,
+    retry_hints_by_source,
+)
+from app.services.variety_workspace import (
+    VIEWS as VARIETY_VIEWS,
+    berry_inventory,
+    present_competition,
+    present_observation_workspace,
+    present_variety_detail,
+    present_variety_index,
+)
+from app.services.global_search import (
+    GROUP_CAP_DEFAULT,
+    SearchPools,
+    build_search_documents,
+    search_global,
+)
+from app.services.signal_candidates import SignalCandidateError, load_candidates
+from app.services.signal_review import (
+    EMERGING_STATUSES,
+    StaleSignalCandidateError,
+    apply_and_persist_decision,
+    candidate_by_id,
+    candidates_for_thread,
+    evidence_quality_for_record,
+    lookup_candidate,
+    open_signals_for_entity,
+    present_candidates,
+    present_review,
+    triage_groups,
+)
+from app.services.story_threads import compress_recent_intelligence, expand_with_related, thread_for_item
+from app.session_auth import (
+    EnvSessionMiddleware,
+    auth_template_context,
+    clear_login_failures,
+    clear_session,
+    establish_session,
+    login_is_throttled,
+    record_login_failure,
+    remote_auth_middleware,
+    safe_next_path,
+    session_username,
+)
+
 BASE_DIR = Path(__file__).resolve().parents[1]
-DATA_DIR = BASE_DIR / "data"
-INBOX_DIR = BASE_DIR / "inbox"
+DATA_DIR = resolve_data_dir(BASE_DIR)
+INBOX_DIR = resolve_inbox_dir(BASE_DIR)
 SCHEMAS_DIR = BASE_DIR / "schemas"
 
 # Authoring mode permits local writes (intake, review, publish). A future
@@ -84,10 +217,30 @@ FACT_CONFIDENCE_LEVELS = ["low", "medium", "high"]
 NUM_FACT_ROWS = 3
 NUM_RELATIONSHIP_ROWS = 2
 
+REJECTION_CATEGORIES = {
+    "not_decision_relevant": "Not decision-relevant",
+    "unsupported": "Unsupported by source/transcript",
+    "overstates_source": "Overstates source",
+    "duplicate": "Duplicate",
+    "not_atomic": "Not atomic",
+    "transcript_error": "Transcript error",
+    "wrong_links": "Wrong links/entities",
+    "other": "Other",
+}
+
 SIGNAL_DIRECTIONS = ["strengthening", "weakening", "emerging", "stable"]
 SIGNAL_STRENGTHS = ["low", "medium", "high"]
 SIGNAL_STATUSES = ["active", "watch", "resolved"]
 PRIORITY_RANK = {"high": 0, "medium": 1, "low": 2, "none": 3}
+
+# Assessment and Recommendation are human-authored interpretation/action
+# objects, downstream of Facts/Evidence and Signals respectively (see
+# docs/v2/03-DOMAIN-MODEL.md's Recommendation -> Assessment/Signal -> Facts
+# -> Evidence -> Source lineage chain). Both reuse FACT_CONFIDENCE_LEVELS'
+# low/medium/high value set for their own confidence/priority scalars rather
+# than redefining an identical list.
+INTELLIGENCE_RECORD_STATUSES = ["active", "superseded", "withdrawn"]
+RECOMMENDATION_PRIORITIES = ["low", "medium", "high"]
 
 SOURCE_TYPES = {
     "rss": "RSS / Atom feed",
@@ -140,19 +293,17 @@ SOURCE_CADENCES = {
     "annual": "Annual Report",
     "event_driven": "Event-driven",
 }
-SOURCE_CADENCE_DAYS = {
-    "realtime": 1,
-    "weekly": 7,
-    "biweekly": 14,
-    "monthly": 30,
-    "quarterly": 90,
-    "annual": 365,
-    # event_driven has no fixed schedule -- never "due", only checked manually.
-}
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Fail closed before serving if remote interactive mode is on without
+    # credentials. Skip the hard startup raise under pytest so request-level
+    # tests can observe the 503; uvicorn production still refuses to boot.
+    if "pytest" not in sys.modules:
+        validate_remote_interactive_config()
+    INBOX_DIR.mkdir(parents=True, exist_ok=True)
+    (INBOX_DIR / "evidence").mkdir(parents=True, exist_ok=True)
     # Never poll external sources during tests -- pytest importing this
     # module must not trigger real network calls. Real deployments always
     # have "pytest" absent from sys.modules. Also gated on
@@ -166,13 +317,273 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Berry Intelligence OS", version="0.1.0", lifespan=lifespan)
+app.middleware("http")(remote_auth_middleware)
+app.add_middleware(EnvSessionMiddleware)
 app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="static")
-templates = Jinja2Templates(directory=BASE_DIR / "app" / "templates")
-templates.env.globals["pending_review_count"] = lambda: len(list_drafts()) + len(unvalidated_auto_captured_evidence())
+
+
+def _assemble_morning_brief(
+    *, mark_seen: bool = False, include_coverage: bool = False, mode: str = "full"
+) -> dict[str, Any]:
+    published = published_evidence()
+    coverage = {}
+    freshness = {}
+    discovered: list[dict[str, Any]] = []
+    recommendations: list[dict[str, Any]] = []
+    if include_coverage:
+        sources_ctx = sources_page_context(None, None, None, None, None, "entity_type", None)
+        coverage = sources_ctx.get("source_coverage") or {}
+        freshness = sources_ctx.get("freshness_by_source") or {}
+        discovered = list_discovered_items(INBOX_DIR)
+        recommendations = all_recommendations()
+    return build_morning_brief(
+        inbox_dir=INBOX_DIR,
+        published=published,
+        drafts=list_pending_drafts(),
+        unvalidated=unvalidated_auto_captured_evidence(),
+        signals=all_signals(),
+        entities=entity_index(),
+        sources=load_sources(),
+        berry_labels=BERRIES,
+        source_coverage=coverage,
+        freshness_by_source=freshness,
+        discovered=discovered,
+        recommendations=recommendations,
+        mark_seen=mark_seen,
+        mode=mode,
+    )
+
+
+_NAV_WORK_CACHE: dict[str, Any] = {"key": None, "value": None}
+_SEARCH_DOC_CACHE: dict[str, Any] = {"key": None, "docs": None}
+COMPANY_BERRY_ORDER = ("berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry")
+COMPANY_WHAT_CHANGED_DAYS = 30
+
+
+def _path_sig(path: Path) -> tuple[str, int, int]:
+    try:
+        st = path.stat()
+    except OSError:
+        return (str(path), 0, 0)
+    return (str(path), int(st.st_mtime_ns), int(st.st_size))
+
+
+def _json_folder_sig(folder: Path) -> tuple[tuple[str, int, int], ...]:
+    if not folder.is_dir():
+        return ()
+    rows: list[tuple[str, int, int]] = []
+    for path in folder.glob("*.json"):
+        try:
+            st = path.stat()
+        except OSError:
+            continue
+        rows.append((path.name, int(st.st_mtime_ns), int(st.st_size)))
+    return tuple(sorted(rows))
+
+
+def _json_tree_sig(folder: Path) -> tuple[tuple[str, int, int], ...]:
+    if not folder.is_dir():
+        return ()
+    rows: list[tuple[str, int, int]] = []
+    for path in folder.rglob("*.json"):
+        try:
+            st = path.stat()
+        except OSError:
+            continue
+        rows.append((str(path.relative_to(folder)), int(st.st_mtime_ns), int(st.st_size)))
+    return tuple(sorted(rows))
+
+
+def _nav_work_cache_key() -> tuple[Any, ...]:
+    return (
+        str(INBOX_DIR),
+        str(DATA_DIR),
+        _json_folder_sig(INBOX_DIR / "evidence"),
+        _path_sig(INBOX_DIR / "analyst_queue_state.json"),
+        _json_folder_sig(INBOX_DIR / "signal_candidates"),
+        _json_folder_sig(DATA_DIR / "evidence"),
+        _json_folder_sig(DATA_DIR / "signals"),
+    )
+
+
+def _record_activity_stamp(record: dict[str, Any]) -> str:
+    return str(
+        record.get("captured_date")
+        or record.get("published_date")
+        or record.get("reviewed_at")
+        or record.get("created_at")
+        or ""
+    )
+
+
+def _compute_nav_work_counts() -> dict[str, Any]:
+    """Cheap HTML-nav badges. Ranked Brief / Pending work stays on those pages."""
+
+    published = published_evidence()
+    signals = all_signals()
+    counts = work_counts(inbox_dir=INBOX_DIR, published=published, signals=signals)
+    state = load_analyst_queue_state(INBOX_DIR)
+    pending_rows = list(list_pending_drafts())
+    pending_rows.extend(
+        record
+        for record in published
+        if record.get("auto_captured") and not record.get("validated")
+    )
+    pending_open = 0
+    for record in pending_rows:
+        item_id = str(record.get("id") or "")
+        if item_id and not is_pending_dismissed(item_id, state):
+            pending_open += 1
+    counts["pending_open"] = pending_open
+    # Nav Pending is uncleared decisions, not ranked Review-now.
+    counts["review_now"] = pending_open
+    last_seen = brief_last_seen(INBOX_DIR)
+    if last_seen:
+        seen_ids: set[str] = set()
+        brief_action = 0
+        for record in [*published, *pending_rows]:
+            item_id = str(record.get("id") or "")
+            if not item_id or item_id in seen_ids:
+                continue
+            seen_ids.add(item_id)
+            stamp = _record_activity_stamp(record)
+            if stamp and stamp > last_seen and not is_pending_dismissed(item_id, state):
+                brief_action += 1
+        counts["brief_action"] = brief_action
+    else:
+        counts["brief_action"] = int(counts.get("reading_action") or 0)
+    counts["emerging_signals"] = sum(
+        1 for candidate in load_candidates(INBOX_DIR) if candidate.get("status") in EMERGING_STATUSES
+    )
+    return counts
+
+
+def nav_work_template_context(request: Request) -> dict[str, Any]:
+    """Nav action counts for HTML pages. Overlay fragments skip nav work entirely."""
+
+    ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    if str(getattr(request.url, "path", "") or "").startswith("/api/"):
+        return {
+            "nav_work_counts": {},
+            "ui_context": ui_context,
+            "berries": BERRIES,
+        }
+    key = _nav_work_cache_key()
+    if _NAV_WORK_CACHE["key"] != key or _NAV_WORK_CACHE["value"] is None:
+        _NAV_WORK_CACHE["key"] = key
+        _NAV_WORK_CACHE["value"] = _compute_nav_work_counts()
+    return {
+        "nav_work_counts": _NAV_WORK_CACHE["value"],
+        "ui_context": ui_context,
+        "berries": BERRIES,
+    }
+
+
+templates = Jinja2Templates(
+    directory=BASE_DIR / "app" / "templates",
+    context_processors=[auth_template_context, nav_work_template_context],
+)
+templates.env.globals["pending_review_count"] = lambda: len(list_pending_drafts()) + len(unvalidated_auto_captured_evidence())
 templates.env.globals["queue_counts"] = lambda: queue_counts()
+templates.env.globals["nav_work"] = lambda: work_counts(
+    inbox_dir=INBOX_DIR,
+    published=published_evidence(),
+    signals=all_signals(),
+)
 
 
-_JSON_FOLDER_CACHE: dict[Path, tuple[tuple[tuple[str, int], ...], list[dict[str, Any]]]] = {}
+@app.get("/healthz")
+def healthz() -> dict[str, Any]:
+    """Liveness probe. Unauthenticated even in remote interactive mode."""
+
+    return {
+        "ok": True,
+        "remote_interactive": remote_interactive_enabled(),
+    }
+
+
+LOGIN_ERROR = "Username or password is incorrect."
+LOGIN_THROTTLED = "Too many sign-in attempts. Try again in a few minutes."
+
+
+def _login_page(
+    request: Request,
+    *,
+    next_path: str,
+    username: str = "",
+    error: str | None = None,
+) -> HTMLResponse:
+    return templates.TemplateResponse(
+        request=request,
+        name="login.html",
+        context={
+            "next_path": safe_next_path(next_path),
+            "username": username,
+            "error": error,
+        },
+    )
+
+
+@app.get("/login", response_class=HTMLResponse, response_model=None)
+def login_form(request: Request, next: str = "") -> HTMLResponse | RedirectResponse:
+    destination = safe_next_path(next)
+    if session_username(request):
+        return RedirectResponse(url=destination, status_code=303)
+    return _login_page(request, next_path=destination)
+
+
+@app.post("/login", response_model=None)
+async def login_submit(
+    request: Request,
+    username: str = Form(""),
+    password: str = Form(""),
+    next: str = Form(""),
+) -> HTMLResponse | RedirectResponse:
+    destination = safe_next_path(next)
+    presented_username = username.strip()
+    if login_is_throttled(request):
+        return _login_page(
+            request,
+            next_path=destination,
+            username=presented_username,
+            error=LOGIN_THROTTLED,
+        )
+    if credentials_match(presented_username, password):
+        establish_session(request, presented_username)
+        clear_login_failures(request)
+        return RedirectResponse(url=destination, status_code=303)
+    record_login_failure(request)
+    return _login_page(
+        request,
+        next_path=destination,
+        username=presented_username,
+        error=LOGIN_ERROR,
+    )
+
+
+@app.post("/logout")
+async def logout(request: Request) -> RedirectResponse:
+    clear_session(request)
+    return RedirectResponse(url="/login", status_code=303)
+
+
+@app.post("/ui/context")
+async def set_ui_context(
+    request: Request,
+    berry: str = Form(default="global"),
+    view: str = Form(default=""),
+    next: str = Form(default="/brief"),
+) -> RedirectResponse:
+    current = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    berry_id = parse_berry(berry, BERRIES)
+    feed_view = parse_feed_view(view or current["feed_view"])
+    persist_ui_prefs(INBOX_DIR, berry=berry_id, feed_view=feed_view)
+    response = RedirectResponse(url=safe_next_path(next), status_code=303)
+    apply_ui_cookies(response, berry=berry_id, feed_view=feed_view)
+    return response
+
+
+_JSON_FOLDER_CACHE: dict[Path, tuple[tuple[tuple[str, int, int], ...], list[dict[str, Any]]]] = {}
 
 
 def load_json_files(folder: Path) -> list[dict[str, Any]]:
@@ -192,11 +603,27 @@ def load_json_files(folder: Path) -> list[dict[str, Any]]:
     signature is recomputed from the actual filesystem state on every call,
     so any write through any code path -- save_evidence(), a direct
     path.write_text() elsewhere, even hand-editing a file outside the app --
-    is picked up on the very next call. No dirty flag to forget to set."""
+    is picked up on the very next call. No dirty flag to forget to set.
+
+    The signature includes st_size, not just mtime: some filesystems
+    (notably overlayfs, used by many containers/CI) give coarse mtime
+    granularity, so two writes to the same file within one tick can share an
+    identical st_mtime_ns. Keying on mtime alone silently returned a stale
+    cached read after a same-tick rewrite (e.g. saving a draft then
+    re-listing in the same request). Including the byte size detects every
+    content-length change through any code path; the only remaining blind
+    spot is a same-size rewrite landing in the same mtime tick, which a
+    content hash would close at the cost of the read this cache exists to
+    avoid."""
     if not folder.exists():
         return []
     paths = sorted(folder.rglob("*.json"))
-    signature = tuple((str(p), p.stat().st_mtime_ns) for p in paths)
+
+    def _signature_entry(path: Path) -> tuple[str, int, int]:
+        stat_result = path.stat()
+        return (str(path), stat_result.st_mtime_ns, stat_result.st_size)
+
+    signature = tuple(_signature_entry(p) for p in paths)
     cached = _JSON_FOLDER_CACHE.get(folder)
     if cached is not None and cached[0] == signature:
         return cached[1]
@@ -209,12 +636,21 @@ def load_json_files(folder: Path) -> list[dict[str, Any]]:
 
 
 def all_evidence() -> list[dict[str, Any]]:
-    return load_json_files(DATA_DIR / "evidence")
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.list()
 
 
 def published_evidence() -> list[dict[str, Any]]:
     records = [r for r in all_evidence() if r.get("status") == "published"]
     return sorted(records, key=lambda r: r.get("published_date") or r.get("captured_date", ""), reverse=True)
+
+
+def _evidence_index() -> dict[str, dict[str, Any]]:
+    rows: dict[str, dict[str, Any]] = {}
+    for record in published_evidence() + list_pending_drafts() + unvalidated_auto_captured_evidence():
+        record_id = str(record.get("id") or "")
+        if record_id:
+            rows[record_id] = record
+    return rows
 
 
 def unvalidated_auto_captured_evidence() -> list[dict[str, Any]]:
@@ -240,15 +676,16 @@ def unvalidated_auto_captured_evidence() -> list[dict[str, Any]]:
 
 
 def all_entities() -> list[dict[str, Any]]:
-    return load_json_files(DATA_DIR / "entities")
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).entities.list()
 
 
 def entity_index() -> dict[str, dict[str, Any]]:
     return {entity["id"]: entity for entity in all_entities() if entity.get("id")}
 
 
-def berry_label(berry_id: str) -> str:
-    return berry_id.removeprefix("berry-").replace("_", " ").replace("-", " ").title()
+# berry_label() lives in app/services/berries/geography.py (V2 Phase 2B.2)
+# and is imported above; re-exported under this name for every existing
+# caller (templates, scripts/build_static.py, tests).
 
 
 def us_date(value: str | None) -> str:
@@ -326,87 +763,10 @@ templates.env.filters["as_bullets"] = as_bullets
 templates.env.filters["is_redundant_summary"] = is_redundant_summary
 
 
-REGIONS = ["Americas", "Europe", "Oceania", "Middle East & Africa"]
-
-# Default region assignment by geography name. Deliberately not exhaustive --
-# anything not listed here (e.g. China, present in real imported data) has no
-# default region rather than being guessed into the wrong bucket. Always
-# overridable per-geography via attributes.region (see geography_region()).
-REGION_LOOKUP = {
-    "united states": "Americas", "canada": "Americas", "mexico": "Americas",
-    "peru": "Americas", "chile": "Americas", "colombia": "Americas",
-    "brazil": "Americas", "argentina": "Americas", "uruguay": "Americas",
-    "north america": "Americas", "south america": "Americas",
-    "europe": "Europe", "spain": "Europe", "portugal": "Europe",
-    "germany": "Europe", "netherlands": "Europe", "france": "Europe",
-    "poland": "Europe", "italy": "Europe", "united kingdom": "Europe", "uk": "Europe",
-    "australia": "Oceania", "new zealand": "Oceania", "oceania": "Oceania",
-    "morocco": "Middle East & Africa", "south africa": "Middle East & Africa",
-    "zambia": "Middle East & Africa", "zimbabwe": "Middle East & Africa",
-    "egypt": "Middle East & Africa", "kenya": "Middle East & Africa",
-    "nigeria": "Middle East & Africa", "israel": "Middle East & Africa",
-    "saudi arabia": "Middle East & Africa", "uae": "Middle East & Africa",
-    "united arab emirates": "Middle East & Africa",
-}
-
-
-def geography_region(geography_entity: dict[str, Any]) -> str | None:
-    """A geography's region: an explicit attributes.filter_region override
-    always wins (so a wrong or missing default is one edit away to fix),
-    otherwise the fixed lookup table by name.
-
-    Deliberately namespaced as "filter_region", not "region": real imported
-    geography entities already carry their own attributes.region using a
-    different taxonomy (e.g. "Asia-Pacific", "Latin America") for their own
-    purposes. Reusing that key silently adopted their values as if they were
-    corrections to this app's four-bucket scheme, which they were never
-    intended to be -- found by checking Australia's derived region live and
-    getting "Asia-Pacific" back instead of "Oceania"."""
-    override = (geography_entity.get("attributes") or {}).get("filter_region")
-    if override:
-        return override
-    return REGION_LOOKUP.get(geography_entity.get("name", "").strip().lower())
-
-
-def evidence_regions(record: dict[str, Any], entities: dict[str, dict[str, Any]]) -> set[str]:
-    """A geography can be associated with evidence two ways: the dedicated
-    geography_ids array, or just as one of the general entity_ids -- real
-    imported data (predating the geography_ids field) only ever does the
-    latter, so both are checked rather than trusting one convention."""
-    geo_ids = set(record.get("geography_ids") or [])
-    for eid in record.get("entity_ids") or []:
-        entity = entities.get(eid)
-        if entity and entity.get("entity_type") == "geography":
-            geo_ids.add(eid)
-    regions = set()
-    for gid in geo_ids:
-        geo = entities.get(gid)
-        if geo:
-            region = geography_region(geo)
-            if region:
-                regions.add(region)
-    return regions
-
-
-def entity_regions(
-    entity: dict[str, Any],
-    entities: dict[str, dict[str, Any]],
-    evidence: list[dict[str, Any]],
-) -> set[str]:
-    """Which regions an entity touches. A geography entity has its own
-    region. Any other entity's regions are derived, not stored: the union of
-    regions from every geography linked (via geography_ids) to evidence that
-    also links this entity -- so a variety grown/tested/reported on across
-    three continents shows all three automatically, with no extra field to
-    keep in sync."""
-    if entity.get("entity_type") == "geography":
-        region = geography_region(entity)
-        return {region} if region else set()
-    regions: set[str] = set()
-    for record in evidence:
-        if entity.get("id") in (record.get("entity_ids") or []):
-            regions |= evidence_regions(record, entities)
-    return regions
+# REGIONS, REGION_LOOKUP, geography_region(), evidence_regions(),
+# entity_regions() moved to app/services/berries/geography.py (V2 Phase
+# 2B.2) and imported above -- re-exported under these names for every
+# existing caller (templates, scripts/build_static.py, tests).
 
 
 def related_entity_ids(entity_id: str, relationships: list[dict[str, Any]]) -> set[str]:
@@ -459,6 +819,7 @@ def filter_evidence(
     competitor: str | None = None,
     geography: str | None = None,
     region: str | None = None,
+    media_format: str | None = None,
     entities: dict[str, dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
     results = records
@@ -484,6 +845,9 @@ def filter_evidence(
 
     if source:
         results = [r for r in results if r.get("source_type") == source]
+
+    if media_format:
+        results = [r for r in results if r.get("media_format") == media_format]
 
     if competitor:
         results = [r for r in results if competitor in (r.get("entity_ids") or [])]
@@ -515,6 +879,7 @@ def filter_evidence(
 def filter_options(records: list[dict[str, Any]], entities: dict[str, dict[str, Any]]) -> dict[str, Any]:
     berries = sorted({b for r in records for b in (r.get("berry_ids") or [])})
     sources = sorted({r.get("source_type") for r in records if r.get("source_type")})
+    media_formats = sorted({r.get("media_format") for r in records if r.get("media_format")})
     competitor_ids = {
         e for r in records for e in (r.get("entity_ids") or []) if entities.get(e, {}).get("entity_type") == "company"
     }
@@ -531,6 +896,7 @@ def filter_options(records: list[dict[str, Any]], entities: dict[str, dict[str, 
     return {
         "berries": berries,
         "sources": sources,
+        "media_formats": media_formats,
         "competitors": competitors,
         "geographies": geographies,
         "regions": REGIONS,
@@ -560,7 +926,11 @@ def filter_entities(
                     " ".join(entity.get("aliases", [])),
                     entity.get("description", ""),
                     str(attrs.get("selection_code", "")),
+                    str(attrs.get("breeder_code", "")),
                     str(attrs.get("patent_number", "")),
+                    str(attrs.get("trade_name", "")),
+                    str(attrs.get("commercial_name", "")),
+                    str(attrs.get("denomination", "")),
                 ]
             )
             return text_matches(needle, haystack)
@@ -608,11 +978,54 @@ def list_drafts() -> list[dict[str, Any]]:
     return sorted(records, key=lambda r: r.get("captured_date", ""), reverse=True)
 
 
+def list_pending_drafts() -> list[dict[str, Any]]:
+    """Active review queue only; list_drafts() remains the complete audit set.
+
+    Static leak checks and duplicate detection must still see rejected drafts,
+    even though an explicit decision removes them from the active queue.
+    """
+    return [record for record in list_drafts() if record.get("status", "draft") != "rejected"]
+
+
 def get_draft(draft_id: str) -> dict[str, Any] | None:
     path = INBOX_DIR / "evidence" / f"{draft_id}.json"
     if not path.exists():
         return None
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def pending_publication_drafts() -> list[dict[str, Any]]:
+    drafts = [
+        record
+        for record in list_pending_drafts()
+        if record.get("evidence_role") == "publication_artifact"
+    ]
+    # Recency first within a tier, but direct berry intelligence must
+    # outrank adjacent stories (agtech/trade/labor/weather with only an
+    # incidental berry mention) by default -- two stable sorts achieve
+    # "tier first, recency second" without a mixed asc/desc sort key.
+    # Podcast/video drafts carry no relevance_tier at all (that screen is
+    # article-specific) and are treated as tier-neutral, same rank as direct.
+    drafts.sort(
+        key=lambda record: record.get("published_date") or record.get("captured_date") or "",
+        reverse=True,
+    )
+    drafts.sort(key=lambda record: 1 if record.get("relevance_tier") == "adjacent" else 0)
+    return drafts
+
+
+def adjacent_publication_draft_id(draft_id: str, *, step: int = 1) -> str | None:
+    ids = [record["id"] for record in pending_publication_drafts() if record.get("id")]
+    if not ids:
+        return None
+    try:
+        index = ids.index(draft_id)
+    except ValueError:
+        return ids[0]
+    next_index = index + step
+    if 0 <= next_index < len(ids):
+        return ids[next_index]
+    return None
 
 
 def save_draft(record: dict[str, Any]) -> None:
@@ -649,130 +1062,127 @@ def entity_folder(entity_type: str) -> str:
 
 
 def all_facts() -> list[dict[str, Any]]:
-    return load_json_files(DATA_DIR / "facts")
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).facts.list()
 
 
 def all_relationships() -> list[dict[str, Any]]:
-    return load_json_files(DATA_DIR / "relationships")
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).relationships.list()
 
 
 def facts_for_evidence(evidence_id: str) -> list[dict[str, Any]]:
-    return [f for f in all_facts() if evidence_id in (f.get("evidence_ids") or [])]
+    return get_query_services(DATA_DIR, SCHEMAS_DIR).reference.facts_for_evidence(evidence_id)
 
 
 def relationships_for_evidence(evidence_id: str) -> list[dict[str, Any]]:
-    return [r for r in all_relationships() if evidence_id in (r.get("evidence_ids") or [])]
+    return get_query_services(DATA_DIR, SCHEMAS_DIR).reference.relationships_for_evidence(evidence_id)
 
 
 def facts_for_entity(entity_id: str) -> list[dict[str, Any]]:
-    return [f for f in all_facts() if entity_id in (f.get("entity_ids") or [])]
+    return get_query_services(DATA_DIR, SCHEMAS_DIR).entity_intelligence.facts_for_entity(entity_id)
 
 
 def relationships_for_entity(entity_id: str, relationships: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return [r for r in relationships if entity_id in (r.get("subject_id"), r.get("object_id"))]
 
 
-def max_priority_level(record: dict[str, Any]) -> str:
-    levels_present = {v.get("level") for v in (record.get("priority") or {}).values()}
-    for level in ("high", "medium", "low"):
-        if level in levels_present:
-            return level
-    return "none"
-
-
-def entity_activity(
-    linked_evidence: list[dict[str, Any]],
-    entity_facts: list[dict[str, Any]],
-    entity_relationships: list[dict[str, Any]],
-    entities: dict[str, dict[str, Any]],
-    evidence_idx: dict[str, dict[str, Any]],
+def grouped_relationships_for_entity(
+    entity_id: str, relationships: list[dict[str, Any]], entities: dict[str, dict[str, Any]]
 ) -> list[dict[str, Any]]:
-    """A single chronological feed for one entity, merging evidence, facts,
-    and relationships -- the "what's new with company X" view the original
-    approved mockup showed (assets/platform-visual-language.png, panel 4)
-    but was never actually built.
-
-    Only items with a genuine date make the cut. Roughly half of imported
-    evidence (mostly reference material -- company/registry/catalog pages,
-    patent records) has no real published_date, only a captured_date marking
-    when it was pulled into the system. Falling back to captured_date would
-    make evergreen reference pages look like breaking news at the top of the
-    feed, defeating the entire point of a "what's new" view. Undated items
-    are simply excluded here; they remain visible in the Linked Evidence /
-    Facts sections below, just not misrepresented as recent activity.
-
-    Facts use event_date (the real-world date the underlying development
-    happened, backfilled from evidence text) when available, falling back to
-    created_at (when the fact was authored) since that's still a real date --
-    just not necessarily *the* newsworthy one."""
-    items: list[dict[str, Any]] = []
-
-    for record in linked_evidence:
-        date = record.get("published_date")
-        if not date:
+    """An entity's relationships as directed, evidence-linked edges to the
+    *other* entity on each one -- generic and entity-type-agnostic (V2 Phase
+    1.5B, BL-027/BL-028). Renders honestly: the predicate itself (owns,
+    licenses, develops, sells, ...) is shown as recorded, never collapsed
+    into a stronger/weaker implied relationship (e.g. a 'licenses' edge is
+    never displayed or treated as if it were 'owns'). 'direction' lets a
+    template phrase it naturally ("X owns Y" vs "Y is owned by X") without
+    guessing which side is more important."""
+    rows = []
+    for rel in relationships_for_entity(entity_id, relationships):
+        if rel.get("subject_id") == entity_id:
+            other_id, direction = rel.get("object_id"), "outgoing"
+        else:
+            other_id, direction = rel.get("subject_id"), "incoming"
+        other = entities.get(other_id)
+        if other is None:
             continue
-        items.append(
+        rows.append(
             {
-                "date": date,
-                "type": "evidence",
-                "type_label": record.get("source_type", "evidence").replace("_", " ").title(),
-                "title": record.get("title", ""),
-                "detail": record.get("summary", ""),
-                "url": f"/evidence/{record['id']}",
-                "priority": max_priority_level(record),
+                "predicate": rel.get("predicate"),
+                "direction": direction,
+                "other": other,
+                "status": rel.get("status"),
+                "confidence": rel.get("confidence"),
+                "effective_date": rel.get("effective_date"),
+                "notes": rel.get("notes"),
+                "evidence_ids": rel.get("evidence_ids") or [],
             }
         )
+    return rows
 
-    for fact in entity_facts:
-        evidence_id = (fact.get("evidence_ids") or [None])[0]
-        evidence = evidence_idx.get(evidence_id) if evidence_id else None
-        fallback_date = evidence.get("published_date") if evidence else None
-        date = fact.get("event_date") or fact.get("created_at") or fallback_date
-        if not date:
-            continue
-        detail = f"{fact.get('confidence', '')} confidence"
-        if fact.get("status") and fact.get("status") != "active":
-            detail += f" · {fact['status']}"
-        items.append(
-            {
-                "date": date,
-                "type": "fact",
-                "type_label": (fact.get("classification") or "fact").title(),
-                "title": fact.get("statement", ""),
-                "detail": detail,
-                "url": f"/evidence/{evidence_id}" if evidence_id else "",
-                "priority": None,
-            }
-        )
 
-    for rel in entity_relationships:
-        evidence_id = (rel.get("evidence_ids") or [None])[0]
-        evidence = evidence_idx.get(evidence_id) if evidence_id else None
-        fallback_date = evidence.get("published_date") if evidence else None
-        date = rel.get("effective_date") or fallback_date
-        if not date:
-            continue
-        subject_name = entities.get(rel.get("subject_id"), {}).get("name", rel.get("subject_id"))
-        object_name = entities.get(rel.get("object_id"), {}).get("name", rel.get("object_id"))
-        predicate = (rel.get("predicate") or "").replace("_", " ")
-        items.append(
-            {
-                "date": date,
-                "type": "relationship",
-                "type_label": predicate.title(),
-                "title": f"{subject_name} {predicate} {object_name}",
-                "detail": rel.get("notes", ""),
-                "url": f"/evidence/{evidence_id}" if evidence_id else "",
-                "priority": None,
-            }
-        )
+def signals_for_entity(entity_id: str) -> list[dict[str, Any]]:
+    return get_query_services(DATA_DIR, SCHEMAS_DIR).entity_intelligence.signals_for_entity(entity_id)
 
-    items.sort(key=lambda item: item["date"], reverse=True)
-    return items
+
+def assessments_for_entity(entity_id: str) -> list[dict[str, Any]]:
+    return get_query_services(DATA_DIR, SCHEMAS_DIR).entity_intelligence.assessments_for_entity(entity_id)
+
+
+def recommendations_for_entity(entity_id: str) -> list[dict[str, Any]]:
+    return get_query_services(DATA_DIR, SCHEMAS_DIR).entity_intelligence.recommendations_for_entity(entity_id)
+
+
+def strategic_questions_for_entity(
+    entity_id: str,
+    linked_evidence: list[dict[str, Any]],
+    entity_signals: list[dict[str, Any]],
+    entity_assessments: list[dict[str, Any]],
+    entity_recommendations: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Strategic Questions this entity actually bears on -- the union of SQs
+    named on its own linked Evidence and on any Signal/Assessment/
+    Recommendation that touches it. Generic and core: the mechanism is
+    entity-type-agnostic, it just follows the strategic_question_ids field
+    every one of these record types already carries. entity_id is unused
+    (kept for call-site compatibility -- it always was)."""
+    return get_query_services(DATA_DIR, SCHEMAS_DIR).entity_intelligence.strategic_questions_for_entity(
+        linked_evidence, entity_signals, entity_assessments, entity_recommendations
+    )
+
+
+# variety_trait_profile(), _normalize_patent_number(), variety_patent_link()
+# moved to app/services/berries/variety.py (V2 Phase 2B.2) and imported
+# above -- re-exported under these names for every existing caller.
+
+# SEED_FIXTURE_ENTITY_IDS, SEED_FIXTURE_EVIDENCE_IDS, PRIMARY_SOURCE_TYPES,
+# and every landscape_*() helper moved to app/services/berries/landscape.py's
+# BerriesLandscapeService (V2 Phase 2B.2). landscape_context() below is now
+# a thin route-facing wrapper -- tests and scripts/build_static.py call
+# main.landscape_context() exactly as before; only its internals changed.
+
+
+def landscape_context(
+    berry_id: str, region: str = "global", intelligence_state: str = "all"
+) -> dict[str, Any]:
+    allowed_regions = {"global", "americas", "emea", "australia-nz", "asia"}
+    allowed_states = {"all", "observed", "tested"}
+    region = region if region in allowed_regions else "global"
+    intelligence_state = intelligence_state if intelligence_state in allowed_states else "all"
+    return {
+        **get_domain_services(DATA_DIR).landscape.landscape_context(berry_id),
+        "berry_label": berry_label(berry_id),
+        "selected_region": region,
+        "selected_intelligence_state": intelligence_state,
+    }
+
+
+# max_priority_level() and entity_activity() moved to app/queries/timeline.py
+# (V2 Phase 2B.2) and imported above -- re-exported under these names for
+# every existing caller.
 
 
 def load_strategic_questions() -> list[dict[str, Any]]:
-    return load_json_files(DATA_DIR / "strategic-questions")
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).strategic_questions.list()
 
 
 def strategic_question_by_id(sq_id: str) -> dict[str, Any] | None:
@@ -783,12 +1193,25 @@ def strategic_question_by_id(sq_id: str) -> dict[str, Any] | None:
 
 
 def evidence_for_strategic_question(sq_id: str) -> list[dict[str, Any]]:
-    return [r for r in published_evidence() if sq_id in (r.get("strategic_question_ids") or [])]
+    return get_query_services(DATA_DIR, SCHEMAS_DIR).reference.evidence_for_strategic_question(sq_id)
+
+
+def resolve_strategic_question_ids(text: str) -> list[str]:
+    """Same matching rule as the Signal create route: each comma-separated
+    entry may be an existing strategic question's id or its title."""
+    sq_ids: list[str] = []
+    strategic_questions = load_strategic_questions()
+    for entry in split_list(text):
+        needle = entry.strip().lower()
+        for sq in strategic_questions:
+            if sq.get("id", "").lower() == needle or sq.get("title", "").lower() == needle:
+                sq_ids.append(sq["id"])
+                break
+    return sq_ids
 
 
 def all_signals() -> list[dict[str, Any]]:
-    records = load_json_files(DATA_DIR / "signals")
-    return sorted(records, key=lambda r: r.get("last_updated", ""), reverse=True)
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).signals.list()
 
 
 def signal_by_id(signal_id: str) -> dict[str, Any] | None:
@@ -799,10 +1222,7 @@ def signal_by_id(signal_id: str) -> dict[str, Any] | None:
 
 
 def save_signal(record: dict[str, Any]) -> None:
-    folder = DATA_DIR / "signals"
-    folder.mkdir(parents=True, exist_ok=True)
-    path = folder / f"{record['id']}.json"
-    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    get_repositories(DATA_DIR, SCHEMAS_DIR).signals.create(record)
 
 
 def new_signal_id(title: str) -> str:
@@ -810,6 +1230,54 @@ def new_signal_id(title: str) -> str:
     suffix = secrets.token_hex(2)
     slug = slugify(title)[:40] or "signal"
     return f"signal-{stamp}-{suffix}-{slug}"
+
+
+def all_assessments() -> list[dict[str, Any]]:
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).assessments.list()
+
+
+def assessment_by_id(assessment_id: str) -> dict[str, Any] | None:
+    for record in all_assessments():
+        if record.get("id") == assessment_id:
+            return record
+    return None
+
+
+def save_assessment(record: dict[str, Any]) -> None:
+    get_repositories(DATA_DIR, SCHEMAS_DIR).assessments.create(record)
+
+
+def update_assessment(record: dict[str, Any]) -> None:
+    get_repositories(DATA_DIR, SCHEMAS_DIR).assessments.update(record["id"], record)
+
+
+def new_assessment_id(title: str) -> str:
+    stamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    suffix = secrets.token_hex(2)
+    slug = slugify(title)[:40] or "assessment"
+    return f"assessment-{stamp}-{suffix}-{slug}"
+
+
+def all_recommendations() -> list[dict[str, Any]]:
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).recommendations.list()
+
+
+def recommendation_by_id(recommendation_id: str) -> dict[str, Any] | None:
+    for record in all_recommendations():
+        if record.get("id") == recommendation_id:
+            return record
+    return None
+
+
+def save_recommendation(record: dict[str, Any]) -> None:
+    get_repositories(DATA_DIR, SCHEMAS_DIR).recommendations.create(record)
+
+
+def new_recommendation_id(title: str) -> str:
+    stamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    suffix = secrets.token_hex(2)
+    slug = slugify(title)[:40] or "recommendation"
+    return f"recommendation-{stamp}-{suffix}-{slug}"
 
 
 def queue_items(dimension: str) -> list[dict[str, Any]]:
@@ -836,16 +1304,20 @@ def sources_file() -> Path:
 
 
 def load_sources() -> list[dict[str, Any]]:
-    path = sources_file()
-    if not path.exists():
-        return []
-    return json.loads(path.read_text(encoding="utf-8"))
+    return get_repositories(DATA_DIR, SCHEMAS_DIR).sources.list()
 
 
 def save_sources(sources: list[dict[str, Any]]) -> None:
-    path = sources_file()
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(sources, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    repository = get_repositories(DATA_DIR, SCHEMAS_DIR).sources
+    desired = {source["id"]: source for source in sources}
+    existing_ids = {source["id"] for source in repository.list()}
+    for source_id in existing_ids - desired.keys():
+        repository.delete(source_id)
+    for source_id, source in desired.items():
+        if source_id in existing_ids:
+            repository.update(source_id, source)
+        else:
+            repository.create(source)
 
 
 def bump_source_tally(source_id: str | None, field: str) -> None:
@@ -1079,17 +1551,8 @@ def name_matchers_for_type(entity_type: str, entities: dict[str, dict[str, Any]]
     chars (shortest is "Peru") -- a shorter floor would risk matching
     common words as false positives (an unfiltered "US" would match the
     pronoun "us" in ordinary prose)."""
-    entities = entities if entities is not None else entity_index()
-    matchers: list[tuple[str, "re.Pattern[str]"]] = []
-    for entity in entities.values():
-        if entity.get("entity_type") != entity_type:
-            continue
-        for name in [entity.get("name", "")] + list(entity.get("aliases") or []):
-            name = name.strip()
-            if len(name) < 4:
-                continue
-            matchers.append((entity["id"], re.compile(r"\b" + re.escape(name) + r"\b", re.IGNORECASE)))
-    return matchers
+    records = entities if entities is not None else entity_index()
+    return matchers_from_entities(records, entity_type)
 
 
 def auto_tag_geography_and_entities(
@@ -1117,16 +1580,12 @@ def auto_tag_geography_and_entities(
         company_matchers = name_matchers_for_type("company")
 
     haystack = f"{record.get('title', '')} {record.get('summary', '')}"
-    matched_geo = {eid for eid, pattern in geo_matchers if pattern.search(haystack)}
-    matched_ent = {eid for eid, pattern in company_matchers if pattern.search(haystack)}
-
-    if matched_geo:
-        record["geography_ids"] = sorted(set(record.get("geography_ids") or []) | matched_geo)
-    if matched_ent:
-        record["entity_ids"] = sorted(set(record.get("entity_ids") or []) | matched_ent)
-    if matched_geo or matched_ent:
-        record["auto_tagged"] = True
-    return record
+    return apply_known_name_matches(
+        record,
+        haystack,
+        geo_matchers=geo_matchers,
+        company_matchers=company_matchers,
+    )
 
 
 def fetch_source_entries(source: dict[str, Any]) -> list[Any]:
@@ -1248,31 +1707,23 @@ def unique_entity_id(entity_type: str, name: str, existing_ids: set[str]) -> str
 
 
 def save_entity(record: dict[str, Any]) -> None:
-    folder = DATA_DIR / "entities" / entity_folder(record["entity_type"])
-    folder.mkdir(parents=True, exist_ok=True)
-    path = folder / f"{record['id']}.json"
-    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    repository = get_repositories(DATA_DIR, SCHEMAS_DIR).entities
+    if repository.get(record["id"]) is None:
+        repository.create(record)
+    else:
+        repository.update(record["id"], record)
 
 
 def save_fact(record: dict[str, Any]) -> None:
-    folder = DATA_DIR / "facts"
-    folder.mkdir(parents=True, exist_ok=True)
-    path = folder / f"{record['id']}.json"
-    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    get_repositories(DATA_DIR, SCHEMAS_DIR).facts.create(record)
 
 
 def save_relationship(record: dict[str, Any]) -> None:
-    folder = DATA_DIR / "relationships"
-    folder.mkdir(parents=True, exist_ok=True)
-    path = folder / f"{record['id']}.json"
-    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    get_repositories(DATA_DIR, SCHEMAS_DIR).relationships.create(record)
 
 
 def save_evidence(record: dict[str, Any]) -> None:
-    folder = DATA_DIR / "evidence"
-    folder.mkdir(parents=True, exist_ok=True)
-    path = folder / f"{record['id']}.json"
-    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.create(record)
 
 
 def delete_draft(draft_id: str) -> None:
@@ -1306,6 +1757,28 @@ def move_draft_attachments(draft_id: str, evidence_id: str, attachments: list[di
     return moved
 
 
+def restore_draft_attachments(draft_id: str, evidence_id: str, attachments: list[dict[str, str]]) -> None:
+    """Reverse move_draft_attachments() -- used only when a structured-data
+    publish transaction that already moved attachment files out of inbox/
+    subsequently fails and rolls back (ReviewPublishService), so a retry's
+    own move_draft_attachments() call finds the files back where it
+    expects them instead of silently publishing with no attachments."""
+    if not attachments:
+        return
+    source_dir = DATA_DIR / "attachments" / evidence_id
+    if not source_dir.exists():
+        return
+    target_dir = INBOX_DIR / "attachments" / draft_id
+    target_dir.mkdir(parents=True, exist_ok=True)
+    for attachment in attachments:
+        filename = attachment["filename"]
+        source_path = source_dir / filename
+        if source_path.exists():
+            shutil.move(str(source_path), str(target_dir / filename))
+    if source_dir.exists() and not any(source_dir.iterdir()):
+        source_dir.rmdir()
+
+
 _SCHEMA_CACHE: dict[str, Draft202012Validator] = {}
 
 
@@ -1326,6 +1799,7 @@ def home(
     competitor: str | None = None,
     geography: str | None = None,
     region: str | None = None,
+    media_format: str | None = None,
 ) -> HTMLResponse:
     evidence = published_evidence()
     entities = entity_index()
@@ -1333,7 +1807,8 @@ def home(
     filtered = filter_evidence(
         evidence,
         q=q, berry=berry, source=source, priority=priority,
-        competitor=competitor, geography=geography, region=region, entities=entities,
+        competitor=competitor, geography=geography, region=region,
+        media_format=media_format, entities=entities,
     )
     return templates.TemplateResponse(
         request=request,
@@ -1352,6 +1827,7 @@ def home(
                 "competitor": competitor or "",
                 "geography": geography or "",
                 "region": region or "",
+                "media_format": media_format or "",
             },
             "priority_dimensions": PRIORITY_DIMENSIONS,
             "priority_levels": PRIORITY_LEVELS,
@@ -1407,12 +1883,12 @@ _ALLOWED_EVIDENCE_ACTION_REDIRECTS = {"/", "/review"}
 def evidence_validate(record_id: str, redirect_to: str = Form("")) -> RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Validating evidence is only available in authoring mode")
-    path = DATA_DIR / "evidence" / f"{record_id}.json"
-    if not path.exists():
+    repository = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence
+    record = repository.get(record_id)
+    if record is None:
         raise HTTPException(status_code=404, detail="Evidence record not found")
-    record = json.loads(path.read_text(encoding="utf-8"))
     record["validated"] = True
-    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    repository.update(record_id, record)
     if record.get("auto_captured"):
         bump_source_tally(record.get("source_id"), "validated_count")
     # Only ever redirects to a fixed, known-safe in-app path -- never the raw
@@ -1425,10 +1901,10 @@ def evidence_validate(record_id: str, redirect_to: str = Form("")) -> RedirectRe
 def evidence_purge(record_id: str, block_domain: bool = Form(False), redirect_to: str = Form("")) -> RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Purging evidence is only available in authoring mode")
-    path = DATA_DIR / "evidence" / f"{record_id}.json"
-    if not path.exists():
+    repository = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence
+    record = repository.get(record_id)
+    if record is None:
         raise HTTPException(status_code=404, detail="Evidence record not found")
-    record = json.loads(path.read_text(encoding="utf-8"))
     if not record.get("auto_captured"):
         raise HTTPException(status_code=400, detail="Purge is only available for auto-captured evidence")
     if record.get("source_id"):
@@ -1443,7 +1919,7 @@ def evidence_purge(record_id: str, block_domain: bool = Form(False), redirect_to
         # every keyword source instead of just one noisy outlet.
         domain = record.get("origin_domain") or domain_of(record.get("source_url", ""))
         add_blocked_domain(domain)
-    path.unlink()
+    repository.delete(record_id)
     destination = redirect_to if redirect_to in _ALLOWED_EVIDENCE_ACTION_REDIRECTS else "/"
     return RedirectResponse(url=destination, status_code=303)
 
@@ -1456,6 +1932,11 @@ def entity_list(
     berry: str | None = None,
     region: str | None = None,
     company: str | None = None,
+    view: str | None = None,
+    has_rights: str | None = None,
+    has_observation: str | None = None,
+    market: str | None = None,
+    ip_and_observation: str | None = None,
 ) -> HTMLResponse:
     all_of_type = sorted(
         (e for e in all_entities() if e.get("entity_type") == entity_type),
@@ -1463,6 +1944,10 @@ def entity_list(
     )
     if not all_of_type:
         raise HTTPException(status_code=404, detail=f"No entities found for type '{entity_type}'")
+
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    if entity_type == "variety" and "berry" not in request.query_params and ui["berry"] != "global":
+        berry = ui["berry"]
 
     entities_idx = entity_index()
     evidence = published_evidence()
@@ -1474,29 +1959,350 @@ def entity_list(
         ({"id": e["id"], "name": e["name"]} for e in all_entities() if e.get("entity_type") == "company"),
         key=lambda c: c["name"],
     )
-    return templates.TemplateResponse(
+    context: dict[str, Any] = {
+        "entities": filtered,
+        "total_count": len(all_of_type),
+        "entity_type": entity_type,
+        "berries": BERRIES,
+        "regions": REGIONS,
+        "companies": companies,
+        "filters": {
+            "q": q or "",
+            "berry": berry or "",
+            "region": region or "",
+            "company": company or "",
+            "has_rights": has_rights or "",
+            "has_observation": has_observation or "",
+            "market": market or "",
+            "ip_and_observation": ip_and_observation or "",
+        },
+        "authoring_mode": AUTHORING_MODE,
+        "ui_context": ui,
+        "variety_view": "index",
+        "variety_cards": [],
+        "berry_inventory": [],
+        "unnamed_observation_count": 0,
+        "observation_total_count": 0,
+        "observation_workspace": {},
+        "competition": {},
+        "geographies": [],
+    }
+    if entity_type == "variety":
+        variety_view = view if view in VARIETY_VIEWS else "index"
+        drafts = list_pending_drafts()
+        geographies = sorted(
+            ({"id": e["id"], "name": e["name"]} for e in entities_idx.values() if e.get("entity_type") == "geography"),
+            key=lambda row: row["name"],
+        )
+        context.update(
+            {
+                "variety_view": variety_view,
+                "berry_inventory": berry_inventory(all_of_type, BERRIES),
+                "geographies": geographies,
+            }
+        )
+        if variety_view == "index":
+            index_model = present_variety_index(
+                varieties=filtered,
+                entities=list(entities_idx.values()),
+                relationships=relationships,
+                published_evidence=evidence,
+                berry_labels=BERRIES,
+                inbox_drafts=drafts,
+                signals=all_signals(),
+                candidates=load_candidates(INBOX_DIR) if INBOX_DIR else [],
+                filters={"has_rights": has_rights or "", "has_observation": has_observation or ""},
+            )
+            context["variety_cards"] = index_model["cards"]
+            context["unnamed_observation_count"] = index_model["unnamed_observation_count"]
+            context["observation_total_count"] = index_model["observation_total_count"]
+        elif variety_view == "observations":
+            context["observation_workspace"] = present_observation_workspace(
+                entities=list(entities_idx.values()),
+                published_evidence=evidence,
+                inbox_drafts=drafts,
+                berry_labels=BERRIES,
+                berry_id=berry,
+            )
+        elif variety_view == "compete":
+            context["competition"] = present_competition(
+                berry_id=berry,
+                country_geo_id=market,
+                entities=list(entities_idx.values()),
+                relationships=relationships,
+                published_evidence=evidence,
+                inbox_drafts=drafts,
+                berry_labels=BERRIES,
+                ip_and_observation=ip_and_observation in {"1", "true", "yes", "on"},
+            )
+    response = templates.TemplateResponse(
         request=request,
         name="entity_list.html",
-        context={
-            "entities": filtered,
-            "total_count": len(all_of_type),
-            "entity_type": entity_type,
-            "berries": BERRIES,
-            "regions": REGIONS,
-            "companies": companies,
-            "filters": {"q": q or "", "berry": berry or "", "region": region or "", "company": company or ""},
-            "authoring_mode": AUTHORING_MODE,
-        },
+        context=context,
     )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+def recent_intelligence_for_entity(
+    entity_id: str,
+    *,
+    linked_evidence: list[dict[str, Any]],
+    include_pending: bool,
+    limit: int = 8,
+) -> list[dict[str, Any]]:
+    """Recency-first feed of what's actually known about this entity,
+    trusted Evidence first-class and (live app only, never on the public
+    static build -- see entity_synthesis_context()'s include_pending) any
+    pending-review discoveries that already name it, each item clearly
+    marked TRUSTED or PENDING REVIEW so an unreviewed article can never be
+    mistaken for trusted intelligence. Sorted by real publication date,
+    falling back to capture date only when no publication date exists --
+    the same date-preference convention published_evidence() and
+    pending_publication_drafts() already use, so recency ordering is
+    consistent everywhere in the app, not just here."""
+    items: list[dict[str, Any]] = [
+        {
+            "kind": "trusted",
+            "record": record,
+            "date": record.get("published_date") or record.get("captured_date"),
+            "date_is_published": bool(record.get("published_date")),
+        }
+        for record in linked_evidence
+    ]
+    pending_items: list[dict[str, Any]] = []
+    if include_pending:
+        entities = entity_index()
+        source_index = {str(source.get("id")): source for source in load_sources() if source.get("id")}
+        entity = entities.get(entity_id) or {"id": entity_id}
+        pending_items = [
+            {
+                "kind": "pending",
+                "record": record,
+                "date": record.get("published_date") or record.get("captured_date"),
+                "date_is_published": bool(record.get("published_date")),
+            }
+            for record in pending_publication_drafts()
+            if draft_matches_entity(record, entity, entities, sources=source_index)
+        ]
+        pending_items.sort(key=lambda item: item["date"] or "", reverse=True)
+        for row in pending_items:
+            record = row["record"]
+            attribution = attribute_draft(record, entities, sources=source_index)
+            primary = attribution.get("primary") or {}
+            if primary.get("id") or primary.get("name"):
+                record["primary_subject"] = primary
+    items.sort(key=lambda item: item["date"] or "", reverse=True)
+    if include_pending and pending_items:
+        pinned = pending_items[:6]
+        seen = {str((row.get("record") or {}).get("id")) for row in pinned}
+        rest = [row for row in items if str((row.get("record") or {}).get("id")) not in seen]
+        return compress_recent_intelligence((pinned + rest)[: limit + 6])[:limit]
+    return items[:limit]
+
+
+def company_berry_portfolio(entity: dict[str, Any]) -> list[dict[str, str]]:
+    ids = [str(value) for value in (entity.get("berry_ids") or []) if value]
+    ordered = [berry_id for berry_id in COMPANY_BERRY_ORDER if berry_id in ids]
+    ordered.extend(berry_id for berry_id in ids if berry_id not in ordered)
+    return [
+        {
+            "id": berry_id,
+            "label": berry_label(berry_id).upper(),
+            "slug": berry_id.removeprefix("berry-"),
+        }
+        for berry_id in ordered
+    ]
+
+
+def _matches_company_berry(item: dict[str, Any], berry: str) -> bool:
+    if berry == "global":
+        return True
+    if matches_berry_context(item, berry):
+        return True
+    record = item.get("record")
+    if isinstance(record, dict) and matches_berry_context(record, berry):
+        return True
+    thread = item.get("thread") if isinstance(item.get("thread"), dict) else {}
+    for member in thread.get("members") or []:
+        if isinstance(member, dict) and matches_berry_context(member, berry):
+            return True
+    return False
+
+
+def _filter_recent_by_berry(items: list[dict[str, Any]], berry: str) -> list[dict[str, Any]]:
+    if berry == "global":
+        return list(items)
+    return [item for item in items if _matches_company_berry(item, berry)]
+
+
+def _filter_open_signals_by_berry(
+    open_signals: dict[str, list[dict[str, Any]]], berry: str
+) -> dict[str, list[dict[str, Any]]]:
+    if berry == "global":
+        return open_signals
+    return {
+        key: [row for row in (open_signals.get(key) or []) if matches_berry_context(row, berry)]
+        for key in ("emerging", "confirmed", "deferred")
+    }
+
+
+def _filter_relationships_by_berry(
+    rows: list[dict[str, Any]], berry: str
+) -> list[dict[str, Any]]:
+    if berry == "global":
+        return list(rows)
+    out: list[dict[str, Any]] = []
+    for row in rows:
+        other = row.get("other") or {}
+        if matches_berry_context(other, berry) or not (other.get("berry_ids") or []):
+            out.append(row)
+    return out
+
+
+def _company_is_watched(linked_evidence: list[dict[str, Any]]) -> bool:
+    for record in linked_evidence:
+        level = ((record.get("priority") or {}).get("monitoring") or {}).get("level")
+        if level and str(level) != "none":
+            return True
+    return False
+
+
+def _company_feed_cards(
+    items: list[dict[str, Any]],
+    entities: dict[str, dict[str, Any]],
+    *,
+    include_candidates: bool,
+) -> list[dict[str, Any]]:
+    cards: list[dict[str, Any]] = []
+    for item in items:
+        record = item.get("record") or {}
+        if not record.get("id"):
+            continue
+        card = present_feed_item(record, entities=entities, berry_labels=BERRIES)
+        if item.get("is_thread"):
+            card["is_thread"] = True
+            card["story_thread"] = item.get("thread")
+            card["title"] = item.get("developing_label") or card["title"]
+        cards.append(card)
+    candidates = load_candidates(INBOX_DIR) if include_candidates and INBOX_DIR else []
+    annotate_feed_semantics(cards, signals=all_signals(), candidates=candidates)
+    return cards
+
+
+def company_profile_context(
+    entity: dict[str, Any],
+    entities: dict[str, dict[str, Any]],
+    *,
+    recent_intelligence: list[dict[str, Any]],
+    grouped_relationships: list[dict[str, Any]],
+    open_signals: dict[str, list[dict[str, Any]]],
+    linked_evidence: list[dict[str, Any]],
+    berry: str = "global",
+    include_candidates: bool = True,
+) -> dict[str, Any]:
+    recent = _filter_recent_by_berry(recent_intelligence, berry)
+    cutoff = (date.today() - timedelta(days=COMPANY_WHAT_CHANGED_DAYS)).isoformat()
+    what_changed = [item for item in recent if str(item.get("date") or "") >= cutoff]
+    varieties = _filter_relationships_by_berry(
+        [
+            row
+            for row in grouped_relationships
+            if row.get("predicate") == "develops" and (row.get("other") or {}).get("entity_type") == "variety"
+        ],
+        berry,
+    )
+    geos = _filter_relationships_by_berry(
+        [
+            row
+            for row in grouped_relationships
+            if row.get("predicate") == "operates_in" and (row.get("other") or {}).get("entity_type") == "geography"
+        ],
+        berry,
+    )
+    variety_ids = {str((row.get("other") or {}).get("id") or "") for row in varieties}
+    geo_ids = {str((row.get("other") or {}).get("id") or "") for row in geos}
+    network = [
+        row
+        for row in grouped_relationships
+        if str((row.get("other") or {}).get("id") or "") not in variety_ids
+        and str((row.get("other") or {}).get("id") or "") not in geo_ids
+    ]
+    return {
+        "company_portfolio": company_berry_portfolio(entity),
+        "company_what_changed": _company_feed_cards(
+            what_changed, entities, include_candidates=include_candidates
+        ),
+        "company_recent_cards": _company_feed_cards(
+            recent, entities, include_candidates=include_candidates
+        ),
+        "open_signals": _filter_open_signals_by_berry(open_signals, berry),
+        "company_varieties": varieties,
+        "company_geographies": geos,
+        "company_network": network,
+        "company_watched": _company_is_watched(linked_evidence),
+        "company_berry_filter": berry,
+    }
+
+
+def entity_synthesis_context(
+    entity: dict[str, Any], entities: dict[str, dict[str, Any]], *, include_pending: bool = True
+) -> dict[str, Any]:
+    """The generic, entity-type-agnostic synthesis fields added in Phase
+    1.5B (BL-027/BL-028): intelligence objects touching this entity, its
+    relationships to other entities as directed/evidenced edges, and the
+    Strategic Questions it bears on. Shared by the live entity_detail()
+    route and scripts/build_static.py so both stay in sync by construction.
+    `include_pending` gates the "Recent Intelligence" pending-review feed
+    (added for cross-object freshness/recall): the live app defaults to
+    True, but scripts/build_static.py must always pass False -- pending
+    drafts live in gitignored inbox/ and must never appear in the public
+    GitHub Pages build alongside trusted intelligence."""
+    entity_id = entity["id"]
+    linked_evidence = linked_evidence_for_entity(entity, published_evidence())
+    entity_signals = signals_for_entity(entity_id)
+    entity_assessments = attach_assessment_scope(assessments_for_entity(entity_id), BERRIES)
+    entity_recommendations = recommendations_for_entity(entity_id)
+    context: dict[str, Any] = {
+        "entity_signals": entity_signals,
+        "entity_assessments": entity_assessments,
+        "entity_recommendations": entity_recommendations,
+        "entity_strategic_questions": strategic_questions_for_entity(
+            entity_id, linked_evidence, entity_signals, entity_assessments, entity_recommendations
+        ),
+        "grouped_relationships": grouped_relationships_for_entity(entity_id, all_relationships(), entities),
+        "recent_intelligence": recent_intelligence_for_entity(
+            entity_id, linked_evidence=linked_evidence, include_pending=include_pending
+        ),
+        "open_signals": {"emerging": [], "confirmed": [], "deferred": []},
+    }
+    if entity.get("entity_type") == "variety":
+        all_patents = [e for e in entities.values() if e.get("entity_type") == "patent"]
+        breeding_program_id = (entity.get("attributes") or {}).get("breeding_program_id")
+        context["variety_trait_profile"] = variety_trait_profile(entity, entities)
+        context["variety_patent_link"] = variety_patent_link(entity, all_patents)
+        context["variety_breeding_program"] = entities.get(breeding_program_id) if breeding_program_id else None
+    if entity.get("entity_type") == "company":
+        context.update(
+            company_profile_context(
+                entity,
+                entities,
+                recent_intelligence=context["recent_intelligence"],
+                grouped_relationships=context["grouped_relationships"],
+                open_signals=context["open_signals"],
+                linked_evidence=linked_evidence,
+                berry="global",
+                include_candidates=include_pending,
+            )
+        )
+    return context
 
 
 @app.get("/entities/{entity_type}/{entity_id}", response_class=HTMLResponse)
 def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLResponse:
     for entity in all_entities():
         if entity.get("id") == entity_id and entity.get("entity_type") == entity_type:
-            linked_evidence = [
-                r for r in published_evidence() if entity_id in (r.get("entity_ids") or [])
-            ]
+            linked_evidence = linked_evidence_for_entity(entity, published_evidence())
             independent_sources = {r.get("source_name") for r in linked_evidence if r.get("source_name")}
             last_updated = linked_evidence[0].get("published_date") or linked_evidence[0].get("captured_date") if linked_evidence else None
             entities = entity_index()
@@ -1505,7 +2311,50 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
             entity_relationships = relationships_for_entity(entity_id, all_relationships())
             evidence_idx = {r["id"]: r for r in all_evidence() if r.get("id")}
             activity = entity_activity(linked_evidence, entity_facts, entity_relationships, entities, evidence_idx)
-            return templates.TemplateResponse(
+            presented_candidates = present_candidates(
+                INBOX_DIR,
+                evidence_by_id=_evidence_index(),
+                entities=entities,
+            )
+            synthesis = entity_synthesis_context(entity, entities)
+            open_signals = open_signals_for_entity(entity_id, presented_candidates)
+            ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+            if entity.get("entity_type") == "company":
+                synthesis.update(
+                    company_profile_context(
+                        entity,
+                        entities,
+                        recent_intelligence=synthesis["recent_intelligence"],
+                        grouped_relationships=synthesis["grouped_relationships"],
+                        open_signals=open_signals,
+                        linked_evidence=linked_evidence,
+                        berry=ui["berry"],
+                    )
+                )
+            elif entity.get("entity_type") == "variety":
+                synthesis["open_signals"] = open_signals
+                story_threads = [
+                    item["thread"]
+                    for item in synthesis.get("recent_intelligence") or []
+                    if item.get("is_thread") and item.get("thread")
+                ]
+                synthesis.update(
+                    present_variety_detail(
+                        entity,
+                        entities=entities,
+                        relationships=all_relationships(),
+                        published_evidence=published_evidence(),
+                        grouped_relationships=synthesis["grouped_relationships"],
+                        recent_intelligence=synthesis["recent_intelligence"],
+                        berry_labels=BERRIES,
+                        inbox_drafts=list_pending_drafts(),
+                        story_threads=story_threads,
+                        signals=all_signals(),
+                    )
+                )
+            else:
+                synthesis["open_signals"] = open_signals
+            response = templates.TemplateResponse(
                 request=request,
                 name="entity.html",
                 context={
@@ -1519,65 +2368,735 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     "regions": regions,
                     "berry_label": berry_label,
                     "authoring_mode": AUTHORING_MODE,
+                    **synthesis,
                 },
             )
+            apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+            return response
     raise HTTPException(status_code=404, detail="Entity record not found")
 
 
+def _overlay_attribution_companies(values: dict[str, Any], item: dict[str, Any]) -> dict[str, Any]:
+    if str(values.get("companies") or "").strip():
+        return values
+    names: list[str] = []
+    primary = item.get("primary_subject") or {}
+    if primary.get("entity_type") == "company" and primary.get("name"):
+        names.append(str(primary["name"]))
+    for company in item.get("title_companies") or []:
+        name = str(company.get("name") or "")
+        if name and name not in names:
+            names.append(name)
+    if names:
+        values["companies"] = ", ".join(names)
+    return values
+
+
+def _attach_pending_decision_actions(items: list[dict[str, Any]], reviewer: str) -> None:
+    for item in items:
+        if item.get("is_thread"):
+            _attach_pending_decision_actions(item.get("members") or [], reviewer)
+            if item.get("primary"):
+                _attach_pending_decision_actions([item["primary"]], reviewer)
+            continue
+        if item.get("status") == "published" or not item.get("id"):
+            continue
+        values = _default_review_values(item)
+        values["reviewer"] = reviewer
+        item["review_values"] = _overlay_attribution_companies(values, item)
+        item["show_pending_actions"] = True
+
+
+def _filter_items_for_berry(items: list[dict[str, Any]] | None, berry: str) -> list[dict[str, Any]]:
+    return [item for item in (items or []) if matches_berry_context(item, berry)]
+
+
+def _filter_brief_for_berry(brief: dict[str, Any], berry: str) -> dict[str, Any]:
+    if berry == "global":
+        return brief
+    brief["new_developments"] = _filter_items_for_berry(brief.get("new_developments"), berry)
+    brief["important"] = _filter_items_for_berry(brief.get("important"), berry)
+    brief["emerging_signals"] = _filter_items_for_berry(brief.get("emerging_signals"), berry)
+    brief["top_developments"] = _filter_items_for_berry(brief.get("top_developments"), berry)
+    pending = dict(brief.get("pending_triage") or {})
+    buckets = []
+    for group in pending.get("buckets") or []:
+        entries = _filter_items_for_berry(group.get("entries"), berry)
+        buckets.append({**group, "entries": entries, "count": len(entries)})
+    pending["buckets"] = buckets
+    pending_counts = dict(pending.get("counts") or {})
+    for group in buckets:
+        pending_counts[str(group.get("key") or "")] = int(group.get("count") or 0)
+    pending["counts"] = pending_counts
+    brief["pending_triage"] = pending
+    counts = dict(brief.get("counts") or {})
+    counts["new_developments"] = len(brief.get("new_developments") or [])
+    counts["emerging_signals"] = len(brief.get("emerging_signals") or [])
+    counts["review_now"] = int(pending_counts.get("review_now") or 0)
+    brief["counts"] = counts
+    return brief
+
+
+@app.get("/brief", response_class=HTMLResponse)
+def morning_brief_page(request: Request) -> HTMLResponse:
+    brief = _assemble_morning_brief(mark_seen=True, include_coverage=True, mode="full")
+    reviewer = session_username(request) or review_username() or ""
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    brief = _filter_brief_for_berry(brief, ui["berry"])
+    for group in (brief.get("pending_triage") or {}).get("buckets") or []:
+        _attach_pending_decision_actions(group.get("entries") or [], reviewer)
+    return templates.TemplateResponse(
+        request=request,
+        name="morning_brief.html",
+        context={
+            "brief": brief,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "reviewer": reviewer,
+            "return_to": "/brief#pending-triage",
+        },
+    )
+
+
+@app.get("/pending", response_class=HTMLResponse)
+def pending_review_page(request: Request) -> HTMLResponse:
+    """Decision workspace for pending publication drafts. Not a Feed clone."""
+
+    brief = _assemble_morning_brief(mark_seen=False, include_coverage=False, mode="pending")
+    reviewer = session_username(request) or review_username() or ""
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    brief = _filter_brief_for_berry(brief, ui["berry"])
+    for group in (brief.get("pending_triage") or {}).get("buckets") or []:
+        _attach_pending_decision_actions(group.get("entries") or [], reviewer)
+        for item in group.get("entries") or []:
+            item["pending"] = True
+    return templates.TemplateResponse(
+        request=request,
+        name="pending_review.html",
+        context={
+            "brief": brief,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "reviewer": reviewer,
+            "return_to": "/pending",
+            "ui_context": ui,
+        },
+    )
+
+
 @app.get("/work-queue", response_class=HTMLResponse)
-def work_queue(request: Request) -> HTMLResponse:
+def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
     evidence = published_evidence()
     high_priority = [
         r for r in evidence if any(v.get("level") == "high" for v in (r.get("priority") or {}).values())
     ]
-    return templates.TemplateResponse(
+    readiness = load_publication_transcript_readiness(INBOX_DIR)
+    feed = build_intelligence_feed(
+        drafts=list_drafts(),
+        published=evidence,
+        entities=entity_index(),
+        berry_labels=BERRIES,
+        transcript_readiness=readiness,
+        filter_key=filter,
+        limit=48,
+    )
+    reviewer = session_username(request) or review_username() or ""
+    entities = entity_index()
+    source_index = {str(source.get("id")): source for source in load_sources() if source.get("id")}
+    for item in feed["entries"]:
+        if not item.get("pending"):
+            continue
+        attribution = attribute_draft(item["record"], entities, sources=source_index)
+        item["primary_subject"] = attribution.get("primary")
+        item["title_companies"] = [
+            hit for hit in (attribution.get("suggested") or [])
+            if hit.get("entity_type") == "company" and hit.get("location") in {"title", "source"}
+        ]
+        values = _default_review_values(item["record"])
+        values["reviewer"] = reviewer
+        item["review_values"] = _overlay_attribution_companies(values, item)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    if request.query_params.get("view") or request.query_params.get("berry"):
+        persist_ui_prefs(INBOX_DIR, berry=ui["berry"], feed_view=ui["feed_view"])
+    feed["entries"] = [item for item in feed["entries"] if matches_berry_context(item, ui["berry"])]
+    annotate_feed_semantics(
+        feed["entries"],
+        signals=all_signals(),
+        candidates=load_candidates(INBOX_DIR) if INBOX_DIR else [],
+    )
+    return_filter = "" if filter in {"", "all"} else f"?filter={filter}"
+    response = templates.TemplateResponse(
         request=request,
         name="work_queue.html",
         context={
             "recent_evidence": evidence[:5],
-            "drafts": list_drafts(),
+            "drafts": list_pending_drafts(),
+            "review_cards": [],
+            "feed": feed,
+            "feed_view": ui["feed_view"],
+            "reviewer": reviewer,
+            "return_filter": return_filter,
+            "promoted_id": request.query_params.get("promoted") or "",
+            "promoted_title": request.query_params.get("promoted_title") or "",
+            "promoted_date": request.query_params.get("promoted_date") or "",
+            "saved": request.query_params.get("saved") == "1",
+            "scanner": build_scanner_summary(
+                inbox_dir=INBOX_DIR,
+                drafts=list_drafts(),
+                published=evidence,
+                transcript_readiness=readiness,
+            ),
             "unresolved_entities": unresolved_entities(),
             "high_priority": high_priority[:5],
             "recent_signals": all_signals()[:5],
             "queue_summary": queue_counts(),
             "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+def _load_intelligence_record(item_id: str) -> dict[str, Any] | None:
+    draft = get_draft(item_id)
+    if draft is not None and draft.get("status") != "rejected":
+        return draft
+    record = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.get(item_id)
+    if record is not None and record.get("status") == "published":
+        return record
+    return None
+
+
+def _default_reader_reviewer(request: Request, values: dict[str, Any]) -> str:
+    return (
+        str(values.get("reviewer") or "").strip()
+        or session_username(request)
+        or review_username()
+        or ""
+    )
+
+
+def _source_index() -> dict[str, dict[str, Any]]:
+    return {str(source.get("id")): source for source in load_sources() if source.get("id")}
+
+
+def _related_signal_rows(item_id: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    related_signals = [
+        {
+            "id": signal.get("id"),
+            "title": signal.get("title") or signal.get("label") or signal.get("id"),
+            "href": f"/signals/{signal.get('id')}",
+            "status": signal.get("status") or "",
+        }
+        for signal in all_signals()
+        if item_id and item_id in (signal.get("evidence_ids") or [])
+    ]
+    related_candidates = [
+        {
+            "id": candidate.get("id"),
+            "title": candidate.get("label") or candidate.get("pattern_type") or candidate.get("id"),
+            "href": f"/signals/candidates/{candidate.get('id')}",
+            "status": candidate.get("status") or "",
+        }
+        for candidate in (load_candidates(INBOX_DIR) if INBOX_DIR else [])
+        if item_id and item_id in (candidate.get("supporting_evidence_ids") or [])
+    ]
+    return related_signals, related_candidates
+
+
+def _intelligence_page_context(
+    request: Request,
+    record: dict[str, Any],
+    *,
+    error: str | None = None,
+    values: dict[str, Any] | None = None,
+    overlay: bool = False,
+) -> dict[str, Any]:
+    entities = entity_index()
+    source_index = _source_index()
+    if overlay:
+        readiness = unknown_transcript_readiness()
+        published: list[dict[str, Any]] = []
+        atomic_drafts: list[dict[str, Any]] = []
+    else:
+        readiness_map = load_publication_transcript_readiness(INBOX_DIR)
+        readiness = deepcopy(readiness_map.get(record.get("id")) or unknown_transcript_readiness())
+        published = published_evidence()
+        atomic_drafts = list_drafts()
+    reader = build_reader(
+        record,
+        entities=entities,
+        berry_labels=BERRIES,
+        inbox_dir=INBOX_DIR,
+        published=published,
+        atomic_drafts=atomic_drafts,
+        transcript_readiness=readiness,
+    )
+    if values is None:
+        values = {} if record.get("status") == "published" else _default_review_values(record)
+    reviewer = _default_reader_reviewer(request, values)
+    values = {**values, "reviewer": reviewer}
+    attribution = attribute_draft(record, entities, sources=source_index)
+    if record.get("status") != "published":
+        values = _overlay_attribution_companies(values, {"primary_subject": attribution.get("primary"), "title_companies": [
+            hit for hit in (attribution.get("suggested") or []) if hit.get("entity_type") == "company" and hit.get("location") == "title"
+        ]})
+    story_thread = None
+    if not overlay and record.get("id"):
+        universe = [row for row in list_pending_drafts() if row.get("id")]
+        if record.get("status") == "published":
+            universe.append(record)
+        elif not any(str(row.get("id")) == str(record.get("id")) for row in universe):
+            universe.append(record)
+        for row in universe:
+            if row.get("primary_subject"):
+                continue
+            row_attr = attribute_draft(row, entities, sources=source_index)
+            if row_attr.get("primary"):
+                row["primary_subject"] = row_attr["primary"]
+        found = thread_for_item(str(record.get("id")), universe)
+        if found and int(found.get("source_count") or 0) > 1:
+            story_thread = found
+    item_id = str(record.get("id") or "")
+    related_signals, related_candidates = _related_signal_rows(item_id)
+    quality = evidence_quality_for_record(record)
+    return {
+        **reader,
+        "record": record,
+        "values": values,
+        "reviewer": reviewer,
+        "authoring_mode": AUTHORING_MODE,
+        "promoted": request.query_params.get("promoted") == "1",
+        "saved": request.query_params.get("saved") == "1",
+        "error": error,
+        "attribution": attribution,
+        "story_thread": story_thread,
+        "related_signals": related_signals,
+        "related_candidates": related_candidates,
+        "evidence_quality": quality,
+        "limited_evidence": bool(quality.get("limited")),
+        "overlay": overlay,
+    }
+
+
+@app.get("/intelligence/{item_id}", response_class=HTMLResponse)
+def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
+    record = _load_intelligence_record(item_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail="Intelligence item not found")
+    return templates.TemplateResponse(
+        request=request,
+        name="intelligence_reader.html",
+        context=_intelligence_page_context(request, record),
+    )
+
+
+@app.get("/api/intelligence/{item_id}/reader", response_class=HTMLResponse)
+def intelligence_reader_fragment(request: Request, item_id: str) -> HTMLResponse:
+    record = _load_intelligence_record(item_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail="Intelligence item not found")
+    return templates.TemplateResponse(
+        request=request,
+        name="_reader_panel.html",
+        context={
+            **_intelligence_page_context(request, record, overlay=True),
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.get("/threads/{item_id}", response_class=HTMLResponse)
+def story_thread_reader(request: Request, item_id: str) -> HTMLResponse:
+    seed = _load_intelligence_record(item_id)
+    if seed is None:
+        raise HTTPException(status_code=404, detail="Story thread not found")
+    source_index = {str(source.get("id")): source for source in load_sources() if source.get("id")}
+    entities = entity_index()
+    universe = [row for row in list_pending_drafts() if row.get("id")]
+    if seed.get("status") == "published" or not any(str(row.get("id")) == item_id for row in universe):
+        universe.append(seed)
+    for row in universe:
+        attribution = attribute_draft(row, entities, sources=source_index)
+        if attribution.get("primary"):
+            row["primary_subject"] = attribution["primary"]
+        row["href"] = f"/intelligence/{row.get('id')}"
+        row["date"] = row.get("published_date") or row.get("captured_date") or ""
+        row["trust"] = "trusted" if row.get("status") == "published" else "pending"
+        row["trust_label"] = "Trusted" if row.get("status") == "published" else "Pending"
+    published_rows = []
+    for rec in published_evidence():
+        rec = dict(rec)
+        for entity_id in rec.get("entity_ids") or []:
+            entity = entities.get(entity_id) or {}
+            if entity.get("entity_type") in {"company", "variety"}:
+                rec["primary_subject"] = {
+                    "id": entity_id,
+                    "name": entity.get("name") or entity_id,
+                    "entity_type": entity.get("entity_type"),
+                }
+                break
+        rec["href"] = f"/intelligence/{rec.get('id')}"
+        rec["date"] = rec.get("published_date") or rec.get("captured_date") or ""
+        rec["trust"] = "trusted"
+        rec["trust_label"] = "Trusted"
+        published_rows.append(rec)
+    universe = expand_with_related(universe, published_rows)
+    for row in universe:
+        if not row.get("href"):
+            row["href"] = f"/intelligence/{row.get('id')}"
+    thread = thread_for_item(item_id, universe)
+    if thread is None:
+        raise HTTPException(status_code=404, detail="Story thread not found")
+    if int(thread.get("source_count") or 0) <= 1:
+        return RedirectResponse(url=f"/intelligence/{item_id}", status_code=303)
+    reviewer = session_username(request) or review_username() or ""
+    state = load_analyst_queue_state(INBOX_DIR)
+    for member in thread.get("members") or []:
+        if is_pending_dismissed(str(member.get("id") or ""), state):
+            member["dismissed_redundant"] = True
+            member["trust_label"] = "Dismissed (kept)"
+    _attach_pending_decision_actions(
+        [member for member in (thread.get("members") or []) if not member.get("dismissed_redundant")],
+        reviewer,
+    )
+    presented_candidates = present_candidates(
+        INBOX_DIR,
+        evidence_by_id=_evidence_index(),
+        entities=entities,
+    )
+    member_ids = {str(member.get("id") or "") for member in (thread.get("members") or [])}
+    return templates.TemplateResponse(
+        request=request,
+        name="story_thread.html",
+        context={
+            "thread": thread,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "reviewer": reviewer,
+            "supporting_signals": candidates_for_thread(member_ids, presented_candidates),
         },
     )
 
 
 PRIORITY_QUEUE_LABELS = {
     "reading": "Reading Queue",
-    "testing": "Testing Queue",
-    "commercial_position": "Commercial Position Queue",
-    "monitoring": "Monitoring Queue",
+    "testing": "Claim testing",
+    "commercial_position": "Commercial positions",
+    "monitoring": "Watches",
 }
 
 
 @app.get("/queues/{dimension}", response_class=HTMLResponse)
-def priority_queue(request: Request, dimension: str, region: str | None = None) -> HTMLResponse:
+def priority_queue(
+    request: Request,
+    dimension: str,
+    region: str | None = None,
+    show_completed: str | None = None,
+    berry: str | None = None,
+    company: str | None = None,
+    variety: str | None = None,
+    geography: str | None = None,
+    status: str | None = None,
+) -> HTMLResponse:
     if dimension not in PRIORITY_DIMENSIONS:
         raise HTTPException(status_code=404, detail="Unknown priority dimension")
     entities = entity_index()
     all_items = queue_items(dimension)
     if region:
         all_items = [r for r in all_items if region in evidence_regions(r, entities)]
-    items = []
-    for record in all_items:
-        linked = [entities[e]["name"] for e in record.get("entity_ids", []) if e in entities]
-        items.append({**record, "linked_entity_names": linked})
+    completed = show_completed in {"1", "true", "on", "yes"}
+    page = build_dimension_page(
+        dimension=dimension,
+        records=all_items,
+        inbox_dir=INBOX_DIR,
+        entities=entities,
+        berry_labels=BERRIES,
+        signals=all_signals(),
+        show_completed=completed,
+    )
+    proposals = pending_position_proposals(all_recommendations(), INBOX_DIR) if dimension == "commercial_position" else []
+    alerts = (
+        [signal for signal in all_signals() if is_open_signal_alert(signal, load_analyst_queue_state(INBOX_DIR))]
+        if dimension == "monitoring"
+        else []
+    )
+    reading_buckets: list[dict[str, Any]] = []
+    reading_bucket_counts: dict[str, int] = {}
+    monitor = {
+        "watch_items": page["items"],
+        "monitor_alerts": [],
+        "alert_action_count": 0,
+        "last_seen_at": None,
+    }
+    if dimension == "reading" and not completed:
+        brief = _assemble_morning_brief(mark_seen=False, include_coverage=False, mode="nav")
+        reading_buckets = [group for group in brief.get("reading_buckets") or [] if group.get("key") != "needs_review"]
+        if region:
+            allowed = {record["id"] for record in all_items if record.get("id")}
+            for group in reading_buckets:
+                group["entries"] = [item for item in group.get("entries") or [] if item.get("id") in allowed]
+                group["count"] = len(group["entries"])
+        reading_bucket_counts = {group["key"]: group["count"] for group in reading_buckets}
+        candidates = load_candidates(INBOX_DIR) if INBOX_DIR else []
+        for group in reading_buckets:
+            annotate_feed_semantics(
+                group.get("entries") or [],
+                signals=all_signals(),
+                candidates=candidates,
+            )
+            for item in group.get("entries") or []:
+                item["show_reading_actions"] = bool(item.get("is_active"))
+                item["reading_open"] = bool(item.get("needs_consume"))
+    elif dimension == "monitoring":
+        candidates = load_candidates(INBOX_DIR) if INBOX_DIR else []
+        monitor = monitor_page_model(
+            watch_items=page["items"],
+            entities=entities,
+            berry_labels=BERRIES,
+            published=published_evidence(),
+            drafts=list_pending_drafts(),
+            signals=all_signals(),
+            candidates=candidates,
+            inbox_dir=INBOX_DIR,
+            health_rows=failing_source_health_rows(load_sources(), inbox_dir=INBOX_DIR),
+            include_drafts=True,
+        )
+    testing_workspace: dict[str, Any] = {}
+    if dimension == "testing":
+        repos = get_repositories(DATA_DIR, SCHEMAS_DIR)
+        evidence_by_id, facts_by_id = related_indexes(
+            all_items,
+            get_evidence=repos.evidence.get,
+            get_fact=repos.facts.get,
+        )
+        testing_workspace = testing_page_model(
+            records=all_items,
+            inbox_dir=INBOX_DIR,
+            entities=entities,
+            berry_labels=BERRIES,
+            evidence_by_id=evidence_by_id,
+            facts_by_id=facts_by_id,
+            show_completed=completed,
+            static_build=False,
+            filters={
+                "berry": berry or "",
+                "company": company or "",
+                "variety": variety or "",
+                "geography": geography or "",
+                "state": status or "",
+            },
+        )
+        page = {**page, **testing_workspace}
     return templates.TemplateResponse(
         request=request,
         name="queue.html",
         context={
-            "dimension": dimension,
-            "label": PRIORITY_QUEUE_LABELS[dimension],
-            "items": items,
+            **page,
             "berry_label": berry_label,
             "regions": REGIONS,
             "filters": {"region": region or ""},
             "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "reviewer": session_username(request) or review_username() or "",
+            "position_proposals": proposals,
+            "signal_alerts": alerts,
+            "reading_buckets": reading_buckets,
+            "reading_bucket_counts": reading_bucket_counts,
+            "return_to": f"/queues/{dimension}",
+            **monitor,
+            **testing_workspace,
         },
     )
+
+
+@app.post("/queues/reading/bulk-read")
+async def reading_bulk_read(request: Request) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Queue actions are only available in authoring mode")
+    form = await request.form()
+    reviewer = str(form.get("reviewer") or "").strip() or session_username(request) or review_username() or ""
+    region = str(form.get("region") or "")
+    return_to = safe_next_path(str(form.get("return_to") or ""))
+    allowed = {record["id"] for record in queue_items("reading") if record.get("id")}
+    ids = [value for value in form.getlist("item_id") if isinstance(value, str) and value in allowed]
+    bulk_mark_read(INBOX_DIR, ids, reviewer=reviewer)
+    if return_to and return_to.startswith("/brief"):
+        return RedirectResponse(url="/brief", status_code=303)
+    suffix = f"?region={region}" if region else ""
+    return RedirectResponse(url=f"/queues/reading{suffix}", status_code=303)
+
+
+@app.post("/queues/pending/bulk-dismiss")
+async def pending_bulk_dismiss(request: Request) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Queue actions are only available in authoring mode")
+    form = await request.form()
+    reviewer = str(form.get("reviewer") or "").strip() or session_username(request) or review_username() or ""
+    return_to = safe_next_path(str(form.get("return_to") or "")) or "/brief#pending-triage"
+    allowed = {record["id"] for record in list_pending_drafts() if record.get("id")}
+    ids = [value for value in form.getlist("item_id") if isinstance(value, str) and value in allowed]
+    bulk_dismiss_pending(INBOX_DIR, ids, reviewer=reviewer)
+    return RedirectResponse(
+        url=return_to if return_to.startswith(("/brief", "/pending")) else "/pending",
+        status_code=303,
+    )
+
+
+@app.post("/queues/pending/{item_id}")
+def pending_item_action(
+    request: Request,
+    item_id: str,
+    action: str = Form(...),
+    reviewer: str = Form(""),
+    return_to: str = Form(""),
+) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Queue actions are only available in authoring mode")
+    allowed = {record["id"] for record in list_pending_drafts() if record.get("id")}
+    if item_id not in allowed:
+        raise HTTPException(status_code=404, detail="Pending draft not found")
+    try:
+        apply_queue_action(
+            INBOX_DIR,
+            dimension="pending",
+            item_id=item_id,
+            action=action,
+            reviewer=reviewer.strip() or session_username(request) or review_username() or "",
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    next_url = safe_next_path(return_to) or "/pending"
+    return RedirectResponse(url=next_url, status_code=303)
+
+
+@app.get("/queues/testing/{item_id}", response_class=HTMLResponse)
+def testing_claim_review(request: Request, item_id: str) -> HTMLResponse:
+    entities = entity_index()
+    records = queue_items("testing")
+    record = next((row for row in records if row.get("id") == item_id), None)
+    if record is None:
+        raise HTTPException(status_code=404, detail="Claim is not in the testing queue")
+    state = load_analyst_queue_state(INBOX_DIR)
+    repos = get_repositories(DATA_DIR, SCHEMAS_DIR)
+    evidence_by_id, facts_by_id = related_indexes(
+        [record],
+        get_evidence=repos.evidence.get,
+        get_fact=repos.facts.get,
+    )
+    item = enrich_testing_item(
+        record,
+        state=state,
+        entities=entities,
+        berry_labels=BERRIES,
+        evidence_by_id=evidence_by_id,
+        facts_by_id=facts_by_id,
+        static_build=False,
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="testing_detail.html",
+        context={
+            "item": item,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "reviewer": session_username(request) or review_username() or "",
+        },
+    )
+
+
+@app.post("/queues/{dimension}/{item_id}")
+def queue_item_action(
+    request: Request,
+    dimension: str,
+    item_id: str,
+    action: str = Form(...),
+    reviewer: str = Form(""),
+    show_completed: str = Form(""),
+    region: str = Form(""),
+    return_to: str = Form(""),
+) -> RedirectResponse:
+    if dimension not in {"reading", "testing", "monitoring"}:
+        raise HTTPException(status_code=404, detail="Unknown queue workflow")
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Queue actions are only available in authoring mode")
+    allowed = {record["id"] for record in queue_items(dimension) if record.get("id")}
+    if item_id not in allowed:
+        raise HTTPException(status_code=404, detail="Item is not in this queue")
+    try:
+        apply_queue_action(
+            INBOX_DIR,
+            dimension=dimension,
+            item_id=item_id,
+            action=action,
+            reviewer=reviewer.strip() or session_username(request) or review_username() or "",
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    if dimension == "reading" and action == "promote":
+        return RedirectResponse(url=f"/intelligence/{item_id}", status_code=303)
+    destination = safe_next_path(return_to) if return_to else ""
+    if destination and destination not in {"/brief"} and not destination.startswith("/queues/"):
+        destination = ""
+    if destination:
+        return RedirectResponse(url=destination, status_code=303)
+    params = []
+    if region:
+        params.append(f"region={region}")
+    if show_completed:
+        params.append("show_completed=1")
+    suffix = ("?" + "&".join(params)) if params else ""
+    return RedirectResponse(url=f"/queues/{dimension}{suffix}", status_code=303)
+
+
+@app.post("/recommendations/{recommendation_id}/proposal-decision")
+def recommendation_proposal_decision(
+    request: Request,
+    recommendation_id: str,
+    action: str = Form(...),
+    reviewer: str = Form(""),
+) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Proposal decisions are only available in authoring mode")
+    if recommendation_by_id(recommendation_id) is None:
+        raise HTTPException(status_code=404, detail="Recommendation not found")
+    try:
+        apply_queue_action(
+            INBOX_DIR,
+            dimension="proposals",
+            item_id=recommendation_id,
+            action=action,
+            reviewer=reviewer.strip() or session_username(request) or review_username() or "",
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return RedirectResponse(url="/queues/commercial_position", status_code=303)
+
+
+@app.post("/signals/{signal_id}/alert-decision")
+def signal_alert_decision(
+    request: Request,
+    signal_id: str,
+    action: str = Form(...),
+    reviewer: str = Form(""),
+) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Signal-alert decisions are only available in authoring mode")
+    if signal_by_id(signal_id) is None:
+        raise HTTPException(status_code=404, detail="Signal not found")
+    try:
+        apply_queue_action(
+            INBOX_DIR,
+            dimension="signals",
+            item_id=signal_id,
+            action=action,
+            reviewer=reviewer.strip() or session_username(request) or review_username() or "",
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return RedirectResponse(url="/queues/monitoring#alerts", status_code=303)
 
 
 @app.get("/strategic-questions", response_class=HTMLResponse)
@@ -1608,6 +3127,23 @@ def strategic_question_detail(request: Request, sq_id: str) -> HTMLResponse:
     )
 
 
+@app.get("/landscapes/berries/{berry_slug}", response_class=HTMLResponse)
+def landscape_berry(
+    request: Request, berry_slug: str, region: str = "global", intelligence_state: str = "all"
+) -> HTMLResponse:
+    berry_id = f"berry-{berry_slug}"
+    if berry_id not in BERRIES:
+        raise HTTPException(status_code=404, detail="Unknown berry")
+    return templates.TemplateResponse(
+        request=request,
+        name="landscape.html",
+        context={
+            **landscape_context(berry_id, region, intelligence_state),
+            "authoring_mode": AUTHORING_MODE,
+        },
+    )
+
+
 @app.get("/signals", response_class=HTMLResponse)
 def signal_list(request: Request) -> HTMLResponse:
     return templates.TemplateResponse(
@@ -1615,6 +3151,104 @@ def signal_list(request: Request) -> HTMLResponse:
         name="signal_list.html",
         context={"signals": all_signals(), "authoring_mode": AUTHORING_MODE},
     )
+
+
+@app.get("/signals/review", response_class=HTMLResponse)
+def signal_candidate_review(request: Request) -> HTMLResponse:
+    presented = present_candidates(
+        INBOX_DIR,
+        evidence_by_id=_evidence_index(),
+        entities=entity_index(),
+    )
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    presented = [row for row in presented if matches_berry_context(row, ui["berry"])]
+    return templates.TemplateResponse(
+        request=request,
+        name="signal_candidate_review.html",
+        context={
+            "triage": triage_groups(presented),
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "reviewer": session_username(request) or review_username() or "",
+        },
+    )
+
+
+@app.get("/signals/candidates/{candidate_id}", response_class=HTMLResponse)
+def signal_candidate_page(request: Request, candidate_id: str) -> HTMLResponse:
+    candidate, location = lookup_candidate(INBOX_DIR, candidate_id)
+    if candidate is None:
+        raise HTTPException(status_code=404, detail="Signal candidate not found")
+    if location == "audit":
+        return templates.TemplateResponse(
+            request=request,
+            name="signal_candidate_gone.html",
+            context={
+                "candidate_id": candidate_id,
+                "status": candidate.get("status") or "",
+                "reviewer": candidate.get("reviewer") or "",
+                "reviewed_at": candidate.get("reviewed_at") or "",
+                "review_notes": candidate.get("review_notes") or "",
+                "authoring_mode": AUTHORING_MODE,
+            },
+            status_code=410,
+        )
+    evidence_by_id = _evidence_index()
+    review = present_review(
+        candidate,
+        evidence_by_id=evidence_by_id,
+        entities=entity_index(),
+        extra_records=list(evidence_by_id.values()),
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="signal_candidate.html",
+        context={
+            "review": review,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "reviewer": session_username(request) or review_username() or "",
+            "return_to": request.query_params.get("return_to") or "/brief#emerging-signals",
+        },
+    )
+
+
+@app.post("/signals/candidates/{candidate_id}/decision")
+def signal_candidate_decision(
+    request: Request,
+    candidate_id: str,
+    decision: str = Form(...),
+    reviewer: str = Form(""),
+    notes: str = Form(""),
+    return_to: str = Form("/brief#emerging-signals"),
+) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Signal-candidate decisions are only available in authoring mode")
+    candidate = candidate_by_id(INBOX_DIR, candidate_id)
+    if candidate is None:
+        _archived, location = lookup_candidate(INBOX_DIR, candidate_id)
+        if location == "audit":
+            raise HTTPException(
+                status_code=410,
+                detail="This candidate is no longer in the live review set. The prior decision was preserved and was not applied to any regenerated candidate.",
+            )
+        raise HTTPException(status_code=404, detail="Signal candidate not found")
+    actor = reviewer.strip() or session_username(request) or review_username() or ""
+    try:
+        apply_and_persist_decision(
+            candidate,
+            decision=decision,
+            reviewer=actor,
+            notes=notes,
+            inbox_dir=INBOX_DIR,
+            expected_id=candidate_id,
+        )
+    except StaleSignalCandidateError as exc:
+        raise HTTPException(status_code=410, detail=str(exc)) from exc
+    except SignalCandidateError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    target = safe_next_path(return_to)
+    return RedirectResponse(url=target, status_code=303)
 
 
 def _default_signal_values() -> dict[str, Any]:
@@ -1781,15 +3415,533 @@ def signal_detail(request: Request, signal_id: str) -> HTMLResponse:
     if signal is None:
         raise HTTPException(status_code=404, detail="Signal not found")
     entities = entity_index()
+    lineage = get_query_services(DATA_DIR, SCHEMAS_DIR).lineage
     return templates.TemplateResponse(
         request=request,
         name="signal_detail.html",
         context={
             "signal": signal,
-            "linked_evidence": [r for r in published_evidence() if r["id"] in (signal.get("evidence_ids") or [])],
-            "linked_facts": [f for f in all_facts() if f["id"] in (signal.get("fact_ids") or [])],
-            "linked_entities": [entities[e] for e in (signal.get("entity_ids") or []) if e in entities],
+            "linked_evidence": lineage.resolve_linked_evidence(signal.get("evidence_ids")),
+            "linked_facts": lineage.resolve_linked_facts(signal.get("fact_ids")),
+            "linked_entities": lineage.resolve_linked_entities(signal.get("entity_ids"), entities),
+            "linked_strategic_questions": lineage.resolve_linked_strategic_questions(
+                signal.get("strategic_question_ids")
+            ),
             "authoring_mode": AUTHORING_MODE,
+            "alert_state": signal_alert_state(signal_id, load_analyst_queue_state(INBOX_DIR)),
+        },
+    )
+
+
+@app.get("/assessments", response_class=HTMLResponse)
+def assessment_list(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse(
+        request=request,
+        name="assessment_list.html",
+        context={
+            "assessments": attach_assessment_scope(all_assessments(), BERRIES),
+            "authoring_mode": AUTHORING_MODE,
+        },
+    )
+
+
+def _join_ids(values: list[str] | None) -> str:
+    return ", ".join(item for item in (values or []) if item)
+
+
+def _default_assessment_values() -> dict[str, Any]:
+    return {
+        "title": "",
+        "rationale": "",
+        "status": "active",
+        "confidence": "medium",
+        "fact_ids": "",
+        "signal_ids": "",
+        "evidence_ids": "",
+        "entity_ids": "",
+        "strategic_question_ids": "",
+        "counterevidence_ids": "",
+        "reviewer": "",
+        "market_ids": [],
+    }
+
+
+def _assessment_values_from_record(record: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "title": record.get("title") or "",
+        "rationale": record.get("rationale") or "",
+        "status": record.get("status") or "active",
+        "confidence": record.get("confidence") or "medium",
+        "fact_ids": _join_ids(record.get("fact_ids")),
+        "signal_ids": _join_ids(record.get("signal_ids")),
+        "evidence_ids": _join_ids(record.get("evidence_ids")),
+        "entity_ids": _join_ids(record.get("entity_ids")),
+        "strategic_question_ids": _join_ids(record.get("strategic_question_ids")),
+        "counterevidence_ids": _join_ids(record.get("counterevidence_ids")),
+        "reviewer": record.get("reviewer") or "",
+        "market_ids": assessment_market_berry_ids(record),
+    }
+
+
+def _assessment_form_response(
+    request: Request,
+    *,
+    values: dict[str, Any],
+    error: str | None = None,
+    status_code: int = 200,
+    form_action: str = "/assessments",
+    form_title: str = "New Assessment",
+) -> HTMLResponse:
+    return templates.TemplateResponse(
+        request=request,
+        name="assessment_form.html",
+        context={
+            "values": values,
+            "statuses": INTELLIGENCE_RECORD_STATUSES,
+            "confidence_levels": FACT_CONFIDENCE_LEVELS,
+            "error": error,
+            "authoring_mode": AUTHORING_MODE,
+            "form_action": form_action,
+            "form_title": form_title,
+            "berries": BERRIES,
+        },
+        status_code=status_code,
+    )
+
+
+def _assessment_form_errors(values: dict[str, Any]) -> str | None:
+    fact_id_list = split_list(values.get("fact_ids") or "")
+    signal_id_list = split_list(values.get("signal_ids") or "")
+    evidence_id_list = split_list(values.get("evidence_ids") or "")
+    entity_id_list = split_list(values.get("entity_ids") or "")
+    counterevidence_id_list = split_list(values.get("counterevidence_ids") or "")
+
+    known_facts = {f["id"] for f in all_facts()}
+    known_signals = {s["id"] for s in all_signals()}
+    published_ids = {r["id"] for r in published_evidence()}
+    entity_ids_known = set(entity_index().keys())
+
+    errors: list[str] = []
+    if not str(values.get("title") or "").strip():
+        errors.append("Title is required.")
+    if not str(values.get("rationale") or "").strip():
+        errors.append("Rationale is required.")
+    if not str(values.get("reviewer") or "").strip():
+        errors.append("Reviewer is required.")
+    if not fact_id_list:
+        errors.append("At least one supporting fact id is required.")
+    unknown_facts = [item for item in fact_id_list if item not in known_facts]
+    if unknown_facts:
+        errors.append(f"Unknown fact id(s): {', '.join(unknown_facts)}.")
+    unknown_signals = [item for item in signal_id_list if item not in known_signals]
+    if unknown_signals:
+        errors.append(f"Unknown signal id(s): {', '.join(unknown_signals)}.")
+    unknown_evidence = [item for item in evidence_id_list if item not in published_ids]
+    if unknown_evidence:
+        errors.append(f"Unknown published evidence id(s): {', '.join(unknown_evidence)}.")
+    unknown_entities = [item for item in entity_id_list if item not in entity_ids_known]
+    if unknown_entities:
+        errors.append(f"Unknown entity id(s): {', '.join(unknown_entities)}.")
+    unknown_counterevidence = [
+        item for item in counterevidence_id_list if item not in known_facts and item not in published_ids
+    ]
+    if unknown_counterevidence:
+        errors.append(f"Unknown counterevidence id(s): {', '.join(unknown_counterevidence)}.")
+    return " ".join(errors) if errors else None
+
+
+def _assessment_record_from_values(
+    values: dict[str, Any],
+    *,
+    assessment_id: str,
+    existing: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    record: dict[str, Any] = dict(existing or {})
+    record.update(
+        {
+            "id": assessment_id,
+            "record_type": "assessment",
+            "title": str(values.get("title") or "").strip(),
+            "rationale": str(values.get("rationale") or "").strip(),
+            "status": values.get("status") or "active",
+            "confidence": values.get("confidence") or "medium",
+            "fact_ids": split_list(values.get("fact_ids") or ""),
+            "signal_ids": split_list(values.get("signal_ids") or ""),
+            "evidence_ids": split_list(values.get("evidence_ids") or ""),
+            "entity_ids": split_list(values.get("entity_ids") or ""),
+            "strategic_question_ids": resolve_strategic_question_ids(values.get("strategic_question_ids") or ""),
+            "counterevidence_ids": split_list(values.get("counterevidence_ids") or ""),
+            "reviewer": str(values.get("reviewer") or "").strip(),
+        }
+    )
+    market_ids = parse_assessment_market_ids(values.get("market_ids") or [])
+    if market_ids:
+        record["market_ids"] = market_ids
+    else:
+        record.pop("market_ids", None)
+    if existing is None:
+        record["created_at"] = date.today().isoformat()
+        record.pop("updated_at", None)
+    else:
+        record["created_at"] = existing.get("created_at") or date.today().isoformat()
+        record["updated_at"] = date.today().isoformat()
+    return record
+
+
+def _assessment_schema_error(record: dict[str, Any]) -> str | None:
+    schema_errors = [error.message for error in get_validator("assessment.schema.json").iter_errors(record)]
+    if not schema_errors:
+        return None
+    return "This assessment could not be saved: " + "; ".join(schema_errors)
+
+
+@app.get("/assessments/new", response_class=HTMLResponse)
+def assessment_new(request: Request) -> HTMLResponse:
+    return _assessment_form_response(request, values=_default_assessment_values())
+
+
+@app.post("/assessments", response_model=None)
+def assessment_create(
+    request: Request,
+    title: str = Form(""),
+    rationale: str = Form(""),
+    status: str = Form("active"),
+    confidence: str = Form(""),
+    fact_ids: str = Form(""),
+    signal_ids: str = Form(""),
+    evidence_ids: str = Form(""),
+    entity_ids: str = Form(""),
+    strategic_question_ids: str = Form(""),
+    counterevidence_ids: str = Form(""),
+    reviewer: str = Form(""),
+    market_ids: list[str] = Form(default=[]),
+) -> HTMLResponse | RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Creating assessments is only available in authoring mode")
+
+    values = {
+        "title": title,
+        "rationale": rationale,
+        "status": status or "active",
+        "confidence": confidence or "medium",
+        "fact_ids": fact_ids,
+        "signal_ids": signal_ids,
+        "evidence_ids": evidence_ids,
+        "entity_ids": entity_ids,
+        "strategic_question_ids": strategic_question_ids,
+        "counterevidence_ids": counterevidence_ids,
+        "reviewer": reviewer,
+        "market_ids": parse_assessment_market_ids(market_ids),
+    }
+    error = _assessment_form_errors(values)
+    if error:
+        return _assessment_form_response(request, values=values, error=error, status_code=400)
+
+    assessment_id = new_assessment_id(title)
+    record = _assessment_record_from_values(values, assessment_id=assessment_id)
+    schema_error = _assessment_schema_error(record)
+    if schema_error:
+        return _assessment_form_response(request, values=values, error=schema_error, status_code=400)
+
+    save_assessment(record)
+    return RedirectResponse(url=f"/assessments/{assessment_id}", status_code=303)
+
+
+@app.get("/assessments/{assessment_id}/edit", response_class=HTMLResponse)
+def assessment_edit(request: Request, assessment_id: str) -> HTMLResponse:
+    assessment = assessment_by_id(assessment_id)
+    if assessment is None:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+    return _assessment_form_response(
+        request,
+        values=_assessment_values_from_record(assessment),
+        form_action=f"/assessments/{assessment_id}",
+        form_title="Edit Assessment",
+    )
+
+
+@app.post("/assessments/{assessment_id}", response_model=None)
+def assessment_update(
+    request: Request,
+    assessment_id: str,
+    title: str = Form(""),
+    rationale: str = Form(""),
+    status: str = Form("active"),
+    confidence: str = Form(""),
+    fact_ids: str = Form(""),
+    signal_ids: str = Form(""),
+    evidence_ids: str = Form(""),
+    entity_ids: str = Form(""),
+    strategic_question_ids: str = Form(""),
+    counterevidence_ids: str = Form(""),
+    reviewer: str = Form(""),
+    market_ids: list[str] = Form(default=[]),
+) -> HTMLResponse | RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Editing assessments is only available in authoring mode")
+    existing = assessment_by_id(assessment_id)
+    if existing is None:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+
+    values = {
+        "title": title,
+        "rationale": rationale,
+        "status": status or "active",
+        "confidence": confidence or "medium",
+        "fact_ids": fact_ids,
+        "signal_ids": signal_ids,
+        "evidence_ids": evidence_ids,
+        "entity_ids": entity_ids,
+        "strategic_question_ids": strategic_question_ids,
+        "counterevidence_ids": counterevidence_ids,
+        "reviewer": reviewer,
+        "market_ids": parse_assessment_market_ids(market_ids),
+    }
+    form_action = f"/assessments/{assessment_id}"
+    error = _assessment_form_errors(values)
+    if error:
+        return _assessment_form_response(
+            request,
+            values=values,
+            error=error,
+            status_code=400,
+            form_action=form_action,
+            form_title="Edit Assessment",
+        )
+
+    record = _assessment_record_from_values(values, assessment_id=assessment_id, existing=existing)
+    schema_error = _assessment_schema_error(record)
+    if schema_error:
+        return _assessment_form_response(
+            request,
+            values=values,
+            error=schema_error,
+            status_code=400,
+            form_action=form_action,
+            form_title="Edit Assessment",
+        )
+
+    update_assessment(record)
+    return RedirectResponse(url=f"/assessments/{assessment_id}", status_code=303)
+
+
+@app.get("/assessments/{assessment_id}", response_class=HTMLResponse)
+def assessment_detail(request: Request, assessment_id: str) -> HTMLResponse:
+    assessment = assessment_by_id(assessment_id)
+    if assessment is None:
+        raise HTTPException(status_code=404, detail="Assessment not found")
+    entities = entity_index()
+    lineage = get_query_services(DATA_DIR, SCHEMAS_DIR).lineage
+    return templates.TemplateResponse(
+        request=request,
+        name="assessment_detail.html",
+        context={
+            "assessment": assessment,
+            "berry_scope": assessment_berry_scope(assessment, BERRIES),
+            "linked_facts": lineage.resolve_linked_facts(assessment.get("fact_ids")),
+            "linked_signals": lineage.resolve_linked_signals(assessment.get("signal_ids")),
+            "linked_evidence": lineage.resolve_linked_evidence(assessment.get("evidence_ids")),
+            "linked_entities": lineage.resolve_linked_entities(assessment.get("entity_ids"), entities),
+            "linked_strategic_questions": lineage.resolve_linked_strategic_questions(
+                assessment.get("strategic_question_ids")
+            ),
+            # counterevidence_ids may reference a fact id or an evidence id
+            # (see the create route's validation) but this view has only
+            # ever resolved the fact half -- preserved exactly, not fixed.
+            "counterevidence": lineage.resolve_linked_facts(assessment.get("counterevidence_ids")),
+            "authoring_mode": AUTHORING_MODE,
+        },
+    )
+
+
+@app.get("/recommendations", response_class=HTMLResponse)
+def recommendation_list(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse(
+        request=request,
+        name="recommendation_list.html",
+        context={"recommendations": all_recommendations(), "authoring_mode": AUTHORING_MODE},
+    )
+
+
+def _default_recommendation_values() -> dict[str, Any]:
+    return {
+        "title": "",
+        "rationale": "",
+        "action_type": "",
+        "status": "active",
+        "priority": "medium",
+        "assessment_ids": "",
+        "signal_ids": "",
+        "fact_ids": "",
+        "evidence_ids": "",
+        "entity_ids": "",
+        "strategic_question_ids": "",
+        "reviewer": "",
+    }
+
+
+@app.get("/recommendations/new", response_class=HTMLResponse)
+def recommendation_new(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse(
+        request=request,
+        name="recommendation_form.html",
+        context={
+            "values": _default_recommendation_values(),
+            "statuses": INTELLIGENCE_RECORD_STATUSES,
+            "priorities": RECOMMENDATION_PRIORITIES,
+            "error": None,
+            "authoring_mode": AUTHORING_MODE,
+        },
+    )
+
+
+@app.post("/recommendations", response_model=None)
+def recommendation_create(
+    request: Request,
+    title: str = Form(""),
+    rationale: str = Form(""),
+    action_type: str = Form(""),
+    status: str = Form("active"),
+    priority: str = Form(""),
+    assessment_ids: str = Form(""),
+    signal_ids: str = Form(""),
+    fact_ids: str = Form(""),
+    evidence_ids: str = Form(""),
+    entity_ids: str = Form(""),
+    strategic_question_ids: str = Form(""),
+    reviewer: str = Form(""),
+) -> HTMLResponse | RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Creating recommendations is only available in authoring mode")
+
+    values = {
+        "title": title,
+        "rationale": rationale,
+        "action_type": action_type,
+        "status": status or "active",
+        "priority": priority or "medium",
+        "assessment_ids": assessment_ids,
+        "signal_ids": signal_ids,
+        "fact_ids": fact_ids,
+        "evidence_ids": evidence_ids,
+        "entity_ids": entity_ids,
+        "strategic_question_ids": strategic_question_ids,
+        "reviewer": reviewer,
+    }
+
+    assessment_id_list = split_list(assessment_ids)
+    signal_id_list = split_list(signal_ids)
+    fact_id_list = split_list(fact_ids)
+    evidence_id_list = split_list(evidence_ids)
+    entity_id_list = split_list(entity_ids)
+
+    known_assessments = {a["id"] for a in all_assessments()}
+    known_signals = {s["id"] for s in all_signals()}
+    known_facts = {f["id"] for f in all_facts()}
+    published_ids = {r["id"] for r in published_evidence()}
+    entity_ids_known = set(entity_index().keys())
+
+    errors: list[str] = []
+    if not title.strip():
+        errors.append("Title is required.")
+    if not rationale.strip():
+        errors.append("Rationale is required.")
+    if not action_type.strip():
+        errors.append("Action type is required.")
+    if not reviewer.strip():
+        errors.append("Reviewer is required.")
+    if not assessment_id_list and not signal_id_list:
+        errors.append("At least one linked assessment id or signal id is required.")
+    unknown_assessments = [a for a in assessment_id_list if a not in known_assessments]
+    if unknown_assessments:
+        errors.append(f"Unknown assessment id(s): {', '.join(unknown_assessments)}.")
+    unknown_signals = [s for s in signal_id_list if s not in known_signals]
+    if unknown_signals:
+        errors.append(f"Unknown signal id(s): {', '.join(unknown_signals)}.")
+    unknown_facts = [f for f in fact_id_list if f not in known_facts]
+    if unknown_facts:
+        errors.append(f"Unknown fact id(s): {', '.join(unknown_facts)}.")
+    unknown_evidence = [e for e in evidence_id_list if e not in published_ids]
+    if unknown_evidence:
+        errors.append(f"Unknown published evidence id(s): {', '.join(unknown_evidence)}.")
+    unknown_entities = [e for e in entity_id_list if e not in entity_ids_known]
+    if unknown_entities:
+        errors.append(f"Unknown entity id(s): {', '.join(unknown_entities)}.")
+
+    if errors:
+        return templates.TemplateResponse(
+            request=request,
+            name="recommendation_form.html",
+            context={
+                "values": values,
+                "statuses": INTELLIGENCE_RECORD_STATUSES,
+                "priorities": RECOMMENDATION_PRIORITIES,
+                "error": " ".join(errors),
+                "authoring_mode": AUTHORING_MODE,
+            },
+            status_code=400,
+        )
+
+    recommendation_id = new_recommendation_id(title)
+    record = {
+        "id": recommendation_id,
+        "record_type": "recommendation",
+        "title": title.strip(),
+        "rationale": rationale.strip(),
+        "action_type": action_type.strip(),
+        "status": values["status"],
+        "priority": values["priority"],
+        "assessment_ids": assessment_id_list,
+        "signal_ids": signal_id_list,
+        "fact_ids": fact_id_list,
+        "evidence_ids": evidence_id_list,
+        "entity_ids": entity_id_list,
+        "strategic_question_ids": resolve_strategic_question_ids(strategic_question_ids),
+        "reviewer": reviewer.strip(),
+        "created_at": date.today().isoformat(),
+    }
+
+    schema_errors = [e.message for e in get_validator("recommendation.schema.json").iter_errors(record)]
+    if schema_errors:
+        return templates.TemplateResponse(
+            request=request,
+            name="recommendation_form.html",
+            context={
+                "values": values,
+                "statuses": INTELLIGENCE_RECORD_STATUSES,
+                "priorities": RECOMMENDATION_PRIORITIES,
+                "error": "This recommendation could not be saved: " + "; ".join(schema_errors),
+                "authoring_mode": AUTHORING_MODE,
+            },
+            status_code=400,
+        )
+
+    save_recommendation(record)
+    return RedirectResponse(url=f"/recommendations/{recommendation_id}", status_code=303)
+
+
+@app.get("/recommendations/{recommendation_id}", response_class=HTMLResponse)
+def recommendation_detail(request: Request, recommendation_id: str) -> HTMLResponse:
+    recommendation = recommendation_by_id(recommendation_id)
+    if recommendation is None:
+        raise HTTPException(status_code=404, detail="Recommendation not found")
+    entities = entity_index()
+    lineage = get_query_services(DATA_DIR, SCHEMAS_DIR).lineage
+    return templates.TemplateResponse(
+        request=request,
+        name="recommendation_detail.html",
+        context={
+            "recommendation": recommendation,
+            "linked_assessments": lineage.resolve_linked_assessments(recommendation.get("assessment_ids")),
+            "linked_signals": lineage.resolve_linked_signals(recommendation.get("signal_ids")),
+            "linked_facts": lineage.resolve_linked_facts(recommendation.get("fact_ids")),
+            "linked_evidence": lineage.resolve_linked_evidence(recommendation.get("evidence_ids")),
+            "linked_entities": lineage.resolve_linked_entities(recommendation.get("entity_ids"), entities),
+            "linked_strategic_questions": lineage.resolve_linked_strategic_questions(
+                recommendation.get("strategic_question_ids")
+            ),
+            "authoring_mode": AUTHORING_MODE,
+            "proposal_state": proposal_state(recommendation_id, load_analyst_queue_state(INBOX_DIR)),
         },
     )
 
@@ -1809,12 +3961,45 @@ def sources_page_context(
         ({"id": e["id"], "name": e["name"]} for e in all_entities() if e.get("entity_type") == "company"),
         key=lambda c: c["name"],
     )
+    # Cadence-aware automated-discovery freshness, distinct from the
+    # human-review last_checked_at/next_check_due above -- "no new stories"
+    # (CURRENT/DUE) is a different fact from "we haven't successfully
+    # checked this source lately" (STALE/FAILING), and an analyst needs to
+    # tell them apart. Cheap: reads small per-source JSON state files, no
+    # network calls or per-item orchestration dry-run.
+    discovered_items = list_discovered_items(INBOX_DIR)
+    published = published_evidence()
+    latest_by_source = index_latest_item_dates(discovered_items=discovered_items, published_evidence=published)
+
+    def _freshness_for(source: dict[str, Any]) -> dict[str, Any]:
+        published_at, captured_at = latest_by_source.get(source["id"], (None, None))
+        return classify_source_freshness(
+            source,
+            discovery_state=read_source_discovery_state(INBOX_DIR, source["id"]),
+            latest_item_published_at=published_at,
+            latest_item_captured_at=captured_at,
+        ).as_dict()
+
+    freshness_by_source = {source["id"]: _freshness_for(source) for source in all_sources if source.get("id")}
+    health_rows = present_source_health_rows(
+        filtered,
+        freshness_by_source=freshness_by_source,
+        entity_type_labels=SOURCE_ENTITY_TYPES,
+        berry_labels=BERRIES,
+        region_labels=SOURCE_REGIONS,
+        cadence_labels=SOURCE_CADENCES,
+        retry_hints=retry_hints_by_source(INBOX_DIR),
+    )
     return {
         "sources": filtered,
         "total_count": len(all_sources),
         "grouped_sources": group_sources(filtered, group_by),
+        "health_groups": group_source_health(health_rows),
         "gaps_count": len([s for s in all_sources if source_has_coverage_gap(s)]),
         "due_count": len([s for s in all_sources if source_is_due(s)]),
+        "freshness_by_source": freshness_by_source,
+        "source_coverage": aggregate_source_coverage(freshness_by_source),
+        "freshness_states": FRESHNESS_LABELS,
         "source_types": SOURCE_TYPES,
         "source_entity_types": SOURCE_ENTITY_TYPES,
         "source_regions": SOURCE_REGIONS,
@@ -2117,22 +4302,134 @@ def intake_attachment(draft_id: str, filename: str) -> FileResponse:
     return FileResponse(target)
 
 
+def _safe_review_return(value: str | None, *, fallback: str = "/review") -> str:
+    if not value:
+        return fallback
+    parsed = urlsplit(value)
+    if parsed.scheme or parsed.netloc:
+        return fallback
+    path = parsed.path or ""
+    if not path.startswith("/") or ".." in path or path.startswith("//"):
+        return fallback
+    parts = [segment for segment in path.split("/") if segment]
+    allowed = False
+    if path == "/review" or path.startswith("/review/"):
+        allowed = len(parts) <= 2
+    elif path == "/work-queue":
+        allowed = True
+    elif path.startswith("/intelligence/") or path.startswith("/evidence/"):
+        allowed = len(parts) == 2
+    if not allowed:
+        return fallback
+    return path + (f"?{parsed.query}" if parsed.query else "")
+
+
+def _review_publish_service() -> ReviewPublishService:
+    return ReviewPublishService(
+        repositories=get_repositories(DATA_DIR, SCHEMAS_DIR),
+        unit_of_work_factory=lambda: get_unit_of_work(
+            DATA_DIR, SCHEMAS_DIR, "entities", "facts", "relationships", "evidence"
+        ),
+        get_validator=get_validator,
+        unique_entity_id=unique_entity_id,
+        append_unique=append_unique,
+        move_draft_attachments=move_draft_attachments,
+        restore_draft_attachments=restore_draft_attachments,
+        delete_draft=delete_draft,
+    )
+
+
 @app.get("/review", response_class=HTMLResponse)
-def review_queue(request: Request) -> HTMLResponse:
-    entities = entity_index()
+def review_queue(
+    request: Request,
+    kind: str | None = None,
+    state: str | None = None,
+    source: str | None = None,
+    parent: str | None = None,
+    media_format: str | None = None,
+    berry: str | None = None,
+    geography: str | None = None,
+    model: str | None = None,
+    version: str | None = None,
+    sort: str | None = None,
+    enrichment: str | None = None,
+    current: str | None = None,
+) -> HTMLResponse:
+    repositories = get_repositories(DATA_DIR, SCHEMAS_DIR)
+    drafts = list_drafts()
+    filters = {
+        "kind": kind,
+        "state": state,
+        "source": source,
+        "parent": parent,
+        "media_format": media_format,
+        "berry": berry,
+        "geography": geography,
+        "model": model,
+        "version": version,
+        "sort": sort,
+        "enrichment": enrichment,
+    }
+    workbench = build_review_workbench(
+        drafts=drafts,
+        evidence=repositories.evidence.list(),
+        sources=repositories.sources.list(),
+        entities=repositories.entities.list(),
+        berry_labels=BERRIES,
+        publication_transcript_readiness=load_publication_transcript_readiness(INBOX_DIR),
+        filters=filters,
+    )
+    stable_params = {
+        key: value for key, value in workbench["filters"].items()
+        if value and not (key == "state" and value == "pending")
+    }
+    for group in workbench["groups"]:
+        pending_cards = [card for card in group["cards"] if card["state"] == "pending"]
+        for index, card in enumerate(pending_cards):
+            return_params = {**stable_params, "parent": group["parent_id"]}
+            if index + 1 < len(pending_cards):
+                return_params["current"] = pending_cards[index + 1]["record"]["id"]
+            card["return_to"] = "/review?" + urlencode(return_params)
+            card["edit_url"] = f"/review/{card['record']['id']}?return_to={quote(card['return_to'], safe='')}"
+
+    entities = {record["id"]: record for record in repositories.entities.list() if record.get("id")}
     return templates.TemplateResponse(
         request=request,
         name="review_queue.html",
         context={
-            "drafts": list_drafts(),
+            "drafts": workbench["generic_drafts"],
+            "workbench": workbench,
+            "current_id": current,
+            "rejection_categories": REJECTION_CATEGORIES,
             "unvalidated_evidence": unvalidated_auto_captured_evidence(),
             "entities": entities,
+            "scanner": build_scanner_summary(
+                inbox_dir=INBOX_DIR,
+                drafts=drafts,
+                published=repositories.evidence.list(),
+                transcript_readiness=load_publication_transcript_readiness(INBOX_DIR),
+            ),
             "authoring_mode": AUTHORING_MODE,
         },
     )
 
 
 def _default_review_values(draft: dict[str, Any]) -> dict[str, Any]:
+    enrichment = draft.get("ai_enrichment") or {}
+    concise = (enrichment.get("concise_summary") or "").strip()
+    why = (draft.get("why_it_matters") or enrichment.get("why_it_matters") or "").strip()
+    summary = (draft.get("summary") or "").strip()
+    publisher = (draft.get("publisher_description") or "").strip()
+    if concise and (not summary or summary == publisher):
+        summary = concise
+    tags = list(draft.get("tags") or [])
+    for tag in enrichment.get("suggested_tags") or []:
+        if tag and tag not in tags:
+            tags.append(tag)
+    berries = list(draft.get("berry_ids") or [])
+    for berry_id in enrichment.get("suggested_berry_ids") or []:
+        if berry_id and berry_id not in berries:
+            berries.append(berry_id)
     return {
         "title": draft.get("title", ""),
         "source_type": draft.get("source_type", ""),
@@ -2140,14 +4437,14 @@ def _default_review_values(draft: dict[str, Any]) -> dict[str, Any]:
         "source_url": draft.get("source_url", ""),
         "published_date": draft.get("published_date") or "",
         "captured_date": draft.get("captured_date", ""),
-        "summary": draft.get("summary", ""),
-        "why_it_matters": draft.get("why_it_matters", ""),
-        "tags": "",
+        "summary": summary,
+        "why_it_matters": why,
+        "tags": ", ".join(tags),
         "companies": ", ".join(draft.get("suggested_competitors", [])),
         "varieties": ", ".join(draft.get("suggested_varieties", [])),
-        "retailers": "",
-        "geographies": "",
-        "berries": [],
+        "retailers": ", ".join(draft.get("suggested_retailers", [])),
+        "geographies": ", ".join(draft.get("suggested_geographies", [])),
+        "berries": berries,
         "strategic_questions": "",
         "reviewer": "",
         "facts": [{"statement": "", "classification": "fact", "confidence": "medium"} for _ in range(NUM_FACT_ROWS)],
@@ -2159,9 +4456,76 @@ def _default_review_values(draft: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _review_context(draft: dict[str, Any], values: dict[str, Any], error: str | None) -> dict[str, Any]:
+def _review_context(
+    draft: dict[str, Any],
+    values: dict[str, Any],
+    error: str | None,
+    *,
+    return_to: str = "/review",
+    publish_outcome: str | None = None,
+    conflicts: list[str] | None = None,
+) -> dict[str, Any]:
+    repositories = get_repositories(DATA_DIR, SCHEMAS_DIR)
+    parent = repositories.evidence.get(draft.get("parent_evidence_id")) if draft.get("parent_evidence_id") else None
+    entities = {record["id"]: record for record in repositories.entities.list() if record.get("id")}
+    if draft.get("evidence_role") == "atomic_evidence":
+        field_by_type = {
+            "company": "companies",
+            "variety": "varieties",
+            "retailer": "retailers",
+            "geography": "geographies",
+        }
+        linked_by_field: dict[str, list[str]] = {value: [] for value in field_by_type.values()}
+        for entity_id in draft.get("entity_ids") or []:
+            entity = entities.get(entity_id) or {}
+            field_name = field_by_type.get(entity.get("entity_type"))
+            if field_name:
+                linked_by_field[field_name].append(entity.get("name", entity_id))
+        for field_name, names in linked_by_field.items():
+            if names and not values.get(field_name):
+                values[field_name] = ", ".join(names)
+    elif draft.get("evidence_role") == "publication_artifact":
+        def _names(ids: list[str], entity_type: str | None = None) -> list[str]:
+            names: list[str] = []
+            for entity_id in ids:
+                entity = entities.get(entity_id) or {}
+                if entity_type and entity.get("entity_type") != entity_type:
+                    continue
+                name = entity.get("name")
+                if name and name not in names:
+                    names.append(name)
+            return names
+
+        if not values.get("companies"):
+            values["companies"] = ", ".join(_names(list(draft.get("entity_ids") or []), "company"))
+        if not values.get("geographies"):
+            values["geographies"] = ", ".join(
+                _names(list(draft.get("geography_ids") or []) + list(draft.get("entity_ids") or []), "geography")
+            )
+        if not values.get("varieties"):
+            values["varieties"] = ", ".join(_names(list(draft.get("entity_ids") or []), "variety"))
+        if not values.get("retailers"):
+            values["retailers"] = ", ".join(_names(list(draft.get("entity_ids") or []), "retailer"))
+    transcript_readiness = None
+    if draft.get("evidence_role") == "publication_artifact":
+        transcript_readiness = load_publication_transcript_readiness(INBOX_DIR).get(
+            draft["id"], unknown_transcript_readiness()
+        )
+        transcript_readiness["analyst_label"] = analyst_transcript_label(transcript_readiness)
+    trusted_existing = None
+    if draft.get("id"):
+        trusted_existing = repositories.evidence.get(draft["id"])
+    publication_card = None
+    if draft.get("evidence_role") == "publication_artifact":
+        presentation = deepcopy(draft)
+        presentation["transcript_readiness"] = transcript_readiness or unknown_transcript_readiness()
+        attach_publication_card(presentation, entities=entities, berry_labels=BERRIES)
+        publication_card = presentation.get("card")
     return {
         "draft": draft,
+        "parent": parent,
+        "linked_entities": [entities[value] for value in (draft.get("entity_ids") or []) if value in entities],
+        "locator_label": format_locator(draft.get("artifact_locator")),
         "duplicates": find_possible_duplicates(values["title"] or draft.get("title", ""), exclude_id=draft["id"]),
         "berries": BERRIES,
         "predicates": RELATIONSHIP_PREDICATES,
@@ -2174,6 +4538,15 @@ def _review_context(draft: dict[str, Any], values: dict[str, Any], error: str | 
         "values": values,
         "error": error,
         "authoring_mode": AUTHORING_MODE,
+        "return_to": _safe_review_return(return_to),
+        "rejection_categories": REJECTION_CATEGORIES,
+        "transcript_readiness": transcript_readiness,
+        "publish_outcome": publish_outcome,
+        "conflicts": conflicts or [],
+        "trusted_existing": trusted_existing,
+        "publication_card": publication_card,
+        "next_draft_id": adjacent_publication_draft_id(draft.get("id") or ""),
+        "prev_draft_id": adjacent_publication_draft_id(draft.get("id") or "", step=-1),
     }
 
 
@@ -2185,7 +4558,12 @@ def review_form(request: Request, draft_id: str) -> HTMLResponse:
     return templates.TemplateResponse(
         request=request,
         name="review.html",
-        context=_review_context(draft, _default_review_values(draft), None),
+        context=_review_context(
+            draft,
+            _default_review_values(draft),
+            None,
+            return_to=request.query_params.get("return_to", "/review"),
+        ),
     )
 
 
@@ -2197,6 +4575,8 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
     draft = get_draft(draft_id)
     if draft is None:
         raise HTTPException(status_code=404, detail="Draft not found")
+    if draft.get("status") == "rejected":
+        raise HTTPException(status_code=400, detail="Rejected drafts cannot be published")
 
     form = await request.form()
 
@@ -2219,7 +4599,19 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
     geographies = split_list(field("geographies"))
     strategic_question_text = split_list(field("strategic_questions"))
     reviewer = field("reviewer").strip()
+    return_to = _safe_review_return(field("return_to"), fallback="")
     selected_berries = [b for b in form.getlist("berries") if isinstance(b, str)]
+    if draft.get("evidence_role") == "atomic_evidence" and summary:
+        title = summary[:160]
+        # Reviewers may edit the proposed statement and supported links, but
+        # the publication/transcript lineage is not form-editable.
+        source_type = draft.get("source_type", source_type)
+        source_name = draft.get("source_name", source_name)
+        source_url = draft.get("source_url", source_url)
+        published_date = draft.get("published_date")
+        captured_date = draft.get("captured_date", captured_date)
+        why_it_matters = draft.get("why_it_matters", "")
+        tags = list(draft.get("tags") or [])
 
     facts_input = []
     for i in range(1, NUM_FACT_ROWS + 1):
@@ -2254,6 +4646,8 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
         }
         for dim in PRIORITY_DIMENSIONS
     }
+    if draft.get("evidence_role") == "atomic_evidence":
+        priority = deepcopy(draft.get("priority") or priority)
 
     values = {
         "title": title,
@@ -2320,155 +4714,246 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
         return templates.TemplateResponse(
             request=request,
             name="review.html",
-            context=_review_context(draft, values, " ".join(errors)),
+            context=_review_context(draft, values, " ".join(errors), return_to=return_to or "/review"),
             status_code=400,
         )
 
-    # --- entity match-or-create ---
-    idx = entity_index()
-    by_name_type = {(e.get("name", "").strip().lower(), e.get("entity_type")): e for e in idx.values()}
-    existing_ids = set(idx.keys())
-    entity_ids: list[str] = []
-    entities_to_save: list[dict[str, Any]] = []
-    name_to_id: dict[str, str] = {}
-    entities_by_id: dict[str, dict[str, Any]] = dict(idx)
-
-    for entity_type, names in all_entity_names_by_type.items():
-        for name in names:
-            key = (name.strip().lower(), entity_type)
-            existing = by_name_type.get(key)
-            if existing:
-                name_to_id[name] = existing["id"]
-                entity_ids.append(existing["id"])
-                continue
-            entity_id = unique_entity_id(entity_type, name, existing_ids)
-            existing_ids.add(entity_id)
-            new_entity = {
-                "id": entity_id,
-                "record_type": "entity",
-                "entity_type": entity_type,
-                "name": name,
-                "aliases": [],
-                "status": "unverified",
-                "description": "",
-                "roles": [],
-                "berry_ids": list(selected_berries),
-                "evidence_ids": [],
-                "fact_ids": [],
-                "relationship_ids": [],
-                "attributes": {},
-            }
-            by_name_type[key] = new_entity
-            entities_by_id[entity_id] = new_entity
-            entities_to_save.append(new_entity)
-            name_to_id[name] = entity_id
-            entity_ids.append(entity_id)
-
-    evidence_id = draft_id
-
-    fact_ids: list[str] = []
-    facts_to_save: list[dict[str, Any]] = []
-    for i, fact_input in enumerate(facts_input, start=1):
-        fact_id = f"fact-{evidence_id[3:]}-{i}"
-        facts_to_save.append(
-            {
-                "id": fact_id,
-                "record_type": "fact",
-                "statement": fact_input["statement"],
-                "classification": fact_input["classification"],
-                "confidence": fact_input["confidence"],
-                "status": "active",
-                "reviewer": reviewer,
-                "created_at": date.today().isoformat(),
-                "evidence_ids": [evidence_id],
-                "entity_ids": list(entity_ids),
-            }
-        )
-        fact_ids.append(fact_id)
-
-    relationship_ids: list[str] = []
-    relationships_to_save: list[dict[str, Any]] = []
-    for i, rel_input in enumerate(relationships_input, start=1):
-        rel_id = f"rel-{evidence_id[3:]}-{i}"
-        relationships_to_save.append(
-            {
-                "id": rel_id,
-                "record_type": "relationship",
-                "subject_id": name_to_id[rel_input["subject"]],
-                "predicate": rel_input["predicate"],
-                "object_id": name_to_id[rel_input["object"]],
-                "status": "active",
-                "evidence_ids": [evidence_id],
-                "effective_date": rel_input["effective_date"],
-                "notes": "",
-            }
-        )
-        relationship_ids.append(rel_id)
-
-    strategic_questions = load_strategic_questions()
-    sq_ids: list[str] = []
-    for text in strategic_question_text:
-        needle = text.strip().lower()
-        for sq in strategic_questions:
-            if sq.get("id", "").lower() == needle or sq.get("title", "").lower() == needle:
-                sq_ids.append(sq["id"])
-                break
-
-    evidence_record = {
-        "id": evidence_id,
-        "record_type": "evidence",
-        "status": "published",
-        "source_type": source_type,
-        "title": title,
-        "source_name": source_name,
-        "source_url": source_url,
-        "published_date": published_date,
-        "captured_date": captured_date,
-        "summary": summary,
-        "why_it_matters": why_it_matters,
-        "submitted_by": draft.get("submitted_by", ""),
-        "berry_ids": list(selected_berries),
-        "geography_ids": [eid for eid in entity_ids if entities_by_id[eid]["entity_type"] == "geography"],
-        "entity_ids": entity_ids,
-        "fact_ids": fact_ids,
-        "relationship_ids": relationship_ids,
-        "strategic_question_ids": sq_ids,
-        "tags": tags,
-        "attachments": [],
-        "priority": priority,
+    # Persistence orchestration (entity match/create/update, Facts,
+    # Relationships, Evidence, the transactional boundary, and the
+    # Draft-success handoff) lives in ReviewPublishService, not here -- see
+    # app/services/review_publish.py. This route stays limited to HTTP
+    # concerns: parsing the form (above) and turning the service's result
+    # into a response (below).
+    service = _review_publish_service()
+    editable_entity_types = {"company", "variety", "retailer", "geography"}
+    entity_index_for_preservation = {
+        entity["id"]: entity for entity in get_repositories(DATA_DIR, SCHEMAS_DIR).entities.list()
+        if entity.get("id")
     }
-
-    schema_errors = [e.message for e in get_validator("evidence.schema.json").iter_errors(evidence_record)]
-    if schema_errors:
+    preserved_entity_ids = [
+        entity_id for entity_id in (draft.get("entity_ids") or [])
+        if (entity_index_for_preservation.get(entity_id) or {}).get("entity_type") not in editable_entity_types
+    ]
+    try:
+        result = service.publish(
+            PublishRequest(
+                draft=draft,
+                draft_id=draft_id,
+                title=title,
+                source_type=source_type,
+                source_name=source_name,
+                source_url=source_url,
+                published_date=published_date,
+                captured_date=captured_date,
+                summary=summary,
+                why_it_matters=why_it_matters,
+                tags=tags,
+                selected_berries=selected_berries,
+                all_entity_names_by_type=all_entity_names_by_type,
+                facts_input=facts_input,
+                relationships_input=relationships_input,
+                priority=priority,
+                strategic_question_text=strategic_question_text,
+                reviewer=reviewer,
+                existing_entity_ids=preserved_entity_ids,
+            )
+        )
+    except DuplicateRecord:
         return templates.TemplateResponse(
             request=request,
             name="review.html",
-            context=_review_context(draft, values, "This record could not be published: " + "; ".join(schema_errors)),
+            context=_review_context(
+                draft,
+                values,
+                "This id already exists as a trusted publication. The trusted record was not changed.",
+                return_to=return_to or "/review",
+                publish_outcome="conflict",
+                conflicts=[f"a trusted record with id {draft_id!r} already exists"],
+            ),
+            status_code=409,
+        )
+
+    advance = field("advance").strip() == "next"
+    next_id = adjacent_publication_draft_id(draft_id) if advance else None
+
+    if result.outcome == "conflict":
+        return templates.TemplateResponse(
+            request=request,
+            name="review.html",
+            context=_review_context(
+                draft,
+                values,
+                "This id already exists as a trusted publication with conflicting identity fields. The trusted record was not changed.",
+                return_to=return_to or "/review",
+                publish_outcome="conflict",
+                conflicts=result.conflicts,
+            ),
+            status_code=409,
+        )
+
+    if result.outcome == "already_published":
+        if next_id:
+            return RedirectResponse(url=f"/review/{next_id}", status_code=303)
+        remaining = get_draft(draft_id)
+        if remaining is None:
+            return RedirectResponse(url=return_to or f"/evidence/{result.evidence_id}", status_code=303)
+        return templates.TemplateResponse(
+            request=request,
+            name="review.html",
+            context=_review_context(
+                remaining,
+                values,
+                None,
+                return_to=return_to or "/review",
+                publish_outcome="already_published",
+            ),
+            status_code=200,
+        )
+
+    if not result.ok:
+        return templates.TemplateResponse(
+            request=request,
+            name="review.html",
+            context=_review_context(
+                draft,
+                values,
+                "This record could not be published: " + "; ".join(result.schema_errors),
+                return_to=return_to or "/review",
+            ),
             status_code=400,
         )
 
-    # All validation passed: link entities to this evidence/facts/relationships,
-    # then persist everything together so a failed publish leaves no orphans.
-    for entity_id in set(entity_ids):
-        entity = entities_by_id[entity_id]
-        entity["evidence_ids"] = append_unique(entity.get("evidence_ids", []), evidence_id)
-        entity["fact_ids"] = list(dict.fromkeys([*entity.get("fact_ids", []), *fact_ids]))
-        related_rel_ids = [
-            r["id"] for r in relationships_to_save if r["subject_id"] == entity_id or r["object_id"] == entity_id
-        ]
-        entity["relationship_ids"] = list(dict.fromkeys([*entity.get("relationship_ids", []), *related_rel_ids]))
-        save_entity(entity)
+    if next_id:
+        return RedirectResponse(url=f"/review/{next_id}", status_code=303)
+    return RedirectResponse(url=return_to or f"/evidence/{result.evidence_id}", status_code=303)
 
-    for fact in facts_to_save:
-        save_fact(fact)
-    for relationship in relationships_to_save:
-        save_relationship(relationship)
 
-    evidence_record["attachments"] = move_draft_attachments(draft_id, evidence_id, draft.get("attachments", []))
-    save_evidence(evidence_record)
-    delete_draft(draft_id)
+@app.post("/review/{draft_id}/approve-atomic")
+def review_approve_atomic(
+    draft_id: str,
+    reviewer: str = Form(""),
+    confirm_individual_review: bool = Form(False),
+    return_to: str = Form("/review"),
+) -> RedirectResponse:
+    """Compact approval action that reuses the normal publish transaction."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Publishing is only available in authoring mode")
+    draft = get_draft(draft_id)
+    if draft is None:
+        raise HTTPException(status_code=404, detail="Draft not found")
+    if draft.get("evidence_role") != "atomic_evidence" or draft.get("status") == "rejected":
+        raise HTTPException(status_code=400, detail="Compact approval is only available for pending atomic Evidence")
+    if not reviewer.strip() or not confirm_individual_review:
+        raise HTTPException(status_code=400, detail="Reviewer and individual-review confirmation are required")
+    priority = draft.get("priority") or {
+        dimension: {"level": "none", "rationale": ""} for dimension in PRIORITY_DIMENSIONS
+    }
+    result = _review_publish_service().publish(
+        PublishRequest(
+            draft=draft,
+            draft_id=draft_id,
+            title=(draft.get("summary") or draft.get("title") or "")[:160],
+            source_type=draft.get("source_type", ""),
+            source_name=draft.get("source_name", ""),
+            source_url=draft.get("source_url", ""),
+            published_date=draft.get("published_date"),
+            captured_date=draft.get("captured_date") or date.today().isoformat(),
+            summary=draft.get("summary") or draft.get("title") or "",
+            why_it_matters=draft.get("why_it_matters", ""),
+            tags=list(draft.get("tags") or []),
+            selected_berries=list(draft.get("berry_ids") or []),
+            all_entity_names_by_type={},
+            facts_input=[],
+            relationships_input=[],
+            priority=priority,
+            strategic_question_text=[],
+            reviewer=reviewer.strip(),
+            existing_entity_ids=list(dict.fromkeys(draft.get("entity_ids") or [])),
+        )
+    )
+    if not result.ok:
+        raise HTTPException(status_code=400, detail="Atomic Evidence could not be published: " + "; ".join(result.schema_errors))
+    return RedirectResponse(url=_safe_review_return(return_to), status_code=303)
 
-    return RedirectResponse(url=f"/evidence/{evidence_id}", status_code=303)
+
+@app.post("/review/{draft_id}/save", response_model=None)
+async def review_save(request: Request, draft_id: str) -> HTMLResponse | RedirectResponse:
+    """Persist reviewer edits on the untrusted draft without publishing."""
+
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Saving drafts is only available in authoring mode")
+    draft = get_draft(draft_id)
+    if draft is None:
+        raise HTTPException(status_code=404, detail="Draft not found")
+    if draft.get("status") == "rejected":
+        raise HTTPException(status_code=400, detail="Rejected drafts cannot be edited")
+    form = await request.form()
+
+    def field(name: str, default: str = "") -> str:
+        value = form.get(name, default)
+        return value if isinstance(value, str) else default
+
+    draft["title"] = field("title").strip() or draft.get("title")
+    draft["summary"] = field("summary").strip() or draft.get("summary")
+    draft["why_it_matters"] = field("why_it_matters").strip()
+    draft["tags"] = split_list(field("tags"))
+    berries = [value for value in form.getlist("berries") if isinstance(value, str)]
+    if berries:
+        draft["berry_ids"] = berries
+    save_draft(draft)
+    return_to = _safe_review_return(field("return_to"), fallback=f"/review/{draft_id}")
+    if field("advance").strip() == "next":
+        next_id = adjacent_publication_draft_id(draft_id)
+        if next_id:
+            return RedirectResponse(url=f"/review/{next_id}", status_code=303)
+    return RedirectResponse(url=return_to, status_code=303)
+
+
+@app.post("/review/{draft_id}/reject")
+def review_reject(
+    draft_id: str,
+    reviewer: str = Form(""),
+    rejection_reason: str = Form(""),
+    rejection_category: str = Form("other"),
+    return_to: str = Form("/review"),
+    advance: str = Form(""),
+) -> RedirectResponse:
+    """Record an independent human rejection without publishing Evidence.
+
+    Rejected proposals stay in inbox as audit material but leave the active
+    queue. No parent artifact, sibling proposal, Entity, Fact, or trusted
+    Evidence record is changed.
+    """
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Rejecting drafts is only available in authoring mode")
+    draft = get_draft(draft_id)
+    if draft is None:
+        raise HTTPException(status_code=404, detail="Draft not found")
+    if not reviewer.strip() or not rejection_reason.strip():
+        raise HTTPException(status_code=400, detail="Reviewer and rejection reason are required")
+    if rejection_category not in REJECTION_CATEGORIES:
+        raise HTTPException(status_code=400, detail="Rejection category is invalid")
+    draft.update(
+        {
+            "status": "rejected",
+            "review_state": "rejected",
+            "reviewed_by": reviewer.strip(),
+            "reviewed_at": date.today().isoformat(),
+            "rejection_reason": rejection_reason.strip(),
+            "rejection_category": rejection_category,
+            "review_outcome": {
+                "decision": "rejected",
+                "edited_before_approval": False,
+                "original_normalized_statement": draft.get("summary") or draft.get("title") or "",
+            },
+        }
+    )
+    save_draft(draft)
+    if advance.strip() == "next":
+        next_id = adjacent_publication_draft_id(draft_id)
+        if next_id:
+            return RedirectResponse(url=f"/review/{next_id}", status_code=303)
+    return RedirectResponse(url=_safe_review_return(return_to), status_code=303)
 
 
 @app.get("/api/feed")
@@ -2480,11 +4965,13 @@ def api_feed(
     competitor: str | None = None,
     geography: str | None = None,
     region: str | None = None,
+    media_format: str | None = None,
 ) -> list[dict[str, Any]]:
     return filter_evidence(
         published_evidence(),
         q=q, berry=berry, source=source, priority=priority,
         competitor=competitor, geography=geography, region=region,
+        media_format=media_format,
     )
 
 
@@ -2510,3 +4997,122 @@ def api_search(q: str = "") -> dict[str, Any]:
         )
     ]
     return {"evidence": evidence_matches, "entities": entity_matches}
+
+
+def _search_index_key(*, include_private: bool) -> tuple[Any, ...]:
+    parts: list[Any] = [
+        include_private,
+        _json_folder_sig(DATA_DIR / "evidence"),
+        _json_folder_sig(DATA_DIR / "signals"),
+        _json_folder_sig(DATA_DIR / "assessments"),
+        _path_sig(DATA_DIR / "configuration" / "sources.json"),
+        _json_tree_sig(DATA_DIR / "entities"),
+        _json_tree_sig(DATA_DIR / "relationships"),
+    ]
+    if include_private:
+        parts.extend(
+            [
+                _json_folder_sig(INBOX_DIR / "evidence"),
+                _json_folder_sig(INBOX_DIR / "signal_candidates"),
+            ]
+        )
+    return tuple(parts)
+
+
+def _search_pools(*, include_private: bool) -> SearchPools:
+    return SearchPools(
+        entities=all_entities(),
+        relationships=all_relationships(),
+        published_evidence=published_evidence(),
+        sources=load_sources(),
+        signals=all_signals(),
+        assessments=all_assessments(),
+        pending_drafts=list_pending_drafts() if include_private else [],
+        signal_candidates=load_candidates(INBOX_DIR) if include_private else [],
+    )
+
+
+def _cached_search_documents(*, include_private: bool):
+    key = _search_index_key(include_private=include_private)
+    if _SEARCH_DOC_CACHE["key"] != key or _SEARCH_DOC_CACHE["docs"] is None:
+        _SEARCH_DOC_CACHE["key"] = key
+        _SEARCH_DOC_CACHE["docs"] = build_search_documents(
+            _search_pools(include_private=include_private),
+            include_private=include_private,
+        )
+    return _SEARCH_DOC_CACHE["docs"]
+
+
+def run_global_search(
+    query: str,
+    *,
+    berry: str = "global",
+    include_private: bool = False,
+    include_global: bool = True,
+    limit_per_group: int = GROUP_CAP_DEFAULT,
+) -> dict[str, Any]:
+    started = time.perf_counter()
+    payload = search_global(
+        query,
+        _search_pools(include_private=include_private),
+        berry=berry,
+        include_private=include_private,
+        include_global=include_global,
+        limit_per_group=limit_per_group,
+        documents=_cached_search_documents(include_private=include_private),
+    )
+    payload["elapsed_ms"] = round((time.perf_counter() - started) * 1000, 2)
+    return payload
+
+
+@app.get("/search", response_class=HTMLResponse)
+def global_search_page(
+    request: Request,
+    q: str = "",
+    berry: str | None = None,
+    include_global: str | None = None,
+) -> HTMLResponse:
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    berry_id = parse_berry(berry or ui.get("berry"), BERRIES)
+    broaden = str(include_global or "1").strip() not in {"0", "false", "no"}
+    results = run_global_search(
+        q,
+        berry=berry_id,
+        include_private=True,
+        include_global=broaden,
+        limit_per_group=25,
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="search.html",
+        context={
+            "search_query": q,
+            "search_results": results,
+            "search_berry": berry_id,
+            "search_include_global": broaden,
+            "authoring_mode": AUTHORING_MODE,
+        },
+    )
+
+
+@app.get("/api/search/global")
+def api_global_search(
+    request: Request,
+    q: str = "",
+    berry: str = "",
+    include_global: str = "1",
+    include_private: str = "1",
+    limit: int = GROUP_CAP_DEFAULT,
+) -> dict[str, Any]:
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    berry_id = parse_berry(berry or ui.get("berry"), BERRIES)
+    private = str(include_private).strip() not in {"0", "false", "no"}
+    broaden = str(include_global).strip() not in {"0", "false", "no"}
+    cap = max(1, min(int(limit or GROUP_CAP_DEFAULT), 25))
+    return run_global_search(
+        q,
+        berry=berry_id,
+        include_private=private,
+        include_global=broaden,
+        limit_per_group=cap,
+    )

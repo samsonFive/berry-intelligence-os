@@ -1,0 +1,89 @@
+{
+  "_comment": "V2 Phase 1B (BL-019, docs/v2/10-BACKLOG.md). Every id below was verified directly against live data/entities/ (2026-08-14), not copied from docs/v2/04-DOMAIN-PACK-SPEC.md's own illustrative 'Berries example', which listed traits (ownership, headquarters_country, region, filing_date, expiry_date) that do not exist as real trait entities in data/entities/traits/ -- corrected here to match verified data instead of that earlier, unverified example. live_count fields were re-verified and updated 2026-08-20 for the multi-berry portability audit (company/breeding_program/trait/berry counts changed; see each entry's own note).",
+  "entity_types": [
+    {
+      "id": "company",
+      "label": "Company",
+      "plural_label": "Companies",
+      "traits": [],
+      "live_count": 49,
+      "_comment": "No trait entities are currently linked to company-type entities in live data; company characteristics are recorded as free-form entity.attributes, not the controlled trait vocabulary. 49 = 34 (2026-08-14) + 2 (Freshness + Company News Recall sprint: SanLucar, USHBC) + 3 (multi-berry portability audit: California Berry Cultivars, The Summer Berry Company, Plant Sciences Genetics) + 5 (Strawberry Vertical V1: Nova Siri Genetics, CIV Italy, Eurosemillas, Rijk Zwaan, Freshuelva) + 5 (Raspberry Vertical V1, 2026-08-20: Wish Farms, Global Plant Genetics, James Hutton Ltd, Chambers, Berrytech)."
+    },
+    {
+      "id": "variety",
+      "label": "Variety",
+      "plural_label": "Varieties",
+      "traits": [
+        "trait-chilling-requirement",
+        "trait-disease-susceptibility",
+        "trait-eating-quality",
+        "trait-fruit-firmness",
+        "trait-fruit-size",
+        "trait-machine-harvest-suitability",
+        "trait-postharvest-shelf-life",
+        "trait-soluble-solids",
+        "trait-titratable-acidity",
+        "trait-yield",
+        "trait-fruiting-habit",
+        "trait-flowering-habit",
+        "trait-fruit-color"
+      ],
+      "live_count": 58,
+      "_comment": "All 13 trait entities in data/entities/traits/ describe variety-level characteristics -- verified directly, not assumed. Ids match data/entities/traits/*.json exactly (also taxonomies/trait-vocabulary.json's ids), for direct traceability rather than a parallel vocabulary-id namespace. trait-fruiting-habit and trait-flowering-habit added 2026-08-20 (multi-berry portability audit); trait-fruit-color added the same date (Raspberry Vertical V1). 58 = 42 (2026-08-14) + 5 real strawberry varieties (Strawberry Vertical V1: variety-redsayra, variety-melissa, variety-marimbella, variety-flavia, variety-rutgers-dlight) + 11 real raspberry varieties (Raspberry Vertical V1: variety-double-gold, variety-crimson-night, variety-crimson-treasure, variety-malaika, variety-zawadi, variety-sarafina, variety-rafiki, variety-baridi, variety-shani, variety-kwanza, variety-amalia-rossa) -- only variety-crimson-treasure is tagged with trait-fruit-color so far (the one release with a color claim in available Evidence)."
+    },
+    {
+      "id": "breeding_program",
+      "label": "Breeding Program",
+      "plural_label": "Breeding Programs",
+      "traits": [],
+      "live_count": 12,
+      "_comment": "12 = 9 (2026-08-14) + breeding_program-uc-davis-strawberry (multi-berry portability audit) + breeding_program-njaes-rutgers-strawberry (Strawberry Vertical V1) + breeding_program-cornell-berry (Raspberry Vertical V1, 2026-08-20)."
+    },
+    {
+      "id": "brand",
+      "label": "Brand",
+      "plural_label": "Brands",
+      "traits": [],
+      "live_count": 8
+    },
+    {
+      "id": "geography",
+      "label": "Geography",
+      "plural_label": "Geographies",
+      "traits": [],
+      "live_count": 18,
+      "_comment": "No 'region' trait entity exists in live data (unlike docs/v2/04-DOMAIN-PACK-SPEC.md's illustrative example) -- geography's region grouping is handled by app/main.py's REGION_LOOKUP constant today, not a trait."
+    },
+    {
+      "id": "patent",
+      "label": "Patent",
+      "plural_label": "Patents",
+      "traits": [],
+      "live_count": 38,
+      "_comment": "No 'filing_date'/'expiry_date' trait entities exist in live data -- these are plain entity.attributes fields today, not the controlled trait vocabulary."
+    },
+    {
+      "id": "retailer",
+      "label": "Retailer",
+      "plural_label": "Retailers",
+      "traits": [],
+      "live_count": 2
+    },
+    {
+      "id": "trait",
+      "label": "Trait",
+      "plural_label": "Traits",
+      "traits": [],
+      "live_count": 13,
+      "_comment": "The trait vocabulary's own container entity type -- a trait entity does not itself have traits. 13 = 10 (2026-08-14) + trait-fruiting-habit + trait-flowering-habit (multi-berry portability audit) + trait-fruit-color (Raspberry Vertical V1, 2026-08-20)."
+    },
+    {
+      "id": "berry",
+      "label": "Berry",
+      "plural_label": "Berries",
+      "traits": [],
+      "live_count": 4,
+      "_comment": "4 = berry-blueberry (2026-08-14) + berry-strawberry/berry-raspberry/berry-blackberry, added 2026-08-20 (multi-berry portability audit) -- the platform referenced these berry_ids everywhere but had shipped no resolvable entity record for any of them, the same gap berry-blueberry's own record documents having already been fixed for blueberry only."
+    }
+  ]
+}

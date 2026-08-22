@@ -1,0 +1,181 @@
+{% set variety_view = variety_view if variety_view is defined else 'index' %}
+{% set variety_cards = variety_cards if variety_cards is defined else [] %}
+{% set berry_inventory = berry_inventory if berry_inventory is defined else [] %}
+{% set observation_workspace = observation_workspace if observation_workspace is defined else {} %}
+{% set observation_total_count = observation_total_count if observation_total_count is defined else 0 %}
+{% set competition = competition if competition is defined else {} %}
+<div class="v2-page v2-variety">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">LIBRARY</p>
+    <h1>Variety Intelligence</h1>
+    <p class="also-known-as">Competitive identity, rights, commercial footprint, and recent intelligence — not a cultivar catalog.</p>
+  </div>
+</section>
+
+<p class="brief-window">A Variety is a competitive-intelligence object: who bred/owns/markets it, what rights exist, where it has been observed, and what changed. Commercial observations are Evidence, never Facts. Coverage Matrix remains the recall record.</p>
+
+<ul class="brief-delta-strip" aria-label="Variety surfaces">
+  <li><a href="/entities/variety{% if filters.berry %}?berry={{ filters.berry }}{% endif %}{% if filters.q %}{{ '&' if filters.berry else '?' }}q={{ filters.q|urlencode }}{% endif %}"{% if variety_view == 'index' %} aria-current="page"{% endif %}><span>Varieties</span><strong>{{ variety_cards|length if variety_view == 'index' else total_count }}</strong></a></li>
+  <li><a href="/entities/variety?view=compete{% if filters.berry %}&berry={{ filters.berry }}{% endif %}"{% if variety_view == 'compete' %} aria-current="page"{% endif %}><span>Competition</span><strong>{{ (competition.groups or [])|length if variety_view == 'compete' else '—' }}</strong></a></li>
+  <li><a href="/entities/variety?view=observations{% if filters.berry %}&berry={{ filters.berry }}{% endif %}"{% if variety_view == 'observations' %} aria-current="page"{% endif %}><span>Observations</span><strong>{% if variety_view == 'observations' %}{{ observation_workspace.observation_rows|length }}{% elif variety_view == 'index' %}{{ observation_total_count }}{% else %}—{% endif %}</strong></a></li>
+</ul>
+
+{% if berry_inventory %}
+<p class="result-count" title="Catalog counts, not recall.">
+  Catalog —
+  {% for row in berry_inventory %}
+    {{ row.label }} {{ row.count }}{% if row.thin %} (thin){% endif %}{% if not loop.last %} · {% endif %}
+  {% endfor %}
+  {% if ui_context is defined and ui_context.berry != 'global' %}
+    · Context bar is {{ ui_context.berry_label }}
+  {% endif %}
+</p>
+{% endif %}
+
+{% if not static_build %}
+<form class="filters" action="/entities/variety" method="get" aria-label="Filter varieties">
+  <input type="hidden" name="view" value="{{ variety_view }}">
+  <div class="filter-field">
+    <label for="filter-q">Search</label>
+    <input id="filter-q" type="search" name="q" value="{{ filters.q }}" placeholder="Name, alias, trade name, or breeder code…">
+  </div>
+  <div class="filter-field">
+    <label for="filter-berry">Berry</label>
+    <select id="filter-berry" name="berry">
+      <option value="">All berries</option>
+      {% for berry_id, label in berries.items() %}
+        <option value="{{ berry_id }}" {% if filters.berry == berry_id %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="filter-field">
+    <label for="filter-region">Geography</label>
+    <select id="filter-region" name="region">
+      <option value="">All regions</option>
+      {% for r in regions %}
+        <option value="{{ r }}" {% if filters.region == r %}selected{% endif %}>{{ r }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="filter-field">
+    <label for="filter-company">Company / breeder</label>
+    <select id="filter-company" name="company">
+      <option value="">All companies</option>
+      {% for c in companies %}
+        <option value="{{ c.id }}" {% if filters.company == c.id %}selected{% endif %}>{{ c.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% if variety_view == 'index' %}
+  <div class="filter-field">
+    <label class="checkbox-label" for="has-rights">
+      <input id="has-rights" type="checkbox" name="has_rights" value="1" {% if filters.has_rights %}checked{% endif %}>
+      Rights / IP present
+    </label>
+  </div>
+  <div class="filter-field">
+    <label class="checkbox-label" for="has-observation">
+      <input id="has-observation" type="checkbox" name="has_observation" value="1" {% if filters.has_observation %}checked{% endif %}>
+      Commercial observation present
+    </label>
+  </div>
+  {% endif %}
+  {% if variety_view == 'compete' %}
+  <div class="filter-field">
+    <label for="filter-market">Observed market</label>
+    <select id="filter-market" name="market">
+      <option value="">Any / not limited to observations</option>
+      {% for geo in geographies %}
+        <option value="{{ geo.id }}" {% if filters.market == geo.id %}selected{% endif %}>{{ geo.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="filter-field">
+    <label class="checkbox-label" for="ip-obs">
+      <input id="ip-obs" type="checkbox" name="ip_and_observation" value="1" {% if filters.ip_and_observation %}checked{% endif %}>
+      IP + commercial observation
+    </label>
+  </div>
+  {% endif %}
+  <div class="filter-actions">
+    <button type="submit">Apply filters</button>
+    <a href="/entities/variety{% if variety_view != 'index' %}?view={{ variety_view }}{% endif %}">Clear</a>
+  </div>
+</form>
+{% endif %}
+
+{% if variety_view == 'index' %}
+  <p class="result-count">Showing {{ variety_cards|length }} of {{ total_count }} varieties. Dense cards, not a spreadsheet.</p>
+  {% if variety_cards %}
+    <div class="v2-variety-list">
+      {% for card in variety_cards %}
+        {% include "_variety_card.html" %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty-state">No varieties match these filters.</p>
+  {% endif %}
+{% elif variety_view == 'observations' %}
+  {% set pilot = observation_workspace.uk_pilot %}
+  <section class="v2-variety-section" id="uk-pilot">
+    <h2>UK retail observation pilot</h2>
+    <p class="context-limit">{{ pilot.honest_copy }}</p>
+    <p class="result-count">Expected 18 observations · 2 named (Zara, Victoria) · 16 with no cultivar name. Runtime: {{ pilot.runtime_total }} loaded · {{ pilot.runtime_named }} named · {{ pilot.runtime_unnamed }} unnamed.</p>
+    <p class="v2-card-line">
+      Named variety entities:
+      {% for party in pilot.named_varieties %}
+        {% if party %}<a href="{{ party.href }}">{{ party.name }}</a>{% if not loop.last %} · {% endif %}{% endif %}
+      {% endfor %}
+    </p>
+  </section>
+  <p class="result-count">{{ observation_workspace.named_count }} named-variety observations · {{ observation_workspace.unnamed_count }} listings with no named variety. Drafts are pending review and are not Facts.</p>
+  {% if observation_workspace.observation_rows %}
+    <div class="v2-observation-list">
+      {% for obs in observation_workspace.observation_rows %}
+        {% include "_commercial_observation.html" %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty-state">No commercial_observation Evidence in this runtime. The published seed field observation is fictional and is not the UK pilot.</p>
+  {% endif %}
+{% elif variety_view == 'compete' %}
+  <section class="v2-variety-section" id="competition">
+    <h2>Variety competition</h2>
+    <p class="context-limit">Grouped by real breeder / owner / marketer links. No competitive-intensity score — none exists in the record set. Use the context bar or berry filter; Global is not a berry market.</p>
+    {% if competition.needs_berry %}
+      <p class="empty-state">Select a berry (context bar or filter) to compare competing varieties. Blackberry is expected to be thin: one named variety, no registry filings.</p>
+    {% else %}
+      {% if competition.blackberry_thin %}
+        <p class="brief-window">Blackberry is honestly thin: few varieties, no CPVO matches in the backbone audit, and Victoria is the named UK commercial case.</p>
+      {% endif %}
+      {% if competition.ip_overlap_empty %}
+        <p class="context-limit">No variety currently has both IP activity and a commercial observation (TD-023). The overlap query is empty, not hidden.</p>
+      {% endif %}
+      <h3>Companies with competing {{ competition.berry_label }} varieties</h3>
+      {% if competition.groups %}
+        <ul class="v2-compete-groups">
+          {% for group in competition.groups %}
+            <li class="v2-card">
+              <h4 class="v2-card-title"><a href="/entities/company/{{ group.company_id }}">{{ group.company_name }}</a></h4>
+              <p class="v2-card-line">{{ group.varieties|join(', ') }}</p>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="empty-state">No competing-company groups for this berry/market filter.</p>
+      {% endif %}
+      <h3>Variety comparison</h3>
+      {% if competition.variety_rows %}
+        <div class="v2-variety-list v2-variety-compare">
+          {% for card in competition.variety_rows %}
+            {% include "_variety_card.html" %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="empty-state">No varieties to compare under this filter.</p>
+      {% endif %}
+    {% endif %}
+  </section>
+{% endif %}
+</div>

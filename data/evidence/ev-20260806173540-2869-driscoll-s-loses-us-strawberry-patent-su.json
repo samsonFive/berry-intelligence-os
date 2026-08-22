@@ -15,7 +15,10 @@
     "berry-strawberry"
   ],
   "geography_ids": [],
-  "entity_ids": [],
+  "entity_ids": [
+    "company-california-berry-cultivars",
+    "company-driscolls"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],

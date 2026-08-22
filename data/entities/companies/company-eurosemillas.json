@@ -1,0 +1,28 @@
+{
+  "id": "company-eurosemillas",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Eurosemillas, S.A.",
+  "aliases": [
+    "Eurosemillas"
+  ],
+  "status": "active",
+  "description": "Spanish company that served as UC Davis's master licensee for older UC Davis strawberry varieties in countries outside the United States. UC Davis's own announcement states it terminated all strawberry licensing agreements with Eurosemillas in 2024.",
+  "roles": [
+    "genetics_licensee",
+    "former_licensor_partner"
+  ],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [
+    "ev-20260806173540-56fd-uc-davis-ends-strawberry-licensing-agree"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "country": "Spain",
+    "relationship_status": "UC Davis strawberry master-license agreement terminated by UC Davis, 2024",
+    "package_note": "Only one Evidence record (UC Davis's own termination announcement) currently supports this entity -- role and history prior to termination are not independently documented here."
+  }
+}

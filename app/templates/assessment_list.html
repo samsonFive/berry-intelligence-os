@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Assessments — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">DECIDE</p>
+    <h1>Assessments</h1>
+    <p class="also-known-as">Analyst interpretation of Facts. Not a Signal, not a Signal candidate, and never auto-created from Signal confirmation.</p>
+  </div>
+  {% if authoring_mode %}
+    <a class="button-link" href="/assessments/new">New Assessment</a>
+  {% endif %}
+</section>
+
+<p class="brief-window">Berry scope is stored <code>market_ids</code> only. Absent <code>market_ids</code> means company-wide / unscoped — not “every berry.” Lineage always requires at least one Fact.</p>
+
+{% if assessments %}
+  <ul class="v2-assessment-list">
+    {% for assessment in assessments %}
+      <li class="v2-assessment-row">
+        <p class="v2-card-kicker">
+          <span class="v2-mark v2-mark-assessment">Assessment</span>
+          {% if assessment.berry_scope %}
+            <span class="v2-mark v2-mark-scope v2-mark-scope-{{ assessment.berry_scope.kind }}">{{ assessment.berry_scope.label }}</span>
+          {% endif %}
+          <span class="v2-meta">{{ assessment.confidence|upper }} · {{ assessment.status }}</span>
+        </p>
+        <h2 class="v2-card-title"><a href="/assessments/{{ assessment.id }}">{{ assessment.title }}</a></h2>
+        <p class="v2-card-summary">{{ assessment.rationale|truncate(220) }}</p>
+        <p class="v2-card-line">{{ assessment.fact_ids|length }} fact{{ 's' if assessment.fact_ids|length != 1 else '' }} · {{ assessment.created_at|us_date }}{% if assessment.ai_proposed %} · AI-proposed{% endif %}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="empty-state">No assessments recorded yet.</p>
+{% endif %}
+</div>
+{% endblock %}

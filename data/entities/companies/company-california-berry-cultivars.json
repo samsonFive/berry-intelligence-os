@@ -1,0 +1,38 @@
+{
+  "id": "company-california-berry-cultivars",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "California Berry Cultivars, LLC",
+  "aliases": [
+    "California Berry Cultivars",
+    "CBC"
+  ],
+  "status": "active",
+  "description": "Independent strawberry breeding company founded by Douglas Shaw, a former University of California, Davis strawberry breeder. Sued by Driscoll's for patent infringement over claims that Driscoll's proprietary strawberry germplasm was used in CBC's own breeding program; CBC won summary judgment in the district court in 2025 and Driscoll's has since appealed.",
+  "roles": [
+    "breeder",
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [
+    "ev-20260806173540-1f01-strawberry-patent-infringement-case-turn",
+    "ev-20260806173842-9369-driscoll-s-sues-former-uc-davis-scientis",
+    "ev-20260806173842-a512-driscoll-s-files-complaint-against-calif",
+    "ev-20260806173540-99d6-california-berry-cultivars-wins-summary-",
+    "ev-20260806173540-2869-driscoll-s-loses-us-strawberry-patent-su",
+    "ev-20260806173540-42f9-driscoll-s-confident-it-can-overturn-cbc",
+    "ev-20260806173540-993a-driscoll-s-filed-appeal-in-strawberry-pa",
+    "ev-20260806173540-aff3-driscoll-s-loses-us-strawberry-patent-ca",
+    "ev-20260806173540-ac29-california-based-strawberry-grower-faces"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "founder": "Douglas Shaw",
+    "founder_background": "Former University of California, Davis strawberry breeder",
+    "country": "United States",
+    "litigation_note": "Won summary judgment against Driscoll's patent-infringement suit in district court (2025); Driscoll's has appealed. Multiple independent outlets (Fruitnet, Courthouse News, The Packer, Hort News, AndNowUKnow) have covered separate stages of this dispute."
+  }
+}

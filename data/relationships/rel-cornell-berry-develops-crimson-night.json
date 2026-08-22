@@ -1,0 +1,13 @@
+{
+  "id": "rel-cornell-berry-develops-crimson-night",
+  "record_type": "relationship",
+  "subject_id": "breeding_program-cornell-berry",
+  "predicate": "develops",
+  "object_id": "variety-crimson-night",
+  "status": "active",
+  "evidence_ids": [
+    "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie"
+  ],
+  "effective_date": "2012-04-30",
+  "notes": "confidence=high; Cornell Chronicle's own release announcement names Crimson Night as a Cornell-bred raspberry."
+}

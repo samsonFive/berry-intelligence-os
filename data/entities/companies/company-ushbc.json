@@ -1,0 +1,26 @@
+{
+  "id": "company-ushbc",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "U.S. Highbush Blueberry Council",
+  "aliases": [
+    "USHBC",
+    "US Highbush Blueberry Council",
+    "North American Blueberry Council",
+    "NABC"
+  ],
+  "status": "active",
+  "description": "USDA-authorized research and promotion board for the US highbush blueberry industry; publishes 'The Business of Blueberries' industry podcast (already registered as a Source in this dataset) and speaks publicly on North American blueberry production, trade, and market conditions including Mexico's role in the category. Registered here from real article-pilot coverage as a real, matchable organization so future coverage resolves deterministically -- evidence_ids/fact_ids/relationship_ids are intentionally left empty pending normal trusted-evidence review, not backfilled from the untrusted article alone.",
+  "roles": [
+    "trade_association"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "headquarters": "Folsom, California, United States"
+  }
+}

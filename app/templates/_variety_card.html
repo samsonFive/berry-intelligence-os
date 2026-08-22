@@ -1,0 +1,40 @@
+<article class="v2-card v2-variety-card" id="variety-{{ card.id }}">
+  <p class="v2-card-kicker">
+    <span class="v2-mark v2-mark-watch">Variety</span>
+    {% for name in card.berries %}
+      <span class="v2-chip v2-chip-berry">{{ name }}</span>
+    {% endfor %}
+    {% if card.has_rights %}<span class="v2-meta">{{ card.rights_summary }}</span>{% else %}<span class="v2-meta">No filings recorded</span>{% endif %}
+  </p>
+  <h3 class="v2-card-title"><a href="{{ card.href }}">{{ card.name }}</a></h3>
+  {% if card.identity.commercial_names or card.identity.aliases %}
+    <p class="v2-card-line v2-variety-aka">
+      {% if card.identity.commercial_names %}<span class="v2-meta">Commercial</span> {{ card.identity.commercial_names|join(', ') }}{% endif %}
+      {% if card.identity.aliases %}{% if card.identity.commercial_names %} · {% endif %}<span class="v2-meta">Aliases</span> {{ card.identity.aliases|join(', ') }}{% endif %}
+    </p>
+  {% endif %}
+  <p class="v2-card-line">
+    <span class="v2-meta">Breeder</span>
+    {% if card.breeders %}
+      {% for party in card.breeders %}<a href="{{ party.href }}">{{ party.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+    {% else %}—{% endif %}
+    <span class="v2-meta"> · Owner</span>
+    {% if card.owners %}
+      {% for party in card.owners %}<a href="{{ party.href }}">{{ party.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+    {% else %}—{% endif %}
+  </p>
+  <p class="v2-card-line">
+    <span class="v2-meta">Markets observed</span>
+    {% if card.markets_observed %}{{ card.markets_observed|join(', ') }}{% else %}None recorded{% endif %}
+    {% if card.observation_count %} · {{ card.observation_count }} commercial observation{{ 's' if card.observation_count != 1 else '' }}{% endif %}
+  </p>
+  <p class="v2-card-line">
+    {% if card.recent.title %}
+      <span class="v2-meta">Recent</span> {{ card.recent.title }}{% if card.recent.date %} · {{ card.recent.date|us_date }}{% endif %}
+    {% else %}
+      <span class="v2-meta">No recent intelligence</span>
+    {% endif %}
+    {% if card.signal_count %}<span class="v2-mark v2-mark-confirmed">{{ card.signal_count }} signal{{ 's' if card.signal_count != 1 else '' }}</span>{% endif %}
+    {% if card.candidate_count %}<span class="v2-mark v2-mark-signal">{{ card.candidate_count }} candidate{{ 's' if card.candidate_count != 1 else '' }}</span>{% endif %}
+  </p>
+</article>

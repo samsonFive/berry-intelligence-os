@@ -2,6 +2,10 @@
 __pycache__/
 *.pyc
 .pytest_cache/
+.verify-tmp/
+.test-tmp/
+.pkg-test-tmp*/
+.mem-test*/
 *.egg-info/
 
 # Virtual environment
@@ -10,6 +14,8 @@ __pycache__/
 # Runtime-created, untrusted, or disposable (see docs/04-technical-architecture/ARCHITECTURE.md)
 inbox/
 generated/
+demo-runtime/
+deploy/.env
 review/*
 !review/review-backlog-2026-08-06.xlsx
 review/~$*

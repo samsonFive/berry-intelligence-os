@@ -1,74 +1,258 @@
 {% extends "base.html" %}
 {% block title %}Review Queue — Berry Intelligence OS{% endblock %}
 {% block content %}
-<section class="page-heading">
+<section class="page-heading review-workbench-heading">
   <div>
-    <p class="eyebrow">EVERYTHING WAITING ON A HUMAN DECISION</p>
-    <h1>Review Queue</h1>
+    <p class="eyebrow">AI FINDS WHAT MATTERS · HUMAN DECIDES WHAT IS TRUSTED</p>
+    <h1>{% if workbench.filters.kind == 'atomic' %}Claim review{% else %}Publication review{% endif %}</h1>
+    <p class="also-known-as">{% if workbench.filters.kind == 'atomic' %}Review transcript-derived proposals in publication context. Approval remains individual and human-controlled.{% else %}Decide what becomes trusted. AI suggestions stay untrusted until you accept them.{% endif %}</p>
   </div>
+  <aside class="shortcut-key" aria-label="Keyboard shortcuts"><kbd>j</kbd>/<kbd>k</kbd> move · <kbd>a</kbd> approve panel · <kbd>e</kbd> edit · <kbd>r</kbd> reject panel · <kbd>Esc</kbd> close</aside>
 </section>
 
-<p class="result-count">
-  Two kinds of items land here. <strong>Intake drafts</strong> (submitted through Add Intelligence, or dropped as files) need full structuring -- entities, facts, priorities -- before they can publish. <strong>Auto-captured evidence</strong> is already published and visible in the newsfeed, just flagged unvalidated until you confirm or purge it; sorted by the source's own monitoring priority, oldest first within each priority tier so nothing sits forgotten.
-</p>
+{% if workbench.filters.kind != 'atomic' %}
+  {% with compact=true %}{% include "_scanner_strip.html" %}{% endwith %}
+{% endif %}
 
-<h2>Intake drafts ({{ drafts|length }})</h2>
-{% if drafts %}
-  <ul class="draft-items" style="margin:0 32px 40px;max-width:800px">
+<form class="filters workbench-filters" method="get" action="/review">
+  <div class="filter-field"><label for="kind">Item type</label><select id="kind" name="kind">
+    <option value="all" {% if workbench.filters.kind == 'all' %}selected{% endif %}>All review items</option>
+    <option value="atomic" {% if workbench.filters.kind == 'atomic' %}selected{% endif %}>Atomic Evidence only</option>
+    <option value="publication" {% if workbench.filters.kind == 'publication' %}selected{% endif %}>Publication artifacts only</option>
+  </select></div>
+  <div class="filter-field"><label for="state">State</label><select id="state" name="state">
+    <option value="pending" {% if workbench.filters.state == 'pending' %}selected{% endif %}>Pending</option>
+    <option value="rejected" {% if workbench.filters.state == 'rejected' %}selected{% endif %}>Rejected</option>
+    <option value="all" {% if workbench.filters.state == 'all' %}selected{% endif %}>All / audit</option>
+  </select></div>
+  <div class="filter-field"><label for="parent">Parent publication</label><select id="parent" name="parent"><option value="">All parents</option>{% for option in workbench.options.parents %}<option value="{{ option.id }}" {% if workbench.filters.parent == option.id %}selected{% endif %}>{{ option.label }}</option>{% endfor %}</select></div>
+  <div class="filter-field"><label for="source">Source</label><select id="source" name="source"><option value="">All sources</option>{% for option in workbench.options.sources %}<option value="{{ option.id }}" {% if workbench.filters.source == option.id %}selected{% endif %}>{{ option.label }}</option>{% endfor %}</select></div>
+  <div class="filter-field"><label for="media_format">Media</label><select id="media_format" name="media_format"><option value="">All formats</option>{% for option in workbench.options.media_formats %}<option value="{{ option }}" {% if workbench.filters.media_format == option %}selected{% endif %}>{{ option|replace('_',' ')|title }}</option>{% endfor %}</select></div>
+  <div class="filter-field"><label for="berry">Berry</label><select id="berry" name="berry"><option value="">All berries</option>{% for option in workbench.options.berries %}<option value="{{ option.id }}" {% if workbench.filters.berry == option.id %}selected{% endif %}>{{ option.label }}</option>{% endfor %}</select></div>
+  <div class="filter-field"><label for="geography">Geography</label><select id="geography" name="geography"><option value="">All geographies</option>{% for option in workbench.options.geographies %}<option value="{{ option.id }}" {% if workbench.filters.geography == option.id %}selected{% endif %}>{{ option.label }}</option>{% endfor %}</select></div>
+  <div class="filter-field"><label for="model">Model</label><select id="model" name="model"><option value="">All models</option>{% for option in workbench.options.models %}<option value="{{ option }}" {% if workbench.filters.model == option %}selected{% endif %}>{{ option }}</option>{% endfor %}</select></div>
+  <div class="filter-field"><label for="version">Extraction version</label><select id="version" name="version"><option value="">All versions</option>{% for option in workbench.options.versions %}<option value="{{ option }}" {% if workbench.filters.version == option %}selected{% endif %}>{{ option }}</option>{% endfor %}</select></div>
+  <div class="filter-field"><label for="sort">Sort</label><select id="sort" name="sort">
+    <option value="timestamp" {% if workbench.filters.sort == 'timestamp' %}selected{% endif %}>Transcript order</option>
+    <option value="newest" {% if workbench.filters.sort == 'newest' %}selected{% endif %}>Newest proposal</option>
+    <option value="recent" {% if workbench.filters.sort == 'recent' %}selected{% endif %}>Recent first</option>
+    <option value="source" {% if workbench.filters.sort == 'source' %}selected{% endif %}>Source</option>
+    <option value="parent" {% if workbench.filters.sort == 'parent' %}selected{% endif %}>Parent publication</option>
+  </select></div>
+  <div class="filter-field"><label for="enrichment">Enrichment</label><select id="enrichment" name="enrichment">
+    <option value="all" {% if workbench.filters.enrichment == 'all' %}selected{% endif %}>All</option>
+    <option value="enriched" {% if workbench.filters.enrichment == 'enriched' %}selected{% endif %}>AI enriched</option>
+    <option value="raw" {% if workbench.filters.enrichment == 'raw' %}selected{% endif %}>Raw / not enriched</option>
+  </select></div>
+  <div class="filter-actions"><button type="submit">Apply</button><a href="/review">Reset</a></div>
+</form>
+
+{% if workbench.filters.kind != 'atomic' %}
+<section class="generic-review-section">
+  <h2>Needs publication review ({{ drafts|length }})</h2>
+  {% if drafts %}
+  <ul class="publication-card-list publication-card-list-queue">
     {% for draft in drafts %}
-      <li>
-        <a href="/review/{{ draft.id }}">{{ draft.title }}</a>
-        <span class="badge badge-muted">{{ draft.status }}</span>
-        <span class="draft-meta">{{ draft.submitted_by }} · {{ draft.captured_date|us_date }}</span>
-      </li>
+    <li class="publication-card">
+      <div class="publication-card-top">
+        <h3><a href="/review/{{ draft.id }}">{{ draft.title }}</a></h3>
+        <a class="action-button action-approve" href="/review/{{ draft.id }}">Review</a>
+      </div>
+      <p class="draft-meta">{{ draft.source_name or draft.submitted_by }} · {{ (draft.published_date or draft.captured_date)|us_date }}</p>
+      {% if draft.card %}
+      <div class="publication-card-flags">
+        {% if draft.card.relevance_band %}<span class="badge badge-claim">{{ draft.card.relevance_band }} relevance</span>{% endif %}
+        {% if draft.ai_enrichment and draft.ai_enrichment.model_provenance.status == 'ok' %}<span class="badge badge-claim">ENRICHED</span>{% endif %}
+        {% if draft.card.ai_untrusted %}<span class="badge badge-muted">AI assisted · untrusted</span>{% endif %}
+        {% if draft.card.transcript_label %}<span class="badge transcript-state-{{ draft.card.transcript_state }}">{{ draft.card.transcript_label }}</span>{% endif %}
+      </div>
+      {% if draft.card.why %}<div class="why"><strong>Why it matters</strong><p>{{ draft.card.why|truncate(240) }}</p></div>{% endif %}
+      {% if draft.card.summary %}<p>{{ draft.card.summary|truncate(240) }}</p>{% endif %}
+      {% if draft.card.berries or draft.card.entities or draft.card.geographies %}
+      <p class="suggestion-line">
+        {% if draft.card.berries %}<span>Berries: {{ draft.card.berries|join(', ') }}</span>{% endif %}
+        {% if draft.card.entities %}<span>Entities: {{ draft.card.entities|join(', ') }}</span>{% endif %}
+        {% if draft.card.geographies %}<span>Geography: {{ draft.card.geographies|join(', ') }}</span>{% endif %}
+      </p>
+      {% endif %}
+      {% else %}
+      <span class="badge badge-muted">{{ draft.evidence_role|replace('_',' ') if draft.evidence_role else draft.status }}</span>
+      {% endif %}
+      {% if draft.transcript_readiness %}
+      <aside class="transcript-readiness transcript-readiness-compact" aria-label="Transcript status">
+        <span class="transcript-readiness-label">Transcript</span>
+        <span class="badge transcript-state-{{ draft.transcript_readiness.state }}">{{ draft.transcript_readiness.analyst_label or draft.transcript_readiness.state_label }}</span>
+        {% if draft.transcript_readiness.language %}<span>Detected language: <strong>{{ draft.transcript_readiness.language }}</strong></span>{% endif %}
+      </aside>
+      {% endif %}
+    </li>
     {% endfor %}
   </ul>
-{% else %}
-  <p class="empty-state">Nothing waiting for review. Drafts appear here after intake.</p>
+  {% else %}<p class="empty-state">No publication drafts match the active filters.</p>{% endif %}
+</section>
 {% endif %}
 
-<h2>Auto-captured evidence awaiting validation ({{ unvalidated_evidence|length }})</h2>
-{% if unvalidated_evidence %}
-  <section class="feed">
-    {% for item in unvalidated_evidence %}
-      <article class="card source-{{ item.source_type }}">
-        <div class="card-header">
-          <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
-          <time>{{ (item.published_date or item.captured_date)|us_date }}</time>
+{% if workbench.groups %}
+<div class="review-batches" data-review-workbench data-current-id="{{ current_id or '' }}">
+  {% for group in workbench.groups %}
+  <section class="review-batch" id="batch-{{ group.parent_id }}">
+    <header class="review-batch-header">
+      <div>
+        <p class="eyebrow">{{ group.source_label }}</p>
+        <h2>{{ group.parent.title }}</h2>
+        <p class="batch-meta">
+          {{ group.parent.published_date|us_date if group.parent.published_date else 'Publication date unavailable' }}
+          · {{ group.parent.media_format|replace('_',' ')|title if group.parent.media_format else 'Format unspecified' }}
+          · <a href="/evidence/{{ group.parent_id }}">Parent Evidence</a>
+          {% if group.parent.source_url %}· <a href="{{ group.parent.source_url }}" target="_blank" rel="noopener">Original source ↗</a>{% endif %}
+        </p>
+      </div>
+      <div class="batch-progress" aria-label="Batch review progress">
+        <strong>{{ group.progress.reviewed }} reviewed / {{ group.progress.total }} proposals</strong>
+        <span>{{ group.progress.approved }} approved · {{ group.progress.rejected }} rejected · {{ group.progress.remaining }} remaining</span>
+      </div>
+    </header>
+
+    {% if group.cards %}
+    <div class="proposal-stack">
+      {% for card in group.cards %}
+      <article class="proposal-card{% if current_id == card.record.id %} is-current{% endif %}" data-proposal-card data-proposal-id="{{ card.record.id }}" tabindex="-1">
+        <header class="proposal-card-header">
+          <span class="badge {% if card.state == 'pending' %}badge-claim{% elif card.state == 'approved' %}badge-status-active{% else %}badge-muted{% endif %}">{{ card.state|upper }}</span>
+          <strong class="proposal-time">{{ card.locator_label }}</strong>
+          {% if card.speaker_label %}<span class="badge badge-muted">{{ card.speaker_label }}</span>{% endif %}
+          {% if card.source_at_timestamp %}<a href="{{ card.source_at_timestamp }}" target="_blank" rel="noopener">Open at timestamp ↗</a>{% endif %}
+        </header>
+
+        <div class="proposal-grid">
+          <section>
+            <h3>Proposed normalized statement</h3>
+            <p class="proposed-statement">{{ card.statement }}</p>
+          </section>
+          <section>
+            <h3>Exact supporting transcript</h3>
+            {% if card.context_before or card.context_after %}
+              {% if card.context_before %}<p class="transcript-context">{{ card.context_before }}</p>{% endif %}
+              <blockquote class="transcript-support">{{ card.excerpt }}</blockquote>
+              {% if card.context_after %}<p class="transcript-context">{{ card.context_after }}</p>{% endif %}
+            {% else %}
+              <blockquote class="transcript-support">{{ card.excerpt or 'No supporting excerpt was persisted.' }}</blockquote>
+              <small class="context-limit">Surrounding context is not persisted with this proposal; the validated supporting span is shown unchanged.</small>
+            {% endif %}
+          </section>
         </div>
-        <h2><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h2>
-        {% set geo_and_entity_ids = (item.geography_ids or []) + (item.entity_ids or []) %}
-        {% if geo_and_entity_ids %}
-          <div class="tags tags-linked">
-            {% for eid in geo_and_entity_ids %}
-              {% if eid in entities %}
-                <span>{{ entities[eid].name }}</span>
-              {% endif %}
-            {% endfor %}
-            {% if item.auto_tagged %}<small class="auto-tagged-note">auto-tagged, unverified</small>{% endif %}
-          </div>
-        {% endif %}
-        {% set summary_is_redundant = item.summary|is_redundant_summary(item.title) %}
-        {% if not summary_is_redundant %}
-          {% set summary_lines = item.summary|as_bullets %}
-          {% if summary_lines|length > 1 %}
-            <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-          {% else %}
-            <p>{{ item.summary }}</p>
-          {% endif %}
-        {% elif item.source_url %}
-          <p class="empty-state">No summary available from this source — <a href="{{ item.source_url }}" target="_blank" rel="noopener">read the full article ↗</a></p>
-        {% endif %}
-        <div class="banner banner-warning auto-captured-banner" role="status">
-          AUTO-CAPTURED — UNVALIDATED
-          <form action="/evidence/{{ item.id }}/validate" method="post"><input type="hidden" name="redirect_to" value="/review"><button type="submit">Validate</button></form>
-          <form action="/evidence/{{ item.id }}/purge" method="post"><input type="hidden" name="redirect_to" value="/review"><button type="submit">Purge</button></form>
-          <form action="/evidence/{{ item.id }}/purge" method="post"><input type="hidden" name="redirect_to" value="/review"><input type="hidden" name="block_domain" value="true"><button type="submit">Purge &amp; block domain</button></form>
+
+        {% if card.entities or card.geographies or card.berries %}
+        <div class="proposal-links" aria-label="Proposed links">
+          {% for item in card.entities %}<span>{{ item.name }} <small>{{ item.entity_type|replace('_',' ') }}</small></span>{% endfor %}
+          {% for item in card.geographies %}<span>{{ item.name }} <small>geography</small></span>{% endfor %}
+          {% for item in card.berries %}<span>{{ item.name }} <small>berry</small></span>{% endfor %}
         </div>
+        {% endif %}
+
+        {% if card.duplicate_warnings %}
+        <div class="duplicate-notice"><strong>Nearby proposal check:</strong>{% for warning in card.duplicate_warnings %} <a href="#proposal-{{ warning.id }}" data-jump-proposal="{{ warning.id }}">{{ warning.id }}</a> ({{ warning.reason }}){% if not loop.last %};{% endif %}{% endfor %}</div>
+        {% endif %}
+
+        <details class="proposal-metadata">
+          <summary>Extraction and transcript provenance</summary>
+          <dl>
+            <dt>Provider / model</dt><dd>{{ card.extraction.provider or card.extraction.extracted_by }}{% if card.extraction.model %} / {{ card.extraction.model }}{% endif %}</dd>
+            <dt>Extraction version</dt><dd>{{ card.extraction.prompt_version or 'Not recorded' }}</dd>
+            <dt>Extracted</dt><dd>{{ card.extraction.extracted_at|us_date if card.extraction.extracted_at else 'Not recorded' }}</dd>
+            <dt>Transcript</dt><dd>{{ card.transcript.transcript_id or group.transcript_id }}</dd>
+            <dt>Transcript hash</dt><dd><code>{{ card.transcript.transcript_sha256 or 'Not recorded' }}</code></dd>
+            <dt>Proposal ID</dt><dd><code>{{ card.record.id }}</code></dd>
+          </dl>
+        </details>
+
+        {% if authoring_mode and card.state == 'pending' %}
+        <div class="proposal-actions">
+          <details data-action-panel="approve"><summary class="action-button action-approve">Approve</summary>
+            <form action="/review/{{ card.record.id }}/approve-atomic" method="post" class="compact-review-form">
+              <input type="hidden" name="return_to" value="{{ card.return_to }}">
+              <label>Reviewer <input name="reviewer" required data-reviewer-input></label>
+              <label class="checkbox-label"><input type="checkbox" name="confirm_individual_review" value="true" required> I individually reviewed this claim and its cited excerpt.</label>
+              <button type="submit">Publish this Evidence only</button>
+            </form>
+          </details>
+          <a class="action-button" href="{{ card.edit_url }}" data-edit-action>Edit + approve</a>
+          <details data-action-panel="reject"><summary class="action-button action-reject">Reject</summary>
+            <form action="/review/{{ card.record.id }}/reject" method="post" class="compact-review-form">
+              <input type="hidden" name="return_to" value="{{ card.return_to }}">
+              <label>Reviewer <input name="reviewer" required data-reviewer-input></label>
+              <label>Reason category <select name="rejection_category">{% for value, label in rejection_categories.items() %}<option value="{{ value }}">{{ label }}</option>{% endfor %}</select></label>
+              <label>Detail <textarea name="rejection_reason" rows="2" required></textarea></label>
+              <button type="submit">Reject this proposal only</button>
+            </form>
+          </details>
+        </div>
+        {% endif %}
       </article>
-    {% endfor %}
+      {% endfor %}
+    </div>
+    {% else %}<p class="empty-state">No proposals in this batch match the active filters.</p>{% endif %}
   </section>
-{% else %}
-  <p class="empty-state">Nothing waiting for validation. Items appear here after a source is polled.</p>
+  {% endfor %}
+</div>
+{% elif workbench.filters.kind == 'atomic' %}
+<p class="empty-state">No transcript-derived Atomic Evidence proposals match the active filters. Extraction requires a qualified model plus a trusted publication with a ready transcript. Untrusted model output is never accepted intelligence.</p>
 {% endif %}
+
+{% if workbench.filters.kind != 'atomic' %}
+<section class="generic-review-section">
+  <h2>Auto-captured evidence awaiting validation ({{ unvalidated_evidence|length }})</h2>
+  {% if unvalidated_evidence %}<ul class="draft-items">{% for item in unvalidated_evidence %}<li><a href="/evidence/{{ item.id }}">{{ item.title }}</a><span class="badge badge-claim">UNVALIDATED</span><span class="draft-meta">{{ item.source_name }} · {{ (item.published_date or item.captured_date)|us_date }}</span><form action="/evidence/{{ item.id }}/validate" method="post"><input type="hidden" name="redirect_to" value="/review"><button type="submit">Validate</button></form><form action="/evidence/{{ item.id }}/purge" method="post"><input type="hidden" name="redirect_to" value="/review"><button type="submit">Purge</button></form><form action="/evidence/{{ item.id }}/purge" method="post"><input type="hidden" name="redirect_to" value="/review"><input type="hidden" name="block_domain" value="true"><button type="submit">Purge &amp; block domain</button></form></li>{% endfor %}</ul>
+  {% else %}<p class="empty-state">Nothing waiting for validation.</p>{% endif %}
+</section>
+{% endif %}
+
+<script>
+(function () {
+  var root = document.querySelector('[data-review-workbench]');
+  if (!root) return;
+  var cards = Array.from(root.querySelectorAll('[data-proposal-card]'));
+  var active = Math.max(0, cards.findIndex(function (card) { return card.classList.contains('is-current'); }));
+  function inFormField(target) {
+    return !!target.closest('input, textarea, select, button, [contenteditable="true"]');
+  }
+  function selectCard(index) {
+    if (!cards.length) return;
+    active = Math.max(0, Math.min(cards.length - 1, index));
+    cards.forEach(function (card, i) { card.classList.toggle('is-current', i === active); });
+    cards[active].focus({preventScroll:true});
+    cards[active].scrollIntoView({behavior:'smooth', block:'center'});
+    var url = new URL(window.location.href);
+    url.searchParams.set('current', cards[active].dataset.proposalId);
+    history.replaceState(null, '', url);
+  }
+  function openPanel(name) {
+    var panel = cards[active] && cards[active].querySelector('[data-action-panel="' + name + '"]');
+    if (!panel) return;
+    panel.open = true;
+    var input = panel.querySelector('input:not([type="hidden"]), textarea, select');
+    if (input) input.focus();
+  }
+  cards.forEach(function (card, index) {
+    card.id = 'proposal-' + card.dataset.proposalId;
+    card.addEventListener('click', function () { active = index; cards.forEach(function (item, i) { item.classList.toggle('is-current', i === active); }); });
+  });
+  document.querySelectorAll('[data-jump-proposal]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      var index = cards.findIndex(function (card) { return card.dataset.proposalId === link.dataset.jumpProposal; });
+      if (index >= 0) { event.preventDefault(); selectCard(index); }
+    });
+  });
+  document.addEventListener('keydown', function (event) {
+    if (inFormField(event.target)) return;
+    if (event.key === 'j') { event.preventDefault(); selectCard(active + 1); }
+    else if (event.key === 'k') { event.preventDefault(); selectCard(active - 1); }
+    else if (event.key === 'a') { event.preventDefault(); openPanel('approve'); }
+    else if (event.key === 'r') { event.preventDefault(); openPanel('reject'); }
+    else if (event.key === 'e') { var edit = cards[active] && cards[active].querySelector('[data-edit-action]'); if (edit) window.location.href = edit.href; }
+    else if (event.key === 'Escape') { cards.forEach(function (card) { card.querySelectorAll('[data-action-panel]').forEach(function (panel) { panel.open = false; }); }); }
+  });
+  if (cards.length) selectCard(active);
+})();
+</script>
 {% endblock %}

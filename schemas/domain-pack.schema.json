@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "domain-pack.schema.json",
+  "title": "Domain Pack Manifest",
+  "$comment": "V2 Phase 1B (BL-018, docs/v2/10-BACKLOG.md). Validates the manifest shape defined in docs/v2/04-DOMAIN-PACK-SPEC.md. Deliberately domain-agnostic -- must validate the Berries pack (domain-packs/berries/) and an unrelated industry pack equally well, per that spec's own 'second-domain check' discipline (D-007, docs/v2/08-DECISION-LOG.md). Contains no berry-specific (or any other domain's) entity types, predicates, taxonomy values, or labels -- those live only in the pack's own data files, referenced here by path. Phase 1 requires only the six contribution surfaces docs/v2/07-IMPLEMENTATION-ROADMAP.md's Phase 1 scope names (entity types, relationship predicates, taxonomies, strategic-question templates, collector templates, plus this manifest itself); report templates, filters, and visualization configuration remain optional/unrequired here until a concrete need is demonstrated (Phase 1.5/Phase 4).",
+  "type": "object",
+  "required": ["id", "version", "display_name", "files"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$",
+      "$comment": "The Domain Pack's own id, e.g. 'berries' -- not an entity id, not scoped by the core id patterns used elsewhere (ev-, fact-, etc.)."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "$comment": "Semver, independent of the core platform version (docs/v2/04-DOMAIN-PACK-SPEC.md, 'Versioning')."
+    },
+    "display_name": {"type": "string", "minLength": 1},
+    "description": {"type": "string"},
+    "domain_scope": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "Generic scope tags this pack narrows to (e.g. berry ids for the Berries pack, product categories for a different pack). Not interpreted by this schema -- meaning is entirely pack-defined."
+    },
+    "generated_on": {"type": "string", "format": "date"},
+    "generated_by": {"type": "string"},
+    "notes": {
+      "type": "string",
+      "$comment": "Free-text space for a pack author to record known gaps, unresolved taxonomy questions, or scope decisions -- mirrors the precedent set by data/imports/blueberry-public-pilot-2026-08-03/manifest.json's own 'notes' field."
+    },
+    "files": {
+      "type": "object",
+      "required": [
+        "entity_types_file",
+        "relationship_predicates_file",
+        "taxonomies",
+        "strategic_question_templates_file",
+        "collector_templates_file"
+      ],
+      "properties": {
+        "entity_types_file": {"type": "string", "minLength": 1},
+        "relationship_predicates_file": {"type": "string", "minLength": 1},
+        "taxonomies": {
+          "type": "object",
+          "required": ["entity_role_vocabulary_file", "trait_vocabulary_file"],
+          "properties": {
+            "entity_role_vocabulary_file": {"type": "string", "minLength": 1},
+            "trait_vocabulary_file": {"type": "string", "minLength": 1}
+          },
+          "additionalProperties": {"type": "string"}
+        },
+        "strategic_question_templates_file": {"type": "string", "minLength": 1},
+        "collector_templates_file": {"type": "string", "minLength": 1},
+        "report_templates_dir": {
+          "type": ["string", "null"],
+          "$comment": "Optional, not required in Phase 1 (docs/v2/07-IMPLEMENTATION-ROADMAP.md Phase 1 scope note) -- Section 6 of docs/v2/04-DOMAIN-PACK-SPEC.md remains specified for later use."
+        },
+        "filters_file": {
+          "type": ["string", "null"],
+          "$comment": "Optional, not required in Phase 1 -- Section 7 of docs/v2/04-DOMAIN-PACK-SPEC.md."
+        },
+        "visualization_config_file": {
+          "type": ["string", "null"],
+          "$comment": "Optional, not required in Phase 1 -- Section 8 of docs/v2/04-DOMAIN-PACK-SPEC.md."
+        }
+      }
+    }
+  }
+}

@@ -5,29 +5,21 @@
   <div>
     <p class="eyebrow">WHAT PATTERN MAY BE EMERGING, AND WHAT SUPPORTS IT</p>
     <h1>Signals</h1>
+    <p class="also-known-as">This list is the trusted signal catalog. Untrusted candidates are reviewed separately so they cannot be mistaken for published Signals.</p>
   </div>
   {% if authoring_mode %}
-    <a class="button-link" href="/signals/new">New Signal</a>
+    <div class="queue-actions">
+      <a class="button-link" href="/signals/review">Review candidates</a>
+      <a class="button-link" href="/signals/new">New Signal</a>
+    </div>
   {% endif %}
 </section>
 
 {% if signals %}
-  <section class="entity-list">
+  <section class="entity-list balanced-card-grid public-card-index">
     {% for signal in signals %}
-      <article class="card entity-card">
-        <div class="card-header">
-          <span class="badge badge-muted">{{ signal.direction|upper }}</span>
-          <span class="badge badge-muted">{{ signal.strength|upper }} STRENGTH</span>
-        </div>
-        <h2><a href="/signals/{{ signal.id }}">{{ signal.title }}</a></h2>
-        {% set description_lines = signal.description|as_bullets %}
-        {% if description_lines|length > 1 %}
-          <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-        {% elif signal.description %}
-          <p>{{ signal.description }}</p>
-        {% endif %}
-        <p class="draft-meta">{{ signal.evidence_ids|length }} supporting evidence · updated {{ signal.last_updated|us_date }}</p>
-      </article>
+      {% set description_text = signal.description or signal.observation %}
+      <article class="card entity-card"><div class="card-header"><span class="badge badge-signal">{{ signal.strength|upper }}</span><span class="badge badge-muted">{{ signal.status|upper }}</span></div><h2><a href="/signals/{{ signal.id }}">{{ signal.title }}</a></h2>{% if description_text %}<p>{{ description_text|truncate(210) }}</p>{% endif %}<small>{{ signal.evidence_ids|length }} evidence{% if signal.last_updated %} · {{ signal.last_updated|us_date }}{% elif signal.proposed_at %} · {{ signal.proposed_at|us_date }}{% endif %}</small></article>
     {% endfor %}
   </section>
 {% else %}

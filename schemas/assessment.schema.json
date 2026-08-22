@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "assessment.schema.json",
+  "title": "Assessment Record",
+  "$comment": "New core object, V2 Phase 1 (BL-010, docs/v2/10-BACKLOG.md). An analyst's (or AI-proposed, human-approved) interpretation of one or more Facts -- the first link in the Recommendation -> Assessment/Signal -> Facts -> Evidence -> Source lineage chain that had no schema in V1 (docs/v2/03-DOMAIN-MODEL.md, 'Assessment'). Distinct from Fact (a statement, not an interpretation), Claim (fact.classification, unverified but still a statement), Signal (a pattern across multiple evidence, not a read of existing facts), and Recommendation (a proposed action, downstream of an Assessment). No workspace/domain scoping fields yet -- those are Phase 3 (D-008, docs/v2/08-DECISION-LOG.md).",
+  "type": "object",
+  "required": ["id", "record_type", "title", "rationale", "status", "confidence", "fact_ids", "reviewer", "created_at"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^assessment-[a-z0-9-]+$"},
+    "record_type": {"const": "assessment"},
+    "title": {"type": "string", "minLength": 1},
+    "rationale": {
+      "type": "string",
+      "minLength": 1,
+      "$comment": "The interpretation itself -- what this Assessment concludes from its supporting facts, and why."
+    },
+    "status": {"enum": ["active", "superseded", "withdrawn"]},
+    "confidence": {"enum": ["low", "medium", "high"]},
+    "fact_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1,
+      "$comment": "Structurally required (BL-010): an Assessment always interprets at least one Fact -- this is what keeps it from being a bare, untraceable opinion. Not conditional on status; a draft Assessment with zero facts isn't a meaningful assessment at any stage."
+    },
+    "signal_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "Signal to Analyst Assessment Contract audit (2026-08-20), optional and additive. Lets an Assessment interpret a corroborated multi-evidence Signal directly, not only a Fact -- mirrors recommendation.schema.json's own signal_ids field exactly, the working precedent for citing a Signal by id without copying its content. Never required: fact_ids remains the one structurally-enforced anchor (BL-010, above), and a Signal never auto-creates or auto-populates an Assessment -- a human always adds this id deliberately through the existing reviewer-gated creation form."
+    },
+    "evidence_ids": {"type": "array", "items": {"type": "string"}},
+    "entity_ids": {"type": "array", "items": {"type": "string"}},
+    "domain_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "V2 Phase 2A (D-012, docs/v2/08-DECISION-LOG.md). Explicit analytical scope -- which Domain(s) this Assessment applies to. Optional and additive: absent or empty means scope has not been explicitly declared, not that it applies everywhere. Separate from provenance (evidence_ids/entity_ids above) -- see docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md Part 2. Entities cited in entity_ids may be used to derive a scope hint, but derived scope is never authoritative once this field is set."
+    },
+    "market_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "V2 Phase 2A (D-012). Which market/category id(s) within a domain this applies to (for Berries: berry ids). May hold multiple values -- a genuinely cross-market Assessment is representable without duplicating the record. Optional and additive, same rules as domain_ids."
+    },
+    "geography_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "V2 Phase 2A (D-012). Geography entity id(s) this Assessment's analysis is explicitly scoped to, when narrower than the full domain/market. Optional and additive."
+    },
+    "strategic_question_ids": {"type": "array", "items": {"type": "string"}},
+    "counterevidence_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "Evidence or Fact ids that push against this Assessment's interpretation, where appropriate -- keeps a considered interpretation distinguishable from a one-sided one."
+    },
+    "reviewer": {"type": "string", "minLength": 1},
+    "ai_proposed": {
+      "type": "boolean",
+      "$comment": "True until a human reviewer has approved this Assessment (Core Design Principle #4, AI proposes / humans approve). Absent or false means human-authored or already-approved."
+    },
+    "why_it_matters": {
+      "type": "string",
+      "$comment": "Optional. Why this Assessment's conclusion is decision-relevant, in the analyst's own words -- mirrors Evidence's own why_it_matters field so the same concept isn't renamed per object type. Absent means this framing has not been written yet, not that the Assessment doesn't matter; callers must not fabricate this from other fields and must render its absence honestly."
+    },
+    "would_change_our_view": {
+      "type": "string",
+      "$comment": "Optional. What specific new evidence or event would revise or overturn this Assessment's conclusion -- the falsifiability condition surfaced in the Landscape's 'What We Think' view (Core Design Principle: AI proposals stay falsifiable, not just labeled). Absent means this hasn't been articulated yet, not that the Assessment is unfalsifiable."
+    },
+    "created_at": {"type": "string", "format": "date"},
+    "updated_at": {"type": ["string", "null"], "format": "date"}
+  }
+}

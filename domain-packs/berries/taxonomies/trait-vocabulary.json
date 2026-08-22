@@ -1,0 +1,104 @@
+{
+  "_comment": "V2 Phase 1B (BL-021, docs/v2/10-BACKLOG.md). Built only from the 10 trait entities that actually exist in live data/entities/traits/ (2026-08-14) -- not an exhaustive horticultural ontology, per this task's own instruction. ids and descriptions are copied verbatim from the live entities for traceability; measurement_type/unit are derived directly from each description's own wording (e.g. 'reported in degrees Brix' -> unit: degrees Brix), not invented. This is the same trait id list entity-types.json's variety entry references.",
+  "traits": [
+    {
+      "id": "trait-chilling-requirement",
+      "label": "Chilling requirement",
+      "description": "Accumulated hours below a stated threshold temperature needed to break dormancy. Thresholds differ between sources (7 °C is common in Florida literature).",
+      "measurement_type": "numeric",
+      "unit": "hours below threshold temperature (threshold itself varies by source)"
+    },
+    {
+      "id": "trait-disease-susceptibility",
+      "label": "Disease susceptibility",
+      "description": "Reported susceptibility or tolerance to specific pathogens.",
+      "measurement_type": "qualitative",
+      "unit": null
+    },
+    {
+      "id": "trait-eating-quality",
+      "label": "Eating quality",
+      "description": "Sweetness, acidity, Brix, Brix/acid ratio and sensory panel scores. UF/IFAS publishes a numeric flavour score; the International Taste Institute issues independent star awards.",
+      "measurement_type": "mixed_or_scale",
+      "unit": null,
+      "_comment": "Composite: numeric flavor score, star-award scale, or sensory panel, depending on source -- not one consistent unit."
+    },
+    {
+      "id": "trait-fruit-firmness",
+      "label": "Fruit firmness",
+      "description": "Resistance of the berry to compression. Measured differently by different programmes: UF/IFAS publishes a g/mm compression index; US plant patents sometimes cite FirmTech instrument readings; PBR examination reports use ordinal descriptors. Values from different methods are not directly comparable.",
+      "measurement_type": "numeric_method_dependent",
+      "unit": null,
+      "_comment": "The source description itself warns values across methods are not directly comparable -- deliberately not normalized to one unit here."
+    },
+    {
+      "id": "trait-fruit-size",
+      "label": "Fruit size",
+      "description": "Berry weight (g) and/or equatorial diameter (mm). Marketing terms such as 'jumbo' are owner claims, not measurements.",
+      "measurement_type": "numeric",
+      "unit": "grams and/or millimeters (equatorial diameter)"
+    },
+    {
+      "id": "trait-machine-harvest-suitability",
+      "label": "Machine-harvest suitability",
+      "description": "Whether a cultivar can be mechanically harvested for the fresh market without unacceptable quality loss.",
+      "measurement_type": "boolean_or_qualitative",
+      "unit": null
+    },
+    {
+      "id": "trait-postharvest-shelf-life",
+      "label": "Post-harvest shelf life",
+      "description": "Number of days of acceptable quality in cold storage. Almost always an owner or marketer claim; storage temperature, packaging and quality threshold are usually unstated.",
+      "measurement_type": "numeric",
+      "unit": "days in cold storage"
+    },
+    {
+      "id": "trait-soluble-solids",
+      "label": "Soluble solids content",
+      "description": "Sugar concentration of the fruit, normally reported in degrees Brix. Recorded as a separate trait because Brix figures are published by owners, by independent trials and by registries using different sampling points in the season, and are frequently quoted without a method.",
+      "measurement_type": "numeric",
+      "unit": "degrees Brix"
+    },
+    {
+      "id": "trait-titratable-acidity",
+      "label": "Titratable acidity",
+      "description": "Measured acid content of the fruit, reported as a percentage. Together with soluble solids it determines perceived sweetness, and it is rarely published outside independent trials.",
+      "measurement_type": "numeric",
+      "unit": "percent acid"
+    },
+    {
+      "id": "trait-yield",
+      "label": "Yield",
+      "description": "Harvested fruit per plant or per hectare, normally reported with a location and season.",
+      "measurement_type": "numeric",
+      "unit": "fruit per plant or per hectare"
+    },
+    {
+      "id": "trait-fruiting-habit",
+      "label": "Fruiting habit",
+      "description": "Whether a caneberry cultivar fruits on first-year canes (primocane, fall-fruiting) or second-year canes (floricane, summer-fruiting), or both. Added for the multi-berry portability audit (2026-08-20) -- the original 10 traits above were all derived from the blueberry-only pilot and had no entry for this categorical growth-habit distinction, which is the primary variety-differentiator for raspberry and blackberry breeding.",
+      "measurement_type": "categorical",
+      "unit": null
+    },
+    {
+      "id": "trait-flowering-habit",
+      "label": "Flowering habit",
+      "description": "Whether a strawberry cultivar flowers in response to short daylength (short-day / June-bearing) or largely independent of daylength (day-neutral / everbearing). Added for the multi-berry portability audit (2026-08-20), same reason as trait-fruiting-habit.",
+      "measurement_type": "categorical",
+      "unit": null
+    },
+    {
+      "id": "trait-fruit-color",
+      "label": "Fruit color",
+      "description": "Reported fruit color or color intensity of a variety. Added for the Raspberry Vertical V1 depth mission (2026-08-20) -- a real, generic gap found while adding Cornell's raspberry release Crimson Treasure, whose own coverage described 'vibrant colors' as a stated selling point with no existing trait entity to record it against. Applicable across all four berries, not raspberry-specific.",
+      "measurement_type": "qualitative_or_colorimetric",
+      "unit": null
+    }
+  ],
+  "unresolved_overlap_candidates": [
+    {
+      "traits": ["trait-eating-quality", "trait-soluble-solids", "trait-titratable-acidity"],
+      "note": "eating-quality's own description explicitly names 'Brix' and 'Brix/acid ratio' -- the same underlying measurements soluble-solids (Brix) and titratable-acidity (acid %) each already record separately, and more precisely, as their entire purpose. eating-quality appears to be a composite/subjective umbrella that partially restates the other two rather than a fully independent trait. Kept as three separate entries (matching live data, which already keeps them separate) rather than merged here -- a modeling decision for a human, not resolved by this task."
+    }
+  ]
+}

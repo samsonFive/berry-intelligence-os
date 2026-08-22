@@ -17,7 +17,12 @@
   "geography_ids": [
     "geography-portugal"
   ],
-  "entity_ids": [],
+  "entity_ids": [
+    "company-advanced-berry-breeding",
+    "company-the-summer-berry-company",
+    "variety-malaika",
+    "variety-zawadi"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],

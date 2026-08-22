@@ -1,0 +1,14 @@
+{
+  "id": "rel-tsbc-grows-malaika",
+  "record_type": "relationship",
+  "subject_id": "company-the-summer-berry-company",
+  "predicate": "grows",
+  "object_id": "variety-malaika",
+  "status": "active",
+  "evidence_ids": [
+    "ev-20260806173539-06bb-malaika-raspberries-raise-the-premium-ha",
+    "ev-20260806173539-0cf0-the-summer-berry-company-harvests-premiu"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; AICEP and Fruitnet both report TSBC holding a Gold License on ABB's Elite Raspberry Collection platform and harvesting commercial Malaika volumes in Portugal."
+}

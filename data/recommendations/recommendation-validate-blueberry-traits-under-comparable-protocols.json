@@ -1,0 +1,19 @@
+{
+  "id": "recommendation-validate-blueberry-traits-under-comparable-protocols",
+  "record_type": "recommendation",
+  "title": "Validate priority blueberry trait claims under comparable, method-stating protocols before ranking programmes",
+  "rationale": "Current public soluble-solids and shelf-life figures mix owner claims, conflicting values and an independent trial covering different varieties. Select the highest-decision-value candidate varieties, define comparable maturity, storage and measurement conditions, and use the results to confirm or revise the public working view. Until then, retain provenance labels and avoid programme-level performance rankings.",
+  "action_type": "internally_test_and_validate",
+  "status": "active",
+  "priority": "high",
+  "assessment_ids": ["assessment-public-trait-claims-not-yet-comparable"],
+  "signal_ids": ["sig-owner-published-quality-figures-exceed-independent-measurement"],
+  "fact_ids": ["fact-blue-manila-brix-conflict", "fact-blugenix-shelf-life-claim", "fact-uaex-trial-design-2024"],
+  "evidence_ids": ["ev-planasa-blue-manila-datasheet", "ev-producereport-blugenix-2026", "ev-uaex-blueberry-trial-2024"],
+  "entity_ids": ["company-planasa", "company-costa-group-holdings", "variety-blue-manila", "brand-blugenix"],
+  "market_ids": ["berry-blueberry"],
+  "strategic_question_ids": ["sq-testing-candidates", "sq-repeated-trait-claims"],
+  "reviewer": "Codex proposal — pending human review",
+  "ai_proposed": true,
+  "created_at": "2026-08-14"
+}

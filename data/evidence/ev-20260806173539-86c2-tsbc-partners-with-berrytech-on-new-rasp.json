@@ -15,7 +15,11 @@
     "berry-raspberry"
   ],
   "geography_ids": [],
-  "entity_ids": [],
+  "entity_ids": [
+    "company-berrytech",
+    "company-the-summer-berry-company",
+    "variety-amalia-rossa"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],

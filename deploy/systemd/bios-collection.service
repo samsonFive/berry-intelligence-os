@@ -1,0 +1,20 @@
+[Unit]
+Description=Berry Intelligence OS production collection operations
+# Only makes sense once the app container is actually up; does not require
+# or restart it -- if the container is down, docker compose exec fails
+# fast and this unit fails, which the timer's Persistent= setting alone
+# does not retry mid-cycle (by design -- no busy-retry loop on the host).
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# Update WorkingDirectory if the repo is not checked out at the default
+# /opt/berry-intelligence-os path used by scripts/vps_bootstrap.sh.
+WorkingDirectory=/opt/berry-intelligence-os
+ExecStart=/opt/berry-intelligence-os/scripts/collection_cron.sh
+# A single run should never hang forever (e.g. a stuck network read) --
+# bounded generously above CollectionRunner's own per-source timeouts and
+# retry/backoff so a real long-running-but-healthy run is never killed
+# mid-way, while a genuinely wedged process still gets reclaimed.
+TimeoutStartSec=7200

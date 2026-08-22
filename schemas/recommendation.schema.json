@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "recommendation.schema.json",
+  "title": "Recommendation Record",
+  "$comment": "New core object, V2 Phase 1 (BL-011, docs/v2/10-BACKLOG.md). A proposed action or decision, downstream of an Assessment and/or Signal -- the other missing link in the Recommendation -> Assessment/Signal -> Facts -> Evidence -> Source lineage chain (docs/v2/03-DOMAIN-MODEL.md, 'Recommendation'). NOT the same object as evidence.priority: Evidence Priority is a triage signal on one Evidence item ('how urgently should an analyst look at this?'); Recommendation is a decision/action proposal anchored on accumulated, interpreted intelligence ('what should we actually do?'). Per D-011 (docs/v2/08-DECISION-LOG.md, ACCEPTED) these coexist permanently and are never mechanically converted into each other. action_type is a free string, not an enum, deliberately: the actual vocabulary of recommendation types is domain-specific (docs/v2/04-DOMAIN-PACK-SPEC.md) and does not belong hard-coded in this core schema (D-007). No workspace/domain scoping fields yet -- Phase 3 (D-008).",
+  "type": "object",
+  "required": ["id", "record_type", "title", "rationale", "action_type", "status", "reviewer", "created_at"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^recommendation-[a-z0-9-]+$"},
+    "record_type": {"const": "recommendation"},
+    "title": {"type": "string", "minLength": 1},
+    "rationale": {"type": "string", "minLength": 1},
+    "action_type": {
+      "type": "string",
+      "minLength": 1,
+      "$comment": "Free string, not an enum -- the vocabulary belongs to a Domain Pack (e.g. a Berries starter set: pursue_licensing_discussion, escalate_to_commercial_review, monitor_for_confirmation, no_action_warranted), not this core schema. See docs/v2/03-DOMAIN-MODEL.md 'Recommendation'."
+    },
+    "status": {"enum": ["active", "superseded", "withdrawn"]},
+    "priority": {
+      "enum": ["low", "medium", "high"],
+      "$comment": "How urgently this proposed ACTION should be acted on -- a single scalar on the recommendation itself. Not the same structure or purpose as evidence.priority's four fixed triage dimensions (reading/testing/commercial_position/monitoring) on an Evidence item; deliberately does not reuse that shape (D-011)."
+    },
+    "assessment_ids": {"type": "array", "items": {"type": "string"}},
+    "signal_ids": {"type": "array", "items": {"type": "string"}},
+    "fact_ids": {"type": "array", "items": {"type": "string"}},
+    "evidence_ids": {"type": "array", "items": {"type": "string"}},
+    "entity_ids": {"type": "array", "items": {"type": "string"}},
+    "domain_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "V2 Phase 2A (D-012, docs/v2/08-DECISION-LOG.md). Explicit analytical scope -- which Domain(s) this Recommendation applies to. Optional and additive: absent or empty means scope has not been explicitly declared, not that it applies everywhere. Separate from provenance (evidence_ids/entity_ids/assessment_ids/signal_ids above) -- see docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md Part 2."
+    },
+    "market_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "V2 Phase 2A (D-012). Which market/category id(s) within a domain this applies to (for Berries: berry ids). May hold multiple values -- a genuinely cross-market Recommendation is representable without duplicating the record. Optional and additive, same rules as domain_ids."
+    },
+    "geography_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "V2 Phase 2A (D-012). Geography entity id(s) this Recommendation's action is explicitly scoped to, when narrower than the full domain/market. Optional and additive."
+    },
+    "strategic_question_ids": {"type": "array", "items": {"type": "string"}},
+    "reviewer": {"type": "string", "minLength": 1},
+    "ai_proposed": {"type": "boolean"},
+    "created_at": {"type": "string", "format": "date"},
+    "updated_at": {"type": ["string", "null"], "format": "date"}
+  },
+  "anyOf": [
+    {
+      "required": ["assessment_ids"],
+      "properties": {"assessment_ids": {"type": "array", "minItems": 1}}
+    },
+    {
+      "required": ["signal_ids"],
+      "properties": {"signal_ids": {"type": "array", "minItems": 1}}
+    }
+  ]
+}

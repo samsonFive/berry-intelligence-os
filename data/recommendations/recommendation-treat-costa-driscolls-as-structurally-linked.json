@@ -1,0 +1,32 @@
+{
+  "id": "recommendation-treat-costa-driscolls-as-structurally-linked",
+  "record_type": "recommendation",
+  "title": "Treat Costa Group Holdings and Driscoll's as structurally linked in competitive analysis, not as fully independent competitors",
+  "rationale": "Driscoll's, Inc. is a member of the consortium (with Paine Schwartz Partners and British Columbia Investment Management Corporation) that took control of Costa Group Holdings on 26 February 2024. Costa and Driscoll's have historically been analyzed in this dataset as separate, independent competing breeding/production programmes. That framing is no longer accurate on its own: Driscoll's now has a governance and economic interest in Costa's outcomes, so any analysis that aggregates market share, compares variety portfolios head-to-head, or assesses licensing counterparty independence between the two should first account for this ownership link, rather than continuing to treat them as arm's-length rivals by default. This is a request to review and adjust how the two entities are handled in ongoing commercial analysis -- not a claim that the two organizations have merged, integrated operations, or now act as one; the evidence establishes an ownership/control relationship as of the acquisition date, not operational integration, which has not been evidenced here.",
+  "action_type": "escalate_to_commercial_review",
+  "status": "active",
+  "priority": "medium",
+  "assessment_ids": [
+    "assessment-financial-capital-entering-berry-genetics-ownership"
+  ],
+  "signal_ids": [
+    "sig-financial-owners-taking-positions-in-berry-genetics"
+  ],
+  "fact_ids": [
+    "fact-costa-consortium-2024"
+  ],
+  "evidence_ids": [
+    "ev-costa-ownership-2024"
+  ],
+  "entity_ids": [
+    "company-costa-group-holdings",
+    "company-driscolls",
+    "company-paine-schwartz-partners",
+    "company-bci"
+  ],
+  "strategic_question_ids": [
+    "sq-competitor-expansion"
+  ],
+  "reviewer": "SamsonFive",
+  "created_at": "2026-08-13"
+}

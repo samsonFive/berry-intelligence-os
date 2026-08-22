@@ -1,0 +1,31 @@
+{
+  "id": "berry-strawberry",
+  "record_type": "entity",
+  "entity_type": "berry",
+  "name": "Strawberry",
+  "aliases": [
+    "Fragaria × ananassa",
+    "garden strawberry",
+    "fresa",
+    "fragola",
+    "fraise"
+  ],
+  "status": "active",
+  "description": "Strawberry (genus Fragaria, primarily the octoploid hybrid Fragaria × ananassa). Commercial fresh-market production splits into short-day (June-bearing) cultivars, which flower under short daylength and are grown for a concentrated harvest window, and day-neutral (everbearing) cultivars, which flower largely independent of daylength and support extended-season production. Created as part of the multi-berry portability audit (2026-08-20) to give berry_ids a resolvable target for berry-strawberry, mirroring berry-blueberry's own record and the same previously-identified gap (schema-assessment.md A-3, proposed-schema-enhancements.md P-1) that had only been fixed for blueberry.",
+  "roles": [],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "genus": "Fragaria",
+    "primary_species": "Fragaria × ananassa",
+    "commercial_types": [
+      "short-day (June-bearing)",
+      "day-neutral (everbearing)"
+    ],
+    "package_note": "Attributes are taxonomic scaffolding, not evidence-derived claims."
+  }
+}

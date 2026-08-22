@@ -17,7 +17,10 @@
   "geography_ids": [
     "geography-spain"
   ],
-  "entity_ids": [],
+  "entity_ids": [
+    "company-nova-siri-genetics",
+    "variety-marimbella"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],

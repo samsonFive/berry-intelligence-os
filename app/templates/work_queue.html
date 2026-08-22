@@ -1,88 +1,68 @@
 {% extends "base.html" %}
-{% block title %}Work Queue — Berry Intelligence OS{% endblock %}
+{% block title %}Live Intelligence — Berry Intelligence OS{% endblock %}
 {% block content %}
-<section class="page-heading">
+<div class="v2-page">
+<section class="page-heading v2-page-header">
   <div>
-    <p class="eyebrow">WHAT DESERVES ATTENTION AND WHAT WORK REMAINS</p>
-    <h1>Work Queue</h1>
+    <p class="eyebrow">WORK</p>
+    <h1>Live Intelligence</h1>
+    <p class="also-known-as">Scan, read, and decide without leaving the stream.</p>
+  </div>
+  <div class="intel-feed-tools">
+    {% if not static_build %}
+    <div class="v2-view-toggle" role="group" aria-label="Feed layout">
+      <a class="v2-view-btn{% if feed_view != 'compact' %} is-active{% endif %}" href="/work-queue{% if feed.filter and feed.filter != 'all' %}?filter={{ feed.filter }}&{% else %}?{% endif %}view=grid" {% if feed_view != 'compact' %}aria-current="true"{% endif %}>Grid</a>
+      <a class="v2-view-btn{% if feed_view == 'compact' %} is-active{% endif %}" href="/work-queue{% if feed.filter and feed.filter != 'all' %}?filter={{ feed.filter }}&{% else %}?{% endif %}view=compact" {% if feed_view == 'compact' %}aria-current="true"{% endif %}>Compact</a>
+    </div>
+    {% endif %}
+    {% if authoring_mode %}
+      <label class="intel-reviewer" for="feed-reviewer">Reviewer
+        <input id="feed-reviewer" name="reviewer" required value="{{ reviewer }}" autocomplete="name">
+      </label>
+      <p class="shortcut-key" aria-label="Feed keyboard shortcuts"><kbd>j</kbd>/<kbd>k</kbd> move · <kbd>Enter</kbd> read · <kbd>a</kbd> promote · <kbd>s</kbd> keep · <kbd>r</kbd> dismiss</p>
+    {% endif %}
   </div>
 </section>
 
-<div class="cockpit-grid">
-  <section class="cockpit-card">
-    <h2>Awaiting review ({{ drafts|length }})</h2>
-    {% if drafts %}
-      <ul class="simple-list">
-        {% for draft in drafts[:5] %}
-          <li><a href="/review/{{ draft.id }}">{{ draft.title }}</a> <span class="draft-meta">{{ draft.captured_date|us_date }}</span></li>
-        {% endfor %}
-      </ul>
-      <a href="/review">View review queue →</a>
-    {% else %}
-      <p class="empty-state">Nothing waiting for review.</p>
-    {% endif %}
-  </section>
+{% if promoted_id or promoted_title %}
+  <div class="banner banner-success" role="status">
+    Promoted to trusted intelligence{% if promoted_date %} · {{ promoted_date }}{% endif %}.
+    {% if promoted_id %}<a href="/intelligence/{{ promoted_id }}">Open item</a>{% endif %}
+  </div>
+{% endif %}
+{% if saved %}
+  <div class="banner banner-success" role="status">Pending item saved. It remains untrusted until you promote it.</div>
+{% endif %}
 
-  <section class="cockpit-card">
-    <h2>Unresolved entity matches ({{ unresolved_entities|length }})</h2>
-    {% if unresolved_entities %}
-      <ul class="simple-list">
-        {% for entity in unresolved_entities[:5] %}
-          <li><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a> <span class="badge badge-muted">{{ entity.entity_type|upper }}</span></li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p class="empty-state">No entities are pending verification.</p>
-    {% endif %}
-  </section>
+{% if not static_build %}
+<nav class="intel-filters v2-filterbar" aria-label="Intelligence filters">
+  {% for option in feed.filters %}
+    <a href="/work-queue{% if option.key != 'all' %}?filter={{ option.key }}{% endif %}{% if feed_view == 'compact' %}{% if option.key != 'all' %}&{% else %}?{% endif %}view=compact{% endif %}" class="{% if feed.filter == option.key %}active{% endif %}" {% if feed.filter == option.key %}aria-current="page"{% endif %}>{{ option.label }}</a>
+  {% endfor %}
+</nav>
+{% endif %}
 
-  <section class="cockpit-card">
-    <h2>High-priority items</h2>
-    {% if high_priority %}
-      <ul class="simple-list">
-        {% for item in high_priority %}
-          <li><a href="/evidence/{{ item.id }}">{{ item.title }}</a></li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p class="empty-state">Nothing is currently marked high priority.</p>
-    {% endif %}
-  </section>
-
-  <section class="cockpit-card">
-    <h2>Recently published</h2>
-    {% if recent_evidence %}
-      <ul class="simple-list">
-        {% for item in recent_evidence %}
-          <li><a href="/evidence/{{ item.id }}">{{ item.title }}</a> <span class="draft-meta">{{ (item.published_date or item.captured_date)|us_date }}</span></li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p class="empty-state">Nothing published yet.</p>
-    {% endif %}
-  </section>
-
-  <section class="cockpit-card">
-    <h2>Recently updated signals</h2>
-    {% if recent_signals %}
-      <ul class="simple-list">
-        {% for signal in recent_signals %}
-          <li><a href="/signals/{{ signal.id }}">{{ signal.title }}</a> <span class="badge badge-muted">{{ signal.direction|upper }}</span></li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p class="empty-state">No signals recorded yet.</p>
-    {% endif %}
-  </section>
-
-  <section class="cockpit-card">
-    <h2>Priority queues</h2>
-    <ul class="simple-list">
-      <li><a href="/queues/reading">Reading</a> — {{ queue_summary.reading }}</li>
-      <li><a href="/queues/testing">Testing</a> — {{ queue_summary.testing }}</li>
-      <li><a href="/queues/commercial_position">Commercial Position</a> — {{ queue_summary.commercial_position }}</li>
-      <li><a href="/queues/monitoring">Monitoring</a> — {{ queue_summary.monitoring }}</li>
+<section class="intel-feed v2-feed v2-feed-{{ feed_view or 'grid' }}" aria-label="Intelligence stream" data-feed-view="{{ feed_view or 'grid' }}">
+  {% if static_build %}
+    <h2>Trusted intelligence</h2>
+    <p class="empty-state">Trusted published snapshot. Interactive publication review is local-only. This public snapshot does not include unpublished drafts or untrusted AI proposals.</p>
+  {% endif %}
+  {% if feed.entries %}
+    <ul class="intel-card-list v2-card-list">
+      {% for item in feed.entries %}
+        {% include "_intelligence_card.html" %}
+      {% endfor %}
     </ul>
-  </section>
+  {% else %}
+    <p class="empty-state">Nothing in this stream yet.</p>
+  {% endif %}
+</section>
 </div>
+{% endblock %}
+{% block scripts %}
+{% if authoring_mode and not static_build %}
+<script>
+window.BIOS_FEED = { overlay: true };
+</script>
+{% endif %}
 {% endblock %}

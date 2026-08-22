@@ -1,0 +1,41 @@
+{
+  "id": "assessment-financial-capital-entering-berry-genetics-ownership",
+  "record_type": "assessment",
+  "title": "Institutional and financial capital has taken large, but not uniformly controlling, ownership positions across the major diversified berry-genetics groups reviewed",
+  "rationale": "Three of the largest diversified berry genetics/production groups in this dataset changed ownership structure within roughly a 15-month window (December 2022 - February 2024), and in two of the three cases the incoming owner is a financial or institutional investor rather than an operating berry company. In December 2022, PSP Investments (a Canadian public-sector pension investment manager) together with SJF Investment acquired 49.56% of Hortifrut S.A. In February 2024, a consortium of Paine Schwartz Partners (a specialist food-and-agribusiness private equity firm), Driscoll's, Inc. (an operating berry company) and British Columbia Investment Management Corporation (a Canadian public pension fund manager) took control of Costa Group Holdings at A$3.20/share, which led to Costa's delisting from the ASX days later. Separately, Cinven (a private equity firm) exited its stake in Planasa by selling to EW Group, a German family-owned genetics group -- an ownership transition between two non-operating financial/family owners rather than into operating hands. Taken together, these three transactions suggest berry genetics/production assets are increasingly attractive to institutional and specialist-PE capital, not only to breeding companies themselves. This should be read as a directional pattern across a small number of large, visible transactions (n=3), not a market-wide census -- the dataset does not establish base rates for ownership change in this sector, so 'increasingly attractive' describes the direction suggested by these cases, not a measured trend. It should also not be read as uniform loss of founder/family control: Hortifrut's own 2023 integrated annual report still records the Moller, Quevedo, Del Rio and Elberg families as 'the controlling group' even after the PSP/SJF transaction, since 49.56% is a very large minority stake, not majority control -- see counterevidence. The Costa consortium is also not purely financial: Driscoll's is an operating berry company with its own genetics and brand interests, so 'financial capital' is directionally but not entirely accurate there either.",
+  "status": "active",
+  "confidence": "medium",
+  "fact_ids": [
+    "fact-hortifrut-psp-4956",
+    "fact-costa-consortium-2024",
+    "fact-costa-delisted-2024",
+    "fact-planasa-ew-group-sale"
+  ],
+  "evidence_ids": [
+    "ev-hortifrut-integrated-report-2023",
+    "ev-costa-ownership-2024",
+    "ev-delisted-costa",
+    "ev-cinven-planasa-ew-group"
+  ],
+  "entity_ids": [
+    "company-hortifrut",
+    "company-costa-group-holdings",
+    "company-planasa",
+    "company-paine-schwartz-partners",
+    "company-driscolls",
+    "company-bci",
+    "company-cinven",
+    "company-ew-group"
+  ],
+  "strategic_question_ids": [
+    "sq-competitor-expansion",
+    "sq-public-record-gaps"
+  ],
+  "counterevidence_ids": [
+    "fact-hortifrut-controlling-families"
+  ],
+  "reviewer": "SamsonFive",
+  "why_it_matters": "Ownership links can change disclosure, licensing posture and whether nominal competitors remain economically independent.",
+  "would_change_our_view": "Transaction reversals, disclosed passive-only holdings, or evidence that licensing and disclosure remain unchanged.",
+  "created_at": "2026-08-13"
+}

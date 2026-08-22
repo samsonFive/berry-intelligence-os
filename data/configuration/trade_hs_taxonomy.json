@@ -1,0 +1,56 @@
+{
+  "kind": "berry-intelligence-os-trade-hs-taxonomy",
+  "hs_revision": "HS 2022 (WCO 6-digit, as returned by UN Comtrade's H6 classification)",
+  "source": "Live-verified 2026-08-21 for the Global Trade / Customs Intelligence V1 mission against UN Comtrade's public preview API (classificationCode: H6) and cross-checked against published HS/HTS reference tables.",
+  "notes": "6-digit HS codes are identical across every WCO member country; national tariff schedules (e.g. US HTS, 10-digit) sometimes add berry-specific breakouts that the 6-digit level does not have. This project's chosen adapter (UN Comtrade) reports at the 6-digit (H6) level, so every limitation below is real and load-bearing, not a hypothetical caveat.",
+  "codes": [
+    {
+      "hs_code": "081010",
+      "description": "Strawberries, fresh",
+      "berry_ids": ["berry-strawberry"],
+      "fresh_or_frozen": "fresh",
+      "berry_code_purity": "single_berry",
+      "limitations": "None found -- strawberry is cleanly separable at 6 digits, both fresh and frozen."
+    },
+    {
+      "hs_code": "081110",
+      "description": "Strawberries, frozen (whether or not cooked by steaming/boiling in water, whether or not sweetened)",
+      "berry_ids": ["berry-strawberry"],
+      "fresh_or_frozen": "frozen",
+      "berry_code_purity": "single_berry",
+      "limitations": "None found."
+    },
+    {
+      "hs_code": "081020",
+      "description": "Raspberries, blackberries, mulberries and loganberries, fresh",
+      "berry_ids": ["berry-raspberry", "berry-blackberry"],
+      "fresh_or_frozen": "fresh",
+      "berry_code_purity": "multi_berry_combined",
+      "limitations": "Raspberry and blackberry are NOT separable at the 6-digit level -- this single code also includes mulberries and loganberries (neither tracked by this platform). Any quantity/value reported here is a combined figure across at least 4 real fruit types. Do not attribute a change in this code to either raspberry or blackberry specifically without a corroborating qualitative source."
+    },
+    {
+      "hs_code": "081120",
+      "description": "Raspberries, blackberries, mulberries, loganberries, black/white/red currants and gooseberries, frozen",
+      "berry_ids": ["berry-raspberry", "berry-blackberry"],
+      "fresh_or_frozen": "frozen",
+      "berry_code_purity": "multi_berry_combined",
+      "limitations": "Same combination problem as 081020, plus currants and gooseberries (neither tracked). Even less berry-specific than the fresh code."
+    },
+    {
+      "hs_code": "081040",
+      "description": "Cranberries, blueberries and other fruit of the genus Vaccinium, fresh",
+      "berry_ids": ["berry-blueberry"],
+      "fresh_or_frozen": "fresh",
+      "berry_code_purity": "multi_berry_combined",
+      "limitations": "Blueberry is NOT cleanly separable from cranberries, bilberries, and other Vaccinium species at the 6-digit level. For the countries this pilot actually queried (Mexico, Peru, Chile, Morocco, South Africa -> US/UK), fresh commercial cranberry trade in these specific bilateral flows is understood to be minor relative to blueberry (cranberries are predominantly a US/Canada domestic and North-American-sourced crop), but this is a real, undemonstrated assumption, not a verified fact -- flagged as debt (TD-TRADE-002), not silently treated as if the code were blueberry-exclusive."
+    },
+    {
+      "hs_code": "081190",
+      "description": "Other fruit and nuts (n.e.s.), frozen -- includes frozen blueberries at the 6-digit level, but is NOT a blueberry-specific code",
+      "berry_ids": ["berry-blueberry"],
+      "fresh_or_frozen": "frozen",
+      "berry_code_purity": "multi_berry_combined",
+      "limitations": "This is a real, significant limitation, more severe than 081040: 081190 is a genuine 'other fruit, frozen, not elsewhere specified' basket that includes frozen blueberries alongside many unrelated frozen fruits (only the US's own 10-digit HTS extension, 0811.90.20, isolates frozen blueberries specifically -- UN Comtrade's 6-digit H6 classification does not). Frozen-berry trade-flow figures at this code should be treated as directional/contextual only, never as a blueberry-specific quantity, unless corroborated by a national 10-digit source this mission did not integrate."
+    }
+  ]
+}

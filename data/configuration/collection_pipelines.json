@@ -1,0 +1,75 @@
+{
+  "schema_version": 2,
+  "pipelines": [
+    {
+      "id": "article_news",
+      "enabled": true,
+      "scheduled": true,
+      "schedule_entrypoint": true,
+      "cadence_seconds": 21600,
+      "runner": "scripts/run_collection.py --pipeline-scope article-news --skip-transcription --json-summary",
+      "state": "operations/runs",
+      "notes": "Article/news discovery every six hours. Partial Source failure remains visible but does not make an otherwise useful cycle a total scheduler failure."
+    },
+    {
+      "id": "spoken_media",
+      "enabled": true,
+      "scheduled": true,
+      "schedule_entrypoint": true,
+      "cadence_seconds": 86400,
+      "runner": "scripts/run_collection.py --pipeline-scope spoken-media --skip-transcription --json-summary",
+      "state": "operations/runs",
+      "notes": "Daily podcast/video feed discovery. Missing transcription remains deferred; the scheduler never enables Whisper implicitly."
+    },
+    {
+      "id": "plant_patent",
+      "enabled": true,
+      "scheduled": true,
+      "schedule_entrypoint": true,
+      "cadence_seconds": 604800,
+      "runner": "scripts/monitor_plant_patents.py --json",
+      "state": "operations/patent_monitor/state.json",
+      "notes": "Weekly bounded public plant-patent monitor; registry publication frequency does not justify daily polling."
+    },
+    {
+      "id": "cpvo",
+      "enabled": true,
+      "scheduled": true,
+      "schedule_entrypoint": true,
+      "cadence_seconds": 604800,
+      "runner": "scripts/monitor_cpvo_registry.py --json",
+      "state": "operations/cpvo_registry/state.json",
+      "notes": "Weekly denomination/alias checks against the public CPVO register."
+    },
+    {
+      "id": "trade",
+      "enabled": false,
+      "scheduled": false,
+      "schedule_entrypoint": true,
+      "cadence_seconds": null,
+      "runner": "scripts/monitor_trade_intelligence.py --json",
+      "state": "operations/trade_intelligence/state.json",
+      "notes": "Manual: current configuration is a fixed historical pilot window. Scheduling it would repeat 72 static Comtrade requests and amplify undocumented 429 limits without advancing periods."
+    },
+    {
+      "id": "weather",
+      "enabled": false,
+      "scheduled": false,
+      "schedule_entrypoint": true,
+      "cadence_seconds": null,
+      "runner": "scripts/monitor_weather_intelligence.py --json",
+      "state": "operations/weather_intelligence/state.json",
+      "notes": "Manual: current configuration is a fixed 2025-01 through 2026-06 pilot comparison, not a rolling daily weather window."
+    },
+    {
+      "id": "runtime_backup",
+      "enabled": true,
+      "scheduled": true,
+      "schedule_entrypoint": true,
+      "cadence_seconds": 86400,
+      "runner": "scripts/runtime_backup.py rotate --keep 14",
+      "state": "operations/pipelines/runtime_backup/runs",
+      "notes": "Daily verified backup outside the app runtime; retain 14 valid archives, never auto-delete invalid archives, and never retain fewer than two by policy."
+    }
+  ]
+}

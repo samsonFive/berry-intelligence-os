@@ -1,0 +1,37 @@
+{
+  "id": "assessment-public-observability-varies-by-breeder",
+  "record_type": "assessment",
+  "title": "Public registry visibility varies materially by blueberry breeder, creating structural coverage bias",
+  "rationale": "The Canadian blueberry register exposes 21 Driscoll's denominations while the retrieved register contains no blueberry variety held by Costa, Planasa, Hortifrut or Advanced Berry Breeding; other records show those programmes filing in different jurisdictions. The defensible conclusion is that a single-registry view systematically over-represents some pipelines. This may reflect incomplete jurisdiction coverage rather than different filing intensity, so systematic sweeps across CPVO, USPTO, IP Australia and other registries remain necessary before attributing the gap to breeder strategy.",
+  "status": "active",
+  "confidence": "medium",
+  "fact_ids": [
+    "fact-cfia-driscolls-21-denominations",
+    "fact-cfia-no-costa-planasa-hortifrut-blueberry",
+    "fact-cbi-ffsp-joint-patents",
+    "fact-blue-manila-plablue-1545",
+    "fact-driscolls-australia-pbr"
+  ],
+  "evidence_ids": [
+    "ev-cfia-blueberry-index",
+    "ev-justia-costa-berry-international",
+    "ev-uspp031345-plablue-1545",
+    "ev-ipaustralia-pvj-33-4"
+  ],
+  "entity_ids": [
+    "company-driscolls",
+    "company-costa-berry-international",
+    "company-planasa",
+    "company-hortifrut",
+    "company-cfia",
+    "company-ip-australia"
+  ],
+  "market_ids": ["berry-blueberry"],
+  "strategic_question_ids": ["sq-public-record-gaps", "sq-global-genetics-reach"],
+  "counterevidence_ids": [],
+  "reviewer": "Codex proposal — pending human review",
+  "ai_proposed": true,
+  "why_it_matters": "The most visible pipeline in one registry is not necessarily the largest or most active competitive pipeline.",
+  "would_change_our_view": "A systematic multi-jurisdiction sweep showing the apparent asymmetry was caused only by incomplete search.",
+  "created_at": "2026-08-14"
+}

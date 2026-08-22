@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Pending Review — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">DECIDE</p>
+    <h1>Pending review</h1>
+    <p class="also-known-as">Publication drafts that still need a human decision. This is not Live Intelligence and not Signal Review. Bulk dismiss never publishes.</p>
+  </div>
+  <a class="button-link" href="/review?kind=publication">Advanced publication form</a>
+</section>
+
+<p class="brief-window">Buckets use stored relevance, recency, source authority, primary subject, and watch-match quality — not an opaque AI score. Berry context filters this workspace. Dismiss hides a draft from triage and keeps the file. Reject / Save / Promote use the existing review services.</p>
+
+<ul class="brief-delta-strip">
+  <li><a href="#triage-review_now">Review now</a><strong>{{ brief.pending_triage.counts.review_now or 0 }}</strong></li>
+  <li><a href="#triage-review_soon">Review soon</a><strong>{{ brief.pending_triage.counts.review_soon or 0 }}</strong></li>
+  <li><a href="#triage-adjacent">Adjacent</a><strong>{{ brief.pending_triage.counts.adjacent or 0 }}</strong></li>
+  <li><a href="#triage-likely_ignore">Likely ignore</a><strong>{{ brief.pending_triage.counts.likely_ignore or 0 }}</strong></li>
+  <li><a href="#triage-older_backlog">Older backlog</a><strong>{{ brief.pending_triage.counts.older_backlog or 0 }}</strong></li>
+</ul>
+
+{% if brief.pending_triage and brief.pending_triage.buckets %}
+  {% for group in brief.pending_triage.buckets %}
+    <section class="brief-section v2-decision-bucket" id="triage-{{ group.key }}">
+      <h2>{{ group.label }} — {{ group.count }}{% if group.story_count and group.story_count < group.count %} · {{ group.story_count }} stor{{ 'y' if group.story_count == 1 else 'ies' }}{% endif %}</h2>
+      {% if group.key == 'review_now' %}
+        <p class="context-limit">Direct berry intelligence, tracked-company primary subject, primary watch match, current article, or high-authority source. Related reprints collapse into a developing story; they are not deleted.</p>
+      {% elif group.key == 'review_soon' %}
+        <p class="context-limit">Related coverage of one event is grouped as a developing story. Remaining rows are distinct decisions. Grouping is organizational only.</p>
+      {% elif group.key == 'adjacent' %}
+        <p class="context-limit">Stored adjacent relevance. Available, not equally urgent.</p>
+      {% elif group.allow_bulk_dismiss %}
+        <p class="context-limit">Low-risk cleanup. Select explicitly, then bulk dismiss. This does not reject or publish.</p>
+      {% endif %}
+      {% if group.entries %}
+        <ul class="intel-card-list v2-card-list v2-feed-compact v2-decision-list">
+          {% for item in group.entries %}
+            <li class="v2-decision-row"{% if not item.is_thread %} data-intel-card data-item-id="{{ item.id }}" data-pending="true" tabindex="-1"{% endif %}>
+              {% if group.allow_bulk_dismiss and authoring_mode and not static_build %}
+                <input form="triage-bulk-{{ group.key }}" type="checkbox" name="item_id" value="{{ item.id }}" aria-label="Select {{ item.title }}">
+              {% endif %}
+              <div class="v2-decision-body">
+                {% include "_brief_entry.html" %}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+        {% if group.allow_bulk_dismiss and authoring_mode and not static_build %}
+          <form id="triage-bulk-{{ group.key }}" class="triage-bulk" action="/queues/pending/bulk-dismiss" method="post">
+            <input type="hidden" name="reviewer" value="{{ reviewer }}">
+            <input type="hidden" name="return_to" value="/pending">
+            <button class="v2-btn v2-btn-quiet" type="submit">Dismiss selected</button>
+          </form>
+        {% endif %}
+      {% else %}
+        <p class="empty-state">Nothing in this bucket.</p>
+      {% endif %}
+      {% if group.remainder %}
+        <p class="context-limit">{{ group.remainder }} more in this bucket. Open the advanced publication form for the rest.</p>
+      {% endif %}
+    </section>
+  {% endfor %}
+{% else %}
+  <p class="empty-state">No pending drafts or unvalidated captures in this runtime.</p>
+{% endif %}
+</div>
+{% endblock %}

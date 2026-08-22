@@ -1,0 +1,13 @@
+{
+  "id": "rel-civ-develops-flavia",
+  "record_type": "relationship",
+  "subject_id": "company-civ-italy",
+  "predicate": "develops",
+  "object_id": "variety-flavia",
+  "status": "active",
+  "evidence_ids": [
+    "ev-20260806173842-b741-early-ripening-strawberry-variety-flavia"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; FreshPlaza identifies Flavia as a CIV-patented cultivar."
+}

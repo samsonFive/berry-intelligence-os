@@ -1,0 +1,114 @@
+<p class="brief-window">{{ testing_limitation }} Pass, Fail, and Defer are analyst dispositions on tagged Evidence. They do not create Facts and they are not Learner Mode explanations.</p>
+
+{% if static_build %}
+<ul class="brief-delta-strip" aria-label="Claim testing tagged evidence">
+  <li><span><span>Tagged published evidence</span><strong>{{ testing_counts.tagged }}</strong></span></li>
+</ul>
+{% else %}
+<ul class="brief-delta-strip" aria-label="Claim testing counts">
+  <li><a href="#testing-needs_testing"><span>Needs testing</span><strong>{{ testing_counts.needs_testing }}</strong></a></li>
+  <li><span><span>Pass</span><strong>{{ testing_counts.pass }}</strong></span></li>
+  <li><span><span>Fail</span><strong>{{ testing_counts.fail }}</strong></span></li>
+  <li><span><span>Deferred</span><strong>{{ testing_counts.defer }}</strong></span></li>
+  <li><span><span>Tagged</span><strong>{{ testing_counts.tagged }}</strong></span></li>
+</ul>
+{% endif %}
+
+{% if not static_build %}
+<form class="filters v2-filterbar" action="/queues/testing" method="get" aria-label="Filter claim testing">
+  {% if testing_filter_options.berries %}
+    <div class="filter-field">
+      <label for="filter-berry">Berry</label>
+      <select id="filter-berry" name="berry">
+        <option value="">All berries</option>
+        {% for row in testing_filter_options.berries %}
+          <option value="{{ row.id }}" {% if testing_filters.berry == row.id %}selected{% endif %}>{{ row.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  {% endif %}
+  {% if testing_filter_options.companies %}
+    <div class="filter-field">
+      <label for="filter-company">Company</label>
+      <select id="filter-company" name="company">
+        <option value="">All companies</option>
+        {% for row in testing_filter_options.companies %}
+          <option value="{{ row.id }}" {% if testing_filters.company == row.id %}selected{% endif %}>{{ row.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  {% endif %}
+  {% if testing_filter_options.varieties %}
+    <div class="filter-field">
+      <label for="filter-variety">Variety</label>
+      <select id="filter-variety" name="variety">
+        <option value="">All varieties</option>
+        {% for row in testing_filter_options.varieties %}
+          <option value="{{ row.id }}" {% if testing_filters.variety == row.id %}selected{% endif %}>{{ row.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  {% endif %}
+  {% if testing_filter_options.geographies %}
+    <div class="filter-field">
+      <label for="filter-geography">Geography</label>
+      <select id="filter-geography" name="geography">
+        <option value="">All geographies</option>
+        {% for row in testing_filter_options.geographies %}
+          <option value="{{ row.id }}" {% if testing_filters.geography == row.id %}selected{% endif %}>{{ row.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  {% endif %}
+  <div class="filter-field">
+    <label for="filter-region">Region</label>
+    <select id="filter-region" name="region">
+      <option value="">All regions</option>
+      {% for r in regions %}
+        <option value="{{ r }}" {% if filters.region == r %}selected{% endif %}>{{ r }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% if show_completed %}
+    <div class="filter-field">
+      <label for="filter-state">State</label>
+      <select id="filter-state" name="state">
+        <option value="">All states</option>
+        {% for row in testing_filter_options.states %}
+          <option value="{{ row.id }}" {% if testing_filters.state == row.id %}selected{% endif %}>{{ row.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  {% endif %}
+  <div class="filter-field">
+    <label class="checkbox-label" for="show-completed">
+      <input id="show-completed" type="checkbox" name="show_completed" value="1" {% if show_completed %}checked{% endif %}>
+      Show completed
+    </label>
+  </div>
+  <div class="filter-actions">
+    <button type="submit">Apply filter</button>
+    <a href="/queues/testing">Reset</a>
+  </div>
+</form>
+{% endif %}
+
+{% for group in testing_groups %}
+  <section class="brief-section v2-testing-section" id="testing-{{ group.key }}">
+    <h2>{{ group.label }} ({{ group.count }})</h2>
+    <p class="context-limit">{{ group.blurb }}</p>
+    {% if group.entries %}
+      <div class="v2-claim-list">
+        {% for item in group.entries %}
+          {% include "_claim_card.html" %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="empty-state">Nothing in this group.</p>
+    {% endif %}
+  </section>
+{% endfor %}
+
+{% if not testing_groups %}
+  <p class="empty-state">{% if show_completed %}No tagged Evidence in this filter.{% else %}No claims currently need testing.{% endif %}</p>
+{% endif %}

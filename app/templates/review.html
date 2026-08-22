@@ -3,8 +3,11 @@
 {% block content %}
 <section class="page-heading">
   <div>
-    <p class="eyebrow">REVIEW &amp; STRUCTURE</p>
+    <p class="eyebrow">{% if draft.evidence_role == 'atomic_evidence' %}ATOMIC EVIDENCE REVIEW{% else %}HUMAN PUBLICATION REVIEW{% endif %}</p>
     <h1>{{ draft.title }}</h1>
+    {% if draft.evidence_role != 'atomic_evidence' %}
+    <p class="also-known-as">{{ draft.source_name or 'Source not recorded' }}{% if draft.published_date %} · {{ draft.published_date|us_date }}{% endif %}</p>
+    {% endif %}
   </div>
 </section>
 
@@ -12,8 +15,28 @@
   <p class="empty-state" role="alert">Review and publishing are disabled. This deployment is running in read-only mode.</p>
 {% else %}
 
-{% if error %}
+{% if publish_outcome == 'already_published' %}
+  <div class="banner banner-success" role="status">
+    This publication is already trusted.
+    {% if trusted_existing %}<a href="/evidence/{{ trusted_existing.id }}">Open trusted record</a>{% endif %}
+    The existing record was not overwritten.
+  </div>
+{% endif %}
+{% if publish_outcome == 'conflict' %}
+  <div class="banner banner-error" role="alert">
+    {{ error or 'This id already exists as a trusted publication with conflicting identity fields. The trusted record was not changed.' }}
+    {% if trusted_existing %}<p><a href="/evidence/{{ trusted_existing.id }}">Open trusted record</a></p>{% endif %}
+    {% if conflicts %}<ul>{% for item in conflicts %}<li>{{ item }}</li>{% endfor %}</ul>{% endif %}
+  </div>
+{% elif error %}
   <div class="banner banner-error" role="alert">{{ error }}</div>
+{% endif %}
+{% if next_draft_id or prev_draft_id %}
+  <p class="review-nav">
+    {% if prev_draft_id %}<a href="/review/{{ prev_draft_id }}">← Previous</a>{% endif %}
+    {% if next_draft_id %}<a href="/review/{{ next_draft_id }}">Next →</a>{% endif %}
+    <span class="shortcut-key" aria-label="Keyboard shortcuts"><kbd>a</kbd> approve · <kbd>s</kbd> save+next · <kbd>r</kbd> reject+next · <kbd>n</kbd>/<kbd>p</kbd> next/prev</span>
+  </p>
 {% endif %}
 
 {% if duplicates %}
@@ -36,7 +59,109 @@
 
 <div class="review-split">
   <section class="review-pane">
-    <h2>Original submission</h2>
+    <h2>{% if draft.evidence_role == 'atomic_evidence' %}Source-grounding record{% else %}Decision brief{% endif %}</h2>
+    {% if transcript_readiness %}
+      <div class="review-state-dimensions">
+        <section>
+          <h3>Publication review</h3>
+          <span class="badge badge-status-unverified">{{ draft.review_state|replace('_',' ')|title if draft.review_state else 'Pending' }}</span>
+        </section>
+        <section class="transcript-readiness" aria-label="Transcript status">
+          <h3>Transcript status</h3>
+          <p><span class="badge transcript-state-{{ transcript_readiness.state }}">{{ transcript_readiness.analyst_label or transcript_readiness.state_label }}</span></p>
+          {% if transcript_readiness.state != 'ready' %}
+            <p class="context-limit">You can still accept this as trusted publication. Transcript acquisition is a separate technical step.</p>
+          {% endif %}
+          {% if transcript_readiness.method %}<p><strong>Acquisition method:</strong> {{ transcript_readiness.method }}</p>{% endif %}
+          {% if transcript_readiness.language %}<p><strong>Detected language:</strong> {{ transcript_readiness.language }} <small>— verify if unexpected.</small></p>{% endif %}
+          {% if transcript_readiness.failure_category %}<p>{{ transcript_readiness.failure_category }}</p>{% endif %}
+        </section>
+      </div>
+      <p class="context-limit">Transcript readiness is independent of the publication decision.</p>
+    {% endif %}
+    {% if draft.evidence_role == 'atomic_evidence' %}
+      <div class="atomic-review-summary">
+        <span class="badge badge-claim">ATOMIC EVIDENCE PROPOSAL</span>
+        <h3>Proposed normalized statement</h3>
+        <p class="proposed-statement">{{ draft.summary }}</p>
+        <h3>Exact supporting transcript · {{ locator_label }}</h3>
+        <blockquote class="transcript-support">{{ draft.transcript_excerpt }}</blockquote>
+        {% if draft.artifact_locator.speaker_label %}<p><strong>Speaker label:</strong> {{ draft.artifact_locator.speaker_label }}</p>{% endif %}
+        <p class="context-limit">The transcript excerpt and locator are protected provenance. Editing the normalized statement does not change them.</p>
+        {% if parent %}
+          <h3>Parent publication</h3>
+          <p><a href="/evidence/{{ parent.id }}">{{ parent.title }}</a><br>{{ parent.source_name }}{% if parent.published_date %} · {{ parent.published_date|us_date }}{% endif %}{% if parent.media_format %} · {{ parent.media_format|replace('_',' ')|title }}{% endif %}</p>
+        {% endif %}
+        {% if linked_entities %}<h3>Current proposed links</h3><div class="proposal-links">{% for entity in linked_entities %}<span>{{ entity.name }} <small>{{ entity.entity_type|replace('_',' ') }}</small></span>{% endfor %}</div>{% endif %}
+        <details class="proposal-metadata"><summary>Extraction provenance</summary><dl>
+          <dt>Provider / model</dt><dd>{{ draft.extraction_provenance.provider or draft.extraction_provenance.extracted_by }}{% if draft.extraction_provenance.model %} / {{ draft.extraction_provenance.model }}{% endif %}</dd>
+          <dt>Version</dt><dd>{{ draft.extraction_provenance.prompt_version or 'Not recorded' }}</dd>
+          <dt>Transcript</dt><dd>{{ draft.transcript_provenance.transcript_id }}</dd>
+          <dt>Transcript hash</dt><dd><code>{{ draft.transcript_provenance.transcript_sha256 }}</code></dd>
+        </dl></details>
+      </div>
+    {% else %}
+      {% if publication_card and publication_card.why %}
+        <h3>Why this matters</h3>
+        <p>{{ publication_card.why }}</p>
+      {% elif draft.why_it_matters %}
+        <h3>Why this matters</h3>
+        <p>{{ draft.why_it_matters }}</p>
+      {% endif %}
+      {% if publication_card and publication_card.summary %}
+        <h3>Concise summary</h3>
+        <p>{{ publication_card.summary }}</p>
+      {% endif %}
+      {% if publication_card %}
+        <h3>Suggested</h3>
+        <dl>
+          <dt>Berries</dt><dd>{{ publication_card.berries|join(', ') if publication_card.berries else '—' }}</dd>
+          <dt>Entities</dt><dd>{{ publication_card.entities|join(', ') if publication_card.entities else '—' }}</dd>
+          <dt>Geography</dt><dd>{{ publication_card.geographies|join(', ') if publication_card.geographies else '—' }}</dd>
+          <dt>Tags</dt><dd>{{ publication_card.tags|join(', ') if publication_card.tags else '—' }}</dd>
+        </dl>
+        {% if publication_card.ai_untrusted %}<p><span class="badge badge-muted">AI assisted · untrusted</span></p>{% endif %}
+      {% endif %}
+    {% endif %}
+    {% if draft.evidence_role != 'atomic_evidence' %}
+    <details class="proposal-metadata"{% if not draft.publisher_description or (draft.publisher_description|length) < 280 %} open{% endif %}>
+      <summary>Original submission / publisher description</summary>
+      <dl>
+        <dt>Intake type</dt><dd>{{ draft.intake_type|replace('_',' ')|title }}</dd>
+        <dt>Source</dt><dd>{{ draft.source_name or "—" }}</dd>
+        <dt>Source URL</dt><dd>{% if draft.source_url %}<a href="{{ draft.source_url }}">{{ draft.source_url }}</a>{% else %}—{% endif %}</dd>
+        <dt>Published</dt><dd>{{ draft.published_date|us_date if draft.published_date else "—" }}</dd>
+        <dt>Captured</dt><dd>{{ draft.captured_date|us_date }}</dd>
+        <dt>Submitted by</dt><dd>{{ draft.submitted_by }}</dd>
+      </dl>
+      {% if draft.publisher_description %}
+        <h3>Original publisher description</h3>
+        <p>{{ draft.publisher_description }}</p>
+      {% endif %}
+      <h3>Current summary</h3>
+      {% set summary_lines = draft.summary|as_bullets %}
+      {% if summary_lines|length > 1 %}
+        <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+      {% else %}
+        <p>{{ draft.summary }}</p>
+      {% endif %}
+    </details>
+    {% if draft.ai_enrichment %}
+      <details class="proposal-metadata">
+        <summary>AI provenance <span class="badge badge-muted">untrusted</span></summary>
+        {% if draft.ai_enrichment.caveats %}<p><strong>Caveats:</strong> {{ draft.ai_enrichment.caveats }}</p>{% endif %}
+        {% if draft.ai_enrichment.topical_relevance %}<p><strong>Relevance:</strong> {{ draft.ai_enrichment.topical_relevance }}</p>{% endif %}
+        {% if draft.ai_enrichment.model_provenance %}
+          <p class="context-limit">
+            {{ draft.ai_enrichment.model_provenance.provider or 'provider unset' }}
+            / {{ draft.ai_enrichment.model_provenance.model or 'no model' }}
+            · {{ draft.ai_enrichment.model_provenance.status }}
+            · {{ draft.ai_enrichment.model_provenance.trust_state }}
+          </p>
+        {% endif %}
+      </details>
+    {% endif %}
+    {% else %}
     <dl>
       <dt>Intake type</dt><dd>{{ draft.intake_type|replace('_',' ')|title }}</dd>
       <dt>Source</dt><dd>{{ draft.source_name or "—" }}</dd>
@@ -45,21 +170,10 @@
       <dt>Captured</dt><dd>{{ draft.captured_date|us_date }}</dd>
       <dt>Submitted by</dt><dd>{{ draft.submitted_by }}</dd>
     </dl>
-    <h3>Summary</h3>
-    {% set summary_lines = draft.summary|as_bullets %}
-    {% if summary_lines|length > 1 %}
-      <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-    {% else %}
-      <p>{{ draft.summary }}</p>
     {% endif %}
-    {% if draft.why_it_matters %}
-      <h3>Why it might matter</h3>
-      {% set why_lines = draft.why_it_matters|as_bullets %}
-      {% if why_lines|length > 1 %}
-        <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-      {% else %}
-        <p>{{ draft.why_it_matters }}</p>
-      {% endif %}
+    {% if draft.transcript_excerpt and draft.evidence_role != 'atomic_evidence' %}
+      <h3>Supporting transcript excerpt</h3>
+      <p>{{ draft.transcript_excerpt }}</p>
     {% endif %}
     {% if draft.suggested_competitors or draft.suggested_varieties %}
       <h3>Suggested entities</h3>
@@ -81,10 +195,12 @@
   <section class="review-pane">
     <h2>Proposed structured record</h2>
     <form class="intake-form" style="padding:0;max-width:none" action="/review/{{ draft.id }}/publish" method="post">
+      <input type="hidden" name="return_to" value="{{ return_to }}">
+      {% if draft.evidence_role != 'atomic_evidence' %}
       <div class="form-row">
         <div class="form-field">
           <label for="source_type">Source type</label>
-          <input id="source_type" name="source_type" type="text" value="{{ values.source_type }}">
+          <input id="source_type" name="source_type" type="text" value="{{ values.source_type }}" {% if draft.evidence_role == 'atomic_evidence' %}readonly{% endif %}>
         </div>
         <div class="form-field">
           <label for="title">Title *</label>
@@ -95,36 +211,37 @@
       <div class="form-row">
         <div class="form-field">
           <label for="source_name">Source / Publication</label>
-          <input id="source_name" name="source_name" type="text" value="{{ values.source_name }}">
+          <input id="source_name" name="source_name" type="text" value="{{ values.source_name }}" {% if draft.evidence_role == 'atomic_evidence' %}readonly{% endif %}>
         </div>
         <div class="form-field">
           <label for="source_url">Source URL</label>
-          <input id="source_url" name="source_url" type="text" value="{{ values.source_url }}">
+          <input id="source_url" name="source_url" type="text" value="{{ values.source_url }}" {% if draft.evidence_role == 'atomic_evidence' %}readonly{% endif %}>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-field">
           <label for="published_date">Published date</label>
-          <input id="published_date" name="published_date" type="date" value="{{ values.published_date }}">
+          <input id="published_date" name="published_date" type="date" value="{{ values.published_date }}" {% if draft.evidence_role == 'atomic_evidence' %}readonly{% endif %}>
         </div>
         <div class="form-field">
           <label for="captured_date">Captured date</label>
-          <input id="captured_date" name="captured_date" type="date" value="{{ values.captured_date }}">
+          <input id="captured_date" name="captured_date" type="date" value="{{ values.captured_date }}" {% if draft.evidence_role == 'atomic_evidence' %}readonly{% endif %}>
         </div>
       </div>
+      {% endif %}
 
-      <div class="form-field">
-        <label for="summary">Summary *</label>
-        <textarea id="summary" name="summary" rows="3" required>{{ values.summary }}</textarea>
-      </div>
-
-      <div class="form-field">
+      <div class="form-field" {% if draft.evidence_role == 'atomic_evidence' %}hidden{% endif %}>
         <label for="why_it_matters">Why it matters</label>
         <textarea id="why_it_matters" name="why_it_matters" rows="2">{{ values.why_it_matters }}</textarea>
       </div>
 
       <div class="form-field">
+        <label for="summary">{% if draft.evidence_role == 'atomic_evidence' %}Final normalized Evidence statement{% else %}Summary{% endif %} *</label>
+        <textarea id="summary" name="summary" rows="3" required>{{ values.summary }}</textarea>
+      </div>
+
+      <div class="form-field" {% if draft.evidence_role == 'atomic_evidence' %}hidden{% endif %}>
         <label for="tags">Tags</label>
         <input id="tags" name="tags" type="text" placeholder="Comma-separated" value="{{ values.tags }}">
       </div>
@@ -140,7 +257,7 @@
       </fieldset>
 
       <fieldset class="form-fieldset">
-        <legend>Linked entities (matched by name, created if new)</legend>
+        <legend>{% if draft.evidence_role == 'atomic_evidence' %}Correct proposed links{% else %}Linked entities (matched by name, created if new){% endif %}</legend>
         <div class="form-field">
           <label for="companies">Companies</label>
           <input id="companies" name="companies" type="text" placeholder="Comma-separated" value="{{ values.companies }}">
@@ -159,11 +276,14 @@
         </div>
       </fieldset>
 
+      {% if draft.evidence_role != 'atomic_evidence' %}
       <div class="form-field">
         <label for="strategic_questions">Strategic questions (existing id or title)</label>
         <input id="strategic_questions" name="strategic_questions" type="text" placeholder="Comma-separated" value="{{ values.strategic_questions }}">
       </div>
 
+      <details class="collapsible-form">
+        <summary>Optional facts, relationships, and priorities</summary>
       <fieldset class="form-fieldset">
         <legend>Proposed facts</legend>
         {% for i in range(1, num_fact_rows + 1) %}
@@ -237,6 +357,8 @@
           </div>
         {% endfor %}
       </fieldset>
+      </details>
+      {% endif %}
 
       <div class="form-field">
         <label for="reviewer">Reviewer *</label>
@@ -244,10 +366,83 @@
       </div>
 
       <div class="form-actions">
-        <button type="submit">Publish</button>
+        <button type="submit" name="advance" value="" data-approve-action>{% if draft.evidence_role == 'atomic_evidence' %}Save edits + approve this Evidence{% else %}Approve{% endif %}</button>
+        {% if draft.evidence_role != 'atomic_evidence' %}
+        <button type="submit" name="advance" value="next" data-approve-next-action>Approve + Next</button>
+        {% endif %}
+      </div>
+    </form>
+    {% if draft.evidence_role != 'atomic_evidence' %}
+    <form class="intake-form" style="padding:8px 0 0;max-width:none" action="/review/{{ draft.id }}/save" method="post" data-save-form>
+      <input type="hidden" name="return_to" value="{{ return_to }}">
+      <input type="hidden" name="title" value="{{ values.title }}">
+      <input type="hidden" name="summary" id="save_summary">
+      <input type="hidden" name="why_it_matters" id="save_why">
+      <input type="hidden" name="tags" id="save_tags">
+      <div class="form-actions">
+        <button type="submit" name="advance" value="">Save draft</button>
+        <button type="submit" name="advance" value="next" data-save-next-action>Save + Next</button>
+      </div>
+    </form>
+    {% endif %}
+    <form class="intake-form" style="padding:16px 0 0;max-width:none" action="/review/{{ draft.id }}/reject" method="post">
+      <input type="hidden" name="return_to" value="{{ return_to }}">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="rejection_category">Reason category</label>
+          <select id="rejection_category" name="rejection_category">{% for value, label in rejection_categories.items() %}<option value="{{ value }}">{{ label }}</option>{% endfor %}</select>
+        </div>
+        <div class="form-field">
+          <label for="reject_reviewer">Reviewer *</label>
+          <input id="reject_reviewer" name="reviewer" type="text" required>
+        </div>
+        <div class="form-field">
+          <label for="rejection_reason">Rejection reason *</label>
+          <input id="rejection_reason" name="rejection_reason" type="text" required>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit">Reject</button>
+        <button type="submit" name="advance" value="next">Reject + Next</button>
       </div>
     </form>
   </section>
 </div>
+<script>
+(function () {
+  var saveForm = document.querySelector('[data-save-form]');
+  function copyFields() {
+    if (!saveForm) return;
+    var summary = document.getElementById('summary');
+    var why = document.getElementById('why_it_matters');
+    var tags = document.getElementById('tags');
+    var saveSummary = document.getElementById('save_summary');
+    var saveWhy = document.getElementById('save_why');
+    var saveTags = document.getElementById('save_tags');
+    if (saveSummary && summary) saveSummary.value = summary.value;
+    if (saveWhy && why) saveWhy.value = why.value;
+    if (saveTags && tags) saveTags.value = tags.value;
+  }
+  if (saveForm) saveForm.addEventListener('submit', copyFields);
+  document.addEventListener('keydown', function (event) {
+    if (event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+    if (event.key === 'n' && {{ 'true' if next_draft_id else 'false' }}) {
+      window.location = '/review/{{ next_draft_id }}';
+    } else if (event.key === 'p' && {{ 'true' if prev_draft_id else 'false' }}) {
+      window.location = '/review/{{ prev_draft_id }}';
+    } else if (event.key === 'a') {
+      var button = document.querySelector('[data-approve-next-action]') || document.querySelector('[data-approve-action]');
+      if (button) button.click();
+    } else if (event.key === 's') {
+      copyFields();
+      var saveNext = document.querySelector('[data-save-next-action]');
+      if (saveNext) saveNext.click();
+    } else if (event.key === 'r') {
+      var rejectNext = document.querySelector('form[action$="/reject"] button[name="advance"][value="next"]');
+      if (rejectNext) rejectNext.click();
+    }
+  });
+})();
+</script>
 {% endif %}
 {% endblock %}

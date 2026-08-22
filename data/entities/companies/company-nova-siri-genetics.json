@@ -1,0 +1,37 @@
+{
+  "id": "company-nova-siri-genetics",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Nova Siri Genetics",
+  "aliases": [
+    "NSG"
+  ],
+  "status": "active",
+  "description": "Italian strawberry breeding company headquartered in Policoro, Basilicata (per its own account, genetic-improvement work on strawberry began in 2006). Develops low-chilling-requirement strawberry and small-fruit varieties for temperate/Mediterranean producers. Breeds and patents strawberry cultivars including Melissa and Marimbella; reported by Hortidaily as growing strongly in Spain's Huelva region, with NSG-bred plantings reaching 58 million plants in the 2024-2025 season, a 16% increase.",
+  "roles": [
+    "breeder",
+    "genetics_licensor",
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [
+    "ev-20260806173842-dc19-new-melissa-strawberry-cultivar-freshpla",
+    "ev-20260806173906-54a2-spain-marimbella-variety-achieves-good-p",
+    "ev-20260806175537-2ec7-the-use-of-nsg-strawberry-varieties-in-h"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-nova-siri-genetics-develops-melissa",
+    "rel-nova-siri-genetics-develops-marimbella"
+  ],
+  "attributes": {
+    "country": "Italy",
+    "headquarters": "Policoro, Basilicata, Italy",
+    "genetic_programme_started": 2006,
+    "breeding_focus": "low chilling-requirement strawberry and small-fruit varieties for temperate/Mediterranean producers",
+    "huelva_2024_2025_plantings": "58 million plants (16% increase year over year, per Hortidaily)",
+    "website": "https://www.novasirigenetics.com"
+  }
+}

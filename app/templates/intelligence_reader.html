@@ -1,0 +1,312 @@
+{% extends "base.html" %}
+{% block title %}{{ item.title }} — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">INTELLIGENCE READER</p>
+    <h1>{{ item.title }}</h1>
+    <p class="also-known-as">{{ item.source_name }}{% if item.date %} · {{ item.date|us_date }}{% endif %} · {{ item.kind_label }}</p>
+  </div>
+  <a class="button-link" href="/work-queue">Back to feed</a>
+</section>
+
+{% if promoted %}
+  <div class="banner banner-success" role="status">Promoted to trusted intelligence{% if item.date %} · {{ item.date|us_date }}{% endif %}.</div>
+{% endif %}
+{% if saved %}
+  <div class="banner banner-success" role="status">Pending item saved. It remains untrusted until you promote it.</div>
+{% endif %}
+{% if error %}
+  <div class="banner banner-error" role="alert">{{ error }}</div>
+{% endif %}
+
+<div class="intel-reader">
+  <article class="intel-reader-main">
+    <div class="intel-card-meta">
+      <span class="badge intel-trust-{{ item.trust }}">{{ item.trust_label }}</span>
+      <span class="badge badge-muted">{{ item.kind_label }}</span>
+      {% if item.ai_untrusted %}<span class="badge badge-muted">AI-assisted · pending analyst review</span>{% endif %}
+    </div>
+
+    {% if kind == 'article' %}
+      {% if paragraphs %}
+        <div class="intel-body">
+          {% for paragraph in paragraphs %}
+            <p id="{{ paragraph.locator }}"><small class="locator">{{ paragraph.locator }}</small> {{ paragraph.text }}</p>
+          {% endfor %}
+        </div>
+      {% elif record.summary %}
+        <div class="intel-body"><p>{{ record.summary }}</p></div>
+      {% elif publisher_description %}
+        <div class="intel-body"><p>{{ publisher_description }}</p></div>
+      {% endif %}
+    {% elif kind == 'spoken' %}
+      {% if segments %}
+        <div class="intel-transcript" aria-label="Transcript">
+          {% for segment in segments %}
+            <p>
+              {% if segment.source_at %}<a class="locator" href="{{ segment.source_at }}">{% if segment.start_seconds is not none %}{{ '%d:%02d'|format((segment.start_seconds|int)//60, (segment.start_seconds|int)%60) }}{% else %}source{% endif %}</a>
+              {% elif segment.start_seconds is not none %}<span class="locator">{{ '%d:%02d'|format((segment.start_seconds|int)//60, (segment.start_seconds|int)%60) }}</span>{% endif %}
+              {% if segment.speaker %}<strong>{{ segment.speaker }}</strong> {% endif %}{{ segment.text }}
+            </p>
+          {% endfor %}
+        </div>
+        <p class="context-limit">Transcript quality depends on the acquisition method. Treat wording as an aid to reading, not as a trusted claim.</p>
+      {% elif publisher_description %}
+        <div class="intel-body"><p>{{ publisher_description }}</p></div>
+        <p class="context-limit">{{ analyst_transcript_label }}. You can still promote this as a trusted publication without a transcript.</p>
+      {% else %}
+        <p class="empty-state">{{ analyst_transcript_label }}. No transcript is available yet.</p>
+      {% endif %}
+    {% elif kind == 'patent' and patent %}
+      <dl class="intel-patent">
+        <dt>Publication</dt><dd>{{ patent.publication_number or '—' }}</dd>
+        <dt>Filing / grant</dt><dd>{{ patent.filing_date or '—' }}{% if patent.grant_date %} · granted {{ patent.grant_date }}{% endif %}</dd>
+        <dt>Assignee</dt><dd>{{ patent.assignees|join(', ') if patent.assignees else '—' }}</dd>
+        <dt>Inventor</dt><dd>{{ patent.inventors|join(', ') if patent.inventors else '—' }}</dd>
+        <dt>Cultivar</dt><dd>{{ patent.cultivar_name or '—' }}</dd>
+        {% if source_authority %}<dt>Source authority</dt><dd>{{ source_authority }}</dd>{% endif %}
+      </dl>
+      {% if record.summary %}<p>{{ record.summary }}</p>{% endif %}
+      {% if does_not_prove %}
+        <div class="banner banner-warning">
+          <strong>Does not prove</strong>
+          <ul>{% for item_bound in does_not_prove %}<li>{{ item_bound }}</li>{% endfor %}</ul>
+        </div>
+      {% endif %}
+      {% if evidence_links %}
+        <h2>Proposed corroboration</h2>
+        <ul class="simple-list">
+          {% for link in evidence_links %}
+            <li>{{ link.predicate or 'link' }}{% if link.target_id %} → {{ link.target_id }}{% endif %} <span class="badge badge-muted">{{ link.status or 'proposed' }}</span></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% else %}
+      {% if record.summary %}<div class="intel-body"><p>{{ record.summary }}</p></div>{% endif %}
+      {% if publisher_description and publisher_description != record.summary %}<details><summary>Publisher description</summary><p>{{ publisher_description }}</p></details>{% endif %}
+    {% endif %}
+
+    {% if item.source_url %}
+      <p><a class="action-button" href="{{ item.source_url }}" rel="noreferrer">{{ item.source_action_label }}</a></p>
+    {% endif %}
+
+    {% if atomic_proposals %}
+      <section class="intel-claims" aria-label="Proposed claims">
+        <h2>Proposed claims</h2>
+        <p class="context-limit">These statements are untrusted until you accept them. Accept uses the existing atomic Evidence publish path.</p>
+        {% for proposal in atomic_proposals %}
+          <article class="proposal-card">
+            <p class="badge badge-claim">Supported claim</p>
+            <p class="proposed-statement">{{ proposal.statement }}</p>
+            <h3>Source</h3>
+            <blockquote class="transcript-support">{{ proposal.excerpt }}</blockquote>
+            {% if proposal.locator_label or proposal.source_at %}<p class="draft-meta">Location · {% if proposal.source_at %}<a href="{{ proposal.source_at }}">{{ proposal.locator_label or 'source at timestamp' }}</a>{% else %}{{ proposal.locator_label }}{% endif %}</p>{% endif %}
+            {% if authoring_mode %}
+              {% if pending %}
+                <p class="context-limit">Promote the publication first. Claim accept still uses the existing atomic Evidence path and stays unavailable until this item is trusted.</p>
+              {% else %}
+              <div class="proposal-actions">
+                <form action="/review/{{ proposal.id }}/approve-atomic" method="post">
+                  <input type="hidden" name="return_to" value="/intelligence/{{ item.id }}">
+                  <input type="hidden" name="reviewer" value="{{ reviewer }}">
+                  <input type="hidden" name="confirm_individual_review" value="true">
+                  <button class="action-button action-approve" type="submit">Accept</button>
+                </form>
+                <a class="action-button" href="/review/{{ proposal.id }}">Edit</a>
+                <form action="/review/{{ proposal.id }}/reject" method="post">
+                  <input type="hidden" name="return_to" value="/intelligence/{{ item.id }}">
+                  <input type="hidden" name="reviewer" value="{{ reviewer }}">
+                  <input type="hidden" name="rejection_reason" value="Rejected from intelligence reader">
+                  <input type="hidden" name="rejection_category" value="other">
+                  <button class="action-button action-reject" type="submit">Reject</button>
+                </form>
+              </div>
+              {% endif %}
+            {% endif %}
+          </article>
+        {% endfor %}
+      </section>
+    {% elif not pending %}
+      <section class="intel-claims">
+        <h2>Claims</h2>
+        {% if extract_claims.runnable %}
+          <p>A qualified extraction model is configured. Run extraction through the collection runner; this reader will not call an unqualified model.</p>
+        {% else %}
+          <p>{{ extract_claims.detail }}</p>
+        {% endif %}
+      </section>
+    {% else %}
+      <section class="intel-claims">
+        <h2>Claims</h2>
+        <p>{{ extract_claims.detail }}</p>
+      </section>
+    {% endif %}
+  </article>
+
+  <aside class="intel-reader-side">
+    <section class="intel-ai-panel">
+      <h2>Why it matters</h2>
+      {% if item.why %}<p>{{ item.why }}</p>{% else %}<p class="empty-state">No analyst brief yet.</p>{% endif %}
+      {% if item.ai_untrusted %}
+        <p><span class="badge badge-muted">AI-assisted · pending analyst review</span></p>
+        {% if ai_caveats %}<p class="context-limit">{{ ai_caveats }}</p>{% endif %}
+      {% endif %}
+    </section>
+    {% if item.summary %}
+      <section class="intel-ai-panel">
+        <h2>Concise summary</h2>
+        <p>{{ item.summary }}</p>
+        {% if item.ai_untrusted %}<p class="context-limit">AI-assisted · pending analyst review. This is not trusted intelligence.</p>{% endif %}
+      </section>
+    {% endif %}
+    {% if attribution and (attribution.primary or attribution.suggested) %}
+      <section>
+        <h2>Primary subject</h2>
+        {% if attribution.primary %}
+          <p>
+            {% if attribution.primary.id %}
+              <a class="intel-chip" href="/entities/{{ attribution.primary.entity_type }}/{{ attribution.primary.id }}">{{ attribution.primary.name }}</a>
+            {% else %}
+              <span class="intel-chip intel-chip-muted">{{ attribution.primary.name }}</span>
+            {% endif %}
+            <span class="badge badge-muted">{{ attribution.primary.method|replace('_',' ') }} · {{ attribution.primary.strength }}</span>
+          </p>
+          <p class="context-limit">Deterministic suggestion for pending content. Trusted entity links are not rewritten until you promote.</p>
+        {% else %}
+          <p class="empty-state">No primary subject from title, newsroom identity, or alias match.</p>
+        {% endif %}
+        {% if attribution.mentions %}
+          <p class="context-limit">Mentioned, not primary: {{ attribution.mentions|map(attribute='name')|join(', ') }}</p>
+        {% endif %}
+      </section>
+    {% endif %}
+    {% if item.entities or item.berry_names or item.geo_names %}
+      <section>
+        <h2>Entities</h2>
+        <div class="intel-chips">
+          {% for entity in item.entities %}
+            <a class="intel-chip" href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a>
+          {% endfor %}
+          {% for name in item.berry_names %}
+            <span class="intel-chip intel-chip-muted">{{ name }}</span>
+          {% endfor %}
+          {% for name in item.geo_names %}
+            <span class="intel-chip intel-chip-muted">{{ name }}</span>
+          {% endfor %}
+        </div>
+        {% if item.ai_untrusted %}<p class="context-limit">Suggested links stay untrusted until review accepts them.</p>{% endif %}
+      </section>
+    {% endif %}
+    {% if authoring_mode and not pending %}
+      <section>
+        <h2>Monitoring</h2>
+        <p class="context-limit">Watches are intentional. This does not rewrite trusted Evidence.</p>
+        <p><a class="action-button" href="/queues/monitoring">View watches</a></p>
+      </section>
+    {% endif %}
+    {% if story_thread %}
+      <section>
+        <h2>Developing story</h2>
+        <p class="context-limit">This source is grouped with related coverage. The grouping is not a trusted conclusion.</p>
+        <p><a class="action-button" href="{{ story_thread.href }}">Open thread · {{ story_thread.source_count }} sources</a></p>
+      </section>
+    {% endif %}
+    {% if related %}
+      <section>
+        <h2>Related trusted intelligence</h2>
+        <ul class="simple-list">
+          {% for other in related %}
+            <li><a href="/intelligence/{{ other.id }}">{{ other.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+    <details>
+      <summary>Provenance</summary>
+      <dl>
+        <dt>Source</dt><dd>{{ item.source_name }}</dd>
+        <dt>Captured</dt><dd>{{ record.captured_date|us_date if record.captured_date else '—' }}</dd>
+        {% if readiness %}<dt>Transcript</dt><dd>{{ analyst_transcript_label }}</dd>{% endif %}
+        {% if record.ai_enrichment and record.ai_enrichment.model_provenance %}
+          <dt>AI</dt>
+          <dd>{{ record.ai_enrichment.model_provenance.provider or 'unspecified' }} · untrusted</dd>
+        {% endif %}
+      </dl>
+    </details>
+
+    {% if authoring_mode and pending %}
+      <section class="intel-promote" data-intel-reader>
+        <h2>Promote</h2>
+        <p class="context-limit">Promotion uses the existing publication-review transaction. This does not skip human trust gates.</p>
+        <form action="/review/{{ item.id }}/publish" method="post">
+          <input type="hidden" name="return_to" value="/intelligence/{{ item.id }}?promoted=1">
+          <input type="hidden" name="title" value="{{ values.title }}">
+          <input type="hidden" name="source_type" value="{{ values.source_type }}">
+          <input type="hidden" name="source_name" value="{{ values.source_name }}">
+          <input type="hidden" name="source_url" value="{{ values.source_url }}">
+          <input type="hidden" name="published_date" value="{{ values.published_date }}">
+          <input type="hidden" name="captured_date" value="{{ values.captured_date }}">
+          <input type="hidden" name="summary" value="{{ values.summary }}">
+          <input type="hidden" name="why_it_matters" value="{{ values.why_it_matters }}">
+          <input type="hidden" name="tags" value="{{ values.tags }}">
+          <input type="hidden" name="companies" value="{{ values.companies }}">
+          <input type="hidden" name="varieties" value="{{ values.varieties }}">
+          <input type="hidden" name="retailers" value="{{ values.retailers }}">
+          <input type="hidden" name="geographies" value="{{ values.geographies }}">
+          {% for berry in values.berries %}
+            <input type="hidden" name="berries" value="{{ berry }}">
+          {% endfor %}
+          <div class="form-field">
+            <label for="reviewer">Reviewer</label>
+            <input id="reviewer" name="reviewer" required value="{{ reviewer }}" autocomplete="name">
+          </div>
+          <button class="login-submit" type="submit" data-promote>Promote publication</button>
+        </form>
+        <form action="/review/{{ item.id }}/save" method="post">
+          <input type="hidden" name="return_to" value="/intelligence/{{ item.id }}?saved=1">
+          <input type="hidden" name="title" value="{{ values.title }}">
+          <input type="hidden" name="summary" value="{{ values.summary }}">
+          <input type="hidden" name="why_it_matters" value="{{ values.why_it_matters }}">
+          <input type="hidden" name="tags" value="{{ values.tags }}">
+          {% for berry in values.berries %}
+            <input type="hidden" name="berries" value="{{ berry }}">
+          {% endfor %}
+          <button class="action-button" type="submit" data-save>Save pending</button>
+        </form>
+        <form action="/review/{{ item.id }}/reject" method="post">
+          <input type="hidden" name="return_to" value="/work-queue">
+          <input type="hidden" name="reviewer" value="{{ reviewer }}">
+          <input type="hidden" name="rejection_reason" value="Rejected from intelligence reader">
+          <input type="hidden" name="rejection_category" value="other">
+          <button class="action-button action-reject" type="submit" data-reject>Ignore / reject</button>
+        </form>
+        <p class="draft-meta"><kbd>a</kbd> promote · <kbd>s</kbd> save · <kbd>r</kbd> reject</p>
+        <p><a href="/review/{{ item.id }}">Open advanced review form</a></p>
+      </section>
+    {% elif not pending %}
+      <p><a href="/evidence/{{ item.id }}">Open trusted record</a></p>
+    {% endif %}
+  </aside>
+</div>
+{% if authoring_mode and pending %}
+<script>
+  document.addEventListener("keydown", function (event) {
+    if (event.target.closest("input, textarea, select")) return;
+    var root = document.querySelector("[data-intel-reader]");
+    if (!root) return;
+    if (event.key === "a") { event.preventDefault(); root.querySelector("[data-promote]")?.closest("form")?.requestSubmit(); }
+    if (event.key === "s") { event.preventDefault(); root.querySelector("[data-save]")?.closest("form")?.requestSubmit(); }
+    if (event.key === "r") { event.preventDefault(); root.querySelector("[data-reject]")?.closest("form")?.requestSubmit(); }
+  });
+  document.querySelectorAll("[data-intel-reader] form").forEach(function (form) {
+    form.addEventListener("submit", function () {
+      var reviewer = document.getElementById("reviewer");
+      if (!reviewer) return;
+      var field = form.querySelector("[name=reviewer]");
+      if (field) field.value = reviewer.value;
+    });
+  });
+</script>
+{% endif %}
+{% endblock %}

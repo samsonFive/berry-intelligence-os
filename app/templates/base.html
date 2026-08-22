@@ -4,41 +4,31 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Berry Intelligence OS{% endblock %}</title>
+  <link rel="stylesheet" href="/static/vendor/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="/static/app.css">
+  <link rel="stylesheet" href="/static/v2.css">
 </head>
-<body>
-  <div class="shell">
-    <aside class="sidebar">
-      <div class="brand">BERRY<span>INTELLIGENCE OS</span></div>
-      <nav aria-label="Primary">
-        <a href="/" {% if request.url.path == '/' %}class="active" aria-current="page"{% endif %}>Newsfeed</a>
-        <a href="/work-queue" {% if request.url.path == '/work-queue' %}class="active" aria-current="page"{% endif %}>Work Queue</a>
-        <a href="/entities/company" {% if request.url.path.startswith('/entities/company') %}class="active" aria-current="page"{% endif %}>Competitors</a>
-        <a href="/entities/variety" {% if request.url.path.startswith('/entities/variety') %}class="active" aria-current="page"{% endif %}>Varieties</a>
-        <a href="/strategic-questions" {% if request.url.path.startswith('/strategic-questions') %}class="active" aria-current="page"{% endif %}>Strategic Questions</a>
-        <a href="/signals" {% if request.url.path.startswith('/signals') %}class="active" aria-current="page"{% endif %}>Signals</a>
-        {% if authoring_mode %}
-          <a href="/sources" {% if request.url.path.startswith('/sources') %}class="active" aria-current="page"{% endif %}>Sources</a>
-        {% endif %}
-        <hr>
-        {% if authoring_mode %}
-          <a href="/review" {% if request.url.path.startswith('/review') %}class="active" aria-current="page"{% endif %}>Review Queue{% if pending_review_count() %} ({{ pending_review_count() }}){% endif %}</a>
-        {% endif %}
-        <a href="/queues/reading" {% if request.url.path == '/queues/reading' %}class="active" aria-current="page"{% endif %}>Reading Queue{% if queue_counts().reading %} ({{ queue_counts().reading }}){% endif %}</a>
-        <a href="/queues/testing" {% if request.url.path == '/queues/testing' %}class="active" aria-current="page"{% endif %}>Testing Queue{% if queue_counts().testing %} ({{ queue_counts().testing }}){% endif %}</a>
-        <a href="/queues/commercial_position" {% if request.url.path == '/queues/commercial_position' %}class="active" aria-current="page"{% endif %}>Commercial Position{% if queue_counts().commercial_position %} ({{ queue_counts().commercial_position }}){% endif %}</a>
-        <a href="/queues/monitoring" {% if request.url.path == '/queues/monitoring' %}class="active" aria-current="page"{% endif %}>Monitoring{% if queue_counts().monitoring %} ({{ queue_counts().monitoring }}){% endif %}</a>
-      </nav>
+<body class="v2-body">
+  <div class="v2-app" id="v2-app">
+    <aside class="v2-sidebar" id="v2DesktopSidebar">
+      {% include "_v2_sidebar.html" %}
     </aside>
-    <main class="main">
-      <header class="topbar">
+    <div class="v2-frame">
+      <header class="v2-topbar">
+        <button class="v2-nav-toggle" type="button" id="v2NavToggle" aria-label="Toggle navigation" aria-controls="v2NavOffcanvas" aria-expanded="true">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
         {% if not static_build %}
-          <form action="/" method="get" role="search">
-            <label class="visually-hidden" for="global-search">Search competitors, varieties, traits, topics</label>
-            <input id="global-search" name="q" aria-label="Search" placeholder="Search competitors, varieties, traits, topics…" value="{{ request.query_params.get('q', '') }}">
+          {% include "_context_selector.html" %}
+          <form class="v2-search" action="/search" method="get" role="search" id="v2TopbarSearch">
+            <label class="visually-hidden" for="global-search">Search companies, varieties, geographies, sources</label>
+            <input id="global-search" name="q" type="search" autocomplete="off" aria-label="Search" placeholder="Search companies, varieties, geographies, sources…" value="{{ request.query_params.get('q', '') if request.url.path == '/search' else '' }}" data-open-search>
           </form>
         {% else %}
-          <div id="pagefind-search" class="pagefind-search">
+          <p class="v2-context-static">{{ ui_context.berry_label if ui_context is defined else 'Global' }}</p>
+          <div id="pagefind-search" class="pagefind-search v2-search">
             <form class="pagefind-ui__form" role="search" onsubmit="return false;">
               <label class="visually-hidden" for="header-search-input">Search competitors, varieties, traits, topics</label>
               <input id="header-search-input" class="pagefind-ui__search-input" type="text" autocomplete="off" placeholder="Search competitors, varieties, traits, topics…">
@@ -55,12 +45,6 @@
           <link id="pagefind-js-path" rel="preload" as="script" href="/pagefind/pagefind.js">
           <link id="search-core-path" rel="preload" as="script" href="/static/search-core.js">
           <script type="module">
-            // Hand-rolled instead of the PagefindUI widget so this dropdown
-            // ranks results the same way the full /search/ page does
-            // (see search-core.js) -- PagefindUI has no hook for
-            // reordering/grouping a result set, only per-result tweaks and
-            // a single global sort that would apply to every result
-            // uniformly, not "entities first, then articles by date".
             window.addEventListener("DOMContentLoaded", function () {
               var input = document.getElementById("header-search-input");
               var clearBtn = document.getElementById("header-search-clear");
@@ -69,17 +53,14 @@
               var resultsList = document.getElementById("header-search-results");
               var pageLink = document.getElementById("search-page-link").href;
               var MAX_RESULTS = 8;
-
               var pagefind = null;
               var searchCore = null;
               var latestQuery = 0;
-
               function escapeHtml(text) {
                 var div = document.createElement("div");
                 div.textContent = text == null ? "" : text;
                 return div.innerHTML;
               }
-
               function resultHtml(data) {
                 var title = data.meta && data.meta.title ? data.meta.title : data.url;
                 return (
@@ -89,7 +70,6 @@
                   "</li>"
                 );
               }
-
               async function ensureModules() {
                 if (!pagefind) {
                   var src = document.getElementById("pagefind-js-path").href;
@@ -101,13 +81,9 @@
                   searchCore = await import(/* @vite-ignore */ coreSrc);
                 }
               }
-
               async function runSearch(term) {
                 clearBtn.style.display = term ? "" : "none";
-                if (!term) {
-                  drawer.style.display = "none";
-                  return;
-                }
+                if (!term) { drawer.style.display = "none"; return; }
                 var queryId = ++latestQuery;
                 drawer.style.display = "";
                 message.textContent = "Searching…";
@@ -115,10 +91,7 @@
                 await ensureModules();
                 var merged = await searchCore.mergedSearch(pagefind, term);
                 if (queryId !== latestQuery) return;
-                if (!merged.length) {
-                  message.textContent = "No results found.";
-                  return;
-                }
+                if (!merged.length) { message.textContent = "No results found."; return; }
                 var shown = merged.slice(0, MAX_RESULTS);
                 var datas = await Promise.all(shown.map(function (r) { return r.data(); }));
                 if (queryId !== latestQuery) return;
@@ -127,14 +100,11 @@
                   : merged.length + " result" + (merged.length === 1 ? "" : "s");
                 resultsList.innerHTML = datas.map(resultHtml).join("");
               }
-
               var debounceTimer;
               input.addEventListener("input", function () {
                 clearTimeout(debounceTimer);
-                var value = input.value.trim();
-                debounceTimer = setTimeout(function () { runSearch(value); }, 200);
+                debounceTimer = setTimeout(function () { runSearch(input.value.trim()); }, 200);
               });
-
               input.addEventListener("keydown", function (event) {
                 if (event.key === "Enter") {
                   var query = input.value.trim();
@@ -146,27 +116,47 @@
                   input.blur();
                 }
               });
-
               clearBtn.addEventListener("click", function () {
                 input.value = "";
                 clearBtn.style.display = "none";
                 drawer.style.display = "none";
                 input.focus();
               });
-
               document.addEventListener("click", function (event) {
-                if (!event.target.closest("#pagefind-search")) {
-                  drawer.style.display = "none";
-                }
+                if (!event.target.closest("#pagefind-search")) drawer.style.display = "none";
               });
             });
           </script>
         {% endif %}
+        {% if analyst_display_name %}
+          <div class="session-control">
+            <span class="session-user">{{ analyst_display_name }}</span>
+            <form action="/logout" method="post">
+              <button type="submit">Sign out</button>
+            </form>
+          </div>
+        {% endif %}
       </header>
-      <div data-pagefind-body>
+      <div class="v2-canvas" data-pagefind-body>
         {% block content %}{% endblock %}
       </div>
-    </main>
+    </div>
   </div>
+
+  <div class="offcanvas offcanvas-start v2-nav-offcanvas" tabindex="-1" id="v2NavOffcanvas" aria-labelledby="v2NavOffcanvasLabel">
+    <div class="offcanvas-header">
+      <h2 class="offcanvas-title" id="v2NavOffcanvasLabel">Navigation</h2>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close navigation"></button>
+    </div>
+    <div class="offcanvas-body">
+      {% with nav_id_suffix='-mobile' %}{% include "_v2_sidebar.html" %}{% endwith %}
+    </div>
+  </div>
+
+  {% include "_v2_reader_offcanvas.html" %}
+  {% include "_v2_search_overlay.html" %}
+  <script src="/static/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="/static/v2.js"></script>
+  {% block scripts %}{% endblock %}
 </body>
 </html>

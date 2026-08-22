@@ -9,14 +9,15 @@
     "UF"
   ],
   "status": "active",
-  "description": "Public land-grant university whose Institute of Food and Agricultural Sciences (UF/IFAS) runs a long-running southern highbush blueberry breeding programme and publishes measured cultivar performance data.",
+  "description": "Public land-grant university whose Institute of Food and Agricultural Sciences (UF/IFAS) runs a long-running southern highbush blueberry breeding programme and publishes measured cultivar performance data. Also active in strawberry disease research: entered a Development & Commercialization Agreement with Ohalo Genetics and the Florida Strawberry Industry to combat fungal disease in strawberry.",
   "roles": [
     "public_research_institution",
     "breeder",
     "extension_publisher"
   ],
   "berry_ids": [
-    "berry-blueberry"
+    "berry-blueberry",
+    "berry-strawberry"
   ],
   "evidence_ids": [
     "ev-uf-ifas-hs1245",
@@ -31,7 +32,8 @@
     "ev-ffsp-emerald",
     "ev-ffsp-jewel",
     "ev-ffsp-farthing",
-    "ev-ffsp-optimus"
+    "ev-ffsp-optimus",
+    "ev-20260806173842-a6b1-uf-ifas-florida-strawberry-industry-and-"
   ],
   "fact_ids": [
     "fact-uf-ifas-hs1245-1",

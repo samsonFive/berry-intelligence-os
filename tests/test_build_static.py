@@ -12,6 +12,8 @@ PUBLISHED_RECORD = {
     "record_type": "evidence",
     "status": "published",
     "source_type": "article",
+    "source_name": "Static Test Publisher",
+    "source_url": "https://example.invalid/original-article",
     "title": "Static build published item",
     "captured_date": "2026-08-04",
     "summary": "Should appear in the static build.",
@@ -54,6 +56,25 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     (evidence_folder / f"{PUBLISHED_RECORD['id']}.json").write_text(
         json.dumps(PUBLISHED_RECORD), encoding="utf-8"
     )
+    config_dir = data_dir / "configuration"
+    config_dir.mkdir(parents=True, exist_ok=True)
+    (config_dir / "sources.json").write_text(
+        json.dumps(
+            [
+                {
+                    "id": "source-static-test",
+                    "type": "rss",
+                    "label": "Static Test Source",
+                    "value": "https://example.invalid/feed.xml",
+                    "enabled": True,
+                    "entity_types": ["trade_press"],
+                    "berry_ids": ["berry-blueberry"],
+                    "region_coverage": [],
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
 
     draft_folder = inbox_dir / "evidence"
     draft_folder.mkdir(parents=True, exist_ok=True)
@@ -65,14 +86,24 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     monkeypatch.setattr(build_static, "OUTPUT_DIR", output_dir)
 
     assert build_static.main() == 0
+    assert (output_dir / ".nojekyll").is_file()
 
     index_html = (output_dir / "index.html").read_text(encoding="utf-8")
     assert "Static build published item" in index_html
+    assert 'href="https://example.invalid/original-article"' in index_html
+    assert "Static Test Publisher" in index_html
+    assert 'data-feed-region="global"' in index_html
+    assert 'data-feed-region="asia"' in index_html
+    assert 'data-feed-regions=""' in index_html
+    assert "card.dataset.feedRegions" in index_html
     assert "Secret unpublished draft title" not in index_html
     assert DRAFT_RECORD["id"] not in index_html
 
     evidence_html = (output_dir / "evidence" / PUBLISHED_RECORD["id"] / "index.html").read_text(encoding="utf-8")
     assert "Static build published item" in evidence_html
+    assert 'href="https://example.invalid/original-article"' in evidence_html
+    assert "Static Test Publisher" in evidence_html
+    assert "<h2>Provenance</h2>" not in evidence_html
 
     css = (output_dir / "static" / "app.css").read_text(encoding="utf-8")
     assert css
@@ -87,6 +118,35 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert 'id="pagefind-js-path"' in search_html
     assert 'href="../pagefind/pagefind.js"' in search_html
     assert 'id="search-results"' in search_html
+
+    landscape_html = (
+        output_dir / "landscapes" / "berries" / "blueberry" / "index.html"
+    ).read_text(encoding="utf-8")
+    assert 'href="../../../static/app.css"' in landscape_html
+    assert 'class="filter-chip region-filter' in landscape_html
+    assert "history.replaceState" in landscape_html
+    assert 'href="../../../entities/company/' in landscape_html
+    assert "Competitor × Competitive Theme Matrix" in landscape_html
+    assert 'href="../../../entities/variety/' in landscape_html
+
+    scanner_html = (output_dir / "work-queue" / "index.html").read_text(encoding="utf-8")
+    assert "Live Intelligence" in scanner_html
+    assert "Trusted published snapshot" in scanner_html
+    assert "Interactive publication review is local-only" in scanner_html
+    assert "Secret unpublished draft title" not in scanner_html
+    assert DRAFT_RECORD["id"] not in scanner_html
+    assert 'href="review/' not in scanner_html
+    assert "/review" not in scanner_html
+    assert "data-promote" not in scanner_html
+    assert "event.key === \"j\"" not in scanner_html
+
+    sources_html = (output_dir / "sources" / "index.html").read_text(encoding="utf-8")
+    assert "Source Health" in sources_html
+    assert "Sources" in sources_html
+    assert "Static Test Source" in sources_html
+    assert "Add a source" not in sources_html
+    assert "Check now" not in sources_html
+    assert "Remove" not in sources_html
 
 
 def test_static_build_detects_leak_if_validation_bypassed(monkeypatch, tmp_path) -> None:
