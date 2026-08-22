@@ -300,7 +300,14 @@ def test_all_live_sources_accounted_for() -> None:
     templates = data["collector_templates"]
     excluded = data.get("excluded", [])
     sources = json.loads((ROOT / "data" / "configuration" / "sources.json").read_text(encoding="utf-8"))
-    # 168 = 164 plus 4 sources added (each with a matching
+    # 171 = 168 plus 3 sources added (each with a matching collector_templates
+    # entry) for the Unknown-Event Discovery + Query Coverage V3 mission
+    # (2026-08-23): FreshPlaza and Fruitnet global RSS feeds (real,
+    # live-verified, previously only static reference entries despite being
+    # cited as the publisher of multiple still-missed benchmark events), and
+    # a new sec_edgar_search_json adapter against SEC EDGAR's real,
+    # unauthenticated full-text search API, CIK-scoped to Mission Produce
+    # (real primary-source disclosure, live-verified). 168 = 164 plus 4 sources added (each with a matching
     # collector_templates entry) for the Global Qualitative Coverage
     # Expansion V2 mission (2026-08-22): the UK Food Standards Agency's
     # real, unauthenticated food-alerts API (a new government_alert_json
@@ -334,7 +341,7 @@ def test_all_live_sources_accounted_for() -> None:
     # traffic. 142 = 140 plus source-freshuelva-news and source-nova-siri-
     # genetics-news, added for the Strawberry Vertical V1 depth mission
     # (2026-08-20).
-    assert len(sources) == 168
+    assert len(sources) == 171
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}

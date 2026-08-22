@@ -151,7 +151,8 @@ selected because the OS already contained the events.
 **Overall event-level recall: 11/50 (22%) -> 15/50 (30%) -> 26/50 (52%) ->
 30/50 (60%) after the Global Qualitative Coverage Expansion V2 mission
 (2026-08-22) -> 31/50 (62%) after Relevance Screen Boundary V1
-(2026-08-23)**, all newly-captured events sitting as untrusted drafts
+(2026-08-23) -> 33/50 (66%) after Unknown-Event Discovery + Query
+Coverage V3 (2026-08-23)**, all newly-captured events sitting as untrusted drafts
 pending human review (the trust gate is untouched by this mission). Recall
 by class: Commercial/Market 0%->50% (4/8), Regulatory/Trade 9%->45% (5/11,
 unchanged this round), Corporate 38%->61.5% (8/13), Reputation/Risk
@@ -369,6 +370,18 @@ Full detail: `docs/v2/RELEVANCE-SCREEN-BOUNDARY-V1.md`. This mission did not add
 **Real value beyond the fixed benchmark**: 44 new real drafts from `source-news-search-morocco-berry-fr` (French vocabulary fix, 45/50 of that source's own backlog now review-ready) and a real, previously entirely-missed Driscoll's/Costa Group stake-acquisition cluster (5 independent articles, query-provenance corroboration) -- neither matches a specific fixed benchmark ID, so neither moves the 31/50 number; reported here as evidence the mechanism generalizes, not as a recall claim, per this benchmark's own no-redefinition discipline.
 
 Not `OPERATIONAL`: query-provenance corroboration only rescues items whose title also names a registered entity (TD-058, ~5% of the real zero-signal `news_search_rss` backlog measured); real article-body verification remains structurally unavailable for Google-News-sourced items generally (TD-059); French blackberry identity remains unrecognized, a deliberate exclusion (TD-060).
+
+---
+
+## Unknown-Event Discovery + Query Coverage V3 (2026-08-23)
+
+Full detail: `docs/v2/UNKNOWN-EVENT-DISCOVERY-V3.md`. Relevance Screen Boundary V1 established that 19 of the remaining 20 benchmark misses were never discovered at all -- this mission targeted discovery/source/query coverage, clustering the 19 into reusable mechanisms (regional trade/business press, SEC primary-source disclosure, industry-association feeds) rather than one query per event. Source count: 168 -> 171 (2 real authoritative publisher RSS feeds -- FreshPlaza, Fruitnet -- plus a new `sec_edgar_search_json` adapter, CIK-scoped to Mission Produce). A third, real, previously-undocumented finding: `source-20260819-international-blueberry-organization` had been correctly researched and configured on 2026-08-19 but never once actually discovered until this mission ran it for the first time (TD-065) -- source count is not the same as source activation.
+
+**Overall event-level recall: 31/50 (62%) -> 33/50 (66%)** -- 2 events moved MISSED -> CAPTURED: BM-T-06 (Chile/Peru/Morocco duties response, via the never-before-run IBO source, `direct`) and BM-C-07 (Mission Produce Peru blueberry acreage, via the new SEC EDGAR source, `uncertain`, real content hand-verified). By class: Corporate 9/13 (69%) -> 10/13 (77%); Regulatory 5/11 (45%) -> 6/11 (55%); all other classes unchanged. By geography, the mission's own named weak geographies all moved from the single BM-T-06 capture: **Chile 50% -> 75%, Morocco 33% -> 67%, Peru 44% -> 67%**.
+
+**Real value beyond the fixed benchmark**: 30 more real Mission Produce SEC filings (untrusted `uncertain` drafts, real quarterly blueberry-segment financial disclosure, none matching a specific benchmark ID); two more real, confirmed-by-hand benchmark events (BM-C-09, BM-G-02) whose real source is Fruitnet but are not retroactively reachable through the newly-onboarded live feed (TD-067, a structural limitation, not a defect) -- reported honestly as remaining misses despite the correct source now being monitored.
+
+Not `OPERATIONAL`: SEC-sourced drafts cannot self-verify relevance (structurally unextractable filing format, TD-066) and depend entirely on human review; a newly-onboarded live RSS feed captures only future events of its type, not historical benchmark instances (TD-067); CFIA's recall API was re-tested and found to return stale, years-old data even from its "recent" endpoint, worse than the original audit finding -- not integrated.
 
 ---
 

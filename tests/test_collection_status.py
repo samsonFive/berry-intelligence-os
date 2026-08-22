@@ -215,6 +215,12 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
         "source-global-fresh-series-podcast", "source-fresh-cred-podcast", "source-lubera-edibles-podcast",
         "source-blueberries-tv-youtube",
     }
+    # 50 = 47 plus 3 new discoverable sources added for the Unknown-Event
+    # Discovery + Query Coverage V3 mission (2026-08-23): FreshPlaza and
+    # Fruitnet global article_rss feeds, and a new sec_edgar_search_json
+    # adapter (SEC EDGAR full-text search, CIK-scoped to Mission Produce),
+    # all with real discovery.adapter blocks. 171 = 168 plus those same 3
+    # sources.
     # 47 = 43 plus 4 new discoverable sources added for the Global
     # Qualitative Coverage Expansion V2 mission (2026-08-22): the UK Food
     # Standards Agency's food-alerts API (a new government_alert_json
@@ -239,7 +245,7 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
     # (2026-08-21): 2 Federal Register government_register_json sources
     # and 3 Google News news_search_rss sources, all with real
     # discovery.adapter blocks, proven against real network traffic.
-    assert report.sources_configured == 168 and report.sources_discoverable == 47
+    assert report.sources_configured == 171 and report.sources_discoverable == 50
     assert expected <= {source.source_id for source in report.sources}
 
 

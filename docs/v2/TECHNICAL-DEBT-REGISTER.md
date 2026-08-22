@@ -26,7 +26,13 @@ renumbered up from an initial draft TD-055/056/057/058 after a real,
 confirmed collision with these same table rows. Claim Testing V2 originally
 drafted TD-055 as well; that ID is reserved for Production Collection
 Operations. Claim Testing debt is TD-062 (no first-class Claim object) and
-TD-063 (queue warm latency).
+TD-063 (queue warm latency). Review Capacity + Collection Backpressure V1
+added TD-064 (no append-only review decision ledger). Unknown-Event
+Discovery + Query Coverage V3 (2026-08-23) originally drafted TD-062
+through TD-065, then TD-064 through TD-067 after the first real collision
+(Claim Testing V2's own TD-062/TD-063 full entries), then renumbered a
+second time to TD-065 through TD-068 after discovering Review Capacity +
+Collection Backpressure V1 had concurrently landed its own TD-064.
 
 | ID | Area | Finding / resolution | Severity | Status | Regression test |
 |---|---|---|---|---|---|
@@ -820,10 +826,10 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Severity** | Low |
 | **Area** | data access |
 | **Date discovered** | 2026-08-21 |
-| **Evidence** | Live-tested: `healthycanadians.gc.ca/recall-alert-rappel-avis/api/recent/food` is a real, keyless, working JSON endpoint, but only returns a fixed recent-window list (no working keyword/product search endpoint was found within this mission's bounded research time -- a `/api/search/food` guess returned an empty 200). BM-R-09 (Whole Foods organic frozen blackberries recalled, CFIA) remains uncaptured as a direct result. |
-| **Impact** | Canadian food-safety recalls remain a real, undemonstrated gap; US recalls (openFDA) are covered. |
-| **Workaround** | None -- audited, not implemented, per the mission's own "high-value public sources only if accessible" instruction. |
-| **Recommended resolution** | A future mission could investigate CFIA's real search capability further (its web UI clearly supports search; the underlying API for that UI was not found this mission) or accept the recent-window-only endpoint with recurring polling as a partial substitute. |
+| **Evidence** | Live-tested: `healthycanadians.gc.ca/recall-alert-rappel-avis/api/recent/food` is a real, keyless, working JSON endpoint, but only returns a fixed recent-window list (no working keyword/product search endpoint was found within this mission's bounded research time -- a `/api/search/food` guess returned an empty 200). BM-R-09 (Whole Foods organic frozen blackberries recalled, CFIA) remains uncaptured as a direct result. **Re-tested live, Unknown-Event Discovery + Query Coverage V3 (2026-08-23)**: the same "recent" endpoint now returns entries with `date_published: 1635465600` (2021-10-29) as its most recent items -- either stale/cached test data or a genuinely broken "recent" feed, not real current recalls. This is a *worse* finding than the original audit: even the fallback recent-window mechanism cannot be trusted for a "recent" claim, not just "no search capability." |
+| **Impact** | Canadian food-safety recalls remain a real, undemonstrated gap; US recalls (openFDA) are covered. Integrating the recent-window endpoint as-is would create untrustworthy "recent" drafts dated years stale. |
+| **Workaround** | None -- audited, not implemented, per the mission's own "high-value public sources only if accessible" instruction. Deliberately not integrated this round either, given the stale-data finding. |
+| **Recommended resolution** | A future mission could investigate CFIA's real search capability further (its web UI clearly supports search; the underlying API for that UI was not found this mission) and separately re-verify whether the recent-window endpoint's staleness is transient (a bad response at time of testing) or structural before ever using it as a data source. |
 | **Status** | active |
 | **Owner lane** | data |
 | **PR/SHA when resolved** | — |
@@ -1020,5 +1026,69 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Owner lane** | platform / analyst operations |
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_review_capacity.py::test_unreviewed_backlog_never_becomes_fabricated_yield`, `tests/test_review_capacity.py::test_only_real_recorded_actions_are_observed` |
+
+### TD-065 — A real, well-matched source can sit fully configured and never be run
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | collection / operational |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | `source-20260819-international-blueberry-organization` (a real, live-verified article_rss feed) was onboarded 2026-08-19, its own `why_it_matters` text explicitly names "import-duty policy across Chile/Peru/Morocco" -- directly matching BM-T-06 ("Chile/Peru/Morocco growers respond to US import duties"). `last_checked_at` was `null`. Unknown-Event Discovery + Query Coverage V3 (2026-08-23) ran `discover_media.py` against it for the first time, four days after onboarding, and found 10 items including the exact real BM-T-06 article ("Faced with steep US import duties, growers in Chile, Peru and Morocco prepare a response," 2026-08-14), which correctly became a `direct` draft on the very first real run. |
+| **Impact** | A source can be correctly researched, correctly configured, and still contribute zero real recall until something actually invokes discovery against it -- onboarding is necessary but not sufficient. An unknown number of the platform's other configured-but-`last_checked_at: null` sources may carry similar unrealized recall. |
+| **Workaround** | None systemic. This mission's own real fix was simply running `discover_media.py` against the one source it happened to inspect. |
+| **Recommended resolution** | A cheap, generic operator report (`scripts/collection_status.py` or a new flag) listing sources with `last_checked_at: null` alongside their age since `created_at` would surface this class of gap without a new collector/scheduling mechanism -- explicitly out of this mission's own "do not refactor collection orchestration" scope, left for Codex's review-capacity/operational-backpressure lane to consider. |
+| **Status** | active |
+| **Owner lane** | collection/runtime |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | — |
+
+### TD-066 — SEC EDGAR filing documents are not extractable, so relevance rests entirely on human review
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | discovery / article acquisition |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | SEC filing exhibits are served as raw SGML-wrapped documents (`<DOCUMENT><TYPE>...<TEXT>`), not a normal web page shape -- live-verified `fetch_article()` returns `empty_body` for every real Mission Produce 8-K exhibit tried. `always_body_check` + the `TIER_UNCERTAIN` fallback (TD-058/059) correctly create an untrusted, explicitly-labeled draft rather than dropping the item, but Stage B can never confirm relevance for this source class -- every SEC-sourced draft stays `uncertain` until a human opens the real, working `canonical_url` by hand. This mission manually confirmed one real match (BM-C-07: the 2026-03-12 filing's own text discusses "pre-production land development and blueberry plant cultivation in Peru" as a real capital-expenditure line item) by reading the raw document directly -- the system itself cannot make this confirmation algorithmically. |
+| **Impact** | Real, valuable, primary-source signal (Corporate-class investment/expansion disclosure) that structurally cannot self-verify -- entirely dependent on human review economics (TD-056) to realize its value. A one-time historical backfill created 32 `uncertain` drafts (7+ years of quarterly filings for one company); ongoing cadence (weekly) will add only ~4-6 new filings per year per tracked company. |
+| **Workaround** | None for automated verification. The constructed `canonical_url` (`sec.gov/Archives/edgar/data/{cik}/{accession}/{filename}`) is always real and directly openable by a human reviewer. |
+| **Recommended resolution** | If SEC EDGAR coverage expands to more tracked companies, consider a dedicated lightweight SGML-to-text extractor scoped to this one document shape (not a general trafilatura fix) before adding more CIKs, to avoid growing the `uncertain` backlog faster than review capacity absorbs it. |
+| **Status** | active |
+| **Owner lane** | collection/runtime |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_sec_edgar_adapter.py`; `tests/test_article_refresh.py::test_always_body_check_source_zero_signal_item_becomes_uncertain_draft_when_body_unverifiable` |
+
+### TD-067 — A newly-onboarded live RSS feed cannot retroactively reach a historical benchmark event
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | discovery / architecture (structural limitation, not a bug) |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | FreshPlaza's and Fruitnet's real, live-verified RSS feeds (`source-freshplaza-global`, `source-fruitnet-produce-plus`) return only their own current, recent item window at the moment of first poll (all 69 real FreshPlaza items discovered this mission share one single publication date, 2026-08-21) -- unlike Google News search (which has real historical reach) or SEC EDGAR's full-text search (which returns years of history), a plain publisher RSS feed is not an archive. Two real, confirmed benchmark events (BM-C-09 "The Summer Berry Company begins year-round British strawberry production," BM-G-02 "Plant Sciences Genetics expands global berry breeding with new raspberry varieties") were found by hand to have Fruitnet as their real, live, working publisher URL -- but neither is reachable through the newly-onboarded Fruitnet source, since both predate this mission's first poll and Fruitnet's feed does not expose them. |
+| **Impact** | Onboarding a source-first, authoritative publisher feed (per this mission's own Section 5 guidance) is real and valuable for *future* unknown-event discovery, but must not be assumed to retroactively close a historical benchmark gap merely because the publisher is now monitored. Reported honestly: BM-C-09 and BM-G-02 remain MISSED this mission despite their real source now being live-monitored. |
+| **Workaround** | None generic. A one-off `news_search_rss` query could reach either specific historical article, but adding one per already-known headline is exactly the "19 headline queries" anti-pattern this mission's own Section 2 instruction rules out. |
+| **Recommended resolution** | None needed -- this is the correct, honest behavior of a live feed, not a defect. Worth remembering when evaluating a future mission's own "did recall improve" claims: a live source's real contribution is measured going forward, not by re-checking old benchmark misses against it. |
+| **Status** | limitation (structural, not a bug) |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | — |
+
+### TD-068 — Real cross-publisher syndication produces a duplicate this project's dedup discipline correctly does not collapse
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data quality / dedup |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | The identical real story ("USHBC President on Mexico's role in the North American blueberry industry...", 2026-08-04) was independently, legitimately published on both Fresh Fruit Portal (`freshfruitportal.com`, an already-onboarded source) and syndicated/re-published on IBO's own site (`internationalblueberry.org`, newly onboarded this mission) -- two real, different canonical URLs, two real, different explicit publisher identities. Codex's `_publisher_identity()` dedup check (TD-046) deliberately requires matching publisher name/host and does not, and should not, collapse two genuinely different real publishers' independent (even if textually identical) coverage -- this is not the Google-News-redirect-vs-direct-feed case that check targets. |
+| **Impact** | A human reviewer sees two real drafts for the same underlying event from two real sources -- correct, conservative behavior (never fuzzy-merge across different real publishers per this project's own "deterministic identity only" rule), but adds one extra item to the review queue for this specific case. |
+| **Workaround** | A reviewer approves one and rejects/dismisses the other -- ordinary duplicate-coverage handling, no different from any other real multi-source story. |
+| **Recommended resolution** | None -- correct behavior, not a defect. Retained here for institutional memory the next time a real IBO/Fresh-Fruit-Portal (or similar trade-press syndication relationship) collision is found, so it isn't mistaken for a new dedup bug. |
+| **Status** | limitation (correct behavior, not a bug) |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | — |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
