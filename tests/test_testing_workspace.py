@@ -199,5 +199,8 @@ def test_static_testing_page_hides_disposition(monkeypatch, tmp_path: Path) -> N
     dumped = json.dumps(model)
     assert "private-analyst" not in dumped
     assert model["testing_groups"][0]["key"] == "tagged"
+    assert "private" in model["testing_groups"][0]["blurb"].casefold() or "Pass/Fail" in model["testing_groups"][0]["blurb"]
+    assert "built-in method" not in model["testing_groups"][0]["blurb"]
+    assert model["testing_counts"]["tagged"] == 1
     assert model["items"][0]["workflow_label"] == "Tagged evidence"
     assert not model["items"][0]["reviewer"]

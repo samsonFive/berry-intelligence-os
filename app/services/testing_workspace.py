@@ -335,18 +335,18 @@ def testing_page_model(
 
     filtered = [item for item in presented if matches(item)]
     counts = {key: 0 for key in GROUP_ORDER}
-    counts["tagged"] = len(presented)
     for item in presented:
         key = str(item.get("workflow_state") or "")
-        if key in counts:
+        if key in GROUP_ORDER:
             counts[key] += 1
+    counts["tagged"] = len(presented)
     groups = []
     if static_build:
         groups.append(
             {
                 "key": "tagged",
                 "label": "Tagged for verification",
-                "copy": (
+                "blurb": (
                     "Public snapshot of published Evidence tagged for verification. "
                     "Analyst Pass/Fail/Defer is private runtime state and is not shown here."
                 ),
@@ -365,7 +365,7 @@ def testing_page_model(
                 {
                     "key": key,
                     "label": TESTING_LABELS[key],
-                    "copy": GROUP_COPY[key],
+                    "blurb": GROUP_COPY[key],
                     "count": len(entries),
                     "entries": entries,
                 }

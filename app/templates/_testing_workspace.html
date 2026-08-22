@@ -96,7 +96,7 @@
 {% for group in testing_groups %}
   <section class="brief-section v2-testing-section" id="testing-{{ group.key }}">
     <h2>{{ group.label }} ({{ group.count }})</h2>
-    <p class="context-limit">{{ group.copy }}</p>
+    <p class="context-limit">{{ group.blurb }}</p>
     {% if group.entries %}
       <div class="v2-claim-list">
         {% for item in group.entries %}
