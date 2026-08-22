@@ -37,10 +37,19 @@ _NON_ALNUM_RE = re.compile(r"[^a-z0-9]+")
 
 
 def normalize_canonical_url(url: str | None) -> str:
-    """Scheme/host lowercased, no query string or fragment, no trailing
-    slash -- deliberately not stripping path segments, since two
-    different articles on the same site legitimately have different
-    paths."""
+    """Scheme/host lowercased, no fragment, no trailing slash --
+    deliberately not stripping path segments OR the query string, since
+    two different articles on the same site legitimately have different
+    paths, and (found live, Global Qualitative Coverage Expansion V1,
+    2026-08-21) a REST API search endpoint's query string can be the
+    *only* thing that identifies a distinct record -- e.g. every openFDA
+    recall this project acquires shares the identical path
+    (api.fda.gov/food/enforcement.json) and differs only by its
+    ?search=recall_number:... query string. Dropping the query string
+    unconditionally collapsed every real, distinct FDA recall onto the
+    same 'existing draft' the first time this ran (see TD-040) -- keeping
+    it is strictly more conservative (fewer false-positive duplicate
+    collapses) and no existing test relied on query-string stripping."""
     if not url:
         return ""
     parts = urlsplit(url.strip())
@@ -48,7 +57,8 @@ def normalize_canonical_url(url: str | None) -> str:
     if host.startswith("www."):
         host = host[4:]
     path = parts.path.rstrip("/")
-    return f"{host}{path}".casefold()
+    query = f"?{parts.query}" if parts.query else ""
+    return f"{host}{path}{query}".casefold()
 
 
 def normalize_title(title: str | None) -> str:
