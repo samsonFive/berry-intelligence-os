@@ -75,6 +75,7 @@ from app.services.analyst_queue import (
     signal_alert_state,
     work_counts,
 )
+from app.services.commercial_positions import commercial_page_model
 from app.services.testing_workspace import enrich_testing_item, related_indexes, testing_page_model
 from app.services.draft_attribution import attribute_draft, draft_matches_entity
 from app.services.review_workbench import (
@@ -2891,6 +2892,26 @@ def priority_queue(
             },
         )
         page = {**page, **testing_workspace}
+    position_workspace: dict[str, Any] = {}
+    if dimension == "commercial_position":
+        repos = get_repositories(DATA_DIR, SCHEMAS_DIR)
+        position_workspace = commercial_page_model(
+            records=all_items,
+            inbox_dir=INBOX_DIR,
+            entities=entities,
+            berry_labels=BERRIES,
+            facts=repos.facts.list(),
+            signals=all_signals(),
+            assessments=repos.assessments.list(),
+            static_build=False,
+            filters={
+                "berry": berry or "",
+                "company": company or "",
+                "variety": variety or "",
+                "geography": geography or "",
+            },
+        )
+        page = {**page, **position_workspace}
     return templates.TemplateResponse(
         request=request,
         name="queue.html",
@@ -2909,6 +2930,7 @@ def priority_queue(
             "return_to": f"/queues/{dimension}",
             **monitor,
             **testing_workspace,
+            **position_workspace,
         },
     )
 

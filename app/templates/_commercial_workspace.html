@@ -1,0 +1,87 @@
+<p class="brief-window">{{ position_limitation }}</p>
+
+<ul class="brief-delta-strip" aria-label="Commercial position inventory">
+  <li><span><span>Tagged published evidence</span><strong>{{ position_counts.tagged }}</strong></span></li>
+  <li><span><span>Company groups</span><strong>{{ position_counts.companies }}</strong></span></li>
+  {% for row in position_berry_counts %}
+    <li><span><span>{{ row.name }}</span><strong>{{ row.count }}</strong></span></li>
+  {% endfor %}
+</ul>
+{% if position_counts.blackberry == 0 %}
+  <p class="context-limit">No tagged commercial-position Evidence currently cites blackberry. That gap is shown, not filled.</p>
+{% endif %}
+
+{% if not static_build and position_filter_options %}
+<form class="filters v2-filterbar" action="/queues/commercial_position" method="get" aria-label="Filter commercial positions">
+  {% if position_filter_options.berries %}
+    <div class="filter-field">
+      <label for="filter-pos-berry">Berry</label>
+      <select id="filter-pos-berry" name="berry">
+        <option value="">All berries</option>
+        {% for row in position_filter_options.berries %}
+          <option value="{{ row.id }}" {% if position_filters.berry == row.id %}selected{% endif %}>{{ row.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  {% endif %}
+  {% if position_filter_options.companies %}
+    <div class="filter-field">
+      <label for="filter-pos-company">Company</label>
+      <select id="filter-pos-company" name="company">
+        <option value="">All companies</option>
+        {% for row in position_filter_options.companies %}
+          <option value="{{ row.id }}" {% if position_filters.company == row.id %}selected{% endif %}>{{ row.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  {% endif %}
+  {% if position_filter_options.varieties %}
+    <div class="filter-field">
+      <label for="filter-pos-variety">Variety</label>
+      <select id="filter-pos-variety" name="variety">
+        <option value="">All varieties</option>
+        {% for row in position_filter_options.varieties %}
+          <option value="{{ row.id }}" {% if position_filters.variety == row.id %}selected{% endif %}>{{ row.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  {% endif %}
+  {% if position_filter_options.geographies %}
+    <div class="filter-field">
+      <label for="filter-pos-geo">Geography</label>
+      <select id="filter-pos-geo" name="geography">
+        <option value="">All geographies</option>
+        {% for row in position_filter_options.geographies %}
+          <option value="{{ row.id }}" {% if position_filters.geography == row.id %}selected{% endif %}>{{ row.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  {% endif %}
+  <div class="filter-actions">
+    <button type="submit">Apply filter</button>
+    <a href="/queues/commercial_position">Reset</a>
+  </div>
+</form>
+{% endif %}
+
+{% for group in position_groups %}
+  <section class="brief-section v2-testing-section" id="position-{{ group.id }}">
+    <h2>
+      {% if group.href %}<a href="{{ group.href }}">{{ group.name }}</a>{% else %}{{ group.name }}{% endif %}
+      ({{ group.entries|length }})
+    </h2>
+    <p class="context-limit">
+      Tagged evidence grouped for scanning. This grouping is not a Position object.
+      {% if group.blackberry_present %}Blackberry is present on stored tags; coverage may still be thin.{% endif %}
+    </p>
+    <div class="v2-claim-list">
+      {% for item in group.entries %}
+        {% include "_position_card.html" %}
+      {% endfor %}
+    </div>
+  </section>
+{% endfor %}
+
+{% if not position_groups %}
+  <p class="empty-state">No evidence is tagged for commercial-position thinking.{% if position_filters.berry or position_filters.company or position_filters.variety or position_filters.geography %} Try resetting the filter.{% endif %}</p>
+{% endif %}

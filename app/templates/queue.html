@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block title %}{{ label }} — Berry Intelligence OS{% endblock %}
 {% block content %}
-<div class="{% if dimension in ('reading', 'monitoring', 'testing') %}v2-page{% endif %}">
-<section class="page-heading{% if dimension in ('reading', 'monitoring', 'testing') %} v2-page-header{% endif %}">
+<div class="{% if dimension in ('reading', 'monitoring', 'testing', 'commercial_position') %}v2-page{% endif %}">
+<section class="page-heading{% if dimension in ('reading', 'monitoring', 'testing', 'commercial_position') %} v2-page-header{% endif %}">
   <div>
     <p class="eyebrow">{{ eyebrow }}</p>
     <h1>{{ label }}</h1>
@@ -23,7 +23,7 @@
   {% endif %}
 </section>
 
-{% if not static_build and dimension != 'testing' %}
+{% if not static_build and dimension not in ('testing', 'commercial_position') %}
 <form class="filters" action="/queues/{{ dimension }}" method="get" aria-label="Filter {{ label }}">
   <div class="filter-field">
     <label for="filter-region">Region</label>
@@ -76,6 +76,8 @@
   {% include "_monitor_workspace.html" %}
 {% elif dimension == 'testing' %}
   {% include "_testing_workspace.html" %}
+{% elif dimension == 'commercial_position' %}
+  {% include "_commercial_workspace.html" %}
 {% elif dimension == 'reading' and reading_buckets and not show_completed %}
   {% if authoring_mode and not static_build %}
     <form class="queue-bulk" action="/queues/reading/bulk-read" method="post">

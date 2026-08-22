@@ -1171,4 +1171,36 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | — |
 
+### TD-074 — Commercial Positions V2 is tagged Evidence, not a Position object store
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | product / domain model |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | `/queues/commercial_position` still selects published Evidence with `priority.commercial_position.level != none`. Company grouping and linked Facts/Signals/Assessments are a view. There is no first-class Position record, no competitive score, and tag priority is not truth confidence. |
+| **Impact** | Analysts can scan commercial-position thinking without a durable Position identity, merge, or lifecycle. Future Landscape “who we think we are vs them” work still cannot hang off this inventory as if it were a Position schema. |
+| **Workaround** | Treat the page as tagged Evidence plus Recommendation proposals. Do not infer rankings from tag priority. |
+| **Recommended resolution** | A later, explicitly scoped Position-object mission. Do not add a schema in a UI-only change. |
+| **Status** | limitation |
+| **Owner lane** | product |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_commercial_positions.py` |
+
+### TD-075 — Commercial Positions V2 warm route is ~2.7s / ~354 KB locally
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | product / performance |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | Warm `GET /queues/commercial_position` measured **2.701s / 354051 bytes**, then **1.733s / 354051 bytes** on a later warm hit. This is a latency/payload characteristic of the tagged-evidence workspace, not a trust or correctness defect. |
+| **Impact** | Analyst wait is noticeable on a full local corpus. |
+| **Workaround** | None required for landing. |
+| **Recommended resolution** | If this becomes operator-painful, a later performance mission. Do not rewrite this surface in the same change. |
+| **Status** | limitation |
+| **Owner lane** | product |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_commercial_positions.py::test_commercial_positions_does_not_run_forbidden_work` |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
