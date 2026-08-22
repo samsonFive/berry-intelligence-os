@@ -2,7 +2,7 @@
 
 *Maintained by Claude. Updated at the end of each work session that changes project state. Keep short — this is a status check, not a changelog (see `docs/reviews/CURRENT-STATE-AUDIT.md` and `docs/v2/` for detail).*
 
-**Last updated:** 2026-08-22, Commercial Positions V2 rebased onto `78a2e29`
+**Last updated:** 2026-08-22, Commercial Positions V2 canonical; Canonical Data Promotion / Runtime Sync V1 implemented, production proof pending
 
 **Governing roadmap for the post-foundation expansion phase:** `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`, adopted 2026-08-20 — read it before proposing new acquisition, domain-depth, variety, alternative-data, or UI V2 work. Its companions, both live and required reading alongside it: `docs/v2/TECHNICAL-DEBT-REGISTER.md` (every known unresolved bug/limitation, by lane) and `docs/v2/INTELLIGENCE-COVERAGE-MATRIX.md` (the live berry × source-class × geography coverage map).
 
@@ -13,6 +13,8 @@ Intelligence OS V2
 
 **Current stage:**
 Phase 2 implementation complete (acceptance-reviewed). Production remains JSON-backed. Discovery, media transcription, publication-artifact orchestration, atomic Evidence proposal, article ingestion, and freshness/dedup layers are integrated on `v2/intelligence-os`; both human review gates remain mandatory. A real demo instance is deployed at `https://intel.johnnyaceii.com` (IONOS VPS, Docker/Caddy, application session login per PR #13). V2 AppShell is approved. Pending Review (`/pending`), Reading Queue, Assessments, Monitor (Watches, Alerts, Source Health), Variety Intelligence (`/entities/variety`), Global Intelligence Search (`/search`, `#v2SearchOffcanvas`), **Claim Testing** (`/queues/testing`), and **Commercial Positions** (`/queues/commercial_position`) are migrated; Landscape / Sources inventory-config admin / system/admin stay unmigrated.
+
+Canonical Data Promotion / Runtime Sync V1 adds an explicit, verified-backup-gated three-way promotion contract for existing trusted JSON records. Container startup remains additive for new files and Source IDs, authoritative only for the pipeline registry, and never overwrites a differing existing trusted record. Semantic JSON hashes eliminate CRLF/LF false conflicts; runtime divergence and two-sided conflicts fail closed with path/ID and canonical/baseline/runtime hashes. Historical reconstruction of the 275-record Evidence berry-tagging repair classified exactly 275 safe updates, 991 unchanged, and zero genuine divergences/conflicts. Runtime-only trusted records, collection state, review events, analyst queues, scheduler state, and all other inbox artifacts remain protected. Full contract: `docs/v2/CANONICAL-DATA-PROMOTION-RUNTIME-SYNC-V1.md`; production proof pending.
 
 Collection Runtime + Data Integrity V1 hardening is canonical via PR #70.
 Production Collection Operations V1 adds one registry-driven production
