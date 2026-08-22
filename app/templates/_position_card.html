@@ -1,0 +1,68 @@
+<article class="v2-card v2-claim-card" data-intel-card data-item-id="{{ item.id }}" id="position-{{ item.id }}">
+  <p class="v2-card-kicker">
+    <span class="v2-mark">Tagged evidence</span>
+    <span class="v2-meta">tag priority {{ item.tag_priority }}</span>
+    {% if item.has_testing_tag and not static_build %}<span class="v2-mark">Also in Claim Testing</span>{% endif %}
+  </p>
+  <h3 class="v2-card-title">
+    <a href="{{ item.reader_href }}">{{ item.title }}</a>
+  </h3>
+  {% if item.position_rationale %}
+    <p class="v2-card-summary"><span class="v2-meta">Stored rationale</span> {{ item.position_rationale }}</p>
+  {% endif %}
+  <div class="v2-card-chips">
+    {% for chip in item.berries %}<span class="v2-chip v2-chip-berry">{{ chip.name }}</span>{% endfor %}
+    {% for chip in item.companies %}
+      {% if chip.href %}<a class="v2-chip" href="{{ chip.href }}">{{ chip.name }}</a>{% else %}<span class="v2-chip">{{ chip.name }}</span>{% endif %}
+    {% endfor %}
+    {% for chip in item.varieties %}
+      {% if chip.href %}<a class="v2-chip" href="{{ chip.href }}">{{ chip.name }}</a>{% else %}<span class="v2-chip">{{ chip.name }}</span>{% endif %}
+    {% endfor %}
+    {% for chip in item.geographies %}
+      {% if chip.href %}<a class="v2-chip" href="{{ chip.href }}">{{ chip.name }}</a>{% else %}<span class="v2-chip">{{ chip.name }}</span>{% endif %}
+    {% endfor %}
+  </div>
+  <p class="v2-card-line"><span class="v2-meta">Supporting evidence</span> <a href="{{ item.evidence_href }}">{{ item.title }}</a> · {{ item.date|us_date }}</p>
+  {% if item.facts %}
+    <p class="v2-card-line"><span class="v2-meta">Facts</span>
+      {% for fact in item.facts %}
+        <a href="{{ fact.href }}">{{ fact.statement }}</a>{% if fact.classification == 'claim' %} (claim, not verified Fact){% endif %}{% if not loop.last %}; {% endif %}
+      {% endfor %}
+    </p>
+  {% endif %}
+  {% if item.signals %}
+    <p class="v2-card-line"><span class="v2-meta">Signals</span>
+      {% for signal in item.signals %}
+        <a href="{{ signal.href }}">{{ signal.title }}</a> ({{ signal.status }}){% if not loop.last %}; {% endif %}
+      {% endfor %}
+    </p>
+  {% endif %}
+  {% if item.assessments %}
+    <p class="v2-card-line"><span class="v2-meta">Assessments</span>
+      {% for assessment in item.assessments %}
+        <a href="{{ assessment.href }}">{{ assessment.title }}</a>
+        {% if assessment.confidence %} · analyst confidence {{ assessment.confidence }}{% endif %}
+        {% if assessment.would_change_our_view %} · would change our view: {{ assessment.would_change_our_view }}{% endif %}
+        {% if not loop.last %}; {% endif %}
+      {% endfor %}
+    </p>
+  {% endif %}
+  {% if item.commercial_observation %}
+    <p class="v2-card-line"><span class="v2-meta">Commercial observation</span> Context from a stored listing, not a conclusion.</p>
+  {% endif %}
+  {% if item.trade_observation %}
+    <p class="v2-card-line"><span class="v2-meta">Trade observation</span> Context
+      {% if item.berry_code_purity %} · berry_code_purity {{ item.berry_code_purity }}{% endif %}
+    </p>
+  {% endif %}
+  {% if item.does_not_prove %}
+    <p class="v2-card-line"><span class="v2-meta">Does not prove</span> {{ item.does_not_prove|join('; ') }}</p>
+  {% endif %}
+  <p class="v2-card-actions">
+    <a class="action-button" href="{{ item.reader_href }}" data-open-reader data-item-id="{{ item.id }}">Open</a>
+    {% if item.has_testing_tag and not static_build %}<a class="action-button" href="{{ item.testing_href }}">Claim Testing</a>{% endif %}
+    {% for chip in item.companies[:1] %}
+      {% if chip.search_href %}<a class="action-button" href="{{ chip.search_href }}">Search</a>{% endif %}
+    {% endfor %}
+  </p>
+</article>

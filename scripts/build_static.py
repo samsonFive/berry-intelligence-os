@@ -430,6 +430,7 @@ def build() -> list[Path]:
 
     # Priority-tagged intelligence views (reading/testing/watches/positions).
     from app.services.analyst_queue import build_dimension_page
+    from app.services.commercial_positions import commercial_page_model
     from app.services.testing_workspace import testing_page_model
     from app.services.monitor_workspace import monitor_page_model
 
@@ -473,6 +474,19 @@ def build() -> list[Path]:
                 static_build=True,
             )
             page = {**page, **testing_extra}
+        position_extra: dict = {}
+        if dimension == "commercial_position":
+            position_extra = commercial_page_model(
+                records=queue_items(dimension),
+                inbox_dir=None,
+                entities=entities,
+                berry_labels=BERRIES,
+                facts=all_facts(),
+                signals=all_signals(),
+                assessments=all_assessments(),
+                static_build=True,
+            )
+            page = {**page, **position_extra}
         written.append(
             write_page(
                 "queue.html",
@@ -491,6 +505,7 @@ def build() -> list[Path]:
                     "return_to": "",
                     **monitor,
                     **testing_extra,
+                    **position_extra,
                 },
             )
         )
