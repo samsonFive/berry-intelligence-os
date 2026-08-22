@@ -69,7 +69,7 @@ The platform should no longer treat “support all four berries” as the ultima
 
 ## 4. Expansion Program Overview
 
-The next phase is organized into ten workstreams.
+The next phase is organized into eleven workstreams.
 
 ### Workstream A — Intelligence Recall Benchmark
 
@@ -110,6 +110,10 @@ Complete the approved application-style shell and then migrate the full product 
 ### Workstream J — Technical Debt & Reliability
 
 Run continuously in parallel with every workstream. Technical debt is now a first-class roadmap item, not cleanup to defer indefinitely.
+
+### Workstream K — Learner Mode / Agronomy, Technology & Consumer Science
+
+Add a connected but semantically distinct explanatory-knowledge layer — plant biology, production systems, pest/disease management, harvest technology, and flavor/consumer science across all four berries — anchored to the same Berry and Variety records the rest of the OS already uses. Full requirement: `docs/v2/feature-requests/LEARNER-MODE.md`. Requirements/governance only as of 2026-08-22; no implementation has started. (Note: the originating feature request named this "Workstream I" — that letter is already assigned to UI V2 above, so this workstream is K, the next free letter, to avoid renumbering an established reference. Full detail in section 12a below.)
 
 ---
 
@@ -550,6 +554,69 @@ This is the desired end state of the competitive landscape, rather than four iso
 
 ---
 
+## 12a. Workstream K — Learner Mode / Agronomy, Technology & Consumer Science
+
+Full requirement, citations, and product design detail: `docs/v2/feature-requests/LEARNER-MODE.md`. This section is a durable summary and pointer, not a replacement — read the feature request itself before implementing any part of this workstream. Formalized 2026-08-22 as requirements/governance only; no implementation has started.
+
+### Why this workstream exists, and how it differs from Competitive Intelligence
+
+Every other workstream in this guide (A through J) answers Competitive Intelligence's question: **"What is changing, who is doing it, and what does it imply?"** Learner Mode answers a different question: **"How does the crop work, why do production decisions matter, and why do consumers prefer what they prefer?"**
+
+Learner Mode is connected to, but semantically distinct from, Competitive Intelligence. It is a parallel, toggleable explanatory layer anchored to the same Berry and Variety entities the rest of the OS already uses — not a second app, not a duplicate entity model, and not a trust shortcut into Signals or Assessments (see Core Rules below).
+
+### The five pillars
+
+1. **Plant Biology & Agronomy** — root/cane/crown anatomy, primocane vs. floricane, chill requirements, soil/pH chemistry, per berry.
+2. **Pest, Disease & Cross-Cutting Process** — IPM, biological controls, regional pest/disease guides, protected-culture/substrate systems.
+3. **Harvest Technology & AgTech** — robotic harvesting, machine vision, sensing; an explicitly fast-moving research area requiring ongoing monitoring, not a static reference.
+4. **Taste & Consumer Science** — Brix/acidity, VOC profiles, aroma chemotypes, texture, consumer sensory panels. This is its own pillar, not a generic trait section folded into Plant Biology — it is the specific bridge connecting a variety's breeding decisions to why consumers actually prefer it, closing the loop back into market/competitive data.
+5. **Visual Content Sourcing** — diagrams (extension-sourced, mechanism-teaching), photography (reality-grounding), and video (process/motion-dependent), each carrying real source/license/attribution requirements. Visual content is not decorative; it is subject to the same source-provenance discipline as text content.
+
+### Knowledge classes (the operating distinction Learner Mode requires)
+
+Unlike Competitive Intelligence's single Evidence trust model, Learner Mode content spans four classes with materially different stability and review needs:
+
+- **Foundational knowledge** (relatively stable) — crop biology, root/cane/crown anatomy, primocane/floricane, dormancy/chill concepts, basic flavor chemistry concepts. Slow review cadence.
+- **Regional production practice** (must carry geography/production-system context) — spacing, pruning, trellis, fertility, irrigation, frost protection, plasticulture, substrates, harvest practice. Never universalized across geographies.
+- **Current technical guidance** (needs freshness/review) — IPM, pesticide recommendations, disease management, biological controls, robotics, sensing, emerging production technology.
+- **Consumer/sensory observations** (dated research outputs) — Brix/acidity, VOC profiles, aroma chemotypes, texture, sensory panels, consumer-preference studies. Retain date/event context; track as a trended data point, not a single static fact.
+
+### Core rules
+
+- Learner Mode reuses existing Berry / Variety / Geography / Source / Evidence objects. Do not create duplicate Berry or Variety records for Learner Mode.
+- Learner knowledge is not automatically Competitive Evidence or a Signal. Learner content may explain why a Signal matters but must not automatically increase Signal confidence.
+- Every substantive technical claim retains provenance. Regional production guidance must not be universalized. Variety-specific agronomic claims require variety-specific evidence.
+- Marketing flavor claims (e.g. "extra sweet," "intensely aromatic") remain distinct from measured chemistry/sensory evidence — a claim is not substantiated merely because it appears in a press release.
+- Consumer-panel results retain date/event context (e.g. the CNR-IBE Macfrut sensory study is a dated, recurring event, not a timeless fact).
+- Time-sensitive guidance requires review/freshness semantics; core plant biology can have a much slower review cadence (see knowledge classes above).
+- Visual assets require source/license/attribution metadata. Do not copy third-party visual assets unless the license explicitly permits it.
+- The OS-wide glossary should eventually support terms such as primocane, floricane, plasticulture, chill hours, IPM, Brix, VOC, and aroma chemotype.
+- "Explain this" links should eventually connect Competitive Intelligence surfaces into the relevant Learner Mode topic.
+
+### Roadmap boundary: Learner Mode vs. Variety Intelligence vs. Weather Intelligence
+
+These three are easily conflated and must stay distinct:
+
+- **Variety Intelligence** (Workstream C, `docs/v2/VARIETY-INTELLIGENCE-BACKBONE.md`) = competitive identity, rights, market footprint, commercial observations. It answers "who owns/sells/observes this variety."
+- **Weather Intelligence** (Workstream G, `docs/v2/WEATHER-CLIMATE-CONTEXT-V1.md`) = quantitative environmental observation/context. It answers "what were the real measured conditions in this production region."
+- **Learner Mode agronomy** (this workstream) = explanatory knowledge of *why* weather/conditions matter biologically, and *why* production decisions are made the way they are. It answers "why does a frost event threaten this crop at this growth stage" — the biological reasoning Weather Intelligence's own quantitative readings do not attempt to supply.
+
+Do not merge these three into one concept. A future Variety detail page may link out to a Learner Mode Growing Profile; Weather's own production-region weather readings may someday be cited by a Learner Mode agronomy explanation of frost risk; but the entity models, trust semantics, and update cadences of all three stay separate.
+
+Two further boundaries worth stating explicitly, since they are easy to conflate in practice: **trait architecture** (the existing generic trait-entity mechanism used by Variety Intelligence, e.g. `trait-fruiting-habit`, `trait-flowering-habit`) is a Variety-scoped, evidence-linked competitive attribute, not a Learner Mode content object — a future Learner Mode agronomy page may *reference* an existing trait entity by name (e.g. explaining what "primocane fruiting habit" means biologically) without creating a parallel trait system. **Commercial Observations** (`commercial_observation`, Variety Intelligence Backbone) record a specific retail listing at a point in time and are unrelated to Learner Mode's Taste & Consumer Science pillar, which records sensory-panel/VOC research findings, not retail listings — a variety's page may show both side by side without either one substituting for the other. Source monitoring for Learner Mode (university extension guides, peer-reviewed journals, trade-fair sensory panels) would be a new, distinct source class from every existing Competitive Intelligence source class, when a future mission builds it — not a repurposing of existing trade-press/regulatory sources. Landscape (currently unmigrated, see AGENTS.md) is out of scope for this workstream entirely; no future Learner Mode mission redesigns Landscape.
+
+### Initial build sequence (roadmap only — do not execute)
+
+- **Phase K.1** — Learner Mode architecture + agronomy/source audit.
+- **Phase K.2** — Blueberry + Raspberry knowledge pilot. Blueberry stresses woody-perennial/root/pH/chill concepts; raspberry stresses cane biology/trellis/primocane-floricane concepts — the two together cover the broadest foundational-knowledge surface with the fewest crops.
+- **Phase K.3** — Glossary + "Explain this" integration.
+- **Phase K.4** — Strawberry + Blackberry expansion.
+- **Phase K.5** — Ongoing Emerging Technology / Sensory Research monitoring (Pillars 3 and 4 are explicitly not static reference material).
+
+This sequence is a plan, not an authorization — no phase begins until a future mission is explicitly scoped to build it.
+
+---
+
 # PART II — TECHNICAL DEBT & PLATFORM HEALTH
 
 ## 13. Technical Debt Is Now a First-Class Workstream
@@ -821,6 +888,11 @@ At minimum track capability maturity:
 | Customs/trade data | | | | | |
 | Weather/climate | | | | | |
 | Satellite | | | | | |
+| Agronomy knowledge (Learner Mode) | | | | | |
+| Pest/IPM knowledge (Learner Mode) | | | | | |
+| Harvest/AgTech knowledge (Learner Mode) | | | | | |
+| Taste/consumer science (Learner Mode) | | | | | |
+| Licensed visual learning (Learner Mode) | | | | | |
 
 Status vocabulary:
 
@@ -1052,6 +1124,7 @@ Non-negotiable:
 - Reprints are not independent corroboration.
 - Patent/PVR activity does not prove commercialization or strategy.
 - Market Observation proves an observation, not market scale.
+- Learner Mode content is explanatory knowledge, not a trust shortcut into Signals or Assessments — it may explain why a Signal matters but must not automatically increase Signal confidence (Workstream K, `docs/v2/feature-requests/LEARNER-MODE.md`).
 
 ---
 

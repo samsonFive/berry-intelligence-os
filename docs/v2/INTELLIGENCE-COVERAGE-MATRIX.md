@@ -332,6 +332,22 @@ Not `OPERATIONAL`: relevance-screening can still miss a generically-discovered e
 
 ---
 
+## Learner Mode capability maturity (2026-08-22)
+
+Learner Mode (Workstream K, `docs/v2/feature-requests/LEARNER-MODE.md`) is a formalized product requirement, not an implemented capability. **Every cell below is `NONE`** -- no Learner Mode content, schema, source, or UI exists in canonical as of this entry. The feature request's own source citations (university extension guides, peer-reviewed journals, trade-fair sensory panels, Wikimedia Commons, etc.) are a recommended source base for a future mission, not evidence of current coverage -- a source appearing in a requirements document does not count toward this matrix.
+
+| Capability | Blueberry | Strawberry | Raspberry | Blackberry | Maturity |
+|---|---|---|---|---|---|
+| Agronomy knowledge | 0 | 0 | 0 | 0 | NONE |
+| Pest / IPM knowledge | 0 | 0 | 0 | 0 | NONE |
+| Harvest / AgTech knowledge | 0 | 0 | 0 | 0 | NONE |
+| Taste / consumer science | 0 | 0 | 0 | 0 | NONE |
+| Licensed visual learning | 0 | 0 | 0 | 0 | NONE |
+
+This is distinct from, and must not be conflated with, the existing Variety Knowledge / PVR / Retail-Observation rows above (Variety Intelligence Backbone, competitive identity and market footprint) or the Weather row (Trade/Weather, quantitative environmental observation). See `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md` section 12a for the full boundary discussion. No implementation, schema change, source addition, or sample data was created by the mission that added this section -- documentation/governance only.
+
+---
+
 ## How to refresh the evidence-class counts
 
 Re-count committed `data/evidence/*.json` by stored `source_type` /
