@@ -11,7 +11,9 @@
   "summary": "According to EastFruit, the season of exports of Moroccan frozen raspberries to Spain ended with a result of selling more but earning less. For four consecutive years, imports of frozen berries from Morocco to Spanish market has been growing, and the export volume in the 2022/23 season reached a record...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
   "geography_ids": [
     "geography-spain"
   ],
@@ -44,5 +46,10 @@
   },
   "auto_tagged": true,
   "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
-  "origin_domain": "east-fruit.com"
+  "origin_domain": "east-fruit.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

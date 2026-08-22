@@ -12,16 +12,33 @@ import re
 from typing import Any
 
 BERRY_TERMS: tuple[tuple[str, tuple[str, ...]], ...] = (
-    ("berry-blueberry", ("blueberries", "blueberry", "arándanos", "arandanos", "arándano", "arandano")),
-    ("berry-strawberry", ("strawberries", "strawberry", "frutilla", "frutillas", "fresa", "fresas")),
+    # French "myrtille(s)" and Italian "mirtillo"/"mirtilli" added for
+    # Evidence Berry Tagging Backfill V1 (2026-08-22) -- mirrors the species
+    # vocabulary already proven safe in relevance_screen.py's berry_identity
+    # gate (TD-072: this module previously had zero French/Italian terms for
+    # any berry despite relevance_screen.py recognizing them).
+    ("berry-blueberry", ("blueberries", "blueberry", "arándanos", "arandanos", "arándano", "arandano", "myrtille", "myrtilles", "mirtillo", "mirtilli")),
+    # French "fraise(s)" and Italian "fragola"/"fragole" added, same reason.
+    ("berry-strawberry", ("strawberries", "strawberry", "frutilla", "frutillas", "fresa", "fresas", "fraise", "fraises", "fragola", "fragole")),
     # "caneberry"/"caneberries" appears on both raspberry and blackberry --
     # it is the real, unambiguous US/UK trade-press collective term for the
     # two species together (Blackberry/Raspberry Vertical V1, 2026-08-22),
     # not a third species. An item naming only "caneberry" tags both.
-    ("berry-raspberry", ("raspberries", "raspberry", "frambuesa", "frambuesas", "caneberry", "caneberries")),
+    # French "framboise(s)" and Italian "lampone"/"lamponi" added, same
+    # reason as blueberry/strawberry above.
+    ("berry-raspberry", ("raspberries", "raspberry", "frambuesa", "frambuesas", "caneberry", "caneberries", "framboise", "framboises", "lampone", "lamponi")),
     # "zarzamora"/"zarzamoras" -- the real term Mexican trade press uses
     # for blackberry (Blackberry/Raspberry Vertical V1, 2026-08-22),
     # distinct from and lower collision-risk than the existing "mora".
+    # French "mûre"/"mûres" and Italian "more" are deliberately NOT added
+    # here, mirroring relevance_screen.py's own documented exclusions:
+    # "mûre" is the ordinary French adjective for "ripe", and "more" is an
+    # extremely common English word -- word-boundary matching (this
+    # module's own infer_berry_ids_from_text, fixed this mission) protects
+    # against a *substring* collision like "morado", but a standalone
+    # French/English sentence can legitimately contain the standalone word
+    # "mûre"/"more" with zero connection to blackberries, so word-boundary
+    # matching alone does not make either term safe to add.
     ("berry-blackberry", ("blackberries", "blackberry", "mora", "moras", "zarzamora", "zarzamoras", "caneberry", "caneberries")),
 )
 
@@ -66,10 +83,20 @@ def apply_known_name_matches(
     return record
 
 
+def _word_present(text: str, term: str) -> bool:
+    return re.search(rf"(?<!\w){re.escape(term)}(?!\w)", text) is not None
+
+
 def infer_berry_ids_from_text(text: str) -> list[str]:
+    """Word-boundary matched -- a plain substring check here would false-positive
+    on real, common non-berry Spanish words that merely contain "mora" (e.g.
+    "morado"/purple, "enamorado"/in love, "memorable"). Found and fixed during
+    Evidence Berry Tagging Backfill V1 (2026-08-22) before it could inject
+    false blackberry tags at backfill scale; mirrors relevance_screen.py's
+    own already-word-boundary-safe `_word_present`."""
     lowered = text.casefold()
     found: list[str] = []
     for berry_id, terms in BERRY_TERMS:
-        if any(term in lowered for term in terms) and berry_id not in found:
+        if any(_word_present(lowered, term) for term in terms) and berry_id not in found:
             found.append(berry_id)
     return found

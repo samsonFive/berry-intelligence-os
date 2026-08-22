@@ -11,7 +11,9 @@
   "summary": "Analysis of the US strawberry market from 2024 to 2035, covering consumption trends, production, imports, exports, and a forecast for market volume and value growth.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry consumption trend",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
   "geography_ids": [
     "geography-united-states"
   ],
@@ -44,5 +46,10 @@
   },
   "auto_tagged": true,
   "source_id": "source-20260806173428-ff93-berry-consumption-trend-116",
-  "origin_domain": "indexbox.io"
+  "origin_domain": "indexbox.io",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

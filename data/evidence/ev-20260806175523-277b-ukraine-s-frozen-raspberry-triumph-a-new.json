@@ -11,7 +11,9 @@
   "summary": "According to EastFruit analysts, a historic milestone was achieved in 2024: Ukraine, a country that barely exported frozen raspberries a decade ago, has emerged as the world leader in net frozen raspberry exports. For the first time, it has surpassed not only Poland but also Serbia, the long-standing leader in...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
-  "origin_domain": "east-fruit.com"
+  "origin_domain": "east-fruit.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

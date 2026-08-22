@@ -11,7 +11,9 @@
   "summary": "Morocco continues to conquer the UK market at an accelerated pace. According to EastFruit, a record volume of Moroccan blueberries was delivered to the UK market in the current season. Moreover, Morocco managed to surpass one of the largest exporters of this product – Spain – in terms of blueberry...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [
     "geography-spain"
   ],
@@ -44,5 +46,10 @@
   },
   "auto_tagged": true,
   "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
-  "origin_domain": "east-fruit.com"
+  "origin_domain": "east-fruit.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

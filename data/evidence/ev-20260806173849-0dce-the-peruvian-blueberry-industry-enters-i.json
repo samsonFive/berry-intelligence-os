@@ -11,7 +11,9 @@
   "summary": "From volume leadership to the challenge of sustaining global demand and restructuring the competitive model The Peruvian blueberry industry appears to be entering a new stage of development. Recent campaign data, combined with signals from industry leaders, suggest that the sector’s primary challenge is no longer rapid production growth. Instead,...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry industry investment",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-69a5-berry-industry-investment-98",
-  "origin_domain": "east-fruit.com"
+  "origin_domain": "east-fruit.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

@@ -11,7 +11,9 @@
   "summary": "By Lynda Kiernan-Stone Proterra Investment Partners Asia has made its first investment in Laos, backing a greenfield blueberry cultivation project in Paksong through Proterra Asia Food Fund 3 (PAFF3), which had its final close on October 26, 2022 at US$200 million.  This investment (the fourteenth for PAFF3) not only aligns with Proterra Asia’s long-held investment […]",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry industry investment",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-69a5-berry-industry-investment-98",
-  "origin_domain": "investinag.com"
+  "origin_domain": "investinag.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

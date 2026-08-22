@@ -11,7 +11,9 @@
   "summary": "Fall Creek has announced the acquisition of a 50ha land parcel in Moara Vlasiei, Romania, from real estate developer Portland Trust. According Fruitnet, the blueberry genetics and nursery company called it a ”landmark transaction” that signified a pivotal moment in its growth strategy within the European market. The acquired land...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry genetics company",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [
     "company-fall-creek-farm-and-nursery"
@@ -44,5 +46,10 @@
   },
   "auto_tagged": true,
   "source_id": "source-20260806173428-80ee-berry-genetics-company-91",
-  "origin_domain": "east-fruit.com"
+  "origin_domain": "east-fruit.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

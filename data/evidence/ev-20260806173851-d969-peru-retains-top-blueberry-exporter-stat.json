@@ -11,7 +11,9 @@
   "summary": "Peru has consolidated its position as the world's leading exporter of blueberries, with record sales totaling more than $2.27 billion",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [
     "geography-peru"
   ],
@@ -44,5 +46,10 @@
   },
   "auto_tagged": true,
   "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
-  "origin_domain": "bluebookservices.com"
+  "origin_domain": "bluebookservices.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

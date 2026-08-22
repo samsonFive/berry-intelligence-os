@@ -11,7 +11,9 @@
   "summary": "The revenue of the strawberry market in the European Union amounted to $3.8B in 2018, rising by 1.9% against the previous year.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry consumption trend",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-ff93-berry-consumption-trend-116",
-  "origin_domain": "globaltrademag.com"
+  "origin_domain": "globaltrademag.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

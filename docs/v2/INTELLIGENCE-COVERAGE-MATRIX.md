@@ -22,9 +22,17 @@ Maturity labels (guide vocabulary):
 | `OPERATIONAL` | Material trusted corpus used in Live Intelligence / Company / Brief |
 | `STRONG` | Not used yet. Requires a recall-benchmarked class, not volume alone |
 
-Berry assignment uses **explicit `berry_ids`**. `574` published `news_search`
-records have empty `berry_ids` (untagged mainstream news). They are counted
-in Mainstream news as untagged, not invented into a berry.
+Berry assignment uses **explicit `berry_ids`**. `299` published `news_search`
+records have empty `berry_ids` (untagged mainstream news) as of Evidence
+Berry Tagging Backfill V1 (2026-08-22), down from 574 -- 275 records were
+deterministically backfilled from their own title/summary text using a
+word-boundary-safe matcher (`app/services/deterministic_tagging.py`), never
+fetching article bodies or touching trust/status. The remaining 299 are
+correctly left untagged: their title/summary names no single species (a
+company-wide/category mention, e.g. "Room for Berry Category Growth") or is
+off-topic to the source's own "berry" bucket. They are counted in Mainstream
+news as untagged, not invented into a berry. Full detail:
+`docs/v2/EVIDENCE-BERRY-TAGGING-BACKFILL-V1.md`.
 
 Seed fixtures (`ev-sample-patent-published`, `ev-sample-retail-placement`,
 `ev-sample-variety-launch`) exist in `data/evidence/`. Landscape excludes them.
@@ -67,7 +75,7 @@ tagged berry. Inbox drafts are **not** added to these cells.
 |---|---:|---:|---:|---:|---:|---|
 | Company / breeder | 50 | 1 | 0 | 0 | 0 | OPERATIONAL (blue) / PILOT (strawberry) / NONE (rasp, black) |
 | Trade press | 19 | 0 | 0 | 0 | 0 | PILOT |
-| Mainstream news | 362 | 289 | 190 | 145 | 574 | **PARTIAL — now recall-benchmarked (see below); volume does not mean recall** |
+| Mainstream news | 549 | 364 | 217 | 166 | 299 | **PARTIAL — now recall-benchmarked (see below); volume does not mean recall. Backfilled 2026-08-22, see Evidence Berry Tagging Backfill V1** |
 | Association | 6 | 0 | 0 | 0 | 0 | PILOT |
 | Regulatory / government | 1 | 0 | 0 | 0 | 0 | PILOT — 2 new sources added, still US-only, still not developing-story-threaded (TD-THREAD-003) |
 | Patent | 23 | 1 | 1* | 0 | 0 | OPERATIONAL (blue) / PILOT (pipeline) |
@@ -418,6 +426,20 @@ Full detail: `docs/v2/CANEBERRY-LIVE-RECALL-SET-V1.md`. Regional Live Recall Set
 **No hardcoded blueberry/strawberry bias was found** in discovery, relevance-screening, patent-monitor, or CPVO code paths -- every mechanism examined is genuinely berry-parameterized; the measured imbalance traces to data volume and vocabulary completeness, not code-level bias.
 
 Registered `docs/v2/TECHNICAL-DEBT-REGISTER.md` TD-071 (untagged trusted Evidence hides real per-berry content from every measurement) and TD-072 (`deterministic_tagging.py` has zero French vocabulary for any berry).
+
+---
+
+## Evidence Berry Tagging Backfill V1 (2026-08-22)
+
+Full detail: `docs/v2/EVIDENCE-BERRY-TAGGING-BACKFILL-V1.md`. Data-quality repair directly answering TD-071/TD-072. All 574 untagged trusted records traced to one historical bulk-seed batch (`source_type: news_search`, `captured_date: 2026-08-06`) -- not an ongoing pipeline leak; the 3 trusted records captured since were already 100% tagged.
+
+**Real bug found and fixed**: `deterministic_tagging.infer_berry_ids_from_text()` used a plain substring check, not word-boundary matching -- "mora" (blackberry) false-positive-matched inside ordinary Spanish words like "morado" (purple) and "enamorado" (in love). Fixed by reusing `relevance_screen.py`'s own proven-safe `_word_present()` pattern. `tests/test_deterministic_tagging.py` added (8 tests; this module had zero prior direct coverage). French and Italian species vocabulary added to `deterministic_tagging.py` for blueberry/strawberry/raspberry, matching `relevance_screen.py`; blackberry's French `mûre`/Italian `more` remain deliberately excluded (real "ripe"/"more"-the-English-word collision risk, unaffected by word-boundary matching).
+
+**Dry-run then apply, deterministic title/summary text only, no article-body fetch**: 254 single-berry + 21 multi-berry = 275 of 574 untagged records backfilled; 299 correctly left untagged (company/category-only mentions, off-topic scraping noise -- verified by manual sample, not a missed vocabulary term). Second `--apply` run produced zero additional changes (idempotent). A rigorous, fully-programmatic key-by-key diff across all 275 changed files confirmed zero fields changed other than `berry_ids` and the new, additive `berry_tagging_provenance` audit object -- no trust/status/text mutation.
+
+**Result**: trusted Evidence tagged rate 54.7% -> 76.4%. Blueberry 484->671 (+38.6%), Strawberry 292->367 (+25.7%), Raspberry 191->218 (+14.1%), Blackberry 146->167 (+14.4%) -- see the "Mainstream news" row above. Blackberry/Raspberry's Variety catalog depth (12/1 tracked entities) is unchanged -- this is metadata repair, not new intelligence; no recall claim is made.
+
+TD-071 substantially resolved (legacy batch closed; general future-risk noted, not deleted). TD-072 resolved. New: TD-073 (a hypothetical future draft re-tagging pass would be poisoned by AI enrichment's own negation language -- real, evidenced, not currently causing wrong data, not fixed this mission).
 
 ---
 

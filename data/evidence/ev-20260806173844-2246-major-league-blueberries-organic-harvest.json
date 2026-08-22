@@ -11,7 +11,9 @@
   "summary": "MLB recovers from frost and hurricane damage with new plants, upgraded systems and a strong organic blueberry harvest.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
-  "origin_domain": "organicproducenetwork.com"
+  "origin_domain": "organicproducenetwork.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

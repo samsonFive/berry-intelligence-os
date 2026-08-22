@@ -11,7 +11,9 @@
   "summary": "July is national blueberry month, so what better time to catch up with the world’s largest producer of organic blueberries—Naturipe Farms. Director of Business Development Brian Vertrees joined OPN to talk about the history of Naturipe’s organic blueberry program, why the organic blueberry category has been growing so quickly, his thoughts on future growth, and more.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry category growth",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [
     "company-naturipe-farms"
@@ -44,5 +46,10 @@
   },
   "auto_tagged": true,
   "source_id": "source-20260806173428-3eee-berry-category-growth-119",
-  "origin_domain": "organicproducenetwork.com"
+  "origin_domain": "organicproducenetwork.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

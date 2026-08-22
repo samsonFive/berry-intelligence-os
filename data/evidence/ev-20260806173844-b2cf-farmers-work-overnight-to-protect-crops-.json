@@ -11,7 +11,9 @@
   "summary": "At Blueberry Bunch Farm in LaBelle, blueberry bushes were coated in ice early Monday morning — a sight that may seem alarming, but one that farm managers say is intentional.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Plant variety protection berry",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
-  "origin_domain": "gulfcoastnewsnow.com"
+  "origin_domain": "gulfcoastnewsnow.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

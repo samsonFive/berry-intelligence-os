@@ -1134,10 +1134,10 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Impact** | Every `berry_ids`-filtered count on the platform -- this mission's own canonical baseline audit, Regional Live Recall Set V1's berry-distribution tally, any future Coverage Matrix per-berry row, any berry-scoped UI filter -- silently undercounts real evidence for whichever berry the untagged record actually concerns. The undercounting is proportionally similar across all four berries (blueberry-mentioning untagged records number 187, the largest absolute count), so it does not reverse the overall blueberry-dominance finding, but it means every per-berry percentage reported anywhere in the platform should be read as a floor, not an exact figure. |
 | **Workaround** | None systemic. A human reviewer publishing a new item can add `berry_ids` manually; the gap is in already-published historical records. |
 | **Recommended resolution** | A bounded, additive backfill pass: run the existing `deterministic_tagging.BERRY_TERMS` matcher (already used for new-draft auto-tagging) against the title/summary of the 574 untagged trusted records and propose `berry_ids` for human confirmation -- do not auto-write trusted-record changes without review, since these are already-published records, not drafts. Out of scope for this mission (a dedicated data-quality pass, not a side effect of vertical-specific discovery work). |
-| **Status** | active |
+| **Status** | **substantially resolved** (Evidence Berry Tagging Backfill V1, 2026-08-22) — the specific 574-record legacy batch this entry documented is now 299, all correctly untagged per manual sample verification (company/category-only mentions, off-topic scraping noise, no missed vocabulary term found). Traced to a single historical bulk-seed batch (`captured_date: 2026-08-06`), confirmed **not** an ongoing pipeline leak (0 of 3 trusted records captured since are untagged). Left `active`-adjacent rather than fully `resolved`: the *general* risk this entry names (a future bulk import could reintroduce untagged trusted records) is structural and permanent, not eliminated by backfilling one historical batch. See `docs/v2/EVIDENCE-BERRY-TAGGING-BACKFILL-V1.md` for the full mission report. |
 | **Owner lane** | data |
-| **PR/SHA when resolved** | — |
-| **Regression-test reference** | — |
+| **PR/SHA when resolved** | feature/evidence-berry-tagging-backfill-v1 |
+| **Regression-test reference** | `scripts/backfill_berry_tags.py` (dry-run/apply, idempotence proven twice) |
 
 ### TD-072 — `deterministic_tagging.py`'s berry auto-tagging vocabulary has zero French terms for any berry
 
@@ -1150,7 +1150,23 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Impact** | A real French-language article can correctly pass the relevance screen (score high enough to become a draft) and then still fail to get auto-tagged with the correct `berry_ids`, leaving it in the same untagged-and-invisible state TD-071 describes, specifically for the platform's French-language sources (`source-news-search-morocco-berry-fr` and any future French source). This is symmetric across all four berries, not caneberry-specific, but was only surfaced while auditing caneberry terminology. |
 | **Workaround** | None. Manual `berry_ids` correction during human publication review remains available. |
 | **Recommended resolution** | Add the same French species vocabulary already proven in `relevance_screen.py` (`myrtille(s)`, `fraise(s)`, `framboise(s)`) to `deterministic_tagging.py`'s `BERRY_TERMS`, mirroring the pattern this mission used to add `zarzamora`/`caneberry`. French `mûre`/`mûres` (blackberry) should remain excluded here too, for the same "ripe" collision reason as TD-060. Small, additive, low-risk fix -- not done this mission to keep scope to the caneberry-specific gaps this mission set out to prove. |
-| **Status** | active |
+| **Status** | **resolved** (Evidence Berry Tagging Backfill V1, 2026-08-22) — French `myrtille(s)`/`fraise(s)`/`framboise(s)` added for blueberry/strawberry/raspberry exactly as recommended; Italian `mirtillo`/`mirtilli`, `fragola`/`fragole`, `lampone`/`lamponi` added too (found the same gap existed for Italian, not scoped to French alone, while reconciling this file against `relevance_screen.py`). Blackberry's French `mûre`/`mûres` and Italian `more` remain deliberately excluded, per this entry's own recommendation. A real, separate, previously-undocumented bug was found and fixed in the same pass: `infer_berry_ids_from_text()` used plain substring matching, not word-boundary matching, causing "mora" to false-positive inside words like "morado"/"enamorado" -- fixed with the same `_word_present()` pattern `relevance_screen.py` already used. `tests/test_deterministic_tagging.py` added (this module had zero prior direct test coverage). |
+| **Owner lane** | collection/runtime |
+| **PR/SHA when resolved** | feature/evidence-berry-tagging-backfill-v1 |
+| **Regression-test reference** | `tests/test_deterministic_tagging.py` |
+
+### TD-073 — A future draft re-tagging pass would be poisoned by AI enrichment's own negation language
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | collection / tagging vocabulary (latent, not active) |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | Evidence Berry Tagging Backfill V1 found 126 of 854 `inbox/evidence/*.json` draft records (14.8%) currently untagged. Re-running `deterministic_tagging.infer_berry_ids_from_text()` against those drafts' *current* summary text found 11 that would newly match -- every one a false positive from the AI enrichment step's own negative framing, e.g. a real summary reading "This article does not appear directly relevant to competitive intelligence on core berry crops (blueberry, strawberry, raspberry, blackberry)." naively text-matches as if the article named all four species. The real production path (`app/services/publication_enrichment.py::apply_deterministic_tags`, called from `enrich_publication_draft`) is safe today only because it runs *before* `apply_ai_payload` overwrites `summary` with AI-generated text later in the same function -- not because the matcher itself understands negation. Confirmed zero contamination in the trusted corpus this mission backfilled (all pre-AI-enrichment content). |
+| **Impact** | None currently -- the live pipeline's call order avoids this. The risk is purely latent: any future tool (including a hypothetical draft-side sibling of this mission's own `scripts/backfill_berry_tags.py`) that naively re-runs deterministic tagging against a draft's *current*, already-AI-enriched summary would inject false multi-berry tags on genuinely irrelevant articles. |
+| **Workaround** | None needed while the current call order holds. Any future draft re-tagging tool must use the original discovered-item title/description (or `publisher_description`), never the AI-generated `summary`/`ai_enrichment.concise_summary` fields, as its matching text. |
+| **Recommended resolution** | If a draft-side backfill or re-tagging pass is ever built, source its matching text from `publisher_description`/the original discovered-item fields only. No fix needed to the current, already-safe production call order. |
+| **Status** | active (latent risk, not a current bug) |
 | **Owner lane** | collection/runtime |
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | — |

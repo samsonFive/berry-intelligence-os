@@ -11,7 +11,9 @@
   "summary": "Naturipe Farms expands into Florida with 200 acres of strawberries&nbsp;&nbsp;The Packer",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry acreage expansion",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
   "geography_ids": [],
   "entity_ids": [
     "company-naturipe-farms"
@@ -43,5 +45,10 @@
     }
   },
   "auto_tagged": true,
-  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101"
+  "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

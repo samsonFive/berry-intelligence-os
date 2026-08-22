@@ -11,7 +11,9 @@
   "summary": "CSC Research Reveals How Shoppers Drove $500 Million in Strawberry Category Gains&nbsp;&nbsp;The Packer",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry retail sales data",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -40,5 +42,10 @@
       "rationale": "Auto-captured from source 'Berry retail sales data'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117"
+  "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

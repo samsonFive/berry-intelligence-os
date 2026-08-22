@@ -11,7 +11,9 @@
   "summary": "MSU research team receives USDA grant to evaluate effectiveness, cost of new blueberry pest management strategies&nbsp;&nbsp;Michigan State University",
   "why_it_matters": "",
   "submitted_by": "source-monitor:USDA GAIN report berry",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -40,5 +42,10 @@
       "rationale": "Auto-captured from source 'USDA GAIN report berry'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-1732-usda-gain-report-berry-104"
+  "source_id": "source-20260806173428-1732-usda-gain-report-berry-104",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

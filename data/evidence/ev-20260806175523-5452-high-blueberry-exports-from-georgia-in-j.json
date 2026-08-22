@@ -11,7 +11,9 @@
   "summary": "EastFruit analysts note that after a bit underwhelming June, Georgian blueberry exports made a comeback in July. With the burst in the exported quantity, this season broke records. However, good numbers in the trade statistics come at a price. In July 2022, Georgia exported 0.9 thousand tons of blueberries –...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
-  "origin_domain": "east-fruit.com"
+  "origin_domain": "east-fruit.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

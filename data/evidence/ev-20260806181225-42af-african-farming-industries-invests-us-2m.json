@@ -11,7 +11,9 @@
   "summary": "ETHIOPIA - Ethiopia’s agricultural sector is set to expand as African Farming Industries commits US$2 million to cultivating strawberries and saffron in the Bole-Lemi Industrial Park Special Economic Zone. A memorandum of understanding (MoU) was signed between African Farming Industries and the Ethiopian Industrial Parks Development Corporation to formalize the investment. The company will use ...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry industry investment",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-69a5-berry-industry-investment-98",
-  "origin_domain": "foodbusinessmea.com"
+  "origin_domain": "foodbusinessmea.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

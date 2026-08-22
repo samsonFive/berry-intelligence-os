@@ -11,7 +11,9 @@
   "summary": "Investment capital is holding back Zimbabwe from getting to their goal of 30,000 metric tonnes of blueberries grown by 2030, remarks Linda Nielsen, the CEO of the Horticultural Development Council. Zimbabwe has already seen “incredible” growth in their blueberry sector, surging from the first exports in 2017 to 5,500 tonnes exported last year, making their blueberry industry the fastest-growing in the world.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry industry investment",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [
     "geography-zimbabwe"
   ],
@@ -44,5 +46,10 @@
   },
   "auto_tagged": true,
   "source_id": "source-20260806173428-69a5-berry-industry-investment-98",
-  "origin_domain": "thezimbabwean.co"
+  "origin_domain": "thezimbabwean.co",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }
