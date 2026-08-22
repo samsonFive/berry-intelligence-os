@@ -50,6 +50,10 @@ from app.main import (  # noqa: E402
 from app.services.assessment_scope import assessment_berry_scope, attach_assessment_scope  # noqa: E402
 from app.services.intelligence_feed import annotate_feed_semantics, build_intelligence_feed  # noqa: E402
 from app.services.review_workbench import build_public_scanner_summary  # noqa: E402
+from app.services.variety_workspace import (  # noqa: E402
+    present_variety_detail,
+    present_variety_index,
+)
 
 OUTPUT_DIR = ROOT / "generated"
 
@@ -247,11 +251,48 @@ def build() -> list[Path]:
             (e for e in all_entities() if e.get("entity_type") == entity_type),
             key=lambda e: e.get("name", ""),
         )
+        list_context: dict[str, Any] = {
+            "entities": type_entities,
+            "entity_type": entity_type,
+            "authoring_mode": False,
+            "berries": BERRIES,
+            "regions": [],
+            "companies": [],
+            "filters": {"q": "", "berry": "", "region": "", "company": "", "has_rights": "", "has_observation": "", "market": "", "ip_and_observation": ""},
+            "variety_view": "index",
+            "variety_cards": [],
+            "berry_inventory": [],
+            "unnamed_observation_count": 0,
+            "observation_total_count": 0,
+            "observation_workspace": {},
+            "competition": {},
+            "geographies": [],
+            "total_count": len(type_entities),
+        }
+        if entity_type == "variety":
+            index_model = present_variety_index(
+                varieties=type_entities,
+                entities=list(entities.values()),
+                relationships=all_relationships(),
+                published_evidence=evidence,
+                berry_labels=BERRIES,
+                inbox_drafts=[],
+                signals=all_signals(),
+                candidates=[],
+            )
+            list_context.update(
+                {
+                    "variety_cards": index_model["cards"],
+                    "berry_inventory": index_model["berry_inventory"],
+                    "unnamed_observation_count": index_model["unnamed_observation_count"],
+                    "observation_total_count": index_model["observation_total_count"],
+                }
+            )
         written.append(
             write_page(
                 "entity_list.html",
                 f"/entities/{entity_type}",
-                {"entities": type_entities, "entity_type": entity_type, "authoring_mode": False},
+                list_context,
             )
         )
 
@@ -278,6 +319,21 @@ def build() -> list[Path]:
         ]
         regions = sorted(entity_regions(entity, entities, linked_evidence))
         activity = entity_activity(linked_evidence, entity_facts, entity_relationships, entities, evidence_idx)
+        synthesis = entity_synthesis_context(entity, entities, include_pending=False)
+        if entity.get("entity_type") == "variety":
+            synthesis.update(
+                present_variety_detail(
+                    entity,
+                    entities=entities,
+                    relationships=relationships_all,
+                    published_evidence=evidence,
+                    grouped_relationships=synthesis["grouped_relationships"],
+                    recent_intelligence=synthesis["recent_intelligence"],
+                    berry_labels=BERRIES,
+                    inbox_drafts=[],
+                    signals=all_signals(),
+                )
+            )
         written.append(
             write_page(
                 "entity.html",
@@ -293,7 +349,7 @@ def build() -> list[Path]:
                     "regions": regions,
                     "berry_label": berry_label,
                     "authoring_mode": False,
-                    **entity_synthesis_context(entity, entities, include_pending=False),
+                    **synthesis,
                 },
             )
         )

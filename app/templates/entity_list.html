@@ -1,6 +1,9 @@
 {% extends "base.html" %}
-{% block title %}{{ entity_type|replace('_',' ')|title }} records — Berry Intelligence OS{% endblock %}
+{% block title %}{% if entity_type == 'variety' %}Variety Intelligence{% else %}{{ entity_type|replace('_',' ')|title }} records{% endif %} — Berry Intelligence OS{% endblock %}
 {% block content %}
+{% if entity_type == 'variety' %}
+{% include "_variety_workspace.html" %}
+{% else %}
 <section class="page-heading">
   <div>
     <p class="eyebrow">ENTITIES</p>
@@ -58,4 +61,5 @@
     <p class="empty-state">No matching records.</p>
   {% endfor %}
 </section>
+{% endif %}
 {% endblock %}
