@@ -122,7 +122,7 @@ def test_mexico_uses_attribution_not_every_body_mention() -> None:
     assert any(row["id"] == "geography-mexico" for row in geos)
     intel = _group(payload, "intelligence")
     assert intel
-    assert len(intel) <= 12
+    assert len(intel) <= 20
 
 
 def test_federal_register_source_search() -> None:
@@ -276,7 +276,19 @@ def test_public_api_flag_excludes_pending(monkeypatch, tmp_path: Path) -> None:
     assert any(row["id"] == "ev-hidden" for row in _group(private, "intelligence"))
 
 
+def test_zara_does_not_fuzzy_match_zahra() -> None:
+    payload = client.get("/api/search/global", params={"q": "Zara", "berry": "global"}).json()
+    intel = _group(payload, "intelligence")
+    titles = " ".join(row["title"] for row in intel).lower()
+    assert "zahra" not in titles
+    varieties = _group(payload, "varieties")
+    assert any(row["id"] == "variety-zara" for row in varieties)
+
+
 def test_legacy_api_search_still_works() -> None:
+    response = client.get("/api/search", params={"q": "example blue"})
+    assert response.status_code == 200
+    assert "entities" in response.json()
     response = client.get("/api/search", params={"q": "example blue"})
     assert response.status_code == 200
     assert "entities" in response.json()

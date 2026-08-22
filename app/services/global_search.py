@@ -75,17 +75,6 @@ GEO_PREDICATES = {"operates_in", "located_in", "based_in"}
 RELATED_INTEL_CAP = 12
 GROUP_CAP_DEFAULT = 8
 
-_TEXT_MATCHES = None
-
-
-def _text_matches(needle: str, haystack: str) -> bool:
-    global _TEXT_MATCHES
-    if _TEXT_MATCHES is None:
-        from app.main import text_matches as _impl
-
-        _TEXT_MATCHES = _impl
-    return _TEXT_MATCHES(needle, haystack)
-
 
 def _as_tuple(values: Any) -> tuple[str, ...]:
     if not values:
@@ -542,7 +531,8 @@ def _match_rank(doc: SearchDoc, *, query: str, folded_query: str) -> tuple[int, 
     title_hay = " ".join([doc.canonical, *doc.aliases, doc.title])
     if query in title_hay.casefold() or (folded_query and folded_query in _fold(title_hay)):
         return RANK_TITLE_NAME, "title"
-    if doc.haystack and _text_matches(query, doc.haystack):
+    hay = doc.haystack.casefold()
+    if query in hay or (folded_query and folded_query in _fold(doc.haystack)):
         if doc.group in {"signals", "story_threads"}:
             return RANK_STORY_SIGNAL, "text"
         if doc.group == "intelligence" and doc.state == "trusted" and doc.relevance_tier != "adjacent":
