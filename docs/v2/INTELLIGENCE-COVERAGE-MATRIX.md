@@ -148,33 +148,38 @@ answers that directly, against a 50-event benchmark spanning all 4 berries
 and 5 intelligence classes, built from live external research rather than
 selected because the OS already contained the events.
 
-**Overall event-level recall: 11/50 (22%) -> 15/50 (30%) -> 26/50 (52%)
-after the Global Qualitative Coverage Expansion V1 mission (2026-08-21)**,
-all newly-captured events sitting as untrusted drafts pending human review
-(the trust gate is untouched by this mission). Recall by class: Commercial/
-Market 0%->37.5% (3/8), Regulatory/Trade 9%->45% (5/11), Corporate 38%->46%
-(6/13), Reputation/Risk 33%->58% (7/12), Genetics/Varieties unchanged at
-83% (no genetics-specific source added). Of the weak geographies named in
-the mission brief, 4 of 5 moved above 0%: Chile 0%->20%, UK 0%->33%,
-Morocco 0%->33%, South Africa 0%->100% (2/2); **Peru stayed at its 10%
-baseline** -- the discovery mechanism was proven to work generically for a
-real Peru commercial event (BM-M-04), but that draft turned out to
-duplicate an already-trusted record and was removed rather than
-double-counted, an honest correction reported in full, not rounded up.
+**Overall event-level recall: 11/50 (22%) -> 15/50 (30%) -> 26/50 (52%) ->
+30/50 (60%) after the Global Qualitative Coverage Expansion V2 mission
+(2026-08-22)**, all newly-captured events sitting as untrusted drafts
+pending human review (the trust gate is untouched by this mission). Recall
+by class: Commercial/Market 0%->50% (4/8), Regulatory/Trade 9%->45% (5/11,
+unchanged this round), Corporate 38%->61.5% (8/13), Reputation/Risk
+33%->67% (8/12), Genetics/Varieties unchanged at 83% (no genetics-specific
+source added). By berry: Blueberry 23%->58% (18/31 -- all 4 of this
+round's real captures are blueberry events); Strawberry/Raspberry/
+Blackberry unchanged this round. Of the weak geographies named in the
+original mission brief: Chile 0%->20%, Morocco 0%->33%, South Africa
+0%->100% (2/2) (all unchanged since Round 1); **UK 33%->67%** (Hall
+Hunter's season-launch event, a real new capture); **Peru 10%->30%** (two
+real new captures -- NuBerry's investment and the 400,000t export
+forecast -- moving Peru for the first time since the original benchmark).
 Full detail, the source-gap map, and honest inbox-quality accounting:
-`docs/v2/GLOBAL-QUALITATIVE-COVERAGE-EXPANSION-V1.md`.
+`docs/v2/GLOBAL-QUALITATIVE-COVERAGE-EXPANSION-V2.md` (Round 1:
+`docs/v2/GLOBAL-QUALITATIVE-COVERAGE-EXPANSION-V1.md`).
 
 **Per the maturity legend above, this is the real basis for marking
 Mainstream News PARTIAL (not OPERATIONAL) and Regulatory/Government PILOT:
 a large keyword-news corpus and government sources exist, and measured
-event-level recall materially improved, but two real, self-identified
-limitations keep this below OPERATIONAL** -- (1) discovery reaching an
-event does not guarantee relevance-screening recognizes it (two real 2026
-events, a Peru acquisition and a Michigan labor-trafficking case, were
-discovered but screened irrelevant because their title/description carry
-no berry species word -- TD-040); (2) 823 of the 1078 items this mission's
-14 new sources discovered remain unprocessed, correctly staged rather than
-dropped, per the existing no-recurring-collection condition (TD-008).
+event-level recall materially improved across two consecutive missions,
+but real, self-identified limitations keep this below OPERATIONAL** -- (1)
+discovery reaching an event does not guarantee relevance-screening
+recognizes it (BM-C-04/Unifrutti remains blocked this way even after a
+second attempt -- TD-040, TD-045); (2) most discovered items across both
+missions' 18 sources remain unprocessed, correctly staged rather than
+dropped, per the existing no-recurring-collection condition (TD-008); (3)
+processing a real backlog at scale reliably surfaces cross-pipeline
+duplicates of already-trusted content that must be found and removed by
+hand before counting (57 in Round 2 alone, TD-046).
 
 Full methodology, the event table, root-cause distribution, and the 4
 required Driscoll's/antidumping acceptance cases' individual detail are in
@@ -329,6 +334,24 @@ Full detail, methodology, source-gap map, and honest inbox-quality accounting: `
 **Inbox quality, real measured numbers**: 1078 items discovered across the 14 new sources; 255 processed (23.7%) within this mission's bounded real-run window; of those, 180 (70.6%) passed relevance screening (164 net after the 16-item duplicate cleanup above), 53 (20.8%) were correctly screened irrelevant, 22 (8.6%) borderline. The irrelevant rate is in line with the prior Recall Benchmark mission's own 26% baseline -- this expansion did not degrade inbox quality. A random 25-item manual sample found zero noise; the only confirmed false-positive class across the full new-draft set (3 items) is the pre-existing, already-tracked "Berry Global"/packaging-company ambiguity (TD-015/TD-ACQ-006 precedent), not a new problem.
 
 Not `OPERATIONAL`: relevance-screening can still miss a generically-discovered event when its metadata is thin (TD-040, Codex-coordination item); 823 of 1078 discovered items remain unprocessed, correctly staged (TD-008, no recurring collection yet); Google News RSS results are not fully deterministic request-to-request (TD-039); CFIA/Canada food-safety and several secondary geographies (California/Pacific Northwest/broader EU) remain unaddressed. See `docs/v2/TECHNICAL-DEBT-REGISTER.md` TD-038 through TD-042.
+
+---
+
+## Global Qualitative Coverage Expansion V2 (2026-08-22)
+
+Full detail: `docs/v2/GLOBAL-QUALITATIVE-COVERAGE-EXPANSION-V2.md`. This section is the numeric control-surface pointer, not a duplicate.
+
+**Baseline re-confirmed**: fetched canonical fresh at mission start; Round 1's own 26/50 (52%) state was mechanically unchanged (Variety Intelligence UI V1 and the Learner Mode roadmap integration, the two missions that landed since, touched product/documentation surfaces only).
+
+**Two real, complementary improvements**: (1) processed a much larger share of Round 1's own real discovery backlog (up to 700 items per source class this time, vs. up to ~20 in Round 1's bounded first pass) -- a real, sitting-in-inbox Spanish-language Peru capture (BM-M-03) and other content surfaced purely from processing more of what was *already discovered*, no new source needed. (2) **4 new bounded, reusable-query sources added** (`data/configuration/sources.json`, 164 -> 168): a new **`government_alert_json`** adapter (`app/services/media_discovery.py`) against the UK Food Standards Agency's real, keyless food-alerts API -- a second, distinct authoritative food-safety jurisdiction alongside Round 1's openFDA -- plus 3 Google News queries (Peru organic-investment, UK grower-season-launch, USDA-GAIN-report Mexico), each chosen as a reusable geography/event-concept pattern, not a company name.
+
+**4 real events moved MISSED -> CAPTURED (draft)**: BM-C-08 (NuBerry Peru investment, via the Peru-organic-investment query), BM-C-13 (Hall Hunter UK season launch, via the UK-grower-season query -- a different real publisher, Fruitnet, than the benchmark's own cited Inside Food & Drink), BM-M-03 (Peru 400,000t export forecast, Spanish-language, from the Round 1 backlog), BM-R-10 (Michigan blueberry-farm trafficking settlement -- **resolves Round 1's own TD-040 case**, via a differently-titled article, MLive's, that contains the word "blueberry" where the Bloomberg Law version Round 1 found did not). BM-C-04 (Unifrutti) stays MISSED -- a real, better-titled alternate article exists (Fruitnet) but this mission's queries did not reliably surface it (TD-045).
+
+**Real, larger-scale duplicate cleanup**: processing ~600+ items surfaced 57 cross-pipeline duplicates of already-trusted content (the same structural gap as Round 1's 16, now confirmed to scale with volume -- TD-046); all removed before computing the results above.
+
+**Inbox quality, real measured cumulative numbers** (across all 18 mainstream/regulatory sources from both rounds): 1317 items discovered, 863 processed (65.5%), 561 passed relevance screening (65.0% of processed), 229 correctly screened irrelevant (26.5%, essentially identical to the original Recall Benchmark mission's own 26% baseline), 73 borderline (8.5%). A random 25-item manual sample of the full current draft set found 24 of 25 clearly on-topic berry-industry content; the one exception was consumer-lifestyle content (a "why strawberries mold" article), not noise from source misconfiguration.
+
+Not `OPERATIONAL`: TD-040/TD-045's relevance-screen boundary remains only partially, not reliably, mitigated; most discovered items across both missions remain unprocessed (TD-008); CFIA/Canada food-safety (BM-R-09) remains unresolved (TD-041); the duplicate-cleanup step remains manual, not automated (TD-046). See `docs/v2/TECHNICAL-DEBT-REGISTER.md` TD-045, TD-046.
 
 ---
 

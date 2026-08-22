@@ -725,6 +725,66 @@ def _normalize_fda_recall_entry(entry: Any) -> NormalizedItem:
     )
 
 
+# ---------------------------------------------------------------------------
+# government_alert_json adapter -- the UK Food Standards Agency's public
+# Linked Data API (data.food.gov.uk/food-alerts), no auth, Open Government
+# Licence. Global Qualitative Coverage Expansion V2 mission (2026-08-22):
+# live-verified real, current 2026 UK food alerts (Product Recall
+# Information Notices, Allergy Alerts, Food Alerts for Action), including a
+# real berry-relevant match ("Tesco recalls Tesco Grape & Berry Medley
+# because of contamination with salmonella", 2026-02-16) found via a
+# generic recency-sorted pull, not by searching for that headline. Distinct
+# adapter from government_recall_json (openFDA) because the JSON shape
+# differs (top-level "items" not "results"; title/description/created/
+# modified/alertURL/notation fields, not FDA's product_description/
+# reason_for_recall/report_date/recall_number) -- "alert" rather than
+# "recall" in the name because the FSA's own API covers a broader category
+# (allergy alerts and public-health actions alongside recalls) than
+# openFDA's narrower enforcement-record scope, matching this mission's own
+# "recalls, outbreak investigations, contamination notices, import alerts,
+# public-health actions" requirement. Reuses the same generic JSON fetch as
+# government_register_json/government_recall_json -- only list-entries and
+# normalize differ.
+# ---------------------------------------------------------------------------
+
+
+def _uk_fsa_entries(parsed: Any) -> list[Any]:
+    return list((parsed or {}).get("items") or [])
+
+
+def _normalize_uk_fsa_entry(entry: Any) -> NormalizedItem:
+    entry = entry or {}
+    title = (entry.get("title") or "(untitled)").strip()
+    description = (entry.get("description") or "")[:4000]
+    canonical_url = entry.get("alertURL") or None
+    external_id = entry.get("notation") or None
+    published_date = entry.get("created") or None
+    business = entry.get("reportingBusiness") or {}
+    raw_metadata = {
+        "notation": external_id,
+        "reporting_business": business.get("commonName"),
+        "alert_types": [t.rsplit("/", 1)[-1] for t in (entry.get("type") or []) if isinstance(t, str)],
+        "modified": entry.get("modified"),
+    }
+    return NormalizedItem(
+        title=f"UK FSA alert: {title}" if not title.lower().startswith("uk fsa") else title,
+        media_format="web_article",
+        canonical_url=canonical_url,
+        external_id=external_id,
+        platform_item_id=None,
+        published_date=published_date,
+        description=description,
+        duration_seconds=None,
+        transcript_availability={
+            "status": TRANSCRIPT_NOT_APPLICABLE,
+            "checked_at": _now_iso(),
+            "url": None,
+            "language": None,
+        },
+        raw_metadata=raw_metadata,
+    )
+
+
 # adapter type -> (fetch, normalize-one-entry, list-entries-from-parsed)
 def _podcast_rss_entries(parsed: Any) -> list[Any]:
     return list(parsed.entries or [])
@@ -757,6 +817,12 @@ ADAPTER_TYPES: dict[str, tuple[Callable[[str], tuple[Any, bytes]], Callable[[Any
     # section above.
     "government_recall_json": (
         _fetch_federal_register_json, _federal_register_entries, _normalize_fda_recall_entry,
+    ),
+    # UK Food Standards Agency's public Linked Data alerts API. Reuses the
+    # same generic JSON fetch as the two adapters above -- see section
+    # above.
+    "government_alert_json": (
+        _fetch_federal_register_json, _uk_fsa_entries, _normalize_uk_fsa_entry,
     ),
 }
 

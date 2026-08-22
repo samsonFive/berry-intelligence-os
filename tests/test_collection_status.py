@@ -215,6 +215,12 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
         "source-global-fresh-series-podcast", "source-fresh-cred-podcast", "source-lubera-edibles-podcast",
         "source-blueberries-tv-youtube",
     }
+    # 47 = 43 plus 4 new discoverable sources added for the Global
+    # Qualitative Coverage Expansion V2 mission (2026-08-22): the UK Food
+    # Standards Agency's food-alerts API (a new government_alert_json
+    # adapter type, also discoverable) and 3 Google News news_search_rss
+    # searches, all with real discovery.adapter blocks. 168 = 164 plus
+    # those same 4 sources.
     # 43 = 29 plus 14 new discoverable sources added for the Global
     # Qualitative Coverage Expansion V1 mission (2026-08-21): 13 Google
     # News news_search_rss searches (geography/language/topic/retailer-
@@ -233,7 +239,7 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
     # (2026-08-21): 2 Federal Register government_register_json sources
     # and 3 Google News news_search_rss sources, all with real
     # discovery.adapter blocks, proven against real network traffic.
-    assert report.sources_configured == 164 and report.sources_discoverable == 43
+    assert report.sources_configured == 168 and report.sources_discoverable == 47
     assert expected <= {source.source_id for source in report.sources}
 
 
