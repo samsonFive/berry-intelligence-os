@@ -1123,4 +1123,36 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | — |
 
+### TD-071 — ~45% of trusted Evidence carries no `berry_ids`, hiding real content (including real raspberry/blackberry stories) from every berry-scoped measurement
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | data quality / measurement integrity |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | Blackberry/Raspberry Vertical V1 found 574 of 1,266 trusted `data/evidence/*.json` records (45.3%) carry an empty/missing `berry_ids`. Checking those 574 records' own titles/summaries for species keywords found 27 mentioning a raspberry term and 21 mentioning a blackberry term. Two concrete, named, real instances were caught directly: `ev-20260806173853-c7ff-spanish-malaika-raspberry-plantings-expa` (a real, 2-source-corroborated Onubafruit Malaika raspberry story) and `ev-20260806173544-f46d-boosting-blackberries-nc-state-s-gina-fe` (a real NC State blackberry variety release) both have `berry_ids: []` despite being unambiguously about one named species in their own titles. This 574-untagged figure itself is not new (already noted in `docs/v2/INTELLIGENCE-COVERAGE-MATRIX.md`'s Geography section as "574 untagged... real trusted Evidence, real volume") but had never been registered as a Technical Debt limitation with a concrete negative consequence before. |
+| **Impact** | Every `berry_ids`-filtered count on the platform -- this mission's own canonical baseline audit, Regional Live Recall Set V1's berry-distribution tally, any future Coverage Matrix per-berry row, any berry-scoped UI filter -- silently undercounts real evidence for whichever berry the untagged record actually concerns. The undercounting is proportionally similar across all four berries (blueberry-mentioning untagged records number 187, the largest absolute count), so it does not reverse the overall blueberry-dominance finding, but it means every per-berry percentage reported anywhere in the platform should be read as a floor, not an exact figure. |
+| **Workaround** | None systemic. A human reviewer publishing a new item can add `berry_ids` manually; the gap is in already-published historical records. |
+| **Recommended resolution** | A bounded, additive backfill pass: run the existing `deterministic_tagging.BERRY_TERMS` matcher (already used for new-draft auto-tagging) against the title/summary of the 574 untagged trusted records and propose `berry_ids` for human confirmation -- do not auto-write trusted-record changes without review, since these are already-published records, not drafts. Out of scope for this mission (a dedicated data-quality pass, not a side effect of vertical-specific discovery work). |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | — |
+
+### TD-072 — `deterministic_tagging.py`'s berry auto-tagging vocabulary has zero French terms for any berry
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | discovery / tagging vocabulary |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | Blackberry/Raspberry Vertical V1's terminology audit found `app/services/relevance_screen.py`'s `berry_identity` gate correctly recognizes French `myrtille(s)`/`fraise(s)`/`framboise(s)` (added in Relevance Screen Boundary V1) for the *relevance* decision, but `app/services/deterministic_tagging.py`'s `BERRY_TERMS` (a separate code path, used for auto-tagging `berry_ids` onto publication drafts/articles via `main.py`, `draft_attribution.py`, `publication_enrichment.py`) has **no French vocabulary at all, for any of the four berries** -- confirmed via direct grep, zero matches for `framboise`, `myrtille`, or `fraise` in that file. |
+| **Impact** | A real French-language article can correctly pass the relevance screen (score high enough to become a draft) and then still fail to get auto-tagged with the correct `berry_ids`, leaving it in the same untagged-and-invisible state TD-071 describes, specifically for the platform's French-language sources (`source-news-search-morocco-berry-fr` and any future French source). This is symmetric across all four berries, not caneberry-specific, but was only surfaced while auditing caneberry terminology. |
+| **Workaround** | None. Manual `berry_ids` correction during human publication review remains available. |
+| **Recommended resolution** | Add the same French species vocabulary already proven in `relevance_screen.py` (`myrtille(s)`, `fraise(s)`, `framboise(s)`) to `deterministic_tagging.py`'s `BERRY_TERMS`, mirroring the pattern this mission used to add `zarzamora`/`caneberry`. French `mûre`/`mûres` (blackberry) should remain excluded here too, for the same "ripe" collision reason as TD-060. Small, additive, low-risk fix -- not done this mission to keep scope to the caneberry-specific gaps this mission set out to prove. |
+| **Status** | active |
+| **Owner lane** | collection/runtime |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | — |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

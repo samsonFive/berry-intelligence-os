@@ -215,6 +215,11 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
         "source-global-fresh-series-podcast", "source-fresh-cred-podcast", "source-lubera-edibles-podcast",
         "source-blueberries-tv-youtube",
     }
+    # 53 = 50 plus 3 new discoverable sources added for the Blackberry/
+    # Raspberry Vertical V1 mission (2026-08-22): source-news-search-
+    # caneberry-global, source-news-search-mexico-zarzamora, and
+    # source-news-search-chile-frambuesa, all with real news_search_rss
+    # discovery.adapter blocks. 174 = 171 plus those same 3 sources.
     # 50 = 47 plus 3 new discoverable sources added for the Unknown-Event
     # Discovery + Query Coverage V3 mission (2026-08-23): FreshPlaza and
     # Fruitnet global article_rss feeds, and a new sec_edgar_search_json
@@ -245,7 +250,7 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
     # (2026-08-21): 2 Federal Register government_register_json sources
     # and 3 Google News news_search_rss sources, all with real
     # discovery.adapter blocks, proven against real network traffic.
-    assert report.sources_configured == 171 and report.sources_discoverable == 50
+    assert report.sources_configured == 174 and report.sources_discoverable == 53
     assert expected <= {source.source_id for source in report.sources}
 
 

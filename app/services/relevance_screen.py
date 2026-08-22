@@ -93,6 +93,29 @@ CATEGORIES: tuple[_RelevanceCategory, ...] = (
             "arándano", "arándanos", "arandano", "arandanos", "mirtillo", "mirtilli",
             "frambuesa", "frambuesas", "lampone", "lamponi",
             "mora", "moras",
+            # "zarzamora"/"zarzamoras" -- Blackberry/Raspberry Vertical V1
+            # (2026-08-22) real-tested a new Mexico-edition Spanish query
+            # source (source-news-search-mexico-zarzamora) and found every
+            # genuine blackberry-variety/production/disease story it
+            # surfaced (e.g. Planasa's real "Yosemite" blackberry variety
+            # launch in Michoacán) scored 0 and was confidently rejected --
+            # "zarzamora" is the term Mexican trade press actually uses for
+            # blackberry, distinct from the already-present generic "mora"
+            # (which a real headline may use instead, but Mexican coverage
+            # consistently preferred "zarzamora"). Unlike "mora", this term
+            # is not a common non-agricultural Spanish word, so it carries
+            # materially lower collision risk.
+            "zarzamora", "zarzamoras",
+            # "caneberry"/"caneberries" -- the real, unambiguous US/UK
+            # trade-press collective term for raspberry+blackberry
+            # together (live-verified: a bare "caneberry" Google News
+            # query returned 13/13 genuine, on-topic trade-press results --
+            # OSU/NC State/UC Extension bulletins, Fruit Growers News
+            # pricing survey -- with zero noise). Company/breeder-level
+            # caneberry news (e.g. a nursery "adding raspberries and
+            # blackberries to its portfolio") frequently uses this word
+            # without naming either species individually.
+            "caneberry", "caneberries",
             # French species names -- Relevance Screen Boundary V1
             # (2026-08-23) real-tested a dedicated French-language Morocco
             # source (source-news-search-morocco-berry-fr, added in an

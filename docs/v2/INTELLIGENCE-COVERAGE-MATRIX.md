@@ -401,6 +401,26 @@ Registered `docs/v2/TECHNICAL-DEBT-REGISTER.md` TD-069 (major UK/global retailer
 
 ---
 
+## Blackberry / Raspberry Vertical V1 (2026-08-22)
+
+Full detail: `docs/v2/CANEBERRY-LIVE-RECALL-SET-V1.md`. Regional Live Recall Set V1 found raspberry at 0% and blackberry at 4% of 25 live regional events -- the clearest measured content-coverage imbalance on the platform. This mission asked empirically whether that reflects genuine system blindness or a sampling artifact from a geography-driven (not species-driven) sample.
+
+**Canonical caneberry baseline** (by `berry_ids`, blueberry/strawberry shown as context only): Varieties 12 raspberry / 1 blackberry (vs. 41 blueberry); breeding programs 1 raspberry / **0 blackberry**; trusted Evidence 191 raspberry / 146 blackberry; CPVO-referencing evidence 4 raspberry / **0 blackberry**; Signals and Assessments **0 for both** raspberry and blackberry (100% blueberry). A separate, real measurement-integrity finding: ~45% of trusted Evidence (574/1,266 records) carries no `berry_ids` at all, and 27/21 of those untagged records mention raspberry/blackberry respectively in their own titles -- every berry-scoped count on this platform, including the ones in this paragraph, should be read as a floor, not exact (TD-071).
+
+**Caneberry Live Recall Set V1: Raspberry 9/9 (100%), Blackberry 7/9 (78%) -- reported separately, never combined.** Both real misses (a Fall Creek acquisition story, a Google-News redirect failure; a Spain Huelva blackberry-acreage story, an RSS-window-snapshot limitation) share already-known root causes (TD-059/TD-067-style), not new architecture problems. Existing, previously-onboarded regional sources (`source-news-search-uk-berry-growers`, `source-news-search-morocco-berry-fr`) already carried 9 real, unread caneberry headlines before this mission looked for them -- the same "under-mined existing source" pattern Regional Coverage V4 established.
+
+**Real bug found and fixed**: `screen_relevance()`'s `berry_identity` vocabulary was missing `zarzamora` (the term Mexican trade press actually uses for blackberry) and `caneberry` (a real, 100%-precision US/UK collective term, live-tested) -- three real, significant blackberry stories (including a real Planasa "Yosemite" variety launch) scored 0 and were silently rejected before this fix. Fixed additively in `app/services/relevance_screen.py` and `app/services/deterministic_tagging.py`; 30 existing tests for both modules pass unchanged.
+
+**3 new sources added, each individually live-tested and justified before adding** (171 -> 174): `source-news-search-caneberry-global` (English, global company/breeder news no country query reaches), `source-news-search-mexico-zarzamora` (Spanish, proven distinct signal from the existing generic "mora"), `source-news-search-chile-frambuesa` (Spanish, Chile is a real major raspberry exporter with no prior raspberry-specific query). All three idempotent on re-run (0 duplicates).
+
+**CPVO's real structural gap, precisely root-caused**: `cpvo_registry.py`'s `discover()` builds queries from the platform's own already-tracked Variety entity names/aliases, not a blanket species search -- with only 1 tracked blackberry Variety, CPVO monitoring can only ever issue ~1 real query for blackberry regardless of true CPVO activity. A real, previously-undiscovered chicken-and-egg architecture finding, not a source-access problem.
+
+**No hardcoded blueberry/strawberry bias was found** in discovery, relevance-screening, patent-monitor, or CPVO code paths -- every mechanism examined is genuinely berry-parameterized; the measured imbalance traces to data volume and vocabulary completeness, not code-level bias.
+
+Registered `docs/v2/TECHNICAL-DEBT-REGISTER.md` TD-071 (untagged trusted Evidence hides real per-berry content from every measurement) and TD-072 (`deterministic_tagging.py` has zero French vocabulary for any berry).
+
+---
+
 ## Learner Mode capability maturity (2026-08-22)
 
 Learner Mode (Workstream K, `docs/v2/feature-requests/LEARNER-MODE.md`) is a formalized product requirement, not an implemented capability. **Every cell below is `NONE`** -- no Learner Mode content, schema, source, or UI exists in canonical as of this entry. The feature request's own source citations (university extension guides, peer-reviewed journals, trade-fair sensory panels, Wikimedia Commons, etc.) are a recommended source base for a future mission, not evidence of current coverage -- a source appearing in a requirements document does not count toward this matrix.

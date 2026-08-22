@@ -3622,6 +3622,67 @@
       "update_cadence": "weekly",
       "default_active": true,
       "notes": "Real, unauthenticated SEC EDGAR full-text search API, a new sec_edgar_search_json adapter (app/services/media_discovery.py) reusing the same generic JSON fetch as the other government-JSON adapters with its own list/normalize functions for EDGAR's nested hits.hits[]._source shape. Live-verified: a bare cross-company keyword search is noisy (13 of 18 hits unrelated); CIK-scoped to this one already-known public berry-industry company, 32/32 hits genuinely relevant. Added for the Unknown-Event Discovery + Query Coverage V3 mission (2026-08-23)."
+    },
+    {
+      "id": "source-news-search-caneberry-global",
+      "collector_type": "keyword_search",
+      "label": "Mainstream news search (English) -- global caneberry (raspberry/blackberry) breeding, variety, acquisition",
+      "query_or_url": "caneberry OR (raspberry OR blackberry) breeding OR variety OR acquisition OR licensing (hl=en-US, gl=US)",
+      "url": "https://news.google.com/",
+      "geography_focus": [
+        "global"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "realtime",
+      "default_active": true,
+      "notes": "Live-verified 13/13 real hits on the bare term \"caneberry\" with zero noise. Added for the Blackberry/Raspberry Vertical V1 mission (2026-08-22) to reach company/breeder/university caneberry news no country-scoped query can find."
+    },
+    {
+      "id": "source-news-search-mexico-zarzamora",
+      "collector_type": "keyword_search",
+      "label": "Mainstream news search (Spanish, Mexico) -- zarzamora (blackberry)",
+      "query_or_url": "zarzamora (hl=es-419, gl=MX)",
+      "url": "https://news.google.com/",
+      "geography_focus": [
+        "north_america"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "realtime",
+      "default_active": true,
+      "notes": "Live-verified real signal distinct from the existing generic \"mora\" vocabulary -- surfaced the real Planasa \"Yosemite\" blackberry variety launch. Added for the Blackberry/Raspberry Vertical V1 mission (2026-08-22)."
+    },
+    {
+      "id": "source-news-search-chile-frambuesa",
+      "collector_type": "keyword_search",
+      "label": "Mainstream news search (Spanish, Chile) -- frambuesa (raspberry) exports",
+      "query_or_url": "frambuesa Chile exportacion OR congelada (hl=es-419, gl=CL)",
+      "url": "https://news.google.com/",
+      "geography_focus": [
+        "south_america"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-raspberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "realtime",
+      "default_active": true,
+      "notes": "Chile is a real major raspberry exporter with zero prior raspberry-specific query (the existing Chile source is blueberry-only). Added for the Blackberry/Raspberry Vertical V1 mission (2026-08-22)."
     }
   ]
 }

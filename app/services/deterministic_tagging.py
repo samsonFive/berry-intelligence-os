@@ -14,8 +14,15 @@ from typing import Any
 BERRY_TERMS: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("berry-blueberry", ("blueberries", "blueberry", "arándanos", "arandanos", "arándano", "arandano")),
     ("berry-strawberry", ("strawberries", "strawberry", "frutilla", "frutillas", "fresa", "fresas")),
-    ("berry-raspberry", ("raspberries", "raspberry", "frambuesa", "frambuesas")),
-    ("berry-blackberry", ("blackberries", "blackberry", "mora", "moras")),
+    # "caneberry"/"caneberries" appears on both raspberry and blackberry --
+    # it is the real, unambiguous US/UK trade-press collective term for the
+    # two species together (Blackberry/Raspberry Vertical V1, 2026-08-22),
+    # not a third species. An item naming only "caneberry" tags both.
+    ("berry-raspberry", ("raspberries", "raspberry", "frambuesa", "frambuesas", "caneberry", "caneberries")),
+    # "zarzamora"/"zarzamoras" -- the real term Mexican trade press uses
+    # for blackberry (Blackberry/Raspberry Vertical V1, 2026-08-22),
+    # distinct from and lower collision-risk than the existing "mora".
+    ("berry-blackberry", ("blackberries", "blackberry", "mora", "moras", "zarzamora", "zarzamoras", "caneberry", "caneberries")),
 )
 
 

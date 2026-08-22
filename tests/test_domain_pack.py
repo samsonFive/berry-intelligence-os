@@ -300,7 +300,14 @@ def test_all_live_sources_accounted_for() -> None:
     templates = data["collector_templates"]
     excluded = data.get("excluded", [])
     sources = json.loads((ROOT / "data" / "configuration" / "sources.json").read_text(encoding="utf-8"))
-    # 171 = 168 plus 3 sources added (each with a matching collector_templates
+    # 174 = 171 plus 3 sources added (each with a matching collector_templates
+    # entry) for the Blackberry/Raspberry Vertical V1 mission (2026-08-22):
+    # source-news-search-caneberry-global (English, global caneberry
+    # company/breeder news), source-news-search-mexico-zarzamora (Spanish,
+    # the real Mexican-Spanish term for blackberry), and
+    # source-news-search-chile-frambuesa (Spanish, Chile is a real major
+    # raspberry exporter with zero prior raspberry-specific query), all
+    # real and live-verified with proven idempotence. 171 = 168 plus 3 sources added (each with a matching collector_templates
     # entry) for the Unknown-Event Discovery + Query Coverage V3 mission
     # (2026-08-23): FreshPlaza and Fruitnet global RSS feeds (real,
     # live-verified, previously only static reference entries despite being
@@ -341,7 +348,7 @@ def test_all_live_sources_accounted_for() -> None:
     # traffic. 142 = 140 plus source-freshuelva-news and source-nova-siri-
     # genetics-news, added for the Strawberry Vertical V1 depth mission
     # (2026-08-20).
-    assert len(sources) == 171
+    assert len(sources) == 174
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}
