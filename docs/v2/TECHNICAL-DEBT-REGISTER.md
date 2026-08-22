@@ -1024,7 +1024,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Recommended resolution** | Add a distinct explicit Publication Keep control if keep-rate is required, and bounded reason categories where they improve operations. Do not backfill inferred events. |
 | **Status** | substantially resolved; explicit Keep/reason taxonomy limitation remains |
 | **Owner lane** | platform / analyst operations |
-| **PR/SHA when resolved** | Review Outcome Instrumentation V1 (SHA pending) |
+| **PR/SHA when resolved** | PR #86; implementation `9bdc584`; deployed merge `4bf2cfa` |
 | **Regression-test reference** | `tests/test_review_events.py`, `tests/test_review_capacity.py::test_unreviewed_backlog_never_becomes_fabricated_yield`, `tests/test_review_capacity.py::test_only_real_recorded_actions_are_observed` |
 
 ### TD-065 — A real, well-matched source can sit fully configured and never be run
