@@ -2,13 +2,12 @@
   "id": "rel-berryworld-sells-eureka",
   "record_type": "relationship",
   "subject_id": "company-berryworld",
-  "predicate": "markets",
+  "predicate": "sells",
   "object_id": "variety-eureka",
   "status": "active",
   "evidence_ids": [
     "ev-berryworld-varieties"
   ],
   "effective_date": null,
-  "confidence": "medium",
-  "notes": "Marketed under a BerryWorld retail brand. Corrected from a substituted 'sells' predicate (2026-08-21, Variety Intelligence Backbone V1 mission) now that 'markets' is a real schema-enforced predicate -- id/filename kept as rel-berryworld-sells-eureka to avoid an id-rename cascade across referencing entities; the predicate field itself is the source of truth."
+  "notes": "confidence=medium; Marketed under a BerryWorld retail brand. Substituted predicate: 'sells' stands in for 'markets', which the schema does not provide."
 }

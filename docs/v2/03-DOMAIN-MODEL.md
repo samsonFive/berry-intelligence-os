@@ -149,8 +149,7 @@ V1 built `Facts → Evidence → Source`. `Assessment` and `Signal` existed as n
 ## Assessment
 
 - **Purpose**: **new in V2, though not a new idea** — V1's own `DOMAIN-MODEL.md` defines it as "an analyst interpretation of one or more facts." This is the first link V1's lineage chain never got a schema for.
-- **Ownership/scope**: belongs to a Workspace (administrative scope — see `08-DECISION-LOG.md` D-008).
-- **Analytical scope** (`08-DECISION-LOG.md` D-012, Phase 2A): optional, additive `domain_ids`/`market_ids`/`geography_ids` fields express what market/domain/geography this Assessment explicitly claims to be about — distinct from Workspace scope (administrative) and from provenance (`fact_ids`/`evidence_ids`, which establish *why* it's trustworthy, not *what it's about*). A record with no explicit scope is not read as "applies everywhere"; scope can also be derived from `entity_ids` as a hint/convenience, but derived scope is never authoritative once an explicit value exists. See `docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` Part 2 for the full design.
+- **Ownership/scope**: belongs to a Workspace.
 - **Important relationships**: requires ≥1 Fact (an Assessment interprets facts, it doesn't stand alone — this is what keeps it distinct from a Claim, which interprets nothing, and a Signal, which requires a *pattern* across multiple evidence, not one analyst's read of existing facts); may reference Entities and Strategic Questions it bears on.
 - **Provenance requirements**: `fact_ids` (≥1), `confidence`, `reviewer`, `created_at` — mirroring Fact's provenance discipline exactly, since an Assessment is exactly as untrustworthy as its unexplained-reasoning cousin (a bare opinion) unless it's this well-anchored.
 - **Review state**: proposed by a human or by AI (per Core Design Principle #4, AI-proposed Assessments carry an explicit `ai_proposed: true` / `reviewed_by` pair before counting as published) → `active` / `superseded` / `withdrawn`.
@@ -160,8 +159,7 @@ V1 built `Facts → Evidence → Source`. `Assessment` and `Signal` existed as n
 ## Signal
 
 - **Purpose**: unchanged — a monitored pattern supported by multiple evidence or fact records (distinguishing it from Assessment, which can rest on a single fact's interpretation).
-- **Ownership/scope**: belongs to a Workspace (administrative scope).
-- **Analytical scope** (`08-DECISION-LOG.md` D-012, Phase 2A): Signal's existing `berry_ids` field (now formally declared in `signal.schema.json`, previously accepted but undeclared) is its market-scope field; optional, additive `domain_ids`/`geography_ids` fields were added alongside it for consistency with Assessment/Recommendation's scope fields. Same separation-from-provenance rule applies — see Assessment's Analytical scope entry above and `docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` Part 2.5.
+- **Ownership/scope**: belongs to a Workspace.
 - **Important relationships**: requires ≥2 Evidence (V1's schema doesn't currently enforce this `minItems`, though the blueberry import package's *own proposed* signal schema did, P-7 — V2 should enforce it, since a "signal" built on one data point is really just a Claim); may reference Facts, Entities, Strategic Questions.
 - **Provenance requirements**: `evidence_ids` (≥2, enforced), `direction`, `strength`, `confidence`, `first_seen`, `last_updated`, `reviewer` — kept from V1's schema.
 - **Review state**: V1's enum today is unclear in practice (0 live records to observe) — V2 adopts the richer state machine the blueberry import package's own proposal specified: `proposed → monitoring → confirmed / refuted → retired`, since "proposed but never confirmed or refuted" is a real, distinct state worth tracking (the 6 unapplied signals from that package are all sitting in exactly this state today, unable to progress because the field to track it doesn't cleanly exist yet).
@@ -171,8 +169,7 @@ V1 built `Facts → Evidence → Source`. `Assessment` and `Signal` existed as n
 ## Recommendation
 
 - **Purpose**: **new in V2, though — like Assessment — not a new idea.** V1's `DOMAIN-MODEL.md` defines it, in spirit, as "a proposed action." This is the *other* missing link in the lineage chain. **Resolved this review (`08-DECISION-LOG.md` D-011, ACCEPTED)**: Recommendation is a **decision/action** object, answering *"what action or decision is proposed based on accumulated intelligence?"* — a genuinely different question from the one Evidence Priority answers (see below), not a grander version of it.
-- **Ownership/scope**: belongs to a Workspace (administrative scope).
-- **Analytical scope** (`08-DECISION-LOG.md` D-012, Phase 2A): same optional, additive `domain_ids`/`market_ids`/`geography_ids` fields as Assessment, and the same separation from Workspace scope and from provenance (`assessment_ids`/`signal_ids`/`evidence_ids`). See `docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` Part 2.
+- **Ownership/scope**: belongs to a Workspace.
 - **Important relationships**: requires ≥1 Assessment or Signal (never bare evidence — a Recommendation is downstream of interpretation, per the lineage chain, not a shortcut around it); may reference Entities and Strategic Questions.
 - **Provenance requirements**: `assessment_or_signal_ids` (≥1), `action_type`, `rationale`, `reviewer`, `created_at`.
 - **Review state**: same AI-proposes/human-approves discipline as Assessment.

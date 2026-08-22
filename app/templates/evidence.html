@@ -14,59 +14,20 @@
 {% endif %}
 <article class="detail-card">
   <dl data-pagefind-ignore>
-    <dt>Source</dt>
-    <dd>
-      {% if record.source_url %}
-        <a href="{{ record.source_url }}" target="_blank" rel="noopener">{{ record.source_name or "Open original source" }} ↗</a>
-      {% else %}
-        {{ record.source_name or "Unknown" }} <span class="empty-state">· no external URL recorded</span>
-      {% endif %}
-    </dd>
+    <dt>Source</dt><dd>{{ record.source_name or "Unknown" }}</dd>
     <dt>Published</dt><dd>{{ record.published_date|us_date if record.published_date else "—" }}</dd>
     <dt>Captured</dt><dd>{{ record.captured_date|us_date }}</dd>
-    {% if record.evidence_role %}<dt>Evidence role</dt><dd>{{ record.evidence_role|replace('_',' ')|title }}</dd>{% endif %}
-    {% if record.parent_evidence_id %}<dt>Derived from</dt><dd><a href="/evidence/{{ record.parent_evidence_id }}">Parent publication artifact</a></dd>{% endif %}
-    {% if record.artifact_locator %}
-      <dt>Artifact location</dt>
-      <dd>
-        {{ record.artifact_locator.start_seconds }}s{% if record.artifact_locator.end_seconds is not none %}–{{ record.artifact_locator.end_seconds }}s{% endif %}
-        {% if record.artifact_locator.section %} · {{ record.artifact_locator.section }}{% endif %}
-        {% if record.artifact_locator.speaker_label %} · speaker label: {{ record.artifact_locator.speaker_label }}{% endif %}
-      </dd>
-    {% endif %}
-    {% if record.transcript_provenance %}
-      <dt>Transcript provenance</dt>
-      <dd>{{ record.transcript_provenance.method|replace('_',' ')|title }} · {{ record.transcript_provenance.created_by }} · {{ record.transcript_provenance.created_at|us_date }}</dd>
-    {% endif %}
-    {% if record.extraction_provenance %}
-      <dt>Extraction provenance</dt>
-      <dd>{{ record.extraction_provenance.method|replace('_',' ')|title }} · {{ record.extraction_provenance.extracted_by }} · {{ record.extraction_provenance.extracted_at|us_date }}</dd>
-    {% endif %}
-    {% if record.media_format %}<dt>Media format</dt><dd>{{ record.media_format|replace('_',' ')|title }}</dd>{% endif %}
-    {% if record.transcript %}
-      <dt>Transcript</dt>
-      <dd>
-        {{ record.transcript.status|replace('_',' ')|title }}
-        {% if record.transcript.url %} · <a href="{{ record.transcript.url }}" target="_blank" rel="noopener">Open transcript ↗</a>{% endif %}
-      </dd>
-    {% endif %}
     <dt>Status</dt><dd>{{ record.status }}</dd>
-    {% if record.reviewed_by %}<dt>Reviewed</dt><dd>{{ record.reviewed_by }}{% if record.reviewed_at %} · {{ record.reviewed_at|us_date }}{% endif %}</dd>{% endif %}
     <dt>Berries</dt><dd>{% for b in record.berry_ids %}{{ berry_label(b) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>
     <dt>Geography</dt><dd>{% set geographies = linked_entities|selectattr('entity_type', 'equalto', 'geography')|list %}{% if geographies %}{% for g in geographies %}{{ g.name }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}—{% endif %}</dd>
   </dl>
 
-  <h2>Bottom line</h2>
+  <h2>Summary</h2>
   {% set summary_lines = record.summary|as_bullets %}
   {% if summary_lines|length > 1 %}
     <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
   {% else %}
     <p>{{ record.summary }}</p>
-  {% endif %}
-
-  {% if record.transcript_excerpt %}
-    <h2>Supporting transcript excerpt</h2>
-    <p>{{ record.transcript_excerpt }}</p>
   {% endif %}
 
   <h2>Why it matters</h2>
@@ -104,7 +65,7 @@
     <ul class="fact-list">
       {% for fact in facts %}
         <li>
-          <span class="badge badge-{{ 'fact' if fact.classification == 'fact' else 'claim' }}">{{ fact.classification|upper }}</span>
+          <span class="badge badge-muted">{{ fact.classification|upper }}</span>
           <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
           {% set statement_lines = fact.statement|as_bullets %}
           {% if statement_lines|length > 1 %}
@@ -142,5 +103,11 @@
     <p class="empty-state">No attachments.</p>
   {% endif %}
 
+  <h2>Provenance</h2>
+  {% if record.source_url %}
+    <p><a href="{{ record.source_url }}">Open original source</a></p>
+  {% else %}
+    <p class="empty-state">No external source URL recorded.</p>
+  {% endif %}
 </article>
 {% endblock %}

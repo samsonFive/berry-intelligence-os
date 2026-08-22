@@ -17,14 +17,7 @@
   "entity_ids": [
     "company-advanced-berry-breeding",
     "company-planasa",
-    "geography-netherlands",
-    "variety-baridi",
-    "variety-kwanza",
-    "variety-malaika",
-    "variety-rafiki",
-    "variety-sarafina",
-    "variety-shani",
-    "variety-zawadi"
+    "geography-netherlands"
   ],
   "fact_ids": [
     "fact-advanced-berry-breeding-raspberry-only"

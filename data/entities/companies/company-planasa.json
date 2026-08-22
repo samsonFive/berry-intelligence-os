@@ -7,7 +7,7 @@
     "Planasa"
   ],
   "status": "active",
-  "description": "Spanish plant breeder and nursery group trading as Planasa, headquartered in Valtierra, Navarra. In blueberry it operates as a breeder and licensor of protected varieties and as a nursery plant producer, rather than as a fresh-fruit marketer; in raspberry its Dutch subsidiary Advanced Berry Breeding fills the same role. In strawberry, its RedSayra variety became Spain's most widely planted strawberry (per Ifapa data reported by Fruitnet), and it inaugurated an R&D center in Mexico to launch new berry varieties for Latin America. Owned by Cinven and Label Investments until their agreed sale to the German EW Group.",
+  "description": "Spanish plant breeder and nursery group trading as Planasa, headquartered in Valtierra, Navarra. In blueberry it operates as a breeder and licensor of protected varieties and as a nursery plant producer, rather than as a fresh-fruit marketer. Owned by Cinven and Label Investments until their agreed sale to the German EW Group.",
   "roles": [
     "breeder",
     "nursery",
@@ -16,9 +16,7 @@
     "competitor"
   ],
   "berry_ids": [
-    "berry-blueberry",
-    "berry-strawberry",
-    "berry-raspberry"
+    "berry-blueberry"
   ],
   "evidence_ids": [
     "ev-planasa-about-us",
@@ -28,9 +26,7 @@
     "ev-uspp031345-plablue-1545",
     "ev-cinven-planasa-ew-group",
     "ev-abb-varieties",
-    "ev-cfia-blueberry-index",
-    "ev-20260806173603-9911-redsayra-becomes-spain-s-most-planted-st",
-    "ev-20260806175534-7c5e-planasa-inaugurates-an-r-d-center-in-mex"
+    "ev-cfia-blueberry-index"
   ],
   "fact_ids": [
     "fact-blue-manila-plablue-1545",

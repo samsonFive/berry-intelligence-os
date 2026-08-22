@@ -15,10 +15,7 @@
     "berry-raspberry"
   ],
   "geography_ids": [],
-  "entity_ids": [
-    "company-the-summer-berry-company",
-    "variety-malaika"
-  ],
+  "entity_ids": [],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],

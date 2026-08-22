@@ -12,11 +12,10 @@
   "why_it_matters": "Confirms from the court record, rather than from a party's press release, that this dispute is a strawberry matter and remains unresolved. It also confirms the existence of the European Driscoll's entity.",
   "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
   "berry_ids": [
-    "berry-strawberry"
+    "berry-blueberry"
   ],
   "entity_ids": [
-    "company-driscolls",
-    "company-california-berry-cultivars"
+    "company-driscolls"
   ],
   "fact_ids": [
     "fact-driscolls-cbc-litigation-is-strawberry",

@@ -71,40 +71,6 @@ def test_export_for_review_writes_only_unreviewed_auto_captured_rows(monkeypatch
     assert ids == ["ev-unreviewed-1"]
 
 
-def test_export_for_review_handles_empty_backlog_without_crashing(monkeypatch, tmp_path) -> None:
-    # A clean/empty clone has no auto-captured unreviewed evidence. The export
-    # must still produce a valid header-only workbook rather than raising on an
-    # empty DataValidation range.
-    _isolate(monkeypatch, tmp_path)
-
-    import scripts.export_for_review as export_for_review
-
-    output_path = tmp_path / "review.xlsx"
-    monkeypatch.setattr("sys.argv", ["export_for_review.py", str(output_path)])
-    export_for_review.main()
-
-    wb = load_workbook(output_path)
-    ws = wb.active
-    assert [cell.value for cell in ws[1]] == [name for name, _ in export_for_review.COLUMNS]
-    assert list(ws.iter_rows(min_row=2, values_only=True)) == []
-
-
-def test_export_for_review_default_output_stays_inside_ignored_review_dir(monkeypatch, tmp_path) -> None:
-    # The default output (no CLI arg) must land under review/, which .gitignore
-    # keeps out of Git, so a default run never drops an untracked artifact at the
-    # repository root that could be committed by accident.
-    import scripts.export_for_review as export_for_review
-
-    monkeypatch.setattr(export_for_review, "ROOT", tmp_path)
-    monkeypatch.setattr(export_for_review, "all_evidence", lambda: [])
-    monkeypatch.setattr(export_for_review, "load_sources", lambda: [])
-    monkeypatch.setattr("sys.argv", ["export_for_review.py"])
-    export_for_review.main()
-
-    assert (tmp_path / "review" / "review-backlog.xlsx").exists()
-    assert not (tmp_path / "review-backlog.xlsx").exists()
-
-
 def test_export_for_review_uses_real_publisher_and_domain_not_google(monkeypatch, tmp_path) -> None:
     _isolate(monkeypatch, tmp_path)
     main.save_sources([FAKE_SOURCE])

@@ -2,94 +2,23 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "signal.schema.json",
   "title": "Signal Record",
-  "$comment": "Refined for V2 Phase 1 (BL-014, docs/v2/10-BACKLOG.md). Zero live Signal records exist (data/signals/ is empty). The refinement target is the six staged, not-yet-imported blueberry proposed Signals (data/imports/blueberry-public-pilot-2026-08-03/signals/), per docs/v2/03-DOMAIN-MODEL.md's Signal section. COMPATIBILITY CORRECTION (found by running the existing test suite, not by data inspection alone): app/main.py's live /signals route validates against this schema at runtime (get_validator('signal.schema.json')) and has its own independent, hard-coded id-generation convention (new_signal_id() always produces a 'signal-' prefix) and form-option vocabularies (SIGNAL_STRENGTHS = [low, medium, high], SIGNAL_STATUSES = [active, watch, resolved]) -- checking only data/ for backward compatibility (0 live signal records) missed this second, equally-real compatibility surface. An id-pattern or enum replacement that only served the blueberry package's shape would have permanently broken live signal creation without any app/template code being touched, which is exactly the 'do not change application behavior' constraint this task set. Resolved by making id pattern and the strength/status enums the UNION of both vocabularies -- not a replacement -- so both the live app's existing values and the blueberry package's proposed values validate. evidence_ids' minItems 1->2 is kept exactly as specified (not unioned/loosened): it was an explicit, deliberate BL-014 requirement, not an incidental value mismatch, and the live app's existing multi-value evidence_ids form field already supports satisfying it with zero app/template changes -- see the test update noted in this task's final report.",
   "type": "object",
-  "required": ["id", "record_type", "title", "status", "evidence_ids", "strength", "reviewer"],
+  "required": ["id", "record_type", "title", "direction", "strength", "confidence", "status", "evidence_ids", "first_seen", "last_updated", "reviewer"],
   "properties": {
-    "id": {
-      "type": "string",
-      "pattern": "^(signal|sig)-[a-z0-9-]+$",
-      "$comment": "Union, not a replacement: 'signal-' is what app/main.py's new_signal_id() always generates today (unchanged, not touched by this task); 'sig-' is what the staged blueberry signals and their own proposed-schema-enhancements.md P-7 use."
-    },
+    "id": {"type": "string", "pattern": "^signal-[a-z0-9-]+$"},
     "record_type": {"const": "signal"},
     "title": {"type": "string", "minLength": 1},
     "description": {"type": "string"},
-    "direction": {
-      "enum": ["strengthening", "weakening", "emerging", "stable"],
-      "$comment": "Demoted from required to optional: the staged blueberry signals don't populate it, but the live app always does when creating one, with these exact values (SIGNAL_DIRECTIONS in app/main.py, unchanged) -- concept and value set both retained."
-    },
-    "strength": {
-      "enum": ["low", "medium", "high", "weak", "moderate", "strong"],
-      "$comment": "Union, not a replacement: [low, medium, high] is app/main.py's SIGNAL_STRENGTHS (unchanged, drives the live form's dropdown); [weak, moderate, strong] is the staged blueberry signals' and P-7's vocabulary. Still required -- both sides always populate it."
-    },
-    "confidence": {
-      "enum": ["low", "medium", "high"],
-      "$comment": "Demoted from required to optional: the staged blueberry signals don't populate it, but the live app always does. Value set unchanged."
-    },
-    "status": {
-      "enum": ["active", "watch", "resolved", "proposed", "monitoring", "confirmed", "refuted", "retired", "disputed", "deferred", "dismissed"],
-      "$comment": "Union, not a replacement: [active, watch, resolved] is app/main.py's SIGNAL_STATUSES (unchanged, drives the live form's dropdown); [proposed, monitoring, confirmed, refuted, retired] is docs/v2/03-DOMAIN-MODEL.md's adopted state machine, matching all six staged signals (status=proposed). [disputed, deferred, dismissed] added for Corroboration + Signal Formation (2026-08-19): app/services/signal_candidates.py's human-review decisions (CONFIRM/EDIT/DEFER/DISMISS/MARK DISPUTED) needed a status a reviewer could actually land a Signal candidate on beyond confirmed/refuted -- disputed is distinct from refuted (a refuted Signal has been shown wrong; a disputed one has a live, unresolved contradiction in its own supporting Evidence), and deferred/dismissed give a reviewer a real 'not yet' or 'no' short of forcing a premature confirm/refute."
-    },
-    "evidence_ids": {
-      "type": "array",
-      "items": {"type": "string"},
-      "minItems": 2,
-      "$comment": "Raised from 1 to 2 (BL-014, kept exactly as specified): a signal is a pattern across multiple evidence, not a single data point. All six staged signals have 4-5 evidence_ids. This does change what the live /signals form will accept (a single-evidence submission now fails validation, where it previously succeeded) -- flagged explicitly in this task's final report, not silently absorbed; the existing form field already accepts multiple comma-separated evidence ids with zero app/template changes needed to satisfy it."
-    },
+    "direction": {"enum": ["strengthening", "weakening", "emerging", "stable"]},
+    "strength": {"enum": ["low", "medium", "high"]},
+    "confidence": {"enum": ["low", "medium", "high"]},
+    "status": {"enum": ["active", "watch", "resolved"]},
+    "evidence_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
     "fact_ids": {"type": "array", "items": {"type": "string"}},
     "entity_ids": {"type": "array", "items": {"type": "string"}},
-    "berry_ids": {
-      "type": "array",
-      "items": {"type": "string"},
-      "$comment": "V2 Phase 2A (D-012, docs/v2/08-DECISION-LOG.md). Formalizes a field every live Signal record already sets in practice (all 6 imported signals populate berry_ids) but that was never declared in this schema before now -- previously valid only because this schema has no additionalProperties:false restriction. This is Signal's own market-scope field, kept under its existing name rather than renamed to match Assessment/Recommendation's market_ids for cosmetic consistency (D-012's own reasoning: renaming a working field with live data serves no new capability). Optional, not required, so any future non-Berries Signal without a berry concept still validates."
-    },
-    "domain_ids": {
-      "type": "array",
-      "items": {"type": "string"},
-      "$comment": "V2 Phase 2A (D-012). Explicit analytical scope -- which Domain(s) this Signal applies to, for consistency with Assessment/Recommendation's scope fields. Optional and additive; absent or empty means not yet explicitly declared. See docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md Part 2.5."
-    },
-    "geography_ids": {
-      "type": "array",
-      "items": {"type": "string"},
-      "$comment": "V2 Phase 2A (D-012). Geography entity id(s) this Signal's pattern is explicitly scoped to, when narrower than the full domain/market. Optional and additive."
-    },
     "strategic_question_ids": {"type": "array", "items": {"type": "string"}},
-    "first_seen": {
-      "type": "string",
-      "format": "date",
-      "$comment": "Demoted from required to optional: the staged blueberry signals don't populate it (they use an unmodeled proposed_at field instead), but the live app always does."
-    },
-    "last_updated": {
-      "type": "string",
-      "format": "date",
-      "$comment": "Demoted from required to optional: the staged blueberry signals don't populate it, but the live app always does."
-    },
-    "reviewer": {
-      "type": ["string", "null"],
-      "$comment": "Made nullable (was a required non-empty string) to accommodate reviewer=null on all six staged, not-yet-human-reviewed signals. The live app always sets a real, non-empty string, which remains valid under this looser type."
-    },
-    "does_not_prove": {
-      "type": "array",
-      "items": {"type": "string"},
-      "$comment": "Corroboration + Signal Formation addition (2026-08-19), optional. Carries the same discipline evidence.schema.json's does_not_prove already applies to a single record onto a multi-evidence Signal: a developing pattern across sources (e.g. a patent grant plus trade coverage) may suggest something (increased IP activity) without proving a further claim (commercial launch, acreage, strategic intent). Explicit and human-readable so source_authority/information_confidence on the underlying Evidence is never silently read as signal-level proof."
-    },
-    "source_independence": {
-      "type": "object",
-      "properties": {
-        "independent_source_count": {"type": "integer", "minimum": 0},
-        "total_evidence_count": {"type": "integer", "minimum": 0},
-        "clusters": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "evidence_ids": {"type": "array", "items": {"type": "string"}},
-              "origin_label": {"type": ["string", "null"]}
-            }
-          }
-        }
-      },
-      "$comment": "Corroboration + Signal Formation addition (2026-08-19), optional. app/services/source_independence.py's independence_report() output at the time this Signal was proposed or last reviewed -- how many of evidence_ids' records actually trace to distinct origins, not just how many records there are (three reprints of one press release must never silently read as three independent confirmations). Informational, not authoritative: a human reviewer may override the pattern this implies, but the computed clustering itself is never edited in place, only recomputed."
-    }
+    "first_seen": {"type": "string", "format": "date"},
+    "last_updated": {"type": "string", "format": "date"},
+    "reviewer": {"type": "string", "minLength": 1}
   }
 }

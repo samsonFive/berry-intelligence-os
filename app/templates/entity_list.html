@@ -1,9 +1,6 @@
 {% extends "base.html" %}
-{% block title %}{% if entity_type == 'variety' %}Variety Intelligence{% else %}{{ entity_type|replace('_',' ')|title }} records{% endif %} — Berry Intelligence OS{% endblock %}
+{% block title %}{{ entity_type|replace('_',' ')|title }} records — Berry Intelligence OS{% endblock %}
 {% block content %}
-{% if entity_type == 'variety' %}
-{% include "_variety_workspace.html" %}
-{% else %}
 <section class="page-heading">
   <div>
     <p class="eyebrow">ENTITIES</p>
@@ -53,13 +50,25 @@
 <p class="result-count">Showing {{ entities|length }} of {{ total_count }} {{ entity_type|replace('_',' ') }} records</p>
 {% endif %}
 
-<section class="entity-list balanced-card-grid public-card-index">
+<section class="entity-list">
   {% for entity in entities %}
-    {% set code = (entity.attributes or {}).get('selection_code') %}
-    <article class="card entity-card"><div class="card-header"><span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span>{% if code %}<span class="badge badge-muted">{{ code }}</span>{% endif %}</div><h2><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a></h2>{% if entity.description %}<p>{{ entity.description|truncate(200) }}</p>{% endif %}{% if entity.roles %}<p class="card-kicker">{{ entity.roles|join(' · ')|upper }}</p>{% endif %}</article>
+    <article class="card entity-card">
+      <div class="card-header">
+        <span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span>
+        {% set code = (entity.attributes or {}).get('selection_code') %}
+        {% if code %}<span class="badge badge-muted">{{ code }}</span>{% endif %}
+      </div>
+      <h2><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a></h2>
+      {% set description_lines = entity.description|as_bullets %}
+      {% if description_lines|length > 1 %}
+        <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+      {% elif entity.description %}
+        <p>{{ entity.description }}</p>
+      {% endif %}
+      {% if entity.roles %}<div class="tags">{% for role in entity.roles %}<span>{{ role }}</span>{% endfor %}</div>{% endif %}
+    </article>
   {% else %}
-    <p class="empty-state">No matching records.</p>
+    <p class="empty-state">No {{ entity_type|replace('_',' ') }} records match the current filters.</p>
   {% endfor %}
 </section>
-{% endif %}
 {% endblock %}

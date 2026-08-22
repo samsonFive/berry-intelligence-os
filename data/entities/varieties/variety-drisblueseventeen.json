@@ -23,8 +23,7 @@
     "fact-drisblueseventeen-portugal-examination"
   ],
   "relationship_ids": [
-    "rel-driscolls-develops-drisblueseventeen",
-    "rel-driscolls-owns-drisblueseventeen"
+    "rel-driscolls-develops-drisblueseventeen"
   ],
   "attributes": {
     "denomination": "DrisBlueSeventeen",

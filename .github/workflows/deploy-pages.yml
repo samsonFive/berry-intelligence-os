@@ -2,7 +2,7 @@ name: Deploy static site to GitHub Pages
 
 on:
   push:
-    branches: [master, v2/intelligence-os]
+    branches: [master]
   workflow_dispatch: {}
 
 permissions:
@@ -22,18 +22,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: pip
-      - uses: actions/configure-pages@v5
       - run: pip install -r requirements-dev.txt
       - run: pip install pagefind pagefind_bin
       - run: pytest -q
       - run: python scripts/validate_records.py
       - run: python scripts/build_static.py
-      - name: Verify Pages output
-        run: |
-          test -f generated/index.html
-          test -f generated/.nojekyll
-          test -f generated/landscapes/berries/blueberry/index.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: generated

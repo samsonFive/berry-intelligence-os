@@ -1,11 +1,6 @@
 {% extends "base.html" %}
 {% block title %}{{ entity.name }}{% endblock %}
 {% block content %}
-{% if entity.entity_type == 'company' %}
-{% include "_company_profile.html" %}
-{% elif entity.entity_type == 'variety' %}
-{% include "_variety_profile.html" %}
-{% else %}
 <section class="page-heading" data-pagefind-filter="type:entity">
   <div>
     <p class="eyebrow">{{ entity.entity_type|replace('_',' ')|upper }}</p>
@@ -22,6 +17,116 @@
     {% endif %}
   </div>
 </section>
-{% include "_entity_body.html" %}
-{% endif %}
+
+<article class="detail-card">
+  <dl data-pagefind-ignore>
+    <dt>Status</dt><dd><span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span></dd>
+    <dt>Roles</dt><dd>{% if entity.roles %}{{ entity.roles|join(', ') }}{% else %}—{% endif %}</dd>
+    <dt>Berries</dt><dd>{% for b in entity.berry_ids %}{{ berry_label(b) }}{% if not loop.last %}, {% endif %}{% else %}—{% endfor %}</dd>
+    <dt>Region{{ 's' if regions|length > 1 else '' }}</dt><dd>{{ regions|join(', ') if regions else '—' }}</dd>
+  </dl>
+
+  <h2>Recent activity</h2>
+  {% if activity %}
+    <ol class="activity-timeline">
+      {% for item in activity %}
+        <li class="activity-item">
+          <time data-pagefind-ignore>{{ item.date|us_date }}</time>
+          <div class="activity-item-body">
+            <div class="activity-item-badges" data-pagefind-ignore>
+              <span class="badge badge-muted">{{ item.type_label }}</span>
+              {% if item.priority and item.priority != 'none' %}
+                <strong class="level-{{ item.priority }}">{{ item.priority }}</strong>
+              {% endif %}
+            </div>
+            {% if item.url %}
+              <a href="{{ item.url }}">{{ item.title }}</a>
+            {% else %}
+              <span>{{ item.title }}</span>
+            {% endif %}
+            {% set detail_lines = item.detail|as_bullets %}
+            {% if detail_lines|length > 1 %}
+              <ul class="bullet-list">{% for line in detail_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+            {% elif item.detail %}
+              <p>{{ item.detail }}</p>
+            {% endif %}
+          </div>
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p class="empty-state">No recorded activity yet.</p>
+  {% endif %}
+
+  {% if entity.description %}
+    <h2>Description</h2>
+    {% set description_lines = entity.description|as_bullets %}
+    {% if description_lines|length > 1 %}
+      <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+    {% else %}
+      <p>{{ entity.description }}</p>
+    {% endif %}
+  {% endif %}
+
+  {% if entity.attributes %}
+    <h2>Attributes</h2>
+    <dl class="attributes">
+      {% for key, value in entity.attributes.items() %}
+        <dt>{{ key|replace('_',' ')|title }}</dt>
+        <dd>{% if value is iterable and value is not string %}{{ value|join(', ') }}{% else %}{{ value }}{% endif %}</dd>
+      {% endfor %}
+    </dl>
+  {% endif %}
+
+  <h2>Trust summary</h2>
+  <div class="trust-summary">
+    <div><strong>{{ evidence_count }}</strong><small>Linked evidence</small></div>
+    <div><strong>{{ source_count }}</strong><small>Independent sources</small></div>
+    <div><strong>{{ last_updated|us_date if last_updated else "—" }}</strong><small>Last updated</small></div>
+  </div>
+
+  <h2>Facts</h2>
+  {% if linked_facts %}
+    <ul class="fact-list">
+      {% for fact in linked_facts %}
+        <li>
+          <span class="badge badge-muted">{{ fact.classification|upper }}</span>
+          <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
+          {% set statement_lines = fact.statement|as_bullets %}
+          {% if statement_lines|length > 1 %}
+            <ul class="bullet-list">{% for line in statement_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+          {% else %}
+            <p>{{ fact.statement }}</p>
+          {% endif %}
+          <small>Reviewed by {{ fact.reviewer }} on {{ fact.created_at|us_date }} · {{ fact.status }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No facts published about this entity yet.</p>
+  {% endif %}
+
+  <h2>Linked evidence</h2>
+  {% if linked_evidence %}
+    <section class="feed feed-compact">
+      {% for item in linked_evidence %}
+        <article class="card source-{{ item.source_type }}">
+          <div class="card-header">
+            <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
+            <time>{{ (item.published_date or item.captured_date)|us_date }}</time>
+          </div>
+          <h3 data-pagefind-weight="1"><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3>
+          {% set item_summary_lines = item.summary|as_bullets %}
+          {% if item_summary_lines|length > 1 %}
+            <ul class="bullet-list">{% for line in item_summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+          {% else %}
+            <p>{{ item.summary }}</p>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </section>
+  {% else %}
+    <p class="empty-state">No published evidence links to this entity yet.</p>
+  {% endif %}
+</article>
 {% endblock %}
