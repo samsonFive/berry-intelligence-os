@@ -12,11 +12,10 @@
   "why_it_matters": "The litigation itself concerns strawberry, not blueberry, and is recorded here only to prevent it being carried into blueberry analysis by mistake. The release is retained because it is the best available first-party statement of Driscoll's licensing model, grower network and geographic reach.",
   "submitted_by": "research-agent/blueberry-public-pilot-2026-08-03",
   "berry_ids": [
-    "berry-strawberry"
+    "berry-blueberry"
   ],
   "entity_ids": [
     "company-driscolls",
-    "company-california-berry-cultivars",
     "geography-united-states"
   ],
   "fact_ids": [

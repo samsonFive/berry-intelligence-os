@@ -5,11 +5,6 @@ web UI's Validate/Purge buttons isn't practical.
 Usage:
     python scripts/export_for_review.py [output_path.xlsx]
 
-The default output path is review/review-backlog.xlsx. review/ is kept out of
-Git by .gitignore (except the one committed snapshot), so the default run does
-not leave an untracked artifact at the repository root that could be committed
-by accident.
-
 Fill in the "decision" column for any row you've made a call on and leave
 the rest blank -- blank rows are left untouched when you run
 apply_review_decisions.py against the file. Valid decisions:
@@ -49,7 +44,7 @@ COLUMNS = [
 
 
 def main() -> None:
-    output_path = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "review" / "review-backlog.xlsx"
+    output_path = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "review-backlog.xlsx"
 
     sources_by_id = {s["id"]: s for s in load_sources()}
     backlog = [r for r in all_evidence() if r.get("auto_captured") and not r.get("validated")]
@@ -89,17 +84,11 @@ def main() -> None:
         }
         ws.append([row[name] for name, _ in COLUMNS])
 
-    # Only attach the decision-column dropdown when there is at least one data
-    # row. On a clean/empty clone the backlog is empty (max_row == 1, header
-    # only), and DataValidation.add("A2:A1") raises "1 must be greater than 2",
-    # so the documented default run crashed instead of writing an empty sheet.
-    if ws.max_row >= 2:
-        decision_col_letter = get_column_letter(1)
-        validation = DataValidation(type="list", formula1=f'"{",".join(DECISIONS)}"', allow_blank=True)
-        ws.add_data_validation(validation)
-        validation.add(f"{decision_col_letter}2:{decision_col_letter}{ws.max_row}")
+    decision_col_letter = get_column_letter(1)
+    validation = DataValidation(type="list", formula1=f'"{",".join(DECISIONS)}"', allow_blank=True)
+    ws.add_data_validation(validation)
+    validation.add(f"{decision_col_letter}2:{decision_col_letter}{ws.max_row}")
 
-    output_path.parent.mkdir(parents=True, exist_ok=True)
     wb.save(output_path)
     print(f"Wrote {len(backlog)} rows to {output_path}")
 

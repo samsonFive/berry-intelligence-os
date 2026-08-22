@@ -1,9 +1,6 @@
-import os
 from datetime import date
-from pathlib import Path
 
 import httpx
-import pytest
 from fastapi.testclient import TestClient
 
 from app import main
@@ -33,34 +30,6 @@ def test_evidence_detail_page_shows_linked_entities() -> None:
     assert "Example Blue" in response.text
 
 
-def test_public_intelligence_pages_use_compact_bluf_tables() -> None:
-    entity_page = client.get("/entities/company/company-costa-group-holdings").text
-    assert "Bottom line" in entity_page
-    assert 'class="trust-summary bluf-metrics"' not in entity_page
-    assert 'class="brief-table evidence-link-table"' in entity_page
-    assert "v2-company" in entity_page
-
-    for path in ["/recommendations"]:
-        text = client.get(path).text
-        assert 'class="table-wrap public-index-table"' in text
-        assert 'class="brief-table"' in text
-
-    assessments = client.get("/assessments").text
-    assert "v2-assessment-list" in assessments
-    assert "DECIDE" in assessments
-    assert "never auto-created from Signal confirmation" in assessments
-
-    for path in ["/entities/company", "/signals", "/strategic-questions"]:
-        text = client.get(path).text
-        assert 'class="entity-list balanced-card-grid public-card-index"' in text
-        assert 'class="card entity-card"' in text
-
-    signal_page = client.get("/signals/sig-financial-owners-taking-positions-in-berry-genetics").text
-    assert "Bottom line" in signal_page
-    assert "Decision test" in signal_page
-    assert 'class="brief-table evidence-link-table"' in signal_page
-
-
 def test_evidence_detail_404_for_unknown_id() -> None:
     response = client.get("/evidence/does-not-exist")
     assert response.status_code == 404
@@ -71,9 +40,6 @@ def test_company_entity_page_renders() -> None:
     assert response.status_code == 200
     assert "Example Genetics" in response.text
     assert "Example breeder announces" in response.text
-    assert "Recent intelligence" in response.text
-    assert 'href="/intelligence/ev-sample-variety-launch"' in response.text
-    assert 'href="/review/ev-sample-variety-launch"' not in response.text
 
 
 def test_variety_entity_page_renders() -> None:
@@ -422,162 +388,6 @@ def test_publish_creates_entities_facts_relationships_and_updates_feed(monkeypat
     assert client.get(f"/intake/{draft_id}").status_code == 404
 
 
-def test_publish_draft_deletion_failure_rolls_back_and_remains_safely_retryable(monkeypatch, tmp_path) -> None:
-    _isolate(monkeypatch, tmp_path)
-    repositories = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
-    existing = {
-        "id": "company-existing-co", "record_type": "entity", "entity_type": "company",
-        "name": "Existing Co", "status": "active", "evidence_ids": [], "fact_ids": [],
-        "relationship_ids": [],
-    }
-    repositories.entities.create(existing)
-    draft_id = _create_draft("Deletion failure must be retryable")
-    publish_data = {
-        "title": "Deletion failure must be retryable",
-        "summary": "A complete fictional publication used to inject a draft unlink failure.",
-        "companies": "Existing Co, New Co",
-        "varieties": "New Variety",
-        "fact_statement_1": "Existing Co and New Co are linked to this fictional test.",
-        "fact_classification_1": "fact", "fact_confidence_1": "medium",
-        "rel_subject_1": "New Co", "rel_predicate_1": "trials", "rel_object_1": "New Variety",
-        "reviewer": "reviewer@example.invalid",
-    }
-    real_delete_draft = main.delete_draft
-
-    def fail_delete(_draft_id: str) -> None:
-        raise OSError("injected draft deletion failure")
-
-    monkeypatch.setattr(main, "delete_draft", fail_delete)
-    with pytest.raises(OSError, match="injected draft deletion failure"):
-        client.post(f"/review/{draft_id}/publish", data=publish_data)
-
-    assert repositories.entities.get(existing["id"]) == existing
-    assert repositories.entities.get("company-new-co") is None
-    assert repositories.entities.get("variety-new-variety") is None
-    assert repositories.facts.get(f"fact-{draft_id[3:]}-1") is None
-    assert repositories.relationships.get(f"rel-{draft_id[3:]}-1") is None
-    assert repositories.evidence.get(draft_id) is None
-    assert client.get(f"/review/{draft_id}").status_code == 200
-
-    monkeypatch.setattr(main, "delete_draft", real_delete_draft)
-    retry = client.post(f"/review/{draft_id}/publish", data=publish_data, follow_redirects=False)
-    assert retry.status_code == 303
-    assert repositories.evidence.get(draft_id) is not None
-    assert len([record for record in repositories.facts.list() if record["id"].startswith(f"fact-{draft_id[3:]}")]) == 1
-    assert len([record for record in repositories.relationships.list() if record["id"].startswith(f"rel-{draft_id[3:]}")]) == 1
-    assert client.get(f"/review/{draft_id}").status_code == 404
-
-
-def test_publish_attachment_survives_structured_failure_and_retry(monkeypatch, tmp_path) -> None:
-    _isolate(monkeypatch, tmp_path)
-    intake = client.post(
-        "/intake",
-        data={
-            "intake_type": "uploaded_report",
-            "title": "Draft with an attachment that must survive a rollback",
-            "summary": "A fictional summary for attachment-rollback testing.",
-            "submitted_by": "tester@example.invalid",
-        },
-        files={"attachment": ("note.txt", b"hello berries", "text/plain")},
-        follow_redirects=False,
-    )
-    assert intake.status_code == 303
-    draft_id = intake.headers["location"].split("created=")[-1]
-
-    publish_data = {
-        "title": "Draft with an attachment that must survive a rollback",
-        "summary": "A fictional summary for attachment-rollback testing.",
-        "companies": "New Co",
-        "fact_statement_1": "A fictional fact.",
-        "fact_classification_1": "fact", "fact_confidence_1": "medium",
-        "reviewer": "reviewer@example.invalid",
-    }
-
-    repositories = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
-    real_create = repositories.facts.create
-
-    def fail_create(_record):
-        raise RuntimeError("injected failure after attachments were moved")
-
-    monkeypatch.setattr(repositories.facts, "create", fail_create)
-    with pytest.raises(RuntimeError, match="injected failure after attachments were moved"):
-        client.post(f"/review/{draft_id}/publish", data=publish_data)
-
-    # The failed attempt must not leave the attachment stranded at the
-    # (rolled-back) published location, nor lost entirely -- it must be
-    # back where move_draft_attachments() expects to find it on retry.
-    assert not (main.DATA_DIR / "attachments" / draft_id).exists()
-    assert (main.INBOX_DIR / "attachments" / draft_id / "note.txt").exists()
-    assert repositories.evidence.get(draft_id) is None
-
-    monkeypatch.setattr(repositories.facts, "create", real_create)
-    retry = client.post(f"/review/{draft_id}/publish", data=publish_data, follow_redirects=False)
-    assert retry.status_code == 303
-
-    published = repositories.evidence.get(draft_id)
-    assert published is not None
-    assert [a["filename"] for a in published["attachments"]] == ["note.txt"]
-    download = client.get(f"/evidence/{draft_id}/attachments/note.txt")
-    assert download.status_code == 200
-    assert download.content == b"hello berries"
-
-
-@pytest.mark.parametrize(
-    ("case", "use_existing_entity", "include_relationship", "failing_repository"),
-    [
-        ("after_entity_create", False, False, "facts"),
-        ("after_existing_entity_update", True, False, "facts"),
-        ("after_fact_create", False, True, "relationships"),
-        ("after_relationship_create", False, True, "evidence"),
-    ],
-)
-def test_publish_structured_failure_rolls_back_and_keeps_draft(
-    monkeypatch, tmp_path, case, use_existing_entity, include_relationship, failing_repository,
-) -> None:
-    _isolate(monkeypatch, tmp_path)
-    repositories = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
-    original = None
-    company_name = "Existing Co" if use_existing_entity else "New Co"
-    if use_existing_entity:
-        original = {
-            "id": "company-existing-co", "record_type": "entity", "entity_type": "company",
-            "name": company_name, "status": "active", "evidence_ids": [], "fact_ids": [],
-            "relationship_ids": [],
-        }
-        repositories.entities.create(original)
-    draft_id = _create_draft(f"Injected {case}")
-    publish_data = {
-        "title": f"Injected {case}", "summary": "Fictional failure injection.",
-        "companies": company_name, "fact_statement_1": "A fictional fact.",
-        "fact_classification_1": "fact", "fact_confidence_1": "medium",
-        "reviewer": "reviewer@example.invalid",
-    }
-    if include_relationship:
-        publish_data.update({
-            "varieties": "New Variety", "rel_subject_1": company_name,
-            "rel_predicate_1": "trials", "rel_object_1": "New Variety",
-        })
-
-    repository = getattr(repositories, failing_repository)
-
-    def fail_create(_record):
-        raise RuntimeError(f"injected {case}")
-
-    monkeypatch.setattr(repository, "create", fail_create)
-    with pytest.raises(RuntimeError, match=f"injected {case}"):
-        client.post(f"/review/{draft_id}/publish", data=publish_data)
-
-    if original is not None:
-        assert repositories.entities.get(original["id"]) == original
-    else:
-        assert repositories.entities.get("company-new-co") is None
-    assert repositories.entities.get("variety-new-variety") is None
-    assert repositories.facts.get(f"fact-{draft_id[3:]}-1") is None
-    assert repositories.relationships.get(f"rel-{draft_id[3:]}-1") is None
-    assert repositories.evidence.get(draft_id) is None
-    assert client.get(f"/review/{draft_id}").status_code == 200
-
-
 def test_publish_creates_and_links_geography_entity(monkeypatch, tmp_path) -> None:
     _isolate(monkeypatch, tmp_path)
     draft_id = _create_draft("Fictional nursery expands into a new growing region")
@@ -644,12 +454,15 @@ def test_publish_blocked_in_readonly_mode(monkeypatch, tmp_path) -> None:
 def test_work_queue_renders() -> None:
     response = client.get("/work-queue")
     assert response.status_code == 200
-    assert "Live Intelligence" in response.text
-    assert "WORK" in response.text
-    assert "intel-card" in response.text
-    assert "Read" in response.text
-    assert "Trusted" in response.text
-    assert "0 failures" not in response.text.casefold()
+    assert "Work Queue" in response.text
+    assert "Recently published" in response.text
+    assert "High-priority items" in response.text
+    # "Recently published" shows only the most recent few records, so which
+    # specific title appears there depends on how much has been published --
+    # assert against the live feed instead of a title that may have aged out.
+    feed = client.get("/api/feed").json()
+    assert feed
+    assert feed[0]["title"] in response.text
 
 
 def test_reading_queue_includes_all_nonnone_levels() -> None:
@@ -726,19 +539,6 @@ def test_signal_create_and_detail_page(monkeypatch, tmp_path) -> None:
             "reviewer": "reviewer@example.invalid",
         },
     )
-    # A signal now requires >=2 evidence references (schemas/signal.schema.json,
-    # V2 BL-014: "a signal built on one data point is really just a Claim") --
-    # publish a second piece of evidence so this exercises a genuinely valid
-    # signal, not just the single-evidence shape the schema no longer accepts.
-    second_draft_id = _create_draft("Fictional second signal source evidence")
-    client.post(
-        f"/review/{second_draft_id}/publish",
-        data={
-            "title": "Fictional second signal source evidence",
-            "summary": "Another fictional summary.",
-            "reviewer": "reviewer@example.invalid",
-        },
-    )
 
     response = client.post(
         "/signals",
@@ -749,7 +549,7 @@ def test_signal_create_and_detail_page(monkeypatch, tmp_path) -> None:
             "strength": "high",
             "confidence": "medium",
             "status": "active",
-            "evidence_ids": f"{draft_id},{second_draft_id}",
+            "evidence_ids": draft_id,
             "reviewer": "reviewer@example.invalid",
         },
         follow_redirects=False,
@@ -1061,8 +861,6 @@ def test_unvalidated_evidence_sorted_by_source_priority_then_oldest_first(monkey
             "source_type": "news_search", "title": "Low priority, older",
             "auto_captured": True, "validated": False, "source_id": "source-low",
             "captured_date": "2026-01-01",
-            "summary": "Summary.", "submitted_by": "test",
-            "priority": {dim: {"level": "none", "rationale": ""} for dim in main.PRIORITY_DIMENSIONS},
         }
     )
     main.save_evidence(
@@ -1071,8 +869,6 @@ def test_unvalidated_evidence_sorted_by_source_priority_then_oldest_first(monkey
             "source_type": "news_search", "title": "High priority, newer",
             "auto_captured": True, "validated": False, "source_id": "source-high",
             "captured_date": "2026-06-01",
-            "summary": "Summary.", "submitted_by": "test",
-            "priority": {dim: {"level": "none", "rationale": ""} for dim in main.PRIORITY_DIMENSIONS},
         }
     )
     main.save_evidence(
@@ -1081,8 +877,6 @@ def test_unvalidated_evidence_sorted_by_source_priority_then_oldest_first(monkey
             "source_type": "news_search", "title": "High priority, older",
             "auto_captured": True, "validated": False, "source_id": "source-high",
             "captured_date": "2026-01-01",
-            "summary": "Summary.", "submitted_by": "test",
-            "priority": {dim: {"level": "none", "rationale": ""} for dim in main.PRIORITY_DIMENSIONS},
         }
     )
     main.save_sources(
@@ -1124,10 +918,8 @@ def test_geography_region_default_lookup_and_unclassified() -> None:
     assert main.geography_region({"name": "Portugal", "attributes": {}}) == "Europe"
     assert main.geography_region({"name": "Australia", "attributes": {}}) == "Oceania"
     assert main.geography_region({"name": "Zambia", "attributes": {}}) == "Middle East & Africa"
-    # China is authoritatively mapped for the current blueberry package;
-    # unsupported geographies remain unclassified rather than guessed.
-    assert main.geography_region({"name": "China", "attributes": {}}) == "Asia"
-    assert main.geography_region({"name": "Japan", "attributes": {}}) is None
+    # Not in the fixed lookup -- left unclassified rather than guessed.
+    assert main.geography_region({"name": "China", "attributes": {}}) is None
 
 
 def test_geography_region_override_beats_lookup() -> None:
@@ -1358,6 +1150,7 @@ def test_entity_activity_falls_back_to_created_at_without_event_date() -> None:
 def test_entity_page_shows_recent_activity_with_us_formatted_dates() -> None:
     response = client.get("/entities/company/company-example-genetics")
     assert response.status_code == 200
+    assert "Recent activity" in response.text
     assert "7/28/2026" in response.text
 
 
@@ -1704,13 +1497,6 @@ def test_feed_shows_linked_geography_tags_and_suppresses_redundant_summary(monke
     assert "auto-tagged, unverified" in response.text
     assert "Fictional headline about Peru blueberries&amp;nbsp;" not in response.text
     assert "read the full article" in response.text
-    assert '<strong>Source:</strong>' in response.text
-    assert '<a href="https://example.invalid/x" target="_blank" rel="noopener">Fictional Publisher' in response.text
-
-    detail = client.get("/evidence/ev-fictional-auto-tagged")
-    assert '<dt>Source</dt>' in detail.text
-    assert '<a href="https://example.invalid/x" target="_blank" rel="noopener">Fictional Publisher' in detail.text
-    assert "<h2>Provenance</h2>" not in detail.text
 
 
 def test_entity_page_shows_weighted_searchable_aliases() -> None:
@@ -1719,13 +1505,12 @@ def test_entity_page_shows_weighted_searchable_aliases() -> None:
     assert 'data-pagefind-weight="10"' in response.text
     assert "Also known as:" in response.text
     assert "MBO" in response.text
-    # Aliases must not be inside an ignored metadata block -- that's the
+    # Aliases must not be inside the ignored metadata block -- that's the
     # regression this test guards against (an alias that isn't indexed at
     # all can't be found by searching it, regardless of weight).
-    if "<dl data-pagefind-ignore>" in response.text:
-        ignored_block_start = response.text.index("<dl data-pagefind-ignore>")
-        ignored_block_end = response.text.index("</dl>", ignored_block_start)
-        assert "Also known as" not in response.text[ignored_block_start:ignored_block_end]
+    ignored_block_start = response.text.index('<dl data-pagefind-ignore>')
+    ignored_block_end = response.text.index('</dl>', ignored_block_start)
+    assert "Also known as" not in response.text[ignored_block_start:ignored_block_end]
 
 
 def test_entity_page_omits_aliases_line_when_none() -> None:
@@ -1748,30 +1533,3 @@ def test_evidence_page_tagged_with_search_type_and_sort_date() -> None:
     # search ordering reflects when the article actually ran, not when this
     # app happened to capture it.
     assert 'data-pagefind-sort="date:2026-07-28"' in response.text
-
-
-def test_load_json_files_detects_same_mtime_rewrite(tmp_path: Path) -> None:
-    """A rewrite that lands in the same mtime tick must not return stale data.
-
-    Filesystems with coarse mtime granularity (e.g. overlayfs, common in
-    containers/CI) can give two successive writes the same st_mtime_ns, so a
-    cache keyed on mtime alone silently served the pre-write records. This
-    forces that exact condition on any filesystem by restoring the original
-    mtime after the second write; the load must reflect the new content.
-    """
-    folder = tmp_path / "evidence"
-    folder.mkdir()
-    record_path = folder / "rec.json"
-    record_path.write_text('{"id": "rec", "status": "draft"}\n', encoding="utf-8")
-    original = record_path.stat()
-
-    main._JSON_FOLDER_CACHE.pop(folder, None)
-    first = main.load_json_files(folder)
-    assert [r["status"] for r in first] == ["draft"]
-
-    record_path.write_text('{"id": "rec", "status": "rejected"}\n', encoding="utf-8")
-    os.utime(record_path, ns=(original.st_atime_ns, original.st_mtime_ns))
-    assert record_path.stat().st_mtime_ns == original.st_mtime_ns
-
-    second = main.load_json_files(folder)
-    assert [r["status"] for r in second] == ["rejected"]

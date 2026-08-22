@@ -1,3 +1,0 @@
-{$BIOS_DEMO_SITE:http://localhost} {
-	reverse_proxy app:8000
-}

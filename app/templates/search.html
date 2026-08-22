@@ -3,15 +3,11 @@
 {% block content %}
 <section class="page-heading">
   <div>
-    <p class="eyebrow">NAVIGATION</p>
-    <h1 id="search-heading">{% if search_query %}Search results for “{{ search_query }}”{% else %}Search{% endif %}</h1>
-    {% if not static_build %}
-    <p class="also-known-as">Global intelligence search is navigation, not a trust layer. Pending stays pending.</p>
-    {% endif %}
+    <p class="eyebrow">FULL RESULTS</p>
+    <h1 id="search-heading">Search</h1>
   </div>
 </section>
 
-{% if static_build %}
 <link id="pagefind-js-path" rel="preload" as="script" href="/pagefind/pagefind.js">
 <link id="search-core-path" rel="preload" as="script" href="/static/search-core.js">
 
@@ -22,7 +18,7 @@
   </div>
 </form>
 
-<p class="result-count" id="search-status">Type to search published intelligence only.</p>
+<p class="result-count" id="search-status">Type to search.</p>
 
 <section class="feed" id="search-results"></section>
 
@@ -52,10 +48,11 @@
 
   function cardHtml(data) {
     const title = data.meta && data.meta.title ? data.meta.title : data.url;
-    const type = data.meta && data.meta.type ? String(data.meta.type) : "page";
+    // data.excerpt is Pagefind's own sanitized/highlighted HTML fragment
+    // (with <mark> tags around matched terms) -- not re-escaped here, same
+    // trust level as the rest of this static build's own generated pages.
     return (
       '<article class="card">' +
-      '<p class="eyebrow">' + escapeHtml(type) + "</p>" +
       '<h2><a href="' + data.url + '">' + escapeHtml(title) + "</a></h2>" +
       "<p>" + (data.excerpt || "") + "</p>" +
       "</article>"
@@ -93,7 +90,7 @@
     shown = 0;
     currentResults = [];
     if (!term) {
-      status.textContent = "Type to search published intelligence only.";
+      status.textContent = "Type to search.";
       loadMoreWrap.style.display = "none";
       heading.textContent = "Search";
       return;
@@ -103,8 +100,8 @@
     const pf = await ensurePagefind();
     currentResults = await searchCore.mergedSearch(pf, term);
     status.textContent = currentResults.length
-      ? currentResults.length + " published result" + (currentResults.length === 1 ? "" : "s")
-      : "No published results found.";
+      ? currentResults.length + " result" + (currentResults.length === 1 ? "" : "s")
+      : "No results found.";
     renderMore();
   }
 
@@ -130,33 +127,4 @@
   input.value = initialQuery;
   runSearch(initialQuery);
 </script>
-{% else %}
-<form class="filters v2-search-page-form" action="/search" method="get" role="search">
-  <div class="filter-field" style="flex:1;min-width:260px">
-    <label for="search-page-input">Search</label>
-    <input id="search-page-input" name="q" type="search" value="{{ search_query or '' }}" placeholder="Search companies, varieties, geographies, sources…">
-  </div>
-  <div class="filter-field">
-    <label for="search-include-global">Global matches</label>
-    <select id="search-include-global" name="include_global">
-      <option value="1" {% if search_include_global %}selected{% endif %}>Show Also in Global</option>
-      <option value="0" {% if not search_include_global %}selected{% endif %}>Current berry only</option>
-    </select>
-  </div>
-  <button type="submit" class="v2-btn">Search</button>
-</form>
-<p class="result-count">
-  {% if search_results %}
-    {{ search_results.result_count }} grouped result{{ 's' if search_results.result_count != 1 else '' }}
-    {% if search_results.elapsed_ms is defined %}· {{ search_results.elapsed_ms }} ms{% endif %}
-  {% else %}
-    Type a company, variety, geography, source, or named subject.
-  {% endif %}
-</p>
-<div class="v2-search-page-results">
-  {% with groups=search_results.groups, empty=search_results.empty, ambiguous=search_results.ambiguous, query=search_query %}
-    {% include "_global_search_results.html" %}
-  {% endwith %}
-</div>
-{% endif %}
 {% endblock %}

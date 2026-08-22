@@ -15,9 +15,7 @@
     "berry-raspberry"
   ],
   "geography_ids": [],
-  "entity_ids": [
-    "company-chambers"
-  ],
+  "entity_ids": [],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],

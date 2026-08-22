@@ -1,29 +1,14 @@
 {% extends "base.html" %}
 {% block title %}{{ label }} — Berry Intelligence OS{% endblock %}
 {% block content %}
-<div class="{% if dimension in ('reading', 'monitoring', 'testing') %}v2-page{% endif %}">
-<section class="page-heading{% if dimension in ('reading', 'monitoring', 'testing') %} v2-page-header{% endif %}">
+<section class="page-heading">
   <div>
-    <p class="eyebrow">{{ eyebrow }}</p>
-    <h1>{{ label }}</h1>
-    <p class="also-known-as">{{ purpose }}</p>
+    <p class="eyebrow">ITEMS PRIORITIZED FOR {{ dimension|replace('_',' ')|upper }}</p>
+    <h1>{{ label }} ({{ items|length }})</h1>
   </div>
-  {% if dimension == 'reading' %}
-    <p class="queue-metric queue-metric-action" aria-label="Unread or saved reading items">{{ needs_consume_count }} need attention</p>
-    {% if reading_buckets %}
-      <p class="queue-metric queue-metric-inventory">{{ reading_bucket_counts.top_priority }} top · {{ reading_bucket_counts.saved }} saved · {{ reading_bucket_counts.adjacent }} adjacent · {{ reading_bucket_counts.backlog }} backlog</p>
-    {% endif %}
-  {% elif dimension == 'testing' %}
-    <p class="queue-metric queue-metric-action" aria-label="Claims still needing a test decision">{{ active_count }} need testing</p>
-  {% elif dimension == 'commercial_position' %}
-    <p class="queue-metric queue-metric-inventory" aria-label="Tagged commercial-position evidence">{{ tagged_count }} tagged evidence</p>
-  {% elif dimension == 'monitoring' %}
-    <p class="queue-metric queue-metric-inventory" aria-label="Active watches">{{ inventory_count }} active watches</p>
-    <p class="queue-metric queue-metric-action" aria-label="Open alerts">{{ (monitor_alerts|default([]))|sum(attribute='count') }} alerts</p>
-  {% endif %}
 </section>
 
-{% if not static_build and dimension != 'testing' %}
+{% if not static_build %}
 <form class="filters" action="/queues/{{ dimension }}" method="get" aria-label="Filter {{ label }}">
   <div class="filter-field">
     <label for="filter-region">Region</label>
@@ -34,244 +19,41 @@
       {% endfor %}
     </select>
   </div>
-  {% if dimension in ('reading', 'testing', 'monitoring') %}
-    <div class="filter-field">
-      <label class="checkbox-label" for="show-completed">
-        <input id="show-completed" type="checkbox" name="show_completed" value="1" {% if show_completed %}checked{% endif %}>
-        Show completed
-      </label>
-    </div>
-  {% endif %}
   <div class="filter-actions">
     <button type="submit">Apply filter</button>
-    <a href="/queues/{{ dimension }}">Reset</a>
+    <a href="/queues/{{ dimension }}">Clear</a>
   </div>
 </form>
 {% endif %}
 
-{% if dimension == 'commercial_position' and position_proposals %}
-<section class="queue-section">
-  <h2>Position proposals</h2>
-  <p class="context-limit">These are Recommendation records awaiting human review. They are not the tagged-evidence list below.</p>
-  <ul class="simple-list">
-    {% for rec in position_proposals %}
-      <li>
-        <a href="/recommendations/{{ rec.id }}">{{ rec.title }}</a>
-        <span class="badge badge-muted">{{ rec.status }}</span>
-        <span class="badge badge-recommendation">{{ rec.action_type|replace('_',' ') }}</span>
-        {% if authoring_mode and not static_build %}
-          <div class="queue-actions">
-            <form action="/recommendations/{{ rec.id }}/proposal-decision" method="post"><input type="hidden" name="action" value="accept"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button action-approve" type="submit">Accept</button></form>
-            <a class="action-button" href="/recommendations/{{ rec.id }}">Edit</a>
-            <form action="/recommendations/{{ rec.id }}/proposal-decision" method="post"><input type="hidden" name="action" value="reject"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button action-reject" type="submit">Reject</button></form>
-          </div>
-        {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
-</section>
-{% endif %}
-
-{% if dimension == 'monitoring' %}
-  {% include "_monitor_workspace.html" %}
-{% elif dimension == 'testing' %}
-  {% include "_testing_workspace.html" %}
-{% elif dimension == 'reading' and reading_buckets and not show_completed %}
-  {% if authoring_mode and not static_build %}
-    <form class="queue-bulk" action="/queues/reading/bulk-read" method="post">
-      <input type="hidden" name="reviewer" value="{{ reviewer }}">
-      <input type="hidden" name="region" value="{{ filters.region }}">
-      <input type="hidden" name="return_to" value="{{ return_to }}">
-      {% for bucket in reading_buckets %}
-            {% if bucket.key == 'top_priority' %}
-          {% for item in bucket.entries %}
-            {% if item.needs_consume %}<input type="hidden" name="item_id" value="{{ item.id }}">{% endif %}
-          {% endfor %}
-        {% endif %}
-      {% endfor %}
-      <button class="action-button" type="submit">Bulk mark visible top-priority unread/saved as read</button>
-    </form>
-  {% endif %}
-  {% for bucket in reading_buckets %}
-    <section class="queue-section" id="bucket-{{ bucket.key }}">
-      <h2>{{ bucket.label }} ({{ bucket.count }})</h2>
-      {% if bucket.key == 'top_priority' %}
-        <p class="context-limit">Deserve time this morning. Ranked from stored signals, not an opaque score.</p>
-      {% elif bucket.key == 'saved' %}
-        <p class="context-limit">You asked to keep these. They stay in the action count until you mark read, dismiss, or promote.</p>
-      {% elif bucket.key == 'adjacent' %}
-        <p class="context-limit">Stored adjacent relevance — available, not equally urgent.</p>
-      {% elif bucket.key == 'backlog' %}
-        <p class="context-limit">Older or redundant coverage. Still auditable; not deleted.</p>
-      {% elif bucket.key == 'needs_review' %}
-        <p class="context-limit">Pending trust decisions belong on Review / the Morning Brief. Published reading items rarely land here.</p>
-      {% endif %}
-    </section>
-    {% if bucket.entries %}
-      <ul class="intel-card-list v2-card-list v2-feed-compact v2-reading-list">
-        {% for item in bucket.entries %}
-          {% include "_intelligence_card.html" %}
-        {% endfor %}
-      </ul>
-    {% endif %}
-  {% endfor %}
-{% elif items %}
-  {% if dimension == 'reading' and authoring_mode and not static_build %}
-    <form class="queue-bulk" action="/queues/reading/bulk-read" method="post">
-      <input type="hidden" name="reviewer" value="{{ reviewer }}">
-      <input type="hidden" name="region" value="{{ filters.region }}">
-      <input type="hidden" name="return_to" value="{{ return_to }}">
-      {% for item in items %}
-        {% if item.needs_consume %}<input type="hidden" name="item_id" value="{{ item.id }}">{% endif %}
-      {% endfor %}
-      <button class="action-button" type="submit">Bulk mark visible unread/saved as read</button>
-    </form>
-  {% endif %}
-
+{% if items %}
   <div class="queue-table-wrap">
     <table class="queue-table">
       <thead>
-        {% if dimension == 'reading' %}
-          <tr>
-            <th scope="col">Item</th>
-            <th scope="col">State</th>
-            <th scope="col">Why it's here</th>
-            <th scope="col">Added</th>
-            <th scope="col">Action</th>
-          </tr>
-        {% elif dimension == 'testing' %}
-          <tr>
-            <th scope="col">Claim / evidence</th>
-            <th scope="col">State</th>
-            <th scope="col">Why it needs testing</th>
-            <th scope="col">Added</th>
-            <th scope="col">Decision</th>
-          </tr>
-        {% elif dimension == 'commercial_position' %}
-          <tr>
-            <th scope="col">Company</th>
-            <th scope="col">Berry</th>
-            <th scope="col">Geography / market</th>
-            <th scope="col">Position</th>
-            <th scope="col">Confidence</th>
-            <th scope="col">Supporting evidence</th>
-            <th scope="col">Last updated</th>
-          </tr>
-        {% else %}
-          <tr>
-            <th scope="col">What is watched</th>
-            <th scope="col">Why</th>
-            <th scope="col">Last signal</th>
-            <th scope="col">Last check</th>
-            <th scope="col">Status</th>
-            <th scope="col">Actions</th>
-          </tr>
-        {% endif %}
+        <tr>
+          <th scope="col">Item</th>
+          <th scope="col">Type</th>
+          <th scope="col">Entities</th>
+          <th scope="col">Why it's here</th>
+          <th scope="col">Added</th>
+          <th scope="col">Priority</th>
+        </tr>
       </thead>
       <tbody>
         {% for item in items %}
-          {% if dimension == 'reading' %}
-            <tr>
-              <td>
-                <a href="{{ item.href }}">{{ item.title }}</a>
-                <p class="draft-meta">{{ item.source_name or item.source_type }}</p>
-              </td>
-              <td><span class="badge">{{ item.workflow_label }}</span></td>
-              <td>{{ item.why }}</td>
-              <td>{{ item.date|us_date }}</td>
-              <td>
-                {% if authoring_mode and not static_build and item.is_active %}
-                  <div class="queue-actions">
-                    {% if item.needs_consume %}
-                      <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="mark_read"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="region" value="{{ filters.region }}"><input type="hidden" name="show_completed" value="{{ '1' if show_completed else '' }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="action-button" type="submit">Mark read</button></form>
-                      <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="keep"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="region" value="{{ filters.region }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="action-button" type="submit">Keep</button></form>
-                    {% endif %}
-                    <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="dismiss"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="region" value="{{ filters.region }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="action-button action-reject" type="submit">Dismiss</button></form>
-                    <form action="/queues/reading/{{ item.id }}" method="post"><input type="hidden" name="action" value="promote"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button action-approve" type="submit">Promote / review</button></form>
-                    <a class="action-button" href="{{ item.href }}">Open</a>
-                    {% if item.source_url %}<a class="action-button" href="{{ item.source_url }}" rel="noreferrer">Open original</a>{% endif %}
-                  </div>
-                {% else %}
-                  —
-                {% endif %}
-              </td>
-            </tr>
-          {% elif dimension == 'testing' %}
-            <tr>
-              <td><a href="{{ item.evidence_href }}">{{ item.title }}</a></td>
-              <td><span class="badge">{{ item.workflow_label }}</span></td>
-              <td>{{ item.why }}</td>
-              <td>{{ item.date|us_date }}</td>
-              <td>
-                {% if authoring_mode and not static_build %}
-                  <div class="queue-actions">
-                    {% if item.is_active %}
-                      <form action="/queues/testing/{{ item.id }}" method="post"><input type="hidden" name="action" value="pass"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button action-approve" type="submit">Pass</button></form>
-                      <form action="/queues/testing/{{ item.id }}" method="post"><input type="hidden" name="action" value="fail"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button action-reject" type="submit">Fail</button></form>
-                      <form action="/queues/testing/{{ item.id }}" method="post"><input type="hidden" name="action" value="defer"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button" type="submit">Defer</button></form>
-                    {% else %}
-                      <form action="/queues/testing/{{ item.id }}" method="post"><input type="hidden" name="action" value="reopen"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button" type="submit">Reopen</button></form>
-                    {% endif %}
-                  </div>
-                {% else %}
-                  —
-                {% endif %}
-              </td>
-            </tr>
-          {% elif dimension == 'commercial_position' %}
-            <tr>
-              <td>{{ item.company_names }}</td>
-              <td>{{ item.berry_names }}</td>
-              <td>{{ item.geography_names }}</td>
-              <td>{{ item.why }}</td>
-              <td><span class="badge">{{ item.priority_level }}</span></td>
-              <td><a href="{{ item.href }}">{{ item.title }}</a></td>
-              <td>{{ item.date|us_date }}</td>
-            </tr>
-          {% else %}
-            <tr>
-              <td><a href="{{ item.evidence_href }}">{{ item.watch_what }}</a></td>
-              <td>{{ item.watch_why }}</td>
-              <td>
-                {% if item.last_signal %}
-                  {{ item.last_signal }}{% if item.last_signal_at %} · {{ item.last_signal_at|us_date }}{% endif %}
-                {% else %}
-                  —
-                {% endif %}
-              </td>
-              <td>{{ item.last_check|us_date }}</td>
-              <td><span class="badge">{{ item.workflow_label }}</span></td>
-              <td>
-                {% if authoring_mode and not static_build %}
-                  <div class="queue-actions">
-                    {% if item.workflow_state == 'active' %}
-                      <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="pause"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button" type="submit">Pause</button></form>
-                      <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="snooze"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button" type="submit">Snooze 7d</button></form>
-                      <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="stop"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button action-reject" type="submit">Stop</button></form>
-                    {% elif item.workflow_state == 'snoozed' %}
-                      <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="resume"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button action-approve" type="submit">Resume</button></form>
-                      <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="stop"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button action-reject" type="submit">Stop</button></form>
-                    {% else %}
-                      <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="resume"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="action-button" type="submit">Resume</button></form>
-                    {% endif %}
-                    {% if item.related_signals %}
-                      <a class="action-button" href="/signals/{{ item.related_signals[0].id }}">View signals</a>
-                    {% else %}
-                      <a class="action-button" href="/signals">View signals</a>
-                    {% endif %}
-                  </div>
-                {% else %}
-                  —
-                {% endif %}
-              </td>
-            </tr>
-          {% endif %}
+          <tr>
+            <td><a href="/evidence/{{ item.id }}">{{ item.title }}</a></td>
+            <td>{{ item.source_type|replace('_',' ')|title }}</td>
+            <td>{{ item.linked_entity_names|join(', ') if item.linked_entity_names else '—' }}</td>
+            <td>{{ item.priority[dimension].rationale }}</td>
+            <td>{{ (item.published_date or item.captured_date)|us_date }}</td>
+            <td><strong class="level-{{ item.priority[dimension].level }}">{{ item.priority[dimension].level }}</strong></td>
+          </tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
 {% else %}
-  <p class="empty-state">{% if show_completed %}Nothing recorded in this view.{% elif dimension == 'commercial_position' %}No evidence is tagged for commercial-position thinking.{% else %}Nothing needs attention in this view.{% endif %}</p>
+  <p class="empty-state">Nothing in this queue right now.</p>
 {% endif %}
-</div>
 {% endblock %}

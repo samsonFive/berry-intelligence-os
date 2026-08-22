@@ -17,9 +17,7 @@
   "geography_ids": [
     "geography-europe"
   ],
-  "entity_ids": [
-    "company-plant-sciences-genetics"
-  ],
+  "entity_ids": [],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],

@@ -8,15 +8,11 @@
     "id": {"type": "string", "pattern": "^rel-[a-z0-9-]+$"},
     "record_type": {"const": "relationship"},
     "subject_id": {"type": "string"},
-    "predicate": {"enum": ["owns", "develops", "licenses", "distributes", "grows", "trials", "sells", "carries", "partners_with", "operates_in", "markets"]},
+    "predicate": {"enum": ["owns", "develops", "licenses", "distributes", "grows", "trials", "sells", "carries", "partners_with", "operates_in"]},
     "object_id": {"type": "string"},
     "status": {"enum": ["active", "historical", "disputed"]},
     "evidence_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
     "effective_date": {"type": ["string", "null"], "format": "date"},
-    "notes": {"type": "string"},
-    "confidence": {
-      "enum": ["low", "medium", "high"],
-      "$comment": "V2 Phase 1 addition (BL-013, docs/v2/10-BACKLOG.md), optional. Per the blueberry import package's own proposed-schema-enhancements.md P-3: relationships were the one core edge type with no structured confidence, forcing it into free text inside `notes` (e.g. \"confidence=medium; ...\") where nothing could query it. Same low/medium/high vocabulary already proven on Fact and (this task) Assessment. `notes` is unchanged and not removed -- existing records with confidence expressed as notes-text remain valid; this field is additive, not a replacement."
-    }
+    "notes": {"type": "string"}
   }
 }

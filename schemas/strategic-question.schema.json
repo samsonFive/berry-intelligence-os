@@ -9,10 +9,7 @@
     "record_type": {"const": "strategic_question"},
     "title": {"type": "string", "minLength": 1},
     "description": {"type": "string"},
-    "status": {
-      "enum": ["active", "answered", "retired"],
-      "$comment": "V2 Phase 1 (BL-015, docs/v2/10-BACKLOG.md): replaces [active, resolved, archived] per docs/v2/03-DOMAIN-MODEL.md and the blueberry import package's proposed-schema-enhancements.md P-6. No compatibility bridge needed: all 9 live strategic-question records use status=active only, so no existing record used the old resolved/archived values -- verified directly before this change, not assumed."
-    },
+    "status": {"enum": ["active", "resolved", "archived"]},
     "berry_ids": {"type": "array", "items": {"type": "string"}},
     "evidence_ids": {"type": "array", "items": {"type": "string"}}
   }

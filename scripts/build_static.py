@@ -20,39 +20,25 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from app.main import (  # noqa: E402
-    BERRIES,
     PRIORITY_DIMENSIONS,
     PRIORITY_LEVELS,
     PRIORITY_QUEUE_LABELS,
-    all_assessments,
     all_entities,
     all_facts,
-    all_recommendations,
     all_relationships,
     all_signals,
     berry_label,
     entity_activity,
     entity_index,
     entity_regions,
-    evidence_regions,
-    entity_synthesis_context,
     evidence_for_strategic_question,
     facts_for_evidence,
-    landscape_context,
     list_drafts,
     load_strategic_questions,
     published_evidence,
     queue_items,
     relationships_for_evidence,
-    sources_page_context,
     templates,
-)
-from app.services.assessment_scope import assessment_berry_scope, attach_assessment_scope  # noqa: E402
-from app.services.intelligence_feed import annotate_feed_semantics, build_intelligence_feed  # noqa: E402
-from app.services.review_workbench import build_public_scanner_summary  # noqa: E402
-from app.services.variety_workspace import (  # noqa: E402
-    present_variety_detail,
-    present_variety_index,
 )
 
 OUTPUT_DIR = ROOT / "generated"
@@ -74,23 +60,10 @@ class _FakeRequest:
 
 def render(template_name: str, path: str, context: dict[str, Any]) -> str:
     context = {**context, "request": _FakeRequest(path), "static_build": True}
-    context.setdefault("nav_work_counts", templates.env.globals["nav_work"]())
-    context.setdefault(
-        "ui_context",
-        {
-            "berry": "global",
-            "berry_label": "Global",
-            "feed_view": "grid",
-            "landscape_href": "/entities/berry",
-            "options": [{"id": "global", "label": "Global", "slug": ""}],
-            "is_global": True,
-        },
-    )
-    context.setdefault("berries", BERRIES)
     return templates.get_template(template_name).render(context)
 
 
-_HREF_RE = re.compile(r'(href|src)="(/[^"#?]*)(#[^"]*)?"')
+_HREF_RE = re.compile(r'(href|src)="(/[^"#?]*)"')
 
 
 def _depth_prefix(output_file: Path) -> str:
@@ -100,14 +73,14 @@ def _depth_prefix(output_file: Path) -> str:
 
 def _rewrite_internal_links(html: str, prefix: str) -> str:
     def repl(match: re.Match[str]) -> str:
-        attr, path, fragment = match.group(1), match.group(2), match.group(3) or ""
+        attr, path = match.group(1), match.group(2)
         if path == "/":
             target = "index.html"
         else:
             stripped = path.strip("/")
             last_segment = stripped.rsplit("/", 1)[-1]
             target = stripped if "." in last_segment else f"{stripped}/index.html"
-        return f'{attr}="{prefix}{target}{fragment}"'
+        return f'{attr}="{prefix}{target}"'
 
     return _HREF_RE.sub(repl, html)
 
@@ -128,28 +101,10 @@ def build() -> list[Path]:
     if OUTPUT_DIR.exists():
         shutil.rmtree(OUTPUT_DIR)
     OUTPUT_DIR.mkdir(parents=True)
-    # GitHub Pages must publish generated assets (including Pagefind's
-    # underscore-prefixed internals) verbatim rather than invoking Jekyll.
-    (OUTPUT_DIR / ".nojekyll").touch()
 
     written: list[Path] = []
     evidence = published_evidence()
     entities = entity_index()
-    region_tokens = {
-        "Americas": "americas", "Europe": "emea", "Middle East & Africa": "emea",
-        "Oceania": "australia-nz", "Asia": "asia",
-    }
-    static_feed_evidence = [
-        {
-            **record,
-            "filter_regions": sorted({
-                region_tokens[region]
-                for region in evidence_regions(record, entities)
-                if region in region_tokens
-            }),
-        }
-        for record in evidence
-    ]
 
     # base.html calls these as Jinja globals on every single page render (via
     # the sidebar). They're cheap once, but at this record volume calling the
@@ -160,35 +115,14 @@ def build() -> list[Path]:
         dim: sum(1 for r in evidence if (r.get("priority") or {}).get(dim, {}).get("level", "none") != "none")
         for dim in PRIORITY_DIMENSIONS
     }
-    previous_globals = {
-        "queue_counts": templates.env.globals.get("queue_counts"),
-        "pending_review_count": templates.env.globals.get("pending_review_count"),
-        "nav_work": templates.env.globals.get("nav_work"),
-    }
     templates.env.globals["queue_counts"] = lambda: queue_summary_once
     templates.env.globals["pending_review_count"] = lambda: 0
-    templates.env.globals["nav_work"] = lambda: {
-        "reading_action": 0,
-        "testing_action": 0,
-        "commercial_inventory": queue_summary_once.get("commercial_position", 0),
-        "monitoring_inventory": queue_summary_once.get("monitoring", 0),
-        "signal_alerts": 0,
-        "brief_action": 0,
-        "review_now": 0,
-        "pending_open": 0,
-        "emerging_signals": 0,
-    }
 
     # Static asset.
     static_out = OUTPUT_DIR / "static"
     static_out.mkdir(parents=True, exist_ok=True)
     shutil.copy2(ROOT / "app" / "static" / "app.css", static_out / "app.css")
     shutil.copy2(ROOT / "app" / "static" / "search-core.js", static_out / "search-core.js")
-    shutil.copy2(ROOT / "app" / "static" / "v2.css", static_out / "v2.css")
-    shutil.copy2(ROOT / "app" / "static" / "v2.js", static_out / "v2.js")
-    vendor_src = ROOT / "app" / "static" / "vendor"
-    if vendor_src.is_dir():
-        shutil.copytree(vendor_src, static_out / "vendor", dirs_exist_ok=True)
 
     # Newsfeed.
     written.append(
@@ -196,7 +130,7 @@ def build() -> list[Path]:
             "feed.html",
             "/",
             {
-                "evidence": static_feed_evidence,
+                "evidence": evidence,
                 "total_count": len(evidence),
                 "berry_label": berry_label,
                 "options": {"berries": [], "sources": [], "competitors": [], "geographies": []},
@@ -251,48 +185,11 @@ def build() -> list[Path]:
             (e for e in all_entities() if e.get("entity_type") == entity_type),
             key=lambda e: e.get("name", ""),
         )
-        list_context: dict[str, Any] = {
-            "entities": type_entities,
-            "entity_type": entity_type,
-            "authoring_mode": False,
-            "berries": BERRIES,
-            "regions": [],
-            "companies": [],
-            "filters": {"q": "", "berry": "", "region": "", "company": "", "has_rights": "", "has_observation": "", "market": "", "ip_and_observation": ""},
-            "variety_view": "index",
-            "variety_cards": [],
-            "berry_inventory": [],
-            "unnamed_observation_count": 0,
-            "observation_total_count": 0,
-            "observation_workspace": {},
-            "competition": {},
-            "geographies": [],
-            "total_count": len(type_entities),
-        }
-        if entity_type == "variety":
-            index_model = present_variety_index(
-                varieties=type_entities,
-                entities=list(entities.values()),
-                relationships=all_relationships(),
-                published_evidence=evidence,
-                berry_labels=BERRIES,
-                inbox_drafts=[],
-                signals=all_signals(),
-                candidates=[],
-            )
-            list_context.update(
-                {
-                    "variety_cards": index_model["cards"],
-                    "berry_inventory": index_model["berry_inventory"],
-                    "unnamed_observation_count": index_model["unnamed_observation_count"],
-                    "observation_total_count": index_model["observation_total_count"],
-                }
-            )
         written.append(
             write_page(
                 "entity_list.html",
                 f"/entities/{entity_type}",
-                list_context,
+                {"entities": type_entities, "entity_type": entity_type, "authoring_mode": False},
             )
         )
 
@@ -319,21 +216,6 @@ def build() -> list[Path]:
         ]
         regions = sorted(entity_regions(entity, entities, linked_evidence))
         activity = entity_activity(linked_evidence, entity_facts, entity_relationships, entities, evidence_idx)
-        synthesis = entity_synthesis_context(entity, entities, include_pending=False)
-        if entity.get("entity_type") == "variety":
-            synthesis.update(
-                present_variety_detail(
-                    entity,
-                    entities=entities,
-                    relationships=relationships_all,
-                    published_evidence=evidence,
-                    grouped_relationships=synthesis["grouped_relationships"],
-                    recent_intelligence=synthesis["recent_intelligence"],
-                    berry_labels=BERRIES,
-                    inbox_drafts=[],
-                    signals=all_signals(),
-                )
-            )
         written.append(
             write_page(
                 "entity.html",
@@ -349,22 +231,12 @@ def build() -> list[Path]:
                     "regions": regions,
                     "berry_label": berry_label,
                     "authoring_mode": False,
-                    **synthesis,
                 },
             )
         )
 
-    # Scanner / work queue — trusted published snapshot only. Never read inbox/.
+    # Work queue.
     high_priority = [r for r in evidence if any(v.get("level") == "high" for v in (r.get("priority") or {}).values())]
-    feed = build_intelligence_feed(
-        drafts=[],
-        published=evidence,
-        entities=entities,
-        berry_labels=BERRIES,
-        filter_key="all",
-        limit=48,
-    )
-    annotate_feed_semantics(feed["entries"], signals=all_signals(), candidates=[])
     written.append(
         write_page(
             "work_queue.html",
@@ -372,16 +244,6 @@ def build() -> list[Path]:
             {
                 "recent_evidence": evidence[:5],
                 "drafts": [],
-                "review_cards": [],
-                "feed": feed,
-                "feed_view": "grid",
-                "reviewer": "",
-                "return_filter": "",
-                "promoted_id": "",
-                "promoted_title": "",
-                "promoted_date": "",
-                "saved": False,
-                "scanner": build_public_scanner_summary(evidence),
                 "unresolved_entities": [e for e in all_entities() if e.get("status") == "unverified"],
                 "high_priority": high_priority[:5],
                 "recent_signals": all_signals()[:5],
@@ -391,106 +253,22 @@ def build() -> list[Path]:
         )
     )
 
-    from app.services.morning_brief import build_morning_brief
-
-    static_brief = build_morning_brief(
-        inbox_dir=ROOT / "inbox",
-        published=evidence,
-        drafts=[],
-        unvalidated=[],
-        signals=all_signals(),
-        entities=entities,
-        sources=[],
-        berry_labels=BERRIES,
-        source_coverage={},
-        mark_seen=False,
-        include_signal_candidates=False,
-    )
-    written.append(
-        write_page(
-            "morning_brief.html",
-            "/brief",
-            {
-                "brief": static_brief,
-                "authoring_mode": False,
-                "return_to": "/brief",
-                "reviewer": "",
-            },
-        )
-    )
-
-    # Read-only Sources registry from trusted configuration.
-    written.append(
-        write_page(
-            "sources.html",
-            "/sources",
-            {**sources_page_context(None, None, None, None, None, "entity_type", None), "authoring_mode": False},
-        )
-    )
-
-    # Priority-tagged intelligence views (reading/testing/watches/positions).
-    from app.services.analyst_queue import build_dimension_page
-    from app.services.testing_workspace import testing_page_model
-    from app.services.monitor_workspace import monitor_page_model
-
+    # Priority queues.
     for dimension in PRIORITY_DIMENSIONS:
-        page = build_dimension_page(
-            dimension=dimension,
-            records=queue_items(dimension),
-            inbox_dir=ROOT / "inbox",
-            entities=entities,
-            berry_labels=BERRIES,
-            signals=all_signals(),
-            show_completed=True,
-        )
-        monitor = {
-            "watch_items": page["items"],
-            "monitor_alerts": [],
-        }
-        if dimension == "monitoring":
-            monitor = monitor_page_model(
-                watch_items=page["items"],
-                entities=entities,
-                berry_labels=BERRIES,
-                published=evidence,
-                drafts=[],
-                signals=all_signals(),
-                candidates=[],
-                inbox_dir=None,
-                health_rows=[],
-                include_drafts=False,
-            )
-        testing_extra: dict = {}
-        if dimension == "testing":
-            testing_extra = testing_page_model(
-                records=queue_items(dimension),
-                inbox_dir=None,
-                entities=entities,
-                berry_labels=BERRIES,
-                evidence_by_id={str(row.get("id")): row for row in evidence if row.get("id")},
-                facts_by_id={},
-                show_completed=True,
-                static_build=True,
-            )
-            page = {**page, **testing_extra}
+        items = []
+        for record in queue_items(dimension):
+            linked = [entities[e]["name"] for e in record.get("entity_ids", []) if e in entities]
+            items.append({**record, "linked_entity_names": linked})
         written.append(
             write_page(
                 "queue.html",
                 f"/queues/{dimension}",
                 {
-                    **page,
+                    "dimension": dimension,
+                    "label": PRIORITY_QUEUE_LABELS[dimension],
+                    "items": items,
                     "berry_label": berry_label,
                     "authoring_mode": False,
-                    "static_build": True,
-                    "filters": {"region": ""},
-                    "reviewer": "",
-                    "position_proposals": [],
-                    "signal_alerts": [],
-                    "reading_buckets": [],
-                    "reading_bucket_counts": {},
-                    "return_to": "",
-                    **monitor,
-                    **testing_extra,
                 },
             )
         )
@@ -536,98 +314,8 @@ def build() -> list[Path]:
                     "linked_entities": [
                         entities[e] for e in (signal.get("entity_ids") or []) if e in entities
                     ],
-                    "linked_strategic_questions": [
-                        sq for sq in questions if sq["id"] in (signal.get("strategic_question_ids") or [])
-                    ],
                     "authoring_mode": False,
                 },
-            )
-        )
-
-    # Assessments.
-    assessments = attach_assessment_scope(all_assessments(), BERRIES)
-    fact_idx = {f["id"]: f for f in all_facts()}
-    written.append(
-        write_page("assessment_list.html", "/assessments", {"assessments": assessments, "authoring_mode": False})
-    )
-    for assessment in assessments:
-        written.append(
-            write_page(
-                "assessment_detail.html",
-                f"/assessments/{assessment['id']}",
-                {
-                    "assessment": assessment,
-                    "berry_scope": assessment.get("berry_scope") or assessment_berry_scope(assessment, BERRIES),
-                    "linked_facts": [f for f in all_facts() if f["id"] in (assessment.get("fact_ids") or [])],
-                    "linked_evidence": [
-                        r for r in evidence if r["id"] in (assessment.get("evidence_ids") or [])
-                    ],
-                    "linked_entities": [
-                        entities[e] for e in (assessment.get("entity_ids") or []) if e in entities
-                    ],
-                    "linked_strategic_questions": [
-                        sq for sq in questions if sq["id"] in (assessment.get("strategic_question_ids") or [])
-                    ],
-                    "counterevidence": [
-                        fact_idx[cid] for cid in (assessment.get("counterevidence_ids") or []) if cid in fact_idx
-                    ],
-                    "authoring_mode": False,
-                },
-            )
-        )
-
-    # Recommendations.
-    recommendations = all_recommendations()
-    written.append(
-        write_page(
-            "recommendation_list.html",
-            "/recommendations",
-            {"recommendations": recommendations, "authoring_mode": False},
-        )
-    )
-    for recommendation in recommendations:
-        written.append(
-            write_page(
-                "recommendation_detail.html",
-                f"/recommendations/{recommendation['id']}",
-                {
-                    "recommendation": recommendation,
-                    "linked_assessments": [
-                        a for a in assessments if a["id"] in (recommendation.get("assessment_ids") or [])
-                    ],
-                    "linked_signals": [
-                        s for s in signals if s["id"] in (recommendation.get("signal_ids") or [])
-                    ],
-                    "linked_facts": [
-                        f for f in all_facts() if f["id"] in (recommendation.get("fact_ids") or [])
-                    ],
-                    "linked_evidence": [
-                        r for r in evidence if r["id"] in (recommendation.get("evidence_ids") or [])
-                    ],
-                    "linked_entities": [
-                        entities[e] for e in (recommendation.get("entity_ids") or []) if e in entities
-                    ],
-                    "linked_strategic_questions": [
-                        sq for sq in questions if sq["id"] in (recommendation.get("strategic_question_ids") or [])
-                    ],
-                    "authoring_mode": False,
-                },
-            )
-        )
-
-    # Berry Landscapes (V2 Phase 1.5B, BL-026; genericized for all four
-    # berries in the 2026-08-20 multi-berry portability audit -- this loop
-    # previously rendered only "/landscapes/berries/blueberry", the same
-    # hardcoding already fixed in the live route (app/main.py) and the nav
-    # (base.html); left unfixed here, the static site would have kept
-    # serving a 404 for the other three even after those two fixes).
-    for berry_id in BERRIES:
-        berry_slug = berry_id.removeprefix("berry-")
-        written.append(
-            write_page(
-                "landscape.html",
-                f"/landscapes/berries/{berry_slug}",
-                {**landscape_context(berry_id), "authoring_mode": False},
             )
         )
 
@@ -636,11 +324,6 @@ def build() -> list[Path]:
     # server-side content to pass here, unlike every other page above.
     written.append(write_page("search.html", "/search", {"authoring_mode": False}))
 
-    for key, value in previous_globals.items():
-        if value is None:
-            templates.env.globals.pop(key, None)
-        else:
-            templates.env.globals[key] = value
     return written
 
 

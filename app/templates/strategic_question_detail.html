@@ -8,7 +8,6 @@
   </div>
 </section>
 <article class="detail-card">
-  <h2>Bottom line</h2>
   {% set description_lines = sq.description|as_bullets %}
   {% if description_lines|length > 1 %}
     <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
@@ -21,7 +20,23 @@
 
   <h2>Linked evidence</h2>
   {% if linked_evidence %}
-    <div class="table-wrap"><table class="brief-table evidence-link-table"><thead><tr><th>Date</th><th>Evidence</th><th>Source</th></tr></thead><tbody>{% for item in linked_evidence %}<tr><td>{{ (item.published_date or item.captured_date)|us_date }}</td><td data-pagefind-weight="1"><a href="/evidence/{{ item.id }}"><strong>{{ item.title }}</strong></a></td><td>{{ item.source_name or item.source_type|replace('_',' ')|title }}</td></tr>{% endfor %}</tbody></table></div>
+    <section class="feed feed-compact">
+      {% for item in linked_evidence %}
+        <article class="card source-{{ item.source_type }}">
+          <div class="card-header">
+            <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
+            <time>{{ (item.published_date or item.captured_date)|us_date }}</time>
+          </div>
+          <h3 data-pagefind-weight="1"><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3>
+          {% set summary_lines = item.summary|as_bullets %}
+          {% if summary_lines|length > 1 %}
+            <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+          {% else %}
+            <p>{{ item.summary }}</p>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </section>
   {% else %}
     <p class="empty-state">No published evidence links to this strategic question yet.</p>
   {% endif %}

@@ -38,15 +38,6 @@
     </select>
   </div>
   <div class="filter-field">
-    <label for="filter-media-format">Media format</label>
-    <select id="filter-media-format" name="media_format">
-      <option value="">All formats</option>
-      {% for m in options.media_formats %}
-        <option value="{{ m }}" {% if filters.media_format == m %}selected{% endif %}>{{ m|replace('_', ' ')|title }}</option>
-      {% endfor %}
-    </select>
-  </div>
-  <div class="filter-field">
     <label for="filter-priority">Priority</label>
     <select id="filter-priority" name="priority">
       <option value="">Any priority</option>
@@ -90,20 +81,14 @@
   </div>
 </form>
 {% else %}
-  <div class="filters static-region-filters" aria-label="Filter newsfeed by region">
-    <strong>Region</strong>
-    {% for key, label in [('global','Global'),('americas','Americas'),('emea','EMEA'),('australia-nz','Australia / New Zealand'),('asia','Asia')] %}
-      <button type="button" class="filter-chip static-feed-region{% if key == 'global' %} is-active{% endif %}" data-feed-region="{{ key }}">{{ label }}</button>
-    {% endfor %}
-  </div>
-  <p class="empty-state static-feed-note">Static read-only newsfeed. Region filters use explicit geography linkage; records without regional attribution remain in Global only.</p>
+  <p class="empty-state">Filtering and search require the local app; this is a static, read-only build.</p>
 {% endif %}
 
-<p class="result-count"{% if static_build %} id="static-feed-count"{% endif %}>Showing {{ evidence|length }} of {{ total_count }} published items</p>
+<p class="result-count">Showing {{ evidence|length }} of {{ total_count }} published items</p>
 
 <section class="feed">
 {% for item in evidence %}
-  <article class="card source-{{ item.source_type }}"{% if static_build %} data-feed-regions="{{ item.filter_regions|join(' ') }}"{% endif %}>
+  <article class="card source-{{ item.source_type }}">
     <div class="card-header">
       <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
       <time>{{ (item.published_date or item.captured_date)|us_date }}</time>
@@ -119,14 +104,6 @@
       </div>
     {% endif %}
     <h2><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h2>
-    <p class="card-byline">
-      <strong>Source:</strong>
-      {% if item.source_url %}
-        <a href="{{ item.source_url }}" target="_blank" rel="noopener">{{ item.source_name or "Open original source" }} ↗</a>
-      {% else %}
-        {{ item.source_name or "Unknown" }} <span class="empty-state">· no external URL recorded</span>
-      {% endif %}
-    </p>
     {% set geo_and_entity_ids = (item.geography_ids or []) + (item.entity_ids or []) %}
     {% if geo_and_entity_ids %}
       <div class="tags tags-linked">
@@ -142,9 +119,9 @@
     {% if not summary_is_redundant %}
       {% set summary_lines = item.summary|as_bullets %}
       {% if summary_lines|length > 1 %}
-        <ul class="bullet-list">{% for line in summary_lines[:3] %}<li>{{ line|truncate(180) }}</li>{% endfor %}</ul>
+        <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
       {% else %}
-        <p>{{ item.summary|truncate(280) }}</p>
+        <p>{{ item.summary }}</p>
       {% endif %}
     {% elif item.source_url %}
       <p class="empty-state">No summary available from this source — <a href="{{ item.source_url }}" target="_blank" rel="noopener">read the full article ↗</a></p>
@@ -160,9 +137,9 @@
         <strong>Why it matters</strong>
         {% set why_lines = item.why_it_matters|as_bullets %}
         {% if why_lines|length > 1 %}
-          <ul class="bullet-list">{% for line in why_lines[:2] %}<li>{{ line|truncate(180) }}</li>{% endfor %}</ul>
+          <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
         {% else %}
-          <p>{{ item.why_it_matters|truncate(220) }}</p>
+          <p>{{ item.why_it_matters }}</p>
         {% endif %}
       </div>
     {% endif %}
@@ -171,29 +148,4 @@
   <p class="empty-state">No published evidence matches the current filters.</p>
 {% endfor %}
 </section>
-{% if static_build %}
-<script>
-(() => {
-  const cards = [...document.querySelectorAll('[data-feed-regions]')];
-  const count = document.getElementById('static-feed-count');
-  let region = 'global';
-  function applyRegion() {
-    let visible = 0;
-    cards.forEach(card => {
-      card.hidden = region !== 'global' && !card.dataset.feedRegions.split(/\s+/).includes(region);
-      if (!card.hidden) visible += 1;
-    });
-    document.querySelectorAll('.static-feed-region').forEach(button =>
-      button.classList.toggle('is-active', button.dataset.feedRegion === region));
-    count.textContent = `Showing ${visible} of ${cards.length} published items`;
-    history.replaceState(null, '', `#region=${region}`);
-  }
-  document.querySelectorAll('.static-feed-region').forEach(button =>
-    button.addEventListener('click', () => { region = button.dataset.feedRegion; applyRegion(); }));
-  const state = new URLSearchParams(location.hash.slice(1));
-  if (['global','americas','emea','australia-nz','asia'].includes(state.get('region'))) region = state.get('region');
-  applyRegion();
-})();
-</script>
-{% endif %}
 {% endblock %}

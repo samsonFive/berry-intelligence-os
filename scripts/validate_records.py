@@ -27,11 +27,6 @@ def main() -> int:
     errors += validate_folder("relationship.schema.json", ROOT / "data" / "relationships")
     errors += validate_folder("strategic-question.schema.json", ROOT / "data" / "strategic-questions")
     errors += validate_folder("signal.schema.json", ROOT / "data" / "signals")
-    # New V2 core objects (docs/v2/03-DOMAIN-MODEL.md, BL-010/BL-011). No data/
-    # folder exists yet for either -- validate_folder() handles a missing
-    # folder as zero records, same as signals did before any were staged.
-    errors += validate_folder("assessment.schema.json", ROOT / "data" / "assessments")
-    errors += validate_folder("recommendation.schema.json", ROOT / "data" / "recommendations")
     if errors:
         print("Validation failed:")
         for error in errors:

@@ -3,63 +3,26 @@
 {% block content %}
 <section class="page-heading">
   <div>
-    <p class="eyebrow">SIGNAL — {{ signal.status|upper }} · A PATTERN ACROSS EVIDENCE, NOT A CONFIRMED FACT</p>
+    <p class="eyebrow">SIGNAL — {{ signal.status|upper }}</p>
     <h1>{{ signal.title }}</h1>
   </div>
 </section>
-{% if authoring_mode and signal.status == 'proposed' and alert_state == 'open' %}
-  <div class="banner">
-    <p>New proposed signal. Confirm or dismiss this alert. The underlying signal record stays in history.</p>
-    <div class="queue-actions">
-      <form action="/signals/{{ signal.id }}/alert-decision" method="post"><input type="hidden" name="action" value="confirm"><button class="action-button action-approve" type="submit">Confirm</button></form>
-      <form action="/signals/{{ signal.id }}/alert-decision" method="post"><input type="hidden" name="action" value="dismiss"><button class="action-button action-reject" type="submit">Dismiss</button></form>
-    </div>
-  </div>
-{% elif alert_state and alert_state != 'open' %}
-  <p class="context-limit">Alert decision: {{ alert_state }}. The signal record is unchanged.</p>
-{% endif %}
 <article class="detail-card">
   <dl data-pagefind-ignore>
-    {% if signal.direction %}<dt>Direction</dt><dd>{{ signal.direction }}</dd>{% endif %}
+    <dt>Direction</dt><dd>{{ signal.direction }}</dd>
     <dt>Strength</dt><dd>{{ signal.strength }}</dd>
-    {% if signal.confidence %}<dt>Confidence</dt><dd>{{ signal.confidence }}</dd>{% endif %}
-    {% if signal.first_seen %}<dt>First seen</dt><dd>{{ signal.first_seen }}</dd>{% endif %}
-    {% if signal.last_updated %}<dt>Last updated</dt><dd>{{ signal.last_updated|us_date }}</dd>{% endif %}
-    {% if signal.proposed_at %}<dt>Proposed</dt><dd>{{ signal.proposed_at|us_date }}</dd>{% endif %}
-    {% if signal.proposed_by %}<dt>Proposed by</dt><dd>{{ signal.proposed_by }}</dd>{% endif %}
-    <dt>Reviewer</dt><dd>{{ signal.reviewer or "Not yet reviewed" }}</dd>
+    <dt>Confidence</dt><dd>{{ signal.confidence }}</dd>
+    <dt>First seen</dt><dd>{{ signal.first_seen }}</dd>
+    <dt>Last updated</dt><dd>{{ signal.last_updated|us_date }}</dd>
+    <dt>Reviewer</dt><dd>{{ signal.reviewer }}</dd>
   </dl>
 
-  {% set description_text = signal.description or signal.observation %}
-  {% set description_lines = description_text|as_bullets %}
+  {% set description_lines = signal.description|as_bullets %}
   {% if description_lines|length > 1 %}
-    <h2>Bottom line</h2>
+    <h2>Description</h2>
     <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-  {% elif description_text %}
-    <h2>Bottom line</h2><p>{{ description_text }}</p>
-  {% endif %}
-
-  {% if signal.why_it_might_matter %}
-    <h2>Why it might matter</h2>
-    {% set why_lines = signal.why_it_might_matter|as_bullets %}
-    {% if why_lines|length > 1 %}
-      <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-    {% else %}
-      <p>{{ signal.why_it_might_matter }}</p>
-    {% endif %}
-  {% endif %}
-
-  {% if signal.what_would_confirm_it or signal.what_would_falsify_it %}<h2>Decision test</h2><table class="brief-table decision-test"><tbody>{% if signal.what_would_confirm_it %}<tr><th>Confirm</th><td>{{ signal.what_would_confirm_it }}</td></tr>{% endif %}{% if signal.what_would_falsify_it %}<tr><th>Weaken</th><td>{{ signal.what_would_falsify_it }}</td></tr>{% endif %}</tbody></table>{% endif %}
-
-  <h2>Linked strategic questions</h2>
-  {% if linked_strategic_questions %}
-    <ul class="entity-links">
-      {% for sq in linked_strategic_questions %}
-        <li><a href="/strategic-questions/{{ sq.id }}">{{ sq.title }}</a></li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p class="empty-state">No strategic questions linked.</p>
+  {% elif signal.description %}
+    <h2>Description</h2><p>{{ signal.description }}</p>
   {% endif %}
 
   <h2>Affected entities</h2>
@@ -78,7 +41,7 @@
     <ul class="fact-list">
       {% for fact in linked_facts %}
         <li>
-          <span class="badge badge-{{ 'fact' if fact.classification == 'fact' else 'claim' }}">{{ fact.classification|upper }}</span>
+          <span class="badge badge-muted">{{ fact.classification|upper }}</span>
           <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
           {% set statement_lines = fact.statement|as_bullets %}
           {% if statement_lines|length > 1 %}
@@ -95,7 +58,23 @@
 
   <h2>Supporting evidence</h2>
   {% if linked_evidence %}
-    <div class="table-wrap"><table class="brief-table evidence-link-table"><thead><tr><th>Date</th><th>Evidence</th><th>Source</th></tr></thead><tbody>{% for item in linked_evidence %}<tr><td>{{ (item.published_date or item.captured_date)|us_date }}</td><td data-pagefind-weight="1"><a href="/evidence/{{ item.id }}"><strong>{{ item.title }}</strong></a></td><td>{{ item.source_name or item.source_type|replace('_',' ')|title }}</td></tr>{% endfor %}</tbody></table></div>
+    <section class="feed feed-compact">
+      {% for item in linked_evidence %}
+        <article class="card source-{{ item.source_type }}">
+          <div class="card-header">
+            <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
+            <time>{{ (item.published_date or item.captured_date)|us_date }}</time>
+          </div>
+          <h3 data-pagefind-weight="1"><a href="/evidence/{{ item.id }}">{{ item.title }}</a></h3>
+          {% set summary_lines = item.summary|as_bullets %}
+          {% if summary_lines|length > 1 %}
+            <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+          {% else %}
+            <p>{{ item.summary }}</p>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </section>
   {% else %}
     <p class="empty-state">No evidence linked.</p>
   {% endif %}
