@@ -1,0 +1,50 @@
+<li class="v2-testing-card">
+  <p class="v2-card-kicker">
+    <span class="v2-mark v2-mark-testing">Claim</span>
+    <span class="v2-mark v2-mark-testing-state v2-mark-testing-{{ item.workflow_state }}">{{ item.workflow_label }}</span>
+    {% if item.priority_level and item.priority_level != 'none' %}
+      <span class="v2-meta">{{ item.priority_level }} priority</span>
+    {% endif %}
+    <span class="v2-meta">not a Fact</span>
+  </p>
+  <h3 class="v2-card-title"><a href="{{ item.detail_href }}">{{ item.title }}</a></h3>
+  <p class="v2-card-line">
+    <span class="v2-testing-role">Source claim</span>
+    {{ item.source_name or item.source_type }}
+    {% if item.date %} · {{ item.date|us_date }}{% endif %}
+  </p>
+  {% if item.why %}
+    <p class="v2-card-summary">{{ item.why }}</p>
+  {% endif %}
+  <p class="v2-card-line">
+    {% if item.berry_links %}{{ item.berry_links|map(attribute='name')|join(', ') }} · {% endif %}
+    {% if item.company_links %}{{ item.company_links|map(attribute='name')|join(', ') }}{% endif %}
+    {% if item.variety_links %}{% if item.company_links %} · {% endif %}{{ item.variety_links|map(attribute='name')|join(', ') }}{% endif %}
+  </p>
+  <p class="v2-card-line">
+    {{ item.claim_count }} normalized claim{{ 's' if item.claim_count != 1 else '' }}
+    · {{ item.support_count }} supporting
+    · {{ item.contradict_count }} contradicting
+    · {{ item.fact_count }} linked Fact{{ 's' if item.fact_count != 1 else '' }}
+  </p>
+  <div class="v2-testing-actions">
+    {% if not static_build %}
+      <a class="v2-btn v2-btn-quiet" href="{{ item.reader_href }}" data-open-reader data-item-id="{{ item.id }}">Read source</a>
+    {% else %}
+      <a class="v2-btn v2-btn-quiet" href="{{ item.trusted_href }}">Read source</a>
+    {% endif %}
+    <a class="v2-btn v2-btn-quiet" href="{{ item.detail_href }}">Open claim</a>
+    {% if not static_build and item.search_href %}
+      <a class="v2-btn v2-btn-quiet" href="{{ item.search_href }}">Search</a>
+    {% endif %}
+    {% if authoring_mode and not static_build %}
+      {% if item.is_active %}
+        <form action="/queues/testing/{{ item.id }}" method="post"><input type="hidden" name="action" value="pass"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="v2-btn v2-btn-quiet" type="submit">Pass</button></form>
+        <form action="/queues/testing/{{ item.id }}" method="post"><input type="hidden" name="action" value="fail"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="v2-btn v2-btn-quiet" type="submit">Fail</button></form>
+        <form action="/queues/testing/{{ item.id }}" method="post"><input type="hidden" name="action" value="defer"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="v2-btn v2-btn-quiet" type="submit">Defer</button></form>
+      {% else %}
+        <form action="/queues/testing/{{ item.id }}" method="post"><input type="hidden" name="action" value="reopen"><input type="hidden" name="reviewer" value="{{ reviewer }}"><input type="hidden" name="show_completed" value="1"><input type="hidden" name="return_to" value="{{ return_to }}"><button class="v2-btn v2-btn-quiet" type="submit">Reopen</button></form>
+      {% endif %}
+    {% endif %}
+  </div>
+</li>

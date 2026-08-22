@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block title %}{{ label }} — Berry Intelligence OS{% endblock %}
 {% block content %}
+{% if dimension == 'testing' %}
+  {% include "_testing_workspace.html" %}
+{% else %}
 <div class="{% if dimension in ('reading', 'monitoring') %}v2-page{% endif %}">
 <section class="page-heading{% if dimension in ('reading', 'monitoring') %} v2-page-header{% endif %}">
   <div>
@@ -13,8 +16,6 @@
     {% if reading_buckets %}
       <p class="queue-metric queue-metric-inventory">{{ reading_bucket_counts.top_priority }} top · {{ reading_bucket_counts.saved }} saved · {{ reading_bucket_counts.adjacent }} adjacent · {{ reading_bucket_counts.backlog }} backlog</p>
     {% endif %}
-  {% elif dimension == 'testing' %}
-    <p class="queue-metric queue-metric-action" aria-label="Claims still needing a test decision">{{ active_count }} need testing</p>
   {% elif dimension == 'commercial_position' %}
     <p class="queue-metric queue-metric-inventory" aria-label="Tagged commercial-position evidence">{{ tagged_count }} tagged evidence</p>
   {% elif dimension == 'monitoring' %}
@@ -272,4 +273,5 @@
   <p class="empty-state">{% if show_completed %}Nothing recorded in this view.{% elif dimension == 'commercial_position' %}No evidence is tagged for commercial-position thinking.{% else %}Nothing needs attention in this view.{% endif %}</p>
 {% endif %}
 </div>
+{% endif %}
 {% endblock %}

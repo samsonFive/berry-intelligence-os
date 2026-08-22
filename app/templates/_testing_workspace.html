@@ -1,0 +1,150 @@
+<div class="v2-page v2-testing">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">{{ eyebrow }}</p>
+    <h1>{{ label }}</h1>
+    <p class="also-known-as">{{ purpose }}</p>
+  </div>
+  <p class="queue-metric queue-metric-action" aria-label="Claims still needing a test decision">{{ active_count }} need testing</p>
+</section>
+
+<p class="brief-window">
+  Claim Testing is verification of a concrete claim in trusted Evidence — not Learner Mode, not Atomic Claims review, not model-qualification, and not a Fact publisher.
+  Repeated wording is not independent corroboration.
+  {% if not static_build %}<a href="{{ search_href }}">Open Global Search</a> when you need the company, variety, or source.{% endif %}
+</p>
+
+<ul class="brief-delta-strip">
+  {% for bucket in buckets %}
+    <li><a href="#testing-{{ bucket.key }}">{{ bucket.label }}</a><strong>{{ bucket.count }}</strong></li>
+  {% endfor %}
+  <li>Tagged<strong>{{ tagged_count }}</strong></li>
+</ul>
+
+{% if not static_build %}
+<form class="filters v2-testing-filters" action="/queues/testing" method="get" aria-label="Filter Claim testing">
+  {% if filter_options.states %}
+  <div class="filter-field">
+    <label for="filter-state">State</label>
+    <select id="filter-state" name="state">
+      <option value="">All visible states</option>
+      {% for option in filter_options.states %}
+        <option value="{{ option.id }}" {% if filters.state == option.id %}selected{% endif %}>{{ option.label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endif %}
+  {% if filter_options.berries %}
+  <div class="filter-field">
+    <label for="filter-berry">Berry</label>
+    <select id="filter-berry" name="berry">
+      <option value="">All berries</option>
+      {% for option in filter_options.berries %}
+        <option value="{{ option.id }}" {% if filters.berry == option.id %}selected{% endif %}>{{ option.label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endif %}
+  {% if filter_options.companies %}
+  <div class="filter-field">
+    <label for="filter-company">Company</label>
+    <select id="filter-company" name="company">
+      <option value="">All companies</option>
+      {% for option in filter_options.companies %}
+        <option value="{{ option.id }}" {% if filters.company == option.id %}selected{% endif %}>{{ option.label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endif %}
+  {% if filter_options.varieties %}
+  <div class="filter-field">
+    <label for="filter-variety">Variety</label>
+    <select id="filter-variety" name="variety">
+      <option value="">All varieties</option>
+      {% for option in filter_options.varieties %}
+        <option value="{{ option.id }}" {% if filters.variety == option.id %}selected{% endif %}>{{ option.label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endif %}
+  {% if filter_options.geographies %}
+  <div class="filter-field">
+    <label for="filter-geography">Geography</label>
+    <select id="filter-geography" name="geography">
+      <option value="">All geographies</option>
+      {% for option in filter_options.geographies %}
+        <option value="{{ option.id }}" {% if filters.geography == option.id %}selected{% endif %}>{{ option.label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endif %}
+  {% if filter_options.sources %}
+  <div class="filter-field">
+    <label for="filter-source">Source</label>
+    <select id="filter-source" name="source">
+      <option value="">All sources</option>
+      {% for option in filter_options.sources %}
+        <option value="{{ option.id }}" {% if filters.source == option.id %}selected{% endif %}>{{ option.label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endif %}
+  {% if filter_options.levels %}
+  <div class="filter-field">
+    <label for="filter-level">Priority</label>
+    <select id="filter-level" name="level">
+      <option value="">All levels</option>
+      {% for option in filter_options.levels %}
+        <option value="{{ option.id }}" {% if filters.level == option.id %}selected{% endif %}>{{ option.label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endif %}
+  {% if regions %}
+  <div class="filter-field">
+    <label for="filter-region">Region</label>
+    <select id="filter-region" name="region">
+      <option value="">All regions</option>
+      {% for r in regions %}
+        <option value="{{ r }}" {% if filters.region == r %}selected{% endif %}>{{ r }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endif %}
+  <div class="filter-field">
+    <label class="checkbox-label" for="show-completed">
+      <input id="show-completed" type="checkbox" name="show_completed" value="1" {% if show_completed %}checked{% endif %}>
+      Show completed
+    </label>
+  </div>
+  <div class="filter-actions">
+    <button type="submit">Apply filter</button>
+    <a href="/queues/testing">Reset</a>
+  </div>
+</form>
+{% endif %}
+
+{% if tagged_count == 0 %}
+  <p class="empty-state">No published Evidence is tagged for claim testing. The queue is empty — this is not seeded with fictional production claims.</p>
+{% elif visible_count == 0 %}
+  <p class="empty-state">{% if show_completed %}Nothing recorded in this view.{% else %}Nothing needs testing in this filtered view.{% endif %}</p>
+{% else %}
+  {% for bucket in buckets %}
+    {% if bucket.count or show_completed or filters.state == bucket.key %}
+    <section class="v2-testing-bucket" id="testing-{{ bucket.key }}">
+      <h2>{{ bucket.label }} — {{ bucket.count }}</h2>
+      <p class="context-limit">{{ bucket.hint }}</p>
+      {% if bucket.entries %}
+        <ul class="v2-testing-list">
+          {% for item in bucket.entries %}
+            {% include "_testing_card.html" %}
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="empty-state">Nothing in this state.</p>
+      {% endif %}
+    </section>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+</div>

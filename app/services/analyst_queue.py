@@ -426,11 +426,12 @@ def build_dimension_page(
         eyebrow = "UNREAD AND SAVED — THEN DISMISS OR PROMOTE"
     elif dimension == "testing":
         purpose = (
-            "Independent verification of claims in trusted evidence — field, trial, or source-check work. "
-            "This is not model-qualification or extraction testing."
+            "Which concrete claims need verification, what evidence supports or contradicts them, "
+            "and what is the analyst's disposition? Pass, Fail, and Defer do not publish a Fact. "
+            "This is not Learner Mode and not model-qualification or extraction testing."
         )
         label = "Claim testing"
-        eyebrow = "SYSTEM QUALITY — VERIFY THE CLAIM"
+        eyebrow = "DECIDE — VERIFY THE CLAIM"
     elif dimension == "commercial_position":
         purpose = (
             "Trusted evidence tagged for commercial-position thinking. This is an intelligence view, "

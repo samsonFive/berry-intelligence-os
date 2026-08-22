@@ -404,7 +404,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | KL-001 | Human publication + atomic review gates | Trust model. AI never auto-publishes. |
 | KL-002 | Signal candidate confirm ≠ trusted Signal and does not create an Assessment | Object model. Documented in `AGENTS.md`. |
 | KL-003 | Story threads are organizational only | No “trust thread” action. |
-| KL-004 | Landscape / Sources inventory-config admin / admin unmigrated | Deliberate stop gate. Monitor migrated 2026-08-21. Variety Intelligence UI migrated 2026-08-21 (`/entities/variety`). Global Intelligence Search migrated 2026-08-22 (`/search`, `#v2SearchOffcanvas`). Landscape waits on Trade / Retail / Registry expansion. |
+| KL-004 | Landscape / Sources inventory-config admin / admin unmigrated | Deliberate stop gate. Monitor migrated 2026-08-21. Variety Intelligence UI migrated 2026-08-21 (`/entities/variety`). Global Intelligence Search migrated 2026-08-22 (`/search`, `#v2SearchOffcanvas`). Claim Testing migrated 2026-08-22 (`/queues/testing`). Landscape waits on Trade / Retail / Registry expansion. Remaining System catalogs (Intake, Publications, Atomic Claims review, Signal catalog, Newsfeed, Commercial positions, Strategic Questions, Recommendations) stay unmigrated. |
 | KL-005 | Static GitHub Pages is a trusted snapshot | No inbox drafts, no review workbench. |
 | KL-006 | Haiku enrichment is not extraction-qualified | Non-trusted publication enrichment only. |
 | KL-007 | Analyst workflow state lives in gitignored `inbox/analyst_queue_state.json` | Runtime overlay; never mutates trusted `data/evidence`. |
@@ -859,5 +859,39 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Owner lane** | platform |
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_global_search.py` |
+
+IDs TD-038 through TD-044 appear twice in this register (Collection Runtime V1 table vs qualitative-coverage / Search entries). Do not reuse those numbers. New debt starts at TD-045.
+
+### TD-045 — Claim Testing overlay stores only the last disposition
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | product / claim testing |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | `analyst_queue.apply_action()` overwrites `inbox/analyst_queue_state.json` `testing[id]`. Pass / Fail / Defer / Reopen keep reviewer + timestamp for the latest action only. |
+| **Impact** | Claim detail can show last disposition, not a reviewer history. Trusted Evidence is unchanged. |
+| **Workaround** | Treat the overlay as current state. Do not invent a history UI. |
+| **Recommended resolution** | Append-only overlay events if a real audit trail is required. Do not write dispositions onto trusted Evidence. |
+| **Status** | limitation |
+| **Owner lane** | product |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_claim_testing.py` |
+
+### TD-046 — Testing-tagged Evidence currently has no evidence_links
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data / claim testing |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | Live audit of 65 published records with `priority.testing.level != none`: zero `evidence_links`, zero `verification_state`, all blueberry. Supporting / contradicting panels therefore render honest empty states unless a fixture or later review writes links. |
+| **Impact** | The V2 evidence chain is real but sparse in production. Do not seed fictional production claims to fill it. |
+| **Workaround** | Normalized `classification: claim` Facts and source wording remain visible. Tests may use fictional fixtures. |
+| **Recommended resolution** | Record corroborates / contradicts links through the existing Evidence-link review path when a real case exists. Do not infer links from repeated titles. |
+| **Status** | limitation |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_claim_testing.py` |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
