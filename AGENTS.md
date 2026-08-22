@@ -12,6 +12,8 @@ Canonical branch is `v2/intelligence-os`. Do not commit to it directly.
 
 Feature branches can fall behind later governance (expansion guide, `PROJECT-STATUS.md`, `AGENTS.md` pointer). Rebase onto `origin/v2/intelligence-os` before merge. Preserve the canonical expansion guide verbatim. Reconcile `TECHNICAL-DEBT-REGISTER.md` and `INTELLIGENCE-COVERAGE-MATRIX.md` — do not reopen resolved UI-lane items (TD-001..004) and do not replace evidence-class counts with withdrawn drafts that marked keyword-news as `NONE`.
 
+Claim Testing (`/queues/testing`) follows the berry context selector. The live tagged corpus is blueberry-only, so a leftover `inbox/analyst_queue_state.json` `meta.ui.berry` of strawberry/raspberry/blackberry shows an honest empty queue. Set context to Global or Blueberry before judging volume. Testing pages must not call Morning Brief, Story Thread grouping, Global Search indexing, collector scans, or `variety_footprint`.
+
 ### Local vs cloud runtime
 
 Cloud agents do not automatically see an operator's local `inbox/` runtime. `inbox/` is gitignored. Drafts, discovered media, transcripts, and collection run artifacts exist only on the machine that created them unless they were copied into a snapshot or explicitly provisioned.
