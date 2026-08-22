@@ -39,7 +39,7 @@ TD-063 (queue warm latency).
 | TD-053 | tests | Host-specific `/opt/cursor/artifacts` paths and fixed wall-clock assertions failed on Windows/constrained hosts. Performance artifacts now use `tmp_path`; direct call-path instrumentation guards forbidden expensive work. | Low | resolved | `tests/test_morning_brief.py`; `tests/test_global_search.py`; `tests/test_ui_v2_shell.py` |
 | TD-054 | status diagnostics | Root cause was item-by-item orchestration with repeated broad trusted-Evidence/draft scans. Default status now reads persisted run/pipeline state and cheap current counts; the former deep audit is explicit via `--audit-items`. | Medium | resolved | `tests/test_collection_status.py`; VPS timing proof; `docs/v2/PRODUCTION-COLLECTION-OPERATIONS-V1.md` |
 | TD-055 | fixed-window quantitative scheduling | Trade (72 fixed Comtrade requests) and weather (fixed historical comparison) do not yet advance a rolling release/window, so both correctly remain manual rather than repeatedly polling static history. | Medium | limitation | `data/configuration/collection_pipelines.json` |
-| TD-056 | analyst throughput | Production publication-review backlog reached 1,020 and grew by the latest run's 119 created drafts with no observed review reduction. Six-hour news cadence reduces pressure but does not solve review capacity. | High | active | persisted production run/draft counts; operator status backlog ratio |
+| TD-056 | analyst throughput | Review Capacity + Collection Backpressure V1 now makes backlog growth, age, source/query load, exact duplicate pressure, and safe simulated deferral observable. Automatic throttling stays off because recorded review decisions are insufficient; capacity itself remains unresolved. | High | active (observability improved) | `scripts/review_capacity.py`; operator status review-capacity warning |
 | TD-057 | acquisition reliability | Persisted failures are dominated by expected publisher/bot access and stale-or-blocked UK FSA alert URLs (403/410), plus isolated openFDA body extraction failures. Individual failures remain visible and isolated; no Source-specific content workaround was added. | Medium | monitoring | pipeline/source failure state; `docs/v2/PRODUCTION-COLLECTION-OPERATIONS-V1.md` |
 
 ID aliases from the expansion-guide session's withdrawn draft (do not reopen
@@ -1004,5 +1004,21 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Owner lane** | product |
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_testing_workspace.py::test_testing_queue_does_not_run_forbidden_work` |
+
+### TD-064 — Publication review lacks an append-only decision-event ledger
+
+| Field | Value |
+|---|---|
+| **Severity** | High |
+| **Area** | analyst operations / measurement |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | Production has a large pending publication backlog, but only a very small number of trusted `publication_artifact` records carry explicit review metadata, rejected drafts are sparse, and `analyst_queue_state.json` stores current state rather than a complete transition history. Unreviewed drafts cannot truthfully reveal keep/dismiss/publish yield. |
+| **Impact** | Review completions/day, keep/publish rate, reject/dismiss rate, decision latency, and source-level outcome economics are not statistically measurable. Any policy trained or enabled from pending inventory would fabricate analyst intent. |
+| **Workaround** | `scripts/review_capacity.py` reports only real recorded actions under `OBSERVED`, keeps insufficient rates `null`, and separates queue/load derivations and policy simulation. Automatic throttling remains off. |
+| **Recommended resolution** | Add an append-only review event ledger with draft ID, action, timestamp, reviewer, Source ID, pre-action queue bucket, reason, and arrival-to-decision duration. Record Save/Keep distinctly from edit, and ensure every Publish/Reject has a consistent decision timestamp. Preserve the current-state map for UI reads. |
+| **Status** | active |
+| **Owner lane** | platform / analyst operations |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_review_capacity.py::test_unreviewed_backlog_never_becomes_fabricated_yield`, `tests/test_review_capacity.py::test_only_real_recorded_actions_are_observed` |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
