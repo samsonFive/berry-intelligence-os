@@ -1,8 +1,9 @@
 # Production Collection Operations V1
 
 Implementation basis: `v2/intelligence-os` at
-`e1ae5d06dc87cfe9322604b342c8adb30c95536f` (2026-08-22). Production proof is
-recorded after deployment rather than inferred from repository configuration.
+`e1ae5d06dc87cfe9322604b342c8adb30c95536f` (2026-08-22). Implementation PR
+#76 merged and was deployed as canonical
+`9b57f10cf03861a5cb5f2525d196cc2fda351488`.
 
 ## Operator contract
 
@@ -94,16 +95,64 @@ The 103 retryable failures were dominated by UK FSA 403/410 stale-or-blocked
 alert URLs, with three openFDA response-body extraction failures. These remain
 visible operational issues; this mission does not add or content-patch Sources.
 
-The current publication-review backlog was 1,020. It had been 901 before the
-latest two observed cycles, and the latest run created 119 drafts, matching the
-observed increase. Collection is therefore creating work faster than the
-observed review throughput. The six-hour article cadence reduces pressure but
-does not auto-review or weaken the human trust gate. Status reports current
-backlog, last-run created count, backlog-to-created ratio, and growth pressure.
+The pre-deploy publication-review backlog was 1,020. It had been 901 before the
+latest two observed article cycles, and the latest article run created 119
+drafts, matching that observed increase. The proof cycle's CPVO run then added
+28 review drafts, bringing the backlog to 1,048. Collection is therefore
+creating work faster than the observed review throughput. The six-hour article
+cadence reduces pressure but does not auto-review or weaken the human trust
+gate. Status reports current backlog, last-run created count, backlog-to-created
+ratio (8.81 after deployment), and growth pressure.
 
 ## Production proof
 
-Live measurements, scheduler installation, lock contention, backup rotation,
-mounted-state hashes, application smoke, and deployed Git identity are added
-here in the deployment commit/follow-up once measured. Repository readiness is
-not represented as VPS proof.
+Root SSH inspection and deployment on the IONOS VPS were completed on
+2026-08-22. Before mutation, production was on `e1ae5d0`, the old timer was
+enabled/active, the app was healthy, and `/dev/vda1` had 111 GiB free of 116
+GiB. A fresh pre-deploy backup was created and independently verified:
+
+- archive: `/var/backups/berry-intelligence-os/berry-runtime-20260822T111551Z.tar.gz`
+- SHA-256: `0638e6033d032954fb9bba7be4990b18aeb00a2a9e11372ce7b4bcba56087abf`
+- pre-deploy state: 6,885 inbox files, 2,624 data files, 1,020 review drafts
+
+Canonical `9b57f10` was fast-forwarded, the existing Docker Compose application
+was rebuilt, and the updated service/timer units were installed. The app is
+healthy and remains bound to `127.0.0.1:8000` behind Caddy. Every one of the
+6,885 pre-deploy inbox files passed a manifest-driven SHA-256 comparison
+against the mounted post-rebuild runtime. All 2,623 unchanged trusted files
+also passed; the one deliberately changed trusted file was
+`configuration/collection_pipelines.json`, and its live hash exactly matched
+canonical (`364d7807ab8aa665e6514261a4d555c58a88683000196e5d6b3d15e441d2653e`).
+
+The timer is enabled and active. Its first persistent trigger ran at 11:18:05
+UTC and completed exit 0 at 11:19:12 UTC; the next dispatcher edge was
+11:30:07 UTC. That real scheduled cycle selected only due work:
+
+- CPVO: `SUCCESS`, 136 queries, 28 relevant/review-ready drafts, 0 failures,
+  55.337 seconds; next due 2026-08-29 11:19:01 UTC.
+- Runtime backup: `SUCCESS`, 4 valid/retained archives, 0 removed, 10.6
+  seconds; next due 2026-08-23 11:19:12 UTC. The new archive SHA-256 and
+  sidecar both equal
+  `ffc2bd55b5408e37f809fdd17e45e310813332a2fd478b58f83e7814c3e1dd7a`,
+  and an independent verify passed.
+- Article/news next due: 2026-08-22 14:29:45 UTC. Spoken next due:
+  2026-08-23 08:29:45 UTC. Plant patent next due: 2026-08-26 14:36:01 UTC.
+
+The default production `collection_status.py --json` completed in **2.99
+seconds**, versus the former attached run exceeding 35 minutes. It reported
+persisted detail mode, 1,048 publication-review drafts, one legacy article
+Source failure, 103 retryable item failures, 102 operator interventions, a
+healthy verified 69-second-old backup, 95.9% disk free, and no lock.
+
+Lock contention was proven with a normal verified backup rotation holding the
+shared lease. A concurrent mutable manual Source run exited 2 before discovery
+with the holder run ID; an otherwise identical dry run exited 0; the holder
+exited 0; no lock remained. HTTPS smoke passed: `/healthz` 200, `/login` 200,
+unauthenticated `/work-queue` 302, login POST 303, and authenticated
+`/work-queue` 200. The app remained healthy throughout.
+
+Production collection is unattended and observable within its current
+on-host recovery boundary. The active operational constraint is analyst review
+capacity (TD-056); off-host backup replication remains resilience debt
+(TD-051). Trade/weather need rolling-window configuration before they should
+be made unattended (TD-055), not a blind timer.

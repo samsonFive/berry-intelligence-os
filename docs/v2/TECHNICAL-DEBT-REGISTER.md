@@ -112,7 +112,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Recommended resolution** | Completed in Production Collection Operations V1. |
 | **Status** | resolved |
 | **Owner lane** | ops |
-| **PR/SHA when resolved** | Production Collection Operations V1 deployment; see `docs/v2/PRODUCTION-COLLECTION-OPERATIONS-V1.md` |
+| **PR/SHA when resolved** | PR #76 / `9b57f10`; see `docs/v2/PRODUCTION-COLLECTION-OPERATIONS-V1.md` |
 | **Regression-test reference** | `docs/v2/CONTINUOUS-INTELLIGENCE-REFRESH.md` |
 
 ### TD-009 — YouTube acquisition operational limits
