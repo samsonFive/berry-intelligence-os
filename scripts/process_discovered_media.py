@@ -146,6 +146,18 @@ def main() -> int:
         loaded_item = service.load_item(args.item)
         if args.relevance_gate and loaded_item.get("media_format") == "web_article":
             all_entities = repositories.entities.list()
+            # Same pre-scoped-source signal scripts/run_collection.py's own
+            # regulatory_source_ids uses -- a source explicitly tagged
+            # government_regulatory (Federal Register, openFDA, UK FSA, a
+            # CIK-scoped SEC EDGAR search) already names its own entity/
+            # topic scope, so a docket-only or filing-only headline
+            # deserves a real Stage B read rather than Stage A's generic-
+            # web metadata gate. See article_refresh.process_discovered_
+            # article's own always_body_check docstring.
+            item_source = repositories.sources.get(loaded_item.get("source_id") or "")
+            always_body_check = bool(
+                item_source and "government_regulatory" in (item_source.get("entity_types") or [])
+            )
             result, extra = process_discovered_article(
                 loaded_item,
                 orchestrator=service,
@@ -155,6 +167,7 @@ def main() -> int:
                 geographies=[r for r in all_entities if r.get("entity_type") == "geography"],
                 companies=[r for r in all_entities if r.get("entity_type") == "company"],
                 dry_run=args.dry_run,
+                always_body_check=always_body_check,
                 geo_matchers=geography_corroboration_matchers(all_entities),
                 company_matchers=matchers_from_entities(all_entities, "company"),
             )

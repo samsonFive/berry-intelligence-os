@@ -785,6 +785,87 @@ def _normalize_uk_fsa_entry(entry: Any) -> NormalizedItem:
     )
 
 
+# ---------------------------------------------------------------------------
+# sec_edgar_search_json adapter -- SEC EDGAR's public full-text search API
+# (efts.sec.gov/LATEST/search-index), no auth, no scraping. Unknown-Event
+# Discovery + Query Coverage V3 mission (2026-08-23): a real primary-source
+# gap this benchmark itself names (BM-C-07's own citation is "SEC 8-K,
+# 2026") -- Corporate-class investment/expansion events a publicly-traded
+# berry-adjacent company discloses in a routine quarterly 8-K earnings
+# exhibit, before or instead of any trade-press pickup. Live-verified
+# 2026-08-23: a bare cross-company "blueberry" full-text search across all
+# 8-K filers is real but noisy (13 of 18 real hits were unrelated
+# companies -- a restaurant chain's investor slide deck, a tobacco company,
+# a mining company -- whose filings happen to contain the word
+# incidentally); scoping the same query to a specific company's own CIK
+# (ciks= param) returned 32/32 genuinely relevant Mission Produce filings,
+# zero noise. Sources therefore MUST be CIK-scoped to one already-known
+# public company, never a bare species-word search -- the "entity x event
+# class" bounded-query-family principle applied to a government source.
+# Reuses the same generic JSON fetch as government_register_json/
+# government_recall_json/government_alert_json -- only list-entries and
+# normalize differ (EDGAR's shape nests real fields under
+# hits.hits[]._source, unlike any of the three existing adapters).
+# ---------------------------------------------------------------------------
+
+
+def _sec_edgar_entries(parsed: Any) -> list[Any]:
+    return list(((parsed or {}).get("hits") or {}).get("hits") or [])
+
+
+def _normalize_sec_edgar_entry(entry: Any) -> NormalizedItem:
+    entry = entry or {}
+    source = entry.get("_source") or {}
+    display_names = source.get("display_names") or []
+    company = display_names[0] if display_names else "(unknown filer)"
+    form = source.get("form") or "filing"
+    file_date = source.get("file_date") or None
+    accession = source.get("adsh") or ""
+    file_type = source.get("file_type") or ""
+    # entry["_id"] is "{accession-with-dashes}:{filename}" -- the only place
+    # the actual exhibit filename appears in this API's response shape.
+    raw_id = str(entry.get("_id") or "")
+    filename = raw_id.split(":", 1)[1] if ":" in raw_id else ""
+    ciks = source.get("ciks") or []
+    cik = ciks[0].lstrip("0") if ciks else ""
+    canonical_url = (
+        f"https://www.sec.gov/Archives/edgar/data/{cik}/{accession.replace('-', '')}/{filename}"
+        if cik and accession and filename else None
+    )
+    # file_date, not just form/file_type, is the one field that actually
+    # distinguishes one real filing from another -- found live (2026-08-23):
+    # a company with several years of quarterly 8-Ks all use the identical
+    # EX-99.1 exhibit type, so a title built from company+form+file_type
+    # alone produced 27 real, distinct filings under one identical title
+    # in the real review queue, a genuine review-usability regression this
+    # mission's own precision discipline (Section 12) requires fixing.
+    title = f"{company} {form} filing" + (f" ({file_date})" if file_date else "") + (f" ({file_type})" if file_type else "")
+    raw_metadata = {
+        "accession_number": accession or None,
+        "form": form,
+        "items": source.get("items"),
+        "cik": ciks[0] if ciks else None,
+        "period_ending": source.get("period_ending"),
+    }
+    return NormalizedItem(
+        title=title,
+        media_format="web_article",
+        canonical_url=canonical_url,
+        external_id=raw_id or None,
+        platform_item_id=None,
+        published_date=file_date,
+        description=f"SEC {form} exhibit, items {', '.join(source.get('items') or [])}.".strip(),
+        duration_seconds=None,
+        transcript_availability={
+            "status": TRANSCRIPT_NOT_APPLICABLE,
+            "checked_at": _now_iso(),
+            "url": None,
+            "language": None,
+        },
+        raw_metadata=raw_metadata,
+    )
+
+
 # adapter type -> (fetch, normalize-one-entry, list-entries-from-parsed)
 def _podcast_rss_entries(parsed: Any) -> list[Any]:
     return list(parsed.entries or [])
@@ -823,6 +904,13 @@ ADAPTER_TYPES: dict[str, tuple[Callable[[str], tuple[Any, bytes]], Callable[[Any
     # above.
     "government_alert_json": (
         _fetch_federal_register_json, _uk_fsa_entries, _normalize_uk_fsa_entry,
+    ),
+    # SEC EDGAR's public full-text search API. Reuses the same generic JSON
+    # fetch as the three adapters above -- see section above. Sources using
+    # this adapter must be CIK-scoped (ciks= in the feed_url), never a bare
+    # cross-company keyword search.
+    "sec_edgar_search_json": (
+        _fetch_federal_register_json, _sec_edgar_entries, _normalize_sec_edgar_entry,
     ),
 }
 

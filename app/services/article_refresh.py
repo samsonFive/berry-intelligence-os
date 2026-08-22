@@ -182,21 +182,32 @@ def process_discovered_article(
             result.relevance_tier = winning_tier
             _persist_relevance_tier(inbox_dir, result.publication_draft_id, winning_tier, dry_run=dry_run)
             return result, extra
-        if stage_a.query_corroboration and exc.category in _ACCESS_LIMITED_CATEGORIES:
-            # Zero direct berry/CI signal, but a registered geography/company
-            # entity plus a corporate-action term kept Stage A open (see
-            # relevance_screen._query_corroboration_hit) -- the article body
-            # cannot be verified (most commonly a Google News redirect page
-            # with no server-rendered content, not a real HTTP block).
-            # Relevance is genuinely UNCONFIRMED here: query provenance
-            # alone must never justify a DIRECT/ADJACENT claim, so this
-            # creates the same kind of untrusted metadata-only draft as the
-            # TIER_DIRECT fallback above, but explicitly tagged
-            # TIER_UNCERTAIN so it is never presented as confident berry
-            # intelligence -- a human decides, same as every other draft.
+        if (stage_a.query_corroboration or always_body_check) and exc.category in _ACCESS_LIMITED_CATEGORIES:
+            # Two distinct real reasons Stage A was kept open despite zero
+            # direct berry/CI metadata signal, both landing in the same
+            # honest fallback: (a) a registered geography/company entity
+            # plus a corporate-action term (relevance_screen.py's
+            # _query_corroboration_hit), or (b) the source itself is
+            # already pre-scoped by construction (always_body_check --
+            # e.g. a government register or a CIK-scoped SEC EDGAR search
+            # whose own query already names the entity/topic). Either way
+            # the article body cannot be verified (a Google News redirect
+            # page, or an SEC filing's raw SGML-wrapped document -- neither
+            # is a real HTTP block, both are real, structural extraction
+            # dead ends). Relevance is genuinely UNCONFIRMED here: query/
+            # source provenance alone must never justify a DIRECT/ADJACENT
+            # claim, so this creates the same kind of untrusted metadata-
+            # only draft as the TIER_DIRECT fallback above, but explicitly
+            # tagged TIER_UNCERTAIN so it is never presented as confident
+            # berry intelligence -- a human decides, same as every other
+            # draft.
+            reason = (
+                f"query-provenance + title corroboration ({stage_a.query_corroboration!r})"
+                if stage_a.query_corroboration
+                else "a pre-scoped source (always_body_check)"
+            )
             extra["acquisition_fallback"] = (
-                f"body fetch failed ({exc.category}); Stage A kept this open only on query-provenance + title "
-                f"corroboration ({stage_a.query_corroboration!r}), not confirmed relevance -- an explicitly "
+                f"body fetch failed ({exc.category}); Stage A kept this open only on {reason}, not confirmed relevance -- an explicitly "
                 "uncertain metadata-only draft was created for human review instead of dropping the item."
             )
             try:

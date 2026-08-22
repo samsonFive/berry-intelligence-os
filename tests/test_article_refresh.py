@@ -335,3 +335,66 @@ def test_query_corroboration_does_not_apply_without_matchers_passed(tmp_path, re
 
     assert result.state == "skipped_irrelevant"
     assert result.publication_draft_id is None
+
+
+# --- always_body_check + zero-signal + access-limited fallback (Unknown-Event
+# Discovery + Query Coverage V3) -----------------------------------------
+# Real regression shape: a CIK-scoped SEC EDGAR search item ("Mission
+# Produce, Inc. 8-K filing (EX-99.1)") carries no berry species word in its
+# own synthesized title -- Stage A is CONFIDENT-irrelevant on metadata
+# alone. The source is pre-scoped (always_body_check=True, same signal as a
+# Federal Register/openFDA/UK FSA source), but the filing's own raw
+# SGML-wrapped document is not extractable by trafilatura (empty_body) --
+# a real, structural dead end distinct from the query-corroboration case
+# above, but deserving the identical honest TIER_UNCERTAIN treatment
+# rather than a silent article_acquisition_failed with no draft at all.
+
+def test_always_body_check_source_zero_signal_item_becomes_uncertain_draft_when_body_unverifiable(
+    tmp_path, repos, source, monkeypatch
+):
+    item = _discover_one(
+        tmp_path, source, monkeypatch,
+        title="Mission Produce, Inc.  (AVO)  (CIK 0001802974) 8-K filing (EX-99.1)",
+        link="https://example.invalid/sec-8k-mission-produce",
+        description="SEC 8-K exhibit, items 2.02, 8.01, 9.01.",
+    )
+    monkeypatch.setattr(
+        article_acquisition.httpx, "get",
+        lambda *a, **k: _FakeArticleResponse("<html><body><div>Raw SGML-wrapped filing, no extractable article</div></body></html>"),
+    )
+
+    orchestrator = _orchestrator(repos, tmp_path)
+    result, extra = process_discovered_article(
+        item, orchestrator=orchestrator, inbox_dir=tmp_path / "inbox", always_body_check=True,
+    )
+
+    assert result.state == "awaiting_publication_review"
+    assert result.publication_draft_id is not None
+    assert result.relevance_tier == TIER_UNCERTAIN
+
+    import json
+    draft = json.loads((tmp_path / "inbox" / "evidence" / f"{result.publication_draft_id}.json").read_text(encoding="utf-8"))
+    assert draft["relevance_tier"] == TIER_UNCERTAIN
+
+
+def test_always_body_check_without_access_limitation_still_lets_stage_b_decide(
+    tmp_path, repos, source, monkeypatch
+):
+    """When always_body_check forces a real body fetch that succeeds, real
+    content -- not the pre-scoped-source signal -- decides the outcome,
+    exactly as the existing always_body_check contract already promises."""
+    item = _discover_one(
+        tmp_path, source, monkeypatch,
+        title="Mission Produce, Inc.  (AVO)  (CIK 0001802974) 8-K filing (EX-99.1)",
+        link="https://example.invalid/sec-8k-mission-produce-2",
+        description="SEC 8-K exhibit, items 2.02, 8.01, 9.01.",
+    )
+    monkeypatch.setattr(article_acquisition.httpx, "get", lambda *a, **k: _FakeArticleResponse(_IRRELEVANT_HTML))
+
+    orchestrator = _orchestrator(repos, tmp_path)
+    result, extra = process_discovered_article(
+        item, orchestrator=orchestrator, inbox_dir=tmp_path / "inbox", always_body_check=True,
+    )
+
+    assert result.state == "skipped_irrelevant"
+    assert result.publication_draft_id is None

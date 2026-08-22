@@ -68,6 +68,14 @@ def main(argv: list[str] | None = None) -> int:
     # single-stage, no-body-fetch app/services/relevance_screening.py gate.
     geo_matchers = geography_corroboration_matchers(all_entities)
     company_matchers = matchers_from_entities(all_entities, "company")
+    # Same pre-scoped-source signal run_collection.py's own
+    # regulatory_source_ids uses (Federal Register, openFDA, UK FSA, a
+    # CIK-scoped SEC EDGAR search) -- the source's own query already names
+    # its entity/topic scope, so Stage A's generic-web metadata gate
+    # should not apply.
+    regulatory_source_ids = {
+        s["id"] for s in repositories.sources.list() if "government_regulatory" in (s.get("entity_types") or [])
+    }
 
     report: dict = {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -144,6 +152,7 @@ def main(argv: list[str] | None = None) -> int:
                     berries=berries,
                     geographies=geographies,
                     companies=companies,
+                    always_body_check=item.get("source_id") in regulatory_source_ids,
                     geo_matchers=geo_matchers,
                     company_matchers=company_matchers,
                 )

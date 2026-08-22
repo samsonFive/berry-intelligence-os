@@ -3175,9 +3175,15 @@
       "label": "Mainstream news search (Spanish) -- Peru blueberry exports",
       "query_or_url": "arandano Peru exportacion (hl=es-419, gl=PE)",
       "url": "https://news.google.com/",
-      "geography_focus": ["south_america"],
-      "entity_coverage": ["trade_press"],
-      "berry_coverage": ["berry-blueberry"],
+      "geography_focus": [
+        "south_america"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-blueberry"
+      ],
       "monitoring_priority": "high",
       "update_cadence": "realtime",
       "default_active": true,
@@ -3189,9 +3195,15 @@
       "label": "Mainstream news search (Spanish) -- Chile blueberry exports",
       "query_or_url": "arandanos Chile exportacion (hl=es-419, gl=CL)",
       "url": "https://news.google.com/",
-      "geography_focus": ["south_america"],
-      "entity_coverage": ["trade_press"],
-      "berry_coverage": ["berry-blueberry"],
+      "geography_focus": [
+        "south_america"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-blueberry"
+      ],
       "monitoring_priority": "high",
       "update_cadence": "realtime",
       "default_active": true,
@@ -3203,9 +3215,16 @@
       "label": "Mainstream news search (French) -- Morocco berry exports",
       "query_or_url": "myrtille OR fraise Maroc exportation (hl=fr, gl=MA)",
       "url": "https://news.google.com/",
-      "geography_focus": ["africa"],
-      "entity_coverage": ["trade_press"],
-      "berry_coverage": ["berry-blueberry", "berry-strawberry"],
+      "geography_focus": [
+        "africa"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-blueberry",
+        "berry-strawberry"
+      ],
       "monitoring_priority": "high",
       "update_cadence": "realtime",
       "default_active": true,
@@ -3217,9 +3236,18 @@
       "label": "Mainstream news search -- UK berry growers",
       "query_or_url": "UK strawberry OR berries growers (hl=en-GB, gl=GB)",
       "url": "https://news.google.com/",
-      "geography_focus": ["europe"],
-      "entity_coverage": ["trade_press"],
-      "berry_coverage": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+      "geography_focus": [
+        "europe"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
       "monitoring_priority": "high",
       "update_cadence": "realtime",
       "default_active": true,
@@ -3231,9 +3259,18 @@
       "label": "Mainstream news search -- UK major supermarket berry activity",
       "query_or_url": "Sainsbury's OR Tesco OR Waitrose OR Asda strawberry OR berries (hl=en-GB, gl=GB)",
       "url": "https://news.google.com/",
-      "geography_focus": ["europe"],
-      "entity_coverage": ["trade_press"],
-      "berry_coverage": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+      "geography_focus": [
+        "europe"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
       "monitoring_priority": "high",
       "update_cadence": "realtime",
       "default_active": true,
@@ -3245,9 +3282,15 @@
       "label": "Mainstream news search -- South Africa blueberry export",
       "query_or_url": "South Africa blueberry export (hl=en-ZA, gl=ZA)",
       "url": "https://news.google.com/",
-      "geography_focus": ["africa"],
-      "entity_coverage": ["trade_press"],
-      "berry_coverage": ["berry-blueberry"],
+      "geography_focus": [
+        "africa"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-blueberry"
+      ],
       "monitoring_priority": "high",
       "update_cadence": "realtime",
       "default_active": true,
@@ -3259,9 +3302,15 @@
       "label": "Mainstream news search -- Peru/Chile blueberry investment and acquisition",
       "query_or_url": "Peru blueberry acquisition OR investment OR expands",
       "url": "https://news.google.com/",
-      "geography_focus": ["south_america"],
-      "entity_coverage": ["trade_press"],
-      "berry_coverage": ["berry-blueberry"],
+      "geography_focus": [
+        "south_america"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-blueberry"
+      ],
       "monitoring_priority": "high",
       "update_cadence": "realtime",
       "default_active": true,
@@ -3273,9 +3322,18 @@
       "label": "Mainstream news search -- global berry investment, acquisition, expansion",
       "query_or_url": "blueberry OR berry acquisition OR investment OR expansion",
       "url": "https://news.google.com/",
-      "geography_focus": ["global"],
-      "entity_coverage": ["trade_press"],
-      "berry_coverage": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+      "geography_focus": [
+        "global"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
       "monitoring_priority": "medium",
       "update_cadence": "realtime",
       "default_active": true,
@@ -3287,9 +3345,18 @@
       "label": "Mainstream news search -- berry farm labor and legal risk",
       "query_or_url": "berry farm OR berries lawsuit OR whistleblower OR forced labor",
       "url": "https://news.google.com/",
-      "geography_focus": ["north_america"],
-      "entity_coverage": ["trade_press"],
-      "berry_coverage": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+      "geography_focus": [
+        "north_america"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
       "monitoring_priority": "high",
       "update_cadence": "realtime",
       "default_active": true,
@@ -3301,9 +3368,16 @@
       "label": "Mainstream news search -- Chile-Morocco berry market access",
       "query_or_url": "Chile Morocco blueberry OR berry market access",
       "url": "https://news.google.com/",
-      "geography_focus": ["south_america", "africa"],
-      "entity_coverage": ["trade_press"],
-      "berry_coverage": ["berry-blueberry"],
+      "geography_focus": [
+        "south_america",
+        "africa"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-blueberry"
+      ],
       "monitoring_priority": "high",
       "update_cadence": "realtime",
       "default_active": true,
@@ -3315,9 +3389,15 @@
       "label": "Mainstream news search -- South Africa blueberry US market access",
       "query_or_url": "South Africa blueberry US market access",
       "url": "https://news.google.com/",
-      "geography_focus": ["africa"],
-      "entity_coverage": ["trade_press"],
-      "berry_coverage": ["berry-blueberry"],
+      "geography_focus": [
+        "africa"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-blueberry"
+      ],
       "monitoring_priority": "medium",
       "update_cadence": "realtime",
       "default_active": true,
@@ -3329,9 +3409,16 @@
       "label": "Mainstream news search (Spanish) -- Mexico berry exports",
       "query_or_url": "fresa OR arandano Mexico exportacion (hl=es-419, gl=MX)",
       "url": "https://news.google.com/",
-      "geography_focus": ["north_america"],
-      "entity_coverage": ["trade_press"],
-      "berry_coverage": ["berry-strawberry", "berry-blueberry"],
+      "geography_focus": [
+        "north_america"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry"
+      ],
       "monitoring_priority": "medium",
       "update_cadence": "realtime",
       "default_active": true,
@@ -3343,9 +3430,15 @@
       "label": "Mainstream news search (Spanish) -- Spain (Huelva) strawberry exports",
       "query_or_url": "fresa Huelva exportacion (hl=es, gl=ES)",
       "url": "https://news.google.com/",
-      "geography_focus": ["europe"],
-      "entity_coverage": ["trade_press"],
-      "berry_coverage": ["berry-strawberry"],
+      "geography_focus": [
+        "europe"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-strawberry"
+      ],
       "monitoring_priority": "low",
       "update_cadence": "realtime",
       "default_active": true,
@@ -3357,9 +3450,18 @@
       "label": "openFDA food enforcement/recall API (berry products)",
       "query_or_url": "JSON search: product_description:(blueberr* OR strawberr* OR raspberr* OR blackberr*), sort=report_date:desc",
       "url": "https://api.fda.gov/food/enforcement.json",
-      "geography_focus": ["north_america"],
-      "entity_coverage": ["government_regulatory"],
-      "berry_coverage": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+      "geography_focus": [
+        "north_america"
+      ],
+      "entity_coverage": [
+        "government_regulatory"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
       "monitoring_priority": "high",
       "update_cadence": "daily",
       "default_active": true,
@@ -3371,9 +3473,18 @@
       "label": "UK Food Standards Agency food alerts API",
       "query_or_url": "JSON pull: _view=full&_limit=100&_sort=-modified",
       "url": "https://data.food.gov.uk/food-alerts/",
-      "geography_focus": ["europe"],
-      "entity_coverage": ["government_regulatory"],
-      "berry_coverage": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+      "geography_focus": [
+        "europe"
+      ],
+      "entity_coverage": [
+        "government_regulatory"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
       "monitoring_priority": "high",
       "update_cadence": "daily",
       "default_active": true,
@@ -3385,9 +3496,15 @@
       "label": "Mainstream news search -- Peru organic blueberry expansion/investment",
       "query_or_url": "Peru organic blueberry expands OR invests",
       "url": "https://news.google.com/",
-      "geography_focus": ["south_america"],
-      "entity_coverage": ["trade_press"],
-      "berry_coverage": ["berry-blueberry"],
+      "geography_focus": [
+        "south_america"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-blueberry"
+      ],
       "monitoring_priority": "high",
       "update_cadence": "realtime",
       "default_active": true,
@@ -3399,9 +3516,18 @@
       "label": "Mainstream news search -- UK berry grower season launch",
       "query_or_url": "UK blueberry OR strawberry grower launches OR kicks off season",
       "url": "https://news.google.com/",
-      "geography_focus": ["europe"],
-      "entity_coverage": ["trade_press"],
-      "berry_coverage": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+      "geography_focus": [
+        "europe"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
       "monitoring_priority": "medium",
       "update_cadence": "realtime",
       "default_active": true,
@@ -3413,13 +3539,89 @@
       "label": "Mainstream news search -- USDA GAIN report berry coverage",
       "query_or_url": "\"GAIN report\" Mexico strawberry OR berry",
       "url": "https://news.google.com/",
-      "geography_focus": ["north_america"],
-      "entity_coverage": ["trade_press"],
-      "berry_coverage": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+      "geography_focus": [
+        "north_america"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
       "monitoring_priority": "medium",
       "update_cadence": "realtime",
       "default_active": true,
       "notes": "A document-series + geography + topic query, not a company name -- live-verified to reach real on-topic Mexico berry-sector coverage from the same publisher cited for BM-T-02. Added for the Global Qualitative Coverage Expansion V2 mission (2026-08-22)."
+    },
+    {
+      "id": "source-freshplaza-global",
+      "collector_type": "rss",
+      "label": "FreshPlaza global fresh produce news",
+      "query_or_url": "https://www.freshplaza.com/rss.xml",
+      "url": "https://www.freshplaza.com/",
+      "geography_focus": [
+        "global"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "daily",
+      "default_active": true,
+      "notes": "Major global fresh-produce trade publication, cited as the real source for multiple still-missed benchmark events but previously only a static reference entry, never an active discovery source. Live-verified real, working RSS feed. Added for the Unknown-Event Discovery + Query Coverage V3 mission (2026-08-23)."
+    },
+    {
+      "id": "source-fruitnet-produce-plus",
+      "collector_type": "rss",
+      "label": "Fruitnet Produce Plus news",
+      "query_or_url": "https://www.fruitnet.com/45.rss",
+      "url": "https://www.fruitnet.com/",
+      "geography_focus": [
+        "global"
+      ],
+      "entity_coverage": [
+        "trade_press"
+      ],
+      "berry_coverage": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "monitoring_priority": "high",
+      "update_cadence": "daily",
+      "default_active": true,
+      "notes": "Major global fresh-produce trade publication, cited as the real source for multiple still-missed benchmark events, previously reached only by chance through unrelated search queries. Live-verified real RSS feed declared on Fruitnet's own homepage. Added for the Unknown-Event Discovery + Query Coverage V3 mission (2026-08-23)."
+    },
+    {
+      "id": "source-sec-edgar-mission-produce-8k",
+      "collector_type": "keyword_search",
+      "label": "SEC EDGAR full-text search: Mission Produce 8-K filings mentioning berries",
+      "query_or_url": "JSON pull: q=\"blueberry\"&forms=8-K&ciks=0001802974",
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?CIK=0001802974",
+      "geography_focus": [
+        "north_america",
+        "south_america"
+      ],
+      "entity_coverage": [
+        "government_regulatory"
+      ],
+      "berry_coverage": [
+        "berry-blueberry"
+      ],
+      "monitoring_priority": "medium",
+      "update_cadence": "weekly",
+      "default_active": true,
+      "notes": "Real, unauthenticated SEC EDGAR full-text search API, a new sec_edgar_search_json adapter (app/services/media_discovery.py) reusing the same generic JSON fetch as the other government-JSON adapters with its own list/normalize functions for EDGAR's nested hits.hits[]._source shape. Live-verified: a bare cross-company keyword search is noisy (13 of 18 hits unrelated); CIK-scoped to this one already-known public berry-industry company, 32/32 hits genuinely relevant. Added for the Unknown-Event Discovery + Query Coverage V3 mission (2026-08-23)."
     }
   ]
 }
