@@ -18,7 +18,9 @@ Fetched origin fresh; canonical was `35d8066`, exactly where Round 1's own work 
 
 ## 3. Discovery architecture changes
 
-None beyond two new adapter functions (both additive, mirroring the exact "new publication technology = one adapter" precedent Round 1 established): `_normalize_uk_fsa_entry` / `_uk_fsa_entries` for a new `government_alert_json` adapter type. No change to `run_recent_batch.py`, `process_discovered_media.py`, `collection_runner.py`, or the collection lock -- confirmed no Codex "pipeline registry" has landed to coordinate around (canonical unchanged since Round 1). Query-generation stays one bounded Source per query (Round 1's TD-042 decision reaffirmed, not revisited).
+None beyond two new adapter functions (both additive, mirroring the exact "new publication technology = one adapter" precedent Round 1 established): `_normalize_uk_fsa_entry` / `_uk_fsa_entries` for a new `government_alert_json` adapter type. No change to `run_recent_batch.py`, `process_discovered_media.py`, or `collection_runner.py`.
+
+Codex's Collection Runtime / Data Integrity V1 mission (PR #70, `cd107b9`) landed mid-mission, after this section was first drafted -- canonical moved `35d8066` -> `704c18e` (also picking up Cursor's Global Intelligence Search V1, PR #65) and this branch was rebased onto it. Codex's real pipeline registry, `data/configuration/collection_pipelines.json`, and its shared `inbox/operations/collection.lock` were read in full post-rebase: the registry's one `enabled: true` entry (`article_spoken_media`) names `scripts/run_collection.py --all --skip-transcription` as its runner, and the `plant_patent`/`cpvo`/`trade`/`weather` entries name the `monitor_*.py` scripts -- none of these is `discover_media.py`, `run_recent_batch.py`, or `process_discovered_media.py`, the three scripts this mission (and Round 1) used directly throughout. The lock therefore does not apply to this mission's own collection calls; per the mission brief's own instruction ("use it rather than bypassing it" only applies when the registry/lock has landed *and* covers the scripts in use), no integration was needed. Codex's `article_dedup.py` change (`_publisher_identity()`, see TD-046) was also confirmed purely additive against this mission's own Round 1 `normalize_canonical_url()` fix -- different functions, no logical conflict, verified via direct diff review of `cd107b9^..cd107b9`. Query-generation stays one bounded Source per query (Round 1's TD-042 decision reaffirmed, not revisited).
 
 ---
 
@@ -153,7 +155,9 @@ Updated: overall recall re-measured (52% -> 60%), by-class/by-berry/by-geography
 
 ## 17. Technical debt
 
-2 new entries (TD-045, TD-046): TD-045 documents that TD-040's boundary is only partially, not reliably, mitigated by alternate-article coverage (real for BM-R-10, not for BM-C-04); TD-046 documents that cross-pipeline duplicate volume scales with processing volume (57 this round vs. 16 in Round 1), a real, recurring, bounded cost of large backlog passes. No debt duplicated from Codex's runtime/reliability lane (none has landed to duplicate).
+2 new entries (TD-045, TD-046): TD-045 documents that TD-040's boundary is only partially, not reliably, mitigated by alternate-article coverage (real for BM-R-10, not for BM-C-04); TD-046 documents that cross-pipeline duplicate volume scales with processing volume (57 this round vs. 16 in Round 1), a real, recurring, bounded cost of large backlog passes -- concurrently and independently resolved by Codex's PR #70 (`cd107b9`), which added a `_publisher_identity()` check to `article_dedup.find_duplicate_article()`; TD-046's status is set to `resolved (by Codex, concurrently, PR #70)` rather than closed outright by this mission, since this mission's own 57-item cleanup predated Codex's fix landing on canonical.
+
+Both new entries were initially drafted as TD-043/TD-044 before a mid-mission `git fetch` revealed Cursor's Global Intelligence Search V1 (PR #65) had already claimed those two numbers on canonical for unrelated topics (Story Thread indexing, process-local search cache) -- a real, confirmed ID collision, resolved by renumbering this mission's own two entries to TD-045/TD-046 and fixing all cross-references before merge, per the mission brief's own explicit warning that concurrent missions could produce debt-number collisions. No debt duplicated from Codex's runtime/reliability lane: Codex's own PR added a separate internal summary-table reuse of IDs TD-038..TD-044 for different topics than those numbers' existing canonical headings -- an apparent additional collision inside Codex's own PR, judged out of scope to arbitrate here (not this mission's lane, and not a qualitative-coverage concern).
 
 ---
 
@@ -166,3 +170,19 @@ Updated: overall recall re-measured (52% -> 60%), by-class/by-berry/by-geography
 ## Globality check (mission Section 17)
 
 **Did Peru improve? Yes -- 10% -> 30%, the largest percentage-point geography movement of either round.** **Did Chile improve? No -- unchanged at 20%**, honestly reported; no new Chile-specific source or capture this round. **Did UK improve? Yes -- 33% -> 67%.** **Did Morocco improve? No -- unchanged at 33%.** **Did South Africa improve? No -- unchanged at 100%** (already saturated on this benchmark's own 2-event sample). Overall recall improvement (52%->60%) is not a US-only artifact: 3 of this round's 4 real captures are non-US (Peru x2, UK x1); only BM-R-10 (Michigan) is US-specific, and even that was a fix to a Round-1-identified boundary, not new US-only source breadth.
+
+---
+
+## Validation
+
+`pytest -q` (full suite, 1,195 tests): re-run twice against this mission's own pre-rebase code and again post-rebase onto canonical `704c18e` (Cursor's Global Intelligence Search V1 + Codex's Collection Runtime/Data Integrity V1, both landed mid-mission). Pre-rebase: 4 failed / 1,158 passed -- 3 of the 4 (`test_collection_status.py::test_live_source_repository_includes_all_onboarded_sources_generically`, `test_domain_pack.py::test_all_live_sources_accounted_for`, `test_morning_brief.py::test_real_reading_queue_morning_workload_is_smaller_than_unresolved`) were this mission's own hardcoded source-count assertions needing the 164->168 update (already fixed in this mission's own test edits) or local-runtime-state-dependent. Post-rebase: **1 failed / 1,194 passed** -- the sole remaining failure, `test_variety_workspace.py::test_observations_runtime_without_inbox_is_honest`, is pre-existing and environment-dependent (it asserts an honest "not loaded in this runtime" message that only renders when zero UK-geography `commercial_observation` drafts are present in the local `inbox/`; it was already failing in the pre-rebase run, before any of this mission's source/adapter changes, and does not touch anything this mission modified). Not a regression introduced by this mission or the rebase.
+
+`python scripts/validate_records.py`: `All validated records passed.`
+
+`python scripts/build_static.py`: `Static build complete: 1527 pages written to generated/` -- `Verified: no unpublished draft ids or titles appear in the output.`
+
+`git diff --check`: clean (no whitespace errors, no leftover conflict markers after the rebase's one real conflict in `TECHNICAL-DEBT-REGISTER.md` was resolved).
+
+Recurring-acquisition idempotency (the mission's own explicit requirement): `scripts/discover_media.py --source source-uk-fsa-food-alerts` run twice in immediate succession. Both runs: `items found in feed: 100`, `newly discovered: 0`, `already known: 100`, `item-level failures: 0` -- `inbox/discovered_media/` file count unchanged (1,667 -> 1,667 -> 1,667) across both runs. No duplicate explosion, no trust bypass (discovery never promotes a draft to trusted; that remains a separate human Approve step).
+
+Codex's collection lock / pipeline registry: investigated post-rebase (`data/configuration/collection_pipelines.json`), confirmed it covers `scripts/run_collection.py` and the `monitor_*.py` recurring runners only -- not `discover_media.py`, `run_recent_batch.py`, or `process_discovered_media.py`, the three scripts this mission used throughout. No lock integration needed; used per the mission's own instruction ("use it rather than bypassing it") by virtue of it simply not applying to this mission's collection calls.
