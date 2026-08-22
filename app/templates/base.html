@@ -22,9 +22,9 @@
         </button>
         {% if not static_build %}
           {% include "_context_selector.html" %}
-          <form class="v2-search" action="/" method="get" role="search">
-            <label class="visually-hidden" for="global-search">Search competitors, varieties, traits, topics</label>
-            <input id="global-search" name="q" aria-label="Search" placeholder="Search competitors, varieties, traits, topics…" value="{{ request.query_params.get('q', '') }}">
+          <form class="v2-search" action="/search" method="get" role="search" id="v2TopbarSearch">
+            <label class="visually-hidden" for="global-search">Search companies, varieties, geographies, sources</label>
+            <input id="global-search" name="q" type="search" autocomplete="off" aria-label="Search" placeholder="Search companies, varieties, geographies, sources…" value="{{ request.query_params.get('q', '') if request.url.path == '/search' else '' }}" data-open-search>
           </form>
         {% else %}
           <p class="v2-context-static">{{ ui_context.berry_label if ui_context is defined else 'Global' }}</p>
@@ -154,6 +154,7 @@
   </div>
 
   {% include "_v2_reader_offcanvas.html" %}
+  {% include "_v2_search_overlay.html" %}
   <script src="/static/vendor/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="/static/v2.js"></script>
   {% block scripts %}{% endblock %}

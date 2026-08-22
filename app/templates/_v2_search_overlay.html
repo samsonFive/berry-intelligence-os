@@ -1,0 +1,17 @@
+{% if not static_build %}
+<div class="offcanvas offcanvas-top v2-search-offcanvas" tabindex="-1" id="v2SearchOffcanvas" aria-labelledby="v2SearchTitle">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title" id="v2SearchTitle">Search intelligence</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close search"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form class="v2-search-form" id="v2SearchForm" action="/search" method="get" role="search">
+      <label class="visually-hidden" for="v2SearchInput">Search companies, varieties, geographies, sources, intelligence</label>
+      <input id="v2SearchInput" name="q" type="search" autocomplete="off" placeholder="Search companies, varieties, geographies, sources…" aria-controls="v2SearchResults">
+      <p class="v2-search-hint">Navigation search. Not a trust layer. <kbd>/</kbd> or <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>K</kbd>. Esc closes.</p>
+    </form>
+    <p class="v2-search-status" id="v2SearchStatus" role="status">Type to search across objects.</p>
+    <div id="v2SearchResults" class="v2-search-results" aria-live="polite"></div>
+  </div>
+</div>
+{% endif %}

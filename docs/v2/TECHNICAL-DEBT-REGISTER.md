@@ -392,7 +392,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | KL-001 | Human publication + atomic review gates | Trust model. AI never auto-publishes. |
 | KL-002 | Signal candidate confirm ≠ trusted Signal and does not create an Assessment | Object model. Documented in `AGENTS.md`. |
 | KL-003 | Story threads are organizational only | No “trust thread” action. |
-| KL-004 | Landscape / Sources inventory-config admin / admin unmigrated | Deliberate stop gate. Monitor migrated 2026-08-21. Variety Intelligence UI migrated 2026-08-21 (`/entities/variety`). Landscape waits on Trade / Retail / Registry expansion. |
+| KL-004 | Landscape / Sources inventory-config admin / admin unmigrated | Deliberate stop gate. Monitor migrated 2026-08-21. Variety Intelligence UI migrated 2026-08-21 (`/entities/variety`). Global Intelligence Search migrated 2026-08-22 (`/search`, `#v2SearchOffcanvas`). Landscape waits on Trade / Retail / Registry expansion. |
 | KL-005 | Static GitHub Pages is a trusted snapshot | No inbox drafts, no review workbench. |
 | KL-006 | Haiku enrichment is not extraction-qualified | Non-trusted publication enrichment only. |
 | KL-007 | Analyst workflow state lives in gitignored `inbox/analyst_queue_state.json` | Runtime overlay; never mutates trusted `data/evidence`. |
@@ -815,5 +815,37 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Owner lane** | data / collection (joint) |
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | — |
+
+### TD-043 — Global Search Story Threads are cheap pending clusters, not the full thread engine
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | product / search |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | `app/services/global_search.py` indexes Story Threads only as exact canonical-URL or exact normalized-title clusters of pending drafts. It deliberately does not call `group_story_threads()` on the published feed (TD-THREAD-002 / Morning Brief cost). Cloud runtimes with empty `inbox/` therefore show no Story Thread group. |
+| **Impact** | Searching a company/variety will still reach Company Profile, Variety, Intelligence, and Signals. Developing-story cards appear in Search only when live pending drafts share URL/title. |
+| **Workaround** | Open `/threads/{id}` from Feed / Brief when a thread already exists. |
+| **Recommended resolution** | If Search must list trusted-only threads, persist a cheap thread index at review time rather than regrouping the corpus on each query. Do not add embeddings to close this. |
+| **Status** | limitation |
+| **Owner lane** | product |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_global_search.py` |
+
+### TD-044 — Global Search index is process-local signature cache
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | platform / search |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | `_SEARCH_DOC_CACHE` in `app/main.py` rebuilds from folder signatures inside one process. Multiple uvicorn workers each hold their own index. Same-size same-mtime rewrites remain the known `load_json_files` blind spot. |
+| **Impact** | A publish in worker A is visible to worker B on the next request because signatures are recomputed; cold rebuild cost is paid per worker. |
+| **Workaround** | Single-process demo/VPS is fine. |
+| **Recommended resolution** | Phase 3 Postgres search (existing `SearchQueryService` comment). Not this mission. |
+| **Status** | limitation |
+| **Owner lane** | platform |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_global_search.py` |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
