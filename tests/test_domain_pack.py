@@ -300,9 +300,16 @@ def test_all_live_sources_accounted_for() -> None:
     templates = data["collector_templates"]
     excluded = data.get("excluded", [])
     sources = json.loads((ROOT / "data" / "configuration" / "sources.json").read_text(encoding="utf-8"))
-    # 164 = 150 plus 14 sources added (each with a matching
+    # 168 = 164 plus 4 sources added (each with a matching
     # collector_templates entry) for the Global Qualitative Coverage
-    # Expansion V1 mission (2026-08-21): 13 Google News news_search_rss
+    # Expansion V2 mission (2026-08-22): the UK Food Standards Agency's
+    # real, unauthenticated food-alerts API (a new government_alert_json
+    # adapter) and 3 Google News news_search_rss searches (Peru organic
+    # investment, UK grower season-launch, USDA GAIN-report Mexico), all
+    # real and live-verified. 164 = 150 plus 14 sources added (each with a
+    # matching collector_templates entry) for the Global Qualitative
+    # Coverage Expansion V1 mission (2026-08-21): 13 Google News
+    # news_search_rss
     # searches (Spanish-language Peru/Chile/Mexico, French-language
     # Morocco, UK growers + UK retailer-class, South Africa production +
     # trade, Chile-Morocco trade, global/Peru-Chile investment topic,
@@ -327,7 +334,7 @@ def test_all_live_sources_accounted_for() -> None:
     # traffic. 142 = 140 plus source-freshuelva-news and source-nova-siri-
     # genetics-news, added for the Strawberry Vertical V1 depth mission
     # (2026-08-20).
-    assert len(sources) == 164
+    assert len(sources) == 168
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}

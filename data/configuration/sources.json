@@ -4361,5 +4361,101 @@
     "created_at": "2026-08-21",
     "last_checked_at": null,
     "last_status": null
+  },
+  {
+    "id": "source-uk-fsa-food-alerts",
+    "type": "reference",
+    "label": "UK Food Standards Agency food alerts API",
+    "value": "https://data.food.gov.uk/food-alerts/id?_view=full&_limit=100&_sort=-modified",
+    "url": "https://data.food.gov.uk/food-alerts/",
+    "discovery": {
+      "adapter": "government_alert_json",
+      "feed_url": "https://data.food.gov.uk/food-alerts/id?_view=full&_limit=100&_sort=-modified",
+      "feed_url_verified_at": "2026-08-22",
+      "notes": "Global Qualitative Coverage Expansion V2 (2026-08-22). Real, unauthenticated UK Food Standards Agency Linked Data API, Open Government Licence -- live-verified to return current 2026 UK food alerts including a real berry-relevant match ('Tesco recalls Tesco Grape & Berry Medley because of contamination with salmonella', report date 2026-02-16), found generically via a recency-sorted pull, not by searching for that headline. A second, distinct authoritative food-safety jurisdiction alongside openFDA (US) -- the CFIA/Canada gap (BM-R-09) stayed inconclusive (TD-041), but the UK is a real, working, higher-value alternative this mission could reach."
+    },
+    "why_it_matters": "The benchmark's food-safety class was US-only after Round 1 (openFDA); this adds real UK coverage, a distinct jurisdiction, using the same generic government-alert discovery pattern.",
+    "entity_types": ["government_regulatory"],
+    "berry_ids": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+    "region_coverage": ["europe"],
+    "monitoring_priority": "high",
+    "update_cadence": "daily",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-22",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-news-search-peru-organic-investment",
+    "type": "reference",
+    "label": "Google News search: Peru organic blueberry expansion/investment",
+    "value": "https://news.google.com/rss/search?q=Peru%20organic%20blueberry%20expands%20OR%20invests&hl=en-US&gl=US&ceid=US:en",
+    "url": "https://news.google.com/",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=Peru%20organic%20blueberry%20expands%20OR%20invests&hl=en-US&gl=US&ceid=US:en",
+      "feed_url_verified_at": "2026-08-22",
+      "notes": "Global Qualitative Coverage Expansion V2 (2026-08-22). A geography+topic query (no company name) -- live-verified to surface the exact real event 'NuBerry Farms investing in organic blueberries in Peru' (Produce News, the same publisher the benchmark itself cites for BM-C-08) generically, without ever searching for 'NuBerry'. Complements, does not duplicate, source-news-search-berry-investment-latam (a differently-worded query surfacing genuinely different real results)."
+    },
+    "why_it_matters": "BM-C-06/C-07/C-08 (Peru blueberry investment cluster, including the mission's own explicitly-named NuBerry example) remained uncaptured after Round 1's investment queries -- this wording variant reaches them.",
+    "entity_types": ["trade_press"],
+    "berry_ids": ["berry-blueberry"],
+    "region_coverage": ["south_america"],
+    "monitoring_priority": "high",
+    "update_cadence": "daily",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-22",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-news-search-uk-grower-season",
+    "type": "reference",
+    "label": "Google News search: UK berry grower season launch",
+    "value": "https://news.google.com/rss/search?q=UK%20blueberry%20OR%20strawberry%20grower%20launches%20OR%20kicks%20off%20season&hl=en-GB&gl=GB&ceid=GB:en",
+    "url": "https://news.google.com/",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=UK%20blueberry%20OR%20strawberry%20grower%20launches%20OR%20kicks%20off%20season&hl=en-GB&gl=GB&ceid=GB:en",
+      "feed_url_verified_at": "2026-08-22",
+      "notes": "Global Qualitative Coverage Expansion V2 (2026-08-22). A UK-edition, event-concept query (season launch/kickoff), not a company name -- live-verified to surface the exact real event 'Hall Hunter kicks off British blueberry season' (Fruitnet) generically, without ever searching for 'Hall Hunter'. Complements source-news-search-uk-berry-growers (a general UK query) with an event-concept-scoped one that surfaces different real results (seasonal launch announcements specifically)."
+    },
+    "why_it_matters": "BM-C-09 (Summer Berry Co. first year-round UK strawberries) and BM-C-13 (Hall Hunter Partnership launches 2026 UK season) are both season-launch-shaped Corporate events Round 1's general UK queries did not reach.",
+    "entity_types": ["trade_press"],
+    "berry_ids": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+    "region_coverage": ["europe"],
+    "monitoring_priority": "medium",
+    "update_cadence": "daily",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-22",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-news-search-usda-gain-berry",
+    "type": "reference",
+    "label": "Google News search: USDA GAIN report berry coverage",
+    "value": "https://news.google.com/rss/search?q=%22GAIN%20report%22%20Mexico%20strawberry%20OR%20berry&hl=en-US&gl=US&ceid=US:en",
+    "url": "https://news.google.com/",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=%22GAIN%20report%22%20Mexico%20strawberry%20OR%20berry&hl=en-US&gl=US&ceid=US:en",
+      "feed_url_verified_at": "2026-08-22",
+      "notes": "Global Qualitative Coverage Expansion V2 (2026-08-22). A document-type + geography + topic query (USDA FAS GAIN reports are a real, named document series, not a company) -- live-verified to surface real, on-topic Mexico berry-sector coverage ('Berry Boom Drives Exports, Jobs, and Precision Agriculture', Mexico Business News, the same publisher cited for BM-T-02) generically."
+    },
+    "why_it_matters": "BM-T-11 (USDA FAS GAIN 'Berry Annual Voluntary', Mexico) and BM-M-06 (Mexico blackberry production forecast, USDA FAS/trade press) are both USDA-FAS-GAIN-shaped Regulatory/Commercial events with no dedicated discovery mechanism before this mission.",
+    "entity_types": ["trade_press"],
+    "berry_ids": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+    "region_coverage": ["north_america"],
+    "monitoring_priority": "medium",
+    "update_cadence": "daily",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-22",
+    "last_checked_at": null,
+    "last_status": null
   }
 ]

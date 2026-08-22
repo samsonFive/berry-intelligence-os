@@ -3364,6 +3364,62 @@
       "update_cadence": "daily",
       "default_active": true,
       "notes": "Real, unauthenticated official US FDA recall/enforcement API, a new government_recall_json adapter (app/services/media_discovery.py) reusing the same generic JSON fetch/list pair as government_register_json. Live-verified to return two exact real recall-benchmark events generically. Added for the Global Qualitative Coverage Expansion V1 mission (2026-08-21)."
+    },
+    {
+      "id": "source-uk-fsa-food-alerts",
+      "collector_type": "keyword_search",
+      "label": "UK Food Standards Agency food alerts API",
+      "query_or_url": "JSON pull: _view=full&_limit=100&_sort=-modified",
+      "url": "https://data.food.gov.uk/food-alerts/",
+      "geography_focus": ["europe"],
+      "entity_coverage": ["government_regulatory"],
+      "berry_coverage": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+      "monitoring_priority": "high",
+      "update_cadence": "daily",
+      "default_active": true,
+      "notes": "Real, unauthenticated UK Food Standards Agency Linked Data alerts API, Open Government Licence, a new government_alert_json adapter (app/services/media_discovery.py) reusing the same generic JSON fetch as government_register_json/government_recall_json with its own list/normalize functions for the FSA's distinct items/title/notation/alertURL shape. Live-verified to return a real berry-relevant UK recall generically. Added for the Global Qualitative Coverage Expansion V2 mission (2026-08-22)."
+    },
+    {
+      "id": "source-news-search-peru-organic-investment",
+      "collector_type": "keyword_search",
+      "label": "Mainstream news search -- Peru organic blueberry expansion/investment",
+      "query_or_url": "Peru organic blueberry expands OR invests",
+      "url": "https://news.google.com/",
+      "geography_focus": ["south_america"],
+      "entity_coverage": ["trade_press"],
+      "berry_coverage": ["berry-blueberry"],
+      "monitoring_priority": "high",
+      "update_cadence": "realtime",
+      "default_active": true,
+      "notes": "A geography+topic query, not a company name -- live-verified to reach the exact real NuBerry Farms Peru investment event (BM-C-08) generically. Added for the Global Qualitative Coverage Expansion V2 mission (2026-08-22)."
+    },
+    {
+      "id": "source-news-search-uk-grower-season",
+      "collector_type": "keyword_search",
+      "label": "Mainstream news search -- UK berry grower season launch",
+      "query_or_url": "UK blueberry OR strawberry grower launches OR kicks off season",
+      "url": "https://news.google.com/",
+      "geography_focus": ["europe"],
+      "entity_coverage": ["trade_press"],
+      "berry_coverage": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+      "monitoring_priority": "medium",
+      "update_cadence": "realtime",
+      "default_active": true,
+      "notes": "An event-concept query (season launch), not a company name -- live-verified to reach the exact real Hall Hunter season-launch event (BM-C-13) generically. Added for the Global Qualitative Coverage Expansion V2 mission (2026-08-22)."
+    },
+    {
+      "id": "source-news-search-usda-gain-berry",
+      "collector_type": "keyword_search",
+      "label": "Mainstream news search -- USDA GAIN report berry coverage",
+      "query_or_url": "\"GAIN report\" Mexico strawberry OR berry",
+      "url": "https://news.google.com/",
+      "geography_focus": ["north_america"],
+      "entity_coverage": ["trade_press"],
+      "berry_coverage": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+      "monitoring_priority": "medium",
+      "update_cadence": "realtime",
+      "default_active": true,
+      "notes": "A document-series + geography + topic query, not a company name -- live-verified to reach real on-topic Mexico berry-sector coverage from the same publisher cited for BM-T-02. Added for the Global Qualitative Coverage Expansion V2 mission (2026-08-22)."
     }
   ]
 }

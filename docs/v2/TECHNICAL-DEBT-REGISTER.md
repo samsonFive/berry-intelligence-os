@@ -860,4 +860,36 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_global_search.py` |
 
+### TD-045 — TD-040's relevance-screen boundary is partially, not reliably, mitigated by alternate-article coverage
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | discovery / relevance-screen boundary |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | Global Qualitative Coverage Expansion V2 real-tested TD-040's own two cases directly: BM-R-10 (Bloomberg Law Michigan trafficking case) resolved this mission -- a *different* real article about the identical event (MLive's "Lawsuit accusing West Michigan blueberry farm of trafficking workers ends in settlement", which contains the word "blueberry" in its own title) was independently discovered by the same generic query and correctly passed relevance screening. BM-C-04 (Unifrutti/AvoAmerica Peru) did **not** resolve the same way: a real, better-titled alternate article exists ("Unifrutti buys two Peruvian suppliers to boost blueberry and avocado supply", Fruitnet, live-confirmed by hand) but this mission's generic Peru-investment queries do not reliably surface it -- it only appeared when searching for "Unifrutti" by name, which this mission deliberately does not register as a permanent Source per its own no-headline-hardcoding instruction. |
+| **Impact** | TD-040's boundary is real but its actual impact varies per event, not uniform -- some events have a "rescuing" alternate article a generic query can find; others do not. This is not predictable in advance. |
+| **Workaround** | None beyond what TD-040 already states. |
+| **Recommended resolution** | Same as TD-040 -- coordinate with Codex on extending `always_body_check` to topic-scoped sources, which would make relevance screening independent of which specific article a query happens to surface. |
+| **Status** | active |
+| **Owner lane** | collection/runtime (Codex) |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none yet |
+
+### TD-046 — Cross-pipeline duplicate rate grows with repeated backlog re-processing at scale (mitigated concurrently by Codex)
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data quality / dedup |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | Global Qualitative Coverage Expansion V1 found 16 real cross-pipeline duplicates (drafts sharing an exact title with an already-trusted record, discovered under a different Source registration) out of ~180 processed items (~9%). Processing a much larger batch this mission (~600+ items, including most of Round 1's remaining backlog) found 57 such duplicates before the exact same fix landed -- confirming the absolute count grows with processing volume, not just a one-off Round 1 anomaly. **Resolved concurrently, independently, by Codex's Collection Runtime + Data Integrity V1 mission** (merged as this repo's PR #70, `cd107b9`, landing mid-way through this mission): `article_dedup.find_duplicate_article()` gained a new `_publisher_identity()` check (exact title + date + explicit origin publisher name/host) that catches precisely the Google-News-redirect-vs-publisher-RSS case this debt describes, without fuzzy title matching. This mission's own 57-item cleanup was performed by hand before Codex's fix was visible on canonical; a re-run of this mission's same batch against the now-current canonical would very likely require less manual cleanup, though this was not re-verified end-to-end given the mission's own scope boundary (do not duplicate or re-litigate Codex's work). |
+| **Impact** | Manual duplicate cleanup was real, necessary work for this mission's own real batches; going forward, new batches should see a materially lower duplicate rate. |
+| **Workaround** | Not needed going forward for the specific case Codex's fix covers; the general practice of spot-checking a sample after any large batch remains good discipline regardless. |
+| **Recommended resolution** | Already done by Codex -- this entry is retained for institutional memory (why 57 duplicates were manually removed in this mission's own real run) rather than as an open action item. |
+| **Status** | resolved (by Codex, concurrently, PR #70) |
+| **Owner lane** | collection/runtime (Codex) |
+| **PR/SHA when resolved** | `cd107b9` (Codex, concurrent) |
+| **Regression-test reference** | `tests/test_article_dedup.py` (Codex's own additions) |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
