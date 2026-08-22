@@ -736,4 +736,84 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | — |
 
+### TD-038 — Cross-pipeline dedup collapsed distinct records sharing a path but differing only by query string (found and fixed)
+
+| Field | Value |
+|---|---|
+| **Severity** | High (real, would have silenced almost all FDA recall coverage) |
+| **Area** | data quality / bug |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | `article_dedup.normalize_canonical_url()` unconditionally stripped the query string from every URL. Every openFDA recall this project acquires shares the identical path (`api.fda.gov/food/enforcement.json`) and differs only by its `?search=recall_number:...` query string, so every distinct real FDA recall collapsed onto whichever one was processed first -- live-reproduced: processing a real E. coli O145:H28 blueberry recall and a real Listeria blueberry recall (two different, real, distinct events) both resolved to the SAME existing draft id instead of creating their own, silently discarding the second. |
+| **Impact** | Without the fix, this mission's food-safety coverage mechanism (Section 4) would have captured only the first-processed FDA recall ever, no matter how many real distinct recalls exist -- a load-bearing failure for exactly the acceptance case this mission required. |
+| **Workaround (fix applied)** | `normalize_canonical_url()` now preserves the query string (still ignores scheme/www/trailing-slash/fragment) -- strictly more conservative (fewer false-positive duplicate collapses), and no existing test asserted the old stripping behavior. See `tests/test_article_dedup.py::test_normalize_canonical_url_keeps_distinct_query_strings_distinct`. |
+| **Recommended resolution** | Done -- fixed in place this mission, not duplicated as a workaround. |
+| **Status** | fixed |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | this mission's PR |
+| **Regression-test reference** | `tests/test_article_dedup.py::test_normalize_canonical_url_keeps_distinct_query_strings_distinct`, `tests/test_fda_recall_adapter.py::test_normalize_fda_recall_entry_two_distinct_records_get_distinct_identity` |
+
+### TD-039 — Google News RSS search results are not fully deterministic request-to-request
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data access / ops |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | Live-observed twice this mission: (1) the exact same UK-retailer query URL returned a real, populated result set on one request and a real, valid-but-empty (0 items) response minutes later on an identical repeat request; (2) NuBerry Farms' real investment story (BM-C-08) appeared in an ad hoc manual verification query but did not appear in this mission's actual persisted discovery run of the same query text. Not a bug in this project's own code -- a real characteristic of Google News' own backend result-set variability. |
+| **Impact** | A single discovery run against a news_search_rss source is not guaranteed to surface every real, currently-indexed matching article; a recurring/repeated run (not yet scheduled -- TD-008) would very likely catch items missed on any one pass. |
+| **Workaround** | None available client-side; simplifying overly complex boolean/quoted queries (this mission's own real fix for the UK-retailer source) reduced but did not eliminate the variability. |
+| **Recommended resolution** | No project-side fix possible. Recurring collection (TD-008, owned outside this mission's scope) would naturally mitigate this by re-polling the same query over time. |
+| **Status** | active (external, not fixable in this codebase) |
+| **Owner lane** | ops |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | — |
+
+### TD-040 — Relevance screening rejects metadata-thin press-release-style items even when discovery succeeds
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | discovery / relevance-screen boundary |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | Two real, confirmed cases this mission: 'UNIFRUTTI GROUP ACQUIRES BOMAREA AND AVOAMERICA PERU...' (PR Newswire, BM-C-04) and 'Mexican Workers Advance Trafficking Suit Against Michigan Farm' (Bloomberg Law News, BM-R-10) were both real, generically DISCOVERED (present in `inbox/discovered_media/`) but screened `skip` before any body fetch was attempted -- neither the title nor Google News' own (identical, shallow) description field contains a berry species word, even though the underlying real story is berry-relevant (Bomarea/AvoAmerica are real Peru blueberry companies; the Michigan farm is a real blueberry operation). |
+| **Impact** | Discovery reaching an event is necessary but not sufficient for real end-to-end recall -- an unknown number of additional real events in this mission's ~823 still-unprocessed discovered items likely share this same pattern. |
+| **Workaround** | None applied this mission -- the existing `always_body_check` mechanism (built for pre-scoped government-register sources, see `scripts/run_collection.py`) is a real, precedented, narrowly-scoped fix pattern that could extend to company/topic-scoped news_search_rss sources, but doing so touches the recurring-collection pipeline Codex owns; this mission's own scope explicitly excludes collector-infrastructure refactors absent a Codex-identified shared blocker. |
+| **Recommended resolution** | Coordinate with Codex: extend `always_body_check` (or an equivalent per-source flag read generically from `discovery.always_body_check` in `sources.json`) to sources whose own query is already topically pre-scoped (investment/labor-risk/company queries), not just `government_regulatory`-tagged ones. |
+| **Status** | active |
+| **Owner lane** | collection/runtime (Codex) |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none yet |
+
+### TD-041 — CFIA (Canada) recall data audited but not integrated
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data access |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | Live-tested: `healthycanadians.gc.ca/recall-alert-rappel-avis/api/recent/food` is a real, keyless, working JSON endpoint, but only returns a fixed recent-window list (no working keyword/product search endpoint was found within this mission's bounded research time -- a `/api/search/food` guess returned an empty 200). BM-R-09 (Whole Foods organic frozen blackberries recalled, CFIA) remains uncaptured as a direct result. |
+| **Impact** | Canadian food-safety recalls remain a real, undemonstrated gap; US recalls (openFDA) are covered. |
+| **Workaround** | None -- audited, not implemented, per the mission's own "high-value public sources only if accessible" instruction. |
+| **Recommended resolution** | A future mission could investigate CFIA's real search capability further (its web UI clearly supports search; the underlying API for that UI was not found this mission) or accept the recent-window-only endpoint with recurring polling as a partial substitute. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | — |
+
+### TD-042 — Query-generation stays one bounded Source per query, not a dynamic runtime layer
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | architecture (deliberate scope boundary) |
+| **Date discovered** | 2026-08-21 |
+| **Evidence** | The mission's own Section 8 explicitly asked whether `news_search_rss` should evolve into "a controlled query-generation layer" across companies/berries/geographies/risk-concepts. This mission deliberately chose NOT to build a dynamic runtime query generator -- doing so would be a real collector-infrastructure change (new cadence/dedup/health semantics for synthesized queries), squarely inside "Do NOT refactor collector infrastructure unless Codex identifies a shared blocker." Instead, 14 new bounded, individually-reviewable Source entries were added using the existing per-source mechanism, chosen via reusable query PATTERNS (geography+berry, risk-concept, retailer-class) rather than one Source per benchmark URL. |
+| **Impact** | Extending coverage to a new geography/company/concept still requires adding a new Source entry by hand (a few minutes of real work), not an automatic runtime expansion. |
+| **Workaround** | The pattern is well-documented and quick to repeat (see this mission's own 14 additions as a template). |
+| **Recommended resolution** | If a genuine need for dynamic query generation emerges, design it jointly with Codex as a shared collector-infrastructure change, with the bounded-queries/dedup/cadence/source-health/query-provenance guardrails the mission brief itself specified. |
+| **Status** | accepted (deliberate architectural decision, not a bug) |
+| **Owner lane** | data / collection (joint) |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | — |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

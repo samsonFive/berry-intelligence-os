@@ -31,6 +31,28 @@ def test_normalize_canonical_url_empty_input() -> None:
     assert normalize_canonical_url("") == ""
 
 
+def test_normalize_canonical_url_keeps_distinct_query_strings_distinct() -> None:
+    # Real bug found live, Global Qualitative Coverage Expansion V1
+    # (2026-08-21): every openFDA recall this project acquires shares the
+    # identical path (api.fda.gov/food/enforcement.json) and differs only
+    # by its ?search=recall_number:... query string. Stripping the query
+    # string collapsed every distinct real FDA recall onto the same
+    # "existing draft" the first time this ran -- the first-processed
+    # recall silently absorbed every later one instead of each getting its
+    # own Evidence draft. Query strings must be preserved for a REST-API
+    # search endpoint where they are the resource identifier, not a
+    # tracking parameter.
+    a = normalize_canonical_url('https://api.fda.gov/food/enforcement.json?search=recall_number:"H-1181-2026"')
+    b = normalize_canonical_url('https://api.fda.gov/food/enforcement.json?search=recall_number:"H-0522-2026"')
+    assert a != b
+
+
+def test_normalize_canonical_url_ignores_only_fragment() -> None:
+    a = normalize_canonical_url("https://example.com/news/blueberry-story?ref=twitter")
+    b = normalize_canonical_url("https://example.com/news/blueberry-story?ref=twitter#comments")
+    assert a == b
+
+
 def test_normalize_title_strips_trailing_publisher_suffix() -> None:
     a = normalize_title("Blueberry Variety Dispute Escalates - Produce Report")
     b = normalize_title("Blueberry Variety Dispute Escalates")

@@ -658,6 +658,73 @@ def _normalize_federal_register_entry(entry: Any) -> NormalizedItem:
     )
 
 
+# ---------------------------------------------------------------------------
+# government_recall_json adapter -- openFDA's public food enforcement/recall
+# API (api.fda.gov/food/enforcement.json), no auth, no scraping. Global
+# Qualitative Coverage Expansion V1 mission (2026-08-21): live-verified this
+# returns real, current 2026 recall records, including exact matches for two
+# real recall-benchmark events (a frozen-blueberry E. coli O145:H28 recall
+# and a frozen-blueberry Listeria recall) found via a generic
+# product-description query, not by searching for those specific events.
+# Reuses the exact same generic fetch/list pair as government_register_json
+# (both are plain JSON GET -> {"results": [...]}) -- only the normalize
+# function differs, since openFDA's record shape (product_description/
+# reason_for_recall/recall_number/report_date) has no fields in common with
+# Federal Register's (title/abstract/document_number/publication_date).
+# Food-safety recall provenance is preserved directly, not laundered through
+# a "negative news" label -- see _normalize_fda_recall_entry's does_not_prove-
+# relevant raw_metadata (classification/voluntary_mandated/recalling_firm).
+# ---------------------------------------------------------------------------
+
+
+def _normalize_fda_recall_entry(entry: Any) -> NormalizedItem:
+    entry = entry or {}
+    recall_number = entry.get("recall_number") or None
+    product = (entry.get("product_description") or "").strip()
+    reason = (entry.get("reason_for_recall") or "").strip()
+    firm = (entry.get("recalling_firm") or "").strip()
+    # A short, human title -- openFDA has no title field at all, only long
+    # structured product_description/reason_for_recall text.
+    product_short = (product[:120] + "...") if len(product) > 120 else product
+    title = f"FDA recall: {product_short}" + (f" ({firm})" if firm else "")
+    report_date = entry.get("report_date") or ""
+    published_date = f"{report_date[:4]}-{report_date[4:6]}-{report_date[6:8]}" if len(report_date) == 8 else None
+    # A deterministic, always-resolvable deep link to this exact record --
+    # openFDA provides no human press-release URL, so the API's own
+    # quoted-exact-match query for this recall_number is the most honest,
+    # real, working canonical_url available (live-verified 2026-08-21).
+    canonical_url = (
+        f"https://api.fda.gov/food/enforcement.json?search=recall_number:%22{recall_number}%22"
+        if recall_number else None
+    )
+    raw_metadata = {
+        "recall_number": recall_number,
+        "recalling_firm": firm or None,
+        "classification": entry.get("classification"),
+        "voluntary_mandated": entry.get("voluntary_mandated"),
+        "distribution_pattern": entry.get("distribution_pattern"),
+        "recall_initiation_date": entry.get("recall_initiation_date"),
+        "status": entry.get("status"),
+    }
+    return NormalizedItem(
+        title=title,
+        media_format="web_article",
+        canonical_url=canonical_url,
+        external_id=recall_number,
+        platform_item_id=None,
+        published_date=published_date,
+        description=reason,
+        duration_seconds=None,
+        transcript_availability={
+            "status": TRANSCRIPT_NOT_APPLICABLE,
+            "checked_at": _now_iso(),
+            "url": None,
+            "language": None,
+        },
+        raw_metadata=raw_metadata,
+    )
+
+
 # adapter type -> (fetch, normalize-one-entry, list-entries-from-parsed)
 def _podcast_rss_entries(parsed: Any) -> list[Any]:
     return list(parsed.entries or [])
@@ -684,6 +751,12 @@ ADAPTER_TYPES: dict[str, tuple[Callable[[str], tuple[Any, bytes]], Callable[[Any
     # Federal Register's public JSON search API. See section above.
     "government_register_json": (
         _fetch_federal_register_json, _federal_register_entries, _normalize_federal_register_entry,
+    ),
+    # openFDA's public food enforcement/recall JSON API. Reuses the same
+    # generic JSON fetch/list pair as government_register_json -- see
+    # section above.
+    "government_recall_json": (
+        _fetch_federal_register_json, _federal_register_entries, _normalize_fda_recall_entry,
     ),
 }
 

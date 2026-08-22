@@ -300,7 +300,15 @@ def test_all_live_sources_accounted_for() -> None:
     templates = data["collector_templates"]
     excluded = data.get("excluded", [])
     sources = json.loads((ROOT / "data" / "configuration" / "sources.json").read_text(encoding="utf-8"))
-    # 150 = 149 plus source-nasa-power-daily-point, added (with a matching
+    # 164 = 150 plus 14 sources added (each with a matching
+    # collector_templates entry) for the Global Qualitative Coverage
+    # Expansion V1 mission (2026-08-21): 13 Google News news_search_rss
+    # searches (Spanish-language Peru/Chile/Mexico, French-language
+    # Morocco, UK growers + UK retailer-class, South Africa production +
+    # trade, Chile-Morocco trade, global/Peru-Chile investment topic,
+    # labor/legal-risk topic, Spanish-language Spain) and 1 new openFDA
+    # government_recall_json source, all real and live-verified. 150 = 149
+    # plus source-nasa-power-daily-point, added (with a matching
     # collector_templates entry) for the Weather / Climate Context V1
     # mission (2026-08-21) -- NASA POWER's real, unauthenticated daily
     # point API, live-verified. 149 = 148 plus source-un-comtrade-public-preview,
@@ -319,7 +327,7 @@ def test_all_live_sources_accounted_for() -> None:
     # traffic. 142 = 140 plus source-freshuelva-news and source-nova-siri-
     # genetics-news, added for the Strawberry Vertical V1 depth mission
     # (2026-08-20).
-    assert len(sources) == 150
+    assert len(sources) == 164
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}

@@ -242,3 +242,27 @@ No paywall was bypassed. The NYT article was never fetched (Claude Code's own to
 ## 9. Repeating this benchmark
 
 To re-run: (1) refresh or extend the event set in Part 2 with newly-researched real events (do not remove old ones -- the set should grow, and old events becoming stale/resolved is itself a useful longitudinal signal); (2) re-run each event's keyword search against current `data/evidence/` and `inbox/evidence/`, then **manually verify every candidate match is the same event**, not the same topic (Section 1's finding on keyword-match inflation applies to any future re-run too); (3) recompute the tables in Part 3; (4) update the Coverage Matrix and Technical Debt Register with whatever the new root causes are.
+
+## 10. Global Qualitative Coverage Expansion V1 re-run (2026-08-21)
+
+Full detail: `docs/v2/GLOBAL-QUALITATIVE-COVERAGE-EXPANSION-V1.md`. This mission re-confirmed the baseline above was unchanged (no qualitative source ran between the two missions), then added 14 new bounded, reusable-query Sources (Spanish/French geography-scoped searches, a UK retailer-class query, topic-only investment/labor-risk queries, and a new `government_recall_json` adapter against openFDA) targeting exactly this benchmark's own weakest classes and geographies (Section 8's "largest remaining coverage gap" call-out, Commercial/Market, was directly targeted this time, unlike this mission's own prior scope note that it belonged to a future quantitative-data lane -- discovery-side coverage and quantitative trade-data coverage turned out to be complementary, not substitutes: Trade Intelligence V1 handles the *statistics*, this mission handles the *qualitative* corporate/promotion/regulatory-response stories Section 8 also named).
+
+**Overall: 15/50 (30%) -> 26/50 (52%).** 10 events moved MISSED -> CAPTURED (draft), 1 more to CAPTURED INDIRECTLY:
+
+| ID | Event | New "After" state |
+|---|---|---|
+| BM-C-05 | Colombia seeks foreign blueberry investment | CAPTURED (draft) |
+| BM-M-01 | Sainsbury's GBP1 British Strawberry promotion | CAPTURED (draft) |
+| BM-M-05 | South Africa blueberry production reaches 38,900t | CAPTURED (draft) |
+| BM-M-07 | Twin River Berries expands MX/Peru/Chile raspberry production | CAPTURED INDIRECTLY (real SanLucar/Twin River stake-acquisition coverage found, not the identical MX/Peru/Chile production article) |
+| BM-R-07 | FDA/CDC E. coli O145:H28 frozen blueberries outbreak | CAPTURED (draft) |
+| BM-R-08 | Listeria recall, Oregon Potato Co. frozen blueberries | CAPTURED (draft) |
+| BM-R-12 | ProPublica: "Do My Grocery Store Blueberries..." investigation | CAPTURED (draft) |
+| BM-T-02 | Commerce preliminary determination, margins 3.37-5.28% | CAPTURED (draft) |
+| BM-T-03 | Mexico's Ministry of Economy formally protests ruling | CAPTURED (draft) |
+| BM-T-09 | South Africa granted US blueberry market access | CAPTURED (draft) |
+| BM-T-10 | Chile-Morocco market-access ties strengthen | CAPTURED (draft) |
+
+**BM-M-04** (Peru turns to China as US tariffs squeeze exports) stays classified **MISSED** despite real, generic re-discovery this mission (via the pre-existing `source-news-search-berry-trade-remedy` source) -- the resulting draft turned out to be an exact-title duplicate of an already-**trusted, published** record (`ev-20260806173901-86de-...`, predating this mission), one of 16 such duplicates `build_static.py`'s own leak self-check surfaced and this mission removed as untracked-inbox cleanup (the same precedent PR #14 established). It is real proof the discovery mechanism works for a Peru commercial event, but is not counted as newly-moved: Peru's own recall stays at its 10% baseline this mission, an honest result, not rounded up. Full detail: `docs/v2/GLOBAL-QUALITATIVE-COVERAGE-EXPANSION-V1.md` Sections 9-10.
+
+Real, honest non-movers worth naming: BM-C-04 (Unifrutti/AvoAmerica Peru) and BM-R-10 (Bloomberg Law Michigan trafficking case) were both generically DISCOVERED by this mission's new sources but screened irrelevant before a body fetch -- their title/description metadata carries no berry species word even though the underlying story is berry-relevant. Registered as `docs/v2/TECHNICAL-DEBT-REGISTER.md` TD-040, not hidden inside the aggregate recall number.
