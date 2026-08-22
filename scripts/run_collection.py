@@ -31,6 +31,8 @@ from app.services.ai_extraction import (
 )
 from app.services.ai_gateway.untrusted_complete import maybe_untrusted_completer
 from app.services.article_refresh import process_discovered_article
+from app.services.deterministic_tagging import matchers_from_entities
+from app.services.relevance_screen import geography_corroboration_matchers
 from app.services.collection_runner import (
     CollectionLockedError,
     CollectionRunner,
@@ -274,6 +276,12 @@ def main(argv: list[str] | None = None) -> int:
     article_geographies = [record for record in all_entities if record.get("entity_type") == "geography"]
     article_companies = [record for record in all_entities if record.get("entity_type") == "company"]
     article_completer = maybe_untrusted_completer()
+    # Query-provenance corroboration matchers (relevance_screen.py's
+    # _query_corroboration_hit) -- reuses the exact same canonical
+    # entity-identity matcher this project already uses for draft
+    # enrichment, no second alias system.
+    article_geo_matchers = geography_corroboration_matchers(all_entities)
+    article_company_matchers = matchers_from_entities(all_entities, "company")
 
     # Sources explicitly registered as government_regulatory are pre-scoped
     # by their own search query (e.g. a Federal Register search built from
@@ -334,6 +342,8 @@ def main(argv: list[str] | None = None) -> int:
                 companies=article_companies,
                 dry_run=dry_run,
                 always_body_check=item.get("source_id") in regulatory_source_ids,
+                geo_matchers=article_geo_matchers,
+                company_matchers=article_company_matchers,
             )
             result.relevance_tier = extra.get("relevance_tier")
             return result

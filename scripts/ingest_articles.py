@@ -40,6 +40,8 @@ from app.composition import get_repositories
 from app.repositories.paths import DEFAULT_DATA_DIR, SCHEMAS_DIR
 from app.services.ai_gateway.untrusted_complete import maybe_untrusted_completer
 from app.services.article_refresh import process_discovered_article
+from app.services.deterministic_tagging import matchers_from_entities
+from app.services.relevance_screen import geography_corroboration_matchers
 from app.services.media_discovery import discover_source, list_discovered_items
 from app.services.media_orchestration import JsonStagedTranscriptAdapter, MediaOrchestrationService
 
@@ -111,6 +113,8 @@ def main(argv: list[str] | None = None) -> int:
     berries = [record for record in all_entities if record.get("entity_type") == "berry"]
     geographies = [record for record in all_entities if record.get("entity_type") == "geography"]
     companies = [record for record in all_entities if record.get("entity_type") == "company"]
+    geo_matchers = geography_corroboration_matchers(all_entities)
+    company_matchers = matchers_from_entities(all_entities, "company")
 
     orchestrator = MediaOrchestrationService(
         repositories=repositories,
@@ -157,6 +161,8 @@ def main(argv: list[str] | None = None) -> int:
             geographies=geographies,
             companies=companies,
             relevance_threshold=args.relevance_threshold,
+            geo_matchers=geo_matchers,
+            company_matchers=company_matchers,
         )
         entry.update(extra)
         if result.errors:

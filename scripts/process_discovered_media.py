@@ -20,6 +20,9 @@ from app.services.ai_extraction import (
     OpenAICompatibleExtractionConfig,
     OpenAICompatibleExtractionProvider,
 )
+from app.services.article_refresh import process_discovered_article
+from app.services.deterministic_tagging import matchers_from_entities
+from app.services.relevance_screen import geography_corroboration_matchers
 from app.services.media_orchestration import (
     JsonStagedTranscriptAdapter,
     MediaTranscriptionAdapter,
@@ -130,12 +133,38 @@ def main() -> int:
             extraction_service=extraction_service,
             complete_json=completer,
         )
-        result = service.process(
-            args.item,
-            dry_run=args.dry_run,
-            relevance_gate=args.relevance_gate,
-            enrich=args.enrich,
-        )
+        # Relevance Screen Boundary V1 (2026-08-23): a web_article item under
+        # --relevance-gate goes through the same two-stage, body-aware
+        # screen (app/services/relevance_screen.py + article_refresh.py's
+        # process_discovered_article) scripts/run_collection.py and
+        # scripts/ingest_articles.py already use, instead of
+        # service.process()'s single-stage, metadata-only
+        # app/services/relevance_screening.py gate, which never fetches a
+        # real article body at all. Without --relevance-gate, behavior is
+        # unchanged (direct service.process(), no screening) -- that flag's
+        # whole purpose is to make screening optional.
+        loaded_item = service.load_item(args.item)
+        if args.relevance_gate and loaded_item.get("media_format") == "web_article":
+            all_entities = repositories.entities.list()
+            result, extra = process_discovered_article(
+                loaded_item,
+                orchestrator=service,
+                inbox_dir=args.inbox_dir,
+                completer=completer if args.enrich else None,
+                berries=[r for r in all_entities if r.get("entity_type") == "berry"],
+                geographies=[r for r in all_entities if r.get("entity_type") == "geography"],
+                companies=[r for r in all_entities if r.get("entity_type") == "company"],
+                dry_run=args.dry_run,
+                geo_matchers=geography_corroboration_matchers(all_entities),
+                company_matchers=matchers_from_entities(all_entities, "company"),
+            )
+        else:
+            result = service.process(
+                args.item,
+                dry_run=args.dry_run,
+                relevance_gate=args.relevance_gate,
+                enrich=args.enrich,
+            )
     except (OSError, ValueError, json.JSONDecodeError, ExtractionProviderError, MediaOrchestrationError) as exc:
         print(json.dumps({"item_id": args.item, "state": "error", "error": str(exc)}, indent=2))
         return 1

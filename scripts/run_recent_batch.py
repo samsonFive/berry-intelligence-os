@@ -21,9 +21,12 @@ if str(ROOT) not in sys.path:
 from app.composition import get_repositories
 from app.repositories.paths import DEFAULT_DATA_DIR, SCHEMAS_DIR
 from app.services.ai_gateway.untrusted_complete import maybe_untrusted_completer
+from app.services.article_refresh import process_discovered_article
+from app.services.deterministic_tagging import matchers_from_entities
 from app.services.media_discovery import DiscoveryError, discover_source, list_discovered_items
 from app.services.media_orchestration import MediaOrchestrationService, MediaTranscriptionAdapter
 from app.services.publication_enrichment import enrich_publication_draft
+from app.services.relevance_screen import geography_corroboration_matchers
 from app.services.relevance_screening import screen_discovered_item
 
 DEFAULT_SOURCES = (
@@ -53,9 +56,18 @@ def main(argv: list[str] | None = None) -> int:
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
     repositories = get_repositories(args.data_dir, SCHEMAS_DIR)
     completer = maybe_untrusted_completer()
-    berries = [record for record in repositories.entities.list() if record.get("entity_type") == "berry"]
-    geographies = [record for record in repositories.entities.list() if record.get("entity_type") == "geography"]
-    companies = [record for record in repositories.entities.list() if record.get("entity_type") == "company"]
+    all_entities = repositories.entities.list()
+    berries = [record for record in all_entities if record.get("entity_type") == "berry"]
+    geographies = [record for record in all_entities if record.get("entity_type") == "geography"]
+    companies = [record for record in all_entities if record.get("entity_type") == "company"]
+    # Relevance Screen Boundary V1 (2026-08-23): reused by the web_article
+    # branch below for the same query-provenance corroboration + real
+    # body-fetch two-stage screen scripts/run_collection.py and
+    # scripts/process_discovered_media.py already use -- this was the one
+    # real batch tool still routing web_article items through the older,
+    # single-stage, no-body-fetch app/services/relevance_screening.py gate.
+    geo_matchers = geography_corroboration_matchers(all_entities)
+    company_matchers = matchers_from_entities(all_entities, "company")
 
     report: dict = {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -118,17 +130,38 @@ def main(argv: list[str] | None = None) -> int:
             "error": None,
         }
         try:
-            screening = screen_discovered_item(item)
-            row["relevance"] = screening.to_dict()
-            result = service.process(
-                item["id"],
-                relevance_gate=True,
-                enrich=True,
-            )
+            if item.get("media_format") == "web_article":
+                # Real two-stage, body-aware screen (relevance_screen.py +
+                # article_refresh.py) instead of the single-stage,
+                # metadata-only, no-body-fetch screen_discovered_item() --
+                # see the module-level comment above geo_matchers/
+                # company_matchers.
+                result, extra = process_discovered_article(
+                    item,
+                    orchestrator=service,
+                    inbox_dir=args.inbox_dir,
+                    completer=completer,
+                    berries=berries,
+                    geographies=geographies,
+                    companies=companies,
+                    geo_matchers=geo_matchers,
+                    company_matchers=company_matchers,
+                )
+                row["relevance"] = extra.get("relevance_screen_stage_b") or extra.get("relevance_screen_stage_a")
+                skipped = result.state == "skipped_irrelevant"
+            else:
+                screening = screen_discovered_item(item)
+                row["relevance"] = screening.to_dict()
+                result = service.process(
+                    item["id"],
+                    relevance_gate=True,
+                    enrich=True,
+                )
+                skipped = screening.decision == "skip" or result.state == "skipped_irrelevant"
             row["state"] = result.state
             row["transcript_status"] = result.transcript_status
             row["error"] = "; ".join(result.errors) if result.errors else None
-            if screening.decision == "skip" or result.state == "skipped_irrelevant":
+            if skipped:
                 report["totals"]["skipped"] += 1
             else:
                 report["totals"]["relevant"] += 1
