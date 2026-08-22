@@ -23,6 +23,7 @@ from app import main
 from app.main import app
 from app.services.media_orchestration import publication_draft_id
 from app.services.review_workbench import load_publication_transcript_readiness
+from app.services.review_events import load_review_events
 
 
 ITEM_ID = "discovered-source-lucentlands-podcast-22e7bd9b03f2ce93"
@@ -173,8 +174,24 @@ def test_restored_publication_draft_publishes_through_ordinary_path(restored_run
     assert published["status"] == "published" and published["review_state"] == "published"
     assert published["evidence_role"] == "publication_artifact"
     assert published["discovered_item_id"] == ITEM_ID
+    events = load_review_events(inbox)
+    assert len(events) == 1
+    assert events[0]["workflow"] == "publication_review" and events[0]["action"] == "publish"
+    assert events[0]["source_id"] == SOURCE_ID
     # The draft is consumed from inbox by the ordinary publish transaction.
     assert not (inbox / "evidence" / f"{draft_id}.json").exists()
+
+
+def test_publication_reject_emits_one_event_and_retry_is_noop(restored_runtime) -> None:
+    client = TestClient(app)
+    draft_id = restored_runtime["draft_id"]
+    inbox = restored_runtime["inbox"]
+    form = {"reviewer": "johnny", "rejection_reason": "Not useful", "rejection_category": "other"}
+    assert client.post(f"/review/{draft_id}/reject", data=form, follow_redirects=False).status_code == 303
+    assert client.post(f"/review/{draft_id}/reject", data=form, follow_redirects=False).status_code == 303
+    events = load_review_events(inbox)
+    assert len(events) == 1
+    assert events[0]["action"] == "reject" and events[0]["reason_category"] == "other"
 
 
 def test_publish_preserves_human_approval_and_trust_semantics(restored_runtime) -> None:

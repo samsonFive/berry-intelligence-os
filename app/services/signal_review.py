@@ -24,6 +24,7 @@ from app.services.signal_candidates import (
 )
 from app.services.source_independence import independence_report
 from app.services.story_threads import expand_with_related, group_story_threads, threads_by_item_id
+from app.services.review_events import append_review_event, remove_created_event
 
 EMERGING_LIMIT = 7
 EMERGING_STATUSES = {"proposed", "disputed"}
@@ -162,7 +163,24 @@ def apply_and_persist_decision(
     if expected_id and candidate_id != str(expected_id):
         raise StaleSignalCandidateError("decision target id does not match the loaded candidate")
     updated = apply_review_decision(candidate, decision=decision, reviewer=reviewer, notes=notes)
-    persist_reviewed_candidate(updated, inbox_dir=inbox_dir)
+    if (
+        candidate.get("status") == updated.get("status")
+        and candidate.get("reviewer", "") == reviewer
+        and (candidate.get("review_notes") or "") == (notes or "").strip()
+    ):
+        return candidate
+    event = append_review_event(
+        inbox_dir, workflow="signal_candidate_review", object_id=candidate_id,
+        object_type="signal_candidate", action=decision,
+        prior_state=str(candidate.get("status") or "proposed"),
+        new_state=str(updated.get("status") or "proposed"), actor=reviewer,
+        subject=candidate,
+    )
+    try:
+        persist_reviewed_candidate(updated, inbox_dir=inbox_dir)
+    except Exception:
+        remove_created_event(event)
+        raise
     return updated
 
 

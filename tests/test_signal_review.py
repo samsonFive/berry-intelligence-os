@@ -26,6 +26,7 @@ from app.services.signal_review import (
     triage_groups,
 )
 from app.services.story_threads import THREAD_LINK_PREDICATES
+from app.services.review_events import load_review_events
 
 
 PRIORITY = {
@@ -310,6 +311,11 @@ def test_confirm_persists_candidate_and_does_not_write_trusted_signal(tmp_path: 
     saved = json.loads((inbox / "signal_candidates" / f"{candidate['id']}.json").read_text(encoding="utf-8"))
     assert saved["status"] == "confirmed"
     assert saved["reviewer"] == "analyst"
+    apply_and_persist_decision(
+        saved, decision="confirm", reviewer="analyst", notes="Boundaries accepted.", inbox_dir=inbox,
+    )
+    events = load_review_events(inbox)
+    assert len(events) == 1 and events[0]["workflow"] == "signal_candidate_review"
     assert list(data.glob("*.json")) == []
     persist_candidates([{**candidate, "status": "proposed"}], inbox_dir=inbox)
     saved_again = json.loads((inbox / "signal_candidates" / f"{candidate['id']}.json").read_text(encoding="utf-8"))

@@ -27,6 +27,7 @@ from app.services.model_qualification import file_sha256, qualification_configur
 from app.services.pipeline_health import build_pipeline_health
 from app.services.analyst_queue import load_state as load_analyst_queue_state
 from app.services.review_capacity import build_review_capacity_report, load_json_objects
+from app.services.review_events import load_review_events
 
 
 def _enabled(name: str) -> bool:
@@ -240,6 +241,7 @@ def main(argv: list[str] | None = None) -> int:
                 *load_json_objects(args.inbox_dir / "operations" / "pipelines", recursive=True),
             ],
             analyst_state=load_analyst_queue_state(args.inbox_dir),
+            review_events=load_review_events(args.inbox_dir),
         )
         derived = capacity["derived_operational_metrics"]
         simulation = capacity["simulated_policy_effect"]
@@ -253,6 +255,9 @@ def main(argv: list[str] | None = None) -> int:
             "simulated_would_defer": simulation["would_defer"],
             "automatic_throttling_enabled": False,
             "rates_measurable": capacity["observed_review_events"]["rates_measurable"],
+            "total_observed_review_decisions": capacity["observed_review_events"]["total_observed_decisions"],
+            "last_review_decision_at": capacity["observed_review_events"]["last_decision_at"],
+            "review_decisions_by_action": capacity["observed_review_events"]["counts_by_action"],
             "warning": (
                 None if derived["backlog_level"] == "normal"
                 else f"{derived['backlog_level']} review pressure; simulation only, no automatic deferral"

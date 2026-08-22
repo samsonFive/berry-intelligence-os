@@ -46,9 +46,11 @@ from __future__ import annotations
 from copy import deepcopy
 from dataclasses import dataclass, field
 from datetime import date
+from pathlib import Path
 from typing import Any, Callable
 
 from app.repositories.base import DuplicateRecord
+from app.services.review_events import EventAppendResult, append_review_event, remove_created_event
 
 PUBLICATION_IDENTITY_FIELDS = (
     "title",
@@ -142,6 +144,7 @@ class ReviewPublishService:
         move_draft_attachments: Callable[[str, str, list[dict[str, str]]], list[dict[str, str]]],
         restore_draft_attachments: Callable[[str, str, list[dict[str, str]]], None],
         delete_draft: Callable[[str], None],
+        review_events_inbox: Path | None = None,
     ) -> None:
         self._repos = repositories
         self._unit_of_work_factory = unit_of_work_factory
@@ -151,6 +154,7 @@ class ReviewPublishService:
         self._move_draft_attachments = move_draft_attachments
         self._restore_draft_attachments = restore_draft_attachments
         self._delete_draft = delete_draft
+        self._review_events_inbox = review_events_inbox
 
     def publish(self, request: PublishRequest) -> PublishResult:
         # --- entity match-or-create -----------------------------------
@@ -342,6 +346,7 @@ class ReviewPublishService:
         evidence_record["attachments"] = moved_attachments
         new_entity_ids_frozen = frozenset(new_entity_ids)
         uow = self._unit_of_work_factory()
+        review_event: EventAppendResult | None = None
         try:
             with uow:
                 for entity_id in set(entity_ids):
@@ -365,6 +370,16 @@ class ReviewPublishService:
                 for relationship in relationships_to_save:
                     uow.relationships.create(relationship)
                 uow.evidence.create(evidence_record)
+                if self._review_events_inbox is not None:
+                    source = self._repos.sources.get(request.draft.get("source_id")) if request.draft.get("source_id") else None
+                    review_event = append_review_event(
+                        self._review_events_inbox,
+                        workflow="atomic_evidence_review" if request.draft.get("evidence_role") == "atomic_evidence" else "publication_review",
+                        object_id=request.draft_id,
+                        object_type="atomic_evidence_draft" if request.draft.get("evidence_role") == "atomic_evidence" else "publication_draft",
+                        action="publish", prior_state=str(request.draft.get("review_state") or request.draft.get("status") or "pending"),
+                        new_state="published", actor=request.reviewer, subject=request.draft, source=source,
+                    )
                 # Draft removal is the final publish operation. Keeping it
                 # inside the unit of work means an unlink failure
                 # compensates every structured write and leaves the draft
@@ -372,6 +387,8 @@ class ReviewPublishService:
                 # Evidence record with the same deterministic id.
                 self._delete_draft(request.draft_id)
         except DuplicateRecord:
+            if review_event:
+                remove_created_event(review_event)
             if moved_attachments:
                 self._restore_draft_attachments(request.draft_id, evidence_id, moved_attachments)
             raced = self._repos.evidence.get(evidence_id)
@@ -396,6 +413,8 @@ class ReviewPublishService:
             # attachments.
             if moved_attachments:
                 self._restore_draft_attachments(request.draft_id, evidence_id, moved_attachments)
+            if review_event:
+                remove_created_event(review_event)
             raise
 
         return PublishResult(evidence_id=evidence_id, outcome="created")

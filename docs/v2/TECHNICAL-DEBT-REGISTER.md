@@ -1011,21 +1011,21 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_testing_workspace.py::test_testing_queue_does_not_run_forbidden_work` |
 
-### TD-064 — Publication review lacks an append-only decision-event ledger
+### TD-064 — Publication review lacked an append-only decision-event ledger
 
 | Field | Value |
 |---|---|
 | **Severity** | High |
 | **Area** | analyst operations / measurement |
 | **Date discovered** | 2026-08-22 |
-| **Evidence** | Production has a large pending publication backlog, but only a very small number of trusted `publication_artifact` records carry explicit review metadata, rejected drafts are sparse, and `analyst_queue_state.json` stores current state rather than a complete transition history. Unreviewed drafts cannot truthfully reveal keep/dismiss/publish yield. |
-| **Impact** | Review completions/day, keep/publish rate, reject/dismiss rate, decision latency, and source-level outcome economics are not statistically measurable. Any policy trained or enabled from pending inventory would fabricate analyst intent. |
-| **Workaround** | `scripts/review_capacity.py` reports only real recorded actions under `OBSERVED`, keeps insufficient rates `null`, and separates queue/load derivations and policy simulation. Automatic throttling remains off. |
-| **Recommended resolution** | Add an append-only review event ledger with draft ID, action, timestamp, reviewer, Source ID, pre-action queue bucket, reason, and arrival-to-decision duration. Record Save/Keep distinctly from edit, and ensure every Publish/Reject has a consistent decision timestamp. Preserve the current-state map for UI reads. |
-| **Status** | active |
+| **Evidence** | Review Outcome Instrumentation V1 writes compact append-only events for publication, triage, reading, Claim Testing, Signal Candidate, Signal alert, and recommendation-proposal actions under private `inbox/review_events/`. Analytics no longer infer historical events from current state. Verified runtime backup/restore coverage is regression-tested. |
+| **Impact** | New decisions and latency are measurable from deployment forward. Pre-ledger history remains unknowable; Publication Save still conflates editing with possible Keep intent, and reason categories are not available on every dismiss/defer form. |
+| **Workaround** | Counts are reported immediately, but rates remain `null` until 30 applicable decisions across at least two days (and 30 per Source/query cohort). Automatic throttling remains off. |
+| **Recommended resolution** | Add a distinct explicit Publication Keep control if keep-rate is required, and bounded reason categories where they improve operations. Do not backfill inferred events. |
+| **Status** | substantially resolved; explicit Keep/reason taxonomy limitation remains |
 | **Owner lane** | platform / analyst operations |
-| **PR/SHA when resolved** | — |
-| **Regression-test reference** | `tests/test_review_capacity.py::test_unreviewed_backlog_never_becomes_fabricated_yield`, `tests/test_review_capacity.py::test_only_real_recorded_actions_are_observed` |
+| **PR/SHA when resolved** | Review Outcome Instrumentation V1 (SHA pending) |
+| **Regression-test reference** | `tests/test_review_events.py`, `tests/test_review_capacity.py::test_unreviewed_backlog_never_becomes_fabricated_yield`, `tests/test_review_capacity.py::test_only_real_recorded_actions_are_observed` |
 
 ### TD-065 — A real, well-matched source can sit fully configured and never be run
 
