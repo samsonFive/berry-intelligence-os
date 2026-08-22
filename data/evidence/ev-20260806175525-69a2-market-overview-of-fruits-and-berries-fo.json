@@ -11,7 +11,9 @@
   "summary": "EastFruit recently published a market report on the very difficult situation for growers and freezers in Eastern European as it relates to the main product of this sector – frozen raspberries. Today, EastFruit analysts provide a complete overview of the Moldovan market for all major berries and fruits used as...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
-  "origin_domain": "east-fruit.com"
+  "origin_domain": "east-fruit.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

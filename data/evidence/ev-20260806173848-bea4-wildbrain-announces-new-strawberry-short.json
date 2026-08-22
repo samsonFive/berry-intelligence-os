@@ -11,7 +11,9 @@
   "summary": "Apparel and makeup collections, food and beverage promotions, accessories and homewares, retail partnerships, mobile games and location-based experiences will roll out into 2024 as Season 3 of “Strawberry Shortcake: Berry in the Big City” streams on YouTube.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry nursery partnership",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-9388-berry-nursery-partnership-97",
-  "origin_domain": "licenseglobal.com"
+  "origin_domain": "licenseglobal.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

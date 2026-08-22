@@ -11,7 +11,9 @@
   "summary": "My favorite breakfast is granola, yogurt and blueberries. I do love my blueberries, and the grocery stores have them almost all the time. It’s fun to read the labels and see where they come from.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry tariff",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-f8a7-berry-tariff-105",
-  "origin_domain": "recorder.com"
+  "origin_domain": "recorder.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

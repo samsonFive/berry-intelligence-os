@@ -11,7 +11,9 @@
   "summary": "Angus Soft Fruits and Earth Market are excited to announce an exclusive collaboration. Angus Soft Fruits are now the exclusive license holders for the production of the strawberry Magnum® in…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Exclusive variety license berry",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-abbb-exclusive-variety-license-berry-94",
-  "origin_domain": "hortidaily.com"
+  "origin_domain": "hortidaily.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

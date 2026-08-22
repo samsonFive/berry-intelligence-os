@@ -11,7 +11,11 @@
   "summary": "After two years of growth, the Myanmar's market for raspberries, blackberries, blueberries, and cranberries decreased by -77.6% to $14K in 2024. Overall, consumption faced a abrupt decrease. As a result, consumption reached the peak level of $112K. From 2020 to 2024, the growth of the market remained at a lower figure.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry consumption trend",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-blackberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +45,10 @@
     }
   },
   "source_id": "source-20260806173428-ff93-berry-consumption-trend-116",
-  "origin_domain": "indexbox.io"
+  "origin_domain": "indexbox.io",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

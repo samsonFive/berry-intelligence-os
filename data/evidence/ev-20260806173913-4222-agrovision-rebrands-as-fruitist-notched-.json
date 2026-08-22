@@ -11,7 +11,9 @@
   "summary": "Superfruit specialist Agrovision has rebranded as Fruitist and says sales of its signature jumbo blueberries grew three-fold in 2024.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry category growth",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [
     "company-agrovision"
@@ -44,5 +46,10 @@
   },
   "auto_tagged": true,
   "source_id": "source-20260806173428-3eee-berry-category-growth-119",
-  "origin_domain": "agfundernews.com"
+  "origin_domain": "agfundernews.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

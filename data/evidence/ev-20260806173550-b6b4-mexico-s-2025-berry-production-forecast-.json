@@ -11,7 +11,11 @@
   "summary": "Production of blackberries, raspberries, and strawberries is forecast to increase in 2025, driven by export and domestic demand, adequate access to water, improved plant varieties, and…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-strawberry",
+    "berry-raspberry",
+    "berry-blackberry"
+  ],
   "geography_ids": [
     "geography-mexico"
   ],
@@ -44,5 +48,10 @@
   },
   "auto_tagged": true,
   "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
-  "origin_domain": "hortidaily.com"
+  "origin_domain": "hortidaily.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

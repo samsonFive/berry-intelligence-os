@@ -18,6 +18,16 @@
     "why_it_matters": {"type": "string"},
     "submitted_by": {"type": "string"},
     "berry_ids": {"type": "array", "items": {"type": "string"}},
+    "berry_tagging_provenance": {
+      "type": "object",
+      "required": ["method", "version", "applied_at"],
+      "properties": {
+        "method": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "applied_at": {"type": "string", "format": "date"}
+      },
+      "$comment": "Evidence Berry Tagging Backfill V1 (2026-08-22), optional, present only on an already-trusted record whose berry_ids were set or extended by a deterministic backfill pass rather than at original capture time. Purely an audit trail for the metadata repair itself -- does not affect trusted status, review_state, or any confidence/authority field, and is never required."
+    },
     "geography_ids": {"type": "array", "items": {"type": "string"}},
     "entity_ids": {"type": "array", "items": {"type": "string"}},
     "fact_ids": {"type": "array", "items": {"type": "string"}},

@@ -11,7 +11,9 @@
   "summary": "Gene-edited fruits like seedless blackberries and stoneless cherries use CRISPR technology to create varieties that would be difficult to achieve through conventional breeding. | Science & technology",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry joint venture genetics",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blackberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-c823-berry-joint-venture-genetics-96",
-  "origin_domain": "economist.com"
+  "origin_domain": "economist.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

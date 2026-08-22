@@ -11,7 +11,9 @@
   "summary": "The blueberry season in Ukraine is gaining momentum. Farmers from key production regions (Kyiv and Zhytomyr regions) of Ukraine have been supplying their products to the market for several weeks. Accordingly, the supply of blueberries is growing every day. However, despite the increase in the volume of blueberries in the...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
-  "origin_domain": "east-fruit.com"
+  "origin_domain": "east-fruit.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

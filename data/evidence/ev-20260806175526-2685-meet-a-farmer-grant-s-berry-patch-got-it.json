@@ -11,7 +11,9 @@
   "summary": "LISBON - June is finally here and Connecticut is eagerly awaiting local strawberries. Lisbon farmer Christopher Grant owns Grant’s Berry Patch & Farm Stand, and his fields are loaded with sweet, plum…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry acreage expansion",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101",
-  "origin_domain": "norwichbulletin.com"
+  "origin_domain": "norwichbulletin.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

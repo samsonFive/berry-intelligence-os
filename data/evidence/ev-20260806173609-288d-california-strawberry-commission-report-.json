@@ -11,7 +11,9 @@
   "summary": "California Strawberry Commission report shows double-digit volume growth&nbsp;&nbsp;The Packer",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry category growth",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -40,5 +42,10 @@
       "rationale": "Auto-captured from source 'Berry category growth'; not yet reviewed."
     }
   },
-  "source_id": "source-20260806173428-3eee-berry-category-growth-119"
+  "source_id": "source-20260806173428-3eee-berry-category-growth-119",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

@@ -11,7 +11,9 @@
   "summary": "Local roadside blueberry vendor Arthur Choquette said this will be a good year for blueberries, unless frost comes in and wipes them out",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
-  "origin_domain": "sudbury.com"
+  "origin_domain": "sudbury.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

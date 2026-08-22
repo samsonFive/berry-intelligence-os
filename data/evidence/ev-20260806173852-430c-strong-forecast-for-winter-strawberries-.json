@@ -11,7 +11,9 @@
   "summary": "WATSONVILLE, CA – California Giant Berry Farms, BB #:121061 a leading producer of fresh, sustainable berries, today announced its forecast for a strong winter strawberry crop, led by its Florida and Mexico growing regions. “The 2021-2022 Florida strawberry started strong” said James Tipton, district manager at California Giant Berry Farms. “Weather always plays a critical […]",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
-  "origin_domain": "bluebookservices.com"
+  "origin_domain": "bluebookservices.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

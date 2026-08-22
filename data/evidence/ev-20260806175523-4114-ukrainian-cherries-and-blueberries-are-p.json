@@ -11,7 +11,9 @@
   "summary": "There are no obstacles currently standing in the way of establishing exports of Ukrainian cherries to the Chinese market. However, the volume of premium quality cherries, which is of utmost interest to Chinese consumers, is extremely limited in Ukraine today. In 2018-2019, Ukrainian producers did export cherries to China, but...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [
     "geography-china"
   ],
@@ -44,5 +46,10 @@
   },
   "auto_tagged": true,
   "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
-  "origin_domain": "east-fruit.com"
+  "origin_domain": "east-fruit.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

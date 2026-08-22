@@ -11,7 +11,9 @@
   "summary": "EastFruit team continues to analyze the global blueberry market. After covering the general global blueberry trends, as well as situation in two giants: Pery and Chile, we decided to look into the new aggressive exporters and now we are back at reviewing the blueberry giants. This time we review blueberry situation and outlook for two...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [
     "geography-mexico",
     "geography-spain"
@@ -45,5 +47,10 @@
   },
   "auto_tagged": true,
   "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
-  "origin_domain": "east-fruit.com"
+  "origin_domain": "east-fruit.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

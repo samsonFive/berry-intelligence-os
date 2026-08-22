@@ -11,7 +11,9 @@
   "summary": "What makes blueberries such a superfood for brain health? We break down the health benefits of blueberries for older adults and how to use this food as medicine at any age.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry health research",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-2e40-berry-health-research-118",
-  "origin_domain": "aarp.org"
+  "origin_domain": "aarp.org",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

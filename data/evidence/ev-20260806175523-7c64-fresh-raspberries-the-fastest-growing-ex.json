@@ -11,7 +11,10 @@
   "summary": "According to EastFruit analysts, fresh raspberries and blackberries showed the largest increase in revenue from Poland’s exports in the first nine months of 2020. The exports of berries increased by 42% when compared to 2019 and reached $23.4 million. However, the impressive growth in export revenues was mainly driven by...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-raspberry",
+    "berry-blackberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +44,10 @@
     }
   },
   "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
-  "origin_domain": "east-fruit.com"
+  "origin_domain": "east-fruit.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

@@ -11,7 +11,9 @@
   "summary": "This achievement highlights the impact of a direct partnership between Fall Creek, Twin River Berries, and Sprouts, demonstrating how close collaboration from breeding to shelf can deliver measurable returns for growers, retailers, and consumers alike.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry nursery partnership",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [
     "company-fall-creek-farm-and-nursery"
@@ -44,5 +46,10 @@
   },
   "auto_tagged": true,
   "source_id": "source-20260806173428-9388-berry-nursery-partnership-97",
-  "origin_domain": "perishablenews.com"
+  "origin_domain": "perishablenews.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

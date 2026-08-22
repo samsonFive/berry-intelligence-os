@@ -11,7 +11,9 @@
   "summary": "In a world so connected, it shouldn’t be difficult to keep shelves stocked with one of the few foods my son eats. Trump might manage it anyway.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry tariff",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-f8a7-berry-tariff-105",
-  "origin_domain": "startribune.com"
+  "origin_domain": "startribune.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

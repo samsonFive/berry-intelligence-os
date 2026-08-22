@@ -11,7 +11,9 @@
   "summary": "A royalty licensing dispute has erupted after one of WA’s biggest blueberry companies claimed it is owed more than $28 million in growers’ royalties.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry royalty license agreement",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-4da7-berry-royalty-license-agreement-93",
-  "origin_domain": "countryman.com.au"
+  "origin_domain": "countryman.com.au",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

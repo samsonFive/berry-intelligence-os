@@ -11,7 +11,9 @@
   "summary": "After years of collaboration with Stonefly, the blueberry specialist has set up its own nursery in Ñuble, headed by Ernesto Pino",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry nursery partnership",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [
     "geography-chile"
   ],
@@ -46,5 +48,10 @@
   },
   "auto_tagged": true,
   "source_id": "source-20260806173428-9388-berry-nursery-partnership-97",
-  "origin_domain": "fruitnet.com"
+  "origin_domain": "fruitnet.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

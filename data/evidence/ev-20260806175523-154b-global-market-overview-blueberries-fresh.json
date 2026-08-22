@@ -11,7 +11,9 @@
   "summary": "As Peru's blueberry harvest volumes reached normal levels again with increased exports, the global blueberry market has returned to normal. Growers in China are seeing ideal weather that…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
-  "origin_domain": "freshplaza.com"
+  "origin_domain": "freshplaza.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

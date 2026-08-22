@@ -11,7 +11,9 @@
   "summary": "Despite the cool and rainy end of May, strawberry producers have not yet cut their forecast for the harvest in 2021 (which is already low). Members of the Pomușoarele Moldovei Berry Producers Association believe that the rainfall forecasted for the entire first week of June will undoubtedly affect the production and...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry harvest forecast",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
-  "origin_domain": "east-fruit.com"
+  "origin_domain": "east-fruit.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

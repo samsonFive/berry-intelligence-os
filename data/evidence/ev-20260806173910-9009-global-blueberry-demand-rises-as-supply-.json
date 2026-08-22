@@ -11,7 +11,9 @@
   "summary": "Global demand for blueberries continues to rise, with North America and Europe leading the way, according to the latest RaboResearch Blueberry Update 2025. The report highlights growing consumption alongside an increasingly diverse global supply landscape",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry consumption trend",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-ff93-berry-consumption-trend-116",
-  "origin_domain": "fruitnet.com"
+  "origin_domain": "fruitnet.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

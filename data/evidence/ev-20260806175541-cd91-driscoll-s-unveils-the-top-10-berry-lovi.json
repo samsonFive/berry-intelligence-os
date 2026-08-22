@@ -11,7 +11,12 @@
   "summary": "Boston, Hartford-New Haven and Minneapolis-St. Paul claimed the top three most berry-adoring markets in the country, according to syndicated category data reported by The Nielsen Company* and based upon the highest weekly store sales of fresh strawberries, raspberries, blueberries and blackberries. The Twin Cities also emerged as the raspberry consumption capital of the U.S., with families enjoying 132 percent more fresh raspberries per household than the national average annually.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry retail sales data",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-strawberry",
+    "berry-raspberry",
+    "berry-blackberry"
+  ],
   "geography_ids": [],
   "entity_ids": [
     "company-driscolls"
@@ -44,5 +49,10 @@
   },
   "auto_tagged": true,
   "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117",
-  "origin_domain": "perishablenews.com"
+  "origin_domain": "perishablenews.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

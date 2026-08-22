@@ -11,7 +11,9 @@
   "summary": "Berries are the top organic item in produce.\n\n\n\nBerries surpassed packaged salad mixes as the most important organic item in produce departments two years ago a",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry retail sales data",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117",
-  "origin_domain": "producebusiness.com"
+  "origin_domain": "producebusiness.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

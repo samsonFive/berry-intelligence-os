@@ -11,7 +11,10 @@
   "summary": "Long-term research shows that a healthy diet that includes plenty of fruits, especially blueberries and strawberries, can help prevent the onset of heart disease.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry health research",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-strawberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +44,10 @@
     }
   },
   "source_id": "source-20260806173428-2e40-berry-health-research-118",
-  "origin_domain": "healthcare.utah.edu"
+  "origin_domain": "healthcare.utah.edu",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

@@ -11,7 +11,9 @@
   "summary": "LIMA, Peru, Oct. 09, 2024 (GLOBE NEWSWIRE) — BLOOM FRESH™, one of the world leading fruit-breeding organisations, announces the acquisition of the Inka’s Berries breeding program, further expanding its global footprint in the development of innovative, high-quality fruit varieties. This strategic acquisition marks a significant milestone in the BLOOM FRESH™ commitment to secure a tastier, […]",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry genetics company",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-80ee-berry-genetics-company-91",
-  "origin_domain": "bluebookservices.com"
+  "origin_domain": "bluebookservices.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

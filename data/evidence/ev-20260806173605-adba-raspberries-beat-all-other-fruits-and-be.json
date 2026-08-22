@@ -11,7 +11,9 @@
   "summary": "EastFruit experts draw attention to very interesting information recently released in the United States concerning the consumption trends of various fruits and berries in this country over the past decade. Why is knowing US consumption trends important for fruit and berry growers in Eastern Europe and Central Asia? Our experience...",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry consumption trend",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-ff93-berry-consumption-trend-116",
-  "origin_domain": "east-fruit.com"
+  "origin_domain": "east-fruit.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

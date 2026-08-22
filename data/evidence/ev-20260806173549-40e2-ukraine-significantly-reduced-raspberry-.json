@@ -11,7 +11,9 @@
   "summary": "УНН Economy ✎ In 2025, Ukraine significantly reduced raspberry production and exports, leading to no surplus for export. Exports of frozen\nraspberries decreased by …",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry export volume",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
-  "origin_domain": "unn.ua"
+  "origin_domain": "unn.ua",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

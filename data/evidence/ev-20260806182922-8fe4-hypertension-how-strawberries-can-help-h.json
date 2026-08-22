@@ -11,7 +11,9 @@
   "summary": "Consuming strawberries daily may help improve cognitive function, lower blood pressure, and increase antioxidant capacity, a clinical trial shows.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry health research",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
   "geography_ids": [],
   "entity_ids": [],
   "fact_ids": [],
@@ -41,5 +43,10 @@
     }
   },
   "source_id": "source-20260806173428-2e40-berry-health-research-118",
-  "origin_domain": "medicalnewstoday.com"
+  "origin_domain": "medicalnewstoday.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

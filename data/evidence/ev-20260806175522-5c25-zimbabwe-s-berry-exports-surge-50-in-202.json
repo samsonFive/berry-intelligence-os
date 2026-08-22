@@ -11,7 +11,9 @@
   "summary": "Zimbabwe's berry export sector has experienced a 50% growth in 2024, with exports increasing from 6 million kilograms in 2023 to 8 million kilograms this year. Data from ZimStats shows a rise…",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry industry investment",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
   "geography_ids": [
     "geography-zimbabwe"
   ],
@@ -44,5 +46,10 @@
   },
   "auto_tagged": true,
   "source_id": "source-20260806173428-69a5-berry-industry-investment-98",
-  "origin_domain": "freshplaza.com"
+  "origin_domain": "freshplaza.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }

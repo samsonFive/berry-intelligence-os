@@ -11,7 +11,10 @@
   "summary": "Osborne Clarke advised the U.S.-based Fall Creek Group on its acquisition of Berrytech and Berryplant—two leading Italian companies based in the Trentino region that specialise in the genetics, hybridisation, and propagation of raspberries and blackberries.",
   "why_it_matters": "",
   "submitted_by": "source-monitor:Berry genetics company",
-  "berry_ids": [],
+  "berry_ids": [
+    "berry-raspberry",
+    "berry-blackberry"
+  ],
   "geography_ids": [],
   "entity_ids": [
     "company-fall-creek-farm-and-nursery"
@@ -44,5 +47,10 @@
   },
   "auto_tagged": true,
   "source_id": "source-20260806173428-80ee-berry-genetics-company-91",
-  "origin_domain": "osborneclarke.com"
+  "origin_domain": "osborneclarke.com",
+  "berry_tagging_provenance": {
+    "method": "deterministic-title-summary-match",
+    "version": "berry-tagging-backfill-v1",
+    "applied_at": "2026-08-22"
+  }
 }
