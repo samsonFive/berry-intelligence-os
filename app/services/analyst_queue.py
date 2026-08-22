@@ -12,6 +12,8 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+from app.services.review_events import append_review_event, remove_created_event
+
 STATE_FILENAME = "analyst_queue_state.json"
 
 READING_DEFAULT = "unread"
@@ -191,6 +193,8 @@ def apply_action(
     item_id: str,
     action: str,
     reviewer: str = "",
+    subject: dict[str, Any] | None = None,
+    source: dict[str, Any] | None = None,
 ) -> str:
     """Record an analyst decision. Returns the resulting workflow state."""
 
@@ -229,9 +233,34 @@ def apply_action(
         bucket = "pending"
     else:
         raise ValueError(f"No workflow actions on {dimension}")
+    current_entry = (state.get(bucket) or {}).get(item_id) or {}
+    defaults = {
+        "reading": READING_DEFAULT, "testing": TESTING_DEFAULT, "monitoring": MONITORING_DEFAULT,
+        "proposals": PROPOSAL_DEFAULT, "signals": SIGNAL_ALERT_DEFAULT, "pending": PENDING_DEFAULT,
+    }
+    prior_state = str(current_entry.get("state") or defaults[bucket])
+    if prior_state == next_state and current_entry.get("action") == action and current_entry.get("reviewer", "") == reviewer:
+        return next_state
+    workflow = {
+        "reading": "reading_queue", "testing": "claim_testing",
+        "proposals": "recommendation_proposal_review", "signals": "signal_alert_review",
+        "pending": "publication_triage",
+    }.get(dimension)
+    event_result = None
+    if workflow:
+        object_type = {
+            "reading": "evidence", "testing": "evidence", "pending": "publication_draft",
+            "proposals": "recommendation", "signals": "signal",
+        }[dimension]
+        event_result = append_review_event(
+            inbox_dir, workflow=workflow, object_id=item_id,
+            object_type=object_type,
+            action=action, prior_state=prior_state, new_state=next_state, actor=reviewer,
+            subject=subject, source=source,
+        )
     payload: dict[str, Any] = {
         "state": next_state,
-        "updated_at": _now(),
+        "updated_at": event_result.event["occurred_at"] if event_result else _now(),
         "reviewer": reviewer,
         "action": action,
     }
@@ -239,28 +268,35 @@ def apply_action(
         days = 7 if action == "snooze" else 1
         payload["snooze_until"] = (date.today() + timedelta(days=days)).isoformat()
     state.setdefault(bucket, {})[item_id] = payload
-    save_state(inbox_dir, state)
+    try:
+        save_state(inbox_dir, state)
+    except Exception:
+        if event_result:
+            remove_created_event(event_result)
+        raise
     return next_state
 
 
-def bulk_mark_read(inbox_dir: Path, item_ids: list[str], *, reviewer: str = "") -> int:
+def bulk_mark_read(inbox_dir: Path, item_ids: list[str], *, reviewer: str = "", subjects: dict[str, dict[str, Any]] | None = None, sources: dict[str, dict[str, Any]] | None = None) -> int:
     count = 0
     for item_id in item_ids:
         if not item_id:
             continue
-        apply_action(inbox_dir, dimension="reading", item_id=item_id, action="mark_read", reviewer=reviewer)
+        subject = (subjects or {}).get(item_id) or {}
+        apply_action(inbox_dir, dimension="reading", item_id=item_id, action="mark_read", reviewer=reviewer, subject=subject, source=(sources or {}).get(str(subject.get("source_id") or "")))
         count += 1
     return count
 
 
-def bulk_dismiss_pending(inbox_dir: Path, item_ids: list[str], *, reviewer: str = "") -> int:
+def bulk_dismiss_pending(inbox_dir: Path, item_ids: list[str], *, reviewer: str = "", subjects: dict[str, dict[str, Any]] | None = None, sources: dict[str, dict[str, Any]] | None = None) -> int:
     """Hide selected pending drafts from triage. Does not reject or publish."""
 
     count = 0
     for item_id in item_ids:
         if not item_id:
             continue
-        apply_action(inbox_dir, dimension="pending", item_id=item_id, action="dismiss", reviewer=reviewer)
+        subject = (subjects or {}).get(item_id) or {}
+        apply_action(inbox_dir, dimension="pending", item_id=item_id, action="dismiss", reviewer=reviewer, subject=subject, source=(sources or {}).get(str(subject.get("source_id") or "")))
         count += 1
     return count
 

@@ -45,6 +45,7 @@ from app.services.deterministic_tagging import apply_known_name_matches, matcher
 from app.services.entity_alias_recall import linked_evidence_for_entity
 from app.services.media_discovery import list_discovered_items, read_source_discovery_state
 from app.services.review_publish import PublishRequest, ReviewPublishService
+from app.services.review_events import append_review_event, remove_created_event
 from app.services.source_freshness import (
     FRESHNESS_LABELS,
     SOURCE_CADENCE_DAYS,
@@ -2920,9 +2921,10 @@ async def reading_bulk_read(request: Request) -> RedirectResponse:
     reviewer = str(form.get("reviewer") or "").strip() or session_username(request) or review_username() or ""
     region = str(form.get("region") or "")
     return_to = safe_next_path(str(form.get("return_to") or ""))
-    allowed = {record["id"] for record in queue_items("reading") if record.get("id")}
+    subjects = {record["id"]: record for record in queue_items("reading") if record.get("id")}
+    allowed = set(subjects)
     ids = [value for value in form.getlist("item_id") if isinstance(value, str) and value in allowed]
-    bulk_mark_read(INBOX_DIR, ids, reviewer=reviewer)
+    bulk_mark_read(INBOX_DIR, ids, reviewer=reviewer, subjects=subjects, sources=_source_index())
     if return_to and return_to.startswith("/brief"):
         return RedirectResponse(url="/brief", status_code=303)
     suffix = f"?region={region}" if region else ""
@@ -2936,9 +2938,10 @@ async def pending_bulk_dismiss(request: Request) -> RedirectResponse:
     form = await request.form()
     reviewer = str(form.get("reviewer") or "").strip() or session_username(request) or review_username() or ""
     return_to = safe_next_path(str(form.get("return_to") or "")) or "/brief#pending-triage"
-    allowed = {record["id"] for record in list_pending_drafts() if record.get("id")}
+    subjects = {record["id"]: record for record in list_pending_drafts() if record.get("id")}
+    allowed = set(subjects)
     ids = [value for value in form.getlist("item_id") if isinstance(value, str) and value in allowed]
-    bulk_dismiss_pending(INBOX_DIR, ids, reviewer=reviewer)
+    bulk_dismiss_pending(INBOX_DIR, ids, reviewer=reviewer, subjects=subjects, sources=_source_index())
     return RedirectResponse(
         url=return_to if return_to.startswith(("/brief", "/pending")) else "/pending",
         status_code=303,
@@ -2955,7 +2958,7 @@ def pending_item_action(
 ) -> RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Queue actions are only available in authoring mode")
-    allowed = {record["id"] for record in list_pending_drafts() if record.get("id")}
+    allowed = {record["id"]: record for record in list_pending_drafts() if record.get("id")}
     if item_id not in allowed:
         raise HTTPException(status_code=404, detail="Pending draft not found")
     try:
@@ -2965,6 +2968,8 @@ def pending_item_action(
             item_id=item_id,
             action=action,
             reviewer=reviewer.strip() or session_username(request) or review_username() or "",
+            subject=allowed[item_id],
+            source=_source_index().get(str(allowed[item_id].get("source_id") or "")),
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -3022,7 +3027,7 @@ def queue_item_action(
         raise HTTPException(status_code=404, detail="Unknown queue workflow")
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Queue actions are only available in authoring mode")
-    allowed = {record["id"] for record in queue_items(dimension) if record.get("id")}
+    allowed = {record["id"]: record for record in queue_items(dimension) if record.get("id")}
     if item_id not in allowed:
         raise HTTPException(status_code=404, detail="Item is not in this queue")
     try:
@@ -3032,6 +3037,8 @@ def queue_item_action(
             item_id=item_id,
             action=action,
             reviewer=reviewer.strip() or session_username(request) or review_username() or "",
+            subject=allowed[item_id],
+            source=_source_index().get(str(allowed[item_id].get("source_id") or "")),
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -3060,7 +3067,8 @@ def recommendation_proposal_decision(
 ) -> RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Proposal decisions are only available in authoring mode")
-    if recommendation_by_id(recommendation_id) is None:
+    recommendation = recommendation_by_id(recommendation_id)
+    if recommendation is None:
         raise HTTPException(status_code=404, detail="Recommendation not found")
     try:
         apply_queue_action(
@@ -3069,6 +3077,7 @@ def recommendation_proposal_decision(
             item_id=recommendation_id,
             action=action,
             reviewer=reviewer.strip() or session_username(request) or review_username() or "",
+            subject=recommendation,
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -3084,7 +3093,8 @@ def signal_alert_decision(
 ) -> RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Signal-alert decisions are only available in authoring mode")
-    if signal_by_id(signal_id) is None:
+    signal = signal_by_id(signal_id)
+    if signal is None:
         raise HTTPException(status_code=404, detail="Signal not found")
     try:
         apply_queue_action(
@@ -3093,6 +3103,7 @@ def signal_alert_decision(
             item_id=signal_id,
             action=action,
             reviewer=reviewer.strip() or session_username(request) or review_username() or "",
+            subject=signal,
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -4336,6 +4347,7 @@ def _review_publish_service() -> ReviewPublishService:
         move_draft_attachments=move_draft_attachments,
         restore_draft_attachments=restore_draft_attachments,
         delete_draft=delete_draft,
+        review_events_inbox=INBOX_DIR,
     )
 
 
@@ -4933,12 +4945,23 @@ def review_reject(
         raise HTTPException(status_code=400, detail="Reviewer and rejection reason are required")
     if rejection_category not in REJECTION_CATEGORIES:
         raise HTTPException(status_code=400, detail="Rejection category is invalid")
+    if draft.get("review_state") == "rejected" or draft.get("status") == "rejected":
+        return RedirectResponse(url=_safe_review_return(return_to), status_code=303)
+    repositories = get_repositories(DATA_DIR, SCHEMAS_DIR)
+    source = repositories.sources.get(draft.get("source_id")) if draft.get("source_id") else None
+    event = append_review_event(
+        INBOX_DIR, workflow="publication_review", object_id=draft_id,
+        object_type="publication_draft", action="reject",
+        prior_state=str(draft.get("review_state") or draft.get("status") or "pending"),
+        new_state="rejected", actor=reviewer.strip(), subject=draft, source=source,
+        reason_category=rejection_category,
+    )
     draft.update(
         {
             "status": "rejected",
             "review_state": "rejected",
             "reviewed_by": reviewer.strip(),
-            "reviewed_at": date.today().isoformat(),
+            "reviewed_at": str(event.event["occurred_at"])[:10],
             "rejection_reason": rejection_reason.strip(),
             "rejection_category": rejection_category,
             "review_outcome": {
@@ -4948,7 +4971,11 @@ def review_reject(
             },
         }
     )
-    save_draft(draft)
+    try:
+        save_draft(draft)
+    except Exception:
+        remove_created_event(event)
+        raise
     if advance.strip() == "next":
         next_id = adjacent_publication_draft_id(draft_id)
         if next_id:

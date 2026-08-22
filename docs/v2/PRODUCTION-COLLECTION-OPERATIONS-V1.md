@@ -163,3 +163,13 @@ simulation (`scripts/review_capacity.py`). Automatic throttling remains off:
 production does not yet have enough recorded review events to calculate honest
 analyst throughput or Source yield. See
 `docs/v2/REVIEW-CAPACITY-COLLECTION-BACKPRESSURE-V1.md` and TD-064.
+
+Review Outcome Instrumentation V1 adds the prospective evidence TD-064 was
+missing. Real human transitions are appended under private
+`inbox/review_events/`, which is already inside this runbook's complete-runtime
+backup and persistent bind-mount scope. `collection_status.py` cheaply reports
+the total, latest time, and action counts; it does not expose actor identity.
+No current-state record was converted into a historical event, rates remain
+insufficient until the documented sample threshold is met, and automatic
+throttling remains off. See
+`docs/v2/REVIEW-OUTCOME-INSTRUMENTATION-V1.md`.

@@ -15,6 +15,7 @@ from app.composition import get_repositories
 from app.runtime_config import resolve_data_dir, resolve_inbox_dir
 from app.services.review_capacity import build_review_capacity_report, load_json_objects
 from app.services.analyst_queue import load_state
+from app.services.review_events import load_review_events
 from app.repositories.paths import SCHEMAS_DIR
 
 
@@ -78,6 +79,7 @@ def main(argv: list[str] | None = None) -> int:
         analyst_state=load_state(inbox_dir),
         discovered=discovered,
         include_items=args.include_items,
+        review_events=load_review_events(inbox_dir),
     )
     print(json.dumps(report, indent=2, ensure_ascii=False, sort_keys=True) if args.json else _human(report))
     return 0

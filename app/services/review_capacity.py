@@ -15,6 +15,7 @@ from statistics import median
 from typing import Any, Iterable
 
 from app.services.article_dedup import normalize_canonical_url, normalize_title
+from app.services.review_events import MINIMUM_RATE_SAMPLE, review_event_analytics
 
 
 UTC = timezone.utc
@@ -163,7 +164,30 @@ def _recorded_decisions(
     trusted: list[dict[str, Any]],
     analyst_state: dict[str, Any],
     now: datetime,
+    review_events: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    if review_events is not None:
+        current_publication_drafts = [
+            row for row in drafts
+            if row.get("evidence_role") == "publication_artifact"
+            and row.get("status") != "rejected" and row.get("review_state") != "rejected"
+        ]
+        analytics = review_event_analytics(review_events, current_publication_drafts=current_publication_drafts)
+        actions = analytics["counts_by_action"]
+        return {
+            **analytics,
+            "published": actions.get("publish", 0),
+            "rejected": actions.get("reject", 0),
+            "dismissed_from_triage": sum(row.get("workflow") == "publication_triage" and row.get("action") == "dismiss" for row in review_events),
+            "deferred": sum(row.get("workflow") == "claim_testing" and row.get("action") == "defer" for row in review_events),
+            "pass": sum(row.get("workflow") == "claim_testing" and row.get("action") == "pass" for row in review_events),
+            "fail": sum(row.get("workflow") == "claim_testing" and row.get("action") == "fail" for row in review_events),
+            "missing_instrumentation": [
+                "Publication Save combines draft editing with keep intent, so it is not counted as an outcome.",
+                "Dismiss/defer rationale categories are not collected on every workflow.",
+                "Pre-ledger current states remain known state, not fabricated historical events.",
+            ],
+        }
     published = [
         record for record in trusted
         if record.get("evidence_role") == "publication_artifact"
@@ -357,6 +381,7 @@ def build_review_capacity_report(
     discovered: list[dict[str, Any]] | None = None,
     now: datetime | None = None,
     include_items: bool = False,
+    review_events: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     instant = (now or datetime.now(UTC)).astimezone(UTC)
     active = [
@@ -465,15 +490,12 @@ def build_review_capacity_report(
         discovered_by_source[sid] += 1
         if (item.get("relevance_screening") or {}).get("decision") == "skip":
             irrelevant_by_source[sid] += 1
-    trusted_by_source = Counter(
-        str(record.get("source_id") or "unknown") for record in trusted
-        if record.get("evidence_role") == "publication_artifact" and record.get("status") == "published"
-        and (record.get("reviewed_at") or record.get("reviewed_by") or record.get("review_outcome"))
-    )
-    rejected_by_source = Counter(
-        str(record.get("source_id") or "unknown") for record in drafts
-        if record.get("status") == "rejected" or record.get("review_state") == "rejected"
-    )
+    publication_events = [
+        row for row in (review_events or [])
+        if row.get("workflow") == "publication_review" and row.get("action") in {"publish", "reject"}
+    ]
+    trusted_by_source = Counter(str(row.get("source_id") or "unknown") for row in publication_events if row.get("action") == "publish")
+    rejected_by_source = Counter(str(row.get("source_id") or "unknown") for row in publication_events if row.get("action") == "reject")
     direct_by_source = Counter(row["source_id"] for row in rows if row["tier"] == "direct")
     adjacent_by_source = Counter(row["source_id"] for row in rows if row["tier"] == "adjacent")
     duplicate_by_source: Counter[str] = Counter()
@@ -498,9 +520,9 @@ def build_review_capacity_report(
             "recorded_published": trusted_by_source[source_id],
             "recorded_rejected": rejected_by_source[source_id],
             "recorded_decisions": decided,
-            "publish_rate": round(trusted_by_source[source_id] / decided, 4) if decided >= 10 else None,
-            "reject_rate": round(rejected_by_source[source_id] / decided, 4) if decided >= 10 else None,
-            "yield_measurable": decided >= 10,
+            "publish_rate": round(trusted_by_source[source_id] / decided, 4) if decided >= MINIMUM_RATE_SAMPLE else None,
+            "reject_rate": round(rejected_by_source[source_id] / decided, 4) if decided >= MINIMUM_RATE_SAMPLE else None,
+            "yield_measurable": decided >= MINIMUM_RATE_SAMPLE,
         })
     query_economics = []
     for family, pending in counters["query_family"].most_common():
@@ -514,10 +536,11 @@ def build_review_capacity_report(
             "irrelevant_discovered_items": sum(irrelevant_by_source[sid] for sid in family_sources) if discovered is not None else None,
             "duplicate_reprint_excess": sum(duplicate_by_source[sid] for sid in family_sources),
             "recorded_decisions": decided,
-            "yield_measurable": decided >= 10,
+            "yield_measurable": decided >= MINIMUM_RATE_SAMPLE,
         })
     observed = _recorded_decisions(
         drafts=drafts, trusted=trusted, analyst_state=analyst_state or {}, now=instant,
+        review_events=review_events,
     )
     arrival = _arrival_metrics(run_records, len(active), instant)
     simulation = _simulate(rows, clusters)

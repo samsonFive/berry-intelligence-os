@@ -15,6 +15,7 @@ from fastapi.testclient import TestClient
 from app import main
 from app.main import app
 from app.services.media_orchestration import publication_draft_id
+from app.services.review_events import load_review_events
 from tests.test_review_publish_portability import SOURCE_ID, _draft, _item, _publish, _restore
 
 
@@ -117,6 +118,8 @@ def test_repeat_publish_after_success_is_already_published(restored_runtime) -> 
     published = main.get_repositories(restored_runtime["data"], main.SCHEMAS_DIR).evidence.get(draft_id)
     assert published["status"] == "published"
     assert published["reviewed_by"] == "johnny"
+    events = load_review_events(inbox)
+    assert len(events) == 1 and events[0]["action"] == "publish"
 
 
 def test_review_form_has_speed_actions_and_untrusted_enrichment_panel(restored_runtime) -> None:
