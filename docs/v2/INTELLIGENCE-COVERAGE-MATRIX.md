@@ -150,7 +150,8 @@ selected because the OS already contained the events.
 
 **Overall event-level recall: 11/50 (22%) -> 15/50 (30%) -> 26/50 (52%) ->
 30/50 (60%) after the Global Qualitative Coverage Expansion V2 mission
-(2026-08-22)**, all newly-captured events sitting as untrusted drafts
+(2026-08-22) -> 31/50 (62%) after Relevance Screen Boundary V1
+(2026-08-23)**, all newly-captured events sitting as untrusted drafts
 pending human review (the trust gate is untouched by this mission). Recall
 by class: Commercial/Market 0%->50% (4/8), Regulatory/Trade 9%->45% (5/11,
 unchanged this round), Corporate 38%->61.5% (8/13), Reputation/Risk
@@ -352,6 +353,22 @@ Full detail: `docs/v2/GLOBAL-QUALITATIVE-COVERAGE-EXPANSION-V2.md`. This section
 **Inbox quality, real measured cumulative numbers** (across all 18 mainstream/regulatory sources from both rounds): 1317 items discovered, 863 processed (65.5%), 561 passed relevance screening (65.0% of processed), 229 correctly screened irrelevant (26.5%, essentially identical to the original Recall Benchmark mission's own 26% baseline), 73 borderline (8.5%). A random 25-item manual sample of the full current draft set found 24 of 25 clearly on-topic berry-industry content; the one exception was consumer-lifestyle content (a "why strawberries mold" article), not noise from source misconfiguration.
 
 Not `OPERATIONAL`: TD-040/TD-045's relevance-screen boundary remains only partially, not reliably, mitigated; most discovered items across both missions remain unprocessed (TD-008); CFIA/Canada food-safety (BM-R-09) remains unresolved (TD-041); the duplicate-cleanup step remains manual, not automated (TD-046). See `docs/v2/TECHNICAL-DEBT-REGISTER.md` TD-045, TD-046.
+
+---
+
+## Relevance Screen Boundary V1 (2026-08-23)
+
+Full detail: `docs/v2/RELEVANCE-SCREEN-BOUNDARY-V1.md`. This mission did not add sources -- it fixed the gate between discovery and useful review. Source volume is unchanged (168); this section records measured recall/precision impact only, per this matrix's own "source volume is not recall" discipline.
+
+**Root cause, traced not inferred**: the actual documented operator workflow (`scripts/process_discovered_media.py`, `scripts/run_recent_batch.py`) never called the two-stage, body-aware relevance screen or fetched a real article body for `web_article` items at all -- it exclusively used a separate, older, single-stage, metadata-only module (`app/services/relevance_screening.py`). Within the better-engineered two-stage module itself (`app/services/relevance_screen.py`), a Stage A metadata screen scoring literally zero category signal was confidently, permanently rejected with no path to reconsideration.
+
+**Fixed generically**: (1) both real-workflow scripts now route `web_article` items through the two-stage, body-aware screen the recurring pipeline already used; (2) query-provenance corroboration (a registered Geography/Company entity name + a corporate-action verb in an otherwise zero-signal title) keeps Stage B open instead of confidently rejecting -- query provenance alone never grants relevance; (3) a new explicitly-labeled `TIER_UNCERTAIN` untrusted draft state for the real, measured-dominant case where the article body is structurally unverifiable (Google News redirect pages); (4) French species vocabulary added to the berry-identity gate.
+
+**Overall event-level recall: 30/50 (60%) -> 31/50 (62%)** -- 1 event (BM-C-04, Unifrutti/AvoAmerica Peru) moved MISSED -> CAPTURED (draft, uncertain). By class: Corporate 8/13 (62%) -> 9/13 (69%); all other classes unchanged. By geography: Peru 3/9 (33%) -> 4/9 (44%); all other geographies unchanged.
+
+**Real value beyond the fixed benchmark**: 44 new real drafts from `source-news-search-morocco-berry-fr` (French vocabulary fix, 45/50 of that source's own backlog now review-ready) and a real, previously entirely-missed Driscoll's/Costa Group stake-acquisition cluster (5 independent articles, query-provenance corroboration) -- neither matches a specific fixed benchmark ID, so neither moves the 31/50 number; reported here as evidence the mechanism generalizes, not as a recall claim, per this benchmark's own no-redefinition discipline.
+
+Not `OPERATIONAL`: query-provenance corroboration only rescues items whose title also names a registered entity (TD-058, ~5% of the real zero-signal `news_search_rss` backlog measured); real article-body verification remains structurally unavailable for Google-News-sourced items generally (TD-059); French blackberry identity remains unrecognized, a deliberate exclusion (TD-060).
 
 ---
 

@@ -31,7 +31,7 @@ from app.services.media_orchestration import (
     ParentResolution,
 )
 from app.services.publication_enrichment import enrich_publication_draft
-from app.services.relevance_screen import TIER_DIRECT, screen_relevance
+from app.services.relevance_screen import TIER_DIRECT, TIER_UNCERTAIN, screen_relevance
 
 
 # app/services/article_acquisition.py's ArticleAcquisitionError categories
@@ -55,6 +55,23 @@ def _error_result(item_id: str, *, state: str, message: str, transcript_status: 
     )
 
 
+def _persist_relevance_tier(inbox_dir: Path, draft_id: str | None, tier: str | None, *, dry_run: bool) -> None:
+    """Writes relevance_tier onto the persisted draft file for the metadata-
+    only fallback paths below, mirroring what the main body-acquired path
+    already does at draft-write time. Without this, the tier only lived on
+    the transient OrchestrationResult and never reached the review queue's
+    own triage (app/services/morning_brief.py's assign_pending_triage reads
+    it from the stored draft, not from a CLI return value)."""
+    if dry_run or not draft_id or not tier:
+        return
+    draft_path = inbox_dir / "evidence" / f"{draft_id}.json"
+    if not draft_path.exists():
+        return
+    draft = json.loads(draft_path.read_text(encoding="utf-8"))
+    draft["relevance_tier"] = tier
+    draft_path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
 def process_discovered_article(
     item: dict[str, Any],
     *,
@@ -67,6 +84,8 @@ def process_discovered_article(
     relevance_threshold: int | None = None,
     dry_run: bool = False,
     always_body_check: bool = False,
+    geo_matchers: "list[tuple[str, Any]] | None" = None,
+    company_matchers: "list[tuple[str, Any]] | None" = None,
 ) -> tuple[OrchestrationResult, dict[str, Any]]:
     """Screen, acquire, and (if relevant) enrich one discovered web_article
     item. Returns (OrchestrationResult, extra_report) -- extra_report carries
@@ -105,7 +124,10 @@ def process_discovered_article(
         # re-deriving the same answer here.
         return orchestrator.process(item_id, dry_run=False), extra
 
-    stage_a = screen_relevance(title=item.get("title") or "", description=item.get("description") or "", **threshold_kwargs)
+    stage_a = screen_relevance(
+        title=item.get("title") or "", description=item.get("description") or "",
+        geo_matchers=geo_matchers, company_matchers=company_matchers, **threshold_kwargs,
+    )
     extra["relevance_screen_stage_a"] = stage_a.as_dict()
     winning_tier = stage_a.tier
     if not stage_a.needs_body_check and not stage_a.relevant:
@@ -158,6 +180,31 @@ def process_discovered_article(
             except MediaOrchestrationError as inner_exc:
                 return _error_result(item_id, state="orchestration_error", message=str(inner_exc)), extra
             result.relevance_tier = winning_tier
+            _persist_relevance_tier(inbox_dir, result.publication_draft_id, winning_tier, dry_run=dry_run)
+            return result, extra
+        if stage_a.query_corroboration and exc.category in _ACCESS_LIMITED_CATEGORIES:
+            # Zero direct berry/CI signal, but a registered geography/company
+            # entity plus a corporate-action term kept Stage A open (see
+            # relevance_screen._query_corroboration_hit) -- the article body
+            # cannot be verified (most commonly a Google News redirect page
+            # with no server-rendered content, not a real HTTP block).
+            # Relevance is genuinely UNCONFIRMED here: query provenance
+            # alone must never justify a DIRECT/ADJACENT claim, so this
+            # creates the same kind of untrusted metadata-only draft as the
+            # TIER_DIRECT fallback above, but explicitly tagged
+            # TIER_UNCERTAIN so it is never presented as confident berry
+            # intelligence -- a human decides, same as every other draft.
+            extra["acquisition_fallback"] = (
+                f"body fetch failed ({exc.category}); Stage A kept this open only on query-provenance + title "
+                f"corroboration ({stage_a.query_corroboration!r}), not confirmed relevance -- an explicitly "
+                "uncertain metadata-only draft was created for human review instead of dropping the item."
+            )
+            try:
+                result = orchestrator.process(item_id, dry_run=dry_run)
+            except MediaOrchestrationError as inner_exc:
+                return _error_result(item_id, state="orchestration_error", message=str(inner_exc)), extra
+            result.relevance_tier = TIER_UNCERTAIN
+            _persist_relevance_tier(inbox_dir, result.publication_draft_id, TIER_UNCERTAIN, dry_run=dry_run)
             return result, extra
         return (
             OrchestrationResult(

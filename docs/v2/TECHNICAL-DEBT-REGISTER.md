@@ -17,7 +17,13 @@ Owner lanes: `platform` · `product` · `data` · `ops`
 
 IDs TD-038 through TD-046 are owned by the qualitative-coverage and Global
 Search missions. The runtime items therefore
-use the next unclaimed IDs; the duplicate draft IDs are not aliases.
+use the next unclaimed IDs; the duplicate draft IDs are not aliases. IDs
+TD-055 through TD-057 in this summary table are Production Collection
+Operations V1's own (fixed-window scheduling, analyst throughput,
+acquisition reliability) -- distinct from the full-entry TD-058 through
+TD-061 below, which are Relevance Screen Boundary V1's (2026-08-23),
+renumbered up from an initial draft TD-055/056/057/058 after a real,
+confirmed collision with these same table rows.
 
 | ID | Area | Finding / resolution | Severity | Status | Regression test |
 |---|---|---|---|---|---|
@@ -797,12 +803,12 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Date discovered** | 2026-08-21 |
 | **Evidence** | Two real, confirmed cases this mission: 'UNIFRUTTI GROUP ACQUIRES BOMAREA AND AVOAMERICA PERU...' (PR Newswire, BM-C-04) and 'Mexican Workers Advance Trafficking Suit Against Michigan Farm' (Bloomberg Law News, BM-R-10) were both real, generically DISCOVERED (present in `inbox/discovered_media/`) but screened `skip` before any body fetch was attempted -- neither the title nor Google News' own (identical, shallow) description field contains a berry species word, even though the underlying real story is berry-relevant (Bomarea/AvoAmerica are real Peru blueberry companies; the Michigan farm is a real blueberry operation). |
 | **Impact** | Discovery reaching an event is necessary but not sufficient for real end-to-end recall -- an unknown number of additional real events in this mission's ~823 still-unprocessed discovered items likely share this same pattern. |
-| **Workaround** | None applied this mission -- the existing `always_body_check` mechanism (built for pre-scoped government-register sources, see `scripts/run_collection.py`) is a real, precedented, narrowly-scoped fix pattern that could extend to company/topic-scoped news_search_rss sources, but doing so touches the recurring-collection pipeline Codex owns; this mission's own scope explicitly excludes collector-infrastructure refactors absent a Codex-identified shared blocker. |
-| **Recommended resolution** | Coordinate with Codex: extend `always_body_check` (or an equivalent per-source flag read generically from `discovery.always_body_check` in `sources.json`) to sources whose own query is already topically pre-scoped (investment/labor-risk/company queries), not just `government_regulatory`-tagged ones. |
-| **Status** | active |
-| **Owner lane** | collection/runtime (Codex) |
-| **PR/SHA when resolved** | — |
-| **Regression-test reference** | none yet |
+| **Workaround** | Resolved for the direct case, partial for the general one -- see below. |
+| **Recommended resolution** | Done, partially: Relevance Screen Boundary V1 (2026-08-23) added query-provenance corroboration (`app/services/relevance_screen.py::_query_corroboration_hit`) -- a Stage A zero-signal title that also names a registered Geography/Company entity plus a corporate-action verb is kept open for Stage B instead of confidently rejected; when the article body is genuinely unverifiable (see TD-059) this now creates an explicitly-labeled `TIER_UNCERTAIN` untrusted draft for human review rather than silently dropping the item. Real, direct proof: BM-C-04 (this debt's own cited Unifrutti/AvoAmerica case) is now `CAPTURED (draft, uncertain)`. The general case remains open (TD-058): a bare press release naming no registered entity is still confidently rejected. |
+| **Status** | partially resolved |
+| **Owner lane** | collection/runtime |
+| **PR/SHA when resolved** | Relevance Screen Boundary V1 (2026-08-23), branch `feature/relevance-screen-boundary-v1` |
+| **Regression-test reference** | `tests/test_relevance_screen.py` (query-corroboration cases), `tests/test_article_refresh.py` (TIER_UNCERTAIN fallback cases) |
 
 ### TD-041 — CFIA (Canada) recall data audited but not integrated
 
@@ -877,12 +883,12 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Date discovered** | 2026-08-22 |
 | **Evidence** | Global Qualitative Coverage Expansion V2 real-tested TD-040's own two cases directly: BM-R-10 (Bloomberg Law Michigan trafficking case) resolved this mission -- a *different* real article about the identical event (MLive's "Lawsuit accusing West Michigan blueberry farm of trafficking workers ends in settlement", which contains the word "blueberry" in its own title) was independently discovered by the same generic query and correctly passed relevance screening. BM-C-04 (Unifrutti/AvoAmerica Peru) did **not** resolve the same way: a real, better-titled alternate article exists ("Unifrutti buys two Peruvian suppliers to boost blueberry and avocado supply", Fruitnet, live-confirmed by hand) but this mission's generic Peru-investment queries do not reliably surface it -- it only appeared when searching for "Unifrutti" by name, which this mission deliberately does not register as a permanent Source per its own no-headline-hardcoding instruction. |
 | **Impact** | TD-040's boundary is real but its actual impact varies per event, not uniform -- some events have a "rescuing" alternate article a generic query can find; others do not. This is not predictable in advance. |
-| **Workaround** | None beyond what TD-040 already states. |
-| **Recommended resolution** | Same as TD-040 -- coordinate with Codex on extending `always_body_check` to topic-scoped sources, which would make relevance screening independent of which specific article a query happens to surface. |
-| **Status** | active |
-| **Owner lane** | collection/runtime (Codex) |
-| **PR/SHA when resolved** | — |
-| **Regression-test reference** | none yet |
+| **Workaround** | Resolved for BM-C-04 specifically, by a different mechanism than the one this entry describes. |
+| **Recommended resolution** | Done, via a different route than alternate-article coverage: Relevance Screen Boundary V1 (2026-08-23) resolved this entry's own still-open BM-C-04 case through query-provenance corroboration (TD-040), not through finding a better alternate article -- the original PR Newswire item itself now reaches an untrusted `TIER_UNCERTAIN` draft. The alternate-article-coverage mechanism this entry describes remains real and still unreliable on its own terms (unchanged), but is no longer the only path to resolving a TD-040 case. |
+| **Status** | resolved (BM-C-04's own case; alternate-article coverage itself remains unreliable as a general mechanism, unchanged) |
+| **Owner lane** | collection/runtime |
+| **PR/SHA when resolved** | Relevance Screen Boundary V1 (2026-08-23), branch `feature/relevance-screen-boundary-v1` |
+| **Regression-test reference** | `tests/test_relevance_screen.py::test_real_unifrutti_headline_is_kept_open_by_geography_plus_action_verb` |
 
 ### TD-046 — Cross-pipeline duplicate rate grows with repeated backlog re-processing at scale (mitigated concurrently by Codex)
 
@@ -899,5 +905,69 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Owner lane** | collection/runtime (Codex) |
 | **PR/SHA when resolved** | `cd107b9` (Codex, concurrent) |
 | **Regression-test reference** | `tests/test_article_dedup.py` (Codex's own additions) |
+
+### TD-058 — Query-provenance corroboration only rescues a metadata-thin item that also names a registered entity
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | discovery / relevance-screen boundary |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | `_query_corroboration_hit()` (`app/services/relevance_screen.py`) requires a registered Geography or Company entity name plus a corporate-action verb in the title. A genuinely bare press-release title with zero recognizable entity name (e.g. a brand-new, not-yet-tracked company, or a place this platform has no Geography entity for) still hits Stage A's plain `score == 0` -> CONFIDENT-irrelevant exit, unchanged. Real measurement against the current `inbox/discovered_media/` backlog: of 309 zero-signal items from `news_search_rss` sources, only 16 (~5%) carried a registered-entity + action-verb corroboration; the rest remain confidently rejected exactly as before this mission. |
+| **Impact** | This mission's fix closes the demonstrated case (BM-C-04) and generalizes to any similarly-shaped event, but does not claim to solve metadata-thin discovery in general -- a real, bounded improvement, not the full boundary. |
+| **Workaround** | Adding a new company/geography to the entity graph (already required for any real competitive-intelligence use of that entity) automatically widens corroboration coverage for future items naming it -- no code change needed per new entity. |
+| **Recommended resolution** | If this remains a real, recurring gap after operator observation, consider widening the action-verb vocabulary (`_CORPORATE_ACTION_RE`) cautiously, one real false-negative case at a time -- never broaden it speculatively, per this project's own no-headline-hardcoding discipline. |
+| **Status** | active (accepted boundary, not a bug) |
+| **Owner lane** | collection/runtime |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_relevance_screen.py::test_action_verb_alone_without_geography_or_company_does_not_corroborate` |
+
+### TD-059 — Google News RSS redirect URLs are not resolvable to a real article body without an undocumented decode step
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | discovery / article acquisition |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Live-tested against the real BM-C-04 canonical_url: `httpx.get(..., follow_redirects=True)` returns HTTP 200 with a ~580KB Google News single-page-application shell (real, server-rendered), but the actual target article URL is resolved only by client-side JavaScript -- no server-rendered link, embedded JSON payload, or `data-*` attribute carrying the real target URL was found in the response body. `article_acquisition.fetch_article()` correctly raises `empty_body` (trafilatura finds no extractable content). Measured: **100% of 309** real zero-signal `news_search_rss` items in the current backlog have a `news.google.com/rss/articles/...` canonical_url; Stage B body verification is therefore structurally unavailable for essentially this entire source class, not just an occasional failure. |
+| **Impact** | Query-provenance corroboration's `TIER_UNCERTAIN` fallback (TD-040) is the only mitigation available for this source class -- items lacking a corroboration hit remain unresolved, not because Stage B rejected them, but because Stage B can never run. Real body-content verification (the strongest, most trustworthy signal) is available only for non-Google-News sources (Federal Register, openFDA, UK FSA, direct publisher `article_rss` feeds). |
+| **Workaround** | None implemented. Community libraries exist that decode Google's redirect payload via an additional request to an undocumented internal Google endpoint -- deliberately not integrated: undocumented, has already changed encoding once (community tooling had to adapt), and sits uncomfortably against this project's own "respect access controls, never build around a wall" discipline even though it is not a paywall in the traditional sense. |
+| **Recommended resolution** | If this becomes a priority, the safer fix is source-level: prefer direct publisher RSS/JSON feeds over Google News search queries wherever a given publisher (AgriMaroc, Fruitnet, FreshPlaza, etc.) already has one, rather than attempting to resolve Google's redirect. Not evaluated this mission -- would be a new source-configuration change, out of this mission's own "no broad source expansion" stop instruction. |
+| **Status** | active |
+| **Owner lane** | collection/runtime |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_article_refresh.py::test_query_corroborated_zero_signal_item_becomes_uncertain_draft_when_body_unverifiable` |
+
+### TD-060 — French blackberry species identity ("mûre"/"mûres") remains unrecognized
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | discovery / relevance-screen boundary / non-English |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Relevance Screen Boundary V1 added French "myrtille(s)"/"fraise(s)"/"framboise(s)" (blueberry/strawberry/raspberry) to `berry_identity`, unlocking 42 of 50 real items from `source-news-search-morocco-berry-fr`. French "mûre"/"mûres" (blackberry) was deliberately excluded -- it is also the ordinary French adjective for "ripe" ("une fraise mûre" = a ripe strawberry), an even higher false-positive collision risk than the already-excluded Italian "more", since it is itself common agricultural vocabulary rather than an unrelated common word. |
+| **Impact** | French-language blackberry-specific discovery stays a real, undemonstrated gap -- symmetric with the platform's existing general blackberry-depth thinness (this project's own repeatedly-documented "blackberry stays shallow" finding). |
+| **Workaround** | None -- the risk of a broad false-positive (matching ordinary ripeness language in any French agriculture article) was judged worse than the gap itself, per this module's own established precedent for Italian "more". |
+| **Recommended resolution** | If real French blackberry discovery becomes a priority, a disambiguating pattern (e.g. requiring "mûre"/"mûres" directly adjacent to a fruit-noun rather than a bare adjective match) could be attempted and tested against a real corpus before adding -- not attempted this mission, since no real French blackberry false-negative was observed in this mission's own bounded testing to justify the added complexity. |
+| **Status** | active (deliberate exclusion, not an oversight) |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_relevance_screen.py::test_french_mure_deliberately_excluded_stays_generic` |
+
+### TD-061 — Two independently-evolved relevance-screening mechanisms coexist
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | architecture |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | `app/services/relevance_screen.py` (two-stage, berry-identity-gated, versioned "relevance-screen-v3", body-aware) and `app/services/relevance_screening.py` (`screen_discovered_item`, single-stage, score-threshold, metadata-only, no body-fetch capability at all) are two real, separately-built modules. Before this mission, `scripts/process_discovered_media.py` and `scripts/run_recent_batch.py` -- the actual documented, real-world operator workflow (`AGENTS.md`'s own "Operating path") -- exclusively used the older `relevance_screening.py` module for `web_article` items; the newer, more carefully anti-false-positive-engineered `relevance_screen.py` module was reachable only via `scripts/run_collection.py` (Codex's recurring pipeline) and `scripts/ingest_articles.py` (a little-used standalone CLI). This mission wired `web_article` items in both real-workflow scripts onto `relevance_screen.py` instead; `relevance_screening.py` remains in use for spoken-media (podcast/video) items in both scripts, where transcript acquisition already serves the "real body" role Stage B plays for articles. |
+| **Impact** | Before this fix, every real `web_article` draft created via the documented operator workflow across this project's entire multi-mission history had zero body-verification and used the cruder, substring-matching, no-word-boundary scorer -- a real, previously-undocumented architectural gap now closed for the article path specifically. |
+| **Workaround** | Not needed going forward for `web_article` items. `relevance_screening.py` remains appropriate for spoken media (no comparable "cheap metadata vs. real body" split exists there; the transcript itself is the eventual real content). |
+| **Recommended resolution** | No further action recommended -- the split is now principled (article vs. spoken-media) rather than accidental (older vs. newer module reachable by different scripts for the same media type). Full consolidation into one module was judged out of this mission's own "do not rewrite runtime orchestration" boundary and not needed now that both paths are used for the media type they suit. |
+| **Status** | monitoring |
+| **Owner lane** | platform |
+| **PR/SHA when resolved** | Relevance Screen Boundary V1 (2026-08-23), branch `feature/relevance-screen-boundary-v1` |
+| **Regression-test reference** | `tests/test_article_refresh.py`, `tests/test_relevance_screen.py` |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

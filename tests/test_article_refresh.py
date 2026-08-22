@@ -6,6 +6,7 @@ items -- one code path, not a duplicate one for each caller.
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 import httpx
@@ -17,6 +18,7 @@ from app.services import article_acquisition, media_discovery
 from app.services.article_refresh import process_discovered_article
 from app.services.media_discovery import discover_source, list_discovered_items
 from app.services.media_orchestration import JsonStagedTranscriptAdapter, MediaOrchestrationService
+from app.services.relevance_screen import TIER_UNCERTAIN
 
 SOURCE_ID = "source-article-refresh-test"
 FEED_URL = "https://feeds.example.invalid/article-refresh-test/rss"
@@ -236,3 +238,100 @@ def test_second_discovery_of_the_same_item_is_idempotent_not_duplicated(tmp_path
     second, extra = process_discovered_article(item, orchestrator=orchestrator, inbox_dir=tmp_path / "inbox")
     assert second.publication_draft_id == first.publication_draft_id
     assert "acquired" not in extra
+
+
+# --- Query-provenance corroboration fallback (Relevance Screen Boundary V1)
+# Real regression shape: TD-040/TD-045's own cited Unifrutti/AvoAmerica Peru
+# case -- zero berry/CI signal in title/description, discovered by a
+# geography+topic-scoped query, and its canonical_url is a Google News
+# redirect page with no server-rendered article body (empty_body). Query
+# provenance alone must never claim confident relevance -- it only reopens
+# Stage B; when the body is genuinely unverifiable, this must produce an
+# explicitly-labeled TIER_UNCERTAIN draft, not a confident DIRECT one and
+# not a silent drop.
+
+_PERU_MATCHER = [("geography-peru", re.compile(r"\bPeru\b", re.IGNORECASE))]
+
+
+def test_query_corroborated_zero_signal_item_becomes_uncertain_draft_when_body_unverifiable(
+    tmp_path, repos, source, monkeypatch
+):
+    item = _discover_one(
+        tmp_path, source, monkeypatch,
+        title="UNIFRUTTI GROUP ACQUIRES BOMAREA AND AVOAMERICA PERU TO FURTHER STRENGTHEN ITS GLOBAL MULTI-FRUIT PLATFORM",
+        link="https://example.invalid/unifrutti-peru",
+        description="UNIFRUTTI GROUP ACQUIRES BOMAREA AND AVOAMERICA PERU TO FURTHER STRENGTHEN ITS GLOBAL MULTI-FRUIT PLATFORM",
+    )
+    # A real Google News redirect page: valid HTML, no extractable article
+    # body -- article_acquisition.py's own empty_body category.
+    monkeypatch.setattr(
+        article_acquisition.httpx, "get",
+        lambda *a, **k: _FakeArticleResponse("<html><body><div>App shell, no article</div></body></html>"),
+    )
+
+    orchestrator = _orchestrator(repos, tmp_path)
+    result, extra = process_discovered_article(
+        item, orchestrator=orchestrator, inbox_dir=tmp_path / "inbox",
+        geo_matchers=_PERU_MATCHER, company_matchers=[],
+    )
+
+    assert result.state == "awaiting_publication_review"
+    assert result.publication_draft_id is not None
+    assert result.relevance_tier == TIER_UNCERTAIN
+    assert "acquisition_fallback" in extra
+
+    import json
+    draft = json.loads((tmp_path / "inbox" / "evidence" / f"{result.publication_draft_id}.json").read_text(encoding="utf-8"))
+    assert draft["relevance_tier"] == TIER_UNCERTAIN
+    assert draft["status"] == "draft"
+    assert draft["review_state"] == "in_review"
+
+
+def test_query_corroborated_item_still_lets_stage_b_decide_when_body_is_fetchable(
+    tmp_path, repos, source, monkeypatch
+):
+    """When the body IS fetchable, query provenance never short-circuits
+    Stage B -- real body content remains the sole arbiter, exactly as for
+    any other borderline item."""
+    item = _discover_one(
+        tmp_path, source, monkeypatch,
+        title="UNIFRUTTI GROUP ACQUIRES BOMAREA AND AVOAMERICA PERU TO FURTHER STRENGTHEN ITS GLOBAL MULTI-FRUIT PLATFORM",
+        link="https://example.invalid/unifrutti-peru-2",
+        description="UNIFRUTTI GROUP ACQUIRES BOMAREA AND AVOAMERICA PERU TO FURTHER STRENGTHEN ITS GLOBAL MULTI-FRUIT PLATFORM",
+    )
+    monkeypatch.setattr(article_acquisition.httpx, "get", lambda *a, **k: _FakeArticleResponse(_RELEVANT_HTML))
+
+    orchestrator = _orchestrator(repos, tmp_path)
+    result, extra = process_discovered_article(
+        item, orchestrator=orchestrator, inbox_dir=tmp_path / "inbox",
+        geo_matchers=_PERU_MATCHER, company_matchers=[],
+    )
+
+    assert result.state == "awaiting_publication_review"
+    assert extra["relevance_screen_stage_b"]["relevant"] is True
+
+    import json
+    draft = json.loads((tmp_path / "inbox" / "evidence" / f"{result.publication_draft_id}.json").read_text(encoding="utf-8"))
+    assert draft["relevance_tier"] == "direct"  # Stage B's real body content decided this, not query provenance
+
+
+def test_query_corroboration_does_not_apply_without_matchers_passed(tmp_path, repos, source, monkeypatch):
+    """No regression for existing callers that don't pass matchers at all
+    (e.g. any test or script not yet updated) -- exact prior behavior."""
+    item = _discover_one(
+        tmp_path, source, monkeypatch,
+        title="UNIFRUTTI GROUP ACQUIRES BOMAREA AND AVOAMERICA PERU TO FURTHER STRENGTHEN ITS GLOBAL MULTI-FRUIT PLATFORM",
+        link="https://example.invalid/unifrutti-peru-3",
+        description="UNIFRUTTI GROUP ACQUIRES BOMAREA AND AVOAMERICA PERU TO FURTHER STRENGTHEN ITS GLOBAL MULTI-FRUIT PLATFORM",
+    )
+
+    def _explode(*_args, **_kwargs):
+        raise AssertionError("must not acquire the body without corroboration matchers")
+
+    monkeypatch.setattr(article_acquisition.httpx, "get", _explode)
+
+    orchestrator = _orchestrator(repos, tmp_path)
+    result, extra = process_discovered_article(item, orchestrator=orchestrator, inbox_dir=tmp_path / "inbox")
+
+    assert result.state == "skipped_irrelevant"
+    assert result.publication_draft_id is None

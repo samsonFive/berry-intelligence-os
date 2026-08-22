@@ -53,6 +53,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import re
+from typing import Any
 
 
 @dataclass(frozen=True)
@@ -92,6 +93,26 @@ CATEGORIES: tuple[_RelevanceCategory, ...] = (
             "arándano", "arándanos", "arandano", "arandanos", "mirtillo", "mirtilli",
             "frambuesa", "frambuesas", "lampone", "lamponi",
             "mora", "moras",
+            # French species names -- Relevance Screen Boundary V1
+            # (2026-08-23) real-tested a dedicated French-language Morocco
+            # source (source-news-search-morocco-berry-fr, added in an
+            # earlier mission) directly against this screen for the first
+            # time and found 45 of its 50 real discovered items scored 0
+            # and were confidently rejected: "myrtille(s)" (blueberry),
+            # "fraise(s)" (strawberry), and "framboise(s)" (raspberry) were
+            # simply never added when the source was onboarded -- the
+            # earlier mission verified DISCOVERY reached real French press
+            # (AgriMaroc, Le360, Bladi.net) but never verified the
+            # RELEVANCE SCREEN itself recognized French vocabulary. 42 of
+            # those 50 items contain one of these three words directly.
+            "myrtille", "myrtilles", "fraise", "fraises", "framboise", "framboises",
+            # French "mûre"/"mûres" (blackberry) deliberately excluded, same
+            # reasoning as Italian "more" below: "mûre" is also the ordinary
+            # French adjective for "ripe" ("une fraise mûre" = a ripe
+            # strawberry), an even higher collision risk than "more" since
+            # it is itself common agricultural vocabulary, not just a
+            # generic English word. French blackberry-species identity
+            # remains a real, undemonstrated gap -- see TD register.
             # Italian "more" (blackberries, plural) deliberately excluded --
             # it collides with the extremely common English word "more"
             # even under word-boundary matching (_word_present), which
@@ -116,7 +137,19 @@ CATEGORIES: tuple[_RelevanceCategory, ...] = (
     # 8-item fruit list with zero actual berry-specific content anywhere
     # in the article. It still contributes to the score and can combine
     # with other signal, but only a *named* berry is confident identity.
-    _RelevanceCategory("generic_berry_mention", 1, ("berry", "berries")),
+    _RelevanceCategory(
+        "generic_berry_mention", 1,
+        (
+            "berry", "berries",
+            # French collective term for red berries (strawberry/raspberry/
+            # redcurrant, etc.) with no single named species -- same
+            # deliberate non-auto-trigger treatment as English "berry"/
+            # "berries" above, found covering 8 of the 50 real French
+            # Morocco items that name no specific species (Relevance
+            # Screen Boundary V1, 2026-08-23).
+            "fruits rouges",
+        ),
+    ),
     _RelevanceCategory(
         "commercial_volume_geography", 2,
         ("acreage", "hectare", "hectares", "yield", "season", "harvest", "export", "import",
@@ -152,6 +185,16 @@ BORDERLINE = "borderline"
 TIER_DIRECT = "direct"
 TIER_ADJACENT = "adjacent"
 TIER_IRRELEVANT = "irrelevant"
+# A Stage A zero-signal metadata screen that was nonetheless kept open for
+# Stage B purely on query-provenance + title corroboration (see
+# _query_corroboration_hit below), and whose article body could not be
+# verified (access-limited, e.g. a Google News redirect page with no
+# server-rendered content). Distinct from TIER_DIRECT/TIER_ADJACENT, both of
+# which mean the article body (or metadata) itself confirmed relevance.
+# TIER_UNCERTAIN means relevance is *unconfirmed* -- the draft stays
+# untrusted like every other draft and is explicitly labeled uncertain for
+# human review, never presented as high-confidence berry intelligence.
+TIER_UNCERTAIN = "uncertain"
 
 # Not scored toward CATEGORIES -- used only to decide whether a
 # single-paragraph, non-recurring berry mention is worth retaining as an
@@ -177,6 +220,72 @@ def _adjacent_topic_hit(text: str) -> str | None:
     return None
 
 
+# Corporate-action vocabulary for query-provenance corroboration (see
+# _query_corroboration_hit). Deliberately narrow -- the same class of terms
+# this project's own news_search_rss query patterns are already built from
+# (acquisition/investment/expansion/partnership), not a general keyword net.
+_CORPORATE_ACTION_RE = re.compile(
+    r"\b(acquir\w*|invest\w*|expand\w*|launch\w*|partner\w*|merger|merges|buys|bought|stake|acquisition)\b",
+    re.IGNORECASE,
+)
+
+
+# Continent/region-level Geography entities (as opposed to countries) are
+# too unspecific to corroborate anything -- almost any global corporate
+# acquisition mentions "Europe" or "North America" somewhere. Excluded by
+# id, the same documented-exclusion discipline as Italian "more"/French
+# "mûre" above, rather than silently matching and flooding review with
+# generic global-business items that happen to share zero connection to
+# berries.
+_CONTINENT_GEOGRAPHY_IDS = frozenset({"geography-europe", "geography-north-america"})
+
+
+def geography_corroboration_matchers(entities: list[dict[str, Any]]) -> "list[tuple[str, re.Pattern[str]]]":
+    """Country-level Geography entity matchers for _query_corroboration_hit,
+    built with app/services/deterministic_tagging.py's own canonical
+    matcher (no second alias system) and narrowed to exclude
+    continent/region-level entities. Centralized here so every caller
+    (scripts/run_collection.py, scripts/ingest_articles.py,
+    scripts/process_discovered_media.py) applies the identical rule."""
+    from app.services.deterministic_tagging import matchers_from_entities
+
+    return [
+        (entity_id, pattern)
+        for entity_id, pattern in matchers_from_entities(entities, "geography")
+        if entity_id not in _CONTINENT_GEOGRAPHY_IDS
+    ]
+
+
+def _query_corroboration_hit(
+    original_case_text: str,
+    *,
+    geo_matchers: "list[tuple[str, re.Pattern[str]]] | None" = None,
+    company_matchers: "list[tuple[str, re.Pattern[str]]] | None" = None,
+) -> str | None:
+    """A Stage A zero-signal title/description can still carry real,
+    inspectable evidence: a *registered* Geography or Company entity name
+    (the same canonical identity matchers app/services/deterministic_tagging.py
+    already uses -- no second alias system) named alongside a corporate-action
+    verb. This is real corroboration a human reviewer can independently
+    verify, not query-provenance alone: 'query: "Peru blueberry investment" /
+    article: "Company announces $40m expansion in Ica"' (this module's own
+    docstring precedent) is exactly the shape this catches -- neither
+    "Peru" nor "expansion" alone would fire this; both together do.
+
+    Deliberately does NOT decide relevance -- callers use a hit only to keep
+    Stage B open (real article-body verification, or an explicitly-labeled
+    TIER_UNCERTAIN fallback when the body cannot be fetched) rather than
+    confidently rejecting a zero-signal item outright. Returns the first
+    matched entity id, or None."""
+    if not original_case_text or not _CORPORATE_ACTION_RE.search(original_case_text):
+        return None
+    for matchers in (geo_matchers, company_matchers):
+        for entity_id, pattern in matchers or ():
+            if pattern.search(original_case_text):
+                return entity_id
+    return None
+
+
 @dataclass(frozen=True)
 class RelevanceScreen:
     score: int
@@ -187,7 +296,8 @@ class RelevanceScreen:
     reason: str
     likely_topics: tuple[str, ...]
     matched_terms: tuple[str, ...]
-    tier: str | None = None  # "direct" | "adjacent" | "irrelevant" | None (Stage A borderline, pending Stage B)
+    tier: str | None = None  # "direct" | "adjacent" | "irrelevant" | "uncertain" | None (Stage A borderline, pending Stage B)
+    query_corroboration: str | None = None  # entity id, only set when a zero-signal Stage A was kept open by _query_corroboration_hit
     version: str = RELEVANCE_SCREEN_VERSION
 
     @property
@@ -209,6 +319,7 @@ class RelevanceScreen:
             "likely_topics": list(self.likely_topics),
             "matched_terms": list(self.matched_terms),
             "tier": self.tier,
+            "query_corroboration": self.query_corroboration,
             "version": self.version,
         }
 
@@ -257,11 +368,21 @@ def screen_relevance(
     description: str,
     body: str | None = None,
     threshold: int = DEFAULT_THRESHOLD,
+    geo_matchers: "list[tuple[str, re.Pattern[str]]] | None" = None,
+    company_matchers: "list[tuple[str, re.Pattern[str]]] | None" = None,
 ) -> RelevanceScreen:
     """Stage A when `body` is None (title + description only); Stage B
     when `body` is given (full text including the real article body).
     See this module's docstring for the two-stage design and why berry
-    identity is the gate rather than an aggregate score threshold."""
+    identity is the gate rather than an aggregate score threshold.
+
+    `geo_matchers`/`company_matchers` (Stage A only): optional canonical
+    entity-identity matchers (app/services/deterministic_tagging.py's
+    matchers_from_entities) used only to decide whether a genuine
+    zero-signal metadata screen should still be kept open for Stage B via
+    _query_corroboration_hit -- see that function's docstring. Omitting
+    them preserves the exact prior score==0 -> CONFIDENT-irrelevant
+    behavior."""
 
     original_metadata_text = f"{title or ''} {description or ''}"
     metadata_text = original_metadata_text.casefold()
@@ -286,6 +407,23 @@ def screen_relevance(
                 tier=TIER_DIRECT,
             )
         if score == 0:
+            corroboration = _query_corroboration_hit(
+                original_metadata_text, geo_matchers=geo_matchers, company_matchers=company_matchers
+            )
+            if corroboration:
+                return RelevanceScreen(
+                    score=0, threshold=threshold, relevant=False, confidence=BORDERLINE,
+                    berry_identity_hit=False,
+                    reason=(
+                        "No berry/CI keyword signal in title or description, but a registered "
+                        f"geography/company entity ({corroboration!r}) appears alongside a corporate-action "
+                        "term (acquisition/investment/expansion/etc.) -- kept open for a real article-body "
+                        "check rather than confidently rejected; query provenance alone does not confirm "
+                        "relevance."
+                    ),
+                    likely_topics=(), matched_terms=(),
+                    tier=None, query_corroboration=corroboration,
+                )
             return RelevanceScreen(
                 score=0, threshold=threshold, relevant=False, confidence=CONFIDENT,
                 berry_identity_hit=False,

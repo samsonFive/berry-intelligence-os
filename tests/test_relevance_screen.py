@@ -7,7 +7,13 @@ positives motivating this redesign -- not synthetic examples.
 
 from __future__ import annotations
 
-from app.services.relevance_screen import DEFAULT_THRESHOLD, screen_relevance
+import re
+
+from app.services.relevance_screen import (
+    DEFAULT_THRESHOLD,
+    geography_corroboration_matchers,
+    screen_relevance,
+)
 
 
 def test_direct_berry_mention_in_title_is_confidently_relevant_at_stage_a():
@@ -201,3 +207,146 @@ def test_as_dict_is_json_serializable_shape():
     assert payload["relevant"] is True
     assert payload["confidence"] == "confident"
     assert "berry_identity_hit" in payload
+    assert "query_corroboration" in payload
+
+
+# --- French species vocabulary (Relevance Screen Boundary V1) --------------
+# Real regression: a dedicated French-language Morocco source
+# (source-news-search-morocco-berry-fr) had zero French berry vocabulary in
+# this screen -- 45 of its 50 real discovered items scored 0 and were
+# confidently rejected despite genuinely covering Moroccan blueberry/
+# strawberry/raspberry trade news (AgriMaroc, Le360, Bladi.net).
+
+def test_french_blueberry_term_is_confidently_relevant():
+    result = screen_relevance(
+        title="Le Maroc, nouveau leader des myrtilles sur le marché britannique",
+        description="",
+    )
+    assert result.relevant is True
+    assert result.confidence == "confident"
+
+
+def test_french_strawberry_and_raspberry_terms_are_confidently_relevant():
+    assert screen_relevance(title="Fraises contaminées : les résultats de l'enquête", description="").relevant is True
+    assert screen_relevance(title="Framboises surgelées : record d'exportation", description="").relevant is True
+
+
+def test_french_mure_deliberately_excluded_stays_generic():
+    """French 'mûre'/'mûres' (blackberry) is deliberately NOT a
+    berry_identity term -- it collides with the ordinary adjective 'ripe'
+    ('une fraise mûre'), the same collision-risk precedent as excluding
+    Italian 'more'. A bare, unrelated use must not auto-trigger relevance."""
+    result = screen_relevance(title="Une récolte mûre pour l'exportation", description="")
+    assert "berry_identity" not in result.likely_topics
+
+
+def test_fruits_rouges_is_generic_not_auto_triggering():
+    """French collective 'fruits rouges' (red berries, no named species)
+    mirrors English 'berry'/'berries': contributes score but is not
+    confident identity on its own."""
+    result = screen_relevance(
+        title="Exportations des fruits rouges : chiffres en demi-teinte", description="",
+    )
+    assert result.berry_identity_hit is False
+    assert result.needs_body_check is True
+
+
+# --- Query-provenance corroboration (Relevance Screen Boundary V1) ---------
+# Real regression: 'UNIFRUTTI GROUP ACQUIRES BOMAREA AND AVOAMERICA PERU...'
+# (PR Newswire, TD-040/TD-045's own cited case) scores 0 -- no berry/CI
+# keyword anywhere -- and was confidently, permanently rejected before this
+# fix even though the discovering source's own query was "Peru blueberry
+# acquisition OR investment OR expands". Query provenance alone must never
+# prove relevance (this module's own docstring, mission Section 6) -- these
+# tests check the corroboration mechanism only ever *reopens* Stage B, never
+# grants confident relevance by itself.
+
+def _matcher(entity_id: str, name: str) -> tuple[str, "re.Pattern[str]"]:
+    return (entity_id, re.compile(r"\b" + re.escape(name) + r"\b", re.IGNORECASE))
+
+
+PERU = [_matcher("geography-peru", "Peru")]
+COSTA = [_matcher("company-costa-group-holdings", "Costa Group")]
+
+
+def test_zero_signal_title_without_matchers_is_unchanged_confident_irrelevant():
+    """Omitting geo_matchers/company_matchers preserves the exact prior
+    behavior -- no regression for any caller that doesn't opt in."""
+    result = screen_relevance(
+        title="UNIFRUTTI GROUP ACQUIRES BOMAREA AND AVOAMERICA PERU TO FURTHER STRENGTHEN ITS GLOBAL MULTI-FRUIT PLATFORM",
+        description="",
+    )
+    assert result.confidence == "confident"
+    assert result.relevant is False
+    assert result.query_corroboration is None
+
+
+def test_real_unifrutti_headline_is_kept_open_by_geography_plus_action_verb():
+    result = screen_relevance(
+        title="UNIFRUTTI GROUP ACQUIRES BOMAREA AND AVOAMERICA PERU TO FURTHER STRENGTHEN ITS GLOBAL MULTI-FRUIT PLATFORM",
+        description="",
+        geo_matchers=PERU, company_matchers=[],
+    )
+    assert result.confidence == "borderline"
+    assert result.needs_body_check is True
+    assert result.relevant is False  # never granted relevance directly -- Stage B still decides
+    assert result.query_corroboration == "geography-peru"
+
+
+def test_real_costa_group_headline_is_kept_open_by_company_plus_action_verb():
+    result = screen_relevance(
+        title="Driscoll's strikes deal to acquire Australia's Costa Group",
+        description="",
+        geo_matchers=[], company_matchers=COSTA,
+    )
+    assert result.needs_body_check is True
+    assert result.query_corroboration == "company-costa-group-holdings"
+
+
+def test_geography_alone_without_action_verb_does_not_corroborate():
+    """A registered geography name alone, with no corporate-action term, is
+    not enough -- must stay the ordinary zero-signal confident-irrelevant
+    result rather than flooding review with every Peru-mentioning headline."""
+    result = screen_relevance(
+        title="Peru celebrates national holiday with parade", description="",
+        geo_matchers=PERU, company_matchers=[],
+    )
+    assert result.confidence == "confident"
+    assert result.query_corroboration is None
+
+
+def test_action_verb_alone_without_geography_or_company_does_not_corroborate():
+    result = screen_relevance(
+        title="Local business announces major expansion plans", description="",
+        geo_matchers=PERU, company_matchers=COSTA,
+    )
+    assert result.confidence == "confident"
+    assert result.query_corroboration is None
+
+
+def test_continent_level_geography_excluded_from_corroboration_matchers():
+    """geography_corroboration_matchers deliberately excludes continent-
+    level entities (Europe, North America) -- too broad, would corroborate
+    almost any global corporate-action headline regardless of berry
+    relevance. Real regression: 'Plastic Ingenuity makes first acquisition
+    in Europe' (a packaging company, zero berry connection)."""
+    entities = [
+        {"id": "geography-europe", "entity_type": "geography", "name": "Europe"},
+        {"id": "geography-peru", "entity_type": "geography", "name": "Peru"},
+    ]
+    matchers = geography_corroboration_matchers(entities)
+    ids = {entity_id for entity_id, _ in matchers}
+    assert ids == {"geography-peru"}
+
+
+def test_score_greater_than_zero_borderline_is_unaffected_by_corroboration_matchers():
+    """The existing generic-agriculture-signal borderline path (score > 0)
+    is untouched by this change -- corroboration only ever applies to the
+    true zero-signal case."""
+    result = screen_relevance(
+        title="Peru grower announces major expansion", description="Production update.",
+        geo_matchers=PERU, company_matchers=[],
+    )
+    assert result.score > 0
+    assert result.needs_body_check is True
+    assert result.query_corroboration is None  # this path was already borderline on its own signal
