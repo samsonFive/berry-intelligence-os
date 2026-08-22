@@ -8,6 +8,7 @@ import re
 import secrets
 import shutil
 import sys
+import time
 from collections import Counter, defaultdict
 from contextlib import asynccontextmanager
 from copy import deepcopy
@@ -117,6 +118,12 @@ from app.services.variety_workspace import (
     present_observation_workspace,
     present_variety_detail,
     present_variety_index,
+)
+from app.services.global_search import (
+    GROUP_CAP_DEFAULT,
+    SearchPools,
+    build_search_documents,
+    search_global,
 )
 from app.services.signal_candidates import SignalCandidateError, load_candidates
 from app.services.signal_review import (
@@ -346,6 +353,7 @@ def _assemble_morning_brief(
 
 
 _NAV_WORK_CACHE: dict[str, Any] = {"key": None, "value": None}
+_SEARCH_DOC_CACHE: dict[str, Any] = {"key": None, "docs": None}
 COMPANY_BERRY_ORDER = ("berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry")
 COMPANY_WHAT_CHANGED_DAYS = 30
 
@@ -368,6 +376,19 @@ def _json_folder_sig(folder: Path) -> tuple[tuple[str, int, int], ...]:
         except OSError:
             continue
         rows.append((path.name, int(st.st_mtime_ns), int(st.st_size)))
+    return tuple(sorted(rows))
+
+
+def _json_tree_sig(folder: Path) -> tuple[tuple[str, int, int], ...]:
+    if not folder.is_dir():
+        return ()
+    rows: list[tuple[str, int, int]] = []
+    for path in folder.rglob("*.json"):
+        try:
+            st = path.stat()
+        except OSError:
+            continue
+        rows.append((str(path.relative_to(folder)), int(st.st_mtime_ns), int(st.st_size)))
     return tuple(sorted(rows))
 
 
@@ -4907,3 +4928,122 @@ def api_search(q: str = "") -> dict[str, Any]:
         )
     ]
     return {"evidence": evidence_matches, "entities": entity_matches}
+
+
+def _search_index_key(*, include_private: bool) -> tuple[Any, ...]:
+    parts: list[Any] = [
+        include_private,
+        _json_folder_sig(DATA_DIR / "evidence"),
+        _json_folder_sig(DATA_DIR / "signals"),
+        _json_folder_sig(DATA_DIR / "assessments"),
+        _path_sig(DATA_DIR / "configuration" / "sources.json"),
+        _json_tree_sig(DATA_DIR / "entities"),
+        _json_tree_sig(DATA_DIR / "relationships"),
+    ]
+    if include_private:
+        parts.extend(
+            [
+                _json_folder_sig(INBOX_DIR / "evidence"),
+                _json_folder_sig(INBOX_DIR / "signal_candidates"),
+            ]
+        )
+    return tuple(parts)
+
+
+def _search_pools(*, include_private: bool) -> SearchPools:
+    return SearchPools(
+        entities=all_entities(),
+        relationships=all_relationships(),
+        published_evidence=published_evidence(),
+        sources=load_sources(),
+        signals=all_signals(),
+        assessments=all_assessments(),
+        pending_drafts=list_pending_drafts() if include_private else [],
+        signal_candidates=load_candidates(INBOX_DIR) if include_private else [],
+    )
+
+
+def _cached_search_documents(*, include_private: bool):
+    key = _search_index_key(include_private=include_private)
+    if _SEARCH_DOC_CACHE["key"] != key or _SEARCH_DOC_CACHE["docs"] is None:
+        _SEARCH_DOC_CACHE["key"] = key
+        _SEARCH_DOC_CACHE["docs"] = build_search_documents(
+            _search_pools(include_private=include_private),
+            include_private=include_private,
+        )
+    return _SEARCH_DOC_CACHE["docs"]
+
+
+def run_global_search(
+    query: str,
+    *,
+    berry: str = "global",
+    include_private: bool = False,
+    include_global: bool = True,
+    limit_per_group: int = GROUP_CAP_DEFAULT,
+) -> dict[str, Any]:
+    started = time.perf_counter()
+    payload = search_global(
+        query,
+        _search_pools(include_private=include_private),
+        berry=berry,
+        include_private=include_private,
+        include_global=include_global,
+        limit_per_group=limit_per_group,
+        documents=_cached_search_documents(include_private=include_private),
+    )
+    payload["elapsed_ms"] = round((time.perf_counter() - started) * 1000, 2)
+    return payload
+
+
+@app.get("/search", response_class=HTMLResponse)
+def global_search_page(
+    request: Request,
+    q: str = "",
+    berry: str | None = None,
+    include_global: str | None = None,
+) -> HTMLResponse:
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    berry_id = parse_berry(berry or ui.get("berry"), BERRIES)
+    broaden = str(include_global or "1").strip() not in {"0", "false", "no"}
+    results = run_global_search(
+        q,
+        berry=berry_id,
+        include_private=True,
+        include_global=broaden,
+        limit_per_group=25,
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="search.html",
+        context={
+            "search_query": q,
+            "search_results": results,
+            "search_berry": berry_id,
+            "search_include_global": broaden,
+            "authoring_mode": AUTHORING_MODE,
+        },
+    )
+
+
+@app.get("/api/search/global")
+def api_global_search(
+    request: Request,
+    q: str = "",
+    berry: str = "",
+    include_global: str = "1",
+    include_private: str = "1",
+    limit: int = GROUP_CAP_DEFAULT,
+) -> dict[str, Any]:
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    berry_id = parse_berry(berry or ui.get("berry"), BERRIES)
+    private = str(include_private).strip() not in {"0", "false", "no"}
+    broaden = str(include_global).strip() not in {"0", "false", "no"}
+    cap = max(1, min(int(limit or GROUP_CAP_DEFAULT), 25))
+    return run_global_search(
+        q,
+        berry=berry_id,
+        include_private=private,
+        include_global=broaden,
+        limit_per_group=cap,
+    )

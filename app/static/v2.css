@@ -647,6 +647,57 @@
 .v2-health-actions .v2-btn, .v2-health-actions button { opacity: 1; pointer-events: auto; }
 .v2-recall-note { max-width: 52rem; }
 
+.v2-search-offcanvas { --bs-offcanvas-height: min(92vh, 860px); background: #f6f8fb; color: var(--v2-text); }
+.v2-search-offcanvas .offcanvas-title { font-size: 1.05rem; }
+.v2-search-form { margin: 0 0 12px; }
+.v2-search-form input[type="search"] {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 1.05rem;
+  border: 1px solid #c9d4e5;
+  border-radius: var(--v2-radius-sm);
+  background: #fff;
+}
+.v2-search-hint { color: var(--v2-text-muted); font-size: 12px; margin: 8px 0 0; }
+.v2-search-hint kbd { font-size: 11px; background: #eef2f8; padding: 1px 5px; border-radius: 4px; }
+.v2-search-status { margin: 0 0 12px; color: var(--v2-text-muted); }
+.v2-search-results { display: grid; gap: 18px; }
+.v2-search-group h2 { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--v2-text-muted); margin: 0 0 8px; }
+.v2-search-global-label { font-size: 0.75rem; color: var(--v2-text-muted); margin: 10px 0 6px; font-weight: 600; }
+.v2-search-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.v2-search-list a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "title state" "alias alias" "sub sub";
+  gap: 2px 12px;
+  padding: 10px 12px;
+  border-radius: var(--v2-radius-sm);
+  background: #fff;
+  border: 1px solid #e4ebf5;
+  text-decoration: none;
+  color: inherit;
+}
+.v2-search-list a.is-current, .v2-search-list a:hover { border-color: #8aa4c8; background: #eef4ff; }
+.v2-search-title { grid-area: title; font-weight: 650; }
+.v2-search-state {
+  grid-area: state;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 700;
+  align-self: start;
+}
+.v2-search-state-trusted { color: var(--v2-trusted); }
+.v2-search-state-pending { color: var(--v2-warning); }
+.v2-search-state-story { color: #6b5b95; }
+.v2-search-state-emerging_signal { color: var(--v2-warning); }
+.v2-search-state-confirmed_signal { color: var(--v2-assessment); }
+.v2-search-state-assessment { color: var(--v2-assessment); }
+.v2-search-alias, .v2-search-sub { grid-area: alias; font-size: 12px; color: var(--v2-text-muted); }
+.v2-search-sub { grid-area: sub; }
+.v2-search-page-form { align-items: end; }
+.v2-search-page-results { display: grid; gap: 22px; }
+
 @media (max-width: 1099px) {
   .v2-app { grid-template-columns: 1fr; }
   .v2-app--sidebar-collapsed { grid-template-columns: 1fr; }
@@ -656,6 +707,9 @@
 
 @media (max-width: 767px) {
   .v2-reader-offcanvas { --bs-offcanvas-width: 100vw; }
+  .v2-search-offcanvas { --bs-offcanvas-height: 100vh; }
+  .v2-search-form input[type="search"] { font-size: 1.15rem; padding: 16px; }
+  .v2-search-list a { grid-template-columns: 1fr; grid-template-areas: "state" "title" "alias" "sub"; }
   .v2-feed-grid .v2-card-actions,
   .v2-reading-list .v2-card-actions,
   .v2-watch-actions,
