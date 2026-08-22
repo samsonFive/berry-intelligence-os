@@ -25,6 +25,8 @@ from app.services.collection_status import CollectionStatusService
 from app.services.extraction_evaluation import public_configuration
 from app.services.model_qualification import file_sha256, qualification_configuration_fingerprint
 from app.services.pipeline_health import build_pipeline_health
+from app.services.analyst_queue import load_state as load_analyst_queue_state
+from app.services.review_capacity import build_review_capacity_report, load_json_objects
 
 
 def _enabled(name: str) -> bool:
@@ -147,6 +149,9 @@ def _human(report: dict) -> str:
         f"  transcript ready: {counts.get('transcript_ready', 0)}",
         f"  enrichment ready: {counts.get('enrichment_ready', 0)}",
         f"  publication review: {counts['human_publication_review_required']}",
+        f"  review pressure: {report.get('review_capacity', {}).get('backlog_level', 'unknown')}",
+        f"  median / oldest queue age: {report.get('review_capacity', {}).get('median_queue_age_days', 'n/a')} / {report.get('review_capacity', {}).get('oldest_queue_age_days', 'n/a')} days",
+        f"  simulated deferral if critical: {report.get('review_capacity', {}).get('simulated_would_defer', 'n/a')} (automatic throttling OFF)",
         f"  backlog / drafts created last run: {report.get('review_backlog', {}).get('backlog_to_last_run_created_ratio') or 'n/a'}",
         f"  trusted publications: {counts.get('trusted_publication', 0)}",
         f"  extraction ready: {counts['extraction_ready']}",
@@ -225,6 +230,34 @@ def main(argv: list[str] | None = None) -> int:
             inbox_dir=args.inbox_dir,
             config_path=pipeline_config,
         ))
+        capacity = build_review_capacity_report(
+            drafts=load_json_objects(args.inbox_dir / "evidence"),
+            sources=repositories.sources.list(),
+            entities=repositories.entities.list(),
+            trusted=repositories.evidence.list(),
+            run_records=[
+                *load_json_objects(args.inbox_dir / "operations" / "runs"),
+                *load_json_objects(args.inbox_dir / "operations" / "pipelines", recursive=True),
+            ],
+            analyst_state=load_analyst_queue_state(args.inbox_dir),
+        )
+        derived = capacity["derived_operational_metrics"]
+        simulation = capacity["simulated_policy_effect"]
+        report["review_capacity"] = {
+            "backlog_level": derived["backlog_level"],
+            "thresholds": capacity["policy"]["thresholds"],
+            "median_queue_age_days": derived["median_queue_age_days"],
+            "oldest_queue_age_days": (derived["oldest_open_item"] or {}).get("queue_age_days"),
+            "new_since_last_run": derived["new_since_last_run"],
+            "net_backlog_growth": derived["arrival"]["net_backlog_growth_from_first_snapshot"],
+            "simulated_would_defer": simulation["would_defer"],
+            "automatic_throttling_enabled": False,
+            "rates_measurable": capacity["observed_review_events"]["rates_measurable"],
+            "warning": (
+                None if derived["backlog_level"] == "normal"
+                else f"{derived['backlog_level']} review pressure; simulation only, no automatic deferral"
+            ),
+        }
         backup_dir = args.backup_dir or env_path("BIOS_BACKUP_DIR")
         report["backup"] = backup_health(backup_dir) if backup_dir else {
             "state": "UNCONFIGURED",

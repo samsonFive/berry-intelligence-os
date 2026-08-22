@@ -156,3 +156,10 @@ on-host recovery boundary. The active operational constraint is analyst review
 capacity (TD-056); off-host backup replication remains resilience debt
 (TD-051). Trade/weather need rolling-window configuration before they should
 be made unattended (TD-055), not a blind timer.
+
+Review Capacity + Collection Backpressure V1 subsequently added read-only
+backlog economics, age/pressure warnings, and a deterministic critical-policy
+simulation (`scripts/review_capacity.py`). Automatic throttling remains off:
+production does not yet have enough recorded review events to calculate honest
+analyst throughput or Source yield. See
+`docs/v2/REVIEW-CAPACITY-COLLECTION-BACKPRESSURE-V1.md` and TD-064.
