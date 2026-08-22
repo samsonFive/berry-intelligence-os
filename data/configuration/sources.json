@@ -4689,5 +4689,96 @@
     "created_at": "2026-08-23",
     "last_checked_at": null,
     "last_status": null
+  },
+  {
+    "id": "source-news-search-caneberry-global",
+    "type": "reference",
+    "label": "Google News search: global caneberry (raspberry/blackberry) breeding, variety, acquisition",
+    "value": "https://news.google.com/rss/search?q=caneberry%20OR%20%28raspberry%20OR%20blackberry%29%20breeding%20OR%20variety%20OR%20acquisition%20OR%20licensing&hl=en-US&gl=US&ceid=US:en",
+    "url": "https://news.google.com/",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=caneberry%20OR%20%28raspberry%20OR%20blackberry%29%20breeding%20OR%20variety%20OR%20acquisition%20OR%20licensing&hl=en-US&gl=US&ceid=US:en",
+      "feed_url_verified_at": "2026-08-22",
+      "notes": "Blackberry/Raspberry Vertical V1 (2026-08-22). Live-verified: a bare \"caneberry\" query returned 13/13 real, on-topic trade-press results (OSU/NC State/UC Extension, Fruit Growers News caneberry pricing survey) with zero noise -- \"caneberry\" is a real, high-precision US trade-press term for raspberry+blackberry collectively, absent everywhere in the platform vocabulary until this mission. Query widened with explicit raspberry/blackberry + event-concept terms (breeding/variety/acquisition/licensing) to also catch company/breeder/university caneberry news not tied to any single country query -- this is exactly the class this mission found existing per-country sources structurally miss (Fall Creek adding raspberries+acquiring Berryplant/Berrytech, NC State Gina Fernandez blackberry release, G-Berries debut raspberry variety), since none of those stories name a country in the headline."
+    },
+    "why_it_matters": "Regional Live Recall Set V1 found raspberry at 0% and blackberry at 4% of live regional events -- the lowest measured berry coverage on the platform. Existing sources are structured as blueberry-led country/geography queries; global caneberry company/breeder news (not tied to one country) had no reusable discovery mechanism at all before this mission.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-raspberry",
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "daily",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-22",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-news-search-mexico-zarzamora",
+    "type": "reference",
+    "label": "Google News search (Spanish, Mexico): zarzamora (blackberry)",
+    "value": "https://news.google.com/rss/search?q=zarzamora&hl=es-419&gl=MX&ceid=MX:es",
+    "url": "https://news.google.com/",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=zarzamora&hl=es-419&gl=MX&ceid=MX:es",
+      "feed_url_verified_at": "2026-08-22",
+      "notes": "Blackberry/Raspberry Vertical V1 (2026-08-22). Live-verified: \"zarzamora\" (the dominant real Mexican-Spanish term for blackberry, distinct from the generic \"mora\" already in the platform vocabulary) returned 50/50 real, on-topic Mexican trade-press results (AgroLatam, MILENIO, ProducePay, disease/production/export coverage), including the real \"Yosemite\" Planasa blackberry variety commercialization story in Michoacan -- a real event the existing generic Mexico-berry Spanish query (source-news-search-mexico-berry-es, blueberry/strawberry-weighted phrasing) did not surface."
+    },
+    "why_it_matters": "Mexico is a major real caneberry (raspberry+blackberry) producer (Jalisco/Michoacan) and the existing deterministic berry-tagging vocabulary (app/services/deterministic_tagging.py) only recognizes the generic, ambiguous \"mora\"/\"moras\" for blackberry -- \"zarzamora\" is the term Mexican trade press actually uses and was completely absent from platform vocabulary before this mission.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-blackberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "daily",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-22",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-news-search-chile-frambuesa",
+    "type": "reference",
+    "label": "Google News search (Spanish, Chile): frambuesa (raspberry) exports",
+    "value": "https://news.google.com/rss/search?q=frambuesa%20Chile%20exportacion%20OR%20congelada&hl=es-419&gl=CL&ceid=CL:es",
+    "url": "https://news.google.com/",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=frambuesa%20Chile%20exportacion%20OR%20congelada&hl=es-419&gl=CL&ceid=CL:es",
+      "feed_url_verified_at": "2026-08-22",
+      "notes": "Blackberry/Raspberry Vertical V1 (2026-08-22). Live-verified: real, on-topic result on first test (\"Frambuesas congeladas impulsan crecimiento de las exportaciones agroindustriales chilenas\", Diario Fruticola, 2026-07-17) -- a real Chile frozen-raspberry export surge story the existing blueberry-only source-news-search-chile-blueberry-es query (\"arandanos Chile exportacion\") structurally cannot reach, since it never includes the word \"frambuesa\". Chile is a real, major global raspberry exporter with zero raspberry-specific discovery mechanism before this source."
+    },
+    "why_it_matters": "Chile is a named priority geography for caneberry coverage (real global raspberry exporter) but had zero raspberry-specific query -- Regional Live Recall Set V1 and this mission both found 0% raspberry recall across all tested geographies before this fix.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [
+      "berry-raspberry"
+    ],
+    "region_coverage": [
+      "south_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "daily",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-22",
+    "last_checked_at": null,
+    "last_status": null
   }
 ]
