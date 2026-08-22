@@ -24,11 +24,14 @@ use the next unclaimed IDs; the duplicate draft IDs are not aliases.
 | TD-047 | runtime backup | Deterministic checksummed `data/` + `inbox/` backup/restore is live-proven. Production proof found the first secret-name filter also dropped a legitimate Evidence filename containing the word `secret`; matching is now limited to exact secret-like path components/stems and the real-style filename is a regression case. | High | resolved | `tests/test_runtime_backup.py` |
 | TD-048 | idempotency | Patent/CPVO/trade/weather seen state did not account for acquisition/configuration changes. Versioned configuration signatures now invalidate only derived seen indexes. | High | resolved | `tests/test_acquisition_state.py` plus monitor tests |
 | TD-049 | runtime logs | Host cron logs defaulted to a worktree-local inbox rather than the deployed runtime bind mount. Default moved under `demo-runtime/inbox/operations`. | Medium | resolved | script inspection; VPS path proof |
-| TD-050 | orchestration | VPS proof: `bios-collection.timer` is installed/enabled and invokes only article/spoken collection via `collection_cron.sh`; patent, CPVO, trade, and weather remain manual. The latest observed run succeeded for 35/40 Sources but systemd recorded failure because 5 Sources failed, so unattended collection is installed but not healthy. | Medium | active | `data/configuration/collection_pipelines.json`; `tests/test_pipeline_health.py`; VPS systemd logs |
-| TD-051 | retention | No automatic off-host backup rotation or age-based archive compaction exists. Provenance-preserving retention classes are defined; deletion remains deliberately disabled. | Medium | active | `docs/v2/COLLECTION-RUNTIME-DATA-INTEGRITY.md` |
+| TD-050 | orchestration | One registry-driven dispatcher now gives article/news, spoken media, patent, CPVO, and backup independent cadences and persists `SUCCESS`/`PARTIAL`/`FAILED` outcomes. Useful partial Source runs no longer make systemd wholly red. Trade/weather remain evidence-based manual pilots. | Medium | resolved | `tests/test_pipeline_scheduler.py`; `tests/test_pipeline_health.py`; VPS systemd proof |
+| TD-051 | retention | Daily on-host backup rotation now creates and verifies a new archive before retaining 14 valid archives; invalid archives are preserved and retention cannot drop below two. Off-host replication remains unresolved. | Medium | active | `tests/test_runtime_backup.py`; `docs/v2/PRODUCTION-COLLECTION-OPERATIONS-V1.md` |
 | TD-052 | locking | Manual non-media monitors did not share the recurring runner lock. Every mutable collector CLI now uses one runtime lease; the deployed UID 1000 app user can write the persistent lock directory. | High | resolved | `tests/test_pipeline_lock.py`; VPS write probe |
 | TD-053 | tests | Host-specific `/opt/cursor/artifacts` paths and fixed wall-clock assertions failed on Windows/constrained hosts. Performance artifacts now use `tmp_path`; direct call-path instrumentation guards forbidden expensive work. | Low | resolved | `tests/test_morning_brief.py`; `tests/test_global_search.py`; `tests/test_ui_v2_shell.py` |
-| TD-054 | status diagnostics | Production `collection_status.py --json` did not complete within an attached 35-minute ceiling over the live corpus; a bounded-output retry proved report size was not the cause. It exited with the SSH timeout, left no orphan, and did not affect app health. | Medium | active | VPS production proof; `docs/v2/COLLECTION-RUNTIME-DATA-INTEGRITY.md` |
+| TD-054 | status diagnostics | Root cause was item-by-item orchestration with repeated broad trusted-Evidence/draft scans. Default status now reads persisted run/pipeline state and cheap current counts; the former deep audit is explicit via `--audit-items`. | Medium | resolved | `tests/test_collection_status.py`; VPS timing proof; `docs/v2/PRODUCTION-COLLECTION-OPERATIONS-V1.md` |
+| TD-055 | fixed-window quantitative scheduling | Trade (72 fixed Comtrade requests) and weather (fixed historical comparison) do not yet advance a rolling release/window, so both correctly remain manual rather than repeatedly polling static history. | Medium | limitation | `data/configuration/collection_pipelines.json` |
+| TD-056 | analyst throughput | Production publication-review backlog reached 1,020 and grew by the latest run's 119 created drafts with no observed review reduction. Six-hour news cadence reduces pressure but does not solve review capacity. | High | active | persisted production run/draft counts; operator status backlog ratio |
+| TD-057 | acquisition reliability | Persisted failures are dominated by expected publisher/bot access and stale-or-blocked UK FSA alert URLs (403/410), plus isolated openFDA body extraction failures. Individual failures remain visible and isolated; no Source-specific content workaround was added. | Medium | monitoring | pipeline/source failure state; `docs/v2/PRODUCTION-COLLECTION-OPERATIONS-V1.md` |
 
 ID aliases from the expansion-guide session's withdrawn draft (do not reopen
 these as Open UI-lane items):
@@ -96,20 +99,20 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` |
 
-### TD-008 — VPS collection timer installed but unattended runs are not healthy
+### TD-008 — VPS collection timer installed but unattended runs are not healthy (resolved)
 
 | Field | Value |
 |---|---|
 | **Severity** | Medium |
 | **Area** | ops |
 | **Date discovered** | 2026-08-16 (still current) |
-| **Evidence** | Production inspection 2026-08-22: `bios-collection.timer` is enabled/active and invokes `scripts/collection_cron.sh` every four hours. The latest observed run checked 40 Sources (35 succeeded, 5 failed) and systemd recorded exit 1; recent journal history shows repeated nonzero exits. Patent, CPVO, trade, and weather are not scheduled. |
-| **Impact** | Article/spoken collection is genuinely unattended and still produces review work, but the timer remains operationally red and partial Source failures require operator attention. |
-| **Workaround** | Inspect `collection_status.py`, the persistent cron log, and per-Source health. Do not start a second broad run merely to clear systemd state. |
-| **Recommended resolution** | Triage the five failing Sources and keep partial-failure reporting explicit. Do not schedule the four manual pipelines as part of this fix. |
-| **Status** | active |
+| **Evidence** | Production Collection Operations V1 installs one 15-minute registry dispatcher with independent due times. Article/news, spoken, patent, CPVO, and backup are unattended. Useful runs with isolated Source failures persist `PARTIAL` and leave individual failures visible without making systemd report a total failure. |
+| **Impact** | Resolved. Genuine zero-useful-work failures still fail the unit; degraded useful work remains observable. |
+| **Workaround** | None. Use the fast `collection_status.py` operator view. |
+| **Recommended resolution** | Completed in Production Collection Operations V1. |
+| **Status** | resolved |
 | **Owner lane** | ops |
-| **PR/SHA when resolved** | — |
+| **PR/SHA when resolved** | Production Collection Operations V1 deployment; see `docs/v2/PRODUCTION-COLLECTION-OPERATIONS-V1.md` |
 | **Regression-test reference** | `docs/v2/CONTINUOUS-INTELLIGENCE-REFRESH.md` |
 
 ### TD-009 — YouTube acquisition operational limits

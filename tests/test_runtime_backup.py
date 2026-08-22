@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import json
 import os
 from pathlib import Path
 
 import pytest
 
-from app.services.runtime_backup import RuntimeBackupError, create_backup, restore_backup, verify_backup
+from app.services.runtime_backup import RuntimeBackupError, backup_health, create_backup, restore_backup, rotate_backups, verify_backup
 
 
 def test_backup_restore_covers_mutable_state_excludes_secrets_and_preserves_mode(tmp_path: Path) -> None:
@@ -58,3 +58,27 @@ def test_restore_refuses_nonempty_target(tmp_path: Path) -> None:
     (target / "keep.txt").write_text("keep")
     with pytest.raises(RuntimeBackupError, match="not empty"):
         restore_backup(archive, target)
+
+
+def test_rotation_keeps_bounded_verified_backups_outside_runtime(tmp_path: Path) -> None:
+    runtime = tmp_path / "runtime"
+    marker = runtime / "inbox" / "state.json"
+    marker.parent.mkdir(parents=True)
+    marker.write_text('{"state": "safe"}', encoding="utf-8")
+    backups = tmp_path / "backups"
+    start = datetime(2026, 8, 1, tzinfo=timezone.utc)
+    for offset in range(3):
+        rotate_backups(runtime, backups, keep=2, now=start + timedelta(days=offset))
+    archives = sorted(backups.glob("berry-runtime-*.tar.gz"))
+    assert len(archives) == 2
+    assert all(verify_backup(path)["files"] for path in archives)
+    health = backup_health(backups, now=start + timedelta(days=2, hours=1))
+    assert health["state"] == "HEALTHY" and health["verified"] is True
+    assert health["latest_sha256"]
+
+
+def test_rotation_refuses_backup_inside_runtime(tmp_path: Path) -> None:
+    runtime = tmp_path / "runtime"
+    (runtime / "inbox").mkdir(parents=True)
+    with pytest.raises(RuntimeBackupError, match="outside"):
+        rotate_backups(runtime, runtime / "backups")

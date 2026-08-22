@@ -64,6 +64,11 @@ def _parser() -> argparse.ArgumentParser:
     scope = parser.add_mutually_exclusive_group(required=True)
     scope.add_argument("--all", action="store_true", help="Run every Source with usable discovery configuration")
     scope.add_argument("--source", help="Run one configured Source by ID")
+    scope.add_argument(
+        "--pipeline-scope",
+        choices=("article-news", "spoken-media"),
+        help="Run the registered article/news or spoken-media Source group",
+    )
     parser.add_argument(
         "--dry-run",
         "--offline-plan",
@@ -106,6 +111,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--retry-backoff-seconds", type=int, default=1800)
     parser.add_argument("--lock-stale-seconds", type=int, default=21600)
     parser.add_argument("--json", action="store_true", help="Print the complete machine-readable run summary")
+    parser.add_argument("--json-summary", action="store_true", help="Print counts/source outcomes without per-item detail")
     parser.add_argument(
         "--data-dir", type=Path, default=None,
         help="Defaults to BIOS_RUNTIME_DIR/data (or BIOS_DATA_DIR) if set, else <repo>/data -- "
@@ -346,8 +352,22 @@ def main(argv: list[str] | None = None) -> int:
         lock_stale_after=timedelta(seconds=args.lock_stale_seconds),
     )
     try:
+        source_ids = None
+        if args.pipeline_scope:
+            spoken_adapters = {"podcast_rss", "youtube_feed"}
+            source_ids = sorted(
+                source["id"]
+                for source in repositories.sources.list()
+                if isinstance(source.get("id"), str)
+                and isinstance(source.get("discovery"), dict)
+                and (
+                    (source["discovery"].get("adapter") in spoken_adapters)
+                    == (args.pipeline_scope == "spoken-media")
+                )
+            )
         summary = runner.run(
             source_id=args.source,
+            source_ids=source_ids,
             dry_run=args.dry_run,
             skip_transcription=args.skip_transcription,
             max_transcriptions=args.max_transcriptions,
@@ -358,7 +378,10 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps({"state": "error", "error": str(exc)}, indent=2))
         return 2
     payload = summary.as_dict()
-    print(json.dumps(payload, indent=2, ensure_ascii=False) if args.json else _human_summary(payload))
+    if args.json_summary:
+        print(json.dumps({key: value for key, value in payload.items() if key != "items"}, indent=2, ensure_ascii=False))
+    else:
+        print(json.dumps(payload, indent=2, ensure_ascii=False) if args.json else _human_summary(payload))
     return 1 if payload["counts"]["sources_failed"] else 0
 
 

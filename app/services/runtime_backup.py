@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import hashlib
 import json
 from pathlib import Path, PurePosixPath
@@ -86,6 +86,102 @@ def create_backup(runtime_dir: Path, output_dir: Path, *, now: datetime | None =
         tar.addfile(info, io.BytesIO(manifest_bytes))
     verify_backup(archive)
     return archive
+
+
+def backup_health(
+    output_dir: Path,
+    *,
+    now: datetime | None = None,
+    maximum_age: timedelta = timedelta(hours=36),
+) -> dict[str, Any]:
+    instant = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
+    archives = sorted(output_dir.glob("berry-runtime-*.tar.gz")) if output_dir.is_dir() else []
+    if not archives:
+        return {
+            "state": "MISSING",
+            "archives": 0,
+            "latest": None,
+            "latest_sha256": None,
+            "age_seconds": None,
+            "verified": False,
+        }
+    latest = archives[-1]
+    try:
+        manifest = verify_backup(latest)
+        created = datetime.fromisoformat(manifest["created_at"])
+        if created.tzinfo is None:
+            created = created.replace(tzinfo=timezone.utc)
+        age = max(0, int((instant - created.astimezone(timezone.utc)).total_seconds()))
+        return {
+            "state": "HEALTHY" if age <= maximum_age.total_seconds() else "STALE",
+            "archives": len(archives),
+            "latest": str(latest),
+            "latest_sha256": _sha256(latest),
+            "age_seconds": age,
+            "verified": True,
+        }
+    except (OSError, ValueError, json.JSONDecodeError, RuntimeBackupError) as exc:
+        return {
+            "state": "INVALID",
+            "archives": len(archives),
+            "latest": str(latest),
+            "latest_sha256": None,
+            "age_seconds": None,
+            "verified": False,
+            "error": str(exc),
+        }
+
+
+def rotate_backups(
+    runtime_dir: Path,
+    output_dir: Path,
+    *,
+    keep: int = 14,
+    now: datetime | None = None,
+) -> dict[str, Any]:
+    if keep < 2:
+        raise RuntimeBackupError("backup retention must keep at least two verified archives")
+    runtime = runtime_dir.resolve()
+    destination = output_dir.resolve()
+    if destination == runtime or runtime in destination.parents:
+        raise RuntimeBackupError("backup output must be outside the app runtime")
+    archive = create_backup(runtime, destination, now=now)
+    archive_sha = _sha256(archive)
+    archive.with_suffix(archive.suffix + ".sha256").write_text(
+        f"{archive_sha}  {archive.name}\n",
+        encoding="utf-8",
+    )
+    valid: list[Path] = []
+    invalid: list[str] = []
+    for candidate in sorted(destination.glob("berry-runtime-*.tar.gz")):
+        try:
+            verify_backup(candidate)
+        except (OSError, ValueError, json.JSONDecodeError, RuntimeBackupError):
+            invalid.append(str(candidate))
+        else:
+            valid.append(candidate)
+    if archive not in valid:
+        raise RuntimeBackupError("new backup failed post-creation verification; retention was not changed")
+    removed: list[str] = []
+    for candidate in valid[:-keep]:
+        # A newly verified archive exists and at least two valid archives are
+        # retained. Invalid archives are never deleted automatically.
+        candidate.unlink()
+        sidecar = candidate.with_suffix(candidate.suffix + ".sha256")
+        if sidecar.exists():
+            sidecar.unlink()
+        removed.append(str(candidate))
+    retained = valid[-keep:]
+    return {
+        "state": "created_verified_rotated",
+        "archive": str(archive),
+        "archive_sha256": archive_sha,
+        "archives_valid": len(valid),
+        "archives_retained": len(retained),
+        "archives_removed": len(removed),
+        "removed": removed,
+        "invalid_preserved": invalid,
+    }
 
 
 def _validated_members(tar: tarfile.TarFile) -> tuple[dict[str, Any], dict[str, tarfile.TarInfo]]:

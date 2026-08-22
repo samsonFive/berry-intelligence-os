@@ -4,8 +4,12 @@ set -eu
 RUNTIME_DIR="${BIOS_RUNTIME_DIR:-/app/runtime}"
 DATA_DIR="${BIOS_DATA_DIR:-$RUNTIME_DIR/data}"
 INBOX_DIR="${BIOS_INBOX_DIR:-$RUNTIME_DIR/inbox}"
+BACKUP_DIR="${BIOS_BACKUP_DIR:-}"
 
 mkdir -p "$DATA_DIR" "$INBOX_DIR/evidence" "$INBOX_DIR/discovered_media"
+if [ -n "$BACKUP_DIR" ]; then
+    mkdir -p "$BACKUP_DIR"
+fi
 
 # Seed trusted published data into an empty volume. Never seed inbox: that
 # must come from `scripts/export_demo_runtime.py` (or stay empty).
@@ -42,6 +46,9 @@ fi
 
 if [ "$(id -u)" = "0" ]; then
     chown -R berry:berry "$RUNTIME_DIR" || true
+    if [ -n "$BACKUP_DIR" ]; then
+        chown -R berry:berry "$BACKUP_DIR" || true
+    fi
     exec gosu berry "$@"
 fi
 

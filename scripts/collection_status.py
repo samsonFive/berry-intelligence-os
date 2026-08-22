@@ -17,7 +17,8 @@ if str(ROOT) not in sys.path:
 
 from app.composition import get_repositories
 from app.repositories.paths import SCHEMAS_DIR
-from app.runtime_config import resolve_data_dir, resolve_inbox_dir
+from app.runtime_config import env_path, resolve_data_dir, resolve_inbox_dir
+from app.services.runtime_backup import backup_health
 from app.services.ai_extraction import PROMPT_VERSION, OpenAICompatibleExtractionConfig, OpenAICompatibleExtractionProvider
 from app.services.collection_runner import OperationalStateStore, resolve_extraction_gate
 from app.services.collection_status import CollectionStatusService
@@ -33,11 +34,17 @@ def _enabled(name: str) -> bool:
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json", action="store_true", help="Print the stable machine-readable report")
+    parser.add_argument(
+        "--audit-items",
+        action="store_true",
+        help="Explicit deep per-item audit; default operator status reads persisted run/review state",
+    )
     parser.add_argument("--source", help="Limit item/source detail and readiness to one configured Source")
     parser.add_argument("--data-dir", type=Path, default=None)
     parser.add_argument("--schemas-dir", type=Path, default=SCHEMAS_DIR)
     parser.add_argument("--inbox-dir", type=Path, default=None)
     parser.add_argument("--operations-dir", type=Path, help="Defaults to <inbox>/operations")
+    parser.add_argument("--backup-dir", type=Path, default=None, help="Verified runtime backup directory (or BIOS_BACKUP_DIR)")
     parser.add_argument("--retry-limit", type=int, default=3)
     parser.add_argument("--lock-stale-seconds", type=int, default=21600)
 
@@ -130,6 +137,7 @@ def _human(report: dict) -> str:
         f"Runner lock: {report['lock']['state']}",
         f"Persistent runtime configured: {report.get('runtime', {}).get('persistent_runtime_configured', False)}",
         f"Storage free: {report.get('runtime', {}).get('free_percent', 0)}%",
+        f"Backup health: {report.get('backup', {}).get('state', 'UNCONFIGURED')}",
         "",
         "Work:",
         f"  ready to advance: {counts['ready_to_advance']}",
@@ -139,6 +147,7 @@ def _human(report: dict) -> str:
         f"  transcript ready: {counts.get('transcript_ready', 0)}",
         f"  enrichment ready: {counts.get('enrichment_ready', 0)}",
         f"  publication review: {counts['human_publication_review_required']}",
+        f"  backlog / drafts created last run: {report.get('review_backlog', {}).get('backlog_to_last_run_created_ratio') or 'n/a'}",
         f"  trusted publications: {counts.get('trusted_publication', 0)}",
         f"  extraction ready: {counts['extraction_ready']}",
         f"  extraction blocked: {counts['extraction_blocked']}",
@@ -168,7 +177,13 @@ def _human(report: dict) -> str:
             failure = "failing" if pipeline["failure_state"] else "ok"
             lines.append(
                 f"  {pipeline['pipeline']}: {mode}, enabled={pipeline['enabled']}, "
-                f"last_success={pipeline['last_success'] or 'never'}, {failure}"
+                f"outcome={pipeline.get('outcome') or 'never'}, "
+                f"last_attempt={pipeline['last_attempt'] or 'never'}, "
+                f"last_success={pipeline['last_success'] or 'never'}, "
+                f"next_due={pipeline['next_due'] or 'manual'}, "
+                f"duration={pipeline.get('duration_seconds') if pipeline.get('duration_seconds') is not None else 'n/a'}s, "
+                f"failures={pipeline.get('failure_count', 0)}, "
+                f"drafts={pipeline.get('drafts_created', 0)}, {failure}"
             )
     if report["problems"]:
         lines.extend(["", "Operator problems:"])
@@ -198,7 +213,10 @@ def main(argv: list[str] | None = None) -> int:
             retry_limit=args.retry_limit,
             lock_stale_after=timedelta(seconds=args.lock_stale_seconds),
         )
-        report = service.build(source_id=args.source).as_dict()
+        report = service.build(
+            source_id=args.source,
+            persisted_only=not args.audit_items and args.source is None,
+        ).as_dict()
         pipeline_config = args.data_dir / "configuration" / "collection_pipelines.json"
         if not pipeline_config.is_file():
             pipeline_config = ROOT / "data" / "configuration" / "collection_pipelines.json"
@@ -207,6 +225,12 @@ def main(argv: list[str] | None = None) -> int:
             inbox_dir=args.inbox_dir,
             config_path=pipeline_config,
         ))
+        backup_dir = args.backup_dir or env_path("BIOS_BACKUP_DIR")
+        report["backup"] = backup_health(backup_dir) if backup_dir else {
+            "state": "UNCONFIGURED",
+            "archives": 0,
+            "verified": False,
+        }
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         print(json.dumps({"state": "error", "error": str(exc)}, indent=2))
         return 2

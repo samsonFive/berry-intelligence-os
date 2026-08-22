@@ -77,14 +77,14 @@ Disk pressure was a development-host-only finding. Production `/dev/vda1` was
 MiB. Docker held 1.735 GiB of reclaimable build cache, journals 98.8 MiB, and
 logs 125 MiB. Nothing was deleted.
 
-Actual scheduler state: `bios-collection.timer` is installed, enabled, active,
-and runs every four hours with randomized delay. It invokes only
-`scripts/collection_cron.sh` -> `run_collection.py --all
---skip-transcription`. Patent, CPVO, trade, and weather remain manual. The
-latest inspected run checked 40 Sources (35 succeeded, 5 failed), produced
-review work, and returned exit 1; recent systemd history is repeatedly red.
-This is installed but not healthy unattended collection (TD-008/TD-050), not
-mere repository readiness and not a total batch abort.
+The original production proof found a four-hour article/spoken timer whose
+useful partial runs appeared wholly failed. Production Collection Operations
+V1 replaces that arrangement with one 15-minute registry dispatcher. The
+registry separately schedules article/news every six hours, spoken discovery
+daily, plant patent and CPVO weekly, and runtime backup daily. Trade and
+weather remain manual because their current configurations are fixed
+historical pilots. See `PRODUCTION-COLLECTION-OPERATIONS-V1.md` for measured
+post-deploy scheduler proof and the cadence rationale.
 
 The deployed UID/GID 1000 app user created and removed a probe in the
 persistent lock directory; the effective lock path is
@@ -92,22 +92,18 @@ persistent lock directory; the effective lock path is
 HTTPS smoke results: `/healthz` 200, `/login` 200, unauthenticated
 `/work-queue` 302 to login, login POST 303, authenticated `/work-queue` 200.
 
-Production-scale `collection_status.py --json` did not complete within an
-attached 35-minute ceiling, after an earlier attempt also exceeded three
-minutes. The second attempt piped the report into a bounded summary, so output
-volume was not the cause. The timed-out process exited with the SSH session and
-left no orphan; both app and Caddy remained running and the app stayed healthy.
-Until TD-054 is resolved, use the persisted per-run summary and systemd logs
-for immediate operational counts rather than starting overlapping status
-scans. The latest persisted run summary reported 40 Sources checked (35
-succeeded, 5 failed), 2,385 items discovered, 1,080 new, 696 publication drafts
-created, 931 awaiting publication review, 606 irrelevant, 3 retryable failures,
-and 37 operator-action items.
+Production-scale `collection_status.py --json` originally exceeded an attached
+35-minute ceiling. The cause was item-by-item orchestration and repeated broad
+Evidence/draft scans inside a status request, not output size. The default now
+reads persisted run/pipeline state, current draft counts, backup health, disk,
+and lock state; `--audit-items` explicitly requests the former deep audit. See
+TD-054 and `PRODUCTION-COLLECTION-OPERATIONS-V1.md` for before/after proof.
 
 ## Backup and restore
 
 ```bash
 python scripts/runtime_backup.py create --runtime-dir demo-runtime --output-dir /var/backups/berry-intelligence-os
+python scripts/runtime_backup.py rotate --runtime-dir demo-runtime --output-dir /var/backups/berry-intelligence-os --keep 14
 python scripts/runtime_backup.py verify /var/backups/berry-intelligence-os/berry-runtime-YYYYMMDDTHHMMSSZ.tar.gz
 python scripts/runtime_backup.py restore BACKUP.tar.gz --target-runtime-dir /tmp/berry-runtime-restore-proof
 python scripts/collection_status.py --data-dir /tmp/berry-runtime-restore-proof/data --inbox-dir /tmp/berry-runtime-restore-proof/inbox --json
@@ -121,16 +117,19 @@ credential names and symlinks, and are never copied to static output.
 
 | Pipeline | Actual runner | Scheduling now | Timeout / retry / isolation |
 |---|---|---|---|
-| Article/news + spoken | `run_collection.py` | only pipeline in `collection_cron.sh`; installed VPS timer must be verified separately | adapter timeouts; item backoff; per-feed/source/item isolation; shared lock |
-| Plant patent | `monitor_plant_patents.py` | manual | 30s provider timeout; per-query isolation; shared lock |
-| CPVO | `monitor_cpvo_registry.py` | manual | 15s timeout; per-query isolation; shared lock |
+| Article/news | `run_collection.py --pipeline-scope article-news` | every 6 hours through registry dispatcher | adapter timeouts; item backoff; per-source/item isolation; shared lock |
+| Spoken media | `run_collection.py --pipeline-scope spoken-media` | daily through registry dispatcher; no implicit Whisper | adapter timeouts; per-feed/item isolation; shared lock |
+| Plant patent | `monitor_plant_patents.py` | weekly through registry dispatcher | 30s provider timeout; per-query isolation; shared lock |
+| CPVO | `monitor_cpvo_registry.py` | weekly through registry dispatcher | 15s timeout; per-query isolation; shared lock |
 | Trade | `monitor_trade_intelligence.py` | manual pilot | 20s timeout and request delay; per-period/lane isolation; shared lock |
 | Weather | `monitor_weather_intelligence.py` | manual pilot | 30s timeout; per-region isolation; shared lock |
+| Runtime backup | `runtime_backup.py rotate` | daily through registry dispatcher; retain 14 verified archives | new archive verified before bounded pruning; shared lock |
 
 The machine-readable contract is `data/configuration/collection_pipelines.json`.
-`collection_status.py` adds last attempt/success, next due, failures,
-items/drafts, runtime persistence, and disk free space. A scheduler script is
-not proof a production timer is installed.
+`collection_status.py` adds last attempt/useful success/full success, outcome,
+next due, failures, items/drafts, review backlog, backup health, runtime
+persistence, disk free space, and lock state. A scheduler script is not proof
+a production timer is installed.
 
 All writers use `inbox/operations/collection.lock`. A second systemd/manual/
 smoke/worker invocation fails before mutation. Dry runs remain lock-free and
@@ -158,5 +157,6 @@ included. Similar titles alone never merge.
 - **REGENERABLE:** static output, downloadable media, seen indexes and locks.
   Regeneration never erases provenance or decisions.
 
-No age-based deletion is implemented. Storage growth and off-host backup
-rotation remain operator policy.
+Verified on-host backups use bounded retain-14 rotation. No draft, provenance,
+or trusted-data age deletion is implemented. Storage growth and off-host
+backup replication remain operator policy.

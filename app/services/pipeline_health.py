@@ -21,9 +21,17 @@ def _read(path: Path) -> dict[str, Any] | None:
 
 
 def _pipeline_runs(inbox_dir: Path, pipeline: dict[str, Any]) -> list[dict[str, Any]]:
+    scheduled = inbox_dir / "operations" / "pipelines" / pipeline["id"] / "runs"
+    scheduled_runs = [
+        payload
+        for candidate in sorted(scheduled.glob("*.json"))
+        if (payload := _read(candidate)) is not None
+    ] if scheduled.is_dir() else []
+    if scheduled_runs:
+        return scheduled_runs
     state = str(pipeline.get("state") or "")
     path = inbox_dir / state
-    if pipeline["id"] == "article_spoken_media":
+    if pipeline["id"] in {"article_spoken_media", "article_news", "spoken_media"}:
         return [payload for candidate in sorted(path.glob("*.json")) if (payload := _read(candidate)) is not None] if path.is_dir() else []
     payload = _read(path)
     if payload is None:
@@ -37,9 +45,22 @@ def _attempt_at(run: dict[str, Any]) -> str | None:
 
 
 def _failures(pipeline_id: str, run: dict[str, Any]) -> list[Any]:
-    if pipeline_id == "article_spoken_media":
+    if run.get("outcome") in {"SUCCESS", "PARTIAL", "FAILED"}:
+        count = int(run.get("failure_count", 0) or 0)
+        return list(run.get("failure_sample") or []) or ([{"count": count}] if count else [])
+    if pipeline_id in {"article_spoken_media", "article_news", "spoken_media"}:
         return [source for source in run.get("sources", []) if source.get("status") not in {"ok", "planned"}]
     return list(run.get("failures") or [])
+
+
+def _useful_success(pipeline_id: str, run: dict[str, Any]) -> bool:
+    if run.get("outcome") in {"SUCCESS", "PARTIAL"}:
+        return True
+    if run.get("outcome") == "FAILED":
+        return False
+    if pipeline_id in {"article_spoken_media", "article_news", "spoken_media"}:
+        return any(source.get("status") in {"ok", "planned"} for source in run.get("sources", []))
+    return not _failures(pipeline_id, run)
 
 
 def build_pipeline_health(*, data_dir: Path, inbox_dir: Path, config_path: Path, now: datetime | None = None) -> dict[str, Any]:
@@ -51,7 +72,11 @@ def build_pipeline_health(*, data_dir: Path, inbox_dir: Path, config_path: Path,
         last = runs[-1] if runs else None
         attempt = _attempt_at(last or {})
         failures = _failures(pipeline["id"], last or {})
-        successful = next((run for run in reversed(runs) if not _failures(pipeline["id"], run)), None)
+        successful = next((run for run in reversed(runs) if _useful_success(pipeline["id"], run)), None)
+        full_success = next((
+            run for run in reversed(runs)
+            if run.get("outcome") == "SUCCESS" or (not run.get("outcome") and not _failures(pipeline["id"], run))
+        ), None)
         last_success = _attempt_at(successful or {})
         cadence = pipeline.get("cadence_seconds")
         next_due = None
@@ -72,11 +97,14 @@ def build_pipeline_health(*, data_dir: Path, inbox_dir: Path, config_path: Path,
             "cadence_seconds": cadence,
             "last_attempt": attempt,
             "last_success": last_success,
+            "last_full_success": _attempt_at(full_success or {}),
             "next_due": next_due,
+            "outcome": (last or {}).get("outcome") or ("PARTIAL" if failures else "SUCCESS" if last else None),
             "failure_state": failures or None,
+            "failure_count": int((last or {}).get("failure_count", len(failures)) or 0),
             "duration_seconds": duration,
             "items_discovered": counts.get("items_new") or (last or {}).get("discovered") or 0,
-            "drafts_created": counts.get("publication_drafts_created") or len((last or {}).get("created") or []),
+            "drafts_created": (last or {}).get("drafts_created") or counts.get("publication_drafts_created") or len((last or {}).get("created") or []),
             "runner": pipeline.get("runner"),
             "notes": pipeline.get("notes"),
         })
@@ -93,7 +121,12 @@ def build_pipeline_health(*, data_dir: Path, inbox_dir: Path, config_path: Path,
             "persistent_runtime_configured": bool(__import__("os").environ.get("BIOS_RUNTIME_DIR") or __import__("os").environ.get("BIOS_INBOX_DIR")),
             "free_bytes": usage.free,
             "free_percent": free_percent,
-            "storage_warning": free_percent < 10,
+            "storage_warning": free_percent < 10 or usage.free < 5 * 1024**3,
+            "storage_warning_reason": (
+                "less than 5 GiB free" if usage.free < 5 * 1024**3
+                else "less than 10% free" if free_percent < 10
+                else None
+            ),
         },
         "pipelines": reports,
     }
