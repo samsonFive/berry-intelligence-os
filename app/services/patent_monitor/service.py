@@ -25,8 +25,10 @@ from app.services.patent_monitor.normalize import (
 from app.services.patent_monitor.relevance import relevance_decision
 from app.services.patent_monitor.uspto_odp import UsptoOdpError, odp_available, search_uspto_odp
 from app.services.transcript_evidence import PRIORITY_NONE
+from app.services.acquisition_state import acquisition_signature, version_state
 
 WATCHLIST_PATH = Path("data/configuration/patent_watchlist.json")
+PATENT_ACQUISITION_VERSION = 1
 
 
 class PatentMonitorError(RuntimeError):
@@ -228,7 +230,7 @@ class PatentMonitorService:
                     google_search=self.google_search,
                     odp_search=self.odp_search,
                 )
-            except (GooglePatentsError, UsptoOdpError, PatentMonitorError) as extra:
+            except Exception as extra:  # adapter/transport/schema failure is isolated to this query
                 self.failures.append(f"{query_id}: {extra}")
                 query_reports.append({"id": query_id, "status": "failed", "error": str(extra)})
                 continue
@@ -239,11 +241,16 @@ class PatentMonitorService:
             for filing in result.get("hits") or []:
                 if kept >= query_cap:
                     break
-                number = canonical_publication_number(filing["publication_number"])
+                try:
+                    number = canonical_publication_number(filing["publication_number"])
+                    decision = relevance_decision(filing, berry_hint=query.get("berry_hint"), exclude_terms=exclude)
+                except Exception as exc:
+                    self.failures.append(f"{query_id}: malformed result: {exc}")
+                    skipped += 1
+                    continue
                 if number in seen:
                     skipped += 1
                     continue
-                decision = relevance_decision(filing, berry_hint=query.get("berry_hint"), exclude_terms=exclude)
                 filing["_relevance"] = decision
                 filing["_query_id"] = query_id
                 if not decision["relevant"]:
@@ -273,7 +280,11 @@ class PatentMonitorService:
         *,
         dry_run: bool = False,
     ) -> dict[str, Any]:
-        state = load_monitor_state(self.state_path)
+        state = version_state(
+            load_monitor_state(self.state_path),
+            signature=acquisition_signature("plant_patent", PATENT_ACQUISITION_VERSION, self.watchlist),
+            seen_key="seen_publication_numbers",
+        )
         seen = {canonical_publication_number(value) for value in state.get("seen_publication_numbers") or []}
         entities = self._entities()
         trusted = self._trusted_evidence()

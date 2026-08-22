@@ -123,7 +123,7 @@ def test_find_duplicate_article_matches_on_title_source_and_date_when_url_differ
 
 
 def test_find_duplicate_article_requires_matching_source_id() -> None:
-    existing = [_draft(source_id="source-other-outlet")]
+    existing = [_draft(source_id="source-other-outlet", source_url="https://other-outlet.example/story")]
     match = find_duplicate_article(
         _item(canonical_url="https://example.com/completely/different/path"),
         existing_records=existing,
@@ -168,4 +168,28 @@ def test_find_duplicate_article_no_match_returns_none() -> None:
         canonical_url="https://example.com/unrelated/story",
         published_date="2026-08-12",
     )
+    assert find_duplicate_article(item, existing_records=existing) is None
+
+
+def test_google_news_and_publisher_rss_match_on_exact_origin_title_and_date() -> None:
+    item = _item(
+        source_id="source-google-news-alert",
+        canonical_url="https://news.google.com/rss/articles/opaque",
+        raw_metadata={
+            "origin_publisher_name": "Produce Report",
+            "origin_publisher_url": "https://www.example.com/",
+        },
+    )
+    existing = [_evidence(source_id="source-publisher-rss")]
+    assert find_duplicate_article(item, existing_records=existing) == "ev-trusted-one"
+
+
+def test_origin_publisher_match_still_requires_exact_title_and_date() -> None:
+    item = _item(
+        source_id="source-google-news-alert",
+        title="Blueberry expansion announced",
+        canonical_url="https://news.google.com/rss/articles/different-opaque-id",
+        raw_metadata={"origin_publisher_url": "https://example.com"},
+    )
+    existing = [_evidence(source_id="source-publisher-rss")]
     assert find_duplicate_article(item, existing_records=existing) is None

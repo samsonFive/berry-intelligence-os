@@ -40,10 +40,12 @@ import httpx
 
 from app.services.patent_monitor.entity_link import matched_entity_ids, suggest_entity_links
 from app.services.transcript_evidence import PRIORITY_NONE
+from app.services.acquisition_state import acquisition_signature, version_state
 
 CPVO_SEARCH_URL = "https://online.plantvarieties.eu/api/publicSearch/v3/publicSearch"
 CPVO_USER_AGENT = "berry-intelligence-os-cpvo-registry/1.0"
 CPVO_FETCH_TIMEOUT_SECONDS = 15
+CPVO_ACQUISITION_VERSION = 1
 
 # CPVO's own `speciesName` string (exact, as returned by its API -- verified
 # live 2026-08-21) -> this project's berry id. Only species real CPVO hits
@@ -294,11 +296,16 @@ class CpvoRegistryService:
         for name, owning_variety in candidates:
             try:
                 rows = self.search(name)
-            except CpvoRegistryError as exc:
+            except Exception as exc:  # adapter/transport failure is isolated to this query
                 self.failures.append(str(exc))
                 query_reports.append({"query": name, "status": "error", "error": str(exc)})
                 continue
-            matched_rows = [row for row in rows if berry_id_for_species(row.get("speciesName"))]
+            if not isinstance(rows, list):
+                error = f"malformed response for {name}: expected list"
+                self.failures.append(error)
+                query_reports.append({"query": name, "status": "error", "error": error})
+                continue
+            matched_rows = [row for row in rows if isinstance(row, dict) and berry_id_for_species(row.get("speciesName"))]
             query_reports.append(
                 {
                     "query": name,
@@ -309,7 +316,11 @@ class CpvoRegistryService:
                 }
             )
             for row in matched_rows:
-                filing = normalize_cpvo_register_row(row)
+                try:
+                    filing = normalize_cpvo_register_row(row)
+                except Exception as exc:
+                    self.failures.append(f"{name}: malformed result: {exc}")
+                    continue
                 filing["matched_query"] = name
                 filing["matched_variety_id"] = owning_variety.get("id")
                 filings.setdefault(filing["filing_id"], filing)
@@ -320,9 +331,16 @@ class CpvoRegistryService:
         }
 
     def persist_drafts(self, filings: list[dict[str, Any]], *, dry_run: bool = False) -> dict[str, Any]:
-        state = load_registry_state(self.state_path)
-        seen = set(state.get("seen_filing_ids") or [])
         entities = self._entities()
+        state = version_state(
+            load_registry_state(self.state_path),
+            signature=acquisition_signature(
+                "cpvo", CPVO_ACQUISITION_VERSION,
+                sorted((entity.get("id"), entity.get("name"), entity.get("aliases") or []) for entity in entities if entity.get("entity_type") == "variety"),
+            ),
+            seen_key="seen_filing_ids",
+        )
+        seen = set(state.get("seen_filing_ids") or [])
         captured = date.today().isoformat()
         created: list[str] = []
         duplicates: list[str] = []

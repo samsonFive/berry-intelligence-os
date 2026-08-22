@@ -44,12 +44,14 @@ from pathlib import Path
 from typing import Any, Callable
 
 import httpx
+from app.services.acquisition_state import acquisition_signature, version_state
 
 POWER_DAILY_POINT_URL = "https://power.larc.nasa.gov/api/temporal/daily/point"
 POWER_USER_AGENT = "berry-intelligence-os-weather-intelligence/1.0"
 POWER_FETCH_TIMEOUT_SECONDS = 30
 POWER_COMMUNITY = "AG"
 POWER_PARAMETERS = "T2M_MAX,T2M_MIN,PRECTOTCORR"
+WEATHER_ACQUISITION_VERSION = 1
 # NASA POWER's own documented fill value for a date not yet processed/released
 # (live-confirmed 2026-08-21: the 3 most recent calendar days of a request
 # returned -999.0 while all earlier days in the same request returned real
@@ -308,11 +310,11 @@ class WeatherIntelligenceService:
                 latitude=latitude, longitude=longitude,
                 start_date=request.comparison_range[0], end_date=request.comparison_range[1],
             )
-        except WeatherIntelligenceError as exc:
+            baseline_by_month = compute_baseline_by_month(baseline_raw)
+            series = normalize_daily_series(comparison_raw)
+        except Exception as exc:  # adapter/transport/schema failure is isolated to this region
             self.failures.append(str(exc))
             return None
-        baseline_by_month = compute_baseline_by_month(baseline_raw)
-        series = normalize_daily_series(comparison_raw)
         return series, baseline_by_month
 
     def persist_drafts(
@@ -321,7 +323,11 @@ class WeatherIntelligenceService:
         *,
         dry_run: bool = False,
     ) -> dict[str, Any]:
-        state = load_weather_state(self.state_path)
+        state = version_state(
+            load_weather_state(self.state_path),
+            signature=acquisition_signature("weather", WEATHER_ACQUISITION_VERSION, self.production_regions),
+            seen_key="seen_region_signatures",
+        )
         seen = set(state.get("seen_region_signatures") or [])
         captured = date.today().isoformat()
         created: list[str] = []
@@ -330,7 +336,7 @@ class WeatherIntelligenceService:
         for request, series, baseline_by_month in regions:
             if not series:
                 continue
-            signature = f"{request.production_region_id}:{request.comparison_range[0]}..{request.comparison_range[1]}"
+            signature = f"v{WEATHER_ACQUISITION_VERSION}:{request.production_region_id}:{request.comparison_range[0]}..{request.comparison_range[1]}"
             draft_id = draft_id_for_region(request.production_region_id)
             draft_path = self.evidence_dir / f"{draft_id}.json"
             if signature in seen or draft_path.is_file():

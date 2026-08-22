@@ -23,6 +23,7 @@ if str(ROOT) not in sys.path:
 
 from app.runtime_config import resolve_data_dir, resolve_inbox_dir
 from app.services.cpvo_registry import run_cpvo_registry_monitor
+from app.services.pipeline_lock import pipeline_lock
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -65,12 +66,11 @@ def main(argv: list[str] | None = None) -> int:
         args.data_dir = resolve_data_dir(ROOT)
     if args.inbox_dir is None:
         args.inbox_dir = resolve_inbox_dir(ROOT)
-    payload = run_cpvo_registry_monitor(
-        data_dir=args.data_dir,
-        inbox_dir=args.inbox_dir,
-        max_queries=args.max_queries,
-        dry_run=args.dry_run,
-    )
+    if args.dry_run:
+        payload = run_cpvo_registry_monitor(data_dir=args.data_dir, inbox_dir=args.inbox_dir, max_queries=args.max_queries, dry_run=True)
+    else:
+        with pipeline_lock(args.inbox_dir, "cpvo"):
+            payload = run_cpvo_registry_monitor(data_dir=args.data_dir, inbox_dir=args.inbox_dir, max_queries=args.max_queries, dry_run=False)
     if args.json:
         print(json.dumps(payload, indent=2))
     else:

@@ -13,6 +13,18 @@ Status values: `active` · `limitation` · `resolved` · `monitoring`
 
 Owner lanes: `platform` · `product` · `data` · `ops`
 
+## Collection Runtime + Data Integrity V1 update (2026-08-21)
+
+| ID | Area | Finding / resolution | Severity | Status | Regression test |
+|---|---|---|---|---|---|
+| TD-038 | runtime backup | No deterministic backup/restore existed. Timestamped, checksummed `data/` + `inbox/` archive with secret exclusion and isolated verified restore added. | High | resolved | `tests/test_runtime_backup.py` |
+| TD-039 | idempotency | Patent/CPVO/trade/weather seen state did not account for acquisition/configuration changes. Versioned configuration signatures now invalidate only derived seen indexes. | High | resolved | `tests/test_acquisition_state.py` plus monitor tests |
+| TD-040 | runtime logs | Host cron logs defaulted to a worktree-local inbox rather than the deployed runtime bind mount. Default moved under `demo-runtime/inbox/operations`. | Medium | resolved | script inspection |
+| TD-041 | orchestration | Patent, CPVO, trade and weather remain manual pilots; only article/spoken media has a scheduler entry point, and installation of the production timer is external state. | Medium | active | `data/configuration/collection_pipelines.json`; `tests/test_pipeline_health.py` |
+| TD-042 | retention | No automatic off-host backup rotation or age-based archive compaction exists. Provenance-preserving retention classes are defined; deletion remains deliberately disabled. | Medium | active | `docs/v2/COLLECTION-RUNTIME-DATA-INTEGRITY.md` |
+| TD-043 | locking | Manual non-media monitors did not share the recurring runner lock. Every mutable collector CLI now uses one runtime lease. | High | resolved | `tests/test_pipeline_lock.py` |
+| TD-044 | tests | Cold-route behavior used a fixed 800ms wall-clock assertion and failed on constrained Windows hosts despite the ranked brief never running. Replaced with direct instrumentation of the forbidden call. | Low | resolved | `tests/test_ui_v2_shell.py::test_cold_unrelated_html_nav_does_not_run_ranked_brief` |
+
 ID aliases from the expansion-guide session's withdrawn draft (do not reopen
 these as Open UI-lane items):
 
@@ -22,7 +34,7 @@ these as Open UI-lane items):
 | TD-UI-002 | TD-002 **resolved** (authoring gap closed as TD-012) |
 | TD-UI-003 | TD-003 **resolved** |
 | TD-UI-004 | TD-004 **resolved** |
-| TD-ACQ-001 | TD-006 **active** |
+| TD-ACQ-001 | TD-006 **resolved** |
 | TD-THREAD-001 | **resolved** in PR #51 (`807e059`) |
 
 Unique withdrawn-draft items below keep their original IDs.
@@ -47,7 +59,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `app/queries/scope.py`; Landscape tests when that surface migrates |
 
-### TD-006 — Cross-pipeline article dedup gap
+### TD-006 — Cross-pipeline article dedup gap (resolved)
 
 | Field | Value |
 |---|---|
@@ -57,11 +69,11 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Evidence** | Same as withdrawn TD-ACQ-001. `PROJECT-STATUS.md` / `app/services/article_dedup.py`: same story under Google-News redirect vs publisher RSS is different URL + `source_id` (recurring draft `ev-media-cec61845f15d790fd055`). Deterministic URL/title+source+date matching cannot merge them without fuzzy title matching (explicitly refused). **More precise root cause found by the Mainstream News + Regulatory Coverage Recall Benchmark V1 mission (2026-08-21):** `MediaOrchestrationService._cross_pipeline_duplicates()` (`app/services/media_orchestration.py:637-666`) filters its dedup candidate pool to `evidence_role == "publication_artifact"` before calling `find_duplicate_article()` -- a trusted record captured by the older `app/main.py` keyword/RSS auto-capture loop (pre-`evidence_role`, `submitted_by: "source-monitor:..."`) has `evidence_role: None` and is silently excluded from the candidate pool, so even an *exact canonical-URL match* against it is never checked. Reproduced directly: `source-news-search-driscolls`'s real run created a duplicate of the already-trusted `ev-20260806173540-993a-driscoll-s-filed-appeal-in-strawberry-pa.json` (`evidence_role: None`, `submitted_by: "source-monitor:Strawberry cultivar patent"`) via the identical `news.google.com` redirect URL. 9 such duplicates were produced by this mission's 3 new sources alone and removed as untracked-inbox cleanup. |
 | **Impact** | Duplicate trusted or pending rows. Operators dismiss by hand. |
 | **Workaround** | Inbox cleanup of known duplicates. |
-| **Recommended resolution** | Keep deterministic matching. Optional later: publisher canonical-id when the Source record declares one. **Now that the exact line is known:** broaden `_cross_pipeline_duplicates()`'s candidate filter to include trusted records regardless of `evidence_role` (a missing `evidence_role` on an otherwise-evidence-shaped trusted record should be treated as implicitly `publication_artifact`-equivalent for dedup purposes only) -- a quick fix, not attempted in the recall-benchmark mission to keep that mission's changes scoped to discovery. |
-| **Status** | active |
+| **Recommended resolution** | Resolved in Collection Runtime + Data Integrity V1: legacy source-document-shaped trusted Evidence is included; exact origin publisher + title + date closes the observed Google News/publisher RSS case without fuzzy matching. |
+| **Status** | resolved |
 | **Owner lane** | data |
 | **PR/SHA when resolved** | — |
-| **Regression-test reference** | `tests/test_article_dedup.py`. A real regression test (a trusted record with `evidence_role: None` should still be recognized as a duplicate by URL) would directly cover the newly-found root cause and does not yet exist. |
+| **Regression-test reference** | `tests/test_article_dedup.py`; `tests/test_media_orchestration.py::test_cross_pipeline_dedup_includes_legacy_trusted_publication_without_role` |
 
 ### TD-007 — Production store still JSON; Phase 3 PostgreSQL not started
 
@@ -255,21 +267,21 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | — |
 
-### TD-TEST-001 — Morning Brief workload test hardcodes `/opt/cursor/artifacts`
+### TD-TEST-001 — Performance tests depend on one host's paths and speed (resolved)
 
 | Field | Value |
 |---|---|
 | **Severity** | Low |
 | **Area** | tests |
 | **Date discovered** | 2026-08-20 |
-| **Evidence** | `tests/test_morning_brief.py::test_real_reading_queue_morning_workload_is_smaller_than_unresolved` writes `/opt/cursor/artifacts/morning_brief_workload.json`. Fails on Windows. Pre-existing on canonical. |
+| **Evidence** | `tests/test_morning_brief.py::test_real_reading_queue_morning_workload_is_smaller_than_unresolved` and the concurrently landed Global Search timing test wrote under `/opt/cursor/artifacts`. Both fail on Windows. The Search test also used a fixed 250ms assertion that failed on a constrained host despite direct instrumentation proving the forbidden expensive paths were not called. |
 | **Impact** | Not a product bug. Windows dev machines fail this one test. |
 | **Workaround** | Ignore on Windows; path exists in Cloud Agent VMs. |
-| **Recommended resolution** | Configurable artifact path (`tmp_path` or env). |
-| **Status** | active |
+| **Recommended resolution** | Resolved with pytest `tmp_path`. Search keeps reporting representative timings and validates the timing payload; direct call-path instrumentation, rather than machine wall time, guards the expensive-query regression. |
+| **Status** | resolved |
 | **Owner lane** | platform |
 | **PR/SHA when resolved** | — |
-| **Regression-test reference** | `tests/test_morning_brief.py` |
+| **Regression-test reference** | `tests/test_morning_brief.py`; `tests/test_global_search.py` |
 
 ### TD-018 — Trait-evidence linkage is a JSON convention, not schema-enforced
 

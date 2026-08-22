@@ -653,7 +653,7 @@ class MediaOrchestrationService:
                     continue
                 if draft.get("evidence_role") == "publication_artifact":
                     candidates.append(draft)
-        publications = [c for c in candidates if c.get("evidence_role") == "publication_artifact"]
+        publications = [c for c in candidates if self._is_publication_candidate(c)]
         match_id = find_duplicate_article(item, existing_records=publications)
         if match_id is None:
             return set(), []
@@ -666,10 +666,26 @@ class MediaOrchestrationService:
         return set(), []
 
     @staticmethod
+    def _is_publication_candidate(record: dict[str, Any] | None) -> bool:
+        if not record:
+            return False
+        if record.get("evidence_role") == "publication_artifact":
+            return True
+        # Legacy trusted publication records predate evidence_role. Include
+        # only evidence-shaped source documents; never atomic child claims.
+        return bool(
+            not record.get("evidence_role")
+            and record.get("record_type") == "evidence"
+            and record.get("source_url")
+            and record.get("source_id")
+            and not record.get("parent_evidence_id")
+        )
+
+    @staticmethod
     def _is_trusted_publication(record: dict[str, Any] | None) -> bool:
         return bool(
             record
-            and record.get("evidence_role") == "publication_artifact"
+            and MediaOrchestrationService._is_publication_candidate(record)
             and record.get("status") == "published"
             and record.get("review_state", "published") == "published"
         )

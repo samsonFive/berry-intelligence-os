@@ -20,24 +20,22 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from app.runtime_config import resolve_inbox_dir
+from app.runtime_config import resolve_data_dir, resolve_inbox_dir
 from app.services.trade_intelligence import TradeLaneRequest, run_trade_intelligence_monitor
-
-TAXONOMY_PATH = ROOT / "data" / "configuration" / "trade_hs_taxonomy.json"
-LANES_PATH = ROOT / "data" / "configuration" / "trade_pilot_lanes.json"
-
+from app.services.pipeline_lock import pipeline_lock
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--dry-run", action="store_true", help="Fetch and score; do not write drafts or state")
     parser.add_argument("--inbox-dir", type=Path, default=None)
+    parser.add_argument("--data-dir", type=Path, default=None)
     parser.add_argument("--lanes", type=Path, default=None)
     parser.add_argument("--json", action="store_true", help="Print machine-readable summary")
     return parser
 
 
-def _load_taxonomy() -> dict[str, dict]:
-    payload = json.loads(TAXONOMY_PATH.read_text(encoding="utf-8"))
+def _load_taxonomy(path: Path) -> dict[str, dict]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
     return {entry["hs_code"]: entry for entry in payload["codes"]}
 
 
@@ -76,13 +74,16 @@ def _human(payload: dict) -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = _parser()
     args = parser.parse_args(argv)
+    data_dir = args.data_dir or resolve_data_dir(ROOT)
     inbox_dir = args.inbox_dir or resolve_inbox_dir(ROOT)
-    lanes_path = args.lanes or LANES_PATH
-    taxonomy = _load_taxonomy()
+    lanes_path = args.lanes or data_dir / "configuration" / "trade_pilot_lanes.json"
+    taxonomy = _load_taxonomy(data_dir / "configuration" / "trade_hs_taxonomy.json")
     lanes = _load_lanes(lanes_path)
-    payload = run_trade_intelligence_monitor(
-        inbox_dir=inbox_dir, hs_taxonomy=taxonomy, lane_requests=lanes, dry_run=args.dry_run,
-    )
+    if args.dry_run:
+        payload = run_trade_intelligence_monitor(inbox_dir=inbox_dir, hs_taxonomy=taxonomy, lane_requests=lanes, dry_run=True)
+    else:
+        with pipeline_lock(inbox_dir, "trade"):
+            payload = run_trade_intelligence_monitor(inbox_dir=inbox_dir, hs_taxonomy=taxonomy, lane_requests=lanes, dry_run=False)
     if args.json:
         print(json.dumps(payload, indent=2))
     else:

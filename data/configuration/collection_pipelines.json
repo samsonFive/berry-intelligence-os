@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "pipelines": [
+    {
+      "id": "article_spoken_media",
+      "enabled": true,
+      "scheduled": false,
+      "schedule_entrypoint": true,
+      "cadence_seconds": 21600,
+      "runner": "scripts/run_collection.py --all --skip-transcription",
+      "state": "operations/runs",
+      "notes": "A scheduler-safe entry point exists, but repository state cannot prove a VPS timer is installed; source-level health is under discovered_media/_state."
+    },
+    {
+      "id": "plant_patent",
+      "enabled": false,
+      "scheduled": false,
+      "cadence_seconds": null,
+      "runner": "scripts/monitor_plant_patents.py",
+      "state": "operations/patent_monitor/state.json",
+      "notes": "Manual bounded monitor; enable and schedule only after operator cadence approval."
+    },
+    {
+      "id": "cpvo",
+      "enabled": false,
+      "scheduled": false,
+      "cadence_seconds": null,
+      "runner": "scripts/monitor_cpvo_registry.py",
+      "state": "operations/cpvo_registry/state.json",
+      "notes": "Manual bounded monitor."
+    },
+    {
+      "id": "trade",
+      "enabled": false,
+      "scheduled": false,
+      "cadence_seconds": null,
+      "runner": "scripts/monitor_trade_intelligence.py",
+      "state": "operations/trade_intelligence/state.json",
+      "notes": "Manual pilot with fixed configured periods."
+    },
+    {
+      "id": "weather",
+      "enabled": false,
+      "scheduled": false,
+      "cadence_seconds": null,
+      "runner": "scripts/monitor_weather_intelligence.py",
+      "state": "operations/weather_intelligence/state.json",
+      "notes": "Manual pilot with fixed configured windows."
+    }
+  ]
+}

@@ -148,6 +148,19 @@ def test_data_not_yet_released_is_not_treated_as_a_failure(tmp_path: Path) -> No
     assert provisional[0]["date"] == "2026-01-02"
 
 
+def test_unexpected_adapter_failure_becomes_structured_region_failure(tmp_path: Path) -> None:
+    def broken_query(**kwargs):
+        raise ValueError("unexpected malformed response")
+
+    regions = [WeatherRegionRequest(
+        production_region_id="test-region-blueberry",
+        baseline_range=("2020-01-01", "2020-01-01"), comparison_range=("2026-01-01", "2026-01-02"),
+    )]
+    result = run_weather_intelligence_monitor(inbox_dir=tmp_path / "inbox", production_regions=PRODUCTION_REGIONS, region_requests=regions, query=broken_query)
+    assert result["regions_with_data"] == 0
+    assert result["failed"] == ["unexpected malformed response"]
+
+
 def _fixture_records() -> list[dict]:
     baseline = {m: {"t2m_max_mean_c": 30.0, "t2m_min_mean_c": 15.0, "precipitation_mean_mm": 1.0} for m in
                 [f"{i:02d}" for i in range(1, 13)]}

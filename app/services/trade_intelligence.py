@@ -36,6 +36,7 @@ import time
 from typing import Any, Callable
 
 import httpx
+from app.services.acquisition_state import acquisition_signature, version_state
 
 # Live-observed 2026-08-21: rapid sequential preview requests (the API
 # allows only one period per request, so a multi-period lane means many
@@ -48,6 +49,7 @@ COMTRADE_REQUEST_DELAY_SECONDS = 1.0
 COMTRADE_PREVIEW_URL = "https://comtradeapi.un.org/public/v1/preview/C/M/HS"
 COMTRADE_USER_AGENT = "berry-intelligence-os-trade-intelligence/1.0"
 COMTRADE_FETCH_TIMEOUT_SECONDS = 20
+TRADE_ACQUISITION_VERSION = 1
 
 # UN M49 / Comtrade reporter-partner numeric codes for the geographies this
 # mission's pilot actually queried -- live-verified 2026-08-21 (each code
@@ -291,24 +293,34 @@ class TradeIntelligenceService:
                     reporter_code=reporter_code, partner_code=partner_code, period=period,
                     flow_code=request.flow_code, hs_code=request.hs_code,
                 )
-            except TradeIntelligenceError as exc:
+            except Exception as exc:  # adapter/transport failure is isolated to this period
                 self.failures.append(str(exc))
                 continue
             # Prefer the single "isReported: true, isAggregate: false" row
             # when present (the real, disaggregated figure); otherwise the
             # best available aggregate row -- never silently sum multiple
             # rows together, which would double-count.
-            reported = [r for r in rows if r.get("isReported") and not r.get("isAggregate")]
+            if not isinstance(rows, list):
+                self.failures.append(f"malformed response for {period}: expected list")
+                continue
+            reported = [r for r in rows if isinstance(r, dict) and r.get("isReported") and not r.get("isAggregate")]
             chosen = reported[0] if reported else (rows[0] if rows else None)
             if chosen is not None:
-                series.append(normalize_series_row(chosen))
+                try:
+                    series.append(normalize_series_row(chosen))
+                except Exception as exc:
+                    self.failures.append(f"malformed response for {period}: {exc}")
         lane_id = canonical_lane_id(reporter_code, partner_code, request.flow_code, request.hs_code)
         return lane_id, series
 
     def persist_drafts(
         self, lanes: list[tuple[TradeLaneRequest, str, list[dict[str, Any]]]], *, dry_run: bool = False
     ) -> dict[str, Any]:
-        state = load_trade_state(self.state_path)
+        state = version_state(
+            load_trade_state(self.state_path),
+            signature=acquisition_signature("trade", TRADE_ACQUISITION_VERSION, self.hs_taxonomy),
+            seen_key="seen_lane_signatures",
+        )
         seen = set(state.get("seen_lane_signatures") or [])
         captured = date.today().isoformat()
         created: list[str] = []
@@ -317,7 +329,7 @@ class TradeIntelligenceService:
         for request, lane_id, series in lanes:
             if not series:
                 continue
-            signature = f"{lane_id}:{sorted(s['period'] for s in series)}"
+            signature = f"v{TRADE_ACQUISITION_VERSION}:{lane_id}:{sorted(s['period'] for s in series)}"
             draft_id = draft_id_for_lane(lane_id)
             draft_path = self.evidence_dir / f"{draft_id}.json"
             if signature in seen or draft_path.is_file():

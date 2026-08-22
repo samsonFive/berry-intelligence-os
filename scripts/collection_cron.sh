@@ -21,14 +21,16 @@
 #   ./scripts/collection_cron.sh
 #
 # Environment:
-#   BIOS_COLLECTION_LOG_DIR   Where to write timestamped run logs (default: ./inbox/operations/cron-logs)
+#   BIOS_COLLECTION_LOG_DIR   Where to write timestamped run logs (default: deployed demo-runtime/inbox/operations/cron-logs)
 #   BIOS_COLLECTION_EXTRA_ARGS  Extra args appended to run_collection.py (e.g. --allow-historical-backfill for a one-time deliberate backfill)
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-LOG_DIR="${BIOS_COLLECTION_LOG_DIR:-$ROOT/inbox/operations/cron-logs}"
+# Logs are mutable collection provenance and must survive a worktree replacement.
+# The default matches docker-compose's default host-side bind mount.
+LOG_DIR="${BIOS_COLLECTION_LOG_DIR:-$ROOT/demo-runtime/inbox/operations/cron-logs}"
 mkdir -p "$LOG_DIR"
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 LOG_FILE="$LOG_DIR/collection-$STAMP.json"

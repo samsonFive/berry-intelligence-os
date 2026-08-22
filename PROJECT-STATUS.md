@@ -2,7 +2,7 @@
 
 *Maintained by Claude. Updated at the end of each work session that changes project state. Keep short — this is a status check, not a changelog (see `docs/reviews/CURRENT-STATE-AUDIT.md` and `docs/v2/` for detail).*
 
-**Last updated:** 2026-08-22, Global Intelligence Search V1 merged onto canonical `912a100`
+**Last updated:** 2026-08-22, Collection Runtime + Data Integrity V1 rebased onto canonical `4fdeacc`
 
 **Governing roadmap for the post-foundation expansion phase:** `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`, adopted 2026-08-20 — read it before proposing new acquisition, domain-depth, variety, alternative-data, or UI V2 work. Its companions, both live and required reading alongside it: `docs/v2/TECHNICAL-DEBT-REGISTER.md` (every known unresolved bug/limitation, by lane) and `docs/v2/INTELLIGENCE-COVERAGE-MATRIX.md` (the live berry × source-class × geography coverage map).
 
@@ -13,6 +13,13 @@ Intelligence OS V2
 
 **Current stage:**
 Phase 2 implementation complete (acceptance-reviewed). Production remains JSON-backed. Discovery, media transcription, publication-artifact orchestration, atomic Evidence proposal, article ingestion, and freshness/dedup layers are integrated on `v2/intelligence-os`; both human review gates remain mandatory. A real demo instance is deployed at `https://intel.johnnyaceii.com` (IONOS VPS, Docker/Caddy, application session login per PR #13). V2 AppShell is approved. Pending Review (`/pending`), Reading Queue, Assessments, Monitor (Watches, Alerts, Source Health), Variety Intelligence (`/entities/variety`), and Global Intelligence Search (`/search`, `#v2SearchOffcanvas`) are migrated; Landscape / Sources inventory-config admin / system/admin stay unmigrated.
+
+Collection Runtime + Data Integrity V1 hardening is implemented on
+`feature/platform-reliability-runtime`: persistent-runtime status, shared
+collector locking, deterministic runtime backup/verified restore, versioned
+monitor state, sanitized fixtures, and the runtime map in
+`docs/v2/COLLECTION-RUNTIME-DATA-INTEGRITY.md`. Only article/spoken collection
+has a scheduler entry point; patent, CPVO, trade, and weather remain manual.
 
 **Current branch:**
 `v2/intelligence-os` (mainline). The feature worktrees remain only as development/cache locations.

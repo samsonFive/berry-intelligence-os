@@ -16,3 +16,13 @@ def test_compose_publishes_app_on_loopback_only() -> None:
     assert "BIOS_APP_BIND=127.0.0.1" in bootstrap
     assert "--profile tls" in bootstrap
     assert "replace-me-with-a-long-random-value" not in bootstrap
+
+
+def test_all_mutable_runtime_roots_are_bind_mounted_and_inbox_is_never_seeded() -> None:
+    compose = (ROOT / "deploy" / "docker-compose.yml").read_text(encoding="utf-8")
+    assert "${BIOS_DEMO_RUNTIME:-../demo-runtime}/data:/app/runtime/data" in compose
+    assert "${BIOS_DEMO_RUNTIME:-../demo-runtime}/inbox:/app/runtime/inbox" in compose
+    entrypoint = (ROOT / "docker-entrypoint.sh").read_text(encoding="utf-8")
+    assert "Never seed inbox" in entrypoint
+    assert "cp -a /app/seed/data/." in entrypoint
+    assert "cp -a /app/seed/inbox" not in entrypoint
