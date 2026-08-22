@@ -204,7 +204,7 @@ def test_search_error_is_isolated_per_query(tmp_path: Path) -> None:
 
     def flaky_search(denomination: str, **kwargs):
         if denomination == "AAAA":
-            raise CpvoRegistryError("transport failure")
+            raise ValueError("unexpected adapter failure")
         return []
 
     result = run_cpvo_registry_monitor(data_dir=data_dir, inbox_dir=inbox, search=flaky_search)

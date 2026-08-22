@@ -21,6 +21,7 @@ if str(ROOT) not in sys.path:
 
 from app.runtime_config import resolve_data_dir, resolve_inbox_dir
 from app.services.patent_monitor.service import run_patent_monitor
+from app.services.pipeline_lock import pipeline_lock
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -78,13 +79,11 @@ def main(argv: list[str] | None = None) -> int:
         args.inbox_dir = resolve_inbox_dir(ROOT)
     if args.watchlist is None:
         args.watchlist = args.data_dir / "configuration" / "patent_watchlist.json"
-    payload = run_patent_monitor(
-        data_dir=args.data_dir,
-        inbox_dir=args.inbox_dir,
-        watchlist_path=args.watchlist,
-        max_candidates=args.max_candidates,
-        dry_run=args.dry_run,
-    )
+    if args.dry_run:
+        payload = run_patent_monitor(data_dir=args.data_dir, inbox_dir=args.inbox_dir, watchlist_path=args.watchlist, max_candidates=args.max_candidates, dry_run=True)
+    else:
+        with pipeline_lock(args.inbox_dir, "plant-patent"):
+            payload = run_patent_monitor(data_dir=args.data_dir, inbox_dir=args.inbox_dir, watchlist_path=args.watchlist, max_candidates=args.max_candidates, dry_run=False)
     public = {key: value for key, value in payload.items() if key != "filings"}
     if args.json:
         print(json.dumps(public, indent=2))

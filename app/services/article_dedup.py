@@ -75,6 +75,21 @@ def normalize_title(title: str | None) -> str:
     return _NON_ALNUM_RE.sub("", stripped.casefold())
 
 
+def _publisher_identity(record: dict[str, Any]) -> set[str]:
+    """Exact publisher names/hosts declared by discovery or acquisition."""
+    raw = record.get("raw_metadata") or {}
+    article = record.get("article") or {}
+    identities = {
+        normalize_title(raw.get("origin_publisher_name")),
+        normalize_title(record.get("source_name")),
+    }
+    for url in (raw.get("origin_publisher_url"), article.get("final_url"), record.get("source_url")):
+        normalized = normalize_canonical_url(url)
+        if normalized:
+            identities.add(normalized.split("/", 1)[0])
+    return {value for value in identities if value}
+
+
 def find_duplicate_article(
     item: dict[str, Any],
     *,
@@ -106,4 +121,17 @@ def find_duplicate_article(
             continue
         if normalize_title(record.get("title")) == item_title:
             return record.get("id")
+    # Observed deterministic cross-pipeline case: Google News supplies an
+    # opaque redirect URL and a different source_id from the publisher RSS,
+    # but explicitly names the origin publisher. Exact title, date, and
+    # publisher name/host are high-confidence identity; no fuzzy match.
+    item_publishers = _publisher_identity(item)
+    if item_publishers:
+        for record in existing_records:
+            if (record.get("published_date") or "")[:10] != item_date:
+                continue
+            if normalize_title(record.get("title")) != item_title:
+                continue
+            if item_publishers & _publisher_identity(record):
+                return record.get("id")
     return None

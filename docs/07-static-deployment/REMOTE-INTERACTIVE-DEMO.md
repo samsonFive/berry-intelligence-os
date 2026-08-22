@@ -15,6 +15,10 @@ Bind mounts from `BIOS_DEMO_RUNTIME` (default `../demo-runtime` relative to `dep
 | `demo-runtime/inbox` | `/app/runtime/inbox` | Drafts, discovered media, normalized transcripts |
 
 The image does **not** bake `inbox/` or credentials. `BIOS_RUNTIME_DIR=/app/runtime`.
+Rebuild/redeploy replaces the image but not either bind-mounted directory.
+Operational state, analyst queue state, Signal candidate audit, and transcripts
+all live below the mounted inbox. See
+`docs/v2/COLLECTION-RUNTIME-DATA-INTEGRITY.md` for backup/restore procedure.
 
 ## Authentication
 

@@ -89,6 +89,9 @@ human review in the Atomic Evidence Review Workbench.
   underlying state, use `--retry-operator-items` to re-evaluate them.
 - One local lock prevents overlapping non-dry runs. Old locks are recovered
   after the configured stale interval.
+- Patent, CPVO, trade, and weather monitor CLIs use that same runtime lock;
+  manual, scheduler, deployment-smoke, and worker collection cannot overlap
+  against one inbox.
 - Domain state remains authoritative: staged items, transcript caches,
   Evidence drafts, trusted publication artifacts, and atomic review records.
   Operational JSON stores only attempts, failures, retry timing, completed

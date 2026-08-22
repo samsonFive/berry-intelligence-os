@@ -21,24 +21,22 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from app.runtime_config import resolve_inbox_dir
+from app.runtime_config import resolve_data_dir, resolve_inbox_dir
 from app.services.weather_intelligence import WeatherRegionRequest, run_weather_intelligence_monitor
-
-REGIONS_PATH = ROOT / "data" / "configuration" / "weather_production_regions.json"
-PILOT_PATH = ROOT / "data" / "configuration" / "weather_pilot_regions.json"
-
+from app.services.pipeline_lock import pipeline_lock
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--dry-run", action="store_true", help="Fetch and score; do not write drafts or state")
     parser.add_argument("--inbox-dir", type=Path, default=None)
+    parser.add_argument("--data-dir", type=Path, default=None)
     parser.add_argument("--pilot", type=Path, default=None)
     parser.add_argument("--json", action="store_true", help="Print machine-readable summary")
     return parser
 
 
-def _load_production_regions() -> dict[str, dict]:
-    payload = json.loads(REGIONS_PATH.read_text(encoding="utf-8"))
+def _load_production_regions(path: Path) -> dict[str, dict]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
     return {entry["id"]: entry for entry in payload["regions"]}
 
 
@@ -78,13 +76,16 @@ def _human(payload: dict) -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = _parser()
     args = parser.parse_args(argv)
+    data_dir = args.data_dir or resolve_data_dir(ROOT)
     inbox_dir = args.inbox_dir or resolve_inbox_dir(ROOT)
-    pilot_path = args.pilot or PILOT_PATH
-    production_regions = _load_production_regions()
+    pilot_path = args.pilot or data_dir / "configuration" / "weather_pilot_regions.json"
+    production_regions = _load_production_regions(data_dir / "configuration" / "weather_production_regions.json")
     region_requests = _load_pilot_requests(pilot_path)
-    payload = run_weather_intelligence_monitor(
-        inbox_dir=inbox_dir, production_regions=production_regions, region_requests=region_requests, dry_run=args.dry_run,
-    )
+    if args.dry_run:
+        payload = run_weather_intelligence_monitor(inbox_dir=inbox_dir, production_regions=production_regions, region_requests=region_requests, dry_run=True)
+    else:
+        with pipeline_lock(inbox_dir, "weather"):
+            payload = run_weather_intelligence_monitor(inbox_dir=inbox_dir, production_regions=production_regions, region_requests=region_requests, dry_run=False)
     if args.json:
         print(json.dumps(payload, indent=2))
     else:

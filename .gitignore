@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .verify-tmp/
+.test-tmp/
 .pkg-test-tmp*/
 .mem-test*/
 *.egg-info/

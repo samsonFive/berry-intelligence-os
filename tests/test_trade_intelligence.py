@@ -145,6 +145,18 @@ def test_data_not_yet_released_is_not_treated_as_a_failure(tmp_path: Path) -> No
     assert len(draft["trade_observation"]["series"]) == 1  # only the real period, the empty one silently excluded
 
 
+def test_unexpected_adapter_failure_isolated_to_one_period(tmp_path: Path) -> None:
+    def fake_query(*, period, **kwargs):
+        if period == "202501":
+            raise ValueError("unexpected adapter failure")
+        return [_row(period=period)]
+
+    lanes = [TradeLaneRequest(reporter_geo="geography-united-states", partner_geo="geography-mexico", flow_code="M", hs_code="081010", periods=["202501", "202502"])]
+    result = run_trade_intelligence_monitor(inbox_dir=tmp_path / "inbox", hs_taxonomy=HS_TAXONOMY, lane_requests=lanes, query=fake_query)
+    assert len(result["failed"]) == 1
+    assert result["lanes_with_data"] == 1 and result["review_ready"] == 1
+
+
 def test_year_over_year_change_requires_same_lane_and_both_periods() -> None:
     record = {
         "id": "ev-trade-x",

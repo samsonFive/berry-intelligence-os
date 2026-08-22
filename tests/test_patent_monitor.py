@@ -425,9 +425,7 @@ def test_monitor_dedupes_and_isolates_query_failures(tmp_path: Path, monkeypatch
 
     def wrapping(query, **kwargs):
         if "fail" in query:
-            from app.services.patent_monitor.google_patents import GooglePatentsError
-
-            raise GooglePatentsError("isolated failure")
+            raise ValueError("unexpected adapter failure")
         return fake_google(query, **kwargs)
 
     first = run_patent_monitor(

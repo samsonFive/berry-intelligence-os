@@ -231,7 +231,7 @@ def test_older_items_go_to_backlog(monkeypatch, tmp_path: Path) -> None:
     assert "ev-now" in buckets["top_priority"]
 
 
-def test_real_reading_queue_morning_workload_is_smaller_than_unresolved() -> None:
+def test_real_reading_queue_morning_workload_is_smaller_than_unresolved(tmp_path: Path) -> None:
     from app.main import BERRIES, DATA_DIR, INBOX_DIR, all_signals, entity_index, list_pending_drafts, published_evidence
 
     published = published_evidence()
@@ -265,7 +265,7 @@ def test_real_reading_queue_morning_workload_is_smaller_than_unresolved() -> Non
     top10_titles = [item["title"] for item in brief["reading_buckets"][0]["entries"][:10]]
     assert not any("ABN Lookup" in title for title in top10_titles)
     assert all(bullet.get("href") for company in brief["company_deltas"] for bullet in company["bullets"])
-    Path("/opt/cursor/artifacts/morning_brief_workload.json").write_text(
+    (tmp_path / "morning_brief_workload.json").write_text(
         json.dumps(
             {
                 "unresolved": unresolved,

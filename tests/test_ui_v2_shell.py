@@ -301,15 +301,21 @@ def test_compact_marks_do_not_repeat_kind() -> None:
     assert "v2-mark-trusted" in footer
 
 
-def test_cold_unrelated_html_nav_does_not_run_ranked_brief() -> None:
+def test_cold_unrelated_html_nav_does_not_run_ranked_brief(monkeypatch) -> None:
     client = TestClient(app)
     main._NAV_WORK_CACHE["key"] = None
     main._NAV_WORK_CACHE["value"] = None
-    started = time.perf_counter()
+    calls = {"n": 0}
+    original = main.build_morning_brief
+
+    def wrapped(*args, **kwargs):
+        calls["n"] += 1
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(main, "build_morning_brief", wrapped)
     page = client.get("/assessments")
-    elapsed_ms = (time.perf_counter() - started) * 1000
     assert page.status_code == 200
-    assert elapsed_ms < 800, f"cold Assessments still paid ranked nav work: {elapsed_ms:.1f}ms"
+    assert calls["n"] == 0
 
 
 def test_landscape_region_js_uses_berry_label() -> None:

@@ -16,12 +16,14 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from app.composition import get_repositories
-from app.repositories.paths import DEFAULT_DATA_DIR, SCHEMAS_DIR
+from app.repositories.paths import SCHEMAS_DIR
+from app.runtime_config import resolve_data_dir, resolve_inbox_dir
 from app.services.ai_extraction import PROMPT_VERSION, OpenAICompatibleExtractionConfig, OpenAICompatibleExtractionProvider
 from app.services.collection_runner import OperationalStateStore, resolve_extraction_gate
 from app.services.collection_status import CollectionStatusService
 from app.services.extraction_evaluation import public_configuration
 from app.services.model_qualification import file_sha256, qualification_configuration_fingerprint
+from app.services.pipeline_health import build_pipeline_health
 
 
 def _enabled(name: str) -> bool:
@@ -32,9 +34,9 @@ def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json", action="store_true", help="Print the stable machine-readable report")
     parser.add_argument("--source", help="Limit item/source detail and readiness to one configured Source")
-    parser.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
+    parser.add_argument("--data-dir", type=Path, default=None)
     parser.add_argument("--schemas-dir", type=Path, default=SCHEMAS_DIR)
-    parser.add_argument("--inbox-dir", type=Path, default=ROOT / "inbox")
+    parser.add_argument("--inbox-dir", type=Path, default=None)
     parser.add_argument("--operations-dir", type=Path, help="Defaults to <inbox>/operations")
     parser.add_argument("--retry-limit", type=int, default=3)
     parser.add_argument("--lock-stale-seconds", type=int, default=21600)
@@ -126,6 +128,8 @@ def _human(report: dict) -> str:
         f"Sources configured: {report['sources_configured']}",
         f"Sources discoverable: {report['sources_discoverable']}",
         f"Runner lock: {report['lock']['state']}",
+        f"Persistent runtime configured: {report.get('runtime', {}).get('persistent_runtime_configured', False)}",
+        f"Storage free: {report.get('runtime', {}).get('free_percent', 0)}%",
         "",
         "Work:",
         f"  ready to advance: {counts['ready_to_advance']}",
@@ -157,6 +161,15 @@ def _human(report: dict) -> str:
                 f"atomic_review={source['pending_atomic_review']}, failures="
                 f"{source['retryable_failures'] + source['operator_intervention']} -> {source['recommended_next_action']}"
             )
+    if report.get("pipelines"):
+        lines.extend(["", "Pipelines:"])
+        for pipeline in report["pipelines"]:
+            mode = "scheduled" if pipeline["scheduled"] else "manual"
+            failure = "failing" if pipeline["failure_state"] else "ok"
+            lines.append(
+                f"  {pipeline['pipeline']}: {mode}, enabled={pipeline['enabled']}, "
+                f"last_success={pipeline['last_success'] or 'never'}, {failure}"
+            )
     if report["problems"]:
         lines.extend(["", "Operator problems:"])
         lines.extend(f"  - {problem['identity']}: {problem['message']}" for problem in report["problems"])
@@ -166,6 +179,8 @@ def _human(report: dict) -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = _parser()
     args = parser.parse_args(argv)
+    args.data_dir = args.data_dir or resolve_data_dir(ROOT)
+    args.inbox_dir = args.inbox_dir or resolve_inbox_dir(ROOT)
     if args.retry_limit < 0 or args.lock_stale_seconds < 0:
         parser.error("retry and lock-stale values must be non-negative")
     try:
@@ -184,6 +199,14 @@ def main(argv: list[str] | None = None) -> int:
             lock_stale_after=timedelta(seconds=args.lock_stale_seconds),
         )
         report = service.build(source_id=args.source).as_dict()
+        pipeline_config = args.data_dir / "configuration" / "collection_pipelines.json"
+        if not pipeline_config.is_file():
+            pipeline_config = ROOT / "data" / "configuration" / "collection_pipelines.json"
+        report.update(build_pipeline_health(
+            data_dir=args.data_dir,
+            inbox_dir=args.inbox_dir,
+            config_path=pipeline_config,
+        ))
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         print(json.dumps({"state": "error", "error": str(exc)}, indent=2))
         return 2

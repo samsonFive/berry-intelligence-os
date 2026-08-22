@@ -227,6 +227,20 @@ def test_cross_pipeline_url_duplicate_resolves_to_existing_trusted_publication(t
     assert not (inbox / "evidence").exists()
 
 
+def test_cross_pipeline_dedup_includes_legacy_trusted_publication_without_role(tmp_path: Path) -> None:
+    service, repos, inbox, _ = _setup(tmp_path)
+    original = _item(item_id="media-legacy-original")
+    legacy = _parent(original)
+    legacy.pop("evidence_role")
+    repos.evidence.create(legacy)
+    rediscovered = _item(item_id="media-legacy-rediscovered")
+    _write_item(inbox, rediscovered)
+    result = service.process(rediscovered["id"])
+    assert result.parent_resolution.status == "trusted"
+    assert result.state == "publication_approved"
+    assert not (inbox / "evidence").exists()
+
+
 def test_cross_pipeline_title_source_date_duplicate_resolves_to_existing_pending_draft(tmp_path: Path) -> None:
     """Same real article, different discovered-item id and different
     capture URL, but the normalized title (after stripping a trailing
