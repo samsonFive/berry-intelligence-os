@@ -81,6 +81,37 @@ OFF.
 Focused tests cover compactness, idempotency, workflow separation,
 insufficient-sample semantics, no inferred history, and verified backup/restore
 of a private event. The static builder has no review-event or inbox dependency.
-Production proof captures pre/post runtime counts and hashes, rebuilds the
-existing Docker deployment, confirms timer and automatic-throttling state,
-exercises authenticated review, and verifies event survival.
+Production proof was completed on the IONOS VPS on 2026-08-22 at canonical
+merge `4bf2cfa` (implementation `9bdc584`, PR #86):
+
+- Before mutation, `/var/backups/berry-intelligence-os/berry-runtime-20260822T165827Z.tar.gz`
+  was created through the deployed container and independently verified: 9,721
+  files, scope `data,inbox`, archive SHA-256
+  `c105ebea7ce3cee2f5eb3d2bd358c61fea61b2228a9a0845c11daa4835f205df`.
+- Stable pre-deploy state was 2,624 data files, 7,096 inbox files, 1,108
+  drafts, zero review-event JSON files, data manifest
+  `8bf90314d2fb063f6f506986789d82c9806fd397a3884daef69b94133a2cbf8d`,
+  inbox manifest
+  `2f1657e5827e1449271f76fab20140ecdb52ad898e4ff5e994733e67dc53c6ea`,
+  and analyst-state SHA-256
+  `119af74fcdf74580fd0bb1134c392882cfcfde01255ee08c5fc2d86e97d8ffda`.
+- Docker rebuilt/recreated the app on the same persistent `data/` and `inbox/`
+  mounts. Final data/draft counts and both stable manifests matched exactly.
+  Inbox ended at 7,098 files solely because the restored timer successfully
+  wrote one timestamped operations JSON plus its stderr companion; excluding
+  those two named additions reproduced the exact pre-deploy inbox manifest.
+- No genuine historical review events existed, so none were fabricated for a
+  smoke test. A temporary non-JSON marker written by deployed UID `1000:1000`
+  under the mounted `review_events/` directory survived an app restart with
+  SHA-256 `a7d8cc11a388e026e51c235c6261923d40b2f2035b263958bfc9e0dffe694193`,
+  then was removed. The ledger remained at zero JSON events. Real JSON event
+  backup/restore behavior is covered by `tests/test_review_events.py`.
+- Container health, internal/public `/healthz`, `/login`, and authenticated
+  `/work-queue` all returned success (`200`, login POST `303`). The collection
+  timer is enabled/active; its post-deploy service run exited 0. Automatic
+  throttling is `false`; observed decisions remain honestly zero and rates
+  insufficient. Warm default status completed in 5.09 seconds (the first cold,
+  scheduler-adjacent invocation took 25.54 seconds).
+- The deployed diff changed no Source/configuration/schema/trust records. The
+  local static build wrote 1,527 pages and both its unpublished-record check
+  and the explicit review-event/actor leakage scan passed.
