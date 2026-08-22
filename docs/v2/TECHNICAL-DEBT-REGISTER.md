@@ -17,7 +17,13 @@ Owner lanes: `platform` · `product` · `data` · `ops`
 
 IDs TD-038 through TD-046 are owned by the qualitative-coverage and Global
 Search missions. The runtime items therefore
-use the next unclaimed IDs; the duplicate draft IDs are not aliases.
+use the next unclaimed IDs; the duplicate draft IDs are not aliases. IDs
+TD-055 through TD-057 in this summary table are Production Collection
+Operations V1's own (fixed-window scheduling, analyst throughput,
+acquisition reliability) -- distinct from the full-entry TD-058 through
+TD-061 below, which are Relevance Screen Boundary V1's (2026-08-23),
+renumbered up from an initial draft TD-055/056/057/058 after a real,
+confirmed collision with these same table rows.
 
 | ID | Area | Finding / resolution | Severity | Status | Regression test |
 |---|---|---|---|---|---|
@@ -798,7 +804,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Evidence** | Two real, confirmed cases this mission: 'UNIFRUTTI GROUP ACQUIRES BOMAREA AND AVOAMERICA PERU...' (PR Newswire, BM-C-04) and 'Mexican Workers Advance Trafficking Suit Against Michigan Farm' (Bloomberg Law News, BM-R-10) were both real, generically DISCOVERED (present in `inbox/discovered_media/`) but screened `skip` before any body fetch was attempted -- neither the title nor Google News' own (identical, shallow) description field contains a berry species word, even though the underlying real story is berry-relevant (Bomarea/AvoAmerica are real Peru blueberry companies; the Michigan farm is a real blueberry operation). |
 | **Impact** | Discovery reaching an event is necessary but not sufficient for real end-to-end recall -- an unknown number of additional real events in this mission's ~823 still-unprocessed discovered items likely share this same pattern. |
 | **Workaround** | Resolved for the direct case, partial for the general one -- see below. |
-| **Recommended resolution** | Done, partially: Relevance Screen Boundary V1 (2026-08-23) added query-provenance corroboration (`app/services/relevance_screen.py::_query_corroboration_hit`) -- a Stage A zero-signal title that also names a registered Geography/Company entity plus a corporate-action verb is kept open for Stage B instead of confidently rejected; when the article body is genuinely unverifiable (see TD-056) this now creates an explicitly-labeled `TIER_UNCERTAIN` untrusted draft for human review rather than silently dropping the item. Real, direct proof: BM-C-04 (this debt's own cited Unifrutti/AvoAmerica case) is now `CAPTURED (draft, uncertain)`. The general case remains open (TD-055): a bare press release naming no registered entity is still confidently rejected. |
+| **Recommended resolution** | Done, partially: Relevance Screen Boundary V1 (2026-08-23) added query-provenance corroboration (`app/services/relevance_screen.py::_query_corroboration_hit`) -- a Stage A zero-signal title that also names a registered Geography/Company entity plus a corporate-action verb is kept open for Stage B instead of confidently rejected; when the article body is genuinely unverifiable (see TD-059) this now creates an explicitly-labeled `TIER_UNCERTAIN` untrusted draft for human review rather than silently dropping the item. Real, direct proof: BM-C-04 (this debt's own cited Unifrutti/AvoAmerica case) is now `CAPTURED (draft, uncertain)`. The general case remains open (TD-058): a bare press release naming no registered entity is still confidently rejected. |
 | **Status** | partially resolved |
 | **Owner lane** | collection/runtime |
 | **PR/SHA when resolved** | Relevance Screen Boundary V1 (2026-08-23), branch `feature/relevance-screen-boundary-v1` |
@@ -900,7 +906,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | `cd107b9` (Codex, concurrent) |
 | **Regression-test reference** | `tests/test_article_dedup.py` (Codex's own additions) |
 
-### TD-055 — Query-provenance corroboration only rescues a metadata-thin item that also names a registered entity
+### TD-058 — Query-provenance corroboration only rescues a metadata-thin item that also names a registered entity
 
 | Field | Value |
 |---|---|
@@ -916,7 +922,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_relevance_screen.py::test_action_verb_alone_without_geography_or_company_does_not_corroborate` |
 
-### TD-056 — Google News RSS redirect URLs are not resolvable to a real article body without an undocumented decode step
+### TD-059 — Google News RSS redirect URLs are not resolvable to a real article body without an undocumented decode step
 
 | Field | Value |
 |---|---|
@@ -932,7 +938,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_article_refresh.py::test_query_corroborated_zero_signal_item_becomes_uncertain_draft_when_body_unverifiable` |
 
-### TD-057 — French blackberry species identity ("mûre"/"mûres") remains unrecognized
+### TD-060 — French blackberry species identity ("mûre"/"mûres") remains unrecognized
 
 | Field | Value |
 |---|---|
@@ -948,7 +954,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_relevance_screen.py::test_french_mure_deliberately_excluded_stays_generic` |
 
-### TD-058 — Two independently-evolved relevance-screening mechanisms coexist
+### TD-061 — Two independently-evolved relevance-screening mechanisms coexist
 
 | Field | Value |
 |---|---|

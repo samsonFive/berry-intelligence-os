@@ -368,7 +368,7 @@ Full detail: `docs/v2/RELEVANCE-SCREEN-BOUNDARY-V1.md`. This mission did not add
 
 **Real value beyond the fixed benchmark**: 44 new real drafts from `source-news-search-morocco-berry-fr` (French vocabulary fix, 45/50 of that source's own backlog now review-ready) and a real, previously entirely-missed Driscoll's/Costa Group stake-acquisition cluster (5 independent articles, query-provenance corroboration) -- neither matches a specific fixed benchmark ID, so neither moves the 31/50 number; reported here as evidence the mechanism generalizes, not as a recall claim, per this benchmark's own no-redefinition discipline.
 
-Not `OPERATIONAL`: query-provenance corroboration only rescues items whose title also names a registered entity (TD-055, ~5% of the real zero-signal `news_search_rss` backlog measured); real article-body verification remains structurally unavailable for Google-News-sourced items generally (TD-056); French blackberry identity remains unrecognized, a deliberate exclusion (TD-057).
+Not `OPERATIONAL`: query-provenance corroboration only rescues items whose title also names a registered entity (TD-058, ~5% of the real zero-signal `news_search_rss` backlog measured); real article-body verification remains structurally unavailable for Google-News-sourced items generally (TD-059); French blackberry identity remains unrecognized, a deliberate exclusion (TD-060).
 
 ---
 
