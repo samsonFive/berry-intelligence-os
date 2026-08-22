@@ -336,10 +336,13 @@ def present_queue_item(
         row["needs_consume"] = status in READING_ACTIVE
     elif dimension == "testing":
         status = testing_state(item_id, state)
+        entry = _entry(item_id, "testing", state)
         row["workflow_state"] = status
         row["workflow_label"] = TESTING_LABELS[status]
         row["is_active"] = status in TESTING_ACTIVE
         row["needs_consume"] = status in TESTING_ACTIVE
+        row["review_updated_at"] = str(entry.get("updated_at") or "")
+        row["reviewer"] = str(entry.get("reviewer") or "")
     elif dimension == "monitoring":
         status = monitoring_state(item_id, state)
         related = _signals_for_evidence(item_id, signals or [])
@@ -426,11 +429,12 @@ def build_dimension_page(
         eyebrow = "UNREAD AND SAVED — THEN DISMISS OR PROMOTE"
     elif dimension == "testing":
         purpose = (
-            "Independent verification of claims in trusted evidence — field, trial, or source-check work. "
+            "Independent verification of tagged source claims in published Evidence. "
+            "Pass/Fail/Defer is an analyst disposition, not a Fact, and not Learner Mode. "
             "This is not model-qualification or extraction testing."
         )
         label = "Claim testing"
-        eyebrow = "SYSTEM QUALITY — VERIFY THE CLAIM"
+        eyebrow = "VERIFY THE CLAIM — NOT A FACT"
     elif dimension == "commercial_position":
         purpose = (
             "Trusted evidence tagged for commercial-position thinking. This is an intelligence view, "

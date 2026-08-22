@@ -306,6 +306,22 @@
 
 .v2-filterbar { padding-top: 0; }
 
+.v2-claim-list {
+  display: grid;
+  gap: 12px;
+  padding: 0 0 24px;
+  max-width: 920px;
+}
+.v2-claim-card {
+  border-left: 3px solid var(--v2-border-strong);
+}
+.v2-claim-actions {
+  opacity: 1;
+  pointer-events: auto;
+}
+.v2-testing-section { padding-bottom: 8px; }
+.v2-testing-detail .brief-section { max-width: 920px; }
+
 .v2-feed-grid .v2-card-list,
 .v2-feed-grid.v2-feed .intel-card-list {
   display: grid;
@@ -631,6 +647,14 @@
 .v2-watch-activity .v2-card { box-shadow: none; }
 .v2-watch-links { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 6px; }
 .v2-watch-actions { position: static; opacity: 1; pointer-events: auto; flex-wrap: wrap; }
+.v2-claim-list { display: grid; gap: 14px; margin: 0 0 28px; }
+.v2-claim-card { padding: 16px 18px; overflow-wrap: anywhere; }
+.v2-claim-actions { position: static; opacity: 1; pointer-events: auto; flex-wrap: wrap; }
+.v2-claim-evidence-line { display: flex; flex-wrap: wrap; gap: 8px 14px; }
+.v2-claim-link-list { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 6px; }
+.v2-testing-section { padding: 0 0 28px; }
+.v2-testing-bucket h2 { font-size: 1rem; margin: 16px 0 6px; }
+.v2-testing-detail .brief-section { max-width: 820px; }
 .v2-alert-list { list-style: none; margin: 0 0 20px; padding: 0; display: grid; gap: 10px; }
 .v2-alert-card { padding: 14px 16px; border-left: 3px solid var(--v2-action); overflow-wrap: anywhere; }
 .v2-alert-group h3 { font-size: 1rem; margin: 16px 0 6px; }
@@ -714,6 +738,7 @@
   .v2-reading-list .v2-card-actions,
   .v2-watch-actions,
   .v2-health-actions,
+  .v2-claim-actions,
   .v2-decision-row .pending-decision-actions { opacity: 1; pointer-events: auto; }
   .v2-topbar { height: auto; min-height: 64px; flex-wrap: wrap; padding: 10px 12px; }
   .v2-search { width: 100%; flex-basis: 100%; }

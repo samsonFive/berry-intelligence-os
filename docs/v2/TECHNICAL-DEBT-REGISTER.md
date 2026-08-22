@@ -23,7 +23,10 @@ Operations V1's own (fixed-window scheduling, analyst throughput,
 acquisition reliability) -- distinct from the full-entry TD-058 through
 TD-061 below, which are Relevance Screen Boundary V1's (2026-08-23),
 renumbered up from an initial draft TD-055/056/057/058 after a real,
-confirmed collision with these same table rows.
+confirmed collision with these same table rows. Claim Testing V2 originally
+drafted TD-055 as well; that ID is reserved for Production Collection
+Operations. Claim Testing debt is TD-062 (no first-class Claim object) and
+TD-063 (queue warm latency).
 
 | ID | Area | Finding / resolution | Severity | Status | Regression test |
 |---|---|---|---|---|---|
@@ -969,5 +972,37 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Owner lane** | platform |
 | **PR/SHA when resolved** | Relevance Screen Boundary V1 (2026-08-23), branch `feature/relevance-screen-boundary-v1` |
 | **Regression-test reference** | `tests/test_article_refresh.py`, `tests/test_relevance_screen.py` |
+
+### TD-062 — Claim Testing has no first-class Claim object
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | product / claim testing |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | Canonical Claim Testing is published Evidence with `priority.testing.level != none` plus `inbox/analyst_queue_state.json` dispositions (`needs_testing` / `pass` / `fail` / `defer`). There is no Claim schema, no supporting/contradicting counts unless `evidence_links` already stores `corroborates` / `contradicts`, and Pass does not publish a Fact. V2 UI surfaces that limitation instead of inventing a science product. Originally drafted as TD-055; renumbered because Production Collection Operations V1 already owns TD-055. |
+| **Impact** | Analysts can adjudicate tagged source claims, but cannot record a structured evidence chain unless those links already exist on the Evidence record. |
+| **Workaround** | Use stored `evidence_links` and existing Fact publication when a Fact is actually warranted. |
+| **Recommended resolution** | Only if product later authorizes a first-class Claim object. Do not treat this UI migration as that authorization. |
+| **Status** | limitation |
+| **Owner lane** | product |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_testing_workspace.py` |
+
+### TD-063 — Claim Testing queue warm path lists the full published Evidence corpus
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | product / performance |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | Warm `GET /queues/testing` measured ~2.9s locally. The route uses `queue_items("testing")` → `published_evidence()` (one list of published JSON), then enriches only the tagged subset (~65 records) via `related_indexes`. It does not call Morning Brief, Story Threads, Global Search indexing, `variety_footprint`, or relevance screening. No quadratic per-item corpus rescan was found. |
+| **Impact** | Analyst wait is noticeable but bounded to corpus size, not an orchestration replay. |
+| **Workaround** | None required for landing. |
+| **Recommended resolution** | If this becomes operator-painful, cache published Evidence for the request or filter testing tags without a full sort of unpublished-excluded records. Do not rewrite the testing product to get that. |
+| **Status** | limitation |
+| **Owner lane** | product |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_testing_workspace.py::test_testing_queue_does_not_run_forbidden_work` |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

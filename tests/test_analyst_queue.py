@@ -117,7 +117,7 @@ def test_testing_queue_pass_leaves_active_but_stays_auditable(monkeypatch, tmp_p
     client = TestClient(app)
     page = client.get("/queues/testing")
     assert "Claim testing" in page.text
-    assert "not model-qualification" in page.text
+    assert "not a Fact" in page.text.casefold() or "NOT A FACT" in page.text
     assert "Pass" in page.text
     client.post("/queues/testing/ev-test-1", data={"action": "pass", "reviewer": "analyst-fixture"})
     active = client.get("/queues/testing")

@@ -69,10 +69,12 @@ from app.services.analyst_queue import (
     is_pending_dismissed,
     load_state as load_analyst_queue_state,
     pending_position_proposals,
+    present_queue_item,
     proposal_state,
     signal_alert_state,
     work_counts,
 )
+from app.services.testing_workspace import enrich_testing_item, related_indexes, testing_page_model
 from app.services.draft_attribution import attribute_draft, draft_matches_entity
 from app.services.review_workbench import (
     analyst_transcript_label,
@@ -2793,6 +2795,11 @@ def priority_queue(
     dimension: str,
     region: str | None = None,
     show_completed: str | None = None,
+    berry: str | None = None,
+    company: str | None = None,
+    variety: str | None = None,
+    geography: str | None = None,
+    status: str | None = None,
 ) -> HTMLResponse:
     if dimension not in PRIORITY_DIMENSIONS:
         raise HTTPException(status_code=404, detail="Unknown priority dimension")
@@ -2857,6 +2864,32 @@ def priority_queue(
             health_rows=failing_source_health_rows(load_sources(), inbox_dir=INBOX_DIR),
             include_drafts=True,
         )
+    testing_workspace: dict[str, Any] = {}
+    if dimension == "testing":
+        repos = get_repositories(DATA_DIR, SCHEMAS_DIR)
+        evidence_by_id, facts_by_id = related_indexes(
+            all_items,
+            get_evidence=repos.evidence.get,
+            get_fact=repos.facts.get,
+        )
+        testing_workspace = testing_page_model(
+            records=all_items,
+            inbox_dir=INBOX_DIR,
+            entities=entities,
+            berry_labels=BERRIES,
+            evidence_by_id=evidence_by_id,
+            facts_by_id=facts_by_id,
+            show_completed=completed,
+            static_build=False,
+            filters={
+                "berry": berry or "",
+                "company": company or "",
+                "variety": variety or "",
+                "geography": geography or "",
+                "state": status or "",
+            },
+        )
+        page = {**page, **testing_workspace}
     return templates.TemplateResponse(
         request=request,
         name="queue.html",
@@ -2874,6 +2907,7 @@ def priority_queue(
             "reading_bucket_counts": reading_bucket_counts,
             "return_to": f"/queues/{dimension}",
             **monitor,
+            **testing_workspace,
         },
     )
 
@@ -2936,6 +2970,41 @@ def pending_item_action(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     next_url = safe_next_path(return_to) or "/pending"
     return RedirectResponse(url=next_url, status_code=303)
+
+
+@app.get("/queues/testing/{item_id}", response_class=HTMLResponse)
+def testing_claim_review(request: Request, item_id: str) -> HTMLResponse:
+    entities = entity_index()
+    records = queue_items("testing")
+    record = next((row for row in records if row.get("id") == item_id), None)
+    if record is None:
+        raise HTTPException(status_code=404, detail="Claim is not in the testing queue")
+    state = load_analyst_queue_state(INBOX_DIR)
+    repos = get_repositories(DATA_DIR, SCHEMAS_DIR)
+    evidence_by_id, facts_by_id = related_indexes(
+        [record],
+        get_evidence=repos.evidence.get,
+        get_fact=repos.facts.get,
+    )
+    item = enrich_testing_item(
+        record,
+        state=state,
+        entities=entities,
+        berry_labels=BERRIES,
+        evidence_by_id=evidence_by_id,
+        facts_by_id=facts_by_id,
+        static_build=False,
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="testing_detail.html",
+        context={
+            "item": item,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "reviewer": session_username(request) or review_username() or "",
+        },
+    )
 
 
 @app.post("/queues/{dimension}/{item_id}")
