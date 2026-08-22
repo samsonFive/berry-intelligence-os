@@ -13,17 +13,22 @@ Status values: `active` · `limitation` · `resolved` · `monitoring`
 
 Owner lanes: `platform` · `product` · `data` · `ops`
 
-## Collection Runtime + Data Integrity V1 update (2026-08-21)
+## Collection Runtime + Data Integrity V1 production proof (2026-08-22)
+
+IDs TD-038 through TD-046 are owned by the qualitative-coverage and Global
+Search missions. The runtime items therefore
+use the next unclaimed IDs; the duplicate draft IDs are not aliases.
 
 | ID | Area | Finding / resolution | Severity | Status | Regression test |
 |---|---|---|---|---|---|
-| TD-038 | runtime backup | No deterministic backup/restore existed. Timestamped, checksummed `data/` + `inbox/` archive with secret exclusion and isolated verified restore added. | High | resolved | `tests/test_runtime_backup.py` |
-| TD-039 | idempotency | Patent/CPVO/trade/weather seen state did not account for acquisition/configuration changes. Versioned configuration signatures now invalidate only derived seen indexes. | High | resolved | `tests/test_acquisition_state.py` plus monitor tests |
-| TD-040 | runtime logs | Host cron logs defaulted to a worktree-local inbox rather than the deployed runtime bind mount. Default moved under `demo-runtime/inbox/operations`. | Medium | resolved | script inspection |
-| TD-041 | orchestration | Patent, CPVO, trade and weather remain manual pilots; only article/spoken media has a scheduler entry point, and installation of the production timer is external state. | Medium | active | `data/configuration/collection_pipelines.json`; `tests/test_pipeline_health.py` |
-| TD-042 | retention | No automatic off-host backup rotation or age-based archive compaction exists. Provenance-preserving retention classes are defined; deletion remains deliberately disabled. | Medium | active | `docs/v2/COLLECTION-RUNTIME-DATA-INTEGRITY.md` |
-| TD-043 | locking | Manual non-media monitors did not share the recurring runner lock. Every mutable collector CLI now uses one runtime lease. | High | resolved | `tests/test_pipeline_lock.py` |
-| TD-044 | tests | Cold-route behavior used a fixed 800ms wall-clock assertion and failed on constrained Windows hosts despite the ranked brief never running. Replaced with direct instrumentation of the forbidden call. | Low | resolved | `tests/test_ui_v2_shell.py::test_cold_unrelated_html_nav_does_not_run_ranked_brief` |
+| TD-047 | runtime backup | Deterministic checksummed `data/` + `inbox/` backup/restore is live-proven. Production proof found the first secret-name filter also dropped a legitimate Evidence filename containing the word `secret`; matching is now limited to exact secret-like path components/stems and the real-style filename is a regression case. | High | resolved | `tests/test_runtime_backup.py` |
+| TD-048 | idempotency | Patent/CPVO/trade/weather seen state did not account for acquisition/configuration changes. Versioned configuration signatures now invalidate only derived seen indexes. | High | resolved | `tests/test_acquisition_state.py` plus monitor tests |
+| TD-049 | runtime logs | Host cron logs defaulted to a worktree-local inbox rather than the deployed runtime bind mount. Default moved under `demo-runtime/inbox/operations`. | Medium | resolved | script inspection; VPS path proof |
+| TD-050 | orchestration | VPS proof: `bios-collection.timer` is installed/enabled and invokes only article/spoken collection via `collection_cron.sh`; patent, CPVO, trade, and weather remain manual. The latest observed run succeeded for 35/40 Sources but systemd recorded failure because 5 Sources failed, so unattended collection is installed but not healthy. | Medium | active | `data/configuration/collection_pipelines.json`; `tests/test_pipeline_health.py`; VPS systemd logs |
+| TD-051 | retention | No automatic off-host backup rotation or age-based archive compaction exists. Provenance-preserving retention classes are defined; deletion remains deliberately disabled. | Medium | active | `docs/v2/COLLECTION-RUNTIME-DATA-INTEGRITY.md` |
+| TD-052 | locking | Manual non-media monitors did not share the recurring runner lock. Every mutable collector CLI now uses one runtime lease; the deployed UID 1000 app user can write the persistent lock directory. | High | resolved | `tests/test_pipeline_lock.py`; VPS write probe |
+| TD-053 | tests | Host-specific `/opt/cursor/artifacts` paths and fixed wall-clock assertions failed on Windows/constrained hosts. Performance artifacts now use `tmp_path`; direct call-path instrumentation guards forbidden expensive work. | Low | resolved | `tests/test_morning_brief.py`; `tests/test_global_search.py`; `tests/test_ui_v2_shell.py` |
+| TD-054 | status diagnostics | Production `collection_status.py --json` did not complete within an attached 35-minute ceiling over the live corpus; a bounded-output retry proved report size was not the cause. It exited with the SSH timeout, left no orphan, and did not affect app health. | Medium | active | VPS production proof; `docs/v2/COLLECTION-RUNTIME-DATA-INTEGRITY.md` |
 
 ID aliases from the expansion-guide session's withdrawn draft (do not reopen
 these as Open UI-lane items):
@@ -91,17 +96,17 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `docs/v2/PHASE-2-REPOSITORY-REQUIREMENTS.md` |
 
-### TD-008 — Continuous collection not scheduled on the VPS
+### TD-008 — VPS collection timer installed but unattended runs are not healthy
 
 | Field | Value |
 |---|---|
 | **Severity** | Medium |
 | **Area** | ops |
 | **Date discovered** | 2026-08-16 (still current) |
-| **Evidence** | `docs/v2/CONTINUOUS-INTELLIGENCE-REFRESH.md`: implemented, not scheduled. |
-| **Impact** | Discovery/review still operator-driven. |
-| **Workaround** | `scripts/run_recent_batch.py` by hand. |
-| **Recommended resolution** | systemd timer on the demo VPS when Johnny authorizes unattended runs. |
+| **Evidence** | Production inspection 2026-08-22: `bios-collection.timer` is enabled/active and invokes `scripts/collection_cron.sh` every four hours. The latest observed run checked 40 Sources (35 succeeded, 5 failed) and systemd recorded exit 1; recent journal history shows repeated nonzero exits. Patent, CPVO, trade, and weather are not scheduled. |
+| **Impact** | Article/spoken collection is genuinely unattended and still produces review work, but the timer remains operationally red and partial Source failures require operator attention. |
+| **Workaround** | Inspect `collection_status.py`, the persistent cron log, and per-Source health. Do not start a second broad run merely to clear systemd state. |
+| **Recommended resolution** | Triage the five failing Sources and keep partial-failure reporting explicit. Do not schedule the four manual pipelines as part of this fix. |
 | **Status** | active |
 | **Owner lane** | ops |
 | **PR/SHA when resolved** | — |

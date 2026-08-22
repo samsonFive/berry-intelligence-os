@@ -14,11 +14,20 @@ from typing import Any, Iterable
 BACKUP_FORMAT_VERSION = 1
 MUTABLE_ROOTS = ("data", "inbox")
 EXCLUDED_NAMES = {".env", ".env.local", "secrets", "credentials"}
-SECRET_NAME_MARKERS = ("secret", "credential", "api-key", "api_key", "token")
+SECRET_FILE_STEMS = {"secret", "secrets", "credential", "credentials", "api-key", "api_key", "token", "tokens"}
 
 
 class RuntimeBackupError(RuntimeError):
     pass
+
+
+def _is_sensitive_component(part: str) -> bool:
+    folded = part.casefold()
+    return (
+        folded in EXCLUDED_NAMES
+        or folded.startswith(".env")
+        or PurePosixPath(folded).stem in SECRET_FILE_STEMS
+    )
 
 
 def _sha256(path: Path) -> str:
@@ -39,12 +48,8 @@ def _safe_files(runtime_dir: Path) -> Iterable[tuple[Path, str]]:
             if not path.is_file() or path.is_symlink():
                 continue
             relative = path.relative_to(root).as_posix()
-            parts = {part.casefold() for part in PurePosixPath(relative).parts}
-            if (
-                parts & EXCLUDED_NAMES
-                or any(part.startswith(".env") for part in parts)
-                or any(marker in part for part in parts for marker in SECRET_NAME_MARKERS)
-            ):
+            parts = PurePosixPath(relative).parts
+            if any(_is_sensitive_component(part) for part in parts):
                 continue
             yield path, relative
 
