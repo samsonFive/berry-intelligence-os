@@ -80,7 +80,35 @@ The current-state maps support UI state but cannot reconstruct every transition 
 
 ## Production replay
 
-Production replay results and deployment survival proof are recorded in `PROJECT-STATUS.md` after deployment. The activation decision remains **OFF** regardless of queue pressure because observed review outcomes are insufficient to validate real review economics.
+Deployed canonical `018bfa1` reports 1,108 pending publication drafts, HIGH
+pressure, median queue age 0 days, and an oldest item of 6 days. The bounded
+persisted history reports 40.15 drafts/run and 269.53 drafts/day; the daily
+figure covers only the short available run window and is not a long-run
+forecast. The earlier production-operations proof had 1,048 drafts, so the
+current derived queue is 60 larger. A persisted snapshot series sufficient for
+an independent net-growth/day calculation was unavailable, so that metric
+remains `null` rather than inferred.
+
+Only one published artifact has explicit recorded review metadata; Reject,
+Dismiss, and Defer counts are zero. Review completions/day and outcome rates
+therefore remain `null`. The top pending Sources are Peru Spanish blueberry
+search (108), Chile Spanish blueberry search (88), UK berry growers (77),
+South Africa blueberry search (75), and Mexico Spanish berry search (73).
+These are load measurements, not yield claims; every one has zero measurable
+recorded Source-level decisions.
+
+The critical replay would surface 1,107 drafts and defer one exact reprint
+secondary. It surfaces 1,097 protected items and loses zero unique
+direct/uncertain events. Automatic throttling remains **OFF**.
+
+Deployment used the existing bind mounts. Immediate pre/post rebuild counts
+matched exactly: 2,624 data files, 1,108 draft files, and 7,088 inbox files.
+`analyst_queue_state.json` remained SHA-256
+`119af74fcdf74580fd0bb1134c392882cfcfde01255ee08c5fc2d86e97d8ffda`.
+Internal and public `/healthz` returned 200. The deployed operator status took
+3.09 seconds and the full capacity report 1.58 seconds. The activation decision
+remains **OFF** because observed review outcomes are insufficient to validate
+real review economics.
 
 ## Safety boundaries
 
