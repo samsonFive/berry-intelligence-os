@@ -1011,8 +1011,25 @@ body.v2-presentation-mode .v2-canvas {
   padding: 32px 24px 64px;
   font-size: 1.08em;
 }
-body.v2-presentation-mode .v2-readout-page h1 { font-size: 2.4rem; }
-body.v2-presentation-mode .v2-readout-page h2 { font-size: 1.5rem; }
+body.v2-presentation-mode .v2-readout-page h1,
+body.v2-presentation-mode .v2-brief-pack-page h1 { font-size: 2.4rem; }
+body.v2-presentation-mode .v2-readout-page h2,
+body.v2-presentation-mode .v2-brief-pack-page h2 { font-size: 1.5rem; }
+
+/* Manager Brief Pack V1 -- Print / PDF friendly (browser Print, not a
+   server-side PDF generator). No nav chrome, sensible page breaks, cards
+   never split mid-content, coverage caveat stays visible. */
+@media print {
+  .v2-sidebar, .v2-topbar, .v2-nav-offcanvas, #compose,
+  .v2-explain-this, .v2-brief-pack-page a[href="#compose"] { display: none !important; }
+  .v2-frame { margin-left: 0 !important; }
+  .v2-brief-pack-page { max-width: 100%; }
+  .v2-brief-section, .entity-card, .card { break-inside: avoid; page-break-inside: avoid; }
+  .v2-brief-section { margin-bottom: 18px; }
+  .v2-brief-pack-page .context-limit strong { text-decoration: underline; }
+  a[href]::after { content: ""; }
+  body { font-size: 11pt; color: #000; background: #fff; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .offcanvas { transition: none !important; }
