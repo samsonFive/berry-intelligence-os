@@ -43,6 +43,16 @@ def test_all_berries_actors_have_honest_why_shown_copy():
         assert "top competitor" not in row["why_shown"].lower()
 
 
+def test_all_berries_actors_never_padded_with_zero_activity_company():
+    """A sparse berry must show fewer (or zero) actors rather than padding
+    to a fixed count with a company that has 0 signals and 0 evidence --
+    that would directly contradict the "shown because of recent trusted
+    activity" copy right above the card."""
+    context = _all_context()
+    for row in context["actors_to_watch"]:
+        assert row["evidence_count"] > 0 or row["signal_count"] > 0
+
+
 def test_all_berries_recent_moves_sorted_and_bounded():
     context = _all_context()
     moves = context["recent_moves"]
