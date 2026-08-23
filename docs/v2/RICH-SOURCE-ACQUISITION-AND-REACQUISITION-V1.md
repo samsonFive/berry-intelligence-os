@@ -175,3 +175,49 @@ publisher URLs before article acquisition, favor direct publisher feeds and
 newsrooms, run small diverse reacquisition batches, measure real outcome yield
 by source type, and send every current-page comparison through Source Fidelity
 Review.
+
+## Production proof
+
+PR #128 passed Change Scope, Repository Integrity, Static Public Safety, and
+the authoritative full Python suite, then merged as
+`abf759a1017e0ed612395c8d45053e7be4ceed20`. Production was fast-forwarded
+from `1d05f88` and rebuilt in place without `git clean` or replacing either
+mounted runtime directory.
+
+Before mutation, the established container-backed backup procedure created
+and verified
+`/var/backups/berry-intelligence-os/berry-runtime-20260823T225803Z.tar.gz`
+(SHA-256
+`9597ca9845fc5971a6b41fc0fec3516816ebfc8bacbaa9a0da663b8ff8f87721`,
+11,879 manifest entries). Disk had 110 GB free. Pre-deploy runtime state was
+2,656 `data/` files, 9,222 `inbox/` files, and 1,556 inbox Evidence files.
+
+Post-deploy proof:
+
+- repository and runtime image are at `abf759a`; Docker app is healthy;
+- local and public `/healthz` are 200, `/login` is 200, unauthenticated
+  `/source-fidelity` redirects, and authenticated `/pending` and
+  `/source-fidelity` are 200;
+- `bios-collection.timer` remains enabled and active;
+- `BIOS_COLLECTION_ENABLE_EXTRACTION` remains unset;
+- `data/` remains 2,656 files and its aggregate hash remains exactly
+  `7f3bea317ff8a9e5b9e8e5bba406e173395f4ee06abfe9aff0f145f823c57588`;
+- inbox Evidence remains 1,556 files; Source Fidelity artifacts remain zero;
+  review-event file count remains one;
+- the only mission writes to runtime were the authorized private
+  `REACQUISITION-PILOT-10` and `REACQUISITION-PILOT-25` dry-run manifests;
+  both declare `network_acquisition_performed: false`, and a complete key-set
+  audit contains no article, transcript, body, paragraph, or segment field;
+- production's runtime corpus contains 1,227 thin trusted records and 35
+  realistic high-priority candidates: 33 Blueberry, one Raspberry, and one
+  Blackberry. The production pilot planning ranges are 3-7 additions for ten
+  attempts and 9-18 for 25, with the same explicit no-analyst-yield-prediction
+  caveat;
+- `collection_status.py` completed in 3.72 seconds. It reports critical review
+  pressure and 176 existing operator interventions; automatic throttling is
+  still OFF. The existing Growing Produce 403 remains an operator problem and
+  was not reclassified or bypassed.
+
+No source was added, no historical URL was fetched, no source artifact was
+affirmed, no Evidence/review decision was changed, and no Atomic extraction or
+model qualification was run.
