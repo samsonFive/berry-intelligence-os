@@ -1,0 +1,13 @@
+{
+  "id": "rel-university-of-arkansas-develops-ouachita",
+  "record_type": "relationship",
+  "subject_id": "company-university-of-arkansas",
+  "predicate": "develops",
+  "object_id": "variety-ouachita",
+  "status": "active",
+  "evidence_ids": [
+    "ev-20260806173540-30a7-top-performing-arkansas-blackberry-recei"
+  ],
+  "effective_date": "2003-01-01",
+  "notes": "confidence=high; University of Arkansas News reporting the 2003-released Ouachita thornless blackberry's Outstanding Fruit Cultivar Award."
+}

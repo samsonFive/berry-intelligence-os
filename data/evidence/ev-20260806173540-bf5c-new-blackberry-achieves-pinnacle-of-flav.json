@@ -14,8 +14,13 @@
   "berry_ids": [
     "berry-blackberry"
   ],
-  "geography_ids": [],
-  "entity_ids": [],
+  "geography_ids": [
+    "geography-united-states"
+  ],
+  "entity_ids": [
+    "company-university-of-arkansas",
+    "variety-ponca"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],

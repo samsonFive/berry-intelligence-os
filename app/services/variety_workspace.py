@@ -582,7 +582,14 @@ def present_competition(
             if ip_and_observation and card["id"] not in overlap_ids:
                 continue
             variety_rows.append(card)
-    blackberry_thin = berry_id == "berry-blackberry"
+    # Real, count-based check (matches berry_inventory()'s own "thin"
+    # threshold) -- not hardcoded to a specific berry. Found and fixed
+    # during Caneberry Variety + Actor Expansion V1 (2026-08-22): this
+    # previously read `berry_id == "berry-blackberry"` unconditionally,
+    # so the "Blackberry is honestly thin" copy below would have kept
+    # showing even after real evidence-grounded Variety entities made it
+    # false (1 -> 5 varieties this mission).
+    thin_variety_count = berry_id == "berry-blackberry" and len(berry_varieties) <= 1
     return {
         "berry_id": berry_id or "",
         "berry_label": berry_labels.get(berry_id or "", ""),
@@ -592,7 +599,7 @@ def present_competition(
         "observed_in_market": observed,
         "ip_overlap": overlap,
         "ip_overlap_empty": not overlap,
-        "blackberry_thin": blackberry_thin,
+        "blackberry_thin": thin_variety_count,
         "needs_berry": not berry_id,
     }
 

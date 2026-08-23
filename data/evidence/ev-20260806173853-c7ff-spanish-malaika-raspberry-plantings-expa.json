@@ -14,8 +14,13 @@
   "berry_ids": [
     "berry-raspberry"
   ],
-  "geography_ids": [],
-  "entity_ids": [],
+  "geography_ids": [
+    "geography-spain"
+  ],
+  "entity_ids": [
+    "company-onubafruit",
+    "variety-malaika"
+  ],
   "fact_ids": [],
   "relationship_ids": [],
   "strategic_question_ids": [],

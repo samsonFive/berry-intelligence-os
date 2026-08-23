@@ -1,0 +1,13 @@
+{
+  "id": "rel-university-of-arkansas-develops-ponca",
+  "record_type": "relationship",
+  "subject_id": "company-university-of-arkansas",
+  "predicate": "develops",
+  "object_id": "variety-ponca",
+  "status": "active",
+  "evidence_ids": [
+    "ev-20260806173540-bf5c-new-blackberry-achieves-pinnacle-of-flav"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; University of Arkansas System Division of Agriculture's own public blackberry breeding program, reported releasing the Ponca variety."
+}

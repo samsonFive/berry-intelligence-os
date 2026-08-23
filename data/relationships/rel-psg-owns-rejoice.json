@@ -1,0 +1,14 @@
+{
+  "id": "rel-psg-owns-rejoice",
+  "record_type": "relationship",
+  "subject_id": "company-plant-sciences-genetics",
+  "predicate": "owns",
+  "object_id": "brand-rejoice",
+  "status": "active",
+  "evidence_ids": [
+    "ev-20260806173540-f021-blackberry-breakthrough-psg-unveils-firs",
+    "ev-20260806173540-a6ec-new-year-round-premium-blackberry-platfo"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; both Fruitnet and The Packer independently identify Plant Sciences Genetics as the developer/owner of the Rejoice platform, unveiled at the Aneberries International Congress."
+}

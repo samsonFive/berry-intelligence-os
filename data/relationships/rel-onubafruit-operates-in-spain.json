@@ -1,0 +1,13 @@
+{
+  "id": "rel-onubafruit-operates-in-spain",
+  "record_type": "relationship",
+  "subject_id": "company-onubafruit",
+  "predicate": "operates_in",
+  "object_id": "geography-spain",
+  "status": "active",
+  "evidence_ids": [
+    "ev-20260806173853-c7ff-spanish-malaika-raspberry-plantings-expa"
+  ],
+  "effective_date": null,
+  "notes": "confidence=high; Hortidaily describes Onubafruit as a Spanish (Huelva) grower expanding Malaika raspberry plantings."
+}

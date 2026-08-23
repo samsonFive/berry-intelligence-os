@@ -1,0 +1,13 @@
+{
+  "id": "rel-onubafruit-grows-malaika",
+  "record_type": "relationship",
+  "subject_id": "company-onubafruit",
+  "predicate": "grows",
+  "object_id": "variety-malaika",
+  "status": "active",
+  "evidence_ids": [
+    "ev-20260806173853-c7ff-spanish-malaika-raspberry-plantings-expa"
+  ],
+  "effective_date": "2026-01-20",
+  "notes": "confidence=high; Hortidaily reporting Onubafruit expanding Malaika raspberry plantings in Spain to an estimated 150-200 hectares. A separate real licensed-grower relationship from The Summer Berry Company's own Portugal deal for the same variety -- Malaika is a multi-licensee ABB Elite Raspberry Collection (ERC) variety, not exclusive to one grower."
+}

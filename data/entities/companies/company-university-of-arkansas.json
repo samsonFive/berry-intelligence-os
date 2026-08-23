@@ -22,7 +22,8 @@
   "evidence_ids": [
     "ev-uaex-blueberry-trial-2024",
     "ev-20260806173540-30a7-top-performing-arkansas-blackberry-recei",
-    "ev-20260806173540-749e-arkansas-blackberry-season-is-here-witho"
+    "ev-20260806173540-749e-arkansas-blackberry-season-is-here-witho",
+    "ev-20260806173540-bf5c-new-blackberry-achieves-pinnacle-of-flav"
   ],
   "fact_ids": [
     "fact-uaex-trial-design-2024",
@@ -30,7 +31,9 @@
   ],
   "relationship_ids": [
     "rel-university-of-arkansas-operates-in-united-states",
-    "rel-university-of-arkansas-trials-blueberry"
+    "rel-university-of-arkansas-trials-blueberry",
+    "rel-university-of-arkansas-develops-ponca",
+    "rel-university-of-arkansas-develops-ouachita"
   ],
   "attributes": {
     "country": "United States",

@@ -202,7 +202,20 @@ def test_every_live_entity_resolves_to_a_declared_type() -> None:
     # retailers (retailer-tesco, retailer-sainsburys, retailer-waitrose,
     # retailer-marks-and-spencer, retailer-morrisons, retailer-asda) for
     # the UK retail commercial-observation pilot.
-    assert total == 211, f"expected 211 live entities, found {total}"
+    # 218 = 211 plus 7 real entities added for the Caneberry Variety + Actor
+    # Expansion V1 mission (2026-08-22): company-nc-state-university,
+    # company-onubafruit (2 real organizations, each grounded in trusted
+    # Evidence and needed for a real relationship); variety-ervin,
+    # variety-ponca, variety-ouachita, variety-bk-6-13 (4 real blackberry
+    # varieties found by systematically searching trusted Evidence, not
+    # merely the mission brief's 3 named examples -- Ponca/Ouachita were
+    # found this way); brand-rejoice (1, modeled as a brand/platform per
+    # the existing BluGenix/Eterna precedent, with BK 6-13 as its one
+    # evidenced component variety, not force-fit into a single cultivar).
+    # Yosemite (Planasa) was deliberately NOT added: its only grounding
+    # Evidence remains an unreviewed inbox/ draft, failing the same
+    # trust-gate every existing Variety entity meets.
+    assert total == 218, f"expected 218 live entities, found {total}"
 
 
 # ---------------------------------------------------------------------------
@@ -239,7 +252,13 @@ def test_every_live_relationship_resolves_to_a_declared_predicate() -> None:
     # rel-berryworld-sells-eureka.json's predicate was also corrected from
     # a disclaimed 'sells' substitution to real 'markets' in place, not
     # counted as a new relationship).
-    assert total == 226, f"expected 226 live relationships, found {total}"
+    # 234 = 226 plus 8 real relationships added for the Caneberry Variety +
+    # Actor Expansion V1 mission (2026-08-22): rel-nc-state-develops-ervin,
+    # rel-nc-state-operates-in-united-states, rel-university-of-arkansas-
+    # develops-ponca, rel-university-of-arkansas-develops-ouachita,
+    # rel-psg-owns-rejoice, rel-psg-develops-bk-6-13, rel-onubafruit-grows-
+    # malaika, rel-onubafruit-operates-in-spain.
+    assert total == 234, f"expected 234 live relationships, found {total}"
 
 
 def test_all_ten_v1_predicates_and_six_extensions_present() -> None:

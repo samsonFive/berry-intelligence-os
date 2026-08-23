@@ -26,7 +26,10 @@
     "ev-20260806173842-7321-plant-sciences-europe-names-new-ceo-arti"
   ],
   "fact_ids": [],
-  "relationship_ids": [],
+  "relationship_ids": [
+    "rel-psg-owns-rejoice",
+    "rel-psg-develops-bk-6-13"
+  ],
   "attributes": {
     "headquarters": "Watsonville, California, United States",
     "country": "United States",

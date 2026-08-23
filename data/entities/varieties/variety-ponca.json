@@ -1,0 +1,36 @@
+{
+  "id": "variety-ponca",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Ponca",
+  "aliases": [],
+  "status": "active",
+  "description": "Blackberry variety from the University of Arkansas System Division of Agriculture's public blackberry breeding program, described by the Southwest Times Record as achieving \"the pinnacle of flavor\" from one of the world's leading public blackberry breeding programs.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "evidence_ids": [
+    "ev-20260806173540-bf5c-new-blackberry-achieves-pinnacle-of-flav"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-university-of-arkansas-develops-ponca"
+  ],
+  "attributes": {
+    "breeder": "University of Arkansas Division of Agriculture",
+    "traits": [
+      {
+        "trait": "trait-flavor",
+        "value": "pinnacle of flavor",
+        "provenance": "trade_press_report",
+        "evidence_ids": ["ev-20260806173540-bf5c-new-blackberry-achieves-pinnacle-of-flav"],
+        "conditions": "Described qualitatively by Southwest Times Record; no sensory panel score or Brix figure given.",
+        "asserted_by": "Southwest Times Record"
+      }
+    ],
+    "package_note": "Single-source grounding. No independent trade-press corroboration or quantitative trait datasheet was found in the available Evidence -- not fabricated."
+  }
+}
