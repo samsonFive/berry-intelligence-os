@@ -25,10 +25,10 @@ fi
 # canonical after a runtime's first seed -- new sources, new entity
 # records, etc. -- actually reaches it. The first-seed-only rule above
 # intentionally never runs again, and nothing else used to keep data/
-# current. File-level additive only: a file (or, for sources.json, a
-# source id) already present at the runtime path is never touched, so
-# any record an operator has published live on this runtime is always
-# preserved. Never touches RUNTIME DISCOVERY STATE
+# current. Startup remains file-level additive: an existing trusted record is
+# never changed here, while semantically equal trusted pairs gain a baseline
+# for a later explicit, verified-backup-gated promotion. Existing source ids
+# remain runtime-preserved. Never touches RUNTIME DISCOVERY STATE
 # (inbox/discovered_media/_state/*.json), which stays environment-local.
 # Non-fatal: a sync problem must never block app startup.
 if [ -d /app/seed/data ]; then
@@ -40,7 +40,9 @@ if [ -d /app/seed/data ]; then
     # fallback below. /app is the Dockerfile's WORKDIR, so this resolves.
     (cd /app && python3 -m scripts.sync_trusted_data \
         --seed /app/seed/data \
-        --runtime "$DATA_DIR") \
+        --runtime "$DATA_DIR" \
+        --startup-sync \
+        --canonical-sha "${BIOS_CANONICAL_SHA:-unknown}") \
         || echo "warning: trusted data sync failed; continuing with existing runtime data" >&2
 fi
 

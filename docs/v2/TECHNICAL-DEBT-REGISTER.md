@@ -47,6 +47,7 @@ Collection Backpressure V1 had concurrently landed its own TD-064.
 | TD-055 | fixed-window quantitative scheduling | Trade (72 fixed Comtrade requests) and weather (fixed historical comparison) do not yet advance a rolling release/window, so both correctly remain manual rather than repeatedly polling static history. | Medium | limitation | `data/configuration/collection_pipelines.json` |
 | TD-056 | analyst throughput | Review Capacity + Collection Backpressure V1 now makes backlog growth, age, source/query load, exact duplicate pressure, and safe simulated deferral observable. Automatic throttling stays off because recorded review decisions are insufficient; capacity itself remains unresolved. | High | active (observability improved) | `scripts/review_capacity.py`; operator status review-capacity warning |
 | TD-057 | acquisition reliability | Persisted failures are dominated by expected publisher/bot access and stale-or-blocked UK FSA alert URLs (403/410), plus isolated openFDA body extraction failures. Individual failures remain visible and isolated; no Source-specific content workaround was added. | Medium | monitoring | pipeline/source failure state; `docs/v2/PRODUCTION-COLLECTION-OPERATIONS-V1.md` |
+| TD-076 | canonical promotion scope | Existing `sources.json` entries intentionally remain additive/runtime-preserving and do not yet have per-source three-way baselines. Non-JSON imports/reference files are likewise additive-only. Legitimate updates to those existing items require explicit reconciliation; trusted one-record JSON stores are covered by the promotion manifest. | Medium | limitation | `tests/test_sync_trusted_data.py`; `docs/v2/CANONICAL-DATA-PROMOTION-RUNTIME-SYNC-V1.md` |
 
 ID aliases from the expansion-guide session's withdrawn draft (do not reopen
 these as Open UI-lane items):
@@ -1202,5 +1203,21 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Owner lane** | product |
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_commercial_positions.py::test_commercial_positions_does_not_run_forbidden_work` |
+
+### TD-076 — Existing Source entries and non-JSON seed files have no three-way promotion baseline
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | platform reliability / data ownership |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | Canonical Data Promotion / Runtime Sync V1 found that trusted one-record JSON stores have stable relative paths and can safely use per-record baseline hashes. `configuration/sources.json` is a shared array whose existing IDs may contain runtime operator edits, while historical imports/reference artifacts include Markdown, CSV, and Python files without a common record identity contract. |
+| **Impact** | New Source IDs and new seed files continue to deploy automatically, but a legitimate canonical change to an existing Source entry or existing non-JSON reference file is intentionally not promoted. Treating either class as unconditionally authoritative would risk clobbering operator/runtime content. |
+| **Workaround** | Reconcile the specific item explicitly after inspecting canonical and runtime; do not repurpose trusted-record promotion to force an overwrite. The pipeline registry remains separately authoritative operational configuration. |
+| **Recommended resolution** | Add a per-ID baseline only if existing Source-entry migrations become a demonstrated operational need. Define explicit ownership per non-JSON class before adding any update behavior. Do not generalize one-record JSON policy blindly. |
+| **Status** | limitation |
+| **Owner lane** | platform / ops |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_sync_trusted_data.py`; `docs/v2/CANONICAL-DATA-PROMOTION-RUNTIME-SYNC-V1.md` |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
