@@ -45,6 +45,11 @@ from app.services.deterministic_tagging import apply_known_name_matches, matcher
 from app.services.entity_alias_recall import linked_evidence_for_entity
 from app.services.media_discovery import list_discovered_items, read_source_discovery_state
 from app.services.review_publish import PublishRequest, ReviewPublishService
+from app.services.publication_review_workspace import (
+    apply_dossier_prefill,
+    build_publication_review_dossier,
+)
+from app.services.html_text import decode_html_text
 from app.services.review_events import append_review_event, remove_created_event
 from app.services.source_freshness import (
     FRESHNESS_LABELS,
@@ -325,7 +330,12 @@ app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="s
 
 
 def _assemble_morning_brief(
-    *, mark_seen: bool = False, include_coverage: bool = False, mode: str = "full"
+    *,
+    mark_seen: bool = False,
+    include_coverage: bool = False,
+    mode: str = "full",
+    include_signal_candidates: bool | None = None,
+    drafts: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     published = published_evidence()
     coverage = {}
@@ -341,9 +351,9 @@ def _assemble_morning_brief(
     return build_morning_brief(
         inbox_dir=INBOX_DIR,
         published=published,
-        drafts=list_pending_drafts(),
-        unvalidated=unvalidated_auto_captured_evidence(),
-        signals=all_signals(),
+        drafts=list_pending_drafts() if drafts is None else drafts,
+        unvalidated=unvalidated_auto_captured_evidence() if drafts is None else [],
+        signals=[] if mode == "pending" else all_signals(),
         entities=entity_index(),
         sources=load_sources(),
         berry_labels=BERRIES,
@@ -352,6 +362,7 @@ def _assemble_morning_brief(
         discovered=discovered,
         recommendations=recommendations,
         mark_seen=mark_seen,
+        include_signal_candidates=True if include_signal_candidates is None else include_signal_candidates,
         mode=mode,
     )
 
@@ -2464,7 +2475,34 @@ def morning_brief_page(request: Request) -> HTMLResponse:
 def pending_review_page(request: Request) -> HTMLResponse:
     """Decision workspace for pending publication drafts. Not a Feed clone."""
 
-    brief = _assemble_morning_brief(mark_seen=False, include_coverage=False, mode="pending")
+    drafts = [
+        record
+        for record in list_pending_drafts()
+        if record.get("evidence_role") != "atomic_evidence" and record.get("status", "draft") != "rejected"
+    ]
+    ids_param = (request.query_params.get("ids") or "").strip()
+    selected_ids = [part.strip() for part in ids_param.split(",") if part.strip()]
+    if selected_ids:
+        wanted = set(selected_ids)
+        drafts = [record for record in drafts if record.get("id") in wanted]
+    berry = (request.query_params.get("berry") or "").strip()
+    if berry:
+        berry_id = berry if berry.startswith("berry-") else f"berry-{berry}"
+        drafts = [record for record in drafts if berry_id in (record.get("berry_ids") or [])]
+    source = (request.query_params.get("source") or "").strip()
+    if source:
+        drafts = [
+            record
+            for record in drafts
+            if source in {str(record.get("source_id") or ""), str(record.get("source_name") or "")}
+        ]
+    brief = _assemble_morning_brief(
+        mark_seen=False,
+        include_coverage=False,
+        mode="pending",
+        include_signal_candidates=False,
+        drafts=drafts,
+    )
     reviewer = session_username(request) or review_username() or ""
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     brief = _filter_brief_for_berry(brief, ui["berry"])
@@ -4465,14 +4503,14 @@ def _default_review_values(draft: dict[str, Any]) -> dict[str, Any]:
         if berry_id and berry_id not in berries:
             berries.append(berry_id)
     return {
-        "title": draft.get("title", ""),
+        "title": decode_html_text(draft.get("title", "")),
         "source_type": draft.get("source_type", ""),
         "source_name": draft.get("source_name", ""),
         "source_url": draft.get("source_url", ""),
         "published_date": draft.get("published_date") or "",
         "captured_date": draft.get("captured_date", ""),
-        "summary": summary,
-        "why_it_matters": why,
+        "summary": decode_html_text(summary),
+        "why_it_matters": decode_html_text(why),
         "tags": ", ".join(tags),
         "companies": ", ".join(draft.get("suggested_competitors", [])),
         "varieties": ", ".join(draft.get("suggested_varieties", [])),
@@ -4550,11 +4588,19 @@ def _review_context(
     if draft.get("id"):
         trusted_existing = repositories.evidence.get(draft["id"])
     publication_card = None
+    publication_dossier = None
     if draft.get("evidence_role") == "publication_artifact":
         presentation = deepcopy(draft)
         presentation["transcript_readiness"] = transcript_readiness or unknown_transcript_readiness()
         attach_publication_card(presentation, entities=entities, berry_labels=BERRIES)
         publication_card = presentation.get("card")
+        publication_dossier = build_publication_review_dossier(
+            draft,
+            entities=entities,
+            berry_labels=BERRIES,
+            sources=load_sources(),
+        )
+        values = apply_dossier_prefill(values, publication_dossier)
     return {
         "draft": draft,
         "parent": parent,
@@ -4579,6 +4625,7 @@ def _review_context(
         "conflicts": conflicts or [],
         "trusted_existing": trusted_existing,
         "publication_card": publication_card,
+        "publication_dossier": publication_dossier,
         "next_draft_id": adjacent_publication_draft_id(draft.get("id") or ""),
         "prev_draft_id": adjacent_publication_draft_id(draft.get("id") or "", step=-1),
     }

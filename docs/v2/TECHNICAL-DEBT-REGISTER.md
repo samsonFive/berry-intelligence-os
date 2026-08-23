@@ -48,6 +48,9 @@ Collection Backpressure V1 had concurrently landed its own TD-064.
 | TD-056 | analyst throughput | Review Capacity + Collection Backpressure V1 now makes backlog growth, age, source/query load, exact duplicate pressure, and safe simulated deferral observable. Automatic throttling stays off because recorded review decisions are insufficient; capacity itself remains unresolved. | High | active (observability improved) | `scripts/review_capacity.py`; operator status review-capacity warning |
 | TD-057 | acquisition reliability | Persisted failures are dominated by expected publisher/bot access and stale-or-blocked UK FSA alert URLs (403/410), plus isolated openFDA body extraction failures. Individual failures remain visible and isolated; no Source-specific content workaround was added. | Medium | monitoring | pipeline/source failure state; `docs/v2/PRODUCTION-COLLECTION-OPERATIONS-V1.md` |
 | TD-076 | canonical promotion scope | Existing `sources.json` entries and non-JSON imports/reference files have no three-way baseline. Production bootstrap also surfaced 57 differing trusted records with no historical baseline; all correctly remain conflicts pending explicit reconciliation. | Medium | limitation | `tests/test_sync_trusted_data.py`; production dry-run; `docs/v2/CANONICAL-DATA-PROMOTION-RUNTIME-SYNC-V1.md` |
+| TD-081 | trusted publication dropped `article` | Publish now preserves `article` / `relevance_tier` / `does_not_prove` so Atomic extraction can receive paragraph text, not only the summary. | High | resolved | `tests/test_publication_review_source_fidelity.py` |
+| TD-082 | no qualified article Atomic extractor | Web-article trait proposals still wait on a qualified extractor consuming `article.paragraphs`. Review shows a deterministic untrusted preview only. | High | limitation | `app/services/source_body.py::atomic_extraction_source_text` |
+| TD-083 | Pending Review still ranks all drafts | First screen renders at most 20 cards per bucket; ranking still walks the full pending pool for counts. | Medium | limitation | `tests/test_publication_review_source_fidelity.py::test_pending_first_screen_caps_rendered_cards` |
 
 ID aliases from the expansion-guide session's withdrawn draft (do not reopen
 these as Open UI-lane items):
@@ -1283,5 +1286,53 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Owner lane** | data |
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md` Section 9 |
+
+### TD-081 — Trusted publish dropped article body (resolved)
+
+| Field | Value |
+|---|---|
+| **Severity** | High |
+| **Area** | publication review / extraction contract |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | Planasa draft `ev-media-069f07925d20b2d93743` stored full trafilatura paragraphs. `review_publish.py` did not copy `article`. |
+| **Impact** | Analysts saw RSS/enrichment summary; Atomic extraction would not receive variety-level sentences after trust. |
+| **Workaround** | None; body was on the draft only. |
+| **Recommended resolution** | Preserve `article`, `relevance_tier`, `does_not_prove` on publish. |
+| **Status** | resolved |
+| **Owner lane** | platform |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_publication_review_source_fidelity.py` |
+
+### TD-082 — Qualified article Atomic extractor is not built
+
+| Field | Value |
+|---|---|
+| **Severity** | High |
+| **Area** | extraction |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | Collection extraction is transcript-oriented. `atomic_extraction_source_text()` now prefers `article.paragraphs`. No qualified article extractor writes Atomic Evidence. |
+| **Impact** | Trait-level proposals remain a review aid until the extractor mission lands. |
+| **Workaround** | Human reads the persisted body on `/review/{id}`. |
+| **Recommended resolution** | Other agents' qualified extractor must consume preserved article text, not `summary`. Complements TD-077 (locator schema). |
+| **Status** | limitation |
+| **Owner lane** | platform |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `app/services/source_body.py` |
+
+### TD-083 — Pending Review first screen still ranks the full pool
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | pending review / performance |
+| **Date discovered** | 2026-08-22 |
+| **Evidence** | ~1,450 drafts. Render is capped at 20/bucket; story grouping is limited to Review now/soon; signal candidates skipped. Ranking still scores every open draft. |
+| **Impact** | First visit can still be slow; repeat render is bounded. |
+| **Workaround** | `?ids=` / berry / source filters. |
+| **Recommended resolution** | Cheap count + ranked window cache keyed on inbox signature. |
+| **Status** | limitation |
+| **Owner lane** | product |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_publication_review_source_fidelity.py::test_pending_first_screen_caps_rendered_cards` |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

@@ -4,7 +4,7 @@
 <section class="page-heading">
   <div>
     <p class="eyebrow">{% if draft.evidence_role == 'atomic_evidence' %}ATOMIC EVIDENCE REVIEW{% else %}HUMAN PUBLICATION REVIEW{% endif %}</p>
-    <h1>{{ draft.title }}</h1>
+    <h1>{{ publication_dossier.prefill.title if publication_dossier else draft.title }}</h1>
     {% if draft.evidence_role != 'atomic_evidence' %}
     <p class="also-known-as">{{ draft.source_name or 'Source not recorded' }}{% if draft.published_date %} · {{ draft.published_date|us_date }}{% endif %}</p>
     {% endif %}
@@ -101,6 +101,48 @@
         </dl></details>
       </div>
     {% else %}
+      {% if publication_dossier %}
+        <p><span class="badge">{{ publication_dossier.body.label }}</span>
+           <span class="badge badge-muted">{{ publication_dossier.language_label }}</span></p>
+        {% if publication_dossier.body.warning %}<p class="banner banner-warning" role="status">{{ publication_dossier.body.warning }}</p>{% endif %}
+        <p><a href="{{ draft.source_url }}" rel="noopener noreferrer">Read original source</a>
+           · {{ draft.source_name }}{% if draft.published_date %} · {{ draft.published_date|us_date }}{% endif %}
+           · {{ draft.source_type }}</p>
+        {% if publication_dossier.body.acquisition %}
+          <p class="context-limit">Acquired via {{ publication_dossier.body.acquisition.extractor or publication_dossier.body.acquisition.method }} · {{ publication_dossier.body.word_count }} words</p>
+        {% endif %}
+        <h3>Source body</h3>
+        {% if publication_dossier.body.body %}
+          {% for para in publication_dossier.body.body.split('\n\n') %}
+            <p>{{ para }}</p>
+          {% endfor %}
+        {% elif publication_dossier.body.transcript_text %}
+          <pre class="transcript-support">{{ publication_dossier.body.transcript_text }}</pre>
+        {% else %}
+          <p class="empty-state">No persisted article body. Open the original source.</p>
+        {% endif %}
+        <h3>Detected intelligence — untrusted</h3>
+        <p class="context-limit">Review aid only. These are not trusted Atomic Evidence. Human publication approval does not create claims.</p>
+        {% if publication_dossier.detected_intelligence %}
+          <p>{{ publication_dossier.detected_intelligence|length }} named varieties in source text.</p>
+          <ul class="detected-intel">
+            {% for row in publication_dossier.detected_intelligence %}
+              <li><strong>{{ row.name }}</strong> · {{ row.berry }}{% if row.traits %}<br>{{ row.traits|join(' · ') }}{% endif %}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>No compact variety-level preview from persisted names. Trait proposals still depend on a qualified Atomic extractor after trust.</p>
+        {% endif %}
+        {% if publication_dossier.unlocks %}
+          <h3>If trusted, this publication could support</h3>
+          <ul>{% for item in publication_dossier.unlocks %}<li>{{ item }}</li>{% endfor %}</ul>
+        {% endif %}
+        {% if publication_dossier.limitations %}
+          <h3>Limitations</h3>
+          <ul>{% for item in publication_dossier.limitations %}<li>{{ item }}</li>{% endfor %}</ul>
+        {% endif %}
+        <p><strong>Translation:</strong> {{ publication_dossier.translation_note }}</p>
+      {% endif %}
       {% if publication_card and publication_card.why %}
         <h3>Why this matters</h3>
         <p>{{ publication_card.why }}</p>
@@ -134,9 +176,9 @@
         <dt>Captured</dt><dd>{{ draft.captured_date|us_date }}</dd>
         <dt>Submitted by</dt><dd>{{ draft.submitted_by }}</dd>
       </dl>
-      {% if draft.publisher_description %}
+      {% if draft.publisher_description or publication_dossier %}
         <h3>Original publisher description</h3>
-        <p>{{ draft.publisher_description }}</p>
+        <p>{{ publication_dossier.body.publisher_description if publication_dossier else draft.publisher_description }}</p>
       {% endif %}
       <h3>Current summary</h3>
       {% set summary_lines = draft.summary|as_bullets %}
@@ -365,10 +407,9 @@
         <input id="reviewer" name="reviewer" type="text" required value="{{ values.reviewer }}">
       </div>
 
-      <div class="form-actions">
-        <button type="submit" name="advance" value="" data-approve-action>{% if draft.evidence_role == 'atomic_evidence' %}Save edits + approve this Evidence{% else %}Approve{% endif %}</button>
+      <p class="context-limit">Save draft does not publish. Publish is the only trust action. Reject never deletes source history.</p>
         {% if draft.evidence_role != 'atomic_evidence' %}
-        <button type="submit" name="advance" value="next" data-approve-next-action>Approve + Next</button>
+        <button type="submit" name="advance" value="next" data-approve-next-action>Publish + Next</button>
         {% endif %}
       </div>
     </form>

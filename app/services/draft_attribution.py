@@ -36,6 +36,11 @@ def _title_text(record: dict[str, Any]) -> str:
 
 def _body_text(record: dict[str, Any]) -> str:
     parts = []
+    article = record.get("article") if isinstance(record.get("article"), dict) else {}
+    for paragraph in article.get("paragraphs") or []:
+        text = paragraph.get("text") if isinstance(paragraph, dict) else str(paragraph)
+        if isinstance(text, str) and text.strip():
+            parts.append(text)
     for key in ("summary", "excerpt", "why_it_matters", "publisher_description"):
         value = record.get(key)
         if isinstance(value, str) and value.strip():

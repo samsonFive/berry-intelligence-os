@@ -1,0 +1,146 @@
+{
+  "id": "ev-media-069f07925d20b2d93743",
+  "record_type": "evidence",
+  "status": "draft",
+  "review_state": "in_review",
+  "intake_type": "discovered_media_publication",
+  "source_type": "discovered_media",
+  "title": "Planasa varieties arise the interest of major European retailers",
+  "source_name": "Planasa Newsroom",
+  "source_url": "https://planasa.com/planasa-varieties-arise-the-interest-of-major-european-retailers/",
+  "published_date": "2024-03-26",
+  "captured_date": "2026-08-20",
+  "summary": "Planasa hosted retail delegations from UK and Netherlands at its R&D center in Huelva, showcasing commercial strawberry, blueberry, raspberry, and blackberry varieties with positive retailer feedback. Key marketed varieties include RedSayra and Red Samantha strawberries, Blue Maldiva/Madeira/Manila blueberries, Pink Hudson raspberry, and Black Sultana blackberry, with emphasis on advanced breeding pipeline acceptance across European markets.",
+  "why_it_matters": "Planasa's established relationships with major European retailers and demonstrated variety pipeline demonstrate significant competitive positioning in premium berry supply chains; retailer adoption signals market traction for these genetics across key European markets.",
+  "submitted_by": "media-orchestration",
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-strawberry",
+    "berry-raspberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [
+    "geography-netherlands",
+    "geography-spain"
+  ],
+  "entity_ids": [
+    "company-planasa"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [],
+  "attachments": [],
+  "auto_captured": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": ""
+    },
+    "testing": {
+      "level": "none",
+      "rationale": ""
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": ""
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": ""
+    }
+  },
+  "source_id": "source-20260819-planasa-newsroom",
+  "media_format": "web_article",
+  "evidence_role": "publication_artifact",
+  "discovered_item_id": "discovered-source-20260819-planasa-newsroom-55f6bc4ed695db62",
+  "discovery_provenance": {
+    "dedupe_key": "http://localhost/planasa.com/?p=22231",
+    "external_id": "http://localhost/planasa.com/?p=22231",
+    "first_seen_at": "2026-08-20T22:41:57+00:00",
+    "last_seen_at": "2026-08-20T22:41:57+00:00"
+  },
+  "publisher_description": "Leading retailers and marketers from the United Kingdom and the Netherlands have visited Planasa&#8217;s Research and Development (R&#38;D) centre in Huelva, highlighting the growing interest in Planasa&#8217;s varieties in various... La entrada Planasa varieties arise the interest of major European retailers se publicó primero en Planasa. Full article text: Leading retailers and marketers from the United Kingdom and the Netherlands have visited Planasa’s Research and Development (R&D) centre in Huelva, highlighting the growing interest in Planasa’s varieties in various European markets. Representatives from companies such as Tesco, Marks & Spencer, ASDA. Chambers and Waitrose, together with Bakker and Berrie’s Pride from the Netherlands, had the opportunity to check out first-hand the work that Planasa’s R&D team has been carrying out for years in the genetic improvement of products such as strawberries, raspberries, blackberries and blueberries, which we call Planasa Genetics. During these visits, commercial varieties that are becoming increasingly popular in the different target markets were highlighted. This is the case of strawberry RedSayra and Red Samantha. The former was praised for the precocity and firmness it has shown to date, as well as its outstanding flavour. On the other hand, they emphasised the high calibre and excellent flavour of Red Samantha. The feedback on the blueberry selections was also very positive, highlighting the size, texture, and bloom of Blue Maldiva, as well as the flavour of Blue Madeira and Blue Manila, among other positive comments regarding the company’s varietal catalogue. The impressions about the raspberry variety Pink Hudson were also very positive. This variety stands for its flavour, shelf life, bright colour, and versatility, as it can be planted for winter production or for double cropping. The Black Sultana blackberry also attracted attention, thanks to the remarkable quality of the fruit throughout its production cycle. In addition, retailers were very interested in the advanced selections that are being developed in the different breeding programmes. These visits underline the enormous international acceptance of Planasa’s genetics, and evidence the company’s ongoing commitment to innovation and the satisfaction of growers, retailers, and consumers.",
+  "auto_tagged": true,
+  "tagging_provenance": {
+    "method": "deterministic-known-match",
+    "trust_state": "untrusted_suggestion"
+  },
+  "ai_enrichment": {
+    "concise_summary": "Planasa hosted retail delegations from UK and Netherlands at its R&D center in Huelva, showcasing commercial strawberry, blueberry, raspberry, and blackberry varieties with positive retailer feedback. Key marketed varieties include RedSayra and Red Samantha strawberries, Blue Maldiva/Madeira/Manila blueberries, Pink Hudson raspberry, and Black Sultana blackberry, with emphasis on advanced breeding pipeline acceptance across European markets.",
+    "why_it_matters": "Planasa's established relationships with major European retailers and demonstrated variety pipeline demonstrate significant competitive positioning in premium berry supply chains; retailer adoption signals market traction for these genetics across key European markets.",
+    "suggested_berry_ids": [
+      "berry-blueberry",
+      "berry-strawberry",
+      "berry-raspberry",
+      "berry-blackberry"
+    ],
+    "suggested_geography_ids": [
+      "geography-netherlands",
+      "geography-spain"
+    ],
+    "suggested_entity_ids": [
+      "company-planasa"
+    ],
+    "suggested_tags": [
+      "variety_development",
+      "retailer_engagement",
+      "R&D_investment",
+      "market_expansion",
+      "genetic_improvement",
+      "commercial_varieties"
+    ],
+    "topical_relevance": "Direct competitive intelligence on Planasa's varietal portfolio strength in European retail channels and brand acceptance among major UK and Dutch food retailers; indicates market positioning and pipeline confidence.",
+    "confidence": 0.85,
+    "caveats": "The source identifies UK retailers (Tesco, Marks & Spencer, ASDA, Chambers, Waitrose) and Dutch companies (Bakker, Berrie's Pride) but does not explicitly mention visits from Spain-based operations. Geography ids are limited to Netherlands per deterministic mapping; UK should likely be included but is not in the known geography catalog. Specific variety performance data (RedSayra, Red Samantha, Blue Maldiva, Blue Madeira, Blue Manila, Pink Hudson, Black Sultana) are attributed to Planasa's commercial claims and retailer feedback rather than independent verification. Advanced selections mentioned lack specific identifiers.",
+    "model_provenance": {
+      "status": "ok",
+      "provider": "perplexity-agent",
+      "model": "anthropic/claude-haiku-4-5",
+      "reason": "non-trusted publication enrichment",
+      "trust_state": "untrusted_suggestion",
+      "generated_at": "2026-08-20T22:43:38Z"
+    }
+  },
+  "article": {
+    "source_url": "https://planasa.com/planasa-varieties-arise-the-interest-of-major-european-retailers/",
+    "final_url": null,
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "Leading retailers and marketers from the United Kingdom and the Netherlands have visited Planasa’s Research and Development (R&D) centre in Huelva, highlighting the growing interest in Planasa’s varieties in various European markets."
+      },
+      {
+        "index": 1,
+        "text": "Representatives from companies such as Tesco, Marks & Spencer, ASDA. Chambers and Waitrose, together with Bakker and Berrie’s Pride from the Netherlands, had the opportunity to check out first-hand the work that Planasa’s R&D team has been carrying out for years in the genetic improvement of products such as strawberries, raspberries, blackberries and blueberries, which we call Planasa Genetics."
+      },
+      {
+        "index": 2,
+        "text": "During these visits, commercial varieties that are becoming increasingly popular in the different target markets were highlighted. This is the case of strawberry RedSayra and Red Samantha. The former was praised for the precocity and firmness it has shown to date, as well as its outstanding flavour. On the other hand, they emphasised the high calibre and excellent flavour of Red Samantha."
+      },
+      {
+        "index": 3,
+        "text": "The feedback on the blueberry selections was also very positive, highlighting the size, texture, and bloom of Blue Maldiva, as well as the flavour of Blue Madeira and Blue Manila, among other positive comments regarding the company’s varietal catalogue."
+      },
+      {
+        "index": 4,
+        "text": "The impressions about the raspberry variety Pink Hudson were also very positive. This variety stands for its flavour, shelf life, bright colour, and versatility, as it can be planted for winter production or for double cropping. The Black Sultana blackberry also attracted attention, thanks to the remarkable quality of the fruit throughout its production cycle."
+      },
+      {
+        "index": 5,
+        "text": "In addition, retailers were very interested in the advanced selections that are being developed in the different breeding programmes. These visits underline the enormous international acceptance of Planasa’s genetics, and evidence the company’s ongoing commitment to innovation and the satisfaction of growers, retailers, and consumers."
+      }
+    ],
+    "word_count": 292,
+    "content_sha256": "25c5ea7cccd4f4fb7991618c7586ce151aa4077464d5f3cc1ee2e91c8b3d1378",
+    "author": "Teamplanasa",
+    "acquisition": {
+      "method": "readable_text_extraction",
+      "extractor": "trafilatura",
+      "extractor_version": "2.2.0",
+      "fetched_at": "2026-08-20T22:43:29+00:00",
+      "version": "article-acquisition-v1"
+    }
+  },
+  "relevance_tier": "direct"
+}
