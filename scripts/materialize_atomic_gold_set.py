@@ -99,12 +99,11 @@ GLOBAL_FORBIDDEN = [
 ]
 
 
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+def _normalized_text_sha256(path: Path) -> str:
+    """Hash semantic UTF-8 text independent of Git checkout line endings."""
+
+    normalized = path.read_text(encoding="utf-8").replace("\r\n", "\n").replace("\r", "\n")
+    return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
 
 
 def _cells(line: str) -> list[str]:
@@ -329,7 +328,7 @@ def materialize(document: Path = DEFAULT_DOCUMENT) -> dict[str, Any]:
         "version": 1,
         "description": "Executable representation of the human-reviewed Atomic Evidence Gold Set V1; 16 trusted written-text cases, with the pending Planasa flagship and transcript-less spoken-media source correctly excluded from scoring.",
         "source_document": document.relative_to(ROOT).as_posix(),
-        "source_document_sha256": _sha256(document),
+        "source_document_sha256": _normalized_text_sha256(document),
         "thresholds": {
             "precision": 0.9, "recall": 0.9, "atomicity": 0.9, "grounding": 1.0,
             "entity_resolution": 0.9, "scope_preservation": 0.9,

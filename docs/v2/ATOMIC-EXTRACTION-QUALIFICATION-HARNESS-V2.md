@@ -6,7 +6,7 @@ The harness consumes Claude's reviewed Atomic Evidence Gold Set V1 through the
 `atomic-evidence-gold-set-v1` contract. The human-owned benchmark remains
 `ATOMIC-EVIDENCE-GOLD-SET-V1.md`; a deterministic materializer copies its 16
 trusted scored sources and 54 proposition annotations into the executable JSON
-fixture, records the document SHA-256, and fails if the checked-in representation
+fixture, records the line-ending-normalized UTF-8 document SHA-256, and fails if the checked-in representation
 is stale. The pending Planasa flagship and transcript-less spoken-media source
 remain explicitly outside scoring. The separate minimal fixture is test-only.
 

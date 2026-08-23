@@ -577,7 +577,8 @@ required from this mission:
   qualification-harness integration subsequently added
   `scripts/materialize_atomic_gold_set.py` and the mechanically derived
   `benchmarks/atomic-evidence-gold-set-v1.json`. The JSON records this
-  document's SHA-256 and is reproducibly checked with `--check`; this document
+  document's line-ending-normalized UTF-8 SHA-256 and is reproducibly checked
+  with `--check`; this document
   remains the human-owned benchmark rather than a competing annotation set.
 - `pytest`, `validate_records.py`, and `build_static.py` are unaffected
   (docs-only change plus a Technical Debt Register edit); the CI Markdown-only

@@ -4,7 +4,7 @@
   "version": 1,
   "description": "Executable representation of the human-reviewed Atomic Evidence Gold Set V1; 16 trusted written-text cases, with the pending Planasa flagship and transcript-less spoken-media source correctly excluded from scoring.",
   "source_document": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
-  "source_document_sha256": "1a5f897ea39ae8e9052df66250c3486e5e50763ea0168671744d6bd6fd2fc5c5",
+  "source_document_sha256": "81464aebd3faec2aafedda297924721f0e5d3e02144b051280e314a07f33be3d",
   "thresholds": {
     "precision": 0.9,
     "recall": 0.9,

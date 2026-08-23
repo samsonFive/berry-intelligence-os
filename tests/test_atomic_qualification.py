@@ -153,7 +153,8 @@ def test_unknown_contract_fields_fail_closed(tmp_path):
 
 def test_canonical_gold_set_is_sha_bound_and_complete():
     gold = load_atomic_gold_set(CANONICAL_FIXTURE)
-    document_sha = hashlib.sha256(CANONICAL_DOCUMENT.read_bytes()).hexdigest()
+    normalized_document = CANONICAL_DOCUMENT.read_text(encoding="utf-8").replace("\r\n", "\n").replace("\r", "\n")
+    document_sha = hashlib.sha256(normalized_document.encode("utf-8")).hexdigest()
     assert gold.gold_set_id == "atomic-evidence-gold-set-v1"
     assert gold.source_document == "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md"
     assert gold.source_document_sha256 == document_sha
