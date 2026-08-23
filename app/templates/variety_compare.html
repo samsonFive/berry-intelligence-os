@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+{% block title %}Variety Compare{% endblock %}
+{% block content %}
+{% set compare = compare if compare is defined else {} %}
+{% set varieties = compare.varieties or [] %}
+<div class="v2-page v2-variety-compare-page">
+<section class="page-heading v2-page-header" data-pagefind-filter="type:entity">
+  <div>
+    <p class="eyebrow">VARIETY COMPARE</p>
+    <h1>Compare varieties</h1>
+    <p class="also-known-as">Side-by-side trusted intelligence, not a competitive score. Up to {{ compare_max }} varieties; the URL is the entire comparison state — reload or share it freely.</p>
+  </div>
+</section>
+
+<section class="v2-company-section" id="compare-selection">
+  <h2>Selection</h2>
+  <p class="context-limit">Search reuses Global Search — no separate search engine. Selecting a result adds it to the comparison URL and reloads.</p>
+  {% if not static_build %}
+  <div class="v2-compare-picker" data-compare-picker data-ids="{{ ids_param }}" data-max="{{ compare_max }}">
+    <div class="filter-field">
+      <label for="compare-search">Add a variety</label>
+      <input id="compare-search" type="search" autocomplete="off" placeholder="Search by name, alias, or breeder code…" data-compare-search>
+      <ul class="v2-compare-search-results" data-compare-results hidden></ul>
+    </div>
+  </div>
+  {% endif %}
+  {% if varieties %}
+    <ul class="v2-compare-chips" data-pagefind-ignore>
+      {% for card in varieties %}
+        <li class="v2-chip v2-compare-chip">
+          {{ card.identity.canonical_name }}
+          {% if not static_build %}<a href="?ids={{ compare.varieties|rejectattr('id', 'equalto', card.id)|map(attribute='id')|join(',') }}" aria-label="Remove {{ card.identity.canonical_name }}" data-compare-remove="{{ card.id }}">&times;</a>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  {% if compare.invalid_ids %}
+    <p class="context-limit">Not found or not a Variety: {{ compare.invalid_ids|join(', ') }}</p>
+  {% endif %}
+  {% if compare.overflow_ids %}
+    <p class="context-limit">Only the first {{ compare_max }} selected ids are compared; ignored: {{ compare.overflow_ids|join(', ') }}</p>
+  {% endif %}
+</section>
+
+{% if compare.count < 2 %}
+  <section class="v2-company-section">
+    <p class="empty-state">Select at least 2 varieties to compare (up to {{ compare_max }}). {% if compare.count == 1 %}One selected so far.{% endif %}</p>
+  </section>
+{% else %}
+
+<section class="v2-company-section" id="compare-identity">
+  <h2>Identity</h2>
+  <div class="v2-compare-grid" style="--compare-count: {{ varieties|length }};">
+    {% for card in varieties %}
+      <article class="v2-card v2-compare-column">
+        <p class="v2-card-kicker">
+          {% for b in card.berries %}<span class="v2-chip v2-chip-berry">{{ b }}</span>{% endfor %}
+        </p>
+        <h3 class="v2-card-title"><a href="{{ card.href }}">{{ card.identity.canonical_name }}</a></h3>
+        {% if card.identity.aliases or card.identity.commercial_names %}
+          <p class="v2-card-line">
+            {% if card.identity.commercial_names %}<span class="v2-meta">Commercial</span> {{ card.identity.commercial_names|join(', ') }}{% endif %}
+            {% if card.identity.aliases %}<br><span class="v2-meta">Aliases</span> {{ card.identity.aliases|join(', ') }}{% endif %}
+          </p>
+        {% endif %}
+        <dl class="v2-compare-roles">
+          {% for bucket, label in compare.role_labels.items() %}
+            {% if card.roles[bucket] %}
+              <dt>{{ label }}</dt>
+              <dd>{% for party in card.roles[bucket] %}<a href="{{ party.href }}">{{ party.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</dd>
+            {% endif %}
+          {% endfor %}
+        </dl>
+        <p class="v2-card-line"><a href="{{ card.timeline_href }}">View timeline</a></p>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="v2-company-section" id="compare-coverage">
+  <h2>Evidence coverage</h2>
+  <p class="context-limit">Coverage, not performance. A more thoroughly documented variety is not implied to be a better one.</p>
+  <div class="v2-compare-grid" style="--compare-count: {{ varieties|length }};">
+    {% for card in varieties %}
+      <div class="v2-compare-column">
+        <p class="v2-card-line">
+          {{ card.coverage.observation_count }} observation{{ 's' if card.coverage.observation_count != 1 else '' }}
+          · {{ card.coverage.source_count }} source{{ 's' if card.coverage.source_count != 1 else '' }}
+          {% if card.coverage.geography_count %} · {{ card.coverage.geography_count }} geograph{{ 'ies' if card.coverage.geography_count != 1 else 'y' }}{% endif %}
+        </p>
+        <p class="v2-card-line"><span class="v2-meta">Latest</span> {{ card.coverage.latest_date|us_date if card.coverage.latest_date else "—" }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="v2-company-section" id="compare-rights">
+  <h2>Rights / IP</h2>
+  <div class="v2-compare-grid" style="--compare-count: {{ varieties|length }};">
+    {% for card in varieties %}
+      <div class="v2-compare-column">
+        {% if card.rights_published or card.rights_drafts %}
+          <ul class="entity-links">
+            {% for row in card.rights_published %}
+              <li><span class="v2-mark v2-mark-trusted">Trusted</span> <span class="v2-meta">{{ row.kind }}</span> <a href="{{ row.href }}">{{ row.title }}</a></li>
+            {% endfor %}
+            {% for row in card.rights_drafts %}
+              <li><span class="v2-mark v2-mark-pending">Pending review</span> <span class="v2-meta">{{ row.kind }}</span> {{ row.title }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="empty-state">No trusted rights/IP filing captured.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="v2-company-section" id="compare-dimensions">
+  <h2>Product / performance intelligence</h2>
+  <p class="context-limit">Trusted observations grouped by real trait dimension. Multiple observations for the same dimension are shown separately, never collapsed into one value.</p>
+  {% if compare.dimensions %}
+    <div class="filter-field" data-pagefind-ignore>
+      <label for="compare-dimension-filter">Show</label>
+      <select id="compare-dimension-filter" data-compare-dimension-filter>
+        <option value="all">All observed dimensions</option>
+        <option value="comparable">Only dimensions with 2+ varieties</option>
+      </select>
+    </div>
+    {% for dimension in compare.dimensions %}
+      {% set comparable_count = dimension.cells|selectattr('has_data')|list|length %}
+      <div class="v2-compare-dimension" data-compare-dimension data-comparable-count="{{ comparable_count }}">
+        <h3 class="v2-subsection-title">{{ dimension.name }}</h3>
+        <div class="v2-compare-grid" style="--compare-count: {{ varieties|length }};">
+          {% for cell in dimension.cells %}
+            <div class="v2-compare-column">
+              {% if cell.has_data %}
+                {% for row in cell.rows %}
+                  <article class="v2-card v2-compare-observation">
+                    <p class="v2-card-kicker">
+                      {% if row.classification == 'fact' %}
+                        <span class="badge badge-fact">FACT</span>
+                      {% else %}
+                        <span class="badge badge-claim">CLAIM</span>
+                      {% endif %}
+                      {% if row.confidence %}<span class="v2-meta">{{ row.confidence }}</span>{% endif %}
+                    </p>
+                    {% if row.evidence_id and not static_build %}
+                      <p class="v2-card-summary"><a href="{{ row.reader_href }}" data-open-reader data-item-id="{{ row.evidence_id }}">{{ row.statement|truncate(140) }}</a></p>
+                    {% elif row.evidence_href %}
+                      <p class="v2-card-summary"><a href="{{ row.evidence_href }}">{{ row.statement|truncate(140) }}</a></p>
+                    {% else %}
+                      <p class="v2-card-summary">{{ row.statement|truncate(140) }}</p>
+                    {% endif %}
+                    <p class="v2-card-line"><span class="v2-meta">{{ row.source_type_label }}</span>{% if row.source_name %} · {{ row.source_name }}{% endif %}</p>
+                  </article>
+                {% endfor %}
+              {% else %}
+                <p class="empty-state">No trusted observation captured</p>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="empty-state">No trusted product or performance observations have been captured for any selected variety yet.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="compare-commercial">
+  <h2>Commercial footprint</h2>
+  <p class="context-limit">Captured commercial/geographic observations only. Absence here is not evidence of absence from market.</p>
+  <div class="v2-compare-grid" style="--compare-count: {{ varieties|length }};">
+    {% for card in varieties %}
+      <div class="v2-compare-column">
+        <p class="v2-card-line">
+          <span class="v2-meta">Geographies</span>
+          {% if card.countries_observed %}{% for geo in card.countries_observed %}{% if geo.href %}<a href="{{ geo.href }}">{{ geo.name }}</a>{% else %}{{ geo.name }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}None recorded{% endif %}
+        </p>
+        <p class="v2-card-line">
+          <span class="v2-meta">Retailers</span>
+          {% if card.retailers_observed %}{% for r in card.retailers_observed %}<a href="{{ r.href }}">{{ r.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}{% else %}None recorded{% endif %}
+        </p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="v2-company-section" id="compare-signals">
+  <h2>Signals / assessments</h2>
+  <div class="v2-compare-grid" style="--compare-count: {{ varieties|length }};">
+    {% for card in varieties %}
+      <div class="v2-compare-column">
+        {% if card.signals or card.assessments %}
+          <ul class="entity-links">
+            {% for s in card.signals %}
+              <li><span class="badge badge-signal">SIGNAL</span> <a href="{{ s.href }}">{{ s.title }}</a></li>
+            {% endfor %}
+            {% for a in card.assessments %}
+              <li><span class="badge badge-assessment">ASSESSMENT</span> <a href="{{ a.href }}">{{ a.title }}</a></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="empty-state">None linked.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% endif %}
+</div>
+{% if not static_build %}
+<script>
+(function () {
+  var picker = document.querySelector('[data-compare-picker]');
+  if (picker) {
+    var input = picker.querySelector('[data-compare-search]');
+    var results = picker.querySelector('[data-compare-results]');
+    var currentIds = (picker.dataset.ids || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+    var maxIds = parseInt(picker.dataset.max, 10) || 4;
+    var timer = null;
+    input.addEventListener('input', function () {
+      clearTimeout(timer);
+      var q = input.value.trim();
+      if (q.length < 2) { results.hidden = true; results.innerHTML = ''; return; }
+      timer = setTimeout(function () {
+        fetch('/api/search/global?q=' + encodeURIComponent(q) + '&berry=global')
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            var group = (data.groups || []).find(function (g) { return g.id === 'varieties'; });
+            var rows = group ? (group.in_context || []).concat(group.also_global || []) : [];
+            rows = rows.filter(function (row) { return currentIds.indexOf(row.id) === -1; }).slice(0, 8);
+            results.innerHTML = '';
+            if (!rows.length) { results.hidden = true; return; }
+            rows.forEach(function (row) {
+              var li = document.createElement('li');
+              var btn = document.createElement('button');
+              btn.type = 'button';
+              btn.textContent = row.canonical_name || row.title;
+              btn.addEventListener('click', function () {
+                if (currentIds.length >= maxIds) return;
+                var next = currentIds.concat([row.id]);
+                window.location.href = '/entities/variety/compare?ids=' + next.join(',');
+              });
+              li.appendChild(btn);
+              results.appendChild(li);
+            });
+            results.hidden = false;
+          });
+      }, 200);
+    });
+  }
+  var dimFilter = document.getElementById('compare-dimension-filter');
+  if (dimFilter) {
+    dimFilter.addEventListener('change', function () {
+      var onlyComparable = dimFilter.value === 'comparable';
+      document.querySelectorAll('[data-compare-dimension]').forEach(function (el) {
+        var count = parseInt(el.dataset.comparableCount, 10) || 0;
+        el.style.display = (onlyComparable && count < 2) ? 'none' : '';
+      });
+    });
+  }
+})();
+</script>
+{% endif %}
+{% endblock %}

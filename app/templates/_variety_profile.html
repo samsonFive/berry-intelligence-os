@@ -27,6 +27,7 @@
   <div class="v2-company-actions">
     <a class="v2-btn v2-btn-quiet" href="/entities/variety">Variety index</a>
     {% if landscape_href %}<a class="v2-btn v2-btn-quiet" href="{{ landscape_href }}">Landscape context</a>{% endif %}
+    {% if not static_build %}<a class="v2-btn v2-btn-quiet" href="/entities/variety/compare?ids={{ entity.id }}">Compare</a>{% endif %}
     <a class="v2-btn v2-btn-primary" href="#recent-intelligence">Open Evidence</a>
   </div>
 </section>
