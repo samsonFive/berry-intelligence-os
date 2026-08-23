@@ -335,7 +335,10 @@ def test_zara_and_victoria_are_named_pilot_cases() -> None:
     assert "Aliases:" in victoria.text
 
 
-def test_observations_runtime_without_inbox_is_honest() -> None:
+def test_observations_runtime_without_inbox_is_honest(monkeypatch, tmp_path: Path) -> None:
+    isolated_inbox = tmp_path / "inbox"
+    isolated_inbox.mkdir()
+    monkeypatch.setattr(main, "INBOX_DIR", isolated_inbox)
     client = TestClient(app)
     page = client.get("/entities/variety?view=observations")
     assert page.status_code == 200
