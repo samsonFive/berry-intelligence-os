@@ -1356,4 +1356,52 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_model_qualification.py`; `app/services/atomic_qualification.py` |
 
+### TD-085 — Trait-to-group mapping for Variety Intelligence is a small closed lookup, not schema-derived
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data model / presentation |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Variety Profile Intelligence V2 mission. `data/entities/traits/*.json` (13 real trait entities) has no `category` field distinguishing "product/sensory" from "postharvest/quality" from "production/agronomic" -- `TRAIT_TO_GROUP` in `app/services/variety_workspace.py` is a small, explicit, code-level mapping over the 13 known trait ids, chosen because the mission's own instruction forbids inventing brittle NLP-based grouping when no structured tag exists. |
+| **Impact** | A future 14th trait entity is not silently mis-grouped -- it falls into "Other observations" -- but it also does not automatically join Product/sensory, Postharvest/quality, or Production/agronomic until someone deliberately extends `TRAIT_TO_GROUP`. |
+| **Workaround** | None needed; "Other observations" is an accepted, honest fallback per the mission's own Section 10 instruction. |
+| **Recommended resolution** | If trait entities grow meaningfully past ~13-15, consider adding a real `category` field to `trait.entity_type` records (a schema/data change, not a presentation one) rather than growing the code-level lookup indefinitely. Not attempted this mission -- no demonstrated need yet. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_variety_workspace.py::test_present_variety_intelligence_groups_by_real_trait_entity` |
+
+### TD-086 — Product/performance trusted observations are 100% blueberry today
+
+| Field | Value |
+|---|---|
+| **Severity** | Low (structural, not a bug) |
+| **Area** | data coverage |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Variety Profile Intelligence V2 mission. Direct corpus measurement: 25 of 41 blueberry varieties have at least one trait-tagged Fact (a Fact whose `entity_ids` include both a Variety and a `trait-*` entity); 0 of 12 raspberry, 0 of 6 strawberry, and 0 of 5 blackberry varieties do. This is the same "blueberry public pilot" research batch (`research-agent/blueberry-public-pilot-2026-08-03`) already known to dominate the trusted Fact corpus (see Atomic Evidence Gold Set V1's Section 2 finding of the same skew at the Evidence level). |
+| **Impact** | The new Variety Intelligence section will correctly show the honest empty state ("No trusted variety-level product or performance observations have been captured yet.") for every non-blueberry variety today. This is expected, truthful behavior per the mission's own "sparse truthful UI > fabricated density" instruction, not a defect in this feature. |
+| **Workaround** | None needed. |
+| **Recommended resolution** | A future data-depth mission (not this one) extending trait-tagged Fact coverage to raspberry/strawberry/blackberry, mirroring how the blueberry public pilot was built, would close this gap. Do not force it by loosening `present_variety_intelligence()`'s real trait-co-occurrence requirement. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_variety_workspace.py::test_detail_route_shows_honest_empty_state_when_no_trait_facts` |
+
+### TD-087 — No structured attribution-role field distinguishes retailer/marketer/company-self-report feedback
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data model / attribution |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Variety Profile Intelligence V2 mission. `Evidence.source_type` (e.g. `company_press_release`, `trade_press`, `plant_breeders_rights_record`) is the only structured field available for attribution display (`SOURCE_TYPE_LABEL` in `variety_workspace.py` humanizes it); it does not distinguish "retailer feedback relayed by the breeder" from "marketer feedback" from "the company's own claim about itself" -- exactly the distinction the Planasa "arise the interest of major European retailers" pending source (Atomic Evidence Gold Set V1 Section 1a) shows matters for correct trust interpretation. |
+| **Impact** | Today's Variety intelligence cards correctly show source name and humanized source_type, but cannot yet show a finer "retailer feedback" vs. "marketer feedback" attribution tag even where a human reader could tell the difference from the article text -- because no structured field carries that distinction and this mission does not infer it from free text (would be exactly the "brittle NLP classification" the mission instructs against). |
+| **Workaround** | None needed; `source_type` plus the Fact's own `statement` text (which retains natural qualifiers like "reported," "claims," "according to") is the current honest ceiling. |
+| **Recommended resolution** | If a future mission finds real cases needing this distinction at scale, add a structured field (e.g. `attribution_role` on Evidence or a per-claim annotation on Fact) rather than inferring it from text. Not attempted here -- no schema change made this mission. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none yet |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

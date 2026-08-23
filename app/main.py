@@ -1948,6 +1948,8 @@ def entity_list(
     view: str | None = None,
     has_rights: str | None = None,
     has_observation: str | None = None,
+    has_product_evidence: str | None = None,
+    has_signal: str | None = None,
     market: str | None = None,
     ip_and_observation: str | None = None,
 ) -> HTMLResponse:
@@ -1986,6 +1988,8 @@ def entity_list(
             "company": company or "",
             "has_rights": has_rights or "",
             "has_observation": has_observation or "",
+            "has_product_evidence": has_product_evidence or "",
+            "has_signal": has_signal or "",
             "market": market or "",
             "ip_and_observation": ip_and_observation or "",
         },
@@ -2024,7 +2028,13 @@ def entity_list(
                 inbox_drafts=drafts,
                 signals=all_signals(),
                 candidates=load_candidates(INBOX_DIR) if INBOX_DIR else [],
-                filters={"has_rights": has_rights or "", "has_observation": has_observation or ""},
+                facts=all_facts(),
+                filters={
+                    "has_rights": has_rights or "",
+                    "has_observation": has_observation or "",
+                    "has_product_evidence": has_product_evidence or "",
+                    "has_signal": has_signal or "",
+                },
             )
             context["variety_cards"] = index_model["cards"]
             context["unnamed_observation_count"] = index_model["unnamed_observation_count"]
@@ -2363,6 +2373,8 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                         inbox_drafts=list_pending_drafts(),
                         story_threads=story_threads,
                         signals=all_signals(),
+                        facts=entity_facts,
+                        evidence_by_id=evidence_idx,
                     )
                 )
             else:

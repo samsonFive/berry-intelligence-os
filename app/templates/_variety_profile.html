@@ -137,6 +137,69 @@
   {% endif %}
 </section>
 
+<section class="v2-company-section" id="variety-intelligence">
+  <h2>Variety intelligence</h2>
+  <p class="context-limit">Evidence-backed product, postharvest, and production observations, grouped by real trait entities and Fact classification. Commercial / market observations are shown above under Commercial footprint. This organizes existing trust classes; it does not create Facts or promote anything.</p>
+  {% if evidence_coverage and evidence_coverage.observation_count %}
+    <p class="v2-card-line" data-pagefind-ignore>
+      <span class="v2-meta">Overall variety evidence coverage</span>
+      {{ evidence_coverage.observation_count }} trusted observation{{ 's' if evidence_coverage.observation_count != 1 else '' }} across product/performance, rights, and commercial footprint
+      · {{ evidence_coverage.source_count }} source{{ 's' if evidence_coverage.source_count != 1 else '' }}
+      {% if evidence_coverage.geography_count %} · {{ evidence_coverage.geography_count }} geograph{{ 'ies' if evidence_coverage.geography_count != 1 else 'y' }}{% endif %}
+      {% if evidence_coverage.latest_date %} · Latest {{ evidence_coverage.latest_date|us_date }}{% endif %}
+    </p>
+  {% endif %}
+  {% if variety_intelligence and variety_intelligence.has_any %}
+    {% for group in variety_intelligence.groups %}
+      <h3 class="v2-subsection-title">{{ group.label }} <span class="v2-meta">({{ group.rows|length }})</span></h3>
+      <div class="v2-observation-list">
+        {% for row in group.rows %}
+          <article class="v2-card v2-observation-card" id="fact-{{ row.id }}"{% if row.evidence_id %} data-intel-card data-item-id="{{ row.evidence_id }}" tabindex="-1"{% endif %}>
+            <p class="v2-card-kicker">
+              {% if row.classification == 'fact' %}
+                <span class="badge badge-fact">FACT</span>
+              {% else %}
+                <span class="badge badge-claim">CLAIM</span>
+              {% endif %}
+              {% if row.confidence %}<span class="v2-meta">Confidence {{ row.confidence }}</span>{% endif %}
+              {% for name in row.trait_names %}<span class="v2-chip">{{ name }}</span>{% endfor %}
+            </p>
+            <h3 class="v2-card-title">
+              {% if row.evidence_id and not static_build %}
+                <a href="{{ row.reader_href }}" data-open-reader data-item-id="{{ row.evidence_id }}">{{ row.statement }}</a>
+              {% elif row.evidence_href %}
+                <a href="{{ row.evidence_href }}">{{ row.statement }}</a>
+              {% else %}
+                {{ row.statement }}
+              {% endif %}
+            </h3>
+            <p class="v2-card-line">
+              <span class="v2-meta">Source</span> {{ row.source_name or "—" }}
+              · <span class="v2-meta">Attribution</span> {{ row.source_type_label }}
+              {% if row.published_date %} · <span class="v2-meta">Date</span> {{ row.published_date|us_date }}{% endif %}
+            </p>
+            {% if row.geography %}
+              <p class="v2-card-line">
+                <span class="v2-meta">Geography</span>
+                {% for g in row.geography %}<a href="{{ g.href }}">{{ g.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+              </p>
+            {% endif %}
+            {% if row.does_not_prove %}
+              <p class="v2-card-summary"><span class="v2-meta">Does not prove</span> {{ row.does_not_prove|join('; ') }}</p>
+            {% endif %}
+            <p class="v2-card-line">
+              <a href="{{ row.fact_href }}">View Fact</a>
+              {% if row.additional_source_count %} · <span class="v2-meta">+{{ row.additional_source_count }} more source{{ 's' if row.additional_source_count != 1 else '' }}</span>{% endif %}
+            </p>
+          </article>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="empty-state">No trusted variety-level product or performance observations have been captured yet.</p>
+  {% endif %}
+</section>
+
 <section class="v2-company-section" id="traits">
   <h2>Trait profile</h2>
   <p class="context-limit">Evidence-backed rows only as recorded on the Variety. Owner/marketer claims are labeled and are not trusted Facts (TD-018: trait–evidence linkage is a convention).</p>
