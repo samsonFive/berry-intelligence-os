@@ -321,7 +321,12 @@ def build() -> list[Path]:
         ]
         regions = sorted(entity_regions(entity, entities, linked_evidence))
         activity = entity_activity(linked_evidence, entity_facts, entity_relationships, entities, evidence_idx)
-        synthesis = entity_synthesis_context(entity, entities, include_pending=False)
+        synthesis = entity_synthesis_context(
+            entity,
+            entities,
+            include_pending=False,
+            linked_evidence=linked_evidence,
+        )
         if entity.get("entity_type") in ("company", "variety"):
             synthesis["intelligence_timeline"] = entity_intelligence_timeline(
                 entity_id=entity_id,

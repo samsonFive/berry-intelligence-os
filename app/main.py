@@ -2277,7 +2277,11 @@ def company_profile_context(
 
 
 def entity_synthesis_context(
-    entity: dict[str, Any], entities: dict[str, dict[str, Any]], *, include_pending: bool = True
+    entity: dict[str, Any],
+    entities: dict[str, dict[str, Any]],
+    *,
+    include_pending: bool = True,
+    linked_evidence: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """The generic, entity-type-agnostic synthesis fields added in Phase
     1.5B (BL-027/BL-028): intelligence objects touching this entity, its
@@ -2288,9 +2292,12 @@ def entity_synthesis_context(
     (added for cross-object freshness/recall): the live app defaults to
     True, but scripts/build_static.py must always pass False -- pending
     drafts live in gitignored inbox/ and must never appear in the public
-    GitHub Pages build alongside trusted intelligence."""
+    GitHub Pages build alongside trusted intelligence. `linked_evidence`
+    lets static generation deliberately supply its structured-only set and
+    lets the live route reuse its already-computed conservative recall set."""
     entity_id = entity["id"]
-    linked_evidence = linked_evidence_for_entity(entity, published_evidence())
+    if linked_evidence is None:
+        linked_evidence = linked_evidence_for_entity(entity, published_evidence(), entities=entities)
     entity_signals = signals_for_entity(entity_id)
     entity_assessments = attach_assessment_scope(assessments_for_entity(entity_id), BERRIES)
     entity_recommendations = recommendations_for_entity(entity_id)
@@ -2371,10 +2378,10 @@ def variety_compare_page(request: Request, ids: str = "") -> HTMLResponse:
 def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLResponse:
     for entity in all_entities():
         if entity.get("id") == entity_id and entity.get("entity_type") == entity_type:
-            linked_evidence = linked_evidence_for_entity(entity, published_evidence())
+            entities = entity_index()
+            linked_evidence = linked_evidence_for_entity(entity, published_evidence(), entities=entities)
             independent_sources = {r.get("source_name") for r in linked_evidence if r.get("source_name")}
             last_updated = linked_evidence[0].get("published_date") or linked_evidence[0].get("captured_date") if linked_evidence else None
-            entities = entity_index()
             regions = sorted(entity_regions(entity, entities, linked_evidence))
             entity_facts = facts_for_entity(entity_id)
             entity_relationships = relationships_for_entity(entity_id, all_relationships())
@@ -2385,7 +2392,7 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                 evidence_by_id=_evidence_index(),
                 entities=entities,
             )
-            synthesis = entity_synthesis_context(entity, entities)
+            synthesis = entity_synthesis_context(entity, entities, linked_evidence=linked_evidence)
             open_signals = open_signals_for_entity(entity_id, presented_candidates)
             ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
             if entity.get("entity_type") in ("company", "variety"):

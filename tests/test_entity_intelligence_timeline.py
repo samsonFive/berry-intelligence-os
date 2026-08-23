@@ -427,6 +427,14 @@ def test_variety_profile_route_renders_timeline_for_real_data():
     assert 'id="variety-intelligence"' in page.text
 
 
+def test_victoria_profile_retains_real_blackberry_evidence_without_costa_geography_collision():
+    client = TestClient(app)
+    page = client.get("/entities/variety/variety-victoria")
+    assert page.status_code == 200
+    assert "Best New Variety Top/Soft Fruit" in page.text
+    assert "Costa Group enters new ownership phase" not in page.text
+
+
 def test_timeline_empty_state_for_sparse_entity_does_not_fabricate():
     client = TestClient(app)
     page = client.get("/entities/variety/variety-amalia-rossa")

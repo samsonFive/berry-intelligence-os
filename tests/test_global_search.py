@@ -83,6 +83,16 @@ def test_carlotta_alias_resolves_to_one_variety() -> None:
     assert "alias" in hit["matched_label"].lower() or "commercial" in hit["matched_label"].lower()
 
 
+def test_victoria_search_keeps_weak_text_retrieval_separate_from_entity_grounding() -> None:
+    payload = client.get("/api/search/global", params={"q": "Victoria", "berry": "global"}).json()
+    victoria = next(row for row in _group(payload, "varieties") if row["id"] == "variety-victoria")
+    costa = next(row for row in _group(payload, "intelligence") if row["id"] == "ev-costa-ownership-2024")
+
+    assert victoria["matched_as"] == "canonical"
+    assert costa["matched_as"] == "text"
+    assert costa["rank"] < victoria["rank"]
+
+
 def test_driscolls_company_search_groups_related_objects() -> None:
     payload = client.get("/api/search/global", params={"q": "Driscoll's", "berry": "global"}).json()
     companies = _group(payload, "companies")
