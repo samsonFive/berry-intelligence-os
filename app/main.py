@@ -128,9 +128,11 @@ from app.services.monitor_workspace import (
 )
 from app.services.variety_workspace import (
     VIEWS as VARIETY_VIEWS,
+    COMPARE_MAX_VARIETIES,
     berry_inventory,
     present_competition,
     present_observation_workspace,
+    present_variety_compare,
     present_variety_detail,
     present_variety_index,
 )
@@ -2325,6 +2327,44 @@ def entity_synthesis_context(
             )
         )
     return context
+
+
+@app.get("/entities/variety/compare", response_class=HTMLResponse)
+def variety_compare_page(request: Request, ids: str = "") -> HTMLResponse:
+    """Variety Compare V1 -- side-by-side trusted intelligence for up to
+    COMPARE_MAX_VARIETIES varieties. Registered before the generic
+    /entities/{entity_type}/{entity_id} route so "compare" is never
+    matched as an entity_id. Canonical-ID-only query string (?ids=a,b,c)
+    is the entire selection state -- reloading or sharing the URL
+    reproduces the same comparison, no private runtime state involved."""
+    requested_ids = [part.strip() for part in ids.split(",") if part.strip()]
+    entities = entity_index()
+    result = present_variety_compare(
+        requested_ids,
+        entities=entities,
+        relationships=all_relationships(),
+        published_evidence=published_evidence(),
+        facts=all_facts(),
+        evidence_by_id={r["id"]: r for r in all_evidence() if r.get("id")},
+        signals=all_signals(),
+        assessments=all_assessments(),
+        berry_labels=BERRIES,
+    )
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="variety_compare.html",
+        context={
+            "compare": result,
+            "ids_param": ids,
+            "berries": BERRIES,
+            "compare_max": COMPARE_MAX_VARIETIES,
+            "authoring_mode": AUTHORING_MODE,
+            "ui_context": ui,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
 
 
 @app.get("/entities/{entity_type}/{entity_id}", response_class=HTMLResponse)

@@ -966,3 +966,192 @@ def present_variety_detail(
         "include_candidates": include_candidates,
         "uk_named_pilot": variety["id"] in UK_PILOT_NAMED_IDS,
     }
+
+
+COMPARE_MAX_VARIETIES = 4
+
+
+def present_variety_compare(
+    variety_ids: list[str],
+    *,
+    entities: dict[str, dict[str, Any]],
+    relationships: list[dict[str, Any]],
+    published_evidence: list[dict[str, Any]],
+    facts: list[dict[str, Any]],
+    evidence_by_id: dict[str, dict[str, Any]],
+    signals: list[dict[str, Any]],
+    assessments: list[dict[str, Any]],
+    berry_labels: dict[str, str],
+) -> dict[str, Any]:
+    """Variety Compare V1 -- a side-by-side, trusted-intelligence-only
+    comparison workspace for up to 4 varieties. No synthetic score, no
+    winner: reuses present_variety_intelligence()'s already trust-
+    preserving trait grouping and variety_footprint()'s already-tested
+    role/rights/commercial derivation rather than re-deriving anything.
+    Callers pass already-loaded lists (the same ones the detail/timeline
+    routes already fetch for every entity type); this function performs
+    no new corpus scan of its own, and its per-variety cost is exactly
+    the cost of visiting that variety's own detail page once -- calling
+    it for 4 varieties is 4x that, not a new full-corpus multiplier.
+    """
+    entity_list = list(entities.values())
+    seen: set[str] = set()
+    deduped_ids: list[str] = []
+    for vid in variety_ids:
+        if vid and vid not in seen:
+            seen.add(vid)
+            deduped_ids.append(vid)
+    selected_ids = deduped_ids[:COMPARE_MAX_VARIETIES]
+    overflow_ids = deduped_ids[COMPARE_MAX_VARIETIES:]
+
+    cards: list[dict[str, Any]] = []
+    invalid_ids: list[str] = []
+    variety_intelligence_by_id: dict[str, dict[str, Any]] = {}
+
+    for vid in selected_ids:
+        variety = entities.get(vid)
+        if not variety or variety.get("entity_type") != "variety":
+            invalid_ids.append(vid)
+            continue
+        identity = identity_fields(variety)
+        footprint = variety_footprint(
+            vid,
+            entities=entity_list,
+            relationships=relationships,
+            published_evidence=published_evidence,
+            signals=signals,
+        )
+        roles_resolved = {
+            bucket: _role_parties(footprint.get("roles", {}).get(bucket) or [], entities)
+            for bucket, _predicate, _label in ROLE_BUCKETS
+        }
+        variety_intelligence = present_variety_intelligence(
+            variety, entities=entities, facts=facts, evidence_by_id=evidence_by_id
+        )
+        variety_intelligence_by_id[vid] = variety_intelligence
+        variety_signals = [s for s in signals if vid in (s.get("entity_ids") or [])]
+        variety_assessments = [a for a in assessments if vid in (a.get("entity_ids") or [])]
+
+        rights_published = list(footprint.get("rights_filings", {}).get("published") or [])
+        rights_drafts = list(footprint.get("rights_filings", {}).get("draft_pending_review") or [])
+        for row in rights_published:
+            row["kind"] = _rights_kind(row)
+            row["trust"] = "published"
+            row["href"] = f"/evidence/{row['id']}"
+        for row in rights_drafts:
+            row["kind"] = _rights_kind(row)
+            row["trust"] = "draft (pending review)"
+
+        countries = [
+            _party(entities.get(str(geo_id))) or {"id": str(geo_id), "name": str(geo_id), "href": ""}
+            for geo_id in footprint.get("countries_observed") or []
+        ]
+        retailers = [
+            party for party in (_party(entities.get(str(r))) for r in footprint.get("retailers_observed") or []) if party
+        ]
+
+        obs_ids = {row["id"] for row in footprint.get("commercial_observations") or [] if row.get("id")}
+        intelligence_evidence_ids = {
+            row.get("evidence_id")
+            for group in variety_intelligence["groups"]
+            for row in group["rows"]
+            if row.get("evidence_id")
+        }
+        intelligence_geo_ids = {
+            g["id"] for group in variety_intelligence["groups"] for row in group["rows"] for g in row.get("geography", [])
+        }
+        rights_ids = {row.get("id") for row in rights_published if row.get("id")}
+        source_count = len(obs_ids | intelligence_evidence_ids | rights_ids)
+        geo_count = len({str(g) for g in footprint.get("countries_observed") or []} | intelligence_geo_ids)
+        dates = [
+            d
+            for d in (
+                [variety_intelligence["coverage"]["latest_date"], footprint.get("latest_observed")]
+                + [row.get("published_date") for row in rights_published]
+            )
+            if d
+        ]
+        coverage = {
+            "observation_count": variety_intelligence["coverage"]["observation_count"] + len(obs_ids) + len(rights_published),
+            "source_count": source_count,
+            "geography_count": geo_count,
+            "latest_date": max(dates) if dates else "",
+        }
+
+        cards.append(
+            {
+                "id": vid,
+                "href": f"/entities/variety/{vid}",
+                "timeline_href": f"/entities/variety/{vid}#intelligence-timeline",
+                "identity": identity,
+                "berry_ids": list(variety.get("berry_ids") or []),
+                "berries": [berry_labels.get(b, b) for b in (variety.get("berry_ids") or [])],
+                "roles": roles_resolved,
+                "rights_published": rights_published,
+                "rights_drafts": rights_drafts,
+                "countries_observed": countries,
+                "retailers_observed": retailers,
+                "coverage": coverage,
+                "variety_intelligence": variety_intelligence,
+                "signals": [
+                    {"id": s.get("id"), "title": s.get("title"), "status": s.get("status"), "href": f"/signals/{s['id']}"}
+                    for s in variety_signals
+                ],
+                "assessments": [
+                    {
+                        "id": a.get("id"),
+                        "title": a.get("title"),
+                        "confidence": a.get("confidence"),
+                        "href": f"/assessments/{a['id']}",
+                    }
+                    for a in variety_assessments
+                ],
+            }
+        )
+
+    dimensions = _pivot_compare_dimensions(cards, variety_intelligence_by_id)
+
+    return {
+        "varieties": cards,
+        "invalid_ids": invalid_ids,
+        "overflow_ids": overflow_ids,
+        "dimensions": dimensions,
+        "role_labels": ROLE_LABEL,
+        "count": len(cards),
+        "max_reached": len(cards) >= COMPARE_MAX_VARIETIES,
+    }
+
+
+def _pivot_compare_dimensions(
+    cards: list[dict[str, Any]], variety_intelligence_by_id: dict[str, dict[str, Any]]
+) -> list[dict[str, Any]]:
+    """Re-groups present_variety_intelligence()'s already-trusted rows by
+    individual trait NAME (not category) so each comparison row is one
+    real dimension (e.g. "Fruit firmness") with one cell per compared
+    variety. A single Fact naming several traits at once legitimately
+    appears under each of its own real trait rows -- that is accurate
+    multi-dimensional evidence, not duplication. A variety with nothing
+    for a given dimension gets an explicit empty cell (has_data=False),
+    never a fabricated negative value."""
+    order: list[str] = []
+    by_dimension: dict[str, dict[str, list[dict[str, Any]]]] = {}
+    for card in cards:
+        vid = card["id"]
+        vi = variety_intelligence_by_id.get(vid) or {"groups": []}
+        for group in vi["groups"]:
+            for row in group["rows"]:
+                trait_names = row.get("trait_names") or [group["label"]]
+                for trait_name in trait_names:
+                    if trait_name not in by_dimension:
+                        by_dimension[trait_name] = {}
+                        order.append(trait_name)
+                    by_dimension[trait_name].setdefault(vid, []).append(row)
+    dimensions: list[dict[str, Any]] = []
+    for trait_name in order:
+        cells = []
+        for card in cards:
+            vid = card["id"]
+            rows = by_dimension[trait_name].get(vid) or []
+            cells.append({"variety_id": vid, "rows": rows, "has_data": bool(rows)})
+        dimensions.append({"name": trait_name, "cells": cells})
+    return dimensions

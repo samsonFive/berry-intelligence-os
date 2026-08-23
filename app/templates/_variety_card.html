@@ -38,4 +38,5 @@
     {% if card.signal_count %}<span class="v2-mark v2-mark-confirmed">{{ card.signal_count }} signal{{ 's' if card.signal_count != 1 else '' }}</span>{% endif %}
     {% if card.candidate_count %}<span class="v2-mark v2-mark-signal">{{ card.candidate_count }} candidate{{ 's' if card.candidate_count != 1 else '' }}</span>{% endif %}
   </p>
+  {% if not static_build %}<p class="v2-card-line"><a href="/entities/variety/compare?ids={{ card.id }}">Compare</a></p>{% endif %}
 </article>
