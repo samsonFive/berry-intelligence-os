@@ -64,6 +64,11 @@ from app.services.source_freshness import (
     classify_source_freshness,
     index_latest_item_dates,
 )
+from app.services.source_fidelity_recovery import (
+    decide_recovery_artifact,
+    load_recovery_artifacts,
+    save_recovery_decision,
+)
 from app.services.ui_context import (
     apply_ui_cookies,
     matches_berry_context,
@@ -531,6 +536,78 @@ def healthz() -> dict[str, Any]:
         "ok": True,
         "remote_interactive": remote_interactive_enabled(),
     }
+
+
+def _source_fidelity_folder() -> Path:
+    return INBOX_DIR / "source_fidelity" / "artifacts"
+
+
+@app.get("/source-fidelity", response_class=HTMLResponse)
+def source_fidelity_queue(request: Request, state: str = "pending") -> HTMLResponse:
+    trusted_by_id = {row["id"]: row for row in published_evidence()}
+    rows = []
+    for artifact in load_recovery_artifacts(_source_fidelity_folder()):
+        trusted = trusted_by_id.get(artifact.get("evidence_id"))
+        if not trusted:
+            continue
+        review_state = (artifact.get("review") or {}).get("status") or "pending"
+        if state != "all" and review_state != state:
+            continue
+        berries = set(trusted.get("berry_ids") or [])
+        rows.append({"artifact": artifact, "trusted": trusted, "review_state": review_state, "caneberry": bool(berries & {"berry-raspberry", "berry-blackberry"})})
+    match_rank = {"EXACT_IDENTITY_MATCH": 0, "EXACT_URL_MATCH": 1, "LINEAGE_MATCH": 2}
+    rows.sort(key=lambda row: (match_rank.get(row["artifact"].get("match_class"), 9), row["artifact"].get("artifact_type") != "article", not row["caneberry"], -int(row["artifact"].get("source_chars") or 0), row["trusted"]["id"]))
+    return templates.TemplateResponse(request=request, name="source_fidelity_queue.html", context={"rows": rows, "state": state})
+
+
+@app.get("/source-fidelity/{evidence_id}", response_class=HTMLResponse)
+def source_fidelity_detail(request: Request, evidence_id: str) -> HTMLResponse:
+    trusted = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.get(evidence_id)
+    path = _source_fidelity_folder() / f"{evidence_id}.json"
+    if not trusted or trusted.get("status") != "published" or not path.is_file():
+        raise HTTPException(status_code=404, detail="source-fidelity recovery not found")
+    artifact = json.loads(path.read_text(encoding="utf-8"))
+    return templates.TemplateResponse(request=request, name="source_fidelity_detail.html", context={"trusted": trusted, "artifact": artifact, "reviewer": session_username(request) or review_username() or ""})
+
+
+@app.post("/source-fidelity/{evidence_id}/decision")
+def source_fidelity_decision(
+    request: Request,
+    evidence_id: str,
+    decision: str = Form(...),
+    reviewer: str = Form(""),
+) -> RedirectResponse:
+    trusted = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.get(evidence_id)
+    path = _source_fidelity_folder() / f"{evidence_id}.json"
+    if not trusted or trusted.get("status") != "published" or not path.is_file():
+        raise HTTPException(status_code=404, detail="source-fidelity recovery not found")
+    before = json.loads(path.read_text(encoding="utf-8"))
+    actor = session_username(request) or reviewer.strip() or review_username() or ""
+    prior_state = str((before.get("review") or {}).get("status") or "pending")
+    event = None
+    try:
+        after = decide_recovery_artifact(before, trusted, decision=decision, reviewer=actor)
+        event = append_review_event(
+            INBOX_DIR,
+            workflow="source_fidelity_review",
+            object_id=evidence_id,
+            object_type="source_artifact",
+            action=decision,
+            prior_state=prior_state,
+            new_state=decision,
+            actor=actor,
+            subject=trusted,
+        )
+        save_recovery_decision(path, before, after)
+    except ValueError as exc:
+        if event is not None:
+            remove_created_event(event)
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    except Exception:
+        if event is not None:
+            remove_created_event(event)
+        raise
+    return RedirectResponse(url=f"/source-fidelity/{evidence_id}", status_code=303)
 
 
 LOGIN_ERROR = "Username or password is incorrect."

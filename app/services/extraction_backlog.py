@@ -17,6 +17,7 @@ from app.exports.intelligence_package import SEED_EVIDENCE_IDS
 from app.services.ai_extraction import EXTRACTION_VERSION
 from app.services.article_dedup import find_duplicate_article
 from app.services.source_body import atomic_extraction_source_text, classify_source_body
+from app.services.source_fidelity_recovery import effective_record_for_extraction
 
 
 READINESS_VERSION = "atomic-extraction-backlog-v1"
@@ -179,10 +180,11 @@ def _difficulty(record: dict[str, Any], chars: int) -> str:
     return "easy"
 
 
-def classify_record(record: dict[str, Any]) -> dict[str, Any]:
+def classify_record(record: dict[str, Any], source_artifact: dict[str, Any] | None = None) -> dict[str, Any]:
     """Classify one trusted record without persisting derived state."""
-    source_text = atomic_extraction_source_text(record)
-    body = classify_source_body(record)
+    effective = effective_record_for_extraction(record, source_artifact)
+    source_text = atomic_extraction_source_text(effective)
+    body = classify_source_body(effective)
     source_chars = len(source_text)
     if record.get("id") in SEED_EVIDENCE_IDS:
         source_class = "OTHER"
@@ -230,6 +232,7 @@ def classify_record(record: dict[str, Any]) -> dict[str, Any]:
         "fidelity_cause": None if readiness in READY_STATES else _fidelity_cause(record, body["state"]),
         "duplicate_of": None,
         "duplicate_basis": None,
+        "source_fidelity_review": (source_artifact or {}).get("review", {}).get("status"),
         "_record": record,
     }
 
@@ -269,12 +272,16 @@ def _mark_duplicates(items: list[dict[str, Any]]) -> None:
                 accepted_by_hash.setdefault(item["source_sha256"], str(item["id"]))
 
 
-def inventory(records: list[dict[str, Any]]) -> dict[str, Any]:
+def inventory(
+    records: list[dict[str, Any]],
+    source_artifacts: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
     trusted = sorted(
         (deepcopy(record) for record in records if record.get("status") == "published"),
         key=lambda record: str(record.get("id") or ""),
     )
-    items = [classify_record(record) for record in trusted]
+    artifacts = source_artifacts or {}
+    items = [classify_record(record, artifacts.get(str(record.get("id")))) for record in trusted]
     _mark_duplicates(items)
     ready = [item for item in items if item["readiness"] in READY_STATES]
     length_groups = {

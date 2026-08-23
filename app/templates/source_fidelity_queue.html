@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Source Fidelity Review — Berry Intelligence OS{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div><p class="eyebrow">PRIVATE OPERATIONAL REVIEW</p><h1>Source fidelity review</h1><p>Affirm whether recovered source content belongs to an already-trusted Evidence shell. This does not re-review or alter semantic claims.</p></div>
+</section>
+<p><a href="/source-fidelity?state=pending">Pending</a> · <a href="/source-fidelity?state=all">All / audit</a></p>
+{% if rows %}
+<div class="card-grid">
+{% for row in rows %}
+  <article class="card">
+    <p class="eyebrow">{{ row.artifact.match_class|replace('_',' ') }} · {{ row.artifact.artifact_type|upper }}{% if row.caneberry %} · CANEBERRY PRIORITY{% endif %}</p>
+    <h2><a href="/source-fidelity/{{ row.trusted.id }}">{{ row.trusted.title }}</a></h2>
+    <p>{{ row.trusted.source_name }} · {{ row.trusted.published_date or 'date unavailable' }}</p>
+    <p>Status: <strong>{{ row.review_state|replace('_',' ')|upper }}</strong> · {{ row.artifact.source_chars }} recovered characters</p>
+  </article>
+{% endfor %}
+</div>
+{% else %}<p class="empty-state">No source-fidelity artifacts match this state.</p>{% endif %}
+{% endblock %}
