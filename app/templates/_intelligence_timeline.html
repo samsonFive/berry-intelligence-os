@@ -1,0 +1,95 @@
+{% set timeline = intelligence_timeline if intelligence_timeline is defined else {} %}
+<section class="v2-company-section" id="intelligence-timeline">
+  <h2>Intelligence timeline</h2>
+  <p class="context-limit">Chronological history assembled from existing trusted Evidence, Facts, Relationships, Signals, and Assessments -- a derived view, not a new record type. Meaningful real-world dates are preferred over record-created timestamps; where none exists, an item is marked below rather than dated arbitrarily.</p>
+  {% if timeline.has_any %}
+    <p class="v2-card-line" data-pagefind-ignore>
+      <span class="v2-meta">{{ timeline.dated_count }} dated item{{ 's' if timeline.dated_count != 1 else '' }}</span>
+      {% if timeline.undated_count %} · <span class="v2-meta">{{ timeline.undated_count }} undated</span>{% endif %}
+    </p>
+    {% if timeline.kinds_present|length > 1 or timeline.berries_present %}
+    <div class="v2-timeline-filters" data-timeline-filters data-pagefind-ignore>
+      <div class="filter-field">
+        <label for="timeline-kind-{{ entity.id }}">Type</label>
+        <select id="timeline-kind-{{ entity.id }}" data-timeline-kind-filter>
+          <option value="">All</option>
+          {% for kind in timeline.kinds_present %}
+            <option value="{{ kind }}">{{ {"evidence": "Evidence", "rights": "Rights / IP", "commercial": "Commercial", "fact": "Facts", "relationship": "Relationships", "signal": "Signals", "assessment": "Assessments"}[kind] }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {% if timeline.berries_present|length > 1 %}
+      <div class="filter-field">
+        <label for="timeline-berry-{{ entity.id }}">Berry</label>
+        <select id="timeline-berry-{{ entity.id }}" data-timeline-berry-filter>
+          <option value="">All</option>
+          {% for berry_id in timeline.berries_present %}
+            <option value="{{ berry_id }}">{{ berry_label(berry_id) }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {% endif %}
+      <div class="filter-field">
+        <label for="timeline-range-{{ entity.id }}">Date range</label>
+        <select id="timeline-range-{{ entity.id }}" data-timeline-range-filter>
+          <option value="">All time</option>
+          <option value="90">Last 90 days</option>
+          <option value="365">Last year</option>
+        </select>
+      </div>
+    </div>
+    {% endif %}
+    <ol class="v2-timeline-list" data-timeline-list>
+      {% for row in timeline.dated %}
+        {% include "_timeline_row.html" %}
+      {% endfor %}
+    </ol>
+    {% if timeline.undated %}
+      <h3 class="v2-subsection-title">Undated / date not established</h3>
+      <p class="context-limit">Real trusted intelligence with no meaningful real-world date on the record or its cited source -- shown here rather than assigned an arbitrary position above.</p>
+      <ol class="v2-timeline-list">
+        {% for row in timeline.undated %}
+          {% include "_timeline_row.html" %}
+        {% endfor %}
+      </ol>
+    {% endif %}
+  {% else %}
+    <p class="empty-state">No dated trusted intelligence has been captured yet.</p>
+  {% endif %}
+</section>
+{% if timeline.has_any and timeline.kinds_present|length > 1 or (timeline.berries_present and timeline.berries_present|length > 1) %}
+<script>
+(function () {
+  var scope = document.getElementById('intelligence-timeline');
+  if (!scope || scope.dataset.timelineBound) return;
+  scope.dataset.timelineBound = '1';
+  var kindSel = scope.querySelector('[data-timeline-kind-filter]');
+  var berrySel = scope.querySelector('[data-timeline-berry-filter]');
+  var rangeSel = scope.querySelector('[data-timeline-range-filter]');
+  var rows = scope.querySelectorAll('[data-timeline-list] > [data-timeline-row]');
+  function apply() {
+    var kind = kindSel ? kindSel.value : '';
+    var berry = berrySel ? berrySel.value : '';
+    var days = rangeSel ? parseInt(rangeSel.value, 10) : 0;
+    var cutoff = null;
+    if (days) {
+      cutoff = new Date();
+      cutoff.setDate(cutoff.getDate() - days);
+    }
+    rows.forEach(function (row) {
+      var show = true;
+      if (kind && row.dataset.kind !== kind) show = false;
+      if (show && berry && (row.dataset.berries || '').split(',').indexOf(berry) === -1) show = false;
+      if (show && cutoff) {
+        var d = row.dataset.date ? new Date(row.dataset.date) : null;
+        if (!d || d < cutoff) show = false;
+      }
+      row.style.display = show ? '' : 'none';
+    });
+  }
+  [kindSel, berrySel, rangeSel].forEach(function (el) {
+    if (el) el.addEventListener('change', apply);
+  });
+})();
+</script>
+{% endif %}
