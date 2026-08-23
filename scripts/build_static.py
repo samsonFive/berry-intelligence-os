@@ -21,6 +21,7 @@ sys.path.insert(0, str(ROOT))
 
 from app.main import (  # noqa: E402
     BERRIES,
+    DATA_DIR,
     PRIORITY_DIMENSIONS,
     PRIORITY_LEVELS,
     PRIORITY_QUEUE_LABELS,
@@ -39,6 +40,7 @@ from app.main import (  # noqa: E402
     entity_synthesis_context,
     evidence_for_strategic_question,
     facts_for_evidence,
+    get_domain_services,
     landscape_context,
     list_drafts,
     load_strategic_questions,
@@ -671,6 +673,19 @@ def build() -> list[Path]:
                 {**landscape_context(berry_id), "authoring_mode": False},
             )
         )
+
+    # Landscape V2's cross-berry ALL view -- trusted-only aggregate data,
+    # same as every per-berry page above, so it is equally static-safe.
+    written.append(
+        write_page(
+            "landscape_all.html",
+            "/landscapes",
+            {
+                **get_domain_services(DATA_DIR).landscape.landscape_context_all_berries(BERRIES),
+                "authoring_mode": False,
+            },
+        )
+    )
 
     # Learner Mode V1 -- a small, finite, enumerable concept set (unlike
     # Variety/Company Compare's unbounded id-combination space), so unlike

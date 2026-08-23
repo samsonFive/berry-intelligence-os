@@ -39,7 +39,7 @@ def test_parse_berry_and_landscape_href() -> None:
     assert parse_berry("berry-raspberry", berries) == "berry-raspberry"
     assert parse_feed_view("compact") == "compact"
     assert parse_feed_view("nope") == "grid"
-    assert landscape_href("global") == "/entities/berry"
+    assert landscape_href("global") == "/landscapes"
     assert landscape_href("berry-blackberry") == "/landscapes/berries/blackberry"
 
 

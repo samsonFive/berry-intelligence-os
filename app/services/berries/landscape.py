@@ -53,6 +53,18 @@ PRIMARY_SOURCE_TYPES = {
     "research_program_publication",
 }
 
+# Landscape V2 -- ties each existing competitive_themes label to the real
+# Learner Mode concept slug that explains the underlying trait (by name,
+# matching theme_definitions above one level up in landscape_context()).
+# Deliberately partial: "Yield / Production" and "Climate adaptability"
+# have no Learner concept yet, so they render with no Explain-this link
+# rather than a fabricated one.
+THEME_LEARN_SLUGS = {
+    "Flavor / Sweetness": "flavor",
+    "Firmness / Shelf Life": "firmness",
+    "Fruit size": "fruit-size",
+}
+
 
 class BerriesLandscapeService:
     def __init__(self, repos: Any, queries: Any) -> None:
@@ -265,6 +277,109 @@ class BerriesLandscapeService:
             "disputed_relationship_count": len(disputed_rels),
             "unresolved_strategic_question_count": len(unresolved_sqs),
             "thin_coverage_varieties": thin_varieties,
+            # Captured-coverage framing, not a market-activity claim: most
+            # trusted Evidence today is a thin description rather than full
+            # article/transcript text (see docs/v2/ATOMIC-EXTRACTION-BACKLOG-READINESS-V1.md).
+            # A berry/company/geography with little captured evidence is not
+            # thereby shown to have little real competitive activity.
+            "coverage_caveat": (
+                "Captured intelligence coverage, not market activity. Most trusted "
+                "evidence today is a thin description rather than full article or "
+                "transcript text -- a thinly covered berry, company, or geography "
+                "may simply be under-captured, not inactive."
+            ),
+        }
+
+    def landscape_context_all_berries(self, berries: dict[str, str]) -> dict[str, Any]:
+        """Landscape V2's cross-berry ALL lens -- deliberately lighter than
+        landscape_context(): per-berry counts plus a small bounded
+        cross-berry Actors to Watch / Recent Moves feed, not the full
+        narrative/theme-matrix/regional-briefing generation the single-berry
+        page computes. No blended cross-berry ranking or score (same rule
+        as everywhere else in this module) -- berry_rows sort alphabetically
+        by label, actors/moves sort by real signal/evidence counts and by
+        date respectively, never by an invented composite."""
+        entities = {e["id"]: e for e in self._repos.entities.list() if e.get("id")}
+        relationships = self._repos.relationships.list()
+
+        berry_rows: list[dict[str, Any]] = []
+        all_actors: list[dict[str, Any]] = []
+        all_moves: list[dict[str, Any]] = []
+        total_evidence = 0
+        total_companies = 0
+        total_varieties = 0
+        total_signals = 0
+
+        for berry_id, label in sorted(berries.items(), key=lambda kv: kv[1]):
+            berry_entities = self.landscape_entities(berry_id)
+            berry_entity_ids = {e["id"] for e in berry_entities}
+            evidence = self.landscape_evidence(berry_id)
+            intelligence = self.landscape_intelligence_objects(berry_id, berry_entity_ids)
+            companies = self.landscape_entities(berry_id, "company")
+            varieties = self.landscape_entities(berry_id, "variety")
+            geo_footprint = self.landscape_geographic_footprint(berry_id, relationships, entities)
+            competitive_field = self.landscape_competitive_field(berry_id, relationships, entities)
+
+            dated = [r for r in evidence if r.get("published_date") or r.get("captured_date")]
+            latest_date = max((r.get("published_date") or r.get("captured_date") for r in dated), default="")
+
+            berry_rows.append(
+                {
+                    "berry_id": berry_id,
+                    "berry_label": label,
+                    "company_count": len(companies),
+                    "variety_count": len(varieties),
+                    "evidence_count": len(evidence),
+                    "signal_count": len(intelligence["signals"]),
+                    "geography_count": sum(1 for row in geo_footprint if row["region"] != "Unclassified"),
+                    "latest_date": latest_date,
+                    "href": f"/landscapes/berries/{berry_id.removeprefix('berry-')}",
+                }
+            )
+            total_evidence += len(evidence)
+            total_companies += len(companies)
+            total_varieties += len(varieties)
+            total_signals += len(intelligence["signals"])
+
+            actor_rows = [row for row in competitive_field if "competitor" in (row["entity"].get("roles") or [])]
+            actor_rows.sort(
+                key=lambda row: (-len(row["signals"]), -row["evidence_count"], row["entity"]["name"])
+            )
+            for row in actor_rows[:3]:
+                all_actors.append(
+                    {
+                        "entity": row["entity"],
+                        "berry_label": label,
+                        "evidence_count": row["evidence_count"],
+                        "signal_count": len(row["signals"]),
+                        "variety_count": len(row["varieties"]),
+                        "why_shown": (
+                            f"Recent trusted activity in {label}: {len(row['signals'])} linked "
+                            f"signal{'s' if len(row['signals']) != 1 else ''}, {row['evidence_count']} "
+                            "evidence records."
+                        ),
+                    }
+                )
+
+            moves = self.landscape_recent_movement(
+                evidence, intelligence["signals"], intelligence["assessments"], intelligence["recommendations"], cap=5
+            )
+            for m in moves:
+                all_moves.append({**m, "berry_label": label})
+
+        all_moves.sort(key=lambda r: r.get("published_date") or r.get("captured_date") or "", reverse=True)
+
+        return {
+            "berry_rows": berry_rows,
+            "actors_to_watch": all_actors[:12],
+            "recent_moves": all_moves[:15],
+            "header_stats": {
+                "company_count": total_companies,
+                "variety_count": total_varieties,
+                "evidence_count": total_evidence,
+                "signal_count": total_signals,
+                "berry_count": len(berry_rows),
+            },
         }
 
     def landscape_context(self, berry_id: str) -> dict[str, Any]:
@@ -328,8 +443,13 @@ class BerriesLandscapeService:
                 row for row in variety_rollup if set(row["trait_labels"]) & trait_names
             ]
             if matches:
+                slug = THEME_LEARN_SLUGS.get(label)
                 competitive_themes.append(
-                    {"label": label, "varieties": [row["entity"]["name"] for row in matches]}
+                    {
+                        "label": label,
+                        "varieties": [row["entity"]["name"] for row in matches],
+                        "explain_href": f"/learn/{slug}" if slug else None,
+                    }
                 )
 
         evidence_index = {record["id"]: record for record in evidence}
@@ -693,6 +813,11 @@ class BerriesLandscapeService:
             "strategic_questions": self._repos.strategic_questions.list(),
             "competitive_field": competitive_field,
             "variety_rollup": variety_rollup,
+            "compare_variety_ids": [
+                row["entity"]["id"]
+                for row in sorted(variety_rollup, key=lambda r: -r["evidence_count"])[:4]
+                if row["evidence_count"]
+            ],
             "geographic_footprint": geographic_footprint,
             "regional_summaries": regional_summaries,
             "regional_briefings": regional_briefings,

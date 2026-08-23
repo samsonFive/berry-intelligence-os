@@ -441,6 +441,51 @@ def _nav_work_cache_key() -> tuple[Any, ...]:
     )
 
 
+# Landscape (V2) recomputes an O(companies x evidence) + O(varieties x
+# evidence) aggregation per request (see BerriesLandscapeService docstring);
+# uncached this was 2-3s per berry and 4-8s for the cross-berry ALL view --
+# the exact "old Pending Review mistake" this mission was told not to
+# repeat. Trusted data/ only changes between deploys/publications, so a
+# folder-signature-keyed cache (same pattern as _NAV_WORK_CACHE above) is
+# safe and correct: a publish/promotion changes file mtimes, invalidating
+# the key automatically.
+_LANDSCAPE_CACHE: dict[str, Any] = {"key": None, "value": {}}
+
+
+def _landscape_cache_key() -> tuple[Any, ...]:
+    return (
+        _json_tree_sig(DATA_DIR / "entities"),
+        _json_folder_sig(DATA_DIR / "evidence"),
+        _json_folder_sig(DATA_DIR / "relationships"),
+        _json_folder_sig(DATA_DIR / "signals"),
+        _json_folder_sig(DATA_DIR / "assessments"),
+        _json_folder_sig(DATA_DIR / "recommendations"),
+        _json_folder_sig(DATA_DIR / "strategic-questions"),
+    )
+
+
+def _cached_landscape_context(berry_id: str, region: str, intelligence_state: str) -> dict[str, Any]:
+    key = _landscape_cache_key()
+    cache_key = (key, "berry", berry_id, region, intelligence_state)
+    if _LANDSCAPE_CACHE["key"] != key:
+        _LANDSCAPE_CACHE["key"] = key
+        _LANDSCAPE_CACHE["value"] = {}
+    if cache_key not in _LANDSCAPE_CACHE["value"]:
+        _LANDSCAPE_CACHE["value"][cache_key] = landscape_context(berry_id, region, intelligence_state)
+    return _LANDSCAPE_CACHE["value"][cache_key]
+
+
+def _cached_landscape_context_all() -> dict[str, Any]:
+    key = _landscape_cache_key()
+    cache_key = (key, "all")
+    if _LANDSCAPE_CACHE["key"] != key:
+        _LANDSCAPE_CACHE["key"] = key
+        _LANDSCAPE_CACHE["value"] = {}
+    if cache_key not in _LANDSCAPE_CACHE["value"]:
+        _LANDSCAPE_CACHE["value"][cache_key] = get_domain_services(DATA_DIR).landscape.landscape_context_all_berries(BERRIES)
+    return _LANDSCAPE_CACHE["value"][cache_key]
+
+
 def _record_activity_stamp(record: dict[str, Any]) -> str:
     return str(
         record.get("captured_date")
@@ -3423,6 +3468,20 @@ def strategic_question_detail(request: Request, sq_id: str) -> HTMLResponse:
     )
 
 
+@app.get("/landscapes", response_class=HTMLResponse)
+def landscape_all(request: Request) -> HTMLResponse:
+    """Landscape V2's ALL BERRIES executive overview -- registered as its
+    own literal path, not a "/landscapes/{berry_slug}" catch-all, so it
+    never risks being swallowed by or swallowing the existing per-berry
+    route."""
+    context = _cached_landscape_context_all()
+    return templates.TemplateResponse(
+        request=request,
+        name="landscape_all.html",
+        context={**context, "authoring_mode": AUTHORING_MODE},
+    )
+
+
 @app.get("/landscapes/berries/{berry_slug}", response_class=HTMLResponse)
 def landscape_berry(
     request: Request, berry_slug: str, region: str = "global", intelligence_state: str = "all"
@@ -3434,7 +3493,7 @@ def landscape_berry(
         request=request,
         name="landscape.html",
         context={
-            **landscape_context(berry_id, region, intelligence_state),
+            **_cached_landscape_context(berry_id, region, intelligence_state),
             "authoring_mode": AUTHORING_MODE,
         },
     )

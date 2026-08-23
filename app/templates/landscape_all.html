@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Competitive Landscape — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page">
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">LANDSCAPE · ALL BERRIES</p>
+    <h1>Competitive Landscape</h1>
+    <p class="also-known-as">Who we currently track, where activity is occurring, and where our own evidence coverage is deep or thin -- across all four berries. Open a berry below for its full Landscape.</p>
+    <p class="context-limit"><strong>Captured intelligence coverage, not market activity.</strong> Most trusted evidence today is a thin description rather than full article or transcript text -- a thinly covered berry, company, or geography may simply be under-captured, not inactive.</p>
+  </div>
+</section>
+
+<section class="v2-company-section" id="executive-readout">
+  <h2>Executive readout</h2>
+  <div class="landscape-header-stats compact-stats">
+    <div><strong>{{ header_stats.company_count }}</strong><small>Companies</small></div>
+    <div><strong>{{ header_stats.variety_count }}</strong><small>Varieties</small></div>
+    <div><strong>{{ header_stats.evidence_count }}</strong><small>Evidence records</small></div>
+    <div><strong>{{ header_stats.signal_count }}</strong><small>Signals</small></div>
+    <div><strong>{{ header_stats.berry_count }}</strong><small>Berries tracked</small></div>
+  </div>
+</section>
+
+<section class="v2-company-section" id="berries">
+  <h2>Berries</h2>
+  <p class="context-limit">Coverage by berry -- captured evidence density, not real-world market size.</p>
+  <div class="balanced-card-grid">
+    {% for row in berry_rows %}
+      <article class="card entity-card">
+        <h2><a href="{{ row.href }}">{{ row.berry_label }}</a></h2>
+        <ul class="metric-bullets">
+          <li>{{ row.company_count }} compan{{ 'ies' if row.company_count != 1 else 'y' }}</li>
+          <li>{{ row.variety_count }} variet{{ 'ies' if row.variety_count != 1 else 'y' }}</li>
+          <li>{{ row.evidence_count }} evidence records</li>
+          <li>{{ row.signal_count }} signal{{ 's' if row.signal_count != 1 else '' }}</li>
+          <li>{{ row.geography_count }} geograph{{ 'ies' if row.geography_count != 1 else 'y' }}</li>
+        </ul>
+        <p class="v2-card-line"><span class="v2-meta">Latest</span> {{ row.latest_date|us_date if row.latest_date else "No dated evidence captured" }}</p>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="v2-company-section" id="actors-to-watch">
+  <h2>Actors to watch</h2>
+  <p class="context-limit">Shown because of recent trusted activity in their berry -- not a competitive-strength ranking.</p>
+  <div class="balanced-card-grid">
+    {% for row in actors_to_watch %}
+      <article class="card entity-card">
+        <p class="card-kicker">{{ row.berry_label|upper }}</p>
+        <h2><a href="/entities/company/{{ row.entity.id }}">{{ row.entity.name }}</a></h2>
+        <p>{{ row.why_shown }}</p>
+      </article>
+    {% else %}
+      <p class="empty-state">No trusted competitor-role activity captured yet.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="v2-company-section" id="recent-moves">
+  <h2>Recent moves</h2>
+  <p class="context-limit">Trusted evidence already linked to a Signal, Assessment, or Recommendation -- "captured" means ingestion date, not necessarily event date.</p>
+  {% if recent_moves %}
+    <ul class="entity-links">
+      {% for item in recent_moves %}
+        <li>
+          <span class="v2-meta">{{ item.berry_label }}</span>
+          {% if not static_build %}<a href="/intelligence/{{ item.id }}" data-open-reader data-item-id="{{ item.id }}">{{ item.title }}</a>{% else %}<a href="/evidence/{{ item.id }}">{{ item.title }}</a>{% endif %}
+          {% set d = item.published_date or item.captured_date %}
+          {% if d %}<span class="draft-meta"> · {{ d|us_date }}</span>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No trusted intelligence-linked moves captured yet.</p>
+  {% endif %}
+</section>
+</div>
+{% endblock %}
