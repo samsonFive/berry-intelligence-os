@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 from collections import Counter
+import json
 
 from app.services.article_acquisition import ArticleBody, ArticleParagraph
 from app.services.source_fidelity_recovery import decide_recovery_artifact
 from app.services.source_reacquisition import (
     build_inventory, build_reacquired_artifact, compare_current_artifact,
-    classify_acquisition_failure, pilot_manifest, prioritize_record,
+    classify_acquisition_failure, pilot_manifest, preflight_reacquisition_url,
+    prioritize_record, stage_reacquired_artifact, write_pilot_audit,
 )
 
 
@@ -86,4 +88,80 @@ def test_reacquired_current_page_stays_separate_pending_source_fidelity_review()
 def test_reacquisition_failure_outcomes_are_operator_meaningful() -> None:
     assert classify_acquisition_failure("paywall") == "PAYWALLED"
     assert classify_acquisition_failure("http_error", "HTTP 404") == "REMOVED"
-    assert classify_acquisition_failure("interstitial") == "UNAVAILABLE"
+    assert classify_acquisition_failure("interstitial") == "INTERSTITIAL_OR_CONSENT"
+    assert classify_acquisition_failure("blocked") == "ROBOTS_OR_ACCESS_BLOCKED"
+    assert classify_acquisition_failure("script_rendered") == "SCRIPT_RENDERED_UNAVAILABLE"
+    assert classify_acquisition_failure("timeout") == "NETWORK_FAILURE"
+    assert classify_acquisition_failure("empty_body") == "THIN_BODY"
+
+
+def test_preflight_excludes_unsafe_and_non_article_urls() -> None:
+    assert preflight_reacquisition_url("https://publisher.test/article") == (True, None)
+    assert preflight_reacquisition_url("https://news.google.com/articles/one") == (
+        False, "GOOGLE_NEWS_WRAPPER",
+    )
+    assert preflight_reacquisition_url("https://consent.google.com/ml") == (
+        False, "INTERSTITIAL_OR_CONSENT",
+    )
+    assert preflight_reacquisition_url("https://www.google.com/search?q=berries") == (
+        False, "SEARCH_RESULT_PAGE",
+    )
+    assert preflight_reacquisition_url("not-a-url") == (False, "INVALID_URL")
+
+
+def test_exact_stable_source_classification_uses_historic_body_hash() -> None:
+    trusted = _trusted()
+    trusted["article"] = {"content_sha256": "c" * 64}
+    comparison = compare_current_artifact(trusted, _article())
+    assert comparison["outcome"] == "EXACT_STABLE_SOURCE"
+    assert comparison["historic_body_hash_match"] is True
+
+
+def test_unrelated_redirect_is_ambiguous_not_a_success() -> None:
+    article = ArticleBody(
+        source_url="https://publisher.test/story",
+        final_url="https://publisher.test/unrelated",
+        paragraphs=(ArticleParagraph(0, "Completely unrelated generic publisher content without the historic claim."),),
+        word_count=8, content_sha256="d" * 64,
+        fetched_at="2026-08-23T00:00:00+00:00", extractor="trafilatura",
+        extractor_version="1", title="Unrelated home page", published_date="2026-08-23",
+    )
+    assert compare_current_artifact(_trusted(), article)["outcome"] == "AMBIGUOUS"
+
+
+def test_idempotent_staging_preserves_matching_artifact_and_refuses_conflict(tmp_path) -> None:
+    path = tmp_path / "source_fidelity" / "artifacts" / "ev-one.json"
+    first = build_reacquired_artifact(_trusted(), _article())
+    assert stage_reacquired_artifact(path, first) == "created"
+    persisted = json.loads(path.read_text(encoding="utf-8"))
+
+    later_article = ArticleBody(
+        **{**_article().__dict__, "fetched_at": "2026-08-24T00:00:00+00:00"}
+    )
+    later = build_reacquired_artifact(_trusted(), later_article)
+    assert stage_reacquired_artifact(path, later) == "unchanged"
+    assert json.loads(path.read_text(encoding="utf-8")) == persisted
+
+    changed_article = ArticleBody(
+        **{**_article().__dict__, "content_sha256": "e" * 64}
+    )
+    changed = build_reacquired_artifact(_trusted(), changed_article)
+    try:
+        stage_reacquired_artifact(path, changed)
+    except ValueError as exc:
+        assert "conflict" in str(exc)
+    else:
+        raise AssertionError("conflicting reacquisition must not overwrite the staged artifact")
+
+
+def test_private_body_free_pilot_audit_is_created_atomically(tmp_path) -> None:
+    audit = {
+        "manifest": "REACQUISITION-PILOT-10",
+        "canonical": "abc123",
+        "evidence_ids": ["ev-one"],
+        "outcomes": [{"evidence_id": "ev-one", "body_sha256": "c" * 64}],
+        "assertions": {"trusted_evidence_mutated": False, "new_extraction_ready_ids": []},
+    }
+    path = write_pilot_audit(tmp_path / "private-runs", audit, stamp="20260823T000000000000Z")
+    assert json.loads(path.read_text(encoding="utf-8")) == audit
+    assert "paragraphs" not in path.read_text(encoding="utf-8")
