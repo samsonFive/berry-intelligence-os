@@ -1534,4 +1534,20 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_landscape_v2.py::test_landscape_per_berry_template_never_diverges_static_from_live` |
 
+### TD-096 — Executive Readout's "What changed" has no independent Fact row-kind
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | presentation / trust-class completeness |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Executive Intelligence Readout V1 mission. `what_changed()` (`app/services/executive_readout.py`) surfaces Evidence/Signal/Assessment rows dated within a 14-day window, but not Fact as its own dated row-kind. This was a deliberate choice, not an oversight: TD-088/TD-089 (this session, Timeline V1) already measured `Fact.event_date` populated in only ~24% of real records, with `created_at` the only reliable fallback -- a "recently changed" feed built on that would mostly reflect ingestion timing, not real fact-emergence timing, for the majority of Facts. Facts remain traceable through the Assessment section's `supporting_fact_count` and through their parent Evidence's own What Changed row -- never hidden, just not an independently-dated feed item. |
+| **Impact** | A Fact created/discovered outside any dated Evidence or Assessment window will not appear in "What changed" even if it is itself new -- an edge case, not the common path, since most Facts are directly evidence-linked. |
+| **Workaround** | None needed -- Facts stay visible via Assessments and Evidence, just not double-counted as a third feed-item kind with an unreliable date. |
+| **Recommended resolution** | If Fact-level "what changed" visibility becomes a real analyst need, revisit once TD-088/TD-089's underlying `Fact.event_date` population improves, rather than building a feed row on `created_at` alone. |
+| **Status** | active |
+| **Owner lane** | product/UI |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_executive_readout.py::test_what_changed_preserves_distinct_kinds` (proves the three kinds that do exist stay distinct; does not assert Fact absence directly) |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

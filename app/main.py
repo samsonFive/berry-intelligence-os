@@ -156,6 +156,14 @@ from app.services.learner import (
     related_intelligence_for_concept,
     search_concepts as learn_search_concepts,
 )
+from app.services.berries.landscape import PRIMARY_SOURCE_TYPES as LANDSCAPE_PRIMARY_SOURCE_TYPES
+from app.services.executive_readout import (
+    caution as executive_readout_caution,
+    top_assessments as executive_readout_top_assessments,
+    top_signals as executive_readout_top_signals,
+    what_changed as executive_readout_what_changed,
+    what_we_know as executive_readout_what_we_know,
+)
 from app.services.signal_candidates import SignalCandidateError, load_candidates
 from app.services.signal_review import (
     EMERGING_STATUSES,
@@ -461,6 +469,12 @@ def _landscape_cache_key() -> tuple[Any, ...]:
         _json_folder_sig(DATA_DIR / "assessments"),
         _json_folder_sig(DATA_DIR / "recommendations"),
         _json_folder_sig(DATA_DIR / "strategic-questions"),
+        # Added for Executive Readout V1, which reads Facts directly
+        # (coverage.fact_confidence_and_disputes) -- Landscape's own
+        # evidence_coverage.disputed_fact_count/confidence_distribution
+        # read Facts too and had been silently missing this folder from
+        # the cache key since the original Landscape V2 cache was added.
+        _json_folder_sig(DATA_DIR / "facts"),
     )
 
 
@@ -483,6 +497,56 @@ def _cached_landscape_context_all() -> dict[str, Any]:
         _LANDSCAPE_CACHE["value"] = {}
     if cache_key not in _LANDSCAPE_CACHE["value"]:
         _LANDSCAPE_CACHE["value"][cache_key] = get_domain_services(DATA_DIR).landscape.landscape_context_all_berries(BERRIES)
+    return _LANDSCAPE_CACHE["value"][cache_key]
+
+
+def _cached_readout_context() -> dict[str, Any]:
+    """Executive Intelligence Readout V1. Reuses the same folder-signature
+    cache as Landscape -- both read the same trusted-data folders -- and
+    reuses Landscape's own cross-berry actors_to_watch/berry_rows for
+    "who/what matters" rather than recomputing a second version of it."""
+    key = _landscape_cache_key()
+    cache_key = (key, "readout")
+    if _LANDSCAPE_CACHE["key"] != key:
+        _LANDSCAPE_CACHE["key"] = key
+        _LANDSCAPE_CACHE["value"] = {}
+    if cache_key not in _LANDSCAPE_CACHE["value"]:
+        evidence = published_evidence()
+        signals = all_signals()
+        assessments = all_assessments()
+        recommendations = all_recommendations()
+        facts = all_facts()
+        landscape_all = _cached_landscape_context_all()
+        coverage_service = get_query_services(DATA_DIR, SCHEMAS_DIR).coverage
+        all_entity_ids = {e["id"] for e in all_entities() if e.get("id")}
+        _LANDSCAPE_CACHE["value"][cache_key] = {
+            "what_changed": executive_readout_what_changed(
+                published_evidence=evidence, signals=signals, assessments=assessments
+            ),
+            "who_matters": {
+                "berry_rows": landscape_all["berry_rows"],
+                "actors_to_watch": landscape_all["actors_to_watch"],
+            },
+            "what_we_know": executive_readout_what_we_know(
+                published_evidence=evidence,
+                facts=facts,
+                coverage_service=coverage_service,
+                primary_source_types=LANDSCAPE_PRIMARY_SOURCE_TYPES,
+            ),
+            "assessments": executive_readout_top_assessments(assessments, recommendations),
+            "signals": executive_readout_top_signals(signals),
+            "caution": executive_readout_caution(
+                disputed_relationship_count=len(coverage_service.disputed_relationships(all_entity_ids)),
+                unresolved_strategic_question_count=len(coverage_service.active_strategic_questions()),
+            ),
+            "header_stats": {
+                "company_count": landscape_all["header_stats"]["company_count"],
+                "variety_count": landscape_all["header_stats"]["variety_count"],
+                "evidence_count": len(evidence),
+                "signal_count": len(signals),
+                "assessment_count": len(assessments),
+            },
+        }
     return _LANDSCAPE_CACHE["value"][cache_key]
 
 
@@ -3495,6 +3559,27 @@ def landscape_berry(
         context={
             **_cached_landscape_context(berry_id, region, intelligence_state),
             "authoring_mode": AUTHORING_MODE,
+        },
+    )
+
+
+@app.get("/readout", response_class=HTMLResponse)
+def executive_readout(request: Request, present: str = "") -> HTMLResponse:
+    """Executive Intelligence Readout V1 -- what are the most important
+    trusted developments and analyst interpretations to communicate
+    upward. Distinct from Morning Brief (per-analyst triage) and
+    Landscape (captured-competitive-environment coverage); reuses
+    Landscape's own cross-berry Actors to Watch rather than recomputing
+    it. `?present=1` renders the lightweight, minimal-chrome
+    presentation/screen-share mode for the manager demo."""
+    context = _cached_readout_context()
+    return templates.TemplateResponse(
+        request=request,
+        name="executive_readout.html",
+        context={
+            **context,
+            "authoring_mode": AUTHORING_MODE,
+            "presentation_mode": present in ("1", "true", "yes"),
         },
     )
 

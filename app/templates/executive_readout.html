@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block title %}Executive Readout — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page v2-readout-page">
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">EXECUTIVE READOUT</p>
+    <h1>Executive Intelligence Readout</h1>
+    <p class="also-known-as">The most important trusted developments and analyst interpretations to communicate upward -- distinct from Morning Brief (what to inspect today) and Landscape (what the captured competitive environment looks like).</p>
+    {% if not static_build %}
+      <p class="v2-card-line">
+        {% if presentation_mode %}<a href="/readout">Exit presentation mode</a>{% else %}<a href="/readout?present=1">Presentation mode</a>{% endif %}
+      </p>
+    {% endif %}
+  </div>
+</section>
+
+<section class="v2-company-section" id="header-stats">
+  <div class="landscape-header-stats compact-stats">
+    <div><strong>{{ header_stats.company_count }}</strong><small>Companies</small></div>
+    <div><strong>{{ header_stats.variety_count }}</strong><small>Varieties</small></div>
+    <div><strong>{{ header_stats.evidence_count }}</strong><small>Evidence records</small></div>
+    <div><strong>{{ header_stats.signal_count }}</strong><small>Signals</small></div>
+    <div><strong>{{ header_stats.assessment_count }}</strong><small>Assessments</small></div>
+  </div>
+</section>
+
+<section class="v2-company-section" id="what-changed">
+  <h2>What changed</h2>
+  <p class="context-limit">Trusted Evidence, Signals, and Assessments dated in the last {{ what_changed.window_days }} days -- captured/ingestion dates, not necessarily real-world event dates.</p>
+  {% if what_changed.has_any %}
+    <ul class="entity-links">
+      {% for item in what_changed.rows %}
+        <li>
+          {% if item.kind == 'evidence' %}<span class="badge badge-muted">EVIDENCE</span>{% elif item.kind == 'signal' %}<span class="badge badge-signal">SIGNAL</span>{% else %}<span class="badge badge-assessment">ASSESSMENT</span>{% endif %}
+          {% if item.kind == 'evidence' and not static_build %}
+            <a href="{{ item.reader_href }}" data-open-reader data-item-id="{{ item.id }}">{{ item.title }}</a>
+          {% else %}
+            <a href="{{ item.href }}">{{ item.title }}</a>
+          {% endif %}
+          <span class="draft-meta"> · {{ item.date|us_date }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No trusted developments captured in the last {{ what_changed.window_days }} days.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="who-matters">
+  <h2>Who / what matters</h2>
+  <p class="context-limit">Shown because of recent trusted activity -- not a competitive-strength ranking. Reuses the same Actors to Watch already shown on Landscape.</p>
+  <div class="balanced-card-grid">
+    {% for row in who_matters.actors_to_watch %}
+      <article class="card entity-card">
+        <p class="card-kicker">{{ row.berry_label|upper }}</p>
+        <h2><a href="/entities/company/{{ row.entity.id }}">{{ row.entity.name }}</a></h2>
+        <p>{{ row.why_shown }}</p>
+      </article>
+    {% else %}
+      <p class="empty-state">No trusted competitor-role activity captured yet.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="v2-company-section" id="what-we-know">
+  <h2>What do we actually know</h2>
+  <p class="context-limit">Captured intelligence coverage, not a completeness claim.</p>
+  <div class="landscape-header-stats compact-stats">
+    <div><strong>{{ what_we_know.evidence_count }}</strong><small>Evidence records</small></div>
+    <div><strong>{{ what_we_know.fact_count }}</strong><small>Facts</small></div>
+    <div><strong>{{ what_we_know.primary_source_count }}</strong><small>Primary/registry-grade sources</small></div>
+    <div><strong>{{ what_we_know.disputed_fact_count }}</strong><small>Disputed facts</small></div>
+  </div>
+  {% if what_we_know.source_type_breakdown %}
+    <p class="v2-card-line"><span class="v2-meta">Source type mix</span>
+      {% for type, count in what_we_know.source_type_breakdown %}<span class="badge badge-muted">{{ type|replace('_',' ')|upper }}: {{ count }}</span>{% endfor %}
+    </p>
+  {% endif %}
+  {% if what_we_know.confidence_distribution %}
+    <p class="v2-card-line"><span class="v2-meta">Fact confidence distribution</span>
+      {% for level, count in what_we_know.confidence_distribution.items() %}<span class="badge badge-muted">{{ level|upper }}: {{ count }}</span>{% endfor %}
+    </p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="assessments">
+  <h2>What do our analyst assessments say</h2>
+  {% if assessments %}
+    <div class="table-wrap"><table class="brief-table assessment-brief-table"><thead><tr><th>View</th><th>Rationale</th><th>Support</th><th>Would change our view</th></tr></thead><tbody>
+      {% for assessment in assessments %}
+        <tr>
+          <td><a href="/assessments/{{ assessment.id }}"><strong>{{ assessment.title }}</strong></a><br><span class="badge badge-assessment">{{ 'AI PROPOSED' if assessment.ai_proposed else 'REVIEWED' }}</span> <span class="badge badge-muted">{{ assessment.confidence|upper if assessment.confidence else 'UNSTATED' }}</span></td>
+          <td>{{ assessment.rationale|truncate(260) if assessment.rationale else "Not yet documented for this assessment." }}</td>
+          <td>{{ assessment.supporting_fact_count }} facts<br>{{ assessment.supporting_evidence_count }} evidence</td>
+          <td>{{ assessment.would_change_our_view if assessment.would_change_our_view else "Not yet documented for this assessment." }}</td>
+        </tr>
+      {% endfor %}
+    </tbody></table></div>
+  {% else %}
+    <p class="empty-state">No analyst assessment captured.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="signals">
+  <h2>Signals</h2>
+  {% if signals %}
+    <ul class="entity-links">
+      {% for signal in signals %}
+        <li><span class="badge badge-signal">SIGNAL</span> <a href="/signals/{{ signal.id }}">{{ signal.title }}</a> <span class="draft-meta">· {{ signal.strength|upper if signal.strength else 'UNSTATED' }} · {{ signal.supporting_evidence_count }} evidence</span></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No confirmed or proposed Signal captured.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section v2-learn-interpret" id="caution">
+  <h2>What to be cautious about</h2>
+  <p><strong>{{ caution.coverage_caveat }}</strong></p>
+  <p class="v2-card-line">{{ caution.disputed_relationship_count }} disputed relationship{{ 's' if caution.disputed_relationship_count != 1 else '' }} · {{ caution.unresolved_strategic_question_count }} unresolved strategic question{{ 's' if caution.unresolved_strategic_question_count != 1 else '' }}</p>
+</section>
+</div>
+{% endblock %}
+{% block scripts %}
+{% if presentation_mode %}
+<script>
+document.body.classList.add('v2-presentation-mode');
+</script>
+{% endif %}
+{% endblock %}

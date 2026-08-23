@@ -41,16 +41,26 @@ from app.main import (  # noqa: E402
     evidence_for_strategic_question,
     facts_for_evidence,
     get_domain_services,
+    get_query_services,
     landscape_context,
     list_drafts,
     load_strategic_questions,
     published_evidence,
     queue_items,
     relationships_for_evidence,
+    SCHEMAS_DIR,
     sources_page_context,
     templates,
 )
 from app.services.assessment_scope import assessment_berry_scope, attach_assessment_scope  # noqa: E402
+from app.services.berries.landscape import PRIMARY_SOURCE_TYPES  # noqa: E402
+from app.services.executive_readout import (  # noqa: E402
+    caution as readout_caution,
+    top_assessments as readout_top_assessments,
+    top_signals as readout_top_signals,
+    what_changed as readout_what_changed,
+    what_we_know as readout_what_we_know,
+)
 from app.services.intelligence_feed import annotate_feed_semantics, build_intelligence_feed  # noqa: E402
 from app.services.learner import (  # noqa: E402
     all_concepts as learn_all_concepts,
@@ -682,6 +692,52 @@ def build() -> list[Path]:
             "/landscapes",
             {
                 **get_domain_services(DATA_DIR).landscape.landscape_context_all_berries(BERRIES),
+                "authoring_mode": False,
+            },
+        )
+    )
+
+    # Executive Intelligence Readout V1 -- trusted-only cross-corpus
+    # synthesis, same static-safety story as Landscape above.
+    _readout_evidence = published_evidence()
+    _readout_signals = all_signals()
+    _readout_assessments = all_assessments()
+    _readout_recommendations = all_recommendations()
+    _readout_coverage_service = get_query_services(DATA_DIR, SCHEMAS_DIR).coverage
+    _readout_all_entity_ids = {e["id"] for e in all_entities() if e.get("id")}
+    _readout_landscape_all = get_domain_services(DATA_DIR).landscape.landscape_context_all_berries(BERRIES)
+    written.append(
+        write_page(
+            "executive_readout.html",
+            "/readout",
+            {
+                "what_changed": readout_what_changed(
+                    published_evidence=_readout_evidence, signals=_readout_signals, assessments=_readout_assessments
+                ),
+                "who_matters": {
+                    "berry_rows": _readout_landscape_all["berry_rows"],
+                    "actors_to_watch": _readout_landscape_all["actors_to_watch"],
+                },
+                "what_we_know": readout_what_we_know(
+                    published_evidence=_readout_evidence,
+                    facts=facts_all,
+                    coverage_service=_readout_coverage_service,
+                    primary_source_types=PRIMARY_SOURCE_TYPES,
+                ),
+                "assessments": readout_top_assessments(_readout_assessments, _readout_recommendations),
+                "signals": readout_top_signals(_readout_signals),
+                "caution": readout_caution(
+                    disputed_relationship_count=len(_readout_coverage_service.disputed_relationships(_readout_all_entity_ids)),
+                    unresolved_strategic_question_count=len(_readout_coverage_service.active_strategic_questions()),
+                ),
+                "header_stats": {
+                    "company_count": sum(1 for e in entities.values() if e.get("entity_type") == "company"),
+                    "variety_count": sum(1 for e in entities.values() if e.get("entity_type") == "variety"),
+                    "evidence_count": len(_readout_evidence),
+                    "signal_count": len(_readout_signals),
+                    "assessment_count": len(_readout_assessments),
+                },
+                "presentation_mode": False,
                 "authoring_mode": False,
             },
         )
