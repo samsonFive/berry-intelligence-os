@@ -1220,4 +1220,68 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_sync_trusted_data.py`; production dry-run at `878dd8e`; `docs/v2/CANONICAL-DATA-PROMOTION-RUNTIME-SYNC-V1.md` |
 
+### TD-077 — No schema path for a text-article atomic Evidence locator
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | data model / atomic extraction |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Atomic Evidence Gold Set V1 mission. `evidence.schema.json`'s `allOf` conditional requires `artifact_locator.start_seconds` on every `evidence_role: "atomic_evidence"` record. `article.paragraphs[].index` is already documented in the same schema file as "the article's locator, the written-text equivalent of a transcript's segment index... a future qualified extraction step cites paragraph indexes, never an invented timestamp" — but no field in `artifact_locator` accepts a paragraph index, and `start_seconds` stays required regardless. |
+| **Impact** | A future text-article (web_article/company newsroom/trade press) atomic Evidence proposal cannot validate against `evidence.schema.json` without either fabricating a `start_seconds` value it does not have, or the schema being extended first. |
+| **Workaround** | None; text-article atomic extraction is correctly not attempted until this is resolved. |
+| **Recommended resolution** | Extend `artifact_locator` with an optional `paragraph_index` alternative to `start_seconds` (mirroring how `article.paragraphs` already anticipates this), or make `start_seconds` conditionally required only when the parent's `media_format` implies timed media. Not attempted in this mission — documenting the gap, not building the fix, per this mission's own scope. |
+| **Status** | active |
+| **Owner lane** | platform |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `schemas/evidence.schema.json`; `docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md` Section 15 |
+
+### TD-078 — Zero real trusted spoken-word source has persisted transcript text
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | collection / atomic extraction |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Atomic Evidence Gold Set V1 mission. `ev-lucentlands-scaling-blueberry-industry-2025` is the only trusted `evidence_role: "publication_artifact"` / `media_format: "podcast"` record in the corpus; its `transcript.status` is `"not_available"`. A full-corpus scan found zero trusted records with `transcript.status: "available"` and populated `transcript.text`. |
+| **Impact** | The real `atomic-ci-v1` extraction/qualification pipeline (`scripts/qualify_extraction_model.py`, `docs/v2/ATOMIC-CI-EVALUATION.md`) has only ever been evaluated against the synthetic `benchmarks/atomic-ci-v1.json` fixture -- no real-transcript qualification run is currently possible against trusted data. |
+| **Workaround** | Continue using the synthetic benchmark for structural/behavioral evaluation, as already documented; do not treat a synthetic-only pass as equivalent to real-transcript qualification. |
+| **Recommended resolution** | A future mission specifically targeting spoken-media transcript acquisition (captions, publisher-provided transcripts, or a transcription pipeline) against a real trusted podcast/video episode. Not attempted here -- out of this mission's scope. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md` Section 10 |
+
+### TD-079 — Zero non-English trusted Evidence text exists
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data coverage / atomic extraction |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Atomic Evidence Gold Set V1 mission. A full-corpus scan of `data/evidence/` for Spanish/French/Italian vocabulary found only English-language articles containing Spanish/Portuguese proper nouns (e.g. "Proarándanos," "El Niño") -- no record's `summary`/`why_it_matters`/body text is itself in a non-English language, despite live French/Spanish/Italian discovery and relevance-screening vocabulary already in production (TD-072, TD-ACQ-004). |
+| **Impact** | No genuine multilingual atomic-extraction test case can be built from trusted data until a non-English source is actually captured and published; a benchmark claiming Spanish/French coverage today would have to fabricate it. |
+| **Workaround** | None; Atomic Evidence Gold Set V1 reports this limitation rather than fabricating a non-English case. |
+| **Recommended resolution** | No action required specifically for this debt; it will close naturally once any future mission publishes a real non-English trusted record, at which point it should be added to the gold set. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md` Section 2 |
+
+### TD-080 — No trusted Evidence carries the structured `patent_filing`/`cpvo_filing` object
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data quality / registry intelligence |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Atomic Evidence Gold Set V1 mission. A full-corpus grep of `data/evidence/*.json` for `"patent_filing"` and `"cpvo_filing"` returned zero matches; every record with either object populated is a pending draft in `inbox/evidence/`. The 22 trusted `patent_record` and 8 trusted `plant_breeders_rights_record` files carry the same bibliographic facts (application/grant numbers, dates, assignee, parentage) only as prose inside `summary`/`why_it_matters`. |
+| **Impact** | A registry-focused extraction test against trusted data must parse prose, not a structured object; `app/services/intelligence_feed.py`'s generic `patent_filing`/`does_not_prove` rendering has never been exercised against a real trusted record. |
+| **Workaround** | None needed for this mission -- Section 9 of the gold set annotates the two richest trusted registry records from their prose directly. |
+| **Recommended resolution** | When any pending `patent_filing`/`cpvo_filing`-bearing draft clears human publication review, confirm the structured object survives promotion intact and update this entry. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md` Section 9 |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
