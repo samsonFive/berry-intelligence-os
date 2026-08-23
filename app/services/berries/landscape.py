@@ -676,8 +676,15 @@ class BerriesLandscapeService:
                 }
             )
 
+        # Only companies with some real trusted activity qualify -- a
+        # sparse berry legitimately surfaces fewer than 8 (or zero) actors
+        # rather than padding with a 0-signal/0-evidence company, which
+        # would contradict the "shown because of activity" framing.
         actor_rows = [
-            row for row in competitive_field if "competitor" in (row["entity"].get("roles") or [])
+            row
+            for row in competitive_field
+            if "competitor" in (row["entity"].get("roles") or [])
+            and (row["signals"] or row["evidence_count"] or row["varieties"])
         ]
         actor_rows.sort(
             key=lambda row: (-len(row["signals"]), -row["evidence_count"], -len(row["varieties"]), row["entity"]["name"])
