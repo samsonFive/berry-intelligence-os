@@ -21,6 +21,7 @@ from app.services.model_qualification import (
     load_cached_transcript,
     provider_qualification_configuration,
     qualification_configuration_fingerprint,
+    run_gold_candidate_comparison,
     run_qualification_evaluation,
     safe_endpoint_identity,
 )
@@ -186,6 +187,26 @@ def test_endpoint_probe_failure_is_not_qualification(tmp_path):
         "atomic_gold_set": False, "real_transcript_sample": False,
     }
     with pytest.raises(QualificationError, match="incomplete"):
+        approve_qualification(artifact_path, operator="reviewer", expected_model="fixture-model")
+
+
+def test_gold_only_comparison_is_private_checksums_raw_output_and_cannot_qualify(tmp_path):
+    provider = _provider(_repos(tmp_path), [FakeResponse()])
+    artifact_path = run_gold_candidate_comparison(
+        provider=provider,
+        gold_set=_gold_set(),
+        gold_set_sha256="g" * 64,
+        output_dir=tmp_path / "inbox" / "qualifications" / "candidate-comparisons",
+        now=lambda: NOW,
+    )
+    artifact = json.loads(artifact_path.read_text(encoding="utf-8"))
+    assert artifact["qualification_eligible"] is False
+    assert artifact["atomic_gold_set"]["passed"] is True
+    assert artifact["atomic_gold_set"]["raw_model_outputs"]["no-intelligence"][0]["content"]
+    assert artifact_path.with_name("comparison.sha256").read_text().startswith(file_sha256(artifact_path))
+    assert not artifact_path.with_name("review.md").exists()
+    assert not artifact_path.with_name("qualification-marker.json").exists()
+    with pytest.raises(QualificationError, match="checksum"):
         approve_qualification(artifact_path, operator="reviewer", expected_model="fixture-model")
 
 

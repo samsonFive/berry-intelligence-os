@@ -31,6 +31,7 @@ from app.services.transcript_evidence import TranscriptArtifact
 QUALIFICATION_WORKFLOW_VERSION = "extraction-qualification-v2"
 QUALIFICATION_ARTIFACT_SCHEMA_VERSION = 2
 QUALIFICATION_MARKER_SCHEMA_VERSION = 2
+GOLD_COMPARISON_SCHEMA_VERSION = 1
 DEFAULT_REAL_PARENT_ID = "ev-lucentlands-scaling-blueberry-industry-2025"
 UTC = timezone.utc
 
@@ -131,6 +132,64 @@ def provider_qualification_configuration(provider: OpenAICompatibleExtractionPro
         endpoint_family=provider.provenance.get("endpoint_family", provider.provenance["provider"]),
         extraction_version=provider.provenance.get("extraction_version", EXTRACTION_VERSION),
     )
+
+
+def run_gold_candidate_comparison(
+    *,
+    provider: OpenAICompatibleExtractionProvider,
+    gold_set: AtomicGoldSet,
+    gold_set_sha256: str,
+    output_dir: Path,
+    now: Callable[[], datetime] = lambda: datetime.now(UTC),
+) -> Path:
+    """Persist a private Gold-only comparison that can never be approved.
+
+    This path exists for model selection when the corpus has no real trusted
+    transcript.  It deliberately does not emit the qualification artifact
+    schema or a review packet/marker; full approval still requires every stage
+    in ``run_qualification_evaluation``.
+    """
+
+    created = now().astimezone(UTC)
+    configuration = provider_qualification_configuration(provider)
+    fingerprint = hashlib.sha256(_canonical_json(configuration).encode("utf-8")).hexdigest()
+    report = run_gold_set_benchmark(provider, gold_set)
+    instant = created.strftime("%Y%m%dT%H%M%S%fZ")
+    run_id = "gold-comparison-" + instant + "-" + hashlib.sha256(
+        _canonical_json([fingerprint, gold_set.gold_set_id, gold_set.version, gold_set_sha256, instant]).encode()
+    ).hexdigest()[:10]
+    artifact = {
+        "gold_candidate_comparison_schema_version": GOLD_COMPARISON_SCHEMA_VERSION,
+        "run_id": run_id,
+        "created_at": created.isoformat(),
+        "qualification_eligible": False,
+        "qualification_blocker": "Gold-only comparison omits the required synthetic benchmark and real trusted transcript stages.",
+        "provider": provider.provenance["provider"],
+        "model": provider.provenance["model"],
+        "prompt_version": provider.provenance["prompt_version"],
+        "extraction_version": provider.provenance.get("extraction_version", EXTRACTION_VERSION),
+        "configuration": configuration,
+        "configuration_fingerprint": fingerprint,
+        "gold_set_identity": {
+            "id": gold_set.gold_set_id,
+            "version": gold_set.version,
+            "sha256": gold_set_sha256,
+            "case_count": len(gold_set.cases),
+            "source_document": gold_set.source_document,
+            "source_document_sha256": gold_set.source_document_sha256,
+        },
+        "atomic_gold_set": report,
+        "trust_notice": "Comparison output is private, untrusted decision support. It cannot create a qualification marker or enable extraction.",
+    }
+    run_dir = output_dir / run_id
+    if run_dir.exists():
+        raise QualificationError(f"Gold comparison directory already exists: {run_dir}")
+    run_dir.mkdir(parents=True)
+    artifact_path = run_dir / "comparison.json"
+    artifact_path.write_text(json.dumps(artifact, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    digest = file_sha256(artifact_path)
+    (run_dir / "comparison.sha256").write_text(f"{digest}  comparison.json\n", encoding="utf-8")
+    return artifact_path
 
 
 def load_cached_transcript(
@@ -321,6 +380,8 @@ def run_qualification_evaluation(
             "sha256": gold_set_sha256,
             "case_count": len(gold_set.cases),
             "contract_version": "atomic-evidence-gold-set-v1",
+            "source_document": gold_set.source_document,
+            "source_document_sha256": gold_set.source_document_sha256,
         },
         "real_sample_identity": {
             "parent_evidence_id": transcript.parent_evidence_id,
@@ -414,6 +475,7 @@ def render_review_packet(artifact: dict[str, Any], artifact_sha256: str) -> str:
         "## Atomic Evidence Gold Set",
         "",
         f"- Identity: `{artifact.get('gold_set_identity', {}).get('id')}` v{artifact.get('gold_set_identity', {}).get('version')}",
+        f"- Human benchmark SHA-256: `{artifact.get('gold_set_identity', {}).get('source_document_sha256')}`",
         f"- Passed deterministic thresholds: **{'yes' if gold.get('passed') else 'no'}**",
         f"- Metrics: `{json.dumps(gold.get('metrics', {}), sort_keys=True)}`",
         f"- Thresholds: `{json.dumps(gold.get('thresholds', {}), sort_keys=True)}`",

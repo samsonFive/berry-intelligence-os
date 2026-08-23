@@ -28,6 +28,24 @@ The probe sends a no-intelligence structured-output request through the
 production OpenAI-compatible provider. Success proves connectivity and
 contract compatibility only. It never qualifies the model.
 
+## Optional Gold-only candidate comparison
+
+When no real trusted transcript is available, an operator may compare a safely
+configured candidate against the written-source Gold Set without mislabeling
+that result as qualification:
+
+```bash
+python scripts/qualify_extraction_model.py compare-gold \
+  --provider perplexity-agent \
+  --model <exact-routed-model>
+```
+
+The private checksummed artifact is stored under
+`inbox/qualifications/candidate-comparisons/`. It includes exact configuration,
+raw outputs, normalized proposals, deterministic scores, latency and token/cost
+telemetry, but is permanently marked `qualification_eligible: false`. It cannot
+be approved and does not replace the synthetic or real-transcript stages below.
+
 ## 2. Evaluate
 
 The V2 evaluation runs the probe, the existing 12-case

@@ -1,0 +1,3154 @@
+{
+  "contract_version": "atomic-evidence-gold-set-v1",
+  "gold_set_id": "atomic-evidence-gold-set-v1",
+  "version": 1,
+  "description": "Executable representation of the human-reviewed Atomic Evidence Gold Set V1; 16 trusted written-text cases, with the pending Planasa flagship and transcript-less spoken-media source correctly excluded from scoring.",
+  "source_document": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+  "source_document_sha256": "1a5f897ea39ae8e9052df66250c3486e5e50763ea0168671744d6bd6fd2fc5c5",
+  "thresholds": {
+    "precision": 0.9,
+    "recall": 0.9,
+    "atomicity": 0.9,
+    "grounding": 1.0,
+    "entity_resolution": 0.9,
+    "scope_preservation": 0.9,
+    "overreach": 1.0,
+    "duplication": 0.95
+  },
+  "cases": [
+    {
+      "id": "gold-01-hortifrut-mbo-genetics-2026",
+      "title": "Naturipe Farms and Hortifrut expand berry genetics platform with Mountain Blue",
+      "source_artifact": {
+        "id": "ev-hortifrut-mbo-genetics-2026",
+        "title": "Naturipe Farms and Hortifrut expand berry genetics platform with Mountain Blue",
+        "source_name": "Hortifrut S.A.",
+        "source_url": "https://www.hortifrut.com/naturipe-farms-and-hortifrut-expand-one-of-the-worlds-broadest-berry-geneticsplatforms-to-deliver-the-next-generation-of-premium-berriesnaturipe-farms-and-hortifrut-expand-one-of-the-world/",
+        "captured_date": "2026-08-04",
+        "published_date": "2026-07-30",
+        "language": "en",
+        "locator_kind": "written_text",
+        "segments": [
+          {
+            "text": "Joint Naturipe Farms and Hortifrut announcement dated 30 July 2026 of an expanded berry genetics platform reached through a strategic collaboration with Mountain Blue Orchards. Hortifrut states it gains access to new elite blueberry selections for the United States, Mexico, Peru and other Latin American countries. Hortifrut CEO Hector Lujan and Mountain Blue International Business Manager Mano Babiolakis are quoted. The release also mentions Hortifrut's 2025 global B Corp certification.",
+            "source_location": "summary"
+          },
+          {
+            "text": "If it holds, this connects the largest listed blueberry producer to the Ridley breeding lineage, which until now reached the Americas through separate licensing arrangements. It is the single most consequential structural development in the package, and it rests on one originating announcement.",
+            "source_location": "why_it_matters"
+          }
+        ],
+        "entity_ids": [
+          "company-hortifrut",
+          "company-naturipe-farms",
+          "company-mountain-blue-orchards",
+          "geography-united-states",
+          "geography-mexico",
+          "geography-peru",
+          "company-michigan-blueberry-growers"
+        ],
+        "geography_ids": [],
+        "berry_ids": [
+          "berry-blueberry"
+        ]
+      },
+      "expected_propositions": [
+        {
+          "id": "1a",
+          "statement": "Hortifrut and Naturipe Farms announced (2026-07-30) an expanded berry-genetics collaboration with Mountain Blue Orchards giving Hortifrut access to new elite blueberry selections for the US, Mexico, Peru and other Latin American countries.",
+          "exact_excerpt": "Joint Naturipe Farms and Hortifrut announcement dated 30 July 2026 of an expanded berry genetics platform reached through a strategic collaboration with Mountain Blue Orchards. Hortifrut states it gains access to new elite blueberry selections for the United States, Mexico, Peru and other Latin American countries. Hortifrut CEO Hector Lujan and Mountain Blue International Business Manager Mano Babiolakis are quoted. The release also mentions Hortifrut's 2025 global B Corp certification.",
+          "entity_ids": [
+            "company-hortifrut",
+            "company-naturipe-farms",
+            "company-mountain-blue-orchards"
+          ],
+          "geography_ids": [
+            "geography-mexico",
+            "geography-peru"
+          ],
+          "berry_ids": [
+            "berry-blueberry"
+          ],
+          "claim_type": "event/relationship",
+          "scope": {
+            "source_id": "ev-hortifrut-mbo-genetics-2026",
+            "published_date": "2026-07-30",
+            "source_type": "company_press_release",
+            "relationship_predicate": "partners_with",
+            "limitation": "Names no specific variety transferred — do not extract a variety-identity claim (Failure Type 3).",
+            "required_terms": [
+              "announced",
+              "2026-07-30"
+            ]
+          }
+        },
+        {
+          "id": "1b",
+          "statement": "The announcement itself is the sole originating source for this claim; no second independent confirmation exists in the gold set.",
+          "exact_excerpt": "If it holds, this connects the largest listed blueberry producer to the Ridley breeding lineage, which until now reached the Americas through separate licensing arrangements. It is the single most consequential structural development in the package, and it rests on one originating announcement.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "scope",
+          "scope": {
+            "source_id": "ev-hortifrut-mbo-genetics-2026",
+            "published_date": "2026-07-30",
+            "source_type": "company_press_release",
+            "relationship_predicate": "none",
+            "limitation": "Single-source — flag verification_state: single_source, not corroborated.",
+            "required_terms": []
+          }
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "ownership-implies-control",
+          "phrases": [
+            "ownership proves operational control",
+            "owns all variety-release decisions"
+          ],
+          "severity": "critical",
+          "reason": "Ownership alone does not establish operational control or decision rights."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": [
+            "therefore caused",
+            "proves that it caused",
+            "was caused by"
+          ],
+          "severity": "critical",
+          "reason": "Sequence or association is not evidence of causality."
+        },
+        {
+          "id": "registry-implies-commercialization",
+          "phrases": [
+            "patent proves commercial success",
+            "filing proves market adoption",
+            "grant proves commercialization"
+          ],
+          "severity": "critical",
+          "reason": "A filing or grant establishes an IP event, not commercialization or adoption."
+        },
+        {
+          "id": "interest-implies-commitment",
+          "phrases": [
+            "interest is a purchase commitment",
+            "visit created a signed supply agreement",
+            "feedback is a purchase order"
+          ],
+          "severity": "critical",
+          "reason": "Interest, a visit, or feedback is not a purchase/listing commitment."
+        },
+        {
+          "id": "award-implies-general-preference",
+          "phrases": [
+            "award proves general consumer preference",
+            "preferred by consumers in all markets"
+          ],
+          "severity": "critical",
+          "reason": "One award or panel does not establish general consumer preference."
+        },
+        {
+          "id": "local-trial-implies-universal-trait",
+          "phrases": [
+            "trial proves the trait universally",
+            "performs identically in all regions",
+            "universal agronomic trait"
+          ],
+          "severity": "critical",
+          "reason": "A located, dated trial cannot be generalized to every region or production system."
+        },
+        {
+          "id": "marketing-implies-independent-verification",
+          "phrases": [
+            "marketing claim is independently verified",
+            "company statement is proven fact",
+            "slogan proves"
+          ],
+          "severity": "critical",
+          "reason": "First-party marketing language is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "annotation_source": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+        "source_number": 1,
+        "text_basis": [
+          "summary",
+          "why_it_matters"
+        ],
+        "expected_count": 2,
+        "record_entity_ids": [
+          "company-hortifrut",
+          "company-naturipe-farms",
+          "company-mountain-blue-orchards",
+          "geography-united-states",
+          "geography-mexico",
+          "geography-peru",
+          "company-michigan-blueberry-growers"
+        ],
+        "record_berry_ids": [
+          "berry-blueberry"
+        ]
+      }
+    },
+    {
+      "id": "gold-02-costa-ownership-2024",
+      "title": "Costa Group enters new ownership phase as experienced consortium takes control",
+      "source_artifact": {
+        "id": "ev-costa-ownership-2024",
+        "title": "Costa Group enters new ownership phase as experienced consortium takes control",
+        "source_name": "Costa Group Holdings Pty Ltd",
+        "source_url": "https://costagroup.com.au/2024/02/26/costa-group-enters-new-ownership-phase-as-experienced-consortium-takes-control/",
+        "captured_date": "2026-08-04",
+        "published_date": "2024-02-26",
+        "language": "en",
+        "locator_kind": "written_text",
+        "segments": [
+          {
+            "text": "Costa's announcement of 26 February 2024 that a consortium of Paine Schwartz Partners, Driscoll's, Inc. and British Columbia Investment Management Corporation has taken control at A$3.20 per share, with Harry Debney as interim chief executive. The release notes the company's origins with the Costa family in Geelong, Victoria in the late 1800s and a history of more than 120 years, and states that Costa launched a record four new blueberry varieties during 2023.",
+            "source_location": "summary"
+          },
+          {
+            "text": "Driscoll's, itself a blueberry breeder and licensor, becoming a part-owner of Costa, another blueberry breeder and licensor, links two breeding programmes through ownership rather than through a licence. That is a materially different kind of connection and is easy to miss if only licensing relationships are tracked.",
+            "source_location": "why_it_matters"
+          }
+        ],
+        "entity_ids": [
+          "company-costa-group-holdings",
+          "company-driscolls",
+          "company-paine-schwartz-partners",
+          "company-bci",
+          "geography-australia"
+        ],
+        "geography_ids": [],
+        "berry_ids": [
+          "berry-blueberry"
+        ]
+      },
+      "expected_propositions": [
+        {
+          "id": "2a",
+          "statement": "A consortium of Paine Schwartz Partners, Driscoll's Inc. and BCI took control of Costa Group at A$3.20/share, effective 2024-02-26.",
+          "exact_excerpt": "Costa's announcement of 26 February 2024 that a consortium of Paine Schwartz Partners, Driscoll's, Inc. and British Columbia Investment Management Corporation has taken control at A$3.20 per share, with Harry Debney as interim chief executive. The release notes the company's origins with the Costa family in Geelong, Victoria in the late 1800s and a history of more than 120 years, and states that Costa launched a record four new blueberry varieties during 2023.",
+          "entity_ids": [
+            "company-paine-schwartz-partners",
+            "company-bci"
+          ],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "event",
+          "scope": {
+            "source_id": "ev-costa-ownership-2024",
+            "published_date": "2024-02-26",
+            "source_type": "company_press_release",
+            "relationship_predicate": "owns (Paine Schwartz→Costa, BCI→Costa, Driscoll's→Costa)",
+            "limitation": "Ownership only — see negative case 2 (does not establish operational control over variety releases).",
+            "required_terms": [
+              "2024-02-26"
+            ]
+          }
+        },
+        {
+          "id": "2b",
+          "statement": "Harry Debney became interim chief executive of Costa Group.",
+          "exact_excerpt": "Costa's announcement of 26 February 2024 that a consortium of Paine Schwartz Partners, Driscoll's, Inc. and British Columbia Investment Management Corporation has taken control at A$3.20 per share, with Harry Debney as interim chief executive. The release notes the company's origins with the Costa family in Geelong, Victoria in the late 1800s and a history of more than 120 years, and states that Costa launched a record four new blueberry varieties during 2023.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "event",
+          "scope": {
+            "source_id": "ev-costa-ownership-2024",
+            "published_date": "2024-02-26",
+            "source_type": "company_press_release",
+            "relationship_predicate": "none",
+            "limitation": "Person-level fact; this platform deliberately does not model individuals as entities (mirrors TD-ENT-003's \"leave unresolved rather than invent\" discipline) — a correct extractor proposes it without inventing a Person entity.",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "2c",
+          "statement": "Costa launched a record four new blueberry varieties during 2023.",
+          "exact_excerpt": "Costa's announcement of 26 February 2024 that a consortium of Paine Schwartz Partners, Driscoll's, Inc. and British Columbia Investment Management Corporation has taken control at A$3.20 per share, with Harry Debney as interim chief executive. The release notes the company's origins with the Costa family in Geelong, Victoria in the late 1800s and a history of more than 120 years, and states that Costa launched a record four new blueberry varieties during 2023.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [
+            "berry-blueberry"
+          ],
+          "claim_type": "market_data",
+          "scope": {
+            "source_id": "ev-costa-ownership-2024",
+            "published_date": "2024-02-26",
+            "source_type": "company_press_release",
+            "relationship_predicate": "none",
+            "limitation": "Count claim, no variety names given — do not backfill variety identities not in source.",
+            "required_terms": [
+              "2023"
+            ]
+          }
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "ownership-implies-control",
+          "phrases": [
+            "ownership proves operational control",
+            "owns all variety-release decisions"
+          ],
+          "severity": "critical",
+          "reason": "Ownership alone does not establish operational control or decision rights."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": [
+            "therefore caused",
+            "proves that it caused",
+            "was caused by"
+          ],
+          "severity": "critical",
+          "reason": "Sequence or association is not evidence of causality."
+        },
+        {
+          "id": "registry-implies-commercialization",
+          "phrases": [
+            "patent proves commercial success",
+            "filing proves market adoption",
+            "grant proves commercialization"
+          ],
+          "severity": "critical",
+          "reason": "A filing or grant establishes an IP event, not commercialization or adoption."
+        },
+        {
+          "id": "interest-implies-commitment",
+          "phrases": [
+            "interest is a purchase commitment",
+            "visit created a signed supply agreement",
+            "feedback is a purchase order"
+          ],
+          "severity": "critical",
+          "reason": "Interest, a visit, or feedback is not a purchase/listing commitment."
+        },
+        {
+          "id": "award-implies-general-preference",
+          "phrases": [
+            "award proves general consumer preference",
+            "preferred by consumers in all markets"
+          ],
+          "severity": "critical",
+          "reason": "One award or panel does not establish general consumer preference."
+        },
+        {
+          "id": "local-trial-implies-universal-trait",
+          "phrases": [
+            "trial proves the trait universally",
+            "performs identically in all regions",
+            "universal agronomic trait"
+          ],
+          "severity": "critical",
+          "reason": "A located, dated trial cannot be generalized to every region or production system."
+        },
+        {
+          "id": "marketing-implies-independent-verification",
+          "phrases": [
+            "marketing claim is independently verified",
+            "company statement is proven fact",
+            "slogan proves"
+          ],
+          "severity": "critical",
+          "reason": "First-party marketing language is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "annotation_source": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+        "source_number": 2,
+        "text_basis": [
+          "summary",
+          "why_it_matters"
+        ],
+        "expected_count": 3,
+        "record_entity_ids": [
+          "company-costa-group-holdings",
+          "company-driscolls",
+          "company-paine-schwartz-partners",
+          "company-bci",
+          "geography-australia"
+        ],
+        "record_berry_ids": [
+          "berry-blueberry"
+        ]
+      }
+    },
+    {
+      "id": "gold-03-agrovision-10-years-2024",
+      "title": "Agrovision celebrates 10 years of bringing the world a better berry",
+      "source_artifact": {
+        "id": "ev-agrovision-10-years-2024",
+        "title": "Agrovision celebrates 10 years of bringing the world a better berry",
+        "source_name": "PR Newswire (Agrovision Corp.)",
+        "source_url": "https://www.prnewswire.com/news-releases/agrovision-celebrates-10-years-of-bringing-the-world-a-better-berry-302052244.html",
+        "captured_date": "2026-08-04",
+        "published_date": "2024-02-05",
+        "language": "en",
+        "locator_kind": "written_text",
+        "segments": [
+          {
+            "text": "Agrovision's own release of 5 February 2024 states that the company was established in 2013, marks its tenth anniversary, reports more than US$350 million invested in operations over the previous six years, and describes itself as the third largest blueberry grower in Peru. It states that Agrovision partners with leading breeders to develop a broad portfolio of premium varietals, names Steve Magami as co-founder and executive chairman, and refers to the Big Skye brand in China.",
+            "source_location": "summary"
+          },
+          {
+            "text": "The company's own wording, partners with leading breeders, is the clearest available statement that it accesses rather than owns genetics. Combined with the absence of any patent or plant breeders' right in its name, it settles the classification: licensee, not breeder.",
+            "source_location": "why_it_matters"
+          }
+        ],
+        "entity_ids": [
+          "company-agrovision",
+          "brand-big-skye",
+          "brand-fruitist",
+          "geography-peru",
+          "brand-sekoya",
+          "company-fall-creek-farm-and-nursery",
+          "geography-mexico",
+          "geography-morocco",
+          "geography-china"
+        ],
+        "geography_ids": [],
+        "berry_ids": [
+          "berry-blueberry"
+        ]
+      },
+      "expected_propositions": [
+        {
+          "id": "3a",
+          "statement": "Agrovision was established in 2013 and reports the tenth anniversary in this release (dated 2024-02-05).",
+          "exact_excerpt": "Agrovision's own release of 5 February 2024 states that the company was established in 2013, marks its tenth anniversary, reports more than US$350 million invested in operations over the previous six years, and describes itself as the third largest blueberry grower in Peru. It states that Agrovision partners with leading breeders to develop a broad portfolio of premium varietals, names Steve Magami as co-founder and executive chairman, and refers to the Big Skye brand in China.",
+          "entity_ids": [
+            "company-agrovision"
+          ],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "identity",
+          "scope": {
+            "source_id": "ev-agrovision-10-years-2024",
+            "published_date": "2024-02-05",
+            "source_type": "company_press_release",
+            "relationship_predicate": "none",
+            "limitation": "Date arithmetic mismatch (established 2013 → \"10 years\" in a 2024 release) exists in the real source itself; do not silently correct it — extract as-stated.",
+            "required_terms": [
+              "reports",
+              "2013",
+              "2024-02-05"
+            ]
+          }
+        },
+        {
+          "id": "3b",
+          "statement": "Agrovision reports more than US$350 million invested in operations over the prior six years and describes itself as the third-largest blueberry grower in Peru.",
+          "exact_excerpt": "Agrovision's own release of 5 February 2024 states that the company was established in 2013, marks its tenth anniversary, reports more than US$350 million invested in operations over the previous six years, and describes itself as the third largest blueberry grower in Peru. It states that Agrovision partners with leading breeders to develop a broad portfolio of premium varietals, names Steve Magami as co-founder and executive chairman, and refers to the Big Skye brand in China.",
+          "entity_ids": [
+            "company-agrovision"
+          ],
+          "geography_ids": [
+            "geography-peru"
+          ],
+          "berry_ids": [
+            "berry-blueberry"
+          ],
+          "claim_type": "market_data",
+          "scope": {
+            "source_id": "ev-agrovision-10-years-2024",
+            "published_date": "2024-02-05",
+            "source_type": "company_press_release",
+            "relationship_predicate": "none",
+            "limitation": "Self-reported figures, source_authority should be treated as low/owner-claim, not independently verified.",
+            "required_terms": [
+              "reports"
+            ]
+          }
+        },
+        {
+          "id": "3c",
+          "statement": "Agrovision states it \"partners with leading breeders to develop a broad portfolio of premium varietals.\"",
+          "exact_excerpt": "Agrovision's own release of 5 February 2024 states that the company was established in 2013, marks its tenth anniversary, reports more than US$350 million invested in operations over the previous six years, and describes itself as the third largest blueberry grower in Peru. It states that Agrovision partners with leading breeders to develop a broad portfolio of premium varietals, names Steve Magami as co-founder and executive chairman, and refers to the Big Skye brand in China.",
+          "entity_ids": [
+            "company-agrovision"
+          ],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "relationship",
+          "scope": {
+            "source_id": "ev-agrovision-10-years-2024",
+            "published_date": "2024-02-05",
+            "source_type": "company_press_release",
+            "relationship_predicate": "licenses (not develops)",
+            "limitation": "This is the exact real distinction fact-agrovision-licenses-not-breeds already encodes — see negative case 5. Extracting develops here is a scoring failure.",
+            "required_terms": [
+              "states"
+            ]
+          }
+        },
+        {
+          "id": "3d",
+          "statement": "Agrovision uses the Big Skye brand in China.",
+          "exact_excerpt": "Agrovision's own release of 5 February 2024 states that the company was established in 2013, marks its tenth anniversary, reports more than US$350 million invested in operations over the previous six years, and describes itself as the third largest blueberry grower in Peru. It states that Agrovision partners with leading breeders to develop a broad portfolio of premium varietals, names Steve Magami as co-founder and executive chairman, and refers to the Big Skye brand in China.",
+          "entity_ids": [
+            "company-agrovision",
+            "brand-big-skye"
+          ],
+          "geography_ids": [
+            "geography-china"
+          ],
+          "berry_ids": [],
+          "claim_type": "relationship",
+          "scope": {
+            "source_id": "ev-agrovision-10-years-2024",
+            "published_date": "2024-02-05",
+            "source_type": "company_press_release",
+            "relationship_predicate": "markets",
+            "limitation": "Geography-scoped brand claim; do not generalize Big Skye to all Agrovision markets.",
+            "required_terms": []
+          }
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "ownership-implies-control",
+          "phrases": [
+            "ownership proves operational control",
+            "owns all variety-release decisions"
+          ],
+          "severity": "critical",
+          "reason": "Ownership alone does not establish operational control or decision rights."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": [
+            "therefore caused",
+            "proves that it caused",
+            "was caused by"
+          ],
+          "severity": "critical",
+          "reason": "Sequence or association is not evidence of causality."
+        },
+        {
+          "id": "registry-implies-commercialization",
+          "phrases": [
+            "patent proves commercial success",
+            "filing proves market adoption",
+            "grant proves commercialization"
+          ],
+          "severity": "critical",
+          "reason": "A filing or grant establishes an IP event, not commercialization or adoption."
+        },
+        {
+          "id": "interest-implies-commitment",
+          "phrases": [
+            "interest is a purchase commitment",
+            "visit created a signed supply agreement",
+            "feedback is a purchase order"
+          ],
+          "severity": "critical",
+          "reason": "Interest, a visit, or feedback is not a purchase/listing commitment."
+        },
+        {
+          "id": "award-implies-general-preference",
+          "phrases": [
+            "award proves general consumer preference",
+            "preferred by consumers in all markets"
+          ],
+          "severity": "critical",
+          "reason": "One award or panel does not establish general consumer preference."
+        },
+        {
+          "id": "local-trial-implies-universal-trait",
+          "phrases": [
+            "trial proves the trait universally",
+            "performs identically in all regions",
+            "universal agronomic trait"
+          ],
+          "severity": "critical",
+          "reason": "A located, dated trial cannot be generalized to every region or production system."
+        },
+        {
+          "id": "marketing-implies-independent-verification",
+          "phrases": [
+            "marketing claim is independently verified",
+            "company statement is proven fact",
+            "slogan proves"
+          ],
+          "severity": "critical",
+          "reason": "First-party marketing language is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "annotation_source": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+        "source_number": 3,
+        "text_basis": [
+          "summary",
+          "why_it_matters"
+        ],
+        "expected_count": 4,
+        "record_entity_ids": [
+          "company-agrovision",
+          "brand-big-skye",
+          "brand-fruitist",
+          "geography-peru",
+          "brand-sekoya",
+          "company-fall-creek-farm-and-nursery",
+          "geography-mexico",
+          "geography-morocco",
+          "geography-china"
+        ],
+        "record_berry_ids": [
+          "berry-blueberry"
+        ]
+      }
+    },
+    {
+      "id": "gold-04-driscolls-cbc-appeal-2025",
+      "title": "Driscoll's files appeal in strawberry patent case",
+      "source_artifact": {
+        "id": "ev-driscolls-cbc-appeal-2025",
+        "title": "Driscoll's files appeal in strawberry patent case",
+        "source_name": "Business Wire (Driscoll's, Inc.)",
+        "source_url": "https://www.businesswire.com/news/home/20250514403283/en/Driscolls-Files-Appeal-in-Strawberry-Patent-Case",
+        "captured_date": "2026-08-04",
+        "published_date": "2025-05-14",
+        "language": "en",
+        "locator_kind": "written_text",
+        "segments": [
+          {
+            "text": "Driscoll's announcement of a protective appeal, dated 14 May 2025, against summary judgment for California Berry Cultivars in the Eastern District of California. The release states that Driscoll's develops exclusive patented berry varieties, that because Driscoll's does not sell its plants there is no legitimate way for the defendant to have obtained the patented varieties, that it grows through more than 900 independent growers, and that its berries are grown in more than 20 countries and sold in more than 40 across North America, Australia, Europe and China. It names Soren Bjorn as chief executive.",
+            "source_location": "summary"
+          },
+          {
+            "text": "The litigation itself concerns strawberry, not blueberry, and is recorded here only to prevent it being carried into blueberry analysis by mistake. The release is retained because it is the best available first-party statement of Driscoll's licensing model, grower network and geographic reach.",
+            "source_location": "why_it_matters"
+          }
+        ],
+        "entity_ids": [
+          "company-driscolls",
+          "company-california-berry-cultivars",
+          "geography-united-states"
+        ],
+        "geography_ids": [],
+        "berry_ids": [
+          "berry-strawberry"
+        ]
+      },
+      "expected_propositions": [
+        {
+          "id": "4a",
+          "statement": "Driscoll's filed a protective appeal against summary judgment for California Berry Cultivars in the Eastern District of California (2025-05-14).",
+          "exact_excerpt": "Driscoll's announcement of a protective appeal, dated 14 May 2025, against summary judgment for California Berry Cultivars in the Eastern District of California. The release states that Driscoll's develops exclusive patented berry varieties, that because Driscoll's does not sell its plants there is no legitimate way for the defendant to have obtained the patented varieties, that it grows through more than 900 independent growers, and that its berries are grown in more than 20 countries and sold in more than 40 across North America, Australia, Europe and China. It names Soren Bjorn as chief executive.",
+          "entity_ids": [
+            "company-california-berry-cultivars"
+          ],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "event",
+          "scope": {
+            "source_id": "ev-driscolls-cbc-appeal-2025",
+            "published_date": "2025-05-14",
+            "source_type": "company_press_release",
+            "relationship_predicate": "disputed-status relationship, if modeled",
+            "limitation": "This is strawberry litigation; do not let it leak into blueberry-scoped analysis (the source's own why_it_matters states this explicitly — a real, deliberate cross-berry-contamination guard).",
+            "required_terms": [
+              "filed",
+              "2025-05-14"
+            ]
+          }
+        },
+        {
+          "id": "4b",
+          "statement": "Driscoll's states it develops exclusive patented berry varieties, does not sell its plants, and grows through more than 900 independent growers in 20+ countries, sold in 40+ countries.",
+          "exact_excerpt": "Driscoll's announcement of a protective appeal, dated 14 May 2025, against summary judgment for California Berry Cultivars in the Eastern District of California. The release states that Driscoll's develops exclusive patented berry varieties, that because Driscoll's does not sell its plants there is no legitimate way for the defendant to have obtained the patented varieties, that it grows through more than 900 independent growers, and that its berries are grown in more than 20 countries and sold in more than 40 across North America, Australia, Europe and China. It names Soren Bjorn as chief executive.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "relationship/market_data",
+          "scope": {
+            "source_id": "ev-driscolls-cbc-appeal-2025",
+            "published_date": "2025-05-14",
+            "source_type": "company_press_release",
+            "relationship_predicate": "develops, grows (via growers)",
+            "limitation": "Owner's own characterization of its business model — extract as a claim, not an independently-verified fact.",
+            "required_terms": [
+              "states",
+              "exclusive"
+            ]
+          }
+        },
+        {
+          "id": "4c",
+          "statement": "Driscoll's names Soren Bjorn as chief executive.",
+          "exact_excerpt": "Driscoll's announcement of a protective appeal, dated 14 May 2025, against summary judgment for California Berry Cultivars in the Eastern District of California. The release states that Driscoll's develops exclusive patented berry varieties, that because Driscoll's does not sell its plants there is no legitimate way for the defendant to have obtained the patented varieties, that it grows through more than 900 independent growers, and that its berries are grown in more than 20 countries and sold in more than 40 across North America, Australia, Europe and China. It names Soren Bjorn as chief executive.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "identity",
+          "scope": {
+            "source_id": "ev-driscolls-cbc-appeal-2025",
+            "published_date": "2025-05-14",
+            "source_type": "company_press_release",
+            "relationship_predicate": "none",
+            "limitation": "Person-level; same discipline as 2b.",
+            "required_terms": []
+          }
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "ownership-implies-control",
+          "phrases": [
+            "ownership proves operational control",
+            "owns all variety-release decisions"
+          ],
+          "severity": "critical",
+          "reason": "Ownership alone does not establish operational control or decision rights."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": [
+            "therefore caused",
+            "proves that it caused",
+            "was caused by"
+          ],
+          "severity": "critical",
+          "reason": "Sequence or association is not evidence of causality."
+        },
+        {
+          "id": "registry-implies-commercialization",
+          "phrases": [
+            "patent proves commercial success",
+            "filing proves market adoption",
+            "grant proves commercialization"
+          ],
+          "severity": "critical",
+          "reason": "A filing or grant establishes an IP event, not commercialization or adoption."
+        },
+        {
+          "id": "interest-implies-commitment",
+          "phrases": [
+            "interest is a purchase commitment",
+            "visit created a signed supply agreement",
+            "feedback is a purchase order"
+          ],
+          "severity": "critical",
+          "reason": "Interest, a visit, or feedback is not a purchase/listing commitment."
+        },
+        {
+          "id": "award-implies-general-preference",
+          "phrases": [
+            "award proves general consumer preference",
+            "preferred by consumers in all markets"
+          ],
+          "severity": "critical",
+          "reason": "One award or panel does not establish general consumer preference."
+        },
+        {
+          "id": "local-trial-implies-universal-trait",
+          "phrases": [
+            "trial proves the trait universally",
+            "performs identically in all regions",
+            "universal agronomic trait"
+          ],
+          "severity": "critical",
+          "reason": "A located, dated trial cannot be generalized to every region or production system."
+        },
+        {
+          "id": "marketing-implies-independent-verification",
+          "phrases": [
+            "marketing claim is independently verified",
+            "company statement is proven fact",
+            "slogan proves"
+          ],
+          "severity": "critical",
+          "reason": "First-party marketing language is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "annotation_source": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+        "source_number": 4,
+        "text_basis": [
+          "summary",
+          "why_it_matters"
+        ],
+        "expected_count": 3,
+        "record_entity_ids": [
+          "company-driscolls",
+          "company-california-berry-cultivars",
+          "geography-united-states"
+        ],
+        "record_berry_ids": [
+          "berry-strawberry"
+        ]
+      }
+    },
+    {
+      "id": "gold-05-producereport-blugenix-2026",
+      "title": "Costa launches BluGenix with five blueberry varieties suited to Yunnan",
+      "source_artifact": {
+        "id": "ev-producereport-blugenix-2026",
+        "title": "Costa launches BluGenix with five blueberry varieties suited to Yunnan",
+        "source_name": "Produce Report",
+        "source_url": "https://www.producereport.com/article/costa-launches-blugenix-5-blueberry-varieties-suited-yunnan",
+        "captured_date": "2026-08-04",
+        "published_date": "2026-06-08",
+        "language": "en",
+        "locator_kind": "written_text",
+        "segments": [
+          {
+            "text": "Reports the launch of BluGenix on 29 May 2026 as the brand and platform for Costa's blueberry breeding programme, introduced with five varieties: Bounty, Breeze, Cascade, Delight and Eterna. Shelf life of 27 days at 4 degrees Celsius is claimed for all five and up to 50 days for Eterna. Costa chief executive Marc Werner and Leon Van Biljon, regional director of Costa Berry International, are quoted. The article describes the programme as drawing on close to 40 years of plant breeding expertise, and names South Africa, Zimbabwe, Morocco, the United States, Mexico, Peru, China and Australia as growing countries for BluGenix varieties.",
+            "source_location": "summary"
+          },
+          {
+            "text": "A competitor putting a brand in front of its breeding programme is a shift from selling varieties to selling a platform, which is the same move Fall Creek made with Sekoya and United Exports with OZblu. The shelf-life claims carry no method, and the close to 40 years figure contradicts the more than 25 years Costa states on its own programme page.",
+            "source_location": "why_it_matters"
+          }
+        ],
+        "entity_ids": [
+          "brand-blugenix",
+          "company-costa-group-holdings",
+          "breeding_program-costa-variety-improvement",
+          "variety-eterna",
+          "trait-postharvest-shelf-life",
+          "geography-china",
+          "geography-south-africa",
+          "geography-zimbabwe",
+          "geography-morocco",
+          "geography-united-states",
+          "geography-mexico",
+          "geography-peru",
+          "geography-australia"
+        ],
+        "geography_ids": [],
+        "berry_ids": [
+          "berry-blueberry"
+        ]
+      },
+      "expected_propositions": [
+        {
+          "id": "5a",
+          "statement": "BluGenix was launched 2026-05-29 as the brand/platform for Costa's blueberry breeding programme, with five varieties: Bounty, Breeze, Cascade, Delight, Eterna.",
+          "exact_excerpt": "Reports the launch of BluGenix on 29 May 2026 as the brand and platform for Costa's blueberry breeding programme, introduced with five varieties: Bounty, Breeze, Cascade, Delight and Eterna. Shelf life of 27 days at 4 degrees Celsius is claimed for all five and up to 50 days for Eterna. Costa chief executive Marc Werner and Leon Van Biljon, regional director of Costa Berry International, are quoted. The article describes the programme as drawing on close to 40 years of plant breeding expertise, and names South Africa, Zimbabwe, Morocco, the United States, Mexico, Peru, China and Australia as growing countries for BluGenix varieties.",
+          "entity_ids": [
+            "brand-blugenix",
+            "variety-eterna"
+          ],
+          "geography_ids": [],
+          "berry_ids": [
+            "berry-blueberry"
+          ],
+          "claim_type": "event",
+          "scope": {
+            "source_id": "ev-producereport-blugenix-2026",
+            "published_date": "2026-06-08",
+            "source_type": "trade_press",
+            "relationship_predicate": "owns (Costa→BluGenix)",
+            "limitation": "= real fact-blugenix-launch-2026 (confidence: high).",
+            "required_terms": [
+              "2026-05-29"
+            ]
+          }
+        },
+        {
+          "id": "5b",
+          "statement": "Costa claims 27-day shelf life at 4°C for all five varieties, up to 50 days for Eterna; no trial site, season, replication, or protocol stated.",
+          "exact_excerpt": "Reports the launch of BluGenix on 29 May 2026 as the brand and platform for Costa's blueberry breeding programme, introduced with five varieties: Bounty, Breeze, Cascade, Delight and Eterna. Shelf life of 27 days at 4 degrees Celsius is claimed for all five and up to 50 days for Eterna. Costa chief executive Marc Werner and Leon Van Biljon, regional director of Costa Berry International, are quoted. The article describes the programme as drawing on close to 40 years of plant breeding expertise, and names South Africa, Zimbabwe, Morocco, the United States, Mexico, Peru, China and Australia as growing countries for BluGenix varieties.",
+          "entity_ids": [
+            "variety-eterna"
+          ],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "attribute",
+          "scope": {
+            "source_id": "ev-producereport-blugenix-2026",
+            "published_date": "2026-06-08",
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "= real fact-blugenix-shelf-life-claim (confidence: low) — owner claim, not independently measured (negative case 1).",
+            "required_terms": [
+              "claims"
+            ]
+          }
+        },
+        {
+          "id": "5c",
+          "statement": "South Africa, Zimbabwe, Morocco, US, Mexico, Peru, China, Australia are named as BluGenix growing countries.",
+          "exact_excerpt": "Reports the launch of BluGenix on 29 May 2026 as the brand and platform for Costa's blueberry breeding programme, introduced with five varieties: Bounty, Breeze, Cascade, Delight and Eterna. Shelf life of 27 days at 4 degrees Celsius is claimed for all five and up to 50 days for Eterna. Costa chief executive Marc Werner and Leon Van Biljon, regional director of Costa Berry International, are quoted. The article describes the programme as drawing on close to 40 years of plant breeding expertise, and names South Africa, Zimbabwe, Morocco, the United States, Mexico, Peru, China and Australia as growing countries for BluGenix varieties.",
+          "entity_ids": [
+            "brand-blugenix"
+          ],
+          "geography_ids": [
+            "geography-china",
+            "geography-south-africa",
+            "geography-zimbabwe",
+            "geography-morocco",
+            "geography-mexico",
+            "geography-peru",
+            "geography-australia"
+          ],
+          "berry_ids": [],
+          "claim_type": "market_data",
+          "scope": {
+            "source_id": "ev-producereport-blugenix-2026",
+            "published_date": "2026-06-08",
+            "source_type": "trade_press",
+            "relationship_predicate": "operates_in",
+            "limitation": "= real fact-blugenix-growing-countries (confidence: medium).",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "5d",
+          "statement": "Costa's stated breeding-programme age is inconsistent: \"more than 25 years\" on Costa's own pages vs. \"close to 40 years\" in this article.",
+          "exact_excerpt": "A competitor putting a brand in front of its breeding programme is a shift from selling varieties to selling a platform, which is the same move Fall Creek made with Sekoya and United Exports with OZblu. The shelf-life claims carry no method, and the close to 40 years figure contradicts the more than 25 years Costa states on its own programme page.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "dispute",
+          "scope": {
+            "source_id": "ev-producereport-blugenix-2026",
+            "published_date": "2026-06-08",
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "= real fact-costa-vip-age-conflict (confidence: low, status: disputed) — **this fact requires two OTHER evidence records** (ev-costa-vip, ev-costa-heaviest-blueberry-2024) in addition to this one; extracting it from ev-producereport-blugenix-2026 alone is single-document overreach (Failure Type 3, Section 12).",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "5e",
+          "statement": "Costa CEO Marc Werner and Costa Berry International regional director Leon Van Biljon are quoted in the announcement.",
+          "exact_excerpt": "Reports the launch of BluGenix on 29 May 2026 as the brand and platform for Costa's blueberry breeding programme, introduced with five varieties: Bounty, Breeze, Cascade, Delight and Eterna. Shelf life of 27 days at 4 degrees Celsius is claimed for all five and up to 50 days for Eterna. Costa chief executive Marc Werner and Leon Van Biljon, regional director of Costa Berry International, are quoted. The article describes the programme as drawing on close to 40 years of plant breeding expertise, and names South Africa, Zimbabwe, Morocco, the United States, Mexico, Peru, China and Australia as growing countries for BluGenix varieties.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "identity",
+          "scope": {
+            "source_id": "ev-producereport-blugenix-2026",
+            "published_date": "2026-06-08",
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "Low CI value on its own — a good extractor should not spend a separate high-priority proposal slot on attribution existence alone (Section 13, proposal-density guidance).",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "5f",
+          "statement": "The programme is described as drawing on \"close to 40 years\" of plant breeding expertise.",
+          "exact_excerpt": "A competitor putting a brand in front of its breeding programme is a shift from selling varieties to selling a platform, which is the same move Fall Creek made with Sekoya and United Exports with OZblu. The shelf-life claims carry no method, and the close to 40 years figure contradicts the more than 25 years Costa states on its own programme page.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "attribute",
+          "scope": {
+            "source_id": "ev-producereport-blugenix-2026",
+            "published_date": "2026-06-08",
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "This is the source half of the 5d dispute — extractable alone as a plain claim; only becomes a dispute when paired with the other two sources.",
+            "required_terms": []
+          }
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "ownership-implies-control",
+          "phrases": [
+            "ownership proves operational control",
+            "owns all variety-release decisions"
+          ],
+          "severity": "critical",
+          "reason": "Ownership alone does not establish operational control or decision rights."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": [
+            "therefore caused",
+            "proves that it caused",
+            "was caused by"
+          ],
+          "severity": "critical",
+          "reason": "Sequence or association is not evidence of causality."
+        },
+        {
+          "id": "registry-implies-commercialization",
+          "phrases": [
+            "patent proves commercial success",
+            "filing proves market adoption",
+            "grant proves commercialization"
+          ],
+          "severity": "critical",
+          "reason": "A filing or grant establishes an IP event, not commercialization or adoption."
+        },
+        {
+          "id": "interest-implies-commitment",
+          "phrases": [
+            "interest is a purchase commitment",
+            "visit created a signed supply agreement",
+            "feedback is a purchase order"
+          ],
+          "severity": "critical",
+          "reason": "Interest, a visit, or feedback is not a purchase/listing commitment."
+        },
+        {
+          "id": "award-implies-general-preference",
+          "phrases": [
+            "award proves general consumer preference",
+            "preferred by consumers in all markets"
+          ],
+          "severity": "critical",
+          "reason": "One award or panel does not establish general consumer preference."
+        },
+        {
+          "id": "local-trial-implies-universal-trait",
+          "phrases": [
+            "trial proves the trait universally",
+            "performs identically in all regions",
+            "universal agronomic trait"
+          ],
+          "severity": "critical",
+          "reason": "A located, dated trial cannot be generalized to every region or production system."
+        },
+        {
+          "id": "marketing-implies-independent-verification",
+          "phrases": [
+            "marketing claim is independently verified",
+            "company statement is proven fact",
+            "slogan proves"
+          ],
+          "severity": "critical",
+          "reason": "First-party marketing language is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "annotation_source": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+        "source_number": 5,
+        "text_basis": [
+          "summary",
+          "why_it_matters"
+        ],
+        "expected_count": 6,
+        "record_entity_ids": [
+          "brand-blugenix",
+          "company-costa-group-holdings",
+          "breeding_program-costa-variety-improvement",
+          "variety-eterna",
+          "trait-postharvest-shelf-life",
+          "geography-china",
+          "geography-south-africa",
+          "geography-zimbabwe",
+          "geography-morocco",
+          "geography-united-states",
+          "geography-mexico",
+          "geography-peru",
+          "geography-australia"
+        ],
+        "record_berry_ids": [
+          "berry-blueberry"
+        ]
+      }
+    },
+    {
+      "id": "gold-06-blueberriesconsulting-agrovision-2024",
+      "title": "Agrovision Corp seeks year-round blueberry supply from Peru, Mexico and Morocco",
+      "source_artifact": {
+        "id": "ev-blueberriesconsulting-agrovision-2024",
+        "title": "Agrovision Corp seeks year-round blueberry supply from Peru, Mexico and Morocco",
+        "source_name": "Blueberries Consulting",
+        "source_url": "https://blueberriesconsulting.com/en/con-operaciones-en-peru-mexico-y-marruecos-agrovision-corp-busca-lograr-un-suministro-de-arandanos-durante-todo-el-ano/",
+        "captured_date": "2026-08-04",
+        "published_date": "2024-05-15",
+        "language": "en",
+        "locator_kind": "written_text",
+        "segments": [
+          {
+            "text": "Reports that Agrovision's Peruvian operation began with the varieties Biloxi and Ventura and has since moved to other varieties, among which those of the Sekoya programme. Gives 2022 figures of 2,800 hectares of berries across Peru, Mexico and Morocco, turnover of US$210 million and more than 2,500 containers exported, 40 per cent to China. Names Peruvian operations at Olmos and Morrope in Lambayeque, Mexican operations in Jalisco above 300 hectares and Moroccan operations in Souss-Massa at 250 hectares.",
+            "source_location": "summary"
+          },
+          {
+            "text": "Names the specific genetics Agrovision relies on. A grower of this scale moving from public varieties onto a club platform is exactly the kind of demand-side shift that determines whether a managed-variety platform succeeds.",
+            "source_location": "why_it_matters"
+          }
+        ],
+        "entity_ids": [
+          "company-agrovision",
+          "brand-sekoya",
+          "company-fall-creek-farm-and-nursery",
+          "geography-peru",
+          "geography-mexico",
+          "geography-morocco",
+          "geography-china"
+        ],
+        "geography_ids": [],
+        "berry_ids": [
+          "berry-blueberry"
+        ]
+      },
+      "expected_propositions": [
+        {
+          "id": "6a",
+          "statement": "Agrovision's Peruvian operation began with varieties Biloxi and Ventura, later moving to Sekoya-programme varieties.",
+          "exact_excerpt": "Reports that Agrovision's Peruvian operation began with the varieties Biloxi and Ventura and has since moved to other varieties, among which those of the Sekoya programme. Gives 2022 figures of 2,800 hectares of berries across Peru, Mexico and Morocco, turnover of US$210 million and more than 2,500 containers exported, 40 per cent to China. Names Peruvian operations at Olmos and Morrope in Lambayeque, Mexican operations in Jalisco above 300 hectares and Moroccan operations in Souss-Massa at 250 hectares.",
+          "entity_ids": [
+            "company-agrovision",
+            "brand-sekoya"
+          ],
+          "geography_ids": [
+            "geography-peru"
+          ],
+          "berry_ids": [],
+          "claim_type": "relationship",
+          "scope": {
+            "source_id": "ev-blueberriesconsulting-agrovision-2024",
+            "published_date": "2024-05-15",
+            "source_type": "trade_press",
+            "relationship_predicate": "licenses",
+            "limitation": "Do not extract develops — see negative case 5.",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "6b",
+          "statement": "2022 figures: 2,800 hectares of berries across Peru, Mexico, and Morocco.",
+          "exact_excerpt": "Reports that Agrovision's Peruvian operation began with the varieties Biloxi and Ventura and has since moved to other varieties, among which those of the Sekoya programme. Gives 2022 figures of 2,800 hectares of berries across Peru, Mexico and Morocco, turnover of US$210 million and more than 2,500 containers exported, 40 per cent to China. Names Peruvian operations at Olmos and Morrope in Lambayeque, Mexican operations in Jalisco above 300 hectares and Moroccan operations in Souss-Massa at 250 hectares.",
+          "entity_ids": [],
+          "geography_ids": [
+            "geography-peru",
+            "geography-mexico",
+            "geography-morocco"
+          ],
+          "berry_ids": [],
+          "claim_type": "market_data",
+          "scope": {
+            "source_id": "ev-blueberriesconsulting-agrovision-2024",
+            "published_date": "2024-05-15",
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "Cross-country aggregate, do not split into per-country hectares not separately stated in this excerpt.",
+            "required_terms": [
+              "2022"
+            ]
+          }
+        },
+        {
+          "id": "6c",
+          "statement": "2022 turnover of US$210 million and more than 2,500 containers exported, 40% to China.",
+          "exact_excerpt": "Reports that Agrovision's Peruvian operation began with the varieties Biloxi and Ventura and has since moved to other varieties, among which those of the Sekoya programme. Gives 2022 figures of 2,800 hectares of berries across Peru, Mexico and Morocco, turnover of US$210 million and more than 2,500 containers exported, 40 per cent to China. Names Peruvian operations at Olmos and Morrope in Lambayeque, Mexican operations in Jalisco above 300 hectares and Moroccan operations in Souss-Massa at 250 hectares.",
+          "entity_ids": [],
+          "geography_ids": [
+            "geography-china"
+          ],
+          "berry_ids": [],
+          "claim_type": "market_data",
+          "scope": {
+            "source_id": "ev-blueberriesconsulting-agrovision-2024",
+            "published_date": "2024-05-15",
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "Owner-reported figures.",
+            "required_terms": [
+              "2022"
+            ]
+          }
+        },
+        {
+          "id": "6d",
+          "statement": "Peruvian operations named at Olmos and Morrope, Lambayeque.",
+          "exact_excerpt": "Reports that Agrovision's Peruvian operation began with the varieties Biloxi and Ventura and has since moved to other varieties, among which those of the Sekoya programme. Gives 2022 figures of 2,800 hectares of berries across Peru, Mexico and Morocco, turnover of US$210 million and more than 2,500 containers exported, 40 per cent to China. Names Peruvian operations at Olmos and Morrope in Lambayeque, Mexican operations in Jalisco above 300 hectares and Moroccan operations in Souss-Massa at 250 hectares.",
+          "entity_ids": [],
+          "geography_ids": [
+            "geography-peru"
+          ],
+          "berry_ids": [],
+          "claim_type": "geography",
+          "scope": {
+            "source_id": "ev-blueberriesconsulting-agrovision-2024",
+            "published_date": "2024-05-15",
+            "source_type": "trade_press",
+            "relationship_predicate": "operates_in",
+            "limitation": "",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "6e",
+          "statement": "Mexican operations in Jalisco, above 300 hectares.",
+          "exact_excerpt": "Reports that Agrovision's Peruvian operation began with the varieties Biloxi and Ventura and has since moved to other varieties, among which those of the Sekoya programme. Gives 2022 figures of 2,800 hectares of berries across Peru, Mexico and Morocco, turnover of US$210 million and more than 2,500 containers exported, 40 per cent to China. Names Peruvian operations at Olmos and Morrope in Lambayeque, Mexican operations in Jalisco above 300 hectares and Moroccan operations in Souss-Massa at 250 hectares.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "geography",
+          "scope": {
+            "source_id": "ev-blueberriesconsulting-agrovision-2024",
+            "published_date": "2024-05-15",
+            "source_type": "trade_press",
+            "relationship_predicate": "operates_in",
+            "limitation": "",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "6f",
+          "statement": "Moroccan operations in Souss-Massa, at 250 hectares.",
+          "exact_excerpt": "Reports that Agrovision's Peruvian operation began with the varieties Biloxi and Ventura and has since moved to other varieties, among which those of the Sekoya programme. Gives 2022 figures of 2,800 hectares of berries across Peru, Mexico and Morocco, turnover of US$210 million and more than 2,500 containers exported, 40 per cent to China. Names Peruvian operations at Olmos and Morrope in Lambayeque, Mexican operations in Jalisco above 300 hectares and Moroccan operations in Souss-Massa at 250 hectares.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "geography",
+          "scope": {
+            "source_id": "ev-blueberriesconsulting-agrovision-2024",
+            "published_date": "2024-05-15",
+            "source_type": "trade_press",
+            "relationship_predicate": "operates_in",
+            "limitation": "",
+            "required_terms": []
+          }
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "ownership-implies-control",
+          "phrases": [
+            "ownership proves operational control",
+            "owns all variety-release decisions"
+          ],
+          "severity": "critical",
+          "reason": "Ownership alone does not establish operational control or decision rights."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": [
+            "therefore caused",
+            "proves that it caused",
+            "was caused by"
+          ],
+          "severity": "critical",
+          "reason": "Sequence or association is not evidence of causality."
+        },
+        {
+          "id": "registry-implies-commercialization",
+          "phrases": [
+            "patent proves commercial success",
+            "filing proves market adoption",
+            "grant proves commercialization"
+          ],
+          "severity": "critical",
+          "reason": "A filing or grant establishes an IP event, not commercialization or adoption."
+        },
+        {
+          "id": "interest-implies-commitment",
+          "phrases": [
+            "interest is a purchase commitment",
+            "visit created a signed supply agreement",
+            "feedback is a purchase order"
+          ],
+          "severity": "critical",
+          "reason": "Interest, a visit, or feedback is not a purchase/listing commitment."
+        },
+        {
+          "id": "award-implies-general-preference",
+          "phrases": [
+            "award proves general consumer preference",
+            "preferred by consumers in all markets"
+          ],
+          "severity": "critical",
+          "reason": "One award or panel does not establish general consumer preference."
+        },
+        {
+          "id": "local-trial-implies-universal-trait",
+          "phrases": [
+            "trial proves the trait universally",
+            "performs identically in all regions",
+            "universal agronomic trait"
+          ],
+          "severity": "critical",
+          "reason": "A located, dated trial cannot be generalized to every region or production system."
+        },
+        {
+          "id": "marketing-implies-independent-verification",
+          "phrases": [
+            "marketing claim is independently verified",
+            "company statement is proven fact",
+            "slogan proves"
+          ],
+          "severity": "critical",
+          "reason": "First-party marketing language is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "annotation_source": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+        "source_number": 6,
+        "text_basis": [
+          "summary",
+          "why_it_matters"
+        ],
+        "expected_count": 6,
+        "record_entity_ids": [
+          "company-agrovision",
+          "brand-sekoya",
+          "company-fall-creek-farm-and-nursery",
+          "geography-peru",
+          "geography-mexico",
+          "geography-morocco",
+          "geography-china"
+        ],
+        "record_berry_ids": [
+          "berry-blueberry"
+        ]
+      }
+    },
+    {
+      "id": "gold-07-italianberry-peru-varieties-2025",
+      "title": "Peru: Sekoya Pop dominates ranking of most exported varieties, 2024/25 season",
+      "source_artifact": {
+        "id": "ev-italianberry-peru-varieties-2025",
+        "title": "Peru: Sekoya Pop dominates ranking of most exported varieties, 2024/25 season",
+        "source_name": "Italian Berry, reporting Proarandanos data",
+        "source_url": "https://italianberry.it/en/news/Peru-Sekoya-Pop-dominates-ranking-most-exported-varieties-2024-25-season",
+        "captured_date": "2026-08-03",
+        "published_date": null,
+        "language": "en",
+        "locator_kind": "written_text",
+        "segments": [
+          {
+            "text": "Reports Proarandanos figures for Peruvian blueberry exports in the 2024/25 season to week 33: Sekoya Pop leads with 2,514 tonnes, or 19 percent of national volume; Eureka accounts for 655 tonnes, about 5 percent; and Eureka Sunrise appears under two separate codes, 'Ridley 160' with 714 tonnes and 'Ridley 1602' with 183 tonnes.",
+            "source_location": "summary"
+          },
+          {
+            "text": "Third-party volume data from a national producer association is the closest available proxy for actual commercial adoption, as distinct from announced launches. The duplicate coding of Eureka Sunrise in the same table is itself a data-quality finding and means the two figures must not be summed without confirmation.",
+            "source_location": "why_it_matters"
+          }
+        ],
+        "entity_ids": [
+          "variety-sekoya-pop",
+          "variety-eureka",
+          "variety-eureka-sunrise",
+          "geography-peru",
+          "company-fall-creek-farm-and-nursery",
+          "company-mountain-blue-orchards",
+          "brand-eureka"
+        ],
+        "geography_ids": [],
+        "berry_ids": [
+          "berry-blueberry"
+        ]
+      },
+      "expected_propositions": [
+        {
+          "id": "7a",
+          "statement": "Sekoya Pop led Peru's 2024/25-season blueberry exports at 2,514 tonnes (19% of national volume, to week 33).",
+          "exact_excerpt": "Reports Proarandanos figures for Peruvian blueberry exports in the 2024/25 season to week 33: Sekoya Pop leads with 2,514 tonnes, or 19 percent of national volume; Eureka accounts for 655 tonnes, about 5 percent; and Eureka Sunrise appears under two separate codes, 'Ridley 160' with 714 tonnes and 'Ridley 1602' with 183 tonnes.",
+          "entity_ids": [
+            "variety-sekoya-pop"
+          ],
+          "geography_ids": [
+            "geography-peru"
+          ],
+          "berry_ids": [
+            "berry-blueberry"
+          ],
+          "claim_type": "market_data",
+          "scope": {
+            "source_id": "ev-italianberry-peru-varieties-2025",
+            "published_date": null,
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "Third-party data, closest available proxy for real adoption vs. announced launches — highest information_confidence item in the set.",
+            "required_terms": [
+              "2024"
+            ]
+          }
+        },
+        {
+          "id": "7b",
+          "statement": "Eureka accounted for 655 tonnes (~5%) in the same period.",
+          "exact_excerpt": "Reports Proarandanos figures for Peruvian blueberry exports in the 2024/25 season to week 33: Sekoya Pop leads with 2,514 tonnes, or 19 percent of national volume; Eureka accounts for 655 tonnes, about 5 percent; and Eureka Sunrise appears under two separate codes, 'Ridley 160' with 714 tonnes and 'Ridley 1602' with 183 tonnes.",
+          "entity_ids": [
+            "variety-eureka",
+            "brand-eureka"
+          ],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "market_data",
+          "scope": {
+            "source_id": "ev-italianberry-peru-varieties-2025",
+            "published_date": null,
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "7c",
+          "statement": "Eureka Sunrise appears under two separate codes in the same table — \"Ridley 160\" (714t) and \"Ridley 1602\" (183t).",
+          "exact_excerpt": "Reports Proarandanos figures for Peruvian blueberry exports in the 2024/25 season to week 33: Sekoya Pop leads with 2,514 tonnes, or 19 percent of national volume; Eureka accounts for 655 tonnes, about 5 percent; and Eureka Sunrise appears under two separate codes, 'Ridley 160' with 714 tonnes and 'Ridley 1602' with 183 tonnes.",
+          "entity_ids": [
+            "variety-eureka",
+            "variety-eureka-sunrise",
+            "brand-eureka"
+          ],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "dispute/data_quality",
+          "scope": {
+            "source_id": "ev-italianberry-peru-varieties-2025",
+            "published_date": null,
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "**Do not sum the two figures** — the source's own why_it_matters states this is itself a data-quality finding requiring confirmation before use. A correct extractor flags the duplicate coding rather than silently merging or silently picking one number.",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "7d",
+          "statement": "The two Eureka Sunrise codes are the same PVR entity — cf. ev-uspp031605-ridley-1602's parentage record (Section 9) confirming \"Ridley 1602\" is Eureka Sunrise's breeding designation.",
+          "exact_excerpt": "Reports Proarandanos figures for Peruvian blueberry exports in the 2024/25 season to week 33: Sekoya Pop leads with 2,514 tonnes, or 19 percent of national volume; Eureka accounts for 655 tonnes, about 5 percent; and Eureka Sunrise appears under two separate codes, 'Ridley 160' with 714 tonnes and 'Ridley 1602' with 183 tonnes.",
+          "entity_ids": [
+            "variety-eureka",
+            "variety-eureka-sunrise",
+            "brand-eureka"
+          ],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "entity_resolution",
+          "scope": {
+            "source_id": "ev-italianberry-peru-varieties-2025",
+            "published_date": null,
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "Cross-source resolution, correctly requires the registry record from Section 9 to confirm — do not resolve this from Source 7 alone.",
+            "required_terms": []
+          }
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "ownership-implies-control",
+          "phrases": [
+            "ownership proves operational control",
+            "owns all variety-release decisions"
+          ],
+          "severity": "critical",
+          "reason": "Ownership alone does not establish operational control or decision rights."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": [
+            "therefore caused",
+            "proves that it caused",
+            "was caused by"
+          ],
+          "severity": "critical",
+          "reason": "Sequence or association is not evidence of causality."
+        },
+        {
+          "id": "registry-implies-commercialization",
+          "phrases": [
+            "patent proves commercial success",
+            "filing proves market adoption",
+            "grant proves commercialization"
+          ],
+          "severity": "critical",
+          "reason": "A filing or grant establishes an IP event, not commercialization or adoption."
+        },
+        {
+          "id": "interest-implies-commitment",
+          "phrases": [
+            "interest is a purchase commitment",
+            "visit created a signed supply agreement",
+            "feedback is a purchase order"
+          ],
+          "severity": "critical",
+          "reason": "Interest, a visit, or feedback is not a purchase/listing commitment."
+        },
+        {
+          "id": "award-implies-general-preference",
+          "phrases": [
+            "award proves general consumer preference",
+            "preferred by consumers in all markets"
+          ],
+          "severity": "critical",
+          "reason": "One award or panel does not establish general consumer preference."
+        },
+        {
+          "id": "local-trial-implies-universal-trait",
+          "phrases": [
+            "trial proves the trait universally",
+            "performs identically in all regions",
+            "universal agronomic trait"
+          ],
+          "severity": "critical",
+          "reason": "A located, dated trial cannot be generalized to every region or production system."
+        },
+        {
+          "id": "marketing-implies-independent-verification",
+          "phrases": [
+            "marketing claim is independently verified",
+            "company statement is proven fact",
+            "slogan proves"
+          ],
+          "severity": "critical",
+          "reason": "First-party marketing language is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "annotation_source": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+        "source_number": 7,
+        "text_basis": [
+          "summary",
+          "why_it_matters"
+        ],
+        "expected_count": 4,
+        "record_entity_ids": [
+          "variety-sekoya-pop",
+          "variety-eureka",
+          "variety-eureka-sunrise",
+          "geography-peru",
+          "company-fall-creek-farm-and-nursery",
+          "company-mountain-blue-orchards",
+          "brand-eureka"
+        ],
+        "record_berry_ids": [
+          "berry-blueberry"
+        ]
+      }
+    },
+    {
+      "id": "gold-08-fruitnet-ozblu-dispute-2020",
+      "title": "Blueberry spat continues with war of words",
+      "source_artifact": {
+        "id": "ev-fruitnet-ozblu-dispute-2020",
+        "title": "Blueberry spat continues with war of words",
+        "source_name": "Eurofruit / Fruitnet",
+        "source_url": "https://www.fruitnet.com/eurofruit/blueberry-spat-continues-with-war-of-words/183446.article",
+        "captured_date": "2026-08-03",
+        "published_date": "2020-11-09",
+        "language": "en",
+        "locator_kind": "written_text",
+        "segments": [
+          {
+            "text": "Report by Mike Knowles on a dispute between United Exports and the Rossouw Group's Ross Berries operation, in which two containers of about 27 tonnes were seized in Rotterdam on 27 October and 5 November 2020. United Exports asserted plant breeders' rights ownership in South Africa and the European Union and announced a five-year South African investment plan of R1.3 billion, about US$85 million.",
+            "source_location": "summary"
+          },
+          {
+            "text": "Documents cross-border rights enforcement at the point of import, which is the most commercially disruptive form of plant variety rights action. The reported investment figure is a company announcement carried by trade press, not an audited commitment.",
+            "source_location": "why_it_matters"
+          }
+        ],
+        "entity_ids": [
+          "company-united-exports",
+          "brand-ozblu",
+          "geography-south-africa",
+          "geography-netherlands"
+        ],
+        "geography_ids": [],
+        "berry_ids": [
+          "berry-blueberry"
+        ]
+      },
+      "expected_propositions": [
+        {
+          "id": "8a",
+          "statement": "United Exports asserted PBR ownership in South Africa/EU and had ~27 tonnes across two containers seized in Rotterdam (2020-10-27 and 2020-11-05) from the Rossouw Group's Ross Berries operation.",
+          "exact_excerpt": "Report by Mike Knowles on a dispute between United Exports and the Rossouw Group's Ross Berries operation, in which two containers of about 27 tonnes were seized in Rotterdam on 27 October and 5 November 2020. United Exports asserted plant breeders' rights ownership in South Africa and the European Union and announced a five-year South African investment plan of R1.3 billion, about US$85 million.",
+          "entity_ids": [
+            "company-united-exports"
+          ],
+          "geography_ids": [
+            "geography-south-africa"
+          ],
+          "berry_ids": [],
+          "claim_type": "dispute",
+          "scope": {
+            "source_id": "ev-fruitnet-ozblu-dispute-2020",
+            "published_date": "2020-11-09",
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "Border enforcement event — real, but does not establish the dispute's legal outcome (not stated in source).",
+            "required_terms": [
+              "asserted",
+              "2020-10-27",
+              "2020-11-05"
+            ]
+          }
+        },
+        {
+          "id": "8b",
+          "statement": "United Exports announced a 5-year, R1.3 billion (~US$85M) South African investment plan.",
+          "exact_excerpt": "Report by Mike Knowles on a dispute between United Exports and the Rossouw Group's Ross Berries operation, in which two containers of about 27 tonnes were seized in Rotterdam on 27 October and 5 November 2020. United Exports asserted plant breeders' rights ownership in South Africa and the European Union and announced a five-year South African investment plan of R1.3 billion, about US$85 million.",
+          "entity_ids": [
+            "company-united-exports"
+          ],
+          "geography_ids": [
+            "geography-south-africa"
+          ],
+          "berry_ids": [],
+          "claim_type": "market_data",
+          "scope": {
+            "source_id": "ev-fruitnet-ozblu-dispute-2020",
+            "published_date": "2020-11-09",
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "Explicitly a company announcement carried by trade press, not an audited commitment — negative case 1 applies.",
+            "required_terms": [
+              "announced"
+            ]
+          }
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "ownership-implies-control",
+          "phrases": [
+            "ownership proves operational control",
+            "owns all variety-release decisions"
+          ],
+          "severity": "critical",
+          "reason": "Ownership alone does not establish operational control or decision rights."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": [
+            "therefore caused",
+            "proves that it caused",
+            "was caused by"
+          ],
+          "severity": "critical",
+          "reason": "Sequence or association is not evidence of causality."
+        },
+        {
+          "id": "registry-implies-commercialization",
+          "phrases": [
+            "patent proves commercial success",
+            "filing proves market adoption",
+            "grant proves commercialization"
+          ],
+          "severity": "critical",
+          "reason": "A filing or grant establishes an IP event, not commercialization or adoption."
+        },
+        {
+          "id": "interest-implies-commitment",
+          "phrases": [
+            "interest is a purchase commitment",
+            "visit created a signed supply agreement",
+            "feedback is a purchase order"
+          ],
+          "severity": "critical",
+          "reason": "Interest, a visit, or feedback is not a purchase/listing commitment."
+        },
+        {
+          "id": "award-implies-general-preference",
+          "phrases": [
+            "award proves general consumer preference",
+            "preferred by consumers in all markets"
+          ],
+          "severity": "critical",
+          "reason": "One award or panel does not establish general consumer preference."
+        },
+        {
+          "id": "local-trial-implies-universal-trait",
+          "phrases": [
+            "trial proves the trait universally",
+            "performs identically in all regions",
+            "universal agronomic trait"
+          ],
+          "severity": "critical",
+          "reason": "A located, dated trial cannot be generalized to every region or production system."
+        },
+        {
+          "id": "marketing-implies-independent-verification",
+          "phrases": [
+            "marketing claim is independently verified",
+            "company statement is proven fact",
+            "slogan proves"
+          ],
+          "severity": "critical",
+          "reason": "First-party marketing language is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "annotation_source": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+        "source_number": 8,
+        "text_basis": [
+          "summary",
+          "why_it_matters"
+        ],
+        "expected_count": 2,
+        "record_entity_ids": [
+          "company-united-exports",
+          "brand-ozblu",
+          "geography-south-africa",
+          "geography-netherlands"
+        ],
+        "record_berry_ids": [
+          "berry-blueberry"
+        ]
+      }
+    },
+    {
+      "id": "gold-09-leadersleague-atlantic-blue-2021",
+      "title": "Chilean berry company Hortifrut acquires Spain's Atlantic Blue for $280m",
+      "source_artifact": {
+        "id": "ev-leadersleague-atlantic-blue-2021",
+        "title": "Chilean berry company Hortifrut acquires Spain's Atlantic Blue for $280m",
+        "source_name": "Leaders League",
+        "source_url": "https://www.leadersleague.com/en/news/chilean-berry-company-hortifrut-acquires-spain-s-atlantic-blue-for-280m",
+        "captured_date": "2026-08-04",
+        "published_date": "2021-10-20",
+        "language": "en",
+        "locator_kind": "written_text",
+        "segments": [
+          {
+            "text": "Reports Hortifrut's acquisition of 100 per cent of Atlantic Blue of Huelva, Spain at an enterprise value of 241 million euros, about US$280 million. The transaction is described as including the SAT processing plant, 100 per cent of the Euroberry commercial platform with roughly 200 million euros of annual sales, and Atlantic Blue's worldwide blueberry and low-chill cherry variety and breeding development programme, increasing Hortifrut's growing area by about 20 per cent.",
+            "source_location": "summary"
+          },
+          {
+            "text": "The acquisition brought a second breeding programme inside Hortifrut. Hortifrut's own page on the transaction was not retrievable, so the price and scope rest on this single trade report.",
+            "source_location": "why_it_matters"
+          }
+        ],
+        "entity_ids": [
+          "company-hortifrut",
+          "breeding_program-atlantic-blue-royal-berries",
+          "geography-spain",
+          "company-berry-blue-llc"
+        ],
+        "geography_ids": [],
+        "berry_ids": [
+          "berry-blueberry"
+        ]
+      },
+      "expected_propositions": [
+        {
+          "id": "9a",
+          "statement": "Hortifrut acquired 100% of Atlantic Blue (Huelva, Spain) at enterprise value €241M (~US$280M), including the SAT processing plant, 100% of the Euroberry commercial platform (~€200M annual sales), and Atlantic Blue's global blueberry/low-chill-cherry breeding programme.",
+          "exact_excerpt": "Reports Hortifrut's acquisition of 100 per cent of Atlantic Blue of Huelva, Spain at an enterprise value of 241 million euros, about US$280 million. The transaction is described as including the SAT processing plant, 100 per cent of the Euroberry commercial platform with roughly 200 million euros of annual sales, and Atlantic Blue's worldwide blueberry and low-chill cherry variety and breeding development programme, increasing Hortifrut's growing area by about 20 per cent.",
+          "entity_ids": [
+            "company-hortifrut"
+          ],
+          "geography_ids": [
+            "geography-spain"
+          ],
+          "berry_ids": [
+            "berry-blueberry"
+          ],
+          "claim_type": "event",
+          "scope": {
+            "source_id": "ev-leadersleague-atlantic-blue-2021",
+            "published_date": "2021-10-20",
+            "source_type": "trade_press",
+            "relationship_predicate": "owns",
+            "limitation": "Single-source — Hortifrut's own transaction page was not retrievable, so this rests on one trade report (source's own why_it_matters states this).",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "9b",
+          "statement": "The acquisition increased Hortifrut's growing area by ~20%.",
+          "exact_excerpt": "Reports Hortifrut's acquisition of 100 per cent of Atlantic Blue of Huelva, Spain at an enterprise value of 241 million euros, about US$280 million. The transaction is described as including the SAT processing plant, 100 per cent of the Euroberry commercial platform with roughly 200 million euros of annual sales, and Atlantic Blue's worldwide blueberry and low-chill cherry variety and breeding development programme, increasing Hortifrut's growing area by about 20 per cent.",
+          "entity_ids": [
+            "company-hortifrut"
+          ],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "market_data",
+          "scope": {
+            "source_id": "ev-leadersleague-atlantic-blue-2021",
+            "published_date": "2021-10-20",
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "",
+            "required_terms": []
+          }
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "ownership-implies-control",
+          "phrases": [
+            "ownership proves operational control",
+            "owns all variety-release decisions"
+          ],
+          "severity": "critical",
+          "reason": "Ownership alone does not establish operational control or decision rights."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": [
+            "therefore caused",
+            "proves that it caused",
+            "was caused by"
+          ],
+          "severity": "critical",
+          "reason": "Sequence or association is not evidence of causality."
+        },
+        {
+          "id": "registry-implies-commercialization",
+          "phrases": [
+            "patent proves commercial success",
+            "filing proves market adoption",
+            "grant proves commercialization"
+          ],
+          "severity": "critical",
+          "reason": "A filing or grant establishes an IP event, not commercialization or adoption."
+        },
+        {
+          "id": "interest-implies-commitment",
+          "phrases": [
+            "interest is a purchase commitment",
+            "visit created a signed supply agreement",
+            "feedback is a purchase order"
+          ],
+          "severity": "critical",
+          "reason": "Interest, a visit, or feedback is not a purchase/listing commitment."
+        },
+        {
+          "id": "award-implies-general-preference",
+          "phrases": [
+            "award proves general consumer preference",
+            "preferred by consumers in all markets"
+          ],
+          "severity": "critical",
+          "reason": "One award or panel does not establish general consumer preference."
+        },
+        {
+          "id": "local-trial-implies-universal-trait",
+          "phrases": [
+            "trial proves the trait universally",
+            "performs identically in all regions",
+            "universal agronomic trait"
+          ],
+          "severity": "critical",
+          "reason": "A located, dated trial cannot be generalized to every region or production system."
+        },
+        {
+          "id": "marketing-implies-independent-verification",
+          "phrases": [
+            "marketing claim is independently verified",
+            "company statement is proven fact",
+            "slogan proves"
+          ],
+          "severity": "critical",
+          "reason": "First-party marketing language is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "annotation_source": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+        "source_number": 9,
+        "text_basis": [
+          "summary",
+          "why_it_matters"
+        ],
+        "expected_count": 2,
+        "record_entity_ids": [
+          "company-hortifrut",
+          "breeding_program-atlantic-blue-royal-berries",
+          "geography-spain",
+          "company-berry-blue-llc"
+        ],
+        "record_berry_ids": [
+          "berry-blueberry"
+        ]
+      }
+    },
+    {
+      "id": "gold-10-fruitnet-eureka-sunrise-2023",
+      "title": "Taste of success for Eureka Sunrise",
+      "source_artifact": {
+        "id": "ev-fruitnet-eureka-sunrise-2023",
+        "title": "Taste of success for Eureka Sunrise",
+        "source_name": "Fresh Produce Journal / Fruitnet",
+        "source_url": "https://www.fruitnet.com/fresh-produce-journal/taste-of-success-for-eureka-sunrise/248114.article",
+        "captured_date": "2026-08-03",
+        "published_date": "2023-01-20",
+        "language": "en",
+        "locator_kind": "written_text",
+        "segments": [
+          {
+            "text": "Report by Michael Barker that Eureka Sunrise received a two-star Superior Taste Award from the International Taste Institute with a score of 86.5 percent, and that it is grown exclusively by BerryWorld growers in South Africa, Zimbabwe, Morocco, Spain and Portugal with plantings in Egypt. Quotes Adrian Olins, divisional chief executive of BerryWorld Group.",
+            "source_location": "summary"
+          },
+          {
+            "text": "Supplies a numeric independent sensory score, which is rare, and an explicit list of production countries for a single cultivar under an exclusive arrangement. Note that the award is a sensory panel result, not an agronomic measurement.",
+            "source_location": "why_it_matters"
+          }
+        ],
+        "entity_ids": [
+          "variety-eureka-sunrise",
+          "company-berryworld",
+          "company-mountain-blue-orchards",
+          "geography-south-africa",
+          "geography-morocco",
+          "geography-spain",
+          "trait-eating-quality"
+        ],
+        "geography_ids": [],
+        "berry_ids": [
+          "berry-blueberry"
+        ]
+      },
+      "expected_propositions": [
+        {
+          "id": "10a",
+          "statement": "The variety is \"Eureka Sunrise,\" bred by Mountain Blue Orchards (variety-eureka-sunrise, company-mountain-blue-orchards).",
+          "exact_excerpt": "Report by Michael Barker that Eureka Sunrise received a two-star Superior Taste Award from the International Taste Institute with a score of 86.5 percent, and that it is grown exclusively by BerryWorld growers in South Africa, Zimbabwe, Morocco, Spain and Portugal with plantings in Egypt. Quotes Adrian Olins, divisional chief executive of BerryWorld Group.",
+          "entity_ids": [
+            "variety-eureka-sunrise",
+            "company-mountain-blue-orchards"
+          ],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "identity",
+          "scope": {
+            "source_id": "ev-fruitnet-eureka-sunrise-2023",
+            "published_date": "2023-01-20",
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "...the separate variety \"Eureka\" (variety-eureka) — related but distinct, per the real parentage record in Section 9.",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "10b",
+          "statement": "Mountain Blue Orchards developed it (develops).",
+          "exact_excerpt": "Report by Michael Barker that Eureka Sunrise received a two-star Superior Taste Award from the International Taste Institute with a score of 86.5 percent, and that it is grown exclusively by BerryWorld growers in South Africa, Zimbabwe, Morocco, Spain and Portugal with plantings in Egypt. Quotes Adrian Olins, divisional chief executive of BerryWorld Group.",
+          "entity_ids": [
+            "company-mountain-blue-orchards"
+          ],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "breeder",
+          "scope": {
+            "source_id": "ev-fruitnet-eureka-sunrise-2023",
+            "published_date": "2023-01-20",
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "...the exclusive grower relationship below — breeding and growing are different predicates on different entities.",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "10c",
+          "statement": "Grown **exclusively** by BerryWorld growers (grows/sells, rel-berryworld-sells-eureka-sunrise).",
+          "exact_excerpt": "Report by Michael Barker that Eureka Sunrise received a two-star Superior Taste Award from the International Taste Institute with a score of 86.5 percent, and that it is grown exclusively by BerryWorld growers in South Africa, Zimbabwe, Morocco, Spain and Portugal with plantings in Egypt. Quotes Adrian Olins, divisional chief executive of BerryWorld Group.",
+          "entity_ids": [
+            "variety-eureka-sunrise",
+            "company-berryworld"
+          ],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "exclusive_grower_or_marketer",
+          "scope": {
+            "source_id": "ev-fruitnet-eureka-sunrise-2023",
+            "published_date": "2023-01-20",
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "...ownership of the variety itself — BerryWorld sells it, Mountain Blue Orchards bred and (per Section 9) owns the patent.",
+            "required_terms": [
+              "exclusively"
+            ]
+          }
+        },
+        {
+          "id": "10d",
+          "statement": "Two-star Superior Taste Award, 86.5% score from the International Taste Institute.",
+          "exact_excerpt": "Report by Michael Barker that Eureka Sunrise received a two-star Superior Taste Award from the International Taste Institute with a score of 86.5 percent, and that it is grown exclusively by BerryWorld growers in South Africa, Zimbabwe, Morocco, Spain and Portugal with plantings in Egypt. Quotes Adrian Olins, divisional chief executive of BerryWorld Group.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "sensory_or_independent_award",
+          "scope": {
+            "source_id": "ev-fruitnet-eureka-sunrise-2023",
+            "published_date": "2023-01-20",
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "...an agronomic or yield measurement — the source's own why_it_matters explicitly flags \"a sensory panel result, not an agronomic measurement\" (negative case 8).",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "10e",
+          "statement": "Grown in South Africa, Zimbabwe, Morocco, Spain, Portugal, with plantings in Egypt.",
+          "exact_excerpt": "Report by Michael Barker that Eureka Sunrise received a two-star Superior Taste Award from the International Taste Institute with a score of 86.5 percent, and that it is grown exclusively by BerryWorld growers in South Africa, Zimbabwe, Morocco, Spain and Portugal with plantings in Egypt. Quotes Adrian Olins, divisional chief executive of BerryWorld Group.",
+          "entity_ids": [],
+          "geography_ids": [
+            "geography-south-africa",
+            "geography-morocco",
+            "geography-spain"
+          ],
+          "berry_ids": [],
+          "claim_type": "geography",
+          "scope": {
+            "source_id": "ev-fruitnet-eureka-sunrise-2023",
+            "published_date": "2023-01-20",
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "...a single \"global\" claim — extract the named list, not a generalization beyond it.",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "10f",
+          "statement": "Adrian Olins, BerryWorld Group divisional chief executive, is quoted.",
+          "exact_excerpt": "Report by Michael Barker that Eureka Sunrise received a two-star Superior Taste Award from the International Taste Institute with a score of 86.5 percent, and that it is grown exclusively by BerryWorld growers in South Africa, Zimbabwe, Morocco, Spain and Portugal with plantings in Egypt. Quotes Adrian Olins, divisional chief executive of BerryWorld Group.",
+          "entity_ids": [
+            "company-berryworld"
+          ],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "attribution",
+          "scope": {
+            "source_id": "ev-fruitnet-eureka-sunrise-2023",
+            "published_date": "2023-01-20",
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "...a Mountain Blue Orchards statement — the quote is from the marketer, not the breeder; do not misattribute.",
+            "required_terms": []
+          }
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "ownership-implies-control",
+          "phrases": [
+            "ownership proves operational control",
+            "owns all variety-release decisions"
+          ],
+          "severity": "critical",
+          "reason": "Ownership alone does not establish operational control or decision rights."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": [
+            "therefore caused",
+            "proves that it caused",
+            "was caused by"
+          ],
+          "severity": "critical",
+          "reason": "Sequence or association is not evidence of causality."
+        },
+        {
+          "id": "registry-implies-commercialization",
+          "phrases": [
+            "patent proves commercial success",
+            "filing proves market adoption",
+            "grant proves commercialization"
+          ],
+          "severity": "critical",
+          "reason": "A filing or grant establishes an IP event, not commercialization or adoption."
+        },
+        {
+          "id": "interest-implies-commitment",
+          "phrases": [
+            "interest is a purchase commitment",
+            "visit created a signed supply agreement",
+            "feedback is a purchase order"
+          ],
+          "severity": "critical",
+          "reason": "Interest, a visit, or feedback is not a purchase/listing commitment."
+        },
+        {
+          "id": "award-implies-general-preference",
+          "phrases": [
+            "award proves general consumer preference",
+            "preferred by consumers in all markets"
+          ],
+          "severity": "critical",
+          "reason": "One award or panel does not establish general consumer preference."
+        },
+        {
+          "id": "local-trial-implies-universal-trait",
+          "phrases": [
+            "trial proves the trait universally",
+            "performs identically in all regions",
+            "universal agronomic trait"
+          ],
+          "severity": "critical",
+          "reason": "A located, dated trial cannot be generalized to every region or production system."
+        },
+        {
+          "id": "marketing-implies-independent-verification",
+          "phrases": [
+            "marketing claim is independently verified",
+            "company statement is proven fact",
+            "slogan proves"
+          ],
+          "severity": "critical",
+          "reason": "First-party marketing language is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "annotation_source": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+        "source_number": 10,
+        "text_basis": [
+          "summary",
+          "why_it_matters"
+        ],
+        "expected_count": 6,
+        "record_entity_ids": [
+          "variety-eureka-sunrise",
+          "company-berryworld",
+          "company-mountain-blue-orchards",
+          "geography-south-africa",
+          "geography-morocco",
+          "geography-spain",
+          "trait-eating-quality"
+        ],
+        "record_berry_ids": [
+          "berry-blueberry"
+        ]
+      }
+    },
+    {
+      "id": "gold-11-hortweek-driscolls-victoria-award",
+      "title": "Best New Variety Top/Soft Fruit -- Winner: Driscoll's Victoria, Berry Gardens",
+      "source_artifact": {
+        "id": "ev-hortweek-driscolls-victoria-award",
+        "title": "Best New Variety Top/Soft Fruit -- Winner: Driscoll's Victoria, Berry Gardens",
+        "source_name": "HortWeek",
+        "source_url": "https://www.hortweek.com/best-new-variety-top-soft-fruit-winner-driscolls-victoria-berry-gardens/fresh-produce/article/1425646",
+        "captured_date": "2026-08-21",
+        "published_date": "2017-08-01",
+        "language": "en",
+        "locator_kind": "written_text",
+        "segments": [
+          {
+            "text": "Driscoll's Victoria, grown by UK grower Berry Gardens (a Driscoll's growing partner), won HortWeek's Best New Variety (Top/Soft Fruit) award. Victoria is a large, sweet blackberry variety, in commercial production in California since 2005 and grown in the UK (Kent) by Berry Gardens/Salman's Farm.",
+            "source_location": "summary"
+          },
+          {
+            "text": "Confirms Victoria as a real, named, independently award-recognised Driscoll's blackberry variety grown commercially in the UK -- the grounding evidence for variety-victoria.",
+            "source_location": "why_it_matters"
+          }
+        ],
+        "entity_ids": [
+          "variety-victoria",
+          "company-driscolls"
+        ],
+        "geography_ids": [
+          "geography-united-kingdom",
+          "geography-united-states"
+        ],
+        "berry_ids": [
+          "berry-blackberry"
+        ]
+      },
+      "expected_propositions": [
+        {
+          "id": "11a",
+          "statement": "Victoria, a large sweet blackberry variety in commercial production in California since 2005, won HortWeek's Best New Variety (Top/Soft Fruit) award; grown in the UK (Kent) by Berry Gardens/Salman's Farm, a Driscoll's growing partner.",
+          "exact_excerpt": "Driscoll's Victoria, grown by UK grower Berry Gardens (a Driscoll's growing partner), won HortWeek's Best New Variety (Top/Soft Fruit) award. Victoria is a large, sweet blackberry variety, in commercial production in California since 2005 and grown in the UK (Kent) by Berry Gardens/Salman's Farm.",
+          "entity_ids": [
+            "variety-victoria"
+          ],
+          "geography_ids": [],
+          "berry_ids": [
+            "berry-blackberry"
+          ],
+          "claim_type": "identity/relationship",
+          "scope": {
+            "source_id": "ev-hortweek-driscolls-victoria-award",
+            "published_date": "2017-08-01",
+            "source_type": "trade_press",
+            "relationship_predicate": "grows (Berry Gardens→Victoria)",
+            "limitation": "Reuse the record's own real does_not_prove: does not establish market share, sales volume, or current (2026) UK acreage — the report dates to 2017.",
+            "required_terms": [
+              "2005"
+            ]
+          }
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "ownership-implies-control",
+          "phrases": [
+            "ownership proves operational control",
+            "owns all variety-release decisions"
+          ],
+          "severity": "critical",
+          "reason": "Ownership alone does not establish operational control or decision rights."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": [
+            "therefore caused",
+            "proves that it caused",
+            "was caused by"
+          ],
+          "severity": "critical",
+          "reason": "Sequence or association is not evidence of causality."
+        },
+        {
+          "id": "registry-implies-commercialization",
+          "phrases": [
+            "patent proves commercial success",
+            "filing proves market adoption",
+            "grant proves commercialization"
+          ],
+          "severity": "critical",
+          "reason": "A filing or grant establishes an IP event, not commercialization or adoption."
+        },
+        {
+          "id": "interest-implies-commitment",
+          "phrases": [
+            "interest is a purchase commitment",
+            "visit created a signed supply agreement",
+            "feedback is a purchase order"
+          ],
+          "severity": "critical",
+          "reason": "Interest, a visit, or feedback is not a purchase/listing commitment."
+        },
+        {
+          "id": "award-implies-general-preference",
+          "phrases": [
+            "award proves general consumer preference",
+            "preferred by consumers in all markets"
+          ],
+          "severity": "critical",
+          "reason": "One award or panel does not establish general consumer preference."
+        },
+        {
+          "id": "local-trial-implies-universal-trait",
+          "phrases": [
+            "trial proves the trait universally",
+            "performs identically in all regions",
+            "universal agronomic trait"
+          ],
+          "severity": "critical",
+          "reason": "A located, dated trial cannot be generalized to every region or production system."
+        },
+        {
+          "id": "marketing-implies-independent-verification",
+          "phrases": [
+            "marketing claim is independently verified",
+            "company statement is proven fact",
+            "slogan proves"
+          ],
+          "severity": "critical",
+          "reason": "First-party marketing language is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "annotation_source": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+        "source_number": 11,
+        "text_basis": [
+          "summary",
+          "why_it_matters"
+        ],
+        "expected_count": 1,
+        "record_entity_ids": [
+          "variety-victoria",
+          "company-driscolls"
+        ],
+        "record_berry_ids": [
+          "berry-blackberry"
+        ]
+      }
+    },
+    {
+      "id": "gold-12-fruitnet-driscolls-zara-best-strawberry",
+      "title": "Driscoll's Zara named 'best overall supermarket strawberry'",
+      "source_artifact": {
+        "id": "ev-fruitnet-driscolls-zara-best-strawberry",
+        "title": "Driscoll's Zara named 'best overall supermarket strawberry'",
+        "source_name": "Fruitnet",
+        "source_url": "https://www.fruitnet.com/fresh-produce-journal/driscolls-zara-named-best-overall-supermarket-strawberry/271913.article",
+        "captured_date": "2026-08-21",
+        "published_date": "2026-06-23",
+        "language": "en",
+        "locator_kind": "written_text",
+        "segments": [
+          {
+            "text": "The Guardian's taste test of strawberries from 10 major UK retailers named Driscoll's Zara the best overall supermarket strawberry. Zara is sold in the UK both under the Driscoll's brand and via retailer own-label packaging (e.g. Tesco's 'British Zara Strawberries').",
+            "source_location": "summary"
+          },
+          {
+            "text": "Confirms Zara as a real, named, commercially significant Driscoll's strawberry variety with independent (Guardian) taste-test corroboration, not just a marketing label -- the grounding evidence for variety-zara.",
+            "source_location": "why_it_matters"
+          }
+        ],
+        "entity_ids": [
+          "variety-zara",
+          "company-driscolls"
+        ],
+        "geography_ids": [
+          "geography-united-kingdom"
+        ],
+        "berry_ids": [
+          "berry-strawberry"
+        ]
+      },
+      "expected_propositions": [
+        {
+          "id": "12a",
+          "statement": "The Guardian's 10-retailer taste test named Driscoll's Zara \"best overall supermarket strawberry\"; sold in the UK both under the Driscoll's brand and via retailer own-label (e.g. Tesco \"British Zara Strawberries\").",
+          "exact_excerpt": "The Guardian's taste test of strawberries from 10 major UK retailers named Driscoll's Zara the best overall supermarket strawberry. Zara is sold in the UK both under the Driscoll's brand and via retailer own-label packaging (e.g. Tesco's 'British Zara Strawberries').",
+          "entity_ids": [
+            "variety-zara"
+          ],
+          "geography_ids": [],
+          "berry_ids": [
+            "berry-strawberry"
+          ],
+          "claim_type": "attribute/market_data",
+          "scope": {
+            "source_id": "ev-fruitnet-driscolls-zara-best-strawberry",
+            "published_date": "2026-06-23",
+            "source_type": "trade_press",
+            "relationship_predicate": "none",
+            "limitation": "Reuse the record's own real does_not_prove: does not establish market share/sales volume, and does not establish Zara is exclusive to Driscoll's-branded punnets. verification_state: single_source on the record itself — do not upgrade to corroborated.",
+            "required_terms": []
+          }
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "ownership-implies-control",
+          "phrases": [
+            "ownership proves operational control",
+            "owns all variety-release decisions"
+          ],
+          "severity": "critical",
+          "reason": "Ownership alone does not establish operational control or decision rights."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": [
+            "therefore caused",
+            "proves that it caused",
+            "was caused by"
+          ],
+          "severity": "critical",
+          "reason": "Sequence or association is not evidence of causality."
+        },
+        {
+          "id": "registry-implies-commercialization",
+          "phrases": [
+            "patent proves commercial success",
+            "filing proves market adoption",
+            "grant proves commercialization"
+          ],
+          "severity": "critical",
+          "reason": "A filing or grant establishes an IP event, not commercialization or adoption."
+        },
+        {
+          "id": "interest-implies-commitment",
+          "phrases": [
+            "interest is a purchase commitment",
+            "visit created a signed supply agreement",
+            "feedback is a purchase order"
+          ],
+          "severity": "critical",
+          "reason": "Interest, a visit, or feedback is not a purchase/listing commitment."
+        },
+        {
+          "id": "award-implies-general-preference",
+          "phrases": [
+            "award proves general consumer preference",
+            "preferred by consumers in all markets"
+          ],
+          "severity": "critical",
+          "reason": "One award or panel does not establish general consumer preference."
+        },
+        {
+          "id": "local-trial-implies-universal-trait",
+          "phrases": [
+            "trial proves the trait universally",
+            "performs identically in all regions",
+            "universal agronomic trait"
+          ],
+          "severity": "critical",
+          "reason": "A located, dated trial cannot be generalized to every region or production system."
+        },
+        {
+          "id": "marketing-implies-independent-verification",
+          "phrases": [
+            "marketing claim is independently verified",
+            "company statement is proven fact",
+            "slogan proves"
+          ],
+          "severity": "critical",
+          "reason": "First-party marketing language is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "annotation_source": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+        "source_number": 12,
+        "text_basis": [
+          "summary",
+          "why_it_matters"
+        ],
+        "expected_count": 1,
+        "record_entity_ids": [
+          "variety-zara",
+          "company-driscolls"
+        ],
+        "record_berry_ids": [
+          "berry-strawberry"
+        ]
+      }
+    },
+    {
+      "id": "gold-13-uspp031605-ridley-1602",
+      "title": "USPP031605P3 - 'Ridley 1602' (Eureka Sunrise)",
+      "source_artifact": {
+        "id": "ev-uspp031605-ridley-1602",
+        "title": "USPP031605P3 - 'Ridley 1602' (Eureka Sunrise)",
+        "source_name": "United States Patent and Trademark Office",
+        "source_url": "https://patents.google.com/patent/USPP31605P3/en",
+        "captured_date": "2026-08-03",
+        "published_date": "2020-03-31",
+        "language": "en",
+        "locator_kind": "written_text",
+        "segments": [
+          {
+            "text": "United States plant patent on 'Ridley 1602', application 15/732,875 filed 2018-01-09 and granted 2020-03-31. Inventor Ridley Bell, assignee Mountain Blue Orchards Pty Ltd. Breeding designation 'M14-16-02'; parentage 'Ridley 1403' (PP25,432) crossed with 'Ridley 4609', bred at Lindendale, New South Wales in 2011.",
+            "source_location": "summary"
+          },
+          {
+            "text": "Establishes that Eureka Sunrise is a genetically distinct cultivar descended from Eureka rather than a variant of it, and confirms the parent-offspring link between the two most commercially significant Mountain Blue selections.",
+            "source_location": "why_it_matters"
+          }
+        ],
+        "entity_ids": [
+          "variety-eureka-sunrise",
+          "patent-uspp031605p3",
+          "company-mountain-blue-orchards",
+          "variety-eureka",
+          "breeding_program-mountain-blue-blueberry-breeding"
+        ],
+        "geography_ids": [],
+        "berry_ids": [
+          "berry-blueberry"
+        ]
+      },
+      "expected_propositions": [
+        {
+          "id": "13a",
+          "statement": "APPLICATION: 15/732,875, filed 2018-01-09",
+          "exact_excerpt": "United States plant patent on 'Ridley 1602', application 15/732,875 filed 2018-01-09 and granted 2020-03-31. Inventor Ridley Bell, assignee Mountain Blue Orchards Pty Ltd. Breeding designation 'M14-16-02'; parentage 'Ridley 1403' (PP25,432) crossed with 'Ridley 4609', bred at Lindendale, New South Wales in 2011.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "registry_filing",
+          "scope": {
+            "source_id": "ev-uspp031605-ridley-1602",
+            "published_date": "2020-03-31",
+            "source_type": "patent_record",
+            "relationship_predicate": "none",
+            "limitation": "commercial production, acreage, or sales",
+            "required_terms": [
+              "filed",
+              "2018-01-09"
+            ]
+          }
+        },
+        {
+          "id": "13b",
+          "statement": "GRANT: 2020-03-31",
+          "exact_excerpt": "United States plant patent on 'Ridley 1602', application 15/732,875 filed 2018-01-09 and granted 2020-03-31. Inventor Ridley Bell, assignee Mountain Blue Orchards Pty Ltd. Breeding designation 'M14-16-02'; parentage 'Ridley 1403' (PP25,432) crossed with 'Ridley 4609', bred at Lindendale, New South Wales in 2011.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "registry_filing",
+          "scope": {
+            "source_id": "ev-uspp031605-ridley-1602",
+            "published_date": "2020-03-31",
+            "source_type": "patent_record",
+            "relationship_predicate": "none",
+            "limitation": "market adoption (see Source 7's real volume data as the *separate*, independently-needed proof of that)",
+            "required_terms": [
+              "2020-03-31"
+            ]
+          }
+        },
+        {
+          "id": "13c",
+          "statement": "RIGHTS-HOLDER (assignee): Mountain Blue Orchards Pty Ltd",
+          "exact_excerpt": "United States plant patent on 'Ridley 1602', application 15/732,875 filed 2018-01-09 and granted 2020-03-31. Inventor Ridley Bell, assignee Mountain Blue Orchards Pty Ltd. Breeding designation 'M14-16-02'; parentage 'Ridley 1403' (PP25,432) crossed with 'Ridley 4609', bred at Lindendale, New South Wales in 2011.",
+          "entity_ids": [
+            "company-mountain-blue-orchards"
+          ],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "registry_filing",
+          "scope": {
+            "source_id": "ev-uspp031605-ridley-1602",
+            "published_date": "2020-03-31",
+            "source_type": "patent_record",
+            "relationship_predicate": "none",
+            "limitation": "that MBO is the exclusive seller — BerryWorld is the grower/marketer (Section 8); assignee and marketer are different roles on different entities",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "13d",
+          "statement": "Inventor: Ridley Bell",
+          "exact_excerpt": "United States plant patent on 'Ridley 1602', application 15/732,875 filed 2018-01-09 and granted 2020-03-31. Inventor Ridley Bell, assignee Mountain Blue Orchards Pty Ltd. Breeding designation 'M14-16-02'; parentage 'Ridley 1403' (PP25,432) crossed with 'Ridley 4609', bred at Lindendale, New South Wales in 2011.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "registry_filing",
+          "scope": {
+            "source_id": "ev-uspp031605-ridley-1602",
+            "published_date": "2020-03-31",
+            "source_type": "patent_record",
+            "relationship_predicate": "none",
+            "limitation": "—",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "13e",
+          "statement": "DENOMINATION vs. breeding designation: Commercial name \"Eureka Sunrise\" vs. breeding code \"M14-16-02\" vs. patent title \"'Ridley 1602'\" — three distinct labels for one variety",
+          "exact_excerpt": "United States plant patent on 'Ridley 1602', application 15/732,875 filed 2018-01-09 and granted 2020-03-31. Inventor Ridley Bell, assignee Mountain Blue Orchards Pty Ltd. Breeding designation 'M14-16-02'; parentage 'Ridley 1403' (PP25,432) crossed with 'Ridley 4609', bred at Lindendale, New South Wales in 2011.",
+          "entity_ids": [
+            "variety-eureka-sunrise",
+            "variety-eureka"
+          ],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "registry_filing",
+          "scope": {
+            "source_id": "ev-uspp031605-ridley-1602",
+            "published_date": "2020-03-31",
+            "source_type": "patent_record",
+            "relationship_predicate": "none",
+            "limitation": "that these three names are three different varieties (this is the exact ambiguity Source 7c/7d surfaces independently)",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "13f",
+          "statement": "Parentage: 'Ridley 1403' (PP25,432) × 'Ridley 4609', bred Lindendale, NSW, 2011",
+          "exact_excerpt": "United States plant patent on 'Ridley 1602', application 15/732,875 filed 2018-01-09 and granted 2020-03-31. Inventor Ridley Bell, assignee Mountain Blue Orchards Pty Ltd. Breeding designation 'M14-16-02'; parentage 'Ridley 1403' (PP25,432) crossed with 'Ridley 4609', bred at Lindendale, New South Wales in 2011.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "attribute",
+          "scope": {
+            "source_id": "ev-uspp031605-ridley-1602",
+            "published_date": "2020-03-31",
+            "source_type": "patent_record",
+            "relationship_predicate": "none",
+            "limitation": "that Eureka Sunrise is a \"variant\" of Eureka rather than a distinct offspring cultivar — the source's own why_it_matters makes this exact distinction",
+            "required_terms": [
+              "2011"
+            ]
+          }
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "ownership-implies-control",
+          "phrases": [
+            "ownership proves operational control",
+            "owns all variety-release decisions"
+          ],
+          "severity": "critical",
+          "reason": "Ownership alone does not establish operational control or decision rights."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": [
+            "therefore caused",
+            "proves that it caused",
+            "was caused by"
+          ],
+          "severity": "critical",
+          "reason": "Sequence or association is not evidence of causality."
+        },
+        {
+          "id": "registry-implies-commercialization",
+          "phrases": [
+            "patent proves commercial success",
+            "filing proves market adoption",
+            "grant proves commercialization"
+          ],
+          "severity": "critical",
+          "reason": "A filing or grant establishes an IP event, not commercialization or adoption."
+        },
+        {
+          "id": "interest-implies-commitment",
+          "phrases": [
+            "interest is a purchase commitment",
+            "visit created a signed supply agreement",
+            "feedback is a purchase order"
+          ],
+          "severity": "critical",
+          "reason": "Interest, a visit, or feedback is not a purchase/listing commitment."
+        },
+        {
+          "id": "award-implies-general-preference",
+          "phrases": [
+            "award proves general consumer preference",
+            "preferred by consumers in all markets"
+          ],
+          "severity": "critical",
+          "reason": "One award or panel does not establish general consumer preference."
+        },
+        {
+          "id": "local-trial-implies-universal-trait",
+          "phrases": [
+            "trial proves the trait universally",
+            "performs identically in all regions",
+            "universal agronomic trait"
+          ],
+          "severity": "critical",
+          "reason": "A located, dated trial cannot be generalized to every region or production system."
+        },
+        {
+          "id": "marketing-implies-independent-verification",
+          "phrases": [
+            "marketing claim is independently verified",
+            "company statement is proven fact",
+            "slogan proves"
+          ],
+          "severity": "critical",
+          "reason": "First-party marketing language is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "annotation_source": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+        "source_number": 13,
+        "text_basis": [
+          "summary",
+          "why_it_matters"
+        ],
+        "expected_count": 6,
+        "record_entity_ids": [
+          "variety-eureka-sunrise",
+          "patent-uspp031605p3",
+          "company-mountain-blue-orchards",
+          "variety-eureka",
+          "breeding_program-mountain-blue-blueberry-breeding"
+        ],
+        "record_berry_ids": [
+          "berry-blueberry"
+        ]
+      }
+    },
+    {
+      "id": "gold-14-cfia-pbr-sekoya-grande",
+      "title": "Plant Breeders' Rights record - Sekoya Grande",
+      "source_artifact": {
+        "id": "ev-cfia-pbr-sekoya-grande",
+        "title": "Plant Breeders' Rights record - Sekoya Grande",
+        "source_name": "Canadian Food Inspection Agency",
+        "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011182e.shtml",
+        "captured_date": "2026-08-03",
+        "published_date": null,
+        "language": "en",
+        "locator_kind": "written_text",
+        "segments": [
+          {
+            "text": "Canadian plant breeders' rights record for 'FC13-122'. Application 18-9614 dated 2018-09-20, granted 2023-10-06, certificate 6925, expiring 2043-10-06. Breeders Peter Stefan Boches, Haley Belnap-McCall and Adam L. Wagner. Parentage 'ZF06-050' x 'ZF06-013' made in 2010 at Lowell, Oregon and selected in 2013. The examiner description records very strong vigour, large fruit, very firm fruit, high sweetness and high acidity, observed in a 2022 Chilliwack, British Columbia trial laid out as a randomised complete block with four replicates of three plants.",
+            "source_location": "summary"
+          },
+          {
+            "text": "Canadian plant breeders' rights examination reports are among the very few publicly available descriptions of a blueberry cultivar that are produced by an independent examiner from a replicated comparative trial with a named location and season. They are therefore the strongest available counterweight to owner trait claims, even though the descriptors are ordinal rather than numeric.",
+            "source_location": "why_it_matters"
+          }
+        ],
+        "entity_ids": [
+          "variety-sekoya-grande",
+          "company-fall-creek-farm-and-nursery",
+          "trait-fruit-firmness",
+          "trait-fruit-size",
+          "trait-eating-quality"
+        ],
+        "geography_ids": [],
+        "berry_ids": [
+          "berry-blueberry"
+        ]
+      },
+      "expected_propositions": [
+        {
+          "id": "14a",
+          "statement": "APPLICATION: 18-9614, dated 2018-09-20",
+          "exact_excerpt": "Canadian plant breeders' rights record for 'FC13-122'. Application 18-9614 dated 2018-09-20, granted 2023-10-06, certificate 6925, expiring 2043-10-06. Breeders Peter Stefan Boches, Haley Belnap-McCall and Adam L. Wagner. Parentage 'ZF06-050' x 'ZF06-013' made in 2010 at Lowell, Oregon and selected in 2013. The examiner description records very strong vigour, large fruit, very firm fruit, high sweetness and high acidity, observed in a 2022 Chilliwack, British Columbia trial laid out as a randomised complete block with four replicates of three plants.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "registry_filing",
+          "scope": {
+            "source_id": "ev-cfia-pbr-sekoya-grande",
+            "published_date": null,
+            "source_type": "plant_breeders_rights_record",
+            "relationship_predicate": "none",
+            "limitation": "—",
+            "required_terms": [
+              "2018-09-20"
+            ]
+          }
+        },
+        {
+          "id": "14b",
+          "statement": "GRANT: 2023-10-06, certificate 6925",
+          "exact_excerpt": "Canadian plant breeders' rights record for 'FC13-122'. Application 18-9614 dated 2018-09-20, granted 2023-10-06, certificate 6925, expiring 2043-10-06. Breeders Peter Stefan Boches, Haley Belnap-McCall and Adam L. Wagner. Parentage 'ZF06-050' x 'ZF06-013' made in 2010 at Lowell, Oregon and selected in 2013. The examiner description records very strong vigour, large fruit, very firm fruit, high sweetness and high acidity, observed in a 2022 Chilliwack, British Columbia trial laid out as a randomised complete block with four replicates of three plants.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "registry_filing",
+          "scope": {
+            "source_id": "ev-cfia-pbr-sekoya-grande",
+            "published_date": null,
+            "source_type": "plant_breeders_rights_record",
+            "relationship_predicate": "none",
+            "limitation": "—",
+            "required_terms": [
+              "2023-10-06"
+            ]
+          }
+        },
+        {
+          "id": "14c",
+          "statement": "Expiration: 2043-10-06",
+          "exact_excerpt": "Canadian plant breeders' rights record for 'FC13-122'. Application 18-9614 dated 2018-09-20, granted 2023-10-06, certificate 6925, expiring 2043-10-06. Breeders Peter Stefan Boches, Haley Belnap-McCall and Adam L. Wagner. Parentage 'ZF06-050' x 'ZF06-013' made in 2010 at Lowell, Oregon and selected in 2013. The examiner description records very strong vigour, large fruit, very firm fruit, high sweetness and high acidity, observed in a 2022 Chilliwack, British Columbia trial laid out as a randomised complete block with four replicates of three plants.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "registry_filing",
+          "scope": {
+            "source_id": "ev-cfia-pbr-sekoya-grande",
+            "published_date": null,
+            "source_type": "plant_breeders_rights_record",
+            "relationship_predicate": "none",
+            "limitation": "current commercial status — a still-valid certificate says nothing about whether the variety is still in active production",
+            "required_terms": [
+              "2043-10-06"
+            ]
+          }
+        },
+        {
+          "id": "14d",
+          "statement": "RIGHTS-HOLDER: Named individual breeders (Peter Stefan Boches, Haley Belnap-McCall, Adam L. Wagner)",
+          "exact_excerpt": "Canadian plant breeders' rights record for 'FC13-122'. Application 18-9614 dated 2018-09-20, granted 2023-10-06, certificate 6925, expiring 2043-10-06. Breeders Peter Stefan Boches, Haley Belnap-McCall and Adam L. Wagner. Parentage 'ZF06-050' x 'ZF06-013' made in 2010 at Lowell, Oregon and selected in 2013. The examiner description records very strong vigour, large fruit, very firm fruit, high sweetness and high acidity, observed in a 2022 Chilliwack, British Columbia trial laid out as a randomised complete block with four replicates of three plants.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "registry_filing",
+          "scope": {
+            "source_id": "ev-cfia-pbr-sekoya-grande",
+            "published_date": null,
+            "source_type": "plant_breeders_rights_record",
+            "relationship_predicate": "none",
+            "limitation": "that Fall Creek Farm & Nursery is the rights-holder of record — the certificate names people, not the company; do not silently substitute the company entity for the named breeders without a separate assignment record",
+            "required_terms": []
+          }
+        },
+        {
+          "id": "14e",
+          "statement": "Parentage: 'ZF06-050' × 'ZF06-013', made 2010 Lowell, Oregon, selected 2013",
+          "exact_excerpt": "Canadian plant breeders' rights record for 'FC13-122'. Application 18-9614 dated 2018-09-20, granted 2023-10-06, certificate 6925, expiring 2043-10-06. Breeders Peter Stefan Boches, Haley Belnap-McCall and Adam L. Wagner. Parentage 'ZF06-050' x 'ZF06-013' made in 2010 at Lowell, Oregon and selected in 2013. The examiner description records very strong vigour, large fruit, very firm fruit, high sweetness and high acidity, observed in a 2022 Chilliwack, British Columbia trial laid out as a randomised complete block with four replicates of three plants.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "attribute",
+          "scope": {
+            "source_id": "ev-cfia-pbr-sekoya-grande",
+            "published_date": null,
+            "source_type": "plant_breeders_rights_record",
+            "relationship_predicate": "none",
+            "limitation": "—",
+            "required_terms": [
+              "2010",
+              "2013"
+            ]
+          }
+        },
+        {
+          "id": "14f",
+          "statement": "Independent examiner description: \"very strong vigour, large fruit, very firm fruit, high sweetness and high acidity,\" 2022 Chilliwack BC trial, randomised complete block, 4 reps × 3 plants",
+          "exact_excerpt": "Canadian plant breeders' rights record for 'FC13-122'. Application 18-9614 dated 2018-09-20, granted 2023-10-06, certificate 6925, expiring 2043-10-06. Breeders Peter Stefan Boches, Haley Belnap-McCall and Adam L. Wagner. Parentage 'ZF06-050' x 'ZF06-013' made in 2010 at Lowell, Oregon and selected in 2013. The examiner description records very strong vigour, large fruit, very firm fruit, high sweetness and high acidity, observed in a 2022 Chilliwack, British Columbia trial laid out as a randomised complete block with four replicates of three plants.",
+          "entity_ids": [],
+          "geography_ids": [],
+          "berry_ids": [],
+          "claim_type": "attribute",
+          "scope": {
+            "source_id": "ev-cfia-pbr-sekoya-grande",
+            "published_date": null,
+            "source_type": "plant_breeders_rights_record",
+            "relationship_predicate": "none",
+            "limitation": "market adoption, commercial volume, or grower count — an examiner trial description is the strongest *agronomic* evidence in this entire gold set (an independent, replicated, located, dated trial), but it is still not a commercial-success claim (negative case 6)",
+            "required_terms": [
+              "2022"
+            ]
+          }
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "ownership-implies-control",
+          "phrases": [
+            "ownership proves operational control",
+            "owns all variety-release decisions"
+          ],
+          "severity": "critical",
+          "reason": "Ownership alone does not establish operational control or decision rights."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": [
+            "therefore caused",
+            "proves that it caused",
+            "was caused by"
+          ],
+          "severity": "critical",
+          "reason": "Sequence or association is not evidence of causality."
+        },
+        {
+          "id": "registry-implies-commercialization",
+          "phrases": [
+            "patent proves commercial success",
+            "filing proves market adoption",
+            "grant proves commercialization"
+          ],
+          "severity": "critical",
+          "reason": "A filing or grant establishes an IP event, not commercialization or adoption."
+        },
+        {
+          "id": "interest-implies-commitment",
+          "phrases": [
+            "interest is a purchase commitment",
+            "visit created a signed supply agreement",
+            "feedback is a purchase order"
+          ],
+          "severity": "critical",
+          "reason": "Interest, a visit, or feedback is not a purchase/listing commitment."
+        },
+        {
+          "id": "award-implies-general-preference",
+          "phrases": [
+            "award proves general consumer preference",
+            "preferred by consumers in all markets"
+          ],
+          "severity": "critical",
+          "reason": "One award or panel does not establish general consumer preference."
+        },
+        {
+          "id": "local-trial-implies-universal-trait",
+          "phrases": [
+            "trial proves the trait universally",
+            "performs identically in all regions",
+            "universal agronomic trait"
+          ],
+          "severity": "critical",
+          "reason": "A located, dated trial cannot be generalized to every region or production system."
+        },
+        {
+          "id": "marketing-implies-independent-verification",
+          "phrases": [
+            "marketing claim is independently verified",
+            "company statement is proven fact",
+            "slogan proves"
+          ],
+          "severity": "critical",
+          "reason": "First-party marketing language is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "annotation_source": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+        "source_number": 14,
+        "text_basis": [
+          "summary",
+          "why_it_matters"
+        ],
+        "expected_count": 6,
+        "record_entity_ids": [
+          "variety-sekoya-grande",
+          "company-fall-creek-farm-and-nursery",
+          "trait-fruit-firmness",
+          "trait-fruit-size",
+          "trait-eating-quality"
+        ],
+        "record_berry_ids": [
+          "berry-blueberry"
+        ]
+      }
+    },
+    {
+      "id": "gold-15-20260806173539-86c2-tsbc-partners-with-berrytech-on-new-rasp",
+      "title": "TSBC partners with Berrytech on new raspberry variety - Hort News",
+      "source_artifact": {
+        "id": "ev-20260806173539-86c2-tsbc-partners-with-berrytech-on-new-rasp",
+        "title": "TSBC partners with Berrytech on new raspberry variety - Hort News",
+        "source_name": "Hort News",
+        "source_url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQdkhhZElyb0tQbC1TZklkdGRPX3VmaWRJYnEwQnZkaFhtR0V6Z2IwNE1iUnI4WE5tUm8zMU15ZmI3WHZQMk5zTy1YeEFqTWlCeENlQ0JMQVpITnctWjJXNW5YdmFZeEFNOHV5OTZVbUM5NUVnRHdITGtGd0Jvc096Uw?oc=5",
+        "captured_date": "2026-08-06",
+        "published_date": "2023-10-20",
+        "language": "en",
+        "locator_kind": "written_text",
+        "segments": [
+          {
+            "text": "West Sussex-based soft-fruit producer The Summer Berry Company (TSBC) has signed a deal with Italian breeder Berrytech to exclusively grow and distribute the raspberry variety Amalia Rossa. The agreement relates to the UK, Republic of Ireland and Portugal, where TSBC also has production facilities. According to the report, the deal will also see TSBC establish […]",
+            "source_location": "summary"
+          }
+        ],
+        "entity_ids": [
+          "company-berrytech",
+          "company-the-summer-berry-company",
+          "variety-amalia-rossa"
+        ],
+        "geography_ids": [],
+        "berry_ids": [
+          "berry-raspberry"
+        ]
+      },
+      "expected_propositions": [
+        {
+          "id": "15a",
+          "statement": "TSBC signed an exclusive UK/Ireland/Portugal grow-and-distribute deal with Berrytech for raspberry variety Amalia Rossa on 2023-10-20.",
+          "exact_excerpt": "West Sussex-based soft-fruit producer The Summer Berry Company (TSBC) has signed a deal with Italian breeder Berrytech to exclusively grow and distribute the raspberry variety Amalia Rossa. The agreement relates to the UK, Republic of Ireland and Portugal, where TSBC also has production facilities. According to the report, the deal will also see TSBC establish […]",
+          "entity_ids": [
+            "company-berrytech",
+            "variety-amalia-rossa"
+          ],
+          "geography_ids": [],
+          "berry_ids": [
+            "berry-raspberry"
+          ],
+          "claim_type": "relationship",
+          "scope": {
+            "source_id": "ev-20260806173539-86c2-tsbc-partners-with-berrytech-on-new-rasp",
+            "published_date": "2023-10-20",
+            "source_type": "news_search",
+            "relationship_predicate": "none",
+            "limitation": "Thin source: do not pad with unsupported roles or claims.",
+            "required_terms": [
+              "exclusive",
+              "2023-10-20"
+            ]
+          }
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "ownership-implies-control",
+          "phrases": [
+            "ownership proves operational control",
+            "owns all variety-release decisions"
+          ],
+          "severity": "critical",
+          "reason": "Ownership alone does not establish operational control or decision rights."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": [
+            "therefore caused",
+            "proves that it caused",
+            "was caused by"
+          ],
+          "severity": "critical",
+          "reason": "Sequence or association is not evidence of causality."
+        },
+        {
+          "id": "registry-implies-commercialization",
+          "phrases": [
+            "patent proves commercial success",
+            "filing proves market adoption",
+            "grant proves commercialization"
+          ],
+          "severity": "critical",
+          "reason": "A filing or grant establishes an IP event, not commercialization or adoption."
+        },
+        {
+          "id": "interest-implies-commitment",
+          "phrases": [
+            "interest is a purchase commitment",
+            "visit created a signed supply agreement",
+            "feedback is a purchase order"
+          ],
+          "severity": "critical",
+          "reason": "Interest, a visit, or feedback is not a purchase/listing commitment."
+        },
+        {
+          "id": "award-implies-general-preference",
+          "phrases": [
+            "award proves general consumer preference",
+            "preferred by consumers in all markets"
+          ],
+          "severity": "critical",
+          "reason": "One award or panel does not establish general consumer preference."
+        },
+        {
+          "id": "local-trial-implies-universal-trait",
+          "phrases": [
+            "trial proves the trait universally",
+            "performs identically in all regions",
+            "universal agronomic trait"
+          ],
+          "severity": "critical",
+          "reason": "A located, dated trial cannot be generalized to every region or production system."
+        },
+        {
+          "id": "marketing-implies-independent-verification",
+          "phrases": [
+            "marketing claim is independently verified",
+            "company statement is proven fact",
+            "slogan proves"
+          ],
+          "severity": "critical",
+          "reason": "First-party marketing language is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "annotation_source": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+        "source_number": 15,
+        "text_basis": [
+          "summary"
+        ],
+        "expected_count": 1,
+        "record_entity_ids": [
+          "company-berrytech",
+          "company-the-summer-berry-company",
+          "variety-amalia-rossa"
+        ],
+        "record_berry_ids": [
+          "berry-raspberry"
+        ]
+      }
+    },
+    {
+      "id": "gold-16-20260806173540-a6ec-new-year-round-premium-blackberry-platfo",
+      "title": "New Year-Round Premium Blackberry Platform Launched by Plant Sciences Genetics - The Packer",
+      "source_artifact": {
+        "id": "ev-20260806173540-a6ec-new-year-round-premium-blackberry-platfo",
+        "title": "New Year-Round Premium Blackberry Platform Launched by Plant Sciences Genetics - The Packer",
+        "source_name": "The Packer",
+        "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPYUJZMkNXY3pHODkxQnptdG9JNkpXeGJiVzJDWk1NY3RRRnBTek1GSmtfM0N4aDR5U3lVdEpLVEw4X3R1Z0xCTlk5T3Y1eVpYOWJueWZhWGdjakwxUFViVlFQUWQzelE2UnRTU3NVLTdGUXgwX05FNldwUzROSzQwTThIY3R3S1dlT0JDcUhrX1lVWXJQNVFLNXNLNUdvZFBxc3NSRmZLelhsQQ?oc=5",
+        "captured_date": "2026-08-06",
+        "published_date": "2026-08-04",
+        "language": "en",
+        "locator_kind": "written_text",
+        "segments": [
+          {
+            "text": "Built around the new BK 6-13 variety, the company's program boasts steady supply and high-spec fruit year-round.",
+            "source_location": "summary"
+          }
+        ],
+        "entity_ids": [
+          "company-plant-sciences-genetics",
+          "brand-rejoice",
+          "variety-bk-6-13"
+        ],
+        "geography_ids": [],
+        "berry_ids": [
+          "berry-blackberry"
+        ]
+      },
+      "expected_propositions": [
+        {
+          "id": "16a",
+          "statement": "PSG's year-round Rejoice blackberry platform is built around the named cultivar BK 6-13.",
+          "exact_excerpt": "Built around the new BK 6-13 variety, the company's program boasts steady supply and high-spec fruit year-round.",
+          "entity_ids": [
+            "brand-rejoice",
+            "variety-bk-6-13"
+          ],
+          "geography_ids": [],
+          "berry_ids": [
+            "berry-blackberry"
+          ],
+          "claim_type": "identity",
+          "scope": {
+            "source_id": "ev-20260806173540-a6ec-new-year-round-premium-blackberry-platfo",
+            "published_date": "2026-08-04",
+            "source_type": "news_search",
+            "relationship_predicate": "none",
+            "limitation": "Thin source: do not pad with unsupported roles or claims.",
+            "required_terms": []
+          }
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "ownership-implies-control",
+          "phrases": [
+            "ownership proves operational control",
+            "owns all variety-release decisions"
+          ],
+          "severity": "critical",
+          "reason": "Ownership alone does not establish operational control or decision rights."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": [
+            "therefore caused",
+            "proves that it caused",
+            "was caused by"
+          ],
+          "severity": "critical",
+          "reason": "Sequence or association is not evidence of causality."
+        },
+        {
+          "id": "registry-implies-commercialization",
+          "phrases": [
+            "patent proves commercial success",
+            "filing proves market adoption",
+            "grant proves commercialization"
+          ],
+          "severity": "critical",
+          "reason": "A filing or grant establishes an IP event, not commercialization or adoption."
+        },
+        {
+          "id": "interest-implies-commitment",
+          "phrases": [
+            "interest is a purchase commitment",
+            "visit created a signed supply agreement",
+            "feedback is a purchase order"
+          ],
+          "severity": "critical",
+          "reason": "Interest, a visit, or feedback is not a purchase/listing commitment."
+        },
+        {
+          "id": "award-implies-general-preference",
+          "phrases": [
+            "award proves general consumer preference",
+            "preferred by consumers in all markets"
+          ],
+          "severity": "critical",
+          "reason": "One award or panel does not establish general consumer preference."
+        },
+        {
+          "id": "local-trial-implies-universal-trait",
+          "phrases": [
+            "trial proves the trait universally",
+            "performs identically in all regions",
+            "universal agronomic trait"
+          ],
+          "severity": "critical",
+          "reason": "A located, dated trial cannot be generalized to every region or production system."
+        },
+        {
+          "id": "marketing-implies-independent-verification",
+          "phrases": [
+            "marketing claim is independently verified",
+            "company statement is proven fact",
+            "slogan proves"
+          ],
+          "severity": "critical",
+          "reason": "First-party marketing language is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "annotation_source": "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md",
+        "source_number": 16,
+        "text_basis": [
+          "summary"
+        ],
+        "expected_count": 1,
+        "record_entity_ids": [
+          "company-plant-sciences-genetics",
+          "brand-rejoice",
+          "variety-bk-6-13"
+        ],
+        "record_berry_ids": [
+          "berry-blackberry"
+        ]
+      }
+    }
+  ]
+}

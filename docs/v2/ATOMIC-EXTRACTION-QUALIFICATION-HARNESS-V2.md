@@ -2,11 +2,13 @@
 
 ## Status and boundary
 
-The harness is ready to consume Atomic Evidence Gold Set V1 through the
-`atomic-evidence-gold-set-v1` contract. The canonical Gold Set is being authored
-separately and was not present on origin when this implementation began; this
-mission therefore commits only a minimal test fixture, not a competing
-qualification benchmark.
+The harness consumes Claude's reviewed Atomic Evidence Gold Set V1 through the
+`atomic-evidence-gold-set-v1` contract. The human-owned benchmark remains
+`ATOMIC-EVIDENCE-GOLD-SET-V1.md`; a deterministic materializer copies its 16
+trusted scored sources and 54 proposition annotations into the executable JSON
+fixture, records the document SHA-256, and fails if the checked-in representation
+is stale. The pending Planasa flagship and transcript-less spoken-media source
+remain explicitly outside scoring. The separate minimal fixture is test-only.
 
 Qualification grants permission to generate **untrusted** Atomic Evidence
 proposals. It does not publish them, approve them, enable recurring extraction,
@@ -38,7 +40,7 @@ optional thresholds, and nonempty `cases`. Each case supports:
 - a source artifact containing text or ordered segments and optional source metadata;
 - expected atomic propositions with stable ID, normalized proposition,
   one or more exact excerpts, entity/geography/berry IDs, structured scope,
-  claim type, deterministic matching terms, and optional timestamps;
+  claim type, deterministic matching terms, and optional real timestamps;
 - forbidden propositions expressed as exact phrases or required-term sets,
   with `critical` or `major` severity and a human reason;
 - scoring metadata for review context.
@@ -46,8 +48,9 @@ optional thresholds, and nonempty `cases`. Each case supports:
 Compatibility aliases are deliberately narrow (`benchmark_id`, `case_id`,
 `expected_atomic_propositions`, `proposition`, and singular `exact_excerpt`).
 Unknown fields fail closed so a changed fixture cannot silently receive a
-different interpretation. When the canonical Gold Set lands, the harness must
-be re-fetched and its actual file validated before a real candidate run.
+different interpretation. Written-text sources retain `summary`/
+`why_it_matters` source locations; deterministic internal transport offsets are
+never persisted or reported as fabricated media timestamps.
 
 ## Deterministic scoring
 
@@ -115,7 +118,14 @@ The recurring runner additionally computes the current Gold Set SHA before it
 accepts a marker. `BIOS_COLLECTION_ENABLE_EXTRACTION` remains off by default;
 the production scheduler does not opt in.
 
-## Running after the canonical Gold Set lands
+## Running a candidate
+
+First verify that the executable representation still matches the human-owned
+Gold Set:
+
+```powershell
+python scripts/materialize_atomic_gold_set.py --check
+```
 
 ```powershell
 python scripts/qualify_extraction_model.py evaluate `
@@ -131,7 +141,25 @@ with `PERPLEXITY_API_KEY` already set in the operator environment. Do not print
 or copy the key. Candidate comparison should keep quality thresholds fixed and
 report latency/cost separately.
 
-No candidate was executed in this implementation session because the canonical
-Gold Set was not yet available. That missing fixture—not infrastructure—is the
-next external prerequisite. Credentials/endpoints must also already be safely
-configured before comparing real models.
+For a private Gold-only comparison when no trusted real transcript exists:
+
+```powershell
+python scripts/qualify_extraction_model.py compare-gold `
+  --provider perplexity-agent `
+  --model <exact-routed-model>
+```
+
+That command writes a checksummed artifact under gitignored
+`inbox/qualifications/candidate-comparisons/`, explicitly marks it
+`qualification_eligible: false`, and cannot create a review packet or marker.
+Full approval still requires the complete `evaluate` workflow.
+
+Live readiness in this implementation session: authenticated model discovery
+succeeded; `anthropic/claude-sonnet-5` reached the Agent endpoint but rejected
+the strict structured request with HTTP 400, while
+`openai/gpt-5.4-mini` returned the exact requested identity and a valid empty
+probe response in 4.164 seconds (511 total tokens). The subsequent Gold call was
+not executed because sending repository source text to the external provider
+requires explicit data-export approval. LM Studio was not running/configured.
+Semantic Gold quality, cost, and full qualification therefore remain unmeasured.
+No model was approved or enabled.

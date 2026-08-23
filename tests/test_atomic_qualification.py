@@ -1,6 +1,8 @@
 """Offline qualification scoring against the Gold Set V1 contract."""
 
 from copy import deepcopy
+import hashlib
+import json
 from pathlib import Path
 
 import pytest
@@ -14,6 +16,9 @@ from app.services.atomic_qualification import (
 
 
 FIXTURE = Path(__file__).parent / "fixtures" / "atomic-evidence-gold-set-contract-v1.json"
+ROOT = Path(__file__).resolve().parents[1]
+CANONICAL_FIXTURE = ROOT / "benchmarks" / "atomic-evidence-gold-set-v1.json"
+CANONICAL_DOCUMENT = ROOT / "docs" / "v2" / "ATOMIC-EVIDENCE-GOLD-SET-V1.md"
 
 
 @pytest.fixture
@@ -144,3 +149,43 @@ def test_unknown_contract_fields_fail_closed(tmp_path):
     path.write_text(payload, encoding="utf-8")
     with pytest.raises(GoldSetContractError, match="unsupported fields"):
         load_atomic_gold_set(path)
+
+
+def test_canonical_gold_set_is_sha_bound_and_complete():
+    gold = load_atomic_gold_set(CANONICAL_FIXTURE)
+    document_sha = hashlib.sha256(CANONICAL_DOCUMENT.read_bytes()).hexdigest()
+    assert gold.gold_set_id == "atomic-evidence-gold-set-v1"
+    assert gold.source_document == "docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md"
+    assert gold.source_document_sha256 == document_sha
+    assert len(gold.cases) == 16
+    assert sum(len(case.expected_propositions) for case in gold.cases) == 54
+    assert all(case.source_artifact["locator_kind"] == "written_text" for case in gold.cases)
+    assert all(
+        segment["start_seconds"] is None and segment.get("source_location") in {"summary", "why_it_matters"}
+        for case in gold.cases for segment in case.source_artifact["segments"]
+    )
+    source_ids = {case.source_artifact["id"] for case in gold.cases}
+    assert "ev-media-069f07925d20b2d93743" not in source_ids
+    assert "ev-lucentlands-scaling-blueberry-industry-2025" not in source_ids
+
+
+def test_canonical_gold_set_carries_every_strict_overreach_rule():
+    gold = load_atomic_gold_set(CANONICAL_FIXTURE)
+    expected = {
+        "ownership-implies-control",
+        "unsupported-causality",
+        "registry-implies-commercialization",
+        "interest-implies-commitment",
+        "award-implies-general-preference",
+        "local-trial-implies-universal-trait",
+        "marketing-implies-independent-verification",
+    }
+    assert all({rule.rule_id for rule in case.forbidden_propositions} == expected for case in gold.cases)
+
+
+def test_materialized_fixture_matches_reviewed_document():
+    from scripts.materialize_atomic_gold_set import materialize
+
+    expected = materialize(CANONICAL_DOCUMENT)
+    actual = json.loads(CANONICAL_FIXTURE.read_text(encoding="utf-8"))
+    assert actual == expected

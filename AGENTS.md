@@ -33,6 +33,12 @@ gitignored `inbox/qualifications/` and must not enter static output. Normal CI
 uses deterministic fixture responses only; never add live model calls to the
 required PR checks. Recurring extraction remains disabled unless an operator
 separately opts in with a currently matching marker.
+`docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md` is the human-owned benchmark;
+`benchmarks/atomic-evidence-gold-set-v1.json` is its executable representation.
+Run `python scripts/materialize_atomic_gold_set.py --check` before candidate
+comparison and never hand-edit a second competing fixture. A live Gold run sends
+source text to the configured model endpoint and requires explicit authorization
+for that destination; transport probing alone does not grant data-export scope.
 
 Duplicate publish of an already-trusted publication id is not a 500: identical identity returns already-published success; conflicting identity returns a 409 review page and does not overwrite trusted data.
 

@@ -33,6 +33,7 @@ from app.services.model_qualification import (
     load_cached_transcript,
     provider_qualification_configuration,
     revoke_qualification,
+    run_gold_candidate_comparison,
     run_qualification_evaluation,
 )
 
@@ -79,6 +80,15 @@ def _parser() -> argparse.ArgumentParser:
     evaluate.add_argument("--transcript-item")
     evaluate.add_argument("--parent-evidence", default=DEFAULT_REAL_PARENT_ID)
     evaluate.add_argument("--sample-windows", type=int, default=8)
+
+    compare = commands.add_parser(
+        "compare-gold",
+        help="Run and persist a private Gold-only candidate comparison (never qualification-eligible)",
+    )
+    _provider_options(compare)
+    compare.add_argument("--gold-set-file", type=Path, default=DEFAULT_GOLD_SET)
+    compare.add_argument("--inbox-dir", type=Path, default=ROOT / "inbox")
+    compare.add_argument("--output-dir", type=Path)
 
     approve = commands.add_parser("approve", help="Explicitly approve one complete, integrity-checked evaluation")
     approve.add_argument("--evaluation", type=Path, required=True)
@@ -170,6 +180,29 @@ def main(argv: list[str] | None = None) -> int:
             report["endpoint_identity"] = provider_qualification_configuration(provider)["endpoint_identity"]
             print(json.dumps(report, indent=2, ensure_ascii=False))
             return 0 if report["compatible_response_received"] else 1
+
+        if args.command == "compare-gold":
+            gold_set = load_atomic_gold_set(args.gold_set_file)
+            output_dir = args.output_dir or args.inbox_dir / "qualifications" / "candidate-comparisons"
+            artifact_path = run_gold_candidate_comparison(
+                provider=provider,
+                gold_set=gold_set,
+                gold_set_sha256=file_sha256(args.gold_set_file),
+                output_dir=output_dir,
+            )
+            artifact = json.loads(artifact_path.read_text(encoding="utf-8"))
+            report = artifact["atomic_gold_set"]
+            print(json.dumps({
+                "state": "gold_candidate_comparison_complete",
+                "artifact": str(artifact_path),
+                "qualification_eligible": False,
+                "gold_set_passed": report["passed"],
+                "gold_set_metrics": report["metrics"],
+                "critical_overreach": report["critical_overreach"],
+                "failure_rate": report["failure_rate"],
+                "next_action": "Compare the private artifact; run the full evaluate workflow before any explicit approval.",
+            }, indent=2, ensure_ascii=False))
+            return 0 if report["passed"] else 1
 
         if args.sample_windows < 1:
             raise QualificationError("--sample-windows must be positive")

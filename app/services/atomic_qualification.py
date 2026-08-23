@@ -85,6 +85,8 @@ class AtomicGoldSet:
     description: str
     thresholds: dict[str, float]
     cases: tuple[GoldCase, ...]
+    source_document: str | None = None
+    source_document_sha256: str | None = None
 
 
 def _normalized(value: str) -> str:
@@ -150,19 +152,31 @@ def _source_segments(source: dict[str, Any], detail: str) -> list[dict[str, Any]
         if not isinstance(segment, dict):
             raise GoldSetContractError(f"{detail}.source_artifact.segments[{index}] must be an object")
         text = segment.get("text")
-        start = segment.get("start_seconds", float(index))
+        start = segment.get("start_seconds")
         end = segment.get("end_seconds")
+        source_location = segment.get("source_location")
         if not isinstance(text, str) or not text.strip():
             raise GoldSetContractError(f"{detail}.source_artifact.segments[{index}].text is required")
-        if not isinstance(start, (int, float)) or isinstance(start, bool) or float(start) < prior:
+        if start is not None and (
+            not isinstance(start, (int, float)) or isinstance(start, bool) or float(start) < prior
+        ):
             raise GoldSetContractError(f"{detail}.source_artifact segment timestamps must be ordered")
-        if end is not None and (not isinstance(end, (int, float)) or isinstance(end, bool) or end < start):
+        if end is not None and (
+            start is None
+            or not isinstance(end, (int, float))
+            or isinstance(end, bool)
+            or end < start
+        ):
             raise GoldSetContractError(f"{detail}.source_artifact.segments[{index}].end_seconds is invalid")
-        prior = float(start)
+        if source_location is not None and (not isinstance(source_location, str) or not source_location.strip()):
+            raise GoldSetContractError(f"{detail}.source_artifact.segments[{index}].source_location is invalid")
+        if start is not None:
+            prior = float(start)
         output.append({
             "text": text.strip(),
-            "start_seconds": float(start),
+            "start_seconds": float(start) if start is not None else None,
             "end_seconds": float(end) if end is not None else None,
+            **({"source_location": source_location.strip()} if isinstance(source_location, str) else {}),
             **({"speaker_label": segment["speaker_label"]} if isinstance(segment.get("speaker_label"), str) else {}),
         })
     return output
@@ -253,7 +267,10 @@ def load_atomic_gold_set(path: Path) -> AtomicGoldSet:
         raise GoldSetContractError(f"could not read atomic gold set: {exc}") from exc
     if not isinstance(payload, dict):
         raise GoldSetContractError("atomic gold set must be an object")
-    _only_keys(payload, {"contract_version", "gold_set_id", "benchmark_id", "version", "description", "thresholds", "cases"}, "gold set")
+    _only_keys(payload, {
+        "contract_version", "gold_set_id", "benchmark_id", "version", "description",
+        "thresholds", "cases", "source_document", "source_document_sha256",
+    }, "gold set")
     contract_version = payload.get("contract_version", GOLD_SET_CONTRACT_VERSION)
     if contract_version != GOLD_SET_CONTRACT_VERSION:
         raise GoldSetContractError(f"unsupported gold-set contract version: {contract_version!r}")
@@ -308,7 +325,19 @@ def load_atomic_gold_set(path: Path) -> AtomicGoldSet:
         if not isinstance(metadata, dict):
             raise GoldSetContractError(f"{detail}.scoring_metadata must be an object")
         cases.append(GoldCase(case_id, title.strip(), source, expected, forbidden, metadata))
-    return AtomicGoldSet(gold_set_id.strip(), version, description.strip(), thresholds, tuple(cases))
+    source_document = payload.get("source_document")
+    source_sha = payload.get("source_document_sha256")
+    if source_document is not None and (not isinstance(source_document, str) or not source_document.strip()):
+        raise GoldSetContractError("source_document must be nonempty text")
+    if source_sha is not None and (
+        not isinstance(source_sha, str) or not re.fullmatch(r"[0-9a-f]{64}", source_sha)
+    ):
+        raise GoldSetContractError("source_document_sha256 must be a lowercase SHA-256")
+    return AtomicGoldSet(
+        gold_set_id.strip(), version, description.strip(), thresholds, tuple(cases),
+        source_document.strip() if isinstance(source_document, str) else None,
+        source_sha,
+    )
 
 
 def gold_case_transcript(case: GoldCase) -> TranscriptArtifact:
@@ -319,7 +348,18 @@ def gold_case_transcript(case: GoldCase) -> TranscriptArtifact:
         "parent_evidence_id": str(source_id),
         "language": source.get("language", "en"),
         "provenance": {"method": "human_provided", "created_by": "Atomic Evidence Gold Set", "created_at": "2026-08-23"},
-        "segments": source["segments"],
+        # The extraction provider currently consumes TranscriptArtifact windows.
+        # Written sources use deterministic transport offsets internally only;
+        # run_gold_set_benchmark removes them from persisted proposals and keeps
+        # the real field/paragraph locator instead.
+        "segments": [
+            {
+                **segment,
+                "start_seconds": segment["start_seconds"] if segment["start_seconds"] is not None else float(index),
+                "end_seconds": segment["end_seconds"],
+            }
+            for index, segment in enumerate(source["segments"])
+        ],
     })
 
 
@@ -352,14 +392,8 @@ def _match_strength(expected: GoldProposition, proposal: dict[str, Any]) -> tupl
 
 
 def _scope_terms(scope: dict[str, Any]) -> tuple[str, ...]:
-    terms: list[str] = []
-    for key, value in sorted(scope.items()):
-        if key == "required_terms":
-            terms.extend(value if isinstance(value, list) else [value])
-        elif isinstance(value, str):
-            terms.append(value)
-        elif isinstance(value, list):
-            terms.extend(item for item in value if isinstance(item, str))
+    value = scope.get("required_terms", [])
+    terms = value if isinstance(value, list) else [value]
     return tuple(str(term) for term in terms if str(term).strip())
 
 
@@ -497,7 +531,13 @@ def score_gold_set(gold_set: AtomicGoldSet, case_proposals: dict[str, list[dict[
     threshold_results = {name: metric_values[name] >= gold_set.thresholds[name] for name in _METRICS}
     critical_overreach = any(case["critical_overreach"] for case in cases)
     return {
-        "gold_set": {"id": gold_set.gold_set_id, "version": gold_set.version, "case_count": len(cases)},
+        "gold_set": {
+            "id": gold_set.gold_set_id,
+            "version": gold_set.version,
+            "case_count": len(cases),
+            "source_document": gold_set.source_document,
+            "source_document_sha256": gold_set.source_document_sha256,
+        },
         "scoring_method": "deterministic-token-and-exact-excerpt-v1",
         "metrics": metric_values,
         "thresholds": gold_set.thresholds,
@@ -518,6 +558,14 @@ def run_gold_set_benchmark(provider: OpenAICompatibleExtractionProvider, gold_se
         try:
             candidates = provider.extract(ExtractionRequest(transcript=transcript, parent_evidence=gold_case_parent(case)))
             proposals = [candidate_preview(transcript, candidate, provider=provider) for candidate in candidates]
+            if case.source_artifact.get("locator_kind") == "written_text":
+                for proposal in proposals:
+                    proposal["source_locations"] = [
+                        case.source_artifact["segments"][index].get("source_location", f"segment[{index}]")
+                        for index in proposal["segment_indexes"]
+                    ]
+                    proposal.pop("start_seconds", None)
+                    proposal.pop("end_seconds", None)
         except ExtractionProviderError as exc:
             proposals = []
             failures.append({"case_id": case.case_id, "error": str(exc)})
