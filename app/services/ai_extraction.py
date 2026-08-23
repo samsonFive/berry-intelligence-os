@@ -22,6 +22,7 @@ from app.services.transcript_evidence import ExtractionRequest, TranscriptArtifa
 
 
 PROMPT_VERSION = "atomic-ci-v1"
+EXTRACTION_VERSION = "transcript-atomic-extraction-v1"
 _CANDIDATE_FIELDS = {
     "normalized_statement",
     "segment_indexes",
@@ -228,10 +229,13 @@ class OpenAICompatibleExtractionProvider:
         self.provenance = {
             "provider": "openai-compatible",
             "model": config.model,
+            "endpoint_family": "openai-chat-completions",
             "prompt_version": PROMPT_VERSION,
+            "extraction_version": EXTRACTION_VERSION,
         }
         self.last_run_report: ProviderRunReport | None = None
         self.last_response_models: list[str] = []
+        self.last_raw_outputs: list[dict[str, Any]] = []
 
     @property
     def endpoint(self) -> str:
@@ -254,6 +258,7 @@ class OpenAICompatibleExtractionProvider:
         """
         started = self._clock()
         self.last_response_models = []
+        self.last_raw_outputs = []
         all_windows = build_transcript_windows(
             request.transcript,
             max_chars=self.config.window_chars,
@@ -372,9 +377,33 @@ class OpenAICompatibleExtractionProvider:
             raise ExtractionResponseError("model refused the extraction request")
         if not isinstance(content, str):
             raise ExtractionResponseError("model response content must be text")
+        usage = envelope.get("usage") if isinstance(envelope.get("usage"), dict) else {}
+        self._record_raw_output(window=window, content=content, returned_model=returned_model, usage=usage)
         parsed = _extract_json(content)
-        parsed["_usage"] = envelope.get("usage") if isinstance(envelope.get("usage"), dict) else {}
+        parsed["_usage"] = usage
         return parsed
+
+    def _record_raw_output(
+        self,
+        *,
+        window: TranscriptWindow,
+        content: str,
+        returned_model: str | None,
+        usage: dict[str, Any],
+    ) -> None:
+        """Retain secret-free model output for an internal qualification packet."""
+
+        self.last_raw_outputs.append({
+            "window_number": window.number,
+            "segment_indexes": list(window.segment_indexes),
+            "returned_model": returned_model,
+            "content": content,
+            "usage": {
+                key: usage.get(key)
+                for key in ("prompt_tokens", "completion_tokens", "total_tokens")
+                if usage.get(key) is not None
+            },
+        })
 
     def _allowed_links(self, request: ExtractionRequest) -> dict[str, dict[str, str]]:
         transcript_text = " ".join(segment.text for segment in request.transcript.segments).casefold()

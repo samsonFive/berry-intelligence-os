@@ -301,6 +301,7 @@ def run_benchmark(
                 "category": case.expectations.get("category"),
                 "error": error,
                 "provider_metrics": metrics,
+                "raw_model_outputs": list(getattr(provider, "last_raw_outputs", [])),
                 "score": score,
                 "candidates": [candidate_preview(transcript, candidate, provider=provider) for candidate in candidates],
             }
@@ -394,6 +395,7 @@ def run_transcript_preview(
         },
         "error": error,
         "metrics": provider.last_run_report.as_dict() if provider.last_run_report else {},
+        "raw_model_outputs": list(getattr(provider, "last_raw_outputs", [])),
         "candidates": [candidate_preview(transcript, candidate, provider=provider) for candidate in candidates],
     }
 
@@ -503,6 +505,7 @@ def probe_provider(provider: OpenAICompatibleExtractionProvider) -> dict[str, An
         "returned_model_identities": sorted(set(provider.last_response_models)),
         "prompt_version": PROMPT_VERSION,
         "latency_seconds": metrics.get("elapsed_seconds"),
+        "raw_model_outputs": list(getattr(provider, "last_raw_outputs", [])),
         "failure_category": failure_category,
         "error": error,
     }

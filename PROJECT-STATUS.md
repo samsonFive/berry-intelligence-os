@@ -2,7 +2,7 @@
 
 *Maintained by Claude. Updated at the end of each work session that changes project state. Keep short — this is a status check, not a changelog (see `docs/reviews/CURRENT-STATE-AUDIT.md` and `docs/v2/` for detail).*
 
-**Last updated:** 2026-08-23, Atomic Evidence Gold Set V1 merged, `51e374f`
+**Last updated:** 2026-08-23, Atomic Extraction Qualification Harness V2 locally validated
 
 **Governing roadmap for the post-foundation expansion phase:** `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`, adopted 2026-08-20 — read it before proposing new acquisition, domain-depth, variety, alternative-data, or UI V2 work. Its companions, both live and required reading alongside it: `docs/v2/TECHNICAL-DEBT-REGISTER.md` (every known unresolved bug/limitation, by lane) and `docs/v2/INTELLIGENCE-COVERAGE-MATRIX.md` (the live berry × source-class × geography coverage map).
 
@@ -13,6 +13,27 @@ Intelligence OS V2
 
 **Current stage:**
 Phase 2 implementation complete (acceptance-reviewed). Production remains JSON-backed. Discovery, media transcription, publication-artifact orchestration, atomic Evidence proposal, article ingestion, and freshness/dedup layers are integrated on `v2/intelligence-os`; both human review gates remain mandatory. A real demo instance is deployed at `https://intel.johnnyaceii.com` (IONOS VPS, Docker/Caddy, application session login per PR #13). V2 AppShell is approved. Pending Review (`/pending`), Reading Queue, Assessments, Monitor (Watches, Alerts, Source Health), Variety Intelligence (`/entities/variety`), Global Intelligence Search (`/search`, `#v2SearchOffcanvas`), **Claim Testing** (`/queues/testing`), and **Commercial Positions** (`/queues/commercial_position`) are migrated; Landscape / Sources inventory-config admin / system/admin stay unmigrated.
+
+Atomic Extraction Qualification Harness V2 extends the existing human-gated
+qualification workflow with a deterministic Atomic Evidence Gold Set contract
+and independent precision, recall, atomicity, grounding, entity, scope,
+overreach, and duplication scores. Critical unsupported inference is a hard
+failure; one generic summary cannot satisfy multi-proposition recall. Evaluation
+artifacts now retain private raw responses, normalized proposals, scores,
+failures, latency, and token/cost metadata when available. Qualification is
+bound to exact provider/model/endpoint family/prompt/extraction/settings plus
+both benchmark hashes, and still requires explicit operator approval. Recurring
+production extraction remains OFF. Claude's 16-source/54-proposition Gold Set
+is now integrated through a deterministic SHA-bound materializer; its pending
+Planasa flagship and transcript-less spoken-media case remain outside scoring.
+Perplexity Agent readiness was probed: Claude Sonnet 5 rejected the strict
+structured request (HTTP 400), while GPT-5.4 mini returned an exact-identity
+compatible response (4.164s, 511 tokens). Gold transmission to that external
+provider was not authorized, so semantic quality remains unmeasured. LM Studio
+was not configured. No model was approved or enabled;
+local validation is green (1,285 tests, record validation, 1,534-page static
+build/private-output scan, materializer freshness, and `git diff --check`);
+see `docs/v2/ATOMIC-EXTRACTION-QUALIFICATION-HARNESS-V2.md`.
 
 CI / Merge Gate Reliability V1 adds a dedicated, read-only PR validation
 workflow with stable repository-integrity, static-public-safety, and full-suite

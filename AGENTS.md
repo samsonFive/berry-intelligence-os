@@ -24,6 +24,22 @@ Secrets such as `PERPLEXITY_API_KEY` are unavailable in cloud unless explicitly 
 
 Publication review and Atomic Evidence review remain mandatory human gates. Haiku (`anthropic/claude-haiku-4-5`) may be used for **non-trusted** publication enrichment only. It is not extraction-qualified. Never auto-qualify a model and never fall back to an unqualified extractor.
 
+Atomic extraction qualification V2 requires the exact provider, model,
+endpoint family, sanitized endpoint, prompt version, extraction version,
+material settings, synthetic benchmark, and Atomic Evidence Gold Set SHA to
+match an explicit human-approved marker. Automated threshold success never
+creates that marker. Raw qualification responses/review packets stay under
+gitignored `inbox/qualifications/` and must not enter static output. Normal CI
+uses deterministic fixture responses only; never add live model calls to the
+required PR checks. Recurring extraction remains disabled unless an operator
+separately opts in with a currently matching marker.
+`docs/v2/ATOMIC-EVIDENCE-GOLD-SET-V1.md` is the human-owned benchmark;
+`benchmarks/atomic-evidence-gold-set-v1.json` is its executable representation.
+Run `python scripts/materialize_atomic_gold_set.py --check` before candidate
+comparison and never hand-edit a second competing fixture. A live Gold run sends
+source text to the configured model endpoint and requires explicit authorization
+for that destination; transport probing alone does not grant data-export scope.
+
 Duplicate publish of an already-trusted publication id is not a 500: identical identity returns already-published success; conflicting identity returns a 409 review page and does not overwrite trusted data.
 
 ### Operating path

@@ -24,6 +24,7 @@ from app.services.model_qualification import (
     QUALIFICATION_WORKFLOW_VERSION,
     file_sha256,
 )
+from app.services.ai_extraction import EXTRACTION_VERSION
 
 
 UTC = timezone.utc
@@ -136,6 +137,7 @@ class ExtractionQualification:
     provider: str
     model: str
     prompt_version: str
+    extraction_version: str
     operator_qualified: bool
     qualified_by: str
     qualified_at: str
@@ -146,6 +148,9 @@ class ExtractionQualification:
     benchmark_id: str
     benchmark_version: int
     benchmark_sha256: str
+    gold_set_id: str
+    gold_set_version: int
+    gold_set_sha256: str
 
     @classmethod
     def load(cls, path: Path) -> "ExtractionQualification":
@@ -153,9 +158,9 @@ class ExtractionQualification:
         if payload is None:
             raise ValueError(f"qualification file not found: {path}")
         required = (
-            "provider", "model", "prompt_version", "qualified_by", "qualified_at",
+            "provider", "model", "prompt_version", "extraction_version", "qualified_by", "qualified_at",
             "configuration_fingerprint", "evaluation_run_id", "evaluation_sha256", "evaluation_artifact",
-            "benchmark_id", "benchmark_sha256",
+            "benchmark_id", "benchmark_sha256", "gold_set_id", "gold_set_sha256",
         )
         missing = [key for key in required if not isinstance(payload.get(key), str) or not payload[key].strip()]
         if (
@@ -164,6 +169,7 @@ class ExtractionQualification:
             or payload.get("qualification_marker_schema_version") != QUALIFICATION_MARKER_SCHEMA_VERSION
             or payload.get("workflow_version") != QUALIFICATION_WORKFLOW_VERSION
             or not isinstance(payload.get("benchmark_version"), int)
+            or not isinstance(payload.get("gold_set_version"), int)
         ):
             detail = ", ".join(missing) if missing else "operator_qualified=true"
             raise ValueError(f"invalid model qualification marker; required: {detail}")
@@ -181,10 +187,15 @@ class ExtractionQualification:
             or evaluation.get("provider") != payload["provider"]
             or evaluation.get("model") != payload["model"]
             or evaluation.get("prompt_version") != payload["prompt_version"]
+            or evaluation.get("extraction_version") != payload["extraction_version"]
             or evaluation.get("configuration_fingerprint") != payload["configuration_fingerprint"]
             or evaluation.get("benchmark_identity", {}).get("id") != payload["benchmark_id"]
             or evaluation.get("benchmark_identity", {}).get("version") != payload["benchmark_version"]
             or evaluation.get("benchmark_identity", {}).get("sha256") != payload["benchmark_sha256"]
+            or evaluation.get("gold_set_identity", {}).get("id") != payload["gold_set_id"]
+            or evaluation.get("gold_set_identity", {}).get("version") != payload["gold_set_version"]
+            or evaluation.get("gold_set_identity", {}).get("sha256") != payload["gold_set_sha256"]
+            or evaluation.get("atomic_gold_set", {}).get("passed") is not True
             or evaluation.get("complete") is not True
         ):
             raise ValueError("qualification marker does not match its complete evaluation artifact")
@@ -192,6 +203,7 @@ class ExtractionQualification:
             provider=payload["provider"],
             model=payload["model"],
             prompt_version=payload["prompt_version"],
+            extraction_version=payload["extraction_version"],
             operator_qualified=True,
             qualified_by=payload["qualified_by"],
             qualified_at=payload["qualified_at"],
@@ -202,19 +214,25 @@ class ExtractionQualification:
             benchmark_id=payload["benchmark_id"],
             benchmark_version=payload["benchmark_version"],
             benchmark_sha256=payload["benchmark_sha256"],
+            gold_set_id=payload["gold_set_id"],
+            gold_set_version=payload["gold_set_version"],
+            gold_set_sha256=payload["gold_set_sha256"],
         )
 
     def matches(
         self, *, provider: str, model: str, prompt_version: str,
-        configuration_fingerprint: str, benchmark_sha256: str,
+        extraction_version: str, configuration_fingerprint: str,
+        benchmark_sha256: str, gold_set_sha256: str,
     ) -> bool:
         return (
             self.operator_qualified
             and self.provider == provider
             and self.model == model
             and self.prompt_version == prompt_version
+            and self.extraction_version == extraction_version
             and self.configuration_fingerprint == configuration_fingerprint
             and self.benchmark_sha256 == benchmark_sha256
+            and self.gold_set_sha256 == gold_set_sha256
         )
 
 
@@ -246,6 +264,8 @@ def resolve_extraction_gate(
     qualification_path: Path | None,
     configuration_fingerprint: str | None = None,
     benchmark_sha256: str | None = None,
+    gold_set_sha256: str | None = None,
+    extraction_version: str = EXTRACTION_VERSION,
 ) -> ExtractionGate:
     if not enabled:
         return ExtractionGate(
@@ -284,21 +304,23 @@ def resolve_extraction_gate(
             prompt_version=prompt_version,
             reason=f"extraction ready but model is not qualified: {exc}",
         )
-    if not configuration_fingerprint or not benchmark_sha256:
+    if not configuration_fingerprint or not benchmark_sha256 or not gold_set_sha256:
         return ExtractionGate(
             enabled=True,
             configured=True,
             provider=provider,
             model=model,
             prompt_version=prompt_version,
-            reason="extraction ready but runtime configuration or benchmark fingerprint is unavailable",
+            reason="extraction ready but runtime configuration, benchmark, or Gold Set fingerprint is unavailable",
         )
     if not qualification.matches(
         provider=provider,
         model=model,
         prompt_version=prompt_version,
+        extraction_version=extraction_version,
         configuration_fingerprint=configuration_fingerprint,
         benchmark_sha256=benchmark_sha256,
+        gold_set_sha256=gold_set_sha256,
     ):
         return ExtractionGate(
             enabled=True,
@@ -306,7 +328,7 @@ def resolve_extraction_gate(
             provider=provider,
             model=model,
             prompt_version=prompt_version,
-            reason="qualification marker does not match the exact provider/model/prompt/configuration/benchmark",
+            reason="qualification marker does not match the exact provider/model/endpoint/prompt/extraction/settings/benchmark/Gold Set",
         )
     return ExtractionGate(
         enabled=True,

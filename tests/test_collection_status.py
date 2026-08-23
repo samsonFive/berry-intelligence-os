@@ -11,6 +11,7 @@ import pytest
 from app import main
 from app.services import media_discovery, media_transcription
 from app.services.ai_extraction import (
+    EXTRACTION_VERSION,
     PROMPT_VERSION,
     OpenAICompatibleExtractionConfig,
     OpenAICompatibleExtractionProvider,
@@ -327,18 +328,24 @@ def test_cli_uses_exact_qualification_integrity_and_configuration_gate(tmp_path)
     evaluation = tmp_path / "qualification" / "evaluation.json"
     evaluation.parent.mkdir(parents=True)
     benchmark_sha = file_sha256(ROOT / "benchmarks" / "atomic-ci-v1.json")
+    gold_set_file = tmp_path / "qualification" / "gold-set.json"
+    gold_set_file.write_text('{"fixture": true}', encoding="utf-8")
+    gold_set_sha = file_sha256(gold_set_file)
     artifact = {
         "qualification_artifact_schema_version": QUALIFICATION_ARTIFACT_SCHEMA_VERSION,
         "workflow_version": QUALIFICATION_WORKFLOW_VERSION,
         "run_id": "qualification-status-fixture",
         "complete": True,
-        "stage_completion": {"probe": True, "synthetic_benchmark": True, "real_transcript_sample": True},
+        "stage_completion": {"probe": True, "synthetic_benchmark": True, "atomic_gold_set": True, "real_transcript_sample": True},
         "provider": "openai-compatible",
         "model": model,
         "prompt_version": PROMPT_VERSION,
+        "extraction_version": EXTRACTION_VERSION,
         "configuration_fingerprint": fingerprint,
         "configuration": {"endpoint_identity": safe_endpoint_identity(base_url)},
         "benchmark_identity": {"id": "atomic-ci-v1", "version": 1, "sha256": benchmark_sha},
+        "gold_set_identity": {"id": "gold-fixture", "version": 1, "sha256": gold_set_sha},
+        "atomic_gold_set": {"passed": True},
     }
     evaluation.write_text(json.dumps(artifact), encoding="utf-8")
     (evaluation.parent / "evaluation.sha256").write_text(f"{file_sha256(evaluation)}  evaluation.json\n")
@@ -346,6 +353,7 @@ def test_cli_uses_exact_qualification_integrity_and_configuration_gate(tmp_path)
     args = status_cli._parser().parse_args([
         "--enable-extraction", "--extract-base-url", base_url, "--extract-model", model,
         "--qualification-file", str(marker),
+        "--qualification-gold-set-file", str(gold_set_file),
     ])
     gate, blockers = status_cli._extraction_state(args)
     assert gate.runnable is True and blockers == []

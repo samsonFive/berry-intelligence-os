@@ -19,7 +19,7 @@ from app.composition import get_repositories
 from app.repositories.paths import SCHEMAS_DIR
 from app.runtime_config import env_path, resolve_data_dir, resolve_inbox_dir
 from app.services.runtime_backup import backup_health
-from app.services.ai_extraction import PROMPT_VERSION, OpenAICompatibleExtractionConfig, OpenAICompatibleExtractionProvider
+from app.services.ai_extraction import EXTRACTION_VERSION, PROMPT_VERSION, OpenAICompatibleExtractionConfig, OpenAICompatibleExtractionProvider
 from app.services.collection_runner import OperationalStateStore, resolve_extraction_gate
 from app.services.collection_status import CollectionStatusService
 from app.services.extraction_evaluation import public_configuration
@@ -53,6 +53,7 @@ def _parser() -> argparse.ArgumentParser:
 
     parser.add_argument("--enable-extraction", action="store_true", help="Evaluate readiness with recurring extraction enabled")
     parser.add_argument("--qualification-file", type=Path)
+    parser.add_argument("--qualification-gold-set-file", type=Path)
     parser.add_argument("--extract-base-url")
     parser.add_argument("--extract-model")
     parser.add_argument("--extract-api-key-env", default="BIOS_EXTRACT_API_KEY")
@@ -73,6 +74,10 @@ def _extraction_state(args: argparse.Namespace) -> tuple[object, list[str]]:
     qualification_path = args.qualification_file
     if qualification_path is None and os.environ.get("BIOS_COLLECTION_QUALIFICATION_FILE"):
         qualification_path = Path(os.environ["BIOS_COLLECTION_QUALIFICATION_FILE"])
+    gold_set_path = args.qualification_gold_set_file
+    if gold_set_path is None:
+        configured_gold_set = os.environ.get("BIOS_COLLECTION_QUALIFICATION_GOLD_SET_FILE")
+        gold_set_path = Path(configured_gold_set) if configured_gold_set else ROOT / "benchmarks" / "atomic-evidence-gold-set-v1.json"
     fingerprint = None
     if base_url and model:
         config = OpenAICompatibleExtractionConfig.from_environment(
@@ -96,6 +101,7 @@ def _extraction_state(args: argparse.Namespace) -> tuple[object, list[str]]:
             generation=public_configuration(provider),
         )
     benchmark_sha = file_sha256(ROOT / "benchmarks" / "atomic-ci-v1.json")
+    gold_set_sha = file_sha256(gold_set_path) if gold_set_path.exists() else None
     gate = resolve_extraction_gate(
         enabled=enabled,
         provider="openai-compatible",
@@ -105,6 +111,8 @@ def _extraction_state(args: argparse.Namespace) -> tuple[object, list[str]]:
         qualification_path=qualification_path,
         configuration_fingerprint=fingerprint,
         benchmark_sha256=benchmark_sha,
+        gold_set_sha256=gold_set_sha,
+        extraction_version=EXTRACTION_VERSION,
     )
     diagnostic = resolve_extraction_gate(
         enabled=True,
@@ -115,6 +123,8 @@ def _extraction_state(args: argparse.Namespace) -> tuple[object, list[str]]:
         qualification_path=qualification_path,
         configuration_fingerprint=fingerprint,
         benchmark_sha256=benchmark_sha,
+        gold_set_sha256=gold_set_sha,
+        extraction_version=EXTRACTION_VERSION,
     )
     blockers: list[str] = []
     if not enabled:

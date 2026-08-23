@@ -25,8 +25,11 @@ Verified against docs.perplexity.ai (2026-08-17):
 - Response: `{id, model, status:"completed", output:[... a message item whose
   content holds output_text blocks ...], usage:{input_tokens, output_tokens,
   total_tokens}}`.
-- `GET /v1/models` needs no auth and returns `{object:"list", data:[{id,
-  object, created, owned_by}]}` with ids in `provider/model-name` form.
+- `GET /v1/models` returns `{object:"list", data:[{id, object, created,
+  owned_by}]}` with ids in `provider/model-name` form. Live verification on
+  2026-08-23 returned 401 without a key and succeeded with the configured key;
+  callers should authenticate even though older provider documentation and
+  compatible test doubles allowed anonymous discovery.
 """
 
 from __future__ import annotations
@@ -309,9 +312,9 @@ def list_agent_models(
 ) -> list[dict[str, str]]:
     """Read-only discovery of current Agent models via `GET /v1/models`.
 
-    Returns normalized ``[{"id", "owned_by"}]`` sorted by id. No auth is
-    required by the endpoint; a key is sent only if supplied. Nothing is
-    persisted -- the catalog is live provider state, not trusted repository data.
+    Returns normalized ``[{"id", "owned_by"}]`` sorted by id. A key is sent
+    when supplied; the live endpoint currently requires it. Nothing is persisted
+    -- the catalog is live provider state, not trusted repository data.
     """
 
     headers = {"Accept": "application/json"}

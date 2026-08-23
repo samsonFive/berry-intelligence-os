@@ -25,6 +25,7 @@ from app.composition import get_repositories
 from app.repositories.paths import SCHEMAS_DIR
 from app.runtime_config import resolve_data_dir, resolve_inbox_dir
 from app.services.ai_extraction import (
+    EXTRACTION_VERSION,
     PROMPT_VERSION,
     OpenAICompatibleExtractionConfig,
     OpenAICompatibleExtractionProvider,
@@ -97,6 +98,10 @@ def _parser() -> argparse.ArgumentParser:
 
     parser.add_argument("--enable-extraction", action="store_true", help="Opt into recurring model extraction; still requires exact qualification")
     parser.add_argument("--qualification-file", type=Path, help="Operator qualification JSON for exact provider/model/prompt version")
+    parser.add_argument(
+        "--qualification-gold-set-file", type=Path,
+        help="Exact Atomic Evidence Gold Set used by the qualification marker",
+    )
     parser.add_argument("--extract-base-url", help="OpenAI-compatible base URL (or BIOS_EXTRACT_BASE_URL)")
     parser.add_argument("--extract-model", help="Extraction model (or BIOS_EXTRACT_MODEL)")
     parser.add_argument("--extract-api-key-env", default="BIOS_EXTRACT_API_KEY")
@@ -186,6 +191,10 @@ def main(argv: list[str] | None = None) -> int:
     if qualification_path is None:
         configured_path = os.environ.get("BIOS_COLLECTION_QUALIFICATION_FILE")
         qualification_path = Path(configured_path) if configured_path else None
+    gold_set_path = args.qualification_gold_set_file
+    if gold_set_path is None:
+        configured_gold_set = os.environ.get("BIOS_COLLECTION_QUALIFICATION_GOLD_SET_FILE")
+        gold_set_path = Path(configured_gold_set) if configured_gold_set else ROOT / "benchmarks" / "atomic-evidence-gold-set-v1.json"
     extraction_config = None
     configuration_fingerprint = None
     if extract_base_url and extract_model:
@@ -220,6 +229,7 @@ def main(argv: list[str] | None = None) -> int:
     # recurring scheduler always runs with extraction off) has no reason
     # to require benchmarks/atomic-ci-v1.json to be present at all.
     benchmark_sha256 = file_sha256(ROOT / "benchmarks" / "atomic-ci-v1.json") if extraction_enabled else None
+    gold_set_sha256 = file_sha256(gold_set_path) if extraction_enabled and gold_set_path.exists() else None
     gate = resolve_extraction_gate(
         enabled=extraction_enabled,
         provider="openai-compatible",
@@ -229,6 +239,8 @@ def main(argv: list[str] | None = None) -> int:
         qualification_path=qualification_path,
         configuration_fingerprint=configuration_fingerprint,
         benchmark_sha256=benchmark_sha256,
+        gold_set_sha256=gold_set_sha256,
+        extraction_version=EXTRACTION_VERSION,
     )
 
     schema = json.loads((args.schemas_dir / "evidence.schema.json").read_text(encoding="utf-8"))

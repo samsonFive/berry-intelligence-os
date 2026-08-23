@@ -14,10 +14,10 @@ other.
 
 ## 1. Gold-set composition and selection method
 
-19 real source items, all identified by reading actual repository files, none
+18 real source items, all identified by reading actual repository files, none
 invented:
 
-- **17 scored items** drawn exclusively from `data/evidence/*.json` records
+- **16 scored items** drawn exclusively from `data/evidence/*.json` records
   with `status: "published"`. Every scored source ID below was opened and
   read in full before being included.
 - **1 structural spoken-media item** (Section 10) that is trusted but cannot
@@ -27,7 +27,7 @@ invented:
   scored set per this mission's own rule, because its source record is a
   draft (`status: "draft"`, `review_state: "in_review"`), not trusted.
 
-Selection was not "the first 19 records found." A background survey read all
+Selection was not "the first 18 records found." A background survey read all
 1,266 files under `data/evidence/` and classified every one by richness
 (distinct extractable claims), `source_type`, structured-object presence
 (`patent_filing`, `cpvo_filing`, `commercial_observation`, `article.paragraphs`,
@@ -196,7 +196,7 @@ hypothetical):
 Reported per source in Sections 6–9's tables via a `text basis` column. In
 aggregate:
 
-- **17 of 17 scored sources**: the only persisted text is `summary` +
+- **16 of 16 scored sources**: the only persisted text is `summary` +
   `why_it_matters` (prose, human/agent-authored synthesis of the original
   article, not the original article body itself). No original HTML/body was
   fetched or retained for any trusted record. This is sufficient to score
@@ -536,7 +536,7 @@ to pad a debt count:
 Everything needed to run a qualification pass, with no model execution
 required from this mission:
 
-- **Source IDs**: the 17 scored IDs listed in Sections 6–9's summary tables,
+- **Source IDs**: the 16 scored IDs listed in Sections 6–9 and 14,
   plus the 1 structural (`ev-lucentlands-scaling-blueberry-industry-2025`)
   and 1 pending-flagship (`ev-media-069f07925d20b2d93743`) IDs, clearly
   marked as out-of-scoring in Sections 1a/10.
@@ -573,12 +573,13 @@ required from this mission:
   this mission. `git status` before writing this document showed no
   unrelated changes; this document and the Technical Debt Register update
   are the only files this mission touches.
-- No machine-readable fixture file is added in this pass — the annotation
-  tables above are the complete, real content; a future JSON fixture can be
-  mechanically derived from these tables without re-deriving any claim, but
-  generating one was not attempted here to avoid committing an unreviewed
-  schema shape (Section 6's "document, don't build" instruction extends to
-  not inventing a fixture format ahead of Codex's actual harness needs).
+- Claude's documentation pass added no machine-readable fixture. Codex's
+  qualification-harness integration subsequently added
+  `scripts/materialize_atomic_gold_set.py` and the mechanically derived
+  `benchmarks/atomic-evidence-gold-set-v1.json`. The JSON records this
+  document's line-ending-normalized UTF-8 SHA-256 and is reproducibly checked
+  with `--check`; this document
+  remains the human-owned benchmark rather than a competing annotation set.
 - `pytest`, `validate_records.py`, and `build_static.py` are unaffected
   (docs-only change plus a Technical Debt Register edit); the CI Markdown-only
   fast path applies.

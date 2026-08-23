@@ -15,7 +15,8 @@ from pathlib import Path
 from typing import Any, Callable
 from urllib.parse import urlsplit
 
-from app.services.ai_extraction import PROMPT_VERSION, OpenAICompatibleExtractionProvider
+from app.services.ai_extraction import EXTRACTION_VERSION, PROMPT_VERSION, OpenAICompatibleExtractionProvider
+from app.services.atomic_qualification import AtomicGoldSet, run_gold_set_benchmark
 from app.services.extraction_evaluation import (
     ExtractionBenchmark,
     probe_provider,
@@ -27,9 +28,10 @@ from app.services.media_transcription import load_transcript_artifact, transcrip
 from app.services.transcript_evidence import TranscriptArtifact
 
 
-QUALIFICATION_WORKFLOW_VERSION = "extraction-qualification-v1"
-QUALIFICATION_ARTIFACT_SCHEMA_VERSION = 1
-QUALIFICATION_MARKER_SCHEMA_VERSION = 1
+QUALIFICATION_WORKFLOW_VERSION = "extraction-qualification-v2"
+QUALIFICATION_ARTIFACT_SCHEMA_VERSION = 2
+QUALIFICATION_MARKER_SCHEMA_VERSION = 2
+GOLD_COMPARISON_SCHEMA_VERSION = 1
 DEFAULT_REAL_PARENT_ID = "ev-lucentlands-scaling-blueberry-industry-2025"
 UTC = timezone.utc
 
@@ -68,6 +70,14 @@ def safe_endpoint_identity(base_url: str) -> dict[str, str]:
     }
 
 
+def _default_endpoint_family(provider: str) -> str:
+    return {
+        "openai-compatible": "openai-chat-completions",
+        "perplexity-router": "perplexity-router-chat-completions",
+        "perplexity-agent": "perplexity-agent-responses",
+    }.get(provider, provider)
+
+
 def qualification_configuration(
     *,
     provider: str,
@@ -75,12 +85,16 @@ def qualification_configuration(
     base_url: str,
     prompt_version: str,
     generation: dict[str, Any],
+    endpoint_family: str | None = None,
+    extraction_version: str = EXTRACTION_VERSION,
 ) -> dict[str, Any]:
     endpoint = safe_endpoint_identity(base_url)
     return {
         "provider": provider,
         "model": model,
+        "endpoint_family": endpoint_family or _default_endpoint_family(provider),
         "prompt_version": prompt_version,
+        "extraction_version": extraction_version,
         "endpoint_identity": endpoint,
         "generation": generation,
     }
@@ -93,6 +107,8 @@ def qualification_configuration_fingerprint(
     base_url: str,
     prompt_version: str,
     generation: dict[str, Any],
+    endpoint_family: str | None = None,
+    extraction_version: str = EXTRACTION_VERSION,
 ) -> str:
     configuration = qualification_configuration(
         provider=provider,
@@ -100,6 +116,8 @@ def qualification_configuration_fingerprint(
         base_url=base_url,
         prompt_version=prompt_version,
         generation=generation,
+        endpoint_family=endpoint_family,
+        extraction_version=extraction_version,
     )
     return hashlib.sha256(_canonical_json(configuration).encode("utf-8")).hexdigest()
 
@@ -111,7 +129,67 @@ def provider_qualification_configuration(provider: OpenAICompatibleExtractionPro
         base_url=provider.config.base_url,
         prompt_version=provider.provenance["prompt_version"],
         generation=public_configuration(provider),
+        endpoint_family=provider.provenance.get("endpoint_family", provider.provenance["provider"]),
+        extraction_version=provider.provenance.get("extraction_version", EXTRACTION_VERSION),
     )
+
+
+def run_gold_candidate_comparison(
+    *,
+    provider: OpenAICompatibleExtractionProvider,
+    gold_set: AtomicGoldSet,
+    gold_set_sha256: str,
+    output_dir: Path,
+    now: Callable[[], datetime] = lambda: datetime.now(UTC),
+) -> Path:
+    """Persist a private Gold-only comparison that can never be approved.
+
+    This path exists for model selection when the corpus has no real trusted
+    transcript.  It deliberately does not emit the qualification artifact
+    schema or a review packet/marker; full approval still requires every stage
+    in ``run_qualification_evaluation``.
+    """
+
+    created = now().astimezone(UTC)
+    configuration = provider_qualification_configuration(provider)
+    fingerprint = hashlib.sha256(_canonical_json(configuration).encode("utf-8")).hexdigest()
+    report = run_gold_set_benchmark(provider, gold_set)
+    instant = created.strftime("%Y%m%dT%H%M%S%fZ")
+    run_id = "gold-comparison-" + instant + "-" + hashlib.sha256(
+        _canonical_json([fingerprint, gold_set.gold_set_id, gold_set.version, gold_set_sha256, instant]).encode()
+    ).hexdigest()[:10]
+    artifact = {
+        "gold_candidate_comparison_schema_version": GOLD_COMPARISON_SCHEMA_VERSION,
+        "run_id": run_id,
+        "created_at": created.isoformat(),
+        "qualification_eligible": False,
+        "qualification_blocker": "Gold-only comparison omits the required synthetic benchmark and real trusted transcript stages.",
+        "provider": provider.provenance["provider"],
+        "model": provider.provenance["model"],
+        "prompt_version": provider.provenance["prompt_version"],
+        "extraction_version": provider.provenance.get("extraction_version", EXTRACTION_VERSION),
+        "configuration": configuration,
+        "configuration_fingerprint": fingerprint,
+        "gold_set_identity": {
+            "id": gold_set.gold_set_id,
+            "version": gold_set.version,
+            "sha256": gold_set_sha256,
+            "case_count": len(gold_set.cases),
+            "source_document": gold_set.source_document,
+            "source_document_sha256": gold_set.source_document_sha256,
+        },
+        "atomic_gold_set": report,
+        "trust_notice": "Comparison output is private, untrusted decision support. It cannot create a qualification marker or enable extraction.",
+    }
+    run_dir = output_dir / run_id
+    if run_dir.exists():
+        raise QualificationError(f"Gold comparison directory already exists: {run_dir}")
+    run_dir.mkdir(parents=True)
+    artifact_path = run_dir / "comparison.json"
+    artifact_path.write_text(json.dumps(artifact, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    digest = file_sha256(artifact_path)
+    (run_dir / "comparison.sha256").write_text(f"{digest}  comparison.json\n", encoding="utf-8")
+    return artifact_path
 
 
 def load_cached_transcript(
@@ -232,6 +310,8 @@ def run_qualification_evaluation(
     output_dir: Path,
     sample_windows: int = 8,
     benchmark_sha256: str,
+    gold_set: AtomicGoldSet,
+    gold_set_sha256: str,
     transcript_cache_path: Path | None = None,
     now: Callable[[], datetime] = lambda: datetime.now(UTC),
 ) -> tuple[Path, Path]:
@@ -245,9 +325,11 @@ def run_qualification_evaluation(
     probe = probe_provider(provider)
     probe["probed_at"] = created.isoformat()
     benchmark_report: dict[str, Any]
+    gold_set_report: dict[str, Any]
     sample_report: dict[str, Any]
     if probe.get("compatible_response_received"):
         benchmark_report = run_benchmark(provider, benchmark)
+        gold_set_report = run_gold_set_benchmark(provider, gold_set)
         sample_report = run_transcript_preview(
             provider,
             transcript,
@@ -257,15 +339,21 @@ def run_qualification_evaluation(
         _enrich_real_candidates(sample_report, transcript, repositories)
     else:
         benchmark_report = {"mode": "benchmark", "error": "endpoint probe failed", "cases": [], "metrics": {}}
+        gold_set_report = {"mode": "gold_set", "error": "endpoint probe failed", "passed": False, "cases": [], "metrics": {}}
         sample_report = {"mode": "transcript_sample", "error": "endpoint probe failed", "candidates": [], "metrics": {}}
     stages = {
         "probe": bool(probe.get("compatible_response_received") and probe.get("structured_output_capability")),
         "synthetic_benchmark": _benchmark_complete(benchmark_report, len(benchmark.cases)),
+        "atomic_gold_set": bool(gold_set_report.get("passed")),
         "real_transcript_sample": _sample_complete(sample_report),
     }
     complete = all(stages.values())
     instant = created.strftime("%Y%m%dT%H%M%S%fZ")
-    run_basis = [configuration_fingerprint, benchmark.benchmark_id, benchmark.version, benchmark_sha256, transcript.content_sha256(), instant]
+    run_basis = [
+        configuration_fingerprint, benchmark.benchmark_id, benchmark.version,
+        benchmark_sha256, gold_set.gold_set_id, gold_set.version,
+        gold_set_sha256, transcript.content_sha256(), instant,
+    ]
     run_id = "qualification-" + instant + "-" + hashlib.sha256(_canonical_json(run_basis).encode()).hexdigest()[:10]
     artifact = {
         "qualification_artifact_schema_version": QUALIFICATION_ARTIFACT_SCHEMA_VERSION,
@@ -277,6 +365,7 @@ def run_qualification_evaluation(
         "provider": configuration["provider"],
         "model": configuration["model"],
         "prompt_version": configuration["prompt_version"],
+        "extraction_version": configuration["extraction_version"],
         "configuration": configuration,
         "configuration_fingerprint": configuration_fingerprint,
         "benchmark_identity": {
@@ -284,6 +373,15 @@ def run_qualification_evaluation(
             "version": benchmark.version,
             "sha256": benchmark_sha256,
             "case_count": len(benchmark.cases),
+        },
+        "gold_set_identity": {
+            "id": gold_set.gold_set_id,
+            "version": gold_set.version,
+            "sha256": gold_set_sha256,
+            "case_count": len(gold_set.cases),
+            "contract_version": "atomic-evidence-gold-set-v1",
+            "source_document": gold_set.source_document,
+            "source_document_sha256": gold_set.source_document_sha256,
         },
         "real_sample_identity": {
             "parent_evidence_id": transcript.parent_evidence_id,
@@ -298,6 +396,7 @@ def run_qualification_evaluation(
         },
         "probe": {**probe, "endpoint_identity": configuration["endpoint_identity"]},
         "synthetic_benchmark": benchmark_report,
+        "atomic_gold_set": gold_set_report,
         "real_transcript_sample": sample_report,
         "automated_warnings": _warnings(benchmark_report, sample_report),
         "trust_notice": "Evaluation output is untrusted decision support. Only explicit operator approval creates a qualification marker; Evidence review remains separate.",
@@ -337,6 +436,8 @@ def render_review_packet(artifact: dict[str, Any], artifact_sha256: str) -> str:
         f"- Run: `{artifact['run_id']}`",
         f"- Provider/model: `{artifact['provider']}` / `{artifact['model']}`",
         f"- Prompt: `{artifact['prompt_version']}`",
+        f"- Extraction: `{artifact['extraction_version']}`",
+        f"- Endpoint family: `{artifact['configuration']['endpoint_family']}`",
         f"- Endpoint: `{probe.get('endpoint_identity', {}).get('display', 'unknown')}`",
         f"- Configuration fingerprint: `{artifact['configuration_fingerprint']}`",
         f"- Evaluation SHA-256: `{artifact_sha256}`",
@@ -369,6 +470,20 @@ def render_review_packet(artifact: dict[str, Any], artifact_sha256: str) -> str:
         for candidate in case.get("candidates", []):
             lines.append(f"- `{candidate.get('normalized_statement', '')}` — {candidate.get('transcript_excerpt', '')}")
         lines.append("")
+    gold = artifact.get("atomic_gold_set", {})
+    lines.extend([
+        "## Atomic Evidence Gold Set",
+        "",
+        f"- Identity: `{artifact.get('gold_set_identity', {}).get('id')}` v{artifact.get('gold_set_identity', {}).get('version')}",
+        f"- Human benchmark SHA-256: `{artifact.get('gold_set_identity', {}).get('source_document_sha256')}`",
+        f"- Passed deterministic thresholds: **{'yes' if gold.get('passed') else 'no'}**",
+        f"- Metrics: `{json.dumps(gold.get('metrics', {}), sort_keys=True)}`",
+        f"- Thresholds: `{json.dumps(gold.get('thresholds', {}), sort_keys=True)}`",
+        f"- Critical overreach detected: {gold.get('critical_overreach', False)}",
+        f"- Failure rate: {gold.get('failure_rate')}",
+        "- Raw model responses and normalized proposals are retained in `evaluation.json`; this internal packet does not publish them.",
+        "",
+    ])
     lines.extend([
         "## Real transcript sample",
         "",
@@ -432,6 +547,7 @@ def approve_qualification(
     expected_provider: str | None = None,
     expected_model: str | None = None,
     expected_prompt_version: str = PROMPT_VERSION,
+    expected_extraction_version: str = EXTRACTION_VERSION,
     now: Callable[[], datetime] = lambda: datetime.now(UTC),
 ) -> Path:
     """Issue a runner-compatible marker after an explicit human decision."""
@@ -444,6 +560,7 @@ def approve_qualification(
         "qualification_artifact_schema_version": QUALIFICATION_ARTIFACT_SCHEMA_VERSION,
         "workflow_version": QUALIFICATION_WORKFLOW_VERSION,
         "prompt_version": expected_prompt_version,
+        "extraction_version": expected_extraction_version,
     }
     for field, expected in required.items():
         if artifact.get(field) != expected:
@@ -460,6 +577,11 @@ def approve_qualification(
     benchmark = artifact.get("benchmark_identity")
     if not isinstance(benchmark, dict) or not all(benchmark.get(key) for key in ("id", "version", "sha256")):
         raise QualificationError("evaluation benchmark identity is incomplete")
+    gold_set = artifact.get("gold_set_identity")
+    if not isinstance(gold_set, dict) or not all(gold_set.get(key) for key in ("id", "version", "sha256")):
+        raise QualificationError("evaluation Gold Set identity is incomplete")
+    if artifact.get("atomic_gold_set", {}).get("passed") is not True:
+        raise QualificationError("evaluation did not pass Atomic Evidence Gold Set thresholds")
     marker_path = marker_path or evaluation_path.with_name("qualification-marker.json")
     if marker_path.exists():
         raise QualificationError(f"qualification marker already exists: {marker_path}")
@@ -470,11 +592,15 @@ def approve_qualification(
         "provider": artifact["provider"],
         "model": artifact["model"],
         "prompt_version": artifact["prompt_version"],
+        "extraction_version": artifact["extraction_version"],
         "configuration_fingerprint": fingerprint,
         "endpoint_identity_sha256": artifact["configuration"]["endpoint_identity"]["sha256"],
         "benchmark_id": benchmark["id"],
         "benchmark_version": benchmark["version"],
         "benchmark_sha256": benchmark["sha256"],
+        "gold_set_id": gold_set["id"],
+        "gold_set_version": gold_set["version"],
+        "gold_set_sha256": gold_set["sha256"],
         "evaluation_run_id": artifact["run_id"],
         "evaluation_artifact": relative_artifact,
         "evaluation_sha256": artifact_sha256,
