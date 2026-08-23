@@ -1,6 +1,6 @@
 # CI / Merge Gate Reliability V1
 
-**Status:** Implemented; GitHub run and branch-protection proof is recorded below before merge.
+**Status:** GitHub-proven in PR #95; canonical branch protection enabled.
 
 ## Purpose
 
@@ -61,7 +61,22 @@ Dependency downloads may access package registries on a cold runner; the validat
 
 ## GitHub proof
 
-The final implementation PR, run URLs, head SHAs, durations, intentional red-gate proof, docs-only fast-path proof, branch-protection response, merge SHA, and post-merge Pages result are added here after they exist. This section is deliberately evidence-driven rather than pre-filled with expected results.
+PR [#95](https://github.com/samsonFive/berry-intelligence-os/pull/95) attached all four contexts to implementation head `2f493c9a2657e19e9a3d108afe39fb63093a2f8f`; the prior PRs audited for this mission had empty `statusCheckRollup` arrays. [Run 32616187135](https://github.com/samsonFive/berry-intelligence-os/actions/runs/32616187135) passed in 2m49s wall-clock:
+
+- Change scope: 5s.
+- Repository integrity: 27s; record validation passed.
+- Static public safety: 1m13s; 14 focused tests passed, 1,527 pages built, and the unpublished-draft scan passed.
+- Python tests: 2m41s job duration; 1,260 passed and 2 platform skips in 2m06s of test time.
+
+Intentional failure head `d11eb49569f4fda31dae84ad633775af197c7d7a` added an unresolved-marker fixture. [Run 32616355047](https://github.com/samsonFive/berry-intelligence-os/actions/runs/32616355047) made `Repository integrity` fail in 4s with exit code 2. The repair push removed the fixture; per-PR concurrency cancelled the obsolete run, including its still-running/pending work. Fresh [run 32616410878](https://github.com/samsonFive/berry-intelligence-os/actions/runs/32616410878) attached to repaired head `d8e53fb4265391b61b3e2a8e1738f9e98da1a837` and passed all four checks again (4s / 27s / 1m12s / 2m31s respectively). No result from the prior head was treated as current.
+
+Branch protection was then enabled on `v2/intelligence-os`. The live API response reports `strict: true`, admin enforcement enabled, pull requests required with zero newly invented approval-count requirement, force pushes/deletions disabled, and exactly the four GitHub Actions contexts listed above (GitHub Actions app id `15368`) required.
+
+The final documentation-only push is used to prove the fast path while retaining all four required contexts. Its head/run, merge SHA, and post-merge Pages result are recorded in the mission handoff because they necessarily occur after this version of the document is committed.
+
+## Stale production freeze audit
+
+The optional read-only VPS audit found `/opt/berry-intelligence-os/DEMO-FREEZE.txt` is an untracked 393-byte artifact dated 2026-08-18. It names old canonical `ed5977ad` and old PR constraints, while the production checkout was already at later `f9eb920d`; it is stale advisory text, not an active scheduler or deployment control. The adjacent untracked `demo-runtime.tar.gz` was not opened, changed, or deleted. Neither artifact is a CI blocker; cleanup remains an explicit operator decision because the archive may be non-regenerable.
 
 ## Remaining limitations
 
