@@ -54,7 +54,7 @@ Collection Backpressure V1 had concurrently landed its own TD-064.
 | TD-080 | trusted structured registry coverage | No trusted Evidence record carries the structured `patent_filing` or `cpvo_filing` object. | Low | active | Atomic Evidence Gold Set V1 Section 9 |
 | TD-081 | trusted publication dropped `article` | Publish now preserves `article` / `relevance_tier` / `does_not_prove` so Atomic extraction can receive paragraph text, not only the summary. | High | resolved | `tests/test_publication_review_source_fidelity.py` |
 | TD-082 | no qualified article Atomic extractor | Web-article trait proposals still wait on a qualified extractor consuming `article.paragraphs`. Review shows a deterministic untrusted preview only. | High | limitation | `app/services/source_body.py::atomic_extraction_source_text` |
-| TD-083 | Pending Review still ranks all drafts | First screen renders at most 20 cards per bucket; ranking still walks the full pending pool for counts. | Medium | limitation | `tests/test_publication_review_source_fidelity.py::test_pending_first_screen_caps_rendered_cards` |
+| TD-083 | Pending Review full-pool card/thread work | Private restart-safe metadata projection, compact exact classification, indexed Story Thread candidates, and post-slice card hydration keep conservative 1,500-record cold/warm renders at 3.436s/1.839s; 5,000 measured 1.476s/1.248s before host I/O contention. | Medium | resolved | `tests/test_pending_review_query.py`; `docs/v2/PENDING-REVIEW-QUERY-PERFORMANCE-V2.md` |
 | TD-084 | qualification cost telemetry | Qualification records provider token telemetry and a nullable cost field, but adapters do not receive provider-authoritative billed cost and the repository has no versioned model-price table. Quality thresholds remain independent of cost. | Low | limitation | `tests/test_model_qualification.py`; `docs/v2/ATOMIC-EXTRACTION-QUALIFICATION-HARNESS-V2.md` |
 
 ID aliases from the expansion-guide session's withdrawn draft (do not reopen
@@ -1324,21 +1324,21 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `app/services/source_body.py` |
 
-### TD-083 — Pending Review first screen still ranks the full pool
+### TD-083 — Pending Review first screen full-pool work
 
 | Field | Value |
 |---|---|
 | **Severity** | Medium |
 | **Area** | pending review / performance |
 | **Date discovered** | 2026-08-22 |
-| **Evidence** | ~1,450 drafts. Render is capped at 20/bucket; story grouping is limited to Review now/soon; signal candidates skipped. Ranking still scores every open draft. |
-| **Impact** | First visit can still be slow; repeat render is bounded. |
-| **Workaround** | `?ids=` / berry / source filters. |
-| **Recommended resolution** | Cheap count + ranked window cache keyed on inbox signature. |
-| **Status** | limitation |
+| **Evidence** | V2 profiles separated inventory, filters, trusted/watch context, compact score/bucket classification, Story Threads, hydration, actions, and Jinja. A private incremental metadata projection removes article/transcript deserialization from list requests; exact counts use compact records; indexed candidate edges replace all-pairs threads; rich hydration occurs only after the 20/bucket slice. Conservative final cold restart/warm after heavy host I/O: 3.436s/1.839s at 1,500. The 5,000-record stress run measured 1.476s/1.248s before that contention. |
+| **Impact** | Resolved for the JSON runtime at current and stress volumes without changing rank or trust semantics. |
+| **Workaround** | None required. Prebuild the disposable index before traffic on first deployment. |
+| **Recommended resolution** | Completed. A future storage backend should implement the same `PendingDraftSnapshotProvider` seam with native indexed counts/windows. |
+| **Status** | resolved |
 | **Owner lane** | product |
-| **PR/SHA when resolved** | — |
-| **Regression-test reference** | `tests/test_publication_review_source_fidelity.py::test_pending_first_screen_caps_rendered_cards` |
+| **PR/SHA when resolved** | Pending Review Query Performance V2 feature PR (2026-08-23) |
+| **Regression-test reference** | `tests/test_pending_review_query.py`; `tests/test_story_threads.py`; `tests/test_pending_triage.py` |
 
 ### TD-084 — Extraction qualification lacks provider-authoritative cost telemetry
 

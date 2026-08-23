@@ -25,7 +25,13 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from jsonschema import Draft202012Validator, FormatChecker
 
-from app.composition import get_domain_services, get_query_services, get_repositories, get_unit_of_work
+from app.composition import (
+    get_domain_services,
+    get_pending_review_query_service,
+    get_query_services,
+    get_repositories,
+    get_unit_of_work,
+)
 from app.queries.timeline import entity_activity, max_priority_level
 from app.services.berries.geography import (
     REGIONS,
@@ -2487,34 +2493,35 @@ def morning_brief_page(request: Request) -> HTMLResponse:
 def pending_review_page(request: Request) -> HTMLResponse:
     """Decision workspace for pending publication drafts. Not a Feed clone."""
 
-    drafts = [
-        record
-        for record in list_pending_drafts()
-        if record.get("evidence_role") != "atomic_evidence" and record.get("status", "draft") != "rejected"
-    ]
     ids_param = (request.query_params.get("ids") or "").strip()
     selected_ids = [part.strip() for part in ids_param.split(",") if part.strip()]
-    if selected_ids:
-        wanted = set(selected_ids)
-        drafts = [record for record in drafts if record.get("id") in wanted]
     berry = (request.query_params.get("berry") or "").strip()
-    if berry:
-        berry_id = berry if berry.startswith("berry-") else f"berry-{berry}"
-        drafts = [record for record in drafts if berry_id in (record.get("berry_ids") or [])]
+    berry_id = berry if berry.startswith("berry-") else (f"berry-{berry}" if berry else "")
     source = (request.query_params.get("source") or "").strip()
-    if source:
-        drafts = [
-            record
-            for record in drafts
-            if source in {str(record.get("source_id") or ""), str(record.get("source_name") or "")}
-        ]
+    entities = entity_index()
+    source_rows = load_sources()
+    source_index = {str(row.get("id") or ""): row for row in source_rows if row.get("id")}
+    pending_snapshot = get_pending_review_query_service(INBOX_DIR).list_pending(
+        entities=entities,
+        sources=source_index,
+        ids=set(selected_ids),
+        berry_id=berry_id,
+        source=source,
+    )
     brief = _assemble_morning_brief(
         mark_seen=False,
         include_coverage=False,
         mode="pending",
         include_signal_candidates=False,
-        drafts=drafts,
+        drafts=pending_snapshot.records,
     )
+    brief["pending_query"] = {
+        "inventory_count": pending_snapshot.inventory_count,
+        "selected_count": len(pending_snapshot.records),
+        "parsed_records": pending_snapshot.parsed_records,
+        "reused_records": pending_snapshot.reused_records,
+        "body_records_omitted": pending_snapshot.body_records_omitted,
+    }
     reviewer = session_username(request) or review_username() or ""
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     brief = _filter_brief_for_berry(brief, ui["berry"])

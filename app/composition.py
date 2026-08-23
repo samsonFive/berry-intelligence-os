@@ -47,6 +47,7 @@ from types import SimpleNamespace
 from app.queries.coverage import CoverageQueryService
 from app.queries.entity_intelligence import EntityIntelligenceQueryService
 from app.queries.lineage import LineageQueryService
+from app.queries.pending_review import JsonPendingDraftSnapshotProvider, PendingReviewQueryService
 from app.queries.reference import ReferenceQueryService
 from app.queries.scope import ScopeQueryService
 from app.queries.search import SearchQueryService
@@ -72,6 +73,7 @@ DomainServices = SimpleNamespace
 _repository_cache: dict[tuple[Path, Path], Repositories] = {}
 _query_service_cache: dict[tuple[Path, Path], QueryServices] = {}
 _domain_service_cache: dict[tuple[Path, Path], DomainServices] = {}
+_pending_review_query_cache: dict[Path, PendingReviewQueryService] = {}
 
 
 def get_repositories(data_dir: Path = DEFAULT_DATA_DIR, schemas_dir: Path = SCHEMAS_DIR) -> Repositories:
@@ -111,6 +113,19 @@ def get_query_services(data_dir: Path = DEFAULT_DATA_DIR, schemas_dir: Path = SC
             search=SearchQueryService(repos),
         )
     return _query_service_cache[key]
+
+
+def get_pending_review_query_service(inbox_dir: Path) -> PendingReviewQueryService:
+    """Return the private Pending Review read model for one runtime inbox.
+
+    This separate factory keeps the existing canonical-data query-service key
+    unchanged while making the mutable inbox dependency explicit.
+    """
+
+    if inbox_dir not in _pending_review_query_cache:
+        provider = JsonPendingDraftSnapshotProvider(inbox_dir)
+        _pending_review_query_cache[inbox_dir] = PendingReviewQueryService(provider)
+    return _pending_review_query_cache[inbox_dir]
 
 
 def get_domain_services(data_dir: Path = DEFAULT_DATA_DIR, schemas_dir: Path = SCHEMAS_DIR) -> DomainServices:

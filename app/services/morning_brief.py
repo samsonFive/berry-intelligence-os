@@ -251,7 +251,7 @@ def primary_subject(
     Does not use AI suggested entities.
     """
 
-    attribution = attribute_draft(record, entities, sources=sources)
+    attribution = attribute_draft(record, entities, sources=sources, include_body=False)
     primary = attribution.get("primary") or {}
     entity_id = str(primary.get("id") or "")
     if not entity_id:
@@ -366,19 +366,42 @@ def rank_item(
     record: dict[str, Any],
     *,
     ctx: dict[str, Any],
+    compact: bool = False,
 ) -> dict[str, Any]:
     entities: dict[str, dict[str, Any]] = ctx["entities"]
     state = ctx["state"]
     item_id = str(record.get("id") or "")
-    presented = present_queue_item(
-        record,
-        dimension="reading",
-        state=state,
-        entities=entities,
-        berry_labels=ctx["berry_labels"],
-        signals=ctx.get("signals") or [],
-    )
-    feed = present_feed_item(record, entities=entities, berry_labels=ctx["berry_labels"])
+    if compact:
+        presented = {
+            key: record.get(key)
+            for key in (
+                "id", "title", "headline", "status", "review_state", "evidence_role",
+                "source_id", "source_name", "source_type", "intake_type", "monitoring_priority",
+                "source_url", "canonical_url", "published_date", "captured_date", "date",
+                "berry_ids", "entity_ids", "geography_ids", "evidence_links", "entity_link_suggestions",
+                "relevance_tier", "relevance_screening", "priority", "tags", "summary",
+                "why_it_matters", "publisher_description", "ai_enrichment", "media_format",
+            )
+            if record.get(key) is not None
+        }
+        enrichment = record.get("ai_enrichment") or {}
+        feed = {
+            "relevance_band": _relevance_band(str(enrichment.get("topical_relevance") or "")),
+            "tags": enrichment.get("suggested_tags") or record.get("tags") or [],
+            "kind": record.get("_pending_kind") or classify_kind(record),
+            "source_url": record.get("source_url") or record.get("canonical_url") or "",
+            "pending": trust_state(record) in {"pending", "attention", "disputed"},
+        }
+    else:
+        presented = present_queue_item(
+            record,
+            dimension="reading",
+            state=state,
+            entities=entities,
+            berry_labels=ctx["berry_labels"],
+            signals=ctx.get("signals") or [],
+        )
+        feed = present_feed_item(record, entities=entities, berry_labels=ctx["berry_labels"])
     reading = reading_state(item_id, state)
     trust = trust_state(record)
     tier = record.get("relevance_tier")
@@ -395,11 +418,19 @@ def rank_item(
     new_since = bool(cutoff and stamp and stamp > cutoff)
     sources = ctx.get("sources") or {}
     attribution = attribute_draft(record, entities, sources=sources)
-    primary = primary_subject(record, entities, sources=sources)
     primary_meta = attribution.get("primary") or {}
-    title_hits = title_matched_entities(record, entities)
+    primary_id = str(primary_meta.get("id") or "")
+    primary = entities.get(primary_id) if primary_id else None
+    if "_pending_title_entity_ids" in record:
+        title_hits = [
+            entities[str(entity_id)]
+            for entity_id in (record.get("_pending_title_entity_ids") or [])
+            if str(entity_id) in entities
+        ]
+    else:
+        title_hits = title_matched_entities(record, entities)
     watch_match, watch_entity_id = watch_match_quality(attribution, ctx["watch_entities"])
-    chips = entity_chips(record, entities)
+    chips = entity_chips(record, entities, by_name=ctx.get("entities_by_name"))
     for suggestion in attribution.get("suggested") or []:
         if suggestion.get("id") and suggestion["id"] not in {chip.get("id") for chip in chips}:
             chips.append(
@@ -416,7 +447,7 @@ def rank_item(
     tags = {str(tag).casefold() for tag in (record.get("tags") or feed.get("tags") or [])}
     source = sources.get(str(record.get("source_id") or "")) or {}
     source_priority = str(source.get("monitoring_priority") or "")
-    kind = feed.get("kind") or classify_kind(record)
+    kind = record.get("_pending_kind") or feed.get("kind") or classify_kind(record)
     trusted_keys = ctx.get("trusted_title_keys") or set()
     title_key = _title_key(str(record.get("title") or ""))
     duplicate_of_trusted = bool(title_key and title_key in trusted_keys and record.get("status") != "published")
@@ -608,6 +639,37 @@ def rank_item(
     )
     presented["change_label"] = _delta_label(presented)
     return presented
+
+
+def _hydrate_pending_previews(
+    pending_triage: dict[str, Any],
+    *,
+    records_by_id: dict[str, dict[str, Any]],
+    ctx: dict[str, Any],
+) -> None:
+    """Build rich single-item cards only after bucket selection and slicing."""
+
+    for bucket in pending_triage.get("buckets") or []:
+        hydrated: list[dict[str, Any]] = []
+        for item in bucket.get("entries") or []:
+            if item.get("is_thread"):
+                hydrated.append(item)
+                continue
+            record = records_by_id.get(str(item.get("id") or ""))
+            if record is None:
+                hydrated.append(item)
+                continue
+            full = rank_item(record, ctx=ctx)
+            # Bucket assignment may append duplicate/overflow reasons and can
+            # adjust score.  Preserve the already-decided compact result.
+            for key in (
+                "score", "reasons", "decision_reasons", "why_ranked", "why_decision",
+                "bucket", "triage_bucket", "delta_kind",
+            ):
+                if key in item:
+                    full[key] = item[key]
+            hydrated.append(full)
+        bucket["entries"] = hydrated
 
 
 def assign_buckets(ranked: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -1348,6 +1410,11 @@ def build_morning_brief(
     }
     ctx = {
         "entities": entity_index,
+        "entities_by_name": {
+            str(entity.get("name") or "").casefold(): entity
+            for entity in entity_index.values()
+            if entity.get("name")
+        },
         "berry_labels": berry_labels or {},
         "state": state,
         "signals": signal_rows,
@@ -1373,7 +1440,7 @@ def build_morning_brief(
     ranked_pending = assign_pending_triage(
         assign_buckets(
             sorted(
-                [rank_item(record, ctx=ctx) for record in pending_pool],
+                [rank_item(record, ctx=ctx, compact=mode == "pending") for record in pending_pool],
                 key=lambda item: int(item.get("score") or 0),
                 reverse=True,
             )
@@ -1412,6 +1479,12 @@ def build_morning_brief(
             pending_threads = group_story_threads(thread_pool)
             threads_by_id = threads_by_item_id(pending_threads)
         pending_triage = _pending_triage_groups(ranked_pending, threads_by_id or None)
+        if mode == "pending":
+            _hydrate_pending_previews(
+                pending_triage,
+                records_by_id={str(record.get("id") or ""): record for record in pending_pool if record.get("id")},
+                ctx=ctx,
+            )
         counts["review_now"] = int(pending_triage["counts"].get("review_now") or 0)
         counts["pending_open"] = int(pending_triage["counts"].get("total") or 0)
         counts["brief_action"] = int(counts.get("top_priority") or 0)
