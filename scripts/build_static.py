@@ -32,6 +32,7 @@ from app.main import (  # noqa: E402
     all_signals,
     berry_label,
     entity_activity,
+    entity_intelligence_timeline,
     entity_index,
     entity_regions,
     evidence_regions,
@@ -321,6 +322,17 @@ def build() -> list[Path]:
         regions = sorted(entity_regions(entity, entities, linked_evidence))
         activity = entity_activity(linked_evidence, entity_facts, entity_relationships, entities, evidence_idx)
         synthesis = entity_synthesis_context(entity, entities, include_pending=False)
+        if entity.get("entity_type") in ("company", "variety"):
+            synthesis["intelligence_timeline"] = entity_intelligence_timeline(
+                entity_id=entity_id,
+                entities=entities,
+                linked_evidence=linked_evidence,
+                entity_facts=entity_facts,
+                entity_relationships=entity_relationships,
+                entity_signals=synthesis["entity_signals"],
+                entity_assessments=synthesis["entity_assessments"],
+                evidence_idx=evidence_idx,
+            )
         if entity.get("entity_type") == "variety":
             synthesis.update(
                 present_variety_detail(

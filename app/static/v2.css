@@ -867,6 +867,39 @@
 }
 .v2-variety-detail .v2-observation-list { padding-left: 0; padding-right: 0; }
 
+.v2-timeline-list {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  max-width: 980px;
+}
+.v2-timeline-row {
+  padding: 14px 16px;
+  overflow-wrap: anywhere;
+  border-left: 3px solid var(--v2-trusted);
+}
+.v2-timeline-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0 0 14px;
+}
+.v2-timeline-derived {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--v2-border);
+}
+.v2-timeline-derived-list {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+  font-size: var(--v2-body);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .offcanvas { transition: none !important; }
 }

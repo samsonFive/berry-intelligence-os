@@ -1,0 +1,76 @@
+<li class="v2-card v2-timeline-row" data-timeline-row data-kind="{{ row.kind }}" data-date="{{ row.date }}" data-berries="{{ row.berry_ids|join(',') }}">
+  <p class="v2-card-kicker">
+    <time class="v2-meta" data-pagefind-ignore>{{ row.date|us_date if row.date else "Undated" }}</time>
+    {% if row.kind == 'evidence' %}
+      <span class="v2-mark v2-mark-trusted">Evidence</span>
+    {% elif row.kind == 'rights' %}
+      <span class="v2-mark v2-mark-trusted">Rights / IP · {{ row.kind_label }}</span>
+    {% elif row.kind == 'commercial' %}
+      <span class="v2-mark v2-mark-trusted">Commercial observation</span>
+    {% elif row.kind == 'fact' %}
+      <span class="badge {{ 'badge-fact' if row.trust_label == 'Fact' else 'badge-claim' }}">{{ row.trust_label|upper }}</span>
+      {% if row.confidence %}<span class="v2-meta">{{ row.confidence }} confidence</span>{% endif %}
+    {% elif row.kind == 'relationship' %}
+      <span class="badge badge-muted">RELATIONSHIP</span>
+      {% if row.predicate %}<span class="v2-meta">{{ row.predicate|replace('_',' ') }}</span>{% endif %}
+    {% elif row.kind == 'signal' %}
+      <span class="badge badge-signal">SIGNAL</span>
+      {% if row.signal_status %}<span class="v2-meta">{{ row.signal_status|upper }}</span>{% endif %}
+    {% elif row.kind == 'assessment' %}
+      <span class="badge badge-assessment">ASSESSMENT</span>
+      {% if row.confidence %}<span class="v2-meta">{{ row.confidence|upper }} confidence</span>{% endif %}
+    {% endif %}
+    {% if row.is_fallback_date %}
+      <span class="v2-meta" title="No stated event date on this record -- showing its recorded date instead.">(recorded date)</span>
+    {% endif %}
+  </p>
+  <h3 class="v2-card-title">
+    {% if row.kind in ('evidence', 'rights', 'commercial') and not static_build %}
+      <a href="{{ row.reader_href }}" data-open-reader data-item-id="{{ row.id }}">{{ row.headline }}</a>
+    {% elif row.kind in ('evidence', 'rights', 'commercial') %}
+      <a href="{{ row.evidence_href }}">{{ row.headline }}</a>
+    {% elif row.reader_href %}
+      <a href="{{ row.reader_href }}">{{ row.headline }}</a>
+    {% else %}
+      {{ row.headline }}
+    {% endif %}
+  </h3>
+  {% if row.excerpt %}<p class="v2-card-summary">{{ row.excerpt|truncate(220) }}</p>{% endif %}
+  {% if row.geography or row.entity_chips %}
+    <p class="v2-card-line">
+      {% for chip in row.geography %}<a href="{{ chip.href }}" class="v2-chip">{{ chip.name }}</a>{% endfor %}
+      {% for chip in row.entity_chips %}<a href="{{ chip.href }}" class="v2-chip">{{ chip.name }}</a>{% endfor %}
+    </p>
+  {% endif %}
+  <p class="v2-card-line">
+    {% if row.source_name %}<span class="v2-meta">Source</span> {{ row.source_name }}{% endif %}
+    {% if row.source_type_label %} · <span class="v2-meta">{{ row.source_type_label }}</span>{% endif %}
+    {% if row.retailer_name %} · <span class="v2-meta">Retailer</span> {{ row.retailer_name }}{% endif %}
+  </p>
+  {% if row.does_not_prove %}
+    <p class="v2-card-summary"><span class="v2-meta">Does not prove</span> {{ row.does_not_prove|join('; ') }}</p>
+  {% endif %}
+  {% if row.lineage %}
+    <p class="v2-card-line">
+      <span class="v2-meta">Derived from</span>
+      {% for item in row.lineage %}<a href="{{ item.href }}">{{ item.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+    </p>
+  {% endif %}
+  {% if row.derived_items %}
+    <div class="v2-timeline-derived">
+      <p class="v2-meta" data-pagefind-ignore>Derived from this source:</p>
+      <ul class="v2-timeline-derived-list">
+        {% for child in row.derived_items %}
+          <li>
+            {% if child.kind == 'fact' %}
+              <span class="badge {{ 'badge-fact' if child.trust_label == 'Fact' else 'badge-claim' }}">{{ child.trust_label|upper }}</span>
+              {% if child.reader_href %}<a href="{{ child.reader_href }}">{{ child.headline }}</a>{% else %}{{ child.headline }}{% endif %}
+            {% else %}
+              <span class="badge badge-muted">RELATIONSHIP</span> {{ child.headline }}
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+</li>

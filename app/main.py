@@ -32,7 +32,7 @@ from app.composition import (
     get_repositories,
     get_unit_of_work,
 )
-from app.queries.timeline import entity_activity, max_priority_level
+from app.queries.timeline import entity_activity, entity_intelligence_timeline, max_priority_level
 from app.services.berries.geography import (
     REGIONS,
     REGION_LOOKUP,
@@ -2348,6 +2348,17 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
             synthesis = entity_synthesis_context(entity, entities)
             open_signals = open_signals_for_entity(entity_id, presented_candidates)
             ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+            if entity.get("entity_type") in ("company", "variety"):
+                synthesis["intelligence_timeline"] = entity_intelligence_timeline(
+                    entity_id=entity_id,
+                    entities=entities,
+                    linked_evidence=linked_evidence,
+                    entity_facts=entity_facts,
+                    entity_relationships=entity_relationships,
+                    entity_signals=synthesis["entity_signals"],
+                    entity_assessments=synthesis["entity_assessments"],
+                    evidence_idx=evidence_idx,
+                )
             if entity.get("entity_type") == "company":
                 synthesis.update(
                     company_profile_context(

@@ -1404,4 +1404,52 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | none yet |
 
+### TD-088 — Signal has no populated date field on any real record
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | data quality / temporal coverage |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Source / Entity Intelligence Timeline V1 mission. `schemas/signal.schema.json` has exactly two date-shaped fields (`first_seen`, `last_updated`, both optional). Checked all 6 real files in `data/signals/`: **0 of 6** have either populated. Every real Signal today falls back to its earliest linked Evidence's `published_date` for timeline placement (or `UNDATED / DATE NOT ESTABLISHED` if that Evidence isn't itself dated), never its own genuine "when was this pattern first detected/confirmed" date. |
+| **Impact** | A Signal's real detection/confirmation history is not recoverable from current data. The Intelligence Timeline (and any future consumer needing a real Signal date) can only ever show the evidence-fallback date, flagged `is_fallback_date=True`, never a true Signal-authored date. |
+| **Workaround** | `entity_intelligence_timeline()` and its `_signal_row()` helper (`app/queries/timeline.py`) already fall back to the earliest linked Evidence's `published_date` and mark the row as a fallback rather than silently presenting it as a genuine Signal date. |
+| **Recommended resolution** | Populate `first_seen` at the point a Signal is first proposed/confirmed in the Signal-authoring workflow, going forward. Not attempted here -- Signal authoring/review is out of this mission's scope. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_entity_intelligence_timeline.py::test_signal_uses_first_seen_then_last_updated_then_evidence_fallback` |
+
+### TD-089 — Fact.event_date and Relationship.effective_date are populated in a minority of real records
+
+| Field | Value |
+|---|---|
+| **Severity** | Low (structural, already partially known) |
+| **Area** | data quality / temporal coverage |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Source / Entity Intelligence Timeline V1 mission, full-corpus measurement: `Fact.event_date` populated in 45 of 186 real Facts (~24%); `Relationship.effective_date` populated in 27 of 234 real Relationships (~11.5%). The remaining majority fall back to `created_at` (Fact) or the earliest linked Evidence's `published_date` (both types), each explicitly flagged `is_fallback_date=True` by the new timeline layer rather than presented as an unqualified real-world date. |
+| **Impact** | Most Fact/Relationship rows in any chronological view are dated by when they were recorded or reported, not necessarily when the underlying development actually happened -- an honest, already-disclosed approximation, not silently wrong, but a real coverage gap worth tracking. |
+| **Workaround** | None needed; the fallback + explicit flag is the correct behavior per this mission's own Section 5 instruction, not a bug to fix. |
+| **Recommended resolution** | Backfilling `event_date`/`effective_date` on existing real records (where the source text actually states a real-world date) would be a bounded, valuable future data-quality mission -- not attempted here since this mission is presentation/querying only. |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_entity_intelligence_timeline.py::test_fact_prefers_event_date_over_created_at_and_flags_fallback`, `::test_relationship_uses_effective_date_then_evidence_fallback` |
+
+### TD-090 — Alias-text recall can attribute an unrelated entity's Evidence via a place-name collision
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data quality / entity linkage |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Source / Entity Intelligence Timeline V1 mission, found during live acceptance testing. `variety-victoria`'s (a real blackberry cultivar) Intelligence Timeline surfaces `ev-costa-ownership-2024` (a blueberry-tagged Costa Group ownership-change article) as linked evidence. Root cause is upstream in the pre-existing `alias_linked_evidence()` regex recall inside `app/services/entity_alias_recall.py::linked_evidence_for_entity()` (not touched by this mission): the Costa article's own text notes the company's origins in "Geelong, **Victoria**" (the Australian state), and the recall regex matches that word against the Variety entity's own name, "Victoria," with no place-name-vs-proper-noun disambiguation. This same `linked_evidence_for_entity()` call already feeds Variety's existing Recent Intelligence and Commercial Footprint sections identically -- the Timeline did not introduce this false positive, it surfaces one that was already there, now simply more visible because the Timeline groups by date/kind. |
+| **Impact** | A low-relevance, unrelated article can appear attributed to a variety whose name happens to collide with a real place name mentioned in that article's text. Observed once in acceptance testing (Victoria/Geelong); likely affects any other Variety/Company name that is also a common place name. |
+| **Workaround** | None needed for this mission -- the underlying record is still real, trusted Evidence; the attribution is merely imprecise, not fabricated or untrusted content. |
+| **Recommended resolution** | `alias_linked_evidence()`'s regex recall could exclude common geography-name collisions, or require a corroborating berry/entity co-mention nearby in text, before counting a bare place-name mention as an entity link. A scoped fix belongs to whichever mission next touches `entity_alias_recall.py` -- out of this mission's stated scope (presentation/querying only). |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none yet -- reproduced manually via `/entities/variety/variety-victoria` live acceptance testing, not yet a committed regression test |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
