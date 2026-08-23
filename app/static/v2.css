@@ -960,6 +960,11 @@
 .v2-compare-search-results button:focus-visible { background: var(--v2-pending-bg); }
 .v2-compare-observation { padding: 10px 12px; }
 .v2-compare-dimension { margin-bottom: 22px; }
+.v2-compare-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+.v2-compare-table-wrap .trait-table { min-width: 480px; }
 
 @media (max-width: 767px) {
   .v2-compare-grid { grid-template-columns: 1fr; }
