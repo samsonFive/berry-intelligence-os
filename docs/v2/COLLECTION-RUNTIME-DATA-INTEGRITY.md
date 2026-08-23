@@ -32,6 +32,14 @@ transfer. Production uses one operator-selected persistent runtime
 Developers retain isolated inboxes. Production counts are inspected with the
 read-only status command against that runtime, not by copying drafts into Git.
 
+There is no implicit inbox sync. `scripts/sync_trusted_data.py` is additive
+for trusted `data/` only. Untrusted drafts reach production review only when
+production collection writes them, or when an operator runs
+`scripts/deliver_drafts.py` against an explicitly named destination identity
+(`docs/v2/ACQUISITION-PRODUCTION-DRAFT-DELIVERY-V1.md`). Dry-run is the
+default. Existing destination drafts win on conflict. Trusted Evidence is
+never reverted to a draft.
+
 ## Docker persistence boundary
 
 Compose bind-mounts host `demo-runtime/data` to `/app/runtime/data` and host
@@ -146,6 +154,16 @@ Article dedup uses normalized canonical URL; exact title + source + date; or
 exact title + date + explicit origin publisher name/host (Google News versus
 publisher RSS). Legacy trusted source documents without `evidence_role` are
 included. Similar titles alone never merge.
+
+## Draft delivery between runtimes
+
+Operator-triggered only. Compare source `inbox/evidence` hashes to the
+destination inbox and destination `data/evidence`. Outcomes are `NEW_DRAFT`,
+`ALREADY_PRESENT_IDENTICAL`, `CONFLICT_DIFFERENT_CONTENT`,
+`SKIP_ALREADY_TRUSTED`, `SKIP_TEST_ARTIFACT`, `SKIP_NOT_OPERATIONAL`. Apply
+writes missing drafts and missing referenced transcript files; it never
+deletes, never overwrites, and never publishes. Audit JSON lives under
+`inbox/operations/draft-deliveries/` (ids/hashes/outcomes only).
 
 ## Retention
 
