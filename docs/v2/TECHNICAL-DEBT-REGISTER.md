@@ -1470,7 +1470,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `benchmarks/entity-linking-precision-v1.json`; `scripts/audit_entity_linking.py` |
 
-### TD-091 — Local acquisition inbox is not the production review inbox
+### TD-092 — Local acquisition inbox is not the production review inbox
 
 | Field | Value |
 |---|---|
@@ -1501,5 +1501,37 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Owner lane** | data / ops |
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_source_fidelity_recovery.py`; `tests/test_extraction_backlog.py`; `tests/test_publication_review_source_fidelity.py::test_atomic_extraction_uses_inline_transcript_without_segments` |
+
+### TD-094 — Landscape V2's cold-cache request is still several seconds
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | performance |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Landscape V2 mission. Uncached, `landscape_context()` measured 1.9-3.7s per single-berry request and `landscape_context_all_berries()` measured 4-9s for the cross-berry ALL view, against real production-scale data (O(companies × evidence) + O(varieties × evidence) per berry, inside `app/services/berries/landscape.py`). A folder-signature-keyed cache (`_cached_landscape_context()`/`_cached_landscape_context_all()`, `app/main.py`, mirroring the existing `_NAV_WORK_CACHE` pattern) brings *warm* requests down to ~350-650ms, meeting the mission's ≤2s target -- but the *first* request after any data change (publish, promotion, Signal/Assessment change) still pays the full uncached cost. |
+| **Impact** | The very first analyst (or the manager demo) to open a given Landscape view after a data change experiences a multi-second wait; every subsequent viewer until the next data change is fast. Not a correctness issue, purely a first-hit latency issue. |
+| **Workaround** | None needed for the demo -- warm the cache with one request immediately after deployment/data changes if a specific view must be fast on first real view. |
+| **Recommended resolution** | If this becomes a real problem, optimize the underlying O(companies × evidence) walk in `landscape_competitive_field()`/`landscape_variety_rollup()` (e.g. precompute an evidence-by-entity index once per request instead of calling `entity_regions()` per company/variety), or move cache population to a background warm-up on data-change rather than lazily on first request. Out of this mission's scope -- the existing single-berry aggregation logic was reused, not rewritten, per its own "do not redesign" precedent. |
+| **Status** | active |
+| **Owner lane** | performance |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_landscape_v2.py::test_landscape_warm_request_is_fast` (asserts only the warm path; does not assert a cold-path bound) |
+
+### TD-095 — Landscape's Variety Compare deep-link is not static-safe
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | static/public safety (cosmetic) |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Landscape V2 mission. `landscape.html` has a load-bearing, tested architectural invariant (`tests/test_synthesis_views.py::test_landscape_static_and_live_rendering_share_one_context_pipeline`) that the template must never contain the literal string `static_build`, guaranteeing live and static rendering never diverge. The new "Compare this berry's most-covered varieties" deep-link into Variety Compare V1 (which is itself deliberately live-only, not wired into `build_static.py`) therefore had to render unconditionally rather than being hidden on the static build the way every other live-only-feature link in this codebase (Company/Variety Compare entry points elsewhere, Learner Mode's Explain-this in some cases) is hidden via `{% if not static_build %}`. |
+| **Impact** | On the public static GitHub Pages mirror, this one link points to a page that does not exist there (404 if clicked). No data, trust, or privacy impact -- purely a dead link on an optional convenience feature. |
+| **Workaround** | None needed -- the link still works correctly on the live app, which is where analysts actually use Compare. |
+| **Recommended resolution** | Either statically pre-render Variety Compare for a bounded, curated set of ids (a larger architectural change, not attempted here), or thread a non-`static_build`-named flag (e.g. reusing/adding a distinctly-named context variable) through the static build path specifically for this one link without touching the protected invariant. Out of this mission's scope. |
+| **Status** | active |
+| **Owner lane** | product/UI |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_landscape_v2.py::test_landscape_per_berry_template_never_diverges_static_from_live` |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

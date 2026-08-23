@@ -52,7 +52,7 @@ def parse_feed_view(raw: str | None) -> str:
 
 def landscape_href(berry: str) -> str:
     if berry == BERRY_GLOBAL:
-        return "/entities/berry"
+        return "/landscapes"
     return f"/landscapes/berries/{berry.removeprefix('berry-')}"
 
 

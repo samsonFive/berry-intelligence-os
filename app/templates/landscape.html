@@ -64,6 +64,7 @@
     <div><strong id="metric-varieties">{{ header_stats.entity_type_counts.variety or 0 }}</strong><small>Varieties</small></div>
     <div><strong id="metric-geographies">{{ header_stats.entity_type_counts.geography or 0 }}</strong><small>Geographies</small></div>
   </div>
+  <p class="section-hint" id="evidence-coverage-caveat">{{ evidence_coverage.coverage_caveat }} <a href="#evidence-coverage">See Evidence coverage &amp; limitations.</a></p>
 </section>
 
 <section class="landscape-section" id="what-we-think" data-brief-section>
@@ -89,7 +90,7 @@
 <section class="landscape-section" id="competitive-pressure" data-brief-section>
   <h2>Where Competition Is Concentrating</h2>
   <p class="section-hint">Documented trait coverage—not superiority, strategy, or market share.</p>
-  <div class="pressure-grid">{% for theme in competitive_themes %}<article><h3>{{ theme.label }}</h3><strong>{{ theme.varieties|length }}</strong><small> varieties</small><p>{{ theme.varieties[:5]|join(', ') }}{% if theme.varieties|length > 5 %} +{{ theme.varieties|length - 5 }}{% endif %}</p></article>{% endfor %}</div>
+  <div class="pressure-grid">{% for theme in competitive_themes %}<article><h3>{{ theme.label }}</h3>{% if theme.explain_href %}<a class="v2-explain-this" href="{{ theme.explain_href }}" title="Explain this: {{ theme.label }}">Explain this</a>{% endif %}<strong>{{ theme.varieties|length }}</strong><small> varieties</small><p>{{ theme.varieties[:5]|join(', ') }}{% if theme.varieties|length > 5 %} +{{ theme.varieties|length - 5 }}{% endif %}</p></article>{% endfor %}</div>
 </section>
 
 <section class="landscape-section" id="regional-briefing" data-brief-section>
@@ -322,6 +323,9 @@
 <section class="landscape-section" id="explore-varieties">
   <h2>Variety landscape</h2>
   <p class="section-hint">Every variety entity covered, listed alphabetically. The V2 Variety Intelligence workspace at <a href="/entities/variety">/entities/variety</a> is the analyst product for identity, rights, footprint, and competition. Landscape itself is unchanged.</p>
+  {% if compare_variety_ids|length >= 2 %}
+    <p class="section-hint"><a href="/entities/variety/compare?ids={{ compare_variety_ids|join(',') }}">Compare this berry's most-covered varieties</a></p>
+  {% endif %}
   {% if variety_rollup %}
     <div style="overflow-x:auto">
     <table class="trait-table">
@@ -378,9 +382,10 @@
 {# ------------------------------------------------------------------ #}
 {# Evidence coverage / limitations -- what the system DOESN'T know    #}
 {# ------------------------------------------------------------------ #}
-<section class="landscape-section">
+<section class="landscape-section" id="evidence-coverage">
   <h2>Evidence coverage &amp; limitations</h2>
   <p class="section-hint">What this dataset knows well, and what it doesn't. Read alongside the rest of this page, not as a footnote.</p>
+  <p class="section-hint"><strong>{{ evidence_coverage.coverage_caveat }}</strong></p>
   <div class="coverage-grid">
     <div><strong id="coverage-evidence">{{ evidence_coverage.evidence_count }}</strong><small>Total evidence records in lens</small></div>
     <div><strong>{{ evidence_coverage.primary_source_count }}</strong><small>From primary/registry-grade sources</small></div>
