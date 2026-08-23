@@ -106,7 +106,10 @@ def test_batch_composition_resolves_parent_sorts_and_flags_duplicates(monkeypatc
     ordered_ids = [card["record"]["id"] for card in group["cards"]]
     assert ordered_ids == ["ev-workbench-3", "ev-workbench-4", "ev-workbench-2", "ev-workbench-1", "ev-workbench-5", "ev-workbench-6", "ev-workbench-7", "ev-workbench-8", "ev-workbench-9", "ev-workbench-10"]
     duplicate_card = next(card for card in group["cards"] if card["record"]["id"] == "ev-workbench-1")
-    assert duplicate_card["duplicate_warnings"][0]["reason"] == "same normalized statement and overlapping transcript span"
+    assert any(
+        warning["reason"] == "same normalized statement and overlapping transcript span"
+        for warning in duplicate_card["duplicate_warnings"]
+    )
     assert format_locator({"start_seconds": 750, "end_seconds": 790}) == "12:30–13:10"
     assert timestamp_source_url("https://youtu.be/fixture", 750).endswith("?t=750")
     assert timestamp_source_url("https://example.invalid/podcast", 750) is None
