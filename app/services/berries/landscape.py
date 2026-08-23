@@ -341,7 +341,16 @@ class BerriesLandscapeService:
             total_varieties += len(varieties)
             total_signals += len(intelligence["signals"])
 
-            actor_rows = [row for row in competitive_field if "competitor" in (row["entity"].get("roles") or [])]
+            # Only companies with some real trusted activity qualify -- a
+            # sparse berry legitimately surfaces fewer than 3 (or zero)
+            # actors rather than padding with a 0-signal/0-evidence company,
+            # which would contradict the "shown because of activity" copy.
+            actor_rows = [
+                row
+                for row in competitive_field
+                if "competitor" in (row["entity"].get("roles") or [])
+                and (row["signals"] or row["evidence_count"])
+            ]
             actor_rows.sort(
                 key=lambda row: (-len(row["signals"]), -row["evidence_count"], row["entity"]["name"])
             )
