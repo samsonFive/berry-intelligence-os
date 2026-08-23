@@ -57,6 +57,7 @@ Collection Backpressure V1 had concurrently landed its own TD-064.
 | TD-083 | Pending Review full-pool card/thread work | Private restart-safe metadata projection, compact exact classification, indexed Story Thread candidates, and post-slice card hydration keep conservative 1,500-record cold/warm renders at 3.436s/1.839s; 5,000 measured 1.476s/1.248s before host I/O contention. | Medium | resolved | `tests/test_pending_review_query.py`; `docs/v2/PENDING-REVIEW-QUERY-PERFORMANCE-V2.md` |
 | TD-084 | qualification cost telemetry | Qualification records provider token telemetry and a nullable cost field, but adapters do not receive provider-authoritative billed cost and the repository has no versioned model-price table. Quality thresholds remain independent of cost. | Low | limitation | `tests/test_model_qualification.py`; `docs/v2/ATOMIC-EXTRACTION-QUALIFICATION-HARNESS-V2.md` |
 | TD-091 | local vs production draft inbox | Local acquisition inboxes are not production review. Missing production drafts are delivered with operator-triggered `scripts/deliver_drafts.py`, not by scp of one JSON or by replacing `demo-runtime/inbox`. | High | resolved | `tests/test_draft_delivery.py`; `docs/v2/ACQUISITION-PRODUCTION-DRAFT-DELIVERY-V1.md` |
+| TD-092 | local Qwen qualification latency | The exact `bios-qwen3-4b-instruct-2507-q4km` LM Studio configuration timed out on all 16 Gold sources and the non-scored Planasa flagship at the canonical 120-second request limit; it is not operationally qualification-ready on this CPU machine. | Medium | active | Local Atomic Extraction Qualification V1 private artifacts; `scripts/qualify_extraction_model.py` |
 
 ID aliases from the expansion-guide session's withdrawn draft (do not reopen
 these as Open UI-lane items):
@@ -1484,5 +1485,21 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Owner lane** | product |
 | **PR/SHA when resolved** | Acquisition → Production Draft Delivery V1 |
 | **Regression-test reference** | `tests/test_draft_delivery.py` |
+
+### TD-092 — Exact local Qwen configuration cannot complete qualification within the canonical timeout
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | model operations / extraction qualification |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Local Atomic Extraction Qualification V1 ran LM Studio's loaded `bios-qwen3-4b-instruct-2507-q4km` (`Qwen3 4B Instruct 2507`, GGUF Q4_K_M, 8,192-token loaded context) without changing canonical settings. The strict structured-output probe succeeded in 64.856s. The 12-case synthetic benchmark took 1,245.083s, passed 5/12 cases, and timed out on 4/12. Every one of 16 canonical Gold sources timed out at the unchanged 120s request limit (average 121.874s/source; 0 proposals), as did the full six-paragraph non-scored Planasa flagship in 121.542s. |
+| **Impact** | This exact model/server/hardware configuration cannot complete the required Gold stage, produces no semantic quality evidence on real sources, and is operationally impractical for qualification or production extraction. Empty-output atomicity/overreach/duplication scores are not evidence of quality. |
+| **Workaround** | Keep the model unqualified and production extraction disabled. Do not raise the timeout and treat it as the same qualification identity; any changed model, hardware, endpoint settings, or material generation settings require a new full run and human review. |
+| **Recommended resolution** | In a separately authorized model mission, evaluate a faster already-installed local candidate or the intended Qwen model on sufficiently accelerated local hardware using the unchanged benchmark contract. The run must still complete the synthetic, Gold, and real trusted-transcript stages; TD-078 independently blocks the last stage until a trusted transcript exists. |
+| **Status** | active |
+| **Owner lane** | platform / ops |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `scripts/qualify_extraction_model.py`; `app/services/atomic_qualification.py`; private run `gold-comparison-20260823T175556781365Z-3b41881184` |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
