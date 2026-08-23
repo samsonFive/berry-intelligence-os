@@ -1,0 +1,159 @@
+name: PR validation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-validation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  change-scope:
+    name: Change scope
+    runs-on: ubuntu-latest
+    outputs:
+      docs-only: ${{ steps.scope.outputs.docs-only }}
+      data-migration: ${{ steps.scope.outputs.data-migration }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - id: scope
+        name: Classify changed paths
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          if [[ -z "$BASE_SHA" ]]; then
+            echo "docs-only=false" >> "$GITHUB_OUTPUT"
+            echo "data-migration=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          mapfile -t changed < <(git diff --name-only "$BASE_SHA...$HEAD_SHA")
+          if (( ${#changed[@]} > 0 )) && ! printf '%s\n' "${changed[@]}" | grep -qvE '(^|/)[^/]+\.md$'; then
+            echo "docs-only=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "docs-only=false" >> "$GITHUB_OUTPUT"
+          fi
+
+          if printf '%s\n' "${changed[@]}" | grep -qE '^(data/evidence/|data/configuration/|schemas/|scripts/sync_trusted_data\.py$|docker-entrypoint\.sh$)'; then
+            echo "data-migration=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "data-migration=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  repository-integrity:
+    name: Repository integrity
+    needs: change-scope
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Repository hygiene
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          if [[ -n "$BASE_SHA" ]]; then
+            git diff --check "$BASE_SHA...$HEAD_SHA"
+          else
+            git diff --check HEAD^...HEAD
+          fi
+          if git grep -n -I -E '^(<<<<<<< |>>>>>>> )' -- . ':!generated'; then
+            echo "Unresolved conflict marker found." >&2
+            exit 1
+          fi
+      - name: Docs-only fast path
+        if: needs.change-scope.outputs.docs-only == 'true'
+        run: echo "Markdown-only change; repository hygiene is the complete required contract."
+      - uses: actions/setup-python@v5
+        if: needs.change-scope.outputs.docs-only != 'true'
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install validation dependencies
+        if: needs.change-scope.outputs.docs-only != 'true'
+        run: pip install -r requirements-dev.txt
+      - name: Validate canonical records
+        if: needs.change-scope.outputs.docs-only != 'true'
+        run: python scripts/validate_records.py
+      - name: Validate canonical promotion contract for data migrations
+        if: needs.change-scope.outputs.data-migration == 'true'
+        run: python -m pytest -q tests/test_sync_trusted_data.py
+
+  static-public-safety:
+    name: Static public safety
+    needs: change-scope
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Docs-only fast path
+        if: needs.change-scope.outputs.docs-only == 'true'
+        run: echo "Markdown is not an input to the generated public site; static build is unchanged."
+      - uses: actions/setup-python@v5
+        if: needs.change-scope.outputs.docs-only != 'true'
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install build dependencies
+        if: needs.change-scope.outputs.docs-only != 'true'
+        run: |
+          pip install -r requirements-dev.txt
+          pip install pagefind pagefind_bin
+      - name: Exercise private-state leakage fixtures
+        if: needs.change-scope.outputs.docs-only != 'true'
+        run: >-
+          python -m pytest -q
+          tests/test_build_static.py
+          tests/test_review_events.py
+          tests/test_testing_workspace.py::test_static_testing_page_hides_disposition
+          tests/test_commercial_positions.py::test_commercial_positions_hide_private_rows_on_static_model
+      - name: Build trusted static snapshot and run leakage validation
+        if: needs.change-scope.outputs.docs-only != 'true'
+        run: python scripts/build_static.py
+      - name: Verify public artifact
+        if: needs.change-scope.outputs.docs-only != 'true'
+        run: |
+          test -f generated/index.html
+          test -f generated/.nojekyll
+          test -f generated/landscapes/berries/blueberry/index.html
+          test -f generated/pagefind/pagefind.js
+
+  python-tests:
+    name: Python tests
+    needs: change-scope
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Docs-only fast path
+        if: needs.change-scope.outputs.docs-only == 'true'
+        run: echo "Markdown-only change; executable tests are unchanged."
+      - uses: actions/setup-python@v5
+        if: needs.change-scope.outputs.docs-only != 'true'
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install test dependencies
+        if: needs.change-scope.outputs.docs-only != 'true'
+        run: pip install -r requirements-dev.txt
+      - name: Run complete deterministic suite
+        if: needs.change-scope.outputs.docs-only != 'true'
+        run: python -m pytest -q

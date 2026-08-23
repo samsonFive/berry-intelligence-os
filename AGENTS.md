@@ -38,6 +38,17 @@ Duplicate publish of an already-trusted publication id is not a 500: identical i
 
 Standard lint/test/build commands remain those in `README.md`: `pytest`, `python scripts/validate_records.py`, `python scripts/build_static.py`.
 
+### CI merge gate
+
+Pull requests into `v2/intelligence-os` must report successful `Change scope`,
+`Repository integrity`, `Static public safety`, and `Python tests` checks on the
+current PR head before merge. Local validation is useful evidence but is not a
+substitute for those GitHub checks. If checks are absent, diagnose the workflow
+trigger or Actions state instead of bypassing the gate. If canonical moves,
+reconcile the branch, push the new head, and wait for a fresh check set on that
+SHA. Markdown-only changes use the workflow's explicit fast path; every other
+change receives full tests, record validation, and static-public safety checks.
+
 GitHub Pages deploys from `.github/workflows/deploy-pages.yml` on push to `v2/intelligence-os` or `master`. Public URL: `https://samsonfive.github.io/berry-intelligence-os/`. The static Scanner is a trusted published snapshot; it never includes `inbox/` drafts, untrusted enrichment, or the local review workbench.
 
 Remote interactive review (Scanner, publication review, Approve/Save/Reject) is the Docker deployment in `deploy/`, documented in `docs/07-static-deployment/REMOTE-INTERACTIVE-DEMO.md`. It uses `BIOS_REMOTE_INTERACTIVE` plus **application-session login at `/login`**. Browser HTTP Basic Auth is **not** the default UX. `BIOS_SESSION_SECRET` is required in remote session mode (must not be the review password). `BIOS_BASIC_AUTH` remains optional/emergency only and must stay off in front of `/login`. Do not expose an unauthenticated localhost app. Do not commit `demo-runtime/` or `deploy/.env`.

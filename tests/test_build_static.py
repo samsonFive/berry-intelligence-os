@@ -44,6 +44,14 @@ DRAFT_RECORD = {
     "priority": None,
 }
 
+PRIVATE_SENTINELS = {
+    "private-review-event-id",
+    "private-reviewer-name",
+    "private-analyst-queue-note",
+    "private-signal-candidate-title",
+    "private-unpublished-proposal-note",
+}
+
 
 def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_path) -> None:
     data_dir = tmp_path / "data"
@@ -79,6 +87,26 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     draft_folder = inbox_dir / "evidence"
     draft_folder.mkdir(parents=True, exist_ok=True)
     (draft_folder / f"{DRAFT_RECORD['id']}.json").write_text(json.dumps(DRAFT_RECORD), encoding="utf-8")
+    private_files = {
+        inbox_dir / "review_events" / "private-review-event-id.json": {
+            "id": "private-review-event-id",
+            "record_type": "review_event",
+            "actor": "private-reviewer-name",
+        },
+        inbox_dir / "analyst_queue_state.json": {
+            "reading": {"ev-static-test": {"note": "private-analyst-queue-note"}},
+            "proposals": {"rec-private": {"note": "private-unpublished-proposal-note"}},
+        },
+        inbox_dir / "signal_candidates" / "candidate-private.json": {
+            "id": "candidate-private",
+            "record_type": "signal_candidate",
+            "status": "proposed",
+            "title": "private-signal-candidate-title",
+        },
+    }
+    for path, payload in private_files.items():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(payload), encoding="utf-8")
 
     import scripts.build_static as build_static
 
@@ -112,6 +140,8 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
         content = html_file.read_text(encoding="utf-8")
         assert DRAFT_RECORD["id"] not in content
         assert "Secret unpublished draft title" not in content
+        for sentinel in PRIVATE_SENTINELS:
+            assert sentinel not in content
         assert 'href="/' not in content, f"unrewritten absolute href in {html_file}"
 
     search_html = (output_dir / "search" / "index.html").read_text(encoding="utf-8")
