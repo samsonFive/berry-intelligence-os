@@ -71,6 +71,17 @@ def test_all_berries_sparse_berry_still_listed_with_honest_counts():
         assert isinstance(row["company_count"], int)
 
 
+def test_per_berry_actors_to_watch_never_zero_activity():
+    """Same class of bug as the cross-berry fix, found live on the
+    existing (pre-V2, unmodified-in-structure) single-berry page: a
+    company with 0 signals, 0 evidence, and 0 documented varieties must
+    not appear as an actor to watch."""
+    for berry_id in main.BERRIES:
+        context = main.landscape_context(berry_id)
+        for row in context["actors_to_watch"]:
+            assert row["signals"] or row["evidence_count"] or row["varieties"]
+
+
 def test_per_berry_evidence_coverage_has_caveat_and_no_market_activity_claim():
     context = main.landscape_context("berry-blackberry")
     caveat = context["evidence_coverage"]["coverage_caveat"]
