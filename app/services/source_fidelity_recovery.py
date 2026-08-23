@@ -240,6 +240,42 @@ def match_recoveries(trusted_records: list[dict[str, Any]], candidates: list[dic
         result["source_type"] = trusted.get("source_type")
         result["source_name"] = trusted.get("source_name")
         results.append(result)
+
+    # A body repeated across three or more distinct publication URLs is not
+    # credible as independent historic source fidelity. This catches reused
+    # acquisition/interstitial payloads without rejecting a legitimate
+    # two-publication reprint pair. Keep body-free audit metadata, but make the
+    # candidates non-applicable and require investigation.
+    by_body: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
+    for result in results:
+        candidate = result.get("candidate")
+        if result.get("match_class") in APPLICABLE_MATCHES and candidate:
+            by_body[(candidate["artifact_type"], candidate["source_text_sha256"])].append(result)
+    for group in by_body.values():
+        distinct_urls = {
+            str((result.get("trusted_identity") or {}).get("normalized_source_url") or "")
+            for result in group
+        }
+        distinct_urls.discard("")
+        if len(group) < 3 or len(distinct_urls) < 3:
+            continue
+        for result in group:
+            candidate = result["candidate"]
+            result["match_class"] = "CONFLICT"
+            result["identity_proof"] = [
+                *(result.get("identity_proof") or []),
+                "REUSED_BODY_HASH_ACROSS_DISTINCT_PUBLICATIONS",
+            ]
+            result["conflict_reason"] = "REUSED_BODY_HASH_ACROSS_DISTINCT_PUBLICATIONS"
+            result["conflict_count"] = len(group)
+            result["conflict_candidate_metadata"] = {
+                key: candidate.get(key)
+                for key in (
+                    "artifact_type", "source_text_sha256", "source_artifact_sha256",
+                    "source_chars", "recovery_source", "language",
+                )
+            }
+            result["candidate"] = None
     return results
 
 
@@ -256,7 +292,7 @@ def recovery_manifest(results: list[dict[str, Any]]) -> dict[str, Any]:
     ordered = sorted(results, key=priority_key)
     entries = []
     for result in ordered:
-        candidate = result.get("candidate") or {}
+        candidate = result.get("candidate") or result.get("conflict_candidate_metadata") or {}
         entries.append({
             "evidence_id": result["evidence_id"],
             "match_class": result["match_class"],
@@ -276,6 +312,8 @@ def recovery_manifest(results: list[dict[str, Any]]) -> dict[str, Any]:
             "source_name": result.get("source_name"),
             "language": candidate.get("language"),
             "identity_proof": result.get("identity_proof") or [],
+            "conflict_reason": result.get("conflict_reason"),
+            "conflict_count": result.get("conflict_count"),
         })
     counts = Counter(row["match_class"] for row in results)
     exact = [row for row in entries if row["match_class"] in APPLICABLE_MATCHES]

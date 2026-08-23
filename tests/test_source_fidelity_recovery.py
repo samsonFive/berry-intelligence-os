@@ -39,7 +39,7 @@ def _rich(record_id="ev-media-c8cdb7133db1cae0bf66", **overrides):
     record = {
         **_trusted(record_id), "status": "draft", "review_state": "in_review",
         "article": {
-            "paragraphs": [{"index": index, "text": f"Paragraph {index}. " * 12} for index in range(5)],
+            "paragraphs": [{"index": index, "text": f"{record_id} paragraph {index}. " * 12} for index in range(5)],
             "word_count": 120, "content_sha256": "a" * 64,
             "acquisition": {"method": "readable_text_extraction", "extractor": "test", "extractor_version": "1", "fetched_at": "2026-08-01T00:00:00Z"},
         },
@@ -76,6 +76,33 @@ def test_same_id_conflicting_url_is_conflict():
     trusted = _trusted()
     rich = _candidate(_rich(source_url="https://planasa.com/different-article/"))
     assert match_recoveries([trusted], [rich])[0]["match_class"] == "CONFLICT"
+
+
+def test_reused_body_across_three_distinct_publications_is_conflict():
+    shared = [{"index": index, "text": f"Shared acquisition payload {index}. " * 20} for index in range(3)]
+    trusted = [
+        _trusted(f"ev-{index}", source_url=f"https://example.com/article-{index}")
+        for index in range(3)
+    ]
+    candidates = [
+        _candidate(_rich(f"draft-{index}", source_url=row["source_url"], article={
+            "paragraphs": shared,
+            "word_count": 180,
+            "content_sha256": "b" * 64,
+            "acquisition": {"method": "historic_cache"},
+        }))
+        for index, row in enumerate(trusted)
+    ]
+    results = match_recoveries(trusted, candidates)
+    assert {row["match_class"] for row in results} == {"CONFLICT"}
+    assert {row["conflict_count"] for row in results} == {3}
+    assert all(row["candidate"] is None for row in results)
+    manifest = recovery_manifest(results)
+    assert manifest["counts"] == {"CONFLICT": 3}
+    assert manifest["recoverable_articles"] == 0
+    assert {row["conflict_reason"] for row in manifest["entries"]} == {
+        "REUSED_BODY_HASH_ACROSS_DISTINCT_PUBLICATIONS"
+    }
 
 
 def test_similar_title_wrong_article_is_only_ambiguous():
