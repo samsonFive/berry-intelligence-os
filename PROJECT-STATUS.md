@@ -2,7 +2,7 @@
 
 *Maintained by Claude. Updated at the end of each work session that changes project state. Keep short — this is a status check, not a changelog (see `docs/reviews/CURRENT-STATE-AUDIT.md` and `docs/v2/` for detail).*
 
-**Last updated:** 2026-08-23, Atomic Extraction Qualification Harness V2 locally validated
+**Last updated:** 2026-08-23, Pending Review Query Performance V2 locally validated
 
 **Governing roadmap for the post-foundation expansion phase:** `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`, adopted 2026-08-20 — read it before proposing new acquisition, domain-depth, variety, alternative-data, or UI V2 work. Its companions, both live and required reading alongside it: `docs/v2/TECHNICAL-DEBT-REGISTER.md` (every known unresolved bug/limitation, by lane) and `docs/v2/INTELLIGENCE-COVERAGE-MATRIX.md` (the live berry × source-class × geography coverage map).
 
@@ -69,6 +69,17 @@ operator metrics; no historical decisions were inferred and rates remain
 insufficient until 30 applicable decisions across at least two days.
 Full operating contracts: `docs/v2/PRODUCTION-COLLECTION-OPERATIONS-V1.md` and
 `docs/v2/REVIEW-CAPACITY-COLLECTION-BACKPRESSURE-V1.md`.
+
+Pending Review Query Performance V2 resolves TD-083 without changing review or
+trust semantics. `/pending` now uses a private restart-safe metadata projection,
+pushes its existing ids/berry/source filters before ranking, computes exact
+counts over compact records, replaces Story Thread all-pairs work with indexed
+candidate edges, and hydrates rich cards only after the 20-per-bucket slice.
+Production-shaped benchmarks including action defaults and Jinja rendering are
+3.436s cold / 1.839s warm in a conservative final 1,500-draft run after heavy
+host I/O, and 1.476s / 1.248s at 5,000 before that contention. Article bodies/transcripts remain
+in authoritative private drafts and out of the list projection/static output.
+See `docs/v2/PENDING-REVIEW-QUERY-PERFORMANCE-V2.md`.
 
 **Current branch:**
 `v2/intelligence-os` (mainline). The feature worktrees remain only as development/cache locations.

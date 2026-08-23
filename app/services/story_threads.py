@@ -21,6 +21,7 @@ separate. See its own docstring for the full rule.
 from __future__ import annotations
 
 from datetime import date
+from itertools import combinations
 import re
 import unicodedata
 from typing import Any, Iterable
@@ -396,6 +397,77 @@ class _UnionFind:
             self.parent[rb] = ra
 
 
+def _candidate_pairs(items: list[dict[str, Any]]) -> list[tuple[int, int]]:
+    """Return every pair that can possibly satisfy ``items_form_thread``.
+
+    The predicates have narrow keys (URL, normalized title, explicit link,
+    same primary entity, or a seven-day company/variety window).  Generating
+    candidates from those keys avoids the prior all-pairs scan while the final
+    predicate remains the single source of truth.  Sorting pairs restores the
+    exact union order of the historical nested loop and therefore stable tie
+    ordering as well as identical connected components.
+    """
+
+    pairs: set[tuple[int, int]] = set()
+    by_id = {item_id(item): index for index, item in enumerate(items)}
+
+    def add_group(indices: list[int]) -> None:
+        for left, right in combinations(indices, 2):
+            pairs.add((left, right) if left < right else (right, left))
+
+    urls: dict[str, list[int]] = {}
+    titles: dict[str, list[int]] = {}
+    primaries: dict[tuple[str, str], list[int]] = {}
+    dated: list[tuple[date, int]] = []
+    for index, item in enumerate(items):
+        url = item_url(item)
+        if url:
+            urls.setdefault(url, []).append(index)
+        title = normalize_title(item_title(item))
+        if title:
+            titles.setdefault(title, []).append(index)
+        primary_key = (primary_entity_type(item), primary_entity_id(item))
+        if primary_key[0] in {"company", "variety"} and primary_key[1]:
+            primaries.setdefault(primary_key, []).append(index)
+        day = item_date(item)
+        if day:
+            dated.append((day, index))
+        for link in evidence_links_of(item):
+            target_index = by_id.get(_link_target(link))
+            if target_index is not None and target_index != index:
+                pairs.add((min(index, target_index), max(index, target_index)))
+
+    for indices in urls.values():
+        add_group(indices)
+    for indices in titles.values():
+        add_group(indices)
+
+    for indices in primaries.values():
+        ordered = sorted(indices, key=lambda value: item_date(items[value]) or date.min)
+        for offset, left in enumerate(ordered):
+            left_day = item_date(items[left])
+            if not left_day:
+                continue
+            for right in ordered[offset + 1 :]:
+                right_day = item_date(items[right])
+                if not right_day or (right_day - left_day).days > DATE_PROXIMITY_EVENT_DAYS:
+                    break
+                pairs.add((min(left, right), max(left, right)))
+
+    dated.sort()
+    for offset, (left_day, left) in enumerate(dated):
+        left_type = primary_entity_type(items[left])
+        if left_type not in {"company", "variety"}:
+            continue
+        for right_day, right in dated[offset + 1 :]:
+            if (right_day - left_day).days > DATE_PROXIMITY_EVENT_DAYS:
+                break
+            right_type = primary_entity_type(items[right])
+            if {left_type, right_type} == {"company", "variety"}:
+                pairs.add((min(left, right), max(left, right)))
+    return sorted(pairs)
+
+
 def _choose_primary(members: list[dict[str, Any]]) -> dict[str, Any]:
     def key(item: dict[str, Any]) -> tuple:
         day = item_date(item) or date.min
@@ -573,10 +645,10 @@ def group_story_threads(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     ids = [item_id(item) for item in usable]
     by_id = {item_id(item): item for item in usable}
     forest = _UnionFind(ids)
-    for index, left in enumerate(usable):
-        for right in usable[index + 1 :]:
-            if items_form_thread(left, right):
-                forest.union(item_id(left), item_id(right))
+    for left_index, right_index in _candidate_pairs(usable):
+        left, right = usable[left_index], usable[right_index]
+        if items_form_thread(left, right):
+            forest.union(item_id(left), item_id(right))
     grouped: dict[str, list[dict[str, Any]]] = {}
     order: list[str] = []
     for item in usable:

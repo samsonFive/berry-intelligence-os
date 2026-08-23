@@ -115,12 +115,17 @@ def _entity_map(entities: dict[str, dict[str, Any]] | list[dict[str, Any]]) -> d
     return {record["id"]: record for record in entities if record.get("id")}
 
 
-def entity_chips(record: dict[str, Any], entities: dict[str, dict[str, Any]]) -> list[dict[str, str]]:
+def entity_chips(
+    record: dict[str, Any],
+    entities: dict[str, dict[str, Any]],
+    *,
+    by_name: dict[str, dict[str, Any]] | None = None,
+) -> list[dict[str, str]]:
     enrichment = record.get("ai_enrichment") or {}
     chips: list[dict[str, str]] = []
     seen: set[str] = set()
     ids = list(record.get("entity_ids") or []) + list(enrichment.get("suggested_entity_ids") or [])
-    by_name = {
+    name_index = by_name or {
         str(entity.get("name") or "").casefold(): entity
         for entity in entities.values()
         if entity.get("name")
@@ -138,7 +143,7 @@ def entity_chips(record: dict[str, Any], entities: dict[str, dict[str, Any]]) ->
         )
         seen.add(entity_id)
     for name in list(record.get("suggested_competitors") or []):
-        entity = by_name.get(str(name).casefold())
+        entity = name_index.get(str(name).casefold())
         if not entity or entity.get("id") in seen:
             continue
         chips.append(

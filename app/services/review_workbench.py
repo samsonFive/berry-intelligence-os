@@ -109,6 +109,8 @@ def attach_publication_card(
     why = (record.get("why_it_matters") or enrichment.get("why_it_matters") or "").strip()
     summary = (enrichment.get("concise_summary") or "").strip()
     raw_summary = (record.get("summary") or "").strip()
+    if record.get("_pending_summary_is_publisher_description"):
+        publisher = raw_summary
     if not summary and raw_summary and raw_summary != publisher:
         summary = raw_summary
     provenance = enrichment.get("model_provenance") or {}
