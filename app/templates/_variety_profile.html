@@ -163,7 +163,11 @@
                 <span class="badge badge-claim">CLAIM</span>
               {% endif %}
               {% if row.confidence %}<span class="v2-meta">Confidence {{ row.confidence }}</span>{% endif %}
-              {% for name in row.trait_names %}<span class="v2-chip">{{ name }}</span>{% endfor %}
+              {% for chip in row.trait_chips %}
+                <span class="v2-chip">{{ chip.name }}</span>
+                {% set explain_href = learn_href_for_trait(chip.id) %}
+                {% if explain_href %}<a class="v2-explain-this" href="{{ explain_href }}" title="Explain this: {{ chip.name }}">Explain this</a>{% endif %}
+              {% endfor %}
             </p>
             <h3 class="v2-card-title">
               {% if row.evidence_id and not static_build %}

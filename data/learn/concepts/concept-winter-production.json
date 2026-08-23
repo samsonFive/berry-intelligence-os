@@ -1,0 +1,28 @@
+{
+  "id": "concept-winter-production",
+  "slug": "winter-production",
+  "name": "Winter production",
+  "aliases": ["off-season production", "counter-season production", "winter cropping"],
+  "pillar": "plant_biology_agronomy",
+  "knowledge_class": "regional_production_practice",
+  "trait_ids": [],
+  "summary": "Growing berries to fruit outside a region's normal season -- through protected culture, counter-season geography, or low-chill varieties -- to reach markets when local supply is otherwise absent.",
+  "what_is_it": "Winter production refers to growing berries so they fruit outside the region's traditional season, most commonly through protected culture (high tunnels, greenhouses, substrate systems), counter-season geography (Southern Hemisphere production supplying Northern Hemisphere winter demand, or vice versa), or varieties with low chill requirements suited to warmer regions.",
+  "why_it_matters": "Winter or counter-season production captures premium pricing when local/seasonal supply is absent, and is a major driver of both international trade flows in berries and continued investment in protected-culture growing systems and low-chill variety breeding.",
+  "how_evaluated": "Winter-production capability is assessed at the system/region level -- whether a production system, growing region, or variety's chill requirement actually supports fruiting in the target off-season window -- rather than through a single measurable trait on the fruit itself.",
+  "what_affects_it": "Chill-hour requirement of the variety, availability and cost of protected-culture infrastructure, regional climate, and market access/logistics for reaching demand during the target window all determine whether winter production is viable.",
+  "how_to_interpret": "Winter-production claims are regional and system-dependent -- a variety or growing approach that supports winter production in one climate zone will not automatically do so elsewhere. Treat winter-production claims the same way as other regional production-practice claims: look for the specific geography and growing system before generalizing.",
+  "related_concept_ids": ["concept-double-cropping", "concept-precocity"],
+  "sources": [
+    {
+      "publisher": "University of Arkansas Cooperative Extension",
+      "title": "An Introductory Guide to Strawberry Plasticulture",
+      "url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/Guide%20to%20Strawberry%20Plasticulture.pdf"
+    },
+    {
+      "publisher": "USDA SARE (Sustainable Agriculture Research & Education)",
+      "title": "Strawberry Production",
+      "url": "https://www.sare.org/wp-content/uploads/Everbearing-Strawberry-Guide.pdf"
+    }
+  ]
+}

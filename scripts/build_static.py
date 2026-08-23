@@ -50,6 +50,12 @@ from app.main import (  # noqa: E402
 )
 from app.services.assessment_scope import assessment_berry_scope, attach_assessment_scope  # noqa: E402
 from app.services.intelligence_feed import annotate_feed_semantics, build_intelligence_feed  # noqa: E402
+from app.services.learner import (  # noqa: E402
+    all_concepts as learn_all_concepts,
+    concepts_by_pillar as learn_concepts_by_pillar,
+    related_concepts as learn_related_concepts,
+    related_intelligence_for_concept,
+)
 from app.services.review_workbench import build_public_scanner_summary  # noqa: E402
 from app.services.variety_workspace import (  # noqa: E402
     present_variety_detail,
@@ -663,6 +669,45 @@ def build() -> list[Path]:
                 "landscape.html",
                 f"/landscapes/berries/{berry_slug}",
                 {**landscape_context(berry_id), "authoring_mode": False},
+            )
+        )
+
+    # Learner Mode V1 -- a small, finite, enumerable concept set (unlike
+    # Variety/Company Compare's unbounded id-combination space), so unlike
+    # those two it IS wired into the public static build. related_intelligence
+    # reuses the same trusted facts_all/evidence_idx already loaded above --
+    # no additional corpus scan, and only trusted Fact/Evidence, never
+    # inbox/ drafts or Signal Candidates.
+    written.append(
+        write_page(
+            "learn_home.html",
+            "/learn",
+            {
+                "pillars": learn_concepts_by_pillar(),
+                "concept_count": len(learn_all_concepts()),
+                "search_query": "",
+                "search_results": None,
+                "authoring_mode": False,
+            },
+        )
+    )
+    for concept in learn_all_concepts():
+        related_intel = related_intelligence_for_concept(
+            concept,
+            facts=facts_all,
+            entities=entities,
+            evidence_by_id=evidence_idx,
+        )
+        written.append(
+            write_page(
+                "learn_concept.html",
+                f"/learn/{concept['slug']}",
+                {
+                    "concept": concept,
+                    "related": learn_related_concepts(concept),
+                    "related_intelligence": related_intel,
+                    "authoring_mode": False,
+                },
             )
         )
 

@@ -1,0 +1,28 @@
+{
+  "id": "concept-bloom",
+  "slug": "bloom",
+  "name": "Bloom",
+  "aliases": ["fruit bloom", "wax bloom", "cuticular wax"],
+  "pillar": "plant_biology_agronomy",
+  "knowledge_class": "foundational_knowledge",
+  "trait_ids": [],
+  "summary": "The whitish, powdery wax coating naturally found on blueberries (and some other fruit) that protects the fruit and affects its visual appearance.",
+  "what_is_it": "Bloom is a natural, whitish, powdery epicuticular wax layer that forms on the skin of blueberries and several other fruits as they ripen. It is not dirt, residue, or a defect -- it is a fruit-produced coating.",
+  "why_it_matters": "Bloom acts as a natural barrier that helps reduce moisture loss and can offer some protection against decay-causing organisms, contributing to postharvest quality. It is also a visual cue: a heavy, even bloom is often associated by consumers and buyers with fresher, less-handled fruit, since bloom can rub off with repeated handling.",
+  "how_evaluated": "Bloom is assessed visually and by handling -- how even and heavy the wax coating appears, and how well it survives packing and transport. There is no standard instrument measurement in general commercial use; it is typically described qualitatively (heavy, light, patchy, rubbed) in trial notes or marketing material.",
+  "what_affects_it": "Genetics determines how much wax a variety naturally produces. Handling intensity during harvest and packing, moisture, and physical contact during transport can visibly reduce bloom even though the underlying fruit quality is unaffected.",
+  "how_to_interpret": "Bloom is a visual/handling characteristic, not a food-safety or ripeness indicator by itself -- reduced bloom from normal handling does not necessarily mean lower fruit quality. Where bloom is mentioned in a variety or commercial claim, note whether it is describing a genetic trait of the variety or the observed condition of a specific shipment.",
+  "related_concept_ids": ["concept-color"],
+  "sources": [
+    {
+      "publisher": "Michigan State University Extension (College of Agriculture and Natural Resources)",
+      "title": "Blueberry fruit quality and postharvest handling guidance",
+      "url": "https://www.canr.msu.edu"
+    },
+    {
+      "publisher": "University of Georgia Extension",
+      "title": "Blueberry production and fruit quality guidance",
+      "url": "https://extension.uga.edu"
+    }
+  ]
+}

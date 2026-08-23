@@ -1,0 +1,38 @@
+{
+  "id": "concept-flavor",
+  "slug": "flavor",
+  "name": "Flavor",
+  "aliases": ["taste", "eating quality", "sweetness", "sensory quality"],
+  "pillar": "taste_consumer_science",
+  "knowledge_class": "consumer_sensory_observations",
+  "trait_ids": ["trait-eating-quality", "trait-soluble-solids", "trait-titratable-acidity"],
+  "summary": "Perceived sweetness, tartness, and aroma -- driven mainly by the balance of sugar (Brix) to acidity, plus volatile aroma compounds.",
+  "what_is_it": "Flavor is the combined sensory experience of taste (primarily sweetness and tartness) and aroma. The single most measurable predictor of basic taste across berries is the ratio of soluble solids (sugar content, measured in degrees Brix) to titratable acidity -- but aroma, driven by volatile organic compounds (VOCs), often drives the strongest overall 'flavor' impression, separate from sugar and acid.",
+  "why_it_matters": "Flavor is consistently rated by consumers as a top purchase-repeat driver across all four berries, and it is a primary breeding target -- companies frequently market new varieties as 'extra sweet' or 'intensely aromatic.' Whether such marketing claims are substantiated by actual sensory or chemical measurement is a distinct question from whether the claim was made.",
+  "how_evaluated": "Objective components (Brix, titratable acidity) are measured with a refractometer or acid titration and are reproducible when the method and sampling point are known. Full flavor characterization also involves sensory panels (trained tasters or consumer panels) and, in research settings, GC-MS analysis identifying specific aroma compounds -- for example, a 2026 study of 147 blueberry cultivars grouped them into five distinct aroma chemotypes by volatile-compound profile.",
+  "what_affects_it": "Genetics sets the achievable range, but ripeness at harvest, growing-season weather, soil, and time/temperature after harvest all shift realized sugar, acid, and aroma levels -- the same variety can taste different across seasons or growing regions.",
+  "how_to_interpret": "A marketing claim such as 'extra sweet' or 'intensely aromatic' is not itself evidence of measured sugar, acid, or aroma content -- treat it as a claim requiring its own source, not as substantiated chemistry. Where a Brix or acidity figure is quoted, check whether it comes from an independent trial or an owner's own data sheet, since sampling point and season materially affect the number.",
+  "related_concept_ids": ["concept-texture", "concept-firmness"],
+  "sources": [
+    {
+      "publisher": "Berry Intelligence OS internal trait vocabulary",
+      "title": "trait-eating-quality, trait-soluble-solids, trait-titratable-acidity definitions",
+      "url": null
+    },
+    {
+      "publisher": "Bioscience, Biotechnology, and Biochemistry (Oxford Academic)",
+      "title": "Standardization of strawberry sourness and sweetness intensities",
+      "url": "https://academic.oup.com/bbb/article/87/8/890/7157093"
+    },
+    {
+      "publisher": "CNR-IBE / Macfrut 2025",
+      "title": "1,780-sample consumer sensory test defining ideal strawberry, raspberry, and blueberry profiles",
+      "url": "https://italianberry.it/en/news/berry-sensory-test-strawberries-raspberries-blueberries-macfrut-2025-cnr-ibe"
+    },
+    {
+      "publisher": "PubMed",
+      "title": "Identification and characterization of key aroma chemotypes and volatile biomarkers by HS-SPME-GC-MS for precision flavor breeding in blueberries",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41548377/"
+    }
+  ]
+}

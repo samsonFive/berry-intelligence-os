@@ -142,6 +142,15 @@ from app.services.global_search import (
     build_search_documents,
     search_global,
 )
+from app.services.learner import (
+    all_concepts as learn_all_concepts,
+    concept_by_slug as learn_concept_by_slug,
+    concepts_by_pillar as learn_concepts_by_pillar,
+    learn_href_for_trait_id,
+    related_concepts as learn_related_concepts,
+    related_intelligence_for_concept,
+    search_concepts as learn_search_concepts,
+)
 from app.services.signal_candidates import SignalCandidateError, load_candidates
 from app.services.signal_review import (
     EMERGING_STATUSES,
@@ -506,6 +515,7 @@ templates = Jinja2Templates(
 )
 templates.env.globals["pending_review_count"] = lambda: len(list_pending_drafts()) + len(unvalidated_auto_captured_evidence())
 templates.env.globals["queue_counts"] = lambda: queue_counts()
+templates.env.globals["learn_href_for_trait"] = learn_href_for_trait_id
 templates.env.globals["nav_work"] = lambda: work_counts(
     inbox_dir=INBOX_DIR,
     published=published_evidence(),
@@ -2334,6 +2344,67 @@ def entity_synthesis_context(
             )
         )
     return context
+
+
+@app.get("/learn", response_class=HTMLResponse)
+def learn_home(request: Request, q: str = "") -> HTMLResponse:
+    """Learner Mode V1 home -- deterministic browse/glossary over the
+    starter concept set (data/learn/concepts/*.json). Search is a plain
+    substring match over name/alias/pillar/summary, not semantic search,
+    per Learner Mode governance (docs/v2/feature-requests/LEARNER-MODE.md,
+    INTELLIGENCE-EXPANSION-BUILD-GUIDE.md section 12a). Educational
+    knowledge, not Competitive Intelligence -- no Evidence/Fact/Signal
+    objects are created or implied here."""
+    search_results = learn_search_concepts(q) if q.strip() else None
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="learn_home.html",
+        context={
+            "pillars": learn_concepts_by_pillar(),
+            "concept_count": len(learn_all_concepts()),
+            "search_query": q,
+            "search_results": search_results,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/learn/{slug}", response_class=HTMLResponse)
+def learn_concept_detail(request: Request, slug: str) -> HTMLResponse:
+    """Learner Mode V1 concept page. related_intelligence_for_concept()
+    reuses only already-loaded, trusted Facts/Evidence -- the same recall
+    mechanism Variety Intelligence V2 uses -- and never touches inbox/
+    drafts or Signal Candidates."""
+    concept = learn_concept_by_slug(slug)
+    if not concept:
+        raise HTTPException(status_code=404, detail="Learner Mode concept not found")
+    entities = entity_index()
+    related_intel = related_intelligence_for_concept(
+        concept,
+        facts=all_facts(),
+        entities=entities,
+        evidence_by_id={r["id"]: r for r in all_evidence() if r.get("id")},
+    )
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="learn_concept.html",
+        context={
+            "concept": concept,
+            "related": learn_related_concepts(concept),
+            "related_intelligence": related_intel,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
 
 
 @app.get("/entities/variety/compare", response_class=HTMLResponse)

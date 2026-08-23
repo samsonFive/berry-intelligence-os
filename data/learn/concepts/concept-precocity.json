@@ -1,0 +1,28 @@
+{
+  "id": "concept-precocity",
+  "slug": "precocity",
+  "name": "Precocity",
+  "aliases": ["early bearing", "early production", "early cropping"],
+  "pillar": "plant_biology_agronomy",
+  "knowledge_class": "regional_production_practice",
+  "trait_ids": [],
+  "summary": "How early a plant or variety begins producing, or reaches a defined production milestone, relative to typical timing -- a trellis/planting-economics attribute, not a fixed universal number.",
+  "what_is_it": "Precocity generally refers to how early a plant or variety begins producing fruit, or reaches a stated production milestone (such as commercial yield), relative to when growers would normally expect it. The exact meaning depends on the trial or production context being described.",
+  "why_it_matters": "A more precocious variety or planting system can return commercial-scale yield sooner after establishment, improving early cash flow and shortening the payback period on a new planting -- a significant economic consideration in perennial berry crops, where establishment can otherwise take several years before full production.",
+  "how_evaluated": "Precocity is typically reported as time-to-first-commercial-harvest or yield achieved by a stated year after planting, compared against a regional or varietal baseline. Because baselines vary by region, rootstock/propagation method, and production system, precocity figures are not directly comparable across sources without knowing what baseline was used.",
+  "what_affects_it": "Genetics, propagation method (e.g. tissue-culture plants vs. bare-root), planting density, site preparation, and regional climate/chill conditions all influence how quickly a planting reaches meaningful production.",
+  "how_to_interpret": "Precocity claims depend heavily on the specific trial or regional context in which they were made -- a variety described as 'early-bearing' in one region's guide is not automatically early-bearing everywhere. Treat precocity claims the way you would any other regional production-practice claim: check whether the geography and production system are stated before generalizing.",
+  "related_concept_ids": ["concept-double-cropping"],
+  "sources": [
+    {
+      "publisher": "Washington State University Extension",
+      "title": "Commercial berry production establishment and timing guidance",
+      "url": "https://extension.wsu.edu"
+    },
+    {
+      "publisher": "NC State Extension",
+      "title": "Berry production establishment and annual-cycle guidance",
+      "url": "https://content.ces.ncsu.edu"
+    }
+  ]
+}

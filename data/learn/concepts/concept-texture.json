@@ -1,0 +1,33 @@
+{
+  "id": "concept-texture",
+  "slug": "texture",
+  "name": "Texture",
+  "aliases": ["mouthfeel", "crispness", "juiciness"],
+  "pillar": "taste_consumer_science",
+  "knowledge_class": "consumer_sensory_observations",
+  "trait_ids": [],
+  "summary": "Mouthfeel qualities such as crispness, juiciness, and skin resistance -- a sensory dimension distinct from taste and aroma that strongly correlates with overall liking.",
+  "what_is_it": "Texture covers the mechanical and mouthfeel sensations experienced while eating a berry -- crispness, juiciness, skin resistance, and flesh consistency -- separate from taste (sweet/tart) and aroma. It overlaps with, but is not identical to, instrument-measured firmness.",
+  "why_it_matters": "Consumer sensory research consistently finds texture liking correlates strongly with overall liking, alongside sweetness and flavor intensity -- in one large-scale 2025 sensory panel, blueberry preference was driven more by crispness and juiciness than by sweetness alone. Texture is therefore a distinct, independently important target from flavor for breeders and marketers.",
+  "how_evaluated": "Texture is primarily assessed through trained or consumer sensory panels rating specific attributes (crispness, juiciness, chewiness) on structured scales, since no single instrument captures the full mouthfeel experience the way a refractometer captures sugar content.",
+  "what_affects_it": "Genetics, ripeness at harvest, and postharvest handling and storage time all influence realized texture -- overripe or improperly stored fruit typically loses crispness and develops mealiness even when a variety's genetic texture potential is high.",
+  "how_to_interpret": "Texture claims in marketing material are rarely backed by a published sensory-panel score -- treat descriptive texture language ('crisp,' 'juicy') the same way as other unmeasured sensory claims unless a specific panel study is cited. Texture and firmness are related but not interchangeable: an instrument firmness reading does not fully predict how a berry will be described in a taste panel.",
+  "related_concept_ids": ["concept-firmness", "concept-flavor"],
+  "sources": [
+    {
+      "publisher": "Nature (Horticulture Research)",
+      "title": "Strawberry sweetness and consumer preference are enhanced by texture and flavor intensity",
+      "url": "https://www.nature.com/articles/s41438-021-00502-5"
+    },
+    {
+      "publisher": "Frontiers in Plant Science",
+      "title": "Analysis of volatile organic compounds in Korean-bred strawberries",
+      "url": "https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2024.1360050/full"
+    },
+    {
+      "publisher": "CNR-IBE / Macfrut 2025",
+      "title": "1,780-sample consumer sensory test defining ideal strawberry, raspberry, and blueberry profiles",
+      "url": "https://italianberry.it/en/news/berry-sensory-test-strawberries-raspberries-blueberries-macfrut-2025-cnr-ibe"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "concept-shelf-life",
+  "slug": "shelf-life",
+  "name": "Shelf life",
+  "aliases": ["postharvest shelf life", "storage life", "days in cold storage"],
+  "pillar": "harvest_technology_agtech",
+  "knowledge_class": "foundational_knowledge",
+  "trait_ids": ["trait-postharvest-shelf-life"],
+  "summary": "How many days a berry holds acceptable quality in cold storage -- a claim that depends heavily on the storage conditions and quality threshold used.",
+  "what_is_it": "Shelf life is the length of time, usually measured in days under refrigeration, that a batch of harvested berries retains a defined level of quality -- typically judged by firmness, appearance, decay incidence, and flavor.",
+  "why_it_matters": "Longer shelf life reduces shrink (unsellable spoiled fruit) across the supply chain, widens the geographic and retail window a grower or marketer can reach, and is one of the most commercially valuable traits for varieties destined for export or long-haul distribution -- often marketed prominently in variety launch claims.",
+  "how_evaluated": "Shelf-life figures come from controlled storage trials (fruit held at a stated temperature and evaluated on a schedule) or from commercial handling experience reported by an owner or marketer. The storage temperature, packaging, and the specific quality threshold used to call the fruit 'no longer acceptable' are frequently left unstated, which materially affects the reported number.",
+  "what_affects_it": "Genetics (skin toughness, firmness, decay resistance), harvest maturity, time-to-cooling after harvest, storage temperature and humidity, packaging, and modified-atmosphere handling all influence realized shelf life -- often more than variety alone.",
+  "how_to_interpret": "Shelf-life claims are almost always an owner or marketer statement rather than an independently verified trial result; storage temperature, packaging, and the quality threshold used are usually unstated. Treat a bare 'N days of shelf life' claim as directional marketing information unless the source specifies test conditions, and do not assume two shelf-life claims from different companies used the same storage protocol.",
+  "related_concept_ids": ["concept-firmness"],
+  "sources": [
+    {
+      "publisher": "Berry Intelligence OS internal trait vocabulary",
+      "title": "trait-postharvest-shelf-life definition",
+      "url": null
+    },
+    {
+      "publisher": "UC Davis Postharvest Technology Center",
+      "title": "Postharvest handling and storage guidance for small fruit",
+      "url": null
+    }
+  ]
+}

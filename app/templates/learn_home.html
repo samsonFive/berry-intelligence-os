@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Learn — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page v2-learn-page">
+<section class="page-heading v2-page-header" data-pagefind-filter="type:learn">
+  <div>
+    <p class="eyebrow">LEARN</p>
+    <h1>Learner Mode</h1>
+    <p class="also-known-as">Understand the biology, agronomy, sensory science, technologies, and terminology behind the intelligence.</p>
+    <p class="context-limit">Educational knowledge, not competitive intelligence. Concept pages explain how a trait or production practice generally works; they never claim a specific company or variety is better than another. Where trusted intelligence exists on a topic, a concept page links to it separately and clearly labeled.</p>
+  </div>
+</section>
+
+<section class="v2-company-section" id="learn-search">
+  <form class="filters" action="/learn" method="get" role="search" aria-label="Search Learner Mode concepts">
+    <div class="filter-field">
+      <label for="learn-q">Search concepts</label>
+      <input id="learn-q" type="search" name="q" value="{{ search_query }}" placeholder="e.g. firmness, double cropping, bloom…" autofocus>
+    </div>
+    <div class="filter-actions">
+      <button type="submit">Search</button>
+      {% if search_query %}<a href="/learn">Clear</a>{% endif %}
+    </div>
+  </form>
+</section>
+
+{% if search_results is not none %}
+<section class="v2-company-section" id="learn-search-results">
+  <h2>Results for &ldquo;{{ search_query }}&rdquo;</h2>
+  {% if search_results %}
+    <div class="balanced-card-grid">
+      {% for concept in search_results %}
+        <article class="card entity-card">
+          <h2><a href="/learn/{{ concept.slug }}">{{ concept.name }}</a></h2>
+          <p>{{ concept.summary }}</p>
+          <p class="card-kicker">{{ concept.pillar_label }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty-state">No Learner Mode concepts match &ldquo;{{ search_query }}&rdquo; yet. More concepts are being added.</p>
+  {% endif %}
+</section>
+{% else %}
+  {% for group in pillars %}
+    <section class="v2-company-section" id="pillar-{{ group.pillar }}">
+      <h2>{{ group.label }}</h2>
+      <div class="balanced-card-grid">
+        {% for concept in group.concepts %}
+          <article class="card entity-card">
+            <h2><a href="/learn/{{ concept.slug }}">{{ concept.name }}</a></h2>
+            <p>{{ concept.summary }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+  {% endfor %}
+  <p class="context-limit">{{ concept_count }} starter concept{{ 's' if concept_count != 1 else '' }} today, spanning taste/consumer science and plant biology/agronomy. More pillars and concepts are being added.</p>
+{% endif %}
+</div>
+{% endblock %}
