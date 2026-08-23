@@ -74,7 +74,7 @@ Branch protection was then enabled on `v2/intelligence-os`. The live API respons
 
 Temporary PR [#96](https://github.com/samsonFive/berry-intelligence-os/pull/96) tested the genuine fast path as a one-file Markdown-only diff against the implementation branch. [Run 32616798032](https://github.com/samsonFive/berry-intelligence-os/actions/runs/32616798032) retained and passed all four contexts in 4-6s. Step-level results prove Python setup, dependency installation, tests, record validation, promotion tests, static generation, and artifact checks were skipped. The proof PR was closed without merge and its remote branch deleted.
 
-The implementation merge SHA and post-merge Pages result are recorded in the mission handoff because they necessarily occur after this version of the document is committed.
+PR #95 merged as `f39bf8987762cb4bf9aec4fa65bd2fa5bef0b671`. Post-merge [Pages run 32617000606](https://github.com/samsonFive/berry-intelligence-os/actions/runs/32617000606) passed on that exact canonical SHA: the full build/validation job completed in 3m16s and deployment in 8s. The public Pages URL returned HTTP 200 with the expected Berry Intelligence OS title. No VPS rebuild was required because the implementation changed only CI, tests, and documentation.
 
 ## Stale production freeze audit
 
