@@ -996,6 +996,24 @@
 }
 .v2-learn-return { border-top: 1px solid var(--v2-border); padding-top: 12px; }
 
+/* Executive Readout V1 -- lightweight presentation/screen-share mode.
+   Toggled by a body class set from executive_readout.html's own inline
+   script (?present=1) -- no base.html changes needed. */
+body.v2-presentation-mode .v2-sidebar,
+body.v2-presentation-mode .v2-topbar,
+body.v2-presentation-mode .v2-nav-offcanvas {
+  display: none !important;
+}
+body.v2-presentation-mode .v2-frame { margin-left: 0; }
+body.v2-presentation-mode .v2-canvas {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+  font-size: 1.08em;
+}
+body.v2-presentation-mode .v2-readout-page h1 { font-size: 2.4rem; }
+body.v2-presentation-mode .v2-readout-page h2 { font-size: 1.5rem; }
+
 @media (prefers-reduced-motion: reduce) {
   .offcanvas { transition: none !important; }
 }

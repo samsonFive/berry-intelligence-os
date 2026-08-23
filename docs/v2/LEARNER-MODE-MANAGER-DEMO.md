@@ -1,10 +1,15 @@
-# Learner Mode V1 + Landscape V2 — Manager Demo Script
+# Learner Mode + Landscape + Executive Readout — Manager Demo Script
 
-First bounded implementations of Workstream K (Learner Mode, `docs/v2/feature-requests/LEARNER-MODE.md`) and the executive Landscape synthesis layer (Landscape V2). Both are real V1/V2 features, not prototypes — small, honest, deployed slices, not the full roadmaps. Combined demo stays under ~5 minutes.
+First bounded implementations of Workstream K (Learner Mode, `docs/v2/feature-requests/LEARNER-MODE.md`), the executive Landscape synthesis layer (Landscape V2), and the Executive Intelligence Readout (V1). All three are real, deployed V1/V2 features, not prototypes. Combined demo stays under ~5 minutes.
 
-## Suggested combined flow
+## Ideal manager path
 
-Learner Mode explains the concepts; Landscape shows where those concepts and competitive developments actually appear across the market. Run the Learner Mode path first, then transition: "Now let's see where this shows up across the actual competitive landscape."
+**LANDSCAPE → EXECUTIVE READOUT → drill into evidence → LEARNER MODE**
+
+1. **Landscape** (`/landscapes`) shows what the captured competitive environment looks like -- companies, varieties, evidence, signals per berry.
+2. **Executive Readout** (`/readout`) is the "what would I say upward" layer -- the most important trusted developments and real analyst interpretations, with an honest "what to be cautious about" section. Use **Presentation mode** (top of the page) here for a clean, chrome-free screen-share view.
+3. **Drill into evidence** -- click through any item (Evidence, Signal, or Assessment) to see the real trusted source behind it.
+4. **Learner Mode** (`/learn`) closes the loop -- explains the underlying concept (e.g. Firmness) that showed up in the Readout/Landscape.
 
 ## 3-minute demo path (Learner Mode)
 
@@ -66,3 +71,25 @@ Second flow if time allows: search **"double cropping"** from Learn home, open i
 - Real server-side geography and time-window filters (today's region filter is client-side over an already-fully-loaded dataset).
 - Faster cold-cache performance for the very first request after a data change.
 - Activity-type taxonomy beyond the existing trait-derived competitive themes.
+
+## 2-minute demo path (Executive Readout V1, the "communicate upward" layer)
+
+1. **Open Executive Readout** (`/readout`) from the sidebar (Library group).
+2. **Point out the header stats**, then **What changed** -- real, dated trusted Evidence/Signals/Assessments from the last 14 days, each keeping its real trust-class badge.
+3. **Scroll to "What do our analyst assessments say."** Show that each row is a real Assessment (REVIEWED or AI PROPOSED, clearly labeled) with real rationale and a real "would change our view" caveat -- say explicitly: "If we had no assessment on a topic, this would say 'No analyst assessment captured' -- nothing here is invented."
+4. **Scroll to "What to be cautious about."** Read the coverage caveat aloud: "Captured intelligence coverage, not market activity."
+5. **Click Presentation mode** (top of the page) to show the clean, chrome-free screen-share view -- this is the intended state for an actual executive screen-share.
+
+## What is real today (Executive Readout V1)
+
+- Real corpus-wide "What changed" (14-day window over Evidence/Signal/Assessment dates) -- distinct from Morning Brief's per-analyst state and Landscape's berry-scoped moves.
+- Real Assessments and Signals, never fabricated -- honest "No analyst assessment captured" / "No confirmed or proposed Signal captured" when none exist.
+- Reuses Landscape's own cross-berry Actors to Watch rather than a second implementation.
+- A working, self-contained presentation/screen-share mode (`?present=1`) -- no base template changes.
+- Response caching (shared with Landscape) keeps warm requests around 250-650ms.
+
+## What comes next for Executive Readout (do not imply this is done tonight)
+
+- A user-configurable "what changed" time window (today's 14 days is fixed).
+- Fact-level items in "What changed" once Fact date-field population (TD-088/TD-089) improves enough to be reliable.
+- Export/print-to-PDF for the presentation-mode view.

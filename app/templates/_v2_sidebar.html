@@ -33,6 +33,8 @@
   <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="2"/><path d="M8 2.5v1.6M8 11.9v1.6M2.5 8h1.6M11.9 8h1.6M4.1 4.1l1.1 1.1M10.8 10.8l1.1 1.1M11.9 4.1l-1.1 1.1M5.2 10.8l-1.1 1.1"/></svg>
   {%- elif name == 'learn' -%}
   <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4.2C6.8 3.3 5 2.8 3 2.8v9.4c2 0 3.8.5 5 1.4"/><path d="M8 4.2c1.2-.9 3-1.4 5-1.4v9.4c-2 0-3.8.5-5 1.4V4.2Z"/></svg>
+  {%- elif name == 'readout' -%}
+  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 13V7.5l3-2 3 1.8 3-2.3 2 1.3V13z"/><path d="M2.5 13h11"/></svg>
   {%- elif name == 'pub' -%}
   <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 2.8h7.2a1.3 1.3 0 0 1 1.3 1.3v9.1H5.3A1.3 1.3 0 0 1 4 11.9V2.8z"/><path d="M4 11.9a1.3 1.3 0 0 1 1.3-1.3h7.2"/></svg>
   {%- else -%}
@@ -87,6 +89,7 @@
   <a href="/entities/variety" class="v2-nav-link{% if path.startswith('/entities/variety') %} is-active{% endif %}" title="Varieties" aria-label="Varieties">{{ nav_icon('variety') }}<span class="v2-nav-text">Varieties</span></a>
   <a href="/entities/geography" class="v2-nav-link{% if path.startswith('/entities/geography') %} is-active{% endif %}" title="Geographies" aria-label="Geographies">{{ nav_icon('geo') }}<span class="v2-nav-text">Geographies</span></a>
   <a href="{{ ui.landscape_href }}" class="v2-nav-link{% if path.startswith('/landscapes') or path.startswith('/entities/berry') %} is-active{% endif %}" title="Landscape" aria-label="Landscape">{{ nav_icon('landscape') }}<span class="v2-nav-text">Landscape</span></a>
+  <a href="/readout" class="v2-nav-link{% if path.startswith('/readout') %} is-active{% endif %}" title="Executive Readout" aria-label="Executive Readout"{% if path.startswith('/readout') %} aria-current="page"{% endif %}>{{ nav_icon('readout') }}<span class="v2-nav-text">Executive Readout</span></a>
   <a href="/learn" class="v2-nav-link{% if path.startswith('/learn') %} is-active{% endif %}" title="Learn" aria-label="Learn"{% if path.startswith('/learn') %} aria-current="page"{% endif %}>{{ nav_icon('learn') }}<span class="v2-nav-text">Learn</span></a>
 
   <p class="v2-nav-group v2-nav-group-action">
