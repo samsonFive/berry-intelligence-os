@@ -39,6 +39,56 @@ UK_PILOT_EXPECTED_UNNAMED = 16
 
 VIEWS = ("index", "compete", "observations")
 
+# Variety Profile Intelligence V2 -- a small, closed-vocabulary mapping from
+# the real trait entity catalog (data/entities/traits/*.json, 13 records) to
+# a coarser display group. This is NOT NLP over free text: it is a lookup
+# over already-curated, stable trait entity ids. A trait id not listed here
+# (e.g. a future 14th trait entity) is not silently mis-grouped -- it falls
+# into "Other observations" until someone deliberately adds it below.
+TRAIT_GROUP_BUCKETS = (
+    ("product_sensory", "Product / sensory", (
+        "trait-eating-quality",
+        "trait-fruit-color",
+        "trait-fruit-size",
+        "trait-soluble-solids",
+        "trait-titratable-acidity",
+    )),
+    ("postharvest_quality", "Postharvest / quality", (
+        "trait-fruit-firmness",
+        "trait-postharvest-shelf-life",
+    )),
+    ("production_agronomic", "Production / agronomic", (
+        "trait-machine-harvest-suitability",
+        "trait-chilling-requirement",
+        "trait-flowering-habit",
+        "trait-fruiting-habit",
+        "trait-yield",
+        "trait-disease-susceptibility",
+    )),
+)
+TRAIT_TO_GROUP: dict[str, tuple[str, str]] = {
+    trait_id: (bucket, label)
+    for bucket, label, trait_ids in TRAIT_GROUP_BUCKETS
+    for trait_id in trait_ids
+}
+
+# Humanizes the real, already-structured Evidence.source_type field for
+# attribution display. This is not a new attribution taxonomy -- current
+# schema has no field distinguishing "retailer feedback" from "marketer
+# feedback" from "company self-report" more finely than source_type already
+# does (see TD register: no structured attribution-role field exists yet).
+SOURCE_TYPE_LABEL: dict[str, str] = {
+    "company_press_release": "Company self-report",
+    "trade_press": "Trade press (third-party)",
+    "patent_record": "Patent registry",
+    "plant_breeders_rights_record": "Plant breeders' rights registry",
+    "news_search": "News / press coverage",
+    "industry_podcast": "Industry podcast",
+    "discovered_media": "Discovered media",
+    "private_equity_press_release": "Private equity press release",
+    "development_finance_press_release": "Development finance press release",
+}
+
 
 def _by_id(entities: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     return {str(entity["id"]): entity for entity in entities if entity.get("id")}
@@ -131,12 +181,14 @@ def build_variety_indexes(
     inbox_drafts: list[dict[str, Any]] | None = None,
     signals: list[dict[str, Any]] | None = None,
     candidates: list[dict[str, Any]] | None = None,
+    facts: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """One-pass indexes for the Variety index. Does not call variety_footprint."""
 
     inbox_drafts = inbox_drafts or []
     signals = signals or []
     candidates = candidates or []
+    facts = facts or []
     entity_index = _by_id(entities)
     variety_ids = {str(row["id"]) for row in varieties if row.get("id")}
 
@@ -238,6 +290,18 @@ def build_variety_indexes(
             if vid in signal_counts:
                 signal_counts[vid]["candidates"] += 1
 
+    # Variety Profile Intelligence V2: one more single pass, same shape as
+    # the roles/rights/observations walks above -- counts real trait-tagged
+    # Facts per variety (see TRAIT_TO_GROUP) without calling
+    # present_variety_intelligence() or variety_footprint() per card.
+    product_evidence: dict[str, int] = {vid: 0 for vid in variety_ids}
+    for fact in facts:
+        fact_entity_ids = {str(value) for value in (fact.get("entity_ids") or []) if value}
+        if not any(str(eid).startswith("trait-") for eid in fact_entity_ids):
+            continue
+        for variety_id in fact_entity_ids & variety_ids:
+            product_evidence[variety_id] += 1
+
     return {
         "roles": roles,
         "rights": rights,
@@ -245,6 +309,7 @@ def build_variety_indexes(
         "unnamed_observations": unnamed_obs,
         "recent": recent,
         "signal_counts": signal_counts,
+        "product_evidence": product_evidence,
         "entity_index": entity_index,
     }
 
@@ -306,6 +371,7 @@ def present_variety_card(
     recent = indexes["recent"].get(vid) or {}
     signals = indexes["signal_counts"].get(vid) or {"signals": 0, "candidates": 0}
     obs_count = int(obs.get("published") or 0) + int(obs.get("draft") or 0)
+    product_evidence_count = int((indexes.get("product_evidence") or {}).get(vid) or 0)
     return {
         "id": vid,
         "href": f"/entities/variety/{vid}",
@@ -324,6 +390,8 @@ def present_variety_card(
         "recent": recent,
         "signal_count": int(signals.get("signals") or 0),
         "candidate_count": int(signals.get("candidates") or 0),
+        "product_evidence_count": product_evidence_count,
+        "has_product_evidence": product_evidence_count > 0,
     }
 
 
@@ -449,6 +517,7 @@ def present_variety_index(
     inbox_drafts: list[dict[str, Any]] | None = None,
     signals: list[dict[str, Any]] | None = None,
     candidates: list[dict[str, Any]] | None = None,
+    facts: list[dict[str, Any]] | None = None,
     filters: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     filters = filters or {}
@@ -460,16 +529,23 @@ def present_variety_index(
         inbox_drafts=inbox_drafts,
         signals=signals,
         candidates=candidates,
+        facts=facts,
     )
     cards = [
         present_variety_card(variety, indexes=indexes, berry_labels=berry_labels) for variety in varieties
     ]
     has_rights = str(filters.get("has_rights") or "")
     has_observation = str(filters.get("has_observation") or "")
+    has_product_evidence = str(filters.get("has_product_evidence") or "")
+    has_signal = str(filters.get("has_signal") or "")
     if has_rights in {"1", "true", "yes"}:
         cards = [card for card in cards if card["has_rights"]]
     if has_observation in {"1", "true", "yes"}:
         cards = [card for card in cards if card["has_observation"]]
+    if has_product_evidence in {"1", "true", "yes"}:
+        cards = [card for card in cards if card["has_product_evidence"]]
+    if has_signal in {"1", "true", "yes"}:
+        cards = [card for card in cards if card["signal_count"] > 0]
     named_obs = sum(
         int(row.get("published") or 0) + int(row.get("draft") or 0)
         for row in indexes["observations"].values()
@@ -632,6 +708,122 @@ def _network_from_relationships(
     return network
 
 
+def _present_fact_observation(
+    fact: dict[str, Any],
+    *,
+    entities: dict[str, dict[str, Any]],
+    evidence_by_id: dict[str, dict[str, Any]],
+    trait_ids: list[str],
+) -> dict[str, Any]:
+    evidence_ids = [str(eid) for eid in (fact.get("evidence_ids") or []) if eid]
+    primary = evidence_by_id.get(evidence_ids[0]) if evidence_ids else None
+    trait_names = [
+        _name(entities.get(trait_id), trait_id.removeprefix("trait-").replace("-", " ").title())
+        for trait_id in trait_ids
+    ]
+    geography = []
+    if primary:
+        for geo_id in primary.get("geography_ids") or []:
+            party = _party(entities.get(str(geo_id)))
+            if party:
+                geography.append(party)
+    source_type = str((primary or {}).get("source_type") or "")
+    return {
+        "id": fact.get("id"),
+        "statement": fact.get("statement") or "",
+        "classification": fact.get("classification") or "",
+        "confidence": fact.get("confidence") or "",
+        "fact_status": fact.get("status") or "",
+        "trait_names": trait_names,
+        "fact_href": f"/facts/{fact['id']}" if fact.get("id") else "",
+        "evidence_id": (primary or {}).get("id") or "",
+        "evidence_href": f"/evidence/{primary['id']}" if primary else "",
+        "reader_href": f"/intelligence/{primary['id']}" if primary else "",
+        "source_name": (primary or {}).get("source_name") or "",
+        "source_type": source_type,
+        "source_type_label": SOURCE_TYPE_LABEL.get(source_type, source_type.replace("_", " ").title() if source_type else "Unspecified source"),
+        "source_authority": (primary or {}).get("source_authority") or "",
+        "verification_state": (primary or {}).get("verification_state") or "",
+        "does_not_prove": list((primary or {}).get("does_not_prove") or []),
+        "published_date": (primary or {}).get("published_date") or (primary or {}).get("captured_date") or "",
+        "geography": geography,
+        "additional_source_count": max(len(evidence_ids) - 1, 0),
+    }
+
+
+def present_variety_intelligence(
+    variety: dict[str, Any],
+    *,
+    entities: dict[str, dict[str, Any]],
+    facts: list[dict[str, Any]],
+    evidence_by_id: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    """Groups trait-tagged Facts touching this variety by product/postharvest/
+    production dimension, using only the real trait entity catalog
+    (data/entities/traits/*.json, TRAIT_TO_GROUP above) and real
+    Fact.entity_ids co-occurrence with the variety -- no new schema, no AI
+    inference, no NLP over free text. Creates no records; presentation only.
+
+    Commercial/market observations are deliberately NOT duplicated here --
+    they already have their own richer, well-established presentation in
+    the Commercial footprint section (present_observation /
+    _commercial_observation.html); this function only covers the product,
+    postharvest, and production/agronomic dimensions that section does not.
+    """
+    variety_id = str(variety.get("id") or "")
+    grouped: dict[str, list[dict[str, Any]]] = {bucket: [] for bucket, _label, _ids in TRAIT_GROUP_BUCKETS}
+    grouped["other"] = []
+    evidence_ids_seen: set[str] = set()
+    geography_ids_seen: set[str] = set()
+    dates: list[str] = []
+
+    for fact in facts:
+        fact_entity_ids = [str(eid) for eid in (fact.get("entity_ids") or []) if eid]
+        if variety_id not in fact_entity_ids:
+            continue
+        trait_ids = [eid for eid in fact_entity_ids if eid.startswith("trait-")]
+        if not trait_ids:
+            continue
+        bucket = "other"
+        for trait_id in trait_ids:
+            if trait_id in TRAIT_TO_GROUP:
+                bucket = TRAIT_TO_GROUP[trait_id][0]
+                break
+        row = _present_fact_observation(fact, entities=entities, evidence_by_id=evidence_by_id, trait_ids=trait_ids)
+        grouped[bucket].append(row)
+        for eid in fact.get("evidence_ids") or []:
+            eid = str(eid)
+            evidence_ids_seen.add(eid)
+            record = evidence_by_id.get(eid)
+            if record:
+                geography_ids_seen.update(str(g) for g in (record.get("geography_ids") or []))
+                stamp = record.get("published_date") or record.get("captured_date")
+                if stamp:
+                    dates.append(str(stamp))
+
+    for rows in grouped.values():
+        rows.sort(key=lambda row: str(row.get("published_date") or ""), reverse=True)
+
+    groups = [
+        {"key": bucket, "label": label, "rows": grouped[bucket]}
+        for bucket, label, _ids in TRAIT_GROUP_BUCKETS
+        if grouped[bucket]
+    ]
+    if grouped["other"]:
+        groups.append({"key": "other", "label": "Other observations", "rows": grouped["other"]})
+
+    return {
+        "groups": groups,
+        "has_any": bool(groups),
+        "coverage": {
+            "observation_count": sum(len(g["rows"]) for g in groups),
+            "source_count": len(evidence_ids_seen),
+            "geography_count": len(geography_ids_seen),
+            "latest_date": max(dates) if dates else "",
+        },
+    }
+
+
 def present_variety_detail(
     variety: dict[str, Any],
     *,
@@ -645,8 +837,12 @@ def present_variety_detail(
     story_threads: list[dict[str, Any]] | None = None,
     signals: list[dict[str, Any]] | None = None,
     include_candidates: bool = True,
+    facts: list[dict[str, Any]] | None = None,
+    evidence_by_id: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     inbox_drafts = inbox_drafts or []
+    facts = facts or []
+    evidence_by_id = evidence_by_id or {}
     entity_list = list(entities.values())
     footprint = variety_footprint(
         variety["id"],
@@ -719,12 +915,45 @@ def present_variety_detail(
     berry_id = (variety.get("berry_ids") or [None])[0]
     landscape_href = f"/landscapes/berries/{str(berry_id).removeprefix('berry-')}" if berry_id else "/entities/berry"
     traits = variety_trait_profile(variety, entities)
+    variety_intelligence = present_variety_intelligence(
+        variety, entities=entities, facts=facts, evidence_by_id=evidence_by_id
+    )
+    obs_dates = [row.get("observed_at") for row in observations if row.get("observed_at")]
+    obs_geo_ids = {str(g) for row in observations for g in (row.get("geography_ids") or [])}
+    obs_source_ids = {row.get("id") for row in observations if row.get("id")}
+    rights_dates = [row.get("published_date") for row in rights_published if row.get("published_date")]
+    all_dates = [
+        d for d in (
+            [variety_intelligence["coverage"]["latest_date"]] + obs_dates + rights_dates
+        )
+        if d
+    ]
+    intelligence_evidence_ids = {
+        row.get("evidence_id") for group in variety_intelligence["groups"] for row in group["rows"] if row.get("evidence_id")
+    }
+    intelligence_geo_ids = {
+        g["id"] for group in variety_intelligence["groups"] for row in group["rows"] for g in row.get("geography", [])
+    }
+    evidence_coverage = {
+        "observation_count": (
+            variety_intelligence["coverage"]["observation_count"] + len(observations) + len(rights_published)
+        ),
+        "source_count": len(
+            obs_source_ids
+            | intelligence_evidence_ids
+            | {row.get("id") for row in rights_published if row.get("id")}
+        ),
+        "geography_count": len(obs_geo_ids | intelligence_geo_ids),
+        "latest_date": max(all_dates) if all_dates else "",
+    }
     return {
         "identity": identity,
         "roles": roles_resolved,
         "role_labels": ROLE_LABEL,
         "footprint": footprint,
         "observations": observations,
+        "variety_intelligence": variety_intelligence,
+        "evidence_coverage": evidence_coverage,
         "rights_published": rights_published,
         "rights_drafts": rights_drafts,
         "countries_observed": countries,

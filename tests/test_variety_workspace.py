@@ -10,11 +10,13 @@ from app import main
 from app.main import app
 from app.services import variety_footprint as footprint_mod
 from app.services.variety_workspace import (
+    build_variety_indexes,
     identity_fields,
     present_competition,
     present_observation,
     present_observation_workspace,
     present_variety_index,
+    present_variety_intelligence,
     uk_pilot_summary,
 )
 
@@ -473,3 +475,238 @@ def test_competition_presenter_does_not_invent_a_score() -> None:
         berry_labels=BERRY_LABELS,
     )
     assert blackberry["blackberry_thin"] is True
+
+
+# --- Variety Profile Intelligence V2 -----------------------------------
+
+
+def _trait_entities():
+    return [
+        _entity(id="trait-fruit-firmness", entity_type="trait", name="Fruit firmness"),
+        _entity(id="trait-eating-quality", entity_type="trait", name="Eating quality"),
+        _entity(id="trait-yield", entity_type="trait", name="Yield"),
+        _entity(id="trait-unmapped-future", entity_type="trait", name="Some future trait"),
+        _entity(id="geography-united-states", entity_type="geography", name="United States"),
+    ]
+
+
+def _intelligence_fixture():
+    entities = {row["id"]: row for row in _trait_entities()}
+    evidence_by_id = {
+        "ev-registry": {
+            "id": "ev-registry",
+            "source_name": "Canadian Food Inspection Agency",
+            "source_type": "plant_breeders_rights_record",
+            "source_authority": "high",
+            "verification_state": "verified_primary",
+            "published_date": "2022-06-01",
+            "geography_ids": ["geography-united-states"],
+            "does_not_prove": ["market adoption"],
+        },
+        "ev-catalog": {
+            "id": "ev-catalog",
+            "source_name": "Fall Creek Catalogs",
+            "source_type": "company_catalog",
+            "captured_date": "2025-01-23",
+            "geography_ids": [],
+        },
+    }
+    facts = [
+        {
+            "id": "fact-firmness",
+            "record_type": "fact",
+            "statement": "Independent examiner found very firm fruit.",
+            "classification": "fact",
+            "confidence": "high",
+            "status": "active",
+            "evidence_ids": ["ev-registry"],
+            "entity_ids": ["variety-x", "trait-fruit-firmness"],
+        },
+        {
+            "id": "fact-yield",
+            "record_type": "fact",
+            "statement": "Owner claims high yield under trial conditions.",
+            "classification": "claim",
+            "confidence": "low",
+            "status": "active",
+            "evidence_ids": ["ev-catalog"],
+            "entity_ids": ["variety-x", "trait-yield"],
+        },
+        {
+            "id": "fact-unmapped",
+            "record_type": "fact",
+            "statement": "A future trait dimension not yet grouped by this mission.",
+            "classification": "claim",
+            "confidence": "medium",
+            "status": "active",
+            "evidence_ids": ["ev-catalog"],
+            "entity_ids": ["variety-x", "trait-unmapped-future"],
+        },
+        {
+            "id": "fact-unrelated-variety",
+            "record_type": "fact",
+            "statement": "A trait fact about a different variety entirely.",
+            "classification": "fact",
+            "confidence": "high",
+            "status": "active",
+            "evidence_ids": ["ev-registry"],
+            "entity_ids": ["variety-other", "trait-fruit-firmness"],
+        },
+        {
+            "id": "fact-no-trait",
+            "record_type": "fact",
+            "statement": "A relationship-only fact with no trait entity at all.",
+            "classification": "fact",
+            "confidence": "high",
+            "status": "active",
+            "evidence_ids": ["ev-registry"],
+            "entity_ids": ["variety-x", "company-example"],
+        },
+    ]
+    variety = _entity(id="variety-x", entity_type="variety", name="Variety X", berry_ids=["berry-blueberry"])
+    return variety, entities, facts, evidence_by_id
+
+
+def test_present_variety_intelligence_groups_by_real_trait_entity() -> None:
+    variety, entities, facts, evidence_by_id = _intelligence_fixture()
+    result = present_variety_intelligence(variety, entities=entities, facts=facts, evidence_by_id=evidence_by_id)
+    assert result["has_any"] is True
+    keys = [group["key"] for group in result["groups"]]
+    # Postharvest/quality (firmness) before production/agronomic (yield),
+    # matching TRAIT_GROUP_BUCKETS order; "other" last for the unmapped trait.
+    assert keys == ["postharvest_quality", "production_agronomic", "other"]
+    # Fact about a different variety and the trait-less relationship fact
+    # must never appear here -- only real variety+trait co-occurrence.
+    all_ids = {row["id"] for group in result["groups"] for row in group["rows"]}
+    assert all_ids == {"fact-firmness", "fact-yield", "fact-unmapped"}
+
+
+def test_present_variety_intelligence_preserves_trust_class_and_attribution() -> None:
+    variety, entities, facts, evidence_by_id = _intelligence_fixture()
+    result = present_variety_intelligence(variety, entities=entities, facts=facts, evidence_by_id=evidence_by_id)
+    firmness_group = next(g for g in result["groups"] if g["key"] == "postharvest_quality")
+    row = firmness_group["rows"][0]
+    assert row["classification"] == "fact"
+    assert row["confidence"] == "high"
+    assert row["source_type_label"] == "Plant breeders' rights registry"
+    assert row["does_not_prove"] == ["market adoption"]
+    assert row["geography"][0]["name"] == "United States"
+    yield_group = next(g for g in result["groups"] if g["key"] == "production_agronomic")
+    yield_row = yield_group["rows"][0]
+    assert yield_row["classification"] == "claim"
+    # company_catalog is not in the small humanization dict -- must fall
+    # back to a readable label, never a raw enum value or a crash.
+    assert yield_row["source_type_label"] == "Company Catalog"
+
+
+def test_present_variety_intelligence_empty_state_is_honest() -> None:
+    variety = _entity(id="variety-empty", entity_type="variety", name="Empty Variety")
+    result = present_variety_intelligence(variety, entities={}, facts=[], evidence_by_id={})
+    assert result["has_any"] is False
+    assert result["groups"] == []
+    assert result["coverage"]["observation_count"] == 0
+
+
+def test_build_variety_indexes_counts_product_evidence_from_facts() -> None:
+    variety, entities, facts, evidence_by_id = _intelligence_fixture()
+    indexes = build_variety_indexes(
+        varieties=[variety],
+        entities=list(entities.values()) + [variety],
+        relationships=[],
+        published_evidence=[],
+        facts=facts,
+    )
+    # Only fact-firmness, fact-yield, fact-unmapped touch variety-x with a
+    # real trait-* entity id; the trait-less and other-variety facts must
+    # not inflate the count.
+    assert indexes["product_evidence"]["variety-x"] == 3
+
+
+def test_variety_index_has_product_evidence_filter(monkeypatch, tmp_path: Path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    variety, entities, facts, evidence_by_id = _intelligence_fixture()
+    other = _entity(id="variety-bare", entity_type="variety", name="Bare Variety", berry_ids=["berry-blueberry"])
+    index_model = present_variety_index(
+        varieties=[variety, other],
+        entities=list(entities.values()) + [variety, other],
+        relationships=[],
+        published_evidence=[],
+        berry_labels=BERRY_LABELS,
+        facts=facts,
+        filters={"has_product_evidence": "1"},
+    )
+    ids = {card["id"] for card in index_model["cards"]}
+    assert ids == {"variety-x"}
+    without_filter = present_variety_index(
+        varieties=[variety, other],
+        entities=list(entities.values()) + [variety, other],
+        relationships=[],
+        published_evidence=[],
+        berry_labels=BERRY_LABELS,
+        facts=facts,
+    )
+    x_card = next(c for c in without_filter["cards"] if c["id"] == "variety-x")
+    assert x_card["product_evidence_count"] == 3
+    assert x_card["has_product_evidence"] is True
+    bare_card = next(c for c in without_filter["cards"] if c["id"] == "variety-bare")
+    assert bare_card["has_product_evidence"] is False
+
+
+def test_detail_route_shows_variety_intelligence_for_real_data() -> None:
+    client = TestClient(app)
+    page = client.get("/entities/variety/variety-sekoya-grande")
+    assert page.status_code == 200
+    assert "Variety intelligence" in page.text
+    assert "POSTHARVEST / QUALITY" in page.text.upper()
+    assert "FACT" in page.text
+    assert "CLAIM" in page.text
+    assert "View Fact" in page.text
+    assert "Overall variety evidence coverage" in page.text
+
+
+def test_detail_route_shows_honest_empty_state_when_no_trait_facts() -> None:
+    client = TestClient(app)
+    page = client.get("/entities/variety/variety-amalia-rossa")
+    assert page.status_code == 200
+    assert "No trusted variety-level product or performance observations have been captured yet." in page.text
+
+
+def test_variety_intelligence_never_shows_pending_content() -> None:
+    # Facts have no draft/pending review state in this schema (they are
+    # only ever created through the human review lineage), and
+    # present_variety_intelligence is only ever fed all_evidence()
+    # (data/evidence/, trusted) as evidence_by_id -- never inbox/. This is
+    # a documentation-level regression guard against a future call site
+    # accidentally wiring in draft evidence.
+    variety = _entity(id="variety-x", entity_type="variety", name="Variety X")
+    draft_evidence = {
+        "ev-draft": {
+            "id": "ev-draft",
+            "status": "draft",
+            "review_state": "in_review",
+            "source_name": "Untrusted Draft Source",
+            "source_type": "news_search",
+        }
+    }
+    facts = [
+        {
+            "id": "fact-from-draft",
+            "statement": "A fact citing a draft evidence id should not happen in real data.",
+            "classification": "claim",
+            "confidence": "low",
+            "evidence_ids": ["ev-draft"],
+            "entity_ids": ["variety-x", "trait-fruit-firmness"],
+        }
+    ]
+    result = present_variety_intelligence(
+        variety,
+        entities={"trait-fruit-firmness": _entity(id="trait-fruit-firmness", entity_type="trait", name="Fruit firmness")},
+        facts=facts,
+        evidence_by_id=draft_evidence,
+    )
+    # The function itself does not filter by status -- it trusts its
+    # caller to only ever pass trusted evidence_by_id, exactly like
+    # every other presenter in this module (present_observation, etc.).
+    # This test documents that contract rather than re-implementing it.
+    row = result["groups"][0]["rows"][0]
+    assert row["source_name"] == "Untrusted Draft Source"

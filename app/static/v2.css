@@ -614,6 +614,14 @@
   font-size: var(--v2-section);
   margin: 0 0 6px;
 }
+.v2-subsection-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--v2-text-muted);
+  margin: 20px 0 8px;
+}
+.v2-subsection-title:first-of-type { margin-top: 12px; }
 .v2-company-feed {
   max-width: 820px;
 }

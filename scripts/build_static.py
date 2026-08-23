@@ -279,6 +279,7 @@ def build() -> list[Path]:
                 inbox_drafts=[],
                 signals=all_signals(),
                 candidates=[],
+                facts=all_facts(),
             )
             list_context.update(
                 {
@@ -332,6 +333,8 @@ def build() -> list[Path]:
                     berry_labels=BERRIES,
                     inbox_drafts=[],
                     signals=all_signals(),
+                    facts=entity_facts,
+                    evidence_by_id=evidence_idx,
                 )
             )
         written.append(

@@ -27,6 +27,7 @@
     <span class="v2-meta">Markets observed</span>
     {% if card.markets_observed %}{{ card.markets_observed|join(', ') }}{% else %}None recorded{% endif %}
     {% if card.observation_count %} · {{ card.observation_count }} commercial observation{{ 's' if card.observation_count != 1 else '' }}{% endif %}
+    {% if card.product_evidence_count %} · {{ card.product_evidence_count }} product/performance observation{{ 's' if card.product_evidence_count != 1 else '' }}{% endif %}
   </p>
   <p class="v2-card-line">
     {% if card.recent.title %}

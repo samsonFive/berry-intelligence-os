@@ -80,6 +80,18 @@
       Commercial observation present
     </label>
   </div>
+  <div class="filter-field">
+    <label class="checkbox-label" for="has-product-evidence">
+      <input id="has-product-evidence" type="checkbox" name="has_product_evidence" value="1" {% if filters.has_product_evidence %}checked{% endif %}>
+      Product / performance Evidence present
+    </label>
+  </div>
+  <div class="filter-field">
+    <label class="checkbox-label" for="has-signal">
+      <input id="has-signal" type="checkbox" name="has_signal" value="1" {% if filters.has_signal %}checked{% endif %}>
+      Signal present
+    </label>
+  </div>
   {% endif %}
   {% if variety_view == 'compete' %}
   <div class="filter-field">
