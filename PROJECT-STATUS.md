@@ -14,6 +14,19 @@ Intelligence OS V2
 **Current stage:**
 Phase 2 implementation complete (acceptance-reviewed). Production remains JSON-backed. Discovery, media transcription, publication-artifact orchestration, atomic Evidence proposal, article ingestion, and freshness/dedup layers are integrated on `v2/intelligence-os`; both human review gates remain mandatory. A real demo instance is deployed at `https://intel.johnnyaceii.com` (IONOS VPS, Docker/Caddy, application session login per PR #13). V2 AppShell is approved. Pending Review (`/pending`), Reading Queue, Assessments, Monitor (Watches, Alerts, Source Health), Variety Intelligence (`/entities/variety`), Global Intelligence Search (`/search`, `#v2SearchOffcanvas`), **Claim Testing** (`/queues/testing`), and **Commercial Positions** (`/queues/commercial_position`) are migrated; Landscape / Sources inventory-config admin / system/admin stay unmigrated.
 
+Atomic Extraction Qualification Harness V2 extends the existing human-gated
+qualification workflow with a deterministic Atomic Evidence Gold Set contract
+and independent precision, recall, atomicity, grounding, entity, scope,
+overreach, and duplication scores. Critical unsupported inference is a hard
+failure; one generic summary cannot satisfy multi-proposition recall. Evaluation
+artifacts now retain private raw responses, normalized proposals, scores,
+failures, latency, and token/cost metadata when available. Qualification is
+bound to exact provider/model/endpoint family/prompt/extraction/settings plus
+both benchmark hashes, and still requires explicit operator approval. Recurring
+production extraction remains OFF. The canonical Gold Set had not yet landed
+when implementation began, so only a non-production contract fixture was run;
+see `docs/v2/ATOMIC-EXTRACTION-QUALIFICATION-HARNESS-V2.md`.
+
 CI / Merge Gate Reliability V1 adds a dedicated, read-only PR validation
 workflow with stable repository-integrity, static-public-safety, and full-suite
 check contexts plus an explicit Markdown-only fast path. It fixes the prior

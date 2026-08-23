@@ -50,6 +50,7 @@ PRIVATE_SENTINELS = {
     "private-analyst-queue-note",
     "private-signal-candidate-title",
     "private-unpublished-proposal-note",
+    "private-qualification-raw-model-output",
 }
 
 
@@ -102,6 +103,10 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
             "record_type": "signal_candidate",
             "status": "proposed",
             "title": "private-signal-candidate-title",
+        },
+        inbox_dir / "qualifications" / "qualification-private" / "evaluation.json": {
+            "run_id": "qualification-private",
+            "raw_model_outputs": [{"content": "private-qualification-raw-model-output"}],
         },
     }
     for path, payload in private_files.items():

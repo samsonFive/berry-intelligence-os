@@ -32,6 +32,7 @@ from typing import Any, Callable
 import httpx
 
 from app.services.ai_extraction import (
+    EXTRACTION_VERSION,
     PROMPT_VERSION,
     ExtractionProviderError,
     ExtractionResponseError,
@@ -175,7 +176,9 @@ class PerplexityRouterExtractionProvider(OpenAICompatibleExtractionProvider):
         self.provenance = {
             "provider": self.gateway_label,
             "model": config.model,
+            "endpoint_family": "perplexity-router-chat-completions",
             "prompt_version": PROMPT_VERSION,
+            "extraction_version": EXTRACTION_VERSION,
         }
         self.name = f"{self.gateway_label}:{config.model}:{PROMPT_VERSION}"
         self._transport = PerplexityChatTransport(
@@ -218,12 +221,14 @@ class PerplexityRouterExtractionProvider(OpenAICompatibleExtractionProvider):
                 requested=self.config.model, returned=result.model,
                 api_key=self.config.api_key, gateway_label="Perplexity Router",
             )
-        parsed = _extract_json(result.content)
-        parsed["_usage"] = {
+        usage = {
             "prompt_tokens": result.usage.input_tokens,
             "completion_tokens": result.usage.output_tokens,
             "total_tokens": result.usage.total_tokens,
         }
+        self._record_raw_output(window=window, content=result.content, returned_model=result.model, usage=usage)
+        parsed = _extract_json(result.content)
+        parsed["_usage"] = usage
         return parsed
 
 
@@ -266,7 +271,9 @@ class PerplexityAgentExtractionProvider(OpenAICompatibleExtractionProvider):
         self.provenance = {
             "provider": self.gateway_label,
             "model": config.model,
+            "endpoint_family": "perplexity-agent-responses",
             "prompt_version": PROMPT_VERSION,
+            "extraction_version": EXTRACTION_VERSION,
         }
         self.name = f"{self.gateway_label}:{config.model}:{PROMPT_VERSION}"
         self._transport = PerplexityAgentTransport(
@@ -312,10 +319,12 @@ class PerplexityAgentExtractionProvider(OpenAICompatibleExtractionProvider):
                 requested=self.config.model, returned=result.model,
                 api_key=self.config.api_key, gateway_label="Perplexity Agent",
             )
-        parsed = _extract_json(result.content)
-        parsed["_usage"] = {
+        usage = {
             "prompt_tokens": result.usage.input_tokens,
             "completion_tokens": result.usage.output_tokens,
             "total_tokens": result.usage.total_tokens,
         }
+        self._record_raw_output(window=window, content=result.content, returned_model=result.model, usage=usage)
+        parsed = _extract_json(result.content)
+        parsed["_usage"] = usage
         return parsed

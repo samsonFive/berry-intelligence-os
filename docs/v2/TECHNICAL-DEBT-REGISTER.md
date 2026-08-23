@@ -51,6 +51,7 @@ Collection Backpressure V1 had concurrently landed its own TD-064.
 | TD-081 | trusted publication dropped `article` | Publish now preserves `article` / `relevance_tier` / `does_not_prove` so Atomic extraction can receive paragraph text, not only the summary. | High | resolved | `tests/test_publication_review_source_fidelity.py` |
 | TD-082 | no qualified article Atomic extractor | Web-article trait proposals still wait on a qualified extractor consuming `article.paragraphs`. Review shows a deterministic untrusted preview only. | High | limitation | `app/services/source_body.py::atomic_extraction_source_text` |
 | TD-083 | Pending Review still ranks all drafts | First screen renders at most 20 cards per bucket; ranking still walks the full pending pool for counts. | Medium | limitation | `tests/test_publication_review_source_fidelity.py::test_pending_first_screen_caps_rendered_cards` |
+| TD-084 | qualification cost telemetry | Qualification records provider token telemetry and a nullable cost field, but adapters do not receive provider-authoritative billed cost and the repository has no versioned model-price table. Quality thresholds remain independent of cost. | Low | limitation | `tests/test_model_qualification.py`; `docs/v2/ATOMIC-EXTRACTION-QUALIFICATION-HARNESS-V2.md` |
 
 ID aliases from the expansion-guide session's withdrawn draft (do not reopen
 these as Open UI-lane items):
@@ -1334,5 +1335,21 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Owner lane** | product |
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_publication_review_source_fidelity.py::test_pending_first_screen_caps_rendered_cards` |
+
+### TD-084 — Extraction qualification lacks provider-authoritative cost telemetry
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | platform / model operations |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Atomic Extraction Qualification Harness V2 persists per-source wall time, proposition count, failure rate, and input/output/total tokens when an adapter reports them. Neither the OpenAI-compatible nor Perplexity extraction response currently carries a provider-authoritative billed dollar amount, and maintaining an unversioned price guess inside the scorer would make historical comparisons non-reproducible. The artifact therefore records `estimated_cost_usd: null` rather than fabricating a cost. |
+| **Impact** | Candidate quality and latency can be compared immediately; exact monetary cost must be calculated externally from the provider invoice or a separately versioned price table. This does not weaken qualification because cost never offsets a quality failure. |
+| **Workaround** | Use recorded token counts with the provider's price sheet applicable at run time, and retain that external calculation with the operator review notes. |
+| **Recommended resolution** | Prefer provider-returned billed-cost metadata if a supported endpoint adds it. Otherwise add an explicitly dated/versioned price catalog and record its version in the immutable evaluation artifact; never silently apply current prices to historical runs. |
+| **Status** | limitation |
+| **Owner lane** | platform / ops |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_model_qualification.py`; `app/services/atomic_qualification.py` |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

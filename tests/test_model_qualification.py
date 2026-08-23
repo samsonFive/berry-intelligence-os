@@ -10,7 +10,8 @@ import httpx
 import pytest
 
 from app import main
-from app.services.ai_extraction import PROMPT_VERSION, OpenAICompatibleExtractionConfig, OpenAICompatibleExtractionProvider
+from app.services.ai_extraction import EXTRACTION_VERSION, PROMPT_VERSION, OpenAICompatibleExtractionConfig, OpenAICompatibleExtractionProvider
+from app.services.atomic_qualification import AtomicGoldSet, DEFAULT_THRESHOLDS, GoldCase
 from app.services.collection_runner import resolve_extraction_gate
 from app.services.extraction_evaluation import BenchmarkCase, ExtractionBenchmark, probe_provider, public_configuration
 from app.services.model_qualification import (
@@ -115,6 +116,20 @@ def _benchmark():
     )
 
 
+def _gold_set():
+    return AtomicGoldSet(
+        "qualification-test-gold-v1", 1, "No-intelligence qualification fixture.",
+        dict(DEFAULT_THRESHOLDS),
+        (GoldCase(
+            "no-intelligence", "No intelligence",
+            {"id": "ev-gold-no-intelligence", "title": "No intelligence", "segments": [
+                {"text": "Welcome to the show.", "start_seconds": 0.0, "end_seconds": 2.0}
+            ]},
+            (), (), {},
+        ),),
+    )
+
+
 def _provider(repos, responses, *, model="fixture-model", api_key=None, base_url="http://model.invalid/v1?token=hidden"):
     return OpenAICompatibleExtractionProvider(
         config=OpenAICompatibleExtractionConfig(
@@ -131,7 +146,7 @@ def _provider(repos, responses, *, model="fixture-model", api_key=None, base_url
 
 def _evaluate(tmp_path, responses=None, *, provider=None):
     repos = provider._repos if provider is not None else _repos(tmp_path)
-    provider = provider or _provider(repos, responses or [FakeResponse(), FakeResponse(), FakeResponse()])
+    provider = provider or _provider(repos, responses or [FakeResponse(), FakeResponse(), FakeResponse(), FakeResponse()])
     return (*run_qualification_evaluation(
         provider=provider,
         benchmark=_benchmark(),
@@ -141,6 +156,8 @@ def _evaluate(tmp_path, responses=None, *, provider=None):
         output_dir=tmp_path / "inbox" / "qualifications",
         sample_windows=1,
         benchmark_sha256="b" * 64,
+        gold_set=_gold_set(),
+        gold_set_sha256="g" * 64,
         transcript_cache_path=tmp_path / "inbox" / "cached-transcript.json",
         now=lambda: NOW,
     ), provider, repos)
@@ -164,7 +181,10 @@ def test_endpoint_probe_failure_is_not_qualification(tmp_path):
     artifact_path, _packet, _provider_used, _repos_used = _evaluate(tmp_path, provider=provider)
     artifact = json.loads(artifact_path.read_text())
     assert artifact["complete"] is False
-    assert artifact["stage_completion"] == {"probe": False, "synthetic_benchmark": False, "real_transcript_sample": False}
+    assert artifact["stage_completion"] == {
+        "probe": False, "synthetic_benchmark": False,
+        "atomic_gold_set": False, "real_transcript_sample": False,
+    }
     with pytest.raises(QualificationError, match="incomplete"):
         approve_qualification(artifact_path, operator="reviewer", expected_model="fixture-model")
 
@@ -172,7 +192,7 @@ def test_endpoint_probe_failure_is_not_qualification(tmp_path):
 def test_credentials_are_absent_from_evaluation_packet_and_marker(tmp_path):
     secret = "private-qualification-secret"
     repos = _repos(tmp_path)
-    provider = _provider(repos, [FakeResponse(), FakeResponse(), FakeResponse()], api_key=secret)
+    provider = _provider(repos, [FakeResponse(), FakeResponse(), FakeResponse(), FakeResponse()], api_key=secret)
     artifact_path, packet_path, _provider_used, _repos_used = _evaluate(tmp_path, provider=provider)
     marker = approve_qualification(artifact_path, operator="reviewer", expected_model="fixture-model", now=lambda: NOW)
     combined = artifact_path.read_text() + packet_path.read_text() + marker.read_text()
@@ -227,6 +247,15 @@ def test_complete_artifact_has_reproducible_identity_and_human_packet(tmp_path):
     assert artifact["complete"] is True
     assert artifact["configuration"] == expected
     assert artifact["benchmark_identity"]["sha256"] == "b" * 64
+    assert artifact["gold_set_identity"]["sha256"] == "g" * 64
+    assert artifact["atomic_gold_set"]["passed"] is True
+    assert artifact["extraction_version"] == EXTRACTION_VERSION
+    assert artifact["atomic_gold_set"]["raw_model_outputs"]["no-intelligence"]
+    performance = artifact["atomic_gold_set"]["performance"][0]
+    assert performance["propositions"] == 0
+    assert performance["total_tokens"] == 12
+    assert performance["estimated_cost_usd"] is None
+    assert artifact["atomic_gold_set"]["failure_rate"] == 0.0
     assert artifact["real_sample_identity"]["semantic_stratification"] is False
     assert artifact["real_transcript_sample"]["transcript"]["sampled_window_numbers"] == [0]
     assert "Human rubric" in packet_path.read_text()
@@ -234,12 +263,31 @@ def test_complete_artifact_has_reproducible_identity_and_human_packet(tmp_path):
     assert repos.facts.list() == [] and repos.assessments.list() == [] and repos.recommendations.list() == []
 
 
+def test_material_configuration_components_each_invalidate_fingerprint(tmp_path):
+    provider = _provider(_repos(tmp_path), [FakeResponse()])
+    base = {
+        "provider": "openai-compatible", "model": "fixture-model",
+        "base_url": provider.config.base_url, "prompt_version": PROMPT_VERSION,
+        "generation": public_configuration(provider),
+    }
+    original = qualification_configuration_fingerprint(**base)
+    variants = [
+        base | {"model": "different-model"},
+        base | {"base_url": "http://different.invalid/v1"},
+        base | {"prompt_version": "atomic-ci-v2"},
+        base | {"endpoint_family": "different-endpoint-family"},
+        base | {"extraction_version": "future-extraction-v2"},
+        base | {"generation": base["generation"] | {"temperature": 0.2}},
+    ]
+    assert all(qualification_configuration_fingerprint(**variant) != original for variant in variants)
+
+
 def test_partial_benchmark_and_malformed_real_sample_cannot_be_approved(tmp_path):
     partial, _packet, _provider_used, _repos_used = _evaluate(
-        tmp_path / "partial", [FakeResponse(), FakeResponse(content="not-json"), FakeResponse()]
+        tmp_path / "partial", [FakeResponse(), FakeResponse(content="not-json"), FakeResponse(), FakeResponse()]
     )
     malformed, _packet, _provider_used, _repos_used = _evaluate(
-        tmp_path / "malformed", [FakeResponse(), FakeResponse(), FakeResponse(content="not-json")]
+        tmp_path / "malformed", [FakeResponse(), FakeResponse(), FakeResponse(), FakeResponse(content="not-json")]
     )
     for artifact_path in (partial, malformed):
         assert json.loads(artifact_path.read_text())["complete"] is False
@@ -263,7 +311,7 @@ def test_explicit_operator_action_is_required_and_marker_is_runner_compatible(tm
     gate = resolve_extraction_gate(
         enabled=True, provider="openai-compatible", model="fixture-model", base_url=provider.config.base_url,
         prompt_version=PROMPT_VERSION, qualification_path=marker, configuration_fingerprint=fingerprint,
-        benchmark_sha256="b" * 64,
+        benchmark_sha256="b" * 64, gold_set_sha256="g" * 64,
     )
     assert gate.runnable is True
 
@@ -274,6 +322,7 @@ def test_explicit_operator_action_is_required_and_marker_is_runner_compatible(tm
         ({"expected_provider": "different"}, "provider"),
         ({"expected_model": "different"}, "model"),
         ({"expected_prompt_version": "atomic-ci-v2"}, "prompt_version"),
+        ({"expected_extraction_version": "future-extraction-v2"}, "extraction_version"),
     ],
 )
 def test_approval_identity_mismatch_blocks_marker(tmp_path, kwargs, match):
@@ -298,7 +347,7 @@ def test_tampered_evaluation_and_changed_runtime_configuration_are_rejected(tmp_
     gate = resolve_extraction_gate(
         enabled=True, provider="openai-compatible", model="fixture-model", base_url="http://different.invalid/v1",
         prompt_version=PROMPT_VERSION, qualification_path=marker, configuration_fingerprint=changed,
-        benchmark_sha256="b" * 64,
+        benchmark_sha256="b" * 64, gold_set_sha256="g" * 64,
     )
     assert gate.runnable is False and "does not match" in gate.reason
 
@@ -307,7 +356,7 @@ def test_tampered_evaluation_and_changed_runtime_configuration_are_rejected(tmp_
         enabled=True, provider="openai-compatible", model="fixture-model", base_url=provider.config.base_url,
         prompt_version=PROMPT_VERSION, qualification_path=marker,
         configuration_fingerprint=json.loads(marker.read_text())["configuration_fingerprint"],
-        benchmark_sha256="b" * 64,
+        benchmark_sha256="b" * 64, gold_set_sha256="g" * 64,
     )
     assert tampered_gate.runnable is False and "integrity" in tampered_gate.reason
 

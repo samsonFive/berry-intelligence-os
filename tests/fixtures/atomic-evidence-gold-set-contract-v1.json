@@ -1,0 +1,99 @@
+{
+  "contract_version": "atomic-evidence-gold-set-v1",
+  "gold_set_id": "atomic-evidence-test-gold-v1",
+  "version": 1,
+  "description": "Minimal deterministic contract fixture; not the production qualification benchmark.",
+  "cases": [
+    {
+      "id": "rich-trial-and-retailer-article",
+      "title": "Trial result and retailer interest remain separate",
+      "source_artifact": {
+        "id": "ev-gold-fixture",
+        "title": "Zara trial fixture",
+        "entity_ids": ["variety-zara"],
+        "segments": [
+          {
+            "text": "In the Kent trial, Zara maintained shelf life for 10 days.",
+            "start_seconds": 0,
+            "end_seconds": 5
+          },
+          {
+            "text": "A UK retailer expressed interest in another trial but made no purchase commitment.",
+            "start_seconds": 5,
+            "end_seconds": 11
+          }
+        ]
+      },
+      "expected_atomic_propositions": [
+        {
+          "id": "trial-shelf-life",
+          "statement": "Zara maintained shelf life for 10 days in the Kent trial.",
+          "exact_excerpt": "In the Kent trial, Zara maintained shelf life for 10 days.",
+          "entity_ids": ["variety-zara"],
+          "scope": {"required_terms": ["Kent", "trial"]},
+          "claim_type": "trial_result",
+          "matching": {"required_terms": ["Zara", "shelf life", "10 days"]},
+          "timestamp": {"start_seconds": 0, "end_seconds": 5}
+        },
+        {
+          "id": "retailer-interest",
+          "statement": "A UK retailer expressed interest in another trial without a purchase commitment.",
+          "exact_excerpts": ["A UK retailer expressed interest in another trial but made no purchase commitment."],
+          "scope": {"required_terms": ["UK", "trial"]},
+          "claim_type": "retailer_interest",
+          "matching": {"required_terms": ["UK retailer", "interest", "trial"]},
+          "start_seconds": 5,
+          "end_seconds": 11
+        }
+      ],
+      "forbidden_propositions": [
+        {
+          "id": "purchase-commitment",
+          "phrases": ["committed to purchase", "purchase commitment was secured"],
+          "severity": "critical",
+          "reason": "Retailer interest is not a purchase commitment."
+        },
+        {
+          "id": "universal-trait",
+          "required_terms": ["Zara", "always", "10 days"],
+          "severity": "critical",
+          "reason": "A trial-local trait cannot be universalized."
+        },
+        {
+          "id": "unsupported-ownership",
+          "phrases": ["owns the breeder"],
+          "severity": "critical",
+          "reason": "Ownership must be directly supported."
+        },
+        {
+          "id": "unsupported-causality",
+          "phrases": ["caused the yield increase"],
+          "severity": "critical",
+          "reason": "Correlation or sequence is not causality."
+        },
+        {
+          "id": "registry-commercialization",
+          "phrases": ["registry filing proves commercialization"],
+          "severity": "critical",
+          "reason": "A registry filing does not prove commercialization."
+        },
+        {
+          "id": "award-consumer-preference",
+          "phrases": ["award proves consumers prefer"],
+          "severity": "critical",
+          "reason": "An award is not general consumer preference."
+        },
+        {
+          "id": "marketing-independent-verification",
+          "phrases": ["marketing claim is independently verified"],
+          "severity": "critical",
+          "reason": "Marketing copy is not independent verification."
+        }
+      ],
+      "scoring_metadata": {
+        "risk_classes": ["trial_scope", "retailer_commitment"],
+        "notes": "A one-paragraph summary should miss proposition recall and atomicity."
+      }
+    }
+  ]
+}

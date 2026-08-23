@@ -15,7 +15,8 @@ if str(ROOT) not in sys.path:
 
 from app.composition import get_repositories
 from app.repositories.paths import DEFAULT_DATA_DIR, SCHEMAS_DIR
-from app.services.ai_extraction import PROMPT_VERSION, OpenAICompatibleExtractionConfig, OpenAICompatibleExtractionProvider
+from app.services.ai_extraction import EXTRACTION_VERSION, PROMPT_VERSION, OpenAICompatibleExtractionConfig, OpenAICompatibleExtractionProvider
+from app.services.atomic_qualification import GoldSetContractError, load_atomic_gold_set
 from app.services.ai_gateway.credentials import MissingCredentialError
 from app.services.ai_gateway.perplexity_extraction import (
     PerplexityAgentExtractionProvider,
@@ -37,6 +38,7 @@ from app.services.model_qualification import (
 
 
 DEFAULT_BENCHMARK = ROOT / "benchmarks" / "atomic-ci-v1.json"
+DEFAULT_GOLD_SET = ROOT / "benchmarks" / "atomic-evidence-gold-set-v1.json"
 PROVIDER_CHOICES = ("openai-compatible", "perplexity-agent", "perplexity-router")
 
 
@@ -67,6 +69,10 @@ def _parser() -> argparse.ArgumentParser:
     evaluate = commands.add_parser("evaluate", help="Run probe, 12-case benchmark, and bounded real transcript sample")
     _provider_options(evaluate)
     evaluate.add_argument("--benchmark-file", type=Path, default=DEFAULT_BENCHMARK)
+    evaluate.add_argument(
+        "--gold-set-file", type=Path, default=DEFAULT_GOLD_SET,
+        help="Claude's Atomic Evidence Gold Set V1; required for a V2 qualification run",
+    )
     evaluate.add_argument("--inbox-dir", type=Path, default=ROOT / "inbox")
     evaluate.add_argument("--output-dir", type=Path)
     evaluate.add_argument("--transcript-file", type=Path)
@@ -80,6 +86,7 @@ def _parser() -> argparse.ArgumentParser:
     approve.add_argument("--provider", choices=PROVIDER_CHOICES, default="openai-compatible")
     approve.add_argument("--model", required=True)
     approve.add_argument("--prompt-version", default=PROMPT_VERSION)
+    approve.add_argument("--extraction-version", default=EXTRACTION_VERSION)
     approve.add_argument("--marker", type=Path)
 
     revoke = commands.add_parser("revoke", help="Move a qualification marker aside so the runner cannot use it")
@@ -146,6 +153,7 @@ def main(argv: list[str] | None = None) -> int:
                 expected_provider=args.provider,
                 expected_model=args.model,
                 expected_prompt_version=args.prompt_version,
+                expected_extraction_version=args.extraction_version,
             )
             print(json.dumps({"state": "qualified", "marker": str(marker)}, indent=2))
             return 0
@@ -175,6 +183,7 @@ def main(argv: list[str] | None = None) -> int:
             transcript_path=args.transcript_file,
         )
         benchmark = load_benchmark(args.benchmark_file)
+        gold_set = load_atomic_gold_set(args.gold_set_file)
         output_dir = args.output_dir or args.inbox_dir / "qualifications"
         artifact_path, packet_path = run_qualification_evaluation(
             provider=provider,
@@ -185,6 +194,8 @@ def main(argv: list[str] | None = None) -> int:
             output_dir=output_dir,
             sample_windows=args.sample_windows,
             benchmark_sha256=file_sha256(args.benchmark_file),
+            gold_set=gold_set,
+            gold_set_sha256=file_sha256(args.gold_set_file),
             transcript_cache_path=transcript_path,
         )
         artifact = json.loads(artifact_path.read_text(encoding="utf-8"))
@@ -194,6 +205,8 @@ def main(argv: list[str] | None = None) -> int:
             "review_packet": str(packet_path),
             "stage_completion": artifact["stage_completion"],
             "automated_warnings": artifact["automated_warnings"],
+            "gold_set_passed": artifact["atomic_gold_set"]["passed"],
+            "gold_set_metrics": artifact["atomic_gold_set"].get("metrics", {}),
             "next_action": (
                 "Human-review the packet, then run the explicit approve command."
                 if artifact["complete"]
@@ -201,7 +214,7 @@ def main(argv: list[str] | None = None) -> int:
             ),
         }, indent=2, ensure_ascii=False))
         return 0 if artifact["complete"] else 1
-    except (QualificationError, MissingCredentialError, ValueError, OSError, json.JSONDecodeError) as exc:
+    except (QualificationError, GoldSetContractError, MissingCredentialError, ValueError, OSError, json.JSONDecodeError) as exc:
         print(json.dumps({"state": "error", "error": str(exc)}, indent=2))
         return 2
 
