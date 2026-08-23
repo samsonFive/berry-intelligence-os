@@ -63,8 +63,8 @@ def classify_source_body(record: dict[str, Any]) -> dict[str, Any]:
     transcript = record.get("transcript") if isinstance(record.get("transcript"), dict) else {}
     transcript_text = ""
     if transcript:
-        segments = transcript.get("segments") or []
-        if isinstance(segments, list):
+        segments = transcript.get("segments")
+        if isinstance(segments, list) and segments:
             transcript_text = "\n".join(
                 decode_html_text(seg.get("text") if isinstance(seg, dict) else str(seg))
                 for seg in segments

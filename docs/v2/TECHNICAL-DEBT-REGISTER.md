@@ -57,6 +57,7 @@ Collection Backpressure V1 had concurrently landed its own TD-064.
 | TD-083 | Pending Review full-pool card/thread work | Private restart-safe metadata projection, compact exact classification, indexed Story Thread candidates, and post-slice card hydration keep conservative 1,500-record cold/warm renders at 3.436s/1.839s; 5,000 measured 1.476s/1.248s before host I/O contention. | Medium | resolved | `tests/test_pending_review_query.py`; `docs/v2/PENDING-REVIEW-QUERY-PERFORMANCE-V2.md` |
 | TD-084 | qualification cost telemetry | Qualification records provider token telemetry and a nullable cost field, but adapters do not receive provider-authoritative billed cost and the repository has no versioned model-price table. Quality thresholds remain independent of cost. | Low | limitation | `tests/test_model_qualification.py`; `docs/v2/ATOMIC-EXTRACTION-QUALIFICATION-HARNESS-V2.md` |
 | TD-091 | local vs production draft inbox | Local acquisition inboxes are not production review. Missing production drafts are delivered with operator-triggered `scripts/deliver_drafts.py`, not by scp of one JSON or by replacing `demo-runtime/inbox`. | High | resolved | `tests/test_draft_delivery.py`; `docs/v2/ACQUISITION-PRODUCTION-DRAFT-DELIVERY-V1.md` |
+| TD-093 | trusted extraction source fidelity | Production has 1,268 published Evidence records but zero retained full article bodies, zero transcripts, and only 36 extraction-ready structured-registry summaries; 1,227 are thin descriptions. | High | active | `scripts/extraction_backlog.py`; `docs/v2/ATOMIC-EXTRACTION-BACKLOG-READINESS-V1.md` |
 
 ID aliases from the expansion-guide session's withdrawn draft (do not reopen
 these as Open UI-lane items):
@@ -1484,5 +1485,21 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Owner lane** | product |
 | **PR/SHA when resolved** | Acquisition → Production Draft Delivery V1 |
 | **Regression-test reference** | `tests/test_draft_delivery.py` |
+
+### TD-093 — Most trusted Evidence predates retained extraction source bodies
+
+| Field | Value |
+|---|---|
+| **Severity** | High |
+| **Area** | data quality / extraction readiness |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Atomic Extraction Backlog Readiness V1 applied the canonical `atomic_extraction_source_text()` contract to a read-only snapshot of all 1,268 production published Evidence records. Zero retain a full article body, zero retain transcript text, 36 normalized registry records are ready, 1,227 fall back to thin descriptions, three are known fictional fixtures, and two deterministic duplicates are excluded. The two production-only modern publication artifacts are also summary-only. |
+| **Impact** | A qualified model could immediately process only a small, almost entirely Blueberry registry subset. Running the legacy population would mostly extract from summaries rather than source material, while Raspberry/Blackberry and source-type diversity are absent from the ready set. |
+| **Workaround** | Use only SHA-bound private manifests emitted by `scripts/extraction_backlog.py`; start with at most PILOT-10 after separate model qualification and runner authorization. Never substitute pending drafts for trusted sources. |
+| **Recommended resolution** | Preserve full article bodies on future publication (TD-081 is already resolved), acquire/publish real transcripts under the existing human gate, and separately plan any evidence-based legacy-source recovery. Do not silently refetch or overwrite trusted records in this mission. |
+| **Status** | active |
+| **Owner lane** | data / ops |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_extraction_backlog.py`; `tests/test_publication_review_source_fidelity.py::test_atomic_extraction_uses_inline_transcript_without_segments` |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
