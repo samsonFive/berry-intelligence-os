@@ -51,6 +51,8 @@ PRIVATE_SENTINELS = {
     "private-signal-candidate-title",
     "private-unpublished-proposal-note",
     "private-qualification-raw-model-output",
+    "private-recovered-source-body",
+    "private-source-fidelity-reviewer",
 }
 
 
@@ -107,6 +109,12 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
         inbox_dir / "qualifications" / "qualification-private" / "evaluation.json": {
             "run_id": "qualification-private",
             "raw_model_outputs": [{"content": "private-qualification-raw-model-output"}],
+        },
+        inbox_dir / "source_fidelity" / "artifacts" / "ev-static-test.json": {
+            "source_fidelity_artifact_schema_version": 1,
+            "evidence_id": "ev-static-test",
+            "artifact": {"article": {"paragraphs": [{"index": 0, "text": "private-recovered-source-body"}]}},
+            "review": {"status": "affirmed", "reviewed_by": "private-source-fidelity-reviewer"},
         },
     }
     for path, payload in private_files.items():
