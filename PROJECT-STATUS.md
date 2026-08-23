@@ -2,7 +2,7 @@
 
 *Maintained by Claude. Updated at the end of each work session that changes project state. Keep short — this is a status check, not a changelog (see `docs/reviews/CURRENT-STATE-AUDIT.md` and `docs/v2/` for detail).*
 
-**Last updated:** 2026-08-22, CI / Merge Gate Reliability V1 GitHub-proven in PR #95
+**Last updated:** 2026-08-22, CI / Merge Gate Reliability V1 canonical on merge `f39bf89`
 
 **Governing roadmap for the post-foundation expansion phase:** `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`, adopted 2026-08-20 — read it before proposing new acquisition, domain-depth, variety, alternative-data, or UI V2 work. Its companions, both live and required reading alongside it: `docs/v2/TECHNICAL-DEBT-REGISTER.md` (every known unresolved bug/limitation, by lane) and `docs/v2/INTELLIGENCE-COVERAGE-MATRIX.md` (the live berry × source-class × geography coverage map).
 
@@ -24,8 +24,9 @@ signal candidates, and unpublished proposals. GitHub green/red/recovery runs
 prove the gate and cancellation behavior; canonical branch protection now
 requires all four current-head checks with strict freshness and admin enforcement.
 The separate one-file Markdown proof also passed all four named contexts in
-4-6s while executable setup/test/build steps were explicitly skipped. Final
-merge/Pages proof is being completed in PR form; see
+4-6s while executable setup/test/build steps were explicitly skipped. PR #95
+merged as `f39bf89`; its exact-SHA Pages build and deployment passed and the
+public site returned HTTP 200. See
 `docs/v2/CI-MERGE-GATE-RELIABILITY-V1.md`.
 
 Canonical Data Promotion / Runtime Sync V1 is canonical via PR #92 (merge `878dd8e`) and production-proven. It adds an explicit, verified-backup-gated three-way promotion contract for existing trusted JSON records. Startup remains additive for new files and Source IDs, authoritative only for the pipeline registry, and never overwrites a differing existing trusted record. The first production baseline covered 1,856 equal promotable records; dry-run reported 2,543 unchanged, 57 protected legacy trusted-record conflicts with no baseline, 18 protected non-promotable import/reference divergences, zero safe updates, and zero new files. Every pre-existing `data/` and `inbox/` byte survived the rebuild; only the new manifest increased the data-file count. Semantic hashes kept 2,191 raw-format-different JSON pairs unchanged rather than creating false conflicts. Historical reconstruction of the 275-record Evidence berry-tagging repair remains exactly 275 safe updates, 991 unchanged, and zero genuine divergences/conflicts, proving that migration would now use one backup-gated promotion instead of manual copying. Runtime-only trusted records, collection state, review events, analyst queues, scheduler state, and all other inbox artifacts remain protected. Full contract and proof: `docs/v2/CANONICAL-DATA-PROMOTION-RUNTIME-SYNC-V1.md`.
