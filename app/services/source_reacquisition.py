@@ -27,8 +27,12 @@ REACQUISITION_VERSION = "selective-source-reacquisition-v1"
 OUTCOMES = {
     "EXACT_STABLE_SOURCE", "LIKELY_SAME_ARTICLE_CHANGED_FORMATTING",
     "CONTENT_CHANGED", "URL_REDIRECTED", "PAYWALLED", "REMOVED",
-    "UNAVAILABLE", "AMBIGUOUS",
+    "REDIRECTED_TO_DIFFERENT_CONTENT", "ROBOTS_OR_ACCESS_BLOCKED",
+    "SCRIPT_RENDERED_UNAVAILABLE", "INTERSTITIAL_OR_CONSENT", "THIN_BODY",
+    "UNSUPPORTED", "NETWORK_FAILURE", "AMBIGUOUS",
 }
+
+UNSAFE_REACQUISITION_HOSTS = {"consent.google.com", "news.google.com"}
 
 
 def _sha256(value: str) -> str:
@@ -325,10 +329,76 @@ def classify_acquisition_failure(category: str, message: str = "") -> str:
     if normalized == "http_error" and any(code in message for code in ("404", "410")):
         return "REMOVED"
     if normalized == "redirect_error":
-        return "URL_REDIRECTED"
-    if normalized in {
-        "blocked", "interstitial", "script_rendered", "timeout", "http_error",
-        "transport_error", "empty_body", "malformed_html", "unsupported_media",
-    }:
-        return "UNAVAILABLE"
+        return "REDIRECTED_TO_DIFFERENT_CONTENT"
+    if normalized == "blocked":
+        return "ROBOTS_OR_ACCESS_BLOCKED"
+    if normalized == "interstitial":
+        return "INTERSTITIAL_OR_CONSENT"
+    if normalized == "script_rendered":
+        return "SCRIPT_RENDERED_UNAVAILABLE"
+    if normalized in {"empty_body", "malformed_html"}:
+        return "THIN_BODY"
+    if normalized == "unsupported_media":
+        return "UNSUPPORTED"
+    if normalized in {"timeout", "http_error", "transport_error"}:
+        return "NETWORK_FAILURE"
     return "AMBIGUOUS"
+
+
+def preflight_reacquisition_url(value: str | None) -> tuple[bool, str | None]:
+    """Reject deterministic non-article endpoints before any network request."""
+    raw = str(value or "").strip()
+    parsed = urlparse(raw)
+    host = (parsed.hostname or "").casefold()
+    if parsed.scheme not in {"http", "https"} or not host:
+        return False, "INVALID_URL"
+    if host in UNSAFE_REACQUISITION_HOSTS:
+        return False, "INTERSTITIAL_OR_CONSENT" if host == "consent.google.com" else "GOOGLE_NEWS_WRAPPER"
+    path = parsed.path.casefold().rstrip("/")
+    if host in {"google.com", "www.google.com", "bing.com", "www.bing.com"} and path in {"/search", "/news"}:
+        return False, "SEARCH_RESULT_PAGE"
+    return True, None
+
+
+def artifacts_match_for_idempotency(existing: dict[str, Any], candidate: dict[str, Any]) -> bool:
+    """Compare stable identity/body fields while ignoring acquisition timestamps."""
+    scalar_fields = (
+        "evidence_id", "trusted_identity_sha256", "match_class", "artifact_type",
+        "source_url", "final_url", "published_date", "body_sha256",
+        "source_text_sha256", "source_chars", "language", "author",
+    )
+    if any(existing.get(key) != candidate.get(key) for key in scalar_fields):
+        return False
+    existing_article = ((existing.get("artifact") or {}).get("article") or {})
+    candidate_article = ((candidate.get("artifact") or {}).get("article") or {})
+    article_fields = ("title", "published_date", "language", "author", "word_count", "content_sha256", "paragraphs")
+    return all(existing_article.get(key) == candidate_article.get(key) for key in article_fields)
+
+
+def stage_reacquired_artifact(path: Path, artifact: dict[str, Any]) -> str:
+    """Create once, preserve a matching artifact, and refuse all conflicts."""
+    if path.exists():
+        existing = json.loads(path.read_text(encoding="utf-8"))
+        if artifacts_match_for_idempotency(existing, artifact):
+            return "unchanged"
+        raise ValueError(f"reacquisition artifact conflict: {path}")
+    encoded = json.dumps(artifact, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(encoded, encoding="utf-8")
+    temporary.replace(path)
+    return "created"
+
+
+def write_pilot_audit(folder: Path, audit: dict[str, Any], *, stamp: str) -> Path:
+    """Persist one body-free private audit record atomically."""
+    manifest = str(audit.get("manifest") or "BOUNDED-RUN")
+    path = folder / f"{manifest}-{stamp}.json"
+    if path.exists():
+        raise ValueError(f"pilot audit already exists: {path}")
+    folder.mkdir(parents=True, exist_ok=True)
+    encoded = json.dumps(audit, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(encoded, encoding="utf-8")
+    temporary.replace(path)
+    return path
