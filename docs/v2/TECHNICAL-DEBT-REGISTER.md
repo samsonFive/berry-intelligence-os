@@ -1449,7 +1449,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Recommended resolution** | Complete. Keep `benchmarks/entity-linking-precision-v1.json` and the canonical-only audit in CI regression coverage. |
 | **Status** | resolved 2026-08-23 |
 | **Owner lane** | data |
-| **PR/SHA when resolved** | Entity Linking Precision V1 (PR/SHA pending) |
+| **PR/SHA when resolved** | Entity Linking Precision V1, PR #111, implementation `b43f8f0` |
 | **Regression-test reference** | `tests/test_entity_alias_recall.py`; `tests/test_entity_intelligence_timeline.py::test_victoria_profile_retains_real_blackberry_evidence_without_costa_geography_collision`; `tests/test_audit_entity_linking.py` |
 
 ### TD-091 — Conservative text fallback intentionally omits body-only and unmodeled place-name recall

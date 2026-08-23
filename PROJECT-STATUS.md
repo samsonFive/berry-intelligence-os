@@ -2,7 +2,7 @@
 
 *Maintained by Claude. Updated at the end of each work session that changes project state. Keep short — this is a status check, not a changelog (see `docs/reviews/CURRENT-STATE-AUDIT.md` and `docs/v2/` for detail).*
 
-**Last updated:** 2026-08-23, Entity Linking Precision V1 implementation complete; PR/deployment pending
+**Last updated:** 2026-08-23, Entity Linking Precision V1 implementation complete; PR #111 CI/deployment pending
 
 **Governing roadmap for the post-foundation expansion phase:** `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`, adopted 2026-08-20 — read it before proposing new acquisition, domain-depth, variety, alternative-data, or UI V2 work. Its companions, both live and required reading alongside it: `docs/v2/TECHNICAL-DEBT-REGISTER.md` (every known unresolved bug/limitation, by lane) and `docs/v2/INTELLIGENCE-COVERAGE-MATRIX.md` (the live berry × source-class × geography coverage map).
 
