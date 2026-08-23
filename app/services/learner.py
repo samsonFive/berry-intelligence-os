@@ -17,10 +17,16 @@ from __future__ import annotations
 
 import json
 from functools import lru_cache
-from pathlib import Path
 from typing import Any
 
-CONCEPTS_DIR = Path(__file__).resolve().parent.parent.parent / "data" / "learn" / "concepts"
+from app.runtime_config import resolve_data_dir
+
+# resolve_data_dir() -- not a path relative to this file -- so this
+# correctly follows BIOS_DATA_DIR/BIOS_RUNTIME_DIR in the remote-demo
+# deployment (data/ lives under the synced runtime tree there, not next
+# to the application code) the same way every other data reader in this
+# codebase already does.
+CONCEPTS_DIR = resolve_data_dir() / "learn" / "concepts"
 
 PILLAR_LABELS: dict[str, str] = {
     "plant_biology_agronomy": "Plant Biology & Agronomy",
