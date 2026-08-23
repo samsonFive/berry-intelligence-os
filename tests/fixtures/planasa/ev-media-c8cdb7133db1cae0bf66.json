@@ -1,0 +1,132 @@
+{
+  "id": "ev-media-c8cdb7133db1cae0bf66",
+  "record_type": "evidence",
+  "status": "draft",
+  "review_state": "in_review",
+  "intake_type": "discovered_media_publication",
+  "source_type": "discovered_media",
+  "title": "Planasa’s Pink Hudson® raspberry awarded the Superior Taste Award by the International Taste Institute",
+  "source_name": "Planasa Newsroom",
+  "source_url": "https://planasa.com/pink-hudson-raspberry-superior-taste-award/",
+  "published_date": "2026-01-13",
+  "captured_date": "2026-08-20",
+  "summary": "Planasa's Pink Hudson® raspberry variety received the Superior Taste Award (90.7 points, Three Stars) from the International Taste Institute, recognizing exceptional sensory quality and consumer appeal. The award validates the breeding program's focus on combining agronomic performance (high yields, adaptability to double cropping and winter production) with superior taste attributes.",
+  "why_it_matters": "International taste certification enhances Planasa's competitive positioning in the premium raspberry segment and provides credible evidence of consumer-focused breeding success, likely to influence retailer selection and grower adoption decisions.",
+  "submitted_by": "media-orchestration",
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [
+    "company-planasa"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [],
+  "attachments": [],
+  "auto_captured": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": ""
+    },
+    "testing": {
+      "level": "none",
+      "rationale": ""
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": ""
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": ""
+    }
+  },
+  "source_id": "source-20260819-planasa-newsroom",
+  "media_format": "web_article",
+  "evidence_role": "publication_artifact",
+  "discovered_item_id": "discovered-source-20260819-planasa-newsroom-1347043f6fef2173",
+  "discovery_provenance": {
+    "dedupe_key": "https://planasa.com/?p=41853",
+    "external_id": "https://planasa.com/?p=41853",
+    "first_seen_at": "2026-08-20T22:41:57+00:00",
+    "last_seen_at": "2026-08-20T22:41:57+00:00"
+  },
+  "publisher_description": "La entrada Planasa’s Pink Hudson® raspberry awarded the Superior Taste Award by the International Taste Institute se publicó primero en Planasa. Full article text: Planasa has been distinguished with the Superior Taste Award granted by the International Taste Institute in Brussels for its Pink Hudson® raspberry variety, which achieved a score of 90.7 points, earning the highest rating of Three Stars in the fruit and vegetables category. This recognition highlights the variety’s outstanding sensory quality and consolidates its position as a benchmark in the international raspberry market. The jury’s results particularly emphasise the excellent eating experience offered by Pink Hudson®, highlighting attributes such as its visual appeal, texture and overall balance on the palate. It is a variety that delivers consistently high-quality fruit throughout the entire production cycle, with excellent yields and a strong adaptation to double cropping, and can even be grown in winter—qualities that have made it a highly valued option among growers, distributors and retailers. According to Elisa Pérez, Head of Breeding Rubus EMEA at Planasa, “this award is a great source of satisfaction for the entire team. It confirms that the work we carry out in plant breeding is moving in the right direction, developing varieties that not only meet growers’ agronomic needs but also deliver an outstanding sensory experience for consumers.” The Superior Taste Award is an international accolade granted annually following blind sensory evaluations carried out by an independent jury composed of more than 200 tasting experts, including renowned chefs and sommeliers from over 20 countries. Jury members are selected based on their proven expertise and their links to prestigious gastronomic institutions and guides such as Michelin and Gault & Millau, ensuring the highest standards of rigour, consistency and impartiality throughout the evaluation process.",
+  "auto_tagged": true,
+  "tagging_provenance": {
+    "method": "deterministic-known-match",
+    "trust_state": "untrusted_suggestion"
+  },
+  "ai_enrichment": {
+    "concise_summary": "Planasa's Pink Hudson® raspberry variety received the Superior Taste Award (90.7 points, Three Stars) from the International Taste Institute, recognizing exceptional sensory quality and consumer appeal. The award validates the breeding program's focus on combining agronomic performance (high yields, adaptability to double cropping and winter production) with superior taste attributes.",
+    "why_it_matters": "International taste certification enhances Planasa's competitive positioning in the premium raspberry segment and provides credible evidence of consumer-focused breeding success, likely to influence retailer selection and grower adoption decisions.",
+    "suggested_berry_ids": [
+      "berry-raspberry"
+    ],
+    "suggested_geography_ids": [],
+    "suggested_entity_ids": [
+      "company-planasa"
+    ],
+    "suggested_tags": [
+      "variety-development",
+      "product-recognition",
+      "sensory-quality",
+      "taste-award",
+      "breeding-program",
+      "double-cropping",
+      "winter-production",
+      "consumer-appeal"
+    ],
+    "topical_relevance": "Direct relevance to competitive intelligence on raspberry breeding, varietal innovation, and market positioning. Third-party taste validation is a significant market differentiator and quality signal for retail and grower audiences.",
+    "confidence": 0.85,
+    "caveats": "No production geography specified in article; Brussels mentioned as award location, not production region. Pink Hudson® appears to be a proprietary variety name; specific catalog berry variety ID not available beyond generic 'berry-raspberry'. Entity list provided does not include International Taste Institute or other award bodies. Double cropping and winter growing capability mentioned but not linked to specific geographies.",
+    "model_provenance": {
+      "status": "ok",
+      "provider": "perplexity-agent",
+      "model": "anthropic/claude-haiku-4-5",
+      "reason": "non-trusted publication enrichment",
+      "trust_state": "untrusted_suggestion",
+      "generated_at": "2026-08-20T22:42:59Z"
+    }
+  },
+  "article": {
+    "source_url": "https://planasa.com/pink-hudson-raspberry-superior-taste-award/",
+    "final_url": null,
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "Planasa has been distinguished with the Superior Taste Award granted by the International Taste Institute in Brussels for its Pink Hudson® raspberry variety, which achieved a score of 90.7 points, earning the highest rating of Three Stars in the fruit and vegetables category. This recognition highlights the variety’s outstanding sensory quality and consolidates its position as a benchmark in the international raspberry market."
+      },
+      {
+        "index": 1,
+        "text": "The jury’s results particularly emphasise the excellent eating experience offered by Pink Hudson®, highlighting attributes such as its visual appeal, texture and overall balance on the palate. It is a variety that delivers consistently high-quality fruit throughout the entire production cycle, with excellent yields and a strong adaptation to double cropping, and can even be grown in winter—qualities that have made it a highly valued option among growers, distributors and retailers."
+      },
+      {
+        "index": 2,
+        "text": "According to Elisa Pérez, Head of Breeding Rubus EMEA at Planasa, “this award is a great source of satisfaction for the entire team. It confirms that the work we carry out in plant breeding is moving in the right direction, developing varieties that not only meet growers’ agronomic needs but also deliver an outstanding sensory experience for consumers.”"
+      },
+      {
+        "index": 3,
+        "text": "The Superior Taste Award is an international accolade granted annually following blind sensory evaluations carried out by an independent jury composed of more than 200 tasting experts, including renowned chefs and sommeliers from over 20 countries."
+      },
+      {
+        "index": 4,
+        "text": "Jury members are selected based on their proven expertise and their links to prestigious gastronomic institutions and guides such as Michelin and Gault & Millau, ensuring the highest standards of rigour, consistency and impartiality throughout the evaluation process."
+      }
+    ],
+    "word_count": 266,
+    "content_sha256": "f7f439978358abf697426b109c12c85b6ee0434e3765f306b32606e6746269ec",
+    "author": "Paula Crespo",
+    "acquisition": {
+      "method": "readable_text_extraction",
+      "extractor": "trafilatura",
+      "extractor_version": "2.2.0",
+      "fetched_at": "2026-08-20T22:42:50+00:00",
+      "version": "article-acquisition-v1"
+    }
+  },
+  "relevance_tier": "direct"
+}

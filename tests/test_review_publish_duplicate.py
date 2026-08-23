@@ -152,7 +152,7 @@ def test_review_form_has_speed_actions_and_untrusted_enrichment_panel(restored_r
     assert "Original RSS show notes" in detail.text
     assert "CI summary of blueberry scaling" in detail.text
     assert "untrusted" in detail.text
-    assert "Approve + Next" in detail.text
+    assert "Publish + Next" in detail.text
     assert "Save + Next" in detail.text
     assert "Reject + Next" in detail.text
     queue = client.get("/review?kind=publication&enrichment=enriched")

@@ -163,7 +163,7 @@ def test_scanner_and_publication_queue_lead_with_analyst_fields(monkeypatch, tmp
     assert "HUMAN PUBLICATION REVIEW" in form.text
     assert "Why this matters" in form.text
     assert "Concise summary" in form.text
-    assert "Approve + Next" in form.text
+    assert "Publish + Next" in form.text
     assert "Save + Next" in form.text
     assert "Reject + Next" in form.text
     assert form.text.index("Why this matters") < form.text.index("Original submission")

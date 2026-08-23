@@ -54,7 +54,9 @@ ENRICHMENT_SCHEMA: dict[str, Any] = {
 
 
 def clean_publisher_text(value: str | None) -> str:
-    text = NBSP_RE.sub(" ", str(value or ""))
+    from app.services.html_text import decode_html_text
+
+    text = NBSP_RE.sub(" ", decode_html_text(value))
     text = TAG_RE.sub(" ", text)
     return WS_RE.sub(" ", text).strip()
 

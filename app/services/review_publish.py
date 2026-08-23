@@ -69,6 +69,28 @@ def _norm(value: Any) -> str:
     return " ".join(str(value).strip().split())
 
 
+def normalize_article_for_trust(article: Any) -> dict[str, Any] | None:
+    if not isinstance(article, dict):
+        return None
+    normalized = deepcopy(article)
+    paragraphs = []
+    for offset, row in enumerate(normalized.get("paragraphs") or []):
+        if not isinstance(row, dict):
+            continue
+        text = str(row.get("text") or "").strip()
+        if not text:
+            continue
+        index = row.get("index")
+        if not isinstance(index, int):
+            index = offset
+        paragraphs.append({"index": index, "text": text})
+    if paragraphs:
+        normalized["paragraphs"] = paragraphs
+    elif "paragraphs" in normalized:
+        del normalized["paragraphs"]
+    return normalized
+
+
 def trusted_publication_conflicts(existing: dict[str, Any], proposed: dict[str, Any]) -> list[str]:
     """Return human-readable identity conflicts between a trusted record and a draft.
 
@@ -305,9 +327,18 @@ class ReviewPublishService:
             "discovered_item_id",
             "discovery_provenance",
             "publisher_description",
+            "article",
+            "relevance_tier",
+            "does_not_prove",
         ):
-            if field_name in request.draft:
-                evidence_record[field_name] = deepcopy(request.draft[field_name])
+            if field_name not in request.draft:
+                continue
+            value = deepcopy(request.draft[field_name])
+            if field_name == "article":
+                value = normalize_article_for_trust(value)
+                if value is None:
+                    continue
+            evidence_record[field_name] = value
 
         existing_trusted = self._repos.evidence.get(evidence_id)
         if existing_trusted is not None:

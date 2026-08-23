@@ -740,10 +740,10 @@ def _pending_triage_groups(
         if key in {"review_now", "review_soon"} and index:
             presented, used = compress_entries(entries, index, occupied_ids=occupied)
             occupied |= used
-            preview = presented
+            preview = presented[:20]
         else:
             presented = entries
-            preview = entries if key == "review_now" else entries[:8]
+            preview = entries[:20]
         story_count = len(presented)
         buckets.append(
             {
@@ -1404,7 +1404,12 @@ def build_morning_brief(
     if mode in {"nav", "pending"}:
         threads_by_id: dict[str, dict[str, Any]] = {}
         if mode == "pending":
-            pending_threads = group_story_threads(open_pending)
+            thread_pool = [
+                item
+                for item in open_pending
+                if item.get("triage_bucket") in {"review_now", "review_soon"}
+            ]
+            pending_threads = group_story_threads(thread_pool)
             threads_by_id = threads_by_item_id(pending_threads)
         pending_triage = _pending_triage_groups(ranked_pending, threads_by_id or None)
         counts["review_now"] = int(pending_triage["counts"].get("review_now") or 0)
