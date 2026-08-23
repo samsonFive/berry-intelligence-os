@@ -1,0 +1,28 @@
+{
+  "id": "concept-color",
+  "slug": "color",
+  "name": "Color",
+  "aliases": ["fruit color", "berry color", "skin color"],
+  "pillar": "taste_consumer_science",
+  "knowledge_class": "foundational_knowledge",
+  "trait_ids": ["trait-fruit-color"],
+  "summary": "Reported skin color or color intensity -- a commercially relevant, genetics-driven attribute across all four berries, not just a blueberry characteristic.",
+  "what_is_it": "Color describes the reported hue and intensity of a berry's skin -- for example powder-blue versus near-black blueberries, blush versus gold raspberries and blackberries, or white versus deep-red strawberries.",
+  "why_it_matters": "Color is a primary visual purchase cue at retail and is often part of a variety's commercial positioning -- novel colors (white strawberries, gold raspberries) can be marketed as a distinct selling point alongside yield and flavor, independent of any measured quality difference.",
+  "how_evaluated": "Formal color measurement uses colorimeter readings or standardized color charts, but most commercial and marketing descriptions are qualitative (e.g. 'vibrant,' 'deep blue,' 'blush pink') without a cited measurement method.",
+  "what_affects_it": "Genetics sets the achievable color range and pattern for a variety; ripeness at harvest, sun exposure, and growing-season conditions all influence the color actually observed on a given batch of fruit.",
+  "how_to_interpret": "A color description in marketing material is a qualitative claim, not a standardized measurement, unless a colorimeter reading or chart reference is cited. Color variation across all four berries is real and commercially relevant -- not just a blueberry-specific consideration -- so do not assume a color claim implies anything about flavor or firmness.",
+  "related_concept_ids": ["concept-bloom"],
+  "sources": [
+    {
+      "publisher": "Berry Intelligence OS internal trait vocabulary",
+      "title": "trait-fruit-color definition",
+      "url": null
+    },
+    {
+      "publisher": "USDA Agricultural Marketing Service",
+      "title": "Fresh fruit grading and quality standards",
+      "url": "https://www.ams.usda.gov"
+    }
+  ]
+}

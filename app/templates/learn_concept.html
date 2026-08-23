@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}{{ concept.name }} — Learn — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page v2-learn-page">
+<section class="page-heading v2-page-header" data-pagefind-filter="type:learn">
+  <div>
+    <p class="eyebrow"><a href="/learn">LEARN</a> / {{ concept.pillar_label }}</p>
+    <h1>{{ concept.name }}</h1>
+    <p class="also-known-as">{{ concept.summary }}</p>
+    <p class="v2-card-kicker">
+      <span class="v2-mark v2-mark-learn">EDUCATIONAL KNOWLEDGE</span>
+      <span class="v2-chip">{{ concept.knowledge_class_label }}</span>
+      {% if concept.aliases %}<span class="v2-meta">Also known as: {{ concept.aliases|join(', ') }}</span>{% endif %}
+    </p>
+    {% if concept.knowledge_class_note %}<p class="context-limit">{{ concept.knowledge_class_note }}</p>{% endif %}
+    <p class="context-limit">This is explanatory knowledge, not trusted Competitive Intelligence -- it is never a Fact, Atomic Evidence, Signal, or Assessment, and reading it does not increase confidence in any Signal.</p>
+  </div>
+</section>
+
+<section class="v2-company-section" id="what-is-it">
+  <h2>What is it?</h2>
+  <p>{{ concept.what_is_it }}</p>
+</section>
+
+<section class="v2-company-section" id="why-it-matters">
+  <h2>Why does it matter?</h2>
+  <p>{{ concept.why_it_matters }}</p>
+</section>
+
+<section class="v2-company-section" id="how-evaluated">
+  <h2>How is it evaluated / observed?</h2>
+  <p>{{ concept.how_evaluated }}</p>
+</section>
+
+<section class="v2-company-section" id="what-affects-it">
+  <h2>What can affect it?</h2>
+  <p>{{ concept.what_affects_it }}</p>
+</section>
+
+<section class="v2-company-section v2-learn-interpret" id="how-to-interpret">
+  <h2>When you see this in intelligence</h2>
+  <p>{{ concept.how_to_interpret }}</p>
+</section>
+
+<section class="v2-company-section" id="related-terms">
+  <h2>Related terms</h2>
+  {% if related %}
+    <ul class="entity-links">
+      {% for r in related %}<li><a href="{{ r.href }}">{{ r.name }}</a></li>{% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No related concepts recorded yet.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="related-intelligence">
+  <h2>Related berry intelligence</h2>
+  <p class="context-limit">Trusted Fact-level observations tagged with the real trait this concept explains. Coverage, not a completeness claim -- absence here does not mean no company has ever made a relevant claim, only that no trusted, trait-tagged Fact currently links to it.</p>
+  {% if related_intelligence.has_any %}
+    <ul class="entity-links">
+      {% for row in related_intelligence.rows %}
+        <li>
+          {% if row.classification == 'fact' %}<span class="badge badge-fact">FACT</span>{% else %}<span class="badge badge-claim">CLAIM</span>{% endif %}
+          <a href="{{ row.variety_href }}">{{ row.variety_name }}</a>
+          &mdash;
+          {% if row.evidence_id and not static_build %}
+            <a href="{{ row.reader_href }}" data-open-reader data-item-id="{{ row.evidence_id }}">{{ row.statement }}</a>
+          {% elif row.evidence_href %}
+            <a href="{{ row.evidence_href }}">{{ row.statement }}</a>
+          {% else %}
+            {{ row.statement }}
+          {% endif %}
+          {% if row.published_date %}<span class="draft-meta"> · {{ row.published_date|us_date }}</span>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No trusted intelligence currently linked to this concept.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="sources">
+  <h2>Sources / provenance</h2>
+  <ul class="entity-links">
+    {% for source in concept.sources %}
+      <li>
+        {% if source.url %}<a href="{{ source.url }}" rel="noopener">{{ source.title }}</a>{% else %}{{ source.title }}{% endif %}
+        <span class="v2-meta"> · {{ source.publisher }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="v2-company-section v2-learn-return" id="return-path">
+  <p class="v2-card-line"><a href="/learn">&larr; Back to Learn</a></p>
+</section>
+</div>
+{% endblock %}

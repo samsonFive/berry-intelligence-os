@@ -1,0 +1,28 @@
+{
+  "id": "concept-double-cropping",
+  "slug": "double-cropping",
+  "name": "Double cropping",
+  "aliases": ["double cropped", "two harvests per season", "multi-crop production"],
+  "pillar": "plant_biology_agronomy",
+  "knowledge_class": "regional_production_practice",
+  "trait_ids": [],
+  "summary": "A production strategy that takes two distinct harvest cycles from the same planting within one season, most established today in strawberry plasticulture systems.",
+  "what_is_it": "Double cropping is a production strategy where a grower takes two distinct harvest cycles from the same planting within a single season or annual cycle, rather than one. In strawberries this is closely tied to plasticulture: annual hill culture on raised, plastic-covered, fumigated beds with drip irrigation, which shortens time-to-harvest compared to older matted-row systems and creates the production flexibility that makes multiple cropping windows commercially viable.",
+  "why_it_matters": "Double cropping can raise total output and revenue per unit of land and extend a grower's marketing window, but it also raises input costs (labor, irrigation, plant material) and production risk within the same season. It is a deliberate economic and agronomic strategy, not something every operation or variety supports.",
+  "how_evaluated": "Whether a system supports double cropping is assessed through the underlying production method (e.g. plasticulture vs. matted row), planting density, and regional climate window -- it is a system-level and regional characterization, not a single-variety trait.",
+  "what_affects_it": "Production system (plasticulture vs. traditional), regional climate and day length, variety-specific flowering response, and grower investment in irrigation/frost protection all determine whether double cropping is agronomically and economically viable in a given operation.",
+  "how_to_interpret": "Double cropping is a regional production-practice claim, not a universal characteristic of a variety -- it depends on the production system and geography described, and should never be generalized from one region's guide to another. When intelligence references double cropping, check whether it is describing the production system, the variety, or both.",
+  "related_concept_ids": ["concept-precocity", "concept-winter-production"],
+  "sources": [
+    {
+      "publisher": "NC State Extension",
+      "title": "Southern Regional Strawberry Plasticulture Production Guide",
+      "url": "https://content.ces.ncsu.edu/southern-regional-strawberry-plasticulture-production-guide"
+    },
+    {
+      "publisher": "University of Arkansas Cooperative Extension",
+      "title": "An Introductory Guide to Strawberry Plasticulture",
+      "url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/Guide%20to%20Strawberry%20Plasticulture.pdf"
+    }
+  ]
+}

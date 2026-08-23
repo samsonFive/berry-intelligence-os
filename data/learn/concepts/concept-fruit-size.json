@@ -1,0 +1,33 @@
+{
+  "id": "concept-fruit-size",
+  "slug": "fruit-size",
+  "name": "Fruit size / caliber",
+  "aliases": ["caliber", "berry size", "fruit weight"],
+  "pillar": "taste_consumer_science",
+  "knowledge_class": "foundational_knowledge",
+  "trait_ids": ["trait-fruit-size"],
+  "summary": "Berry weight or equatorial diameter -- a genetics- and management-driven attribute with strong commercial weight, and one prone to unmeasured marketing description.",
+  "what_is_it": "Fruit size (or caliber) describes how large an individual berry is, typically reported as weight in grams or equatorial diameter in millimeters.",
+  "why_it_matters": "Larger fruit commands a price premium in most retail channels, is generally easier and cheaper to hand-harvest per kilogram, and is a headline attribute in many variety launch announcements. It is one of the most consumer-visible quality signals at point of sale.",
+  "how_evaluated": "Objective measurement is straightforward -- weighing a sample or measuring diameter -- but reporting is inconsistent across sources. Plant variety examination reports typically state a measured range; marketing terms such as 'jumbo' or 'extra-large' are descriptive claims, not standardized measurements, and do not map to a fixed size threshold across companies.",
+  "what_affects_it": "Genetics sets the typical size range for a variety, but crop load (how many berries the plant is carrying), irrigation, nutrition, and thinning practices all shift realized fruit size within that range season to season.",
+  "how_to_interpret": "Marketing terms such as 'jumbo' are owner claims, not measurements -- treat size descriptors from a company's own marketing separately from a measured weight or diameter figure from an independent trial or examination report. Two varieties both described as 'large' may differ meaningfully in actual grams or millimeters.",
+  "related_concept_ids": ["concept-color", "concept-firmness"],
+  "sources": [
+    {
+      "publisher": "Berry Intelligence OS internal trait vocabulary",
+      "title": "trait-fruit-size definition",
+      "url": null
+    },
+    {
+      "publisher": "Oregon State University Extension",
+      "title": "Nutrient management and production guidance affecting fruit size in berries",
+      "url": "https://extension.oregonstate.edu"
+    },
+    {
+      "publisher": "NC State Extension",
+      "title": "Blueberry production guidance for local sales and pick-your-own operators",
+      "url": "https://content.ces.ncsu.edu/blueberry-production-for-local-sales-and-small-pick-your-own-operators"
+    }
+  ]
+}

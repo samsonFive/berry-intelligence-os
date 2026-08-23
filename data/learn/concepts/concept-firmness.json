@@ -1,0 +1,28 @@
+{
+  "id": "concept-firmness",
+  "slug": "firmness",
+  "name": "Firmness",
+  "aliases": ["fruit firmness", "berry firmness"],
+  "pillar": "taste_consumer_science",
+  "knowledge_class": "foundational_knowledge",
+  "trait_ids": ["trait-fruit-firmness"],
+  "summary": "How much a berry resists gentle compression -- a handling, shelf-life, and consumer-experience attribute measured several incompatible ways.",
+  "what_is_it": "Firmness describes how much a berry resists deformation under gentle pressure. It is a physical property of the fruit's skin and flesh, distinct from ripeness, sweetness, or flavor, though the three often move together as fruit matures.",
+  "why_it_matters": "Firmer berries generally tolerate mechanical harvesting, packing, and shipping with less bruising, and hold their shape and eating quality longer in the supply chain. Firmness is one of the traits breeders select for most deliberately when developing varieties intended for long-distance shipping or machine harvest, alongside skin toughness and stem-scar quality.",
+  "how_evaluated": "There is no single industry-standard firmness test. Common methods include penetrometers or compression-index instruments reporting force in grams per millimeter of deflection, proprietary instrument readings such as FirmTech, and ordinal (soft/medium/firm) descriptors used in plant variety examination reports. Sensory panels also rate firmness by feel and bite, separate from any instrument reading.",
+  "what_affects_it": "Genetics set the ceiling, but firmness at retail is also shaped by harvest maturity, time and temperature between harvest and cold storage, handling during packing, and how long the fruit sits in the supply chain before it is evaluated or sold.",
+  "how_to_interpret": "Firmness claims may describe sensory texture, an instrument's physical-resistance reading, handling/shipping performance, or postharvest condition at a particular point in the supply chain -- and different measurement methods are not directly comparable to one another. Before treating two firmness observations as comparable, check whether they came from the same kind of source (an owner's marketing claim vs. an independent trial vs. a plant-variety examination report) and, where stated, the same measurement method.",
+  "related_concept_ids": ["concept-shelf-life", "concept-texture"],
+  "sources": [
+    {
+      "publisher": "Berry Intelligence OS internal trait vocabulary",
+      "title": "trait-fruit-firmness definition",
+      "url": null
+    },
+    {
+      "publisher": "Nature (Horticulture Research)",
+      "title": "Strawberry sweetness and consumer preference are enhanced by ... texture liking",
+      "url": "https://www.nature.com/articles/s41438-021-00502-5"
+    }
+  ]
+}

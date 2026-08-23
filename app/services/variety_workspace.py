@@ -721,6 +721,10 @@ def _present_fact_observation(
         _name(entities.get(trait_id), trait_id.removeprefix("trait-").replace("-", " ").title())
         for trait_id in trait_ids
     ]
+    # Parallel {id, name} pairs so a template can look up a Learner Mode
+    # "Explain this" link per trait id without this module depending on
+    # the Learner service -- kept alongside trait_names, not replacing it.
+    trait_chips = [{"id": trait_id, "name": name} for trait_id, name in zip(trait_ids, trait_names)]
     geography = []
     if primary:
         for geo_id in primary.get("geography_ids") or []:
@@ -735,6 +739,7 @@ def _present_fact_observation(
         "confidence": fact.get("confidence") or "",
         "fact_status": fact.get("status") or "",
         "trait_names": trait_names,
+        "trait_chips": trait_chips,
         "fact_href": f"/facts/{fact['id']}" if fact.get("id") else "",
         "evidence_id": (primary or {}).get("id") or "",
         "evidence_href": f"/evidence/{primary['id']}" if primary else "",
