@@ -12,6 +12,7 @@ from app.services.deterministic_tagging import infer_berry_ids_from_text
 from app.services.draft_attribution import attribute_draft
 from app.services.html_text import decode_html_text
 from app.services.source_body import classify_source_body, atomic_extraction_source_text
+from app.services.source_completeness import source_completeness
 
 _SPANISH_HINTS = (" se publicó", " frambuesa", " fresa ", " las variedades", " los principales")
 _FRENCH_HINTS = (" les variétés", " fraise ", " framboise")
@@ -128,6 +129,10 @@ def build_publication_review_dossier(
     entity_index = {str(row.get("id")): row for row in entity_list if row.get("id")}
     source_index = {str(row.get("id")): row for row in (sources or []) if row.get("id")}
     body = classify_source_body(draft)
+    completeness = source_completeness(draft)
+    body["label"] = completeness["class"].replace("_", " ")
+    if completeness["class"] == "STRUCTURED_REGISTRY":
+        body["warning"] = ""
     source_text = atomic_extraction_source_text(draft)
     attribution = attribute_draft(draft, entity_index, sources=source_index)
     known_variety_names = {
@@ -262,6 +267,7 @@ def build_publication_review_dossier(
     language = _language_label(draft, body["body"] or publisher)
     return {
         "body": body,
+        "source_completeness": completeness,
         "language": language,
         "language_label": f"ORIGINAL — {language}",
         "translation_available": False,

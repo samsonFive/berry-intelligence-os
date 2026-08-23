@@ -23,7 +23,7 @@ import json
 from pathlib import Path
 from typing import Any, Callable
 
-from app.services.article_acquisition import ArticleAcquisitionError, fetch_article
+from app.services.article_acquisition import ArticleAcquisitionError, fetch_article, repeated_body_conflict
 from app.services.media_orchestration import (
     MediaOrchestrationError,
     MediaOrchestrationService,
@@ -32,6 +32,7 @@ from app.services.media_orchestration import (
 )
 from app.services.publication_enrichment import enrich_publication_draft
 from app.services.relevance_screen import TIER_DIRECT, TIER_UNCERTAIN, screen_relevance
+from app.services.source_completeness import RETRYABLE_FAILURES, normalize_failure_category, with_source_completeness
 
 
 # app/services/article_acquisition.py's ArticleAcquisitionError categories
@@ -41,7 +42,7 @@ from app.services.relevance_screen import TIER_DIRECT, TIER_UNCERTAIN, screen_re
 # transport_error, redirect_error, http_error, malformed_html) that a plain
 # retry can still resolve and must not be treated as permanently
 # inaccessible.
-_ACCESS_LIMITED_CATEGORIES = frozenset({"blocked", "paywall", "empty_body"})
+_ACCESS_LIMITED_CATEGORIES = frozenset({"blocked", "paywall", "empty_body", "interstitial", "script_rendered"})
 
 
 def _error_result(item_id: str, *, state: str, message: str, transcript_status: str = "not_applicable") -> OrchestrationResult:
@@ -69,6 +70,21 @@ def _persist_relevance_tier(inbox_dir: Path, draft_id: str | None, tier: str | N
         return
     draft = json.loads(draft_path.read_text(encoding="utf-8"))
     draft["relevance_tier"] = tier
+    draft_path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def _persist_source_failure(
+    inbox_dir: Path, draft_id: str | None, category: str, *, dry_run: bool,
+) -> None:
+    if dry_run or not draft_id:
+        return
+    draft_path = inbox_dir / "evidence" / f"{draft_id}.json"
+    if not draft_path.exists():
+        return
+    draft = json.loads(draft_path.read_text(encoding="utf-8"))
+    discovery = draft.setdefault("discovery_provenance", {})
+    discovery["acquisition_failure_category"] = normalize_failure_category(category)
+    draft = with_source_completeness(draft, failure_category=category)
     draft_path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
@@ -181,6 +197,7 @@ def process_discovered_article(
                 return _error_result(item_id, state="orchestration_error", message=str(inner_exc)), extra
             result.relevance_tier = winning_tier
             _persist_relevance_tier(inbox_dir, result.publication_draft_id, winning_tier, dry_run=dry_run)
+            _persist_source_failure(inbox_dir, result.publication_draft_id, exc.category, dry_run=dry_run)
             return result, extra
         if (stage_a.query_corroboration or always_body_check) and exc.category in _ACCESS_LIMITED_CATEGORIES:
             # Two distinct real reasons Stage A was kept open despite zero
@@ -216,7 +233,11 @@ def process_discovered_article(
                 return _error_result(item_id, state="orchestration_error", message=str(inner_exc)), extra
             result.relevance_tier = TIER_UNCERTAIN
             _persist_relevance_tier(inbox_dir, result.publication_draft_id, TIER_UNCERTAIN, dry_run=dry_run)
+            _persist_source_failure(inbox_dir, result.publication_draft_id, exc.category, dry_run=dry_run)
             return result, extra
+        failure_code = normalize_failure_category(exc.category)
+        retryable = failure_code in RETRYABLE_FAILURES
+        extra["acquisition_failure_retryable"] = retryable
         return (
             OrchestrationResult(
                 item_id=item_id,
@@ -226,13 +247,30 @@ def process_discovered_article(
                 # acquisition failures use, so CollectionRunner's existing
                 # failure classification (retryable on acquisition_failed)
                 # applies unchanged to articles too.
-                transcript_status="acquisition_failed",
-                next_action="Retry article acquisition; inspect acquisition_failure_category.",
+                transcript_status="acquisition_failed" if retryable else "malformed",
+                next_action=(
+                    "Retry article acquisition under the existing bounded runner policy."
+                    if retryable else
+                    "Permanent/structural acquisition failure; operator inspection is required."
+                ),
                 errors=[str(exc)],
             ),
             extra,
         )
     extra["acquired"] = True
+
+    if repeated_body_conflict(body, orchestrator.publication_records()):
+        extra["acquisition_failure_category"] = "repeated_body"
+        extra["acquisition_failure_retryable"] = False
+        return (
+            _error_result(
+                item_id,
+                state="article_acquisition_failed",
+                message="REPEATED_BODY: identical extracted body already belongs to multiple distinct publication URLs",
+                transcript_status="malformed",
+            ),
+            extra,
+        )
 
     if stage_a.needs_body_check or always_body_check:
         stage_b = screen_relevance(
@@ -299,5 +337,6 @@ def process_discovered_article(
         extra["enrichment_status"] = (enrichment.get("model_provenance") or {}).get("status")
         extra["enrichment_caveats"] = enrichment.get("caveats")
 
+    draft = with_source_completeness(draft)
     draft_path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return result, extra

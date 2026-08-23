@@ -339,7 +339,11 @@ class MediaOrchestrationService:
         source = self._repos.sources.get(discovered_item["source_id"])
         if source is None:
             raise MediaOrchestrationError(f"Source ID does not resolve: {discovered_item['source_id']}")
-        draft = self._draft_from_item(discovered_item, source, enrich=enrich)
+        # Local import avoids a source_body -> intelligence_feed -> review_workbench
+        # -> media_orchestration cycle during application composition.
+        from app.services.source_completeness import with_source_completeness
+
+        draft = with_source_completeness(self._draft_from_item(discovered_item, source, enrich=enrich))
         errors = self._evidence_errors(draft)
         if errors:
             raise MediaOrchestrationError("publication draft failed Evidence validation: " + "; ".join(errors))
@@ -348,6 +352,20 @@ class MediaOrchestrationService:
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         return draft
+
+    def publication_records(self) -> list[dict[str, Any]]:
+        """Trusted and pending publication records for body-conflict checks."""
+        records = list(self._repos.evidence.list())
+        inbox = self._inbox_dir / "evidence"
+        if inbox.exists():
+            for path in sorted(inbox.glob("*.json")):
+                try:
+                    value = json.loads(path.read_text(encoding="utf-8"))
+                except (OSError, ValueError):
+                    continue
+                if isinstance(value, dict):
+                    records.append(value)
+        return records
 
     def bind_transcript(
         self, transcript_payload: dict[str, Any], parent_evidence_id: str
@@ -429,6 +447,35 @@ class MediaOrchestrationService:
                     errors=[f"Source ID does not resolve: {item['source_id']}"],
                 )
             draft = self.prepare_publication_draft(item, dry_run=dry_run, enrich=enrich and not dry_run)
+            if transcript_payload is not None and transcript_status == "ready":
+                payload = deepcopy(transcript_payload)
+                payload["parent_evidence_id"] = draft["id"]
+                payload.pop("discovered_item_id", None)
+                payload.pop("item_id", None)
+                try:
+                    transcript = TranscriptArtifact.from_dict(payload)
+                except TranscriptContractError as exc:
+                    transcript_error = f"malformed transcript: {exc}"
+                    transcript_status = "malformed"
+                else:
+                    draft["source_artifact"] = {
+                        "kind": "transcript",
+                        "artifact_id": transcript.transcript_id,
+                        "content_sha256": transcript.content_sha256(),
+                        "language": transcript.language,
+                        "status": "captured",
+                        "storage": "private_runtime",
+                        "lineage_field": "discovered_item_id",
+                    }
+                    from app.services.source_completeness import with_source_completeness
+                    draft = with_source_completeness(draft)
+                    reference_errors = self._evidence_errors(draft)
+                    if reference_errors:
+                        transcript_error = "transcript source reference failed Evidence validation: " + "; ".join(reference_errors)
+                        transcript_status = "malformed"
+                    elif not dry_run:
+                        path = self._inbox_dir / "evidence" / f"{draft['id']}.json"
+                        path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
             planned = ParentResolution(
                 status="would_create_draft" if dry_run else "pending_draft",
                 draft_id=draft["id"],

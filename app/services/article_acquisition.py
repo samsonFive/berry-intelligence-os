@@ -22,6 +22,7 @@ from datetime import datetime, timezone
 import hashlib
 import re
 from typing import Any
+from urllib.parse import urlparse
 
 import httpx
 import trafilatura
@@ -54,13 +55,20 @@ _PAYWALL_SIGNALS = (
     "create a free account to continue",
     "log in to continue reading",
 )
+_INTERSTITIAL_SIGNALS = (
+    "before you continue to google",
+    "consent.google.com",
+    "we use cookies and data to",
+    "privacy reminder",
+)
 
 
 class ArticleAcquisitionError(Exception):
     """A structured, categorized article-fetch failure.
 
-    `category` is one of: timeout, http_error, blocked, paywall,
-    malformed_html, empty_body, redirect_error, transport_error. Never
+    `category` is one of: timeout, http_error, blocked, paywall, interstitial,
+    malformed_html, empty_body, redirect_error, script_rendered,
+    transport_error. Never
     raised for "we chose not to try" (auth bypass) -- only for real,
     observed failure conditions.
     """
@@ -95,6 +103,9 @@ class ArticleBody:
     extractor_version: str
     author: str | None = None
     final_url: str | None = None
+    title: str | None = None
+    published_date: str | None = None
+    language: str | None = None
 
     @property
     def full_text(self) -> str:
@@ -108,6 +119,9 @@ class ArticleBody:
             "word_count": self.word_count,
             "content_sha256": self.content_sha256,
             "author": self.author,
+            "title": self.title,
+            "published_date": self.published_date,
+            "language": self.language,
             "acquisition": {
                 "method": "readable_text_extraction",
                 "extractor": self.extractor,
@@ -126,7 +140,7 @@ _SCRIPT_STYLE_RE = re.compile(r"<(script|style)\b[^>]*>.*?</\1>", re.IGNORECASE 
 
 
 def _looks_blocked_or_paywalled(html: str) -> str | None:
-    """Returns 'blocked' or 'paywall' if a known wall signal is present in
+    """Returns a concrete wall category if a known signal is present in
     the visible page content, else None. Checked before attempting
     extraction so a wall is reported honestly rather than silently
     extracting whatever thin text sits in front of the wall.
@@ -139,6 +153,8 @@ def _looks_blocked_or_paywalled(html: str) -> str | None:
     real article content."""
     visible = _SCRIPT_STYLE_RE.sub(" ", html[:20000])
     haystack = visible[:6000].lower()
+    if any(signal in haystack for signal in _INTERSTITIAL_SIGNALS):
+        return "interstitial"
     if any(signal in haystack for signal in _BLOCK_SIGNALS):
         return "blocked"
     if any(signal in haystack for signal in _PAYWALL_SIGNALS):
@@ -219,6 +235,19 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
             f"HTTP {response.status_code} fetching {url}", category="http_error"
         )
 
+    # Google News RSS article links are JavaScript wrappers, not article
+    # pages and not HTTP redirects. Treating their shared wrapper/chrome as
+    # readable source text caused the historic repeated-body incident. A
+    # publisher URL must be resolved by discovery before article extraction;
+    # the wrapper itself can never be a FULL_ARTICLE artifact.
+    requested_host = (urlparse(url).hostname or "").casefold()
+    final_host = (urlparse(str(response.url)).hostname or "").casefold()
+    if requested_host == "news.google.com" and final_host in {"news.google.com", "consent.google.com"}:
+        raise ArticleAcquisitionError(
+            "Google News wrapper did not resolve to a publisher article",
+            category="interstitial" if final_host == "consent.google.com" else "script_rendered",
+        )
+
     html = response.text
     wall = _looks_blocked_or_paywalled(html)
     if wall:
@@ -268,4 +297,27 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
         extractor="trafilatura",
         extractor_version=trafilatura.__version__,
         author=extracted.get("author") or None,
+        title=extracted.get("title") or None,
+        published_date=extracted.get("date") or None,
+        language=extracted.get("language") or None,
     )
+
+
+def repeated_body_conflict(
+    body: ArticleBody, existing_records: list[dict[str, Any]], *, threshold: int = 3,
+) -> bool:
+    """Reject the third use of one body across distinct publication URLs.
+
+    Two matching bodies may be a legitimate reprint pair. Three or more
+    distinct URLs use the same conservative conflict threshold as historic
+    Source Fidelity Recovery.
+    """
+    urls = {
+        str(record.get("source_url") or "").strip()
+        for record in existing_records
+        if isinstance(record.get("article"), dict)
+        and record["article"].get("content_sha256") == body.content_sha256
+        and record.get("source_url")
+    }
+    urls.add(body.source_url)
+    return len(urls) >= threshold

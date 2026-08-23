@@ -30,10 +30,10 @@ INTERSTITIAL_SIGNALS = (
 )
 
 BODY_STATE_LABELS = {
-    "body_available": "BODY AVAILABLE",
+    "body_available": "FULL BODY",
     "body_partial": "BODY PARTIAL",
-    "description_only": "DESCRIPTION ONLY",
-    "transcript_available": "TRANSCRIPT AVAILABLE",
+    "description_only": "THIN DESCRIPTION ONLY",
+    "transcript_available": "TRANSCRIPT",
     "body_unavailable": "BODY UNAVAILABLE",
     "access_limited": "ACCESS-LIMITED",
     "interstitial": "CONSENT / INTERSTITIAL / BOT WALL",
@@ -102,8 +102,8 @@ def classify_source_body(record: dict[str, Any]) -> dict[str, Any]:
         "acquisition": ((record.get("article") or {}) if isinstance(record.get("article"), dict) else {}).get("acquisition") or {},
         "usable_in_app": state in {"body_available", "body_partial", "transcript_available"},
         "warning": (
-            "Source body unavailable in-app. Review original source before publishing."
-            if state in {"interstitial", "access_limited", "body_unavailable"}
+            "Full source content was not captured. Review the original source before publishing."
+            if state in {"description_only", "interstitial", "access_limited", "body_unavailable"}
             else ""
         ),
     }

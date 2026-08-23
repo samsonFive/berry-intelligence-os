@@ -300,6 +300,11 @@ def test_transcript_can_exist_before_approval_without_extraction_or_retranscript
     assert adapter.calls == 1
     assert repos.evidence.list() == []
     assert len(list((inbox / "evidence").glob("*.json"))) == 1
+    draft = json.loads(next((inbox / "evidence").glob("*.json")).read_text(encoding="utf-8"))
+    assert draft["source_artifact"]["kind"] == "transcript"
+    assert draft["source_artifact"]["artifact_id"] == "transcript-orchestration-fixture"
+    assert draft["source_completeness"]["class"] == "FULL_TRANSCRIPT"
+    assert "segments" not in draft["source_artifact"]
 
 
 def test_parent_binding_changes_only_metadata_and_preserves_content_hash(tmp_path: Path) -> None:
@@ -345,6 +350,8 @@ def test_existing_human_review_publishes_draft_then_parent_resolution_unlocks_ex
     assert trusted["evidence_role"] == "publication_artifact"
     assert trusted["discovered_item_id"] == item["id"]
     assert trusted["discovery_provenance"]["dedupe_key"] == item["dedupe_key"]
+    assert trusted["source_artifact"]["artifact_id"] == "transcript-orchestration-fixture"
+    assert trusted["source_completeness"]["class"] == "FULL_TRANSCRIPT"
     assert not (inbox / "evidence" / f"{created.publication_draft_id}.json").exists()
 
     resumed = service.process(item["id"])
