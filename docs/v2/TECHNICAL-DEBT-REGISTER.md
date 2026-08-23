@@ -1443,13 +1443,29 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Severity** | Low |
 | **Area** | data quality / entity linkage |
 | **Date discovered** | 2026-08-23 |
-| **Evidence** | Source / Entity Intelligence Timeline V1 mission, found during live acceptance testing. `variety-victoria`'s (a real blackberry cultivar) Intelligence Timeline surfaces `ev-costa-ownership-2024` (a blueberry-tagged Costa Group ownership-change article) as linked evidence. Root cause is upstream in the pre-existing `alias_linked_evidence()` regex recall inside `app/services/entity_alias_recall.py::linked_evidence_for_entity()` (not touched by this mission): the Costa article's own text notes the company's origins in "Geelong, **Victoria**" (the Australian state), and the recall regex matches that word against the Variety entity's own name, "Victoria," with no place-name-vs-proper-noun disambiguation. This same `linked_evidence_for_entity()` call already feeds Variety's existing Recent Intelligence and Commercial Footprint sections identically -- the Timeline did not introduce this false positive, it surfaces one that was already there, now simply more visible because the Timeline groups by date/kind. |
-| **Impact** | A low-relevance, unrelated article can appear attributed to a variety whose name happens to collide with a real place name mentioned in that article's text. Observed once in acceptance testing (Victoria/Geelong); likely affects any other Variety/Company name that is also a common place name. |
-| **Workaround** | None needed for this mission -- the underlying record is still real, trusted Evidence; the attribution is merely imprecise, not fabricated or untrusted content. |
-| **Recommended resolution** | `alias_linked_evidence()`'s regex recall could exclude common geography-name collisions, or require a corroborating berry/entity co-mention nearby in text, before counting a bare place-name mention as an entity link. A scoped fix belongs to whichever mission next touches `entity_alias_recall.py` -- out of this mission's stated scope (presentation/querying only). |
+| **Evidence** | Entity Linking Precision V1 reproduced the exact match: canonical alias `Victoria` matched `summary` text `Geelong, Victoria` in unrelated blueberry `ev-costa-ownership-2024`. The same full-corpus audit found 54 additional likely false fallback pairs across substring, ordinary-word, person-name, longer-Variety, and incidental-comparison classes. The shared matcher now requires bounded, identity-class-specific deterministic grounding and preserves explicit IDs first. Victoria's real HortWeek blackberry Evidence remains; both Costa place-name records are absent. |
+| **Impact** | Resolved for the shared live Company/Variety linkage path and every consumer of that linked set. The reviewed 38-pair sample improved from 65.79% to 100% estimated precision with 100% recall retained. |
+| **Workaround** | None. Do not restore raw substring occurrence as grounding. |
+| **Recommended resolution** | Complete. Keep `benchmarks/entity-linking-precision-v1.json` and the canonical-only audit in CI regression coverage. |
+| **Status** | resolved 2026-08-23 |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | Entity Linking Precision V1, PR #111, implementation `b43f8f0` |
+| **Regression-test reference** | `tests/test_entity_alias_recall.py`; `tests/test_entity_intelligence_timeline.py::test_victoria_profile_retains_real_blackberry_evidence_without_costa_geography_collision`; `tests/test_audit_entity_linking.py` |
+
+### TD-091 — Conservative text fallback intentionally omits body-only and unmodeled place-name recall
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data quality / entity linkage recall |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Entity Linking Precision V1 traced the live fallback fields to title/headline/summary/excerpt/why-it-matters; publisher article bodies are not scanned. Canonical Geography has 19 broad records and does not model every state, province, city, or market name. The conservative matcher uses those real Geography identities plus syntax, berry compatibility, and Variety context; it deliberately returns no link rather than treating an ungrounded body occurrence as identity. |
+| **Impact** | A legitimate Entity mention present only in a retained publisher body, or an unusually phrased unmodeled subnational place collision, may be missed. This is bounded recall debt; it does not create false trusted links. |
+| **Workaround** | Explicit reviewed `entity_ids` remain authoritative. A human can add the structured link through normal trusted-data review when the Evidence truly grounds the Entity. |
+| **Recommended resolution** | Expand only with a reviewed benchmark and deterministic evidence. Do not introduce a generic body scan, gazetteer guess, or AI entity classifier merely to increase recall. |
 | **Status** | active |
 | **Owner lane** | data |
 | **PR/SHA when resolved** | — |
-| **Regression-test reference** | none yet -- reproduced manually via `/entities/variety/variety-victoria` live acceptance testing, not yet a committed regression test |
+| **Regression-test reference** | `benchmarks/entity-linking-precision-v1.json`; `scripts/audit_entity_linking.py` |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
