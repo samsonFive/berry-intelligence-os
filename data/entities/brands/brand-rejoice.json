@@ -1,0 +1,31 @@
+{
+  "id": "brand-rejoice",
+  "record_type": "entity",
+  "entity_type": "brand",
+  "name": "Rejoice",
+  "aliases": [],
+  "status": "active",
+  "description": "Year-round premium blackberry breeding platform launched by Plant Sciences Genetics (PSG), covered independently by Fruitnet and The Packer as PSG's first year-round primocane blackberry platform, unveiled at the Aneberries International Congress in Guadalajara.",
+  "roles": [
+    "variety_platform"
+  ],
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "evidence_ids": [
+    "ev-20260806173540-f021-blackberry-breakthrough-psg-unveils-firs",
+    "ev-20260806173540-a6ec-new-year-round-premium-blackberry-platfo"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-psg-owns-rejoice"
+  ],
+  "attributes": {
+    "owner": "Plant Sciences Genetics (PSG)",
+    "launch_event": "Aneberries International Congress, Guadalajara",
+    "launch_varieties": [
+      "BK 6-13"
+    ],
+    "package_note": "The Packer names the specific selection underlying the platform (\"the new BK 6-13 variety\"); Fruitnet's own coverage describes the platform launch itself without naming a cultivar. Modeled as a brand/platform per the existing BluGenix precedent, with BK 6-13 as its one evidenced component variety -- no other launch varieties were found in the available Evidence, so the list is not padded to resemble BluGenix's five."
+  }
+}

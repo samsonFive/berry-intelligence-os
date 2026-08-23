@@ -1,0 +1,38 @@
+{
+  "id": "variety-ouachita",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Ouachita",
+  "aliases": [],
+  "status": "active",
+  "description": "Thornless blackberry variety released in 2003 by the University of Arkansas System Division of Agriculture. Received the Outstanding Fruit Cultivar Award from the Fruit Breeding Professional Interest Group of the American Society of Horticultural Science, per University of Arkansas News.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "evidence_ids": [
+    "ev-20260806173540-30a7-top-performing-arkansas-blackberry-recei"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-university-of-arkansas-develops-ouachita"
+  ],
+  "attributes": {
+    "breeder": "University of Arkansas Division of Agriculture",
+    "release_year": 2003,
+    "traits": [
+      {
+        "trait": "trait-thorns",
+        "value": "thornless",
+        "provenance": "trade_press_report",
+        "evidence_ids": ["ev-20260806173540-30a7-top-performing-arkansas-blackberry-recei"],
+        "conditions": "Stated directly in the source article.",
+        "asserted_by": "University of Arkansas News"
+      }
+    ],
+    "award": "Outstanding Fruit Cultivar Award (Fruit Breeding Professional Interest Group, American Society of Horticultural Science)",
+    "package_note": "Single-source grounding. No independent trade-press corroboration or quantitative trait datasheet was found in the available Evidence -- not fabricated."
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "company-onubafruit",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Onubafruit",
+  "aliases": [],
+  "status": "active",
+  "description": "Spanish grower/marketer, Huelva. Reported by Hortidaily expanding Malaika raspberry (Advanced Berry Breeding) plantings from initial trials to an estimated 150-200 hectares -- a separate real licensed-grower relationship from The Summer Berry Company's Portugal deal for the same variety, consistent with Malaika's own description as part of ABB's tiered, multi-licensee Elite Raspberry Collection (ERC) platform.",
+  "roles": [
+    "grower",
+    "marketer"
+  ],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "evidence_ids": [
+    "ev-20260806173853-c7ff-spanish-malaika-raspberry-plantings-expa"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-onubafruit-grows-malaika",
+    "rel-onubafruit-operates-in-spain"
+  ],
+  "attributes": {
+    "country": "Spain",
+    "region": "Huelva",
+    "package_note": "No public corporate profile or founding-year source was found in the available Evidence -- not fabricated."
+  }
+}

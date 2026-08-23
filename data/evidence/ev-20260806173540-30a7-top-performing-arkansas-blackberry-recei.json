@@ -14,9 +14,12 @@
   "berry_ids": [
     "berry-blackberry"
   ],
-  "geography_ids": [],
+  "geography_ids": [
+    "geography-united-states"
+  ],
   "entity_ids": [
-    "company-university-of-arkansas"
+    "company-university-of-arkansas",
+    "variety-ouachita"
   ],
   "fact_ids": [],
   "relationship_ids": [],

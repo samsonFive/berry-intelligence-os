@@ -294,7 +294,12 @@ def test_index_route_does_not_call_footprint_or_compete(monkeypatch) -> None:
     assert "Zara" in page.text
     assert "Victoria" in page.text
     assert "DrisBlueSeventeen" in page.text
-    assert "Blackberry 1 (thin)" in page.text
+    # Real, current count as of Caneberry Variety + Actor Expansion V1
+    # (2026-08-22): blackberry has 5 tracked varieties (Victoria, Ervin,
+    # Ponca, Ouachita, BK 6-13), so "(thin)" (the berry_inventory() <=1
+    # threshold) no longer applies -- was "Blackberry 1 (thin)".
+    assert "Blackberry 5" in page.text
+    assert "(thin)" not in page.text
 
 
 def test_detail_calls_footprint_once() -> None:
@@ -350,7 +355,7 @@ def test_observations_runtime_without_inbox_is_honest(monkeypatch, tmp_path: Pat
     assert "ev-sample-retail-placement" not in page.text or "is not the UK pilot" in page.text
 
 
-def test_competition_needs_a_berry_and_shows_blackberry_thin() -> None:
+def test_competition_needs_a_berry_and_blackberry_thin_is_count_driven() -> None:
     client = TestClient(app)
     global_page = client.get("/entities/variety?view=compete")
     assert global_page.status_code == 200
@@ -362,8 +367,18 @@ def test_competition_needs_a_berry_and_shows_blackberry_thin() -> None:
     assert "competitive-intensity" not in blueberry.text or "none exists" in blueberry.text
     blackberry = client.get("/entities/variety", params={"view": "compete", "berry": "berry-blackberry"})
     assert blackberry.status_code == 200
-    assert "Blackberry is honestly thin" in blackberry.text
+    # Real, current state as of Caneberry Variety + Actor Expansion V1
+    # (2026-08-22): blackberry_thin is now count-driven (<=1 varieties),
+    # matching berry_inventory()'s own "thin" threshold, not hardcoded to
+    # `berry_id == "berry-blackberry"`. Blackberry has 5 real varieties
+    # now, so the "Blackberry is honestly thin" copy correctly does not
+    # render -- it would still render if the real count ever dropped to
+    # <=1 again, since the flag is genuinely data-driven.
+    assert "Blackberry is honestly thin" not in blackberry.text
     assert "Victoria" in blackberry.text
+    assert "Ervin" in blackberry.text
+    assert "Ponca" in blackberry.text
+    assert "Ouachita" in blackberry.text
     overlap = client.get(
         "/entities/variety",
         params={"view": "compete", "berry": "berry-blueberry", "ip_and_observation": "1"},
@@ -387,7 +402,11 @@ def test_context_bar_filters_variety_index() -> None:
     blackberry.cookies.set("bios_berry", "berry-blackberry")
     page = blackberry.get("/entities/variety")
     assert "Victoria" in page.text
-    assert "(thin)" in page.text
+    assert "Ervin" in page.text
+    # Real, current count as of Caneberry Variety + Actor Expansion V1
+    # (2026-08-22): blackberry has 5 varieties, no berry is at the
+    # berry_inventory() <=1 "thin" threshold -- was "(thin)" present.
+    assert "(thin)" not in page.text
 
 
 def test_variety_pages_do_not_rank_brief(monkeypatch, tmp_path: Path) -> None:

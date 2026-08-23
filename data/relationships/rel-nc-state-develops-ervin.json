@@ -1,0 +1,13 @@
+{
+  "id": "rel-nc-state-develops-ervin",
+  "record_type": "relationship",
+  "subject_id": "company-nc-state-university",
+  "predicate": "develops",
+  "object_id": "variety-ervin",
+  "status": "active",
+  "evidence_ids": [
+    "ev-20260806173544-f46d-boosting-blackberries-nc-state-s-gina-fe"
+  ],
+  "effective_date": "2026-07-22",
+  "notes": "confidence=high; NC State University's own news office announcing the release of blackberry variety Ervin, bred by Gina Fernandez."
+}

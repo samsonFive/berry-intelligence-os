@@ -1,0 +1,36 @@
+{
+  "id": "variety-ervin",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Ervin",
+  "aliases": [],
+  "status": "active",
+  "description": "Blackberry variety bred by NC State University's Gina Fernandez, described by NC State's own news office as a flavor-packed new release ready for North Carolina growers after four years of testing, with an international debut planned.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "evidence_ids": [
+    "ev-20260806173544-f46d-boosting-blackberries-nc-state-s-gina-fe"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-nc-state-develops-ervin"
+  ],
+  "attributes": {
+    "breeder": "NC State University (Gina Fernandez)",
+    "traits": [
+      {
+        "trait": "trait-flavor",
+        "value": "flavor-packed",
+        "provenance": "trade_press_report",
+        "evidence_ids": ["ev-20260806173544-f46d-boosting-blackberries-nc-state-s-gina-fe"],
+        "conditions": "Described qualitatively by NC State University's own release; no sensory panel score or Brix figure given.",
+        "asserted_by": "NC State University"
+      }
+    ],
+    "package_note": "Single-source grounding (NC State's own release article). No independent trade-press corroboration or quantitative trait datasheet was found in the available Evidence -- not fabricated."
+  }
+}

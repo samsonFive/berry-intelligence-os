@@ -1,0 +1,13 @@
+{
+  "id": "rel-psg-develops-bk-6-13",
+  "record_type": "relationship",
+  "subject_id": "company-plant-sciences-genetics",
+  "predicate": "develops",
+  "object_id": "variety-bk-6-13",
+  "status": "active",
+  "evidence_ids": [
+    "ev-20260806173540-a6ec-new-year-round-premium-blackberry-platfo"
+  ],
+  "effective_date": "2026-08-04",
+  "notes": "confidence=high; The Packer reporting PSG's Rejoice platform is built around the new BK 6-13 blackberry variety."
+}

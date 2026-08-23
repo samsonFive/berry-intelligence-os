@@ -1,0 +1,28 @@
+{
+  "id": "variety-bk-6-13",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "BK 6-13",
+  "aliases": [],
+  "status": "active",
+  "description": "Blackberry selection bred by Plant Sciences Genetics (PSG), reported by The Packer as the variety underlying PSG's Rejoice year-round premium blackberry platform, offering steady supply and high-spec fruit year-round.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "evidence_ids": [
+    "ev-20260806173540-a6ec-new-year-round-premium-blackberry-platfo"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-psg-develops-bk-6-13"
+  ],
+  "attributes": {
+    "breeder": "Plant Sciences Genetics (PSG)",
+    "brand": "Rejoice",
+    "selection_code": "BK 6-13",
+    "identity_note": "Commercial/selection name only as reported by The Packer; no separate patent number or plant breeders' right filing was found in the available Evidence -- not fabricated. This is the specific selection The Packer names as underlying the Rejoice platform; it is not itself a marketing-only or trial-only code without identity support."
+  }
+}

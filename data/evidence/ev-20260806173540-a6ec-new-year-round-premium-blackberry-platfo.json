@@ -16,7 +16,9 @@
   ],
   "geography_ids": [],
   "entity_ids": [
-    "company-plant-sciences-genetics"
+    "company-plant-sciences-genetics",
+    "brand-rejoice",
+    "variety-bk-6-13"
   ],
   "fact_ids": [],
   "relationship_ids": [],

@@ -5,7 +5,7 @@
   "name": "Malaika",
   "aliases": [],
   "status": "active",
-  "description": "Raspberry variety bred by Advanced Berry Breeding (ABB), part of ABB's tiered Elite Raspberry Collection (ERC) licensing platform. The Summer Berry Company (TSBC) signed a five-year deal with ABB to grow Malaika (and Zawadi) in Portugal, becoming the first Portuguese grower to hold a Gold License on ABB's ERC platform. Independently corroborated by AICEP, Fruitnet (two articles), Hort News and FreshFruitPortal.com.",
+  "description": "Raspberry variety bred by Advanced Berry Breeding (ABB), part of ABB's tiered Elite Raspberry Collection (ERC) licensing platform. The Summer Berry Company (TSBC) signed a five-year deal with ABB to grow Malaika (and Zawadi) in Portugal, becoming the first Portuguese grower to hold a Gold License on ABB's ERC platform. Onubafruit separately grows Malaika in Spain (Huelva), expanding plantings to an estimated 150-200 hectares per Hortidaily -- a real, second, independent licensed-grower relationship for the same multi-licensee variety. Independently corroborated by AICEP, Fruitnet (two articles), Hort News, FreshFruitPortal.com, and Hortidaily.",
   "roles": [
     "cultivar"
   ],
@@ -16,12 +16,15 @@
     "ev-20260806173539-06bb-malaika-raspberries-raise-the-premium-ha",
     "ev-20260806173539-0cf0-the-summer-berry-company-harvests-premiu",
     "ev-20260806173539-b063-big-fleshy-and-delicious-malaika-raspber",
-    "ev-20260806173539-b7ed-tsbc-secures-rights-to-grow-innovative-r"
+    "ev-20260806173539-b7ed-tsbc-secures-rights-to-grow-innovative-r",
+    "ev-20260806173853-c7ff-spanish-malaika-raspberry-plantings-expa",
+    "ev-abb-varieties"
   ],
   "fact_ids": [],
   "relationship_ids": [
     "rel-abb-develops-malaika",
-    "rel-tsbc-grows-malaika"
+    "rel-tsbc-grows-malaika",
+    "rel-onubafruit-grows-malaika"
   ],
   "attributes": {
     "breeder": "Advanced Berry Breeding",
