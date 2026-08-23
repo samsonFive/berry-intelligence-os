@@ -72,7 +72,9 @@ Intentional failure head `d11eb49569f4fda31dae84ad633775af197c7d7a` added an unr
 
 Branch protection was then enabled on `v2/intelligence-os`. The live API response reports `strict: true`, admin enforcement enabled, pull requests required with zero newly invented approval-count requirement, force pushes/deletions disabled, and exactly the four GitHub Actions contexts listed above (GitHub Actions app id `15368`) required.
 
-The final documentation-only push is used to prove the fast path while retaining all four required contexts. Its head/run, merge SHA, and post-merge Pages result are recorded in the mission handoff because they necessarily occur after this version of the document is committed.
+Temporary PR [#96](https://github.com/samsonFive/berry-intelligence-os/pull/96) tested the genuine fast path as a one-file Markdown-only diff against the implementation branch. [Run 32616798032](https://github.com/samsonFive/berry-intelligence-os/actions/runs/32616798032) retained and passed all four contexts in 4-6s. Step-level results prove Python setup, dependency installation, tests, record validation, promotion tests, static generation, and artifact checks were skipped. The proof PR was closed without merge and its remote branch deleted.
+
+The implementation merge SHA and post-merge Pages result are recorded in the mission handoff because they necessarily occur after this version of the document is committed.
 
 ## Stale production freeze audit
 

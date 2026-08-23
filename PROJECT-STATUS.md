@@ -23,7 +23,9 @@ fixtures across private drafts, review history, reviewer identity, analyst queue
 signal candidates, and unpublished proposals. GitHub green/red/recovery runs
 prove the gate and cancellation behavior; canonical branch protection now
 requires all four current-head checks with strict freshness and admin enforcement.
-Final docs-only/merge/Pages proof is being completed in PR form; see
+The separate one-file Markdown proof also passed all four named contexts in
+4-6s while executable setup/test/build steps were explicitly skipped. Final
+merge/Pages proof is being completed in PR form; see
 `docs/v2/CI-MERGE-GATE-RELIABILITY-V1.md`.
 
 Canonical Data Promotion / Runtime Sync V1 is canonical via PR #92 (merge `878dd8e`) and production-proven. It adds an explicit, verified-backup-gated three-way promotion contract for existing trusted JSON records. Startup remains additive for new files and Source IDs, authoritative only for the pipeline registry, and never overwrites a differing existing trusted record. The first production baseline covered 1,856 equal promotable records; dry-run reported 2,543 unchanged, 57 protected legacy trusted-record conflicts with no baseline, 18 protected non-promotable import/reference divergences, zero safe updates, and zero new files. Every pre-existing `data/` and `inbox/` byte survived the rebuild; only the new manifest increased the data-file count. Semantic hashes kept 2,191 raw-format-different JSON pairs unchanged rather than creating false conflicts. Historical reconstruction of the 275-record Evidence berry-tagging repair remains exactly 275 safe updates, 991 unchanged, and zero genuine divergences/conflicts, proving that migration would now use one backup-gated promotion instead of manual copying. Runtime-only trusted records, collection state, review events, analyst queues, scheduler state, and all other inbox artifacts remain protected. Full contract and proof: `docs/v2/CANONICAL-DATA-PROMOTION-RUNTIME-SYNC-V1.md`.
