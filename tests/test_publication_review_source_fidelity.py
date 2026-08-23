@@ -166,6 +166,20 @@ def test_publish_preserves_article_paragraphs_for_atomic_input(monkeypatch, tmp_
     assert atomic_extraction_source_text(trusted) == classify_source_body(draft)["body"]
 
 
+def test_atomic_extraction_uses_inline_transcript_without_segments() -> None:
+    trusted = {
+        "summary": "Thin publication description.",
+        "media_format": "podcast",
+        "transcript": {
+            "status": "available",
+            "language": "en",
+            "text": "The complete inline transcript is the extraction source.",
+        },
+    }
+
+    assert atomic_extraction_source_text(trusted) == trusted["transcript"]["text"]
+
+
 def test_pending_first_screen_caps_rendered_cards(monkeypatch, tmp_path: Path) -> None:
     inbox = tmp_path / "inbox" / "evidence"
     inbox.mkdir(parents=True)
