@@ -299,6 +299,33 @@
       "enum": ["direct", "adjacent"],
       "$comment": "Freshness + Company News Recall sprint, optional and additive. Set only on web_article publication drafts that passed relevance screening: 'direct' means a berry species/cultivar or known berry company recurs as a real subject of the piece; 'adjacent' means a genuine strategic-adjacent story (agtech, trade policy, labor, weather/climate) that only mentions a berry once in passing, retained for review but never presented as high-confidence berry relevance. Absent on records this screen never ran against (podcast/video drafts, trusted published Evidence, anything predating this field) -- absence is not evidence of either tier, callers must not assume 'direct' by default."
     },
+    "source_completeness": {
+      "type": "object",
+      "required": ["version", "class", "retryable", "operator_accepted_thin"],
+      "properties": {
+        "version": {"const": "source-completeness-v1"},
+        "class": {"enum": ["FULL_ARTICLE", "FULL_TRANSCRIPT", "STRUCTURED_REGISTRY", "THIN_DESCRIPTION", "NO_CONTENT"]},
+        "failure_category": {"type": ["string", "null"]},
+        "retryable": {"type": "boolean"},
+        "content_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "operator_accepted_thin": {"type": "boolean"}
+      },
+      "$comment": "Derived source completeness only. It is not an Evidence trust state and never authorizes extraction."
+    },
+    "source_artifact": {
+      "type": "object",
+      "required": ["kind", "artifact_id", "content_sha256", "status", "storage", "lineage_field"],
+      "properties": {
+        "kind": {"enum": ["transcript"]},
+        "artifact_id": {"type": "string", "minLength": 1},
+        "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "language": {"type": ["string", "null"]},
+        "status": {"const": "captured"},
+        "storage": {"const": "private_runtime"},
+        "lineage_field": {"const": "discovered_item_id"}
+      },
+      "$comment": "Durable metadata reference to a captured private normalized transcript. No transcript body or private path is stored in trusted Evidence."
+    },
     "article": {
       "type": "object",
       "$comment": "Article Ingestion vertical slice, optional and additive. The normalized, readable-text body of a web_article Evidence record -- this project's text-artifact analogue of `transcript`, deliberately a separate object rather than forced into transcript_provenance's audio-segment shape (paragraph index is the locator; there are no timestamps for written text). Present only on web_article drafts/Evidence that completed real HTML acquisition; absence does not imply failure -- see `discovery_provenance`/operational run state for why. This is raw derived material carried for human review and later, qualified-model Atomic Evidence extraction -- it is not itself trusted intelligence and `summary`/`why_it_matters` are never overwritten by it.",
@@ -318,6 +345,9 @@
         "word_count": {"type": "integer", "minimum": 0},
         "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
         "author": {"type": ["string", "null"]},
+        "title": {"type": ["string", "null"]},
+        "published_date": {"type": ["string", "null"]},
+        "language": {"type": ["string", "null"]},
         "final_url": {"type": ["string", "null"], "$comment": "Set only when acquisition followed a redirect away from source_url."},
         "acquisition": {
           "type": "object",

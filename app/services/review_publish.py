@@ -51,6 +51,7 @@ from typing import Any, Callable
 
 from app.repositories.base import DuplicateRecord
 from app.services.review_events import EventAppendResult, append_review_event, remove_created_event
+from app.services.source_completeness import source_completeness
 
 PUBLICATION_IDENTITY_FIELDS = (
     "title",
@@ -330,6 +331,7 @@ class ReviewPublishService:
             "article",
             "relevance_tier",
             "does_not_prove",
+            "source_artifact",
         ):
             if field_name not in request.draft:
                 continue
@@ -339,6 +341,15 @@ class ReviewPublishService:
                 if value is None:
                     continue
             evidence_record[field_name] = value
+
+        # Publishing a visibly warned thin candidate is an explicit analyst
+        # acceptance of source incompleteness, not a new trust state. Rich
+        # source artifacts remain carried verbatim through this transaction.
+        completeness_probe = {**request.draft, **evidence_record}
+        derived_completeness = source_completeness(completeness_probe)
+        if derived_completeness["class"] in {"THIN_DESCRIPTION", "NO_CONTENT"}:
+            derived_completeness["operator_accepted_thin"] = True
+        evidence_record["source_completeness"] = derived_completeness
 
         existing_trusted = self._repos.evidence.get(evidence_id)
         if existing_trusted is not None:

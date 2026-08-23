@@ -111,7 +111,7 @@ def test_review_page_shows_detected_intelligence_and_decoded_html(monkeypatch, t
     assert "RedSayra" in page.text
     assert "Precocity" in page.text
     assert "Pink Hudson" in page.text
-    assert "BODY AVAILABLE" in page.text
+    assert "FULL ARTICLE" in page.text
     assert "Planasa&#8217;s" not in page.text
     assert "R&#38;D" not in page.text
     assert "Publish + Next" in page.text
@@ -164,6 +164,20 @@ def test_publish_preserves_article_paragraphs_for_atomic_input(monkeypatch, tmp_
     joined = " ".join(row.get("text") or "" for row in paragraphs)
     assert "RedSayra" in joined and "precocity" in joined
     assert atomic_extraction_source_text(trusted) == classify_source_body(draft)["body"]
+    assert trusted["source_completeness"]["class"] == "FULL_ARTICLE"
+    assert trusted["source_completeness"]["content_sha256"] == trusted["article"]["content_sha256"]
+
+
+def test_thin_publication_dossier_warns_before_publish() -> None:
+    draft = {
+        "title": "Thin item", "summary": "A short feed description.",
+        "publisher_description": "A short feed description.",
+        "source_url": "https://example.test/thin", "source_type": "trade_press",
+    }
+    dossier = build_publication_review_dossier(draft, entities=[], berry_labels=main.BERRIES)
+    assert dossier["source_completeness"]["class"] == "THIN_DESCRIPTION"
+    assert dossier["body"]["label"] == "THIN DESCRIPTION"
+    assert dossier["body"]["warning"] == "Full source content was not captured. Review the original source before publishing."
 
 
 def test_atomic_extraction_uses_inline_transcript_without_segments() -> None:
