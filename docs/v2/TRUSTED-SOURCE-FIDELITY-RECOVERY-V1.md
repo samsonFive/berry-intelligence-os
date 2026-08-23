@@ -20,6 +20,8 @@ Only `published Evidence + affirmed source-fidelity artifact` is overlaid by the
 
 A same-ID candidate with a different canonical URL is a conflict. Multiple differing bodies or artifact types on the same strong identity are conflicts. Fuzzy title matching is not used. Apply is additive and idempotent, requires explicit IDs, refuses ambiguous/conflicting rows, and never implies human affirmation.
 
+A source-text hash repeated across three or more distinct trusted publication URLs is also a conflict. This body-level safety gate catches reused acquisition/interstitial payloads before staging while leaving a possible two-publication reprint pair available for human review and later extraction duplicate handling.
+
 Operator examples:
 
 ```text
@@ -87,3 +89,9 @@ Normal manifests contain no bodies or local locators. Recovery artifacts, paths,
 The expanded local artifact index and deterministic match completed in 3.174 seconds in the final development audit; total operator time was 15.124 seconds including the authoritative canonical readiness/duplicate classification. Matching uses prebuilt indexes rather than N x repository scans. The CLI reports both timings separately because duplicate exclusion is part of the authoritative 1,227-record denominator.
 
 For the remaining 1,225 records, future reacquisition must be a separate guarded workflow: capture current content as a new private candidate, compare URL/date/hash/content against the historical identity, and require source-fidelity review. A current webpage must never be silently treated as the historical reviewed source.
+
+## Production proof
+
+PR #119 merged as `f6fbc338` and was deployed through the established verified-backup and Docker rebuild procedure. The first production dry run indexed 1,366 rich runtime candidates. It exposed 65 different Google News publication URLs carrying one identical 1,356-character source-text hash. An in-memory extraction-readiness simulation confirmed 64 would collapse as duplicates and only one could have appeared ready, so counting them as 65 independent recovery wins was misleading. The production-proof follow-up therefore classifies all 65 as `CONFLICT / REUSED_BODY_HASH_ACROSS_DISTINCT_PUBLICATIONS`; none can be staged by the operator CLI.
+
+After that safety gate, production contains one exact-URL recoverable article (Hortifrut) and one explicit-lineage recoverable transcript (Lucentlands), with 65 conflicts, zero ambiguous matches, and 1,160 no-match records. Pink Hudson's exact historic acquisition artifact exists only in the audited local acquisition store, not the production runtime, so the combined all-location inventory is two articles + one transcript recoverable, 65 conflicts, and 1,159 with no historic artifact. Current readiness remains 36. After three separate human source-fidelity affirmations, the realistic combined ceiling is 39: two full articles, one transcript, and the existing 36 registry inputs.
