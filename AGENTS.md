@@ -152,8 +152,16 @@ A larger object-model rewrite is still open: first-class Position objects do not
 ### Mutable runtime integrity
 
 `inbox/` is runtime state; never solve cross-worktree visibility by committing
-untrusted drafts. Production `data/` and `inbox/` must remain on persistent
-mounts and be backed up before deployment. New acquisition pipelines must
+untrusted drafts. Local acquisition inboxes are isolated from production
+`demo-runtime/inbox`; code deploy must not replace either. Operator draft
+delivery is `scripts/deliver_drafts.py` (`app/services/draft_delivery.py`):
+explicit source/destination identities, dry-run by default, additive and
+hash-aware. Never overwrite an existing destination draft or analyst
+`review_state`. Never copy a draft that is already trusted. Never treat
+local-inbox presence as production review-ready. See
+`docs/v2/ACQUISITION-PRODUCTION-DRAFT-DELIVERY-V1.md`. Production `data/`
+and `inbox/` must remain on persistent mounts and be backed up before
+deployment. New acquisition pipelines must
 register enabled/scheduled cadence and health state in
 `data/configuration/collection_pipelines.json`, use the shared runtime lock,
 and version idempotency state when acquisition meaning changes. Cross-pipeline

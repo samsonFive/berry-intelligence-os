@@ -56,6 +56,7 @@ Collection Backpressure V1 had concurrently landed its own TD-064.
 | TD-082 | no qualified article Atomic extractor | Web-article trait proposals still wait on a qualified extractor consuming `article.paragraphs`. Review shows a deterministic untrusted preview only. | High | limitation | `app/services/source_body.py::atomic_extraction_source_text` |
 | TD-083 | Pending Review full-pool card/thread work | Private restart-safe metadata projection, compact exact classification, indexed Story Thread candidates, and post-slice card hydration keep conservative 1,500-record cold/warm renders at 3.436s/1.839s; 5,000 measured 1.476s/1.248s before host I/O contention. | Medium | resolved | `tests/test_pending_review_query.py`; `docs/v2/PENDING-REVIEW-QUERY-PERFORMANCE-V2.md` |
 | TD-084 | qualification cost telemetry | Qualification records provider token telemetry and a nullable cost field, but adapters do not receive provider-authoritative billed cost and the repository has no versioned model-price table. Quality thresholds remain independent of cost. | Low | limitation | `tests/test_model_qualification.py`; `docs/v2/ATOMIC-EXTRACTION-QUALIFICATION-HARNESS-V2.md` |
+| TD-091 | local vs production draft inbox | Local acquisition inboxes are not production review. Missing production drafts are delivered with operator-triggered `scripts/deliver_drafts.py`, not by scp of one JSON or by replacing `demo-runtime/inbox`. | High | resolved | `tests/test_draft_delivery.py`; `docs/v2/ACQUISITION-PRODUCTION-DRAFT-DELIVERY-V1.md` |
 
 ID aliases from the expansion-guide session's withdrawn draft (do not reopen
 these as Open UI-lane items):
@@ -1467,5 +1468,21 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Owner lane** | data |
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `benchmarks/entity-linking-precision-v1.json`; `scripts/audit_entity_linking.py` |
+
+### TD-091 — Local acquisition inbox is not the production review inbox
+
+| Field | Value |
+|---|---|
+| **Severity** | High |
+| **Area** | collection runtime / draft delivery |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Local acquisition clone created `ev-media-c8cdb7133db1cae0bf66`; production `/review/` 404. Intended operational collection writes VPS `demo-runtime/inbox` via systemd → `collection_cron.sh` → `run_due_pipelines.py`. `scripts/deliver_drafts.py` is the explicit operator path for exceptional promotion of off-runtime drafts. |
+| **Impact** | Analysts cannot review locally collected operational drafts until they exist on the production inbox. |
+| **Workaround** | Operator-triggered additive delivery; never replace `demo-runtime/inbox`. |
+| **Recommended resolution** | Completed. Keep production collection on the VPS as the default path. Do not auto-sync local inboxes. |
+| **Status** | resolved |
+| **Owner lane** | product |
+| **PR/SHA when resolved** | Acquisition → Production Draft Delivery V1 |
+| **Regression-test reference** | `tests/test_draft_delivery.py` |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
