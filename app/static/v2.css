@@ -1039,3 +1039,21 @@ body.v2-presentation-mode .v2-brief-pack-page h2 { font-size: 1.5rem; }
 @media (prefers-reduced-motion: reduce) {
   .offcanvas { transition: none !important; }
 }
+
+.fidelity-filters { display:flex; flex-wrap:wrap; gap:12px; align-items:end; margin:16px 0 24px; }
+.fidelity-queue { display:grid; gap:12px; }
+.fidelity-queue-row, .fidelity-identity, .fidelity-risk, .fidelity-consequences, .fidelity-decision { min-width:0; overflow-wrap:anywhere; }
+.fidelity-warning { color:#8a4b08; font-weight:600; }
+.fidelity-priority { color:#3d5c94; }
+.fidelity-reader { max-height:70vh; overflow:auto; border-top:1px solid var(--v2-border, #d5deea); padding-top:12px; }
+.fidelity-empty { max-width:40rem; }
+.identity-proof { list-style:none; padding:0; display:grid; gap:8px; }
+.identity-proof code { font-size:12px; }
+.shortcut-help { color:var(--v2-text-muted, #5b7099); font-size:13px; }
+.inline-advance { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+@media (max-width: 767px) {
+  .fidelity-compare { display:grid; grid-template-columns:1fr; }
+}
+@media (min-width: 768px) and (max-width: 1099px) {
+  .fidelity-compare { grid-template-columns:1fr 1fr; }
+}

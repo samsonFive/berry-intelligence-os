@@ -2,19 +2,92 @@
 {% block title %}Source Fidelity Review — Berry Intelligence OS{% endblock %}
 {% block content %}
 <section class="page-heading">
-  <div><p class="eyebrow">PRIVATE OPERATIONAL REVIEW</p><h1>Source fidelity review</h1><p>Affirm whether recovered source content belongs to an already-trusted Evidence shell. This does not re-review or alter semantic claims.</p></div>
+  <div>
+    <p class="eyebrow">PRIVATE OPERATIONAL REVIEW</p>
+    <h1>Source fidelity review</h1>
+    <p>Decide whether a recovered or reacquired source artifact is the source behind already-published Evidence. This does not re-review claims, rewrite summaries, create Facts, or run extraction.</p>
+  </div>
+  <p class="v2-count v2-count-action" aria-label="{{ pending_count }} pending">{{ pending_count }} pending</p>
 </section>
-<p><a href="/source-fidelity?state=pending">Pending</a> · <a href="/source-fidelity?state=all">All / audit</a></p>
+
+<form class="filters workbench-filters fidelity-filters" method="get" action="/source-fidelity">
+  <label>State
+    <select name="state">
+      <option value="pending"{% if filters.state == 'pending' %} selected{% endif %}>Pending</option>
+      <option value="affirmed"{% if filters.state == 'affirmed' %} selected{% endif %}>Affirmed</option>
+      <option value="rejected"{% if filters.state == 'rejected' %} selected{% endif %}>Rejected</option>
+      <option value="needs_investigation"{% if filters.state == 'needs_investigation' %} selected{% endif %}>Needs investigation</option>
+      <option value="all"{% if filters.state == 'all' %} selected{% endif %}>All / audit</option>
+    </select>
+  </label>
+  <label>Artifact
+    <select name="artifact_type">
+      <option value="">Any</option>
+      <option value="article"{% if filters.artifact_type == 'article' %} selected{% endif %}>Article</option>
+      <option value="transcript"{% if filters.artifact_type == 'transcript' %} selected{% endif %}>Transcript</option>
+    </select>
+  </label>
+  <label>Recovery
+    <select name="recovery_kind">
+      <option value="">Any</option>
+      <option value="historic_recovery"{% if filters.recovery_kind == 'historic_recovery' %} selected{% endif %}>Historic recovery</option>
+      <option value="reacquired_current"{% if filters.recovery_kind == 'reacquired_current' %} selected{% endif %}>Reacquired current page</option>
+    </select>
+  </label>
+  <label>Berry
+    <select name="berry">
+      <option value="">Any</option>
+      <option value="berry-raspberry"{% if filters.berry == 'berry-raspberry' %} selected{% endif %}>Raspberry</option>
+      <option value="berry-blackberry"{% if filters.berry == 'berry-blackberry' %} selected{% endif %}>Blackberry</option>
+      <option value="berry-blueberry"{% if filters.berry == 'berry-blueberry' %} selected{% endif %}>Blueberry</option>
+      <option value="berry-strawberry"{% if filters.berry == 'berry-strawberry' %} selected{% endif %}>Strawberry</option>
+    </select>
+  </label>
+  <label>Source <input type="search" name="source" value="{{ filters.source }}" placeholder="Source name"></label>
+  <label>Match
+    <select name="match_class">
+      <option value="">Any</option>
+      <option value="EXACT_IDENTITY_MATCH"{% if filters.match_class == 'EXACT_IDENTITY_MATCH' %} selected{% endif %}>Exact Evidence ID</option>
+      <option value="EXACT_URL_MATCH"{% if filters.match_class == 'EXACT_URL_MATCH' %} selected{% endif %}>Exact URL</option>
+      <option value="LINEAGE_MATCH"{% if filters.match_class == 'LINEAGE_MATCH' %} selected{% endif %}>Lineage</option>
+      <option value="REACQUIRED_CURRENT_SOURCE"{% if filters.match_class == 'REACQUIRED_CURRENT_SOURCE' %} selected{% endif %}>Reacquired current</option>
+    </select>
+  </label>
+  <label>Warning
+    <select name="warning">
+      <option value="">Any</option>
+      <option value="REACQUIRED_LATER"{% if filters.warning == 'REACQUIRED_LATER' %} selected{% endif %}>Reacquired later</option>
+      <option value="FINAL_URL_DIFFERS"{% if filters.warning == 'FINAL_URL_DIFFERS' %} selected{% endif %}>Final URL differs</option>
+      <option value="TITLE_CHANGED"{% if filters.warning == 'TITLE_CHANGED' %} selected{% endif %}>Title changed</option>
+      <option value="CONTENT_HASH_CONFLICT"{% if filters.warning == 'CONTENT_HASH_CONFLICT' %} selected{% endif %}>Content hash conflict</option>
+      <option value="GOOGLE_NEWS_WRAPPER"{% if filters.warning == 'GOOGLE_NEWS_WRAPPER' %} selected{% endif %}>Google News wrapper</option>
+      <option value="AMBIGUOUS_IDENTITY"{% if filters.warning == 'AMBIGUOUS_IDENTITY' %} selected{% endif %}>Ambiguous identity</option>
+    </select>
+  </label>
+  <div class="filter-actions"><button type="submit">Apply</button><a href="/source-fidelity">Reset</a></div>
+</form>
+
 {% if rows %}
-<div class="card-grid">
+<div class="fidelity-queue" data-fidelity-queue>
 {% for row in rows %}
-  <article class="card">
-    <p class="eyebrow">{{ row.artifact.match_class|replace('_',' ') }} · {{ row.artifact.artifact_type|upper }}{% if row.caneberry %} · CANEBERRY PRIORITY{% endif %}</p>
-    <h2><a href="/source-fidelity/{{ row.trusted.id }}">{{ row.trusted.title }}</a></h2>
-    <p>{{ row.trusted.source_name }} · {{ row.trusted.published_date or 'date unavailable' }}</p>
-    <p>Status: <strong>{{ row.review_state|replace('_',' ')|upper }}</strong> · {{ row.artifact.source_chars }} recovered characters</p>
+  <article class="fidelity-queue-row">
+    <p class="eyebrow">
+      {% if row.recovery_kind == 'reacquired_current' %}<span class="badge badge-warning">Reacquired current page</span>{% else %}<span class="badge badge-status-active">Historic recovery</span>{% endif %}
+      <span class="badge badge-muted">{{ row.artifact_type|replace('_',' ')|upper }}</span>
+      <span class="badge badge-muted">{{ row.match_class|replace('_',' ') }}</span>
+      <span class="badge {% if row.review_state == 'pending' %}badge-claim{% else %}badge-muted{% endif %}">{{ row.review_state|replace('_',' ')|upper }}</span>
+    </p>
+    <h2><a href="/source-fidelity/{{ row.trusted.id }}{% if filter_query %}?{{ filter_query }}{% endif %}">{{ row.trusted.title }}</a></h2>
+    <p>{{ row.source_name }} · {{ row.berries|join(', ') or 'Berry undeclared' }} · staged {{ row.staged_at or 'date unavailable' }}</p>
+    {% if row.primary_warning %}<p class="fidelity-warning">{{ row.primary_warning }}</p>{% endif %}
+    {% if row.priority_reasons %}<p class="fidelity-priority">{{ row.priority_reasons|join(' · ') }}</p>{% endif %}
   </article>
 {% endfor %}
 </div>
-{% else %}<p class="empty-state">No source-fidelity artifacts match this state.</p>{% endif %}
+{% else %}
+<div class="empty-state fidelity-empty">
+  <h2>No source-fidelity artifacts match these filters</h2>
+  <p>Nothing is invented for an empty inbox. Historic recoveries and Codex reacquisition pilots appear here only after they are staged privately. Opening this page does not create a review decision.</p>
+</div>
+{% endif %}
 {% endblock %}

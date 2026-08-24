@@ -108,6 +108,7 @@
       {% if nav_work_counts.review_now %}<span class="v2-count v2-count-action">{{ nav_work_counts.review_now }}</span>{% elif pending_review_count() %}<span class="v2-count v2-count-inventory">{{ pending_review_count() }}</span>{% endif %}
     </a>
     <a href="/review?kind=atomic" class="v2-nav-link{% if path.startswith('/review') and 'atomic' in request.url.query %} is-active{% endif %}" title="Claims" aria-label="Claims">{{ nav_icon('review') }}<span class="v2-nav-text">Claims</span></a>
+    <a href="/source-fidelity" class="v2-nav-link{% if path.startswith('/source-fidelity') %} is-active{% endif %}" title="Source fidelity" aria-label="Source fidelity">{{ nav_icon('source') }}<span class="v2-nav-text">Source fidelity</span></a>
     {% endif %}
     <a href="/queues/testing" class="v2-nav-link{% if path.startswith('/queues/testing') %} is-active{% endif %}" title="Claim testing" aria-label="Claim testing{{ count_label(nav_work_counts.testing_action) }}">
       {{ nav_icon('assess') }}<span class="v2-nav-text">Claim testing</span>

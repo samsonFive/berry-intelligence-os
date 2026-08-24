@@ -216,7 +216,7 @@ def test_private_source_fidelity_queue_and_decision_are_separate_and_audited(mon
 
     response = client.post(
         f"/source-fidelity/{trusted['id']}/decision",
-        data={"decision": "affirmed", "reviewer": "source-reviewer"},
+        data={"decision": "affirmed", "reviewer": "source-reviewer", "confirm_affirm": "1"},
         follow_redirects=False,
     )
     assert response.status_code == 303
@@ -227,3 +227,104 @@ def test_private_source_fidelity_queue_and_decision_are_separate_and_audited(mon
     assert [(row["action"], row["prior_state"], row["new_state"]) for row in events] == [
         ("affirmed", "pending", "affirmed")
     ]
+
+
+def _stage(monkeypatch, tmp_path, trusted, artifact):
+    monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
+    main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR).evidence.create(trusted)
+    path = main.INBOX_DIR / "source_fidelity" / "artifacts" / f"{trusted['id']}.json"
+    write_recovery_artifact(path, artifact)
+    return path
+
+
+def test_queue_projection_omits_body_and_distinguishes_reacquisition():
+    from app.services.source_fidelity_workbench import build_queue_rows, queue_projection, warning_codes
+
+    trusted = _trusted()
+    historic = build_recovery_artifact(match_recoveries([trusted], [_candidate(_rich())])[0], trusted)
+    projected = queue_projection(historic)
+    assert projected["has_body"] is False
+    assert "artifact" not in projected
+    assert projected["recovery_kind"] == "historic_recovery"
+    reacquired = deepcopy(historic)
+    reacquired["match_class"] = "REACQUIRED_CURRENT_SOURCE"
+    reacquired["final_url"] = "https://planasa.com/pink-hudson/?utm=1"
+    reacquired["source_title"] = "Changed title"
+    reacquired["reacquired_at"] = "2026-08-23T00:00:00+00:00"
+    codes = {row["code"] for row in warning_codes(reacquired, trusted)}
+    assert "REACQUIRED_LATER" in codes
+    assert "FINAL_URL_DIFFERS" in codes
+    assert "TITLE_CHANGED" in codes
+    rows = build_queue_rows([historic], {trusted["id"]: trusted})
+    assert "Raspberry undercoverage" in rows[0]["priority_reasons"]
+    encoded = json.dumps(rows)
+    assert "paragraph" not in encoded.casefold() or "paragraph_count" in encoded
+
+
+def test_identity_proof_and_reader_surface_exact_id_url_and_lineage():
+    from app.services.source_fidelity_workbench import identity_proof_items, reader_payload
+
+    trusted = _trusted()
+    artifact = build_recovery_artifact(match_recoveries([trusted], [_candidate(_rich())])[0], trusted)
+    labels = " ".join(item["label"] for item in identity_proof_items(artifact))
+    assert "Exact Evidence ID" in labels or "EXACT_IDENTITY_MATCH" in labels
+    payload = reader_payload(artifact)
+    assert [row["index"] for row in payload["paragraphs"]] == list(range(5))
+    assert all(row["text"] for row in payload["paragraphs"])
+
+
+def test_affirm_without_confirm_does_not_write(monkeypatch, tmp_path):
+    trusted = _trusted()
+    artifact = build_recovery_artifact(match_recoveries([trusted], [_candidate(_rich())])[0], trusted)
+    path = _stage(monkeypatch, tmp_path, trusted, artifact)
+    client = TestClient(app)
+    response = client.post(
+        f"/source-fidelity/{trusted['id']}/decision",
+        data={"decision": "affirmed", "reviewer": "source-reviewer"},
+        follow_redirects=False,
+    )
+    assert response.status_code == 303
+    assert json.loads(path.read_text(encoding="utf-8"))["review"]["status"] == "pending"
+    assert load_review_events(main.INBOX_DIR, workflow="source_fidelity_review") == []
+
+
+def test_reject_and_needs_investigation_keep_extraction_ineligible(monkeypatch, tmp_path):
+    trusted = _trusted()
+    artifact = build_recovery_artifact(match_recoveries([trusted], [_candidate(_rich())])[0], trusted)
+    _stage(monkeypatch, tmp_path, trusted, artifact)
+    client = TestClient(app)
+    client.post(
+        f"/source-fidelity/{trusted['id']}/decision",
+        data={"decision": "rejected", "reviewer": "source-reviewer"},
+        follow_redirects=False,
+    )
+    decided = json.loads((main.INBOX_DIR / "source_fidelity" / "artifacts" / f"{trusted['id']}.json").read_text(encoding="utf-8"))
+    assert classify_record(trusted, decided)["readiness"] == "THIN_DESCRIPTION_ONLY"
+    events = load_review_events(main.INBOX_DIR, workflow="source_fidelity_review")
+    assert events[-1]["action"] == "rejected"
+
+
+def test_queue_does_not_hydrate_bodies_at_scale(monkeypatch, tmp_path):
+    from app.services.source_fidelity_workbench import build_queue_rows, queue_projection
+
+    trusted_by_id = {}
+    artifacts = []
+    for index in range(100):
+        trusted = _trusted(f"ev-scale-{index:04d}")
+        trusted_by_id[trusted["id"]] = trusted
+        artifact = build_recovery_artifact(match_recoveries([trusted], [_candidate(_rich(trusted["id"]))])[0], trusted)
+        artifacts.append(artifact)
+        assert "artifact" not in queue_projection(artifact)
+    rows = build_queue_rows(artifacts, trusted_by_id)
+    assert len(rows) == 100
+    assert all(row["artifact"]["has_body"] is False for row in rows)
+
+
+def test_no_bulk_affirm_control_on_queue(monkeypatch, tmp_path):
+    trusted = _trusted()
+    artifact = build_recovery_artifact(match_recoveries([trusted], [_candidate(_rich())])[0], trusted)
+    _stage(monkeypatch, tmp_path, trusted, artifact)
+    html = TestClient(app).get("/source-fidelity").text
+    assert "affirm all" not in html.casefold()
+    assert 'name="decision" value="affirmed"' not in html
