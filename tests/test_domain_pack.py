@@ -319,7 +319,10 @@ def test_all_live_sources_accounted_for() -> None:
     templates = data["collector_templates"]
     excluded = data.get("excluded", [])
     sources = json.loads((ROOT / "data" / "configuration" / "sources.json").read_text(encoding="utf-8"))
-    # 174 = 171 plus 3 sources added (each with a matching collector_templates
+    # 194 = 174 plus 20 direct recurring Sources added (each with a matching
+    # collector_templates entry) for Forward Acquisition Coverage Expansion
+    # V1 (2026-08-24): 17 direct RSS feeds and 3 bounded official leaf
+    # sitemaps. 174 = 171 plus 3 sources added (each with a matching collector_templates
     # entry) for the Blackberry/Raspberry Vertical V1 mission (2026-08-22):
     # source-news-search-caneberry-global (English, global caneberry
     # company/breeder news), source-news-search-mexico-zarzamora (Spanish,
@@ -367,7 +370,7 @@ def test_all_live_sources_accounted_for() -> None:
     # traffic. 142 = 140 plus source-freshuelva-news and source-nova-siri-
     # genetics-news, added for the Strawberry Vertical V1 depth mission
     # (2026-08-20).
-    assert len(sources) == 174
+    assert len(sources) == 194
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}

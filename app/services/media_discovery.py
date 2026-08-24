@@ -73,8 +73,9 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable
 from urllib.parse import urlparse, urlunparse
@@ -552,6 +553,72 @@ def _normalize_article_rss_entry(entry: Any) -> NormalizedItem:
 
 
 # ---------------------------------------------------------------------------
+# sitemap_xml adapter -- a publisher-owned XML sitemap whose <url> entries
+# are stable article URLs. This is deliberately limited to leaf <urlset>
+# documents: sitemap indexes and HTML newsroom listings are not followed or
+# scraped implicitly. Sources must point at an article-specific (or safely
+# filterable) leaf sitemap and use discovery.include_url_patterns plus a
+# bounded item_limit where the document contains other page types.
+# ---------------------------------------------------------------------------
+
+
+def _fetch_sitemap_xml(feed_url: str) -> tuple[Any, bytes]:
+    response = httpx.get(
+        feed_url,
+        timeout=MEDIA_DISCOVERY_FETCH_TIMEOUT_SECONDS,
+        headers={"User-Agent": MEDIA_DISCOVERY_USER_AGENT},
+        follow_redirects=True,
+    )
+    response.raise_for_status()
+    return ET.fromstring(response.content), response.content
+
+
+def _sitemap_entries(parsed: Any) -> list[Any]:
+    if parsed.tag.rsplit("}", 1)[-1] != "urlset":
+        raise ValueError("sitemap_xml requires a leaf <urlset>, not a sitemap index")
+    rows: list[dict[str, str | None]] = []
+    for node in parsed:
+        if node.tag.rsplit("}", 1)[-1] != "url":
+            continue
+        fields = {child.tag.rsplit("}", 1)[-1]: (child.text or "").strip() for child in node}
+        if fields.get("loc"):
+            rows.append({"loc": fields["loc"], "lastmod": fields.get("lastmod")})
+    return rows
+
+
+def _normalize_sitemap_entry(entry: Any) -> NormalizedItem:
+    canonical_url = (entry.get("loc") or "").strip()
+    if not canonical_url:
+        raise ValueError("sitemap entry has no loc")
+    slug = Path(urlparse(canonical_url).path.rstrip("/")).name
+    title = re.sub(r"[-_]+", " ", slug).strip().title() or canonical_url
+    raw_lastmod = (entry.get("lastmod") or "").strip()
+    published_date = None
+    if re.match(r"^\d{4}-\d{2}-\d{2}", raw_lastmod):
+        candidate_date = datetime.strptime(raw_lastmod[:10], "%Y-%m-%d").date()
+        today = datetime.now(timezone.utc).date()
+        if datetime(2000, 1, 1).date() <= candidate_date <= today + timedelta(days=2):
+            published_date = candidate_date.isoformat()
+    return NormalizedItem(
+        title=title,
+        media_format="web_article",
+        canonical_url=canonical_url,
+        external_id=None,
+        platform_item_id=None,
+        published_date=published_date,
+        description="",
+        duration_seconds=None,
+        transcript_availability={
+            "status": TRANSCRIPT_NOT_APPLICABLE,
+            "checked_at": _now_iso(),
+            "url": None,
+            "language": None,
+        },
+        raw_metadata={"sitemap_lastmod": raw_lastmod or None},
+    )
+
+
+# ---------------------------------------------------------------------------
 # news_search_rss adapter -- a Google News RSS *search* feed (already this
 # project's proven mechanism for mainstream/keyword monitoring, via the
 # older app/main.py "keyword" source loop and its google_news_rss_url()).
@@ -886,6 +953,7 @@ ADAPTER_TYPES: dict[str, tuple[Callable[[str], tuple[Any, bytes]], Callable[[Any
     # ordinary RSS with real canonical URLs -- it registers under this same
     # adapter, not a new one; see data/configuration/sources.json.
     "article_rss": (_fetch_podcast_rss, _podcast_rss_entries, _normalize_article_rss_entry),
+    "sitemap_xml": (_fetch_sitemap_xml, _sitemap_entries, _normalize_sitemap_entry),
     # Google News RSS search -- mainstream/keyword-company monitoring
     # through the modern review pipeline. See module docstring above.
     "news_search_rss": (_fetch_podcast_rss, _podcast_rss_entries, _normalize_news_search_entry),
@@ -1259,10 +1327,10 @@ def discover_source(
     for feed_url in feed_urls:
         try:
             parsed, _raw_bytes = fetch(feed_url)
+            entries.extend(list_entries(parsed))
         except Exception as exc:  # noqa: BLE001 -- any transport/parsing failure is a reportable, non-fatal run result
             feed_failures.append({"feed_url": feed_url, "error": str(exc)})
             continue
-        entries.extend(list_entries(parsed))
 
     # last_success_at is carried forward across a failed attempt rather than
     # overwritten -- distinct from last_checked_at (this attempt), it is
@@ -1296,6 +1364,26 @@ def discover_source(
             normalized_pairs.append((index, entry, normalize(entry)))
         except Exception as exc:  # noqa: BLE001 -- one bad item must not abort the whole feed
             result.item_failures.append(ItemFailure(index=index, identifier=str(identifier) if identifier else None, error=str(exc)))
+
+    include_patterns = [re.compile(pattern) for pattern in discovery_config.get("include_url_patterns") or []]
+    exclude_patterns = [re.compile(pattern) for pattern in discovery_config.get("exclude_url_patterns") or []]
+    if include_patterns:
+        normalized_pairs = [
+            pair for pair in normalized_pairs
+            if pair[2].canonical_url and any(pattern.search(pair[2].canonical_url) for pattern in include_patterns)
+        ]
+    if exclude_patterns:
+        normalized_pairs = [
+            pair for pair in normalized_pairs
+            if not pair[2].canonical_url or not any(pattern.search(pair[2].canonical_url) for pattern in exclude_patterns)
+        ]
+    if discovery_config.get("sort") == "published_desc":
+        normalized_pairs.sort(key=lambda pair: pair[2].published_date or "", reverse=True)
+    item_limit = discovery_config.get("item_limit")
+    if item_limit is not None:
+        if not isinstance(item_limit, int) or isinstance(item_limit, bool) or item_limit < 1:
+            raise DiscoveryError(f"source {source_id!r} discovery.item_limit must be a positive integer")
+        normalized_pairs = normalized_pairs[:item_limit]
 
     first_ever_success = prior_last_success_at is None
     backlog_indexes: set[int] = set()
