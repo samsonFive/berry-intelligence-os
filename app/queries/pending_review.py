@@ -14,7 +14,7 @@ import json
 from pathlib import Path
 from typing import Any, Protocol
 
-INDEX_VERSION = 4
+INDEX_VERSION = 5
 INDEX_RELATIVE_PATH = Path("indexes") / "pending-review-v2.json"
 _RICH_TOP_LEVEL_FIELDS = {
     "article",
@@ -91,6 +91,23 @@ def _metadata_projection(record: dict[str, Any], attribution: dict[str, Any]) ->
     projected["_pending_attribution"] = attribution
     if record.get("summary") and record.get("summary") == record.get("publisher_description"):
         projected["_pending_summary_is_publisher_description"] = True
+    from app.services.publication_review_workspace import source_attribution_class
+    from app.services.source_completeness import source_completeness
+
+    completeness = record.get("source_completeness") if isinstance(record.get("source_completeness"), dict) else {}
+    if not completeness.get("class"):
+        completeness = source_completeness(record)
+    article = article if isinstance(article, dict) else {}
+    transcript = record.get("transcript") if isinstance(record.get("transcript"), dict) else {}
+    paragraphs = article.get("paragraphs") if isinstance(article.get("paragraphs"), list) else []
+    projected["_pending_completeness"] = completeness.get("class") or ""
+    projected["_pending_word_count"] = int(article.get("word_count") or 0)
+    projected["_pending_paragraph_count"] = len(paragraphs)
+    projected["_pending_language"] = article.get("language") or transcript.get("language") or record.get("language") or ""
+    projected["_pending_author"] = article.get("author") or record.get("author") or ""
+    projected["_pending_source_attribution"] = source_attribution_class(record)
+    if completeness.get("class") and not isinstance(projected.get("source_completeness"), dict):
+        projected["source_completeness"] = {"class": completeness.get("class")}
     return projected, any(key in record for key in _RICH_TOP_LEVEL_FIELDS)
 
 
@@ -212,6 +229,10 @@ class PendingReviewQueryService:
         ids: set[str] | None = None,
         berry_id: str = "",
         source: str = "",
+        completeness: str = "",
+        source_type: str = "",
+        language: str = "",
+        attribution: str = "",
     ) -> PendingDraftSnapshot:
         snapshot = self.provider.snapshot(entities=entities, sources=sources)
         rows = snapshot.records
@@ -223,6 +244,23 @@ class PendingReviewQueryService:
             rows = [
                 row for row in rows
                 if source in {str(row.get("source_id") or ""), str(row.get("source_name") or "")}
+            ]
+        if completeness:
+            wanted = completeness.replace(" ", "_").upper()
+            rows = [row for row in rows if str(row.get("_pending_completeness") or "").upper() == wanted]
+        if source_type:
+            rows = [row for row in rows if str(row.get("source_type") or "") == source_type]
+        if language:
+            rows = [
+                row for row in rows
+                if str(row.get("_pending_language") or "").casefold().startswith(language.casefold())
+            ]
+        if attribution:
+            wanted = attribution.replace("_", "-").upper()
+            rows = [
+                row for row in rows
+                if str(row.get("_pending_source_attribution") or "").replace(" ", "-").upper() == wanted
+                or str(row.get("_pending_source_attribution") or "").upper() == attribution.upper()
             ]
         rows = [
             row for row in rows

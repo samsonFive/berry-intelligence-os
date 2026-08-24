@@ -11,8 +11,47 @@ from typing import Any
 from app.services.deterministic_tagging import infer_berry_ids_from_text
 from app.services.draft_attribution import attribute_draft
 from app.services.html_text import decode_html_text
+from app.services.intelligence_feed import article_paragraphs
 from app.services.source_body import classify_source_body, atomic_extraction_source_text
-from app.services.source_completeness import source_completeness
+from app.services.source_completeness import REGISTRY_SOURCE_TYPES, source_completeness
+
+COMPLETENESS_DISPLAY = {
+    "FULL_ARTICLE": "FULL ARTICLE",
+    "FULL_TRANSCRIPT": "FULL TRANSCRIPT",
+    "STRUCTURED_REGISTRY": "STRUCTURED SOURCE",
+    "THIN_DESCRIPTION": "THIN DESCRIPTION",
+    "NO_CONTENT": "THIN DESCRIPTION",
+}
+
+COMPANY_SOURCE_TYPES = {
+    "brand_website", "company_annual_report", "company_catalog",
+    "company_press_release", "company_website",
+}
+TRADE_SOURCE_TYPES = {
+    "trade_press", "news_media", "market_analysis_report", "trade_association",
+}
+ACADEMIC_SOURCE_TYPES = {
+    "research_program_publication", "extension_publication",
+    "university_trial_report", "academic", "journal_article",
+}
+
+
+def completeness_display_label(source_class: str) -> str:
+    return COMPLETENESS_DISPLAY.get(str(source_class or ""), str(source_class or "UNKNOWN").replace("_", " "))
+
+
+def source_attribution_class(record: dict[str, Any]) -> str:
+    source_type = str(record.get("source_type") or "").casefold()
+    name = str(record.get("source_name") or "").casefold()
+    if source_type in COMPANY_SOURCE_TYPES or "newsroom" in name or "press release" in name:
+        return "COMPANY-REPORTED"
+    if source_type in TRADE_SOURCE_TYPES or "association" in name or "grower" in name:
+        return "TRADE PRESS"
+    if source_type in {item.casefold() for item in REGISTRY_SOURCE_TYPES} or "government" in source_type:
+        return "REGISTRY/GOVERNMENT"
+    if source_type in ACADEMIC_SOURCE_TYPES:
+        return "ACADEMIC"
+    return "OTHER"
 
 _SPANISH_HINTS = (" se publicó", " frambuesa", " fresa ", " las variedades", " los principales")
 _FRENCH_HINTS = (" les variétés", " fraise ", " framboise")
@@ -130,7 +169,49 @@ def build_publication_review_dossier(
     source_index = {str(row.get("id")): row for row in (sources or []) if row.get("id")}
     body = classify_source_body(draft)
     completeness = source_completeness(draft)
-    body["label"] = completeness["class"].replace("_", " ")
+    body["label"] = completeness_display_label(completeness["class"])
+    body["attribution_class"] = source_attribution_class(draft)
+    article = draft.get("article") if isinstance(draft.get("article"), dict) else {}
+    body["paragraphs"] = [
+        {
+            "index": offset + 1,
+            "locator": row.get("locator") or f"p{offset + 1}",
+            "text": row.get("text") or "",
+        }
+        for offset, row in enumerate(article_paragraphs(draft))
+    ]
+    if not body["paragraphs"] and body.get("body"):
+        body["paragraphs"] = [
+            {"index": index, "locator": f"p{index}", "text": para}
+            for index, para in enumerate(
+                (part for part in body["body"].split("\n\n") if part.strip()),
+                start=1,
+            )
+        ]
+    transcript = draft.get("transcript") if isinstance(draft.get("transcript"), dict) else {}
+    segments = transcript.get("segments") if isinstance(transcript.get("segments"), list) else []
+    body["transcript_segments"] = []
+    for offset, row in enumerate(segments):
+        text = str((row.get("text") if isinstance(row, dict) else row) or "").strip()
+        if not text:
+            continue
+        body["transcript_segments"].append(
+            {
+                "index": offset + 1,
+                "start": row.get("start") if isinstance(row, dict) else None,
+                "text": text,
+            }
+        )
+    body["paragraph_count"] = len(body["paragraphs"])
+    body["author"] = article.get("author") or draft.get("author")
+    body["language"] = article.get("language") or draft.get("language") or draft.get("source_language")
+    body["requested_url"] = draft.get("source_url") or ""
+    body["final_url"] = article.get("final_url") or draft.get("canonical_url") or draft.get("source_url") or ""
+    body["acquisition_method"] = (
+        (body.get("acquisition") or {}).get("method")
+        or (body.get("acquisition") or {}).get("extractor")
+        or ""
+    )
     if completeness["class"] == "STRUCTURED_REGISTRY":
         body["warning"] = ""
     source_text = atomic_extraction_source_text(draft)
@@ -265,6 +346,11 @@ def build_publication_review_dossier(
         },
     }
     language = _language_label(draft, body["body"] or publisher)
+    traits = sorted({
+        trait
+        for row in detected
+        for trait in (row.get("traits") or [])
+    })
     return {
         "body": body,
         "source_completeness": completeness,
@@ -290,6 +376,22 @@ def build_publication_review_dossier(
         "extraction_uses_summary_only": not bool(body["body"] or body["transcript_text"] or body["excerpt"]),
         "read_original_primary": not body["usable_in_app"],
         "detected_intelligence": detected,
+        "detected_aids": {
+            "companies": [hit.get("name") for hit in companies if hit.get("name")],
+            "varieties": list(dict.fromkeys(
+                [*(hit.get("name") for hit in varieties if hit.get("name")), *proposed_varieties]
+            )),
+            "berries": [berry_labels.get(bid, bid) for bid in berry_ids],
+            "geographies": [hit.get("name") for hit in geographies if hit.get("name")],
+            "traits": traits,
+        },
+        "source_attribution_class": source_attribution_class(draft),
+        "if_published": {
+            "trusted_publication": "YES",
+            "rich_source_retained": "YES" if completeness["class"] in {"FULL_ARTICLE", "FULL_TRANSCRIPT", "STRUCTURED_REGISTRY"} else "NO — thin description only",
+            "atomic_extraction_eligibility": "DEPENDS ON QUALIFIED/ENABLED EXTRACTION",
+            "atomic_evidence": "NOT CREATED BY THIS ACTION",
+        },
     }
 
 
@@ -310,8 +412,6 @@ def apply_dossier_prefill(values: dict[str, Any], dossier: dict[str, Any]) -> di
             if berry_id not in berries:
                 berries.append(berry_id)
         updated["berries"] = berries
-    if not (updated.get("why_it_matters") or "").strip() and prefill.get("why_it_matters"):
-        updated["why_it_matters"] = prefill["why_it_matters"]
     if prefill.get("summary"):
         current = (updated.get("summary") or "").strip()
         publisher = (dossier.get("body") or {}).get("publisher_description") or ""

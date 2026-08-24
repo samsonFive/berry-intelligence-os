@@ -83,6 +83,10 @@ def test_pink_hudson_body_is_english_not_spanish_original() -> None:
     assert "Pink Hudson" in names
     assert "berry-raspberry" in dossier["prefill"]["berries"]
     assert "Planasa" in dossier["prefill"]["companies"]
+    assert dossier["body"]["paragraphs"]
+    assert dossier["body"]["paragraphs"][0]["index"] == 1
+    assert dossier["if_published"]["atomic_evidence"] == "NOT CREATED BY THIS ACTION"
+    assert dossier["source_attribution_class"] == "COMPANY-REPORTED"
 
 
 def test_review_page_shows_detected_intelligence_and_decoded_html(monkeypatch, tmp_path: Path) -> None:
@@ -107,7 +111,11 @@ def test_review_page_shows_detected_intelligence_and_decoded_html(monkeypatch, t
     shutil.copy(FIXTURES / f"{RETAILER_ID}.json", inbox / "evidence" / f"{RETAILER_ID}.json")
     page = TestClient(app).get(f"/review/{RETAILER_ID}")
     assert page.status_code == 200
-    assert "Detected intelligence — untrusted" in page.text
+    assert "Detected intelligence — UNTRUSTED / REVIEW AID" in page.text
+    assert "Paragraph 1" in page.text
+    assert "If published" in page.text
+    assert "NOT CREATED BY THIS ACTION" in page.text
+    assert "COMPANY-REPORTED" in page.text
     assert "RedSayra" in page.text
     assert "Precocity" in page.text
     assert "Pink Hudson" in page.text
@@ -177,6 +185,10 @@ def test_thin_publication_dossier_warns_before_publish() -> None:
     dossier = build_publication_review_dossier(draft, entities=[], berry_labels=main.BERRIES)
     assert dossier["source_completeness"]["class"] == "THIN_DESCRIPTION"
     assert dossier["body"]["label"] == "THIN DESCRIPTION"
+    assert dossier["if_published"]["trusted_publication"] == "YES"
+    assert "thin description" in dossier["if_published"]["rich_source_retained"].casefold()
+    assert dossier["if_published"]["atomic_evidence"] == "NOT CREATED BY THIS ACTION"
+    assert dossier["source_attribution_class"] == "TRADE PRESS"
     assert dossier["body"]["warning"] == "Full source content was not captured. Review the original source before publishing."
 
 

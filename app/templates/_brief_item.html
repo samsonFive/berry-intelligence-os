@@ -8,6 +8,8 @@
     {% if item.new_since_last %}<span class="badge badge-claim">New since last check</span>{% endif %}
     {% if item.watch_match == 'primary' %}<span class="badge">Primary watch</span>{% elif item.watch_match == 'mention' %}<span class="badge badge-muted">Mention watch</span>{% endif %}
     {% if item.primary_subject %}<span class="badge badge-muted">{{ item.primary_subject.name }}{% if item.primary_subject.method %} · {{ item.primary_subject.method|replace('_',' ') }}{% endif %}</span>{% endif %}
+    {% if item.completeness_label %}<span class="badge">{{ item.completeness_label }}</span>{% endif %}
+    {% if item.source_attribution_label %}<span class="badge badge-muted">{{ item.source_attribution_label }}</span>{% endif %}
   </div>
   <h3><a href="{{ item.href }}" data-read data-open-reader>{{ item.title }}</a></h3>
   <p class="draft-meta">{{ item.source_name }}{% if item.date %} · {{ item.date|us_date }}{% endif %}</p>

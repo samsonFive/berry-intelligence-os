@@ -58,7 +58,7 @@
 {% endif %}
 
 <div class="review-split">
-  <section class="review-pane">
+  <section class="review-pane review-pane-source">
     <h2>{% if draft.evidence_role == 'atomic_evidence' %}Source-grounding record{% else %}Decision brief{% endif %}</h2>
     {% if transcript_readiness %}
       <div class="review-state-dimensions">
@@ -103,26 +103,49 @@
     {% else %}
       {% if publication_dossier %}
         <p><span class="badge">{{ publication_dossier.body.label }}</span>
-           <span class="badge badge-muted">{{ publication_dossier.language_label }}</span></p>
+           <span class="badge badge-muted">{{ publication_dossier.language_label }}</span>
+           <span class="badge badge-muted">{{ publication_dossier.source_attribution_class }}</span></p>
+        <p class="context-limit">Attribution class is source type, not a quality score.</p>
         {% if publication_dossier.body.warning %}<p class="banner banner-warning" role="status">{{ publication_dossier.body.warning }}</p>{% endif %}
         <p><a href="{{ draft.source_url }}" rel="noopener noreferrer">Read original source</a>
            · {{ draft.source_name }}{% if draft.published_date %} · {{ draft.published_date|us_date }}{% endif %}
            · {{ draft.source_type }}</p>
+        {% if publication_dossier.body.author %}<p class="context-limit">Author: {{ publication_dossier.body.author }}</p>{% endif %}
+        {% if publication_dossier.body.requested_url or publication_dossier.body.final_url %}
+          <p class="context-limit">Requested URL: {{ publication_dossier.body.requested_url or '—' }}<br>Final URL: {{ publication_dossier.body.final_url or '—' }}</p>
+        {% endif %}
         {% if publication_dossier.body.acquisition %}
-          <p class="context-limit">Acquired via {{ publication_dossier.body.acquisition.extractor or publication_dossier.body.acquisition.method }} · {{ publication_dossier.body.word_count }} words</p>
+          <p class="context-limit">Acquired via {{ publication_dossier.body.acquisition.extractor or publication_dossier.body.acquisition.method }} · {{ publication_dossier.body.word_count }} words{% if publication_dossier.body.paragraph_count %} · {{ publication_dossier.body.paragraph_count }} paragraphs{% endif %}</p>
         {% endif %}
         <h3>Source body</h3>
-        {% if publication_dossier.body.body %}
-          {% for para in publication_dossier.body.body.split('\n\n') %}
-            <p>{{ para }}</p>
-          {% endfor %}
+        {% if publication_dossier.body.paragraphs %}
+          <ol class="article-paragraphs">
+            {% for para in publication_dossier.body.paragraphs %}
+              <li id="p{{ para.index }}"><span class="article-p-index">Paragraph {{ para.index }}</span><p>{{ para.text }}</p></li>
+            {% endfor %}
+          </ol>
+        {% elif publication_dossier.body.transcript_segments %}
+          <ol class="article-paragraphs">
+            {% for row in publication_dossier.body.transcript_segments %}
+              <li><span class="article-p-index">Segment {{ row.index }}</span><p>{{ row.text }}</p></li>
+            {% endfor %}
+          </ol>
         {% elif publication_dossier.body.transcript_text %}
           <pre class="transcript-support">{{ publication_dossier.body.transcript_text }}</pre>
         {% else %}
           <p class="empty-state">No persisted article body. Open the original source.</p>
         {% endif %}
-        <h3>Detected intelligence — untrusted</h3>
+        <h3>Detected intelligence — UNTRUSTED / REVIEW AID</h3>
         <p class="context-limit">Review aid only. These are not trusted Atomic Evidence. Human publication approval does not create claims.</p>
+        {% if publication_dossier.detected_aids %}
+          <dl class="detected-aids">
+            <dt>Companies</dt><dd>{{ publication_dossier.detected_aids.companies|join(', ') if publication_dossier.detected_aids.companies else '—' }}</dd>
+            <dt>Varieties</dt><dd>{{ publication_dossier.detected_aids.varieties|join(', ') if publication_dossier.detected_aids.varieties else '—' }}</dd>
+            <dt>Berries</dt><dd>{{ publication_dossier.detected_aids.berries|join(', ') if publication_dossier.detected_aids.berries else '—' }}</dd>
+            <dt>Geographies</dt><dd>{{ publication_dossier.detected_aids.geographies|join(', ') if publication_dossier.detected_aids.geographies else '—' }}</dd>
+            <dt>Traits</dt><dd>{{ publication_dossier.detected_aids.traits|join(', ') if publication_dossier.detected_aids.traits else '—' }}</dd>
+          </dl>
+        {% endif %}
         {% if publication_dossier.detected_intelligence %}
           <p>{{ publication_dossier.detected_intelligence|length }} named varieties in source text.</p>
           <ul class="detected-intel">
@@ -132,6 +155,15 @@
           </ul>
         {% else %}
           <p>No compact variety-level preview from persisted names. Trait proposals still depend on a qualified Atomic extractor after trust.</p>
+        {% endif %}
+        {% if publication_dossier.if_published %}
+          <h3>If published</h3>
+          <dl>
+            <dt>Trusted publication</dt><dd>{{ publication_dossier.if_published.trusted_publication }}</dd>
+            <dt>Rich source retained</dt><dd>{{ publication_dossier.if_published.rich_source_retained }}</dd>
+            <dt>Atomic extraction eligibility</dt><dd>{{ publication_dossier.if_published.atomic_extraction_eligibility }}</dd>
+            <dt>Atomic Evidence</dt><dd>{{ publication_dossier.if_published.atomic_evidence }}</dd>
+          </dl>
         {% endif %}
         {% if publication_dossier.unlocks %}
           <h3>If trusted, this publication could support</h3>
@@ -234,7 +266,7 @@
     {% endif %}
   </section>
 
-  <section class="review-pane">
+  <section class="review-pane review-pane-form">
     <h2>Proposed structured record</h2>
     <form class="intake-form" style="padding:0;max-width:none" action="/review/{{ draft.id }}/publish" method="post">
       <input type="hidden" name="return_to" value="{{ return_to }}">
@@ -275,6 +307,10 @@
 
       <div class="form-field" {% if draft.evidence_role == 'atomic_evidence' %}hidden{% endif %}>
         <label for="why_it_matters">Why it matters</label>
+        <p class="context-limit">Untrusted suggestion if present. Leave empty if you have no judgment. This is not auto-published.</p>
+        {% if publication_dossier and publication_dossier.prefill.why_it_matters and not values.why_it_matters %}
+          <p class="banner banner-warning">Review aid: {{ publication_dossier.prefill.why_it_matters }}</p>
+        {% endif %}
         <textarea id="why_it_matters" name="why_it_matters" rows="2">{{ values.why_it_matters }}</textarea>
       </div>
 
@@ -407,7 +443,7 @@
         <input id="reviewer" name="reviewer" type="text" required value="{{ values.reviewer }}">
       </div>
 
-      <p class="context-limit">Save draft does not publish. Publish is the only trust action. Reject never deletes source history.</p>
+      <p class="context-limit">Save draft does not publish. Publish is the only trust action and requires a human reviewer. Full article capture does not auto-publish. Reject never deletes source history.</p>
         {% if draft.evidence_role != 'atomic_evidence' %}
         <button type="submit" name="advance" value="next" data-approve-next-action>Publish + Next</button>
         {% endif %}

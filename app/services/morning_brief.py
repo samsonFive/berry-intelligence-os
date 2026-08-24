@@ -41,6 +41,7 @@ from app.services.intelligence_feed import (
 from app.services.review_workbench import _relevance_band
 from app.services.source_freshness import CURRENT, DUE, FAILING, STALE
 from app.services.signal_review import emerging_signals, present_candidates
+from app.services.publication_review_workspace import completeness_display_label
 from app.services.story_threads import (
     compress_entries,
     group_story_threads,
@@ -381,6 +382,8 @@ def rank_item(
                 "berry_ids", "entity_ids", "geography_ids", "evidence_links", "entity_link_suggestions",
                 "relevance_tier", "relevance_screening", "priority", "tags", "summary",
                 "why_it_matters", "publisher_description", "ai_enrichment", "media_format",
+                "_pending_completeness", "_pending_word_count", "_pending_paragraph_count",
+                "_pending_language", "_pending_author", "_pending_source_attribution",
             )
             if record.get(key) is not None
         }
@@ -586,6 +589,10 @@ def rank_item(
             "method": str(primary_meta.get("method") or "market_tag"),
             "location": "tags",
         }
+    completeness_class = str(record.get("_pending_completeness") or "")
+    if not completeness_class:
+        stored = record.get("source_completeness") if isinstance(record.get("source_completeness"), dict) else {}
+        completeness_class = str(stored.get("class") or "")
     presented.update(
         {
             "score": score,
@@ -628,6 +635,12 @@ def rank_item(
             "company_href": f"/entities/company/{primary_chip['id']}" if primary_chip and primary_chip.get("entity_type") == "company" and primary_chip.get("id") else (
                 f"/entities/company/{companies[0]['id']}" if companies else ""
             ),
+            "completeness_class": completeness_class,
+            "completeness_label": completeness_display_label(completeness_class) if completeness_class else "",
+            "source_attribution_label": record.get("_pending_source_attribution") or "",
+            "source_word_count": record.get("_pending_word_count") or 0,
+            "source_paragraph_count": record.get("_pending_paragraph_count") or 0,
+            "source_language": record.get("_pending_language") or "",
             "cluster": cluster,
             "reading_state": reading,
             "reading_label": READING_LABELS.get(reading, reading),
