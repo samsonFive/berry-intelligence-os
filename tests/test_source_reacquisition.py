@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import Counter
 import json
+import pytest
 
 from app.services.article_acquisition import ArticleBody, ArticleParagraph
 from app.services.source_fidelity_recovery import decide_recovery_artifact
@@ -10,6 +11,7 @@ from app.services.source_reacquisition import (
     classify_acquisition_failure, pilot_manifest, preflight_reacquisition_url,
     prioritize_record, stage_reacquired_artifact, write_pilot_audit,
 )
+from scripts import reacquire_sources
 
 
 def _trusted(evidence_id: str = "ev-one", berries=None) -> dict:
@@ -165,3 +167,24 @@ def test_private_body_free_pilot_audit_is_created_atomically(tmp_path) -> None:
     path = write_pilot_audit(tmp_path / "private-runs", audit, stamp="20260823T000000000000Z")
     assert json.loads(path.read_text(encoding="utf-8")) == audit
     assert "paragraphs" not in path.read_text(encoding="utf-8")
+
+
+def test_network_execution_holds_shared_collection_lock(monkeypatch, tmp_path) -> None:
+    events = []
+
+    class FakeLock:
+        def __enter__(self):
+            events.append("entered")
+
+        def __exit__(self, exc_type, exc, traceback):
+            events.append("exited")
+
+    monkeypatch.setattr(reacquire_sources, "pipeline_lock", lambda inbox, pipeline: FakeLock())
+    with pytest.raises(SystemExit, match="--execute requires"):
+        reacquire_sources.main([
+            "--data-dir", str(tmp_path / "data"),
+            "--inbox-dir", str(tmp_path / "inbox"),
+            "--execute",
+        ])
+    assert events == ["entered", "exited"]
+    assert reacquire_sources._EXECUTION_LOCK_HELD is False
