@@ -106,6 +106,7 @@ from app.services.analyst_queue import (
 )
 from app.services.commercial_positions import commercial_page_model
 from app.services.review_operations import build_review_operations
+from app.services.today import build_today
 from app.services.testing_workspace import enrich_testing_item, related_indexes, testing_page_model
 from app.services.draft_attribution import attribute_draft, draft_matches_entity
 from app.services.review_workbench import (
@@ -893,7 +894,7 @@ async def set_ui_context(
     request: Request,
     berry: str = Form(default="global"),
     view: str = Form(default=""),
-    next: str = Form(default="/brief"),
+    next: str = Form(default="/today"),
 ) -> RedirectResponse:
     current = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     berry_id = parse_berry(berry, BERRIES)
@@ -2962,6 +2963,36 @@ def _filter_brief_for_berry(brief: dict[str, Any], berry: str) -> dict[str, Any]
     counts["review_now"] = int(pending_counts.get("review_now") or 0)
     brief["counts"] = counts
     return brief
+
+
+@app.get("/today", response_class=HTMLResponse)
+def today_page(request: Request) -> HTMLResponse:
+    """Recency-first landing. What is new, not what is important."""
+    berry = (request.query_params.get("berry") or "").strip()
+    berry_id = berry if berry.startswith("berry-") else (f"berry-{berry}" if berry else "")
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    if not berry_id and ui.get("berry") and ui["berry"] != "global":
+        berry_id = ui["berry"] if str(ui["berry"]).startswith("berry-") else f"berry-{ui['berry']}"
+    page = build_today(
+        published=published_evidence(),
+        signals=all_signals(),
+        assessments=all_assessments(),
+        sources=load_sources(),
+        inbox_dir=INBOX_DIR,
+        data_dir=DATA_DIR,
+        berry_id=berry_id,
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="today.html",
+        context={
+            "today": page,
+            "berries": [{"id": key, "label": label} for key, label in BERRIES.items()],
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+        },
+    )
 
 
 @app.get("/brief", response_class=HTMLResponse)

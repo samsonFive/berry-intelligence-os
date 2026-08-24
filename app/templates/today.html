@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Today — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page today-page">
+<section class="page-heading v2-page-header today-header">
+  <div>
+    <p class="eyebrow">TODAY</p>
+    <h1>What is new right now</h1>
+  </div>
+</section>
+
+<section class="today-freshness" data-today-freshness>
+  {% if today.freshness.degraded %}
+    <p class="banner banner-warning">Collection is degraded. Do not treat this screen as fully current.</p>
+  {% elif today.freshness.current_through %}
+    <p class="today-current"><strong>Intelligence current through</strong> {{ today.freshness.current_through }}</p>
+  {% else %}
+    <p class="today-current">Collection freshness is not established from a successful run.</p>
+  {% endif %}
+  {% if today.freshness.last_collection_at %}<p class="v2-meta">Last collection run {{ today.freshness.last_collection_at }}</p>{% endif %}
+  {% if today.freshness.last_captured_at %}<p class="v2-meta">Last new item captured {{ today.freshness.last_captured_at }}</p>{% endif %}
+  <p class="v2-meta">{{ today.freshness.discoverable_sources }} discoverable sources monitored</p>
+</section>
+
+<nav class="today-berries" aria-label="Berry filter">
+  <a href="/today" class="{% if not today.berry_id %}is-active{% endif %}">All berries</a>
+  {% for berry in berries %}
+    <a href="/today?berry={{ berry.id }}" class="{% if today.berry_id == berry.id %}is-active{% endif %}">{{ berry.label }}</a>
+  {% endfor %}
+</nav>
+
+{% if today.new_since_last_visit %}
+<section class="brief-section" id="new-since">
+  <h2>New since your last visit</h2>
+  <ul class="today-list">
+    {% for item in today.new_since_last_visit %}
+      {% include "_today_item.html" %}
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<section class="brief-section" id="latest-developments">
+  <h2>Latest developments</h2>
+  <p class="context-limit">Recency first. Older high-value intelligence is not current news.</p>
+  {% if today.quiet %}
+    <div class="today-quiet" data-today-quiet>
+      <p><strong>No new trusted developments captured in the last 14 days.</strong></p>
+      <p>The system is current. The captured market has been quiet.</p>
+      <p><a href="/work-queue">View last 30 days on Live Intelligence</a></p>
+    </div>
+  {% else %}
+    {% for band in today.latest_bands %}
+      <h3>{{ band.label }}</h3>
+      <ul class="today-list">
+        {% for item in band.rows %}
+          {% include "_today_item.html" %}
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  {% endif %}
+</section>
+
+{% if today.developing_signals %}
+<section class="brief-section" id="developing-signals">
+  <h2>Developing signals</h2>
+  <p class="context-limit">These are Signal objects, not Evidence.</p>
+  <ul class="today-list">
+    {% for item in today.developing_signals %}
+      {% include "_today_item.html" %}
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+{% if today.worth_revisiting %}
+<section class="brief-section" id="worth-revisiting">
+  <h2>Worth revisiting</h2>
+  <p class="context-limit">Older strategically important items. Age here does not imply freshness.</p>
+  <ul class="today-list">
+    {% for item in today.worth_revisiting %}
+      {% include "_today_item.html" %}
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<p class="today-browse"><a href="/work-queue">Browse Live Intelligence</a> · <a href="/">Browse the newsfeed</a> · <a href="/brief">Morning Brief</a></p>
+</div>
+{% endblock %}

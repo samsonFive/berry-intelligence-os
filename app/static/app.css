@@ -202,7 +202,17 @@ a{color:#3d5c94}
 .review-ops-activity{list-style:none;padding:0;display:grid;gap:8px}
 @media(max-width:834px){
   .review-ops-grid{grid-template-columns:1fr}
+  .today-header h1{font-size:28px;margin:0}
+  .today-age{font-size:18px}
 }
+.today-age{font-size:20px;font-weight:700;letter-spacing:.04em;margin:0 0 4px}
+.today-list{list-style:none;padding:0;display:grid;gap:16px}
+.today-item h3{margin:4px 0}
+.today-berries{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.today-berries a{padding:6px 10px;border:1px solid #dfe5ee;border-radius:999px}
+.today-berries a.is-active{background:#213653;color:white}
+.today-quiet{border:1px solid #dfe5ee;padding:16px;border-radius:10px;background:#f8fafc}
+.today-freshness{margin:0 0 16px}
 .review-pane-source,.review-pane-form{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
 .article-paragraphs{list-style:none;margin:0;padding:0}
 .article-paragraphs li{margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid #edf1f7}
