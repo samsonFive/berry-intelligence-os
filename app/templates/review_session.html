@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Review Session — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page review-session">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">WORK</p>
+    <h1>Review session</h1>
+    <p class="also-known-as">Operational navigation only. This page does not publish, affirm, approve, or reject.</p>
+  </div>
+</section>
+
+<p class="eyebrow">{{ session.queue|replace('_',' ')|upper }} SESSION</p>
+{% if session.status == 'complete' %}
+  <h2>Session complete</h2>
+{% elif session.status == 'stopped' %}
+  <h2>Session stopped</h2>
+{% elif session.status == 'empty' %}
+  <h2>Nothing matched this session</h2>
+{% else %}
+  <h2>{{ session.completed_count }} of {{ session.size }} completed</h2>
+  <p>{{ session.remaining_count }} remaining{% if session.current_id %} · current <code>{{ session.current_id }}</code>{% endif %}</p>
+{% endif %}
+
+<ul class="review-session-progress">
+  <li>Items / batches: {{ session.size }}</li>
+  <li>Completed: {{ session.completed_count }}</li>
+  <li>Skipped: {{ session.skipped_count }}</li>
+  <li>Remaining: {{ session.remaining_count }}</li>
+</ul>
+
+{% if session.status in ['complete', 'stopped', 'empty'] %}
+  <section class="brief-section">
+    <h2>Reviewed: {{ session.completed_count }}</h2>
+    <ul>
+      {% for key, count in session.outcomes.items() %}
+        <li>{{ key|replace('_',' ')|title }}: {{ count }}</li>
+      {% else %}
+        <li>No terminal review outcomes in this session yet.</li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endif %}
+
+<p>
+  {% if session.status == 'active' and session.current_href %}
+    <a class="action-button action-approve" href="{{ session.current_href }}">Continue current item</a>
+  {% endif %}
+  <a class="action-button" href="/review-ops">Review Operations</a>
+</p>
+{% if session.status == 'active' %}
+<form method="post" action="/review-ops/session/stop">
+  <button class="v2-btn v2-btn-quiet" type="submit">Stop session</button>
+</form>
+<form method="post" action="/review-ops/session/skip">
+  <button class="v2-btn v2-btn-quiet" type="submit">Skip for this session</button>
+</form>
+{% endif %}
+</div>
+{% endblock %}

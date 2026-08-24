@@ -204,6 +204,7 @@ a{color:#3d5c94}
   .review-ops-grid{grid-template-columns:1fr}
   .today-header h1{font-size:28px;margin:0}
   .today-age{font-size:18px}
+  .review-session-form{grid-template-columns:1fr}
 }
 .today-age{font-size:20px;font-weight:700;letter-spacing:.04em;margin:0 0 4px}
 .today-list{list-style:none;padding:0;display:grid;gap:16px}
@@ -213,6 +214,11 @@ a{color:#3d5c94}
 .today-berries a.is-active{background:#213653;color:white}
 .today-quiet{border:1px solid #dfe5ee;padding:16px;border-radius:10px;background:#f8fafc}
 .today-freshness{margin:0 0 16px}
+.review-session-start,.review-session-resume{margin:16px 0;padding:16px}
+.review-session-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.review-session-progress{display:flex;flex-wrap:wrap;gap:12px;list-style:none;padding:0}
+.review-session-banner{border:1px solid #dfe5ee;background:#f8fafc;border-radius:8px;padding:10px 12px;margin:0 0 16px}
+.inline-session-form{display:inline}
 .review-pane-source,.review-pane-form{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
 .article-paragraphs{list-style:none;margin:0;padding:0}
 .article-paragraphs li{margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid #edf1f7}

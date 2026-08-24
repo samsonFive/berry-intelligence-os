@@ -1,0 +1,11 @@
+{% if return_to and return_to.startswith('/review-ops/session') %}
+<aside class="review-session-banner" data-review-session-banner>
+  <p>Review session in progress. Trust decisions stay on this page. Save does not complete the item.</p>
+  <p>
+    <a class="button-link" href="/review-ops/session">Session progress</a>
+    <form method="post" action="/review-ops/session/skip" class="inline-session-form">
+      <button class="v2-btn v2-btn-quiet" type="submit">Skip for this session</button>
+    </form>
+  </p>
+</aside>
+{% endif %}

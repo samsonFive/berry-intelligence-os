@@ -30,6 +30,64 @@
 
 <p class="brief-window">Workload: {{ ops.workload.publications }} publications · {{ ops.workload.source_fidelity }} source fidelity · {{ ops.workload.atomic }}</p>
 
+{% if active_session and active_session.status == 'active' %}
+<section class="review-session-resume card">
+  <p class="eyebrow">REVIEW SESSION</p>
+  <h2>Resume review session</h2>
+  <p>{{ active_session.queue|replace('_',' ')|upper }} · {{ active_session.completed_count }} of {{ active_session.size }} completed · {{ active_session.remaining_count }} remaining</p>
+  <p><a class="action-button action-approve" href="/review-ops/session">Resume review session</a></p>
+</section>
+{% endif %}
+
+<section class="card review-session-start" id="start-review-session">
+  <p class="eyebrow">START REVIEW SESSION</p>
+  <h2>Bounded review session</h2>
+  <p>Choose one queue and a session size. Trust decisions stay on the existing review pages.</p>
+  <form method="post" action="/review-ops/session" class="workbench-filters review-session-form">
+    <label>Queue
+      <select name="queue" required>
+        <option value="publication">Publication review</option>
+        <option value="source_fidelity" selected>Source fidelity review</option>
+        <option value="atomic">Atomic review</option>
+      </select>
+    </label>
+    <label>Size
+      <select name="size">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="25">25</option>
+      </select>
+    </label>
+    <label>Berry
+      <input name="berry" type="text" placeholder="optional">
+    </label>
+    <label>Source
+      <input name="source" type="text" placeholder="optional">
+    </label>
+    <label>Completeness
+      <select name="completeness">
+        <option value="">All</option>
+        <option value="FULL_ARTICLE">FULL ARTICLE</option>
+        <option value="FULL_TRANSCRIPT">FULL TRANSCRIPT</option>
+        <option value="STRUCTURED_REGISTRY">STRUCTURED SOURCE</option>
+        <option value="THIN_DESCRIPTION">THIN DESCRIPTION</option>
+        <option value="NO_CONTENT">NO CONTENT</option>
+      </select>
+    </label>
+    <label>Review bucket
+      <select name="bucket">
+        <option value="">All open</option>
+        <option value="review_now">Review now</option>
+        <option value="review_soon">Review soon</option>
+        <option value="adjacent">Adjacent</option>
+        <option value="likely_ignore">Likely ignore</option>
+        <option value="older_backlog">Older backlog</option>
+      </select>
+    </label>
+    <button class="action-button action-approve" type="submit">Start review session</button>
+  </form>
+</section>
+
 <div class="review-ops-grid">
   <section class="review-ops-card" id="publication-review">
     <p class="eyebrow">PUBLICATION REVIEW</p>
