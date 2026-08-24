@@ -72,6 +72,48 @@ def test_pilot_manifest_is_bounded_body_free_and_diverse() -> None:
     assert all(row["expected_review_path"] == "SOURCE_FIDELITY_REVIEW" for row in manifest["entries"])
 
 
+def test_pilot_25_can_exclude_prior_pilot_ids() -> None:
+    records = [
+        _trusted(f"ev-{index:02d}", ["berry-blueberry"])
+        for index in range(35)
+    ]
+    report = build_inventory(
+        records,
+        entities=[
+            {"id": "company-one", "entity_type": "company"},
+            {"id": "variety-one", "entity_type": "variety"},
+        ],
+        signals=[], assessments=[],
+    )
+    prior_ids = {row["evidence_id"] for row in pilot_manifest(report["items"], 10)["entries"]}
+    refreshed = pilot_manifest(
+        [row for row in report["items"] if row["evidence_id"] not in prior_ids],
+        25,
+    )
+    refreshed_ids = {row["evidence_id"] for row in refreshed["entries"]}
+    assert len(refreshed_ids) == 25
+    assert refreshed_ids.isdisjoint(prior_ids)
+
+
+def test_executor_accepts_only_bounded_pilot_10_or_25_manifests() -> None:
+    name, entries = reacquire_sources._validated_pilot_entries({
+        "manifest": "REACQUISITION-PILOT-25",
+        "entries": [{"evidence_id": f"ev-{index}"} for index in range(25)],
+    })
+    assert name == "REACQUISITION-PILOT-25"
+    assert len(entries) == 25
+    with pytest.raises(ValueError, match="bounded"):
+        reacquire_sources._validated_pilot_entries({
+            "manifest": "REACQUISITION-PILOT-25",
+            "entries": [{"evidence_id": f"ev-{index}"} for index in range(26)],
+        })
+    with pytest.raises(ValueError, match="bounded"):
+        reacquire_sources._validated_pilot_entries({
+            "manifest": "REACQUISITION-PILOT-50",
+            "entries": [{"evidence_id": "ev-one"}],
+        })
+
+
 def test_reacquired_current_page_stays_separate_pending_source_fidelity_review() -> None:
     trusted = _trusted()
     before = dict(trusted)
