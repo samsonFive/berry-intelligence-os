@@ -43,6 +43,7 @@ DEGRADED_STATES = {OVERDUE, FAILING, BLOCKED, NEVER_RUN, INSUFFICIENT_HISTORY}
 DEFAULT_HISTORY_PER_SOURCE = 50
 FAILURE_THRESHOLD = 2
 ZERO_NEW_DRIFT_RUNS = 3
+PRIOR_PRODUCTIVE_RUNS = 3
 RICH_BODY_DRIFT_DRAFTS = 3
 
 
@@ -379,15 +380,16 @@ def build_freshness_assurance(
             })
 
         successful_history = [(at, result) for at, result in history if result.get("status") == "ok"]
-        if len(successful_history) >= ZERO_NEW_DRIFT_RUNS + 1:
+        if len(successful_history) >= ZERO_NEW_DRIFT_RUNS + PRIOR_PRODUCTIVE_RUNS:
             recent = successful_history[-ZERO_NEW_DRIFT_RUNS:]
             prior = successful_history[:-ZERO_NEW_DRIFT_RUNS]
-            if sum(_result_new(result) for _at, result in prior) > 0 and all(
+            productive_runs = sum(_result_new(result) > 0 for _at, result in prior)
+            if productive_runs >= PRIOR_PRODUCTIVE_RUNS and all(
                 _result_new(result) == 0 for _at, result in recent
             ):
                 alerts.append({
                     "code": "NEW_ITEM_YIELD_DEGRADED", "source_id": source_id,
-                    "reason": f"Previously productive Source has {ZERO_NEW_DRIFT_RUNS} consecutive zero-new successful runs; acquisition yield changed, not inferred market activity.",
+                    "reason": f"Source had {productive_runs} prior productive successful runs, then {ZERO_NEW_DRIFT_RUNS} consecutive zero-new successful runs; acquisition yield changed, not inferred market activity.",
                 })
 
         repeats = successful_history[1:]

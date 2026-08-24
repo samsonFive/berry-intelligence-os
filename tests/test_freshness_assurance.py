@@ -219,13 +219,25 @@ def test_feed_window_risk_uses_observed_velocity_and_visible_depth():
 
 def test_zero_new_yield_drift_does_not_claim_market_inactivity():
     payload = _build(runs=[
-        _run("2026-08-20T06:00:00+00:00", new=4),
+        _run("2026-08-18T06:00:00+00:00", new=4),
+        _run("2026-08-19T06:00:00+00:00", new=2),
+        _run("2026-08-20T06:00:00+00:00", new=1),
         _run("2026-08-21T06:00:00+00:00", new=0),
         _run("2026-08-22T06:00:00+00:00", new=0),
         _run("2026-08-24T06:00:00+00:00", new=0),
     ], states={"source-a": _state(new=0)})
     alert = next(alert for alert in payload["alerts"] if alert["code"] == "NEW_ITEM_YIELD_DEGRADED")
     assert "acquisition yield changed" in alert["reason"]
+
+
+def test_one_bootstrap_productive_run_does_not_create_yield_drift_noise():
+    payload = _build(runs=[
+        _run("2026-08-20T06:00:00+00:00", new=20),
+        _run("2026-08-21T06:00:00+00:00", new=0),
+        _run("2026-08-22T06:00:00+00:00", new=0),
+        _run("2026-08-24T06:00:00+00:00", new=0),
+    ], states={"source-a": _state(new=0)})
+    assert not any(alert["code"] == "NEW_ITEM_YIELD_DEGRADED" for alert in payload["alerts"])
 
 
 def test_rich_body_yield_drift_requires_explicit_repeated_thin_outcomes():

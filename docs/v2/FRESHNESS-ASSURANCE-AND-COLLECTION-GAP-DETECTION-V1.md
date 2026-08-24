@@ -102,7 +102,7 @@ Only 16 canonical discoverable Sources currently carry explicit actor links. V1 
 
 Yield drift is operational, not competitive interpretation:
 
-- `NEW_ITEM_YIELD_DEGRADED`: previously productive Source followed by three successful zero-new runs.
+- `NEW_ITEM_YIELD_DEGRADED`: at least three earlier productive successful runs followed by three successful zero-new runs. Requiring repeated prior productivity prevents a one-time bootstrap/backfill run followed by normal duplicate-only checks from creating alert noise.
 - `RICH_BODY_YIELD_DEGRADED`: at least three earlier `FULL_ARTICLE` drafts followed by three explicit thin/failure outcomes.
 
 The language is “acquisition yield changed,” never “the Company/market went quiet.” Historical repair artifacts are excluded.
