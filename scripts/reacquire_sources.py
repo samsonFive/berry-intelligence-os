@@ -18,12 +18,16 @@ from app.repositories.paths import SCHEMAS_DIR
 from app.runtime_config import resolve_data_dir, resolve_inbox_dir
 from app.services.article_acquisition import ArticleAcquisitionError, fetch_article
 from app.services.extraction_backlog import inventory as readiness_inventory
+from app.services.pipeline_lock import pipeline_lock
 from app.services.source_fidelity_recovery import trusted_identity_sha256
 from app.services.source_reacquisition import (
     build_inventory, build_reacquired_artifact, classify_acquisition_failure,
     pilot_manifest, preflight_reacquisition_url, stage_reacquired_artifact,
     write_pilot_audit,
 )
+
+
+_EXECUTION_LOCK_HELD = False
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -43,9 +47,17 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    global _EXECUTION_LOCK_HELD
     args = _parser().parse_args(argv)
     data_dir = args.data_dir or resolve_data_dir(ROOT)
     inbox_dir = args.inbox_dir or resolve_inbox_dir(ROOT)
+    if args.execute and not _EXECUTION_LOCK_HELD:
+        with pipeline_lock(inbox_dir, "source-reacquisition"):
+            _EXECUTION_LOCK_HELD = True
+            try:
+                return main(argv)
+            finally:
+                _EXECUTION_LOCK_HELD = False
     repos = get_repositories(data_dir, SCHEMAS_DIR)
     trusted = repos.evidence.list(status="published")
     readiness = readiness_inventory(trusted)
