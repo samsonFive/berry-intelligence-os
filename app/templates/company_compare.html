@@ -1,0 +1,327 @@
+{% extends "base.html" %}
+{% block title %}Company Compare{% endblock %}
+{% block content %}
+{% set compare = compare if compare is defined else {} %}
+{% set companies = compare.companies or [] %}
+<div class="v2-page v2-variety-compare-page">
+<section class="page-heading v2-page-header" data-pagefind-filter="type:entity">
+  <div>
+    <p class="eyebrow">COMPANY COMPARE</p>
+    <h1>Compare companies</h1>
+    <p class="also-known-as">Side-by-side trusted intelligence, not a competitive score. Up to {{ compare_max }} companies; the URL is the entire comparison state — reload or share it freely.</p>
+  </div>
+</section>
+
+<section class="v2-company-section" id="compare-selection">
+  <h2>Selection</h2>
+  <p class="context-limit">Search reuses Global Search — no separate search engine. Selecting a result adds it to the comparison URL and reloads.</p>
+  {% if not static_build %}
+  <div class="v2-compare-picker" data-compare-picker data-ids="{{ ids_param }}" data-max="{{ compare_max }}" data-compare-group="companies">
+    <div class="filter-field">
+      <label for="compare-search">Add a company</label>
+      <input id="compare-search" type="search" autocomplete="off" placeholder="Search by name or alias…" data-compare-search>
+      <ul class="v2-compare-search-results" data-compare-results hidden></ul>
+    </div>
+  </div>
+  {% endif %}
+  {% if companies %}
+    <ul class="v2-compare-chips" data-pagefind-ignore>
+      {% for card in companies %}
+        <li class="v2-chip v2-compare-chip">
+          {{ card.name }}
+          {% if not static_build %}<a href="?ids={{ compare.companies|rejectattr('id', 'equalto', card.id)|map(attribute='id')|join(',') }}" aria-label="Remove {{ card.name }}" data-compare-remove="{{ card.id }}">&times;</a>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  {% if compare.invalid_ids %}
+    <p class="context-limit">Not found or not a Company: {{ compare.invalid_ids|join(', ') }}</p>
+  {% endif %}
+  {% if compare.overflow_ids %}
+    <p class="context-limit">Only the first {{ compare_max }} selected ids are compared; ignored: {{ compare.overflow_ids|join(', ') }}</p>
+  {% endif %}
+</section>
+
+{% if compare.count < 2 %}
+  <section class="v2-company-section">
+    <p class="empty-state">Select at least 2 companies to compare (up to {{ compare_max }}). {% if compare.count == 1 %}One selected so far.{% endif %}</p>
+  </section>
+{% else %}
+
+<section class="v2-company-section" id="compare-identity">
+  <h2>Identity</h2>
+  <div class="v2-compare-grid" style="--compare-count: {{ companies|length }};">
+    {% for card in companies %}
+      <article class="v2-card v2-compare-column">
+        <p class="v2-card-kicker">
+          {% for b in card.berries %}<span class="v2-chip v2-chip-berry">{{ b }}</span>{% endfor %}
+        </p>
+        <h3 class="v2-card-title"><a href="{{ card.href }}">{{ card.name }}</a></h3>
+        {% if card.aliases %}<p class="v2-card-line"><span class="v2-meta">Aliases</span> {{ card.aliases|join(', ') }}</p>{% endif %}
+        <p class="v2-card-line"><a href="{{ card.timeline_href }}">View full timeline</a></p>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="v2-company-section" id="compare-coverage">
+  <h2>Evidence coverage</h2>
+  <p class="context-limit">Coverage, not performance. A more thoroughly documented company is not implied to be more important or stronger.</p>
+  <div class="v2-compare-grid" style="--compare-count: {{ companies|length }};">
+    {% for card in companies %}
+      <div class="v2-compare-column">
+        <p class="v2-card-line">
+          {{ card.coverage.evidence_count }} Evidence · {{ card.coverage.fact_count }} Facts · {{ card.coverage.signal_count }} Signals · {{ card.coverage.assessment_count }} Assessments
+        </p>
+        <p class="v2-card-line">
+          {{ card.coverage.variety_count }} known linked variet{{ 'ies' if card.coverage.variety_count != 1 else 'y' }} (captured coverage, not total real-world portfolio size)
+          · {{ card.coverage.geography_count }} geograph{{ 'ies' if card.coverage.geography_count != 1 else 'y' }}
+        </p>
+        <p class="v2-card-line"><span class="v2-meta">Latest</span> {{ card.coverage.latest_date|us_date if card.coverage.latest_date else "—" }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% if compare.role_matrix %}
+<section class="v2-company-section" id="compare-role-matrix">
+  <h2>Portfolio role matrix</h2>
+  <p class="context-limit">Only roles actually represented by at least one compared company. Breeder, owner, licensee, marketer, grower, and distributor are distinct real relationships — never collapsed into "has variety."</p>
+  <div class="v2-compare-table-wrap">
+    <table class="trait-table">
+      <thead>
+        <tr>
+          <th>Role</th>
+          {% for card in companies %}<th>{{ card.name }}</th>{% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in compare.role_matrix %}
+          <tr>
+            <td>{{ row.label }}</td>
+            {% for count in row.counts %}<td>{{ count if count else "—" }}</td>{% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endif %}
+
+<section class="v2-company-section" id="compare-varieties">
+  <h2>Variety portfolio</h2>
+  <p class="context-limit">Trusted linked varieties by real relationship role. Each links to its own Variety profile.</p>
+  <div class="v2-compare-grid" style="--compare-count: {{ companies|length }};">
+    {% for card in companies %}
+      <div class="v2-compare-column">
+        {% if card.portfolio_variety_ids %}
+          <dl class="v2-compare-roles">
+            {% for bucket, label in compare.role_labels.items() %}
+              {% if card.roles[bucket] %}
+                <dt>{{ label }}</dt>
+                <dd>{% for party in card.roles[bucket] %}<a href="{{ party.href }}">{{ party.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</dd>
+              {% endif %}
+            {% endfor %}
+          </dl>
+          {% if not static_build and card.portfolio_variety_ids|length >= 2 %}
+            <p class="v2-card-line"><a href="/entities/variety/compare?ids={{ card.portfolio_variety_ids[:4]|join(',') }}">Compare {{ card.name }}'s varieties</a></p>
+          {% endif %}
+        {% else %}
+          <p class="empty-state">No trusted Variety relationship captured.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="v2-company-section" id="compare-rights">
+  <h2>Rights / IP</h2>
+  <p class="context-limit">Filing counts, not innovation quality. Presence of a filing does not establish commercialization.</p>
+  <div class="v2-compare-grid" style="--compare-count: {{ companies|length }};">
+    {% for card in companies %}
+      <div class="v2-compare-column">
+        {% if card.rights_published %}
+          <p class="v2-card-line"><span class="v2-meta">{{ card.rights_published|length }} trusted filing{{ 's' if card.rights_published|length != 1 else '' }}</span></p>
+          <ul class="entity-links">
+            {% for row in card.rights_published[:6] %}
+              <li>
+                <span class="v2-mark v2-mark-trusted">Trusted</span> <span class="v2-meta">{{ row.kind }}</span>
+                <a href="{{ row.href }}">{{ row.title }}</a>
+                {% if row.variety_name %}· <a href="{{ row.variety_href }}">{{ row.variety_name }}</a>{% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="empty-state">No trusted rights/IP filing captured.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="v2-company-section" id="compare-commercial">
+  <h2>Commercial footprint</h2>
+  <p class="context-limit">Captured commercial/geographic observations only. Absence here is not evidence of absence from market.</p>
+  <div class="v2-compare-grid" style="--compare-count: {{ companies|length }};">
+    {% for card in companies %}
+      <div class="v2-compare-column">
+        <p class="v2-card-line">
+          <span class="v2-meta">Geographies represented in trusted intelligence</span>
+          {% if card.geographies %}{% for geo in card.geographies %}{% if geo.href %}<a href="{{ geo.href }}">{{ geo.name }}</a>{% else %}{{ geo.name }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}Not captured{% endif %}
+        </p>
+        <p class="v2-card-line">
+          <span class="v2-meta">Retailers</span>
+          {% if card.retailers %}{% for r in card.retailers %}<a href="{{ r.href }}">{{ r.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}{% else %}Not captured{% endif %}
+        </p>
+        <p class="v2-card-line"><span class="v2-meta">Commercial observations</span> {{ card.commercial_observation_count }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="v2-company-section" id="compare-product-intelligence">
+  <h2>Product / performance intelligence coverage</h2>
+  <p class="context-limit">Which dimensions of trusted product/performance observation exist across each company's linked varieties — coverage of intelligence dimensions, not a claim about product quality.</p>
+  <div class="v2-compare-grid" style="--compare-count: {{ companies|length }};">
+    {% for card in companies %}
+      <div class="v2-compare-column">
+        {% if card.product_groups %}
+          <ul class="entity-links">
+            {% for group in card.product_groups %}
+              <li>{{ group.label }} — {{ group.count }} observation{{ 's' if group.count != 1 else '' }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="empty-state">No trusted product/performance observation captured across this company's linked varieties.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="v2-company-section" id="compare-signals">
+  <h2>Signals</h2>
+  <div class="v2-compare-grid" style="--compare-count: {{ companies|length }};">
+    {% for card in companies %}
+      <div class="v2-compare-column">
+        {% if card.signals %}
+          <ul class="entity-links">
+            {% for s in card.signals %}
+              <li><span class="badge badge-signal">SIGNAL</span> <a href="{{ s.href }}">{{ s.title }}</a></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="empty-state">No trusted Signal captured.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="v2-company-section" id="compare-assessments">
+  <h2>Assessments</h2>
+  <div class="v2-compare-grid" style="--compare-count: {{ companies|length }};">
+    {% for card in companies %}
+      <div class="v2-compare-column">
+        {% if card.assessments %}
+          <ul class="entity-links">
+            {% for a in card.assessments %}
+              <li><span class="badge badge-assessment">ASSESSMENT</span> <a href="{{ a.href }}">{{ a.title }}</a></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="empty-state">No trusted Assessment captured.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="v2-company-section" id="compare-source-mix">
+  <h2>Source mix</h2>
+  <p class="context-limit">What kind of source the trusted evidence base is built from — provenance, not a credibility score.</p>
+  <div class="v2-compare-grid" style="--compare-count: {{ companies|length }};">
+    {% for card in companies %}
+      <div class="v2-compare-column">
+        {% if card.source_type_counts %}
+          <p class="v2-card-line">{% for label, count in card.source_type_counts %}{{ label }} ({{ count }}){% if not loop.last %} · {% endif %}{% endfor %}</p>
+        {% else %}
+          <p class="empty-state">No trusted Evidence captured.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="v2-company-section" id="compare-recent">
+  <h2>Recent intelligence</h2>
+  <p class="context-limit">Up to {{ 5 }} most recent trusted items per company. See each company's full timeline for the complete chronological history.</p>
+  <div class="v2-compare-grid" style="--compare-count: {{ companies|length }};">
+    {% for card in companies %}
+      <div class="v2-compare-column">
+        {% if card.recent_cards %}
+          <ul class="entity-links">
+            {% for item in card.recent_cards %}
+              <li>
+                {% if not static_build %}<a href="{{ item.source_url or ('/intelligence/' ~ item.id) }}" data-open-reader data-item-id="{{ item.id }}">{{ item.title }}</a>{% else %}<a href="/evidence/{{ item.id }}">{{ item.title }}</a>{% endif %}
+                {% if item.date %}<span class="draft-meta"> · {{ item.date|us_date }}</span>{% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="empty-state">No recent trusted intelligence captured.</p>
+        {% endif %}
+        <p class="v2-card-line"><a href="{{ card.timeline_href }}">View full timeline</a></p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% endif %}
+</div>
+{% if not static_build %}
+<script>
+(function () {
+  var picker = document.querySelector('[data-compare-picker]');
+  if (picker) {
+    var input = picker.querySelector('[data-compare-search]');
+    var results = picker.querySelector('[data-compare-results]');
+    var currentIds = (picker.dataset.ids || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+    var maxIds = parseInt(picker.dataset.max, 10) || 4;
+    var group = picker.dataset.compareGroup || 'companies';
+    var timer = null;
+    input.addEventListener('input', function () {
+      clearTimeout(timer);
+      var q = input.value.trim();
+      if (q.length < 2) { results.hidden = true; results.innerHTML = ''; return; }
+      timer = setTimeout(function () {
+        fetch('/api/search/global?q=' + encodeURIComponent(q) + '&berry=global')
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            var g = (data.groups || []).find(function (item) { return item.id === group; });
+            var rows = g ? (g.in_context || []).concat(g.also_global || []) : [];
+            rows = rows.filter(function (row) { return currentIds.indexOf(row.id) === -1; }).slice(0, 8);
+            results.innerHTML = '';
+            if (!rows.length) { results.hidden = true; return; }
+            rows.forEach(function (row) {
+              var li = document.createElement('li');
+              var btn = document.createElement('button');
+              btn.type = 'button';
+              btn.textContent = row.canonical_name || row.title;
+              btn.addEventListener('click', function () {
+                if (currentIds.length >= maxIds) return;
+                var next = currentIds.concat([row.id]);
+                window.location.href = '/entities/company/compare?ids=' + next.join(',');
+              });
+              li.appendChild(btn);
+              results.appendChild(li);
+            });
+            results.hidden = false;
+          });
+      }, 200);
+    });
+  }
+})();
+</script>
+{% endif %}
+{% endblock %}

@@ -56,6 +56,9 @@
       <p class="empty-state">No trusted competitor-role activity captured yet.</p>
     {% endfor %}
   </div>
+  {% if not static_build and actors_to_watch|length >= 2 %}
+    <p class="v2-card-line"><a href="/entities/company/compare?ids={{ actors_to_watch[:4]|map(attribute='entity.id')|unique|join(',') }}">Compare these companies</a></p>
+  {% endif %}
 </section>
 
 <section class="v2-company-section" id="recent-moves">

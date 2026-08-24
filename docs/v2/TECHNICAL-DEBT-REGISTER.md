@@ -1583,4 +1583,36 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | production build proof in `docs/v2/BOUNDED-HISTORICAL-REACQUISITION-PILOT-V1.md`; regression not yet implemented |
 
+### TD-099 — Company profile's own "Varieties / genetics" section only shows the breeder (`develops`) role
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | presentation / relationship-role completeness |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Company Compare V1 mission, found while auditing existing Company infrastructure before building `app/services/company_workspace.py`. `company_profile_context()` in `app/main.py` filters `grouped_relationships` to `predicate == "develops"` only when building its `company_varieties` key, and `_company_profile.html`'s "Varieties / genetics" section hardcodes the word "develops" in its row copy (`<strong>{{ entity.name }}</strong> develops <a>...`). A company that is only a licensee, marketer, owner/rights-holder, grower, or distributor of a variety -- never its breeder -- shows no rows in this section on its own single Company profile page, even though the relationship is real and trusted. Company Compare V1's new `_company_portfolio_roles()` (`app/services/company_workspace.py`) deliberately does not reuse this hardcoded filter and instead walks all `ROLE_BUCKETS` roles, so the same company can now show a fuller, role-distinct portfolio in Compare than on its own profile page -- a real inconsistency between the two views of identical underlying data. |
+| **Impact** | Cosmetic/completeness only, not a trust or data-integrity issue: the underlying Relationship records are unaffected and still surface correctly everywhere else (e.g. the profile's generic relationships list, if rendered elsewhere). A company whose only real variety relationships are e.g. licensee or marketer roles will look variety-less on its own profile page. |
+| **Workaround** | None needed for this mission -- Company Compare was built to read all roles directly rather than propagate the single profile's narrower filter, so Compare itself does not inherit this gap. |
+| **Recommended resolution** | Extend `company_profile_context()`'s `company_varieties` (and the profile template's row copy) to cover all `ROLE_BUCKETS` roles, matching the discipline already proven in `_company_portfolio_roles()`. Out of this mission's stated scope (Compare is additive/derived; the single Company profile page itself was not to be redesigned). |
+| **Status** | active |
+| **Owner lane** | product/UI |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none yet |
+
+### TD-100 — Company berry portfolio is an authored field, not derived from trusted Relationships
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | data quality / berry-portfolio completeness |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Company Compare V1 mission. Both the existing single Company profile (`company_berry_portfolio()` in `app/main.py`) and the new Company Compare V1 (`app/services/company_workspace.py::present_company_compare()`, for consistency with the single profile) read a Company entity's berry chips directly from its own authored `berry_ids` attribute rather than deriving them from the berries of the varieties it holds a trusted Relationship to. If `berry_ids` is stale, incomplete, or never authored for a company that nonetheless has trusted breeder/marketer/etc. relationships to varieties of a given berry, that berry will not appear in either view. |
+| **Impact** | A company's displayed berry portfolio can under-represent (or, less likely, over-represent) its real trusted-relationship footprint if `berry_ids` drifts from the relationship data. Not observed as an active discrepancy in the accepted Planasa/Costa Group/Fall Creek/SanLucar test set during this mission, but the two data sources are not reconciled by any validator. |
+| **Workaround** | None needed for this mission -- reusing the same authored field as the existing single Company profile keeps both views consistent with each other, even though neither is derived from Relationships. |
+| **Recommended resolution** | Either derive berry portfolio from trusted Relationship-to-Variety berry_ids as a cross-check, or add a validator that flags a Company's authored `berry_ids` diverging from its trusted varieties' berries. Out of this mission's scope (Compare reuses existing presentation conventions, does not redesign them). |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none yet |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
