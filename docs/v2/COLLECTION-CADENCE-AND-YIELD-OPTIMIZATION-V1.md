@@ -19,6 +19,7 @@ Across the 50 repeat-observed Sources, retained summaries contain 761 Source-run
 | Class | Interval | Use |
 |---|---:|---|
 | `HIGH_FREQUENCY` | 6 hours | High-velocity or time-sensitive bounded discovery |
+| `ACTIVE` | 12 hours | Active short-window feeds whose measured safety ceiling is below one day |
 | `NORMAL` | 24 hours | Active news/trade/alert feeds |
 | `LOW_FREQUENCY` | 7 days | Quiet official newsrooms, registries, and spoken feeds |
 | `QUIET` | 14 days | Available for sustained quiet evidence; not assigned from a short observation window |
@@ -28,13 +29,14 @@ The configuration maps the existing `realtime`, `daily`, `weekly`, `biweekly`, `
 
 ## High-confidence changes
 
-Only three Source recommendations change; 70 remain unchanged.
+Only four Source recommendations change; 69 remain unchanged.
 
 | Source | Current | Recommended | Evidence |
 |---|---:|---:|---|
 | Global caneberry search | daily | 6 hours | 63 new items after the initial run across five repeat scans; 100-item visible window; dedicated Raspberry/Blackberry guardrail |
-| HortiDaily | weekly | daily | 84 new items after the initial run across 25 repeat scans; latest visible window 28 |
-| Blue Book Services | weekly | daily | 26 new items after the initial run across 25 repeat scans; visible window 10; discovery-window protection despite weak body acquisition |
+| HortiDaily | weekly | 12 hours | 84 new items after the initial run across 25 repeat scans; visible window 28; measured half-window ceiling 69,385 seconds |
+| Blue Book Services | weekly | 12 hours | 26 new items after the initial run across 25 repeat scans; visible window 10; measured half-window ceiling 83,025 seconds despite weak body acquisition |
+| Fruitnet Produce Plus | daily | 6 hours | Four new items after the initial run across five repeat scans; current visible window only two; measured half-window ceiling 31,510 seconds |
 
 Driscoll's and berry trade-remedy searches remain `HIGH_FREQUENCY` because their existing `realtime` intent is appropriate for time-sensitive company/regulatory discovery. Global caneberry joins that class because both observed velocity and strategic Raspberry/Blackberry coverage justify it. Language never enters the cadence rule.
 
@@ -44,13 +46,13 @@ Quiet official newsrooms, registries, podcasts, and video feeds retain weekly ca
 
 The audit excludes each Source's initial run from velocity, then computes a maximum safe interval only when repeat-run elapsed time, genuinely new items, and a visible window all exist. The safety factor collects before half the expected visible window turns over. Feed capacity alone never becomes an activity estimate.
 
-The three changed Sources remain inside their measured safe intervals. The dedicated caneberry search is tightened, not deprioritized. Canonical scheduled coverage remains Blueberry 62, Strawberry 44, Raspberry 42, and Blackberry 42 Sources; the scheduler never uses berry volume to reduce cadence.
+The four changed Sources remain inside their measured safe intervals. The dedicated caneberry search is tightened, not deprioritized. Canonical scheduled coverage remains Blueberry 62, Strawberry 44, Raspberry 42, and Blackberry 42 Sources; the scheduler never uses berry volume to reduce cadence.
 
 Rich-body outcomes are reported per Source from stored private Publication Review drafts as `FULL_ARTICLE`, `THIN_DESCRIPTION`, or `UNKNOWN_NOT_RECORDED`. The unknown class is preserved for older drafts created before completeness instrumentation; it is not relabeled as success or failure. Relevant-draft counts describe drafts produced by deterministic relevance screening, not human review yield.
 
 ## Request economics
 
-On the canonical 73-Source surface, the prior group schedule implied about 257 network requests/day (256 Source collection attempts plus the second Redagricola playlist request). The recommended schedule is about 47.86 requests/day, an estimated 81.4% reduction. This is a cadence-model estimate, not metered publisher traffic; retryable failures can add bounded retries and blocked Sources add none until operator resolution.
+On the canonical 73-Source surface, the prior group schedule implied about 257 network requests/day (256 Source collection attempts plus the second Redagricola playlist request). The feed-window-safe schedule is about 52.86 requests/day, an estimated 79.4% reduction. This is a cadence-model estimate, not metered publisher traffic; retryable failures can add bounded retries and blocked Sources add none until operator resolution.
 
 The reduction predominantly removes duplicate-only scans from weekly/daily Sources that were being polled every six hours. Daily active feeds, all three high-frequency searches, the 10-item Blue Book window, and the newly onboarded direct rich publishers remain protected. Therefore the prior 20-40 rich publication candidates per 30 days expectation should remain approximately intact. That is a preservation estimate grounded in retained cadence and feed-window coverage, not a prediction of analyst decisions.
 
