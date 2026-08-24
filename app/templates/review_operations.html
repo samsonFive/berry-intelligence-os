@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Review Operations — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page review-ops">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">WORK</p>
+    <h1>Review Operations</h1>
+    <p class="also-known-as">What needs a human review decision. This cockpit does not publish, affirm, approve, or reject.</p>
+  </div>
+</section>
+
+<form class="workbench-filters review-ops-filters" method="get" action="/review-ops">
+  <label>Berry
+    <input name="berry" type="text" value="{{ ops.filters.berry }}" placeholder="raspberry">
+  </label>
+  <label>Source
+    <input name="source" type="text" value="{{ ops.filters.source }}" placeholder="source-id">
+  </label>
+  <label>Age
+    <select name="age">
+      <option value="">All</option>
+      {% for row in ops.publication.age_buckets %}
+        <option value="{{ row.key }}" {% if ops.filters.age == row.key %}selected{% endif %}>{{ row.label }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <button class="v2-btn v2-btn-quiet" type="submit">Filter</button>
+</form>
+
+<p class="brief-window">Workload: {{ ops.workload.publications }} publications · {{ ops.workload.source_fidelity }} source fidelity · {{ ops.workload.atomic }}</p>
+
+<div class="review-ops-grid">
+  <section class="review-ops-card" id="publication-review">
+    <p class="eyebrow">PUBLICATION REVIEW</p>
+    <h2>{{ ops.publication.pending }} pending</h2>
+    <p class="context-limit">{{ ops.publication.review_now }} review now · health: {{ ops.publication.health }}</p>
+    {% if ops.publication.oldest %}<p>Oldest: {{ ops.publication.oldest.age_days }} days</p>{% endif %}
+    <ul class="review-ops-ages">{% for row in ops.publication.age_buckets %}<li>{{ row.label }} {{ row.count }}</li>{% endfor %}</ul>
+    {% if ops.publication.reasons %}<p class="brief-why">{{ ops.publication.reasons|join(' · ') }}</p>{% endif %}
+    <p><a class="action-button action-approve" href="{{ ops.publication.next_href }}">Review next publication</a>
+       <a class="action-button" href="{{ ops.publication.queue_href }}">Open queue</a></p>
+  </section>
+
+  <section class="review-ops-card" id="source-fidelity-review">
+    <p class="eyebrow">SOURCE FIDELITY REVIEW</p>
+    <h2>{{ ops.source_fidelity.pending }} pending</h2>
+    <p class="context-limit">Needs investigation {{ ops.source_fidelity.needs_investigation }} · Affirmed {{ ops.source_fidelity.affirmed }} · Rejected {{ ops.source_fidelity.rejected }}</p>
+    {% if ops.source_fidelity.oldest %}<p>Oldest: {{ ops.source_fidelity.oldest.age_days }} days</p>{% endif %}
+    <ul class="review-ops-ages">{% for row in ops.source_fidelity.age_buckets %}<li>{{ row.label }} {{ row.count }}</li>{% endfor %}</ul>
+    {% if ops.source_fidelity.reasons %}<p class="brief-why">{{ ops.source_fidelity.reasons|join(' · ') }}</p>{% endif %}
+    <p><a class="action-button action-approve" href="{{ ops.source_fidelity.next_href }}">Review next source fidelity item</a>
+       <a class="action-button" href="{{ ops.source_fidelity.queue_href }}">Open queue</a></p>
+  </section>
+
+  <section class="review-ops-card" id="atomic-evidence-review">
+    <p class="eyebrow">ATOMIC EVIDENCE REVIEW</p>
+    <h2>{{ ops.atomic.pending }} pending</h2>
+    <p class="context-limit">{{ ops.atomic.pending }} propositions across {{ ops.atomic.batches }} source batches · Approved {{ ops.atomic.approved }} · Rejected {{ ops.atomic.rejected }}</p>
+    {% if ops.atomic.extraction_disabled %}<p class="banner banner-warning">ATOMIC EXTRACTION DISABLED — no new proposals expected.</p>{% endif %}
+    {% if ops.atomic.oldest %}<p>Oldest: {{ ops.atomic.oldest.age_days }} days</p>{% endif %}
+    <ul class="review-ops-ages">{% for row in ops.atomic.age_buckets %}<li>{{ row.label }} {{ row.count }}</li>{% endfor %}</ul>
+    {% if ops.atomic.reasons %}<p class="brief-why">{{ ops.atomic.reasons|join(' · ') }}</p>{% endif %}
+    <p><a class="action-button action-approve" href="{{ ops.atomic.next_href }}">Review next atomic batch</a>
+       <a class="action-button" href="{{ ops.atomic.queue_href }}">Open queue</a></p>
+  </section>
+</div>
+
+{% if ops.blocked %}
+<section class="brief-section">
+  <h2>Blocked / empty states</h2>
+  <ul>{% for row in ops.blocked %}<li><strong>{{ row.code }}</strong> — {{ row.detail }}</li>{% endfor %}</ul>
+</section>
+{% endif %}
+
+<section class="brief-section">
+  <h2>Recent review activity</h2>
+  {% if ops.activity %}
+    <ul class="review-ops-activity">
+      {% for row in ops.activity %}
+        <li><span class="badge">{{ row.label }}</span> <code>{{ row.object_id }}</code>{% if row.since_last_session %} · since last session{% endif %}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No recent review events in this runtime.</p>
+  {% endif %}
+</section>
+</div>
+{% endblock %}
