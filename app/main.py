@@ -107,6 +107,16 @@ from app.services.analyst_queue import (
 from app.services.commercial_positions import commercial_page_model
 from app.services.review_operations import build_review_operations
 from app.services.today import build_today
+from app.services.review_session import (
+    CONTINUE_PATH,
+    create_session,
+    is_session_return,
+    load_session,
+    present_session,
+    reconcile_session,
+    skip_current,
+    stop_session,
+)
 from app.services.testing_workspace import enrich_testing_item, related_indexes, testing_page_model
 from app.services.draft_attribution import attribute_draft, draft_matches_entity
 from app.services.review_workbench import (
@@ -761,6 +771,7 @@ def source_fidelity_detail(request: Request, evidence_id: str) -> HTMLResponse:
             "filter_query": query,
             "confirm_error": request.query_params.get("confirm_error") == "1",
             "confirm_error": request.query_params.get("confirm_error") == "1",
+            "return_to": request.query_params.get("return_to") or "",
         },
     )
 
@@ -773,6 +784,7 @@ def source_fidelity_decision(
     reviewer: str = Form(""),
     confirm_affirm: str = Form(""),
     advance: str = Form(""),
+    return_to: str = Form(""),
 ) -> RedirectResponse:
     trusted = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.get(evidence_id)
     path = _source_fidelity_folder() / f"{evidence_id}.json"
@@ -813,6 +825,9 @@ def source_fidelity_decision(
         if event is not None:
             remove_created_event(event)
         raise
+    session_return = _safe_review_return(return_to, fallback="")
+    if is_session_return(session_return):
+        return RedirectResponse(url=session_return, status_code=303)
     target = evidence_id
     if advance == "1":
         nav_filters = dict(filters)
@@ -3110,6 +3125,7 @@ def review_operations_page(request: Request) -> HTMLResponse:
         berry_labels=BERRIES,
     )
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    active = load_session(INBOX_DIR)
     return templates.TemplateResponse(
         request=request,
         name="review_operations.html",
@@ -3118,8 +3134,99 @@ def review_operations_page(request: Request) -> HTMLResponse:
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
             "ui_context": ui,
+            "active_session": present_session(active) if active else None,
         },
     )
+
+
+def _reconcile_active_session() -> dict[str, Any] | None:
+    session = load_session(INBOX_DIR)
+    if not session:
+        return None
+    return reconcile_session(
+        INBOX_DIR,
+        session,
+        drafts=list_drafts(),
+        artifacts=load_recovery_artifacts(_source_fidelity_folder()),
+    )
+
+
+@app.post("/review-ops/session")
+def start_review_session(
+    queue: str = Form(...),
+    size: int = Form(10),
+    berry: str = Form(""),
+    source: str = Form(""),
+    completeness: str = Form(""),
+    bucket: str = Form(""),
+) -> RedirectResponse:
+    berry_id = berry if berry.startswith("berry-") else (f"berry-{berry}" if berry.strip() else "")
+    try:
+        create_session(
+            INBOX_DIR,
+            queue=queue,
+            size=size,
+            pending_service=get_pending_review_query_service(INBOX_DIR),
+            entities=entity_index(),
+            sources={str(row.get("id") or ""): row for row in load_sources() if row.get("id")},
+            published=published_evidence(),
+            atomic_drafts=list_drafts(),
+            berry_labels=BERRIES,
+            berry_id=berry_id,
+            source=source.strip(),
+            completeness=completeness.strip(),
+            bucket=bucket.strip(),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return RedirectResponse(url="/review-ops/session", status_code=303)
+
+
+@app.get("/review-ops/session", response_class=HTMLResponse)
+def review_session_page(request: Request) -> HTMLResponse:
+    session = _reconcile_active_session()
+    if session is None:
+        return RedirectResponse(url="/review-ops", status_code=303)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    return templates.TemplateResponse(
+        request=request,
+        name="review_session.html",
+        context={
+            "session": present_session(session),
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+        },
+    )
+
+
+@app.get("/review-ops/session/continue")
+def continue_review_session() -> RedirectResponse:
+    session = _reconcile_active_session()
+    if session is None:
+        return RedirectResponse(url="/review-ops", status_code=303)
+    view = present_session(session)
+    if view["status"] in {"complete", "empty", "stopped"} or not view.get("current_id"):
+        return RedirectResponse(url="/review-ops/session", status_code=303)
+    return RedirectResponse(url=str(view.get("current_href") or "/review-ops/session"), status_code=303)
+
+
+@app.post("/review-ops/session/skip")
+def skip_review_session_item() -> RedirectResponse:
+    session = load_session(INBOX_DIR)
+    if session is None:
+        return RedirectResponse(url="/review-ops", status_code=303)
+    skip_current(INBOX_DIR, session)
+    return RedirectResponse(url=CONTINUE_PATH, status_code=303)
+
+
+@app.post("/review-ops/session/stop")
+def stop_review_session() -> RedirectResponse:
+    session = load_session(INBOX_DIR)
+    if session is None:
+        return RedirectResponse(url="/review-ops", status_code=303)
+    stop_session(INBOX_DIR, session)
+    return RedirectResponse(url="/review-ops/session", status_code=303)
 
 
 @app.get("/work-queue", response_class=HTMLResponse)
@@ -5155,6 +5262,8 @@ def _safe_review_return(value: str | None, *, fallback: str = "/review") -> str:
         allowed = True
     elif path.startswith("/intelligence/") or path.startswith("/evidence/"):
         allowed = len(parts) == 2
+    elif path == "/review-ops" or path.startswith("/review-ops/"):
+        allowed = len(parts) <= 3
     if not allowed:
         return fallback
     return path + (f"?{parsed.query}" if parsed.query else "")
@@ -5234,6 +5343,12 @@ def review_queue(
                 return_params["current"] = pending_cards[index + 1]["record"]["id"]
             card["return_to"] = "/review?" + urlencode(return_params)
             card["edit_url"] = f"/review/{card['record']['id']}?return_to={quote(card['return_to'], safe='')}"
+    session_return = request.query_params.get("return_to")
+    if is_session_return(session_return):
+        for group in workbench["groups"]:
+            for card in group["cards"]:
+                card["return_to"] = CONTINUE_PATH
+                card["edit_url"] = f"/review/{card['record']['id']}?return_to={quote(CONTINUE_PATH, safe='')}"
 
     entities = {record["id"]: record for record in repositories.entities.list() if record.get("id")}
     return templates.TemplateResponse(
@@ -5253,6 +5368,7 @@ def review_queue(
                 transcript_readiness=load_publication_transcript_readiness(INBOX_DIR),
             ),
             "authoring_mode": AUTHORING_MODE,
+            "return_to": request.query_params.get("return_to") or "",
         },
     )
 
@@ -5625,7 +5741,7 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
             status_code=409,
         )
 
-    advance = field("advance").strip() == "next"
+    advance = field("advance").strip() == "next" and not is_session_return(return_to)
     next_id = adjacent_publication_draft_id(draft_id) if advance else None
 
     if result.outcome == "conflict":
@@ -5754,6 +5870,11 @@ async def review_save(request: Request, draft_id: str) -> HTMLResponse | Redirec
         draft["berry_ids"] = berries
     save_draft(draft)
     return_to = _safe_review_return(field("return_to"), fallback=f"/review/{draft_id}")
+    if is_session_return(return_to):
+        return RedirectResponse(
+            url=f"/review/{draft_id}?return_to={quote(CONTINUE_PATH, safe='')}",
+            status_code=303,
+        )
     if field("advance").strip() == "next":
         next_id = adjacent_publication_draft_id(draft_id)
         if next_id:
@@ -5816,11 +5937,14 @@ def review_reject(
     except Exception:
         remove_created_event(event)
         raise
+    safe_return = _safe_review_return(return_to)
+    if is_session_return(safe_return):
+        return RedirectResponse(url=safe_return, status_code=303)
     if advance.strip() == "next":
         next_id = adjacent_publication_draft_id(draft_id)
         if next_id:
             return RedirectResponse(url=f"/review/{next_id}", status_code=303)
-    return RedirectResponse(url=_safe_review_return(return_to), status_code=303)
+    return RedirectResponse(url=safe_return, status_code=303)
 
 
 @app.get("/api/feed")

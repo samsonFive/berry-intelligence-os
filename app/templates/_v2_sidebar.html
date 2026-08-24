@@ -61,7 +61,7 @@
     {{ nav_icon('feed') }}<span class="v2-nav-text">Live Intelligence</span>
   </a>
   {% if not static_build %}
-  <a href="/review-ops" class="v2-nav-link{% if path == '/review-ops' %} is-active{% endif %}" title="Review Operations" aria-label="Review Operations"{% if path == '/review-ops' %} aria-current="page"{% endif %}>
+  <a href="/review-ops" class="v2-nav-link{% if path == '/review-ops' or path.startswith('/review-ops/') %} is-active{% endif %}" title="Review Operations" aria-label="Review Operations"{% if path == '/review-ops' or path.startswith('/review-ops/') %} aria-current="page"{% endif %}>
     {{ nav_icon('review') }}<span class="v2-nav-text">Review Operations</span>
   </a>
   {% endif %}

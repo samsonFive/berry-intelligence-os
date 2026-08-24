@@ -196,9 +196,12 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert 'href="review/' not in scanner_html
     assert "/review" not in scanner_html
     assert "/review-ops" not in scanner_html
+    assert "/review-ops/session" not in scanner_html
     assert "Review Operations" not in scanner_html
     assert "/today" not in scanner_html
     assert "What is new right now" not in scanner_html
+    assert "Review session" not in scanner_html
+    assert "Start review session" not in scanner_html
     assert "data-promote" not in scanner_html
     assert "event.key === \"j\"" not in scanner_html
 
