@@ -9,7 +9,13 @@ from typing import Any
 
 from app.queries.pending_review import PendingReviewQueryService
 from app.services.analyst_queue import load_state
-from app.services.morning_brief import assign_buckets, assign_pending_triage, brief_last_seen, rank_item
+from app.services.morning_brief import (
+    assign_buckets,
+    assign_pending_triage,
+    brief_last_seen,
+    rank_item,
+    _parse_stamp as parse_brief_stamp,
+)
 from app.services.review_events import load_review_events
 from app.services.source_fidelity_recovery import load_recovery_artifacts
 from app.services.source_fidelity_workbench import build_queue_rows, staged_at
@@ -167,7 +173,7 @@ def build_review_operations(
         "frontier": today,
         "today": today,
         "last_seen": last_seen,
-        "since_cutoff": _parse_stamp(last_seen) if last_seen else None,
+        "since_cutoff": parse_brief_stamp(last_seen) if last_seen else None,
         "watch_entities": set(),
         "hot_entities": set(),
         "first_seen_by_discovered": {},
@@ -281,10 +287,10 @@ def build_review_operations(
         if (str(event.get("workflow") or ""), str(event.get("action") or "")) in EVENT_LABELS
     ]
     interesting.sort(key=lambda row: str(row.get("occurred_at") or ""), reverse=True)
-    cutoff = _parse_stamp(last_seen) if last_seen else None
+    cutoff = parse_brief_stamp(last_seen) if last_seen else None
     activity = []
     for event in interesting[:12]:
-        stamp = _parse_stamp(event.get("occurred_at"))
+        stamp = parse_brief_stamp(event.get("occurred_at"))
         activity.append(
             {
                 "id": event.get("id"),

@@ -104,6 +104,10 @@ def test_three_queue_counts_age_and_next_links(tmp_path: Path) -> None:
         "source_id": "source-planasa",
         "source_name": "Planasa Newsroom",
     }
+    (inbox / "analyst_queue_state.json").write_text(
+        json.dumps({"meta": {"brief": {"last_seen_at": "2026-08-24T00:00:00+00:00"}}}),
+        encoding="utf-8",
+    )
     ops = build_review_operations(
         inbox_dir=inbox,
         pending_service=PendingReviewQueryService(JsonPendingDraftSnapshotProvider(inbox)),
