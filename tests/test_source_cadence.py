@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import json
+from pathlib import Path
 
 from app.services.source_cadence import (
     berry_coverage,
@@ -14,6 +16,7 @@ from app.services.source_cadence import (
 
 
 UTC = timezone.utc
+ROOT = Path(__file__).resolve().parents[1]
 NOW = datetime(2026, 8, 24, 12, 0, tzinfo=UTC)
 POLICY = {
     "cadence_classes": {"HIGH_FREQUENCY": 21600, "NORMAL": 86400, "LOW_FREQUENCY": 604800},
@@ -195,3 +198,14 @@ def test_audit_covers_duplicate_heavy_rich_productive_and_failures() -> None:
     assert row["relevant_publication_drafts"] == 2
     assert row["rich_body"] == {"FULL_ARTICLE": 1, "THIN_DESCRIPTION": 1}
     assert row["failures"] == 1
+
+
+def test_production_policy_keeps_measured_short_windows_inside_safety_ceiling() -> None:
+    policy = json.loads((ROOT / "data" / "configuration" / "source_collection_cadence.json").read_text(encoding="utf-8"))
+    expected_ceilings = {
+        "source-20260819-blue-book-services": 83025,
+        "source-20260819-hortidaily": 69385,
+        "source-fruitnet-produce-plus": 31510,
+    }
+    for source_id, ceiling in expected_ceilings.items():
+        assert policy["source_overrides"][source_id]["cadence_seconds"] <= ceiling

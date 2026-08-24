@@ -2,6 +2,7 @@
   "schema_version": 1,
   "cadence_classes": {
     "HIGH_FREQUENCY": 21600,
+    "ACTIVE": 43200,
     "NORMAL": 86400,
     "LOW_FREQUENCY": 604800,
     "QUIET": 1209600
@@ -26,16 +27,22 @@
       "reason": "Daily to every 6 hours: 63 genuinely new items appeared after the initial run across five repeat scans, the visible window is 100, and this is the dedicated Raspberry/Blackberry discovery guardrail."
     },
     "source-20260819-hortidaily": {
-      "cadence_class": "NORMAL",
-      "cadence_seconds": 86400,
+      "cadence_class": "ACTIVE",
+      "cadence_seconds": 43200,
       "changes_current_cadence": true,
-      "reason": "Weekly to daily: 84 genuinely new items appeared after the initial run across 25 repeat scans; the latest visible window is 28, so weekly polling would risk turnover."
+      "reason": "Weekly to every 12 hours: 84 genuinely new items appeared after the initial run across 25 repeat scans; the measured half-window safety ceiling is 69,385 seconds, so daily polling is not conservative enough."
     },
     "source-20260819-blue-book-services": {
-      "cadence_class": "NORMAL",
-      "cadence_seconds": 86400,
+      "cadence_class": "ACTIVE",
+      "cadence_seconds": 43200,
       "changes_current_cadence": true,
-      "reason": "Weekly to daily: 26 genuinely new items appeared after the initial run across 25 repeat scans and the feed exposes only 10 items; daily protects the discovery window even though body acquisition remains weak."
+      "reason": "Weekly to every 12 hours: 26 genuinely new items appeared after the initial run across 25 repeat scans and the feed exposes only 10 items; the measured half-window safety ceiling is 83,025 seconds."
+    },
+    "source-fruitnet-produce-plus": {
+      "cadence_class": "HIGH_FREQUENCY",
+      "cadence_seconds": 21600,
+      "changes_current_cadence": true,
+      "reason": "Daily to every 6 hours: four new items appeared after the initial run across five repeat scans while the current feed exposes only two items; the measured half-window safety ceiling is 31,510 seconds."
     }
   }
 }
