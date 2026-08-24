@@ -73,6 +73,7 @@ from app.services.variety_workspace import (  # noqa: E402
     present_variety_detail,
     present_variety_index,
 )
+from app.services.company_workspace import present_company_portfolio  # noqa: E402
 
 OUTPUT_DIR = ROOT / "generated"
 
@@ -389,6 +390,37 @@ def build() -> list[Path]:
                     "authoring_mode": False,
                     **synthesis,
                 },
+            )
+        )
+
+    # Company Variety Portfolio Intelligence V1 -- a finite, enumerable set
+    # (one page per Company, like the entity profile loop just above), not
+    # a combinatorial id-selection space like Compare -- so unlike
+    # Variety/Company Compare, this is static-safe and gets the same
+    # trusted-only treatment as every entity.html page above.
+    portfolio_signals = all_signals()
+    portfolio_assessments = all_assessments()
+    for entity in all_entities():
+        if entity.get("entity_type") != "company":
+            continue
+        portfolio = present_company_portfolio(
+            entity["id"],
+            entities=entities,
+            relationships=relationships_all,
+            published_evidence=evidence,
+            facts=facts_all,
+            evidence_by_id=evidence_idx,
+            signals=portfolio_signals,
+            assessments=portfolio_assessments,
+            berry_labels=BERRIES,
+        )
+        if portfolio is None:
+            continue
+        written.append(
+            write_page(
+                "company_portfolio.html",
+                f"/entities/company/{entity['id']}/portfolio",
+                {"portfolio": portfolio, "authoring_mode": False},
             )
         )
 

@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% block title %}{{ portfolio.company.name }} — Variety portfolio{% endblock %}
+{% block content %}
+{% set portfolio = portfolio if portfolio is defined else {} %}
+{% set company = portfolio.company or {} %}
+<div class="v2-page v2-company">
+<section class="page-heading v2-page-header" data-pagefind-filter="type:entity">
+  <div>
+    <p class="eyebrow">COMPANY VARIETY PORTFOLIO</p>
+    <h1>{{ company.name }}</h1>
+    <p class="also-known-as">Captured portfolio evidence, not total company portfolio. Absence of evidence means not captured -- never "does not have."</p>
+    <p class="v2-company-meta">
+      {% for b in portfolio.berries %}<span class="v2-chip v2-chip-berry">{{ b }}</span>{% endfor %}
+    </p>
+  </div>
+  <div class="v2-company-actions">
+    <a class="v2-btn v2-btn-quiet" href="{{ company.href }}">Company profile</a>
+    {% if not static_build %}
+      <a class="v2-btn v2-btn-quiet" href="{{ company.compare_href }}">Compare</a>
+      {% if portfolio.variety_rows|length >= 2 %}
+        <a class="v2-btn v2-btn-quiet" href="/entities/variety/compare?ids={{ portfolio.variety_rows[:4]|map(attribute='id')|join(',') }}">Compare these varieties</a>
+      {% endif %}
+    {% endif %}
+    <a class="v2-btn v2-btn-primary" href="{{ company.timeline_href }}">Full timeline</a>
+  </div>
+</section>
+
+<section class="v2-company-section" id="portfolio-summary">
+  <h2>Evidence coverage</h2>
+  <p class="context-limit">Captured intelligence coverage, not a measure of total real-world portfolio size or market strength -- do not read a low count as "this Company does little."</p>
+  <div class="balanced-card-grid">
+    <article class="card">
+      <p class="card-kicker">VARIETIES</p>
+      <h2>{{ portfolio.coverage.total_varieties }}</h2>
+      <p>with a captured trusted relationship to this Company</p>
+    </article>
+    <article class="card">
+      <p class="card-kicker">WITH TRUSTED EVIDENCE</p>
+      <h2>{{ portfolio.coverage.varieties_with_evidence }}</h2>
+      <p>of {{ portfolio.coverage.total_varieties }} varieties</p>
+    </article>
+    <article class="card">
+      <p class="card-kicker">WITH RIGHTS / IP</p>
+      <h2>{{ portfolio.coverage.varieties_with_rights }}</h2>
+      <p>of {{ portfolio.coverage.total_varieties }} varieties</p>
+    </article>
+    <article class="card">
+      <p class="card-kicker">WITH COMMERCIAL OBSERVATION</p>
+      <h2>{{ portfolio.coverage.varieties_with_commercial }}</h2>
+      <p>of {{ portfolio.coverage.total_varieties }} varieties</p>
+    </article>
+    <article class="card">
+      <p class="card-kicker">WITH SIGNALS</p>
+      <h2>{{ portfolio.coverage.varieties_with_signals }}</h2>
+      <p>of {{ portfolio.coverage.total_varieties }} varieties</p>
+    </article>
+    <article class="card">
+      <p class="card-kicker">LIMITED TRUSTED INTELLIGENCE</p>
+      <h2>{{ portfolio.coverage.varieties_sparse }}</h2>
+      <p>varieties with no trusted evidence, rights, or commercial observation captured yet</p>
+    </article>
+  </div>
+</section>
+
+{% if portfolio.berry_groups|length > 1 %}
+<nav class="v2-berry-portfolio" aria-label="Filter portfolio by berry" id="portfolio-berry-filter">
+  <button type="button" class="v2-berry-chip is-active" data-portfolio-berry="all">ALL BERRIES</button>
+  {% for group in portfolio.berry_groups %}
+    <button type="button" class="v2-berry-chip" data-portfolio-berry="{{ group.id }}">{{ group.label|upper }}</button>
+  {% endfor %}
+</nav>
+{% endif %}
+
+<section class="v2-company-section" id="portfolio-varieties">
+  <h2>Varieties</h2>
+  <p class="context-limit">Each row shows this Company's real relationship role(s) to the Variety -- breeder, owner/rights holder, licensee, marketer, grower, and distributor are distinct and never collapsed to "has variety." A Variety with more than one supported role shows all of them.</p>
+  {% if portfolio.variety_rows %}
+    <div class="balanced-card-grid" id="portfolio-variety-grid">
+      {% for row in portfolio.variety_rows %}
+        <article class="card entity-card" data-portfolio-row data-berries="{{ row.berry_ids|join(',') }}">
+          <p class="card-kicker">{% for b in row.berries %}{{ b|upper }}{% if not loop.last %} · {% endif %}{% endfor %}</p>
+          <h2 data-pagefind-weight="1"><a href="{{ row.href }}">{{ row.name }}</a></h2>
+          <p>{% for r in row.roles %}<span class="badge badge-muted">{{ r|upper }}</span>{% endfor %}</p>
+          <ul class="metric-bullets">
+            <li>Rights / IP: {% if row.rights_count %}{{ row.rights_count }}{% else %}<span class="v2-meta">Not captured</span>{% endif %}</li>
+            <li>Commercial observation: {% if row.commercial_observation_count %}{{ row.commercial_observation_count }}{% else %}<span class="v2-meta">Not captured</span>{% endif %}</li>
+            <li>Product/sensory evidence: {% if row.product_sensory_count %}{{ row.product_sensory_count }}{% else %}<span class="v2-meta">Not captured</span>{% endif %}</li>
+            <li>Production/agronomic evidence: {% if row.production_agronomic_count %}{{ row.production_agronomic_count }}{% else %}<span class="v2-meta">Not captured</span>{% endif %}</li>
+            <li>Geographies: {% if row.geographies %}{{ row.geographies|length }} represented in captured intelligence{% else %}<span class="v2-meta">Not captured</span>{% endif %}</li>
+            <li>Signals: {% if row.signals %}{{ row.signals|length }}{% else %}<span class="v2-meta">None</span>{% endif %}</li>
+            <li>Latest activity: {{ row.latest_activity|us_date if row.latest_activity else "—" }}</li>
+          </ul>
+          <p class="v2-card-line"><a href="{{ row.timeline_href }}">Variety timeline</a></p>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty-state">No trusted Variety relationship captured for this Company yet.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="portfolio-recent-moves">
+  <h2>Recent portfolio moves</h2>
+  <p class="context-limit">Bounded, most-recent trusted rights/IP and commercial developments across this Company's captured portfolio. "Captured" means ingestion/observation date, not necessarily event date.</p>
+  {% if portfolio.recent_moves %}
+    <ul class="entity-links">
+      {% for move in portfolio.recent_moves %}
+        <li>
+          <span class="badge badge-muted">{{ move.kind|upper }}</span>
+          {% if move.href %}<a href="{{ move.href }}">{{ move.title }}</a>{% else %}{{ move.title }}{% endif %}
+          <span class="draft-meta"> · {{ move.date|us_date }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No recent trusted portfolio developments captured.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="portfolio-source-mix">
+  <h2>Source mix</h2>
+  <p class="context-limit">What kind of source this portfolio's trusted evidence base is built from -- provenance, not a credibility score.</p>
+  {% if portfolio.source_type_counts %}
+    <p class="v2-card-line">{% for label, count in portfolio.source_type_counts %}{{ label }} ({{ count }}){% if not loop.last %} · {% endif %}{% endfor %}</p>
+  {% else %}
+    <p class="empty-state">No trusted Evidence captured.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="portfolio-signals">
+  <h2>Signals</h2>
+  {% if portfolio.signals %}
+    <ul class="entity-links">
+      {% for s in portfolio.signals %}
+        <li><span class="badge badge-signal">SIGNAL</span> <a href="{{ s.href }}">{{ s.title }}</a> <span class="badge badge-muted">{{ s.status|upper }}</span></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No trusted Signal captured for this Company.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="portfolio-assessments">
+  <h2>Assessments</h2>
+  {% if portfolio.assessments %}
+    <ul class="entity-links">
+      {% for a in portfolio.assessments %}
+        <li><span class="badge badge-assessment">ASSESSMENT</span> <a href="{{ a.href }}">{{ a.title }}</a> <span class="badge badge-muted">{{ a.confidence|upper }} CONFIDENCE</span></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No analyst Assessment captured for this Company.</p>
+  {% endif %}
+</section>
+</div>
+<script>
+(function () {
+  var nav = document.getElementById('portfolio-berry-filter');
+  if (!nav) return;
+  var rows = document.querySelectorAll('[data-portfolio-row]');
+  nav.addEventListener('click', function (evt) {
+    var btn = evt.target.closest('[data-portfolio-berry]');
+    if (!btn) return;
+    var target = btn.dataset.portfolioBerry;
+    nav.querySelectorAll('.v2-berry-chip').forEach(function (chip) { chip.classList.remove('is-active'); });
+    btn.classList.add('is-active');
+    rows.forEach(function (row) {
+      var berries = (row.dataset.berries || '').split(',');
+      row.hidden = target !== 'all' && berries.indexOf(target) === -1;
+    });
+  });
+})();
+</script>
+{% endblock %}

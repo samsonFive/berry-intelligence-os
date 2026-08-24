@@ -158,6 +158,7 @@ from app.services.variety_workspace import (
 from app.services.company_workspace import (
     COMPARE_MAX_COMPANIES,
     present_company_compare,
+    present_company_portfolio,
 )
 from app.services.global_search import (
     GROUP_CAP_DEFAULT,
@@ -2763,6 +2764,45 @@ def company_compare_page(request: Request, ids: str = "") -> HTMLResponse:
             "ids_param": ids,
             "berries": BERRIES,
             "compare_max": COMPARE_MAX_COMPANIES,
+            "authoring_mode": AUTHORING_MODE,
+            "ui_context": ui,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/entities/company/{entity_id}/portfolio", response_class=HTMLResponse)
+def company_portfolio_page(request: Request, entity_id: str) -> HTMLResponse:
+    """Company Variety Portfolio Intelligence V1 -- one Company's derived
+    Variety/genetics portfolio: role-bucketed varieties, berry grouping,
+    rights/IP vs. commercial footprint kept separate, product/production
+    evidence coverage, recent portfolio moves, and honest sparse/coverage
+    counts. Registered before the generic /entities/{entity_type}/{entity_id}
+    route for the same reason Company/Variety Compare are -- though this
+    4-segment path does not actually collide with that 3-segment catch-all,
+    keeping it grouped with Compare here documents the same discipline."""
+    entities = entity_index()
+    portfolio = present_company_portfolio(
+        entity_id,
+        entities=entities,
+        relationships=all_relationships(),
+        published_evidence=published_evidence(),
+        facts=all_facts(),
+        evidence_by_id={r["id"]: r for r in all_evidence() if r.get("id")},
+        signals=all_signals(),
+        assessments=all_assessments(),
+        berry_labels=BERRIES,
+    )
+    if portfolio is None:
+        raise HTTPException(status_code=404, detail="Company record not found")
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="company_portfolio.html",
+        context={
+            "portfolio": portfolio,
+            "berries": BERRIES,
             "authoring_mode": AUTHORING_MODE,
             "ui_context": ui,
         },

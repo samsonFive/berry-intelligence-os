@@ -51,6 +51,7 @@
         <p class="card-kicker">{{ row.berry_label|upper }}</p>
         <h2><a href="/entities/company/{{ row.entity.id }}">{{ row.entity.name }}</a></h2>
         <p>{{ row.why_shown }}</p>
+        <p><a href="/entities/company/{{ row.entity.id }}/portfolio">View portfolio</a></p>
       </article>
     {% else %}
       <p class="empty-state">No trusted competitor-role activity captured yet.</p>
