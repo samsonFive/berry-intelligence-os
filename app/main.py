@@ -2952,6 +2952,10 @@ def pending_review_page(request: Request) -> HTMLResponse:
     berry = (request.query_params.get("berry") or "").strip()
     berry_id = berry if berry.startswith("berry-") else (f"berry-{berry}" if berry else "")
     source = (request.query_params.get("source") or "").strip()
+    completeness = (request.query_params.get("completeness") or "").strip()
+    source_type = (request.query_params.get("source_type") or "").strip()
+    language = (request.query_params.get("language") or "").strip()
+    attribution = (request.query_params.get("attribution") or "").strip()
     entities = entity_index()
     source_rows = load_sources()
     source_index = {str(row.get("id") or ""): row for row in source_rows if row.get("id")}
@@ -2961,6 +2965,10 @@ def pending_review_page(request: Request) -> HTMLResponse:
         ids=set(selected_ids),
         berry_id=berry_id,
         source=source,
+        completeness=completeness,
+        source_type=source_type,
+        language=language,
+        attribution=attribution,
     )
     brief = _assemble_morning_brief(
         mark_seen=False,
@@ -2993,6 +3001,14 @@ def pending_review_page(request: Request) -> HTMLResponse:
             "reviewer": reviewer,
             "return_to": "/pending",
             "ui_context": ui,
+            "pending_filters": {
+                "berry": berry,
+                "source": source,
+                "completeness": completeness,
+                "source_type": source_type,
+                "language": language,
+                "attribution": attribution,
+            },
         },
     )
 

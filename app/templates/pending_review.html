@@ -11,7 +11,35 @@
   <a class="button-link" href="/review?kind=publication">Advanced publication form</a>
 </section>
 
-<p class="brief-window">Buckets use stored relevance, recency, source authority, primary subject, and watch-match quality — not an opaque AI score. Berry context filters this workspace. Dismiss hides a draft from triage and keeps the file. Reject / Save / Promote use the existing review services.</p>
+<p class="brief-window">Buckets use stored relevance, recency, source authority, primary subject, and watch-match quality — not an opaque AI score. Berry context filters this workspace. Completeness badges use stored capture metadata; this list does not load full article bodies. Dismiss hides a draft from triage and keeps the file. Reject / Save / Promote use the existing review services.</p>
+
+<form class="workbench-filters" method="get" action="/pending">
+  <label>Completeness
+    <select name="completeness">
+      <option value="">All</option>
+      {% for value, label in [("FULL_ARTICLE","FULL ARTICLE"),("FULL_TRANSCRIPT","FULL TRANSCRIPT"),("STRUCTURED_REGISTRY","STRUCTURED SOURCE"),("THIN_DESCRIPTION","THIN DESCRIPTION"),("NO_CONTENT","NO CONTENT")] %}
+        <option value="{{ value }}" {% if (pending_filters or {}).completeness == value %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Source type
+    <input name="source_type" type="text" value="{{ (pending_filters or {}).source_type or '' }}" placeholder="company_website">
+  </label>
+  <label>Language
+    <input name="language" type="text" value="{{ (pending_filters or {}).language or '' }}" placeholder="en">
+  </label>
+  <label>Attribution
+    <select name="attribution">
+      <option value="">All</option>
+      {% for value in ["COMPANY-REPORTED","TRADE PRESS","REGISTRY/GOVERNMENT","ACADEMIC","OTHER"] %}
+        <option value="{{ value }}" {% if (pending_filters or {}).attribution == value %}selected{% endif %}>{{ value }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <input type="hidden" name="berry" value="{{ (pending_filters or {}).berry or '' }}">
+  <input type="hidden" name="source" value="{{ (pending_filters or {}).source or '' }}">
+  <button class="v2-btn v2-btn-quiet" type="submit">Filter</button>
+</form>
 
 <ul class="brief-delta-strip">
   <li><a href="#triage-review_now">Review now</a><strong>{{ brief.pending_triage.counts.review_now or 0 }}</strong></li>

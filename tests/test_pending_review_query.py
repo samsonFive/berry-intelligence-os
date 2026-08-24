@@ -114,15 +114,29 @@ def test_indexed_title_matches_preserve_legacy_substring_and_order() -> None:
     assert "company-blue" in expected
 
 
+def _rich_article() -> dict:
+    return {
+        "final_url": "https://example.invalid/rich",
+        "paragraphs": [{
+            "text": (
+                "Captured full article body for publication review completeness. "
+                * 20
+            )
+        }],
+    }
+
+
 def test_private_read_model_omits_bodies_reuses_restart_and_preserves_detail(tmp_path: Path) -> None:
     inbox = tmp_path / "inbox"
-    source = _draft(1)
+    source = _draft(1, article=_rich_article())
     path = _write(inbox / "evidence", source)
     service = PendingReviewQueryService(JsonPendingDraftSnapshotProvider(inbox))
 
     first = service.list_pending(entities=ENTITIES, sources=SOURCES)
     assert first.parsed_records == 1
     assert first.body_records_omitted == 1
+    assert first.records[0]["_pending_completeness"] == "FULL_ARTICLE"
+    assert first.records[0]["_pending_paragraph_count"] >= 1
     assert "article" not in first.records[0]
     assert "transcript" not in first.records[0]
     assert first.records[0]["_pending_attribution"] == attribute_draft(source, ENTITIES, sources=SOURCES)
@@ -201,7 +215,7 @@ def test_pending_mode_hydrates_only_bounded_visible_single_cards(monkeypatch, tm
 
 def test_pending_route_uses_private_projection_and_renders_filters(monkeypatch, tmp_path: Path) -> None:
     inbox = tmp_path / "inbox"
-    _write(inbox / "evidence", _draft(0))
+    _write(inbox / "evidence", _draft(0, article=_rich_article()))
     _write(inbox / "evidence", _draft(1))
     monkeypatch.setattr(main, "INBOX_DIR", inbox)
     monkeypatch.setattr(main, "entity_index", lambda: ENTITIES)
@@ -213,5 +227,21 @@ def test_pending_route_uses_private_projection_and_renders_filters(monkeypatch, 
     assert "pending-0001" not in response.text
     sidecar = json.loads((inbox / "indexes" / "pending-review-v2.json").read_text(encoding="utf-8"))
     encoded = json.dumps(sidecar)
+    assert sidecar["version"] == 5
     assert "full private article body" not in encoded
     assert "Private full transcript" not in encoded
+    assert "FULL ARTICLE" in response.text
+
+
+def test_completeness_filter_does_not_hydrate_bodies(tmp_path: Path) -> None:
+    inbox = tmp_path / "inbox"
+    _write(inbox / "evidence", _draft(0, article=_rich_article()))
+    _write(
+        inbox / "evidence",
+        _draft(1, article=None, transcript=None, publisher_description="Thin feed blurb."),
+    )
+    service = PendingReviewQueryService(JsonPendingDraftSnapshotProvider(inbox))
+    result = service.list_pending(entities=ENTITIES, sources=SOURCES, completeness="FULL_ARTICLE")
+    assert [row["id"] for row in result.records] == ["pending-0000"]
+    assert "article" not in result.records[0]
+    assert result.records[0]["_pending_completeness"] == "FULL_ARTICLE"
