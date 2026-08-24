@@ -69,6 +69,19 @@ from app.services.source_fidelity_recovery import (
     load_recovery_artifacts,
     save_recovery_decision,
 )
+from app.services.source_fidelity_workbench import (
+    berry_labels,
+    build_queue_rows,
+    consequence_preview,
+    filter_query,
+    identity_proof_items,
+    named_ids,
+    neighbor_ids,
+    reader_payload,
+    recovery_kind,
+    review_status,
+    warning_codes,
+)
 from app.services.ui_context import (
     apply_ui_cookies,
     matches_berry_context,
@@ -656,22 +669,52 @@ def _source_fidelity_folder() -> Path:
     return INBOX_DIR / "source_fidelity" / "artifacts"
 
 
-@app.get("/source-fidelity", response_class=HTMLResponse)
-def source_fidelity_queue(request: Request, state: str = "pending") -> HTMLResponse:
+def _source_fidelity_filters(request: Request) -> dict[str, str]:
+    return {
+        key: str(request.query_params.get(key) or "")
+        for key in ("state", "artifact_type", "recovery_kind", "berry", "source", "match_class", "warning")
+    }
+
+
+def _source_fidelity_queue_rows(filters: dict[str, str]) -> list[dict[str, Any]]:
     trusted_by_id = {row["id"]: row for row in published_evidence()}
-    rows = []
-    for artifact in load_recovery_artifacts(_source_fidelity_folder()):
-        trusted = trusted_by_id.get(artifact.get("evidence_id"))
-        if not trusted:
-            continue
-        review_state = (artifact.get("review") or {}).get("status") or "pending"
-        if state != "all" and review_state != state:
-            continue
-        berries = set(trusted.get("berry_ids") or [])
-        rows.append({"artifact": artifact, "trusted": trusted, "review_state": review_state, "caneberry": bool(berries & {"berry-raspberry", "berry-blackberry"})})
-    match_rank = {"EXACT_IDENTITY_MATCH": 0, "EXACT_URL_MATCH": 1, "LINEAGE_MATCH": 2}
-    rows.sort(key=lambda row: (match_rank.get(row["artifact"].get("match_class"), 9), row["artifact"].get("artifact_type") != "article", not row["caneberry"], -int(row["artifact"].get("source_chars") or 0), row["trusted"]["id"]))
-    return templates.TemplateResponse(request=request, name="source_fidelity_queue.html", context={"rows": rows, "state": state})
+    entities = {row["id"]: row for row in all_entities() if row.get("id")}
+    signal_ids: set[str] = set()
+    try:
+        for signal in get_repositories(DATA_DIR, SCHEMAS_DIR).signals.list():
+            signal_ids.update(str(item) for item in (signal.get("evidence_ids") or []) if item)
+    except Exception:
+        signal_ids = set()
+    return build_queue_rows(
+        load_recovery_artifacts(_source_fidelity_folder()),
+        trusted_by_id,
+        filters=filters,
+        entities=entities,
+        signal_ids=signal_ids,
+    )
+
+
+@app.get("/source-fidelity", response_class=HTMLResponse)
+def source_fidelity_queue(request: Request) -> HTMLResponse:
+    filters = _source_fidelity_filters(request)
+    if not filters.get("state"):
+        filters["state"] = "pending"
+    rows = _source_fidelity_queue_rows(filters)
+    pending_count = sum(1 for row in rows if row["review_state"] == "pending") if filters["state"] == "pending" else sum(
+        1 for row in _source_fidelity_queue_rows({**filters, "state": "pending"})
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="source_fidelity_queue.html",
+        context={
+            "rows": rows,
+            "filters": filters,
+            "pending_count": pending_count,
+            "pending_count": pending_count,
+            "filter_query": filter_query(filters),
+            "filter_query": filter_query(filters),
+        },
+    )
 
 
 @app.get("/source-fidelity/{evidence_id}", response_class=HTMLResponse)
@@ -681,7 +724,41 @@ def source_fidelity_detail(request: Request, evidence_id: str) -> HTMLResponse:
     if not trusted or trusted.get("status") != "published" or not path.is_file():
         raise HTTPException(status_code=404, detail="source-fidelity recovery not found")
     artifact = json.loads(path.read_text(encoding="utf-8"))
-    return templates.TemplateResponse(request=request, name="source_fidelity_detail.html", context={"trusted": trusted, "artifact": artifact, "reviewer": session_username(request) or review_username() or ""})
+    filters = _source_fidelity_filters(request)
+    if not filters.get("state"):
+        filters["state"] = "all"
+    rows = _source_fidelity_queue_rows(filters)
+    previous_id, next_id = neighbor_ids(rows, evidence_id)
+    entities = {row["id"]: row for row in all_entities() if row.get("id")}
+    query = filter_query(filters)
+    return templates.TemplateResponse(
+        request=request,
+        name="source_fidelity_detail.html",
+        context={
+            "trusted": trusted,
+            "artifact": artifact,
+            "reviewer": session_username(request) or review_username() or "",
+            "review_state": review_status(artifact),
+            "review_state": review_status(artifact),
+            "recovery_kind": recovery_kind(artifact),
+            "recovery_kind": recovery_kind(artifact),
+            "identity_proof": identity_proof_items(artifact),
+            "identity_proof": identity_proof_items(artifact),
+            "warnings": warning_codes(artifact, trusted),
+            "consequences": consequence_preview(trusted, artifact),
+            "reader": reader_payload(artifact),
+            "berries": berry_labels(trusted),
+            "entities": named_ids(list(trusted.get("entity_ids") or []), entities),
+            "geographies": named_ids(list(trusted.get("geography_ids") or trusted.get("region_ids") or []), entities),
+            "previous_id": previous_id,
+            "previous_id": previous_id,
+            "next_id": next_id,
+            "filter_query": query,
+            "filter_query": query,
+            "confirm_error": request.query_params.get("confirm_error") == "1",
+            "confirm_error": request.query_params.get("confirm_error") == "1",
+        },
+    )
 
 
 @app.post("/source-fidelity/{evidence_id}/decision")
@@ -690,11 +767,22 @@ def source_fidelity_decision(
     evidence_id: str,
     decision: str = Form(...),
     reviewer: str = Form(""),
+    confirm_affirm: str = Form(""),
+    advance: str = Form(""),
 ) -> RedirectResponse:
     trusted = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.get(evidence_id)
     path = _source_fidelity_folder() / f"{evidence_id}.json"
     if not trusted or trusted.get("status") != "published" or not path.is_file():
         raise HTTPException(status_code=404, detail="source-fidelity recovery not found")
+    filters = _source_fidelity_filters(request)
+    query = filter_query(filters)
+    suffix = f"?{query}" if query else ""
+    if decision == "affirmed" and confirm_affirm != "1":
+        join = "&" if query else "?"
+        return RedirectResponse(
+            url=f"/source-fidelity/{evidence_id}{suffix}{join}confirm_error=1",
+            status_code=303,
+        )
     before = json.loads(path.read_text(encoding="utf-8"))
     actor = session_username(request) or reviewer.strip() or review_username() or ""
     prior_state = str((before.get("review") or {}).get("status") or "pending")
@@ -721,7 +809,15 @@ def source_fidelity_decision(
         if event is not None:
             remove_created_event(event)
         raise
-    return RedirectResponse(url=f"/source-fidelity/{evidence_id}", status_code=303)
+    target = evidence_id
+    if advance == "1":
+        nav_filters = dict(filters)
+        if not nav_filters.get("state"):
+            nav_filters["state"] = "pending"
+        _previous_id, next_id = neighbor_ids(_source_fidelity_queue_rows(nav_filters), evidence_id)
+        if next_id:
+            target = next_id
+    return RedirectResponse(url=f"/source-fidelity/{target}{suffix}", status_code=303)
 
 
 LOGIN_ERROR = "Username or password is incorrect."

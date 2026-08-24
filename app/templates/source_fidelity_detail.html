@@ -1,12 +1,155 @@
 {% extends "base.html" %}
 {% block title %}Source Fidelity — {{ trusted.title }}{% endblock %}
 {% block content %}
-<section class="page-heading"><div><p class="eyebrow">SOURCE FIDELITY REVIEW · NOT PUBLICATION REVIEW</p><h1>{{ trusted.title }}</h1><p>Recovered content is ineligible for extraction until an analyst explicitly affirms its lineage.</p></div></section>
-<section class="card"><h2>Current trusted Evidence</h2><dl><dt>Status</dt><dd>{{ trusted.status }}</dd><dt>Summary</dt><dd>{{ trusted.summary }}</dd><dt>Source</dt><dd>{{ trusted.source_name }}</dd><dt>URL</dt><dd><a href="{{ trusted.source_url }}" target="_blank" rel="noopener">{{ trusted.source_url }}</a></dd><dt>Published</dt><dd>{{ trusted.published_date }}</dd></dl></section>
-<section class="card"><h2>Recovered source artifact</h2><p><strong>{{ artifact.match_class|replace('_',' ') }}</strong> · {{ artifact.artifact_type }} · {{ artifact.source_chars }} characters</p><dl><dt>Recovered title</dt><dd>{{ artifact.source_title or 'not captured' }}</dd><dt>Recovered source</dt><dd>{{ artifact.source_name or 'not captured' }}</dd><dt>Recovered URL</dt><dd>{{ artifact.source_url or 'not captured; compare trusted URL above' }}</dd><dt>Recovered publication date</dt><dd>{{ artifact.published_date or 'not captured' }}</dd><dt>Author</dt><dd>{{ artifact.author or 'not captured' }}</dd><dt>Acquisition</dt><dd>{{ artifact.acquisition.method or artifact.acquisition.engine or artifact.recovered_from.source }}{% if artifact.acquisition.fetched_at or artifact.acquisition.transcribed_at %} · {{ artifact.acquisition.fetched_at or artifact.acquisition.transcribed_at }}{% endif %}</dd></dl><p>Identity proof: {{ artifact.identity_proof|join(', ') }}</p><p>Recovered from: {{ artifact.recovered_from.source }} · candidate {{ artifact.recovered_from.candidate_id }}</p><p>Body/source-text hash: <code>{{ artifact.body_sha256 }}</code><br>Artifact hash: <code>{{ artifact.source_artifact_sha256 }}</code></p>
-{% if artifact.artifact_type == 'article' %}{% for paragraph in artifact.artifact.article.paragraphs %}<p><strong>Paragraph {{ paragraph.index }}</strong><br>{{ paragraph.text }}</p>{% endfor %}{% else %}{% for segment in artifact.artifact.transcript.segments or [] %}<p><strong>{{ segment.start_seconds }}s{% if segment.speaker or segment.speaker_label %} · {{ segment.speaker or segment.speaker_label }}{% endif %}</strong><br>{{ segment.text }}</p>{% endfor %}{% endif %}</section>
-{% if artifact.reacquisition_classification %}<section class="card banner banner-warning"><h2>Current page comparison</h2><p><strong>{{ artifact.reacquisition_classification.outcome|replace('_',' ') }}</strong></p><p>This current page is separate from the historical source until you decide its source fidelity.</p><dl><dt>Canonical URL match</dt><dd>{{ artifact.reacquisition_classification.canonical_url_match }}</dd><dt>Title match</dt><dd>{{ artifact.reacquisition_classification.title_match }}</dd><dt>Publication date match</dt><dd>{{ artifact.reacquisition_classification.publication_date_match }}</dd><dt>Original-summary overlap</dt><dd>{{ artifact.reacquisition_classification.summary_token_overlap }}</dd></dl></section>{% endif %}
-<section class="card"><h2>Decision</h2><p>Current: <strong>{{ artifact.review.status|replace('_',' ')|upper }}</strong>{% if artifact.review.reviewed_by %} by {{ artifact.review.reviewed_by }} at {{ artifact.review.reviewed_at }}{% endif %}</p>
-<form method="post" action="/source-fidelity/{{ trusted.id }}/decision"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button name="decision" value="affirmed" type="submit">Affirm source artifact</button> <button name="decision" value="rejected" type="submit">Reject / do not attach</button> <button name="decision" value="needs_investigation" type="submit">Needs investigation</button></form>
-<p class="trust-notice">Affirmation changes only private source-content lineage state. It does not change the Evidence summary, tags, entities, Facts, Relationships, Assessments, or Signals.</p></section>
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">SOURCE FIDELITY REVIEW · NOT PUBLICATION REVIEW · NOT CLAIM REVIEW</p>
+    <h1>{{ trusted.title }}</h1>
+    <p>Is this recovered or reacquired artifact genuinely the source underlying the Evidence you already published? Affirming does not trust claims, rewrite the summary, create Facts or Atomic Evidence, or run extraction.</p>
+  </div>
+  <p>
+    {% if previous_id %}<a class="button-link" href="/source-fidelity/{{ previous_id }}{% if filter_query %}?{{ filter_query }}{% endif %}" data-fidelity-prev>Previous</a>{% endif %}
+    {% if next_id %}<a class="button-link" href="/source-fidelity/{{ next_id }}{% if filter_query %}?{{ filter_query }}{% endif %}" data-fidelity-next>Next</a>{% endif %}
+    <a class="button-link" href="/source-fidelity{% if filter_query %}?{{ filter_query }}{% endif %}">Queue</a>
+  </p>
+</section>
+
+<section class="fidelity-identity card">
+  <h2>Why this artifact was matched</h2>
+  <p>{% if recovery_kind == 'reacquired_current' %}<span class="badge badge-warning">Reacquired current page</span>{% else %}<span class="badge badge-status-active">Historic recovery</span>{% endif %}</p>
+  <ul class="identity-proof">
+    {% for item in identity_proof %}
+    <li><strong>{{ item.label }}</strong> <code>{{ item.code }}</code></li>
+    {% else %}
+    <li>No stored identity-proof codes. Inspect URL, title, date, and body before affirming.</li>
+    {% endfor %}
+  </ul>
+</section>
+
+{% if warnings %}
+<section class="card banner banner-warning fidelity-risk">
+  <h2>Difference / risk</h2>
+  <ul>
+    {% for warning in warnings %}
+    <li><strong>{{ warning.label }}</strong> — {{ warning.detail }}</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<div class="v2-compare-grid fidelity-compare">
+  <section class="v2-compare-column card" data-fidelity-trusted>
+    <h2>Current trusted Evidence</h2>
+    <dl class="v2-compare-roles">
+      <dt>Title</dt><dd>{{ trusted.title }}</dd>
+      <dt>Source</dt><dd>{{ trusted.source_name }}</dd>
+      <dt>Original URL</dt><dd>{% if trusted.source_url %}<a href="{{ trusted.source_url }}" target="_blank" rel="noopener">{{ trusted.source_url }}</a>{% else %}Not recorded{% endif %}</dd>
+      <dt>Published</dt><dd>{{ trusted.published_date or 'Not recorded' }}</dd>
+      <dt>Summary</dt><dd>{{ trusted.summary }}</dd>
+      <dt>Entities</dt><dd>{{ entities|join(', ') or 'None recorded' }}</dd>
+      <dt>Berries</dt><dd>{{ berries|join(', ') or 'Undeclared' }}</dd>
+      <dt>Geography</dt><dd>{{ geographies|join(', ') or 'Not recorded' }}</dd>
+      <dt>Trust status</dt><dd>{{ trusted.status }}</dd>
+      <dt>Source type</dt><dd>{{ trusted.source_type or 'Not recorded' }}</dd>
+    </dl>
+    <p class="trust-notice">Semantic Evidence trust is unchanged by this review.</p>
+  </section>
+  <section class="v2-compare-column card" data-fidelity-artifact>
+    <h2>Recovered / reacquired source artifact</h2>
+    <dl class="v2-compare-roles">
+      <dt>Title</dt><dd>{{ artifact.source_title or 'Not captured' }}</dd>
+      <dt>Requested URL</dt><dd>{{ artifact.source_url or 'Not captured; compare trusted URL' }}</dd>
+      <dt>Final URL</dt><dd>{{ artifact.final_url or artifact.source_url or 'Not captured' }}</dd>
+      <dt>Published</dt><dd>{{ artifact.published_date or 'Not captured' }}</dd>
+      <dt>Author</dt><dd>{{ artifact.author or 'Not captured' }}</dd>
+      <dt>Language</dt><dd>{{ artifact.language or reader.language or 'Not captured' }}</dd>
+      <dt>Paragraphs / segments</dt><dd>{% if artifact.artifact_type == 'transcript' %}{{ reader.segments|length }} segments{% else %}{{ reader.paragraphs|length }} paragraphs{% endif %}</dd>
+      <dt>Words / duration</dt><dd>{% if reader.duration %}{{ reader.duration }}s{% else %}{{ artifact.source_chars }} characters{% endif %}</dd>
+      <dt>Source hash</dt><dd><code>{{ artifact.body_sha256 or artifact.source_text_sha256 }}</code></dd>
+      <dt>Acquisition</dt><dd>{{ artifact.acquisition.method or artifact.acquisition.engine or artifact.recovered_from.source }}{% if artifact.acquisition.fetched_at or artifact.acquisition.transcribed_at %} · {{ artifact.acquisition.fetched_at or artifact.acquisition.transcribed_at }}{% endif %}</dd>
+      <dt>Recovered from</dt><dd>{{ artifact.recovered_from.source }} · candidate {{ artifact.recovered_from.candidate_id }}</dd>
+      <dt>Match class</dt><dd>{{ artifact.match_class|replace('_',' ') }}</dd>
+    </dl>
+    <div class="fidelity-reader" data-fidelity-reader>
+      {% if artifact.artifact_type == 'transcript' %}
+        <p class="eyebrow">Transcript{% if reader.language %} · {{ reader.language }}{% endif %}{% if reader.transcription_method %} · {{ reader.transcription_method }}{% endif %}</p>
+        {% for segment in reader.segments %}
+        <p><strong>{{ segment.start_seconds }}s{% if segment.end_seconds %}–{{ segment.end_seconds }}s{% endif %}{% if segment.speaker %} · {{ segment.speaker }}{% endif %}</strong><br>{{ segment.text }}</p>
+        {% else %}
+        <p>No timestamped segments were stored on this artifact.</p>
+        {% endfor %}
+      {% else %}
+        {% for paragraph in reader.paragraphs %}
+        <p><strong>Paragraph {{ paragraph.index }}</strong><br>{{ paragraph.text }}</p>
+        {% else %}
+        <p>No recovered paragraphs were stored on this artifact.</p>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </section>
+</div>
+
+<section class="card fidelity-consequences">
+  <h2>If affirmed</h2>
+  <dl class="v2-compare-roles">
+    <dt>Source completeness</dt><dd>{{ consequences.completeness_before }} → {{ consequences.completeness_after }}</dd>
+    <dt>Extraction readiness</dt><dd>{{ consequences.readiness_before }} → {{ consequences.readiness_after }}</dd>
+    <dt>Semantic Evidence trust</dt><dd>{{ consequences.semantic_trust }} (unchanged)</dd>
+    <dt>Atomic Evidence</dt><dd>None created</dd>
+    <dt>Extraction process</dt><dd>Does not run automatically</dd>
+  </dl>
+</section>
+
+<section class="card fidelity-decision" data-fidelity-decision>
+  <h2>Decision</h2>
+  <p>Current: <strong>{{ review_state|replace('_',' ')|upper }}</strong>{% if artifact.review.reviewed_by %} by {{ artifact.review.reviewed_by }} at {{ artifact.review.reviewed_at }}{% endif %}</p>
+  {% if confirm_error %}<p class="banner banner-warning" role="alert">Affirm requires the confirmation checkbox. No decision was recorded.</p>{% endif %}
+  <form method="post" action="/source-fidelity/{{ trusted.id }}/decision{% if filter_query %}?{{ filter_query }}{% endif %}" data-fidelity-form>
+    <input type="hidden" name="reviewer" value="{{ reviewer }}">
+    <p class="trust-notice"><label><input type="checkbox" name="confirm_affirm" value="1" data-fidelity-confirm> I confirm this source artifact is an acceptable representation of the source underlying the already-published Evidence. Affirm does not approve individual claims or Atomic Evidence.</label></p>
+    <button name="decision" value="affirmed" type="submit" data-fidelity-affirm>Affirm source artifact</button>
+    <button name="decision" value="rejected" type="submit" data-fidelity-reject>Reject source artifact</button>
+    <button name="decision" value="needs_investigation" type="submit" data-fidelity-investigate>Needs investigation</button>
+    {% if next_id %}
+    <button name="decision" value="affirmed" type="submit" name="advance" value="1" data-fidelity-affirm-next>Affirm + Next</button>
+    <button name="decision" value="rejected" type="submit" formaction="/source-fidelity/{{ trusted.id }}/decision{% if filter_query %}?{{ filter_query }}{% endif %}" data-advance>Reject + Next</button>
+    {% endif %}
+  </form>
+  {% if next_id %}
+  <form method="post" action="/source-fidelity/{{ trusted.id }}/decision{% if filter_query %}?{{ filter_query }}{% endif %}" class="inline-advance">
+    <input type="hidden" name="reviewer" value="{{ reviewer }}">
+    <input type="hidden" name="advance" value="1">
+    <button name="decision" value="rejected" type="submit">Reject + Next</button>
+    <button name="decision" value="needs_investigation" type="submit">Needs investigation + Next</button>
+  </form>
+  {% endif %}
+  <p class="shortcut-help">Shortcuts (disabled while typing): A affirm · R reject · I needs investigation · N next · P previous. Affirm still requires the checkbox. There is no bulk affirm.</p>
+</section>
+<script>
+(function () {
+  var form = document.querySelector("[data-fidelity-form]");
+  if (!form) return;
+  document.addEventListener("keydown", function (event) {
+    var tag = (event.target && event.target.tagName || "").toLowerCase();
+    if (tag === "input" || tag === "textarea" || tag === "select" || event.target.isContentEditable) return;
+    var key = event.key.toLowerCase();
+    if (key === "n") {
+      var next = document.querySelector("[data-fidelity-next]");
+      if (next) { event.preventDefault(); next.click(); }
+    } else if (key === "p") {
+      var prev = document.querySelector("[data-fidelity-prev]");
+      if (prev) { event.preventDefault(); prev.click(); }
+    } else if (key === "a") {
+      var affirm = document.querySelector("[data-fidelity-affirm]");
+      if (affirm) { event.preventDefault(); affirm.click(); }
+    } else if (key === "r") {
+      var reject = document.querySelector("[data-fidelity-reject]");
+      if (reject) { event.preventDefault(); reject.click(); }
+    } else if (key === "i") {
+      var investigate = document.querySelector("[data-fidelity-investigate]");
+      if (investigate) { event.preventDefault(); investigate.click(); }
+    }
+  });
+})();
+</script>
 {% endblock %}
