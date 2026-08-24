@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% block title %}{{ geo.name }} — Geography Intelligence{% endblock %}
+{% block content %}
+{% set geo = geo if geo is defined else {} %}
+<div class="v2-page v2-company">
+<section class="page-heading v2-page-header" data-pagefind-filter="type:entity">
+  <div>
+    <p class="eyebrow">GEOGRAPHY INTELLIGENCE</p>
+    <h1>{{ geo.name }}</h1>
+    <p class="v2-company-meta">
+      <span class="v2-meta">{{ geo.type }}</span>
+      {% if geo.region_href %}<a href="{{ geo.region_href }}">{{ geo.region_name }}</a>{% elif geo.region_label %}<span class="v2-meta">{{ geo.region_label }}</span>{% endif %}
+      {% for b in geo.berries %}<span class="v2-chip v2-chip-berry">{{ b }}</span>{% endfor %}
+    </p>
+    {% if geo.description %}<p class="also-known-as">{{ geo.description }}</p>{% endif %}
+  </div>
+  <div class="v2-company-actions">
+    <a class="v2-btn v2-btn-quiet" href="/geographies">All geographies</a>
+  </div>
+</section>
+
+<section class="v2-company-section" id="geography-coverage">
+  <h2>Evidence coverage</h2>
+  <p class="context-limit">{{ geo.coverage_caveat }}</p>
+  <div class="balanced-card-grid">
+    <article class="card">
+      <p class="card-kicker">TRUSTED EVIDENCE</p>
+      <h2>{{ geo.coverage.evidence_count }}</h2>
+      <p>from {{ geo.coverage.source_count }} distinct source{{ 's' if geo.coverage.source_count != 1 else '' }}</p>
+    </article>
+    <article class="card">
+      <p class="card-kicker">COMPANIES REPRESENTED</p>
+      <h2>{{ geo.coverage.company_count }}</h2>
+      <p>in our captured intelligence for this geography</p>
+    </article>
+    <article class="card">
+      <p class="card-kicker">VARIETIES REPRESENTED</p>
+      <h2>{{ geo.coverage.variety_count }}</h2>
+      <p>with trusted geography grounding</p>
+    </article>
+    <article class="card">
+      <p class="card-kicker">SIGNALS</p>
+      <h2>{{ geo.coverage.signal_count }}</h2>
+      <p>materially linked to this geography</p>
+    </article>
+    <article class="card">
+      <p class="card-kicker">ASSESSMENTS</p>
+      <h2>{{ geo.coverage.assessment_count }}</h2>
+      <p>analyst interpretation captured</p>
+    </article>
+    <article class="card">
+      <p class="card-kicker">LATEST ACTIVITY</p>
+      <h2>{{ geo.coverage.latest_date|us_date if geo.coverage.latest_date else "—" }}</h2>
+      <p>most recent captured item, not necessarily event date</p>
+    </article>
+  </div>
+  {% if geo.coverage.evidence_count == 0 %}
+    <p class="empty-state">Limited trusted intelligence captured for this geography.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="geography-actors">
+  <h2>Companies active in captured intelligence</h2>
+  <p class="context-limit">Shown because our trusted intelligence links them to this geography — not a market-leader ranking. Absence here is not evidence of absence from this market.</p>
+  {% if geo.actors %}
+    <div class="balanced-card-grid">
+      {% for actor in geo.actors %}
+        <article class="card entity-card">
+          <p class="card-kicker">{% for b in actor.berries %}{{ b|upper }}{% if not loop.last %} · {% endif %}{% endfor %}</p>
+          <h2><a href="{{ actor.href }}">{{ actor.name }}</a></h2>
+          <p>{{ actor.evidence_count }} trusted item{{ 's' if actor.evidence_count != 1 else '' }}{% if actor.has_operates_in_relationship %} · documented operating relationship{% endif %}</p>
+          <p class="v2-card-line"><a href="{{ actor.portfolio_href }}">View portfolio</a></p>
+        </article>
+      {% endfor %}
+    </div>
+    {% if geo.actor_overflow %}<p class="context-limit">{{ geo.actor_overflow }} more not shown.</p>{% endif %}
+  {% else %}
+    <p class="empty-state">No trusted Company activity captured for this geography.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="geography-varieties">
+  <h2>Varieties named in captured intelligence</h2>
+  <p class="context-limit">A bare mention is not evidence of commercial availability — each row shows why the Variety appears (rights/IP, commercial observation, or another trusted source type).</p>
+  {% if geo.varieties %}
+    <div class="balanced-card-grid">
+      {% for v in geo.varieties %}
+        <article class="card entity-card">
+          <p class="card-kicker">{% for b in v.berries %}{{ b|upper }}{% if not loop.last %} · {% endif %}{% endfor %}</p>
+          <h2><a href="{{ v.href }}">{{ v.name }}</a></h2>
+          <p>{{ v.why_shown }} · {{ v.evidence_count }} item{{ 's' if v.evidence_count != 1 else '' }}</p>
+        </article>
+      {% endfor %}
+    </div>
+    {% if geo.variety_overflow %}<p class="context-limit">{{ geo.variety_overflow }} more not shown.</p>{% endif %}
+  {% else %}
+    <p class="empty-state">No trusted Variety grounding captured for this geography.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="geography-rights">
+  <h2>Rights / IP</h2>
+  <p class="context-limit">Filing geography is not the same as commercial market — a filing here does not establish this Variety is sold here.</p>
+  {% if geo.rights_records %}
+    <ul class="entity-links">
+      {% for r in geo.rights_records %}
+        <li><span class="v2-meta">{{ r.kind }}</span> <a href="{{ r.href }}">{{ r.title }}</a>{% if r.published_date %}<span class="draft-meta"> · {{ r.published_date|us_date }}</span>{% endif %}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No trusted rights/IP filing captured for this geography.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="geography-commercial">
+  <h2>Commercial observations</h2>
+  <p class="context-limit">Trusted retail/commercial observations, kept separate from rights/IP — a more direct signal of commercial presence than a bare mention.</p>
+  {% if geo.commercial_records %}
+    <ul class="entity-links">
+      {% for c in geo.commercial_records %}
+        <li><a href="{{ c.href }}">{{ c.title }}</a>{% if c.retailer.name %} · {{ c.retailer.name }}{% endif %}{% if c.observed_at %}<span class="draft-meta"> · {{ c.observed_at|us_date }}</span>{% endif %}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No trusted commercial observation captured for this geography.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="geography-recent">
+  <h2>Recent developments</h2>
+  <p class="context-limit">Bounded, most-recent trusted items. "Captured" means ingestion/observation date, not necessarily event date.</p>
+  {% if geo.recent_moves %}
+    <ul class="entity-links">
+      {% for move in geo.recent_moves %}
+        <li><span class="badge badge-muted">{{ move.kind|upper }}</span> <a href="{{ move.href }}">{{ move.title }}</a><span class="draft-meta"> · {{ move.date|us_date }}</span></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No recent trusted developments captured.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="geography-source-mix">
+  <h2>Source mix</h2>
+  <p class="context-limit">What kind of source this geography's trusted evidence base is built from — provenance, not a credibility score. Useful for judging how well-grounded this view is.</p>
+  {% if geo.source_type_counts %}
+    <p class="v2-card-line">{% for label, count in geo.source_type_counts %}{{ label }} ({{ count }}){% if not loop.last %} · {% endif %}{% endfor %}</p>
+  {% else %}
+    <p class="empty-state">No trusted Evidence captured.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="geography-signals">
+  <h2>Signals</h2>
+  {% if geo.signals %}
+    <ul class="entity-links">
+      {% for s in geo.signals %}
+        <li><span class="badge badge-signal">SIGNAL</span> <a href="{{ s.href }}">{{ s.title }}</a> <span class="badge badge-muted">{{ s.status|upper }}</span></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No confirmed or proposed Signal captured for this geography.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="geography-assessments">
+  <h2>Assessments</h2>
+  {% if geo.assessments %}
+    <ul class="entity-links">
+      {% for a in geo.assessments %}
+        <li><span class="badge badge-assessment">ANALYST ASSESSMENT</span> <a href="{{ a.href }}">{{ a.title }}</a> <span class="badge badge-muted">{{ a.confidence|upper }} CONFIDENCE</span></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No analyst Assessment captured for this geography.</p>
+  {% endif %}
+</section>
+</div>
+{% endblock %}

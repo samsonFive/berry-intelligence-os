@@ -74,6 +74,7 @@ from app.services.variety_workspace import (  # noqa: E402
     present_variety_index,
 )
 from app.services.company_workspace import present_company_portfolio  # noqa: E402
+from app.services.geography_workspace import geography_detail, geography_index  # noqa: E402
 
 OUTPUT_DIR = ROOT / "generated"
 
@@ -421,6 +422,49 @@ def build() -> list[Path]:
                 "company_portfolio.html",
                 f"/entities/company/{entity['id']}/portfolio",
                 {"portfolio": portfolio, "authoring_mode": False},
+            )
+        )
+
+    # Geography / Market Intelligence V1 -- same static-safety story as
+    # Company Portfolio just above: a finite, enumerable set of real
+    # Geography entities, built entirely from trusted-only data.
+    geography_signals = all_signals()
+    geography_assessments = all_assessments()
+    written.append(
+        write_page(
+            "geography_index.html",
+            "/geographies",
+            {
+                "geographies": geography_index(
+                    entities=entities,
+                    published_evidence=evidence,
+                    relationships=relationships_all,
+                    signals=geography_signals,
+                    berry_labels=BERRIES,
+                ),
+                "authoring_mode": False,
+            },
+        )
+    )
+    for entity in all_entities():
+        if entity.get("entity_type") != "geography":
+            continue
+        geo = geography_detail(
+            entity["id"],
+            entities=entities,
+            relationships=relationships_all,
+            published_evidence=evidence,
+            signals=geography_signals,
+            assessments=geography_assessments,
+            berry_labels=BERRIES,
+        )
+        if geo is None:
+            continue
+        written.append(
+            write_page(
+                "geography_detail.html",
+                f"/geographies/{entity['id']}",
+                {"geo": geo, "authoring_mode": False},
             )
         )
 

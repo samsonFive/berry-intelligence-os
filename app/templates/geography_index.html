@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Geographies{% endblock %}
+{% block content %}
+{% set geographies = geographies if geographies is defined else [] %}
+<div class="v2-page">
+<section class="page-heading v2-page-header" data-pagefind-filter="type:entity">
+  <div>
+    <p class="eyebrow">GEOGRAPHY INTELLIGENCE</p>
+    <h1>Geographies</h1>
+    <p class="also-known-as">Captured intelligence about a place, not complete market reality. Absence of evidence never means absence of activity.</p>
+  </div>
+</section>
+
+<section class="v2-company-section" id="geography-list">
+  {% if geographies %}
+    <div class="balanced-card-grid">
+      {% for row in geographies %}
+        <article class="card entity-card">
+          <p class="card-kicker">{{ row.type|upper }}{% if row.region %} · {{ row.region|upper }}{% endif %}</p>
+          <h2 data-pagefind-weight="1"><a href="{{ row.href }}">{{ row.name }}</a></h2>
+          {% if row.berries %}<p>{% for b in row.berries %}<span class="v2-chip v2-chip-berry">{{ b }}</span>{% endfor %}</p>{% endif %}
+          <ul class="metric-bullets">
+            <li>{{ row.company_count }} compan{{ 'ies' if row.company_count != 1 else 'y' }} represented</li>
+            <li>{{ row.variety_count }} variet{{ 'ies' if row.variety_count != 1 else 'y' }} represented</li>
+            <li>{{ row.evidence_count }} trusted Evidence item{{ 's' if row.evidence_count != 1 else '' }}</li>
+            <li>{{ row.signal_count }} Signal{{ 's' if row.signal_count != 1 else '' }}</li>
+            <li>Latest activity: {{ row.latest_activity|us_date if row.latest_activity else "—" }}</li>
+          </ul>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty-state">No Geography records captured yet.</p>
+  {% endif %}
+</section>
+</div>
+{% endblock %}

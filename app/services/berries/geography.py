@@ -9,6 +9,15 @@ formatting with no reason to live anywhere else.
 
 Moved verbatim; behavior is unchanged. Pure functions -- no repository or
 DATA_DIR access, so no composition/circular-import concerns.
+
+Deliberately kept free of any import from variety_workspace.py/
+company_workspace.py: this module sits early in the import graph
+(app.composition -> berries.landscape -> berries.geography), and those two
+pull in the entire heavy service graph, which creates a real circular
+import (found the hard way while building Geography Intelligence V1).
+Geography Intelligence V1's presentation logic lives in
+app/services/geography_workspace.py instead, which imports geography_region
+from here (safe direction) rather than the reverse.
 """
 
 from __future__ import annotations

@@ -171,6 +171,7 @@ from app.services.company_workspace import (
     present_company_compare,
     present_company_portfolio,
 )
+from app.services.geography_workspace import geography_detail, geography_index
 from app.services.global_search import (
     GROUP_CAP_DEFAULT,
     SearchPools,
@@ -3901,6 +3902,65 @@ def strategic_question_detail(request: Request, sq_id: str) -> HTMLResponse:
             "authoring_mode": AUTHORING_MODE,
         },
     )
+
+
+@app.get("/geographies", response_class=HTMLResponse)
+def geography_index_page(request: Request) -> HTMLResponse:
+    """Geography / Market Intelligence V1's browse surface -- registered as
+    its own literal path, same as /landscapes, so it never collides with
+    the generic /entities/{entity_type}/{entity_id} catch-all (a geography
+    detail lives at /geographies/{id}, a different top-level path
+    entirely)."""
+    entities = entity_index()
+    rows = geography_index(
+        entities=entities,
+        published_evidence=published_evidence(),
+        relationships=all_relationships(),
+        signals=all_signals(),
+        berry_labels=BERRIES,
+    )
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="geography_index.html",
+        context={
+            "geographies": rows,
+            "berries": BERRIES,
+            "authoring_mode": AUTHORING_MODE,
+            "ui_context": ui,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/geographies/{geography_id}", response_class=HTMLResponse)
+def geography_detail_page(request: Request, geography_id: str) -> HTMLResponse:
+    entities = entity_index()
+    geo = geography_detail(
+        geography_id,
+        entities=entities,
+        relationships=all_relationships(),
+        published_evidence=published_evidence(),
+        signals=all_signals(),
+        assessments=all_assessments(),
+        berry_labels=BERRIES,
+    )
+    if geo is None:
+        raise HTTPException(status_code=404, detail="Geography record not found")
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="geography_detail.html",
+        context={
+            "geo": geo,
+            "berries": BERRIES,
+            "authoring_mode": AUTHORING_MODE,
+            "ui_context": ui,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
 
 
 @app.get("/landscapes", response_class=HTMLResponse)
