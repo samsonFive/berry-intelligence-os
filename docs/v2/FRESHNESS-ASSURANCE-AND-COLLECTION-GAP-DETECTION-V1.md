@@ -1,0 +1,153 @@
+# Freshness Assurance + Collection Gap Detection V1
+
+## Scope and trust boundary
+
+Freshness Assurance is a read-only backend projection over existing Source Health, exact per-Source cadence policy, discovery state, bounded collection-run summaries, and private draft/discovery metadata. It does not fetch Sources, change cadence, infer market activity, publish Evidence, make review decisions, run extraction, call a model, or perform historical reacquisition.
+
+The contract is implemented by `app.services.freshness_assurance.build_runtime_freshness()`. `scripts/freshness_status.py` is its operator CLI. JSON output contains identifiers, operational states, timestamps, counts, reasons, and alert codes only—never article bodies, excerpts, credentials, or review history.
+
+## Existing semantics audit
+
+What already existed:
+
+- `source_freshness.py` distinguished successful quiet checks from failures and recognized blocked access responses.
+- `source_cadence.py` resolved the exact deterministic cadence, selected due/not-due Sources, respected Source Health, and calculated feed-window ceilings.
+- per-Source discovery state retained `last_checked_at`, `last_success_at`, status, error, found/new/known counts, and historical-backlog count.
+- collection run summaries retained per-Source outcome and new/duplicate counts; pipeline/scheduler records retained operation completion and outcome.
+- Source Health, Monitor, Morning Brief, Review Operations, and `collection_status.py` already exposed pieces of this state.
+
+What was inferred or incomplete:
+
+- legacy Source Health used calendar-day cadence labels rather than the optimized second-level policy for overdue decisions;
+- “latest item” mixed publication and capture visibility but did not establish a protected system-wide last-new-intelligence clock;
+- no one contract separated last attempt, last success, and last genuinely new discovery;
+- no system claim was gated by overdue/failing/blocked/never-run Sources;
+- no berry, geography, explicitly linked actor, or normalized source-type freshness rollup existed;
+- feed-window risk was available only through the one-off cadence audit, not as a recurring deterministic condition;
+- no bounded yield-drift condition distinguished acquisition change from inferred competitive inactivity.
+
+Today V1 landed while this mission was in progress. Its provisional pipeline-level freshness helper was replaced during reconciliation: Today now consumes this service and retains only presentation compatibility aliases. It no longer derives `current_through` from pipeline maximums or trusted-record capture dates.
+
+## Three clocks
+
+Every Source exposes three separate timestamps:
+
+1. `last_collection_attempt`: the most recent attempt, successful or failed.
+2. `last_successful_collection`: the most recent successful response/process anchor.
+3. `last_new_intelligence`: the newest genuine discovered item's immutable `first_seen_at`.
+
+A successful duplicate-only run advances the first two clocks but not the third. A pending review draft is sufficient to show acquisition occurred; publication/review state does not control freshness.
+
+## Source state model
+
+| State | Deterministic meaning |
+|---|---|
+| `CURRENT_ACTIVE` | Successful inside cadence; latest successful run produced at least one non-historical new item. |
+| `CURRENT_QUIET` | Successful inside cadence; latest successful run produced zero new items. |
+| `DUE` | One configured cadence interval elapsed, inside grace. |
+| `OVERDUE` | Cadence plus one full cadence interval of grace elapsed without success. |
+| `RETRYING` | One retained retryable failure after a prior success; existing bounded retry policy applies. |
+| `FAILING` | Multiple consecutive retained failures, or a failure with no prior success. |
+| `BLOCKED` | Existing Source Health access-block semantics; automatic polling remains paused. |
+| `NEVER_RUN` | No retained attempt or run exists. |
+| `INSUFFICIENT_HISTORY` | A state/attempt exists but bounded successful operation history cannot establish the full contract. |
+
+The grace interval deliberately preserves the existing Source Health convention: a Source becomes due after one cadence, then operationally overdue after one additional missed cadence. It is exact to seconds. A six-hour Source is due after six hours and overdue after twelve; a weekly newsroom checked yesterday remains current even when its last new publication is old.
+
+`due` and `overdue` are also explicit boolean fields. They remain visible when the primary state is `RETRYING`, `FAILING`, or `BLOCKED`, so a failed scheduled check cannot hide an already missed cadence. Aggregate overdue and failing counts may therefore overlap intentionally.
+
+## System state and “current through”
+
+`current_through` is the completion timestamp of the newest collection operation containing at least one successful Source. It is never render time, restart time, review time, reindex time, or the newest trusted record's capture date.
+
+The application may display **INTELLIGENCE CURRENT THROUGH `<timestamp>`** only when:
+
+- a successful collection operation exists; and
+- no scheduled Source is `OVERDUE`, `FAILING`, `BLOCKED`, `NEVER_RUN`, or `INSUFFICIENT_HISTORY`.
+
+Otherwise `system_state` is `DEGRADED`, `can_claim_current` is false, and the product should display a compact message such as **COLLECTION PARTIALLY DEGRADED — 3 scheduled Sources overdue**. `current_through` remains available as operational context but must not be presented as an unqualified system-current claim.
+
+`DUE` and one bounded `RETRYING` Source do not independently make the system stale; they are visible conditions inside the configured operating window.
+
+## Last-new-intelligence protection
+
+`last_new_intelligence` is the maximum `first_seen_at` among discovered items excluding `historical_backlog`. This is deliberately independent from publication date and review state.
+
+The following cannot advance it:
+
+- duplicate-only collection;
+- Source Fidelity recovery or bounded historical reacquisition;
+- review, publish, reject, dismiss, or defer actions;
+- reindexing, rebuilding, deployment, or restart;
+- an old article's reacquisition timestamp.
+
+`last_new_rich_draft` is separate and uses only non-repair `FULL_ARTICLE` publication artifacts. It never substitutes for `last_new_intelligence`.
+
+## Coverage and gap detection
+
+The same state rows are aggregated without article-body inference:
+
+- berry: explicit `berry_ids` for Blueberry, Strawberry, Raspberry, and Blackberry;
+- geography: explicit Source `region_coverage` only;
+- actor: explicit `linked_competitor_ids` only, with `direct_monitoring_gap` when a linked direct Source is unhealthy;
+- source type: deterministic precedence into `company_newsroom`, `trade_publisher`, `association`, `registry_government`, `academic_research`, `spoken_video`, or `other`.
+
+Coverage means collection coverage, not observed market activity or actor importance. V1 flags `COVERAGE_DEGRADED` only when all Sources in a segment are unhealthy or unhealthy Sources reach at least 25% with a minimum of two. Individual gaps remain visible even below that threshold.
+
+Only 16 canonical discoverable Sources currently carry explicit actor links. V1 reports those honestly and does not infer actors from article bodies or rank importance.
+
+## Feed-window and yield drift
+
+`FEED_WINDOW_RISK` reuses the cadence mission's observed-new-item velocity, visible feed depth, and 2x safety factor. It is emitted when configured cadence exceeds the recalculated safe interval. The condition recommends cadence review; it never changes cadence automatically.
+
+Yield drift is operational, not competitive interpretation:
+
+- `NEW_ITEM_YIELD_DEGRADED`: previously productive Source followed by three successful zero-new runs.
+- `RICH_BODY_YIELD_DEGRADED`: at least three earlier `FULL_ARTICLE` drafts followed by three explicit thin/failure outcomes.
+
+The language is “acquisition yield changed,” never “the Company/market went quiet.” Historical repair artifacts are excluded.
+
+## Alert conditions
+
+- `SOURCE_OVERDUE`
+- `MULTIPLE_CONSECUTIVE_FAILURES`
+- `COVERAGE_DEGRADED`
+- `FEED_WINDOW_RISK`
+- `RICH_BODY_YIELD_DEGRADED`
+- `NEW_ITEM_YIELD_DEGRADED`
+- `NO_SUCCESSFUL_COLLECTION_RUN`
+
+V1 records conditions in output only. It sends no notification and changes no operational state.
+
+## CLI and JSON
+
+```bash
+python scripts/freshness_status.py
+python scripts/freshness_status.py --json
+```
+
+The CLI reads at most the newest 500 collection/scheduler summaries by default and performs one pass across private discovered-item and draft metadata. It makes no network call and writes nothing. The service accepts a deterministic `now` for tests and consumers.
+
+## Today and Review Operations integration contract
+
+Today should call `build_runtime_freshness()` and consume at minimum:
+
+- `current_through`
+- `last_successful_collection`
+- `last_new_intelligence`
+- `system_state`
+- `can_claim_current`
+- `overdue_count`
+- `failing_count`
+- `blocked_count`
+- `counts.overdue`
+- `counts.failing`
+- `counts.blocked`
+
+It may also show `last_new_rich_draft` and compact berry coverage. It must not recompute freshness from pipeline maximum success, page render time, trusted `captured_date`, or publication/review state.
+
+Review Operations can consume the same top-level fields and alert counts. Neither surface should parse CLI text; both use the Python service/JSON shape.
+
+## Current production proof
+
+To be completed after green CI, merge, verified backup, safe deployment, and the read-only production freshness audit. No collection will be forced to make the audit green.

@@ -111,6 +111,28 @@ def test_bands_and_quiet_and_signals() -> None:
     assert empty["quiet"] is True
 
 
+def test_today_uses_authoritative_freshness_contract(monkeypatch) -> None:
+    expected = {
+        "system_state": "DEGRADED",
+        "current_through": "2026-08-24T12:00:00+00:00",
+        "last_successful_collection": "2026-08-24T12:00:00+00:00",
+        "last_new_intelligence": "2026-08-24T11:58:00+00:00",
+        "can_claim_current": False,
+        "counts": {"scheduled_sources": 73, "overdue": 2, "failing": 1, "blocked": 0},
+    }
+    monkeypatch.setattr("app.services.today.build_runtime_freshness", lambda **_kwargs: expected.copy())
+    page = build_today(
+        published=[], signals=[], assessments=[], sources=[], inbox_dir=Path("/tmp"), data_dir=Path("/tmp"), now=NOW,
+    )
+    freshness = page["freshness"]
+    assert freshness["system_state"] == "DEGRADED"
+    assert freshness["can_claim_current"] is False
+    assert freshness["last_collection_at"] == expected["last_successful_collection"]
+    assert freshness["last_captured_at"] == expected["last_new_intelligence"]
+    assert freshness["discoverable_sources"] == 73
+    assert freshness["counts"]["overdue"] == 2
+
+
 def test_login_lands_on_today_and_preserves_deep_link(monkeypatch) -> None:
     from tests.test_remote_auth import OPERATOR, PASSWORD, _client, _enable_remote
 
