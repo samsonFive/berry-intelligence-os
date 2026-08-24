@@ -9,7 +9,7 @@
       "cadence_seconds": 21600,
       "runner": "scripts/run_collection.py --pipeline-scope article-news --skip-transcription --json-summary",
       "state": "operations/runs",
-      "notes": "Article/news discovery every six hours. Partial Source failure remains visible but does not make an otherwise useful cycle a total scheduler failure."
+      "notes": "Article/news dispatcher evaluates Source due state every six hours. It polls only due Sources under source_collection_cadence.json; partial Source failure remains visible but does not make an otherwise useful cycle a total scheduler failure."
     },
     {
       "id": "spoken_media",
@@ -19,7 +19,7 @@
       "cadence_seconds": 86400,
       "runner": "scripts/run_collection.py --pipeline-scope spoken-media --skip-transcription --json-summary",
       "state": "operations/runs",
-      "notes": "Daily podcast/video feed discovery. Missing transcription remains deferred; the scheduler never enables Whisper implicitly."
+      "notes": "Daily podcast/video dispatcher polls only Sources due under source_collection_cadence.json. Missing transcription remains deferred; the scheduler never enables Whisper implicitly."
     },
     {
       "id": "plant_patent",

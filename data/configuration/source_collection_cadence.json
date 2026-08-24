@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "cadence_classes": {
+    "HIGH_FREQUENCY": 21600,
+    "NORMAL": 86400,
+    "LOW_FREQUENCY": 604800,
+    "QUIET": 1209600
+  },
+  "cadence_by_update_cadence": {
+    "realtime": 21600,
+    "daily": 86400,
+    "weekly": 604800,
+    "biweekly": 1209600,
+    "monthly": 2592000,
+    "quarterly": 7776000,
+    "annual": 31536000,
+    "event_driven": 604800
+  },
+  "discoverable_fallback_seconds": 604800,
+  "retryable_failure_seconds": 86400,
+  "source_overrides": {
+    "source-news-search-caneberry-global": {
+      "cadence_class": "HIGH_FREQUENCY",
+      "cadence_seconds": 21600,
+      "changes_current_cadence": true,
+      "reason": "Daily to every 6 hours: 63 genuinely new items appeared after the initial run across five repeat scans, the visible window is 100, and this is the dedicated Raspberry/Blackberry discovery guardrail."
+    },
+    "source-20260819-hortidaily": {
+      "cadence_class": "NORMAL",
+      "cadence_seconds": 86400,
+      "changes_current_cadence": true,
+      "reason": "Weekly to daily: 84 genuinely new items appeared after the initial run across 25 repeat scans; the latest visible window is 28, so weekly polling would risk turnover."
+    },
+    "source-20260819-blue-book-services": {
+      "cadence_class": "NORMAL",
+      "cadence_seconds": 86400,
+      "changes_current_cadence": true,
+      "reason": "Weekly to daily: 26 genuinely new items appeared after the initial run across 25 repeat scans and the feed exposes only 10 items; daily protects the discovery window even though body acquisition remains weak."
+    }
+  }
+}

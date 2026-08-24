@@ -28,6 +28,7 @@ from app.services.media_orchestration import (
 )
 from app.services.review_workbench import build_review_workbench
 from app.services.source_freshness import classify_source_freshness, latest_item_dates
+from app.services.source_cadence import source_schedule_decision
 
 
 UTC = timezone.utc
@@ -90,6 +91,7 @@ class SourceStatus:
     last_discovery_new: int | None = None
     recommended_next_action: str = "run collection"
     freshness: dict[str, Any] = field(default_factory=dict)
+    schedule: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -109,6 +111,7 @@ class CollectionStatusReport:
     review_backlog: dict[str, Any] = field(default_factory=dict)
     detail_mode: str = "audit"
     recommended_next_action: str = "no action"
+    source_schedule: dict[str, int] = field(default_factory=dict)
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -127,6 +130,7 @@ class CollectionStatusReport:
             "last_run": self.last_run,
             "review_backlog": self.review_backlog,
             "detail_mode": self.detail_mode,
+            "source_schedule": self.source_schedule,
         }
 
 
@@ -444,6 +448,7 @@ class CollectionStatusService:
         now: Callable[[], datetime] = lambda: datetime.now(UTC),
         retry_limit: int = 3,
         lock_stale_after: timedelta = timedelta(hours=6),
+        cadence_policy: dict[str, Any] | None = None,
     ) -> None:
         self._repos = repositories
         self._inbox = inbox_dir
@@ -454,6 +459,19 @@ class CollectionStatusService:
         self._now = now
         self._retry_limit = retry_limit
         self._lock_stale_after = lock_stale_after
+        self._cadence_policy = dict(cadence_policy or {})
+
+    @staticmethod
+    def _schedule_summary(sources: list[SourceStatus]) -> dict[str, int]:
+        return {
+            "due": sum(source.schedule.get("due") is True for source in sources),
+            "not_due": sum(
+                source.schedule.get("due") is False and bool(source.schedule.get("next_due"))
+                for source in sources
+            ),
+            "blocked": sum(source.schedule.get("health_state") == "BLOCKED" for source in sources),
+            "unscheduled": sum(source.schedule.get("cadence_seconds") is None for source in sources),
+        }
 
     def build(
         self,
@@ -562,6 +580,13 @@ class CollectionStatusService:
             source = source_index[sid]
             result = latest_source_results.get(sid, {})
             failed = result.get("status") not in {None, "ok", "planned"}
+            discovery_state = read_source_discovery_state(self._inbox, sid)
+            schedule = source_schedule_decision(
+                source,
+                discovery_state=discovery_state,
+                policy=self._cadence_policy,
+                now=now,
+            )
             source_reports.append(SourceStatus(
                 source_id=sid,
                 name=_source_name(source),
@@ -575,6 +600,7 @@ class CollectionStatusService:
                 last_discovery_status=result.get("status"),
                 last_discovery_new=result.get("new") if isinstance(result.get("new"), int) else None,
                 recommended_next_action="resolve operator-action failure" if failed else "no action",
+                schedule=schedule.as_dict(),
             ))
 
         collection_blockers: list[str] = []
@@ -627,6 +653,7 @@ class CollectionStatusService:
             },
             detail_mode="persisted",
             recommended_next_action=recommended,
+            source_schedule=self._schedule_summary(source_reports),
         )
 
     def _build_audit(self, *, source_id: str | None = None) -> CollectionStatusReport:
@@ -742,6 +769,12 @@ class CollectionStatusService:
                 latest_item_captured_at=captured_at,
                 today=now.date(),
             )
+            schedule = source_schedule_decision(
+                source,
+                discovery_state=discovery_state,
+                policy=self._cadence_policy,
+                now=now,
+            )
             report = SourceStatus(
                 source_id=sid,
                 name=_source_name(source),
@@ -759,6 +792,7 @@ class CollectionStatusService:
                 last_discovery_status=last_source.get("status"),
                 last_discovery_new=last_source.get("new") if isinstance(last_source.get("new"), int) else None,
                 freshness=freshness.as_dict(),
+                schedule=schedule.as_dict(),
             )
             local_counts = {category: sum(item.category == category for item in statuses) for category in STATUS_CATEGORIES}
             local_counts["operator_intervention_required"] += len(source_problems)
@@ -849,4 +883,5 @@ class CollectionStatusService:
             problems=relevant_problems,
             last_run=last_run,
             recommended_next_action=recommended,
+            source_schedule=self._schedule_summary(source_reports),
         )
