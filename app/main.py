@@ -157,6 +157,7 @@ from app.services.learner import (
     search_concepts as learn_search_concepts,
 )
 from app.services.berries.landscape import PRIMARY_SOURCE_TYPES as LANDSCAPE_PRIMARY_SOURCE_TYPES
+from app.services.brief_pack import compose_brief_pack
 from app.services.executive_readout import (
     caution as executive_readout_caution,
     top_assessments as executive_readout_top_assessments,
@@ -3578,6 +3579,138 @@ def executive_readout(request: Request, present: str = "") -> HTMLResponse:
         name="executive_readout.html",
         context={
             **context,
+            "authoring_mode": AUTHORING_MODE,
+            "presentation_mode": present in ("1", "true", "yes"),
+        },
+    )
+
+
+def _csv_ids(value: str) -> list[str]:
+    return [part.strip() for part in value.split(",") if part.strip()]
+
+
+def _cached_brief_pack(
+    *, title: str, context_note: str, berry_id: str, days: int, companies: str, varieties: str, signals: str, assessments: str, concepts: str
+) -> dict[str, Any]:
+    """Manager Brief Pack V1's composition is deterministic given the exact
+    same selection -- and a brief pack's whole point is to be reloaded and
+    re-shared at the same URL, so caching by (trusted-data signature,
+    exact selection) is a direct win for the real usage pattern, not just
+    an optimization. Without this, every reload re-paid the full
+    all_facts()/published_evidence()/all_evidence() cost uncached (~1.5s)
+    on top of Landscape's own cache-key computation -- found via live
+    profiling during this mission (all_facts() alone measured ~635ms)."""
+    key = _landscape_cache_key()
+    cache_key = (key, "brief_pack", title, context_note, berry_id, days, companies, varieties, signals, assessments, concepts)
+    if _LANDSCAPE_CACHE["key"] != key:
+        _LANDSCAPE_CACHE["key"] = key
+        _LANDSCAPE_CACHE["value"] = {}
+    if cache_key in _LANDSCAPE_CACHE["value"]:
+        return _LANDSCAPE_CACHE["value"][cache_key]
+
+    entities = entity_index()
+    relationships = all_relationships()
+    evidence = published_evidence()
+    facts = all_facts()
+    evidence_by_id = {r["id"]: r for r in all_evidence() if r.get("id")}
+    signals_all = all_signals()
+    assessments_all = all_assessments()
+    recommendations = all_recommendations()
+
+    if berry_id:
+        berry_context = _cached_landscape_context(berry_id, "global", "all")
+        landscape_snapshot = {
+            "scope": "berry",
+            "berry_label": berry_context["berry_label"],
+            "header_stats": berry_context["header_stats"],
+            "actors_to_watch": berry_context["actors_to_watch"][:5],
+            "href": f"/landscapes/berries/{berry_id.removeprefix('berry-')}",
+        }
+    else:
+        all_context = _cached_landscape_context_all()
+        landscape_snapshot = {
+            "scope": "all",
+            "berry_label": "All berries",
+            "header_stats": all_context["header_stats"],
+            "actors_to_watch": all_context["actors_to_watch"][:5],
+            "href": "/landscapes",
+        }
+
+    pack = compose_brief_pack(
+        title=title or "Manager Brief",
+        context_note=context_note,
+        berry_id=berry_id or None,
+        window_days=days,
+        company_ids=_csv_ids(companies),
+        variety_ids=_csv_ids(varieties),
+        signal_ids=_csv_ids(signals),
+        assessment_ids=_csv_ids(assessments),
+        concept_slugs=_csv_ids(concepts),
+        entities=entities,
+        relationships=relationships,
+        published_evidence=evidence,
+        facts=facts,
+        evidence_by_id=evidence_by_id,
+        signals=signals_all,
+        assessments=assessments_all,
+        recommendations=recommendations,
+        landscape_snapshot=landscape_snapshot,
+    )
+    _LANDSCAPE_CACHE["value"][cache_key] = pack
+    return pack
+
+
+@app.get("/brief-pack", response_class=HTMLResponse)
+def brief_pack(
+    request: Request,
+    title: str = "",
+    context_note: str = "",
+    berry: str = "",
+    days: int = 14,
+    companies: str = "",
+    varieties: str = "",
+    signals: str = "",
+    assessments: str = "",
+    concepts: str = "",
+    present: str = "",
+) -> HTMLResponse:
+    """Manager Brief Pack V1 -- a presentation/composition surface, not a
+    new trust object. The query string IS the pack (V1 persistence model:
+    URL-state only, no server-side pack storage -- see
+    app/services/brief_pack.py's module docstring and docs/v2/
+    MANAGER-BRIEF-PACK-V1.md for the documented tradeoff). Reopening the
+    same URL reproduces the same pack, resolved live against current
+    trusted data."""
+    berry_id = berry if berry in BERRIES else ""
+    pack = _cached_brief_pack(
+        title=title,
+        context_note=context_note,
+        berry_id=berry_id,
+        days=max(1, min(days, 90)),
+        companies=companies,
+        varieties=varieties,
+        signals=signals,
+        assessments=assessments,
+        concepts=concepts,
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="brief_pack.html",
+        context={
+            **pack,
+            "berries": BERRIES,
+            "learn_concepts": learn_all_concepts(),
+            "raw_params": {
+                "title": title,
+                "context_note": context_note,
+                "berry": berry,
+                "days": days,
+                "companies": companies,
+                "varieties": varieties,
+                "signals": signals,
+                "assessments": assessments,
+                "concepts": concepts,
+            },
             "authoring_mode": AUTHORING_MODE,
             "presentation_mode": present in ("1", "true", "yes"),
         },

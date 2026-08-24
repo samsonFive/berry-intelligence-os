@@ -1,8 +1,46 @@
-# Learner Mode + Landscape + Executive Readout — Manager Demo Script
+# Manager Brief Pack — Manager Demo Script
 
-First bounded implementations of Workstream K (Learner Mode, `docs/v2/feature-requests/LEARNER-MODE.md`), the executive Landscape synthesis layer (Landscape V2), and the Executive Intelligence Readout (V1). All three are real, deployed V1/V2 features, not prototypes. Combined demo stays under ~5 minutes.
+First bounded implementations of Workstream K (Learner Mode, `docs/v2/feature-requests/LEARNER-MODE.md`), the executive Landscape synthesis layer (Landscape V2), the Executive Intelligence Readout (V1), and the Manager Brief Pack (V1) that composes all three into one presentation. All four are real, deployed features, not prototypes. Full walkthrough stays under 5 minutes.
 
-## Ideal manager path
+## Primary launch point: Manager Brief Pack
+
+**Open this exact demo pack** (real production data, not fabricated):
+
+```
+/brief-pack?title=Blueberry+Genetics+Update&context_note=Prepared+for+leadership+review&berry=berry-blueberry&companies=company-planasa,company-costa-group-holdings&varieties=variety-sekoya-grande&signals=sig-breeder-and-patent-attribution-drift-in-public-sources&assessments=assessment-blueberry-genetics-commercialized-through-platforms&concepts=firmness
+```
+
+This one URL *is* the pack (Brief Pack V1 is URL-state, no separate save step needed) -- opening it reproduces the exact same briefing every time, resolved live against current trusted data.
+
+## 5-minute demo path
+
+1. **Open the Brief Pack URL above.** Point out the framing line: "not a new trust object, not AI-generated narrative."
+2. **Executive readout: key developments** -- real, dated Assessments/Signals/Evidence, each keeping its real badge.
+3. **Landscape snapshot: Blueberry** -- real coverage numbers plus the coverage caveat ("Captured intelligence coverage, not market activity") and Actors to Watch.
+4. **Selected companies** -- Planasa and Costa Group Holdings, each with real role-bucketed varieties (Breeder), recent trusted evidence, and a link to the full company timeline.
+5. **Selected varieties** -- SEKOYA Grande, with real FACT-badged observations (firmness, fruit size).
+6. **Drill into evidence** -- click any item to open the real trusted source in the Reader.
+7. **Signals** and **Analyst assessments** -- shown as visibly distinct sections; point out the assessment is labeled REVIEWED or AI PROPOSED, never presented as settled fact.
+8. **Related concept: Firmness** -- the Learner Mode callout, with its own Explain-this link.
+9. **Source trace / appendix** -- scroll to the bottom to show every referenced Evidence record listed with source, date, and link, for defensibility.
+10. **Click Presentation mode** (top of the page) -- clean, chrome-free screen-share view. This is the state to actually present from.
+11. *(Optional)* **Browser Print → Save as PDF** to show the print-friendly layout.
+
+## What is real today (Manager Brief Pack V1)
+
+- A single composition page pulling in real Executive Readout, Landscape, Company/Variety snapshots, Signals, Assessments, and Learner concepts -- selected by real canonical id via a live search picker (reuses the same `/api/search/global` picker already proven in Variety/Company Compare).
+- Every section preserves its real trust badge; nothing is flattened into a generic "update."
+- Self-contained presentation mode and browser Print/PDF-friendly CSS.
+- A Source Trace appendix listing every referenced Evidence record for defensibility.
+- Fully deep-linkable -- the URL above is a complete, reproducible pack.
+
+## What comes next for Manager Brief Pack (do not imply this is done tonight)
+
+- Named, saved packs with a "My Brief Packs" list (today is URL-state only -- see TD-097 for the documented tradeoff).
+- Geography-based selection (today supports berry + time window only).
+- A "Copy briefing outline" plain-text/Markdown export action (explicitly optional in scope, deferred to protect the demo deadline).
+
+## Ideal manager path (individual surfaces, for reference)
 
 **LANDSCAPE → EXECUTIVE READOUT → drill into evidence → LEARNER MODE**
 
@@ -10,6 +48,8 @@ First bounded implementations of Workstream K (Learner Mode, `docs/v2/feature-re
 2. **Executive Readout** (`/readout`) is the "what would I say upward" layer -- the most important trusted developments and real analyst interpretations, with an honest "what to be cautious about" section. Use **Presentation mode** (top of the page) here for a clean, chrome-free screen-share view.
 3. **Drill into evidence** -- click through any item (Evidence, Signal, or Assessment) to see the real trusted source behind it.
 4. **Learner Mode** (`/learn`) closes the loop -- explains the underlying concept (e.g. Firmness) that showed up in the Readout/Landscape.
+
+The Manager Brief Pack above is the *composed* version of this same path -- prefer it for the actual demo; use these individual surfaces if you need to go deeper on any one of them.
 
 ## 3-minute demo path (Learner Mode)
 

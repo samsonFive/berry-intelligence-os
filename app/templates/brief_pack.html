@@ -1,0 +1,320 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} — Manager Brief Pack — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page v2-brief-pack-page">
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">MANAGER BRIEF PACK</p>
+    <h1>{{ title }}</h1>
+    {% if context_note %}<p class="also-known-as">{{ context_note }}</p>{% endif %}
+    <p class="context-limit">A presentation composed from existing trusted intelligence -- not a new trust object, not AI-generated narrative. Every section below preserves its real Evidence / Fact / Signal / Assessment / Educational-knowledge badge.</p>
+    {% if not static_build %}
+      <p class="v2-card-line">
+        {% if presentation_mode %}<a href="?{% for k,v in raw_params.items() %}{{ k }}={{ v|urlencode }}&{% endfor %}">Exit presentation mode</a>{% else %}<a href="?{% for k,v in raw_params.items() %}{{ k }}={{ v|urlencode }}&{% endfor %}present=1">Presentation mode</a>{% endif %}
+      </p>
+    {% endif %}
+  </div>
+</section>
+
+{% if not static_build %}
+<details class="v2-company-section" id="compose" {% if presentation_mode %}hidden{% endif %}>
+  <summary><h2 style="display:inline">Create / edit this brief pack</h2></summary>
+  <form class="filters" action="/brief-pack" method="get" style="margin-top:12px">
+    <div class="filter-field">
+      <label for="bp-title">Title</label>
+      <input id="bp-title" type="text" name="title" value="{{ raw_params.title }}" placeholder="e.g. Q3 Blueberry Competitive Update">
+    </div>
+    <div class="filter-field">
+      <label for="bp-context">Context note</label>
+      <input id="bp-context" type="text" name="context_note" value="{{ raw_params.context_note }}" placeholder="Optional one-line context for this briefing">
+    </div>
+    <div class="filter-field">
+      <label for="bp-berry">Berry</label>
+      <select id="bp-berry" name="berry">
+        <option value="">All berries</option>
+        {% for berry_id, label in berries.items() %}
+          <option value="{{ berry_id }}" {% if raw_params.berry == berry_id %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="filter-field">
+      <label for="bp-days">Recent-developments window (days)</label>
+      <input id="bp-days" type="number" name="days" min="1" max="90" value="{{ raw_params.days }}">
+    </div>
+
+    {% macro picker(label, group, field, current) %}
+      <div class="v2-compare-picker" data-brief-picker data-group="{{ group }}" data-field="{{ field }}" data-ids="{{ current }}" data-max="5">
+        <div class="filter-field">
+          <label>{{ label }}</label>
+          <input type="search" autocomplete="off" placeholder="Search {{ label|lower }}…" data-picker-search>
+          <ul class="v2-compare-search-results" data-picker-results hidden></ul>
+        </div>
+        <ul class="v2-compare-chips" data-picker-chips></ul>
+        <input type="hidden" name="{{ field }}" value="{{ current }}" data-picker-field>
+      </div>
+    {% endmacro %}
+
+    {{ picker("Companies", "companies", "companies", raw_params.companies) }}
+    {{ picker("Varieties", "varieties", "varieties", raw_params.varieties) }}
+    {{ picker("Signals", "signals", "signals", raw_params.signals) }}
+    {{ picker("Assessments", "assessments", "assessments", raw_params.assessments) }}
+
+    <div class="filter-field">
+      <label for="bp-concepts">Learner concepts</label>
+      <select id="bp-concepts" name="concepts" multiple size="4">
+        {% for c in learn_concepts %}
+          <option value="{{ c.slug }}" {% if c.slug in raw_params.concepts.split(',') %}selected{% endif %}>{{ c.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="filter-actions">
+      <button type="submit">Preview brief pack</button>
+    </div>
+  </form>
+</details>
+{% endif %}
+
+<section class="v2-company-section v2-brief-section" id="executive-readout-section">
+  <h2>Executive readout: key developments</h2>
+  <p class="context-limit">Trusted developments in the last {{ window_days }} days.</p>
+  {% if key_developments.has_any %}
+    <ul class="entity-links">
+      {% for item in key_developments.rows %}
+        <li>
+          {% if item.kind == 'evidence' %}<span class="badge badge-muted">EVIDENCE</span>{% elif item.kind == 'signal' %}<span class="badge badge-signal">SIGNAL</span>{% else %}<span class="badge badge-assessment">ASSESSMENT</span>{% endif %}
+          {% if item.kind == 'evidence' and not static_build %}<a href="{{ item.reader_href }}" data-open-reader data-item-id="{{ item.id }}">{{ item.title }}</a>{% else %}<a href="{{ item.href }}">{{ item.title }}</a>{% endif %}
+          <span class="draft-meta"> · {{ item.date|us_date }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No trusted developments captured in the last {{ window_days }} days.</p>
+  {% endif %}
+  <p class="v2-card-line"><a href="/readout">Full Executive Readout</a></p>
+</section>
+
+<section class="v2-company-section v2-brief-section" id="landscape-section">
+  <h2>Landscape snapshot: {{ landscape_snapshot.berry_label }}</h2>
+  <div class="landscape-header-stats compact-stats">
+    {% if landscape_snapshot.scope == 'berry' %}
+      <div><strong>{{ landscape_snapshot.header_stats.entity_type_counts.company or 0 }}</strong><small>Companies</small></div>
+      <div><strong>{{ landscape_snapshot.header_stats.entity_type_counts.variety or 0 }}</strong><small>Varieties</small></div>
+      <div><strong>{{ landscape_snapshot.header_stats.evidence_count }}</strong><small>Evidence</small></div>
+      <div><strong>{{ landscape_snapshot.header_stats.signal_count }}</strong><small>Signals</small></div>
+    {% else %}
+      <div><strong>{{ landscape_snapshot.header_stats.company_count }}</strong><small>Companies</small></div>
+      <div><strong>{{ landscape_snapshot.header_stats.variety_count }}</strong><small>Varieties</small></div>
+      <div><strong>{{ landscape_snapshot.header_stats.evidence_count }}</strong><small>Evidence</small></div>
+      <div><strong>{{ landscape_snapshot.header_stats.signal_count }}</strong><small>Signals</small></div>
+    {% endif %}
+  </div>
+  <p class="context-limit"><strong>{{ coverage_caveat }}</strong></p>
+  <h3 class="v2-subsection-title">Actors to watch</h3>
+  <div class="balanced-card-grid">
+    {% for row in landscape_snapshot.actors_to_watch %}
+      <article class="card entity-card">
+        {% if row.berry_label %}<p class="card-kicker">{{ row.berry_label|upper }}</p>{% endif %}
+        <h2><a href="/entities/company/{{ row.entity.id }}">{{ row.entity.name }}</a></h2>
+        <p>{{ row.why_shown or (row.evidence_count ~ ' evidence records; ' ~ row.signals|length ~ ' linked signals.') }}</p>
+      </article>
+    {% else %}
+      <p class="empty-state">No trusted competitor-role activity captured yet.</p>
+    {% endfor %}
+  </div>
+  <p class="v2-card-line"><a href="{{ landscape_snapshot.href }}">Full Landscape</a></p>
+</section>
+
+<section class="v2-company-section v2-brief-section" id="companies-section">
+  <h2>Selected companies</h2>
+  {% if companies %}
+    <div class="balanced-card-grid">
+      {% for c in companies %}
+        <article class="card entity-card">
+          <h2><a href="{{ c.href }}">{{ c.name }}</a></h2>
+          {% for role_bucket, parties in c.roles.items() %}
+            {% if parties %}<p class="v2-card-line"><span class="v2-meta">{{ c.role_labels[role_bucket] }}</span> {% for p in parties %}<a href="/entities/variety/{{ p.id }}">{{ p.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+          {% endfor %}
+          <p class="v2-card-line">{{ c.evidence_count }} evidence · {{ c.signal_count }} signals · {{ c.rights_count }} rights/IP</p>
+          {% if c.recent_evidence %}
+            <ul class="entity-links">
+              {% for e in c.recent_evidence %}
+                <li>{% if not static_build %}<a href="{{ e.reader_href }}" data-open-reader data-item-id="{{ e.id }}">{{ e.title }}</a>{% else %}<a href="{{ e.href }}">{{ e.title }}</a>{% endif %} <span class="draft-meta">· {{ e.date|us_date if e.date else '—' }}</span></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+          <p class="v2-card-line"><a href="{{ c.timeline_href }}">Full company timeline</a></p>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty-state">No companies selected for this brief pack.</p>
+  {% endif %}
+  {% if invalid_companies %}<p class="context-limit">Not found: {{ invalid_companies|join(', ') }}</p>{% endif %}
+</section>
+
+<section class="v2-company-section v2-brief-section" id="varieties-section">
+  <h2>Selected varieties</h2>
+  {% if varieties %}
+    <div class="balanced-card-grid">
+      {% for v in varieties %}
+        <article class="card entity-card">
+          <h2><a href="{{ v.href }}">{{ v.name }}</a></h2>
+          <p class="v2-card-line">{{ v.rights_count }} rights/IP filing{{ 's' if v.rights_count != 1 else '' }} · {{ v.commercial_observation_count }} commercial observation{{ 's' if v.commercial_observation_count != 1 else '' }}</p>
+          {% if v.top_observations %}
+            <ul class="entity-links">
+              {% for row in v.top_observations %}
+                <li>
+                  {% if row.classification == 'fact' %}<span class="badge badge-fact">FACT</span>{% else %}<span class="badge badge-claim">CLAIM</span>{% endif %}
+                  {% for t in row.trait_names %}<span class="v2-chip">{{ t }}</span>{% endfor %}
+                  {% if not static_build and row.evidence_id %}<a href="{{ row.reader_href }}" data-open-reader data-item-id="{{ row.evidence_id }}">{{ row.statement }}</a>{% elif row.evidence_href %}<a href="{{ row.evidence_href }}">{{ row.statement }}</a>{% else %}{{ row.statement }}{% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="empty-state">No trusted product/performance observation captured.</p>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty-state">No varieties selected for this brief pack.</p>
+  {% endif %}
+  {% if invalid_varieties %}<p class="context-limit">Not found: {{ invalid_varieties|join(', ') }}</p>{% endif %}
+</section>
+
+<section class="v2-company-section v2-brief-section" id="signals-section">
+  <h2>Signals</h2>
+  {% if signals %}
+    <ul class="entity-links">
+      {% for s in signals %}
+        <li><span class="badge badge-signal">SIGNAL</span> <a href="{{ s.href }}">{{ s.title }}</a> <span class="draft-meta">· {{ s.strength|upper if s.strength else 'UNSTATED' }} · {{ s.evidence_count }} evidence</span></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No Signal selected for this brief pack.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section v2-brief-section" id="assessments-section">
+  <h2>Analyst assessments</h2>
+  {% if assessments %}
+    <div class="table-wrap"><table class="brief-table assessment-brief-table"><thead><tr><th>View</th><th>Rationale</th><th>Support</th><th>Would change our view</th></tr></thead><tbody>
+      {% for a in assessments %}
+        <tr>
+          <td><a href="{{ a.href }}"><strong>{{ a.title }}</strong></a><br><span class="badge badge-assessment">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span> <span class="badge badge-muted">{{ a.confidence|upper if a.confidence else 'UNSTATED' }}</span></td>
+          <td>{{ a.rationale|truncate(220) if a.rationale else "Not yet documented for this assessment." }}</td>
+          <td>{{ a.supporting_fact_count }} facts<br>{{ a.supporting_evidence_count }} evidence</td>
+          <td>{{ a.would_change_our_view if a.would_change_our_view else "Not yet documented for this assessment." }}</td>
+        </tr>
+      {% endfor %}
+    </tbody></table></div>
+  {% else %}
+    <p class="empty-state">No analyst assessment captured.</p>
+  {% endif %}
+</section>
+
+{% if concepts %}
+<section class="v2-company-section v2-brief-section v2-learn-interpret" id="learner-section">
+  <h2>Related concept{{ 's' if concepts|length != 1 else '' }}</h2>
+  {% for c in concepts %}
+    <div class="v2-card-line">
+      <span class="v2-mark v2-mark-learn">EDUCATIONAL KNOWLEDGE</span>
+      <strong>{{ c.name }}</strong> — {{ c.summary }}
+      <a class="v2-explain-this" href="{{ c.href }}" title="Explain this: {{ c.name }}">Explain this</a>
+    </div>
+  {% endfor %}
+</section>
+{% endif %}
+
+{% if source_trace %}
+<section class="v2-company-section v2-brief-section" id="source-trace-section">
+  <h2>Source trace / appendix</h2>
+  <p class="context-limit">Every trusted Evidence record referenced above, for defensibility.</p>
+  <ul class="entity-links">
+    {% for row in source_trace %}
+      <li>{{ row.title }} <span class="draft-meta">· {{ row.source_name or '—' }} · {{ row.source_type_label }} · {{ row.date|us_date if row.date else '—' }}</span> <a href="{{ row.href }}">source</a></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+</div>
+{% endblock %}
+{% block scripts %}
+{% if presentation_mode %}
+<script>document.body.classList.add('v2-presentation-mode');</script>
+{% endif %}
+{% if not static_build %}
+<script>
+(function () {
+  document.querySelectorAll('[data-brief-picker]').forEach(function (picker) {
+    var input = picker.querySelector('[data-picker-search]');
+    var results = picker.querySelector('[data-picker-results]');
+    var chipsList = picker.querySelector('[data-picker-chips]');
+    var field = picker.querySelector('[data-picker-field]');
+    var group = picker.dataset.group;
+    var maxIds = parseInt(picker.dataset.max, 10) || 5;
+    var currentIds = (picker.dataset.ids || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+    var nameById = {};
+
+    function renderChips() {
+      chipsList.innerHTML = '';
+      currentIds.forEach(function (id) {
+        var li = document.createElement('li');
+        li.className = 'v2-chip v2-compare-chip';
+        li.textContent = (nameById[id] || id) + ' ';
+        var remove = document.createElement('a');
+        remove.href = '#';
+        remove.textContent = '×';
+        remove.addEventListener('click', function (event) {
+          event.preventDefault();
+          currentIds = currentIds.filter(function (v) { return v !== id; });
+          field.value = currentIds.join(',');
+          renderChips();
+        });
+        li.appendChild(remove);
+        chipsList.appendChild(li);
+      });
+    }
+    renderChips();
+
+    var timer = null;
+    input.addEventListener('input', function () {
+      clearTimeout(timer);
+      var q = input.value.trim();
+      if (q.length < 2) { results.hidden = true; results.innerHTML = ''; return; }
+      timer = setTimeout(function () {
+        fetch('/api/search/global?q=' + encodeURIComponent(q) + '&berry=global')
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            var g = (data.groups || []).find(function (item) { return item.id === group; });
+            var rows = g ? (g.in_context || []).concat(g.also_global || []) : [];
+            rows = rows.filter(function (row) { return currentIds.indexOf(row.id) === -1; }).slice(0, 8);
+            results.innerHTML = '';
+            if (!rows.length) { results.hidden = true; return; }
+            rows.forEach(function (row) {
+              var li = document.createElement('li');
+              var btn = document.createElement('button');
+              btn.type = 'button';
+              btn.textContent = row.canonical_name || row.title;
+              btn.addEventListener('click', function () {
+                if (currentIds.length >= maxIds) return;
+                nameById[row.id] = row.canonical_name || row.title;
+                currentIds.push(row.id);
+                field.value = currentIds.join(',');
+                renderChips();
+                input.value = '';
+                results.hidden = true;
+              });
+              li.appendChild(btn);
+              results.appendChild(li);
+            });
+            results.hidden = false;
+          });
+      }, 200);
+    });
+  });
+})();
+</script>
+{% endif %}
+{% endblock %}

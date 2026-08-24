@@ -1550,4 +1550,20 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_executive_readout.py::test_what_changed_preserves_distinct_kinds` (proves the three kinds that do exist stay distinct; does not assert Fact absence directly) |
 
+### TD-097 — Manager Brief Pack V1 has no server-side persistence
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | product/UI — deliberate scope cut |
+| **Date discovered** | 2026-08-23 |
+| **Evidence** | Manager Brief Pack V1 mission. The mission brief itself explicitly permitted this cut ("If persistence introduces unnecessary scope: a URL-state V1 is acceptable, but document the tradeoff"). `/brief-pack`'s entire composition state (title, context note, berry, time window, selected company/variety/signal/assessment ids, Learner concept slugs) lives in the query string only -- there is no `data/brief_packs/` or `inbox/brief_packs/` record, no id, no `created_at`/`updated_at`. A pack is still fully deep-linkable today (the URL already encodes everything and resolves live against current trusted data), but there is no named, browsable list of "packs I've made," no way to rename/update a pack in place without constructing a new URL, and a very long selection (5 companies + 5 varieties + 5 signals + 5 assessments + 5 concepts, each a real canonical id) produces a correspondingly long URL. |
+| **Impact** | An operator must keep/share the URL itself to reopen a specific brief; there is no "My Brief Packs" list. Geography-based selection and a "copyable plain-text/Markdown outline" export (both mentioned as optional in the mission brief) were also deferred in this V1 for the same reason -- scope, not difficulty. |
+| **Workaround** | Bookmark or share the URL directly; it is already the complete, reproducible pack state. |
+| **Recommended resolution** | If saved/named packs become a real analyst need, add a small `data/brief_packs/*.json` (or `inbox/`, if kept private/operator-scoped) record storing exactly the same fields already in the query string today (never full source bodies -- referenced ids only, resolved live) plus `id`/`created_at`/`updated_at`, and a `/brief-pack/{id}` route that loads those ids into the same existing `compose_brief_pack()` pipeline. The composition logic itself would not need to change. |
+| **Status** | active |
+| **Owner lane** | product/UI |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_brief_pack.py::test_brief_pack_deep_link_reload_stable` (proves the URL-state model works; does not test persistence, since none exists) |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
