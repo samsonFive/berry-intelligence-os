@@ -1,0 +1,15 @@
+<li class="today-item intel-card" data-intel-card data-item-id="{{ item.id }}" data-kind="{{ item.kind }}">
+  <p class="today-age">{{ item.age_label }}{% if item.exact_date %} · {{ item.exact_date }}{% endif %}{% if item.when_origin == 'captured' %} · captured date{% endif %}</p>
+  <p class="v2-card-kicker">
+    <span class="badge">{{ item.kind_label }}</span>
+    {% if item.source_class %}<span class="v2-meta">{{ item.source_class }}</span>{% endif %}
+    {% if item.source_name %}<span class="v2-source">{{ item.source_name }}</span>{% endif %}
+  </p>
+  <h3>
+    {% if item.open_reader %}
+      <a href="{{ item.href }}" data-open-reader data-item-id="{{ item.id }}">{{ item.title }}</a>
+    {% else %}
+      <a href="{{ item.href }}">{{ item.title }}</a>
+    {% endif %}
+  </h3>
+</li>

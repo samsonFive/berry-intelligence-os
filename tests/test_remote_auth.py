@@ -153,9 +153,9 @@ def test_tampered_cookie_is_rejected(monkeypatch) -> None:
 
 def test_unsafe_next_cannot_redirect_externally(monkeypatch) -> None:
     _enable_remote(monkeypatch)
-    assert safe_next_path("https://evil.example/phish") == "/brief"
-    assert safe_next_path("//evil.example") == "/brief"
-    assert safe_next_path("/\\evil.example") == "/brief"
+    assert safe_next_path("https://evil.example/phish") == "/today"
+    assert safe_next_path("//evil.example") == "/today"
+    assert safe_next_path("/\\evil.example") == "/today"
     assert safe_next_path("/work-queue") == "/work-queue"
     assert safe_next_path("/review?kind=publication") == "/review?kind=publication"
     client = _client()
@@ -168,7 +168,7 @@ def test_unsafe_next_cannot_redirect_externally(monkeypatch) -> None:
         },
     )
     assert response.status_code == 303
-    assert response.headers["location"] == "/brief"
+    assert response.headers["location"] == "/today"
 
 
 def test_missing_session_secret_fails_closed(monkeypatch) -> None:

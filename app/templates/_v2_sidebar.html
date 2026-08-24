@@ -48,6 +48,11 @@
 <div class="v2-brand">BERRY<span>INTELLIGENCE OS</span></div>
 <nav class="v2-nav" aria-label="Primary">
   <p class="v2-nav-group">Work</p>
+  {% if not static_build %}
+  <a href="/today" class="v2-nav-link{% if path == '/today' %} is-active{% endif %}" title="Today" aria-label="Today"{% if path == '/today' %} aria-current="page"{% endif %}>
+    {{ nav_icon('brief') }}<span class="v2-nav-text">Today</span>
+  </a>
+  {% endif %}
   <a href="/brief" class="v2-nav-link{% if path == '/brief' %} is-active{% endif %}" title="Morning Brief" aria-label="Morning Brief{{ count_label(nav_work_counts.brief_action) }}"{% if path == '/brief' %} aria-current="page"{% endif %}>
     {{ nav_icon('brief') }}<span class="v2-nav-text">Morning Brief</span>
     {% if nav_work_counts.brief_action %}<span class="v2-count v2-count-action">{{ nav_work_counts.brief_action }}</span>{% endif %}
