@@ -105,6 +105,7 @@ from app.services.analyst_queue import (
     work_counts,
 )
 from app.services.commercial_positions import commercial_page_model
+from app.services.review_operations import build_review_operations
 from app.services.testing_workspace import enrich_testing_item, related_indexes, testing_page_model
 from app.services.draft_attribution import attribute_draft, draft_matches_entity
 from app.services.review_workbench import (
@@ -3009,6 +3010,42 @@ def pending_review_page(request: Request) -> HTMLResponse:
                 "language": language,
                 "attribution": attribution,
             },
+        },
+    )
+
+
+@app.get("/review-ops", response_class=HTMLResponse)
+def review_operations_page(request: Request) -> HTMLResponse:
+    """Private operations cockpit for the three human review workflows."""
+
+    berry = (request.query_params.get("berry") or "").strip()
+    berry_id = berry if berry.startswith("berry-") else (f"berry-{berry}" if berry else "")
+    source = (request.query_params.get("source") or "").strip()
+    age = (request.query_params.get("age") or "").strip()
+    entities = entity_index()
+    source_index = {str(row.get("id") or ""): row for row in load_sources() if row.get("id")}
+    ops = build_review_operations(
+        inbox_dir=INBOX_DIR,
+        pending_service=get_pending_review_query_service(INBOX_DIR),
+        entities=entities,
+        sources=source_index,
+        published=published_evidence(),
+        atomic_drafts=list_drafts(),
+        extraction_gate={"enabled": False, "runnable": False},
+        berry_id=berry_id,
+        source=source,
+        age=age,
+        berry_labels=BERRIES,
+    )
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    return templates.TemplateResponse(
+        request=request,
+        name="review_operations.html",
+        context={
+            "ops": ops,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
         },
     )
 

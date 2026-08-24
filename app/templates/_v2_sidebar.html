@@ -55,6 +55,11 @@
   <a href="/work-queue" class="v2-nav-link{% if path == '/work-queue' or path.startswith('/intelligence/') or path.startswith('/threads/') %} is-active{% endif %}" title="Live Intelligence" aria-label="Live Intelligence"{% if path == '/work-queue' %} aria-current="page"{% endif %}>
     {{ nav_icon('feed') }}<span class="v2-nav-text">Live Intelligence</span>
   </a>
+  {% if not static_build %}
+  <a href="/review-ops" class="v2-nav-link{% if path == '/review-ops' %} is-active{% endif %}" title="Review Operations" aria-label="Review Operations"{% if path == '/review-ops' %} aria-current="page"{% endif %}>
+    {{ nav_icon('review') }}<span class="v2-nav-text">Review Operations</span>
+  </a>
+  {% endif %}
   <a href="/queues/reading" class="v2-nav-link{% if path == '/queues/reading' %} is-active{% endif %}" title="Reading Queue" aria-label="Reading Queue{{ count_label(nav_work_counts.reading_action) }}">
     {{ nav_icon('reading') }}<span class="v2-nav-text">Reading Queue</span>
     {% if nav_work_counts.reading_action %}<span class="v2-count v2-count-action">{{ nav_work_counts.reading_action }}</span>{% endif %}
