@@ -56,7 +56,7 @@
 <section class="entity-list balanced-card-grid public-card-index">
   {% for entity in entities %}
     {% set code = (entity.attributes or {}).get('selection_code') %}
-    <article class="card entity-card"><div class="card-header"><span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span>{% if code %}<span class="badge badge-muted">{{ code }}</span>{% endif %}</div><h2><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a></h2>{% if entity.description %}<p>{{ entity.description|truncate(200) }}</p>{% endif %}{% if entity.roles %}<p class="card-kicker">{{ entity.roles|join(' · ')|upper }}</p>{% endif %}{% if entity_type == 'company' and not static_build %}<p><a href="/entities/company/compare?ids={{ entity.id }}">Compare</a></p>{% endif %}</article>
+    <article class="card entity-card"><div class="card-header"><span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span>{% if code %}<span class="badge badge-muted">{{ code }}</span>{% endif %}</div><h2><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a></h2>{% if entity.description %}<p>{{ entity.description|truncate(200) }}</p>{% endif %}{% if entity.roles %}<p class="card-kicker">{{ entity.roles|join(' · ')|upper }}</p>{% endif %}{% if entity_type == 'company' %}<p>{% if not static_build %}<a href="/entities/company/compare?ids={{ entity.id }}">Compare</a> · {% endif %}<a href="/entities/company/{{ entity.id }}/portfolio">Portfolio</a></p>{% endif %}</article>
   {% else %}
     <p class="empty-state">No matching records.</p>
   {% endfor %}

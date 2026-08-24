@@ -1,10 +1,11 @@
-"""Company Compare V1 -- presentation only, derived from existing trusted
-objects. No score, no ranking: shows real Company<->Variety relationship
-roles, rights/IP, commercial and geographic footprint, and Signal/
-Assessment presence side by side, reusing the exact same helpers Variety
-Compare V1 already proved (variety_footprint, present_variety_intelligence,
-the ROLE_BUCKETS role-distinction discipline, and the shared source_type
-humanization) rather than re-deriving any of that logic."""
+"""Company Compare V1 and Company Variety Portfolio Intelligence V1 --
+presentation only, derived from existing trusted objects. No score, no
+ranking: shows real Company<->Variety relationship roles, rights/IP,
+commercial and geographic footprint, and Signal/Assessment presence,
+reusing the exact same helpers Variety Compare V1 already proved
+(variety_footprint, present_variety_intelligence, the ROLE_BUCKETS
+role-distinction discipline, and the shared source_type humanization)
+rather than re-deriving any of that logic."""
 
 from __future__ import annotations
 
@@ -25,6 +26,7 @@ from app.services.variety_workspace import (
 
 COMPARE_MAX_COMPANIES = 4
 RECENT_INTELLIGENCE_LIMIT = 5
+PORTFOLIO_RECENT_MOVES_LIMIT = 10
 
 
 def _humanize_source_type(source_type: str) -> str:
@@ -295,3 +297,214 @@ def _build_role_matrix(cards: list[dict[str, Any]]) -> list[dict[str, Any]]:
         if any(counts):
             rows.append({"bucket": bucket, "label": label, "counts": counts})
     return rows
+
+
+def present_company_portfolio(
+    company_id: str,
+    *,
+    entities: dict[str, Any],
+    relationships: list[dict[str, Any]],
+    published_evidence: list[dict[str, Any]],
+    facts: list[dict[str, Any]],
+    evidence_by_id: dict[str, dict[str, Any]],
+    signals: list[dict[str, Any]],
+    assessments: list[dict[str, Any]],
+    berry_labels: dict[str, str],
+) -> dict[str, Any] | None:
+    """Company Variety Portfolio Intelligence V1 -- a single Company's
+    derived Variety portfolio, answering "what does this Company's
+    captured Variety/genetics footprint look like" the way Company Compare
+    answers "how do 2-4 Companies differ." Returns None for an unknown or
+    non-company id (the route turns that into a 404).
+
+    Reuses every primitive Company Compare V1 already proved rather than
+    re-deriving portfolio logic: _company_portfolio_roles() (all
+    ROLE_BUCKETS, not company_profile_context()'s develops-only field,
+    TD-099), variety_footprint(), and present_variety_intelligence(). No
+    corpus re-scan beyond one pass per portfolio Variety -- callers pass
+    the same already-loaded base lists every other entity route already
+    fetches once."""
+    company = entities.get(company_id)
+    if not company or company.get("entity_type") != "company":
+        return None
+
+    entity_list = list(entities.values())
+    roles = _company_portfolio_roles(company_id, relationships=relationships, entities=entities)
+    portfolio_variety_ids = _portfolio_variety_ids(roles)
+
+    variety_role_buckets: dict[str, list[str]] = {vid: [] for vid in portfolio_variety_ids}
+    for bucket, parties in roles.items():
+        for party in parties:
+            vid = party.get("id")
+            if vid in variety_role_buckets:
+                variety_role_buckets[vid].append(bucket)
+
+    variety_rows: list[dict[str, Any]] = []
+    recent_candidates: list[dict[str, Any]] = []
+    portfolio_evidence_ids: set[str] = set()
+    portfolio_evidence: list[dict[str, Any]] = []
+    berries_seen: dict[str, list[dict[str, Any]]] = {}
+
+    for vid in portfolio_variety_ids:
+        variety = entities.get(vid)
+        if not variety:
+            continue
+        footprint = variety_footprint(
+            vid,
+            entities=entity_list,
+            relationships=relationships,
+            published_evidence=published_evidence,
+            signals=signals,
+        )
+        variety_facts = [f for f in facts if vid in (f.get("entity_ids") or [])]
+        vi = present_variety_intelligence(variety, entities=entities, facts=variety_facts, evidence_by_id=evidence_by_id)
+        group_counts = {g["key"]: len(g["rows"]) for g in vi["groups"]}
+        product_sensory_count = group_counts.get("product_sensory", 0) + group_counts.get("postharvest_quality", 0)
+        production_agronomic_count = group_counts.get("production_agronomic", 0)
+
+        rights_published = footprint.get("rights_filings", {}).get("published") or []
+        commercial_observations = footprint.get("commercial_observations") or []
+        variety_signals = footprint.get("signals") or []
+
+        variety_linked_evidence = [r for r in published_evidence if vid in (r.get("entity_ids") or [])]
+        for record in variety_linked_evidence:
+            rid = record.get("id")
+            if rid and rid not in portfolio_evidence_ids:
+                portfolio_evidence_ids.add(rid)
+                portfolio_evidence.append(record)
+
+        for row in rights_published:
+            recent_candidates.append(
+                {
+                    "kind": "Rights / IP",
+                    "date": row.get("published_date") or "",
+                    "title": row.get("title") or "",
+                    "variety_name": variety.get("name"),
+                    "href": f"/evidence/{row['id']}" if row.get("id") else "",
+                }
+            )
+        for obs in commercial_observations:
+            recent_candidates.append(
+                {
+                    "kind": "Commercial observation",
+                    "date": obs.get("observed_at") or "",
+                    "title": f"Commercial observation -- {variety.get('name')}",
+                    "variety_name": variety.get("name"),
+                    "href": f"/evidence/{obs['id']}" if obs.get("id") else "",
+                }
+            )
+
+        dates = [d for d in (footprint.get("first_observed"), footprint.get("latest_observed")) if d]
+        dates += [str(r.get("published_date") or "") for r in rights_published if r.get("published_date")]
+        dates += [str(r.get("published_date") or r.get("captured_date") or "") for r in variety_linked_evidence]
+        latest_activity = max((d for d in dates if d), default="")
+
+        row_berries = [str(b) for b in (variety.get("berry_ids") or []) if b]
+        row = {
+            "id": vid,
+            "name": variety.get("name") or vid,
+            "href": f"/entities/variety/{vid}",
+            "timeline_href": f"/entities/variety/{vid}#intelligence-timeline",
+            "berry_ids": row_berries,
+            "berries": [berry_labels.get(b, b) for b in row_berries],
+            "roles": sorted({ROLE_LABEL.get(b, b) for b in variety_role_buckets.get(vid, [])}),
+            "rights_count": len(rights_published),
+            "commercial_observation_count": len(commercial_observations),
+            "product_sensory_count": product_sensory_count,
+            "production_agronomic_count": production_agronomic_count,
+            "geographies": footprint.get("countries_observed") or [],
+            "evidence_count": len(variety_linked_evidence),
+            "signals": variety_signals,
+            "latest_activity": latest_activity,
+            "has_trusted_evidence": bool(variety_linked_evidence or rights_published or commercial_observations),
+        }
+        variety_rows.append(row)
+        for b in row_berries or ["_unspecified"]:
+            berries_seen.setdefault(b, []).append(row)
+
+    variety_rows.sort(key=lambda r: (str(r["latest_activity"]) == "", str(r["latest_activity"])), reverse=True)
+
+    berry_groups = [
+        {"id": b, "label": berry_labels.get(b, b), "rows": sorted(rows, key=lambda r: r["name"])}
+        for b, rows in berries_seen.items()
+        if b != "_unspecified"
+    ]
+    berry_groups.sort(key=lambda g: g["label"])
+
+    company_linked_evidence = [r for r in published_evidence if company_id in (r.get("entity_ids") or [])]
+    for record in company_linked_evidence:
+        rid = record.get("id")
+        if rid and rid not in portfolio_evidence_ids:
+            portfolio_evidence_ids.add(rid)
+            portfolio_evidence.append(record)
+        date = record.get("published_date") or record.get("captured_date") or ""
+        if date:
+            recent_candidates.append(
+                {
+                    "kind": "Evidence",
+                    "date": str(date),
+                    "title": record.get("title") or "",
+                    "variety_name": None,
+                    "href": f"/evidence/{rid}" if rid else "",
+                }
+            )
+
+    recent_candidates.sort(key=lambda r: str(r.get("date") or ""), reverse=True)
+    recent_moves = [r for r in recent_candidates if r.get("date")][:PORTFOLIO_RECENT_MOVES_LIMIT]
+
+    source_type_counts: dict[str, int] = {}
+    for record in portfolio_evidence:
+        label = _humanize_source_type(str(record.get("source_type") or ""))
+        source_type_counts[label] = source_type_counts.get(label, 0) + 1
+
+    company_signals = [s for s in signals if company_id in (s.get("entity_ids") or [])]
+    company_assessments = [a for a in assessments if company_id in (a.get("entity_ids") or [])]
+
+    varieties_with_evidence = sum(1 for r in variety_rows if r["evidence_count"] > 0)
+    varieties_with_rights = sum(1 for r in variety_rows if r["rights_count"] > 0)
+    varieties_with_commercial = sum(1 for r in variety_rows if r["commercial_observation_count"] > 0)
+    varieties_with_signals = sum(1 for r in variety_rows if r["signals"])
+    varieties_sparse = sum(1 for r in variety_rows if not r["has_trusted_evidence"])
+
+    coverage = {
+        "total_varieties": len(variety_rows),
+        "varieties_with_evidence": varieties_with_evidence,
+        "varieties_with_rights": varieties_with_rights,
+        "varieties_with_commercial": varieties_with_commercial,
+        "varieties_with_signals": varieties_with_signals,
+        "varieties_sparse": varieties_sparse,
+        "source_count": len({r.get("id") for r in portfolio_evidence if r.get("id")}),
+    }
+
+    berry_ids = [str(b) for b in (company.get("berry_ids") or []) if b]
+
+    return {
+        "company": {
+            "id": company_id,
+            "name": company.get("name") or company_id,
+            "href": f"/entities/company/{company_id}",
+            "compare_href": f"/entities/company/compare?ids={company_id}",
+            "timeline_href": f"/entities/company/{company_id}#intelligence-timeline",
+        },
+        "berry_ids": berry_ids,
+        "berries": [berry_labels.get(b, b) for b in berry_ids],
+        "roles_present": sorted({label for labels in (r["roles"] for r in variety_rows) for label in labels}),
+        "variety_rows": variety_rows,
+        "berry_groups": berry_groups,
+        "recent_moves": recent_moves,
+        "coverage": coverage,
+        "source_type_counts": sorted(source_type_counts.items(), key=lambda kv: -kv[1]),
+        "signals": [
+            {"id": s.get("id"), "title": s.get("title"), "status": s.get("status"), "href": f"/signals/{s['id']}"}
+            for s in company_signals
+        ],
+        "assessments": [
+            {
+                "id": a.get("id"),
+                "title": a.get("title"),
+                "confidence": a.get("confidence"),
+                "href": f"/assessments/{a['id']}",
+            }
+            for a in company_assessments
+        ],
+    }
