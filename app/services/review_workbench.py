@@ -452,10 +452,32 @@ def format_timestamp(seconds: Any) -> str:
     return f"{hours}:{minutes:02d}:{secs:02d}" if hours else f"{minutes}:{secs:02d}"
 
 
+def _locator_seconds(locator: dict[str, Any], key: str) -> Any:
+    aliases = {
+        "start": ("start_seconds", "start_seconds", "start"),
+        "end": ("end_seconds", "end_seconds", "end"),
+    }
+    for field in aliases.get(key, (key,)):
+        value = locator.get(field)
+        if value is not None:
+            return value
+    return None
+
+
 def format_locator(locator: dict[str, Any] | None) -> str:
     locator = locator or {}
-    start = format_timestamp(locator.get("start_seconds"))
-    end = locator.get("end_seconds")
+    paragraph = locator.get("paragraph_index")
+    if not isinstance(paragraph, int):
+        paragraph = locator.get("paragraph_index")
+    if isinstance(paragraph, int) and paragraph >= 0:
+        return f"Paragraph {paragraph + 1}"
+    start = format_timestamp(_locator_seconds(locator, "start"))
+    end = _locator_seconds(locator, "end")
+    if start == "—" and end is None and not locator:
+        return "Locator not recorded"
+    if start == "—" and end is None:
+        section = locator.get("section")
+        return str(section) if section else "Locator not recorded"
     return f"{start}–{format_timestamp(end)}" if end is not None else start
 
 
@@ -483,8 +505,30 @@ def _normalized_statement(record: dict[str, Any]) -> str:
 
 
 def _group_key(record: dict[str, Any]) -> tuple[str, str]:
-    provenance = record.get("transcript_provenance") or {}
-    return record.get("parent_evidence_id") or "unresolved-parent", provenance.get("transcript_id") or "unknown-transcript"
+    provenance = record.get("transcript_provenance") or record.get("transcript_provenance") or {}
+    parent_id = record.get("parent_evidence_id") or record.get("parent_evidence_id") or "unresolved-parent"
+    return parent_id, provenance.get("transcript_id") or "unknown-transcript"
+
+
+def _parent_queue_projection(parent: dict[str, Any]) -> dict[str, Any]:
+    """Queue/batch headers keep metadata only — never full article or transcript bodies."""
+
+    omitted = {
+        "article",
+        "transcript",
+        "transcript_segments",
+        "raw_content",
+        "attachments",
+        "source_artifact",
+        "body",
+        "paragraphs",
+    }
+    slim = {key: value for key, value in parent.items() if key not in omitted}
+    article = parent.get("article") if isinstance(parent.get("article"), dict) else {}
+    slim["has_article_body"] = bool(article.get("paragraphs") or article.get("body") or parent.get("body"))
+    slim["has_transcript"] = bool(parent.get("transcript") or parent.get("transcript_segments"))
+    slim["source_language"] = parent.get("source_language") or parent.get("language") or (parent.get("transcript_provenance") or {}).get("language")
+    return slim
 
 
 def _source_label(parent: dict[str, Any], sources: dict[str, dict[str, Any]]) -> str:
@@ -500,31 +544,94 @@ def _record_state(record: dict[str, Any], *, trusted: bool) -> str:
     return "pending"
 
 
+def _artifact_locator(record: dict[str, Any]) -> dict[str, Any]:
+    locator = record.get("artifact_locator") or record.get("artifact_locator") or {}
+    return locator if isinstance(locator, dict) else {}
+
+
+def _source_excerpt(record: dict[str, Any]) -> str:
+    return str(
+        record.get("transcript_excerpt")
+        or record.get("transcript_excerpt")
+        or record.get("source_excerpt")
+        or record.get("source_says")
+        or ""
+    ).strip()
+
+
 def _same_span_or_overlap(left: dict[str, Any], right: dict[str, Any]) -> bool:
-    a = left.get("artifact_locator") or {}
-    b = right.get("artifact_locator") or {}
-    a_start, b_start = a.get("start_seconds"), b.get("start_seconds")
+    a = _artifact_locator(left)
+    b = _artifact_locator(right)
+    a_start, b_start = _locator_seconds(a, "start"), _locator_seconds(b, "start")
     if not isinstance(a_start, (int, float)) or not isinstance(b_start, (int, float)):
         return False
-    a_end = a.get("end_seconds") if isinstance(a.get("end_seconds"), (int, float)) else a_start
-    b_end = b.get("end_seconds") if isinstance(b.get("end_seconds"), (int, float)) else b_start
+    a_end = _locator_seconds(a, "end")
+    b_end = _locator_seconds(b, "end")
+    a_end = a_end if isinstance(a_end, (int, float)) else a_start
+    b_end = b_end if isinstance(b_end, (int, float)) else b_start
     return a_start <= b_end and b_start <= a_end
 
 
 def _duplicate_warnings(records: list[dict[str, Any]]) -> dict[str, list[dict[str, str]]]:
     warnings: dict[str, list[dict[str, str]]] = defaultdict(list)
-    for index, left in enumerate(records):
-        for right in records[index + 1 :]:
-            reasons = []
-            if _normalized_statement(left) and _normalized_statement(left) == _normalized_statement(right):
-                reasons.append("same normalized statement")
+
+    def emit(left: dict[str, Any], right: dict[str, Any], reason: str) -> None:
+        warnings[left["id"]].append({"id": right["id"], "reason": reason})
+        warnings[right["id"]].append({"id": left["id"], "reason": reason})
+
+    by_statement: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    by_excerpt: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for record in records:
+        statement = _normalized_statement(record)
+        if statement:
+            by_statement[statement].append(record)
+        excerpt = " ".join(_source_excerpt(record).casefold().split())
+        if excerpt:
+            by_excerpt[excerpt].append(record)
+
+    overlap_pairs: set[tuple[str, str]] = set()
+    statement_pairs: set[tuple[str, str]] = set()
+    excerpt_pairs: set[tuple[str, str]] = set()
+
+    def pair_key(left: dict[str, Any], right: dict[str, Any]) -> tuple[str, str]:
+        return tuple(sorted((left["id"], right["id"])))
+
+    for group in by_statement.values():
+        for index, left in enumerate(group):
+            for right in group[index + 1 :]:
+                statement_pairs.add(pair_key(left, right))
+    for group in by_excerpt.values():
+        for index, left in enumerate(group):
+            for right in group[index + 1 :]:
+                excerpt_pairs.add(pair_key(left, right))
+
+    ordered = []
+    for record in records:
+        start = _locator_seconds(_artifact_locator(record), "start")
+        if isinstance(start, (int, float)):
+            ordered.append((start, record))
+    ordered.sort(key=lambda item: item[0])
+    for index, (start, left) in enumerate(ordered):
+        left_end = _locator_seconds(_artifact_locator(left), "end")
+        left_end = left_end if isinstance(left_end, (int, float)) else start
+        for right_start, right in ordered[index + 1 :]:
+            if right_start > left_end:
+                break
             if _same_span_or_overlap(left, right):
-                reasons.append("overlapping transcript span")
-            if not reasons:
-                continue
-            reason = " and ".join(reasons)
-            warnings[left["id"]].append({"id": right["id"], "reason": reason})
-            warnings[right["id"]].append({"id": left["id"], "reason": reason})
+                overlap_pairs.add(pair_key(left, right))
+
+    index = {record["id"]: record for record in records}
+    all_pairs = statement_pairs | excerpt_pairs | overlap_pairs
+    for left_id, right_id in all_pairs:
+        reasons = []
+        key = (left_id, right_id)
+        if key in statement_pairs or (right_id, left_id) in statement_pairs:
+            reasons.append("same normalized statement")
+        if key in excerpt_pairs or (right_id, left_id) in excerpt_pairs:
+            reasons.append("same source excerpt")
+        if key in overlap_pairs or (right_id, left_id) in overlap_pairs:
+            reasons.append("overlapping transcript span")
+        emit(index[left_id], index[right_id], " and ".join(reasons))
     return warnings
 
 
@@ -537,20 +644,42 @@ def _card(
     berry_labels: dict[str, str],
     state: str,
 ) -> dict[str, Any]:
-    locator = record.get("artifact_locator") or {}
+    locator = _artifact_locator(record)
     geography_ids = set(record.get("geography_ids") or [])
     berry_ids = record.get("berry_ids") or []
     entity_ids = [value for value in (record.get("entity_ids") or []) if value not in geography_ids]
-    extraction = record.get("extraction_provenance") or {}
-    transcript = record.get("transcript_provenance") or {}
+    extraction = record.get("extraction_provenance") or record.get("extraction_provenance") or {}
+    transcript = record.get("transcript_provenance") or record.get("transcript_provenance") or {}
+    attribution = record.get("attribution") if isinstance(record.get("attribution"), dict) else {}
+    source_says = _source_excerpt(record)
+    proposed = (record.get("summary") or record.get("title") or "").strip()
+    start_seconds = _locator_seconds(locator, "start")
+    locator_kind = "paragraph" if isinstance(locator.get("paragraph_index") if locator.get("paragraph_index") is not None else locator.get("paragraph_index"), int) else (
+        "timestamp" if isinstance(start_seconds, (int, float)) else "none"
+    )
     return {
         "record": record,
         "state": state,
-        "statement": record.get("summary") or record.get("title") or "",
-        "excerpt": record.get("transcript_excerpt"),
+        "source_says": source_says,
+        "statement": proposed,
+        "excerpt": source_says,
+        "locator_kind": locator_kind,
         "locator_label": format_locator(locator),
-        "speaker_label": locator.get("speaker_label"),
-        "source_at_timestamp": timestamp_source_url(parent.get("source_url"), locator.get("start_seconds")),
+        "speaker_label": locator.get("speaker_label") or locator.get("speaker_label") or attribution.get("speaker") or attribution.get("claimant") or record.get("speaker_label"),
+        "extraction": {
+            **extraction,
+            "prompt_version": extraction.get("prompt_version") or extraction.get("prompt_version"),
+        },
+        "reporter_label": attribution.get("reporter") or attribution.get("publisher") or parent.get("source_name"),
+        "attribution_kind": attribution.get("kind") or attribution.get("source_stance"),
+        "does_not_prove": [item for item in (record.get("does_not_prove") or record.get("does_not_prove") or []) if item],
+        "attribution_kind": (record.get("attribution") or {}).get("kind") if isinstance(record.get("attribution"), dict) else attribution.get("kind"),
+        "if_approved": [
+            "Trusted Atomic Evidence",
+            "Does not auto-create Facts or Relationships",
+            "Variety observation only if a Variety is already linked",
+        ],
+        "source_at_timestamp": timestamp_source_url(parent.get("source_url"), start_seconds),
         "entities": [entities[value] for value in entity_ids if value in entities],
         "geographies": [entities[value] for value in geography_ids if value in entities],
         "berries": [
@@ -559,10 +688,9 @@ def _card(
         ],
         "parent": parent,
         "source_label": source_label,
-        "extraction": extraction,
         "transcript": transcript,
-        "context_before": record.get("transcript_context_before"),
-        "context_after": record.get("transcript_context_after"),
+        "context_before": record.get("transcript_context_before") or record.get("transcript_context_before"),
+        "context_after": record.get("transcript_context_after") or record.get("transcript_context_after"),
     }
 
 
@@ -614,7 +742,7 @@ def build_review_workbench(
     option_models: set[str] = set()
     option_versions: set[str] = set()
     for (parent_id, transcript_id), history in grouped_history.items():
-        parent = deepcopy(parents.get(parent_id) or {
+        parent = _parent_queue_projection(parents.get(parent_id) or {
             "id": parent_id,
             "title": f"Unresolved parent: {parent_id}",
             "source_name": "Unknown source",
@@ -626,14 +754,14 @@ def build_review_workbench(
         if parent.get("media_format"):
             option_media.add(parent["media_format"])
         for record, _trusted in history:
-            provenance = record.get("extraction_provenance") or {}
+            provenance = record.get("extraction_provenance") or record.get("extraction_provenance") or {}
             if provenance.get("model"):
                 option_models.add(provenance["model"])
             if provenance.get("prompt_version"):
                 option_versions.add(provenance["prompt_version"])
 
         def matches(record: dict[str, Any], state: str) -> bool:
-            provenance = record.get("extraction_provenance") or {}
+            provenance = record.get("extraction_provenance") or record.get("extraction_provenance") or {}
             if state_filter != "all" and state != state_filter:
                 return False
             if source_filter and source_filter not in {source_id, source_label}:
@@ -678,21 +806,32 @@ def build_review_workbench(
         if sort == "newest":
             cards.sort(key=lambda card: card["record"].get("captured_date") or "", reverse=True)
         else:
-            cards.sort(key=lambda card: (card["record"].get("artifact_locator") or {}).get("start_seconds", float("inf")))
+            cards.sort(key=lambda card: (
+                _locator_seconds(_artifact_locator(card["record"]), "start")
+                if isinstance(_locator_seconds(_artifact_locator(card["record"]), "start"), (int, float))
+                else float("inf")
+            ))
+
+        for index, card in enumerate(cards, start=1):
+            card["position"] = index
+            card["batch_total"] = len(cards)
+            card["batch_url"] = f"/review?kind=atomic&parent={parent_id}"
 
         states = [_record_state(record, trusted=trusted) for record, trusted in history]
+        pending = states.count("pending")
         groups.append({
             "key": f"{parent_id}:{transcript_id}",
             "parent": parent,
             "parent_id": parent_id,
             "transcript_id": transcript_id,
             "source_label": source_label,
+            "batch_url": f"/review?kind=atomic&parent={parent_id}",
             "cards": cards,
             "progress": {
                 "total": len(states),
                 "approved": states.count("approved"),
                 "rejected": states.count("rejected"),
-                "remaining": states.count("pending"),
+                "remaining": pending,
                 "reviewed": states.count("approved") + states.count("rejected"),
             },
         })

@@ -106,7 +106,10 @@ def test_batch_composition_resolves_parent_sorts_and_flags_duplicates(monkeypatc
     ordered_ids = [card["record"]["id"] for card in group["cards"]]
     assert ordered_ids == ["ev-workbench-3", "ev-workbench-4", "ev-workbench-2", "ev-workbench-1", "ev-workbench-5", "ev-workbench-6", "ev-workbench-7", "ev-workbench-8", "ev-workbench-9", "ev-workbench-10"]
     duplicate_card = next(card for card in group["cards"] if card["record"]["id"] == "ev-workbench-1")
-    assert duplicate_card["duplicate_warnings"][0]["reason"] == "same normalized statement and overlapping transcript span"
+    assert any(
+        warning["reason"] == "same normalized statement and overlapping transcript span"
+        for warning in duplicate_card["duplicate_warnings"]
+    )
     assert format_locator({"start_seconds": 750, "end_seconds": 790}) == "12:30–13:10"
     assert timestamp_source_url("https://youtu.be/fixture", 750).endswith("?t=750")
     assert timestamp_source_url("https://example.invalid/podcast", 750) is None
@@ -217,3 +220,140 @@ def test_external_return_url_is_rejected_and_missing_confirmation_cannot_approve
     assert rejected.status_code == 303 and rejected.headers["location"] == "/review"
     assert repos.evidence.get("ev-workbench-4") is None
     assert main.get_draft("ev-workbench-4")["review_state"] == "rejected"
+
+
+def test_source_says_and_system_proposes_stay_distinct(monkeypatch, tmp_path: Path) -> None:
+    repos, parent = _setup(monkeypatch, tmp_path)
+    evidence = repos.evidence.list()
+    for record in evidence:
+        if record["id"] == parent["id"]:
+            record["article"] = {"body": "HUGE_PARENT_BODY " * 50}
+    view = build_review_workbench(
+        drafts=main.list_drafts(),
+        evidence=evidence,
+        sources=repos.sources.list(),
+        entities=repos.entities.list(),
+        berry_labels=main.BERRIES,
+        filters={"kind": "atomic"},
+    )
+    group = view["groups"][0]
+    assert "HUGE_PARENT_BODY" not in str(group["parent"])
+    assert group["parent"].get("has_article_body") is True
+    card = next(item for item in group["cards"] if item["record"]["id"] == "ev-workbench-3")
+    assert card["source_says"] == card["excerpt"] == "Exact synthetic transcript support 3."
+    assert card["statement"] == "Synthetic atomic claim 3."
+    assert card["source_says"] != card["statement"]
+    assert card["speaker_label"] == "Speaker A"
+    assert card["locator_kind"] == "timestamp"
+    assert "Does not auto-create Facts or Relationships" in card["if_approved"]
+
+
+def test_rich_source_batch_registry_transcript_and_deep_links(monkeypatch, tmp_path: Path) -> None:
+    repos, parent = _setup(monkeypatch, tmp_path)
+    for variety_id, name in (
+        ("variety-redsayra", "RedSayra"),
+        ("variety-bluemaldiva", "Blue Maldiva"),
+        ("variety-pinkhudson", "Pink Hudson"),
+    ):
+        repos.entities.create(
+            {"id": variety_id, "record_type": "entity", "entity_type": "variety", "name": name, "status": "active"}
+        )
+    traits = [
+        ("variety-redsayra", "precocity"),
+        ("variety-redsayra", "firmness"),
+        ("variety-bluemaldiva", "size"),
+        ("variety-pinkhudson", "flavor"),
+        ("variety-pinkhudson", "shelf life"),
+    ]
+    seed = main.get_draft("ev-workbench-3")
+    for index, (variety_id, trait) in enumerate(traits, start=11):
+        main.save_draft(
+            {
+                **seed,
+                "id": f"ev-workbench-{index}",
+                "title": f"{trait} proposal",
+                "summary": f"System proposes {trait}.",
+                "transcript_excerpt": f"Retailers mentioned {trait}.",
+                "entity_ids": [variety_id],
+                "artifact_locator": {"start_seconds": 800 + index, "end_seconds": 820 + index, "speaker_label": "Host"},
+                "does_not_prove": ["universal variety property"],
+            }
+        )
+    main.save_draft(
+        {
+            **seed,
+            "id": "ev-registry-1",
+            "source_type": "cpvo_filing",
+            "title": "CPVO application for denomination",
+            "summary": "Filing names an applicant and a proposed denomination.",
+            "transcript_excerpt": "Application received; grant not issued.",
+            "artifact_locator": {"paragraph_index": 0},
+            "attribution": {"kind": "registry_government", "publisher": "CPVO"},
+            "does_not_prove": ["commercialization", "granted rights", "acreage"],
+            "entity_ids": ["variety-redsayra"],
+        }
+    )
+    view = _workbench(repos, kind="atomic", parent=parent["id"])
+    group = view["groups"][0]
+    assert group["progress"]["total"] >= 16
+    assert group["progress"]["remaining"] >= 16
+    registry_card = next(card for card in group["cards"] if card["record"]["id"] == "ev-registry-1")
+    assert registry_card["locator_kind"] == "paragraph"
+    assert registry_card["locator_label"] == "Paragraph 1"
+    assert "commercialization" in registry_card["does_not_prove"]
+    assert registry_card["attribution_kind"] == "registry_government"
+    client = TestClient(app)
+    batch = client.get(f"/review/batch/{parent['id']}", follow_redirects=False)
+    assert batch.status_code == 302
+    assert "kind=atomic" in batch.headers["location"] and parent["id"] in batch.headers["location"]
+    page = client.get(f"/review?kind=atomic&parent={parent['id']}")
+    assert page.status_code == 200
+    assert "Source says" in page.text and "System proposes" in page.text
+    assert "Does not prove" in page.text
+    assert "Approve all" not in page.text
+    saved = client.post(
+        "/review/ev-workbench-5/save",
+        data={"title": "Corrected title", "summary": "Corrected statement", "return_to": "/review?kind=atomic"},
+        follow_redirects=False,
+    )
+    assert saved.status_code == 303
+    assert repos.evidence.get("ev-workbench-5") is None
+    assert main.get_draft("ev-workbench-5")["summary"] == "Corrected statement"
+
+
+def test_queue_composition_stays_bounded_at_5000_proposals(monkeypatch, tmp_path: Path) -> None:
+    repos, parent = _setup(monkeypatch, tmp_path)
+    drafts = []
+    for index in range(5000):
+        drafts.append(
+            {
+                "id": f"ev-scale-{index}",
+                "evidence_role": "atomic_evidence",
+                "status": "draft",
+                "parent_evidence_id": parent["id"],
+                "title": f"scale {index}",
+                "summary": f"scale {index}",
+                "transcript_excerpt": f"excerpt {index}",
+                "artifact_locator": {"start_seconds": index},
+                "extraction_provenance": {"model": "synthetic-model", "prompt_version": "atomic-ci-v1"},
+            }
+        )
+    parent_record = {**parent, "article": {"body": "PARENT_ARTICLE_BODY"}}
+    import time
+
+    started = time.perf_counter()
+    view = build_review_workbench(
+        drafts=drafts,
+        evidence=[parent_record],
+        sources=repos.sources.list(),
+        entities=repos.entities.list(),
+        berry_labels=main.BERRIES,
+        filters={"kind": "atomic"},
+    )
+    elapsed = time.perf_counter() - started
+    assert elapsed < 8
+    group = view["groups"][0]
+    assert group["progress"]["total"] == 5000
+    assert "PARENT_ARTICLE_BODY" not in str(group["parent"])
+    assert group["cards"][0]["source_says"].startswith("excerpt")
+    assert "article" not in group["parent"]

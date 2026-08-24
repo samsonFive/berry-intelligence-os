@@ -53,6 +53,7 @@ PRIVATE_SENTINELS = {
     "private-qualification-raw-model-output",
     "private-recovered-source-body",
     "private-source-fidelity-reviewer",
+    "private-atomic-proposal-excerpt",
 }
 
 
@@ -90,6 +91,20 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     draft_folder = inbox_dir / "evidence"
     draft_folder.mkdir(parents=True, exist_ok=True)
     (draft_folder / f"{DRAFT_RECORD['id']}.json").write_text(json.dumps(DRAFT_RECORD), encoding="utf-8")
+    (draft_folder / "ev-atomic-private-proposal.json").write_text(
+        json.dumps(
+            {
+                **DRAFT_RECORD,
+                "id": "ev-atomic-private-proposal",
+                "evidence_role": "atomic_evidence",
+                "title": "private-atomic-proposal-title",
+                "summary": "private-atomic-normalized-statement",
+                "transcript_excerpt": "private-atomic-proposal-excerpt",
+                "parent_evidence_id": PUBLISHED_RECORD["id"],
+            }
+        ),
+        encoding="utf-8",
+    )
     private_files = {
         inbox_dir / "review_events" / "private-review-event-id.json": {
             "id": "private-review-event-id",

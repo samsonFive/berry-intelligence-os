@@ -4754,7 +4754,7 @@ def _safe_review_return(value: str | None, *, fallback: str = "/review") -> str:
     parts = [segment for segment in path.split("/") if segment]
     allowed = False
     if path == "/review" or path.startswith("/review/"):
-        allowed = len(parts) <= 2
+        allowed = len(parts) <= 3
     elif path == "/work-queue":
         allowed = True
     elif path.startswith("/intelligence/") or path.startswith("/evidence/"):
@@ -4778,6 +4778,12 @@ def _review_publish_service() -> ReviewPublishService:
         delete_draft=delete_draft,
         review_events_inbox=INBOX_DIR,
     )
+
+
+@app.get("/review/batch/{parent_id}")
+def review_atomic_batch(parent_id: str) -> RedirectResponse:
+    """Durable source-batch deep link into the existing Atomic review queue."""
+    return RedirectResponse(url=f"/review?kind=atomic&parent={quote(parent_id)}", status_code=302)
 
 
 @app.get("/review", response_class=HTMLResponse)
