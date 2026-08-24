@@ -1583,7 +1583,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | production build proof in `docs/v2/BOUNDED-HISTORICAL-REACQUISITION-PILOT-V1.md`; regression not yet implemented |
 
-### TD-092 — Company profile's own "Varieties / genetics" section only shows the breeder (`develops`) role
+### TD-099 — Company profile's own "Varieties / genetics" section only shows the breeder (`develops`) role
 
 | Field | Value |
 |---|---|
@@ -1599,7 +1599,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | none yet |
 
-### TD-093 — Company berry portfolio is an authored field, not derived from trusted Relationships
+### TD-100 — Company berry portfolio is an authored field, not derived from trusted Relationships
 
 | Field | Value |
 |---|---|

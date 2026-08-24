@@ -127,6 +127,9 @@
 
 <section class="v2-company-section v2-brief-section" id="companies-section">
   <h2>Selected companies</h2>
+  {% if not static_build and companies|length >= 2 %}
+    <p class="v2-card-line"><a href="/entities/company/compare?ids={{ companies[:4]|map(attribute='id')|join(',') }}">Compare selected companies</a></p>
+  {% endif %}
   {% if companies %}
     <div class="balanced-card-grid">
       {% for c in companies %}
