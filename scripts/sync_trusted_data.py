@@ -25,7 +25,10 @@ from app.services.runtime_backup import verify_backup
 from scripts.sync_source_config import sync_source_config
 
 SOURCES_RELATIVE_PATH = Path("configuration") / "sources.json"
-AUTHORITATIVE_CONFIG_PATHS = {Path("configuration") / "collection_pipelines.json"}
+AUTHORITATIVE_CONFIG_PATHS = {
+    Path("configuration") / "collection_pipelines.json",
+    Path("configuration") / "source_collection_cadence.json",
+}
 PROMOTABLE_ROOTS = {
     "assessments",
     "entities",
