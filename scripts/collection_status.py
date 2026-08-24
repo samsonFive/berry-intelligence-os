@@ -28,6 +28,7 @@ from app.services.pipeline_health import build_pipeline_health
 from app.services.analyst_queue import load_state as load_analyst_queue_state
 from app.services.review_capacity import build_review_capacity_report, load_json_objects
 from app.services.review_events import load_review_events
+from app.services.source_cadence import load_cadence_policy
 
 
 def _enabled(name: str) -> bool:
@@ -147,6 +148,9 @@ def _human(report: dict) -> str:
         "",
         f"Sources configured: {report['sources_configured']}",
         f"Sources discoverable: {report['sources_discoverable']}",
+        f"Source cadence: due={report.get('source_schedule', {}).get('due', 0)}, "
+        f"not_due={report.get('source_schedule', {}).get('not_due', 0)}, "
+        f"blocked={report.get('source_schedule', {}).get('blocked', 0)}",
         f"Runner lock: {report['lock']['state']}",
         f"Persistent runtime configured: {report.get('runtime', {}).get('persistent_runtime_configured', False)}",
         f"Storage free: {report.get('runtime', {}).get('free_percent', 0)}%",
@@ -184,7 +188,10 @@ def _human(report: dict) -> str:
                 f"  {source['name']} [{source['adapter'] or 'not discoverable'}]: "
                 f"items={source['discovered_items']}, publication_review={source['pending_publication_review']}, "
                 f"atomic_review={source['pending_atomic_review']}, failures="
-                f"{source['retryable_failures'] + source['operator_intervention']} -> {source['recommended_next_action']}"
+                f"{source['retryable_failures'] + source['operator_intervention']}, "
+                f"due={source.get('schedule', {}).get('due')}, "
+                f"next_due={source.get('schedule', {}).get('next_due') or 'operator/manual'} "
+                f"-> {source['recommended_next_action']}"
             )
     if report.get("pipelines"):
         lines.extend(["", "Pipelines:"])
@@ -219,6 +226,8 @@ def main(argv: list[str] | None = None) -> int:
         schema = json.loads((args.schemas_dir / "evidence.schema.json").read_text(encoding="utf-8"))
         validator = Draft202012Validator(schema, format_checker=FormatChecker())
         gate, blockers = _extraction_state(args)
+        cadence_policy_path = args.data_dir / "configuration" / "source_collection_cadence.json"
+        cadence_policy = load_cadence_policy(cadence_policy_path) if cadence_policy_path.is_file() else {}
         service = CollectionStatusService(
             repositories=repositories,
             inbox_dir=args.inbox_dir,
@@ -228,6 +237,7 @@ def main(argv: list[str] | None = None) -> int:
             extraction_blockers=blockers,
             retry_limit=args.retry_limit,
             lock_stale_after=timedelta(seconds=args.lock_stale_seconds),
+            cadence_policy=cadence_policy,
         )
         report = service.build(
             source_id=args.source,

@@ -9,7 +9,7 @@ explicitly enabled, configured, and matched by an operator qualification file.
 from __future__ import annotations
 
 import argparse
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 import json
 import os
 from pathlib import Path
@@ -40,7 +40,7 @@ from app.services.collection_runner import (
     OperationalStateStore,
     resolve_extraction_gate,
 )
-from app.services.media_discovery import DiscoveryError, discover_source
+from app.services.media_discovery import DiscoveryError, discover_source, read_source_discovery_state
 from app.services.media_orchestration import (
     MediaOrchestrationService,
     MediaTranscriptionAdapter,
@@ -56,6 +56,7 @@ from app.services.media_transcription import (
 from app.services.extraction_evaluation import public_configuration
 from app.services.model_qualification import file_sha256, qualification_configuration_fingerprint
 from app.services.transcript_evidence import TranscriptEvidenceExtractionService
+from app.services.source_cadence import load_cadence_policy, select_due_sources
 
 
 def _environment_enabled(name: str) -> bool:
@@ -131,6 +132,11 @@ def _parser() -> argparse.ArgumentParser:
         help="Defaults to BIOS_RUNTIME_DIR/inbox (or BIOS_INBOX_DIR) if set, else <repo>/inbox.",
     )
     parser.add_argument("--operations-dir", type=Path, help="Defaults to <inbox>/operations")
+    parser.add_argument(
+        "--cadence-policy",
+        type=Path,
+        help="Per-Source cadence policy; defaults to <data-dir>/configuration/source_collection_cadence.json.",
+    )
     return parser
 
 
@@ -375,18 +381,56 @@ def main(argv: list[str] | None = None) -> int:
     )
     try:
         source_ids = None
+        schedule: dict[str, object] = {}
         if args.pipeline_scope:
             spoken_adapters = {"podcast_rss", "youtube_feed"}
-            source_ids = sorted(
-                source["id"]
-                for source in repositories.sources.list()
-                if isinstance(source.get("id"), str)
-                and isinstance(source.get("discovery"), dict)
-                and (
-                    (source["discovery"].get("adapter") in spoken_adapters)
-                    == (args.pipeline_scope == "spoken-media")
-                )
+            candidate_sources = sorted(
+                (
+                    source
+                    for source in repositories.sources.list()
+                    if isinstance(source.get("id"), str)
+                    and isinstance(source.get("discovery"), dict)
+                    and (
+                        (source["discovery"].get("adapter") in spoken_adapters)
+                        == (args.pipeline_scope == "spoken-media")
+                    )
+                ),
+                key=lambda source: source["id"],
             )
+            policy_path = args.cadence_policy or args.data_dir / "configuration" / "source_collection_cadence.json"
+            if policy_path.is_file():
+                policy = load_cadence_policy(policy_path)
+                states = {
+                    source["id"]: read_source_discovery_state(args.inbox_dir, source["id"])
+                    for source in candidate_sources
+                }
+                source_ids, decisions = select_due_sources(
+                    candidate_sources,
+                    discovery_states=states,
+                    policy=policy,
+                    now=datetime.now(timezone.utc),
+                )
+                schedule = {
+                    "policy": str(policy_path),
+                    "pipeline_scope": args.pipeline_scope,
+                    "candidates": len(candidate_sources),
+                    "due": len(source_ids),
+                    "not_due": len(candidate_sources) - len(source_ids),
+                    "decisions": [decision.as_dict() for decision in decisions],
+                }
+            else:
+                # Backward-compatible deployment safety: an older runtime
+                # missing the new additive policy continues the established
+                # group behavior rather than silently starving every Source.
+                source_ids = [source["id"] for source in candidate_sources]
+                schedule = {
+                    "policy": None,
+                    "pipeline_scope": args.pipeline_scope,
+                    "candidates": len(candidate_sources),
+                    "due": len(source_ids),
+                    "not_due": 0,
+                    "reason": "Cadence policy missing; legacy all-source group selection retained.",
+                }
         summary = runner.run(
             source_id=args.source,
             source_ids=source_ids,
@@ -395,6 +439,7 @@ def main(argv: list[str] | None = None) -> int:
             max_transcriptions=args.max_transcriptions,
             max_items=args.max_items,
             retry_operator_items=args.retry_operator_items,
+            schedule=schedule,
         )
     except (CollectionLockedError, DiscoveryError, OSError, ValueError, json.JSONDecodeError) as exc:
         print(json.dumps({"state": "error", "error": str(exc)}, indent=2))

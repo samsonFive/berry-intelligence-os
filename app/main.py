@@ -343,6 +343,7 @@ SOURCE_REGIONS = {
 SOURCE_PRIORITIES = {"high": "High", "medium": "Medium", "low": "Low"}
 SOURCE_CADENCES = {
     "realtime": "Real-time Filing",
+    "daily": "Daily",
     "weekly": "Weekly News",
     "biweekly": "Biweekly",
     "monthly": "Monthly",

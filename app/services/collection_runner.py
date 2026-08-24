@@ -391,6 +391,7 @@ class CollectionRunSummary:
     items: list[ItemResult] = field(default_factory=list)
     counts: dict[str, int] = field(default_factory=dict)
     stale_lock_recovered: bool = False
+    schedule: dict[str, Any] = field(default_factory=dict)
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -404,6 +405,7 @@ class CollectionRunSummary:
             "items": [asdict(result) for result in self.items],
             "counts": self.counts,
             "stale_lock_recovered": self.stale_lock_recovered,
+            "schedule": self.schedule,
         }
 
 
@@ -481,6 +483,7 @@ class CollectionRunner:
         max_transcriptions: int | None = None,
         max_items: int | None = None,
         retry_operator_items: bool = False,
+        schedule: dict[str, Any] | None = None,
     ) -> CollectionRunSummary:
         started = self._now()
         run_id = self._run_id_factory(started)
@@ -504,6 +507,7 @@ class CollectionRunner:
             dry_run=dry_run,
             source_scope=source_id or ("group" if source_ids is not None else "all"),
             extraction_gate=self._gate.as_dict(),
+            schedule=dict(schedule or {}),
         )
         lock: ContextManager[Any]
         lock = nullcontext() if dry_run else CollectionRunLock(

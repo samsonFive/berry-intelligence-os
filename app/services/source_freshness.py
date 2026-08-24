@@ -60,6 +60,7 @@ _BLOCKED_SIGNALS = (
 # freshness classification can never silently drift apart.
 SOURCE_CADENCE_DAYS: dict[str, int] = {
     "realtime": 1,
+    "daily": 1,
     "weekly": 7,
     "biweekly": 14,
     "monthly": 30,
