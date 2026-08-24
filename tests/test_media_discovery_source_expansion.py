@@ -507,6 +507,79 @@ def test_unsupported_adapter_type_fails_clearly(tmp_path, repos) -> None:
         )
 
 
+def test_sitemap_xml_discovers_only_configured_recent_article_urls(tmp_path, repos, monkeypatch) -> None:
+    source_id = "source-sitemap-test"
+    feed_url = "https://publisher.example.invalid/news-sitemap.xml"
+    repos.sources.create(
+        {
+            "id": source_id,
+            "type": "reference",
+            "label": "Publisher newsroom",
+            "discovery": {
+                "adapter": "sitemap_xml",
+                "feed_url": feed_url,
+                "include_url_patterns": [r"/news/"],
+                "exclude_url_patterns": [r"/news/tag/"],
+                "sort": "published_desc",
+                "item_limit": 2,
+            },
+        }
+    )
+    sitemap = b"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://publisher.example.invalid/about</loc><lastmod>2026-08-24</lastmod></url>
+  <url><loc>https://publisher.example.invalid/news/older-story</loc><lastmod>2026-07-01</lastmod></url>
+  <url><loc>https://publisher.example.invalid/news/tag/berries</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://publisher.example.invalid/news/newest-story</loc><lastmod>2026-08-22T10:00:00+00:00</lastmod></url>
+  <url><loc>https://publisher.example.invalid/news/middle-story</loc><lastmod>2026-08-01</lastmod></url>
+  <url><loc>https://publisher.example.invalid/news/corrupt-future-story</loc><lastmod>8842-08-23</lastmod></url>
+</urlset>"""
+    monkeypatch.setattr(media_discovery.httpx, "get", lambda *args, **kwargs: _FakeResponse(sitemap))
+
+    result = discover_source(source_id, inbox_dir=tmp_path / "inbox", data_dir=tmp_path, schemas_dir=SCHEMAS_DIR)
+
+    assert result.status == "ok"
+    assert result.found == 6
+    assert result.new == 2
+    assert [item["canonical_url"] for item in result.items] == [
+        "https://publisher.example.invalid/news/newest-story",
+        "https://publisher.example.invalid/news/middle-story",
+    ]
+    assert result.items[0]["published_date"] == "2026-08-22"
+    assert result.items[0]["dedupe_strategy"] == "canonical_url"
+    assert all("corrupt-future-story" not in item["canonical_url"] for item in result.items)
+
+
+def test_sitemap_xml_rejects_index_documents_without_following_them(tmp_path, repos, monkeypatch) -> None:
+    source_id = "source-sitemap-index-test"
+    feed_url = "https://publisher.example.invalid/sitemap.xml"
+    repos.sources.create(
+        {"id": source_id, "type": "reference", "label": "Index", "discovery": {"adapter": "sitemap_xml", "feed_url": feed_url}}
+    )
+    index = b"""<?xml version="1.0"?><sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <sitemap><loc>https://publisher.example.invalid/news-sitemap.xml</loc></sitemap>
+    </sitemapindex>"""
+    monkeypatch.setattr(media_discovery.httpx, "get", lambda *args, **kwargs: _FakeResponse(index))
+
+    result = discover_source(source_id, inbox_dir=tmp_path / "inbox", data_dir=tmp_path, schemas_dir=SCHEMAS_DIR)
+
+    assert result.status == "error"
+    assert "leaf <urlset>" in (result.error or "")
+    assert list_discovered_items(tmp_path / "inbox", source_id=source_id) == []
+
+
+def test_discovery_item_limit_must_be_positive_integer(tmp_path, repos, monkeypatch) -> None:
+    source_id = "source-bad-limit-test"
+    feed_url = "https://publisher.example.invalid/feed.xml"
+    repos.sources.create(
+        {"id": source_id, "type": "reference", "label": "Bad limit", "discovery": {"adapter": "article_rss", "feed_url": feed_url, "item_limit": 0}}
+    )
+    monkeypatch.setattr(media_discovery.httpx, "get", lambda *args, **kwargs: _FakeResponse(_captivate_feed([])))
+
+    with pytest.raises(DiscoveryError, match="positive integer"):
+        discover_source(source_id, inbox_dir=tmp_path / "inbox", data_dir=tmp_path, schemas_dir=SCHEMAS_DIR)
+
+
 def test_source_config_drives_adapter_selection_not_source_id(tmp_path, repos, monkeypatch) -> None:
     """The exact same discover_source() call, differing only in what a
     Source's own 'discovery.adapter' field says, produces a podcast item

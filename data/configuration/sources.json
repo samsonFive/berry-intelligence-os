@@ -4780,5 +4780,191 @@
     "created_at": "2026-08-22",
     "last_checked_at": null,
     "last_status": null
+  },
+  {
+    "id": "source-20260824-global-plant-genetics-newsroom",
+    "type": "rss",
+    "label": "Global Plant Genetics Newsroom",
+    "value": "https://www.globalplantgenetics.com/feed/",
+    "url": "https://www.globalplantgenetics.com/news/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://www.globalplantgenetics.com/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "en", "notes": "Forward Acquisition Coverage Expansion V1. Official feed; first article probe acquired 488 words / 3,625 characters."},
+    "why_it_matters": "Direct official licensing and variety news from a monitored cross-berry genetics actor; replaces avoidable dependence on third-party discovery for its announcements.",
+    "entity_types": ["genetics_company"],
+    "berry_ids": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"],
+    "region_coverage": ["global"],
+    "monitoring_priority": "high", "update_cadence": "weekly",
+    "linked_competitor_ids": ["company-global-plant-genetics"],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-james-hutton-news",
+    "type": "rss", "label": "James Hutton Institute News", "value": "https://www.hutton.ac.uk/feed/", "url": "https://www.hutton.ac.uk/news/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://www.hutton.ac.uk/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "en", "notes": "Forward Acquisition Coverage Expansion V1. Official institutional feed; first article probe acquired 473 words / 3,138 characters."},
+    "why_it_matters": "Direct research and breeding signals from a monitored Raspberry/Blackberry institution and licensor.",
+    "entity_types": ["breeding_program", "research_institution"], "berry_ids": ["berry-raspberry", "berry-blackberry"], "region_coverage": ["europe"],
+    "monitoring_priority": "high", "update_cadence": "weekly", "linked_competitor_ids": ["company-james-hutton-ltd"],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-arkansas-aaes-news",
+    "type": "rss", "label": "Arkansas Agricultural Experiment Station News", "value": "https://aaes.uada.edu/feed/", "url": "https://aaes.uada.edu/news/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://aaes.uada.edu/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "en", "notes": "Forward Acquisition Coverage Expansion V1. Official feed from the monitored public breeding program; first article probe acquired 533 words / 3,672 characters."},
+    "why_it_matters": "Primary recurring source for the platform's most important public Blackberry breeding program, including releases, genetics, field trials, and licensing-relevant research.",
+    "entity_types": ["breeding_program", "research_institution"], "berry_ids": ["berry-blackberry"], "region_coverage": ["north_america"],
+    "monitoring_priority": "high", "update_cadence": "weekly", "linked_competitor_ids": ["company-university-of-arkansas"],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-uf-ifas-news",
+    "type": "rss", "label": "University of Florida IFAS News", "value": "https://blogs.ifas.ufl.edu/news/feed/", "url": "https://blogs.ifas.ufl.edu/news/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://blogs.ifas.ufl.edu/news/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "en", "notes": "Forward Acquisition Coverage Expansion V1. Official research feed; first article probe acquired 586 words / 3,530 characters. Broad institutional arrivals remain subject to deterministic relevance screening."},
+    "why_it_matters": "Direct recurring coverage for monitored low-chill Strawberry and Blueberry breeding/research activity.",
+    "entity_types": ["breeding_program", "research_institution"], "berry_ids": ["berry-strawberry", "berry-blueberry"], "region_coverage": ["north_america"],
+    "monitoring_priority": "medium", "update_cadence": "weekly", "linked_competitor_ids": ["company-university-of-florida"],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-nc-state-cals-news",
+    "type": "rss", "label": "NC State CALS News", "value": "https://cals.ncsu.edu/news/feed/", "url": "https://cals.ncsu.edu/news/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://cals.ncsu.edu/news/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "en", "notes": "Forward Acquisition Coverage Expansion V1. Official research feed; first article probe acquired 804 words / 4,939 characters. Broad institutional arrivals remain subject to deterministic relevance screening."},
+    "why_it_matters": "Direct recurring public-research coverage for a monitored small-fruit institution spanning Strawberry, Raspberry, Blackberry, and Blueberry work.",
+    "entity_types": ["breeding_program", "research_institution"], "berry_ids": ["berry-strawberry", "berry-raspberry", "berry-blackberry", "berry-blueberry"], "region_coverage": ["north_america"],
+    "monitoring_priority": "medium", "update_cadence": "weekly", "linked_competitor_ids": ["company-nc-state-university"],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-berryworld-newsroom",
+    "type": "reference", "label": "BerryWorld Newsroom", "value": "https://www.berryworld.com/sitemaps-2-section-news-9-sitemap.xml", "url": "https://www.berryworld.com/en-gb/about/news",
+    "discovery": {"adapter": "sitemap_xml", "feed_url": "https://www.berryworld.com/sitemaps-2-section-news-9-sitemap.xml", "include_url_patterns": ["^https://www\\.berryworld\\.com/(?:[a-z]{2}-[a-z]{2}/)?news/"], "sort": "published_desc", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "en", "notes": "Forward Acquisition Coverage Expansion V1. Official article-only leaf sitemap; 83 newsroom URLs; first article probe acquired 221 words / 1,414 characters."},
+    "why_it_matters": "Direct first-party commercial, variety, breeding, and expansion announcements from a monitored cross-berry actor with no native RSS feed.",
+    "entity_types": ["grower_marketer", "genetics_company"], "berry_ids": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "region_coverage": ["global"],
+    "monitoring_priority": "high", "update_cadence": "weekly", "linked_competitor_ids": ["company-berryworld"],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-fall-creek-newsroom",
+    "type": "reference", "label": "Fall Creek Newsroom", "value": "https://www.fallcreeknursery.com/sitemap.xml", "url": "https://www.fallcreeknursery.com/blog",
+    "discovery": {"adapter": "sitemap_xml", "feed_url": "https://www.fallcreeknursery.com/sitemap.xml", "include_url_patterns": ["^https://www\\.fallcreeknursery\\.com/blog/"], "sort": "published_desc", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "en", "notes": "Forward Acquisition Coverage Expansion V1. Official leaf sitemap filtered to 302 blog URLs and capped newest-first; sampled path acquired 326 characters (partial), while prior production reacquisition proved current Fall Creek/SEKOYA newsroom pages rich. Retained as a direct monitored-company path with explicit boundedness."},
+    "why_it_matters": "Direct variety-launch, nursery, licensing, and SEKOYA platform announcements from a monitored genetics actor; the newest-first probe also surfaced Fall Creek's 2026 expansion into Raspberry and Blackberry through Berryplant/Berrytech.",
+    "entity_types": ["genetics_company", "nursery_propagator"], "berry_ids": ["berry-blueberry", "berry-raspberry", "berry-blackberry"], "region_coverage": ["global"],
+    "monitoring_priority": "high", "update_cadence": "weekly", "linked_competitor_ids": ["company-fall-creek-farm-and-nursery"],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-naturipe-newsroom",
+    "type": "reference", "label": "Naturipe Farms Newsroom", "value": "https://www.naturipefarms.com/post-sitemap.xml", "url": "https://www.naturipefarms.com/newsroom/",
+    "discovery": {"adapter": "sitemap_xml", "feed_url": "https://www.naturipefarms.com/post-sitemap.xml", "include_url_patterns": ["^https://www\\.naturipefarms\\.com/(?!newsroom/?$)"], "sort": "published_desc", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "en", "notes": "Forward Acquisition Coverage Expansion V1. Official post leaf sitemap, 72 article URLs after excluding the listing page; first article probe acquired 521 words / 3,429 characters."},
+    "why_it_matters": "Direct first-party commercial and genetics-platform announcements from a monitored grower-marketer spanning all four berries.",
+    "entity_types": ["grower_marketer"], "berry_ids": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "region_coverage": ["north_america", "global"],
+    "monitoring_priority": "high", "update_cadence": "weekly", "linked_competitor_ids": ["company-naturipe-farms"],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-sekoya-news",
+    "type": "rss", "label": "SEKOYA News", "value": "https://sekoya.com/feed/", "url": "https://sekoya.com/news/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://sekoya.com/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "en", "notes": "Forward Acquisition Coverage Expansion V1. Official direct feed; seven current items; first article probe acquired 778 words / 4,486 characters."},
+    "why_it_matters": "Direct commercial and membership announcements from Fall Creek's high-value Blueberry variety platform.",
+    "entity_types": ["genetics_company", "variety_platform"], "berry_ids": ["berry-blueberry"], "region_coverage": ["global"],
+    "monitoring_priority": "high", "update_cadence": "weekly", "linked_competitor_ids": ["company-fall-creek-farm-and-nursery"],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-costa-group-newsroom",
+    "type": "rss", "label": "Costa Group Newsroom", "value": "https://costagroup.com.au/feed/", "url": "https://costagroup.com.au/news/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://costagroup.com.au/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "en", "notes": "Forward Acquisition Coverage Expansion V1. Official company feed; first article probe acquired 300 words / 2,065 characters."},
+    "why_it_matters": "Direct first-party company, operational, and Blueberry genetics announcements from a monitored actor previously dependent on a Google News wrapper for recurring discovery.",
+    "entity_types": ["grower_marketer", "genetics_company"], "berry_ids": ["berry-blueberry"], "region_coverage": ["asia_pacific", "global"],
+    "monitoring_priority": "high", "update_cadence": "weekly", "linked_competitor_ids": ["company-costa-group-holdings", "company-costa-berry-international"],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-blueberries-consulting-articles",
+    "type": "rss", "label": "Blueberries Consulting Articles", "value": "https://www.blueberriesconsulting.com/feed/", "url": "https://blueberriesconsulting.com/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://www.blueberriesconsulting.com/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "es", "notes": "Forward Acquisition Coverage Expansion V1. Direct publisher feed; first article probe acquired 972 words / 6,143 characters in Spanish. Distinct written-article channel from the existing Blueberries TV source."},
+    "why_it_matters": "High-cadence Spanish-language Blueberry production, variety, market, and breeding coverage with demonstrated rich article extraction.",
+    "entity_types": ["trade_press"], "berry_ids": ["berry-blueberry"], "region_coverage": ["south_america", "global"],
+    "monitoring_priority": "high", "update_cadence": "daily", "linked_competitor_ids": [],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-british-berry-growers-news",
+    "type": "rss", "label": "British Berry Growers News", "value": "https://britishberrygrowers.org.uk/feed/", "url": "https://britishberrygrowers.org.uk/news/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://britishberrygrowers.org.uk/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "en", "notes": "Forward Acquisition Coverage Expansion V1. Official industry-association feed; first article probe was a Blackberry item with 510 words / 3,576 characters."},
+    "why_it_matters": "Direct cross-berry UK grower, season, supply, and market coverage; the live probe immediately demonstrated rich Blackberry coverage.",
+    "entity_types": ["industry_association"], "berry_ids": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "region_coverage": ["europe"],
+    "monitoring_priority": "high", "update_cadence": "weekly", "linked_competitor_ids": [],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-perishable-news-produce",
+    "type": "rss", "label": "Perishable News - Produce", "value": "https://perishablenews.com/category/produce/feed/", "url": "https://perishablenews.com/category/produce/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://perishablenews.com/category/produce/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "en", "notes": "Forward Acquisition Coverage Expansion V1. Direct category feed; first article probe acquired 582 words / 3,508 characters."},
+    "why_it_matters": "Trade-press source already represented in trusted berry Evidence but previously absent from recurring direct discovery; captures company, retail, and commercial announcements across all four berries.",
+    "entity_types": ["trade_press"], "berry_ids": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "region_coverage": ["north_america", "global"],
+    "monitoring_priority": "medium", "update_cadence": "daily", "linked_competitor_ids": [],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-produce-business",
+    "type": "rss", "label": "Produce Business", "value": "https://producebusiness.com/feed/", "url": "https://producebusiness.com/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://producebusiness.com/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "en", "notes": "Forward Acquisition Coverage Expansion V1. Direct publisher feed; first article probe acquired 667 words / 4,269 characters."},
+    "why_it_matters": "Rich direct trade coverage of retail, marketing, company, and supply-chain developments across fresh produce, screened deterministically for berry relevance.",
+    "entity_types": ["trade_press"], "berry_ids": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "region_coverage": ["north_america", "global"],
+    "monitoring_priority": "medium", "update_cadence": "daily", "linked_competitor_ids": [],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-ushbc-blueberry-org",
+    "type": "rss", "label": "U.S. Highbush Blueberry Council - Blueberry.org", "value": "https://blueberry.org/feed/", "url": "https://blueberry.org/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://blueberry.org/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "en", "notes": "Forward Acquisition Coverage Expansion V1. Official council feed; first article probe acquired 471 words / 3,001 characters. Distinct written channel from the existing Business of Blueberries podcast."},
+    "why_it_matters": "Direct recurring US Blueberry industry, demand, health, and promotion coverage from a monitored association.",
+    "entity_types": ["industry_association"], "berry_ids": ["berry-blueberry"], "region_coverage": ["north_america"],
+    "monitoring_priority": "medium", "update_cadence": "weekly", "linked_competitor_ids": ["company-ushbc"],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-specialty-crop-grower",
+    "type": "rss", "label": "Specialty Crop Grower", "value": "https://specialtycropgrower.com/feed/", "url": "https://specialtycropgrower.com/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://specialtycropgrower.com/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "en", "notes": "Forward Acquisition Coverage Expansion V1. Direct publisher feed; first article probe acquired 421 words / 2,912 characters. Broad arrivals remain subject to deterministic berry relevance screening."},
+    "why_it_matters": "Direct specialty-crop production, pest, disease, policy, and research coverage with recurring US caneberry and Strawberry relevance.",
+    "entity_types": ["trade_press"], "berry_ids": ["berry-raspberry", "berry-strawberry", "berry-blackberry", "berry-blueberry"], "region_coverage": ["north_america"],
+    "monitoring_priority": "medium", "update_cadence": "daily", "linked_competitor_ids": [],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-berries-australia",
+    "type": "rss", "label": "Berries Australia", "value": "https://berries.net.au/feed/", "url": "https://berries.net.au/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://berries.net.au/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "en", "notes": "Forward Acquisition Coverage Expansion V1. Official association feed; first article probe acquired 627 words / 4,397 characters; current feed includes berry permits, production, and journal items."},
+    "why_it_matters": "Direct authoritative Australia/Oceania coverage across all four berries, reducing the platform's Northern Hemisphere bias.",
+    "entity_types": ["industry_association"], "berry_ids": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "region_coverage": ["asia_pacific"],
+    "monitoring_priority": "high", "update_cadence": "weekly", "linked_competitor_ids": [],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-redagricola-articles",
+    "type": "rss", "label": "Redagricola Articles", "value": "https://redagricola.com/feed/", "url": "https://redagricola.com/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://redagricola.com/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "es", "notes": "Forward Acquisition Coverage Expansion V1. Direct Spanish-language publisher feed; first article probe acquired 1,897 words / 12,123 characters. Distinct written channel from the existing Redagricola video source."},
+    "why_it_matters": "Exceptionally rich direct Latin American production, technology, market, and Blueberry coverage without a search wrapper.",
+    "entity_types": ["trade_press"], "berry_ids": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "region_coverage": ["south_america", "global"],
+    "monitoring_priority": "high", "update_cadence": "daily", "linked_competitor_ids": [],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-portalfruticola",
+    "type": "rss", "label": "PortalFruticola", "value": "https://www.portalfruticola.com/feed/", "url": "https://www.portalfruticola.com/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://www.portalfruticola.com/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "es", "notes": "Forward Acquisition Coverage Expansion V1. Direct Spanish-language publisher feed; 20 current items; first article probe acquired 441 words / 2,662 characters."},
+    "why_it_matters": "Direct Latin American fruit-trade coverage with recurring berry production, export, company, and market relevance.",
+    "entity_types": ["trade_press"], "berry_ids": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "region_coverage": ["south_america", "north_america", "global"],
+    "monitoring_priority": "high", "update_cadence": "daily", "linked_competitor_ids": [],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
+  },
+  {
+    "id": "source-20260824-aneberries-mexico",
+    "type": "rss", "label": "Aneberries Mexico", "value": "https://aneberries.mx/feed/", "url": "https://aneberries.mx/",
+    "discovery": {"adapter": "article_rss", "feed_url": "https://aneberries.mx/feed/", "item_limit": 10, "feed_url_verified_at": "2026-08-24", "language": "es", "notes": "Forward Acquisition Coverage Expansion V1. Official Mexican berry-association feed. Five-path probe: three full bodies, one partial, one empty; retained for its direct authoritative value with measured mixed richness."},
+    "why_it_matters": "Direct Mexico coverage across Blueberry, Raspberry, Strawberry, and Blackberry, including regulatory, food-safety, production, and export notices.",
+    "entity_types": ["industry_association"], "berry_ids": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "region_coverage": ["north_america"],
+    "monitoring_priority": "high", "update_cadence": "weekly", "linked_competitor_ids": [],
+    "enabled": true, "created_at": "2026-08-24", "last_checked_at": null, "last_status": null
   }
 ]
