@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from app.services.morning_brief import brief_last_seen, _parse_stamp as parse_brief_stamp
-from app.services.pipeline_health import build_pipeline_health
+from app.services.freshness_assurance import build_runtime_freshness
 from app.services.variety_workspace import SOURCE_TYPE_LABEL
 
 LATEST_WINDOW_DAYS = 14
@@ -195,33 +195,24 @@ def _freshness(
     data_dir: Path,
     inbox_dir: Path,
     sources: list[dict[str, Any]],
-    published: list[dict[str, Any]],
     now: datetime,
 ) -> dict[str, Any]:
-    config = data_dir / "configuration" / "collection_pipelines.json"
-    last_collection = None
-    degraded = False
-    if config.is_file():
-        health = build_pipeline_health(data_dir=data_dir, inbox_dir=inbox_dir, config_path=config, now=now)
-        successes = [_parse(row.get("last_success")) for row in health.get("pipelines") or []]
-        successes = [item for item in successes if item]
-        if successes:
-            last_collection = max(successes)
-        if any(str(row.get("outcome") or "") == "FAILED" for row in health.get("pipelines") or []):
-            degraded = True
-    captured = [_parse(row.get("captured_date")) for row in published]
-    captured = [item for item in captured if item]
-    last_captured = max(captured) if captured else None
-    discoverable = sum(1 for row in sources if (row.get("discovery") or {}).get("adapter"))
-    current_through = None if degraded else (last_collection or last_captured)
-    return {
-        "degraded": degraded,
-        "last_collection_at": last_collection.isoformat() if last_collection else None,
-        "last_captured_at": last_captured.isoformat() if last_captured else None,
-        "current_through": current_through.isoformat() if current_through else None,
-        "discoverable_sources": discoverable,
+    contract = build_runtime_freshness(
+        data_dir=data_dir,
+        inbox_dir=inbox_dir,
+        sources=sources,
+        now=now,
+    )
+    # Compatibility aliases keep the Today template presentation-only while
+    # its authoritative values come from the shared operational contract.
+    contract.update({
+        "degraded": contract["system_state"] != "CURRENT",
+        "last_collection_at": contract["last_successful_collection"],
+        "last_captured_at": contract["last_new_intelligence"],
+        "discoverable_sources": contract["counts"]["scheduled_sources"],
         "now": now.isoformat(),
-    }
+    })
+    return contract
 
 
 def build_today(
@@ -292,7 +283,7 @@ def build_today(
         "developing_signals": developing,
         "worth_revisiting": worth,
         "freshness": _freshness(
-            data_dir=data_dir, inbox_dir=inbox_dir, sources=sources, published=published, now=instant
+            data_dir=data_dir, inbox_dir=inbox_dir, sources=sources, now=instant
         ),
         "berry_id": berry_id,
         "window_days": LATEST_WINDOW_DAYS,
