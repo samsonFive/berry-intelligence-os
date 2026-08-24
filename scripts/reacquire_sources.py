@@ -28,6 +28,19 @@ from app.services.source_reacquisition import (
 
 
 _EXECUTION_LOCK_HELD = False
+_PILOT_LIMITS = {"REACQUISITION-PILOT-10": 10, "REACQUISITION-PILOT-25": 25}
+
+
+def _validated_pilot_entries(payload: dict) -> tuple[str, list[dict]]:
+    manifest_name = payload.get("manifest")
+    entries = payload.get("entries")
+    manifest_limit = _PILOT_LIMITS.get(manifest_name)
+    if manifest_limit is None or not isinstance(entries, list) or not 1 <= len(entries) <= manifest_limit:
+        raise ValueError(
+            "--pilot-manifest must be a bounded REACQUISITION-PILOT-10 or "
+            "REACQUISITION-PILOT-25 manifest"
+        )
+    return manifest_name, entries
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -39,6 +52,8 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--ids", nargs="*")
     parser.add_argument("--limit", type=int)
     parser.add_argument("--manifest", action="store_true", help="Write private body-free pilot-10 and pilot-25 manifests")
+    parser.add_argument("--manifest-size", type=int, choices=(10, 25), help="With --manifest, write only this bounded pilot size")
+    parser.add_argument("--exclude-manifest", type=Path, action="append", default=[], help="Exclude Evidence ids from an earlier body-free pilot manifest")
     parser.add_argument("--pilot-manifest", type=Path, help="Execute the exact existing body-free pilot manifest")
     parser.add_argument("--canonical", help="Canonical commit recorded in the private execution audit")
     parser.add_argument("--execute", action="store_true", help="Explicitly allow bounded network acquisition")
@@ -68,10 +83,20 @@ def main(argv: list[str] | None = None) -> int:
         assessments=repos.assessments.list(),
     )
     if args.manifest:
+        excluded_ids: set[str] = set()
+        for excluded_path in args.exclude_manifest:
+            excluded_payload = json.loads(excluded_path.read_text(encoding="utf-8"))
+            excluded_entries = excluded_payload.get("entries")
+            if not isinstance(excluded_entries, list):
+                raise SystemExit(f"excluded manifest has no entries list: {excluded_path}")
+            excluded_ids.update(str(row.get("evidence_id") or "") for row in excluded_entries)
+        manifest_items = [row for row in report["items"] if row["evidence_id"] not in excluded_ids]
         folder = inbox_dir / "operations" / "source-reacquisition"
         folder.mkdir(parents=True, exist_ok=True)
-        for size in (10, 25):
-            payload = pilot_manifest(report["items"], size)
+        sizes = (args.manifest_size,) if args.manifest_size else (10, 25)
+        for size in sizes:
+            payload = pilot_manifest(manifest_items, size)
+            payload["excluded_evidence_ids"] = sorted(excluded_ids)
             (folder / f"REACQUISITION-PILOT-{size}.json").write_text(
                 json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=True) + "\n", encoding="utf-8"
             )
@@ -82,10 +107,10 @@ def main(argv: list[str] | None = None) -> int:
     if args.pilot_manifest:
         raw_manifest = args.pilot_manifest.read_bytes()
         execution_manifest = json.loads(raw_manifest)
-        manifest_name = execution_manifest.get("manifest")
-        entries = execution_manifest.get("entries")
-        if manifest_name != "REACQUISITION-PILOT-10" or not isinstance(entries, list) or not 1 <= len(entries) <= 10:
-            raise SystemExit("--pilot-manifest must be the bounded REACQUISITION-PILOT-10 manifest")
+        try:
+            manifest_name, entries = _validated_pilot_entries(execution_manifest)
+        except ValueError as exc:
+            raise SystemExit(str(exc)) from exc
         manifest_ids = [str(entry.get("evidence_id") or "") for entry in entries]
         if len(set(manifest_ids)) != len(manifest_ids):
             raise SystemExit("pilot manifest contains duplicate Evidence ids")
