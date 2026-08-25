@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Saved Brief Packs — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">SAVED BRIEF PACKS</p>
+    <h1>Saved brief packs</h1>
+    <p class="also-known-as">A saved pack stores your selection only -- who and what you chose to include. Opening one always renders CURRENT trusted intelligence, not a frozen snapshot from when it was saved.</p>
+  </div>
+</section>
+
+<nav class="landscape-filter-bar" aria-label="Saved brief pack filters">
+  <div class="landscape-filter-group">
+    <strong>Show</strong>
+    <a class="filter-chip{% if status != 'archived' %} is-active{% endif %}" href="/brief-packs">Active</a>
+    <a class="filter-chip{% if status == 'archived' %} is-active{% endif %}" href="/brief-packs?status=archived">Archived</a>
+  </div>
+  <div class="landscape-filter-group">
+    <a class="v2-btn v2-btn-quiet" href="/brief-pack">New brief pack</a>
+  </div>
+</nav>
+
+{% if packs %}
+  <div class="balanced-card-grid">
+    {% for p in packs %}
+      <article class="card entity-card">
+        <p class="card-kicker">{{ p.selection_count }} item{{ 's' if p.selection_count != 1 else '' }} selected{% if p.berry_id %} · {{ berries.get(p.berry_id, p.berry_id) }}{% endif %}</p>
+        <h2><a href="{{ p.open_href }}">{{ p.title }}</a></h2>
+        {% if p.context_note %}<p class="v2-meta">{{ p.context_note }}</p>{% endif %}
+        <p class="v2-meta">Pack updated {{ p.updated_at[:10]|us_date if p.updated_at else "—" }} · renders current intelligence when opened</p>
+        <p class="v2-card-line">
+          <a href="{{ p.open_href }}">Open</a>
+          <a href="{{ p.present_href }}">Present</a>
+          <form method="post" action="/brief-packs/{{ p.id }}/duplicate" style="display:inline">
+            <button class="v2-btn v2-btn-quiet" type="submit">Duplicate</button>
+          </form>
+          {% if status == 'archived' %}
+            <form method="post" action="/brief-packs/{{ p.id }}/unarchive" style="display:inline">
+              <button class="v2-btn v2-btn-quiet" type="submit">Unarchive</button>
+            </form>
+          {% else %}
+            <form method="post" action="/brief-packs/{{ p.id }}/archive" style="display:inline" onsubmit="return confirm('Archive this brief pack? You can unarchive it later.');">
+              <button class="v2-btn v2-btn-quiet" type="submit">Archive</button>
+            </form>
+          {% endif %}
+        </p>
+      </article>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="empty-state">{% if status == 'archived' %}No archived brief packs.{% else %}No saved brief packs yet. Compose one at <a href="/brief-pack">Manager Brief Pack</a> and save it.{% endif %}</p>
+{% endif %}
+</div>
+{% endblock %}
