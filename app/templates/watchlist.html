@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}My Watches{% endblock %}
+{% block content %}
+{% set watches = watches if watches is defined else [] %}
+<div class="v2-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">PRIVATE MONITORING</p>
+    <h1>My watches</h1>
+    <p class="also-known-as">What you're personally monitoring, and what's genuinely new since you last checked. A Watch is navigation only -- it never publishes, affirms, approves, or rejects anything.</p>
+  </div>
+</section>
+
+<nav class="landscape-filter-bar" aria-label="Watchlist filters">
+  <div class="landscape-filter-group">
+    <strong>Type</strong>
+    <a class="filter-chip{% if not watch_type_filter %} is-active{% endif %}" href="/watches">All</a>
+    <a class="filter-chip{% if watch_type_filter == 'company' %} is-active{% endif %}" href="/watches?type=company">Companies</a>
+    <a class="filter-chip{% if watch_type_filter == 'variety' %} is-active{% endif %}" href="/watches?type=variety">Varieties</a>
+    <a class="filter-chip{% if watch_type_filter == 'geography' %} is-active{% endif %}" href="/watches?type=geography">Geographies</a>
+    <a class="filter-chip{% if watch_type_filter == 'strategic_question' %} is-active{% endif %}" href="/watches?type=strategic_question">Questions</a>
+  </div>
+  <div class="landscape-filter-group">
+    <strong>Show</strong>
+    <a class="filter-chip{% if not has_new_only %} is-active{% endif %}" href="/watches?{% if watch_type_filter %}type={{ watch_type_filter }}&{% endif %}sort={{ sort }}">All watches</a>
+    <a class="filter-chip{% if has_new_only %} is-active{% endif %}" href="/watches?{% if watch_type_filter %}type={{ watch_type_filter }}&{% endif %}new=1&sort={{ sort }}">Has new intelligence</a>
+  </div>
+  <div class="landscape-filter-group">
+    <strong>Sort</strong>
+    <a class="filter-chip{% if sort != 'alphabetical' %} is-active{% endif %}" href="/watches?{% if watch_type_filter %}type={{ watch_type_filter }}&{% endif %}{% if has_new_only %}new=1&{% endif %}sort=new_first">New first</a>
+    <a class="filter-chip{% if sort == 'alphabetical' %} is-active{% endif %}" href="/watches?{% if watch_type_filter %}type={{ watch_type_filter }}&{% endif %}{% if has_new_only %}new=1&{% endif %}sort=alphabetical">Alphabetical</a>
+  </div>
+</nav>
+
+{% if watches %}
+  <div class="balanced-card-grid">
+    {% for w in watches %}
+      <article class="card entity-card">
+        <p class="card-kicker">{{ w.watch_type|replace('_',' ')|upper }}{% for b in w.berries %} · {{ b|upper }}{% endfor %}</p>
+        <h2><a href="{{ w.open_href }}">{{ w.name }}</a></h2>
+
+        {% if w.monitoring and w.monitoring.status == 'degraded' %}
+          <p><span class="badge badge-counterevidence">MONITORING DEGRADED</span>{% if w.monitoring.reason %} <span class="v2-meta">{{ w.monitoring.reason }}</span>{% endif %}</p>
+        {% endif %}
+
+        {% if w.new_evidence_count > 0 %}
+          <p><span class="badge badge-claim">NEW INTELLIGENCE</span> {{ w.new_evidence_count }} new item{{ 's' if w.new_evidence_count != 1 else '' }} since your last check</p>
+        {% endif %}
+        {% if w.new_assessment_count > 0 %}
+          <p><span class="badge badge-assessment">NEW ASSESSMENT</span> {{ w.new_assessment_count }} new since your last check</p>
+        {% endif %}
+        {% if not w.new_evidence_count and not w.new_assessment_count %}
+          {% if w.never_seen %}
+            <p class="v2-meta">Not yet checked. Latest captured intelligence: {{ w.latest_activity|us_date if w.latest_activity else "None captured yet" }}</p>
+          {% else %}
+            <p class="v2-meta">No new captured intelligence since your last check. Latest captured intelligence: {{ w.latest_activity|us_date if w.latest_activity else "None captured yet" }}</p>
+          {% endif %}
+        {% endif %}
+
+        <ul class="metric-bullets">
+          {% if w.watch_type == 'strategic_question' %}
+            <li>{{ w.evidence_count }} evidence · {{ w.signal_count }} signal{{ 's' if w.signal_count != 1 else '' }} · {{ w.assessment_count }} assessment{{ 's' if w.assessment_count != 1 else '' }} · {{ w.recommendation_count }} recommendation{{ 's' if w.recommendation_count != 1 else '' }}</li>
+            {% if w.would_change_our_view %}<li>Would change our view: {{ w.would_change_our_view[0] }}</li>{% endif %}
+          {% else %}
+            <li>{{ w.evidence_count }} evidence · {{ w.signal_count }} signal{{ 's' if w.signal_count != 1 else '' }} · {{ w.assessment_count }} assessment{{ 's' if w.assessment_count != 1 else '' }}</li>
+          {% endif %}
+        </ul>
+
+        <p class="v2-card-line">
+          <a href="{{ w.open_href }}">Open</a>
+          <form method="post" action="/watches/toggle" style="display:inline">
+            <input type="hidden" name="watch_type" value="{{ w.watch_type }}">
+            <input type="hidden" name="object_id" value="{{ w.object_id }}">
+            <input type="hidden" name="action" value="remove">
+            <input type="hidden" name="return_to" value="/watches">
+            <button class="v2-btn v2-btn-quiet" type="submit">Unwatch</button>
+          </form>
+        </p>
+      </article>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="empty-state">You aren't watching anything yet. Add a watch from a Company, Variety, Geography, or Strategic Question page.</p>
+{% endif %}
+</div>
+{% endblock %}

@@ -14,6 +14,15 @@
   </div>
   <div class="v2-company-actions">
     <a class="v2-btn v2-btn-quiet" href="/strategic-questions">All questions</a>
+    {% if not static_build %}
+      <form method="post" action="/watches/toggle" style="display:inline">
+        <input type="hidden" name="watch_type" value="strategic_question">
+        <input type="hidden" name="object_id" value="{{ sq.id }}">
+        <input type="hidden" name="action" value="{{ 'remove' if is_watched else 'add' }}">
+        <input type="hidden" name="return_to" value="{{ request.url.path }}">
+        <button class="v2-btn v2-btn-quiet" type="submit">{{ 'Remove from watchlist' if is_watched else 'Add to watchlist' }}</button>
+      </form>
+    {% endif %}
   </div>
 </section>
 

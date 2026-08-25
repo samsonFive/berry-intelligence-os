@@ -92,6 +92,9 @@
     {{ nav_icon('alert') }}<span class="v2-nav-text">Alerts</span>
     {% if nav_work_counts.signal_alerts %}<span class="v2-count v2-count-action">{{ nav_work_counts.signal_alerts }}</span>{% endif %}
   </a>
+  <a href="/watches" class="v2-nav-link{% if path == '/watches' %} is-active{% endif %}" title="My Watches" aria-label="My Watches"{% if path == '/watches' %} aria-current="page"{% endif %}>
+    {{ nav_icon('watch') }}<span class="v2-nav-text">My Watches</span>
+  </a>
   {% if authoring_mode or static_build %}
   <a href="/sources" class="v2-nav-link{% if path.startswith('/sources') %} is-active{% endif %}" title="Source Health" aria-label="Source Health">{{ nav_icon('source') }}<span class="v2-nav-text">Source Health</span></a>
   {% endif %}
