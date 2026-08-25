@@ -22,6 +22,9 @@
         <input type="hidden" name="return_to" value="{{ request.url.path }}">
         <button class="v2-btn v2-btn-quiet" type="submit">{{ 'Remove from watchlist' if is_watched else 'Add to watchlist' }}</button>
       </form>
+      {% if sq.signals or sq.assessments %}
+        <a class="v2-btn v2-btn-quiet" href="/brief-pack?title={{ sq.title|urlencode }}&signals={{ sq.signals|map(attribute='id')|join(',') }}&assessments={{ sq.assessments|map(attribute='id')|join(',') }}">Add to Brief Pack</a>
+      {% endif %}
     {% endif %}
   </div>
 </section>
@@ -105,6 +108,7 @@
           <a href="{{ s.href }}"><strong>{{ s.title }}</strong></a>
           <span class="badge badge-muted">{{ s.status|upper }}</span>
           {% if s.strength %}<span class="badge badge-muted">{{ s.strength|upper }}</span>{% endif %}
+          <span class="v2-meta">{{ s.evidence_count }} supporting evidence</span>
           {% if s.observation %}<p>{{ s.observation }}</p>{% endif %}
           {% if s.what_would_confirm_it %}<p class="v2-card-line"><span class="v2-meta">Would confirm</span> {{ s.what_would_confirm_it }}</p>{% endif %}
           {% if s.what_would_falsify_it %}<p class="v2-card-line"><span class="v2-meta">Would falsify</span> {{ s.what_would_falsify_it }}</p>{% endif %}
@@ -113,6 +117,38 @@
     </ul>
   {% else %}
     <p class="empty-state">No confirmed or proposed Signal captured for this question yet.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="sq-tensions">
+  <h2>Tensions / contradictions</h2>
+  <p class="context-limit">Only explicit, schema-recorded tensions -- an Assessment's own counterevidence, or an accepted Evidence-to-Evidence "contradicts" link. Never inferred from wording or similarity.</p>
+  {% if sq.assessment_counterevidence or sq.evidence_contradictions %}
+    {% if sq.assessment_counterevidence %}
+      <h3 class="v2-subsection-title">Assessment counterevidence</h3>
+      <ul class="entity-links">
+        {% for row in sq.assessment_counterevidence %}
+          <li>
+            <a href="{{ row.assessment_href }}"><strong>{{ row.assessment_title }}</strong></a> has recorded counterevidence:
+            <ul class="bullet-list">
+              {% for item in row.counterevidence_items %}
+                <li><span class="badge badge-counterevidence">COUNTEREVIDENCE</span> {% if item.href %}<a href="{{ item.href }}">{{ item.statement }}</a>{% else %}{{ item.statement }}{% endif %}</li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% if sq.evidence_contradictions %}
+      <h3 class="v2-subsection-title">Evidence contradictions</h3>
+      <ul class="entity-links">
+        {% for row in sq.evidence_contradictions %}
+          <li><a href="{{ row.evidence_href }}">{{ row.evidence_title }}</a> contradicts {% if row.target_href %}<a href="{{ row.target_href }}">{{ row.target_title }}</a>{% else %}{{ row.target_title }}{% endif %}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% else %}
+    <p class="empty-state">No explicit counterevidence or contradiction recorded for this question yet.</p>
   {% endif %}
 </section>
 
