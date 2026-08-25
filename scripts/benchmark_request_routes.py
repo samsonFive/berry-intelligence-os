@@ -31,7 +31,7 @@ ROUTES = (
     ("/brief", True),
     ("/review-ops", True),
     ("/geographies", True),
-    ("/landscapes/berry-blueberry", True),
+    ("/landscapes/berries/blueberry", True),
     ("/entities/company", True),
     ("/search?q=planasa", True),
 )

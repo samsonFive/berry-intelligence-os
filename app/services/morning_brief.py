@@ -29,7 +29,11 @@ from app.services.analyst_queue import (
     signal_alert_state,
     MONITORING_ACTIVE,
 )
-from app.services.draft_attribution import attribute_draft, watch_match_quality
+from app.services.draft_attribution import (
+    attribute_draft,
+    build_attribution_match_index,
+    watch_match_quality,
+)
 from app.services.intelligence_feed import (
     MARKET_TAGS,
     classify_kind,
@@ -218,10 +222,19 @@ def _name_needles(entity: dict[str, Any]) -> list[str]:
 def title_matched_entities(
     record: dict[str, Any],
     entities: dict[str, dict[str, Any]],
+    match_index=None,
 ) -> list[dict[str, Any]]:
     title = str(record.get("title") or "").casefold()
     if not title:
         return []
+    if match_index is not None:
+        from app.services.draft_attribution import indexed_title_matched_entity_ids
+
+        return [
+            entities[entity_id]
+            for entity_id in indexed_title_matched_entity_ids(title, entities, match_index)
+            if entity_id in entities
+        ]
     hits: list[tuple[int, dict[str, Any]]] = []
     seen: set[str] = set()
     for entity in entities.values():
@@ -247,6 +260,7 @@ def primary_subject(
     record: dict[str, Any],
     entities: dict[str, dict[str, Any]],
     sources: dict[str, dict[str, Any]] | None = None,
+    match_index=None,
 ) -> dict[str, Any] | None:
     """Single presentation subject from deterministic evidence.
 
@@ -255,7 +269,9 @@ def primary_subject(
     Does not use AI suggested entities.
     """
 
-    attribution = attribute_draft(record, entities, sources=sources, include_body=False)
+    attribution = attribute_draft(
+        record, entities, sources=sources, match_index=match_index, include_body=False
+    )
     primary = attribution.get("primary") or {}
     entity_id = str(primary.get("id") or "")
     if not entity_id:
@@ -309,6 +325,7 @@ def _watch_entity_ids(
     published: list[dict[str, Any]],
     state: dict[str, dict[str, dict[str, Any]]],
     entities: dict[str, dict[str, Any]],
+    match_index=None,
 ) -> set[str]:
     ids: set[str] = set()
     for record in published:
@@ -320,7 +337,7 @@ def _watch_entity_ids(
             entity = entities.get(entity_id) or {}
             if entity.get("entity_type") in WATCH_ENTITY_TYPES:
                 ids.add(str(entity_id))
-        subject = primary_subject(record, entities)
+        subject = primary_subject(record, entities, match_index=match_index)
         if subject and subject.get("entity_type") in WATCH_ENTITY_TYPES:
             ids.add(str(subject.get("id")))
     return ids
@@ -336,6 +353,7 @@ def _hot_entity_ids(
     entities: dict[str, dict[str, Any]],
     first_seen_by_discovered: dict[str, str] | None = None,
     sources: dict[str, dict[str, Any]] | None = None,
+    match_index=None,
 ) -> set[str]:
     hot: set[str] = set()
     seen_at = _parse_stamp(last_seen)
@@ -352,7 +370,7 @@ def _hot_entity_ids(
         )
         if seen_at and stamp and stamp <= seen_at:
             continue
-        subject = primary_subject(draft, entities, sources=sources)
+        subject = primary_subject(draft, entities, sources=sources, match_index=match_index)
         if subject and subject.get("entity_type") == "company" and str(subject.get("id")) in watch_entities:
             hot.add(str(subject.get("id")))
     return hot
@@ -423,7 +441,9 @@ def rank_item(
     stamp = activity_stamp(record, first_seen_at=first_seen)
     new_since = bool(cutoff and stamp and stamp > cutoff)
     sources = ctx.get("sources") or {}
-    attribution = attribute_draft(record, entities, sources=sources)
+    attribution = attribute_draft(
+        record, entities, sources=sources, match_index=ctx.get("match_index")
+    )
     primary_meta = attribution.get("primary") or {}
     primary_id = str(primary_meta.get("id") or "")
     primary = entities.get(primary_id) if primary_id else None
@@ -434,7 +454,7 @@ def rank_item(
             if str(entity_id) in entities
         ]
     else:
-        title_hits = title_matched_entities(record, entities)
+        title_hits = title_matched_entities(record, entities, match_index=ctx.get("match_index"))
     watch_match, watch_entity_id = watch_match_quality(attribution, ctx["watch_entities"])
     chips = entity_chips(record, entities, by_name=ctx.get("entities_by_name"))
     for suggestion in attribution.get("suggested") or []:
@@ -1137,9 +1157,16 @@ def _present_discovered(
     draft: dict[str, Any] | None,
 ) -> dict[str, Any]:
     source = ctx["sources"].get(str(record.get("source_id") or "")) or {}
-    attribution = attribute_draft(record, ctx["entities"], sources=ctx.get("sources") or {})
-    title_hits = title_matched_entities(record, ctx["entities"])
-    primary = primary_subject(record, ctx["entities"], sources=ctx.get("sources") or {})
+    attribution = attribute_draft(
+        record,
+        ctx["entities"],
+        sources=ctx.get("sources") or {},
+        match_index=ctx.get("match_index"),
+    )
+    title_hits = title_matched_entities(record, ctx["entities"], match_index=ctx.get("match_index"))
+    primary = primary_subject(
+        record, ctx["entities"], sources=ctx.get("sources") or {}, match_index=ctx.get("match_index")
+    )
     screening = record.get("relevance_screening") or {}
     href = f"/intelligence/{draft['id']}" if draft else (record.get("canonical_url") or record.get("source_url") or "/work-queue?filter=articles")
     date_value = record.get("published_date") or record.get("first_seen_at") or ""
@@ -1402,7 +1429,8 @@ def build_morning_brief(
     pending_pool = draft_rows + extra_pending
     universe = reading_records + pending_pool
     frontier = frontier_date(universe or published)
-    watch_entities = _watch_entity_ids(published, state, entity_index)
+    match_index = build_attribution_match_index(entity_index) if entity_index else None
+    watch_entities = _watch_entity_ids(published, state, entity_index, match_index=match_index)
     first_seen_by_discovered = {
         str(item.get("id")): str(item.get("first_seen_at") or "")
         for item in discovered_rows
@@ -1418,6 +1446,7 @@ def build_morning_brief(
         entities=entity_index,
         first_seen_by_discovered=first_seen_by_discovered,
         sources=source_index,
+        match_index=match_index,
     )
     trusted_title_keys = {
         _title_key(str(record.get("title") or ""))
@@ -1443,6 +1472,7 @@ def build_morning_brief(
         "hot_entities": hot_entities,
         "first_seen_by_discovered": first_seen_by_discovered,
         "trusted_title_keys": trusted_title_keys,
+        "match_index": match_index,
     }
     ranked_reading: list[dict[str, Any]] = []
     if mode != "pending":
