@@ -14,6 +14,7 @@ from app.services.review_events import append_review_event
 from app.services.review_session import (
     CONTINUE_PATH,
     create_session,
+    list_recent_sessions,
     load_session,
     present_session,
     reconcile_session,
@@ -298,3 +299,85 @@ def test_review_session_routes_have_no_trust_actions(monkeypatch, tmp_path: Path
     stored = load_session(inbox)
     assert "paragraphs" not in json.dumps(stored)
     assert quote(CONTINUE_PATH, safe="") in stored["items"][0]["href"]
+
+
+def test_empty_atomic_session_shows_explicit_disabled_extraction_copy(tmp_path: Path) -> None:
+    inbox = tmp_path / "inbox"
+    session = _create(inbox, "atomic", 5, atomic_drafts=[])
+    assert session["status"] == "empty"
+    view = present_session(session)
+    assert view["empty_message"] == "No Atomic review batches available. Extraction remains disabled."
+
+
+def test_empty_publication_session_has_queue_specific_copy(tmp_path: Path) -> None:
+    inbox = tmp_path / "inbox"
+    session = _create(inbox, "publication", 5)
+    assert session["status"] == "empty"
+    view = present_session(session)
+    assert "publications" in view["empty_message"]
+
+
+def test_recent_sessions_excludes_active_and_sorts_newest_first(tmp_path: Path) -> None:
+    inbox = tmp_path / "inbox"
+    _write(inbox / "evidence", _pub(0))
+    _write(inbox / "evidence", _pub(1))
+
+    first = _create(inbox, "publication", 5)
+    stop_session(inbox, first)
+    # Force distinct, ordered timestamps rather than relying on real-clock
+    # second-level precision, which two fast-running creates could tie.
+    first_path = inbox / "review_sessions" / f"{first['session_id']}.json"
+    first_blob = json.loads(first_path.read_text(encoding="utf-8"))
+    first_blob["created_at"] = "2026-01-01T00:00:00+00:00"
+    first_path.write_text(json.dumps(first_blob), encoding="utf-8")
+
+    _write(inbox / "evidence", _pub(2))
+    second = _create(inbox, "atomic", 5, atomic_drafts=[])  # empty -> status "empty", not active
+    second_path = inbox / "review_sessions" / f"{second['session_id']}.json"
+    second_blob = json.loads(second_path.read_text(encoding="utf-8"))
+    second_blob["created_at"] = "2026-06-01T00:00:00+00:00"
+    second_path.write_text(json.dumps(second_blob), encoding="utf-8")
+
+    history = list_recent_sessions(inbox)
+    ids = [row["session_id"] for row in history]
+    assert first["session_id"] in ids
+    assert second["session_id"] in ids
+    assert ids.index(second["session_id"]) < ids.index(first["session_id"])
+
+    # A currently-active session must never appear in the history list --
+    # Review Operations already shows it via its own separate resume card.
+    third = _create(inbox, "publication", 5)
+    assert third["status"] == "active"
+    history_after = list_recent_sessions(inbox)
+    assert third["session_id"] not in [row["session_id"] for row in history_after]
+
+
+def test_recent_sessions_bounded_to_history_limit(tmp_path: Path) -> None:
+    from app.services.review_session import HISTORY_LIMIT
+
+    inbox = tmp_path / "inbox"
+    for _ in range(HISTORY_LIMIT + 3):
+        session = _create(inbox, "atomic", 5, atomic_drafts=[])
+        assert session["status"] == "empty"
+    history = list_recent_sessions(inbox)
+    assert len(history) == HISTORY_LIMIT
+
+
+def test_review_operations_route_shows_session_history(monkeypatch, tmp_path: Path) -> None:
+    inbox = tmp_path / "inbox"
+    data = tmp_path / "data"
+    monkeypatch.setattr(main, "INBOX_DIR", inbox)
+    monkeypatch.setattr(main, "DATA_DIR", data)
+    monkeypatch.setattr(main, "entity_index", lambda: ENTITIES)
+    monkeypatch.setattr(main, "load_sources", lambda: list(SOURCES.values()))
+    monkeypatch.setattr(main, "published_evidence", lambda: [])
+    monkeypatch.setattr(main, "list_drafts", lambda: [])
+    client = TestClient(main.app)
+
+    session = _create(inbox, "atomic", 5, atomic_drafts=[])
+    assert session["status"] == "empty"
+
+    page = client.get("/review-ops")
+    assert page.status_code == 200
+    assert "Session history" in page.text
+    assert "ATOMIC" in page.text

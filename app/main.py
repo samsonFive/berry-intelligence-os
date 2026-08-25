@@ -111,6 +111,7 @@ from app.services.review_session import (
     CONTINUE_PATH,
     create_session,
     is_session_return,
+    list_recent_sessions,
     load_session,
     present_session,
     reconcile_session,
@@ -3141,6 +3142,7 @@ def review_operations_page(request: Request) -> HTMLResponse:
             "static_build": False,
             "ui_context": ui,
             "active_session": present_session(active) if active else None,
+            "recent_sessions": list_recent_sessions(INBOX_DIR),
         },
     )
 
