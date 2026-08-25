@@ -122,8 +122,11 @@ def _parse_stamp(value: str | None) -> datetime | None:
 
 
 def record_date(record: dict[str, Any]) -> str:
-    return str(record.get("published_date") or record.get("captured_date") or "")
+    from app.services.chronology import meaningful_date_text
 
+    return meaningful_date_text(record) or str(
+        record.get("published_date") or record.get("captured_date") or ""
+    )
 
 def activity_stamp(record: dict[str, Any], *, first_seen_at: str | None = None) -> datetime | None:
     """When this record became visible to the analyst, not merely its story date."""

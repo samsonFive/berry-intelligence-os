@@ -10,9 +10,11 @@ logic or inventing a competing Market schema."""
 
 from __future__ import annotations
 
+from collections import defaultdict
 from typing import Any
 
 from app.services.berries.geography import geography_region
+from app.services.chronology import meaningful_date_text
 from app.services.company_workspace import _humanize_source_type
 from app.services.variety_workspace import (
     _is_observation,
@@ -40,6 +42,21 @@ def _geography_linked_evidence(
     ]
 
 
+def _evidence_by_geography(published_evidence: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
+    """One-pass index: geography_ids + entity_ids → evidence rows."""
+    index: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for record in published_evidence:
+        seen: set[str] = set()
+        for field_name in ("geography_ids", "entity_ids"):
+            for geo_id in record.get(field_name) or []:
+                text = str(geo_id or "")
+                if not text or text in seen:
+                    continue
+                seen.add(text)
+                index[text].append(record)
+    return index
+
+
 def _evidence_reason(record: dict[str, Any]) -> str:
     """Why a Variety or Company appears in this Geography's captured
     intelligence -- honest, source-grounded, never inferring commercial
@@ -62,15 +79,23 @@ def geography_index(
     """Browse/search surface for every Geography entity -- captured
     intelligence counts only, sorted alphabetically (not by "importance",
     which would imply a ranking that does not exist)."""
+    evidence_index = _evidence_by_geography(published_evidence)
+    signals_by_entity: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for signal in signals:
+        for entity_id in signal.get("entity_ids") or []:
+            signals_by_entity[str(entity_id)].append(signal)
+    operates_in_by_geo: dict[str, set[str]] = defaultdict(set)
+    for rel in relationships:
+        if rel.get("predicate") == "operates_in" and rel.get("object_id"):
+            operates_in_by_geo[str(rel["object_id"])].add(str(rel.get("subject_id") or ""))
+
     rows: list[dict[str, Any]] = []
     for geo in entities.values():
         if geo.get("entity_type") != "geography":
             continue
         gid = geo["id"]
-        linked = _geography_linked_evidence(gid, published_evidence)
-        company_ids = {
-            r["subject_id"] for r in relationships if r.get("predicate") == "operates_in" and r.get("object_id") == gid
-        }
+        linked = evidence_index.get(gid, [])
+        company_ids = set(operates_in_by_geo.get(gid, ()))
         variety_ids: set[str] = set()
         for record in linked:
             for eid in record.get("entity_ids") or []:
@@ -81,9 +106,9 @@ def geography_index(
                     company_ids.add(eid)
                 elif other.get("entity_type") == "variety":
                     variety_ids.add(eid)
-        geo_signals = [s for s in signals if gid in (s.get("entity_ids") or [])]
+        geo_signals = signals_by_entity.get(gid, [])
         berry_ids = [str(b) for b in (geo.get("berry_ids") or []) if b]
-        dates = [str(r.get("published_date") or r.get("captured_date") or "") for r in linked]
+        dates = [meaningful_date_text(r) for r in linked]
         dates = [d for d in dates if d]
         rows.append(
             {

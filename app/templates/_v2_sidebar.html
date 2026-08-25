@@ -117,9 +117,10 @@
   <div class="collapse{% if path.startswith('/intake') or path.startswith('/review') or path.startswith('/queues/testing') or path == '/' or path.startswith('/signals') and not path.startswith('/signals/review') and not path.startswith('/signals/candidates') or path.startswith('/recommendations') or path.startswith('/strategic-questions') or path == '/queues/commercial_position' %} show{% endif %}" id="v2-system-nav{{ suffix }}">
     {% if authoring_mode %}
     <a href="/intake" class="v2-nav-link{% if path.startswith('/intake') %} is-active{% endif %}" title="Intake" aria-label="Intake">{{ nav_icon('feed') }}<span class="v2-nav-text">Intake</span></a>
-    <a href="/review?kind=publication" class="v2-nav-link{% if path.startswith('/review') and 'atomic' not in request.url.query %} is-active{% endif %}" title="Publications" aria-label="Publications{{ count_label(nav_work_counts.review_now or pending_review_count()) }}">
+    <a href="/review?kind=publication" class="v2-nav-link{% if path.startswith('/review') and 'atomic' not in request.url.query %} is-active{% endif %}" title="Publications" aria-label="Publications{{ count_label(nav_work_counts.review_now if nav_work_counts.review_now is defined and nav_work_counts.review_now is not none else pending_review_count()) }}">
       {{ nav_icon('pub') }}<span class="v2-nav-text">Publications</span>
-      {% if nav_work_counts.review_now %}<span class="v2-count v2-count-action">{{ nav_work_counts.review_now }}</span>{% elif pending_review_count() %}<span class="v2-count v2-count-inventory">{{ pending_review_count() }}</span>{% endif %}
+      {% set pub_count = nav_work_counts.review_now if nav_work_counts.review_now is defined and nav_work_counts.review_now is not none else pending_review_count() %}
+      {% if pub_count %}<span class="v2-count {% if nav_work_counts.review_now %}v2-count-action{% else %}v2-count-inventory{% endif %}">{{ pub_count }}</span>{% endif %}
     </a>
     <a href="/review?kind=atomic" class="v2-nav-link{% if path.startswith('/review') and 'atomic' in request.url.query %} is-active{% endif %}" title="Claims" aria-label="Claims">{{ nav_icon('review') }}<span class="v2-nav-text">Claims</span></a>
     <a href="/source-fidelity" class="v2-nav-link{% if path.startswith('/source-fidelity') %} is-active{% endif %}" title="Source fidelity" aria-label="Source fidelity">{{ nav_icon('source') }}<span class="v2-nav-text">Source fidelity</span></a>
