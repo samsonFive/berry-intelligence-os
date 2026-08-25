@@ -22,6 +22,13 @@
         <a class="v2-btn v2-btn-quiet" href="/queues/monitoring">Watches</a>
       {% endif %}
       <a class="v2-btn v2-btn-quiet" href="/entities/company/compare?ids={{ entity.id }}">Compare</a>
+      <form method="post" action="/watches/toggle" style="display:inline">
+        <input type="hidden" name="watch_type" value="company">
+        <input type="hidden" name="object_id" value="{{ entity.id }}">
+        <input type="hidden" name="action" value="{{ 'remove' if is_watched else 'add' }}">
+        <input type="hidden" name="return_to" value="{{ request.url.path }}">
+        <button class="v2-btn v2-btn-quiet" type="submit">{{ 'Remove from watchlist' if is_watched else 'Add to watchlist' }}</button>
+      </form>
     {% endif %}
     <a class="v2-btn v2-btn-quiet" href="/entities/company/{{ entity.id }}/portfolio">Portfolio</a>
     <a class="v2-btn v2-btn-primary" href="#recent-intelligence">Open Evidence</a>

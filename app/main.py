@@ -118,6 +118,14 @@ from app.services.review_session import (
     skip_current,
     stop_session,
 )
+from app.services.watchlist import (
+    WATCH_TYPES,
+    add_watch,
+    is_watched,
+    mark_watch_seen,
+    remove_watch,
+    watchlist_index,
+)
 from app.services.testing_workspace import enrich_testing_item, related_indexes, testing_page_model
 from app.services.draft_attribution import attribute_draft, draft_matches_entity
 from app.services.review_workbench import (
@@ -2829,6 +2837,7 @@ def company_portfolio_page(request: Request, entity_id: str) -> HTMLResponse:
             "berries": BERRIES,
             "authoring_mode": AUTHORING_MODE,
             "ui_context": ui,
+            "is_watched": is_watched(INBOX_DIR, "company", entity_id),
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -2918,6 +2927,7 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     "regions": regions,
                     "berry_label": berry_label,
                     "authoring_mode": AUTHORING_MODE,
+                    "is_watched": is_watched(INBOX_DIR, entity_type, entity_id) if entity_type in WATCH_TYPES else False,
                     **synthesis,
                 },
             )
@@ -3235,6 +3245,86 @@ def stop_review_session() -> RedirectResponse:
         return RedirectResponse(url="/review-ops", status_code=303)
     stop_session(INBOX_DIR, session)
     return RedirectResponse(url="/review-ops/session", status_code=303)
+
+
+@app.get("/watches", response_class=HTMLResponse)
+def watchlist_page(
+    request: Request,
+    type: str = "",
+    new: str = "",
+    sort: str = "new_first",
+) -> HTMLResponse:
+    """Analyst Watchlist + Monitoring Workspace V1 -- private, per-analyst
+    monitoring interest in already-trusted Company/Variety/Geography/
+    Strategic Question records. Not a second review queue: no route under
+    /watches renders or accepts a publish/affirm/approve/reject/confirm-
+    signal control."""
+    cards = watchlist_index(
+        inbox_dir=INBOX_DIR,
+        entities=entity_index(),
+        published_evidence=published_evidence(),
+        signals=all_signals(),
+        assessments=all_assessments(),
+        recommendations=all_recommendations(),
+        strategic_questions=load_strategic_questions(),
+        sources=load_sources(),
+        berry_labels=BERRIES,
+        watch_type_filter=type,
+        has_new_only=bool(new),
+        sort=sort,
+    )
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="watchlist.html",
+        context={
+            "watches": cards,
+            "watch_type_filter": type,
+            "has_new_only": bool(new),
+            "sort": sort,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/watches/toggle")
+def toggle_watch(
+    watch_type: str = Form(...),
+    object_id: str = Form(...),
+    action: str = Form(...),
+    return_to: str = Form(""),
+) -> RedirectResponse:
+    try:
+        if action == "remove":
+            remove_watch(INBOX_DIR, watch_type, object_id)
+        else:
+            add_watch(INBOX_DIR, watch_type, object_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    destination = safe_next_path(return_to) or "/watches"
+    return RedirectResponse(url=destination, status_code=303)
+
+
+@app.get("/watches/open")
+def open_watch(watch_type: str, object_id: str) -> RedirectResponse:
+    """Marks a watch seen only on this explicit open -- never merely
+    because /watches itself rendered (mission Section 17)."""
+    if watch_type not in WATCH_TYPES:
+        raise HTTPException(status_code=400, detail="unsupported watch type")
+    mark_watch_seen(INBOX_DIR, watch_type, object_id)
+    if watch_type == "company":
+        destination = f"/entities/company/{object_id}"
+    elif watch_type == "variety":
+        destination = f"/entities/variety/{object_id}"
+    elif watch_type == "geography":
+        destination = f"/geographies/{object_id}"
+    else:
+        destination = f"/strategic-questions/{object_id}"
+    return RedirectResponse(url=destination, status_code=303)
 
 
 @app.get("/work-queue", response_class=HTMLResponse)
@@ -3932,6 +4022,7 @@ def strategic_question_detail_page(request: Request, sq_id: str) -> HTMLResponse
             "sq": sq,
             "authoring_mode": AUTHORING_MODE,
             "ui_context": ui,
+            "is_watched": is_watched(INBOX_DIR, "strategic_question", sq_id),
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -3992,6 +4083,7 @@ def geography_detail_page(request: Request, geography_id: str) -> HTMLResponse:
             "berries": BERRIES,
             "authoring_mode": AUTHORING_MODE,
             "ui_context": ui,
+            "is_watched": is_watched(INBOX_DIR, "geography", geography_id),
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])

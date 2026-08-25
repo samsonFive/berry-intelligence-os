@@ -20,6 +20,13 @@
       {% if portfolio.variety_rows|length >= 2 %}
         <a class="v2-btn v2-btn-quiet" href="/entities/variety/compare?ids={{ portfolio.variety_rows[:4]|map(attribute='id')|join(',') }}">Compare these varieties</a>
       {% endif %}
+      <form method="post" action="/watches/toggle" style="display:inline">
+        <input type="hidden" name="watch_type" value="company">
+        <input type="hidden" name="object_id" value="{{ company.id }}">
+        <input type="hidden" name="action" value="{{ 'remove' if is_watched else 'add' }}">
+        <input type="hidden" name="return_to" value="{{ request.url.path }}">
+        <button class="v2-btn v2-btn-quiet" type="submit">{{ 'Remove from watchlist' if is_watched else 'Add to watchlist' }}</button>
+      </form>
     {% endif %}
     <a class="v2-btn v2-btn-primary" href="{{ company.timeline_href }}">Full timeline</a>
   </div>
