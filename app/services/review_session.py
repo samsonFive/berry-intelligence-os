@@ -21,6 +21,12 @@ CURRENT_NAME = "current.json"
 SESSION_SIZES = (5, 10, 25)
 QUEUE_TYPES = ("publication", "source_fidelity", "atomic")
 CONTINUE_PATH = "/review-ops/session/continue"
+HISTORY_LIMIT = 5
+EMPTY_QUEUE_MESSAGES = {
+    "publication": "No pending publications matched this session's filters.",
+    "source_fidelity": "No unresolved Source Fidelity items matched this session's filters.",
+    "atomic": "No Atomic review batches available. Extraction remains disabled.",
+}
 FORBIDDEN_KEYS = {
     "article", "transcript", "transcript_segments", "transcript_excerpt",
     "raw_content", "raw_html", "source_text", "publisher_description",
@@ -411,4 +417,22 @@ def present_session(session: dict[str, Any]) -> dict[str, Any]:
         "outcomes": counts,
         "filters": session.get("filters") or {},
         "created_at": session.get("created_at"),
+        "empty_message": EMPTY_QUEUE_MESSAGES.get(str(session.get("queue") or ""), "Nothing matched this session."),
     }
+
+
+def list_recent_sessions(inbox_dir: Path, *, limit: int = HISTORY_LIMIT) -> list[dict[str, Any]]:
+    """Modest recent-session history (not a second audit system -- review
+    events remain the real audit trail). Excludes the currently active
+    session, which Review Operations already shows via its own resume
+    card, so the two lists never duplicate the same row."""
+    folder = session_dir(inbox_dir)
+    if not folder.is_dir():
+        return []
+    rows: list[dict[str, Any]] = []
+    for path in folder.glob("rs-*.json"):
+        blob = _read_json(path)
+        if blob.get("session_id") and blob.get("status") != "active":
+            rows.append(blob)
+    rows.sort(key=lambda row: str(row.get("created_at") or ""), reverse=True)
+    return [present_session(row) for row in rows[:limit]]

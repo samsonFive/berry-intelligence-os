@@ -16,7 +16,7 @@
 {% elif session.status == 'stopped' %}
   <h2>Session stopped</h2>
 {% elif session.status == 'empty' %}
-  <h2>Nothing matched this session</h2>
+  <h2>{{ session.empty_message }}</h2>
 {% else %}
   <h2>{{ session.completed_count }} of {{ session.size }} completed</h2>
   <p>{{ session.remaining_count }} remaining{% if session.current_id %} · current <code>{{ session.current_id }}</code>{% endif %}</p>

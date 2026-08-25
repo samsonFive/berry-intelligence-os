@@ -39,6 +39,27 @@
 </section>
 {% endif %}
 
+{% if recent_sessions %}
+<section class="card review-session-history" id="recent-review-sessions">
+  <p class="eyebrow">RECENT REVIEW SESSIONS</p>
+  <h2>Session history</h2>
+  <table class="brief-table">
+    <thead><tr><th>Date</th><th>Queue</th><th>Selected</th><th>Reviewed</th><th>Skipped</th></tr></thead>
+    <tbody>
+      {% for s in recent_sessions %}
+        <tr>
+          <td>{{ s.created_at[:10]|us_date if s.created_at else "—" }}</td>
+          <td>{{ s.queue|replace('_',' ')|upper }}</td>
+          <td>{{ s.size }}</td>
+          <td>{{ s.completed_count }}</td>
+          <td>{{ s.skipped_count }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+
 <section class="card review-session-start" id="start-review-session">
   <p class="eyebrow">START REVIEW SESSION</p>
   <h2>Bounded review session</h2>
