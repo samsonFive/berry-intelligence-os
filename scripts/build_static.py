@@ -682,6 +682,7 @@ def build() -> list[Path]:
 
     # Signals.
     signals = all_signals()
+    assessments_for_signals = all_assessments()
     written.append(
         write_page("signal_list.html", "/signals", {"signals": signals, "authoring_mode": False})
     )
@@ -699,6 +700,9 @@ def build() -> list[Path]:
                     ],
                     "linked_strategic_questions": [
                         sq for sq in questions if sq["id"] in (signal.get("strategic_question_ids") or [])
+                    ],
+                    "citing_assessments": [
+                        a for a in assessments_for_signals if signal["id"] in (a.get("signal_ids") or [])
                     ],
                     "authoring_mode": False,
                 },
