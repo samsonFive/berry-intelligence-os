@@ -168,6 +168,8 @@ def _discovery_fingerprint(item: "NormalizedItem | dict[str, Any]") -> str:
     excluded because feedparser may add volatile/non-semantic fields.
     """
     if isinstance(item, NormalizedItem):
+        transcript_availability = dict(item.transcript_availability or {})
+        transcript_availability.pop("checked_at", None)
         payload = {
             "title": item.title,
             "description": item.description,
@@ -175,9 +177,11 @@ def _discovery_fingerprint(item: "NormalizedItem | dict[str, Any]") -> str:
             "canonical_url": normalize_canonical_url(item.canonical_url),
             "published_date": item.published_date,
             "duration_seconds": item.duration_seconds,
-            "transcript_availability": item.transcript_availability,
+            "transcript_availability": transcript_availability,
         }
     else:
+        transcript_availability = dict(item.get("transcript_availability") or {})
+        transcript_availability.pop("checked_at", None)
         payload = {
             "title": item.get("title"),
             "description": item.get("description"),
@@ -185,7 +189,7 @@ def _discovery_fingerprint(item: "NormalizedItem | dict[str, Any]") -> str:
             "canonical_url": normalize_canonical_url(item.get("canonical_url")),
             "published_date": item.get("published_date"),
             "duration_seconds": item.get("duration_seconds"),
-            "transcript_availability": item.get("transcript_availability"),
+            "transcript_availability": transcript_availability,
         }
     encoded = json.dumps(payload, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
     return hashlib.sha256(encoded.encode("utf-8")).hexdigest()

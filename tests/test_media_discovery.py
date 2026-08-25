@@ -234,6 +234,26 @@ def test_repeat_discovery_is_idempotent(tmp_path, source, monkeypatch) -> None:
     assert ids_first_run == ids_second_run
 
 
+def test_observation_timestamp_does_not_make_unchanged_item_look_changed(tmp_path, source, monkeypatch) -> None:
+    instants = iter(
+        (
+            "2026-08-25T01:00:00+00:00",
+            "2026-08-25T01:00:00+00:00",
+            "2026-08-25T02:00:00+00:00",
+            "2026-08-25T02:00:00+00:00",
+        )
+    )
+    monkeypatch.setattr(media_discovery, "_now_iso", lambda: next(instants))
+    feed = _feed([_item_xml(title="Stable Episode", guid="stable-guid")])
+    first = _run(tmp_path, source, monkeypatch, feed)
+    second = _run(tmp_path, source, monkeypatch, feed)
+    assert first.new == 1
+    assert second.new == 0
+    assert second.changed == 0
+    assert second.unchanged == 1
+    assert second.processable_item_ids == []
+
+
 def test_legacy_item_without_fingerprint_seeds_unchanged_without_refresh_sweep(tmp_path, source, monkeypatch) -> None:
     feed = _feed([_item_xml(title="Legacy Episode", guid="legacy-guid")])
     first = _run(tmp_path, source, monkeypatch, feed)
