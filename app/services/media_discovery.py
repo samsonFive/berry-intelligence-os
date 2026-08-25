@@ -139,6 +139,7 @@ INITIAL_DISCOVERY_LOOKBACK_DAYS = 30
 # derived Source state makes the hot identity set bounded and rebuildable;
 # staging records remain the durable, untrusted fallback after a restart.
 RECENT_DISCOVERY_IDENTITY_LIMIT = 250
+DISCOVERY_FINGERPRINT_VERSION = 2
 
 
 def _next_article_content_check(item_id: str, published_date: str | None, now: str) -> str:
@@ -1193,6 +1194,7 @@ def upsert_discovered_item(
             "last_seen_at": now,
             "seen_count": 1,
             "discovery_fingerprint": fresh_fingerprint,
+            "discovery_fingerprint_version": DISCOVERY_FINGERPRINT_VERSION,
             **fresh_fields,
         }
         _write_item(inbox_dir, item_id, record)
@@ -1203,12 +1205,20 @@ def upsert_discovered_item(
     # by durable id or canonical URL, so the first run seeds the current
     # fingerprint as unchanged instead of forcing a one-time body-fetch
     # sweep across every known article.
-    existing_fingerprint = existing.get("discovery_fingerprint") or fresh_fingerprint
+    existing_fingerprint = (
+        existing.get("discovery_fingerprint")
+        if (
+            existing.get("discovery_fingerprint_version") == DISCOVERY_FINGERPRINT_VERSION
+            and existing.get("discovery_fingerprint")
+        )
+        else fresh_fingerprint
+    )
     if existing_fingerprint == fresh_fingerprint:
         observed = dict(existing)
         observed["last_seen_at"] = now
         observed["seen_count"] = int(existing.get("seen_count", 1)) + 1
         observed["discovery_fingerprint"] = fresh_fingerprint
+        observed["discovery_fingerprint_version"] = DISCOVERY_FINGERPRINT_VERSION
         outcome = "unchanged"
         if observed.get("media_format") == "web_article":
             next_check = observed.get("next_content_check_at")
@@ -1233,6 +1243,7 @@ def upsert_discovered_item(
     merged["seen_count"] = int(existing.get("seen_count", 1)) + 1
     merged["previous_discovery_fingerprint"] = existing_fingerprint
     merged["discovery_fingerprint"] = fresh_fingerprint
+    merged["discovery_fingerprint_version"] = DISCOVERY_FINGERPRINT_VERSION
     merged["discovery_changed_at"] = now
     _write_item(inbox_dir, item_id, merged)
     return merged, "changed"
