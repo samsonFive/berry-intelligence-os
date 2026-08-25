@@ -1,29 +1,190 @@
 {% extends "base.html" %}
-{% block title %}{{ sq.title }} — Berry Intelligence OS{% endblock %}
+{% block title %}{{ sq.title }} — Strategic Question{% endblock %}
 {% block content %}
-<section class="page-heading">
+{% set sq = sq if sq is defined else {} %}
+<div class="v2-page v2-company">
+<section class="page-heading v2-page-header" data-pagefind-filter="type:entity">
   <div>
     <p class="eyebrow">STRATEGIC QUESTION — {{ sq.status|upper }}</p>
     <h1>{{ sq.title }}</h1>
+    {% if sq.description %}<p class="also-known-as">{{ sq.description }}</p>{% endif %}
+    <p class="v2-company-meta">
+      {% for b in sq.berries %}<span class="v2-chip v2-chip-berry">{{ b }}</span>{% endfor %}
+    </p>
+  </div>
+  <div class="v2-company-actions">
+    <a class="v2-btn v2-btn-quiet" href="/strategic-questions">All questions</a>
   </div>
 </section>
-<article class="detail-card">
-  <h2>Bottom line</h2>
-  {% set description_lines = sq.description|as_bullets %}
-  {% if description_lines|length > 1 %}
-    <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-  {% elif sq.description %}
-    <p>{{ sq.description }}</p>
-  {% endif %}
-  <dl data-pagefind-ignore>
-    <dt>Berries</dt><dd>{% for b in sq.berry_ids %}{{ berry_label(b) }}{% if not loop.last %}, {% endif %}{% else %}—{% endfor %}</dd>
-  </dl>
 
-  <h2>Linked evidence</h2>
-  {% if linked_evidence %}
-    <div class="table-wrap"><table class="brief-table evidence-link-table"><thead><tr><th>Date</th><th>Evidence</th><th>Source</th></tr></thead><tbody>{% for item in linked_evidence %}<tr><td>{{ (item.published_date or item.captured_date)|us_date }}</td><td data-pagefind-weight="1"><a href="/evidence/{{ item.id }}"><strong>{{ item.title }}</strong></a></td><td>{{ item.source_name or item.source_type|replace('_',' ')|title }}</td></tr>{% endfor %}</tbody></table></div>
+{% if sq.company_scope or sq.variety_scope or sq.geography_scope %}
+<section class="v2-company-section" id="sq-scope">
+  <h2>Scope</h2>
+  <p class="context-limit">Companies, Varieties, and Geographies this question actually bears on -- derived from real linked objects, never authored free text.</p>
+  {% if sq.company_scope %}<p class="v2-card-line"><span class="v2-meta">Companies</span> {% for p in sq.company_scope %}<a href="{{ p.href }}">{{ p.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+  {% if sq.variety_scope %}<p class="v2-card-line"><span class="v2-meta">Varieties</span> {% for p in sq.variety_scope %}<a href="{{ p.href }}">{{ p.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+  {% if sq.geography_scope %}<p class="v2-card-line"><span class="v2-meta">Geographies</span> {% for p in sq.geography_scope %}<a href="/geographies/{{ p.id }}">{{ p.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+</section>
+{% endif %}
+
+<section class="v2-company-section" id="sq-coverage">
+  <h2>Evidence coverage</h2>
+  <p class="context-limit">Captured intelligence coverage supporting this question, not a readiness or confidence score.</p>
+  <div class="balanced-card-grid">
+    <article class="card"><p class="card-kicker">FACTS</p><h2>{{ sq.coverage.fact_count }}</h2></article>
+    <article class="card"><p class="card-kicker">EVIDENCE</p><h2>{{ sq.coverage.evidence_count }}</h2></article>
+    <article class="card"><p class="card-kicker">SIGNALS</p><h2>{{ sq.coverage.signal_count }}</h2></article>
+    <article class="card"><p class="card-kicker">ASSESSMENTS</p><h2>{{ sq.coverage.assessment_count }}</h2></article>
+    <article class="card"><p class="card-kicker">RECOMMENDATIONS</p><h2>{{ sq.coverage.recommendation_count }}</h2></article>
+  </div>
+</section>
+
+<section class="v2-company-section" id="sq-know">
+  <h2>What we know</h2>
+  <p class="context-limit">Facts and their supporting Evidence -- a Fact is not the same as a source's claim about itself.</p>
+  {% if sq.facts %}
+    <ul class="fact-list">
+      {% for fact in sq.facts %}
+        <li>
+          <span class="badge badge-{{ 'fact' if fact.classification == 'fact' else 'claim' }}">{{ fact.classification|upper }}</span>
+          <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
+          <p>{{ fact.statement }}</p>
+          {% if fact.event_date %}<span class="draft-meta">{{ fact.event_date|us_date }}</span>{% endif %}
+          {% if fact.supporting_evidence %}
+            <ul class="entity-links">
+              {% for e in fact.supporting_evidence %}
+                <li><a href="{{ e.href }}">{{ e.title }}</a>{% if e.source_name %} <span class="v2-meta">{{ e.source_name }}</span>{% endif %}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
   {% else %}
-    <p class="empty-state">No published evidence links to this strategic question yet.</p>
+    <p class="empty-state">No Fact established for this question yet.</p>
   {% endif %}
-</article>
+</section>
+
+<section class="v2-company-section" id="sq-think">
+  <h2>What we think</h2>
+  <p class="context-limit">Analyst Assessments -- interpretation, not Fact. AI-proposed Assessments are marked distinctly and are not confirmed until reviewed.</p>
+  {% if sq.assessments %}
+    <ul class="entity-links">
+      {% for a in sq.assessments %}
+        <li>
+          <span class="badge badge-assessment">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span>
+          <a href="{{ a.href }}"><strong>{{ a.title }}</strong></a>
+          <span class="badge badge-muted">{{ a.confidence|upper }} CONFIDENCE</span>
+          {% if a.rationale %}<p>{{ a.rationale }}</p>{% endif %}
+          {% if a.why_it_matters %}<p class="v2-card-line"><span class="v2-meta">Why it matters</span> {{ a.why_it_matters }}</p>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No analyst Assessment captured for this question yet.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="sq-watching">
+  <h2>What we are watching</h2>
+  <p class="context-limit">Signals -- distinct from Fact and Assessment. A proposed Signal is not confirmed.</p>
+  {% if sq.signals %}
+    <ul class="entity-links">
+      {% for s in sq.signals %}
+        <li>
+          <span class="badge badge-signal">SIGNAL</span>
+          <a href="{{ s.href }}"><strong>{{ s.title }}</strong></a>
+          <span class="badge badge-muted">{{ s.status|upper }}</span>
+          {% if s.strength %}<span class="badge badge-muted">{{ s.strength|upper }}</span>{% endif %}
+          {% if s.observation %}<p>{{ s.observation }}</p>{% endif %}
+          {% if s.what_would_confirm_it %}<p class="v2-card-line"><span class="v2-meta">Would confirm</span> {{ s.what_would_confirm_it }}</p>{% endif %}
+          {% if s.what_would_falsify_it %}<p class="v2-card-line"><span class="v2-meta">Would falsify</span> {{ s.what_would_falsify_it }}</p>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No confirmed or proposed Signal captured for this question yet.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="sq-gaps">
+  <h2>What we don't know</h2>
+  <p class="context-limit">Defensible gaps only -- never a fabricated or AI-inferred knowledge gap.</p>
+  {% if sq.gaps %}
+    <ul class="entity-links">
+      {% for gap in sq.gaps %}
+        <li class="empty-state">{{ gap }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="v2-card-line">No defensible coverage gap identified across Facts, Evidence, Signals, Assessments, and Recommendations.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="sq-would-change">
+  <h2>What would change our view</h2>
+  <p class="context-limit">Only real authored counterfactuals from linked Assessments -- never invented.</p>
+  {% if sq.would_change_our_view %}
+    <ul class="entity-links">
+      {% for item in sq.would_change_our_view %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No analyst has recorded what would change our view on this question yet.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="sq-recommendations">
+  <h2>Recommendations</h2>
+  {% if sq.recommendations %}
+    <ul class="entity-links">
+      {% for r in sq.recommendations %}
+        <li>
+          <span class="badge badge-recommendation">{{ 'AI PROPOSED' if r.ai_proposed else 'REVIEWED' }}</span>
+          <a href="{{ r.href }}"><strong>{{ r.title }}</strong></a>
+          <span class="badge badge-muted">{{ r.status|upper }}</span>
+          {% if r.priority %}<span class="badge badge-muted">{{ r.priority|upper }} PRIORITY</span>{% endif %}
+          {% if r.action_type %}<span class="v2-meta">{{ r.action_type|replace('_',' ')|upper }}</span>{% endif %}
+          {% if r.rationale %}<p>{{ r.rationale }}</p>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No Recommendation captured for this question yet.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="sq-recent">
+  <h2>Recent developments</h2>
+  <p class="context-limit">Bounded, most-recent trusted Evidence scoped to this question.</p>
+  {% if sq.recent_evidence %}
+    <ul class="entity-links">
+      {% for item in sq.recent_evidence %}
+        <li>
+          {% if not static_build %}<a href="{{ item.reader_href }}" data-open-reader data-item-id="{{ item.id }}">{{ item.title }}</a>{% else %}<a href="{{ item.href }}">{{ item.title }}</a>{% endif %}
+          {% if item.source_name %}<span class="v2-meta">{{ item.source_name }}</span>{% endif %}
+          {% if item.date %}<span class="draft-meta"> · {{ item.date|us_date }}</span>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No trusted Evidence captured for this question yet.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="sq-source-trace">
+  <h2>Source trace</h2>
+  <p class="context-limit">Every Evidence item any Fact, Signal, Assessment, or Recommendation above actually cites -- no orphaned claim.</p>
+  {% if sq.source_trace %}
+    <ul class="entity-links">
+      {% for item in sq.source_trace %}
+        <li><a href="{{ item.href }}">{{ item.title }}</a>{% if item.source_name %} <span class="v2-meta">{{ item.source_name }}</span>{% endif %}{% if item.published_date %}<span class="draft-meta"> · {{ item.published_date|us_date }}</span>{% endif %}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No sourced Evidence captured for this question yet.</p>
+  {% endif %}
+</section>
+</div>
 {% endblock %}

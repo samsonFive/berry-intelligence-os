@@ -276,6 +276,17 @@
 </section>
 {% endif %}
 
+{% if entity_strategic_questions %}
+<section class="v2-company-section">
+  <h2>Strategic questions this bears on</h2>
+  <ul class="entity-links">
+    {% for sq in entity_strategic_questions %}
+      <li><a href="/strategic-questions/{{ sq.id }}">{{ sq.title }}</a></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
 <section class="v2-company-section" id="recent-intelligence">
   <h2>Recent intelligence</h2>
   <p class="context-limit">Story Threads and Evidence. Opening an item uses the shared Reader overlay. Escape returns focus.</p>

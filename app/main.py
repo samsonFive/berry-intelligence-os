@@ -172,6 +172,10 @@ from app.services.company_workspace import (
     present_company_portfolio,
 )
 from app.services.geography_workspace import geography_detail, geography_index
+from app.services.strategic_question_workspace import (
+    strategic_question_detail as present_strategic_question_detail,
+    strategic_question_index as present_strategic_question_index,
+)
 from app.services.global_search import (
     GROUP_CAP_DEFAULT,
     SearchPools,
@@ -2811,6 +2815,7 @@ def company_portfolio_page(request: Request, entity_id: str) -> HTMLResponse:
         signals=all_signals(),
         assessments=all_assessments(),
         berry_labels=BERRIES,
+        strategic_questions=load_strategic_questions(),
     )
     if portfolio is None:
         raise HTTPException(status_code=404, detail="Company record not found")
@@ -3877,31 +3882,58 @@ def signal_alert_decision(
 
 
 @app.get("/strategic-questions", response_class=HTMLResponse)
-def strategic_question_list(request: Request) -> HTMLResponse:
+def strategic_question_list_page(request: Request) -> HTMLResponse:
+    """Strategic Question + Decision Workspace V1's browse surface --
+    real linked-object counts per question, no synthesized readiness or
+    confidence score."""
     questions = load_strategic_questions()
-    counts = {sq["id"]: len(evidence_for_strategic_question(sq["id"])) for sq in questions if sq.get("id")}
-    return templates.TemplateResponse(
+    rows = present_strategic_question_index(
+        questions=questions,
+        published_evidence=published_evidence(),
+        facts=all_facts(),
+        signals=all_signals(),
+        assessments=all_assessments(),
+        recommendations=all_recommendations(),
+        berry_labels=BERRIES,
+    )
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
         request=request,
         name="strategic_question_list.html",
-        context={"questions": questions, "counts": counts, "authoring_mode": AUTHORING_MODE},
+        context={"questions": rows, "authoring_mode": AUTHORING_MODE, "ui_context": ui},
     )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
 
 
 @app.get("/strategic-questions/{sq_id}", response_class=HTMLResponse)
-def strategic_question_detail(request: Request, sq_id: str) -> HTMLResponse:
-    sq = strategic_question_by_id(sq_id)
+def strategic_question_detail_page(request: Request, sq_id: str) -> HTMLResponse:
+    entities = entity_index()
+    sq = present_strategic_question_detail(
+        sq_id,
+        questions=load_strategic_questions(),
+        entities=entities,
+        published_evidence=published_evidence(),
+        facts=all_facts(),
+        signals=all_signals(),
+        assessments=all_assessments(),
+        recommendations=all_recommendations(),
+        berry_labels=BERRIES,
+    )
     if sq is None:
         raise HTTPException(status_code=404, detail="Strategic question not found")
-    return templates.TemplateResponse(
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
         request=request,
         name="strategic_question_detail.html",
         context={
             "sq": sq,
-            "linked_evidence": evidence_for_strategic_question(sq_id),
-            "berry_label": berry_label,
             "authoring_mode": AUTHORING_MODE,
+            "ui_context": ui,
         },
     )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
 
 
 @app.get("/geographies", response_class=HTMLResponse)
@@ -3945,6 +3977,7 @@ def geography_detail_page(request: Request, geography_id: str) -> HTMLResponse:
         signals=all_signals(),
         assessments=all_assessments(),
         berry_labels=BERRIES,
+        strategic_questions=load_strategic_questions(),
     )
     if geo is None:
         raise HTTPException(status_code=404, detail="Geography record not found")
@@ -6056,6 +6089,7 @@ def _search_index_key(*, include_private: bool) -> tuple[Any, ...]:
         _json_folder_sig(DATA_DIR / "evidence"),
         _json_folder_sig(DATA_DIR / "signals"),
         _json_folder_sig(DATA_DIR / "assessments"),
+        _json_folder_sig(DATA_DIR / "strategic-questions"),
         _path_sig(DATA_DIR / "configuration" / "sources.json"),
         _json_tree_sig(DATA_DIR / "entities"),
         _json_tree_sig(DATA_DIR / "relationships"),
@@ -6078,6 +6112,7 @@ def _search_pools(*, include_private: bool) -> SearchPools:
         sources=load_sources(),
         signals=all_signals(),
         assessments=all_assessments(),
+        strategic_questions=load_strategic_questions(),
         pending_drafts=list_pending_drafts() if include_private else [],
         signal_candidates=load_candidates(INBOX_DIR) if include_private else [],
     )

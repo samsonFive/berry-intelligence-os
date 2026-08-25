@@ -177,7 +177,7 @@
         <h3>Signals / What we're watching ({{ signals|length }})</h3>
         <ul class="entity-links">
           {% for s in signals %}
-            <li class="region-aware" data-regions="{{ region_tokens(s.regions) }}"><span class="badge badge-signal">SIGNAL</span> <a href="/signals/{{ s.id }}">{{ s.title }}</a> <span class="badge badge-muted">{{ s.status|upper }}</span> <span class="badge badge-muted">{{ s.strength|upper }}</span> <span class="badge badge-muted">{{ s.supporting_evidence_count }} EVIDENCE</span>{% if s.regions %} <small>{{ s.regions|join(', ') }}</small>{% endif %}</li>
+            <li class="region-aware" data-regions="{{ region_tokens(s.regions) }}"><span class="badge badge-signal">SIGNAL</span> <a href="/signals/{{ s.id }}">{{ s.title }}</a> <span class="badge badge-muted">{{ s.status|upper }}</span> <span class="badge badge-muted">{{ s.strength|upper }}</span> <span class="badge badge-muted">{{ s.supporting_evidence_count }} EVIDENCE</span>{% if s.regions %} <small>{{ s.regions|join(', ') }}</small>{% endif %}{% if s.strategic_question_ids %} <a href="/strategic-questions/{{ s.strategic_question_ids[0] }}">View strategic question</a>{% endif %}</li>
           {% endfor %}
         </ul>
       </div>
@@ -187,7 +187,7 @@
         <h3>Assessments ({{ assessments|length }})</h3>
         <ul class="entity-links">
           {% for a in assessments %}
-            <li><span class="badge badge-assessment">ASSESSMENT</span> <a href="/assessments/{{ a.id }}">{{ a.title }}</a> <span class="badge badge-muted">{{ a.confidence|upper }} CONFIDENCE</span></li>
+            <li><span class="badge badge-assessment">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span> <a href="/assessments/{{ a.id }}">{{ a.title }}</a> <span class="badge badge-muted">{{ a.confidence|upper }} CONFIDENCE</span>{% if a.strategic_question_ids %} <a href="/strategic-questions/{{ a.strategic_question_ids[0] }}">View strategic question</a>{% endif %}</li>
           {% endfor %}
         </ul>
       </div>

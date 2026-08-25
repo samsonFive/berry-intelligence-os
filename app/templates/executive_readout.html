@@ -93,7 +93,7 @@
           <td><a href="/assessments/{{ assessment.id }}"><strong>{{ assessment.title }}</strong></a><br><span class="badge badge-assessment">{{ 'AI PROPOSED' if assessment.ai_proposed else 'REVIEWED' }}</span> <span class="badge badge-muted">{{ assessment.confidence|upper if assessment.confidence else 'UNSTATED' }}</span></td>
           <td>{{ assessment.rationale|truncate(260) if assessment.rationale else "Not yet documented for this assessment." }}</td>
           <td>{{ assessment.supporting_fact_count }} facts<br>{{ assessment.supporting_evidence_count }} evidence</td>
-          <td>{{ assessment.would_change_our_view if assessment.would_change_our_view else "Not yet documented for this assessment." }}</td>
+          <td>{{ assessment.would_change_our_view if assessment.would_change_our_view else "Not yet documented for this assessment." }}{% if assessment.strategic_question_ids %}<br><a href="/strategic-questions/{{ assessment.strategic_question_ids[0] }}">View strategic question</a>{% endif %}</td>
         </tr>
       {% endfor %}
     </tbody></table></div>
@@ -107,7 +107,7 @@
   {% if signals %}
     <ul class="entity-links">
       {% for signal in signals %}
-        <li><span class="badge badge-signal">SIGNAL</span> <a href="/signals/{{ signal.id }}">{{ signal.title }}</a> <span class="draft-meta">· {{ signal.strength|upper if signal.strength else 'UNSTATED' }} · {{ signal.supporting_evidence_count }} evidence</span></li>
+        <li><span class="badge badge-signal">SIGNAL</span> <a href="/signals/{{ signal.id }}">{{ signal.title }}</a> <span class="draft-meta">· {{ signal.strength|upper if signal.strength else 'UNSTATED' }} · {{ signal.supporting_evidence_count }} evidence</span>{% if signal.strategic_question_ids %} <a href="/strategic-questions/{{ signal.strategic_question_ids[0] }}">View strategic question</a>{% endif %}</li>
       {% endfor %}
     </ul>
   {% else %}
