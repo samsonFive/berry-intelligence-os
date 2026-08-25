@@ -4179,6 +4179,7 @@ def geography_index_page(request: Request) -> HTMLResponse:
 @app.get("/geographies/{geography_id}", response_class=HTMLResponse)
 def geography_detail_page(request: Request, geography_id: str) -> HTMLResponse:
     entities = entity_index()
+    evidence_idx = {r["id"]: r for r in all_evidence() if r.get("id")}
     geo = geography_detail(
         geography_id,
         entities=entities,
@@ -4188,6 +4189,9 @@ def geography_detail_page(request: Request, geography_id: str) -> HTMLResponse:
         assessments=all_assessments(),
         berry_labels=BERRIES,
         strategic_questions=load_strategic_questions(),
+        entity_facts=facts_for_entity(geography_id),
+        entity_relationships=relationships_for_entity(geography_id, all_relationships()),
+        evidence_idx=evidence_idx,
     )
     if geo is None:
         raise HTTPException(status_code=404, detail="Geography record not found")
@@ -4197,10 +4201,14 @@ def geography_detail_page(request: Request, geography_id: str) -> HTMLResponse:
         name="geography_detail.html",
         context={
             "geo": geo,
+            "entity": {"id": geography_id, "name": geo.get("name"), "entity_type": "geography"},
+            "intelligence_timeline": geo.get("intelligence_timeline") or {},
+            "berry_label": berry_label,
             "berries": BERRIES,
             "authoring_mode": AUTHORING_MODE,
             "ui_context": ui,
             "is_watched": is_watched(INBOX_DIR, "geography", geography_id),
+            "static_build": False,
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])

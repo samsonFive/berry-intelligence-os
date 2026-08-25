@@ -209,8 +209,12 @@ def _evidence_row(record: dict[str, Any], *, entities: dict[str, dict[str, Any]]
     date = ""
     date_basis = "published_date"
     if is_commercial:
-        date = detail.get("observed_at") or record.get("published_date") or record.get("captured_date") or ""
-        date_basis = "observed_at" if detail.get("observed_at") else ("published_date" if record.get("published_date") else "captured_date")
+        # observed_at is the commercial event date; published_date is the
+        # source publication date. Never fall back to captured_date -- that
+        # is ingestion time and must not look like market chronology
+        # (AGENTS.md Entity Intelligence Timeline durable rule).
+        date = detail.get("observed_at") or record.get("published_date") or ""
+        date_basis = "observed_at" if detail.get("observed_at") else "published_date"
     else:
         date = record.get("published_date") or ""
         date_basis = "published_date"
@@ -357,9 +361,23 @@ def _signal_row(
     }
 
 
-def _assessment_row(assessment: dict[str, Any], *, entities: dict[str, dict[str, Any]], entity_id: str) -> dict[str, Any]:
+def _assessment_row(
+    assessment: dict[str, Any],
+    *,
+    entities: dict[str, dict[str, Any]],
+    evidence_idx: dict[str, dict[str, Any]],
+    entity_id: str,
+) -> dict[str, Any]:
     date = assessment.get("created_at") or ""
     chips = _entity_chips(assessment.get("entity_ids") or [], entities, exclude=entity_id)
+    evidence_ids = [str(e) for e in (assessment.get("evidence_ids") or []) if e]
+    linked_evidence_records = [evidence_idx[e] for e in evidence_ids if e in evidence_idx]
+    lineage = [
+        {"id": r["id"], "title": r.get("title") or r["id"], "href": f"/evidence/{r['id']}"}
+        for r in linked_evidence_records
+    ]
+    # Prefer why_it_matters when present (PR #180 fidelity); else rationale.
+    excerpt = (assessment.get("why_it_matters") or assessment.get("rationale") or "").strip()
     return {
         "id": assessment.get("id"),
         "kind": "assessment",
@@ -368,7 +386,7 @@ def _assessment_row(assessment: dict[str, Any], *, entities: dict[str, dict[str,
         "date_basis": "created_at",
         "is_fallback_date": False,
         "headline": assessment.get("title") or "",
-        "excerpt": assessment.get("rationale") or "",
+        "excerpt": excerpt,
         "trust_label": "Assessment",
         "confidence": assessment.get("confidence") or "",
         "ai_proposed": bool(assessment.get("ai_proposed")),
@@ -377,7 +395,7 @@ def _assessment_row(assessment: dict[str, Any], *, entities: dict[str, dict[str,
         "geography": [],
         "entity_chips": chips,
         "reader_href": f"/assessments/{assessment['id']}" if assessment.get("id") else "",
-        "lineage": [],
+        "lineage": lineage,
         "derived_items": [],
     }
 
@@ -426,7 +444,10 @@ def entity_intelligence_timeline(
         _relationship_row(r, entities=entities, evidence_idx=evidence_idx, entity_id=entity_id) for r in entity_relationships
     ]
     signal_rows = [_signal_row(s, entities=entities, evidence_idx=evidence_idx, entity_id=entity_id) for s in entity_signals]
-    assessment_rows = [_assessment_row(a, entities=entities, entity_id=entity_id) for a in entity_assessments]
+    assessment_rows = [
+        _assessment_row(a, entities=entities, evidence_idx=evidence_idx, entity_id=entity_id)
+        for a in entity_assessments
+    ]
 
     top_level: list[dict[str, Any]] = list(evidence_rows.values())
     for row in fact_rows + relationship_rows:
