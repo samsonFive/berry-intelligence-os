@@ -159,6 +159,7 @@ def build() -> list[Path]:
     written: list[Path] = []
     evidence = published_evidence()
     entities = entity_index()
+    questions = load_strategic_questions()
     region_tokens = {
         "Americas": "americas", "Europe": "emea", "Middle East & Africa": "emea",
         "Oceania": "australia-nz", "Asia": "asia",
@@ -233,6 +234,18 @@ def build() -> list[Path]:
     )
 
     # Evidence detail + attachments.
+    # Pre-index reverse lineage once for the whole Evidence set (avoid
+    # O(evidence × signals/assessments) scans per page).
+    signals_all = all_signals()
+    assessments_all = all_assessments()
+    signals_by_evidence: dict[str, list] = {}
+    assessments_by_evidence: dict[str, list] = {}
+    for signal in signals_all:
+        for eid in signal.get("evidence_ids") or []:
+            signals_by_evidence.setdefault(eid, []).append(signal)
+    for assessment in assessments_all:
+        for eid in assessment.get("evidence_ids") or []:
+            assessments_by_evidence.setdefault(eid, []).append(assessment)
     for record in evidence:
         record_id = record["id"]
         linked_entities = [entities[e] for e in record.get("entity_ids", []) if e in entities]
@@ -255,6 +268,11 @@ def build() -> list[Path]:
                     "linked_entities": linked_entities,
                     "facts": facts,
                     "relationships": relationships,
+                    "citing_signals": signals_by_evidence.get(record_id, []),
+                    "citing_assessments": assessments_by_evidence.get(record_id, []),
+                    "linked_strategic_questions": [
+                        sq for sq in questions if sq["id"] in (record.get("strategic_question_ids") or [])
+                    ],
                     "berry_label": berry_label,
                     "authoring_mode": False,
                 },
@@ -636,7 +654,7 @@ def build() -> list[Path]:
     # Strategic Question records, built entirely from trusted-only data
     # (Evidence/Facts/Signals/Assessments/Recommendations have no draft
     # state reachable from these presenters).
-    questions = load_strategic_questions()
+    # `questions` loaded once at build start for Evidence lineage + SQ pages.
     sq_signals = all_signals()
     sq_assessments = all_assessments()
     sq_recommendations = all_recommendations()
@@ -724,6 +742,9 @@ def build() -> list[Path]:
                     "assessment": assessment,
                     "berry_scope": assessment.get("berry_scope") or assessment_berry_scope(assessment, BERRIES),
                     "linked_facts": [f for f in all_facts() if f["id"] in (assessment.get("fact_ids") or [])],
+                    "linked_signals": [
+                        s for s in signals if s["id"] in (assessment.get("signal_ids") or [])
+                    ],
                     "linked_evidence": [
                         r for r in evidence if r["id"] in (assessment.get("evidence_ids") or [])
                     ],
