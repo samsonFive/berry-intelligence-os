@@ -87,7 +87,7 @@
             <li>Product/sensory evidence: {% if row.product_sensory_count %}{{ row.product_sensory_count }}{% else %}<span class="v2-meta">Not captured</span>{% endif %}</li>
             <li>Production/agronomic evidence: {% if row.production_agronomic_count %}{{ row.production_agronomic_count }}{% else %}<span class="v2-meta">Not captured</span>{% endif %}</li>
             <li>Geographies: {% if row.geographies %}{{ row.geographies|length }} represented in captured intelligence{% else %}<span class="v2-meta">Not captured</span>{% endif %}</li>
-            <li>Signals: {% if row.signals %}{{ row.signals|length }}{% else %}<span class="v2-meta">None</span>{% endif %}</li>
+            <li>Signals: {% if row.signals %}{{ row.signals|length }}{% else %}<span class="v2-meta">No confirmed Signal captured</span>{% endif %}</li>
             <li>Latest activity: {{ row.latest_activity|us_date if row.latest_activity else "—" }}</li>
           </ul>
           <p class="v2-card-line"><a href="{{ row.timeline_href }}">Variety timeline</a></p>
@@ -145,7 +145,7 @@
   {% if portfolio.assessments %}
     <ul class="entity-links">
       {% for a in portfolio.assessments %}
-        <li><span class="badge badge-assessment">ASSESSMENT</span> <a href="{{ a.href }}">{{ a.title }}</a> <span class="badge badge-muted">{{ a.confidence|upper }} CONFIDENCE</span></li>
+        <li><span class="badge badge-assessment">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span> <a href="{{ a.href }}">{{ a.title }}</a> <span class="badge badge-muted">{{ a.confidence|upper }} CONFIDENCE</span></li>
       {% endfor %}
     </ul>
   {% else %}

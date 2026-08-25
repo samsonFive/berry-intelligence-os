@@ -18,6 +18,7 @@
       {% if row.signal_status %}<span class="v2-meta">{{ row.signal_status|upper }}</span>{% endif %}
     {% elif row.kind == 'assessment' %}
       <span class="badge badge-assessment">ASSESSMENT</span>
+      <span class="v2-meta">{{ 'AI PROPOSED' if row.ai_proposed else 'REVIEWED' }}</span>
       {% if row.confidence %}<span class="v2-meta">{{ row.confidence|upper }} confidence</span>{% endif %}
     {% endif %}
     {% if row.is_fallback_date %}

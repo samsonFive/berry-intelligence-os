@@ -226,7 +226,7 @@
         {% if card.assessments %}
           <ul class="entity-links">
             {% for a in card.assessments %}
-              <li><span class="badge badge-assessment">ASSESSMENT</span> <a href="{{ a.href }}">{{ a.title }}</a></li>
+              <li><span class="badge badge-assessment">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span> <a href="{{ a.href }}">{{ a.title }}</a></li>
             {% endfor %}
           </ul>
         {% else %}
