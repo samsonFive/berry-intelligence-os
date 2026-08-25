@@ -15,7 +15,7 @@ import pytest
 
 from app.composition import get_repositories
 from app.repositories.paths import SCHEMAS_DIR
-from app.services import article_acquisition, media_discovery
+from app.services import article_acquisition, article_refresh, media_discovery
 from app.services.article_refresh import process_discovered_article
 from app.services.media_discovery import discover_source, list_discovered_items
 from app.services.media_orchestration import JsonStagedTranscriptAdapter, MediaOrchestrationService
@@ -270,6 +270,38 @@ def test_known_url_with_genuinely_changed_body_is_flagged_without_overwrite(tmp_
     assert extra["body_acquisition_attempted"] is True
     assert probe["status"] == "CONTENT_CHANGED"
     assert after["article"]["content_sha256"] == before["article"]["content_sha256"]
+
+
+def test_known_google_wrapper_update_probe_stays_structurally_blocked_without_retry(tmp_path, repos, source, monkeypatch):
+    item = _discover_one(
+        tmp_path, source, monkeypatch,
+        title="Blackberry season opens", link="https://example.invalid/blackberry-wrapper",
+        description="Blackberry growers opened the season.",
+    )
+    monkeypatch.setattr(article_acquisition.httpx, "get", lambda *a, **k: _FakeArticleResponse(_RELEVANT_HTML))
+    orchestrator = _orchestrator(repos, tmp_path)
+    first, _ = process_discovered_article(item, orchestrator=orchestrator, inbox_dir=tmp_path / "inbox")
+
+    def blocked(_url):
+        raise article_acquisition.ArticleAcquisitionError(
+            "Google News wrapper did not resolve", category="script_rendered"
+        )
+
+    monkeypatch.setattr(article_refresh, "fetch_article", blocked)
+    result, extra = process_discovered_article(
+        dict(item) | {"discovery_changed_at": "2026-08-25T00:00:00+00:00"},
+        orchestrator=orchestrator,
+        inbox_dir=tmp_path / "inbox",
+    )
+    probe = json.loads(
+        (tmp_path / "inbox" / "discovered_media" / f"{item['id']}.json").read_text()
+    )["article_identity_probe"]
+    assert result.state == "awaiting_publication_review"
+    assert result.publication_draft_id == first.publication_draft_id
+    assert result.errors == []
+    assert extra["article_identity_probe"] == "CHECK_BLOCKED"
+    assert probe["status"] == "CHECK_BLOCKED"
+    assert probe["category"] == "script_rendered"
 
 
 # --- Query-provenance corroboration fallback (Relevance Screen Boundary V1)

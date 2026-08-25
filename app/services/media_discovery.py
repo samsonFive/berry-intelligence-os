@@ -1194,7 +1194,12 @@ def upsert_discovered_item(
         _write_item(inbox_dir, item_id, record)
         return record, "new"
 
-    existing_fingerprint = existing.get("discovery_fingerprint") or _discovery_fingerprint(existing)
+    # Migration-safe seed: legacy staging records predate this fingerprint
+    # and may reflect older normalization details. Identity already matched
+    # by durable id or canonical URL, so the first run seeds the current
+    # fingerprint as unchanged instead of forcing a one-time body-fetch
+    # sweep across every known article.
+    existing_fingerprint = existing.get("discovery_fingerprint") or fresh_fingerprint
     if existing_fingerprint == fresh_fingerprint:
         observed = dict(existing)
         observed["last_seen_at"] = now

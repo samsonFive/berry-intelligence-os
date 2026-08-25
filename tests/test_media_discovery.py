@@ -234,6 +234,22 @@ def test_repeat_discovery_is_idempotent(tmp_path, source, monkeypatch) -> None:
     assert ids_first_run == ids_second_run
 
 
+def test_legacy_item_without_fingerprint_seeds_unchanged_without_refresh_sweep(tmp_path, source, monkeypatch) -> None:
+    feed = _feed([_item_xml(title="Legacy Episode", guid="legacy-guid")])
+    first = _run(tmp_path, source, monkeypatch, feed)
+    path = tmp_path / "inbox" / "discovered_media" / f"{first.items[0]['id']}.json"
+    legacy = json.loads(path.read_text())
+    legacy.pop("discovery_fingerprint")
+    legacy["description"] = "Legacy-normalized description from an older runtime."
+    path.write_text(json.dumps(legacy))
+
+    second = _run(tmp_path, source, monkeypatch, feed)
+    assert second.new == 0
+    assert second.unchanged == 1
+    assert second.changed == 0
+    assert second.processable_item_ids == []
+
+
 def test_duplicate_discovery_does_not_duplicate_staging_records(tmp_path, source, monkeypatch) -> None:
     feed = _feed([_item_xml(title="Episode One", guid="guid-1", link="https://example.invalid/ep1")])
     _run(tmp_path, source, monkeypatch, feed)
