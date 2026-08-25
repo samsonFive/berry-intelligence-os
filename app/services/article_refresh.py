@@ -147,6 +147,36 @@ def _persist_content_check(
     return status
 
 
+def _persist_blocked_content_check(
+    inbox_dir: Path,
+    item: dict[str, Any],
+    *,
+    category: str,
+    representation_id: str | None,
+) -> None:
+    """Record a structural/access-limited probe without creating retries."""
+    path = inbox_dir / "discovered_media" / f"{item['id']}.json"
+    record = dict(item)
+    if path.exists():
+        record = json.loads(path.read_text(encoding="utf-8"))
+    checked_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    record.update(
+        {
+            "last_content_check_at": checked_at,
+            "next_content_check_at": _next_article_content_check(
+                item["id"], item.get("published_date"), checked_at
+            ),
+            "article_identity_probe": {
+                "status": "CHECK_BLOCKED",
+                "category": category,
+                "representation_id": representation_id,
+                "checked_at": checked_at,
+            },
+        }
+    )
+    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
 def process_discovered_article(
     item: dict[str, Any],
     *,
@@ -202,6 +232,18 @@ def process_discovered_article(
             try:
                 body = fetch_article(item.get("resolved_canonical_url") or item.get("canonical_url") or "")
             except ArticleAcquisitionError as exc:
+                if exc.category in _ACCESS_LIMITED_CATEGORIES:
+                    _persist_blocked_content_check(
+                        inbox_dir,
+                        item,
+                        category=exc.category,
+                        representation_id=existing.evidence_id or existing.draft_id,
+                    )
+                    extra["article_identity_probe"] = "CHECK_BLOCKED"
+                    extra["duplicate_stage"] = "post_acquisition_structural_block"
+                    result = orchestrator.process(item_id, dry_run=False)
+                    result.duplicate_rejected_late = True
+                    return result, extra
                 result = _error_result(
                     item_id,
                     state="article_update_check_failed",
