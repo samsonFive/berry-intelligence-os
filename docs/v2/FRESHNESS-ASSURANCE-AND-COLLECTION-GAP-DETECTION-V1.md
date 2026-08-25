@@ -38,6 +38,8 @@ Every Source exposes three separate timestamps:
 
 A successful duplicate-only run advances the first two clocks but not the third. A pending review draft is sufficient to show acquisition occurred; publication/review state does not control freshness.
 
+The system summary also exposes the newest Source attempt as top-level `last_collection_attempt`. All timestamps are normalized to UTC. Offset-aware inputs are converted; schema-compatible naive timestamps are interpreted as UTC rather than host-local time.
+
 ## Source state model
 
 | State | Deterministic meaning |
@@ -119,6 +121,8 @@ The language is “acquisition yield changed,” never “the Company/market wen
 
 V1 records conditions in output only. It sends no notification and changes no operational state.
 
+Each alert retains its established `code` and also exposes a stable `condition` name for downstream consumers. Compatibility mappings are `MULTIPLE_CONSECUTIVE_FAILURES` -> `SOURCE_FAILURE_STREAK`, `COVERAGE_DEGRADED` -> `COLLECTION_COVERAGE_DEGRADED`, and `NO_SUCCESSFUL_COLLECTION_RUN` -> `NO_SUCCESSFUL_COLLECTION`. Top-level `alert_conditions` contains the unique condition names.
+
 ## CLI and JSON
 
 ```bash
@@ -140,6 +144,9 @@ Today should call `build_runtime_freshness()` and consume at minimum:
 - `overdue_count`
 - `failing_count`
 - `blocked_count`
+- `due_count`
+- `retrying_count`
+- flat `*_source_count` aliases for discoverable, current, due, overdue, failing, blocked, current-quiet, and retrying Sources
 - `counts.overdue`
 - `counts.failing`
 - `counts.blocked`
