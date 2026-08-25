@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import json
 
 from app.services import freshness_assurance as freshness_module
@@ -202,6 +202,20 @@ def test_review_only_change_cannot_advance_last_new_intelligence():
     assert payload["last_new_rich_draft"] == "2026-08-24T11:59:00+00:00"
 
 
+def test_source_fidelity_review_cannot_advance_last_new_or_rich_draft():
+    payload = _build(
+        discovered=[{"source_id": "source-a", "first_seen_at": "2026-08-20T10:00:00+00:00"}],
+        drafts=[{
+            "id": "source-fidelity-review", "source_id": "source-a", "evidence_role": "publication_artifact",
+            "workflow": "source_fidelity_recovery", "created_at": "2026-08-24T11:58:00+00:00",
+            "reviewed_at": "2026-08-24T11:59:00+00:00",
+            "source_completeness": {"class": "FULL_ARTICLE"},
+        }],
+    )
+    assert payload["last_new_intelligence"] == "2026-08-20T10:00:00+00:00"
+    assert payload["last_new_rich_draft"] is None
+
+
 def test_feed_window_risk_uses_observed_velocity_and_visible_depth():
     source = _source(discovery={"adapter": "article_rss", "feed_url": "https://example.com", "item_limit": 2})
     payload = _build(
@@ -284,6 +298,15 @@ def test_system_current_and_current_through_come_from_successful_operation():
     assert payload["overdue_count"] == 0
     assert payload["failing_count"] == 0
     assert payload["blocked_count"] == 0
+    assert payload["last_collection_attempt"] == "2026-08-24T06:00:00+00:00"
+    assert payload["discoverable_source_count"] == 1
+    assert payload["current_source_count"] == 1
+    assert payload["due_source_count"] == 0
+    assert payload["overdue_source_count"] == 0
+    assert payload["failing_source_count"] == 0
+    assert payload["blocked_source_count"] == 0
+    assert payload["current_quiet_source_count"] == 0
+    assert payload["retrying_source_count"] == 0
 
 
 def test_system_degraded_and_no_successful_run_conditions_are_honest():
@@ -292,6 +315,33 @@ def test_system_degraded_and_no_successful_run_conditions_are_honest():
     assert payload["can_claim_current"] is False
     assert payload["current_through"] is None
     assert any(alert["code"] == "NO_SUCCESSFUL_COLLECTION_RUN" for alert in payload["alerts"])
+    assert "NO_SUCCESSFUL_COLLECTION" in payload["alert_conditions"]
+
+
+def test_alert_conditions_expose_requested_names_without_breaking_existing_codes():
+    payload = _build(
+        states={"source-a": _state(status="error", success=None, error="timeout")},
+        runs=[
+            _run("2026-08-24T10:00:00+00:00", status="error", new=0),
+            _run("2026-08-24T11:00:00+00:00", status="error", new=0),
+        ],
+    )
+    failure = next(alert for alert in payload["alerts"] if alert["code"] == "MULTIPLE_CONSECUTIVE_FAILURES")
+    assert failure["condition"] == "SOURCE_FAILURE_STREAK"
+    assert "SOURCE_FAILURE_STREAK" in payload["alert_conditions"]
+
+
+def test_timezone_offsets_and_naive_values_normalize_deterministically_to_utc():
+    offset_now = datetime(2026, 8, 24, 5, tzinfo=timezone(timedelta(hours=-7)))
+    payload = build_freshness_assurance(
+        sources=[_source()],
+        discovery_states={"source-a": _state(checked="2026-08-24T05:00:00", success="2026-08-24T05:00:00")},
+        run_records=[_run("2026-08-24T05:00:00")],
+        discovered_items=[], drafts=[], scheduler_runs=[], policy=POLICY, now=offset_now,
+    )
+    assert payload["generated_at"] == "2026-08-24T12:00:00+00:00"
+    assert payload["last_collection_attempt"] == "2026-08-24T05:00:00+00:00"
+    assert payload["last_successful_collection"] == "2026-08-24T05:00:00+00:00"
 
 
 def test_timestamp_behavior_is_deterministic_and_json_contract_has_no_bodies():

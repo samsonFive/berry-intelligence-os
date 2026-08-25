@@ -46,6 +46,18 @@ ZERO_NEW_DRIFT_RUNS = 3
 PRIOR_PRODUCTIVE_RUNS = 3
 RICH_BODY_DRIFT_DRAFTS = 3
 
+ALERT_CONDITION_NAMES = {
+    "MULTIPLE_CONSECUTIVE_FAILURES": "SOURCE_FAILURE_STREAK",
+    "COVERAGE_DEGRADED": "COLLECTION_COVERAGE_DEGRADED",
+    "NO_SUCCESSFUL_COLLECTION_RUN": "NO_SUCCESSFUL_COLLECTION",
+}
+
+
+def _utc(value: datetime) -> datetime:
+    """Normalize aware timestamps and treat schema-compatible naive values as UTC."""
+
+    return value.replace(tzinfo=UTC) if value.tzinfo is None else value.astimezone(UTC)
+
 
 def _dt(value: Any) -> datetime | None:
     if not isinstance(value, str) or not value.strip():
@@ -54,7 +66,7 @@ def _dt(value: Any) -> datetime | None:
         parsed = datetime.fromisoformat(value.strip())
     except ValueError:
         return None
-    return parsed.replace(tzinfo=UTC) if parsed.tzinfo is None else parsed.astimezone(UTC)
+    return _utc(parsed)
 
 
 def _iso(value: datetime | None) -> str | None:
@@ -279,7 +291,7 @@ def build_freshness_assurance(
     stale/overdue, while using the exact second-level cadence policy.
     """
 
-    instant = (now or datetime.now(UTC)).astimezone(UTC)
+    instant = _utc(now or datetime.now(UTC))
     if grace_multiplier < 0:
         raise ValueError("grace_multiplier must be non-negative")
     histories = _source_histories(run_records)
@@ -451,6 +463,9 @@ def build_freshness_assurance(
     counts = _coverage_summary(source_rows)
     last_successful_collection = _latest_successful_collection(run_records)
     last_scheduler_run = _latest_scheduler_run(scheduler_runs)
+    attempts = [_dt(row.get("last_collection_attempt")) for row in source_rows]
+    attempts = [value for value in attempts if value is not None]
+    last_collection_attempt = max(attempts) if attempts else None
     last_new = max(new_by_source.values()) if new_by_source else None
     last_rich = _last_rich_draft(drafts)
     if last_successful_collection is None:
@@ -462,6 +477,9 @@ def build_freshness_assurance(
         counts[key] for key in ("overdue", "failing", "blocked", "never_run", "insufficient_history")
     ) or last_successful_collection is None else SYSTEM_CURRENT
     current_through = _iso(last_successful_collection)
+    for alert in alerts:
+        alert["condition"] = ALERT_CONDITION_NAMES.get(str(alert.get("code")), alert.get("code"))
+    alert_conditions = sorted({str(alert["condition"]) for alert in alerts})
 
     return {
         "generated_at": _iso(instant),
@@ -469,6 +487,7 @@ def build_freshness_assurance(
         "status_label": "INTELLIGENCE CURRENT" if system_state == SYSTEM_CURRENT else "COLLECTION PARTIALLY DEGRADED",
         "can_claim_current": system_state == SYSTEM_CURRENT and current_through is not None,
         "current_through": current_through,
+        "last_collection_attempt": _iso(last_collection_attempt),
         "last_scheduler_run": _iso(last_scheduler_run),
         "last_successful_collection": _iso(last_successful_collection),
         "last_new_intelligence": _iso(last_new),
@@ -476,12 +495,23 @@ def build_freshness_assurance(
         "overdue_count": counts["overdue"],
         "failing_count": counts["failing"],
         "blocked_count": counts["blocked"],
+        "due_count": counts["due"],
+        "retrying_count": counts["retrying"],
+        "discoverable_source_count": counts["scheduled_sources"],
+        "current_source_count": counts["current"],
+        "due_source_count": counts["due"],
+        "overdue_source_count": counts["overdue"],
+        "failing_source_count": counts["failing"],
+        "blocked_source_count": counts["blocked"],
+        "current_quiet_source_count": counts["current_quiet"],
+        "retrying_source_count": counts["retrying"],
         "counts": counts,
         "berry_coverage": berry,
         "geography_coverage": geography,
         "actor_coverage": actors,
         "source_type_coverage": source_type,
         "alerts": sorted(alerts, key=lambda row: (str(row.get("code")), str(row.get("source_id") or row.get("value") or ""))),
+        "alert_conditions": alert_conditions,
         "sources": source_rows,
         "contract": {
             "current_through": "Completion time of the most recent collection operation with at least one successful Source; displayed as current only when no Source is overdue, failing, blocked, never-run, or missing sufficient history.",
@@ -618,7 +648,7 @@ def build_runtime_freshness(
             sources=discoverable,
             policy_file=policy_file,
             history_limit=history_limit,
-            now=now.astimezone(UTC),
+            now=_utc(now),
         )
     cache_instant = now or datetime.now(UTC)
     if cache_instant.tzinfo is None:
