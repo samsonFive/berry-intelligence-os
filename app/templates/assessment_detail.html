@@ -7,6 +7,7 @@
     <p class="eyebrow">ASSESSMENT — {{ assessment.status|upper }} · INTERPRETATION, NOT A FACT</p>
     <h1>{{ assessment.title }}</h1>
     <p class="also-known-as">
+      <span class="badge badge-assessment">{{ 'AI PROPOSED' if assessment.ai_proposed else 'REVIEWED' }}</span>
       {% if berry_scope %}<span class="v2-mark v2-mark-scope v2-mark-scope-{{ berry_scope.kind }}">{{ berry_scope.label }}</span>{% endif %}
       Signal confirmation does not create this record.
     </p>

@@ -265,6 +265,7 @@ def present_company_compare(
                         "id": a.get("id"),
                         "title": a.get("title"),
                         "confidence": a.get("confidence"),
+                        "ai_proposed": bool(a.get("ai_proposed")),
                         "href": f"/assessments/{a['id']}",
                     }
                     for a in company_assessments
@@ -503,6 +504,7 @@ def present_company_portfolio(
                 "id": a.get("id"),
                 "title": a.get("title"),
                 "confidence": a.get("confidence"),
+                "ai_proposed": bool(a.get("ai_proposed")),
                 "href": f"/assessments/{a['id']}",
             }
             for a in company_assessments

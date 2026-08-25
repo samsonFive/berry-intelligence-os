@@ -293,6 +293,7 @@ def geography_detail(
                 "id": a.get("id"),
                 "title": a.get("title"),
                 "confidence": a.get("confidence"),
+                "ai_proposed": bool(a.get("ai_proposed")),
                 "href": f"/assessments/{a['id']}",
             }
             for a in geo_assessments

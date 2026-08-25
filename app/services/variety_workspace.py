@@ -1107,6 +1107,7 @@ def present_variety_compare(
                         "id": a.get("id"),
                         "title": a.get("title"),
                         "confidence": a.get("confidence"),
+                        "ai_proposed": bool(a.get("ai_proposed")),
                         "href": f"/assessments/{a['id']}",
                     }
                     for a in variety_assessments

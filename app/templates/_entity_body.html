@@ -81,7 +81,7 @@
         <li><span class="badge badge-signal">SIGNAL</span> <a href="/signals/{{ s.id }}">{{ s.title }}</a> <span class="badge badge-muted">{{ s.status|upper }}</span></li>
       {% endfor %}
       {% for a in entity_assessments %}
-        <li><span class="badge badge-assessment">ASSESSMENT</span> <a href="/assessments/{{ a.id }}">{{ a.title }}</a> <span class="badge badge-muted">{{ a.confidence|upper }} CONFIDENCE</span></li>
+        <li><span class="badge badge-assessment">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span> <a href="/assessments/{{ a.id }}">{{ a.title }}</a> <span class="badge badge-muted">{{ a.confidence|upper }} CONFIDENCE</span></li>
       {% endfor %}
       {% for r in entity_recommendations %}
         <li><span class="badge badge-recommendation">RECOMMENDATION</span> <a href="/recommendations/{{ r.id }}">{{ r.title }}</a></li>
