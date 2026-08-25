@@ -370,7 +370,11 @@ def test_all_live_sources_accounted_for() -> None:
     # traffic. 142 = 140 plus source-freshuelva-news and source-nova-siri-
     # genetics-news, added for the Strawberry Vertical V1 depth mission
     # (2026-08-20).
-    assert len(sources) == 194
+    # Direct Source Upgrade + Coverage Gap Closure V1 adds two selective,
+    # body-proven Company feeds (Advanced Berry Breeding and The Summer
+    # Berry Company). Two other upgrades preserve existing
+    # Source identities and therefore do not change this count.
+    assert len(sources) == 196
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}

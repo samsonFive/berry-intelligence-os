@@ -3743,6 +3743,12 @@
     },
     {
       "id": "source-20260824-aneberries-mexico", "collector_type": "rss", "label": "Aneberries Mexico", "query_or_url": "https://aneberries.mx/feed/", "url": "https://aneberries.mx/", "geography_focus": ["north_america"], "entity_coverage": ["industry_association"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official Spanish-language Mexican berry-association RSS; mixed but majority-full five-path probe."
+    },
+    {
+      "id": "source-20260825-advanced-berry-breeding-news", "collector_type": "rss", "label": "Advanced Berry Breeding News", "query_or_url": "https://www.abbreeding.nl/feed/", "url": "https://www.abbreeding.nl/", "geography_focus": ["europe", "global"], "entity_coverage": ["genetics_company", "breeding_program"], "berry_coverage": ["berry-raspberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official Raspberry breeding RSS; ten-item feed and two full-body production-image probes verified 2026-08-25."
+    },
+    {
+      "id": "source-20260825-summer-berry-company-news", "collector_type": "rss", "label": "The Summer Berry Company News", "query_or_url": "https://summerberry.co.uk/feed/", "url": "https://summerberry.co.uk/news/", "geography_focus": ["europe"], "entity_coverage": ["grower_marketer", "genetics_licensee"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official Company RSS; ten-item feed and two full-body production-image probes verified 2026-08-25."
     }
   ]
 }
