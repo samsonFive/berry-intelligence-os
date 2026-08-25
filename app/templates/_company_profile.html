@@ -173,7 +173,7 @@
       {% for rel in company_geographies %}
         <li>
           <strong>{{ entity.name }}</strong> operates in
-          <a href="/entities/{{ rel.other.entity_type }}/{{ rel.other.id }}">{{ rel.other.name }}</a>
+          <a href="/geographies/{{ rel.other.id }}">{{ rel.other.name }}</a>
           <span class="badge badge-muted">GEOGRAPHY</span>
         </li>
       {% endfor %}
