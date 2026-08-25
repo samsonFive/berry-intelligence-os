@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from app.services.source_freshness import BLOCKED, FAILING, classify_source_freshness
+from app.services.source_lifecycle import is_scheduled_coverage, lifecycle_reason
 
 
 UTC = timezone.utc
@@ -126,6 +127,15 @@ def source_schedule_decision(
     )
     last_attempt = _instant((discovery_state or {}).get("last_checked_at"))
     last_success = _instant((discovery_state or {}).get("last_success_at"))
+
+    if not is_scheduled_coverage(source):
+        return SourceScheduleDecision(
+            source_id, False, None, "UNSCHEDULED", health.state,
+            _iso(last_attempt) if last_attempt else None,
+            _iso(last_success) if last_success else None,
+            None,
+            lifecycle_reason(source) or "Source is explicitly disabled or retired and is outside scheduled coverage.",
+        )
 
     if health.state == BLOCKED:
         return SourceScheduleDecision(

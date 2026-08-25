@@ -197,14 +197,14 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Severity** | Low |
 | **Area** | collection / source health |
 | **Date discovered** | 2026-08-20 |
-| **Evidence** | `source-20260819-growing-produce-berries` returned HTTP 403 during Strawberry Vertical V1. Not scraped around. |
-| **Impact** | That discoverable source fails until the publisher allows the feed again. |
-| **Workaround** | Skip; do not add a brittle scraper. |
-| **Recommended resolution** | Re-check periodically; if persistent, mark the source discovery block inactive. |
-| **Status** | monitoring |
+| **Evidence** | Source Reliability Remediation V1 audited all 26 retained attempts (2026-08-19 through 2026-08-24): every direct berry-feed request returned HTTP 403 with no redirect or parse, while robots permits the path, the publication/archive still exists, and the broad publisher RSS returns 200. Classified `ROBOTS_OR_ACCESS_BLOCKED`. |
+| **Impact** | The direct berry Source remains a real coverage gap in production; broad all-produce RSS is not a scope-safe substitute. |
+| **Workaround** | Explicit `OPERATOR_ACTION_REQUIRED` lifecycle pauses collection while keeping the Source blocked in the freshness denominator. No scraper, access bypass, Google News fallback, or replacement was introduced. |
+| **Recommended resolution** | Re-check only when the publisher or production egress changes; return to `ACTIVE` only with a supported berry-scoped mechanism and genuine successful probe. Retire explicitly if the publication/feed becomes permanently unavailable. |
+| **Status** | mitigated / operator action required |
 | **Owner lane** | ops |
 | **PR/SHA when resolved** | — |
-| **Regression-test reference** | `data/configuration/sources.json` |
+| **Regression-test reference** | `app/services/source_lifecycle.py`; `tests/test_source_lifecycle.py`; `data/configuration/sources.json` |
 
 ### TD-ACQ-003 — NARBA raspberry/blackberry RSS is well-formed but empty
 

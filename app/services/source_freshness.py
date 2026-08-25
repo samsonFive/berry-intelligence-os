@@ -22,6 +22,13 @@ from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from typing import Any
 
+from app.services.source_lifecycle import (
+    OPERATOR_ACTION_REQUIRED,
+    is_scheduled_coverage,
+    lifecycle_reason,
+    lifecycle_state,
+)
+
 CURRENT = "CURRENT"
 DUE = "DUE"
 STALE = "STALE"
@@ -87,8 +94,9 @@ def _looks_blocked(error_text: str | None) -> bool:
 
 
 def is_discoverable(source: dict[str, Any]) -> bool:
-    discovery = source.get("discovery") or {}
-    return bool(discovery.get("adapter") and (discovery.get("feed_url") or discovery.get("feed_urls")))
+    """Compatibility name for Sources in scheduled freshness coverage."""
+
+    return is_scheduled_coverage(source)
 
 
 @dataclass(frozen=True)
@@ -128,6 +136,14 @@ def classify_source_freshness(
     last_success_at = (discovery_state or {}).get("last_success_at")
     cadence = source.get("update_cadence")
     cadence_days = SOURCE_CADENCE_DAYS.get(cadence)
+
+    if lifecycle_state(source) == OPERATOR_ACTION_REQUIRED:
+        return SourceFreshness(
+            state=BLOCKED, label=FRESHNESS_LABELS[BLOCKED],
+            last_checked_at=last_checked_at, last_success_at=last_success_at, next_check_due=None,
+            latest_item_published_at=latest_item_published_at, latest_item_captured_at=latest_item_captured_at,
+            reason=lifecycle_reason(source) or "Source requires operator action; automatic collection is paused.",
+        )
 
     if not is_discoverable(source):
         return SourceFreshness(

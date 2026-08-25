@@ -21,6 +21,7 @@ from app.services.media_discovery import read_source_discovery_state
 from app.services.source_cadence import cadence_seconds, load_cadence_policy, load_json_objects, maximum_safe_interval_seconds
 from app.services.source_freshness import BLOCKED as SOURCE_HEALTH_BLOCKED
 from app.services.source_freshness import classify_source_freshness
+from app.services.source_lifecycle import is_scheduled_coverage
 
 
 UTC = timezone.utc
@@ -294,6 +295,7 @@ def build_freshness_assurance(
     instant = _utc(now or datetime.now(UTC))
     if grace_multiplier < 0:
         raise ValueError("grace_multiplier must be non-negative")
+    sources = [source for source in sources if is_scheduled_coverage(source)]
     histories = _source_histories(run_records)
     new_by_source = _new_by_source(discovered_items)
     source_rows: list[dict[str, Any]] = []
@@ -639,7 +641,7 @@ def build_runtime_freshness(
     ``use_cache=False`` when a caller needs exact boundary evaluation.
     """
 
-    discoverable = [source for source in sources if (source.get("discovery") or {}).get("adapter")]
+    discoverable = [source for source in sources if is_scheduled_coverage(source)]
     policy_file = policy_path or data_dir / "configuration" / "source_collection_cadence.json"
     if now is not None and not use_cache:
         return _build_runtime_uncached(
