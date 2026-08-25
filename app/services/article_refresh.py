@@ -20,6 +20,7 @@ this as a drop-in replacement for a plain process() call on article items.
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
@@ -30,6 +31,7 @@ from app.services.media_orchestration import (
     OrchestrationResult,
     ParentResolution,
 )
+from app.services.media_discovery import _next_article_content_check
 from app.services.publication_enrichment import enrich_publication_draft
 from app.services.relevance_screen import TIER_DIRECT, TIER_UNCERTAIN, screen_relevance
 from app.services.source_completeness import RETRYABLE_FAILURES, normalize_failure_category, with_source_completeness
@@ -88,6 +90,63 @@ def _persist_source_failure(
     draft_path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
+def _content_check_requested(item: dict[str, Any]) -> bool:
+    if item.get("discovery_changed_at"):
+        return True
+    next_raw = item.get("next_content_check_at")
+    if not isinstance(next_raw, str):
+        return False
+    try:
+        due = datetime.fromisoformat(next_raw)
+        if due.tzinfo is None:
+            due = due.replace(tzinfo=timezone.utc)
+    except ValueError:
+        return True
+    return datetime.now(timezone.utc) >= due.astimezone(timezone.utc)
+
+
+def _persist_content_check(
+    inbox_dir: Path,
+    item: dict[str, Any],
+    *,
+    body: Any,
+    prior_hash: str | None,
+    representation_id: str | None,
+) -> str:
+    """Persist an untrusted identity probe without touching a review record."""
+    status = (
+        "KNOWN_IDENTICAL"
+        if prior_hash and prior_hash == body.content_sha256
+        else "CONTENT_CHANGED"
+        if prior_hash
+        else "CONTENT_CHANGE_UNVERIFIED"
+    )
+    path = inbox_dir / "discovered_media" / f"{item['id']}.json"
+    record = dict(item)
+    if path.exists():
+        record = json.loads(path.read_text(encoding="utf-8"))
+    checked_at = body.as_dict().get("acquisition", {}).get("fetched_at") or datetime.now(timezone.utc).isoformat()
+    record.update(
+        {
+            "resolved_canonical_url": body.final_url or body.source_url,
+            "last_content_check_at": checked_at,
+            "next_content_check_at": _next_article_content_check(
+                item["id"], item.get("published_date"), checked_at
+            ),
+            "article_identity_probe": {
+                "status": status,
+                "representation_id": representation_id,
+                "prior_content_sha256": prior_hash,
+                "observed_content_sha256": body.content_sha256,
+                "final_url": body.final_url or body.source_url,
+                "checked_at": checked_at,
+            },
+        }
+    )
+    path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return status
+
+
 def process_discovered_article(
     item: dict[str, Any],
     *,
@@ -138,7 +197,60 @@ def process_discovered_article(
         # Already has a draft/trusted parent -- cheap, no network, and
         # defers to process()'s own idempotent resolution rather than
         # re-deriving the same answer here.
-        return orchestrator.process(item_id, dry_run=False), extra
+        if _content_check_requested(item):
+            extra["body_acquisition_attempted"] = True
+            try:
+                body = fetch_article(item.get("resolved_canonical_url") or item.get("canonical_url") or "")
+            except ArticleAcquisitionError as exc:
+                result = _error_result(
+                    item_id,
+                    state="article_update_check_failed",
+                    message=str(exc),
+                    transcript_status="acquisition_failed",
+                )
+                result.parent_resolution = existing
+                result.publication_draft_id = existing.draft_id
+                return result, extra
+            representation_id = existing.evidence_id or existing.draft_id
+            prior_record = next(
+                (record for record in orchestrator.publication_records() if record.get("id") == representation_id),
+                {},
+            )
+            prior_hash = (prior_record.get("article") or {}).get("content_sha256")
+            probe_status = _persist_content_check(
+                inbox_dir,
+                item,
+                body=body,
+                prior_hash=prior_hash,
+                representation_id=representation_id,
+            )
+            extra["article_identity_probe"] = probe_status
+            if probe_status == "KNOWN_IDENTICAL":
+                extra["duplicate_stage"] = "post_acquisition_known_identical_refresh"
+                result = orchestrator.process(item_id, dry_run=False)
+                result.duplicate_rejected_late = True
+                return result, extra
+            return (
+                OrchestrationResult(
+                    item_id=item_id,
+                    state=(
+                        "article_update_detected"
+                        if probe_status == "CONTENT_CHANGED"
+                        else "article_update_unverified"
+                    ),
+                    parent_resolution=existing,
+                    publication_draft_id=existing.draft_id,
+                    transcript_status="not_applicable",
+                    next_action=(
+                        "Inspect the private article identity probe; the existing publication was not overwritten."
+                    ),
+                ),
+                extra,
+            )
+        extra["duplicate_stage"] = "pre_acquisition_existing_representation"
+        result = orchestrator.process(item_id, dry_run=False)
+        result.duplicate_rejected_late = True
+        return result, extra
 
     stage_a = screen_relevance(
         title=item.get("title") or "", description=item.get("description") or "",
@@ -163,6 +275,7 @@ def process_discovered_article(
             "body fetched for a real Stage B read despite a CONFIDENT-irrelevant metadata screen."
         )
 
+    extra["body_acquisition_attempted"] = True
     try:
         body = fetch_article(item.get("canonical_url") or "")
     except ArticleAcquisitionError as exc:

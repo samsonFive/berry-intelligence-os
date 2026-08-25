@@ -237,6 +237,32 @@ def test_one_source_selection_and_discovery_rerun_are_idempotent(tmp_path: Path)
     assert all(call[0] == "stable-item" for call in orchestrator.calls)
 
 
+def test_known_unchanged_articles_stop_before_orchestration_after_first_processing(tmp_path: Path) -> None:
+    repos = _repos(tmp_path)
+    inbox = tmp_path / "inbox"
+    item = _item("stable-article", "source-a") | {"media_format": "web_article"}
+    _stage(inbox, item)
+
+    def discover(source_id: str):
+        return DiscoveryRunResult(
+            source_id=source_id,
+            status="ok",
+            found=1,
+            already_known=1,
+            unchanged=1,
+            processable_item_ids=[],
+        )
+
+    orchestrator = FakeOrchestrator({"stable-article": _result("stable-article", "skipped_irrelevant")})
+    runner = _runner(tmp_path, repos, orchestrator, discover=discover)
+    first = runner.run(source_id="source-a")
+    second = runner.run(source_id="source-a")
+    assert first.counts["items_processed"] == 1  # migration-safe: no prior state
+    assert second.counts["items_processed"] == 0
+    assert second.counts["duplicates_rejected_early"] == 1
+    assert len(orchestrator.calls) == 1
+
+
 def test_offline_dry_run_has_no_network_or_writes_and_honors_max_items(tmp_path: Path) -> None:
     repos = _repos(tmp_path)
     inbox = tmp_path / "inbox"

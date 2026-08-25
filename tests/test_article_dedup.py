@@ -47,6 +47,16 @@ def test_normalize_canonical_url_keeps_distinct_query_strings_distinct() -> None
     assert a != b
 
 
+def test_normalize_canonical_url_removes_tracking_but_preserves_semantic_parameters() -> None:
+    a = normalize_canonical_url(
+        "https://example.com/story?id=42&utm_source=newsletter&fbclid=opaque"
+    )
+    b = normalize_canonical_url("https://www.example.com/story?id=42")
+    different = normalize_canonical_url("https://example.com/story?id=43")
+    assert a == b
+    assert a != different
+
+
 def test_normalize_canonical_url_ignores_only_fragment() -> None:
     a = normalize_canonical_url("https://example.com/news/blueberry-story?ref=twitter")
     b = normalize_canonical_url("https://example.com/news/blueberry-story?ref=twitter#comments")
@@ -182,6 +192,22 @@ def test_google_news_and_publisher_rss_match_on_exact_origin_title_and_date() ->
     )
     existing = [_evidence(source_id="source-publisher-rss")]
     assert find_duplicate_article(item, existing_records=existing) == "ev-trusted-one"
+
+
+def test_direct_publisher_lineage_wins_when_search_and_direct_records_both_match() -> None:
+    item = _item(
+        source_id="source-another-search",
+        canonical_url="https://news.google.com/rss/articles/new-opaque-id",
+        raw_metadata={"origin_publisher_name": "Produce Report", "origin_publisher_url": "https://example.com"},
+    )
+    search_record = _evidence(
+        id="ev-search",
+        source_id="source-news-search-produce",
+        source_url="https://news.google.com/rss/articles/old-opaque-id",
+        raw_metadata={"origin_publisher_name": "Produce Report", "origin_publisher_url": "https://example.com"},
+    )
+    direct_record = _evidence(id="ev-direct", source_id="source-produce-report")
+    assert find_duplicate_article(item, existing_records=[search_record, direct_record]) == "ev-direct"
 
 
 def test_origin_publisher_match_still_requires_exact_title_and_date() -> None:

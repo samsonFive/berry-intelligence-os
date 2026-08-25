@@ -244,6 +244,27 @@ def test_duplicate_discovery_does_not_duplicate_staging_records(tmp_path, source
     assert len(staging_files) == 1
 
 
+def test_tracking_variant_and_rotated_guid_reuse_source_local_identity(tmp_path, source, monkeypatch) -> None:
+    first = _run(
+        tmp_path,
+        source,
+        monkeypatch,
+        _feed([_item_xml(title="Tracked", guid="guid-old", link="https://example.invalid/story?id=7&utm_source=a")]),
+    )
+    second = _run(
+        tmp_path,
+        source,
+        monkeypatch,
+        _feed([_item_xml(title="Tracked", guid="guid-old", link="https://example.invalid/story?id=7&utm_medium=b")]),
+    )
+    assert first.new == 1
+    assert second.new == 0
+    assert second.items[0]["id"] == first.items[0]["id"]
+    state = read_source_discovery_state(tmp_path / "inbox", SOURCE_ID)
+    assert state is not None
+    assert len(state["recent_discovery_identities"]) <= media_discovery.RECENT_DISCOVERY_IDENTITY_LIMIT
+
+
 # ---------------------------------------------------------------------------
 # 8: a changed metadata field does not incorrectly create a new logical episode
 # ---------------------------------------------------------------------------
@@ -262,6 +283,8 @@ def test_changed_metadata_field_does_not_create_new_logical_episode(tmp_path, so
 
     assert second.new == 0
     assert second.already_known == 1
+    assert second.changed == 1
+    assert second.processable_item_ids == [original_id]
     assert second.items[0]["id"] == original_id
     assert second.items[0]["title"] == "Corrected Title (typo fix)"
     assert second.items[0]["first_seen_at"] == original_first_seen

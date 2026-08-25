@@ -78,12 +78,13 @@ from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable
-from urllib.parse import urlparse, urlunparse
+from urllib.parse import urlparse
 
 import feedparser
 import httpx
 
 from app.composition import get_repositories
+from app.services.article_dedup import normalize_canonical_url
 from app.repositories.paths import DEFAULT_DATA_DIR, SCHEMAS_DIR
 
 STAGING_SCHEMA_VERSION = 1
@@ -133,6 +134,62 @@ SPOKEN_MEDIA_FORMATS = {"podcast", "video", "conference_video"}
 INITIAL_DISCOVERY_MAX_ITEMS = 10
 INITIAL_DISCOVERY_LOOKBACK_DAYS = 30
 
+# A Source feed/search window is finite in practice (Google News currently
+# exposes at most 100 entries).  Retaining a little more than two windows in
+# derived Source state makes the hot identity set bounded and rebuildable;
+# staging records remain the durable, untrusted fallback after a restart.
+RECENT_DISCOVERY_IDENTITY_LIMIT = 250
+
+
+def _next_article_content_check(item_id: str, published_date: str | None, now: str) -> str:
+    """Bounded deterministic refresh schedule for known article URLs.
+
+    Recently published pages are more likely to receive meaningful updates;
+    older pages are checked much less often. A stable per-item spread avoids
+    turning deployment of this contract into one broad reacquisition sweep.
+    """
+    instant = datetime.fromisoformat(now)
+    try:
+        published = datetime.fromisoformat((published_date or "")[:10]).replace(tzinfo=timezone.utc)
+        age_days = max(0, (instant.astimezone(timezone.utc) - published).days)
+    except ValueError:
+        age_days = 61
+    base_days = 1 if age_days <= 14 else 7 if age_days <= 60 else 30
+    spread = 0.75 + (int(hashlib.sha256(item_id.encode("utf-8")).hexdigest()[:4], 16) / 0xFFFF) * 0.5
+    return (instant + timedelta(days=base_days * spread)).isoformat(timespec="seconds")
+
+
+def _discovery_fingerprint(item: "NormalizedItem | dict[str, Any]") -> str:
+    """Hash semantic discovery metadata, excluding observation timestamps.
+
+    A stable GUID/URL can legitimately carry a corrected title, description,
+    date, or final resolved URL.  Such a change is processable; a byte-for-
+    byte repeat window item is not.  Raw adapter payload is intentionally
+    excluded because feedparser may add volatile/non-semantic fields.
+    """
+    if isinstance(item, NormalizedItem):
+        payload = {
+            "title": item.title,
+            "description": item.description,
+            "media_format": item.media_format,
+            "canonical_url": normalize_canonical_url(item.canonical_url),
+            "published_date": item.published_date,
+            "duration_seconds": item.duration_seconds,
+            "transcript_availability": item.transcript_availability,
+        }
+    else:
+        payload = {
+            "title": item.get("title"),
+            "description": item.get("description"),
+            "media_format": item.get("media_format"),
+            "canonical_url": normalize_canonical_url(item.get("canonical_url")),
+            "published_date": item.get("published_date"),
+            "duration_seconds": item.get("duration_seconds"),
+            "transcript_availability": item.get("transcript_availability"),
+        }
+    encoded = json.dumps(payload, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+    return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
+
 
 class DiscoveryError(Exception):
     """Raised only for programmer-error inputs (unknown source_id, unknown
@@ -169,10 +226,7 @@ def _normalize_url_for_dedupe(url: str) -> str:
     a trailing slash, a `www.` prefix, a tracking query string) doesn't
     manufacture a second logical item out of the same episode. Not a
     general-purpose URL normalizer -- just enough determinism for dedupe."""
-    parsed = urlparse((url or "").strip())
-    netloc = parsed.netloc.lower().removeprefix("www.")
-    path = parsed.path.rstrip("/")
-    return urlunparse((parsed.scheme.lower(), netloc, path, "", "", ""))
+    return normalize_canonical_url(url)
 
 
 def _parse_duration_to_seconds(raw: str | None) -> int | None:
@@ -1078,8 +1132,14 @@ def upsert_discovered_item(
     item: NormalizedItem,
     *,
     now: str | None = None,
-) -> tuple[dict[str, Any], bool]:
-    """Write (or refresh) one staged item. Returns (record, is_new).
+    existing_by_url: dict[str, dict[str, Any]] | None = None,
+) -> tuple[dict[str, Any], str]:
+    """Write (or refresh) one staged item. Returns ``(record, outcome)``.
+
+    ``outcome`` is ``new``, ``changed``, ``refresh_due``, or ``unchanged``. Unchanged
+    rediscovery updates only lightweight observation fields, avoiding the
+    Evidence reconciliation scan and the second full staging rewrite that
+    previously ran for every repeated feed-window item.
 
     Idempotency contract: calling this twice with logically-the-same item
     (same dedupe identity) never creates a second file and never resets
@@ -1091,8 +1151,18 @@ def upsert_discovered_item(
     now = now or _now_iso()
     dedupe_strategy, dedupe_key = _dedupe_identity(item)
     item_id = _staging_item_id(source_id, dedupe_strategy, dedupe_key)
+    fresh_fingerprint = _discovery_fingerprint(item)
 
     existing = _load_existing_item(inbox_dir, item_id)
+    # A publisher may rotate GUIDs or append attribution parameters while
+    # retaining the same canonical article URL. Reuse the already-staged
+    # identity instead of manufacturing a second Source-local item. The map
+    # is derived from staging at run start, so it is safe after restart.
+    normalized_url = normalize_canonical_url(item.canonical_url)
+    if existing is None and item.media_format == "web_article" and normalized_url and existing_by_url:
+        existing = existing_by_url.get(normalized_url)
+        if existing is not None:
+            item_id = existing["id"]
     fresh_fields = {
         "title": item.title,
         "description": item.description,
@@ -1118,10 +1188,33 @@ def upsert_discovered_item(
             "first_seen_at": now,
             "last_seen_at": now,
             "seen_count": 1,
+            "discovery_fingerprint": fresh_fingerprint,
             **fresh_fields,
         }
         _write_item(inbox_dir, item_id, record)
-        return record, True
+        return record, "new"
+
+    existing_fingerprint = existing.get("discovery_fingerprint") or _discovery_fingerprint(existing)
+    if existing_fingerprint == fresh_fingerprint:
+        observed = dict(existing)
+        observed["last_seen_at"] = now
+        observed["seen_count"] = int(existing.get("seen_count", 1)) + 1
+        observed["discovery_fingerprint"] = fresh_fingerprint
+        outcome = "unchanged"
+        if observed.get("media_format") == "web_article":
+            next_check = observed.get("next_content_check_at")
+            if not isinstance(next_check, str):
+                observed["next_content_check_at"] = _next_article_content_check(
+                    item_id, observed.get("published_date"), now
+                )
+            else:
+                try:
+                    if datetime.fromisoformat(now) >= datetime.fromisoformat(next_check):
+                        outcome = "refresh_due"
+                except ValueError:
+                    outcome = "refresh_due"
+        _write_item(inbox_dir, item_id, observed)
+        return observed, outcome
 
     merged = dict(existing)
     for key in _REFRESHABLE_FIELDS:
@@ -1129,8 +1222,11 @@ def upsert_discovered_item(
             merged[key] = fresh_fields[key]
     merged["last_seen_at"] = now
     merged["seen_count"] = int(existing.get("seen_count", 1)) + 1
+    merged["previous_discovery_fingerprint"] = existing_fingerprint
+    merged["discovery_fingerprint"] = fresh_fingerprint
+    merged["discovery_changed_at"] = now
     _write_item(inbox_dir, item_id, merged)
-    return merged, False
+    return merged, "changed"
 
 
 # ---------------------------------------------------------------------------
@@ -1235,6 +1331,13 @@ class DiscoveryRunResult:
     found: int = 0
     new: int = 0
     already_known: int = 0
+    changed: int = 0
+    unchanged: int = 0
+    refresh_due: int = 0
+    # IDs which need downstream work this run. None preserves the legacy
+    # contract for injected/test discovery adapters; the built-in adapter
+    # always supplies a concrete list.
+    processable_item_ids: list[str] | None = None
     # Of `new`, how many were flagged historical_backlog by
     # classify_initial_backlog() on a spoken-media source's first-ever
     # discovery run -- staged (never dropped), but excluded from the
@@ -1260,6 +1363,9 @@ class DiscoveryRunResult:
             "found": self.found,
             "new": self.new,
             "already_known": self.already_known,
+            "changed": self.changed,
+            "unchanged": self.unchanged,
+            "refresh_due": self.refresh_due,
             "historical_backlog": self.historical_backlog,
             "item_failures": [
                 {"index": f.index, "identifier": f.identifier, "error": f.error} for f in self.item_failures
@@ -1351,7 +1457,13 @@ def discover_source(
         )
         return result
 
-    result = DiscoveryRunResult(source_id=source_id, status="ok", found=len(entries), feed_failures=feed_failures)
+    result = DiscoveryRunResult(
+        source_id=source_id,
+        status="ok",
+        found=len(entries),
+        feed_failures=feed_failures,
+        processable_item_ids=[],
+    )
 
     # Normalize every entry first (same per-entry failure isolation as
     # before -- one bad entry's normalize() call never aborts the feed) so
@@ -1395,16 +1507,30 @@ def discover_source(
             spoken_pairs, now=now, allow_historical_backfill=allow_historical_backfill
         )
 
+    existing_by_url = {
+        normalized: record
+        for record in list_discovered_items(inbox_dir, source_id=source_id)
+        if record.get("media_format") == "web_article"
+        if (normalized := normalize_canonical_url(record.get("canonical_url")))
+    }
+    recent_identities: list[dict[str, str]] = []
     for index, entry, normalized in normalized_pairs:
         identifier = getattr(entry, "id", None) or getattr(entry, "link", None) or getattr(entry, "title", None)
         try:
-            record, is_new = upsert_discovered_item(inbox_dir, source_id, normalized, now=now)
+            dedupe_strategy, dedupe_key = _dedupe_identity(normalized)
+            record, outcome = upsert_discovered_item(
+                inbox_dir, source_id, normalized, now=now, existing_by_url=existing_by_url
+            )
+            is_new = outcome == "new"
             if is_new and index in backlog_indexes:
                 record["historical_backlog"] = True
-            record["possible_evidence_matches"] = find_possible_evidence_matches(
-                record["id"], record, source_id, data_dir=data_dir, schemas_dir=schemas_dir
-            )
-            _write_item(inbox_dir, record["id"], record)
+            if outcome in {"new", "changed"}:
+                record["possible_evidence_matches"] = find_possible_evidence_matches(
+                    record["id"], record, source_id, data_dir=data_dir, schemas_dir=schemas_dir
+                )
+                _write_item(inbox_dir, record["id"], record)
+            if outcome != "unchanged":
+                result.processable_item_ids.append(record["id"])
             result.items.append(record)
             if is_new:
                 result.new += 1
@@ -1412,12 +1538,34 @@ def discover_source(
                     result.historical_backlog += 1
             else:
                 result.already_known += 1
+                if outcome == "changed":
+                    result.changed += 1
+                elif outcome == "refresh_due":
+                    result.refresh_due += 1
+                else:
+                    result.unchanged += 1
+            recent_identities.append(
+                {
+                    "strategy": dedupe_strategy,
+                    "key": dedupe_key,
+                    "fingerprint": _discovery_fingerprint(normalized),
+                    "item_id": record["id"],
+                }
+            )
+            canonical_identity = normalize_canonical_url(record.get("canonical_url"))
+            if canonical_identity and record.get("media_format") == "web_article":
+                existing_by_url[canonical_identity] = record
         except Exception as exc:  # noqa: BLE001 -- one bad item must not abort the whole feed
             result.item_failures.append(ItemFailure(index=index, identifier=str(identifier) if identifier else None, error=str(exc)))
 
     _write_source_discovery_state(
         inbox_dir, source_id,
-        {**result.as_summary_dict(), "last_checked_at": now, "last_success_at": now},
+        {
+            **result.as_summary_dict(),
+            "last_checked_at": now,
+            "last_success_at": now,
+            "recent_discovery_identities": recent_identities[:RECENT_DISCOVERY_IDENTITY_LIMIT],
+        },
     )
     return result
 
