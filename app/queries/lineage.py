@@ -40,6 +40,14 @@ class LineageQueryService:
         ids = set(assessment_ids or [])
         return [a for a in self._repos.assessments.list() if a["id"] in ids]
 
+    def resolve_assessments_citing_signal(self, signal_id: str) -> list[dict[str, Any]]:
+        """Reverse lookup: Evidence/Signal/Assessment link in one
+        direction only (the citing record names the cited one via its own
+        *_ids field), so an Assessment that cites a Signal is found by
+        scanning Assessment.signal_ids for this id -- there is no stored
+        back-reference on the Signal itself to keep in sync."""
+        return [a for a in self._repos.assessments.list() if signal_id in (a.get("signal_ids") or [])]
+
     def resolve_linked_strategic_questions(self, sq_ids: list[str] | None) -> list[dict[str, Any]]:
         ids = set(sq_ids or [])
         return [sq for sq in self._repos.strategic_questions.list() if sq["id"] in ids]

@@ -11,6 +11,7 @@
       {% if berry_scope %}<span class="v2-mark v2-mark-scope v2-mark-scope-{{ berry_scope.kind }}">{{ berry_scope.label }}</span>{% endif %}
       Signal confirmation does not create this record.
     </p>
+    {% if not static_build %}<p class="v2-card-line"><a href="/brief-pack?assessments={{ assessment.id }}">Add to Brief Pack</a></p>{% endif %}
   </div>
   {% if authoring_mode %}
     <a class="button-link" href="/assessments/{{ assessment.id }}/edit">Edit</a>
@@ -30,6 +31,16 @@
     <ul class="bullet-list">{% for line in rationale_lines %}<li>{{ line }}</li>{% endfor %}</ul>
   {% else %}
     <p>{{ assessment.rationale }}</p>
+  {% endif %}
+
+  {% if assessment.why_it_matters %}
+    <h2>Why it matters</h2>
+    {% set why_lines = assessment.why_it_matters|as_bullets %}
+    {% if why_lines|length > 1 %}
+      <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+    {% else %}
+      <p>{{ assessment.why_it_matters }}</p>
+    {% endif %}
   {% endif %}
 
   <h2>Would change our view</h2>

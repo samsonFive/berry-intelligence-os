@@ -5,6 +5,7 @@
   <div>
     <p class="eyebrow">SIGNAL — {{ signal.status|upper }} · A PATTERN ACROSS EVIDENCE, NOT A CONFIRMED FACT</p>
     <h1>{{ signal.title }}</h1>
+    {% if not static_build %}<p class="v2-card-line"><a href="/brief-pack?signals={{ signal.id }}">Add to Brief Pack</a></p>{% endif %}
   </div>
 </section>
 {% if authoring_mode and signal.status == 'proposed' and alert_state == 'open' %}
@@ -50,6 +51,20 @@
   {% endif %}
 
   {% if signal.what_would_confirm_it or signal.what_would_falsify_it %}<h2>Decision test</h2><table class="brief-table decision-test"><tbody>{% if signal.what_would_confirm_it %}<tr><th>Confirm</th><td>{{ signal.what_would_confirm_it }}</td></tr>{% endif %}{% if signal.what_would_falsify_it %}<tr><th>Weaken</th><td>{{ signal.what_would_falsify_it }}</td></tr>{% endif %}</tbody></table>{% endif %}
+
+  <h2>What analysts think this means</h2>
+  {% if citing_assessments %}
+    <ul class="entity-links">
+      {% for a in citing_assessments %}
+        <li>
+          <a href="/assessments/{{ a.id }}">{{ a.title }}</a>
+          <span class="badge badge-assessment">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No analyst assessment has cited this signal yet.</p>
+  {% endif %}
 
   <h2>Linked strategic questions</h2>
   {% if linked_strategic_questions %}
