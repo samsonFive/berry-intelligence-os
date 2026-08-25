@@ -189,6 +189,10 @@ class OrchestrationResult:
     # CollectionRunner report direct-vs-adjacent review-ready counts without
     # this module importing anything article-specific itself.
     relevance_tier: str | None = None
+    # Deterministic collection-efficiency instrumentation. These fields do
+    # not alter publication or extraction semantics.
+    body_acquisition_attempted: bool = False
+    duplicate_rejected_late: bool = False
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -202,6 +206,8 @@ class OrchestrationResult:
             "transcript_sha256": self.transcript_sha256,
             "extraction": self.extraction,
             "relevance_tier": self.relevance_tier,
+            "body_acquisition_attempted": self.body_acquisition_attempted,
+            "duplicate_rejected_late": self.duplicate_rejected_late,
             "next_action": self.next_action,
             "errors": self.errors,
         }

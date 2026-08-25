@@ -349,6 +349,10 @@ class SourceResult:
     found: int = 0
     new: int = 0
     known: int = 0
+    changed: int = 0
+    unchanged: int = 0
+    refresh_due: int = 0
+    duplicates_rejected_early: int = 0
     # Of `new`, how many a spoken-media source's first-ever discovery run
     # flagged historical_backlog (see media_discovery.classify_initial_backlog)
     # -- staged, but excluded from this run's normal drafting.
@@ -378,6 +382,8 @@ class ItemResult:
     # article whose draft predates this field.
     relevance_tier: str | None = None
     historical_backlog: bool = False
+    body_acquisition_attempted: bool = False
+    duplicate_rejected_late: bool = False
 
 
 @dataclass
@@ -519,10 +525,11 @@ class CollectionRunner:
         with lock as acquired_lock:
             if acquired_lock is not None:
                 summary.stale_lock_recovered = acquired_lock.recovered_stale_lock
-            self._run_sources(summary, selected_source_ids, dry_run=dry_run)
+            discovery_results = self._run_sources(summary, selected_source_ids, dry_run=dry_run)
             self._run_items(
                 summary,
                 selected_source_ids,
+                discovery_results=discovery_results,
                 dry_run=dry_run,
                 skip_transcription=skip_transcription,
                 max_transcriptions=max_transcriptions,
@@ -535,7 +542,10 @@ class CollectionRunner:
                 self._operations.save_run(summary)
         return summary
 
-    def _run_sources(self, summary: CollectionRunSummary, source_ids: list[str], *, dry_run: bool) -> None:
+    def _run_sources(
+        self, summary: CollectionRunSummary, source_ids: list[str], *, dry_run: bool
+    ) -> dict[str, DiscoveryRunResult]:
+        results: dict[str, DiscoveryRunResult] = {}
         for source_id in source_ids:
             if dry_run:
                 summary.sources.append(SourceResult(source_id=source_id, status="planned"))
@@ -548,6 +558,7 @@ class CollectionRunner:
             except Exception as exc:  # one source never aborts the whole run
                 summary.sources.append(SourceResult(source_id=source_id, status="failed", error=str(exc)))
                 continue
+            results[source_id] = result
             summary.sources.append(
                 SourceResult(
                     source_id=source_id,
@@ -555,16 +566,21 @@ class CollectionRunner:
                     found=result.found,
                     new=result.new,
                     known=result.already_known,
+                    changed=result.changed,
+                    unchanged=result.unchanged,
+                    refresh_due=result.refresh_due,
                     historical_backlog=result.historical_backlog,
                     error=result.error,
                 )
             )
+        return results
 
     def _run_items(
         self,
         summary: CollectionRunSummary,
         source_ids: list[str],
         *,
+        discovery_results: dict[str, DiscoveryRunResult],
         dry_run: bool,
         skip_transcription: bool,
         max_transcriptions: int | None,
@@ -575,6 +591,31 @@ class CollectionRunner:
             [item for source_id in source_ids for item in list_discovered_items(self._inbox_dir, source_id)],
             key=lambda item: (item.get("source_id", ""), item.get("published_date") or "", item["id"]),
         )
+        source_summaries = {source.source_id: source for source in summary.sources}
+        candidate_ids = {
+            source_id: set(result.processable_item_ids)
+            for source_id, result in discovery_results.items()
+            if result.processable_item_ids is not None
+        }
+        processable: list[dict[str, Any]] = []
+        for item in items:
+            built_in_candidates = candidate_ids.get(item["source_id"])
+            if (
+                not dry_run
+                and item.get("media_format") == "web_article"
+                and built_in_candidates is not None
+                and item["id"] not in built_in_candidates
+            ):
+                prior = self._operations.item_state(item["id"])
+                needs_retry = prior.get("failure_class") == "retryable"
+                operator_retry = retry_operator_items and prior.get("failure_class") == "operator"
+                # Empty prior state means this item predates the optimization
+                # and has never been through the runner in this runtime.
+                if prior and not needs_retry and not operator_retry:
+                    source_summaries[item["source_id"]].duplicates_rejected_early += 1
+                    continue
+            processable.append(item)
+        items = processable
         if max_items is not None:
             items = items[: max(0, max_items)]
         transcription_attempts = 0
@@ -691,6 +732,8 @@ class CollectionRunner:
             media_format=item.get("media_format"),
             relevance_tier=getattr(result, "relevance_tier", None),
             historical_backlog=bool(item.get("historical_backlog")),
+            body_acquisition_attempted=bool(getattr(result, "body_acquisition_attempted", False)),
+            duplicate_rejected_late=bool(getattr(result, "duplicate_rejected_late", False)),
         )
 
     def _failure_result(self, item: dict[str, Any], state: str, error: str) -> ItemResult:
@@ -794,6 +837,14 @@ class CollectionRunner:
             "items_discovered": sum(result.found for result in summary.sources),
             "items_new": sum(result.new for result in summary.sources),
             "items_known": sum(result.known for result in summary.sources),
+            "items_changed": sum(result.changed for result in summary.sources),
+            "items_unchanged": sum(result.unchanged for result in summary.sources),
+            "known_content_refresh_due": sum(result.refresh_due for result in summary.sources),
+            "duplicates_rejected_early": sum(result.duplicates_rejected_early for result in summary.sources),
+            "duplicates_rejected_late": sum(item.duplicate_rejected_late for item in summary.items),
+            "body_acquisitions_attempted": sum(item.body_acquisition_attempted for item in summary.items),
+            "article_updates_detected": states.count("article_update_detected"),
+            "article_updates_unverified": states.count("article_update_unverified"),
             # Of items_new, how many a spoken-media source's first-ever
             # discovery run held back as historical backlog (staged, not
             # drafted) -- see media_discovery.classify_initial_backlog.

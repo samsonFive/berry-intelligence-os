@@ -6,6 +6,7 @@ items -- one code path, not a duplicate one for each caller.
 
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
 
@@ -238,6 +239,37 @@ def test_second_discovery_of_the_same_item_is_idempotent_not_duplicated(tmp_path
     second, extra = process_discovered_article(item, orchestrator=orchestrator, inbox_dir=tmp_path / "inbox")
     assert second.publication_draft_id == first.publication_draft_id
     assert "acquired" not in extra
+
+
+def test_known_url_with_genuinely_changed_body_is_flagged_without_overwrite(tmp_path, repos, source, monkeypatch):
+    item = _discover_one(
+        tmp_path, source, monkeypatch,
+        title="Blueberry acreage grows in Peru", link="https://example.invalid/peru-blueberry-update",
+        description="Blueberry acreage update from Peru.",
+    )
+    monkeypatch.setattr(article_acquisition.httpx, "get", lambda *a, **k: _FakeArticleResponse(_RELEVANT_HTML))
+    orchestrator = _orchestrator(repos, tmp_path)
+    first, _ = process_discovered_article(item, orchestrator=orchestrator, inbox_dir=tmp_path / "inbox")
+    draft_path = tmp_path / "inbox" / "evidence" / f"{first.publication_draft_id}.json"
+    before = json.loads(draft_path.read_text())
+
+    changed_html = _RELEVANT_HTML.replace(
+        "Analysts expect the trend to continue as more growers convert land from other crops to blueberries.",
+        "Analysts now expect acreage to contract after a severe weather event damaged fields.",
+    )
+    monkeypatch.setattr(article_acquisition.httpx, "get", lambda *a, **k: _FakeArticleResponse(changed_html))
+    changed_item = dict(item) | {"discovery_changed_at": "2026-08-25T00:00:00+00:00"}
+    result, extra = process_discovered_article(
+        changed_item, orchestrator=orchestrator, inbox_dir=tmp_path / "inbox"
+    )
+    after = json.loads(draft_path.read_text())
+    probe = json.loads(
+        (tmp_path / "inbox" / "discovered_media" / f"{item['id']}.json").read_text()
+    )["article_identity_probe"]
+    assert result.state == "article_update_detected"
+    assert extra["body_acquisition_attempted"] is True
+    assert probe["status"] == "CONTENT_CHANGED"
+    assert after["article"]["content_sha256"] == before["article"]["content_sha256"]
 
 
 # --- Query-provenance corroboration fallback (Relevance Screen Boundary V1)

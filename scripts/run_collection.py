@@ -155,8 +155,15 @@ def _human_summary(payload: dict) -> str:
         f"Sources succeeded: {counts['sources_succeeded']}",
         f"Sources failed: {counts['sources_failed']}",
         "",
+        f"Raw discovered items: {counts['items_discovered']}",
         f"New media items: {counts['items_new']}",
+        f"Changed known items: {counts['items_changed']}",
+        f"Unchanged known items: {counts['items_unchanged']}",
+        f"Known article content refreshes due: {counts['known_content_refresh_due']}",
+        f"Duplicates rejected early / late: {counts['duplicates_rejected_early']} / {counts['duplicates_rejected_late']}",
         f"Items processed: {counts['items_processed']}",
+        f"Article body acquisitions attempted: {counts['body_acquisitions_attempted']}",
+        f"Article updates detected / unverified: {counts['article_updates_detected']} / {counts['article_updates_unverified']}",
         f"Transcripts ready: {counts['transcripts_ready']}",
         f"Transcriptions attempted: {counts['transcriptions_attempted']}",
         f"Publication drafts created: {counts['publication_drafts_created']}",
@@ -365,6 +372,10 @@ def main(argv: list[str] | None = None) -> int:
                 company_matchers=article_company_matchers,
             )
             result.relevance_tier = extra.get("relevance_tier")
+            result.body_acquisition_attempted = bool(extra.get("body_acquisition_attempted"))
+            result.duplicate_rejected_late = bool(
+                result.duplicate_rejected_late or extra.get("duplicate_stage")
+            )
             return result
         return service.process(item_id, dry_run=dry_run)
 
