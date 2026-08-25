@@ -32,6 +32,83 @@ def _linked(records: list[dict[str, Any]], sq_id: str) -> list[dict[str, Any]]:
     return [r for r in records if sq_id in (r.get("strategic_question_ids") or [])]
 
 
+def _counterevidence_rows(
+    assessments: list[dict[str, Any]],
+    *,
+    fact_by_id: dict[str, dict[str, Any]],
+    evidence_by_id: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Tensions, part 1: an Assessment's own counterevidence_ids -- the one
+    explicit, schema-supported "this judgment has a known complication"
+    mechanism already proven on assessment_detail.html. counterevidence_ids
+    may reference either a Fact or a piece of Evidence (assessment_detail's
+    own established dual-reference convention, preserved exactly here, not
+    reinvented). Only assessments with real, non-empty counterevidence are
+    included -- never an inferred or semantic-similarity "disagreement.\""""
+    rows: list[dict[str, Any]] = []
+    for a in assessments:
+        items: list[dict[str, Any]] = []
+        for cid in a.get("counterevidence_ids") or []:
+            if cid in fact_by_id:
+                fact = fact_by_id[cid]
+                items.append(
+                    {"id": cid, "kind": "fact", "statement": fact.get("statement") or "", "href": None}
+                )
+            elif cid in evidence_by_id:
+                record = evidence_by_id[cid]
+                items.append(
+                    {
+                        "id": cid,
+                        "kind": "evidence",
+                        "statement": record.get("title") or record.get("source_name") or cid,
+                        "href": f"/evidence/{cid}",
+                    }
+                )
+        if items:
+            rows.append(
+                {
+                    "assessment_id": a["id"],
+                    "assessment_title": a.get("title") or "",
+                    "assessment_href": f"/assessments/{a['id']}",
+                    # Deliberately not named "items" -- a dict key of that
+                    # name is shadowed by dict.items() under Jinja's
+                    # attribute-then-item dot-access resolution.
+                    "counterevidence_items": items,
+                }
+            )
+    return rows
+
+
+def _evidence_contradiction_rows(
+    sq_evidence: list[dict[str, Any]],
+    *,
+    evidence_by_id: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Tensions, part 2: explicit, accepted Evidence-to-Evidence
+    "contradicts" links (Evidence.evidence_links, an existing schema
+    field) among Evidence actually scoped to this question. Only
+    status == "accepted" counts -- a merely proposed or contested link is
+    not yet an established tension. Never semantic-similarity inference."""
+    rows: list[dict[str, Any]] = []
+    for record in sq_evidence:
+        for link in record.get("evidence_links") or []:
+            if link.get("predicate") != "contradicts" or link.get("status") != "accepted":
+                continue
+            target_id = str(link.get("target_evidence_id") or "")
+            target = evidence_by_id.get(target_id)
+            rows.append(
+                {
+                    "evidence_id": record["id"],
+                    "evidence_title": record.get("title") or record.get("source_name") or record["id"],
+                    "evidence_href": f"/evidence/{record['id']}",
+                    "target_id": target_id,
+                    "target_title": (target.get("title") or target.get("source_name") or target_id) if target else target_id,
+                    "target_href": f"/evidence/{target_id}" if target else None,
+                }
+            )
+    return rows
+
+
 def _coverage_counts(
     *,
     fact_count: int,
@@ -191,6 +268,7 @@ def strategic_question_detail(
             "why_it_might_matter": s.get("why_it_might_matter") or "",
             "what_would_confirm_it": s.get("what_would_confirm_it") or "",
             "what_would_falsify_it": s.get("what_would_falsify_it") or "",
+            "evidence_count": len(s.get("evidence_ids") or []),
             "href": f"/signals/{s['id']}",
         }
         for s in sq_signals
@@ -209,6 +287,11 @@ def strategic_question_detail(
         }
         for r in sq_recommendations
     ]
+
+    assessment_counterevidence = _counterevidence_rows(
+        sq_assessments, fact_by_id=fact_by_id, evidence_by_id=evidence_by_id
+    )
+    evidence_contradictions = _evidence_contradiction_rows(sq_evidence, evidence_by_id=evidence_by_id)
 
     # Only real authored text -- never a fabricated counterfactual.
     would_change_our_view = sorted(
@@ -300,6 +383,8 @@ def strategic_question_detail(
         "signals": signal_rows,
         "recommendations": recommendation_rows,
         "would_change_our_view": would_change_our_view,
+        "assessment_counterevidence": assessment_counterevidence,
+        "evidence_contradictions": evidence_contradictions,
         "gaps": gaps,
         "source_trace": source_trace,
         "recent_evidence": recent_rows,
