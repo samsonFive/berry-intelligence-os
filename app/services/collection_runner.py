@@ -19,6 +19,7 @@ import re
 from typing import Any, Callable, ContextManager
 
 from app.services.media_discovery import DiscoveryError, DiscoveryRunResult, list_discovered_items
+from app.services.source_lifecycle import is_collection_eligible
 from app.services.model_qualification import (
     QUALIFICATION_MARKER_SCHEMA_VERSION,
     QUALIFICATION_WORKFLOW_VERSION,
@@ -468,8 +469,7 @@ class CollectionRunner:
     def eligible_source_ids(self) -> list[str]:
         ids = []
         for source in self._repos.sources.list():
-            discovery = source.get("discovery") or {}
-            if discovery.get("adapter") and (discovery.get("feed_url") or discovery.get("feed_urls")):
+            if is_collection_eligible(source):
                 ids.append(source["id"])
         return sorted(ids)
 

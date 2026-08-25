@@ -47,6 +47,7 @@ from app.services.media_discovery import (  # noqa: E402
     acquire_raw_transcript_artifact,
     discover_source,
 )
+from app.services.source_lifecycle import is_collection_eligible  # noqa: E402
 
 DEFAULT_INBOX_DIR = ROOT / "inbox"
 
@@ -61,8 +62,7 @@ def _sources_with_discovery_config(data_dir: Path, schemas_dir: Path) -> list[st
     repos = get_repositories(data_dir, schemas_dir)
     ids = []
     for source in repos.sources.list():
-        discovery_config = source.get("discovery") or {}
-        if discovery_config.get("adapter") and (discovery_config.get("feed_url") or discovery_config.get("feed_urls")):
+        if is_collection_eligible(source):
             ids.append(source["id"])
     return ids
 

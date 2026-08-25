@@ -3474,7 +3474,7 @@
     "type": "rss",
     "label": "Growing Produce - Berries",
     "value": "https://www.growingproduce.com/fruits/berries/feed/",
-    "url": "https://www.growingproduce.com/category/fruits/berries/",
+    "url": "https://www.growingproduce.com/fruits/berries/",
     "why_it_matters": "Berry-scoped category feed from a major US grower-trade publisher (Meister Media), covering production practices, variety trials, and grower-facing agronomy news not always covered by the Latin-America-weighted Fresh Fruit Portal feed. Confirmed live 2026-08-19 (200, application/rss+xml), berry-tagged content confirmed on inspection.",
     "discovery": {
       "adapter": "article_rss",
@@ -3499,6 +3499,11 @@
     "update_cadence": "weekly",
     "linked_competitor_ids": [],
     "enabled": true,
+    "lifecycle": {
+      "state": "OPERATOR_ACTION_REQUIRED",
+      "reason": "ROBOTS_OR_ACCESS_BLOCKED: the direct berry category and RSS feed still exist and are allowed by robots.txt, but production receives HTTP 403 with no redirect. The publisher-wide feed remains reachable but is intentionally not substituted because it is not berry-scoped.",
+      "changed_at": "2026-08-25T03:23:02Z"
+    },
     "created_at": "2026-08-19",
     "last_checked_at": null,
     "last_status": null

@@ -57,6 +57,7 @@ from app.services.extraction_evaluation import public_configuration
 from app.services.model_qualification import file_sha256, qualification_configuration_fingerprint
 from app.services.transcript_evidence import TranscriptEvidenceExtractionService
 from app.services.source_cadence import load_cadence_policy, select_due_sources
+from app.services.source_lifecycle import is_collection_eligible
 
 
 def _environment_enabled(name: str) -> bool:
@@ -388,7 +389,8 @@ def main(argv: list[str] | None = None) -> int:
                 (
                     source
                     for source in repositories.sources.list()
-                    if isinstance(source.get("id"), str)
+                    if is_collection_eligible(source)
+                    and isinstance(source.get("id"), str)
                     and isinstance(source.get("discovery"), dict)
                     and (
                         (source["discovery"].get("adapter") in spoken_adapters)
