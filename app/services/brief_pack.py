@@ -208,6 +208,7 @@ def signal_snapshot(signal_id: str, signals_by_id: dict[str, dict[str, Any]]) ->
         "title": signal.get("title") or signal["id"],
         "strength": signal.get("strength") or "",
         "evidence_count": len(signal.get("evidence_ids") or []),
+        "strategic_question_ids": list(signal.get("strategic_question_ids") or []),
         "href": f"/signals/{signal['id']}",
     }
 
@@ -231,6 +232,7 @@ def assessment_snapshot(
         "supporting_evidence_count": len(assessment.get("evidence_ids") or []),
         "supporting_fact_count": len(assessment.get("fact_ids") or []),
         "linked_recommendation_count": len(linked),
+        "strategic_question_ids": list(assessment.get("strategic_question_ids") or []),
         "href": f"/assessments/{assessment['id']}",
     }
 

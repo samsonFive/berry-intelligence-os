@@ -114,10 +114,17 @@ def geography_detail(
     signals: list[dict[str, Any]],
     assessments: list[dict[str, Any]],
     berry_labels: dict[str, str],
+    strategic_questions: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any] | None:
     """Geography Intelligence V1's detail view -- what does our captured
     intelligence show about this place. Returns None for an unknown or
-    non-geography id (the route turns that into a 404)."""
+    non-geography id (the route turns that into a 404).
+
+    `strategic_questions` is optional (Strategic Question + Decision
+    Workspace V1) -- when supplied, surfaces which Strategic Questions this
+    Geography's own linked Evidence/Signals/Assessments actually bear on,
+    reusing the real strategic_question_ids field already authored on
+    those records rather than a new linkage mechanism."""
     geo = entities.get(geography_id)
     if not geo or geo.get("entity_type") != "geography":
         return None
@@ -231,6 +238,15 @@ def geography_detail(
     geo_signals = [s for s in signals if geography_id in (s.get("entity_ids") or [])]
     geo_assessments = [a for a in assessments if geography_id in (a.get("entity_ids") or [])]
 
+    linked_strategic_question_ids: set[str] = set()
+    for record in linked + geo_signals + geo_assessments:
+        linked_strategic_question_ids.update(record.get("strategic_question_ids") or [])
+    linked_strategic_questions = [
+        {"id": sq["id"], "title": sq.get("title") or sq["id"], "href": f"/strategic-questions/{sq['id']}"}
+        for sq in (strategic_questions or [])
+        if sq.get("id") in linked_strategic_question_ids
+    ]
+
     source_type_counts: dict[str, int] = {}
     source_names: set[str] = set()
     for record in linked:
@@ -301,4 +317,5 @@ def geography_detail(
         "source_type_counts": sorted(source_type_counts.items(), key=lambda kv: -kv[1]),
         "coverage": coverage,
         "coverage_caveat": COVERAGE_CAVEAT,
+        "linked_strategic_questions": linked_strategic_questions,
     }

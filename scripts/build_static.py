@@ -38,7 +38,6 @@ from app.main import (  # noqa: E402
     entity_regions,
     evidence_regions,
     entity_synthesis_context,
-    evidence_for_strategic_question,
     facts_for_evidence,
     get_domain_services,
     get_query_services,
@@ -75,6 +74,10 @@ from app.services.variety_workspace import (  # noqa: E402
 )
 from app.services.company_workspace import present_company_portfolio  # noqa: E402
 from app.services.geography_workspace import geography_detail, geography_index  # noqa: E402
+from app.services.strategic_question_workspace import (  # noqa: E402
+    strategic_question_detail as present_strategic_question_detail,
+    strategic_question_index as present_strategic_question_index,
+)
 
 OUTPUT_DIR = ROOT / "generated"
 
@@ -401,6 +404,7 @@ def build() -> list[Path]:
     # trusted-only treatment as every entity.html page above.
     portfolio_signals = all_signals()
     portfolio_assessments = all_assessments()
+    portfolio_strategic_questions = load_strategic_questions()
     for entity in all_entities():
         if entity.get("entity_type") != "company":
             continue
@@ -414,6 +418,7 @@ def build() -> list[Path]:
             signals=portfolio_signals,
             assessments=portfolio_assessments,
             berry_labels=BERRIES,
+            strategic_questions=portfolio_strategic_questions,
         )
         if portfolio is None:
             continue
@@ -430,6 +435,7 @@ def build() -> list[Path]:
     # Geography entities, built entirely from trusted-only data.
     geography_signals = all_signals()
     geography_assessments = all_assessments()
+    geography_strategic_questions = load_strategic_questions()
     written.append(
         write_page(
             "geography_index.html",
@@ -457,6 +463,7 @@ def build() -> list[Path]:
             signals=geography_signals,
             assessments=geography_assessments,
             berry_labels=BERRIES,
+            strategic_questions=geography_strategic_questions,
         )
         if geo is None:
             continue
@@ -624,27 +631,52 @@ def build() -> list[Path]:
             )
         )
 
-    # Strategic questions.
+    # Strategic Question + Decision Workspace V1 -- same static-safety story
+    # as Company Portfolio/Geography above: a finite, enumerable set of real
+    # Strategic Question records, built entirely from trusted-only data
+    # (Evidence/Facts/Signals/Assessments/Recommendations have no draft
+    # state reachable from these presenters).
     questions = load_strategic_questions()
-    counts = {sq["id"]: len(evidence_for_strategic_question(sq["id"])) for sq in questions if sq.get("id")}
+    sq_signals = all_signals()
+    sq_assessments = all_assessments()
+    sq_recommendations = all_recommendations()
     written.append(
         write_page(
             "strategic_question_list.html",
             "/strategic-questions",
-            {"questions": questions, "counts": counts, "authoring_mode": False},
+            {
+                "questions": present_strategic_question_index(
+                    questions=questions,
+                    published_evidence=evidence,
+                    facts=facts_all,
+                    signals=sq_signals,
+                    assessments=sq_assessments,
+                    recommendations=sq_recommendations,
+                    berry_labels=BERRIES,
+                ),
+                "authoring_mode": False,
+            },
         )
     )
     for sq in questions:
+        detail = present_strategic_question_detail(
+            sq["id"],
+            questions=questions,
+            entities=entities,
+            published_evidence=evidence,
+            facts=facts_all,
+            signals=sq_signals,
+            assessments=sq_assessments,
+            recommendations=sq_recommendations,
+            berry_labels=BERRIES,
+        )
+        if detail is None:
+            continue
         written.append(
             write_page(
                 "strategic_question_detail.html",
                 f"/strategic-questions/{sq['id']}",
-                {
-                    "sq": sq,
-                    "linked_evidence": evidence_for_strategic_question(sq["id"]),
-                    "berry_label": berry_label,
-                    "authoring_mode": False,
-                },
+                {"sq": detail, "authoring_mode": False},
             )
         )
 

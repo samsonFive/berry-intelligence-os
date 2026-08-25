@@ -26,6 +26,7 @@ GROUP_ORDER = (
     "story_threads",
     "signals",
     "assessments",
+    "strategic_questions",
     "sources",
 )
 GROUP_LABELS = {
@@ -37,6 +38,7 @@ GROUP_LABELS = {
     "story_threads": "Story Threads",
     "signals": "Signals",
     "assessments": "Assessments",
+    "strategic_questions": "Strategic Questions",
     "sources": "Sources",
 }
 ENTITY_GROUP = {
@@ -146,6 +148,7 @@ class SearchPools:
     sources: list[dict[str, Any]] = field(default_factory=list)
     signals: list[dict[str, Any]] = field(default_factory=list)
     assessments: list[dict[str, Any]] = field(default_factory=list)
+    strategic_questions: list[dict[str, Any]] = field(default_factory=list)
     pending_drafts: list[dict[str, Any]] = field(default_factory=list)
     signal_candidates: list[dict[str, Any]] = field(default_factory=list)
 
@@ -462,6 +465,30 @@ def build_search_documents(pools: SearchPools, *, include_private: bool) -> list
                 haystack=haystack,
                 folded_canonical=_fold(title),
                 related_ids=_as_tuple(assessment.get("entity_ids")),
+            )
+        )
+
+    for sq in pools.strategic_questions:
+        sq_id = str(sq.get("id") or "")
+        if not sq_id:
+            continue
+        title = str(sq.get("title") or sq_id)
+        haystack = " ".join([title, str(sq.get("description") or "")])
+        add(
+            SearchDoc(
+                id=sq_id,
+                group="strategic_questions",
+                object_type="strategic_question",
+                title=title,
+                href=f"/strategic-questions/{sq_id}",
+                state=str(sq.get("status") or ""),
+                canonical=title,
+                berry_ids=_as_tuple(sq.get("berry_ids")),
+                date="",
+                subtitle="Strategic Question",
+                kind_label="Strategic Question",
+                haystack=haystack,
+                folded_canonical=_fold(title),
             )
         )
 

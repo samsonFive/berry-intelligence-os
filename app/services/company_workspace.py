@@ -311,6 +311,7 @@ def present_company_portfolio(
     signals: list[dict[str, Any]],
     assessments: list[dict[str, Any]],
     berry_labels: dict[str, str],
+    strategic_questions: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any] | None:
     """Company Variety Portfolio Intelligence V1 -- a single Company's
     derived Variety portfolio, answering "what does this Company's
@@ -461,6 +462,15 @@ def present_company_portfolio(
     company_signals = [s for s in signals if company_id in (s.get("entity_ids") or [])]
     company_assessments = [a for a in assessments if company_id in (a.get("entity_ids") or [])]
 
+    linked_strategic_question_ids: set[str] = set()
+    for record in portfolio_evidence + company_signals + company_assessments:
+        linked_strategic_question_ids.update(record.get("strategic_question_ids") or [])
+    linked_strategic_questions = [
+        {"id": sq["id"], "title": sq.get("title") or sq["id"], "href": f"/strategic-questions/{sq['id']}"}
+        for sq in (strategic_questions or [])
+        if sq.get("id") in linked_strategic_question_ids
+    ]
+
     varieties_with_evidence = sum(1 for r in variety_rows if r["evidence_count"] > 0)
     varieties_with_rights = sum(1 for r in variety_rows if r["rights_count"] > 0)
     varieties_with_commercial = sum(1 for r in variety_rows if r["commercial_observation_count"] > 0)
@@ -509,4 +519,5 @@ def present_company_portfolio(
             }
             for a in company_assessments
         ],
+        "linked_strategic_questions": linked_strategic_questions,
     }

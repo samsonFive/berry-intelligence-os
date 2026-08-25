@@ -152,6 +152,17 @@
     <p class="empty-state">No analyst Assessment captured for this Company.</p>
   {% endif %}
 </section>
+
+{% if portfolio.linked_strategic_questions %}
+<section class="v2-company-section" id="portfolio-strategic-questions">
+  <h2>Strategic questions this bears on</h2>
+  <ul class="entity-links">
+    {% for sq in portfolio.linked_strategic_questions %}
+      <li><a href="{{ sq.href }}">{{ sq.title }}</a></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
 </div>
 <script>
 (function () {
