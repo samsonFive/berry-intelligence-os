@@ -1,5 +1,5 @@
 <li class="today-item intel-card" data-intel-card data-item-id="{{ item.id }}" data-kind="{{ item.kind }}">
-  <p class="today-age">{{ item.age_label }}{% if item.exact_date %} · {{ item.exact_date }}{% endif %}{% if item.when_origin == 'captured' %} · captured date{% endif %}</p>
+  <p class="today-age">{{ item.age_label }}{% if item.exact_date %} · {{ item.exact_date }}{% endif %}{% if item.when_origin == 'captured' %} · Captured{% elif item.when_origin == 'published' %} · Published{% elif item.when_origin == 'observed' %} · Observed{% elif item.when_origin == 'filed' %} · Filed{% elif item.when_origin == 'event' %} · Event date{% endif %}</p>
   <p class="v2-card-kicker">
     <span class="badge">{{ item.kind_label }}</span>
     {% if item.source_class %}<span class="v2-meta">{{ item.source_class }}</span>{% endif %}

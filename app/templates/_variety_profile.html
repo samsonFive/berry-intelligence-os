@@ -190,7 +190,7 @@
             <p class="v2-card-line">
               <span class="v2-meta">Source</span> {{ row.source_name or "—" }}
               · <span class="v2-meta">Attribution</span> {{ row.source_type_label }}
-              {% if row.published_date %} · <span class="v2-meta">Date</span> {{ row.published_date|us_date }}{% endif %}
+              {% if row.published_date %} · <span class="v2-meta">Published</span> {{ row.published_date|us_date }}{% elif row.captured_date %} · <span class="v2-meta">Captured</span> {{ row.captured_date|us_date }}{% endif %}
             </p>
             {% if row.geography %}
               <p class="v2-card-line">

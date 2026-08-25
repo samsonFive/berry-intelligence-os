@@ -9,11 +9,16 @@ question app/main.py's facts_for_entity()/signals_for_entity()/
 assessments_for_entity()/recommendations_for_entity()/
 strategic_questions_for_entity() already asked, just against a repository
 instead of load_json_files().
+
+When a RequestCorpus is bound for the current request, entity lookups use
+inverted indices instead of list-comprehending full collections per id.
 """
 
 from __future__ import annotations
 
 from typing import Any
+
+from app.services.request_corpus import get_request_corpus
 
 
 class EntityIntelligenceQueryService:
@@ -21,18 +26,33 @@ class EntityIntelligenceQueryService:
         self._repos = repos
 
     def evidence_for_entity(self, entity_id: str) -> list[dict[str, Any]]:
+        corpus = get_request_corpus()
+        if corpus is not None:
+            return corpus.evidence_for_entity(entity_id)
         return [r for r in self._repos.evidence.list(status="published") if entity_id in (r.get("entity_ids") or [])]
 
     def facts_for_entity(self, entity_id: str) -> list[dict[str, Any]]:
+        corpus = get_request_corpus()
+        if corpus is not None:
+            return corpus.facts_for_entity(entity_id)
         return [f for f in self._repos.facts.list() if entity_id in (f.get("entity_ids") or [])]
 
     def signals_for_entity(self, entity_id: str) -> list[dict[str, Any]]:
+        corpus = get_request_corpus()
+        if corpus is not None:
+            return corpus.signals_for_entity(entity_id)
         return [s for s in self._repos.signals.list() if entity_id in (s.get("entity_ids") or [])]
 
     def assessments_for_entity(self, entity_id: str) -> list[dict[str, Any]]:
+        corpus = get_request_corpus()
+        if corpus is not None:
+            return corpus.assessments_for_entity(entity_id)
         return [a for a in self._repos.assessments.list() if entity_id in (a.get("entity_ids") or [])]
 
     def recommendations_for_entity(self, entity_id: str) -> list[dict[str, Any]]:
+        corpus = get_request_corpus()
+        if corpus is not None:
+            return corpus.recommendations_for_entity(entity_id)
         return [r for r in self._repos.recommendations.list() if entity_id in (r.get("entity_ids") or [])]
 
     def strategic_questions_for_entity(
@@ -50,4 +70,6 @@ class EntityIntelligenceQueryService:
         sq_ids: set[str] = set()
         for record in [*linked_evidence, *entity_signals, *entity_assessments, *entity_recommendations]:
             sq_ids.update(record.get("strategic_question_ids") or [])
-        return [sq for sq in self._repos.strategic_questions.list() if sq.get("id") in sq_ids]
+        corpus = get_request_corpus()
+        questions = corpus.strategic_questions if corpus is not None else self._repos.strategic_questions.list()
+        return [sq for sq in questions if sq.get("id") in sq_ids]

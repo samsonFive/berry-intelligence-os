@@ -16,9 +16,10 @@ app/main.py is not imported by, or imported into, this module (Part 8 --
 no route migration, and keeping this layer import-independent of
 app/main.py is what makes it provably not yet wired into runtime
 behavior). The behavior is intentionally identical: same cache-by-
-(filename, mtime) strategy as load_json_files(), same
+(filename, mtime, size) strategy as load_json_files(), same
 indent=2/ensure_ascii=False/trailing-newline JSON formatting as every
-save_X() function.
+save_X() function. st_size is required: overlayfs/CI can share an
+identical st_mtime_ns across same-tick rewrites.
 """
 
 from __future__ import annotations
@@ -32,7 +33,7 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 from app.repositories.base import DuplicateRecord, InvalidRecord, RecordNotFound, StorageError
 
-_CacheSignature = tuple[tuple[str, int], ...]
+_CacheSignature = tuple[tuple[str, int, int], ...]
 
 
 def safe_record_id(record_id: str) -> str:
@@ -95,7 +96,12 @@ class JsonRecordRepository:
         if not self._folder.exists():
             return []
         paths = sorted(self._folder.rglob("*.json"))
-        signature: _CacheSignature = tuple((str(p), p.stat().st_mtime_ns) for p in paths)
+
+        def _signature_entry(path: Path) -> tuple[str, int, int]:
+            stat_result = path.stat()
+            return (str(path), stat_result.st_mtime_ns, stat_result.st_size)
+
+        signature: _CacheSignature = tuple(_signature_entry(p) for p in paths)
         if self._cache is not None and self._cache[0] == signature:
             return self._cache[1]
         pairs: list[tuple[Path, dict[str, Any]]] = []

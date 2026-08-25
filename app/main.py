@@ -107,6 +107,14 @@ from app.services.analyst_queue import (
 from app.services.commercial_positions import commercial_page_model
 from app.services.review_operations import build_review_operations
 from app.services.today import build_today
+from app.services.chronology import date_label, meaningful_date_text, meaningful_stamp
+from app.services.request_corpus import (
+    RequestCorpus,
+    bind_request_corpus,
+    get_request_corpus,
+    reset_request_corpus,
+    should_skip_corpus,
+)
 from app.services.review_session import (
     CONTINUE_PATH,
     create_session,
@@ -415,6 +423,26 @@ app.add_middleware(EnvSessionMiddleware)
 app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="static")
 
 
+@app.middleware("http")
+async def request_corpus_middleware(request: Request, call_next):
+    """Bind a lazy RequestCorpus for HTML/API routes that need trusted data.
+
+    /login, /healthz, and /static never construct a corpus so cold auth and
+    static asset paths stay cheap.
+    """
+    path = str(getattr(request.url, "path", "") or "")
+    if should_skip_corpus(path):
+        return await call_next(request)
+    corpus = RequestCorpus(data_dir=DATA_DIR, schemas_dir=SCHEMAS_DIR, inbox_dir=INBOX_DIR)
+    token = bind_request_corpus(corpus)
+    try:
+        request.state.corpus = corpus
+        return await call_next(request)
+    finally:
+        reset_request_corpus(token)
+
+
+
 def _assemble_morning_brief(
     *,
     mark_seen: bool = False,
@@ -683,7 +711,19 @@ templates = Jinja2Templates(
     directory=BASE_DIR / "app" / "templates",
     context_processors=[auth_template_context, nav_work_template_context],
 )
-templates.env.globals["pending_review_count"] = lambda: len(list_pending_drafts()) + len(unvalidated_auto_captured_evidence())
+def pending_review_count_value() -> int:
+    """Sidebar badge. Prefer warm nav cache; avoid a second full rescan."""
+    key = _nav_work_cache_key()
+    cached = _NAV_WORK_CACHE.get("value")
+    if _NAV_WORK_CACHE.get("key") == key and isinstance(cached, dict):
+        if "pending_open" in cached:
+            return int(cached.get("pending_open") or 0)
+        if "review_now" in cached:
+            return int(cached.get("review_now") or 0)
+    return len(list_pending_drafts()) + len(unvalidated_auto_captured_evidence())
+
+
+templates.env.globals["pending_review_count"] = pending_review_count_value
 templates.env.globals["queue_counts"] = lambda: queue_counts()
 templates.env.globals["learn_href_for_trait"] = learn_href_for_trait_id
 templates.env.globals["nav_work"] = lambda: work_counts(
@@ -997,10 +1037,16 @@ def load_json_files(folder: Path) -> list[dict[str, Any]]:
 
 
 def all_evidence() -> list[dict[str, Any]]:
+    corpus = get_request_corpus()
+    if corpus is not None:
+        return corpus.evidence
     return get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.list()
 
 
 def published_evidence() -> list[dict[str, Any]]:
+    corpus = get_request_corpus()
+    if corpus is not None:
+        return corpus.published_evidence
     records = [r for r in all_evidence() if r.get("status") == "published"]
     return sorted(records, key=lambda r: r.get("published_date") or r.get("captured_date", ""), reverse=True)
 
@@ -1037,10 +1083,16 @@ def unvalidated_auto_captured_evidence() -> list[dict[str, Any]]:
 
 
 def all_entities() -> list[dict[str, Any]]:
+    corpus = get_request_corpus()
+    if corpus is not None:
+        return corpus.entities
     return get_repositories(DATA_DIR, SCHEMAS_DIR).entities.list()
 
 
 def entity_index() -> dict[str, dict[str, Any]]:
+    corpus = get_request_corpus()
+    if corpus is not None:
+        return corpus.entity_index
     return {entity["id"]: entity for entity in all_entities() if entity.get("id")}
 
 
@@ -1339,6 +1391,28 @@ def list_drafts() -> list[dict[str, Any]]:
     return sorted(records, key=lambda r: r.get("captured_date", ""), reverse=True)
 
 
+_DRAFT_BODY_FIELDS = {
+    "article",
+    "transcript",
+    "transcript_segments",
+    "transcript_excerpt",
+    "raw_content",
+    "raw_html",
+    "source_text",
+    "publisher_description",
+    "attachments",
+    "source_artifact",
+}
+
+
+def list_drafts_metadata() -> list[dict[str, Any]]:
+    """Body-free draft inventory for ops surfaces that only need metadata."""
+    return [
+        {key: value for key, value in record.items() if key not in _DRAFT_BODY_FIELDS}
+        for record in list_drafts()
+    ]
+
+
 def list_pending_drafts() -> list[dict[str, Any]]:
     """Active review queue only; list_drafts() remains the complete audit set.
 
@@ -1423,10 +1497,16 @@ def entity_folder(entity_type: str) -> str:
 
 
 def all_facts() -> list[dict[str, Any]]:
+    corpus = get_request_corpus()
+    if corpus is not None:
+        return corpus.facts
     return get_repositories(DATA_DIR, SCHEMAS_DIR).facts.list()
 
 
 def all_relationships() -> list[dict[str, Any]]:
+    corpus = get_request_corpus()
+    if corpus is not None:
+        return corpus.relationships
     return get_repositories(DATA_DIR, SCHEMAS_DIR).relationships.list()
 
 
@@ -1543,6 +1623,9 @@ def landscape_context(
 
 
 def load_strategic_questions() -> list[dict[str, Any]]:
+    corpus = get_request_corpus()
+    if corpus is not None:
+        return corpus.strategic_questions
     return get_repositories(DATA_DIR, SCHEMAS_DIR).strategic_questions.list()
 
 
@@ -1572,6 +1655,9 @@ def resolve_strategic_question_ids(text: str) -> list[str]:
 
 
 def all_signals() -> list[dict[str, Any]]:
+    corpus = get_request_corpus()
+    if corpus is not None:
+        return corpus.signals
     return get_repositories(DATA_DIR, SCHEMAS_DIR).signals.list()
 
 
@@ -1594,6 +1680,9 @@ def new_signal_id(title: str) -> str:
 
 
 def all_assessments() -> list[dict[str, Any]]:
+    corpus = get_request_corpus()
+    if corpus is not None:
+        return corpus.assessments
     return get_repositories(DATA_DIR, SCHEMAS_DIR).assessments.list()
 
 
@@ -1620,6 +1709,9 @@ def new_assessment_id(title: str) -> str:
 
 
 def all_recommendations() -> list[dict[str, Any]]:
+    corpus = get_request_corpus()
+    if corpus is not None:
+        return corpus.recommendations
     return get_repositories(DATA_DIR, SCHEMAS_DIR).recommendations.list()
 
 
@@ -1665,6 +1757,9 @@ def sources_file() -> Path:
 
 
 def load_sources() -> list[dict[str, Any]]:
+    corpus = get_request_corpus()
+    if corpus is not None:
+        return corpus.sources
     return get_repositories(DATA_DIR, SCHEMAS_DIR).sources.list()
 
 
@@ -2436,8 +2531,9 @@ def recent_intelligence_for_entity(
         {
             "kind": "trusted",
             "record": record,
-            "date": record.get("published_date") or record.get("captured_date"),
-            "date_is_published": bool(record.get("published_date")),
+            "date": meaningful_date_text(record),
+            "date_is_published": meaningful_stamp(record)[1] == "published",
+            "date_label": date_label(meaningful_stamp(record)[1]),
         }
         for record in linked_evidence
     ]
@@ -2450,8 +2546,9 @@ def recent_intelligence_for_entity(
             {
                 "kind": "pending",
                 "record": record,
-                "date": record.get("published_date") or record.get("captured_date"),
-                "date_is_published": bool(record.get("published_date")),
+                "date": meaningful_date_text(record),
+                "date_is_published": meaningful_stamp(record)[1] == "published",
+                "date_label": date_label(meaningful_stamp(record)[1]),
             }
             for record in pending_publication_drafts()
             if draft_matches_entity(record, entity, entities, sources=source_index)
@@ -3144,7 +3241,7 @@ def review_operations_page(request: Request) -> HTMLResponse:
         entities=entities,
         sources=source_index,
         published=published_evidence(),
-        atomic_drafts=list_drafts(),
+        atomic_drafts=list_drafts_metadata(),
         extraction_gate={"enabled": False, "runnable": False},
         berry_id=berry_id,
         source=source,
@@ -3198,7 +3295,7 @@ def start_review_session(
             entities=entity_index(),
             sources={str(row.get("id") or ""): row for row in load_sources() if row.get("id")},
             published=published_evidence(),
-            atomic_drafts=list_drafts(),
+            atomic_drafts=list_drafts_metadata(),
             berry_labels=BERRIES,
             berry_id=berry_id,
             source=source.strip(),
@@ -3340,21 +3437,24 @@ def open_watch(watch_type: str, object_id: str) -> RedirectResponse:
 @app.get("/work-queue", response_class=HTMLResponse)
 def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
     evidence = published_evidence()
+    drafts = list_drafts()
+    pending_drafts = [record for record in drafts if record.get("status", "draft") != "rejected"]
+    entities = entity_index()
+    signals = all_signals()
     high_priority = [
         r for r in evidence if any(v.get("level") == "high" for v in (r.get("priority") or {}).values())
     ]
     readiness = load_publication_transcript_readiness(INBOX_DIR)
     feed = build_intelligence_feed(
-        drafts=list_drafts(),
+        drafts=drafts,
         published=evidence,
-        entities=entity_index(),
+        entities=entities,
         berry_labels=BERRIES,
         transcript_readiness=readiness,
         filter_key=filter,
         limit=48,
     )
     reviewer = session_username(request) or review_username() or ""
-    entities = entity_index()
     source_index = {str(source.get("id")): source for source in load_sources() if source.get("id")}
     for item in feed["entries"]:
         if not item.get("pending"):
@@ -3374,7 +3474,7 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
     feed["entries"] = [item for item in feed["entries"] if matches_berry_context(item, ui["berry"])]
     annotate_feed_semantics(
         feed["entries"],
-        signals=all_signals(),
+        signals=signals,
         candidates=load_candidates(INBOX_DIR) if INBOX_DIR else [],
     )
     return_filter = "" if filter in {"", "all"} else f"?filter={filter}"
@@ -3383,7 +3483,7 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
         name="work_queue.html",
         context={
             "recent_evidence": evidence[:5],
-            "drafts": list_pending_drafts(),
+            "drafts": pending_drafts,
             "review_cards": [],
             "feed": feed,
             "feed_view": ui["feed_view"],
@@ -3395,13 +3495,13 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
             "saved": request.query_params.get("saved") == "1",
             "scanner": build_scanner_summary(
                 inbox_dir=INBOX_DIR,
-                drafts=list_drafts(),
+                drafts=drafts,
                 published=evidence,
                 transcript_readiness=readiness,
             ),
             "unresolved_entities": unresolved_entities(),
             "high_priority": high_priority[:5],
-            "recent_signals": all_signals()[:5],
+            "recent_signals": signals[:5],
             "queue_summary": queue_counts(),
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,

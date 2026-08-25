@@ -24,6 +24,7 @@ from collections import Counter, defaultdict
 from typing import Any
 
 from app.services.berries.geography import entity_regions, evidence_regions, geography_region, REGIONS
+from app.services.chronology import date_label, meaningful_date_text, meaningful_stamp
 
 # V1 seed/demo fixtures, explicitly self-described as fictional
 # ("Fictional ... used as seed data") in their own description field, mixed
@@ -132,6 +133,10 @@ class BerriesLandscapeService:
                 operates_in[subject_id].add(object_id)
 
         evidence = self.landscape_evidence(berry_id)
+        evidence_by_entity: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        for record in evidence:
+            for entity_id in record.get("entity_ids") or []:
+                evidence_by_entity[str(entity_id)].append(record)
         rows = []
         for company in companies:
             cid = company["id"]
@@ -155,7 +160,7 @@ class BerriesLandscapeService:
                     "varieties": sorted(
                         entities[eid]["name"] for eid in develops[cid] | licenses[cid]
                     ),
-                    "evidence_count": len([r for r in evidence if cid in (r.get("entity_ids") or [])]),
+                    "evidence_count": len(evidence_by_entity.get(cid, ())),
                     "signals": self._queries.entity_intelligence.signals_for_entity(cid),
                     "assessments": self._queries.entity_intelligence.assessments_for_entity(cid),
                     "recommendations": self._queries.entity_intelligence.recommendations_for_entity(cid),
@@ -169,6 +174,10 @@ class BerriesLandscapeService:
     def landscape_variety_rollup(self, berry_id: str, entities: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
         varieties = self.landscape_entities(berry_id, "variety")
         evidence = self.landscape_evidence(berry_id)
+        evidence_by_entity: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        for record in evidence:
+            for entity_id in record.get("entity_ids") or []:
+                evidence_by_entity[str(entity_id)].append(record)
         rows = []
         for variety in varieties:
             vid = variety["id"]
@@ -186,7 +195,7 @@ class BerriesLandscapeService:
                     ),
                     "regions": sorted(entity_regions(variety, entities, evidence)),
                     "has_patent_number": bool((variety.get("attributes") or {}).get("patent_number")),
-                    "evidence_count": len([r for r in evidence if vid in (r.get("entity_ids") or [])]),
+                    "evidence_count": len(evidence_by_entity.get(vid, ())),
                     "signals": self._queries.entity_intelligence.signals_for_entity(vid),
                     "assessments": self._queries.entity_intelligence.assessments_for_entity(vid),
                 }
@@ -618,18 +627,15 @@ class BerriesLandscapeService:
             )
         curated_movement = sorted(
             recent_movement,
-            key=lambda record: record.get("published_date") or record.get("captured_date") or "",
+            key=lambda record: meaningful_date_text(record),
             reverse=True,
         )
         curated_movement.sort(key=lambda record: record["intelligence_link_count"], reverse=True)
         curated_movement = curated_movement[:5]
         for record in curated_movement:
-            if record.get("event_date"):
-                record["display_date"], record["date_label"] = record["event_date"], "Event date"
-            elif record.get("published_date"):
-                record["display_date"], record["date_label"] = record["published_date"], "Published"
-            else:
-                record["display_date"], record["date_label"] = record.get("captured_date"), "Captured"
+            when, origin = meaningful_stamp(record)
+            record["display_date"] = when.date().isoformat() if when else record.get("captured_date")
+            record["date_label"] = date_label(origin) or "Captured"
 
         news_source_types = {"news_search", "rss_feed", "trade_press", "article"}
         recent_news = [

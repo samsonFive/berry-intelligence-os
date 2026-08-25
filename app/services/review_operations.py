@@ -9,6 +9,7 @@ from typing import Any
 
 from app.queries.pending_review import PendingReviewQueryService
 from app.services.analyst_queue import load_state
+from app.services.draft_attribution import build_attribution_match_index
 from app.services.morning_brief import (
     assign_buckets,
     assign_pending_triage,
@@ -178,6 +179,7 @@ def build_review_operations(
         "hot_entities": set(),
         "first_seen_by_discovered": {},
         "trusted_title_keys": set(),
+        "match_index": build_attribution_match_index(entities) if entities else None,
     }
     ranked = assign_pending_triage(
         assign_buckets(

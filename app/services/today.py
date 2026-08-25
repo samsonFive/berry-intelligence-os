@@ -6,6 +6,12 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+from app.services.chronology import (
+    FORBIDDEN_FRESHNESS,
+    date_label,
+    development_stamp,
+    parse_stamp as _parse,
+)
 from app.services.morning_brief import brief_last_seen, _parse_stamp as parse_brief_stamp
 from app.services.freshness_assurance import build_runtime_freshness
 from app.services.variety_workspace import SOURCE_TYPE_LABEL
@@ -30,42 +36,14 @@ SOURCE_CLASS = {
     "industry_podcast": "SPOKEN MEDIA",
     "discovered_media": "DISCOVERED MEDIA",
 }
-FORBIDDEN_FRESHNESS = ("reacquired_at", "recovered_at", "reviewed_at", "indexed_at")
 
-
-def _parse(value: Any) -> datetime | None:
-    text = str(value or "").strip()
-    if not text:
-        return None
-    try:
-        parsed = datetime.fromisoformat(text.replace("Z", "+00:00"))
-    except ValueError:
-        try:
-            parsed = datetime.strptime(text[:10], "%Y-%m-%d")
-        except ValueError:
-            return None
-    if parsed.tzinfo is None:
-        parsed = parsed.replace(tzinfo=UTC)
-    return parsed.astimezone(UTC)
-
-
-def development_stamp(record: dict[str, Any]) -> tuple[datetime | None, str]:
-    """Publication/event date first. Captured date is fallback only.
-
-    Reacquisition, recovery, review, and index timestamps never count.
-    """
-    for key in FORBIDDEN_FRESHNESS:
-        record.get(key)  # explicit: do not use
-    published = _parse(record.get("published_date"))
-    if published:
-        return published, "published"
-    event = _parse(record.get("event_date"))
-    if event:
-        return event, "event"
-    captured = _parse(record.get("captured_date"))
-    if captured:
-        return captured, "captured"
-    return None, ""
+# Re-export for callers/tests that imported these from today.
+__all__ = [
+    "FORBIDDEN_FRESHNESS",
+    "build_today",
+    "date_label",
+    "development_stamp",
+]
 
 
 def age_label(when: datetime, *, now: datetime) -> str:
