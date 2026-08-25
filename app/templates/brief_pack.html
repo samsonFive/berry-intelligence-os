@@ -11,10 +11,32 @@
     {% if not static_build %}
       <p class="v2-card-line">
         {% if presentation_mode %}<a href="?{% for k,v in raw_params.items() %}{{ k }}={{ v|urlencode }}&{% endfor %}">Exit presentation mode</a>{% else %}<a href="?{% for k,v in raw_params.items() %}{{ k }}={{ v|urlencode }}&{% endfor %}present=1">Presentation mode</a>{% endif %}
+        · <a href="/brief-packs">Saved brief packs</a>
       </p>
+      {% if saved_pack %}
+        <p class="v2-meta">LIVE BRIEF -- "{{ saved_pack.title }}" saved {{ saved_pack.updated_at[:10]|us_date if saved_pack.updated_at else "—" }}. This always renders current trusted intelligence, not a frozen snapshot from when it was saved.</p>
+      {% endif %}
     {% endif %}
   </div>
 </section>
+
+{% if not static_build and not presentation_mode %}
+<section class="v2-company-section" id="save-pack">
+  <h2>{{ 'Save changes' if saved_pack else 'Save this brief pack' }}</h2>
+  <form class="filters" action="/brief-packs/save" method="post">
+    {% for k, v in raw_params.items() %}<input type="hidden" name="{{ k }}" value="{{ v }}">{% endfor %}
+    {% if saved_pack %}<input type="hidden" name="pack_id" value="{{ saved_pack.id }}">{% endif %}
+    <div class="filter-actions">
+      {% if saved_pack %}
+        <button type="submit" name="save_mode" value="update">Save changes</button>
+        <button type="submit" name="save_mode" value="new" formaction="/brief-packs/save">Save as new pack</button>
+      {% else %}
+        <button type="submit" name="save_mode" value="new">Save this brief pack</button>
+      {% endif %}
+    </div>
+  </form>
+</section>
+{% endif %}
 
 {% if not static_build %}
 <details class="v2-company-section" id="compose" {% if presentation_mode %}hidden{% endif %}>

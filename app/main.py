@@ -118,6 +118,16 @@ from app.services.review_session import (
     skip_current,
     stop_session,
 )
+from app.services.saved_brief_packs import (
+    archive_pack,
+    duplicate_pack,
+    list_packs,
+    load_pack,
+    pack_query_string,
+    present_pack_row,
+    save_pack,
+    unarchive_pack,
+)
 from app.services.watchlist import (
     WATCH_TYPES,
     add_watch,
@@ -4230,6 +4240,7 @@ def brief_pack(
     assessments: str = "",
     concepts: str = "",
     present: str = "",
+    pack_id: str = "",
 ) -> HTMLResponse:
     """Manager Brief Pack V1 -- a presentation/composition surface, not a
     new trust object. The query string IS the pack (V1 persistence model:
@@ -4237,7 +4248,12 @@ def brief_pack(
     app/services/brief_pack.py's module docstring and docs/v2/
     MANAGER-BRIEF-PACK-V1.md for the documented tradeoff). Reopening the
     same URL reproduces the same pack, resolved live against current
-    trusted data."""
+    trusted data. Saved Brief Packs V1 (app/services/saved_brief_packs.py)
+    adds an optional pack_id on top of this unchanged pipeline -- when
+    present, it only looks up that pack's own metadata (title/updated_at)
+    for the "LIVE BRIEF" banner and Save-changes wiring; it never changes
+    how the pack itself is composed, and every /brief-pack?... URL that
+    worked before still works identically without a pack_id."""
     berry_id = berry if berry in BERRIES else ""
     pack = _cached_brief_pack(
         title=title,
@@ -4250,6 +4266,7 @@ def brief_pack(
         assessments=assessments,
         concepts=concepts,
     )
+    saved_pack = load_pack(INBOX_DIR, pack_id) if pack_id else None
     return templates.TemplateResponse(
         request=request,
         name="brief_pack.html",
@@ -4268,10 +4285,96 @@ def brief_pack(
                 "assessments": assessments,
                 "concepts": concepts,
             },
+            "saved_pack": saved_pack,
             "authoring_mode": AUTHORING_MODE,
             "presentation_mode": present in ("1", "true", "yes"),
         },
     )
+
+
+@app.get("/brief-packs", response_class=HTMLResponse)
+def saved_brief_packs_page(request: Request, status: str = "active") -> HTMLResponse:
+    status = status if status in ("active", "archived") else "active"
+    rows = [present_pack_row(p) for p in list_packs(INBOX_DIR, status=status)]
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="saved_brief_packs.html",
+        context={
+            "packs": rows,
+            "status": status,
+            "berries": BERRIES,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/brief-packs/save")
+def save_brief_pack_route(
+    title: str = Form(""),
+    context_note: str = Form(""),
+    berry: str = Form(""),
+    days: int = Form(14),
+    companies: str = Form(""),
+    varieties: str = Form(""),
+    signals: str = Form(""),
+    assessments: str = Form(""),
+    concepts: str = Form(""),
+    pack_id: str = Form(""),
+    save_mode: str = Form("new"),
+) -> RedirectResponse:
+    """Save As (save_mode=new, or no pack_id) creates a new saved pack;
+    Save Changes (save_mode=update with a pack_id) updates that pack's
+    selection in place. Either way this never stores resolved
+    intelligence content -- only the same ids /brief-pack already reads
+    from the query string."""
+    berry_id = berry if berry in BERRIES else ""
+    target_pack_id = pack_id if (save_mode == "update" and pack_id) else ""
+    try:
+        record = save_pack(
+            INBOX_DIR,
+            pack_id=target_pack_id,
+            title=title,
+            context_note=context_note,
+            berry_id=berry_id,
+            window_days=max(1, min(int(days or 14), 90)),
+            company_ids=_csv_ids(companies),
+            variety_ids=_csv_ids(varieties),
+            signal_ids=_csv_ids(signals),
+            assessment_ids=_csv_ids(assessments),
+            concept_slugs=_csv_ids(concepts),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return RedirectResponse(url=f"/brief-pack?{pack_query_string(record)}", status_code=303)
+
+
+@app.post("/brief-packs/{pack_id}/duplicate")
+def duplicate_brief_pack_route(pack_id: str) -> RedirectResponse:
+    record = duplicate_pack(INBOX_DIR, pack_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail="Saved brief pack not found")
+    return RedirectResponse(url="/brief-packs", status_code=303)
+
+
+@app.post("/brief-packs/{pack_id}/archive")
+def archive_brief_pack_route(pack_id: str) -> RedirectResponse:
+    record = archive_pack(INBOX_DIR, pack_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail="Saved brief pack not found")
+    return RedirectResponse(url="/brief-packs", status_code=303)
+
+
+@app.post("/brief-packs/{pack_id}/unarchive")
+def unarchive_brief_pack_route(pack_id: str) -> RedirectResponse:
+    record = unarchive_pack(INBOX_DIR, pack_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail="Saved brief pack not found")
+    return RedirectResponse(url="/brief-packs", status_code=303)
 
 
 @app.get("/signals", response_class=HTMLResponse)
