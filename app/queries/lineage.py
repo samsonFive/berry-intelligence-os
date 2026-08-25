@@ -13,6 +13,12 @@ more. This directly replaces three near-identical inline list-
 comprehensions in app/main.py's signal_detail(), assessment_detail(), and
 recommendation_detail() routes, which is genuine reuse (three real call
 sites), not synthesis added merely for migration convenience.
+
+Reverse lookups (citing Signal/Assessment for an Evidence id, citing
+Assessment for a Signal id) scan the citing side's *_ids fields only.
+When a request-scoped RequestCorpus is bound, membership indexes avoid
+repeated full-list scans. Outside a request (CLI, unit fixtures) the
+service falls through to repository list scans -- same semantics.
 """
 
 from __future__ import annotations
@@ -46,7 +52,36 @@ class LineageQueryService:
         *_ids field), so an Assessment that cites a Signal is found by
         scanning Assessment.signal_ids for this id -- there is no stored
         back-reference on the Signal itself to keep in sync."""
+        from app.services.request_corpus import get_request_corpus
+
+        corpus = get_request_corpus()
+        if corpus is not None:
+            return list(corpus.assessments_by_signal.get(signal_id, ()))
         return [a for a in self._repos.assessments.list() if signal_id in (a.get("signal_ids") or [])]
+
+    def resolve_signals_citing_evidence(self, evidence_id: str) -> list[dict[str, Any]]:
+        """Reverse of Signal.evidence_ids -- Signals that explicitly name
+        this Evidence. Empty list when none cite it (sparse honesty)."""
+        from app.services.request_corpus import get_request_corpus
+
+        corpus = get_request_corpus()
+        if corpus is not None:
+            return list(corpus.signals_by_evidence.get(evidence_id, ()))
+        return [
+            s for s in self._repos.signals.list() if evidence_id in (s.get("evidence_ids") or [])
+        ]
+
+    def resolve_assessments_citing_evidence(self, evidence_id: str) -> list[dict[str, Any]]:
+        """Reverse of Assessment.evidence_ids -- Assessments that explicitly
+        name this Evidence. Does not infer via Signal intermediates."""
+        from app.services.request_corpus import get_request_corpus
+
+        corpus = get_request_corpus()
+        if corpus is not None:
+            return list(corpus.assessments_by_evidence.get(evidence_id, ()))
+        return [
+            a for a in self._repos.assessments.list() if evidence_id in (a.get("evidence_ids") or [])
+        ]
 
     def resolve_linked_strategic_questions(self, sq_ids: list[str] | None) -> list[dict[str, Any]]:
         ids = set(sq_ids or [])

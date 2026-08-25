@@ -75,6 +75,22 @@ def _index_relationships(records: list[dict[str, Any]]) -> dict[str, list[dict[s
     return index
 
 
+def _index_by_membership(
+    records: list[dict[str, Any]], field: str
+) -> dict[str, list[dict[str, Any]]]:
+    """Invert list-valued id fields (evidence_ids, signal_ids, …)."""
+    index: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for record in records:
+        seen: set[str] = set()
+        for member_id in record.get(field) or []:
+            text = str(member_id or "")
+            if not text or text in seen:
+                continue
+            seen.add(text)
+            index[text].append(record)
+    return index
+
+
 @dataclass
 class RequestCorpus:
     """Lazy per-request views over trusted data/ (and optional inbox)."""
@@ -100,6 +116,9 @@ class RequestCorpus:
     _assessments_by_entity: dict[str, list[dict[str, Any]]] | None = field(default=None, repr=False)
     _recommendations_by_entity: dict[str, list[dict[str, Any]]] | None = field(default=None, repr=False)
     _relationships_by_entity: dict[str, list[dict[str, Any]]] | None = field(default=None, repr=False)
+    _signals_by_evidence: dict[str, list[dict[str, Any]]] | None = field(default=None, repr=False)
+    _assessments_by_evidence: dict[str, list[dict[str, Any]]] | None = field(default=None, repr=False)
+    _assessments_by_signal: dict[str, list[dict[str, Any]]] | None = field(default=None, repr=False)
     _drafts: list[dict[str, Any]] | None = field(default=None, repr=False)
     _drafts_metadata: list[dict[str, Any]] | None = field(default=None, repr=False)
 
@@ -209,6 +228,27 @@ class RequestCorpus:
         if self._relationships_by_entity is None:
             self._relationships_by_entity = _index_relationships(self.relationships)
         return self._relationships_by_entity
+
+    @property
+    def signals_by_evidence(self) -> dict[str, list[dict[str, Any]]]:
+        """Signals indexed by each id in Signal.evidence_ids."""
+        if self._signals_by_evidence is None:
+            self._signals_by_evidence = _index_by_membership(self.signals, "evidence_ids")
+        return self._signals_by_evidence
+
+    @property
+    def assessments_by_evidence(self) -> dict[str, list[dict[str, Any]]]:
+        """Assessments indexed by each id in Assessment.evidence_ids."""
+        if self._assessments_by_evidence is None:
+            self._assessments_by_evidence = _index_by_membership(self.assessments, "evidence_ids")
+        return self._assessments_by_evidence
+
+    @property
+    def assessments_by_signal(self) -> dict[str, list[dict[str, Any]]]:
+        """Assessments indexed by each id in Assessment.signal_ids."""
+        if self._assessments_by_signal is None:
+            self._assessments_by_signal = _index_by_membership(self.assessments, "signal_ids")
+        return self._assessments_by_signal
 
     def evidence_for_entity(self, entity_id: str) -> list[dict[str, Any]]:
         return list(self.evidence_by_entity.get(entity_id, ()))

@@ -2308,6 +2308,7 @@ def evidence_detail(request: Request, record_id: str) -> HTMLResponse:
                         "object": entities.get(rel.get("object_id"), {}).get("name", rel.get("object_id")),
                     }
                 )
+            lineage = get_query_services(DATA_DIR, SCHEMAS_DIR).lineage
             return templates.TemplateResponse(
                 request=request,
                 name="evidence.html",
@@ -2316,8 +2317,14 @@ def evidence_detail(request: Request, record_id: str) -> HTMLResponse:
                     "linked_entities": linked_entities,
                     "facts": facts,
                     "relationships": relationships,
+                    "citing_signals": lineage.resolve_signals_citing_evidence(record_id),
+                    "citing_assessments": lineage.resolve_assessments_citing_evidence(record_id),
+                    "linked_strategic_questions": lineage.resolve_linked_strategic_questions(
+                        record.get("strategic_question_ids")
+                    ),
                     "berry_label": berry_label,
                     "authoring_mode": AUTHORING_MODE,
+                    "static_build": False,
                 },
             )
     raise HTTPException(status_code=404, detail="Evidence record not found")

@@ -131,6 +131,47 @@
     <p class="empty-state">No relationships published from this evidence yet.</p>
   {% endif %}
 
+  <h2>Signals that cite this evidence</h2>
+  <p class="context-limit">Explicit Signal.evidence_ids membership only. Lineage is not endorsement.</p>
+  {% if citing_signals %}
+    <ul class="entity-links">
+      {% for s in citing_signals %}
+        <li>
+          <a href="/signals/{{ s.id }}">{{ s.title }}</a>
+          <span class="badge badge-muted">{{ s.status|upper }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No signal has cited this evidence yet.</p>
+  {% endif %}
+
+  <h2>Assessments that cite this evidence</h2>
+  <p class="context-limit">Explicit Assessment.evidence_ids membership only. Does not infer via Signals.</p>
+  {% if citing_assessments %}
+    <ul class="entity-links">
+      {% for a in citing_assessments %}
+        <li>
+          <a href="/assessments/{{ a.id }}">{{ a.title }}</a>
+          <span class="badge badge-assessment">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No assessment has cited this evidence yet.</p>
+  {% endif %}
+
+  <h2>Linked strategic questions</h2>
+  {% if linked_strategic_questions %}
+    <ul class="entity-links">
+      {% for sq in linked_strategic_questions %}
+        <li><a href="/strategic-questions/{{ sq.id }}">{{ sq.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No strategic questions linked.</p>
+  {% endif %}
+
   <h2>Attachments</h2>
   {% if record.attachments %}
     <ul>
