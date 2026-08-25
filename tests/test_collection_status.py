@@ -216,9 +216,10 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
         "source-global-fresh-series-podcast", "source-fresh-cred-podcast", "source-lubera-edibles-podcast",
         "source-blueberries-tv-youtube",
     }
-    # 73 adapter-configured Sources = 53 plus 20 direct recurring sources added for Forward Acquisition.
+    # 75 adapter-configured Sources = 73 plus two selective Company feeds
+    # added by Direct Source Upgrade + Coverage Gap Closure V1.
     # Source Reliability Remediation V1 explicitly pauses one of those
-    # (Growing Produce - Berries) as OPERATOR_ACTION_REQUIRED, leaving 72
+    # (Growing Produce - Berries) as OPERATOR_ACTION_REQUIRED, leaving 74
     # currently collection-eligible while freshness still accounts for the
     # blocked Source as scheduled coverage.
     # Coverage Expansion V1 (17 article_rss and 3 sitemap_xml). 194 = 174
@@ -258,7 +259,7 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
     # (2026-08-21): 2 Federal Register government_register_json sources
     # and 3 Google News news_search_rss sources, all with real
     # discovery.adapter blocks, proven against real network traffic.
-    assert report.sources_configured == 194 and report.sources_discoverable == 72
+    assert report.sources_configured == 196 and report.sources_discoverable == 74
     assert expected <= {source.source_id for source in report.sources}
 
 

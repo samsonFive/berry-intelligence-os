@@ -8,9 +8,10 @@ records and `data/configuration/sources.json`. This is not marketing.
 If a class is blueberry-only with a live pipeline elsewhere, write `PILOT`.
 Update this file when sources, entities, or trusted evidence change.
 
-**As-of:** 2026-08-21 · published Evidence `1,264` · Sources `147` (142 plus
-5 added same-day by the Mainstream News + Regulatory Coverage Recall
-Benchmark V1 mission) · inbox drafts are runtime-only and noted separately.
+**As-of:** 2026-08-25 · published Evidence `1,266` · Sources `196` · inbox
+drafts are runtime-only and noted separately. Source-path counts were refreshed
+by Direct Source Upgrade + Coverage Gap Closure V1; trusted Evidence maturity
+cells were not promoted because that mission made no trust decisions.
 
 Maturity labels (guide vocabulary):
 
@@ -122,19 +123,21 @@ vertical is production.
 
 ## Source configuration (intent, not corpus)
 
-`data/configuration/sources.json`: **147** sources (142 plus 5 added
-2026-08-21 by the Mainstream News + Regulatory Coverage Recall Benchmark V1
-mission).
+`data/configuration/sources.json`: **196** Sources as of Direct Source Upgrade
++ Coverage Gap Closure V1 (2026-08-25).
 
 | `type` | Count |
 |---|---:|
-| `reference` | 101 |
+| `reference` | 131 |
 | `keyword` | 33 |
-| `rss` | 13 |
+| `rss` | 32 |
 
-`discovery.adapter` present on 29 sources: `article_rss` 12, `podcast_rss` 8,
-`youtube_feed` 4, **`government_register_json` 2** (new), **`news_search_rss`
-3** (new).
+`discovery.adapter` is present on 75 Sources: `article_rss` 33,
+`news_search_rss` 22, `podcast_rss` 8, `youtube_feed` 4, `sitemap_xml` 3,
+`government_register_json` 2, and one each of `government_recall_json`,
+`government_alert_json`, and `sec_edgar_search_json`. Growing Produce remains
+configured but fetch-ineligible / `OPERATOR_ACTION_REQUIRED`, so 74 are
+collection-eligible.
 
 Keyword monitors (33, the older `app/main.py` pipeline) drive the Mainstream
 news auto-capture that dominates strawberry / raspberry / blackberry
@@ -240,19 +243,19 @@ future re-run of that benchmark shows otherwise.
 
 ## Source berry tags (configuration intent)
 
-`data/configuration/sources.json` (150 sources as of the Weather / Climate
-Context V1 mission, 2026-08-21 -- see PROJECT-STATUS.md "Last completed" for
-the full addition history). A tagged source is not coverage until trusted
-Evidence exists.
+`data/configuration/sources.json` (196 Sources as of Direct Source Upgrade +
+Coverage Gap Closure V1, 2026-08-25). A tagged Source is not coverage until
+trusted Evidence exists.
 
 | | Blueberry | Strawberry | Raspberry | Blackberry |
 |---|---:|---:|---:|---:|
-| Total tagged sources | 96 | 75 | 68 | 69 |
-| Discoverable (`discovery.adapter`) | 24 | 18 | 16 | 15 |
+| Total tagged Sources | 135 | 102 | 96 | 97 |
+| Discoverable (`discovery.adapter`) | 63 | 45 | 44 | 43 |
 
-Three discoverable sources are berry-unscoped (Blue Book Services,
-HortiDaily, SanLucar Newsroom). Known gaps: Growing Produce 403
-(TD-ACQ-002); NARBA empty feed (TD-ACQ-003).
+Three discoverable Sources are berry-unscoped (Blue Book Services, HortiDaily,
+SanLucar Newsroom). Growing Produce remains explicitly blocked rather than
+bypassed. See the mission section below for direct-path gaps that were
+re-verified but deliberately not onboarded.
 
 ---
 
@@ -260,12 +263,12 @@ HortiDaily, SanLucar Newsroom). Known gaps: Growing Produce 403
 
 | Region | Sources tagged |
 |---|---:|
-| Global | 68 |
-| North America | 60 |
-| South America | 23 |
-| Europe | 23 |
-| Asia-Pacific | 14 |
-| Africa | 7 |
+| Global | 86 |
+| North America | 76 |
+| South America | 33 |
+| Europe | 33 |
+| Asia-Pacific | 16 |
+| Africa | 11 |
 
 This is registry intent. Evidence-level geography is the table above
 (`geography_ids` on records). No Asian domestic-market first-party breeder
@@ -472,6 +475,38 @@ Learner Mode (Workstream K, `docs/v2/feature-requests/LEARNER-MODE.md`) is a for
 | Licensed visual learning | 0 | 0 | 0 | 0 | NONE |
 
 This is distinct from, and must not be conflated with, the existing Variety Knowledge / PVR / Retail-Observation rows above (Variety Intelligence Backbone, competitive identity and market footprint) or the Weather row (Trade/Weather, quantitative environmental observation). See `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md` section 12a for the full boundary discussion. No implementation, schema change, source addition, or sample data was created by the mission that added this section -- documentation/governance only.
+
+---
+
+## Direct Source Upgrade + Coverage Gap Closure V1 (2026-08-25)
+
+Full audit and probe record:
+`docs/v2/DIRECT-SOURCE-UPGRADE-AND-COVERAGE-GAP-CLOSURE-V1.md`.
+
+This was a selective path-quality change, not another broad expansion:
+194 -> 196 registered Sources, 73 -> 75 machine-discoverable, and 51 -> 53
+non-search direct paths. Explicit Company-linked non-search direct coverage
+improved 14 -> 18 through two new exact-linked official RSS feeds (Advanced
+Berry Breeding and The Summer Berry Company) plus exact Company linkage on
+the existing Freshuelva and Nova Siri Genetics Sources without changing
+either Source identity. Direct article RSS count is 31 -> 33.
+
+Discoverable intent changed Blueberry 62 -> 63, Strawberry 44 -> 45,
+Raspberry 42 -> 44, and Blackberry 42 -> 43. This does **not** promote any
+trusted Evidence maturity cell and does not claim market completeness. The
+material improvement is first-party Raspberry/caneberry monitoring and exact
+actor attribution. Search remains as broader fallback and shared canonical
+URL identity handles overlap.
+
+The application collector proved both new feeds at 10/10 items with zero
+item failures and then 0 new / 10 already-known on an exact repeat. United
+Exports, Wish Farms, Mountain Blue Genetics, Onubafruit, Driscoll's,
+Fruitist/Agrovision, Rijk Zwaan, and Eurosemillas were deliberately not added
+after access, boundedness, richness, consumer-noise, or current-relevance
+checks failed the mission's acceptance standard. No blocked mechanism was
+bypassed; Growing Produce is unchanged. No new unresolved platform debt was
+introduced—the remaining gaps are documented external endpoint/portfolio
+limitations, not hidden operational state.
 
 ---
 
