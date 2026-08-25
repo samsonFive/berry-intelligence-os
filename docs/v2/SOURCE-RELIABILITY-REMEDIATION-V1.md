@@ -124,3 +124,57 @@ the unrelated pre-existing Brief Pack warm-route timing assertion remained
 environment-sensitive at 1.01-2.49 seconds against a 1-second threshold. No
 Brief Pack code changed. Final CI, deployment backup, runtime integrity, and
 post-deployment freshness proof are appended after merge and deployment.
+
+### Merge and production proof
+
+PR #165 merged implementation head
+`77d61642da94a2969bcc9bf15f9190cd0850251a` as canonical
+`094e8c760b4a25b82d7aab57f88d447b0d481721`. Change scope, repository
+integrity, static public safety, and the complete Python suite all passed in
+GitHub. The production host and container both report the exact merge SHA.
+
+Before runtime mutation, the collection timer was paused while its service was
+idle and the lock absent. The established backup procedure created and
+independently verified
+`/var/backups/berry-intelligence-os/berry-runtime-20260825T042158Z.tar.gz`:
+12,906 checksummed `data`/`inbox` entries, archive SHA-256
+`9d10e8e3f71fcc811ecef236e467a6a4cf9a7d20161604d50c67f56e0d6eea0f`.
+Disk had 109 GB free.
+
+The app service alone was rebuilt/restarted. The lifecycle operator first
+reported a dry-run transition from `ACTIVE` to
+`OPERATOR_ACTION_REQUIRED`, preserving the Source id, then applied that exact
+transition and corrected the informational archive URL. Production proves the
+Source is `collection_eligible=false` and `scheduled_coverage=true`: automatic
+fetching is paused, but the coverage gap is not hidden. Its prior 403 state,
+zero-success anchor, feed URL, and 26 retained operation failures remain
+intact. No replacement Source exists.
+
+Pre/post protected counts are identical: 2,657 data files, 10,248 inbox files,
+1,670 inbox Evidence files, and 11 review-event files. Evidence tree SHA-256
+remained `ac8ca3e003b0468c5b89373315298408d7b745a13245a30b1a72f326abafe14a`;
+review-event tree SHA-256 remained
+`645b8d332472344fb2e0fbb870437ad3ce3406a09b85adc2b5939540e69edee1`.
+Full backup comparison found only the expected canonical-promotion manifest and
+the intended `data/configuration/sources.json` changed; the backup-time lock
+file was absent after its normal release. No Source history, trusted Evidence,
+draft, or review event was lost.
+
+Authoritative post-remediation freshness is honestly still `DEGRADED` and
+cannot claim current. `current_through` and last successful collection are
+`2026-08-25T04:06:56+00:00`; last new intelligence is
+`2026-08-25T04:00:27+00:00`. Of 70 scheduled Sources, 69 are current (36 active,
+33 quiet), zero due/overdue/retrying/failing/never-run/insufficient-history,
+and one blocked. Berry coverage is unchanged: Blueberry 58/59, Strawberry
+40/41, Raspberry 38/39, and Blackberry 38/39. The only Source failure alert is
+the retained Growing Produce failure streak; the three audited regional-search
+yield warnings remain as explainable WATCH conditions. This is not a false
+green and no collection was forced.
+
+The authoritative freshness CLI completed in 0.921 seconds. The established
+operator status completed in 6.6 seconds, reports 69 fetch-eligible Sources,
+no lock, healthy backup/storage, and automatic throttling OFF. Extraction
+remains disabled and no qualification marker exists. Internal `/healthz`,
+`/login`, and authenticated `/work-queue` returned 200; login POST returned
+303. Docker is healthy. `bios-collection.timer` is enabled/active, its service
+is idle, and the next timer elapse was registered after restoration.

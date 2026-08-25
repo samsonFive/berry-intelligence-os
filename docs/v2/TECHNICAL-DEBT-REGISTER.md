@@ -203,7 +203,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Recommended resolution** | Re-check only when the publisher or production egress changes; return to `ACTIVE` only with a supported berry-scoped mechanism and genuine successful probe. Retire explicitly if the publication/feed becomes permanently unavailable. |
 | **Status** | mitigated / operator action required |
 | **Owner lane** | ops |
-| **PR/SHA when resolved** | — |
+| **PR/SHA when resolved** | PR #165 / `094e8c760b4a25b82d7aab57f88d447b0d481721` (mitigation; direct access still requires operator/publisher resolution) |
 | **Regression-test reference** | `app/services/source_lifecycle.py`; `tests/test_source_lifecycle.py`; `data/configuration/sources.json` |
 
 ### TD-ACQ-003 — NARBA raspberry/blackberry RSS is well-formed but empty
