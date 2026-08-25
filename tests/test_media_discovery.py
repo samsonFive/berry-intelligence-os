@@ -270,6 +270,24 @@ def test_legacy_item_without_fingerprint_seeds_unchanged_without_refresh_sweep(t
     assert second.processable_item_ids == []
 
 
+def test_prior_fingerprint_version_seeds_v2_without_refresh_sweep(tmp_path, source, monkeypatch) -> None:
+    feed = _feed([_item_xml(title="Versioned Episode", guid="versioned-guid")])
+    first = _run(tmp_path, source, monkeypatch, feed)
+    path = tmp_path / "inbox" / "discovered_media" / f"{first.items[0]['id']}.json"
+    prior = json.loads(path.read_text())
+    prior["discovery_fingerprint"] = "0" * 64
+    prior["discovery_fingerprint_version"] = 1
+    path.write_text(json.dumps(prior))
+
+    second = _run(tmp_path, source, monkeypatch, feed)
+    assert second.changed == 0
+    assert second.unchanged == 1
+    assert second.processable_item_ids == []
+    migrated = json.loads(path.read_text())
+    assert migrated["discovery_fingerprint_version"] == media_discovery.DISCOVERY_FINGERPRINT_VERSION
+    assert migrated["discovery_fingerprint"] != "0" * 64
+
+
 def test_duplicate_discovery_does_not_duplicate_staging_records(tmp_path, source, monkeypatch) -> None:
     feed = _feed([_item_xml(title="Episode One", guid="guid-1", link="https://example.invalid/ep1")])
     _run(tmp_path, source, monkeypatch, feed)
