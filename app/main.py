@@ -106,6 +106,13 @@ from app.services.analyst_queue import (
 )
 from app.services.commercial_positions import commercial_page_model
 from app.services.review_operations import build_review_operations
+from app.services.collection_ops import (
+    DEFAULT_RUN_SIZE,
+    RUN_SIZE_CHOICES,
+    build_status_report,
+    list_recent_runs,
+    trigger_bounded_run,
+)
 from app.services.today import build_today
 from app.services.chronology import date_label, dated_label, meaningful_date_text, meaningful_stamp
 from app.services.request_corpus import (
@@ -3281,6 +3288,54 @@ def review_operations_page(request: Request) -> HTMLResponse:
             "recent_sessions": list_recent_sessions(INBOX_DIR),
         },
     )
+
+
+@app.get("/collection-ops", response_class=HTMLResponse)
+def collection_ops_page(request: Request, ran: str = "", reason: str = "") -> HTMLResponse:
+    """Private operator surface exposing EXISTING collection runtime/
+    status machinery (CollectionStatusService, CollectionRunner run
+    history, Source health) -- read-only by construction; rendering this
+    page never starts a run, retries anything, or touches the lock."""
+    repositories = get_repositories(DATA_DIR, SCHEMAS_DIR)
+    report = build_status_report(repositories=repositories, data_dir=DATA_DIR, inbox_dir=INBOX_DIR)
+    sources = load_sources()
+    degraded_sources = failing_source_health_rows(sources, inbox_dir=INBOX_DIR)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="collection_ops.html",
+        context={
+            "report": report,
+            "recent_runs": list_recent_runs(INBOX_DIR),
+            "degraded_sources": degraded_sources,
+            "run_size_choices": RUN_SIZE_CHOICES,
+            "default_run_size": DEFAULT_RUN_SIZE,
+            "polling_enabled": SOURCE_POLLING_ENABLED,
+            "just_ran": ran,
+            "just_ran_reason": reason,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/collection-ops/run")
+def collection_ops_run(max_items: int = Form(DEFAULT_RUN_SIZE)) -> RedirectResponse:
+    """Explicit, bounded, POST-only manual collection trigger. Refuses if
+    a run is already active; never opts into extraction; shells out to
+    the same scripts/run_collection.py the production scheduler already
+    uses rather than re-wiring CollectionRunner inside the web process."""
+    repositories = get_repositories(DATA_DIR, SCHEMAS_DIR)
+    result = trigger_bounded_run(
+        repositories=repositories, data_dir=DATA_DIR, inbox_dir=INBOX_DIR, max_items=max_items,
+    )
+    params = {"ran": result["state"]}
+    if result.get("reason"):
+        params["reason"] = result["reason"]
+    return RedirectResponse(url=f"/collection-ops?{urlencode(params)}", status_code=303)
 
 
 def _reconcile_active_session() -> dict[str, Any] | None:
