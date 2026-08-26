@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% block title %}Collection Operations — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">COLLECTION OPERATIONS</p>
+    <h1>Collection operations</h1>
+    <p class="also-known-as">Read-only status from the existing collection runner, plus one explicit, bounded manual trigger. Viewing this page never starts a run, retries anything, or clears a lock.</p>
+  </div>
+</section>
+
+{% if just_ran == 'completed' %}
+  <p class="banner banner-success">Run completed. See "Last run" and history below.</p>
+{% elif just_ran == 'refused' %}
+  <p class="banner banner-warning">{{ just_ran_reason or 'A collection run is already active.' }}</p>
+{% elif just_ran == 'error' %}
+  <p class="banner banner-warning">Run did not complete cleanly: {{ just_ran_reason or 'unknown error.' }}</p>
+{% endif %}
+
+<section class="v2-company-section" id="collection-recurring">
+  <h2>Recurring collection</h2>
+  <p class="context-limit">
+    The recurring collector runs as a separate scheduled process (a systemd timer), not inside this web application -- this app has no runtime visibility into whether that timer is currently enabled on the host, so this page never guesses. Enabling or disabling it is a deployment action, not a UI toggle.
+  </p>
+  <p class="v2-card-line">
+    <span class="v2-meta">Legacy in-app polling loop</span>
+    <span class="badge {{ 'badge-fact' if polling_enabled else 'badge-muted' }}">{{ 'ENABLED' if polling_enabled else 'DISABLED' }}</span>
+    (<code>ENABLE_SOURCE_POLLING</code> -- a separate, older per-source check loop, distinct from the scheduled collector below)
+  </p>
+  <p class="v2-card-line"><span class="v2-meta">Recommended next action</span> {{ report.recommended_next_action or "None" }}</p>
+</section>
+
+<section class="v2-company-section" id="collection-lock">
+  <h2>Lock state</h2>
+  {% set lock = report.lock or {} %}
+  {% if lock.state == 'none' %}
+    <p class="v2-card-line"><span class="badge badge-muted">NO LOCK</span> No collection run is currently in progress.</p>
+  {% elif lock.state == 'active' %}
+    <p class="v2-card-line"><span class="badge badge-fact">ACTIVE</span> Run <code>{{ lock.run_id }}</code> started {{ lock.started_at|us_date if lock.started_at else '—' }}. A new run will be refused until it finishes.</p>
+  {% elif lock.state == 'stale' %}
+    <p class="v2-card-line"><span class="badge badge-counterevidence">STALE</span> Run <code>{{ lock.run_id }}</code> started {{ lock.started_at|us_date if lock.started_at else '—' }} and appears abandoned. The next run automatically recovers a stale lock -- no manual unlock action exists in this version.</p>
+  {% else %}
+    <p class="empty-state">Lock file present but could not be read cleanly.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="collection-last-run">
+  <h2>Last run</h2>
+  {% if report.last_run %}
+    {% set lr = report.last_run %}
+    <dl data-pagefind-ignore>
+      <dt>Run</dt><dd><code>{{ lr.run_id }}</code></dd>
+      <dt>Started</dt><dd>{{ lr.started_at|us_date if lr.started_at else '—' }}</dd>
+      <dt>Completed</dt><dd>{{ lr.completed_at|us_date if lr.completed_at else '—' }}</dd>
+      <dt>Mode</dt><dd>{{ 'Dry run (planning only, nothing written)' if lr.dry_run else 'Live' }}</dd>
+    </dl>
+    {% set c = lr.counts or {} %}
+    <div class="balanced-card-grid">
+      <article class="card"><p class="card-kicker">SEEN</p><h2>{{ c.items_discovered or 0 }}</h2></article>
+      <article class="card"><p class="card-kicker">NEW</p><h2>{{ c.items_new or 0 }}</h2></article>
+      <article class="card"><p class="card-kicker">ALREADY KNOWN</p><h2>{{ c.items_known or 0 }}</h2></article>
+      <article class="card"><p class="card-kicker">STAGED FOR REVIEW</p><h2>{{ c.awaiting_publication_review or 0 }}</h2></article>
+      <article class="card"><p class="card-kicker">RETRYABLE</p><h2>{{ c.retryable_failures or 0 }}</h2></article>
+      <article class="card"><p class="card-kicker">OPERATOR ACTION</p><h2>{{ c.operator_action_items or 0 }}</h2></article>
+    </div>
+  {% else %}
+    <p class="empty-state">No collection run has been recorded yet.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="collection-history">
+  <h2>Recent run history</h2>
+  <p class="context-limit">The most recent {{ recent_runs|length }} run{{ 's' if recent_runs|length != 1 else '' }} (bounded). Only counts already persisted by the collection runner are shown -- nothing here is estimated.</p>
+  {% if recent_runs %}
+    <div class="table-wrap">
+      <table class="brief-table">
+        <thead><tr><th>Started</th><th>Duration</th><th>Scope</th><th>Seen</th><th>New</th><th>Staged</th><th>Retryable</th><th>Operator</th></tr></thead>
+        <tbody>
+          {% for run in recent_runs %}
+            {% set c = run.counts or {} %}
+            <tr>
+              <td>{{ run.started_at|us_date if run.started_at else '—' }}{% if run.dry_run %} <span class="v2-meta">(dry run)</span>{% endif %}</td>
+              <td>{{ '%.0fs'|format(run.duration_seconds) if run.duration_seconds is not none else '—' }}</td>
+              <td>{{ run.source_scope or 'all eligible' }}</td>
+              <td>{{ c.items_discovered or 0 }}</td>
+              <td>{{ c.items_new or 0 }}</td>
+              <td>{{ c.awaiting_publication_review or 0 }}</td>
+              <td>{{ c.retryable_failures or 0 }}</td>
+              <td>{{ c.operator_action_items or 0 }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="empty-state">No collection runs recorded yet.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="collection-extraction">
+  <h2>Extraction</h2>
+  {% set gate = report.extraction or {} %}
+  <p class="v2-card-line">
+    <span class="badge {{ 'badge-fact' if gate.enabled else 'badge-muted' }}">{{ 'ENABLED' if gate.enabled else 'DISABLED' }}</span>
+    {{ gate.reason or 'Extraction disabled by default.' }}
+  </p>
+  <p class="context-limit">A collection run never enables extraction on its own, regardless of scope chosen below -- this is a separate, independently-gated opt-in this page cannot turn on.</p>
+</section>
+
+<section class="v2-company-section" id="collection-sources">
+  <h2>Degraded / failing Sources</h2>
+  {% if degraded_sources %}
+    <ul class="entity-links">
+      {% for row in degraded_sources %}
+        <li><a href="/sources">{{ row.label or row.id }}</a> <span class="badge badge-counterevidence">{{ (row.freshness.state or row.freshness.label or 'DEGRADED')|upper }}</span></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No Source is currently failing or blocked.</p>
+  {% endif %}
+  <p class="v2-card-line"><a href="/sources">Open full Source Health</a></p>
+</section>
+
+{% if not static_build %}
+<section class="v2-company-section" id="collection-run-now">
+  <h2>Run now</h2>
+  <p class="context-limit">A bounded, live collection pass across eligible Sources -- staged review drafts only, never a publish/approve action, never extraction. Refused automatically if a run is already active.</p>
+  <form method="post" action="/collection-ops/run" class="filters">
+    <div class="filter-field">
+      <label for="max-items">Bounded size</label>
+      <select id="max-items" name="max_items">
+        {% for size in run_size_choices %}
+          <option value="{{ size }}" {% if size == default_run_size %}selected{% endif %}>{{ size }} items</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="filter-actions">
+      <button type="submit" {% if report.lock and report.lock.active and not report.lock.stale %}disabled{% endif %}>Run now</button>
+    </div>
+  </form>
+</section>
+{% endif %}
+</div>
+{% endblock %}
