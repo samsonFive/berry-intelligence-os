@@ -5023,5 +5023,41 @@
     "created_at": "2026-08-25",
     "last_checked_at": null,
     "last_status": null
+  },
+  {
+    "id": "source-uk-pvro-seeds-gazette",
+    "type": "reference",
+    "label": "UK Plant Varieties and Seeds Gazette (APHA / PVRO)",
+    "value": "https://www.gov.uk/government/collections/plant-varieties-and-seeds-gazette",
+    "url": "https://www.gov.uk/government/collections/plant-varieties-and-seeds-gazette",
+    "why_it_matters": "Official UK national plant-variety publication series. There is no unified public search API; Variety Universe Expansion V1 treats gazette-cited denominations as structured import rows, not HTML scraping or a scheduled collector.",
+    "entity_types": ["government_regulatory"],
+    "berry_ids": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+    "region_coverage": ["europe"],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-26",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-za-pbr-dalrrd",
+    "type": "reference",
+    "label": "South Africa DALRRD Plant Breeders' Rights",
+    "value": "https://www.dalrrd.gov.za/",
+    "url": "https://www.dalrrd.gov.za/",
+    "why_it_matters": "National plant-variety rights authority for South Africa. Variety Universe Expansion V1 records public denominations and deployment-class candidates with provenance; it does not invent grant numbers or add a scheduled collector.",
+    "entity_types": ["government_regulatory"],
+    "berry_ids": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+    "region_coverage": ["africa"],
+    "monitoring_priority": "high",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-08-26",
+    "last_checked_at": null,
+    "last_status": null
   }
 ]

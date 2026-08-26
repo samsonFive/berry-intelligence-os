@@ -8,7 +8,7 @@ records and `data/configuration/sources.json`. This is not marketing.
 If a class is blueberry-only with a live pipeline elsewhere, write `PILOT`.
 Update this file when sources, entities, or trusted evidence change.
 
-**As-of:** 2026-08-25 · published Evidence `1,266` · Sources `196` · inbox
+**As-of:** 2026-08-26 · published Evidence `1,266` · Sources `198` · inbox
 drafts are runtime-only and noted separately. Source-path counts were refreshed
 by Direct Source Upgrade + Coverage Gap Closure V1; trusted Evidence maturity
 cells were not promoted because that mission made no trust decisions.

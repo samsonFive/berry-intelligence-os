@@ -54,6 +54,22 @@
   <p class="brief-window">UK retail pilot named-variety case. Only two listings in that 18-observation pilot named a cultivar. Absence of other UK listings here does not mean this variety is unknown globally.</p>
 {% endif %}
 
+{% if identity_issues %}
+<section class="v2-company-section" id="identity-issues">
+  <h2>Unresolved identity issues</h2>
+  <p class="context-limit">Inbox candidates that may be this variety. They are not canonical aliases until a reviewer confirms them. This section is live/authoring only.</p>
+  <ul class="entity-links">
+    {% for issue in identity_issues %}
+      <li>
+        <span class="badge">{{ issue.identity_label }}</span>
+        <a href="/varieties/candidates#{{ issue.id }}">{{ issue.candidate_name }}</a>
+        {% if issue.jurisdiction %}<span class="draft-meta"> · {{ issue.jurisdiction }}</span>{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
 <section class="v2-company-section" id="roles">
   <h2>Who is involved</h2>
   <p class="context-limit">Roles stay distinct. The same company may appear twice when two facts are evidenced (for example breeder and rights holder).</p>

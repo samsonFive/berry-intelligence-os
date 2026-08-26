@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Variety identity review — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">VARIETY UNIVERSE</p>
+    <h1>Variety identity review</h1>
+    <p class="context-limit">Inbox candidates only. Exact name/code/registration matches are possible aliases, not automatic merges. GET does not change identity state.</p>
+  </div>
+  <div class="v2-company-actions">
+    <a class="v2-btn v2-btn-quiet" href="/varieties/coverage">Coverage</a>
+    <a class="v2-btn v2-btn-quiet" href="/entities/variety">Variety index</a>
+  </div>
+</section>
+
+{% if not candidates %}
+  <p class="empty-state">No variety candidates in inbox. Run the EU/UK/South Africa registry import to propose rows for review.</p>
+{% endif %}
+
+{% for row in candidates %}
+<section class="v2-company-section" id="{{ row.id }}">
+  <h2>{{ row.candidate_name }}</h2>
+  <p class="v2-company-meta">
+    <span class="badge">{{ row.identity_label }}</span>
+    {% if row.berry_id %}<span class="v2-chip v2-chip-berry">{{ berry_label(row.berry_id) if berry_label is defined else row.berry_id }}</span>{% endif %}
+    {% if row.jurisdiction %}<span class="v2-meta">{{ row.jurisdiction }}</span>{% endif %}
+    <span class="v2-meta">{{ row.source_label }}</span>
+  </p>
+  <dl class="v2-role-list">
+    <dt>Source</dt><dd>{% if row.source_url %}<a href="{{ row.source_url }}">{{ row.source_url }}</a>{% else %}{{ row.source_id }}{% endif %}</dd>
+    <dt>Denomination / code</dt><dd>{{ row.denomination or "—" }} {% if row.breeder_code %}· {{ row.breeder_code }}{% endif %}</dd>
+    <dt>Applicant / breeder</dt><dd>{{ row.breeder_owner or row.applicant or "—" }}</dd>
+    <dt>Registration</dt>
+    <dd>
+      {{ row.registration.application_number or "—" }}
+      {% if row.registration.grant_number %} · grant {{ row.registration.grant_number }}{% endif %}
+      {% if row.registration.status %} · {{ row.registration.status }}{% endif %}
+    </dd>
+    <dt>Canonical match</dt>
+    <dd>
+      {% if row.candidate_canonical_match %}
+        <a href="/entities/variety/{{ row.candidate_canonical_match }}">{{ row.candidate_canonical_match }}</a>
+        · {{ row.match_reason }}
+      {% else %}
+        {{ row.match_reason }}
+      {% endif %}
+    </dd>
+  </dl>
+  {% if authoring_mode %}
+  <form method="post" action="/varieties/candidates/{{ row.id }}/decision" class="v2-inline-form">
+    <input type="hidden" name="reviewer" value="{{ reviewer }}">
+    <label>Notes <input type="text" name="notes" value=""></label>
+    <button class="v2-btn v2-btn-quiet" type="submit" name="decision" value="possible_alias">Keep as needs review</button>
+    <button class="v2-btn v2-btn-quiet" type="submit" name="decision" value="unknown">Leave unresolved</button>
+    <button class="v2-btn v2-btn-quiet" type="submit" name="decision" value="distinct">Mark distinct</button>
+    {% if row.candidate_canonical_match %}
+      <button class="v2-btn" type="submit" name="decision" value="confirmed_same">Confirm same variety</button>
+    {% endif %}
+    <button class="v2-btn v2-btn-quiet" type="submit" name="decision" value="rejected">Reject</button>
+  </form>
+  {% endif %}
+</section>
+{% endfor %}
+</div>
+{% endblock %}

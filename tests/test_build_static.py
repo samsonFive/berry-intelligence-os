@@ -54,6 +54,7 @@ PRIVATE_SENTINELS = {
     "private-recovered-source-body",
     "private-source-fidelity-reviewer",
     "private-atomic-proposal-excerpt",
+    "private-variety-universe-candidate",
 }
 
 
@@ -120,6 +121,12 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
             "record_type": "signal_candidate",
             "status": "proposed",
             "title": "private-signal-candidate-title",
+        },
+        inbox_dir / "variety_candidates" / "vcand-private.json": {
+            "id": "vcand-private",
+            "record_type": "variety_candidate",
+            "status": "proposed",
+            "candidate_name": "private-variety-universe-candidate",
         },
         inbox_dir / "qualifications" / "qualification-private" / "evaluation.json": {
             "run_id": "qualification-private",

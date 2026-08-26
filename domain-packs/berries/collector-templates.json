@@ -3124,6 +3124,34 @@
       "notes": "Real, unauthenticated public register API (distinct from the registration-gated Variety Finder aggregator), queried per-known-variety-name by app/services/cpvo_registry.py, not polled on a cadence -- collector_type is reference_manual (mirroring source-uspto-plant-patents precedent) since there is no discovery.adapter feed to poll. Added for the Variety Intelligence Backbone V1 mission (2026-08-21)."
     },
     {
+      "id": "source-uk-pvro-seeds-gazette",
+      "collector_type": "keyword_search",
+      "label": "UK Plant Varieties and Seeds Gazette (APHA / PVRO)",
+      "query_or_url": "scripts/import_variety_universe_pilot.py (structured gazette-class rows; no PDF scrape, no scheduled collector)",
+      "url": "https://www.gov.uk/government/collections/plant-varieties-and-seeds-gazette",
+      "geography_focus": ["europe"],
+      "entity_coverage": ["variety", "patent", "genetics_company"],
+      "berry_coverage": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+      "monitoring_priority": "high",
+      "update_cadence": "event_driven",
+      "default_active": true,
+      "notes": "Official UK national plant-variety publication series. No unified public search API. Variety Universe Expansion V1 imports structured rows; this is not a media_discovery adapter and is not scheduled by collection operations."
+    },
+    {
+      "id": "source-za-pbr-dalrrd",
+      "collector_type": "keyword_search",
+      "label": "South Africa DALRRD Plant Breeders' Rights",
+      "query_or_url": "scripts/import_variety_universe_pilot.py (deployment-class candidates; no invented grant numbers, no scheduled collector)",
+      "url": "https://www.dalrrd.gov.za/",
+      "geography_focus": ["africa"],
+      "entity_coverage": ["variety", "patent", "genetics_company"],
+      "berry_coverage": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+      "monitoring_priority": "high",
+      "update_cadence": "event_driven",
+      "default_active": true,
+      "notes": "National plant-variety rights authority for South Africa. Variety Universe Expansion V1 records public denominations as inbox candidates. Not a media_discovery adapter and not scheduled by collection operations."
+    },
+    {
       "id": "source-un-comtrade-public-preview",
       "collector_type": "keyword_search",
       "label": "UN Comtrade public preview API (trade/customs statistics)",

@@ -848,6 +848,7 @@ def present_variety_detail(
     include_candidates: bool = True,
     facts: list[dict[str, Any]] | None = None,
     evidence_by_id: dict[str, dict[str, Any]] | None = None,
+    identity_issues: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     inbox_drafts = inbox_drafts or []
     facts = facts or []
@@ -974,6 +975,7 @@ def present_variety_detail(
         "landscape_href": landscape_href,
         "include_candidates": include_candidates,
         "uk_named_pilot": variety["id"] in UK_PILOT_NAMED_IDS,
+        "identity_issues": identity_issues or [],
     }
 
 

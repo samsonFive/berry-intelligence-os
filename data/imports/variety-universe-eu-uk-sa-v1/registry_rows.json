@@ -1,0 +1,1784 @@
+{
+  "pilot": "variety-universe-eu-uk-sa-v1",
+  "acquired_at": "2026-08-26T03:33:39+00:00",
+  "notes": [
+    "CPVO rows are live public-register hits from a bounded denomination query (2026-08-26).",
+    "UK gazette rows cite the official collection URL; national identifiers were not scraped from PDFs.",
+    "South Africa rows are deployment-class candidates, not invented PBR grant numbers.",
+    "This file is an import fixture. It is not trusted canonical data."
+  ],
+  "rows": [
+    {
+      "candidate_name": "Clery",
+      "denomination": "Clery",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Clery&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "C.I.V. - Consorzio Italiano Vivaisti - Società Agricola Consortile a r.l.",
+      "applicant": "C.I.V. - Consorzio Italiano Vivaisti - Società Agricola Consortile a r.l.",
+      "breeder_code": "a20-17",
+      "application_number": "20021586",
+      "grant_number": "16743",
+      "application_date": "2002-10-15",
+      "granting_date": "2006-01-30",
+      "expiration_date": "31/12/2031",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "a20-17"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "C.I.V. - Consorzio Italiano Vivaisti - Società Agricola Consortile a r.l.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Inspire",
+      "denomination": "Inspire",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Inspire&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Berry Genetics Inc.",
+      "applicant": "Berry Genetics Inc.",
+      "breeder_code": "bg-9.3142",
+      "application_number": "20172450",
+      "grant_number": "57816",
+      "application_date": "2017-09-30",
+      "granting_date": "2021-04-06",
+      "expiration_date": "31/12/2046",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "bg-9.3142"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Berry Genetics Inc.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Murano",
+      "denomination": "Murano",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Murano&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "C.I.V. - Consorzio Italiano Vivaisti - Società Agricola Consortile a r.l.",
+      "applicant": "C.I.V. - Consorzio Italiano Vivaisti - Società Agricola Consortile a r.l.",
+      "breeder_code": "y3s7-1",
+      "application_number": "20121731",
+      "grant_number": "42969",
+      "application_date": "2012-08-09",
+      "granting_date": "2016-04-11",
+      "expiration_date": "31/12/2041",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "y3s7-1"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "C.I.V. - Consorzio Italiano Vivaisti - Società Agricola Consortile a r.l.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Malling Centenary",
+      "denomination": "Malling Centenary",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Malling Centenary&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Bayer Holland B.V.",
+      "applicant": "Bayer Holland B.V.",
+      "breeder_code": "em 1764",
+      "application_number": "20121246",
+      "grant_number": "40671",
+      "application_date": "2012-06-12",
+      "granting_date": "2015-04-20",
+      "expiration_date": "31/12/2040",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "em 1764"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Bayer Holland B.V.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Vibrant",
+      "denomination": "Vibrant",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Vibrant&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "NIAB",
+      "applicant": "NIAB",
+      "breeder_code": "em 1119",
+      "application_number": "20101429",
+      "grant_number": "37422",
+      "application_date": "2010-07-16",
+      "granting_date": "2014-04-07",
+      "expiration_date": "31/12/2039",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "em 1119"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "NIAB",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Sonata",
+      "denomination": "Sonata",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Sonata&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Fresh Forward Holding B.V.",
+      "applicant": "Fresh Forward Holding B.V.",
+      "breeder_code": "pri 9802",
+      "application_number": "20011215",
+      "grant_number": "14768",
+      "application_date": "2001-07-26",
+      "granting_date": "2005-03-07",
+      "expiration_date": "31/12/2030",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "pri 9802"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Fresh Forward Holding B.V.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Flair",
+      "denomination": "Flair",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Flair&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Flevo Berry Holding B.V.",
+      "applicant": "Flevo Berry Holding B.V.",
+      "breeder_code": "03-08-01",
+      "application_number": "20071367",
+      "grant_number": "26955",
+      "application_date": "2007-06-21",
+      "granting_date": "2010-03-22",
+      "expiration_date": "31/12/2035",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "03-08-01"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Flevo Berry Holding B.V.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Cargo",
+      "denomination": "Cargo",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Cargo&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Fall Creek Farm and Nursery Inc.",
+      "applicant": "Fall Creek Farm and Nursery Inc.",
+      "breeder_code": "zf05-157",
+      "application_number": "20120850",
+      "grant_number": "",
+      "application_date": "2012-04-19",
+      "granting_date": "",
+      "expiration_date": "",
+      "title_status": "noDecision",
+      "registration_status": "noDecision",
+      "aliases": [
+        "zf05-157"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Fall Creek Farm and Nursery Inc.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Cargo",
+      "denomination": "Cargo",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Cargo&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Fall Creek Farm and Nursery Inc.",
+      "applicant": "Fall Creek Farm and Nursery Inc.",
+      "breeder_code": "zf05-157",
+      "application_number": "20131319",
+      "grant_number": "55030",
+      "application_date": "2013-05-15",
+      "granting_date": "2020-04-20",
+      "expiration_date": "31/12/2050",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "zf05-157"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Fall Creek Farm and Nursery Inc.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Valor",
+      "denomination": "Valor",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Valor&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Berry R & D Inc.",
+      "applicant": "Berry R & D Inc.",
+      "breeder_code": "pe-1207",
+      "application_number": "20081795",
+      "grant_number": "28663",
+      "application_date": "2008-08-21",
+      "granting_date": "2010-12-17",
+      "expiration_date": "10/10/2019",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "pe-1207"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Berry R & D Inc.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Liberty",
+      "denomination": "Liberty",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Liberty&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Board of Trustees of Michigan State University",
+      "applicant": "Board of Trustees of Michigan State University",
+      "breeder_code": "liberty",
+      "application_number": "20050225",
+      "grant_number": "23939",
+      "application_date": "2005-02-10",
+      "granting_date": "2009-02-09",
+      "expiration_date": "31/12/2039",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "liberty"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Board of Trustees of Michigan State University",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "LIBERTY",
+      "denomination": "LIBERTY",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=LIBERTY&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Berry Genetics Inc.",
+      "applicant": "Berry Genetics Inc.",
+      "breeder_code": "bg-4315",
+      "application_number": "20112351",
+      "grant_number": "36529",
+      "application_date": "2011-09-30",
+      "granting_date": "2013-12-02",
+      "expiration_date": "07/02/2022",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "bg-4315"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Berry Genetics Inc.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Draper",
+      "denomination": "Draper",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Draper&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Board of Trustees of Michigan State University",
+      "applicant": "Board of Trustees of Michigan State University",
+      "breeder_code": "draper",
+      "application_number": "20050224",
+      "grant_number": "23938",
+      "application_date": "2005-02-10",
+      "granting_date": "2009-02-09",
+      "expiration_date": "31/12/2039",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "draper"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Board of Trustees of Michigan State University",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Aurora",
+      "denomination": "Aurora",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Aurora&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Board of Trustees of Michigan State University",
+      "applicant": "Board of Trustees of Michigan State University",
+      "breeder_code": "aurora",
+      "application_number": "20050223",
+      "grant_number": "23937",
+      "application_date": "2005-02-10",
+      "granting_date": "2009-02-09",
+      "expiration_date": "31/12/2039",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "aurora"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Board of Trustees of Michigan State University",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Glen Ample",
+      "denomination": "Glen Ample",
+      "berry_id": "berry-raspberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Glen Ample&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "The James Hutton Institute",
+      "applicant": "The James Hutton Institute",
+      "breeder_code": "SCRI 7815B",
+      "application_number": "19950574",
+      "grant_number": "2729",
+      "application_date": "1995-07-28",
+      "granting_date": "1998-04-06",
+      "expiration_date": "31/12/2028",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "SCRI 7815B"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "The James Hutton Institute",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Glen Fyne",
+      "denomination": "Glen Fyne",
+      "berry_id": "berry-raspberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Glen Fyne&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "The James Hutton Institute",
+      "applicant": "The James Hutton Institute",
+      "breeder_code": "9062e-1",
+      "application_number": "20070474",
+      "grant_number": "27262",
+      "application_date": "2007-02-21",
+      "granting_date": "2010-04-19",
+      "expiration_date": "31/12/2040",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "9062e-1"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "The James Hutton Institute",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Tulameen",
+      "denomination": "Tulameen",
+      "berry_id": "berry-raspberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Tulameen&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "PACIFIC AGRI-FOOD RESEARCH CENTRE  AGASSIZ",
+      "applicant": "PACIFIC AGRI-FOOD RESEARCH CENTRE  AGASSIZ",
+      "breeder_code": "bc 80-28-53",
+      "application_number": "19970967",
+      "grant_number": "",
+      "application_date": "1997-09-05",
+      "granting_date": "",
+      "expiration_date": "",
+      "title_status": "noDecision",
+      "registration_status": "noDecision",
+      "aliases": [
+        "bc 80-28-53"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "PACIFIC AGRI-FOOD RESEARCH CENTRE  AGASSIZ",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Von",
+      "denomination": "Von",
+      "berry_id": "berry-blackberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Von&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "North Carolina State University (NCSU)",
+      "applicant": "North Carolina State University (NCSU)",
+      "breeder_code": "nc430",
+      "application_number": "20160365",
+      "grant_number": "51413",
+      "application_date": "2016-01-30",
+      "granting_date": "2019-02-25",
+      "expiration_date": "31/12/2049",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "nc430"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "North Carolina State University (NCSU)",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Ouachita",
+      "denomination": "Ouachita",
+      "berry_id": "berry-blackberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Ouachita&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "The Board of Trustees of the University of Arkansas",
+      "applicant": "The Board of Trustees of the University of Arkansas",
+      "breeder_code": "ouachita",
+      "application_number": "20062430",
+      "grant_number": "32662",
+      "application_date": "2007-03-29",
+      "granting_date": "2012-05-07",
+      "expiration_date": "31/12/2042",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "ouachita"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "The Board of Trustees of the University of Arkansas",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Last Call",
+      "denomination": "Last Call",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Last Call&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Fall Creek Farm and Nursery Inc.",
+      "applicant": "Fall Creek Farm and Nursery Inc.",
+      "breeder_code": "zf06-288",
+      "application_number": "20131684",
+      "grant_number": "55032",
+      "application_date": "2013-06-24",
+      "granting_date": "2020-04-20",
+      "expiration_date": "31/12/2050",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "zf06-288"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Fall Creek Farm and Nursery Inc.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Drisblueseventeen",
+      "denomination": "Drisblueseventeen",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Drisblueseventeen&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Driscoll's Inc.",
+      "applicant": "Driscoll's Inc.",
+      "breeder_code": "4j 5",
+      "application_number": "20183441",
+      "grant_number": "63757",
+      "application_date": "2018-12-17",
+      "granting_date": "2023-04-17",
+      "expiration_date": "31/12/2053",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "4j 5"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Driscoll's Inc.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Jewel",
+      "denomination": "Jewel",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Jewel&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Florida Foundation Seed Producers Inc. (FFSP Marianna Office)",
+      "applicant": "Florida Foundation Seed Producers Inc. (FFSP Marianna Office)",
+      "breeder_code": "jewel",
+      "application_number": "20041338",
+      "grant_number": "39515",
+      "application_date": "2004-09-29",
+      "granting_date": "2015-02-09",
+      "expiration_date": "31/12/2045",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "jewel"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Florida Foundation Seed Producers Inc. (FFSP Marianna Office)",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "FC11-164",
+      "denomination": "FC11-164",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=FC11-164&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Fall Creek Farm and Nursery Inc.",
+      "applicant": "Fall Creek Farm and Nursery Inc.",
+      "breeder_code": "fc11-164",
+      "application_number": "20221344",
+      "grant_number": "",
+      "application_date": "2022-05-31",
+      "granting_date": "",
+      "expiration_date": "",
+      "title_status": "noDecision",
+      "registration_status": "noDecision",
+      "aliases": [
+        "fc11-164"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Fall Creek Farm and Nursery Inc.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Plablue 1542",
+      "denomination": "Plablue 1542",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Plablue 1542&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Plantas de Navarra S.A.",
+      "applicant": "Plantas de Navarra S.A.",
+      "breeder_code": "15.09.003",
+      "application_number": "20182072",
+      "grant_number": "63750",
+      "application_date": "2018-08-09",
+      "granting_date": "2023-04-17",
+      "expiration_date": "31/12/2053",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "15.09.003"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Plantas de Navarra S.A.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Albion",
+      "denomination": "Albion",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Albion&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "The Regents of the University of California",
+      "applicant": "The Regents of the University of California",
+      "breeder_code": "cn220",
+      "application_number": "20041482",
+      "grant_number": "20099",
+      "application_date": "2004-08-02",
+      "granting_date": "2007-05-21",
+      "expiration_date": "31/12/2032",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "cn220"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "The Regents of the University of California",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Monterey",
+      "denomination": "Monterey",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Monterey&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "The Regents of the University of California",
+      "applicant": "The Regents of the University of California",
+      "breeder_code": "cn222",
+      "application_number": "20081506",
+      "grant_number": "28655",
+      "application_date": "2008-06-30",
+      "granting_date": "2010-12-17",
+      "expiration_date": "31/12/2035",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "cn222"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "The Regents of the University of California",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "San Andreas",
+      "denomination": "San Andreas",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=San Andreas&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "The Regents of the University of California",
+      "applicant": "The Regents of the University of California",
+      "breeder_code": "cn223",
+      "application_number": "20081504",
+      "grant_number": "28653",
+      "application_date": "2008-06-30",
+      "granting_date": "2010-12-17",
+      "expiration_date": "31/12/2035",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "cn223"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "The Regents of the University of California",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Camarosa",
+      "denomination": "Camarosa",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Camarosa&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "The Regents of the University of California",
+      "applicant": "The Regents of the University of California",
+      "breeder_code": "Camarosa",
+      "application_number": "19951069",
+      "grant_number": "1849",
+      "application_date": "1995-08-30",
+      "granting_date": "1997-03-10",
+      "expiration_date": "31/12/2022",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "Camarosa"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "The Regents of the University of California",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Darselect",
+      "denomination": "Darselect",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Darselect&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Darbonne Pepinière S.A.S.",
+      "applicant": "Darbonne Pepinière S.A.S.",
+      "breeder_code": "DA 20",
+      "application_number": "19960247",
+      "grant_number": "1763",
+      "application_date": "1996-02-19",
+      "granting_date": "1997-03-03",
+      "expiration_date": "31/12/2022",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "DA 20"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Darbonne Pepinière S.A.S.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Emerald",
+      "denomination": "Emerald",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Emerald&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Florida Foundation Seed Producers Inc. (FFSP Marianna Office)",
+      "applicant": "Florida Foundation Seed Producers Inc. (FFSP Marianna Office)",
+      "breeder_code": "emerald",
+      "application_number": "20041339",
+      "grant_number": "23932",
+      "application_date": "2004-09-29",
+      "granting_date": "2009-05-04",
+      "expiration_date": "31/12/2039",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "emerald"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Florida Foundation Seed Producers Inc. (FFSP Marianna Office)",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Driscoll Maravilla",
+      "denomination": "Driscoll Maravilla",
+      "berry_id": "berry-raspberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Driscoll Maravilla&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Driscoll's Inc.",
+      "applicant": "Driscoll's Inc.",
+      "breeder_code": "maravilla",
+      "application_number": "20030685",
+      "grant_number": "19944",
+      "application_date": "2003-04-11",
+      "granting_date": "2007-04-16",
+      "expiration_date": "31/12/2037",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "maravilla"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Driscoll's Inc.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Glen Doll",
+      "denomination": "Glen Doll",
+      "berry_id": "berry-raspberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Glen Doll&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "The James Hutton Institute",
+      "applicant": "The James Hutton Institute",
+      "breeder_code": "9053b6",
+      "application_number": "20060314",
+      "grant_number": "24929",
+      "application_date": "2006-01-30",
+      "granting_date": "2009-05-04",
+      "expiration_date": "03/04/2020",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "9053b6"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "The James Hutton Institute",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Glen Magna",
+      "denomination": "Glen Magna",
+      "berry_id": "berry-raspberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Glen Magna&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "The James Hutton Institute",
+      "applicant": "The James Hutton Institute",
+      "breeder_code": "SCRI 8032A",
+      "application_number": "19950578",
+      "grant_number": "1533",
+      "application_date": "1995-07-28",
+      "granting_date": "1996-12-16",
+      "expiration_date": "19/11/2022",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "SCRI 8032A"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "The James Hutton Institute",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Octavia",
+      "denomination": "Octavia",
+      "berry_id": "berry-raspberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Octavia&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "NIAB",
+      "applicant": "NIAB",
+      "breeder_code": "em 6512/50",
+      "application_number": "20020113",
+      "grant_number": "14919",
+      "application_date": "2002-01-25",
+      "granting_date": "2005-03-21",
+      "expiration_date": "09/12/2025",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "em 6512/50"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "NIAB",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Natchez",
+      "denomination": "Natchez",
+      "berry_id": "berry-blackberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Natchez&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "The Board of Trustees of the University of Arkansas",
+      "applicant": "The Board of Trustees of the University of Arkansas",
+      "breeder_code": "natchez",
+      "application_number": "20091955",
+      "grant_number": "35827",
+      "application_date": "2009-09-29",
+      "granting_date": "2013-07-29",
+      "expiration_date": "31/12/2043",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "natchez"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "The Board of Trustees of the University of Arkansas",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Prelude",
+      "denomination": "Prelude",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Prelude&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Agrana Fruit  S.A.",
+      "applicant": "Agrana Fruit  S.A.",
+      "breeder_code": "89.j2.145.1",
+      "application_number": "19981325",
+      "grant_number": "7824",
+      "application_date": "1998-10-01",
+      "granting_date": "2001-06-11",
+      "expiration_date": "10/06/2005",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "89.j2.145.1"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Agrana Fruit  S.A.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Sarafina",
+      "denomination": "Sarafina",
+      "berry_id": "berry-raspberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Sarafina&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Allberry B.V.",
+      "applicant": "Allberry B.V.",
+      "breeder_code": "abb 120",
+      "application_number": "20170244",
+      "grant_number": "54200",
+      "application_date": "2017-01-27",
+      "granting_date": "2020-02-03",
+      "expiration_date": "31/12/2050",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "abb 120"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Allberry B.V.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Rafiki",
+      "denomination": "Rafiki",
+      "berry_id": "berry-raspberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Rafiki&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Allberry B.V.",
+      "applicant": "Allberry B.V.",
+      "breeder_code": "abb 122",
+      "application_number": "20170246",
+      "grant_number": "54201",
+      "application_date": "2017-01-27",
+      "granting_date": "2020-02-03",
+      "expiration_date": "31/12/2050",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "abb 122"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Allberry B.V.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Shani",
+      "denomination": "Shani",
+      "berry_id": "berry-raspberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Shani&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Allberry B.V.",
+      "applicant": "Allberry B.V.",
+      "breeder_code": "abb 121",
+      "application_number": "20170245",
+      "grant_number": "54383",
+      "application_date": "2017-01-27",
+      "granting_date": "2020-03-02",
+      "expiration_date": "31/12/2050",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "abb 121"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Allberry B.V.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Melissa",
+      "denomination": "Melissa",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cpvo-public-register",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CPVO public register",
+      "source_url": "https://online.plantvarieties.eu/publicSearch?denomination=Melissa&denominationSearchType=equals",
+      "jurisdiction": "EU (CPVO)",
+      "geography_id": "geography-europe",
+      "breeder_owner": "Nova Siri Genetics S.r.l.",
+      "applicant": "Nova Siri Genetics S.r.l.",
+      "breeder_code": "488xf-11-03",
+      "application_number": "20141879",
+      "grant_number": "45319",
+      "application_date": "2014-07-23",
+      "granting_date": "2017-02-06",
+      "expiration_date": "31/12/2042",
+      "title_status": "approved",
+      "registration_status": "approved",
+      "aliases": [
+        "488xf-11-03"
+      ],
+      "proposed_relationships": [
+        {
+          "predicate": "owns",
+          "role": "applicant_rights_holder",
+          "party_name": "Nova Siri Genetics S.r.l.",
+          "status": "proposed"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Malling Centenary",
+      "denomination": "Malling Centenary",
+      "berry_id": "berry-strawberry",
+      "breeder_owner": "Bayer Holland B.V.",
+      "applicant": "Bayer Holland B.V.",
+      "breeder_code": "em 1764",
+      "aliases": [
+        "em 1764"
+      ],
+      "source_id": "source-uk-pvro-seeds-gazette",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_national_register",
+      "source_label": "UK Plant Varieties and Seeds Gazette / APHA",
+      "source_url": "https://www.gov.uk/government/collections/plant-varieties-and-seeds-gazette",
+      "jurisdiction": "United Kingdom",
+      "geography_id": "geography-united-kingdom",
+      "application_number": "",
+      "grant_number": "",
+      "application_date": "",
+      "granting_date": "",
+      "expiration_date": "",
+      "title_status": "",
+      "registration_status": "national listing class; identifier not copied from gazette PDF",
+      "proposed_relationships": [
+        {
+          "predicate": "grows",
+          "role": "deployment",
+          "geography_id": "geography-united-kingdom",
+          "status": "proposed",
+          "deployment_status": "unknown"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Glen Ample",
+      "denomination": "Glen Ample",
+      "berry_id": "berry-raspberry",
+      "breeder_owner": "The James Hutton Institute",
+      "applicant": "The James Hutton Institute",
+      "breeder_code": "SCRI 7815B",
+      "aliases": [
+        "SCRI 7815B"
+      ],
+      "source_id": "source-uk-pvro-seeds-gazette",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_national_register",
+      "source_label": "UK Plant Varieties and Seeds Gazette / APHA",
+      "source_url": "https://www.gov.uk/government/collections/plant-varieties-and-seeds-gazette",
+      "jurisdiction": "United Kingdom",
+      "geography_id": "geography-united-kingdom",
+      "application_number": "",
+      "grant_number": "",
+      "application_date": "",
+      "granting_date": "",
+      "expiration_date": "",
+      "title_status": "",
+      "registration_status": "national listing class; identifier not copied from gazette PDF",
+      "proposed_relationships": [
+        {
+          "predicate": "grows",
+          "role": "deployment",
+          "geography_id": "geography-united-kingdom",
+          "status": "proposed",
+          "deployment_status": "unknown"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Glen Fyne",
+      "denomination": "Glen Fyne",
+      "berry_id": "berry-raspberry",
+      "breeder_owner": "The James Hutton Institute",
+      "applicant": "The James Hutton Institute",
+      "breeder_code": "9062e-1",
+      "aliases": [
+        "9062e-1"
+      ],
+      "source_id": "source-uk-pvro-seeds-gazette",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_national_register",
+      "source_label": "UK Plant Varieties and Seeds Gazette / APHA",
+      "source_url": "https://www.gov.uk/government/collections/plant-varieties-and-seeds-gazette",
+      "jurisdiction": "United Kingdom",
+      "geography_id": "geography-united-kingdom",
+      "application_number": "",
+      "grant_number": "",
+      "application_date": "",
+      "granting_date": "",
+      "expiration_date": "",
+      "title_status": "",
+      "registration_status": "national listing class; identifier not copied from gazette PDF",
+      "proposed_relationships": [
+        {
+          "predicate": "grows",
+          "role": "deployment",
+          "geography_id": "geography-united-kingdom",
+          "status": "proposed",
+          "deployment_status": "unknown"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Glen Doll",
+      "denomination": "Glen Doll",
+      "berry_id": "berry-raspberry",
+      "breeder_owner": "The James Hutton Institute",
+      "applicant": "The James Hutton Institute",
+      "breeder_code": "9053b6",
+      "aliases": [
+        "9053b6"
+      ],
+      "source_id": "source-uk-pvro-seeds-gazette",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_national_register",
+      "source_label": "UK Plant Varieties and Seeds Gazette / APHA",
+      "source_url": "https://www.gov.uk/government/collections/plant-varieties-and-seeds-gazette",
+      "jurisdiction": "United Kingdom",
+      "geography_id": "geography-united-kingdom",
+      "application_number": "",
+      "grant_number": "",
+      "application_date": "",
+      "granting_date": "",
+      "expiration_date": "",
+      "title_status": "",
+      "registration_status": "national listing class; identifier not copied from gazette PDF",
+      "proposed_relationships": [
+        {
+          "predicate": "grows",
+          "role": "deployment",
+          "geography_id": "geography-united-kingdom",
+          "status": "proposed",
+          "deployment_status": "unknown"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Glen Magna",
+      "denomination": "Glen Magna",
+      "berry_id": "berry-raspberry",
+      "breeder_owner": "The James Hutton Institute",
+      "applicant": "The James Hutton Institute",
+      "breeder_code": "SCRI 8032A",
+      "aliases": [
+        "SCRI 8032A"
+      ],
+      "source_id": "source-uk-pvro-seeds-gazette",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_national_register",
+      "source_label": "UK Plant Varieties and Seeds Gazette / APHA",
+      "source_url": "https://www.gov.uk/government/collections/plant-varieties-and-seeds-gazette",
+      "jurisdiction": "United Kingdom",
+      "geography_id": "geography-united-kingdom",
+      "application_number": "",
+      "grant_number": "",
+      "application_date": "",
+      "granting_date": "",
+      "expiration_date": "",
+      "title_status": "",
+      "registration_status": "national listing class; identifier not copied from gazette PDF",
+      "proposed_relationships": [
+        {
+          "predicate": "grows",
+          "role": "deployment",
+          "geography_id": "geography-united-kingdom",
+          "status": "proposed",
+          "deployment_status": "unknown"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Octavia",
+      "denomination": "Octavia",
+      "berry_id": "berry-raspberry",
+      "breeder_owner": "NIAB",
+      "applicant": "NIAB",
+      "breeder_code": "em 6512/50",
+      "aliases": [
+        "em 6512/50"
+      ],
+      "source_id": "source-uk-pvro-seeds-gazette",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_national_register",
+      "source_label": "UK Plant Varieties and Seeds Gazette / APHA",
+      "source_url": "https://www.gov.uk/government/collections/plant-varieties-and-seeds-gazette",
+      "jurisdiction": "United Kingdom",
+      "geography_id": "geography-united-kingdom",
+      "application_number": "",
+      "grant_number": "",
+      "application_date": "",
+      "granting_date": "",
+      "expiration_date": "",
+      "title_status": "",
+      "registration_status": "national listing class; identifier not copied from gazette PDF",
+      "proposed_relationships": [
+        {
+          "predicate": "grows",
+          "role": "deployment",
+          "geography_id": "geography-united-kingdom",
+          "status": "proposed",
+          "deployment_status": "unknown"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Cargo",
+      "denomination": "Cargo",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-za-pbr-dalrrd",
+      "source_type": "grower_marketer_technical_program",
+      "source_tier": "tier_2_grower_program",
+      "source_label": "South Africa DALRRD Plant Breeders Rights / industry deployment class",
+      "source_url": "https://www.dalrrd.gov.za/",
+      "jurisdiction": "South Africa",
+      "geography_id": "geography-south-africa",
+      "breeder_owner": "Fall Creek Farm and Nursery Inc.",
+      "applicant": "",
+      "breeder_code": "zf05-157",
+      "aliases": [
+        "zf05-157"
+      ],
+      "deployment": {
+        "geography_id": "geography-south-africa",
+        "status": "unknown",
+        "evidence_date": "",
+        "note": "Public EU denomination also used in South African blueberry production reporting. Not a SA PBR grant number. Deployment status unknown until a rights or planting record is reviewed."
+      },
+      "proposed_relationships": [
+        {
+          "predicate": "grows",
+          "role": "deployment",
+          "geography_id": "geography-south-africa",
+          "status": "proposed",
+          "deployment_status": "unknown"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Cargo",
+      "denomination": "Cargo",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-za-pbr-dalrrd",
+      "source_type": "grower_marketer_technical_program",
+      "source_tier": "tier_2_grower_program",
+      "source_label": "South Africa DALRRD Plant Breeders Rights / industry deployment class",
+      "source_url": "https://www.dalrrd.gov.za/",
+      "jurisdiction": "South Africa",
+      "geography_id": "geography-south-africa",
+      "breeder_owner": "Fall Creek Farm and Nursery Inc.",
+      "applicant": "",
+      "breeder_code": "zf05-157",
+      "aliases": [
+        "zf05-157"
+      ],
+      "deployment": {
+        "geography_id": "geography-south-africa",
+        "status": "unknown",
+        "evidence_date": "",
+        "note": "Public EU denomination also used in South African blueberry production reporting. Not a SA PBR grant number. Deployment status unknown until a rights or planting record is reviewed."
+      },
+      "proposed_relationships": [
+        {
+          "predicate": "grows",
+          "role": "deployment",
+          "geography_id": "geography-south-africa",
+          "status": "proposed",
+          "deployment_status": "unknown"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Liberty",
+      "denomination": "Liberty",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-za-pbr-dalrrd",
+      "source_type": "grower_marketer_technical_program",
+      "source_tier": "tier_2_grower_program",
+      "source_label": "South Africa DALRRD Plant Breeders Rights / industry deployment class",
+      "source_url": "https://www.dalrrd.gov.za/",
+      "jurisdiction": "South Africa",
+      "geography_id": "geography-south-africa",
+      "breeder_owner": "Board of Trustees of Michigan State University",
+      "applicant": "",
+      "breeder_code": "liberty",
+      "aliases": [
+        "liberty"
+      ],
+      "deployment": {
+        "geography_id": "geography-south-africa",
+        "status": "unknown",
+        "evidence_date": "",
+        "note": "Public EU denomination also used in South African blueberry production reporting. Not a SA PBR grant number. Deployment status unknown until a rights or planting record is reviewed."
+      },
+      "proposed_relationships": [
+        {
+          "predicate": "grows",
+          "role": "deployment",
+          "geography_id": "geography-south-africa",
+          "status": "proposed",
+          "deployment_status": "unknown"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Draper",
+      "denomination": "Draper",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-za-pbr-dalrrd",
+      "source_type": "grower_marketer_technical_program",
+      "source_tier": "tier_2_grower_program",
+      "source_label": "South Africa DALRRD Plant Breeders Rights / industry deployment class",
+      "source_url": "https://www.dalrrd.gov.za/",
+      "jurisdiction": "South Africa",
+      "geography_id": "geography-south-africa",
+      "breeder_owner": "Board of Trustees of Michigan State University",
+      "applicant": "",
+      "breeder_code": "draper",
+      "aliases": [
+        "draper"
+      ],
+      "deployment": {
+        "geography_id": "geography-south-africa",
+        "status": "unknown",
+        "evidence_date": "",
+        "note": "Public EU denomination also used in South African blueberry production reporting. Not a SA PBR grant number. Deployment status unknown until a rights or planting record is reviewed."
+      },
+      "proposed_relationships": [
+        {
+          "predicate": "grows",
+          "role": "deployment",
+          "geography_id": "geography-south-africa",
+          "status": "proposed",
+          "deployment_status": "unknown"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Aurora",
+      "denomination": "Aurora",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-za-pbr-dalrrd",
+      "source_type": "grower_marketer_technical_program",
+      "source_tier": "tier_2_grower_program",
+      "source_label": "South Africa DALRRD Plant Breeders Rights / industry deployment class",
+      "source_url": "https://www.dalrrd.gov.za/",
+      "jurisdiction": "South Africa",
+      "geography_id": "geography-south-africa",
+      "breeder_owner": "Board of Trustees of Michigan State University",
+      "applicant": "",
+      "breeder_code": "aurora",
+      "aliases": [
+        "aurora"
+      ],
+      "deployment": {
+        "geography_id": "geography-south-africa",
+        "status": "unknown",
+        "evidence_date": "",
+        "note": "Public EU denomination also used in South African blueberry production reporting. Not a SA PBR grant number. Deployment status unknown until a rights or planting record is reviewed."
+      },
+      "proposed_relationships": [
+        {
+          "predicate": "grows",
+          "role": "deployment",
+          "geography_id": "geography-south-africa",
+          "status": "proposed",
+          "deployment_status": "unknown"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Last Call",
+      "denomination": "Last Call",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-za-pbr-dalrrd",
+      "source_type": "grower_marketer_technical_program",
+      "source_tier": "tier_2_grower_program",
+      "source_label": "South Africa DALRRD Plant Breeders Rights / industry deployment class",
+      "source_url": "https://www.dalrrd.gov.za/",
+      "jurisdiction": "South Africa",
+      "geography_id": "geography-south-africa",
+      "breeder_owner": "Fall Creek Farm and Nursery Inc.",
+      "applicant": "",
+      "breeder_code": "zf06-288",
+      "aliases": [
+        "zf06-288"
+      ],
+      "deployment": {
+        "geography_id": "geography-south-africa",
+        "status": "unknown",
+        "evidence_date": "",
+        "note": "Public EU denomination also used in South African blueberry production reporting. Not a SA PBR grant number. Deployment status unknown until a rights or planting record is reviewed."
+      },
+      "proposed_relationships": [
+        {
+          "predicate": "grows",
+          "role": "deployment",
+          "geography_id": "geography-south-africa",
+          "status": "proposed",
+          "deployment_status": "unknown"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Emerald",
+      "denomination": "Emerald",
+      "berry_id": "berry-blueberry",
+      "source_id": "source-za-pbr-dalrrd",
+      "source_type": "grower_marketer_technical_program",
+      "source_tier": "tier_2_grower_program",
+      "source_label": "South Africa DALRRD Plant Breeders Rights / industry deployment class",
+      "source_url": "https://www.dalrrd.gov.za/",
+      "jurisdiction": "South Africa",
+      "geography_id": "geography-south-africa",
+      "breeder_owner": "Florida Foundation Seed Producers Inc. (FFSP Marianna Office)",
+      "applicant": "",
+      "breeder_code": "emerald",
+      "aliases": [
+        "emerald"
+      ],
+      "deployment": {
+        "geography_id": "geography-south-africa",
+        "status": "unknown",
+        "evidence_date": "",
+        "note": "Public EU denomination also used in South African blueberry production reporting. Not a SA PBR grant number. Deployment status unknown until a rights or planting record is reviewed."
+      },
+      "proposed_relationships": [
+        {
+          "predicate": "grows",
+          "role": "deployment",
+          "geography_id": "geography-south-africa",
+          "status": "proposed",
+          "deployment_status": "unknown"
+        }
+      ]
+    },
+    {
+      "candidate_name": "Elsanta",
+      "denomination": "Elsanta",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-uk-pvro-seeds-gazette",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_national_register",
+      "source_label": "UK national strawberry cultivar of record (Elsanta)",
+      "source_url": "https://www.gov.uk/government/collections/plant-varieties-and-seeds-gazette",
+      "jurisdiction": "United Kingdom",
+      "geography_id": "geography-united-kingdom",
+      "breeder_owner": "",
+      "applicant": "",
+      "breeder_code": "",
+      "aliases": [],
+      "registration_status": "widely listed UK/EU strawberry; CPVO equals search returned no berry hit in this pilot"
+    }
+  ]
+}

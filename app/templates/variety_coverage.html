@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}Variety coverage — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">VARIETY UNIVERSE</p>
+    <h1>Variety coverage</h1>
+    <p class="context-limit">Raw counts of what is actually recorded. This is not a completeness score. Candidate rows are untrusted until identity review.</p>
+  </div>
+  <div class="v2-company-actions">
+    <a class="v2-btn v2-btn-quiet" href="/entities/variety">Variety index</a>
+    {% if authoring_mode and not static_build %}
+      <a class="v2-btn v2-btn-quiet" href="/varieties/candidates">Identity review</a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="v2-company-section">
+  <h2>Totals</h2>
+  <dl class="v2-role-list">
+    <dt>Canonical varieties</dt><dd>{{ coverage.totals.canonical_varieties }}</dd>
+    <dt>Candidates (inbox, untrusted)</dt><dd>{{ coverage.totals.candidates }}</dd>
+    <dt>With breeder/owner relationship</dt><dd>{{ coverage.totals.confirmed_breeder_owner }}</dd>
+    <dt>With trusted registration Evidence</dt><dd>{{ coverage.totals.registration_evidence }}</dd>
+    <dt>With commercial deployment relationship</dt><dd>{{ coverage.totals.commercial_deployment_evidence }}</dd>
+    <dt>With agronomic/product knowledge</dt><dd>{{ coverage.totals.agronomic_product_knowledge }}</dd>
+    <dt>Unresolved alias candidates</dt><dd>{{ coverage.totals.unresolved_aliases }}</dd>
+  </dl>
+</section>
+
+<section class="v2-company-section">
+  <h2>By berry</h2>
+  <div class="table-wrap">
+    <table class="brief-table">
+      <thead>
+        <tr>
+          <th>Berry</th>
+          <th>Canonical</th>
+          <th>Candidates</th>
+          <th>Breeder/owner</th>
+          <th>Registration evidence</th>
+          <th>Deployment</th>
+          <th>Agronomic/product</th>
+          <th>Unresolved aliases</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in coverage.by_berry %}
+        <tr>
+          <td>{{ row.label }}</td>
+          <td>{{ row.canonical_varieties }}</td>
+          <td>{{ row.candidates }}</td>
+          <td>{{ row.confirmed_breeder_owner }}</td>
+          <td>{{ row.registration_evidence }}</td>
+          <td>{{ row.commercial_deployment_evidence }}</td>
+          <td>{{ row.agronomic_product_knowledge }}</td>
+          <td>{{ row.unresolved_aliases }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="v2-company-section">
+  <h2>By geography</h2>
+  <p class="context-limit">EU / UK / South Africa are the V1 focus. “Other” is every remaining recorded geography, not a claim of global completeness.</p>
+  <div class="table-wrap">
+    <table class="brief-table">
+      <thead>
+        <tr>
+          <th>Geography</th>
+          <th>Canonical</th>
+          <th>Candidates</th>
+          <th>Breeder/owner</th>
+          <th>Registration evidence</th>
+          <th>Deployment</th>
+          <th>Unresolved aliases</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in coverage.by_geography %}
+        <tr>
+          <td>{{ row.label }}</td>
+          <td>{{ row.canonical_varieties }}</td>
+          <td>{{ row.candidates }}</td>
+          <td>{{ row.confirmed_breeder_owner }}</td>
+          <td>{{ row.registration_evidence }}</td>
+          <td>{{ row.commercial_deployment_evidence }}</td>
+          <td>{{ row.unresolved_aliases }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="v2-company-section">
+  <h2>By breeder / owner</h2>
+  <div class="table-wrap">
+    <table class="brief-table">
+      <thead>
+        <tr>
+          <th>Breeder / owner</th>
+          <th>Canonical varieties</th>
+          <th>Candidate varieties</th>
+          <th>Unresolved aliases</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in coverage.by_breeder %}
+        <tr>
+          <td>{{ row.name }}</td>
+          <td>{{ row.known_canonical_varieties }}</td>
+          <td>{{ row.candidate_varieties }}</td>
+          <td>{{ row.unresolved_aliases }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% for note in coverage.notes %}
+  <p class="context-limit">{{ note }}</p>
+{% endfor %}
+</div>
+{% endblock %}
