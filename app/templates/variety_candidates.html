@@ -6,7 +6,7 @@
   <div>
     <p class="eyebrow">VARIETY UNIVERSE</p>
     <h1>Variety identity review</h1>
-    <p class="context-limit">Inbox candidates only. Exact name/code/registration matches are possible aliases, not automatic merges. GET does not change identity state.</p>
+    <p class="context-limit">Inbox and corpus-discovered candidates. Exact name/code/registration matches are possible aliases, not automatic merges. GET does not change identity state. Candidate names are not trusted Varieties.</p>
   </div>
   <div class="v2-company-actions">
     <a class="v2-btn v2-btn-quiet" href="/varieties/coverage">Coverage</a>
@@ -15,7 +15,7 @@
 </section>
 
 {% if not candidates %}
-  <p class="empty-state">No variety candidates in inbox. Run the EU/UK/South Africa registry import to propose rows for review.</p>
+  <p class="empty-state">No variety candidates. Run corpus discovery or the EU/UK/South Africa registry import to propose rows for review.</p>
 {% endif %}
 
 {% for row in candidates %}
@@ -23,6 +23,9 @@
   <h2>{{ row.candidate_name }}</h2>
   <p class="v2-company-meta">
     <span class="badge">{{ row.identity_label }}</span>
+    <span class="badge">Candidate (untrusted)</span>
+    {% if row.discovered_from == "corpus" %}<span class="badge">Corpus discovery</span>{% endif %}
+    {% if row.persisted == false %}<span class="badge">Not yet in inbox</span>{% endif %}
     {% if row.berry_id %}<span class="v2-chip v2-chip-berry">{{ berry_label(row.berry_id) if berry_label is defined else row.berry_id }}</span>{% endif %}
     {% if row.jurisdiction %}<span class="v2-meta">{{ row.jurisdiction }}</span>{% endif %}
     <span class="v2-meta">{{ row.source_label }}</span>

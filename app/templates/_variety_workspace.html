@@ -10,6 +10,17 @@
     <p class="eyebrow">LIBRARY</p>
     <h1>Variety Intelligence</h1>
     <p class="also-known-as">Competitive identity, rights, commercial footprint, and recent intelligence — not a cultivar catalog.</p>
+    {% if universe is defined and universe %}
+    <p class="result-count" title="Raw counts. Not a completeness score. Candidate names are not trusted Varieties.">
+      Trusted Varieties: {{ universe.trusted_varieties }}
+      · Discovered Candidates: {{ universe.discovered_candidates }}
+      · Unresolved identities: {{ universe.unresolved_identities }}
+      {% if not static_build %}
+        · <a href="/varieties/coverage">Coverage</a>
+        {% if authoring_mode %}<a href="/varieties/candidates">Identity review</a>{% endif %}
+      {% endif %}
+    </p>
+    {% endif %}
   </div>
 </section>
 
