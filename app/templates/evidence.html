@@ -53,7 +53,7 @@
     <dt>Status</dt><dd>{{ record.status }}</dd>
     {% if record.reviewed_by %}<dt>Reviewed</dt><dd>{{ record.reviewed_by }}{% if record.reviewed_at %} · {{ record.reviewed_at|us_date }}{% endif %}</dd>{% endif %}
     <dt>Berries</dt><dd>{% for b in record.berry_ids %}{{ berry_label(b) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>
-    <dt>Geography</dt><dd>{% set geographies = linked_entities|selectattr('entity_type', 'equalto', 'geography')|list %}{% if geographies %}{% for g in geographies %}{{ g.name }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}—{% endif %}</dd>
+    <dt>Geography</dt><dd>{% set geographies = linked_entities|selectattr('entity_type', 'equalto', 'geography')|list %}{% if geographies %}{% for g in geographies %}<a href="{{ entity_path(g.entity_type, g.id) }}">{{ g.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}{% else %}—{% endif %}</dd>
   </dl>
 
   <h2>Bottom line</h2>
@@ -92,7 +92,7 @@
   {% if linked_entities %}
     <ul class="entity-links">
       {% for entity in linked_entities %}
-        <li><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a> <span class="badge badge-muted">{{ entity.entity_type|replace('_',' ')|upper }}</span></li>
+        <li><a href="{{ entity_path(entity.entity_type, entity.id) }}">{{ entity.name }}</a> <span class="badge badge-muted">{{ entity.entity_type|replace('_',' ')|upper }}</span></li>
       {% endfor %}
     </ul>
   {% else %}
@@ -153,7 +153,7 @@
       {% for a in citing_assessments %}
         <li>
           <a href="/assessments/{{ a.id }}">{{ a.title }}</a>
-          <span class="badge badge-assessment">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span>
+          <span class="badge {{ 'badge-ai-proposed' if a.ai_proposed else 'badge-assessment' }}">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span>
         </li>
       {% endfor %}
     </ul>

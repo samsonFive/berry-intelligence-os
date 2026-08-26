@@ -500,6 +500,7 @@ def build() -> list[Path]:
                     "entity": {"id": entity["id"], "name": geo.get("name"), "entity_type": "geography"},
                     "intelligence_timeline": geo.get("intelligence_timeline") or {},
                     "berry_label": berry_label,
+                    "berries": BERRIES,
                     "authoring_mode": False,
                 },
             )

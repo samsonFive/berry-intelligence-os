@@ -143,7 +143,7 @@
       <a class="intel-chip" href="/entities/variety/{{ entity.id }}">{{ entity.name }}</a>
     {% endfor %}
     {% for entity in thread.geographies %}
-      <a class="intel-chip" href="/entities/geography/{{ entity.id }}">{{ entity.name }}</a>
+      <a class="intel-chip" href="{{ entity_path(entity.entity_type or 'geography', entity.id) }}">{{ entity.name }}</a>
     {% endfor %}
     {% if not thread.companies and not thread.varieties and not thread.geographies %}
       <p class="empty-state">No deterministic entity attribution on these sources yet.</p>

@@ -227,7 +227,7 @@
     <div class="table-wrap"><table class="brief-table assessment-brief-table"><thead><tr><th>View</th><th>Rationale</th><th>Support</th><th>Would change our view</th></tr></thead><tbody>
       {% for a in assessments %}
         <tr>
-          <td><a href="{{ a.href }}"><strong>{{ a.title }}</strong></a><br><span class="badge badge-assessment">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span> <span class="badge badge-muted">{{ a.confidence|upper if a.confidence else 'UNSTATED' }}</span></td>
+          <td><a href="{{ a.href }}"><strong>{{ a.title }}</strong></a><br><span class="badge {{ 'badge-ai-proposed' if a.ai_proposed else 'badge-assessment' }}">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span> <span class="badge badge-muted">{{ a.confidence|upper if a.confidence else 'UNSTATED' }}</span></td>
           <td>{{ a.rationale|truncate(220) if a.rationale else "Not yet documented for this assessment." }}</td>
           <td>{{ a.supporting_fact_count }} facts<br>{{ a.supporting_evidence_count }} evidence</td>
           <td>{{ a.would_change_our_view if a.would_change_our_view else "Not yet documented for this assessment." }}{% if a.strategic_question_ids %}<br><a href="/strategic-questions/{{ a.strategic_question_ids[0] }}">View strategic question</a>{% endif %}</td>

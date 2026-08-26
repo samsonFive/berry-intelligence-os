@@ -161,7 +161,11 @@ def _party(entity: dict[str, Any] | None) -> dict[str, str]:
     return {
         "id": str(entity["id"]),
         "name": str(entity.get("name") or entity["id"]),
-        "href": f"/entities/{entity.get('entity_type')}/{entity['id']}",
+        "href": (
+            f"/geographies/{entity['id']}"
+            if entity.get("entity_type") == "geography"
+            else f"/entities/{entity.get('entity_type')}/{entity['id']}"
+        ),
         "entity_type": str(entity.get("entity_type") or ""),
     }
 

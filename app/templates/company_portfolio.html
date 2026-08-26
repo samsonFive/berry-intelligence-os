@@ -152,7 +152,7 @@
   {% if portfolio.assessments %}
     <ul class="entity-links">
       {% for a in portfolio.assessments %}
-        <li><span class="badge badge-assessment">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span> <a href="{{ a.href }}">{{ a.title }}</a> <span class="badge badge-muted">{{ a.confidence|upper }} CONFIDENCE</span></li>
+        <li><span class="badge {{ 'badge-ai-proposed' if a.ai_proposed else 'badge-assessment' }}">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span> <a href="{{ a.href }}">{{ a.title }}</a> <span class="badge badge-muted">{{ a.confidence|upper }} CONFIDENCE</span></li>
       {% endfor %}
     </ul>
   {% else %}

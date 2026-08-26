@@ -167,3 +167,21 @@ def development_stamp(record: dict[str, Any]) -> tuple[datetime | None, str]:
 
 def sort_key_newest_first(record: dict[str, Any], *, mode: ChronologyMode = "default") -> str:
     return meaningful_date_text(record, mode=mode)
+
+
+def dated_label(record: dict[str, Any] | None, *, mode: ChronologyMode = "default") -> str:
+    """Display a record's world date with its origin. Captured is never shown
+    as if it were published."""
+    if not isinstance(record, dict):
+        return "—"
+    when, origin = meaningful_stamp(record, mode=mode)
+    if when is None:
+        return "—"
+    iso = when.date().isoformat()
+    try:
+        year, month, day = iso.split("-")
+        date_text = f"{int(month)}/{int(day)}/{year}"
+    except (ValueError, TypeError):
+        date_text = iso
+    label = date_label(origin)
+    return f"{label} {date_text}" if label else date_text

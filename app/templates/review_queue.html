@@ -45,7 +45,7 @@
     <option value="enriched" {% if workbench.filters.enrichment == 'enriched' %}selected{% endif %}>AI enriched</option>
     <option value="raw" {% if workbench.filters.enrichment == 'raw' %}selected{% endif %}>Raw / not enriched</option>
   </select></div>
-  <div class="filter-actions"><button type="submit">Apply</button><a href="/review">Reset</a></div>
+  <div class="filter-actions"><button type="submit">Apply</button><a href="/review{% if workbench.filters.kind %}?kind={{ workbench.filters.kind }}{% endif %}">Reset</a></div>
 </form>
 
 {% if workbench.filters.kind != 'atomic' %}
@@ -59,7 +59,7 @@
         <h3><a href="/review/{{ draft.id }}">{{ draft.title }}</a></h3>
         <a class="action-button action-approve" href="/review/{{ draft.id }}">Review</a>
       </div>
-      <p class="draft-meta">{{ draft.source_name or draft.submitted_by }} · {{ (draft.published_date or draft.captured_date)|us_date }}</p>
+      <p class="draft-meta">{{ draft.source_name or draft.submitted_by }} · {{ draft|dated_label }}</p>
       {% if draft.card %}
       <div class="publication-card-flags">
         {% if draft.card.relevance_band %}<span class="badge badge-claim">{{ draft.card.relevance_band }} relevance</span>{% endif %}
