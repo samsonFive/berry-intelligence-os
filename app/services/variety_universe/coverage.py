@@ -6,6 +6,23 @@ from typing import Any
 
 from app.services.variety_universe.identity import STATE_POSSIBLE_ALIAS, STATE_UNKNOWN
 
+
+def universe_headcounts(
+    *,
+    varieties: list[dict[str, Any]],
+    candidates: list[dict[str, Any]] | None = None,
+) -> dict[str, int]:
+    """Trusted vs discovered vs unresolved. Raw counts, no completeness score."""
+    active = [row for row in (candidates or []) if row.get("status") != "rejected"]
+    return {
+        "trusted_varieties": len(varieties),
+        "discovered_candidates": len(active),
+        "unresolved_identities": sum(
+            1 for row in active if row.get("identity_state") in {STATE_POSSIBLE_ALIAS, STATE_UNKNOWN}
+        ),
+    }
+
+
 BERRY_ORDER = (
     "berry-blueberry",
     "berry-strawberry",
@@ -231,5 +248,7 @@ def coverage_matrix(
             "Counts are raw and explainable. There is no completeness score.",
             "Candidate registration identifiers are provenance on an untrusted candidate, not trusted Evidence.",
             "GET/render of this matrix does not approve, publish, or merge varieties.",
+            "Trusted Varieties are canonical entities. Discovered Candidates are untrusted until identity review.",
         ],
+        "universe": universe_headcounts(varieties=varieties, candidates=candidates),
     }

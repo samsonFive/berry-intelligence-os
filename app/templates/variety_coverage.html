@@ -20,7 +20,10 @@
   <h2>Totals</h2>
   <dl class="v2-role-list">
     <dt>Canonical varieties</dt><dd>{{ coverage.totals.canonical_varieties }}</dd>
-    <dt>Candidates (inbox, untrusted)</dt><dd>{{ coverage.totals.candidates }}</dd>
+    <dt>Trusted Varieties</dt><dd>{{ coverage.universe.trusted_varieties }}</dd>
+    <dt>Discovered Candidates (untrusted)</dt><dd>{{ coverage.universe.discovered_candidates }}</dd>
+    <dt>Unresolved identities</dt><dd>{{ coverage.universe.unresolved_identities }}</dd>
+    <dt>Candidates (inbox + corpus, untrusted)</dt><dd>{{ coverage.totals.candidates }}</dd>
     <dt>With breeder/owner relationship</dt><dd>{{ coverage.totals.confirmed_breeder_owner }}</dd>
     <dt>With trusted registration Evidence</dt><dd>{{ coverage.totals.registration_evidence }}</dd>
     <dt>With commercial deployment relationship</dt><dd>{{ coverage.totals.commercial_deployment_evidence }}</dd>
@@ -125,5 +128,21 @@
 {% for note in coverage.notes %}
   <p class="context-limit">{{ note }}</p>
 {% endfor %}
+
+{% if coverage.corpus %}
+<section class="v2-company-section">
+  <h2>Corpus reconciliation</h2>
+  <p class="context-limit">Explicit cultivar identities already present in trusted/public records. This is not a completeness score.</p>
+  <dl class="v2-role-list">
+    <dt>Explicit cultivar mentions</dt><dd>{{ coverage.corpus.explicit_cultivar_mentions }}</dd>
+    <dt>Already canonical</dt><dd>{{ coverage.corpus.already_canonical }}</dd>
+    <dt>Already candidate</dt><dd>{{ coverage.corpus.already_candidate }}</dd>
+    <dt>New candidates proposed</dt><dd>{{ coverage.corpus.new_candidates }}</dd>
+    <dt>Possible aliases</dt><dd>{{ coverage.corpus.possible_aliases }}</dd>
+    <dt>Unresolved identities</dt><dd>{{ coverage.corpus.unresolved }}</dd>
+    <dt>False / non-variety exclusions</dt><dd>{{ coverage.corpus.exclusions }}</dd>
+  </dl>
+</section>
+{% endif %}
 </div>
 {% endblock %}

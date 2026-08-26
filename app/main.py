@@ -208,7 +208,11 @@ from app.services.variety_universe.candidates import (
     load_variety_candidates,
     persist_variety_candidates,
 )
-from app.services.variety_universe.coverage import coverage_matrix
+from app.services.variety_universe.coverage import coverage_matrix, universe_headcounts
+from app.services.variety_universe.corpus_discovery import (
+    build_discovered_candidates,
+    merge_visible_candidates,
+)
 from app.services.company_workspace import (
     COMPARE_MAX_COMPANIES,
     present_company_compare,
@@ -1529,6 +1533,25 @@ def all_facts() -> list[dict[str, Any]]:
     return get_repositories(DATA_DIR, SCHEMAS_DIR).facts.list()
 
 
+def variety_candidate_universe() -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]:
+    """Read-only mix of inbox candidates and corpus-discovered names.
+
+    GET never writes inbox or trusted data. Discovered rows are proposed
+    Variety Candidates, never canonical Varieties.
+    """
+    varieties = [entity for entity in all_entities() if entity.get("entity_type") == "variety"]
+    inbox = load_variety_candidates(INBOX_DIR) if AUTHORING_MODE else []
+    report = build_discovered_candidates(
+        varieties=varieties,
+        entities=all_entities(),
+        published_evidence=published_evidence(),
+        facts=all_facts(),
+        existing_candidates=inbox,
+    )
+    visible = merge_visible_candidates(inbox, report["candidates"])
+    return varieties, visible, report
+
+
 def all_relationships() -> list[dict[str, Any]]:
     corpus = get_request_corpus()
     if corpus is not None:
@@ -2494,6 +2517,9 @@ def entity_list(
                 "geographies": geographies,
             }
         )
+        varieties_all = [e for e in entities_idx.values() if e.get("entity_type") == "variety"]
+        _inbox_vars, visible_candidates, _corpus = variety_candidate_universe()
+        context["universe"] = universe_headcounts(varieties=varieties_all, candidates=visible_candidates)
         if variety_view == "index":
             index_model = present_variety_index(
                 varieties=filtered,
@@ -2870,15 +2896,24 @@ def learn_concept_detail(request: Request, slug: str) -> HTMLResponse:
 @app.get("/varieties/coverage", response_class=HTMLResponse)
 def variety_coverage_page(request: Request) -> HTMLResponse:
     """Explainable Variety universe counts. GET is read-only."""
-    candidates = [] if not AUTHORING_MODE else load_variety_candidates(INBOX_DIR)
+    varieties, candidates, corpus_report = variety_candidate_universe()
     coverage = coverage_matrix(
-        varieties=[e for e in all_entities() if e.get("entity_type") == "variety"],
+        varieties=varieties,
         entities=all_entities(),
         relationships=all_relationships(),
         published_evidence=published_evidence(),
         facts=all_facts(),
         candidates=candidates,
     )
+    coverage["corpus"] = {
+        "explicit_cultivar_mentions": corpus_report["mention_count"],
+        "already_canonical": len(corpus_report["already_canonical"]),
+        "already_candidate": len(corpus_report["already_candidate"]),
+        "new_candidates": len(corpus_report["candidates"]),
+        "possible_aliases": len(corpus_report["possible_aliases"]),
+        "unresolved": len(corpus_report["unresolved"]),
+        "exclusions": len(corpus_report["exclusions"]),
+    }
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     response = templates.TemplateResponse(
         request=request,
@@ -2899,12 +2934,13 @@ def variety_coverage_page(request: Request) -> HTMLResponse:
 def variety_candidates_page(request: Request) -> HTMLResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Variety candidates are authoring-only")
+    _varieties, candidates, _report = variety_candidate_universe()
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     response = templates.TemplateResponse(
         request=request,
         name="variety_candidates.html",
         context={
-            "candidates": load_variety_candidates(INBOX_DIR),
+            "candidates": candidates,
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
             "ui_context": ui,
@@ -2929,7 +2965,11 @@ def variety_candidate_decision(
         raise HTTPException(status_code=403, detail="Variety-candidate decisions are only available in authoring mode")
     candidate = candidate_by_id(INBOX_DIR, candidate_id)
     if candidate is None:
-        raise HTTPException(status_code=404, detail="Variety candidate not found")
+        _varieties, visible, _report = variety_candidate_universe()
+        candidate = next((row for row in visible if row.get("id") == candidate_id), None)
+        if candidate is None:
+            raise HTTPException(status_code=404, detail="Variety candidate not found")
+        persist_variety_candidates([candidate], inbox_dir=INBOX_DIR, overwrite=False)
     try:
         updated = apply_identity_decision(
             candidate,
@@ -3129,7 +3169,7 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                         evidence_by_id=evidence_idx,
                         identity_issues=identity_issues_for_variety(
                             entity_id,
-                            load_variety_candidates(INBOX_DIR) if AUTHORING_MODE else [],
+                            variety_candidate_universe()[1] if AUTHORING_MODE else [],
                         ),
                     )
                 )

@@ -74,6 +74,8 @@ from app.services.variety_workspace import (  # noqa: E402
     present_variety_detail,
     present_variety_index,
 )
+from app.services.variety_universe.corpus_discovery import build_discovered_candidates  # noqa: E402
+from app.services.variety_universe.coverage import universe_headcounts  # noqa: E402
 from app.services.company_workspace import present_company_portfolio  # noqa: E402
 from app.services.geography_workspace import geography_detail, geography_index  # noqa: E402
 from app.services.strategic_question_workspace import (  # noqa: E402
@@ -325,12 +327,23 @@ def build() -> list[Path]:
                 candidates=[],
                 facts=all_facts(),
             )
+            report = build_discovered_candidates(
+                varieties=type_entities,
+                entities=list(entities.values()),
+                published_evidence=evidence,
+                facts=all_facts(),
+                existing_candidates=[],
+            )
             list_context.update(
                 {
                     "variety_cards": index_model["cards"],
                     "berry_inventory": index_model["berry_inventory"],
                     "unnamed_observation_count": index_model["unnamed_observation_count"],
                     "observation_total_count": index_model["observation_total_count"],
+                    "universe": universe_headcounts(
+                        varieties=type_entities,
+                        candidates=report["candidates"],
+                    ),
                 }
             )
         written.append(
