@@ -259,7 +259,10 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
     # (2026-08-21): 2 Federal Register government_register_json sources
     # and 3 Google News news_search_rss sources, all with real
     # discovery.adapter blocks, proven against real network traffic.
-    assert report.sources_configured == 196 and report.sources_discoverable == 74
+    # 198 = 196 plus source-uk-pvro-seeds-gazette and source-za-pbr-dalrrd,
+    # added for Variety Universe Expansion V1 (2026-08-26) as reference
+    # Sources with no discovery.adapter (structured import only).
+    assert report.sources_configured == 198 and report.sources_discoverable == 74
     assert expected <= {source.source_id for source in report.sources}
 
 

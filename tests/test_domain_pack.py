@@ -374,7 +374,9 @@ def test_all_live_sources_accounted_for() -> None:
     # body-proven Company feeds (Advanced Berry Breeding and The Summer
     # Berry Company). Two other upgrades preserve existing
     # Source identities and therefore do not change this count.
-    assert len(sources) == 196
+    # Variety Universe Expansion V1 adds two reference Sources
+    # (UK PVRO gazette, South Africa DALRRD) with no discovery.adapter.
+    assert len(sources) == 198
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}

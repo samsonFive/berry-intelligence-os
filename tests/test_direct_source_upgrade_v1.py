@@ -67,7 +67,7 @@ def test_coverage_mix_and_source_counts_are_selective_not_broad_expansion() -> N
         if source["discovery"]["adapter"] != "news_search_rss" and source.get("linked_competitor_ids")
     ]
 
-    assert len(sources) == 196
+    assert len(sources) == 198
     assert len(discoverable) == 75
     assert len(eligible) == 74  # Growing Produce remains scheduled-but-paused/operator-action-required.
     assert len(direct_rss) == 33

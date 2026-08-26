@@ -200,6 +200,15 @@ from app.services.variety_workspace import (
     present_variety_detail,
     present_variety_index,
 )
+from app.services.variety_universe.candidates import (
+    VarietyCandidateError,
+    apply_identity_decision,
+    candidate_by_id,
+    identity_issues_for_variety,
+    load_variety_candidates,
+    persist_variety_candidates,
+)
+from app.services.variety_universe.coverage import coverage_matrix
 from app.services.company_workspace import (
     COMPARE_MAX_COMPANIES,
     present_company_compare,
@@ -2858,6 +2867,82 @@ def learn_concept_detail(request: Request, slug: str) -> HTMLResponse:
     return response
 
 
+@app.get("/varieties/coverage", response_class=HTMLResponse)
+def variety_coverage_page(request: Request) -> HTMLResponse:
+    """Explainable Variety universe counts. GET is read-only."""
+    candidates = [] if not AUTHORING_MODE else load_variety_candidates(INBOX_DIR)
+    coverage = coverage_matrix(
+        varieties=[e for e in all_entities() if e.get("entity_type") == "variety"],
+        entities=all_entities(),
+        relationships=all_relationships(),
+        published_evidence=published_evidence(),
+        facts=all_facts(),
+        candidates=candidates,
+    )
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="variety_coverage.html",
+        context={
+            "coverage": coverage,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/varieties/candidates", response_class=HTMLResponse)
+def variety_candidates_page(request: Request) -> HTMLResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Variety candidates are authoring-only")
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="variety_candidates.html",
+        context={
+            "candidates": load_variety_candidates(INBOX_DIR),
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+            "berry_label": berry_label,
+            "reviewer": session_username(request) or review_username() or "",
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/varieties/candidates/{candidate_id}/decision")
+def variety_candidate_decision(
+    request: Request,
+    candidate_id: str,
+    decision: str = Form(...),
+    reviewer: str = Form(""),
+    notes: str = Form(""),
+) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Variety-candidate decisions are only available in authoring mode")
+    candidate = candidate_by_id(INBOX_DIR, candidate_id)
+    if candidate is None:
+        raise HTTPException(status_code=404, detail="Variety candidate not found")
+    try:
+        updated = apply_identity_decision(
+            candidate,
+            decision=decision,
+            reviewer=reviewer or session_username(request) or review_username() or "",
+            notes=notes,
+        )
+    except VarietyCandidateError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    persist_variety_candidates([updated], inbox_dir=INBOX_DIR, overwrite=True)
+    return RedirectResponse(url="/varieties/candidates", status_code=303)
+
+
 @app.get("/entities/variety/compare", response_class=HTMLResponse)
 def variety_compare_page(request: Request, ids: str = "") -> HTMLResponse:
     """Variety Compare V1 -- side-by-side trusted intelligence for up to
@@ -3042,6 +3127,10 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                         signals=all_signals(),
                         facts=entity_facts,
                         evidence_by_id=evidence_idx,
+                        identity_issues=identity_issues_for_variety(
+                            entity_id,
+                            load_variety_candidates(INBOX_DIR) if AUTHORING_MODE else [],
+                        ),
                     )
                 )
             else:
