@@ -84,7 +84,7 @@
     <ul class="entity-links">
       {% for a in sq.assessments %}
         <li>
-          <span class="badge badge-assessment">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span>
+          <span class="badge {{ 'badge-ai-proposed' if a.ai_proposed else 'badge-assessment' }}">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span>
           <a href="{{ a.href }}"><strong>{{ a.title }}</strong></a>
           <span class="badge badge-muted">{{ a.confidence|upper }} CONFIDENCE</span>
           {% if a.rationale %}<p>{{ a.rationale }}</p>{% endif %}
@@ -186,7 +186,7 @@
     <ul class="entity-links">
       {% for r in sq.recommendations %}
         <li>
-          <span class="badge badge-recommendation">{{ 'AI PROPOSED' if r.ai_proposed else 'REVIEWED' }}</span>
+          <span class="badge {{ 'badge-ai-proposed' if r.ai_proposed else 'badge-recommendation' }}">{{ 'AI PROPOSED' if r.ai_proposed else 'REVIEWED' }}</span>
           <a href="{{ r.href }}"><strong>{{ r.title }}</strong></a>
           <span class="badge badge-muted">{{ r.status|upper }}</span>
           {% if r.priority %}<span class="badge badge-muted">{{ r.priority|upper }} PRIORITY</span>{% endif %}

@@ -598,9 +598,12 @@ def test_publish_creates_and_links_geography_entity(monkeypatch, tmp_path) -> No
     evidence_page = client.get(f"/evidence/{draft_id}")
     assert "Testland" in evidence_page.text
 
-    geography_page = client.get("/entities/geography/geography-testland")
-    assert geography_page.status_code == 200
-    assert "Testland" in geography_page.text
+    geography_page = client.get("/entities/geography/geography-testland", follow_redirects=False)
+    assert geography_page.status_code == 303
+    assert geography_page.headers["location"] == "/geographies/geography-testland"
+    landed = client.get("/geographies/geography-testland")
+    assert landed.status_code == 200
+    assert "Testland" in landed.text
 
     filtered = client.get("/api/feed", params={"geography": "geography-testland"})
     assert any(item["id"] == draft_id for item in filtered.json())

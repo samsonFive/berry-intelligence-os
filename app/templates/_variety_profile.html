@@ -273,7 +273,7 @@
     {% endfor %}
     {% for a in entity_assessments %}
       <li>
-        <span class="badge badge-assessment">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span>
+        <span class="badge {{ 'badge-ai-proposed' if a.ai_proposed else 'badge-assessment' }}">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span>
         {% if a.berry_scope %}<span class="v2-mark v2-mark-scope v2-mark-scope-{{ a.berry_scope.kind }}">{{ a.berry_scope.label }}</span>{% endif %}
         <a href="/assessments/{{ a.id }}">{{ a.title }}</a>
       </li>

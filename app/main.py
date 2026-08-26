@@ -107,7 +107,7 @@ from app.services.analyst_queue import (
 from app.services.commercial_positions import commercial_page_model
 from app.services.review_operations import build_review_operations
 from app.services.today import build_today
-from app.services.chronology import date_label, meaningful_date_text, meaningful_stamp
+from app.services.chronology import date_label, dated_label, meaningful_date_text, meaningful_stamp
 from app.services.request_corpus import (
     RequestCorpus,
     bind_request_corpus,
@@ -1171,9 +1171,19 @@ def is_redundant_summary(summary: str | None, title: str | None) -> bool:
     return bool(normalized_headline) and normalized_summary.startswith(normalized_headline)
 
 
+def entity_path(entity_type: str, entity_id: str) -> str:
+    """Canonical live/static href for an entity. Geography uses the
+    Geography Intelligence workspace, not the generic entity shell."""
+    if entity_type == "geography":
+        return f"/geographies/{entity_id}"
+    return f"/entities/{entity_type}/{entity_id}"
+
+
 templates.env.filters["us_date"] = us_date
 templates.env.filters["as_bullets"] = as_bullets
 templates.env.filters["is_redundant_summary"] = is_redundant_summary
+templates.env.filters["dated_label"] = dated_label
+templates.env.globals["entity_path"] = entity_path
 
 
 # REGIONS, REGION_LOOKUP, geography_region(), evidence_regions(),
@@ -2960,6 +2970,8 @@ def company_portfolio_page(request: Request, entity_id: str) -> HTMLResponse:
 
 @app.get("/entities/{entity_type}/{entity_id}", response_class=HTMLResponse)
 def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLResponse:
+    if entity_type == "geography":
+        return RedirectResponse(url=f"/geographies/{entity_id}", status_code=303)
     for entity in all_entities():
         if entity.get("id") == entity_id and entity.get("entity_type") == entity_type:
             entities = entity_index()
@@ -4399,6 +4411,7 @@ def brief_pack(
                 "signals": signals,
                 "assessments": assessments,
                 "concepts": concepts,
+                **({"pack_id": pack_id} if pack_id else {}),
             },
             "saved_pack": saved_pack,
             "authoring_mode": AUTHORING_MODE,

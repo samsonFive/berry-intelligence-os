@@ -109,6 +109,7 @@ a{color:#3d5c94}
 .badge-fact{color:#1c6b42;background:#e2f6e9}
 .badge-claim{color:#8a5a10;background:#fdefd9}
 .badge-assessment{color:#1d5fa8;background:#e3eefb}
+.badge-ai-proposed{color:#8a5a10;background:#fdefd9}
 .badge-signal{color:#3d6cc9;background:#e8edfb}
 .badge-recommendation{color:#a8341d;background:#fbe7e2}
 .badge-counterevidence{color:#8a5a10;background:#fdefd9}
@@ -214,6 +215,8 @@ a{color:#3d5c94}
 .today-berries a.is-active{background:#213653;color:white}
 .today-quiet{border:1px solid #dfe5ee;padding:16px;border-radius:10px;background:#f8fafc}
 .today-freshness{margin:0 0 16px}
+.today-next-work{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.today-next-work a{padding:6px 10px;border:1px solid #dfe5ee;border-radius:999px;font-size:13px}
 .review-session-start,.review-session-resume{margin:16px 0;padding:16px}
 .review-session-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .review-session-progress{display:flex;flex-wrap:wrap;gap:12px;list-style:none;padding:0}

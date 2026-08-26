@@ -127,7 +127,7 @@ def test_testing_queue_v2_card_and_detail_preserve_trust(monkeypatch, tmp_path: 
     assert "Independent trial notes lower yield" in body
     assert "/entities/company/company-hortifrut" in body
     assert "/entities/variety/variety-example-blue" in body
-    assert "/entities/geography/geography-chile" in body
+    assert "/geographies/geography-chile" in body
     assert "Does not prove a universal trait" in body
     assert "never writes a Fact" in body
     assert "does not author a Fact" in body

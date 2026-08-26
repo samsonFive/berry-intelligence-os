@@ -7,7 +7,7 @@
     <p class="eyebrow">ASSESSMENT — {{ assessment.status|upper }} · INTERPRETATION, NOT A FACT</p>
     <h1>{{ assessment.title }}</h1>
     <p class="also-known-as">
-      <span class="badge badge-assessment">{{ 'AI PROPOSED' if assessment.ai_proposed else 'REVIEWED' }}</span>
+      <span class="badge {{ 'badge-ai-proposed' if assessment.ai_proposed else 'badge-assessment' }}">{{ 'AI PROPOSED' if assessment.ai_proposed else 'REVIEWED' }}</span>
       {% if berry_scope %}<span class="v2-mark v2-mark-scope v2-mark-scope-{{ berry_scope.kind }}">{{ berry_scope.label }}</span>{% endif %}
       Signal confirmation does not create this record.
     </p>
@@ -65,7 +65,7 @@
   {% if linked_entities %}
     <ul class="entity-links">
       {% for entity in linked_entities %}
-        <li><a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a> <span class="badge badge-muted">{{ entity.entity_type|replace('_',' ')|upper }}</span></li>
+        <li><a href="{{ entity_path(entity.entity_type, entity.id) }}">{{ entity.name }}</a> <span class="badge badge-muted">{{ entity.entity_type|replace('_',' ')|upper }}</span></li>
       {% endfor %}
     </ul>
   {% else %}
@@ -105,7 +105,7 @@
 
   <h2>Supporting evidence</h2>
   {% if linked_evidence %}
-    <div class="table-wrap"><table class="brief-table evidence-link-table"><thead><tr><th>Date</th><th>Evidence</th><th>Source</th></tr></thead><tbody>{% for item in linked_evidence %}<tr><td>{{ (item.published_date or item.captured_date)|us_date }}</td><td data-pagefind-weight="1"><a href="/evidence/{{ item.id }}"><strong>{{ item.title }}</strong></a></td><td>{{ item.source_name or item.source_type|replace('_',' ')|title }}</td></tr>{% endfor %}</tbody></table></div>
+    <div class="table-wrap"><table class="brief-table evidence-link-table"><thead><tr><th>Date</th><th>Evidence</th><th>Source</th></tr></thead><tbody>{% for item in linked_evidence %}<tr><td>{{ item|dated_label }}</td><td data-pagefind-weight="1"><a href="/evidence/{{ item.id }}"><strong>{{ item.title }}</strong></a></td><td>{{ item.source_name or item.source_type|replace('_',' ')|title }}</td></tr>{% endfor %}</tbody></table></div>
   {% else %}
     <p class="empty-state">No evidence linked.</p>
   {% endif %}

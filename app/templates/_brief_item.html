@@ -19,7 +19,7 @@
   {% if item.entities %}
     <div class="intel-chips">
       {% for entity in item.entities[:5] %}
-        <a class="intel-chip" href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a>
+        <a class="intel-chip" href="{{ entity_path(entity.entity_type, entity.id) }}">{{ entity.name }}</a>
       {% endfor %}
     </div>
   {% endif %}

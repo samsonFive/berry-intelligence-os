@@ -39,6 +39,7 @@
   <input type="hidden" name="berry" value="{{ (pending_filters or {}).berry or '' }}">
   <input type="hidden" name="source" value="{{ (pending_filters or {}).source or '' }}">
   <button class="v2-btn v2-btn-quiet" type="submit">Filter</button>
+  <a class="v2-btn v2-btn-quiet" href="/pending">Clear</a>
 </form>
 
 <ul class="brief-delta-strip">

@@ -80,7 +80,11 @@
     {% endfor %}
   </div>
 {% else %}
-  <p class="empty-state">You aren't watching anything yet. Add a watch from a Company, Variety, Geography, or Strategic Question page.</p>
+  {% if watch_type_filter or has_new_only %}
+    <p class="empty-state">No watches match these filters. <a href="/watches">Clear filters</a> to see every watch.</p>
+  {% else %}
+    <p class="empty-state">You aren't watching anything yet. Add a watch from a Company, Variety, Geography, or Strategic Question page.</p>
+  {% endif %}
 {% endif %}
 </div>
 {% endblock %}

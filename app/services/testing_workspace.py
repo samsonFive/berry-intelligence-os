@@ -29,7 +29,7 @@ LINK_STATUSES = {"proposed", "accepted", "contested"}
 ENTITY_HREF = {
     "company": "/entities/company/{id}",
     "variety": "/entities/variety/{id}",
-    "geography": "/entities/geography/{id}",
+    "geography": "/geographies/{id}",
     "person": "/entities/person/{id}",
     "breeding_program": "/entities/breeding_program/{id}",
 }
