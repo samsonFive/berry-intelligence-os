@@ -137,7 +137,7 @@
 
 <section class="v2-company-section" id="geography-recent">
   <h2>Recent developments</h2>
-  <p class="context-limit">Bounded, most-recent trusted items. "Captured" means ingestion/observation date, not necessarily event date.</p>
+  <p class="context-limit">Bounded published-date snapshot. Full chronology is in Intelligence timeline below.</p>
   {% if geo.recent_moves %}
     <ul class="entity-links">
       {% for move in geo.recent_moves %}
@@ -145,9 +145,11 @@
       {% endfor %}
     </ul>
   {% else %}
-    <p class="empty-state">No recent trusted developments captured.</p>
+    <p class="empty-state">No recent published-date trusted developments.</p>
   {% endif %}
 </section>
+
+{% include "_intelligence_timeline.html" %}
 
 <section class="v2-company-section" id="geography-source-mix">
   <h2>Source mix</h2>

@@ -38,6 +38,7 @@ from app.main import (  # noqa: E402
     entity_regions,
     evidence_regions,
     entity_synthesis_context,
+    facts_for_entity,
     facts_for_evidence,
     get_domain_services,
     get_query_services,
@@ -46,6 +47,7 @@ from app.main import (  # noqa: E402
     load_strategic_questions,
     published_evidence,
     queue_items,
+    relationships_for_entity,
     relationships_for_evidence,
     SCHEMAS_DIR,
     sources_page_context,
@@ -473,6 +475,7 @@ def build() -> list[Path]:
     for entity in all_entities():
         if entity.get("entity_type") != "geography":
             continue
+        evidence_idx = {r["id"]: r for r in evidence if r.get("id")}
         geo = geography_detail(
             entity["id"],
             entities=entities,
@@ -482,6 +485,9 @@ def build() -> list[Path]:
             assessments=geography_assessments,
             berry_labels=BERRIES,
             strategic_questions=geography_strategic_questions,
+            entity_facts=facts_for_entity(entity["id"]),
+            entity_relationships=relationships_for_entity(entity["id"], relationships_all),
+            evidence_idx=evidence_idx,
         )
         if geo is None:
             continue
@@ -489,7 +495,13 @@ def build() -> list[Path]:
             write_page(
                 "geography_detail.html",
                 f"/geographies/{entity['id']}",
-                {"geo": geo, "authoring_mode": False},
+                {
+                    "geo": geo,
+                    "entity": {"id": entity["id"], "name": geo.get("name"), "entity_type": "geography"},
+                    "intelligence_timeline": geo.get("intelligence_timeline") or {},
+                    "berry_label": berry_label,
+                    "authoring_mode": False,
+                },
             )
         )
 

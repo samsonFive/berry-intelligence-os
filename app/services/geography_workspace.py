@@ -16,6 +16,7 @@ from typing import Any
 from app.services.berries.geography import geography_region
 from app.services.chronology import meaningful_date_text
 from app.services.company_workspace import _humanize_source_type
+from app.queries.timeline import entity_intelligence_timeline
 from app.services.variety_workspace import (
     _is_observation,
     _is_rights_record,
@@ -140,6 +141,9 @@ def geography_detail(
     assessments: list[dict[str, Any]],
     berry_labels: dict[str, str],
     strategic_questions: list[dict[str, Any]] | None = None,
+    entity_facts: list[dict[str, Any]] | None = None,
+    entity_relationships: list[dict[str, Any]] | None = None,
+    evidence_idx: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any] | None:
     """Geography Intelligence V1's detail view -- what does our captured
     intelligence show about this place. Returns None for an unknown or
@@ -245,23 +249,37 @@ def geography_detail(
 
     recent_sorted = sorted(
         linked,
-        key=lambda r: str(r.get("published_date") or r.get("captured_date") or ""),
+        key=lambda r: str(r.get("published_date") or ""),
         reverse=True,
     )
+    # published_date only -- captured_date is ingestion time and must not
+    # appear as market chronology (same discipline as the Intelligence Timeline).
     recent_moves = [
         {
             "id": r["id"],
             "title": r.get("title"),
-            "date": r.get("published_date") or r.get("captured_date"),
+            "date": r.get("published_date"),
             "kind": _evidence_reason(r),
             "href": f"/evidence/{r['id']}",
         }
         for r in recent_sorted
-        if r.get("id") and (r.get("published_date") or r.get("captured_date"))
+        if r.get("id") and r.get("published_date")
     ][:GEOGRAPHY_RECENT_MOVES_LIMIT]
 
     geo_signals = [s for s in signals if geography_id in (s.get("entity_ids") or [])]
     geo_assessments = [a for a in assessments if geography_id in (a.get("entity_ids") or [])]
+
+    idx = evidence_idx or {r["id"]: r for r in linked if r.get("id")}
+    intelligence_timeline = entity_intelligence_timeline(
+        entity_id=geography_id,
+        entities=entities,
+        linked_evidence=linked,
+        entity_facts=list(entity_facts or []),
+        entity_relationships=list(entity_relationships or []),
+        entity_signals=geo_signals,
+        entity_assessments=geo_assessments,
+        evidence_idx=idx,
+    )
 
     linked_strategic_question_ids: set[str] = set()
     for record in linked + geo_signals + geo_assessments:
@@ -280,7 +298,7 @@ def geography_detail(
         if record.get("source_name"):
             source_names.add(str(record["source_name"]))
 
-    dates = [str(r.get("published_date") or r.get("captured_date") or "") for r in linked]
+    dates = [str(r.get("published_date") or "") for r in linked]
     dates = [d for d in dates if d]
 
     coverage = {
@@ -325,6 +343,7 @@ def geography_detail(
         "rights_records": rights_records,
         "commercial_records": commercial_records,
         "recent_moves": recent_moves,
+        "intelligence_timeline": intelligence_timeline,
         "signals": [
             {"id": s.get("id"), "title": s.get("title"), "status": s.get("status"), "href": f"/signals/{s['id']}"}
             for s in geo_signals
