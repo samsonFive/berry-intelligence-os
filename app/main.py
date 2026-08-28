@@ -6648,6 +6648,7 @@ def run_global_search(
     include_private: bool = False,
     include_global: bool = True,
     limit_per_group: int = GROUP_CAP_DEFAULT,
+    sort: str = "newest",
 ) -> dict[str, Any]:
     started = time.perf_counter()
     payload = search_global(
@@ -6657,6 +6658,7 @@ def run_global_search(
         include_private=include_private,
         include_global=include_global,
         limit_per_group=limit_per_group,
+        sort=sort,
         documents=_cached_search_documents(include_private=include_private),
     )
     payload["elapsed_ms"] = round((time.perf_counter() - started) * 1000, 2)
@@ -6669,16 +6671,19 @@ def global_search_page(
     q: str = "",
     berry: str | None = None,
     include_global: str | None = None,
+    sort: str = "newest",
 ) -> HTMLResponse:
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     berry_id = parse_berry(berry or ui.get("berry"), BERRIES)
     broaden = str(include_global or "1").strip() not in {"0", "false", "no"}
+    sort_mode = sort if sort in {"newest", "relevance"} else "newest"
     results = run_global_search(
         q,
         berry=berry_id,
         include_private=True,
         include_global=broaden,
         limit_per_group=25,
+        sort=sort_mode,
     )
     return templates.TemplateResponse(
         request=request,
@@ -6688,6 +6693,7 @@ def global_search_page(
             "search_results": results,
             "search_berry": berry_id,
             "search_include_global": broaden,
+            "search_sort": sort_mode,
             "authoring_mode": AUTHORING_MODE,
         },
     )
@@ -6701,16 +6707,19 @@ def api_global_search(
     include_global: str = "1",
     include_private: str = "1",
     limit: int = GROUP_CAP_DEFAULT,
+    sort: str = "newest",
 ) -> dict[str, Any]:
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     berry_id = parse_berry(berry or ui.get("berry"), BERRIES)
     private = str(include_private).strip() not in {"0", "false", "no"}
     broaden = str(include_global).strip() not in {"0", "false", "no"}
     cap = max(1, min(int(limit or GROUP_CAP_DEFAULT), 25))
+    sort_mode = sort if sort in {"newest", "relevance"} else "newest"
     return run_global_search(
         q,
         berry=berry_id,
         include_private=private,
         include_global=broaden,
         limit_per_group=cap,
+        sort=sort_mode,
     )

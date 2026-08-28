@@ -258,11 +258,17 @@
   function resultRow(row) {
     var extra = row.matched_label ? '<span class="v2-search-alias">' + escapeHtml(row.matched_label) + "</span>" : "";
     var sub = row.subtitle ? '<span class="v2-search-sub">' + escapeHtml(row.subtitle) + "</span>" : "";
+    var date = row.date_display
+      ? '<span class="v2-search-date-row"><span class="v2-search-date">' + escapeHtml(row.date_display) + "</span>" +
+        (row.date_secondary ? '<span class="v2-search-date-secondary">' + escapeHtml(row.date_secondary) + "</span>" : "") +
+        "</span>"
+      : "";
     var reader = row.open_reader ? ' data-open-reader data-item-id="' + escapeHtml(row.item_id || row.id) + '"' : "";
     return (
       '<li><a href="' + escapeHtml(row.href) + '"' + reader + ">" +
       '<span class="v2-search-title">' + escapeHtml(row.title) + "</span>" +
       '<span class="v2-search-state v2-search-state-' + escapeHtml(row.state) + '">' + escapeHtml(row.state_label) + "</span>" +
+      date +
       extra + sub +
       "</a></li>"
     );

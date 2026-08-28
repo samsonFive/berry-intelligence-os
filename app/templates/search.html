@@ -143,6 +143,13 @@
       <option value="0" {% if not search_include_global %}selected{% endif %}>Current berry only</option>
     </select>
   </div>
+  <div class="filter-field">
+    <label for="search-sort">Sort</label>
+    <select id="search-sort" name="sort">
+      <option value="newest" {% if search_sort != "relevance" %}selected{% endif %}>Newest first</option>
+      <option value="relevance" {% if search_sort == "relevance" %}selected{% endif %}>Relevance</option>
+    </select>
+  </div>
   <button type="submit" class="v2-btn">Search</button>
 </form>
 <p class="result-count">

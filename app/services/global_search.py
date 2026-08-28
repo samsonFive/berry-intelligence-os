@@ -86,16 +86,96 @@ def _as_tuple(values: Any) -> tuple[str, ...]:
     return tuple(str(value) for value in values if value)
 
 
-def _stamp(record: dict[str, Any]) -> str:
-    blob = record.get("commercial_observation") if isinstance(record.get("commercial_observation"), dict) else {}
-    return str(
-        record.get("published_date")
-        or record.get("captured_date")
-        or record.get("created_at")
-        or record.get("proposed_at")
-        or blob.get("observed_at")
-        or ""
+_MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+
+DATE_BASIS_LABELS = {
+    "published_date": "Published",
+    "observed_at": "Observed",
+    "first_seen": "First seen",
+    "last_updated": "Last updated",
+    "evidence_published_date": "Published",
+    "created_at": "Created",
+    "generated_at": "Generated",
+}
+UNKNOWN_DATE_LABELS = {
+    "evidence": "Publication date unknown",
+    "story_thread": "Publication date unknown",
+}
+DEFAULT_UNKNOWN_DATE_LABEL = "Date unknown"
+# Only these carry a genuine world-time concept. Companies/Varieties/Geographies/
+# Berries/Sources/Strategic Questions never get a fabricated date (AGENTS.md rule).
+DATE_BEARING_TYPES = {"evidence", "signal", "signal_candidate", "assessment", "story_thread"}
+
+
+def _human_date(value: str) -> str:
+    text = str(value or "").strip()
+    if not text:
+        return ""
+    try:
+        year, month, day = text[:10].split("-")
+        return f"{_MONTHS[int(month) - 1]} {int(day)}, {year}"
+    except (ValueError, IndexError):
+        return text
+
+
+def _format_date_display(date_iso: str, basis: str) -> str:
+    label = DATE_BASIS_LABELS.get(basis, "")
+    text = _human_date(date_iso)
+    return f"{label} {text}".strip() if label else text
+
+
+def _evidence_date(record: dict[str, Any]) -> tuple[str, str, bool]:
+    """Published/observed only -- never captured_date/created_at/proposed_at.
+
+    Mirrors app/queries/timeline.py::_evidence_row, the durable AGENTS.md rule:
+    ingestion/capture time must never masquerade as publication/event time.
+    """
+    is_commercial = record.get("intake_type") == "commercial_observation" or bool(
+        record.get("commercial_observation")
     )
+    detail = record.get("commercial_observation") if isinstance(record.get("commercial_observation"), dict) else {}
+    if is_commercial:
+        observed = detail.get("observed_at") or ""
+        if observed:
+            return str(observed), "observed_at", False
+        published = record.get("published_date") or ""
+        return str(published), "published_date", bool(published)
+    published = record.get("published_date") or ""
+    return str(published), "published_date", False
+
+
+def _signal_date(signal: dict[str, Any], evidence_by_id: dict[str, dict[str, Any]]) -> tuple[str, str, bool]:
+    """first_seen -> last_updated -> linked-evidence published_date (flagged fallback).
+
+    Mirrors app/queries/timeline.py::_signal_row (TD-088 convention).
+    """
+    first_seen = signal.get("first_seen") or ""
+    if first_seen:
+        return str(first_seen), "first_seen", False
+    last_updated = signal.get("last_updated") or ""
+    if last_updated:
+        return str(last_updated), "last_updated", False
+    evidence_ids = [str(e) for e in (signal.get("evidence_ids") or []) if e]
+    fallback_dates = sorted(
+        evidence_by_id[e].get("published_date")
+        for e in evidence_ids
+        if e in evidence_by_id and evidence_by_id[e].get("published_date")
+    )
+    if fallback_dates:
+        return str(fallback_dates[0]), "evidence_published_date", True
+    return "", "", False
+
+
+def _sort_rows_newest_first(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Dated results newest-first, then undated results, each deterministically tied."""
+    dated = [row for row in rows if row.get("date")]
+    undated = [row for row in rows if not row.get("date")]
+    dated.sort(
+        key=lambda row: (str(row.get("date") or ""), str(row.get("title") or "").casefold(), str(row.get("id") or "")),
+        reverse=True,
+    )
+    undated.sort(key=lambda row: (str(row.get("title") or "").casefold(), str(row.get("id") or "")))
+    return dated + undated
 
 
 def _kind_label(record: dict[str, Any]) -> str:
@@ -127,6 +207,9 @@ class SearchDoc:
     geography_ids: tuple[str, ...] = ()
     source_id: str = ""
     date: str = ""
+    date_basis: str = ""
+    is_fallback_date: bool = False
+    captured_date: str = ""
     open_reader: bool = False
     item_id: str = ""
     subtitle: str = ""
@@ -205,6 +288,7 @@ def _signal_state(record: dict[str, Any], *, emerging: bool) -> str:
 
 def build_search_documents(pools: SearchPools, *, include_private: bool) -> list[SearchDoc]:
     entities_by_id = {str(row["id"]): row for row in pools.entities if row.get("id")}
+    evidence_by_id = {str(row["id"]): row for row in pools.published_evidence if row.get("id")}
     related: dict[str, set[str]] = defaultdict(set)
     for rel in pools.relationships:
         subject = str(rel.get("subject_id") or "")
@@ -310,6 +394,7 @@ def build_search_documents(pools: SearchPools, *, include_private: bool) -> list
         title = str(record.get("title") or record_id)
         source_id = str(record.get("source_id") or "")
         kind = _kind_label(record)
+        date, date_basis, is_fallback_date = _evidence_date(record)
         state = "pending" if private or record.get("status") != "published" else "trusted"
         href = f"/intelligence/{record_id}"
         entity_ids = _as_tuple(record.get("entity_ids"))
@@ -348,7 +433,10 @@ def build_search_documents(pools: SearchPools, *, include_private: bool) -> list
                 entity_ids=entity_ids,
                 geography_ids=geography_ids,
                 source_id=source_id,
-                date=_stamp(record),
+                date=date,
+                date_basis=date_basis,
+                is_fallback_date=is_fallback_date,
+                captured_date=str(record.get("captured_date") or ""),
                 open_reader=True,
                 item_id=record_id,
                 subtitle=kind,
@@ -382,6 +470,7 @@ def build_search_documents(pools: SearchPools, *, include_private: bool) -> list
                 str(signal.get("why_it_might_matter") or ""),
             ]
         )
+        signal_date, signal_date_basis, signal_is_fallback = _signal_date(signal, evidence_by_id)
         add(
             SearchDoc(
                 id=signal_id,
@@ -393,7 +482,9 @@ def build_search_documents(pools: SearchPools, *, include_private: bool) -> list
                 canonical=title,
                 berry_ids=_as_tuple(signal.get("berry_ids") or signal.get("market_ids")),
                 entity_ids=_as_tuple(signal.get("entity_ids")),
-                date=str(signal.get("proposed_at") or signal.get("created_at") or ""),
+                date=signal_date,
+                date_basis=signal_date_basis,
+                is_fallback_date=signal_is_fallback,
                 subtitle=str(signal.get("status") or "Signal"),
                 kind_label="Signal",
                 haystack=haystack,
@@ -415,6 +506,8 @@ def build_search_documents(pools: SearchPools, *, include_private: bool) -> list
                     str(candidate.get("pattern_type") or ""),
                 ]
             )
+            candidate_date = str(candidate.get("generated_at") or candidate.get("created_at") or "")
+            candidate_basis = "generated_at" if candidate.get("generated_at") else ("created_at" if candidate.get("created_at") else "")
             add(
                 SearchDoc(
                     id=candidate_id,
@@ -426,7 +519,8 @@ def build_search_documents(pools: SearchPools, *, include_private: bool) -> list
                     canonical=title,
                     berry_ids=_as_tuple(candidate.get("berry_ids")),
                     entity_ids=_as_tuple(candidate.get("entity_ids")),
-                    date=str(candidate.get("generated_at") or candidate.get("created_at") or ""),
+                    date=candidate_date,
+                    date_basis=candidate_basis,
                     subtitle="Signal candidate — not a trusted Signal",
                     kind_label="Emerging signal",
                     private=True,
@@ -460,6 +554,8 @@ def build_search_documents(pools: SearchPools, *, include_private: bool) -> list
                 berry_ids=_as_tuple(assessment.get("market_ids") or assessment.get("berry_ids")),
                 entity_ids=_as_tuple(assessment.get("entity_ids")),
                 date=str(assessment.get("created_at") or ""),
+                date_basis="created_at",
+                is_fallback_date=False,
                 subtitle="Assessment",
                 kind_label="Assessment",
                 haystack=haystack,
@@ -517,8 +613,9 @@ def _cheap_pending_threads(drafts: list[dict[str, Any]]) -> list[SearchDoc]:
         if len(key) < 2 or key in seen:
             continue
         seen.add(key)
-        primary = sorted(bucket, key=lambda row: _stamp(row), reverse=True)[0]
+        primary = sorted(bucket, key=lambda row: _evidence_date(row)[0], reverse=True)[0]
         primary_id = str(primary.get("id") or "")
+        primary_date, primary_date_basis, primary_is_fallback = _evidence_date(primary)
         entity_ids = tuple(dict.fromkeys(eid for row in bucket for eid in _as_tuple(row.get("entity_ids"))))
         berry_ids = tuple(dict.fromkeys(bid for row in bucket for bid in _as_tuple(row.get("berry_ids"))))
         title = str(primary.get("title") or primary_id)
@@ -533,7 +630,10 @@ def _cheap_pending_threads(drafts: list[dict[str, Any]]) -> list[SearchDoc]:
                 canonical=title,
                 berry_ids=berry_ids,
                 entity_ids=entity_ids,
-                date=_stamp(primary),
+                date=primary_date,
+                date_basis=primary_date_basis,
+                is_fallback_date=primary_is_fallback,
+                captured_date=str(primary.get("captured_date") or ""),
                 subtitle=f"Developing story · {len(key)} items · organizational only",
                 kind_label="Story thread",
                 private=True,
@@ -581,6 +681,15 @@ def _result_payload(doc: SearchDoc, *, rank: int, matched_as: str, in_context: b
             matched_label = f"Commercial / alias name of {doc.canonical}"
         else:
             matched_label = f"{doc.canonical} (alias match)"
+    date_display = ""
+    date_secondary = ""
+    if doc.object_type in DATE_BEARING_TYPES:
+        if doc.date:
+            date_display = _format_date_display(doc.date, doc.date_basis)
+        else:
+            date_display = UNKNOWN_DATE_LABELS.get(doc.object_type, DEFAULT_UNKNOWN_DATE_LABEL)
+            if doc.captured_date:
+                date_secondary = f"Captured {_human_date(doc.captured_date)}"
     return {
         "id": doc.id,
         "group": doc.group,
@@ -597,6 +706,10 @@ def _result_payload(doc: SearchDoc, *, rank: int, matched_as: str, in_context: b
         "open_reader": bool(doc.open_reader),
         "item_id": doc.item_id or (doc.id if doc.open_reader else ""),
         "date": doc.date,
+        "date_basis": doc.date_basis,
+        "is_fallback_date": bool(doc.is_fallback_date),
+        "date_display": date_display,
+        "date_secondary": date_secondary,
         "kind_label": doc.kind_label,
         "private": bool(doc.private),
         "rank": rank,
@@ -622,7 +735,9 @@ def search_documents(
     include_private: bool = False,
     include_global: bool = True,
     limit_per_group: int = GROUP_CAP_DEFAULT,
+    sort: str = "newest",
 ) -> dict[str, Any]:
+    sort = sort if sort in {"newest", "relevance"} else "newest"
     needle = (query or "").strip()
     folded_query = _fold(needle)
     hits: dict[str, dict[str, Any]] = {}
@@ -729,8 +844,13 @@ def search_documents(
     total = 0
     exact_groups = 0
     for group_id in GROUP_ORDER:
+        # Relevance rank decides which results make the cut (selection);
+        # `sort` only decides the order they are then displayed in.
         in_context = sorted(grouped[group_id]["in_context"], key=_sort_key)[:limit_per_group]
         also_global = sorted(grouped[group_id]["also_global"], key=_sort_key)[:limit_per_group]
+        if sort == "newest":
+            in_context = _sort_rows_newest_first(in_context)
+            also_global = _sort_rows_newest_first(also_global)
         if not in_context and not also_global:
             continue
         if any(int(row.get("rank") or 0) >= RANK_EXACT_ALIAS for row in in_context + also_global):
@@ -756,6 +876,7 @@ def search_documents(
         "berry": berry,
         "include_private": include_private,
         "include_global": include_global,
+        "sort": sort,
         "empty": empty,
         "ambiguous": ambiguous,
         "alias_resolutions": alias_resolutions,
@@ -773,6 +894,7 @@ def search_global(
     include_private: bool = False,
     include_global: bool = True,
     limit_per_group: int = GROUP_CAP_DEFAULT,
+    sort: str = "newest",
     documents: list[SearchDoc] | None = None,
 ) -> dict[str, Any]:
     docs = documents if documents is not None else build_search_documents(pools, include_private=include_private)
@@ -783,4 +905,5 @@ def search_global(
         include_private=include_private,
         include_global=include_global,
         limit_per_group=limit_per_group,
+        sort=sort,
     )

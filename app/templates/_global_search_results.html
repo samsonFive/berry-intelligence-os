@@ -20,6 +20,12 @@
           <a href="{{ row.href }}" {% if row.open_reader %}data-open-reader data-item-id="{{ row.item_id }}"{% endif %}>
             <span class="v2-search-title">{{ row.title }}</span>
             <span class="v2-search-state v2-search-state-{{ row.state }}">{{ row.state_label }}</span>
+            {% if row.date_display %}
+            <span class="v2-search-date-row" data-pagefind-ignore>
+              <span class="v2-search-date">{{ row.date_display }}</span>
+              {% if row.date_secondary %}<span class="v2-search-date-secondary">{{ row.date_secondary }}</span>{% endif %}
+            </span>
+            {% endif %}
             {% if row.matched_label %}<span class="v2-search-alias">{{ row.matched_label }}</span>{% endif %}
             {% if row.subtitle %}<span class="v2-search-sub">{{ row.subtitle }}</span>{% endif %}
           </a>
@@ -35,6 +41,12 @@
           <a href="{{ row.href }}" {% if row.open_reader %}data-open-reader data-item-id="{{ row.item_id }}"{% endif %}>
             <span class="v2-search-title">{{ row.title }}</span>
             <span class="v2-search-state v2-search-state-{{ row.state }}">{{ row.state_label }}</span>
+            {% if row.date_display %}
+            <span class="v2-search-date-row" data-pagefind-ignore>
+              <span class="v2-search-date">{{ row.date_display }}</span>
+              {% if row.date_secondary %}<span class="v2-search-date-secondary">{{ row.date_secondary }}</span>{% endif %}
+            </span>
+            {% endif %}
             {% if row.matched_label %}<span class="v2-search-alias">{{ row.matched_label }}</span>{% endif %}
             {% if row.subtitle %}<span class="v2-search-sub">{{ row.subtitle }}</span>{% endif %}
           </a>
