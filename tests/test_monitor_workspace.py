@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 from copy import deepcopy
+from datetime import date
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -157,7 +158,11 @@ def test_source_health_distinguishes_quiet_failing_blocked_manual() -> None:
         {"id": "source-manual", "label": "Reference only", "entity_types": ["trade_association"]},
     ]
     freshness = {
-        "source-quiet": classify_source_freshness(sources[0], discovery_state={"status": "ok", "last_success_at": "2026-08-20", "new": 0}).as_dict(),
+        "source-quiet": classify_source_freshness(
+            sources[0],
+            discovery_state={"status": "ok", "last_success_at": "2026-08-20", "new": 0},
+            today=date(2026, 8, 21),
+        ).as_dict(),
         "source-fail": classify_source_freshness(sources[1], discovery_state={"status": "error", "error": "timeout"}).as_dict(),
         "source-block": classify_source_freshness(sources[2], discovery_state={"status": "error", "error": "403 Forbidden"}).as_dict(),
         "source-manual": classify_source_freshness(sources[3], discovery_state=None).as_dict(),
