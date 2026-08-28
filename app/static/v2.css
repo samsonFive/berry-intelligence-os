@@ -701,7 +701,7 @@
 .v2-search-list a {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-areas: "title state" "alias alias" "sub sub";
+  grid-template-areas: "title state" "date date" "alias alias" "sub sub";
   gap: 2px 12px;
   padding: 10px 12px;
   border-radius: var(--v2-radius-sm);
@@ -726,6 +726,9 @@
 .v2-search-state-emerging_signal { color: var(--v2-warning); }
 .v2-search-state-confirmed_signal { color: var(--v2-assessment); }
 .v2-search-state-assessment { color: var(--v2-assessment); }
+.v2-search-date-row { grid-area: date; display: flex; align-items: baseline; gap: 8px; }
+.v2-search-date { font-size: 12px; font-weight: 600; color: var(--v2-text); }
+.v2-search-date-secondary { font-size: 12px; color: var(--v2-text-muted); }
 .v2-search-alias, .v2-search-sub { grid-area: alias; font-size: 12px; color: var(--v2-text-muted); }
 .v2-search-sub { grid-area: sub; }
 .v2-search-page-form { align-items: end; }
@@ -742,7 +745,7 @@
   .v2-reader-offcanvas { --bs-offcanvas-width: 100vw; }
   .v2-search-offcanvas { --bs-offcanvas-height: 100vh; }
   .v2-search-form input[type="search"] { font-size: 1.15rem; padding: 16px; }
-  .v2-search-list a { grid-template-columns: 1fr; grid-template-areas: "state" "title" "alias" "sub"; }
+  .v2-search-list a { grid-template-columns: 1fr; grid-template-areas: "state" "title" "date" "alias" "sub"; }
   .v2-feed-grid .v2-card-actions,
   .v2-reading-list .v2-card-actions,
   .v2-watch-actions,

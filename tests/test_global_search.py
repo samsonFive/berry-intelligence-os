@@ -345,3 +345,318 @@ def _group(payload: dict, group_id: str) -> list[dict]:
         if group["id"] == group_id:
             return list(group.get("in_context") or []) + list(group.get("also_global") or [])
     return []
+
+
+# --- Search Chronology & Recency Hardening V1 -------------------------------
+# Date-fallback honesty: captured_date/created_at/proposed_at must never
+# silently stand in for a real published_date (AGENTS.md durable rule).
+# Default sort must be newest-reliable-date-first; undated last; relevance
+# is opt-in only.
+
+
+def _signal(**overrides):
+    row = {
+        "id": "signal-test",
+        "record_type": "signal",
+        "title": "Test signal",
+        "status": "confirmed",
+        "berry_ids": [],
+        "entity_ids": [],
+        "evidence_ids": [],
+    }
+    row.update(overrides)
+    return row
+
+
+def _assessment(**overrides):
+    row = {
+        "id": "assessment-test",
+        "record_type": "assessment",
+        "title": "Test assessment",
+        "entity_ids": [],
+        "created_at": "2026-08-10",
+    }
+    row.update(overrides)
+    return row
+
+
+def test_publication_with_published_date_shows_published_label() -> None:
+    pools = SearchPools(
+        entities=[_entity(id="company-chrono", entity_type="company", name="Chrono Farms")],
+        published_evidence=[
+            _evidence(id="ev-dated", title="Chrono Farms dated release", entity_ids=["company-chrono"], published_date="2026-08-15")
+        ],
+    )
+    payload = search_global("Chrono Farms", pools, include_private=False)
+    row = next(r for r in _group(payload, "intelligence") if r["id"] == "ev-dated")
+    assert row["date"] == "2026-08-15"
+    assert row["date_basis"] == "published_date"
+    assert row["is_fallback_date"] is False
+    assert row["date_display"] == "Published Aug 15, 2026"
+    assert row["date_secondary"] == ""
+
+
+def test_publication_with_only_captured_date_never_masquerades_as_published() -> None:
+    pools = SearchPools(
+        entities=[_entity(id="company-chrono2", entity_type="company", name="Chrono Ridge")],
+        published_evidence=[
+            _evidence(
+                id="ev-captured-only",
+                title="Chrono Ridge captured only",
+                entity_ids=["company-chrono2"],
+                published_date=None,
+                captured_date="2026-08-20",
+            )
+        ],
+    )
+    payload = search_global("Chrono Ridge", pools, include_private=False)
+    row = next(r for r in _group(payload, "intelligence") if r["id"] == "ev-captured-only")
+    assert row["date"] == ""
+    assert row["date_display"] == "Publication date unknown"
+    assert row["date_secondary"] == "Captured Aug 20, 2026"
+    assert "Aug 20, 2026" not in row["date_display"]
+
+
+def test_publication_with_neither_date_shows_unknown_with_no_secondary() -> None:
+    pools = SearchPools(
+        entities=[_entity(id="company-chrono3", entity_type="company", name="Chrono Valley")],
+        published_evidence=[
+            _evidence(
+                id="ev-no-dates",
+                title="Chrono Valley no dates",
+                entity_ids=["company-chrono3"],
+                published_date=None,
+                captured_date=None,
+            )
+        ],
+    )
+    payload = search_global("Chrono Valley", pools, include_private=False)
+    row = next(r for r in _group(payload, "intelligence") if r["id"] == "ev-no-dates")
+    assert row["date"] == ""
+    assert row["date_display"] == "Publication date unknown"
+    assert row["date_secondary"] == ""
+
+
+def test_default_sort_is_newest_first_with_undated_last() -> None:
+    pools = SearchPools(
+        entities=[_entity(id="company-chrono4", entity_type="company", name="Chrono Bay")],
+        published_evidence=[
+            _evidence(id="ev-old", title="Chrono Bay old story", entity_ids=["company-chrono4"], published_date="2026-01-01"),
+            _evidence(id="ev-new", title="Chrono Bay new story", entity_ids=["company-chrono4"], published_date="2026-08-01"),
+            _evidence(id="ev-mid", title="Chrono Bay mid story", entity_ids=["company-chrono4"], published_date="2026-04-01"),
+            _evidence(
+                id="ev-undated",
+                title="Chrono Bay undated story",
+                entity_ids=["company-chrono4"],
+                published_date=None,
+                captured_date=None,
+            ),
+        ],
+    )
+    payload = search_global("Chrono Bay", pools, include_private=False)
+    assert payload["sort"] == "newest"
+    intel = _group(payload, "intelligence")
+    ids_in_order = [r["id"] for r in intel if r["id"] in {"ev-old", "ev-new", "ev-mid", "ev-undated"}]
+    assert ids_in_order == ["ev-new", "ev-mid", "ev-old", "ev-undated"]
+
+
+def test_deterministic_tie_sort_is_stable_across_calls() -> None:
+    pools = SearchPools(
+        entities=[_entity(id="company-chrono5", entity_type="company", name="Chrono Delta")],
+        published_evidence=[
+            _evidence(id="ev-tie-b", title="Chrono Delta B story", entity_ids=["company-chrono5"], published_date="2026-05-01"),
+            _evidence(id="ev-tie-a", title="Chrono Delta A story", entity_ids=["company-chrono5"], published_date="2026-05-01"),
+        ],
+    )
+    first = search_global("Chrono Delta", pools, include_private=False)
+    second = search_global("Chrono Delta", pools, include_private=False)
+    order1 = [r["id"] for r in _group(first, "intelligence") if r["id"].startswith("ev-tie")]
+    order2 = [r["id"] for r in _group(second, "intelligence") if r["id"].startswith("ev-tie")]
+    assert order1 == order2
+    assert set(order1) == {"ev-tie-a", "ev-tie-b"}
+
+
+def test_commercial_observation_uses_observed_at_not_captured() -> None:
+    pools = SearchPools(
+        entities=[_entity(id="company-chrono6", entity_type="company", name="Chrono Retail")],
+        published_evidence=[
+            _evidence(
+                id="ev-commercial",
+                title="Chrono Retail retail listing",
+                entity_ids=["company-chrono6"],
+                intake_type="commercial_observation",
+                commercial_observation={"observed_at": "2026-08-18", "retailer_name": "Test Retailer"},
+                published_date="2026-08-01",
+                captured_date="2026-08-19",
+            )
+        ],
+    )
+    payload = search_global("Chrono Retail", pools, include_private=False)
+    row = next(r for r in _group(payload, "intelligence") if r["id"] == "ev-commercial")
+    assert row["date"] == "2026-08-18"
+    assert row["date_basis"] == "observed_at"
+    assert row["is_fallback_date"] is False
+    assert row["date_display"] == "Observed Aug 18, 2026"
+
+
+def test_assessment_always_uses_created_at_label() -> None:
+    pools = SearchPools(
+        entities=[_entity(id="company-chrono7", entity_type="company", name="Chrono Peak")],
+        assessments=[_assessment(id="assessment-chrono", title="Chrono Peak assessment", entity_ids=["company-chrono7"], created_at="2026-07-04")],
+    )
+    payload = search_global("Chrono Peak", pools, include_private=False)
+    row = next(r for r in _group(payload, "assessments") if r["id"] == "assessment-chrono")
+    assert row["date"] == "2026-07-04"
+    assert row["date_basis"] == "created_at"
+    assert row["is_fallback_date"] is False
+    assert row["date_display"] == "Created Jul 4, 2026"
+
+
+def test_signal_fallback_to_evidence_date_is_labeled_honestly() -> None:
+    pools = SearchPools(
+        entities=[_entity(id="company-chrono8", entity_type="company", name="Chrono Signal Co")],
+        published_evidence=[
+            _evidence(id="ev-for-signal", title="Chrono Signal Co coverage", entity_ids=["company-chrono8"], published_date="2026-06-01")
+        ],
+        signals=[
+            _signal(
+                id="signal-fallback",
+                title="Chrono Signal Co momentum signal",
+                entity_ids=["company-chrono8"],
+                evidence_ids=["ev-for-signal"],
+                first_seen=None,
+                last_updated=None,
+            )
+        ],
+    )
+    payload = search_global("Chrono Signal Co", pools, include_private=False)
+    row = next(r for r in _group(payload, "signals") if r["id"] == "signal-fallback")
+    assert row["date"] == "2026-06-01"
+    assert row["date_basis"] == "evidence_published_date"
+    assert row["is_fallback_date"] is True
+
+
+def test_signal_with_native_first_seen_is_not_flagged_as_fallback() -> None:
+    pools = SearchPools(
+        entities=[_entity(id="company-chrono9", entity_type="company", name="Chrono Native Co")],
+        signals=[
+            _signal(
+                id="signal-native",
+                title="Chrono Native Co native signal",
+                entity_ids=["company-chrono9"],
+                first_seen="2026-08-05",
+            )
+        ],
+    )
+    payload = search_global("Chrono Native Co", pools, include_private=False)
+    row = next(r for r in _group(payload, "signals") if r["id"] == "signal-native")
+    assert row["date"] == "2026-08-05"
+    assert row["date_basis"] == "first_seen"
+    assert row["is_fallback_date"] is False
+
+
+def test_signal_with_no_date_anywhere_is_undated() -> None:
+    pools = SearchPools(
+        entities=[_entity(id="company-chrono10", entity_type="company", name="Chrono Blank Co")],
+        signals=[
+            _signal(
+                id="signal-undated",
+                title="Chrono Blank Co undated signal",
+                entity_ids=["company-chrono10"],
+                first_seen=None,
+                last_updated=None,
+                evidence_ids=[],
+            )
+        ],
+    )
+    payload = search_global("Chrono Blank Co", pools, include_private=False)
+    row = next(r for r in _group(payload, "signals") if r["id"] == "signal-undated")
+    assert row["date"] == ""
+    assert row["date_display"] == "Date unknown"
+
+
+def test_mixed_result_types_each_carry_honest_independent_dates() -> None:
+    pools = SearchPools(
+        entities=[_entity(id="company-chrono11", entity_type="company", name="Chrono Mixed Co")],
+        published_evidence=[
+            _evidence(id="ev-mixed", title="Chrono Mixed Co press coverage", entity_ids=["company-chrono11"], published_date="2026-03-01")
+        ],
+        signals=[_signal(id="signal-mixed", title="Chrono Mixed Co signal", entity_ids=["company-chrono11"], first_seen="2026-03-05")],
+        assessments=[_assessment(id="assessment-mixed", title="Chrono Mixed Co assessment", entity_ids=["company-chrono11"], created_at="2026-03-10")],
+    )
+    payload = search_global("Chrono Mixed Co", pools, include_private=False)
+    evidence_row = next(r for r in _group(payload, "intelligence") if r["id"] == "ev-mixed")
+    signal_row = next(r for r in _group(payload, "signals") if r["id"] == "signal-mixed")
+    assessment_row = next(r for r in _group(payload, "assessments") if r["id"] == "assessment-mixed")
+    assert evidence_row["date_basis"] == "published_date"
+    assert signal_row["date_basis"] == "first_seen"
+    assert assessment_row["date_basis"] == "created_at"
+    # Each result type is unambiguous about what kind of object it is.
+    assert evidence_row["kind_label"] != signal_row["kind_label"] != assessment_row["kind_label"]
+
+
+def test_explicit_relevance_sort_is_available_and_opt_in() -> None:
+    pools = SearchPools(
+        entities=[_entity(id="company-chrono12", entity_type="company", name="Chrono Relevance Co")],
+        published_evidence=[
+            _evidence(id="ev-rel-old", title="Chrono Relevance Co old", entity_ids=["company-chrono12"], published_date="2026-01-01"),
+            _evidence(id="ev-rel-new", title="Chrono Relevance Co new", entity_ids=["company-chrono12"], published_date="2026-08-01"),
+        ],
+    )
+    newest = search_global("Chrono Relevance Co", pools, include_private=False, sort="newest")
+    relevance = search_global("Chrono Relevance Co", pools, include_private=False, sort="relevance")
+    assert newest["sort"] == "newest"
+    assert relevance["sort"] == "relevance"
+
+
+def test_unknown_sort_value_falls_back_to_newest() -> None:
+    pools = SearchPools(entities=[_entity(id="company-chrono13", entity_type="company", name="Chrono Fallback Co")])
+    payload = search_global("Chrono Fallback Co", pools, include_private=False, sort="bogus")
+    assert payload["sort"] == "newest"
+
+
+def test_empty_query_results_have_no_dates_to_render() -> None:
+    payload = search_global("Zzzznonexistentqueryxyz", SearchPools(), include_private=False)
+    assert payload["empty"] is True
+    assert payload["groups"] == []
+
+
+def test_backward_compatible_search_url_without_sort_param_still_works() -> None:
+    response = client.get("/api/search/global", params={"q": "Planasa"})
+    assert response.status_code == 200
+    assert response.json()["sort"] == "newest"
+
+
+def test_search_page_get_is_read_only_and_renders_sort_control(monkeypatch) -> None:
+    writes = {"count": 0}
+
+    def boom_write(*_args, **_kwargs):
+        writes["count"] += 1
+        raise AssertionError("GET /search must never write")
+
+    monkeypatch.setattr("pathlib.Path.write_text", boom_write)
+    page = client.get("/search", params={"q": "Planasa", "sort": "newest"})
+    assert page.status_code == 200
+    assert writes["count"] == 0
+    assert 'name="sort"' in page.text
+
+
+def test_evidence_date_never_inherits_created_at_or_proposed_at() -> None:
+    pools = SearchPools(
+        entities=[_entity(id="company-chrono14", entity_type="company", name="Chrono No Leak Co")],
+        published_evidence=[
+            _evidence(
+                id="ev-no-leak",
+                title="Chrono No Leak Co story",
+                entity_ids=["company-chrono14"],
+                published_date=None,
+                captured_date=None,
+                created_at="2026-08-21",
+                proposed_at="2026-08-22",
+            )
+        ],
+    )
+    payload = search_global("Chrono No Leak Co", pools, include_private=False)
+    row = next(r for r in _group(payload, "intelligence") if r["id"] == "ev-no-leak")
+    assert row["date"] == ""
+    assert row["date_display"] == "Publication date unknown"
