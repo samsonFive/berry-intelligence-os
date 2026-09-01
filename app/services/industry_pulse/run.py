@@ -25,7 +25,12 @@ from app.services.industry_pulse.matrix import (
 from app.services.industry_pulse.models import DiscoveryHit, WindowSlice
 from app.services.industry_pulse.novelty import classify_hit, empty_miss_counts
 from app.services.industry_pulse.providers import DiscoveryProvider, GoogleNewsRssProvider
-from app.services.industry_pulse.qualify import qualify_hit
+from app.services.industry_pulse.qualify import (
+    QualificationIndex,
+    editorial_topic_counts,
+    qualify_hit,
+    rejection_reason_counts,
+)
 from app.services.recall_audit.classify import (
     SOURCE_COLLECTED_ITEM_MISSED,
     SOURCE_KNOWN_NOT_COLLECTED,
@@ -154,10 +159,12 @@ def run_pulse(
         for alias in alias_row.get("aliases") or []:
             if alias:
                 variety_names.add(str(alias))
-    qualified = [
-        qualify_hit(hit, company_names=company_names, variety_names=variety_names)
-        for hit in raw
-    ]
+    index = QualificationIndex.compile(
+        company_names=company_names,
+        variety_names=variety_names,
+        sources=sources,
+    )
+    qualified = [qualify_hit(hit, index=index) for hit in raw]
     deduped = dedupe_hits(qualified)
     classified = [
         classify_hit(
@@ -179,6 +186,7 @@ def run_pulse(
     unique_24h = unique_hits(
         [hit for hit in classified if _in_window(hit.published_date, today=today, days=1)]
     )
+    rejected_7d = [hit for hit in unique_7d if not hit.qualifying]
 
     def _examples(rows: list[DiscoveryHit]) -> list[dict[str, Any]]:
         return [
@@ -190,6 +198,7 @@ def run_pulse(
                 "geography": hit.geography,
                 "qualifying": hit.qualifying,
                 "qualify_reason": hit.qualify_reason,
+                "editorial_topic": hit.editorial_topic,
                 "miss_classification": hit.miss_classification,
             }
             for hit in rows[:25]
@@ -221,6 +230,9 @@ def run_pulse(
         "windows": windows,
         "novel_source_count": len(novel_hosts),
         "novel_source_hosts": novel_hosts,
+        "rejected_7d": len(rejected_7d),
+        "rejection_reason_counts": rejection_reason_counts(unique_7d),
+        "editorial_topic_counts": editorial_topic_counts(qualifying_7d),
         "known_source_item_missed_count": len(item_missed),
         "known_source_not_collected_count": len(known_not_collected),
         "auto_trust": False,

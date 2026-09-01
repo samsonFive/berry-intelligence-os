@@ -539,6 +539,8 @@ Live Google News RSS on 2026-09-01 (32 generated queries): 24h 23 unique / 1 qua
 
 Retrieval Provider Bake-Off V1 (same day): 18-slice comparable run. Google News 114 unique / 19 qualifying; Perplexity Search 104 unique / 20 qualifying; URL-identity overlap 0; host overlap 5. Exa/Firecrawl/Bright Data not live. Production pulse remains Google News. Full detail: `docs/v2/RETRIEVAL-PROVIDER-BAKE-OFF-V1.md`.
 
+Industry Pulse Qualification + Editorial Relevance V1 (same day): provider-neutral layered qualifier. Frozen 34-row qualification benchmark precision 0.720 → 1.000 with 0 recall losses on expected-qualify rows. Genetics recall `benchmark.json` untouched. Not a coverage-maturity promotion. Full detail: `docs/v2/INDUSTRY-PULSE-QUALIFICATION-AND-EDITORIAL-RELEVANCE-V1.md`.
+
 ---
 
 ## How to refresh the evidence-class counts

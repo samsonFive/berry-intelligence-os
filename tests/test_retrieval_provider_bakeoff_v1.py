@@ -409,6 +409,7 @@ def test_evaluate_hits_raw_metrics_not_composite() -> None:
     assert payload["unique_urls"] == 3
     assert payload["qualifying"] >= 1
     assert payload["non_qualifying"] >= 1
+    assert "recipe/foodservice noise" in payload["rejection_reasons"]
     assert payload["tier1"] >= 1
     assert payload["cultivar_dense"] >= 1
     assert payload["api_calls"] == 18

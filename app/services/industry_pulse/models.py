@@ -27,6 +27,9 @@ class DiscoveryHit:
     wrapper_url: str | None = None
     qualifying: bool = False
     qualify_reason: str = ""
+    qualify_reasons: list[str] = field(default_factory=list)
+    editorial_topic: str | None = None
+    source_context: str | None = None
     duplicate_of: str | None = None
     miss_classification: str | None = None
     miss_label: str | None = None

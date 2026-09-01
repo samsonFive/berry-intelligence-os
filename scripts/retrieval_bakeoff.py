@@ -40,6 +40,7 @@ def main(argv: list[str] | None = None) -> int:
         published_evidence=evidence,
         data_dir=data_dir,
         varieties=varieties,
+        entities=entities,
         today=datetime.now(timezone.utc).date(),
         include_live=not args.offline,
     )

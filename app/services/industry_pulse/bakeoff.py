@@ -30,7 +30,12 @@ from app.services.industry_pulse.novelty import classify_hit
 from app.services.industry_pulse.perplexity_provider import PerplexitySearchProvider
 from app.services.industry_pulse.perplexity_provider import available as perplexity_available
 from app.services.industry_pulse.providers import DiscoveryProvider, GoogleNewsRssProvider
-from app.services.industry_pulse.qualify import qualify_hit
+from app.services.industry_pulse.qualify import (
+    QualificationIndex,
+    qualify_hit,
+    rejection_reason_counts,
+)
+from app.services.industry_pulse.run import names_from_entities
 from app.services.industry_pulse.slices import ACQUISITION_PROBE_URLS, BAKEOFF_SLICES, slice_query
 from app.services.industry_pulse.union import union_hits
 from app.services.recall_audit.classify import SOURCE_COLLECTED_ITEM_MISSED, SOURCE_UNKNOWN
@@ -84,6 +89,7 @@ class ProviderMetrics:
     tier1_hosts: list[str] = field(default_factory=list)
     qualifying_examples: list[dict[str, str | None]] = field(default_factory=list)
     by_window: dict[str, dict[str, int]] = field(default_factory=dict)
+    rejection_reasons: dict[str, int] = field(default_factory=dict)
 
     def as_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -98,6 +104,7 @@ def evaluate_hits(
     published_evidence: list[dict[str, Any]],
     universe_entries: list[dict[str, Any]],
     varieties: list[dict[str, Any]] | None = None,
+    entities: list[dict[str, Any]] | None = None,
     latency_seconds_total: float = 0.0,
     api_calls: int = 0,
     query_failures: int = 0,
@@ -107,7 +114,20 @@ def evaluate_hits(
     universe = universe_hosts(universe_entries)
     cited = evidence_hosts(published_evidence)
     class_map = class_by_host(sources, universe_entries)
-    qualified = [qualify_hit(hit) for hit in hits]
+    variety_names: set[str] = set()
+    for row in varieties or []:
+        if row.get("name"):
+            variety_names.add(str(row["name"]))
+        for alias in row.get("aliases") or []:
+            if alias:
+                variety_names.add(str(alias))
+    index = QualificationIndex.compile(
+        company_names=names_from_entities(entities or [], prefix="company-"),
+        variety_names=variety_names,
+        sources=sources,
+        universe_entries=universe_entries,
+    )
+    qualified = [qualify_hit(hit, index=index) for hit in hits]
     deduped = dedupe_hits(qualified)
     classified = [
         classify_hit(hit, sources=sources, published_evidence=published_evidence, varieties=varieties)
@@ -165,10 +185,12 @@ def evaluate_hits(
                 "source_domain": hit.source_domain,
                 "published_date": hit.published_date,
                 "miss_classification": hit.miss_classification,
+                "qualify_reason": hit.qualify_reason,
             }
             for hit in qualifying[:15]
         ],
         by_window=_window_counts(classified),
+        rejection_reasons=rejection_reason_counts(unique),
     )
 
 
@@ -232,6 +254,7 @@ def run_provider_slice(
     published_evidence: list[dict[str, Any]],
     universe_entries: list[dict[str, Any]],
     varieties: list[dict[str, Any]] | None = None,
+    entities: list[dict[str, Any]] | None = None,
     google_when: bool = False,
     unavailable_reason: str | None = None,
     clock: Callable[[], float] = time.monotonic,
@@ -246,6 +269,7 @@ def run_provider_slice(
                 published_evidence=published_evidence,
                 universe_entries=universe_entries,
                 varieties=varieties,
+                entities=entities,
                 unavailable_reason=unavailable_reason or "credentials absent",
             ),
             [],
@@ -272,11 +296,12 @@ def run_provider_slice(
         published_evidence=published_evidence,
         universe_entries=universe_entries,
         varieties=varieties,
+        entities=entities,
         latency_seconds_total=latency,
         api_calls=calls,
         query_failures=failures,
     )
-    return metrics, unique_hits(dedupe_hits([qualify_hit(hit) for hit in raw]))
+    return metrics, unique_hits(dedupe_hits(raw))
 
 
 def credential_status() -> dict[str, dict[str, Any]]:
@@ -304,6 +329,7 @@ def run_bakeoff(
     published_evidence: list[dict[str, Any]],
     data_dir: Any | None = None,
     varieties: list[dict[str, Any]] | None = None,
+    entities: list[dict[str, Any]] | None = None,
     today: date | None = None,
     include_live: bool = True,
 ) -> dict[str, Any]:
@@ -336,6 +362,7 @@ def run_bakeoff(
             published_evidence=published_evidence,
             universe_entries=universe_entries,
             varieties=varieties,
+            entities=entities,
             google_when=google_when,
             unavailable_reason=run_reason,
         )
