@@ -702,9 +702,32 @@ def _sitemap_entries(parsed: Any) -> list[Any]:
     for node in parsed:
         if node.tag.rsplit("}", 1)[-1] != "url":
             continue
-        fields = {child.tag.rsplit("}", 1)[-1]: (child.text or "").strip() for child in node}
-        if fields.get("loc"):
-            rows.append({"loc": fields["loc"], "lastmod": fields.get("lastmod")})
+        loc = None
+        lastmod = None
+        news_title = None
+        news_date = None
+        for child in node:
+            local = child.tag.rsplit("}", 1)[-1]
+            if local == "loc":
+                loc = (child.text or "").strip()
+            elif local == "lastmod":
+                lastmod = (child.text or "").strip()
+            elif local == "news":
+                for news_child in child.iter():
+                    news_local = news_child.tag.rsplit("}", 1)[-1]
+                    if news_local == "title" and (news_child.text or "").strip():
+                        news_title = news_child.text.strip()
+                    elif news_local == "publication_date" and (news_child.text or "").strip():
+                        news_date = news_child.text.strip()
+        if loc:
+            rows.append(
+                {
+                    "loc": loc,
+                    "lastmod": lastmod,
+                    "news_title": news_title,
+                    "news_publication_date": news_date,
+                }
+            )
     return rows
 
 
@@ -713,11 +736,14 @@ def _normalize_sitemap_entry(entry: Any) -> NormalizedItem:
     if not canonical_url:
         raise ValueError("sitemap entry has no loc")
     slug = Path(urlparse(canonical_url).path.rstrip("/")).name
-    title = re.sub(r"[-_]+", " ", slug).strip().title() or canonical_url
+    slug_title = re.sub(r"[-_]+", " ", slug).strip().title() or canonical_url
+    title = (entry.get("news_title") or "").strip() or slug_title
     raw_lastmod = (entry.get("lastmod") or "").strip()
+    news_date = (entry.get("news_publication_date") or "").strip()
+    date_source = news_date or raw_lastmod
     published_date = None
-    if re.match(r"^\d{4}-\d{2}-\d{2}", raw_lastmod):
-        candidate_date = datetime.strptime(raw_lastmod[:10], "%Y-%m-%d").date()
+    if date_source and re.match(r"^\d{4}-\d{2}-\d{2}", date_source):
+        candidate_date = datetime.strptime(date_source[:10], "%Y-%m-%d").date()
         today = datetime.now(timezone.utc).date()
         if datetime(2000, 1, 1).date() <= candidate_date <= today + timedelta(days=2):
             published_date = candidate_date.isoformat()
@@ -736,7 +762,10 @@ def _normalize_sitemap_entry(entry: Any) -> NormalizedItem:
             "url": None,
             "language": None,
         },
-        raw_metadata={"sitemap_lastmod": raw_lastmod or None},
+        raw_metadata={
+            "sitemap_lastmod": raw_lastmod or None,
+            "news_publication_date": news_date or None,
+        },
     )
 
 
