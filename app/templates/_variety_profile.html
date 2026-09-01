@@ -7,7 +7,7 @@
     <p class="sh-kicker eyebrow">Variety</p>
     <h1>{{ identity.canonical_name }}</h1>
     {% if identity.aliases %}
-      <p class="sh-lede also-known-as" data-pagefind-weight="10">Also known as {{ identity.aliases|join(', ') }}</p>
+      <p class="sh-lede also-known-as" data-pagefind-weight="10">Aliases: {{ identity.aliases|join(', ') }}</p>
     {% endif %}
     <p class="sh-meta v2-company-meta">
       {% if entity.status %}<span>{{ entity.status|humanize_label }}</span>{% endif %}
@@ -67,21 +67,16 @@
 
 <section class="sh-section v2-company-section" id="roles">
   <h2>Who is involved</h2>
-  {% set filled_roles = namespace(any=false) %}
   <dl class="sh-role-list v2-role-list">
     {% for bucket, label in role_labels.items() %}
-      {% if roles[bucket] %}
-        {% set filled_roles.any = true %}
-        <dt>{{ label }}</dt>
-        <dd>
+      <dt>{{ label }}</dt>
+      <dd>
+        {% if roles[bucket] %}
           {% for party in roles[bucket] %}<a href="{{ party.href }}">{{ party.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
-        </dd>
-      {% endif %}
+        {% else %}Not recorded{% endif %}
+      </dd>
     {% endfor %}
   </dl>
-  {% if not filled_roles.any %}
-    <p class="sh-empty">No breeder, owner, or licensee is recorded yet.</p>
-  {% endif %}
 </section>
 
 <section class="v2-company-section" id="rights">

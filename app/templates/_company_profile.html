@@ -16,6 +16,7 @@
   </div>
   <div class="sh-actions v2-company-actions">
     {% if not static_build %}
+      <a class="sh-btn v2-btn v2-btn-quiet" href="/entities/company/compare?ids={{ entity.id }}">Compare</a>
       <form method="post" action="/watches/toggle">
         <input type="hidden" name="watch_type" value="company">
         <input type="hidden" name="object_id" value="{{ entity.id }}">
