@@ -225,6 +225,12 @@ from app.services.company_workspace import (
     present_company_compare,
     present_company_portfolio,
 )
+from app.services.entity_identity import (
+    audit_entity_identity,
+    canonical_entity_id,
+    living_entities,
+    load_identity_redirects,
+)
 from app.services.geography_workspace import geography_detail, geography_index
 from app.services.strategic_question_workspace import (
     strategic_question_detail as present_strategic_question_detail,
@@ -1149,6 +1155,14 @@ def entity_index() -> dict[str, dict[str, Any]]:
     if corpus is not None:
         return corpus.entity_index
     return {entity["id"]: entity for entity in all_entities() if entity.get("id")}
+
+
+def identity_redirects() -> list[dict[str, Any]]:
+    return load_identity_redirects(DATA_DIR)
+
+
+def living_catalog() -> list[dict[str, Any]]:
+    return living_entities(all_entities(), redirects=identity_redirects())
 
 
 # berry_label() lives in app/services/berries/geography.py (V2 Phase 2B.2)
@@ -2471,6 +2485,33 @@ def evidence_purge(record_id: str, block_domain: bool = Form(False), redirect_to
     return RedirectResponse(url=destination, status_code=303)
 
 
+@app.get("/entities/identity", response_class=HTMLResponse)
+def entity_identity_page(request: Request) -> HTMLResponse:
+    """Authoring-only, read-only identity collision inventory. GET never writes."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Entity identity integrity is authoring-only")
+    report = audit_entity_identity(
+        all_entities(),
+        relationships=all_relationships(),
+        candidates=load_variety_candidates(INBOX_DIR),
+        redirects=identity_redirects(),
+    )
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="entity_identity.html",
+        context={
+            "report": report,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
 @app.get("/entities/{entity_type}", response_class=HTMLResponse)
 def entity_list(
     request: Request,
@@ -2488,7 +2529,7 @@ def entity_list(
     ip_and_observation: str | None = None,
 ) -> HTMLResponse:
     all_of_type = sorted(
-        (e for e in all_entities() if e.get("entity_type") == entity_type),
+        (e for e in living_catalog() if e.get("entity_type") == entity_type),
         key=lambda e: e.get("name", ""),
     )
     if not all_of_type:
@@ -2505,7 +2546,7 @@ def entity_list(
         all_of_type, entities_idx, evidence, relationships, q=q, berry=berry, region=region, company=company
     )
     companies = sorted(
-        ({"id": e["id"], "name": e["name"]} for e in all_entities() if e.get("entity_type") == "company"),
+        ({"id": e["id"], "name": e["name"]} for e in living_catalog() if e.get("entity_type") == "company"),
         key=lambda c: c["name"],
     )
     context: dict[str, Any] = {
@@ -3069,6 +3110,7 @@ def company_compare_page(request: Request, ids: str = "") -> HTMLResponse:
     result = present_company_compare(
         requested_ids,
         entities=entities,
+        redirects=identity_redirects(),
         relationships=all_relationships(),
         published_evidence=published_evidence(),
         facts=all_facts(),
@@ -3139,6 +3181,11 @@ def company_portfolio_page(request: Request, entity_id: str) -> HTMLResponse:
 def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLResponse:
     if entity_type == "geography":
         return RedirectResponse(url=f"/geographies/{entity_id}", status_code=303)
+    survivor_id = canonical_entity_id(entity_id, entities=entity_index(), redirects=identity_redirects())
+    if survivor_id and survivor_id != entity_id:
+        survivor = entity_index().get(survivor_id)
+        dest_type = survivor.get("entity_type") if survivor else entity_type
+        return RedirectResponse(url=f"/entities/{dest_type}/{survivor_id}", status_code=303)
     for entity in all_entities():
         if entity.get("id") == entity_id and entity.get("entity_type") == entity_type:
             entities = entity_index()
@@ -4880,7 +4927,7 @@ def report_new_submit(
       refreshed coverage/gaps, no AI call.
     - step="generate": confirmed scope -> packet -> section synthesis ->
       persist -> redirect to the new report's workspace."""
-    entities_list = list(entity_index().values())
+    entities_list = living_catalog()
     questions = load_strategic_questions()
 
     if step == "interpret":
@@ -7042,6 +7089,7 @@ def _search_pools(*, include_private: bool) -> SearchPools:
         strategic_questions=load_strategic_questions(),
         pending_drafts=list_pending_drafts() if include_private else [],
         signal_candidates=load_candidates(INBOX_DIR) if include_private else [],
+        identity_redirects=identity_redirects(),
     )
 
 

@@ -234,6 +234,7 @@ class SearchPools:
     strategic_questions: list[dict[str, Any]] = field(default_factory=list)
     pending_drafts: list[dict[str, Any]] = field(default_factory=list)
     signal_candidates: list[dict[str, Any]] = field(default_factory=list)
+    identity_redirects: list[dict[str, Any]] = field(default_factory=list)
 
 
 def _names_for_entity(entity: dict[str, Any]) -> tuple[str, list[str]]:
@@ -302,6 +303,9 @@ def build_search_documents(pools: SearchPools, *, include_private: bool) -> list
             related[subject].add(obj)
             related[obj].add(subject)
 
+    from app.services.entity_identity import canonical_entity_id, retired_entity_ids
+
+    retired = retired_entity_ids(pools.entities, redirects=pools.identity_redirects)
     docs: list[SearchDoc] = []
     seen: set[str] = set()
 
@@ -315,7 +319,12 @@ def build_search_documents(pools: SearchPools, *, include_private: bool) -> list
         entity_id = str(entity.get("id") or "")
         entity_type = str(entity.get("entity_type") or "")
         group = ENTITY_GROUP.get(entity_type)
-        if not entity_id or not group:
+        if not entity_id or not group or entity_id in retired:
+            continue
+        entity_id = canonical_entity_id(
+            entity_id, entities=entities_by_id, redirects=pools.identity_redirects
+        )
+        if not entity_id or entity_id in seen:
             continue
         canonical, aliases = _names_for_entity(entity)
         folded_aliases = tuple(_fold(alias) for alias in aliases if _fold(alias))

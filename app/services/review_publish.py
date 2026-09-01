@@ -50,6 +50,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from app.repositories.base import DuplicateRecord
+from app.services.entity_identity import match_named_entity
 from app.services.review_events import EventAppendResult, append_review_event, remove_created_event
 from app.services.source_completeness import source_completeness
 
@@ -182,9 +183,6 @@ class ReviewPublishService:
     def publish(self, request: PublishRequest) -> PublishResult:
         # --- entity match-or-create -----------------------------------
         entities_idx = {e["id"]: e for e in self._repos.entities.list() if e.get("id")}
-        by_name_type = {
-            (e.get("name", "").strip().lower(), e.get("entity_type")): e for e in entities_idx.values()
-        }
         existing_ids = set(entities_idx.keys())
         entity_ids: list[str] = []
         new_entity_ids: set[str] = set()
@@ -200,11 +198,16 @@ class ReviewPublishService:
 
         for entity_type, names in request.all_entity_names_by_type.items():
             for name in names:
-                key = (name.strip().lower(), entity_type)
-                existing = by_name_type.get(key)
-                if existing:
-                    name_to_id[name] = existing["id"]
-                    entity_ids.append(existing["id"])
+                matched, ambiguous = match_named_entity(name, entity_type, list(entities_by_id.values()))
+                if ambiguous:
+                    return PublishResult(schema_errors=[
+                        f"Ambiguous {entity_type} name {name!r} matches "
+                        + ", ".join(ambiguous)
+                        + "; resolve the canonical identity before publishing."
+                    ])
+                if matched:
+                    name_to_id[name] = matched["id"]
+                    entity_ids.append(matched["id"])
                     continue
                 entity_id = self._unique_entity_id(entity_type, name, existing_ids)
                 existing_ids.add(entity_id)
@@ -223,7 +226,6 @@ class ReviewPublishService:
                     "relationship_ids": [],
                     "attributes": {},
                 }
-                by_name_type[key] = new_entity
                 entities_by_id[entity_id] = new_entity
                 new_entity_ids.add(entity_id)
                 name_to_id[name] = entity_id

@@ -12,6 +12,7 @@ from __future__ import annotations
 from typing import Any
 
 from app.services.intelligence_feed import present_feed_item
+from app.services.entity_identity import canonical_entity_id
 from app.services.variety_workspace import (
     ROLE_BUCKETS,
     ROLE_LABEL,
@@ -85,6 +86,7 @@ def present_company_compare(
     signals: list[dict[str, Any]],
     assessments: list[dict[str, Any]],
     berry_labels: dict[str, str],
+    redirects: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Company Compare V1 -- a side-by-side, trusted-intelligence-only
     comparison workspace for up to COMPARE_MAX_COMPANIES companies. Callers
@@ -96,9 +98,10 @@ def present_company_compare(
     seen: set[str] = set()
     deduped_ids: list[str] = []
     for cid in company_ids:
-        if cid and cid not in seen:
-            seen.add(cid)
-            deduped_ids.append(cid)
+        resolved = canonical_entity_id(cid, entities=entities, redirects=redirects)
+        if resolved and resolved not in seen:
+            seen.add(resolved)
+            deduped_ids.append(resolved)
     selected_ids = deduped_ids[:COMPARE_MAX_COMPANIES]
     overflow_ids = deduped_ids[COMPARE_MAX_COMPANIES:]
 
