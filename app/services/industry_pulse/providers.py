@@ -4,16 +4,10 @@ Product logic calls `discover(query, date_window, geography, berry, topic)`
 and receives normalized hits. Google News RSS is the current live provider
 because it already exists in-repo and needs no paid credentials.
 
-Later bake-off plug-in point (do not couple product logic to these now):
-- Exa: implement `DiscoveryProvider.discover` using Exa's search API; map
-  title/url/published_date/snippet; set provider="exa".
-- Firecrawl Search: same Protocol; provider="firecrawl".
-- Bright Data: same Protocol; provider="brightdata".
-- Direct Source collectors stay on the existing media_discovery adapters;
-  they are not this catch-net.
-
-A new paid vendor is a new class in this file plus a constructor argument
-to `run_pulse()`. Do not put vendor URLs in qualify/novelty/matrix.
+Later bake-off adapters live in sibling modules (`exa.py`, `firecrawl.py`,
+`perplexity_provider.py`, `brightdata.py`) and implement this Protocol.
+Production `run_pulse()` still defaults to Google News RSS. Do not put
+vendor URLs or vendor scores into qualify/novelty/classify.
 """
 
 from __future__ import annotations
@@ -124,6 +118,52 @@ def hits_from_news_search_items(
                 origin_publisher_name=origin_name,
                 origin_publisher_url=origin_url,
                 wrapper_url=wrapper or None,
+            )
+        )
+    return hits
+
+
+def hits_from_web_rows(
+    rows: list[dict[str, Any]],
+    *,
+    query: PulseQuery,
+    provider_name: str,
+) -> list[DiscoveryHit]:
+    """Map vendor-neutral web search rows onto DiscoveryHit.
+
+    Extra vendor fields stay in `provider_metadata` only.
+    """
+    hits: list[DiscoveryHit] = []
+    for row in rows:
+        url = str(row.get("url") or "").strip()
+        if not url:
+            continue
+        origin_url = str(row.get("origin_publisher_url") or url)
+        domain = _host_from_url(origin_url) or hostname(url)
+        published = row.get("published_date")
+        published_date = str(published).strip()[:10] if published else None
+        if published_date == "":
+            published_date = None
+        metadata = row.get("provider_metadata")
+        if not isinstance(metadata, dict):
+            metadata = {}
+        hits.append(
+            DiscoveryHit(
+                title=str(row.get("title") or ""),
+                url=normalize_canonical_url(origin_url) or origin_url,
+                source_domain=domain,
+                published_date=published_date,
+                snippet=str(row.get("snippet") or "")[:500],
+                query_id=query.id,
+                query_text=query.text,
+                geography=query.geography,
+                berry=query.berry,
+                topic=query.topic,
+                provider=provider_name,
+                origin_publisher_name=row.get("origin_publisher_name"),
+                origin_publisher_url=origin_url,
+                wrapper_url=row.get("wrapper_url"),
+                provider_metadata=dict(metadata),
             )
         )
     return hits
