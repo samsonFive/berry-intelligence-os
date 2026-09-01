@@ -36,7 +36,11 @@ from typing import Any, Callable
 
 from app.services.ai_gateway.results import ResearchResponse
 
-DEFAULT_RESEARCH_MODEL = "sonar"
+DEFAULT_RESEARCH_MODEL = "perplexity/sonar"
+# The live Perplexity Agent endpoint (GET /v1/models) requires the
+# provider-prefixed form -- a bare "sonar" 400s with "model \"sonar\" is
+# not supported". Same convention as this codebase's other Agent-routed
+# model ids (e.g. "anthropic/claude-haiku-4-5" in untrusted_complete.py).
 
 
 @dataclass(frozen=True)

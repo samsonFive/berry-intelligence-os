@@ -27,7 +27,11 @@ from app.services.report_builder.coverage_dimensions import (
     report_coverage_dimensions,
 )
 from app.services.report_builder.packet import build_report_packet
-from app.services.report_builder.perplexity_gap_research import PublicQueryContext, research_public_gaps
+from app.services.report_builder.perplexity_gap_research import (
+    DEFAULT_RESEARCH_MODEL,
+    PublicQueryContext,
+    research_public_gaps,
+)
 from app.services.report_builder.reports_store import (
     append_research_batch,
     create_report,
@@ -215,6 +219,16 @@ def test_citations_with_empty_url_are_rejected():
     )
     assert len(proposals) == 1
     assert proposals[0].url == "https://example.test/b"
+
+
+def test_default_research_model_is_provider_prefixed_for_the_live_agent_endpoint():
+    # A bare "sonar" 400s against the real Perplexity Agent endpoint
+    # (GET /v1/models requires the provider-prefixed form, e.g. the
+    # already-used "anthropic/claude-haiku-4-5" convention). Regression
+    # guard for a genuine production-blocking bug caught during Report
+    # Quality & Public Gap Research V1's live acceptance run.
+    assert "/" in DEFAULT_RESEARCH_MODEL
+    assert DEFAULT_RESEARCH_MODEL.startswith("perplexity/")
 
 
 # --- 15. Sparse/no-result research handling ----------------------------------
