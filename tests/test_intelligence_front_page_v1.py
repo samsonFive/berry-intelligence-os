@@ -163,6 +163,32 @@ def test_trusted_evidence_is_visible(tmp_path: Path) -> None:
     assert matches and matches[0]["trust_label"] == "REVIEWED EVIDENCE"
 
 
+# 3b. A real production case: a historical-backfill Publication (old real
+# published_date, captured today) must appear in Emerging/Unreviewed
+# (pipeline just brought it in) but must NOT appear in Top Stories/By
+# Region/By Berry (those are about world-time news, not system capture
+# time -- captured must never masquerade as published/breaking).
+def test_historical_backfill_draft_appears_in_emerging_not_top_stories(tmp_path: Path) -> None:
+    draft = _draft(
+        "ev-media-historical",
+        captured="2026-09-01",
+        published_date="2019-12-17",
+        entity_ids=[],
+    )
+    page = build_front_page(**_base_kwargs(tmp_path, drafts=[draft]))
+    top_story_ids = [i["id"] for i in page["top_stories"]]
+    assert "ev-media-historical" not in top_story_ids
+
+    emerging = next(s for s in page["sections"] if s["key"] == "emerging_unreviewed")
+    emerging_ids = [i["id"] for i in emerging["rows"]]
+    assert "ev-media-historical" in emerging_ids
+    item = next(i for i in emerging["rows"] if i["id"] == "ev-media-historical")
+    assert item["captured_band"] == "today"
+    assert item["band"] is None
+    assert item["date_basis_label"] == "Published"
+    assert item["exact_date"] == "Dec 17, 2019"
+
+
 # 4. Trust labels correct for all five kinds.
 def test_all_five_trust_labels_are_exact(tmp_path: Path) -> None:
     draft_fresh = _draft("ev-d1", captured="2026-08-31")
