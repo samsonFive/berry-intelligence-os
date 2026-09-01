@@ -1,0 +1,17 @@
+<li class="front-story" data-front-item data-item-id="{{ item.id }}" data-front-kind="{{ item.front_kind }}">
+  <p class="front-story-meta">
+    <span class="badge front-trust-{{ item.front_kind }}">{{ item.trust_label }}</span>
+    {% if item.source_name %}<span class="v2-source">{{ item.source_name }}</span>{% endif %}
+    <span class="v2-meta">{{ item.exact_date or "Date unknown" }}{% if item.date_basis_label %} · {{ item.date_basis_label }}{% endif %}</span>
+  </p>
+  <h3><a href="{{ item.href }}">{{ item.title }}</a></h3>
+  {% if item.summary %}<p class="front-story-summary">{{ item.summary }}</p>{% endif %}
+  {% if item.entities %}
+    <div class="intel-chips">
+      {% for chip in item.entities[:5] %}<a class="intel-chip" href="/entities/{{ chip.entity_type }}/{{ chip.id }}">{{ chip.name }}</a>{% endfor %}
+    </div>
+  {% endif %}
+  {% if item.underlying %}
+    <p class="front-story-underlying">Also: {% for u in item.underlying %}<a href="{{ u.href }}">{{ u.trust_label|lower }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+  {% endif %}
+</li>

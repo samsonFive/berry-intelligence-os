@@ -114,6 +114,7 @@ from app.services.collection_ops import (
     trigger_bounded_run,
 )
 from app.services.today import build_today
+from app.services.front_page import build_front_page
 from app.services.coverage_assurance import build_coverage_report
 from app.services.industry_pulse import audit_freshness, load_snapshot, query_count, run_pulse
 from app.services.industry_pulse.providers import GoogleNewsRssProvider
@@ -3355,15 +3356,43 @@ def today_page(request: Request) -> HTMLResponse:
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     if not berry_id and ui.get("berry") and ui["berry"] != "global":
         berry_id = ui["berry"] if str(ui["berry"]).startswith("berry-") else f"berry-{ui['berry']}"
-    page = build_today(
+    coverage_watch = None
+    if AUTHORING_MODE:
+        varieties, candidates, _corpus_report = variety_candidate_universe()
+        coverage_report = build_coverage_report(
+            data_dir=DATA_DIR,
+            sources=load_sources(),
+            published_evidence=published_evidence(),
+            publications=list_drafts_metadata(),
+            variety_candidates=candidates,
+            varieties=varieties,
+            discovered_items=list_discovered_items(INBOX_DIR),
+            blocked_domains=load_blocked_domains(),
+            inbox_dir=INBOX_DIR,
+        )
+        coverage_watch = {
+            "attention_count": coverage_report.get("attention_count") or 0,
+            "cited_not_collected_count": coverage_report.get("cited_not_collected_count") or 0,
+        }
+    front_page = build_front_page(
         published=published_evidence(),
+        drafts=pending_publication_drafts(),
         signals=all_signals(),
         assessments=all_assessments(),
         sources=load_sources(),
+        entities=all_entities(),
+        relationships=all_relationships(),
         inbox_dir=INBOX_DIR,
         data_dir=DATA_DIR,
+        coverage_watch=coverage_watch,
         berry_id=berry_id,
     )
+    page = {
+        "berry_id": berry_id,
+        "freshness": front_page["freshness"],
+        "worth_revisiting": front_page["worth_revisiting"],
+        "last_seen_at": front_page["last_seen_at"],
+    }
     nav = nav_work_template_context(request).get("nav_work_counts") or {}
     freshness = page.get("freshness") or {}
     source_counts = freshness.get("counts") or {}
@@ -3384,6 +3413,7 @@ def today_page(request: Request) -> HTMLResponse:
         name="today.html",
         context={
             "today": page,
+            "front_page": front_page,
             "attention_queues": attention,
             "monitoring": watch_monitoring_snapshot(inbox_dir=INBOX_DIR),
             "berries": [{"id": key, "label": label} for key, label in BERRIES.items()],

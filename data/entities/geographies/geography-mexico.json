@@ -17,7 +17,8 @@
     "ev-producereport-blugenix-2026",
     "ev-blueberriesconsulting-agrovision-2024",
     "ev-sekoya-story",
-    "ev-agrovision-10-years-2024"
+    "ev-agrovision-10-years-2024",
+    "ev-un-m49-africa-americas-regions"
   ],
   "fact_ids": [
     "fact-sekoya-story-6",
@@ -29,7 +30,8 @@
     "rel-fall-creek-operates-in-mexico",
     "rel-united-exports-operates-in-mexico",
     "rel-hortifrut-operates-in-mexico",
-    "rel-agrovision-operates-in-mexico"
+    "rel-agrovision-operates-in-mexico",
+    "rel-mexico-part-of-americas"
   ],
   "attributes": {
     "iso_3166_1_alpha_2": "MX",

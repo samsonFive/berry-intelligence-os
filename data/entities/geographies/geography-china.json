@@ -18,7 +18,8 @@
     "ev-producereport-blugenix-2026",
     "ev-blueberriesconsulting-agrovision-2024",
     "ev-agrovision-10-years-2024",
-    "ev-fruitist-brands"
+    "ev-fruitist-brands",
+    "ev-apac-industry-region-grouping"
   ],
   "fact_ids": [
     "fact-produce-report-sekoya-china-2025-1",
@@ -33,7 +34,8 @@
     "rel-fall-creek-operates-sekoya",
     "rel-mbo-operates-in-china",
     "rel-hortifrut-operates-in-china",
-    "rel-costa-operates-in-china"
+    "rel-costa-operates-in-china",
+    "rel-china-part-of-apac"
   ],
   "attributes": {
     "iso_3166_1_alpha_2": "CN",

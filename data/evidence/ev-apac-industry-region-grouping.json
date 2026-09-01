@@ -1,0 +1,53 @@
+{
+  "id": "ev-apac-industry-region-grouping",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "other",
+  "title": "APAC (Asia-Pacific) as an Industry/Market-Research Regional Grouping",
+  "source_name": "Common industry and market-research convention",
+  "published_date": null,
+  "captured_date": "2026-09-01",
+  "summary": "\"APAC\" is a widely used industry and market-research regional grouping combining Asia and Oceania for business reporting purposes. It is explicitly NOT a UN M49 statistical region -- UN M49 classifies Australia under Oceania and China under Asia as two separate regions. This record documents that distinction and is cited only to source explicit part_of Relationship records grouping Australia and China under a geography-apac entity for editorial/reporting purposes.",
+  "why_it_matters": "Lets the application offer an APAC regional view (as requested for the intelligence front page) without misrepresenting an editorial business grouping as a national-statistics standard, and without inferring geography membership at query time from free text.",
+  "submitted_by": "migration/generate_geography_regions_v2.py",
+  "berry_ids": [],
+  "geography_ids": [
+    "geography-apac",
+    "geography-australia",
+    "geography-china"
+  ],
+  "entity_ids": [
+    "geography-apac",
+    "geography-australia",
+    "geography-china"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-australia-part-of-apac",
+    "rel-china-part-of-apac"
+  ],
+  "strategic_question_ids": [],
+  "tags": [
+    "reference",
+    "geography",
+    "structural"
+  ],
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Structural reference data, not a competitive-intelligence development."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Not applicable to a geographic reference convention."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Not applicable."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "A stable industry convention; not a recurring monitoring target."
+    }
+  }
+}

@@ -20,7 +20,8 @@
     "ev-ciopora-united-exports-pbr-2020",
     "ev-harvestsa-rossouw-2020",
     "ev-topfruit-megacrisp",
-    "ev-lucentlands-scaling-blueberry-industry-2025"
+    "ev-lucentlands-scaling-blueberry-industry-2025",
+    "ev-un-m49-africa-americas-regions"
   ],
   "fact_ids": [
     "fact-fruitnet-eureka-sunrise-2023-2",
@@ -36,7 +37,8 @@
   "relationship_ids": [
     "rel-united-exports-operates-in-south-africa",
     "rel-costa-operates-in-south-africa",
-    "rel-topfruit-operates-in-south-africa"
+    "rel-topfruit-operates-in-south-africa",
+    "rel-south-africa-part-of-africa"
   ],
   "attributes": {
     "iso_3166_1_alpha_2": "ZA",

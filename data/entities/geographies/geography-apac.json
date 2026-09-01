@@ -1,0 +1,20 @@
+{
+  "id": "geography-apac",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "APAC",
+  "aliases": [],
+  "status": "active",
+  "description": "",
+  "roles": [],
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-apac-industry-region-grouping"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-australia-part-of-apac",
+    "rel-china-part-of-apac"
+  ],
+  "attributes": {}
+}

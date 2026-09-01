@@ -1,0 +1,22 @@
+{
+  "id": "geography-africa",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "Africa",
+  "aliases": [],
+  "status": "active",
+  "description": "",
+  "roles": [],
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-un-m49-africa-americas-regions"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-morocco-part-of-africa",
+    "rel-south-africa-part-of-africa",
+    "rel-zambia-part-of-africa",
+    "rel-zimbabwe-part-of-africa"
+  ],
+  "attributes": {}
+}

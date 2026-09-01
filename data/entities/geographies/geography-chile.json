@@ -16,7 +16,8 @@
     "ev-united-exports-what-we-do",
     "ev-hortifrut-genetic-development",
     "ev-hortifrut-investor-company",
-    "ev-hortifrut-annual-report-2020"
+    "ev-hortifrut-annual-report-2020",
+    "ev-un-m49-africa-americas-regions"
   ],
   "fact_ids": [
     "fact-freshplaza-fall-creek-chile-2026-1",
@@ -28,7 +29,8 @@
   "relationship_ids": [
     "rel-fall-creek-operates-in-chile",
     "rel-united-exports-operates-in-chile",
-    "rel-hortifrut-operates-in-chile"
+    "rel-hortifrut-operates-in-chile",
+    "rel-chile-part-of-americas"
   ],
   "attributes": {
     "iso_3166_1_alpha_2": "CL",

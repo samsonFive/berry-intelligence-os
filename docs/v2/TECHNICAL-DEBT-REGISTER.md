@@ -1711,4 +1711,20 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_industry_pulse_discovery_v1.py` |
 
+### TD-106 — Front Page story deduplication only clusters on shared source URL or explicit evidence_ids links
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | front page / editorial presentation |
+| **Date discovered** | 2026-09-01 |
+| **Evidence** | Intelligence Front Page V1, `app/services/front_page.py::_dedupe()`. Two independently-sourced Publications covering the same real-world development (different publisher, different URL, no Signal/Assessment yet linking them) will both appear as separate Top Stories cards rather than being merged into one story. |
+| **Impact** | Cosmetic duplication risk on the front page for a story two Sources both covered before any Signal/Assessment/Evidence-level cross-link exists. Never a trust or correctness issue — each card still shows its own honest trust label and source. |
+| **Workaround** | None needed; once a Signal or Assessment forms and cites both underlying Evidence records (or once one Publication is reviewed and the other is recognized as a duplicate at that point), the existing evidence_ids-link clustering already used here starts merging them. |
+| **Recommended resolution** | If cross-source pre-review clustering becomes a real analyst complaint, add deterministic entity-overlap clustering (shared entity_ids set above a fixed threshold) as an additional, explicit, non-speculative signal — explicitly deferred out of V1 per the mission's own instruction that "no speculative semantic clustering [is] required in V1." |
+| **Status** | active |
+| **Owner lane** | product/editorial |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_intelligence_front_page_v1.py::test_dedup_folds_evidence_into_citing_assessment` |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

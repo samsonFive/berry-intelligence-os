@@ -215,7 +215,17 @@ def test_every_live_entity_resolves_to_a_declared_type() -> None:
     # Yosemite (Planasa) was deliberately NOT added: its only grounding
     # Evidence remains an unreviewed inbox/ draft, failing the same
     # trust-gate every existing Variety entity meets.
-    assert total == 218, f"expected 218 live entities, found {total}"
+    # 221 = 218 plus 3 real continent-level Geography entities added for the
+    # Intelligence Front Page V1 mission (2026-09-01): geography-africa,
+    # geography-americas, geography-apac. The prior Geographic Intelligence
+    # Resolution V1 mission deliberately left every country outside Europe/
+    # North America without a continent parent because no such entity
+    # existed yet; the front page's required "By Region" section (Americas,
+    # Europe, Africa, APAC) needed it completed. See
+    # scripts/generate_geography_regions_v2.py for the real UN M49 (Africa,
+    # Americas) and documented industry-convention (APAC, explicitly not a
+    # UN M49 region) citations backing these entities.
+    assert total == 221, f"expected 221 live entities, found {total}"
 
 
 # ---------------------------------------------------------------------------
@@ -266,7 +276,16 @@ def test_every_live_relationship_resolves_to_a_declared_predicate() -> None:
     # rel-portugal-part-of-europe, rel-united-kingdom-part-of-europe,
     # rel-germany-part-of-europe, rel-netherlands-part-of-europe,
     # rel-united-states-part-of-north-america, rel-canada-part-of-north-america.
-    assert total == 241, f"expected 241 live relationships, found {total}"
+    # 252 = 241 plus 11 real geography containment relationships added for
+    # the Intelligence Front Page V1 mission (2026-09-01), completing region
+    # coverage for the front page's By Region section (see
+    # scripts/generate_geography_regions_v2.py): rel-morocco-part-of-africa,
+    # rel-south-africa-part-of-africa, rel-zambia-part-of-africa,
+    # rel-zimbabwe-part-of-africa, rel-north-america-part-of-americas,
+    # rel-chile-part-of-americas, rel-peru-part-of-americas,
+    # rel-colombia-part-of-americas, rel-mexico-part-of-americas,
+    # rel-australia-part-of-apac, rel-china-part-of-apac.
+    assert total == 252, f"expected 252 live relationships, found {total}"
 
 
 def test_all_ten_v1_predicates_and_six_extensions_present() -> None:

@@ -17,7 +17,8 @@
     "ev-producereport-blugenix-2026",
     "ev-costa-african-blue-2023",
     "ev-blueberriesconsulting-agrovision-2024",
-    "ev-agrovision-10-years-2024"
+    "ev-agrovision-10-years-2024",
+    "ev-un-m49-africa-americas-regions"
   ],
   "fact_ids": [
     "fact-fruitnet-eureka-sunrise-2023-2",
@@ -30,7 +31,8 @@
     "rel-planasa-operates-in-morocco",
     "rel-african-blue-operates-in-morocco",
     "rel-costa-operates-in-morocco",
-    "rel-agrovision-operates-in-morocco"
+    "rel-agrovision-operates-in-morocco",
+    "rel-morocco-part-of-africa"
   ],
   "attributes": {
     "iso_3166_1_alpha_2": "MA",

@@ -19,7 +19,8 @@
     "ev-producereport-blugenix-2026",
     "ev-agrovision-10-years-2024",
     "ev-blueberriesconsulting-agrovision-2024",
-    "ev-ibo-agrovision-2019"
+    "ev-ibo-agrovision-2019",
+    "ev-un-m49-africa-americas-regions"
   ],
   "fact_ids": [
     "fact-italianberry-peru-varieties-2025-1",
@@ -34,7 +35,8 @@
   "relationship_ids": [
     "rel-united-exports-operates-in-peru",
     "rel-hortifrut-operates-in-peru",
-    "rel-agrovision-operates-in-peru"
+    "rel-agrovision-operates-in-peru",
+    "rel-peru-part-of-americas"
   ],
   "attributes": {
     "iso_3166_1_alpha_2": "PE",
