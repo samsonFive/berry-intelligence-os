@@ -549,6 +549,10 @@ strong.level-low{color:#426aa8}
 .balanced-card-grid{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
 .balanced-card-grid article{min-width:0}
 .card-kicker{margin:3px 0 8px!important;color:#64728a!important;font-size:10px!important;font-weight:800;letter-spacing:.025em;overflow-wrap:anywhere}
+.dimension-list{list-style:none;margin:8px 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.research-finding-list{list-style:none;margin:8px 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.research-finding-list li{padding:8px 0;border-top:1px solid #e6e9f0;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.v2-inline-form{display:inline-block;margin:0}
 .metric-bullets{margin:8px 0;padding-left:18px;color:#4f5d72;font-size:12px;line-height:1.45}
 .regional-attention ul{margin:8px 0 0;padding-left:20px}
 .regional-attention li{margin:0 0 9px;min-width:0}

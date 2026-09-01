@@ -260,15 +260,18 @@ from app.services.report_builder.coverage import report_coverage
 from app.services.report_builder.packet import build_report_packet
 from app.services.report_builder.pdf_export import render_report_pdf
 from app.services.report_builder.perplexity_gap_research import PublicQueryContext, research_public_gaps
+from app.services.report_builder.research_evidence_draft import build_perplexity_research_draft
 from app.services.report_builder.reports_store import (
-    append_research_appendix,
+    append_research_batch,
     archive_report as archive_report_record,
     create_report,
+    find_research_finding,
     list_reports,
     load_report,
     present_report_row,
     replace_section,
     save_report_edits,
+    update_research_finding,
 )
 from app.services.report_builder.scope import (
     REPORT_TYPE_LABELS,
@@ -4863,7 +4866,13 @@ def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], di
         variety_candidates=visible_candidates,
         berry_labels=BERRIES,
     )
-    coverage = report_coverage(packet)
+    coverage = report_coverage(
+        packet,
+        berry_label=BERRIES.get(scope.berry_id or "", ""),
+        geography_labels=tuple(
+            entities[g]["name"] for g in scope.geography_ids if g in entities and entities[g].get("name")
+        ),
+    )
     return packet, coverage
 
 
@@ -5090,26 +5099,48 @@ def report_regenerate_section_route(report_id: str, section_id: str) -> Redirect
     return RedirectResponse(url=f"/reports/{report_id}", status_code=303)
 
 
+def _public_scope_labels(scope: ResolvedScope, entities: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    return {
+        "berry_label": BERRIES.get(scope.berry_id or "", ""),
+        "geography_labels": tuple(
+            entities[g]["name"] for g in scope.geography_ids if g in entities and entities[g].get("name")
+        ),
+        "company_names": tuple(
+            entities[c]["name"] for c in scope.company_ids if c in entities and entities[c].get("name")
+        ),
+        "variety_names": tuple(
+            entities[v]["name"] for v in scope.variety_ids if v in entities and entities[v].get("name")
+        ),
+    }
+
+
 @app.post("/reports/{report_id}/research-gaps")
 def report_research_gaps_route(
     report_id: str,
-    question: str = Form(""),
+    gap_keys: list[str] = Form(default=[]),
 ) -> RedirectResponse:
-    """Explicit analyst opt-in only. Sends ONLY public berry/geography/
-    company/variety labels plus the analyst's own question -- never
-    Evidence/Assessment/Signal content or report prose (see
+    """Explicit analyst opt-in only, one deterministic coverage gap at a
+    time -- the analyst selects which MISSING/PARTIAL, researchable
+    dimensions (from the coverage shown on the workspace page) to send.
+    Each selected dimension's fixed research question is sent with ONLY
+    public berry/geography/company/variety labels -- never Evidence/
+    Assessment/Signal content or report prose (see
     app.services.report_builder.perplexity_gap_research's module
-    docstring for the enforced boundary)."""
+    docstring for the enforced boundary). An empty selection is a no-op:
+    nothing is ever sent without an explicit analyst choice. Always
+    appends a new research batch -- re-running this (e.g. an explicit
+    'Research again') never overwrites or silently refreshes a prior
+    batch."""
     record = _load_report_or_404(report_id)
     scope = _scope_from_record(record)
     entities = entity_index()
-    context = PublicQueryContext(
-        berry_label=BERRIES.get(scope.berry_id or "", ""),
-        geography_labels=tuple(entities[g]["name"] for g in scope.geography_ids if g in entities and entities[g].get("name")),
-        company_names=tuple(entities[c]["name"] for c in scope.company_ids if c in entities and entities[c].get("name")),
-        variety_names=tuple(entities[v]["name"] for v in scope.variety_ids if v in entities and entities[v].get("name")),
-        question=question,
-    )
+    _packet, coverage = _build_packet_and_coverage(scope)
+    dimensions_by_key = {d["key"]: d for d in coverage.get("dimensions") or []}
+    labels = _public_scope_labels(scope, entities)
+
+    selected = [key for key in gap_keys if dimensions_by_key.get(key, {}).get("researchable")]
+    if not selected:
+        return RedirectResponse(url=f"/reports/{report_id}", status_code=303)
 
     def _factory() -> PerplexityResearchClient:
         return PerplexityResearchClient(api_key=resolve_perplexity_api_key())
@@ -5119,13 +5150,99 @@ def report_research_gaps_route(
         factory = _factory
     except Exception:
         factory = None
-    proposals, _status_message = research_public_gaps(context, research_client_factory=factory)
-    if proposals:
-        append_research_appendix(
-            INBOX_DIR,
-            report_id,
-            [{"title": p.title, "url": p.url, "snippet": p.snippet, "source": p.source, "reviewed": False} for p in proposals],
+
+    all_entries: list[dict[str, Any]] = []
+    status_messages: dict[str, str] = {}
+    for key in selected:
+        dim = dimensions_by_key[key]
+        context = PublicQueryContext(
+            berry_label=labels["berry_label"],
+            geography_labels=labels["geography_labels"],
+            company_names=labels["company_names"],
+            variety_names=labels["variety_names"],
+            question=dim.get("research_question") or "",
         )
+        proposals, status_message = research_public_gaps(
+            context,
+            research_client_factory=factory,
+            gap_key=key,
+            gap_label=dim.get("label") or key,
+        )
+        status_messages[key] = status_message
+        all_entries.extend(
+            {
+                "title": p.title,
+                "url": p.url,
+                "snippet": p.snippet,
+                "source": p.source,
+                "provider": p.provider,
+                "retrieved_at": p.retrieved_at,
+                "publication_date": p.publication_date,
+                "gap_key": p.gap_key,
+                "gap_label": p.gap_label,
+            }
+            for p in proposals
+        )
+    append_research_batch(
+        INBOX_DIR,
+        report_id,
+        gap_keys=selected,
+        entries=all_entries,
+        status_messages=status_messages,
+    )
+    return RedirectResponse(url=f"/reports/{report_id}", status_code=303)
+
+
+@app.post("/reports/{report_id}/research/{finding_id}/state")
+def report_research_finding_state_route(
+    report_id: str,
+    finding_id: str,
+    reviewed: str = Form(""),
+    included_in_report: str = Form(""),
+) -> RedirectResponse:
+    """Analyst review/selection of one external finding -- toggles are
+    independent and never affect any other finding or the report's own
+    sections. `included_in_report` controls only whether this finding
+    appears in the PDF's External Public Research section; it never
+    merges the finding into `sections` or makes it citable grounding."""
+    record = _load_report_or_404(report_id)
+    finding = find_research_finding(record, finding_id)
+    if finding is None:
+        raise HTTPException(status_code=404, detail="Research finding not found")
+    update_research_finding(
+        INBOX_DIR,
+        report_id,
+        finding_id,
+        reviewed=reviewed == "true",
+        included_in_report=included_in_report == "true",
+    )
+    return RedirectResponse(url=f"/reports/{report_id}", status_code=303)
+
+
+@app.post("/reports/{report_id}/research/{finding_id}/send-to-review")
+def report_research_send_to_review_route(report_id: str, finding_id: str) -> RedirectResponse:
+    """Preferred long-term trust path: promote a reviewed external
+    finding into the SAME Evidence draft/review queue every other public
+    source (CPVO, patents, trade statistics) already uses -- no new
+    review machinery, and the finding itself remains an unreviewed
+    proposal in this report until a human analyst independently trusts
+    the resulting Evidence draft at /review/{draft_id}/publish."""
+    record = _load_report_or_404(report_id)
+    finding = find_research_finding(record, finding_id)
+    if finding is None:
+        raise HTTPException(status_code=404, detail="Research finding not found")
+    if finding.get("sent_to_review_draft_id"):
+        return RedirectResponse(url=f"/reports/{report_id}", status_code=303)
+    scope = _scope_from_record(record)
+    draft = build_perplexity_research_draft(
+        finding,
+        berry_id=scope.berry_id,
+        geography_ids=scope.geography_ids,
+        entity_ids=scope.company_ids + scope.variety_ids,
+        captured_date=date.today().isoformat(),
+    )
+    save_draft(draft)
+    update_research_finding(INBOX_DIR, report_id, finding_id, sent_to_review_draft_id=draft["id"])
     return RedirectResponse(url=f"/reports/{report_id}", status_code=303)
 
 

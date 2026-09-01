@@ -221,6 +221,7 @@ def build_report_packet(
             "assessments": sq.get("assessments") if sq else [],
             "source_trace": sq.get("source_trace") if sq else [],
             "known_ids": _known_ids_from_sq(sq) if sq else set(),
+            "evidence_topic_signals": [],
         }
 
     scoped_evidence = [
@@ -328,6 +329,26 @@ def build_report_packet(
         "geography_ids": list(scope.geography_ids),
         "geography_descendant_ids": list(scope.geography_descendant_ids),
         "contributing_geography_ids": sorted(contributing_geography_ids),
+        "evidence_topic_signals": [_topic_signal_row(r) for r in scoped_evidence],
+    }
+
+
+def _topic_signal_row(record: dict[str, Any]) -> dict[str, Any]:
+    """Structural, non-narrative classification signal for one scoped
+    Evidence record -- id/tags/source_type and presence of a structured
+    quantitative-observation object. Deliberately excludes title/summary/
+    why_it_matters/any prose: this feeds report_builder.coverage_dimensions'
+    deterministic (no-LLM) public-gap classifier, and that classifier's
+    output (dimension labels/status only) is the only thing ever allowed
+    near the Perplexity boundary -- keeping this row free of prose means
+    there is nothing sensitive here to leak even by a future coding
+    mistake in that module."""
+    return {
+        "id": record.get("id"),
+        "tags": list(record.get("tags") or []),
+        "source_type": record.get("source_type") or "",
+        "has_trade_observation": bool(record.get("trade_observation")),
+        "has_commercial_observation": bool(record.get("commercial_observation")),
     }
 
 

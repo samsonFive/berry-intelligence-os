@@ -156,12 +156,27 @@ def render_report_pdf(
             source_name = row.get("source_name") or ""
             story.append(Paragraph(f"[{row.get('id')}] {label} — {source_name} ({date_text or 'date unknown'})", styles["source"]))
 
-    appendix = report.get("external_research_appendix") or []
-    if appendix:
-        story.append(Paragraph("External Research Appendix (unreviewed, publicly researched)", styles["h2"]))
-        story.append(Paragraph("These findings were NOT sourced from this system's trusted intelligence and have not been reviewed.", styles["unsupported"]))
-        for row in appendix:
-            story.append(Paragraph(f"• {row.get('title') or row.get('url') or ''} — {row.get('url') or ''}", styles["source"]))
+    included = [row for row in (report.get("external_research_appendix") or []) if row.get("included_in_report")]
+    if included:
+        story.append(Paragraph("External Public Research — Unreviewed", styles["h2"]))
+        story.append(
+            Paragraph(
+                "These findings were NOT sourced from this system's trusted intelligence, were not "
+                "reviewed for accuracy, and are not canonical Evidence. An analyst selected them for "
+                "inclusion as external context only.",
+                styles["unsupported"],
+            )
+        )
+        for row in included:
+            gap = f" [{row['gap_label']}]" if row.get("gap_label") else ""
+            retrieved = f", retrieved {row['retrieved_at']}" if row.get("retrieved_at") else ""
+            provider = f" via {row['provider']}" if row.get("provider") else ""
+            story.append(
+                Paragraph(
+                    f"• {row.get('title') or row.get('url') or ''}{gap} — {row.get('url') or ''}{provider}{retrieved}",
+                    styles["source"],
+                )
+            )
 
     doc.build(story)
     return buffer.getvalue()

@@ -19,7 +19,7 @@ there is no path for private content to reach it by accident.
 
 Findings return as sourced, citation-bearing RESEARCH PROPOSALS. They
 are appended to a report's `external_research_appendix` (see
-reports_store.append_research_appendix) and are never merged into
+reports_store.append_research_batch) and are never merged into
 `sections`, never treated as citable grounding for AI synthesis, and
 never become Evidence/Signal/Assessment/Strategic Question -- promoting
 one into canonical intelligence, if ever desired, is only possible
@@ -31,6 +31,7 @@ silently promoted (AGENTS.md)."""
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import UTC, datetime
 from typing import Any, Callable
 
 from app.services.ai_gateway.results import ResearchResponse
@@ -71,6 +72,11 @@ class ResearchProposal:
     snippet: str
     source: str = "perplexity_public_research"
     reviewed: bool = False
+    gap_key: str = ""
+    gap_label: str = ""
+    provider: str = ""
+    retrieved_at: str = ""
+    publication_date: str | None = None
 
 
 def research_public_gaps(
@@ -78,11 +84,19 @@ def research_public_gaps(
     *,
     research_client_factory: Callable[[], Any] | None,
     model: str = DEFAULT_RESEARCH_MODEL,
+    gap_key: str = "",
+    gap_label: str = "",
+    clock: Callable[[], datetime] = lambda: datetime.now(UTC),
 ) -> tuple[list[ResearchProposal], str]:
     """Returns (proposals, status_message). `research_client_factory`
     typically constructs a `PerplexityResearchClient` with a resolved API
     key -- pass None to skip cleanly when no credential is configured
-    (the caller shows status_message rather than failing the workspace)."""
+    (the caller shows status_message rather than failing the workspace).
+    `gap_key`/`gap_label` are pass-through tags identifying which
+    deterministic coverage dimension this query was researching (see
+    report_builder.coverage_dimensions) -- not sent to the provider,
+    only stamped onto the returned proposals so a saved report can show
+    which gap each finding was meant to address."""
     query = build_public_query(context)
     if not query.strip():
         return [], "No public scope or question to research."
@@ -93,9 +107,19 @@ def research_public_gaps(
         response: ResearchResponse = client.research(query, model=model, web_enabled=True, citations=True)
     except Exception as exc:  # noqa: BLE001 - surfaced as a status message, never raised into the route
         return [], f"Public gap research failed: {type(exc).__name__}."
+    retrieved_at = clock().isoformat(timespec="seconds")
     proposals = [
-        ResearchProposal(title=citation.title or citation.url, url=citation.url, snippet=response.content[:400])
+        ResearchProposal(
+            title=citation.title or citation.url,
+            url=citation.url,
+            snippet=response.content[:400],
+            provider=response.provider,
+            retrieved_at=retrieved_at,
+            gap_key=gap_key,
+            gap_label=gap_label,
+        )
         for citation in response.citations
+        if citation.url  # every finding must have a source; no-source citations are rejected here, not upstream
     ]
     if not proposals:
         return [], "No citable public sources were found for this query."
