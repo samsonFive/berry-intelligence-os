@@ -667,4 +667,35 @@ button.filter-chip,
 @media(max-width:834px){
   .login-card{padding:28px 22px}
   .session-user{max-width:40vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .front-page-grid{grid-template-columns:1fr}
+  .front-page-hero{grid-column:auto}
 }
+
+/* Intelligence Front Page V1 */
+.front-page-stale{border:1px solid #dfe5ee;padding:16px;border-radius:10px;background:#f8fafc;margin:0 32px 24px;max-width:1040px}
+.front-page-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px;padding:0 32px;max-width:1320px}
+.front-page-hero{grid-column:1/-1}
+.front-section{padding:0 0 28px;margin:0}
+.front-section h2{font-size:17px;margin:0 0 4px}
+.front-story-list{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+.front-story{background:#fff;border:1px solid #e0e5ef;border-radius:12px;padding:14px 16px;box-shadow:0 6px 18px rgba(16,37,72,.03)}
+.front-page-hero .front-story-list{gap:16px}
+.front-page-hero .front-story h3{font-size:19px}
+.front-story h3{margin:6px 0 4px;font-size:16px;line-height:1.35}
+.front-story h3 a{color:#152443;text-decoration:none}
+.front-story h3 a:hover{color:#3d5c94}
+.front-story-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0}
+.front-story-summary{margin:4px 0;color:#3c4a63;font-size:13px;line-height:1.5}
+.front-story-chips,.front-story .intel-chips{margin-top:6px}
+.front-story-underlying{margin:6px 0 0;font-size:12px;color:#6c778b}
+.front-story-underlying a{color:#6c778b}
+.front-gap-notes{color:#7d8799;font-size:12px;list-style:none;padding:0;margin:6px 0 0;display:grid;gap:2px}
+.front-trust-publication_fresh{color:#5e65c7;background:#eee8ff}
+.front-trust-publication_pending{color:#8a5a10;background:#fdefd9}
+.front-trust-evidence{color:#1c6b42;background:#e2f6e9}
+.front-trust-signal{color:#0f6e7a;background:#e2f6f6}
+.front-trust-assessment{color:#3d3d8a;background:#e9e9fb}
+.front-page-nav{display:flex;flex-wrap:wrap;gap:6px 14px;padding:0 32px;margin:0 0 20px}
+.front-page-nav a{color:#3d5c94;text-decoration:none;font-size:13px}
+.front-page-nav a:hover{text-decoration:underline}
+.front-coverage-watch{font-size:12px;color:#7d8799}

@@ -1,0 +1,23 @@
+{
+  "id": "geography-americas",
+  "record_type": "entity",
+  "entity_type": "geography",
+  "name": "Americas",
+  "aliases": [],
+  "status": "active",
+  "description": "",
+  "roles": [],
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-un-m49-africa-americas-regions"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-north-america-part-of-americas",
+    "rel-chile-part-of-americas",
+    "rel-peru-part-of-americas",
+    "rel-colombia-part-of-americas",
+    "rel-mexico-part-of-americas"
+  ],
+  "attributes": {}
+}

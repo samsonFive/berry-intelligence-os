@@ -1,0 +1,77 @@
+{
+  "id": "ev-un-m49-africa-americas-regions",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "government_registry",
+  "title": "UN M49 Standard Country or Area Codes for Statistical Use -- Africa and Americas Groupings",
+  "source_name": "United Nations Statistics Division",
+  "source_url": "https://unstats.un.org/unsd/methodology/m49/",
+  "published_date": null,
+  "captured_date": "2026-09-01",
+  "summary": "The UN M49 standard defines Africa and the Americas as standard continental/regional groupings, including Northern America (itself already covering the United States and Canada in this corpus) and the wider Americas region, and Africa covering Morocco, South Africa, Zambia, and Zimbabwe among the countries already tracked here.",
+  "why_it_matters": "Provides an authoritative, non-inferred basis for expressing which trusted Geography entities already tracked in this corpus are contained within a broader Geography entity also already tracked here -- used only to source explicit part_of Relationship records between existing Geography entities, never to infer geography for any Company/Variety/Evidence record.",
+  "submitted_by": "migration/generate_geography_regions_v2.py",
+  "berry_ids": [],
+  "geography_ids": [
+    "geography-africa",
+    "geography-americas",
+    "geography-chile",
+    "geography-colombia",
+    "geography-mexico",
+    "geography-morocco",
+    "geography-north-america",
+    "geography-peru",
+    "geography-south-africa",
+    "geography-zambia",
+    "geography-zimbabwe"
+  ],
+  "entity_ids": [
+    "geography-africa",
+    "geography-americas",
+    "geography-chile",
+    "geography-colombia",
+    "geography-mexico",
+    "geography-morocco",
+    "geography-north-america",
+    "geography-peru",
+    "geography-south-africa",
+    "geography-zambia",
+    "geography-zimbabwe"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-morocco-part-of-africa",
+    "rel-south-africa-part-of-africa",
+    "rel-zambia-part-of-africa",
+    "rel-zimbabwe-part-of-africa",
+    "rel-north-america-part-of-americas",
+    "rel-chile-part-of-americas",
+    "rel-peru-part-of-americas",
+    "rel-colombia-part-of-americas",
+    "rel-mexico-part-of-americas"
+  ],
+  "strategic_question_ids": [],
+  "tags": [
+    "reference",
+    "geography",
+    "structural"
+  ],
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Structural reference data, not a competitive-intelligence development."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Not applicable to a geographic reference standard."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Not applicable."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "A stable international standard; not a recurring monitoring target."
+    }
+  }
+}

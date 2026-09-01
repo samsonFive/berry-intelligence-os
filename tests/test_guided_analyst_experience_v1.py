@@ -115,7 +115,7 @@ def test_today_route_console_help_and_no_trust_mutation(monkeypatch, tmp_path: P
     page = TestClient(main.app).get("/today")
     assert page.status_code == 200
     html = page.text
-    assert "Recent intelligence" in html
+    assert "Top Stories" in html
     assert "Needs your attention" in html
     assert "Publications awaiting review" in html
     assert "data-workspace-help" in html
@@ -155,7 +155,7 @@ def test_today_sparse_empty_states(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setattr(main, "load_sources", lambda: [])
     page = TestClient(main.app).get("/today")
     assert page.status_code == 200
-    assert "No new trusted developments captured in the last 14 days" in page.text
+    assert "No new intelligence in the last 14 days" in page.text
     assert "You are not monitoring anything yet" in page.text
     assert "No Publications are waiting for review" in page.text
     snapshot = watch_monitoring_snapshot(inbox_dir=inbox)

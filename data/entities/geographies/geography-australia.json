@@ -26,7 +26,8 @@
     "ev-topfruit-megacrisp",
     "ev-delisted-costa",
     "ev-uspp025858-eb8-42",
-    "ev-uspp030934-ns13-6"
+    "ev-uspp030934-ns13-6",
+    "ev-apac-industry-region-grouping"
   ],
   "fact_ids": [
     "fact-mbo-home-1",
@@ -51,7 +52,8 @@
     "rel-driscolls-operates-in-australia",
     "rel-ip-australia-operates-in-australia",
     "rel-costa-operates-in-australia",
-    "rel-iq-berries-operates-in-australia"
+    "rel-iq-berries-operates-in-australia",
+    "rel-australia-part-of-apac"
   ],
   "attributes": {
     "iso_3166_1_alpha_2": "AU",

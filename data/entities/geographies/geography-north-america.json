@@ -13,12 +13,14 @@
   "evidence_ids": [
     "ev-sample-variety-launch",
     "ev-sample-retail-placement",
-    "ev-un-m49-geographic-regions"
+    "ev-un-m49-geographic-regions",
+    "ev-un-m49-africa-americas-regions"
   ],
   "fact_ids": [],
   "relationship_ids": [
     "rel-united-states-part-of-north-america",
-    "rel-canada-part-of-north-america"
+    "rel-canada-part-of-north-america",
+    "rel-north-america-part-of-americas"
   ],
   "attributes": {}
 }

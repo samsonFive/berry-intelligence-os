@@ -14,7 +14,8 @@
   ],
   "evidence_ids": [
     "ev-producereport-blugenix-2026",
-    "ev-costa-african-blue-2023"
+    "ev-costa-african-blue-2023",
+    "ev-un-m49-africa-americas-regions"
   ],
   "fact_ids": [
     "fact-african-blue-morocco-zimbabwe",
@@ -22,7 +23,8 @@
   ],
   "relationship_ids": [
     "rel-african-blue-operates-in-zimbabwe",
-    "rel-costa-operates-in-zimbabwe"
+    "rel-costa-operates-in-zimbabwe",
+    "rel-zimbabwe-part-of-africa"
   ],
   "attributes": {}
 }

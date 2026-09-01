@@ -13,13 +13,15 @@
     "berry-blueberry"
   ],
   "evidence_ids": [
-    "ev-hortifrut-investor-company"
+    "ev-hortifrut-investor-company",
+    "ev-un-m49-africa-americas-regions"
   ],
   "fact_ids": [
     "fact-hortifrut-colombia-jv-2019"
   ],
   "relationship_ids": [
-    "rel-hortifrut-operates-in-colombia"
+    "rel-hortifrut-operates-in-colombia",
+    "rel-colombia-part-of-americas"
   ],
   "attributes": {}
 }

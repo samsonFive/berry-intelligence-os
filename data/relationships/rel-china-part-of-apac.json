@@ -1,0 +1,14 @@
+{
+  "id": "rel-china-part-of-apac",
+  "record_type": "relationship",
+  "subject_id": "geography-china",
+  "predicate": "part_of",
+  "object_id": "geography-apac",
+  "status": "active",
+  "evidence_ids": [
+    "ev-apac-industry-region-grouping"
+  ],
+  "effective_date": null,
+  "confidence": "high",
+  "notes": "APAC industry/market-research regional grouping (not a UN M49 standard region) -- structural geographic containment, not a competitive-intelligence claim. Authored by scripts/generate_geography_regions_v2.py."
+}

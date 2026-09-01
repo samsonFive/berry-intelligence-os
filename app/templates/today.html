@@ -10,7 +10,7 @@
   </div>
 </section>
 
-{% with help_what="Your morning console: recent trusted intelligence, queues that need a human decision, watchlist presence, and collection health.", help_why="Intelligence without chronology looks weak. Today answers what happened recently, what needs attention, and whether Sources are healthy.", help_do="Read Recent intelligence, then work Needs your attention. Use Collection if freshness is degraded.", help_after="Nothing you only view here is approved, rejected, or marked seen. Decisions happen on the linked review pages.", help_note="How Berry Intelligence Works is a short map of Sources → Publications → Evidence → Signals → Assessments → Questions → Brief Packs." %}
+{% with help_what="Your front page: fresh and trusted intelligence together with honest trust labels, queues that need a human decision, watchlist presence, and collection health.", help_why="Intelligence without chronology looks weak. Today answers what happened recently, what needs attention, and whether Sources are healthy.", help_do="Read Top Stories, then work Needs your attention. Use Collection if freshness is degraded.", help_after="Nothing you only view here is approved, rejected, or marked seen. Decisions happen on the linked review pages.", help_note="How Berry Intelligence Works is a short map of Sources → Publications → Evidence → Signals → Assessments → Questions → Brief Packs." %}
   {% include "_workspace_help.html" %}
 {% endwith %}
 <p class="today-welcome">New here? <a href="/guide">How Berry Intelligence Works</a> — then come back to this page.</p>
@@ -34,44 +34,89 @@
   {% endfor %}
 </nav>
 
-<section class="brief-section" id="recent-intelligence">
-  <h2>Recent intelligence</h2>
-  <p class="context-limit">Newest trusted developments first. Every card shows a publication/event date or an honest Date unknown / Captured label. Older high-value intelligence is not current news.</p>
-  {% if today.quiet %}
-    <div class="today-quiet" data-today-quiet>
-      <p><strong>No new trusted developments captured in the last 14 days.</strong></p>
-      <p>The captured market has been quiet. That is not the same as a broken collector — check Collection below if freshness is degraded.</p>
-      <p><a href="/work-queue">View last 30 days on Live Intelligence</a></p>
-    </div>
+<nav class="front-page-nav" aria-label="Front page sections">
+  <a href="#top-stories">Latest</a>
+  {% for geo_id, region in front_page.by_region.items() %}<a href="#region-{{ geo_id }}">{{ region.label }}</a>{% endfor %}
+  {% for berry_id, berry in front_page.by_berry.items() %}<a href="#berry-{{ berry_id }}">{{ berry.label }}</a>{% endfor %}
+  <a href="#competitor-moves">Competitors</a>
+  <a href="#variety-genetics">Genetics</a>
+</nav>
+
+{% if front_page.stale_reason %}
+<div class="front-page-stale" data-front-page-stale>
+  <p><strong>{{ front_page.stale_reason }}</strong></p>
+  <p><a href="/work-queue">View last 30 days on Live Intelligence</a></p>
+</div>
+{% endif %}
+
+<section class="front-section front-page-hero" id="top-stories">
+  <h2>Top Stories</h2>
+  <p class="context-limit">Ranked by recency, whether a Signal or Assessment has already formed around it, whether it introduces a new company or variety, and how many canonical entities it touches — not simply newest timestamp first.</p>
+  {% if front_page.top_stories %}
+    <ul class="front-story-list">
+      {% for item in front_page.top_stories %}{% include "_front_page_item.html" %}{% endfor %}
+    </ul>
   {% else %}
-    {% for band in today.latest_bands %}
-      <h3>{{ band.label }}</h3>
-      <ul class="today-list">
-        {% for item in band.rows %}
-          {% include "_today_item.html" %}
-        {% endfor %}
-      </ul>
-    {% endfor %}
+    <p class="empty-state">Nothing qualifies as a top story in the current window.</p>
   {% endif %}
 </section>
 
-<section class="brief-section" id="new-since">
-  <h2>New since last Morning Brief</h2>
-  <p class="context-limit">This uses the last time Morning Brief was opened — not a Today visit, and not an invented last-login clock. Opening Today does not mark items seen.</p>
-  {% if today.last_seen_at %}
-    {% if today.new_since_last_visit %}
-      <ul class="today-list">
-        {% for item in today.new_since_last_visit %}
-          {% include "_today_item.html" %}
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p class="empty-state">No new trusted Evidence captured since {{ today.last_seen_at[:10]|us_date }}.</p>
-    {% endif %}
+<section class="front-section" id="since-yesterday">
+  <h2>What changed in the last 24 hours</h2>
+  <p class="context-limit">Rolling 24-hour window from now ({{ front_page.since_yesterday.cutoff[:16]|replace("T", " ") }} UTC cutoff), not wall-clock-naive.</p>
+  {% if front_page.since_yesterday.total %}
+    <p>
+      {{ front_page.since_yesterday.new_publications|length }} new Publication draft(s) ·
+      {{ front_page.since_yesterday.newly_reviewed_evidence|length }} newly reviewed Evidence ·
+      {{ front_page.since_yesterday.new_signals|length }} new Signal(s) ·
+      {{ front_page.since_yesterday.new_assessments|length }} new Assessment(s)
+    </p>
   {% else %}
-    <p class="empty-state">No last-visit baseline yet. Recent intelligence above is the current recency picture. Opening <a href="/brief">Morning Brief</a> records a visit so this section can show what changed next time.</p>
+    <p class="empty-state">Nothing new in the last 24 hours.</p>
   {% endif %}
 </section>
+
+<div class="front-page-grid">
+  {% for geo_id, region in front_page.by_region.items() %}
+    {% if region.rows %}
+    <section class="front-section" id="region-{{ geo_id }}">
+      <h2>{{ region.label }}</h2>
+      <ul class="front-story-list">
+        {% for item in region.rows %}{% include "_front_page_item.html" %}{% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+  {% endfor %}
+  {% for berry_id, berry in front_page.by_berry.items() %}
+    {% if berry.rows %}
+    <section class="front-section" id="berry-{{ berry_id }}">
+      <h2>{{ berry.label }}</h2>
+      <ul class="front-story-list">
+        {% for item in berry.rows %}{% include "_front_page_item.html" %}{% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+  {% endfor %}
+  {% for section in front_page.sections %}
+    {% if section.key not in ("top_stories",) %}
+    <section class="front-section" id="{{ section.key|replace('_', '-') }}">
+      <h2>{{ section.label }}</h2>
+      <ul class="front-story-list">
+        {% for item in section.rows %}{% include "_front_page_item.html" %}{% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% if front_page.region_gaps or front_page.berry_gaps %}
+<section class="brief-section" id="coverage-gaps">
+  <h3>No fresh items</h3>
+  <ul class="front-gap-notes">
+    {% for note in front_page.region_gaps + front_page.berry_gaps %}<li>{{ note }}</li>{% endfor %}
+  </ul>
+</section>
+{% endif %}
 
 <section class="brief-section" id="needs-attention">
   <h2>Needs your attention</h2>
@@ -133,19 +178,10 @@
     </p>
   {% endif %}
   <p class="v2-meta">Next action: <a href="/collection-ops">Collection Operations</a> — last run, retries, and OPERATOR ACTION items. Viewing that page does not start a run.</p>
+  {% if front_page.coverage_watch %}
+    <p class="front-coverage-watch">Coverage watch: {{ front_page.coverage_watch.attention_count }} known Source(s) not collected, {{ front_page.coverage_watch.cited_not_collected_count }} cited-but-not-collected publisher(s). <a href="/coverage-assurance">Open Coverage Assurance</a></p>
+  {% endif %}
 </section>
-
-{% if today.developing_signals %}
-<section class="brief-section" id="developing-signals">
-  <h2>Developing signals</h2>
-  <p class="context-limit">These are Signal objects, not Evidence. First-seen dates are shown. This list is not Watchlist recency.</p>
-  <ul class="today-list">
-    {% for item in today.developing_signals %}
-      {% include "_today_item.html" %}
-    {% endfor %}
-  </ul>
-</section>
-{% endif %}
 
 {% if today.worth_revisiting %}
 <section class="brief-section" id="worth-revisiting">

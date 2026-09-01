@@ -13,11 +13,13 @@
     "berry-blueberry"
   ],
   "evidence_ids": [
-    "ev-united-exports-what-we-do"
+    "ev-united-exports-what-we-do",
+    "ev-un-m49-africa-americas-regions"
   ],
   "fact_ids": [],
   "relationship_ids": [
-    "rel-united-exports-operates-in-zambia"
+    "rel-united-exports-operates-in-zambia",
+    "rel-zambia-part-of-africa"
   ],
   "attributes": {}
 }

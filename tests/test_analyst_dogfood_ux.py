@@ -67,7 +67,7 @@ def test_today_is_a_morning_console_with_source_problems_and_next_work(monkeypat
     assert 'href="/review?kind=atomic"' in page.text
     assert 'href="/watches"' in page.text
     assert 'href="/strategic-questions"' in page.text
-    assert "No last-visit baseline yet" in page.text
+    assert "What changed in the last 24 hours" in page.text
     assert "name=\"decision\"" not in page.text
 
 
