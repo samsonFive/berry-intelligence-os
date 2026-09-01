@@ -3,6 +3,7 @@
     <span class="badge front-trust-{{ item.front_kind }}">{{ item.trust_label }}</span>
     {% if item.source_name %}<span class="v2-source">{{ item.source_name }}</span>{% endif %}
     <span class="v2-meta">{{ item.exact_date or "Date unknown" }}{% if item.date_basis_label %} · {{ item.date_basis_label }}{% endif %}</span>
+    {% if not item.band and item.captured_band %}<span class="v2-meta front-story-newly-captured">Newly captured — real date is outside the current window</span>{% endif %}
   </p>
   <h3><a href="{{ item.href }}">{{ item.title }}</a></h3>
   {% if item.summary %}<p class="front-story-summary">{{ item.summary }}</p>{% endif %}

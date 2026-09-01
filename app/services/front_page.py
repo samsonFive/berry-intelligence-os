@@ -161,6 +161,8 @@ def _project(
     geography_ids = _geography_ids(record)
     chips = entity_chips(record, entity_index)
     band = recency_band(when, now=now) if when else None
+    captured_at = parse_stamp(record.get("captured_date"))
+    captured_band = recency_band(captured_at, now=now) if captured_at else None
     return {
         "id": record.get("id"),
         "front_kind": front_kind,
@@ -173,6 +175,14 @@ def _project(
         "captured_only": origin == "captured",
         "exact_date": when.strftime("%b %d, %Y") if when else "",
         "band": band,
+        # Distinct from `band` (world/event recency): how recently the
+        # PIPELINE captured this item, regardless of how old the real-world
+        # publication date is. A historical-backfill Publication captured
+        # today about a 2019 article is not "news" (band stays keyed off
+        # published_date, so it never masquerades as Top Stories) but it IS
+        # something the review queue just received today -- that is what
+        # Emerging/Unreviewed specifically surfaces captured_band for.
+        "captured_band": captured_band,
         "berry_ids": berry_ids,
         "geography_ids": geography_ids,
         "entity_ids": entity_ids,
@@ -193,6 +203,15 @@ def _rank_key(item: dict[str, Any]) -> tuple:
     new_entity = 1 if item.get("introduces_new_entity") else 0
     entity_count = min(len(item.get("entity_ids") or []), 8)
     return (band_rank, has_layer, new_entity, entity_count, item.get("when") or "")
+
+
+def _capture_rank_key(item: dict[str, Any]) -> tuple:
+    """Emerging/Unreviewed ranks by how recently the pipeline captured an
+    item, not by its (possibly old, e.g. historical-backfill) world date --
+    that is the whole point of the section."""
+
+    captured_rank = _BAND_RANK.get(item.get("captured_band"), -1)
+    return (captured_rank, item.get("when") or "")
 
 
 def _dedupe(items: list[dict[str, Any]], evidence_by_id: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
@@ -471,9 +490,20 @@ def build_front_page(
         key=_rank_key,
         reverse=True,
     )[:12]
-    emerging_unreviewed = sorted(
-        [i for i in banded if i["front_kind"].startswith("publication")], key=_rank_key, reverse=True
-    )[:16]
+    # Emerging/Unreviewed surfaces what the pipeline just captured for
+    # review, not just what happens to also be recent world news -- a
+    # historical-backfill Publication (real article, old published_date,
+    # captured today) belongs here even though it correctly never reaches
+    # Top Stories/By Region/By Berry (those stay keyed on world recency).
+    recently_captured = {
+        i["id"]: i
+        for i in deduped
+        if i["front_kind"].startswith("publication") and i["captured_band"]
+    }
+    for i in banded:
+        if i["front_kind"].startswith("publication"):
+            recently_captured.setdefault(i["id"], i)
+    emerging_unreviewed = sorted(recently_captured.values(), key=_capture_rank_key, reverse=True)[:16]
     trusted_intelligence = sorted(
         [i for i in banded if i["front_kind"] in {"evidence", "signal", "assessment"}],
         key=_rank_key,
@@ -495,7 +525,7 @@ def build_front_page(
         "generated_at": instant.isoformat(),
         "berry_id": berry_id,
         "window_days": today_page["window_days"],
-        "quiet": not banded,
+        "quiet": not banded and not emerging_unreviewed,
         "stale_reason": stale_reason,
         "top_stories": top_stories,
         "since_yesterday": since_yesterday,
