@@ -13,9 +13,17 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+
+# Same single activation switch app/main.py's routes read -- ENABLE_PERPLEXITY_PULSE
+# set in the deployment environment is the one place this gets turned on,
+# consistently for both the manual "Run newsroom cycle" button and this
+# scheduled CLI. --enable-perplexity below is an explicit CLI override for
+# ad hoc use (e.g. a one-off manual acceptance run) on top of that default.
+PERPLEXITY_PULSE_ENABLED = os.environ.get("ENABLE_PERPLEXITY_PULSE", "").lower() in {"1", "true", "yes"}
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -105,9 +113,10 @@ def main(argv: list[str] | None = None) -> int:
     publications = list(drafts)
     discovered_items = list_discovered_items(inbox_dir)
 
-    catch_net = PerplexitySearchProvider() if (args.enable_perplexity and has_perplexity()) else None
-    if args.enable_perplexity and catch_net is None:
-        print("--enable-perplexity given but PERPLEXITY_API_KEY is not set; running Google-only.", file=sys.stderr)
+    want_perplexity = args.enable_perplexity or PERPLEXITY_PULSE_ENABLED
+    catch_net = PerplexitySearchProvider() if (want_perplexity and has_perplexity()) else None
+    if want_perplexity and catch_net is None:
+        print("Perplexity requested but PERPLEXITY_API_KEY is not set; running Google-only.", file=sys.stderr)
 
     result = run_newsroom_cycle(
         sources=sources,
