@@ -193,3 +193,27 @@ def generate_pulse_queries() -> list[PulseQuery]:
 
 def query_count() -> int:
     return len(generate_pulse_queries())
+
+
+# Regions where the bake-off found Google News RSS historically underperforms
+# (docs/v2/RETRIEVAL-PROVIDER-BAKE-OFF-V1.md: Google is Europe-heavy; Perplexity
+# showed broader Americas/Africa recall and better date-window fidelity).
+CATCH_NET_GEOGRAPHIES = ("americas", "africa")
+
+
+def catch_net_queries(queries: list[PulseQuery]) -> list[PulseQuery]:
+    """Bounded query subset for an optional semantic catch-net provider.
+
+    Deliberately not the full 32-query matrix: doubling every query to a
+    second, paid provider is not justified where Google's baseline already
+    performs adequately (Europe, APAC, and the global-geography berry rows).
+    Routes only the two regions where the bake-off found Google weakest
+    (Americas, Africa) plus the 12 global topic intensifiers -- the
+    "semantic/high-value topic" queries a semantic provider is best suited
+    to -- for 20 of 32 queries (~63%), not a doubled 32.
+    """
+    return [
+        query
+        for query in queries
+        if query.kind == "topic_global" or query.geography in CATCH_NET_GEOGRAPHIES
+    ]

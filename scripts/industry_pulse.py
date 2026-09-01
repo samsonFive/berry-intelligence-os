@@ -19,6 +19,8 @@ from app.composition import get_repositories
 from app.repositories.paths import SCHEMAS_DIR
 from app.runtime_config import resolve_data_dir, resolve_inbox_dir
 from app.services.industry_pulse import audit_freshness, query_count, run_pulse
+from app.services.industry_pulse.credentials import has_perplexity
+from app.services.industry_pulse.perplexity_provider import PerplexitySearchProvider
 from app.services.industry_pulse.providers import GoogleNewsRssProvider
 
 
@@ -27,6 +29,16 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--freshness-only", action="store_true", help="Corpus audit only; no network")
     parser.add_argument("--json", action="store_true", help="Print the report as JSON")
     parser.add_argument("--no-persist", action="store_true", help="Do not write inbox/industry_pulse/latest.json")
+    parser.add_argument(
+        "--enable-perplexity",
+        action="store_true",
+        help=(
+            "Run the optional Perplexity semantic catch-net alongside Google News RSS "
+            "(bounded Americas/Africa + global-topic query subset). Requires "
+            "PERPLEXITY_API_KEY; with the flag on and no key, falls back to Google-only "
+            "with a note, never a crash."
+        ),
+    )
     return parser
 
 
@@ -48,8 +60,12 @@ def main(argv: list[str] | None = None) -> int:
         )
         report["live_query_count"] = query_count()
     else:
+        catch_net = PerplexitySearchProvider() if (args.enable_perplexity and has_perplexity()) else None
+        if args.enable_perplexity and catch_net is None:
+            print("--enable-perplexity given but PERPLEXITY_API_KEY is not set; running Google-only.", file=sys.stderr)
         report = run_pulse(
             provider=GoogleNewsRssProvider(),
+            catch_net_provider=catch_net,
             sources=sources,
             published_evidence=evidence,
             varieties=varieties,
@@ -73,6 +89,17 @@ def main(argv: list[str] | None = None) -> int:
             f"known_not_collected={report.get('known_source_not_collected_count', 0)} "
             f"auto_trust={report['auto_trust']}"
         )
+        if report.get("catch_net_provider"):
+            print(f"catch_net_provider={report['catch_net_provider']}")
+            for name, stats in (report.get("provider_telemetry") or {}).items():
+                print(
+                    f"  {name}: queries={stats['queries_issued']} hits={stats['hits_returned']} "
+                    f"errors={stats['errors']} unique_qualifying={stats['unique_qualifying']}"
+                )
+            print(
+                f"union_unique={report.get('union_unique_count')} "
+                f"overlap_qualifying={report.get('overlap_qualifying_count')}"
+            )
     else:
         newest = report.get("newest_trusted_evidence") or {}
         print(f"newest_evidence_published_date={newest.get('published_date')}")
