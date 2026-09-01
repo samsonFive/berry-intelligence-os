@@ -96,6 +96,7 @@ def create_report(
         "scope": scope,
         "sections": sections,
         "external_research_appendix": [],
+        "research_batches": [],
         "status": "draft",
         "created_at": now,
         "updated_at": now,
@@ -163,23 +164,88 @@ def replace_section(
     return existing
 
 
-def append_research_appendix(
+def append_research_batch(
     inbox_dir: Path,
     report_id: str,
+    *,
+    gap_keys: list[str],
     entries: list[dict[str, Any]],
+    status_messages: dict[str, str],
 ) -> dict[str, Any] | None:
-    """External (Perplexity) research findings -- always appended as
-    unreviewed proposals, distinct from `sections`, never merged into
-    grounded report prose."""
+    """One explicit 'Research missing public information' (or 'Research
+    again') action -- always a new batch, never overwriting or silently
+    refreshing a prior one, so a saved report retains every public
+    research packet it has ever used. `entries` are appended to the flat
+    `external_research_appendix` (each auto-assigned an id and stamped
+    with this batch's id) for simple listing/PDF rendering; `gap_keys`/
+    `status_messages` are retained on the batch record alone so the
+    workspace can show exactly what was asked and what came back, even
+    for a gap that returned zero citable sources."""
+    existing = load_report(inbox_dir, report_id)
+    if existing is None:
+        return None
+    batch_id = "rb-" + secrets.token_hex(6)
+    now = _now()
+    stamped_entries = []
+    for entry in entries:
+        stamped = dict(entry)
+        stamped.setdefault("id", "rf-" + secrets.token_hex(6))
+        stamped["batch_id"] = batch_id
+        stamped.setdefault("reviewed", False)
+        stamped.setdefault("included_in_report", False)
+        stamped.setdefault("sent_to_review_draft_id", None)
+        stamped_entries.append(stamped)
+    appendix = existing.get("external_research_appendix") or []
+    appendix.extend(stamped_entries)
+    existing["external_research_appendix"] = appendix
+    batches = existing.get("research_batches") or []
+    batches.append(
+        {
+            "id": batch_id,
+            "requested_at": now,
+            "gap_keys": list(gap_keys),
+            "status_messages": dict(status_messages),
+            "finding_count": len(stamped_entries),
+        }
+    )
+    existing["research_batches"] = batches
+    existing["updated_at"] = now
+    _write(reports_dir(inbox_dir) / f"{report_id}.json", existing)
+    return existing
+
+
+def update_research_finding(
+    inbox_dir: Path,
+    report_id: str,
+    finding_id: str,
+    **updates: Any,
+) -> dict[str, Any] | None:
+    """Toggle per-finding state (`reviewed`, `included_in_report`,
+    `sent_to_review_draft_id`) without touching any other finding or
+    batch. Only keys already present on a finding row may be set."""
     existing = load_report(inbox_dir, report_id)
     if existing is None:
         return None
     appendix = existing.get("external_research_appendix") or []
-    appendix.extend(entries)
+    found = False
+    for entry in appendix:
+        if entry.get("id") == finding_id:
+            entry.update(updates)
+            found = True
+            break
+    if not found:
+        return None
     existing["external_research_appendix"] = appendix
     existing["updated_at"] = _now()
     _write(reports_dir(inbox_dir) / f"{report_id}.json", existing)
     return existing
+
+
+def find_research_finding(report: dict[str, Any], finding_id: str) -> dict[str, Any] | None:
+    for entry in report.get("external_research_appendix") or []:
+        if entry.get("id") == finding_id:
+            return entry
+    return None
 
 
 def archive_report(inbox_dir: Path, report_id: str) -> dict[str, Any] | None:

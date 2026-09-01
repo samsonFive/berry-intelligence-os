@@ -679,13 +679,21 @@ def test_public_query_context_has_no_field_for_private_content():
 
 
 def test_perplexity_findings_remain_unreviewed_proposals(tmp_path: Path):
-    from app.services.report_builder.reports_store import append_research_appendix
+    from app.services.report_builder.reports_store import append_research_batch
 
     inbox = tmp_path / "inbox"
     record = create_report(inbox, title="R", report_type="market_landscape", scope={}, sections=[{"section_id": "executive_summary", "title": "Executive Summary", "generated_prose": "x", "edited_prose": None, "citation_ids": [], "status": "ai_draft"}])
-    append_research_appendix(inbox, record["id"], [{"title": "Public article", "url": "https://example.test/a", "snippet": "...", "source": "perplexity_public_research", "reviewed": False}])
+    append_research_batch(
+        inbox,
+        record["id"],
+        gap_keys=["trade_import_export"],
+        entries=[{"title": "Public article", "url": "https://example.test/a", "snippet": "...", "source": "perplexity_public_research"}],
+        status_messages={"trade_import_export": "Found 1 public source(s)."},
+    )
     reloaded = load_report(inbox, record["id"])
     assert reloaded["external_research_appendix"][0]["reviewed"] is False
+    assert reloaded["external_research_appendix"][0]["included_in_report"] is False
+    assert reloaded["research_batches"][0]["gap_keys"] == ["trade_import_export"]
     # Never merged into sections.
     assert all("Public article" not in (s.get("generated_prose") or "") for s in reloaded["sections"])
 

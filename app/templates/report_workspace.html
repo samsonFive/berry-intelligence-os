@@ -25,6 +25,19 @@
     <p class="card-kicker">KNOWN GAPS</p>
     <ul>{% for gap in coverage.gaps %}<li>{{ gap }}</li>{% endfor %}</ul>
   {% endif %}
+  {% if coverage.dimensions %}
+    <p class="card-kicker">COVERAGE BY DIMENSION</p>
+    <ul class="dimension-list">
+      {% for dim in coverage.dimensions %}
+        <li>
+          {% if dim.status == 'AVAILABLE' %}<span class="badge badge-status-active">AVAILABLE</span>
+          {% elif dim.status == 'PARTIAL' %}<span class="badge badge-status-unverified">PARTIAL</span>
+          {% else %}<span class="badge badge-muted">MISSING</span>{% endif %}
+          <strong>{{ dim.label }}</strong> — {{ dim.explanation }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 </section>
 
 <form method="post" action="/reports/{{ report.id }}/save">
@@ -58,20 +71,68 @@
 </form>
 
 <section class="v2-card" style="margin:16px 0">
-  <p class="card-kicker">PUBLIC GAP RESEARCH (OPTIONAL)</p>
-  <p class="v2-meta">Sends only the report's public berry/geography/company/variety labels plus your question -- never Evidence, Assessment, Signal content, or report text. Findings return as unreviewed research proposals, never as citable grounding.</p>
+  <p class="card-kicker">RESEARCH MISSING PUBLIC INFORMATION (OPTIONAL)</p>
+  <p class="v2-meta">Sends only the report's public berry/geography/company/variety labels plus the fixed question shown for each gap you select below -- never Evidence, Assessment, Signal content, or report text. Nothing is sent until you pick at least one gap and submit. Findings return as <strong>unreviewed external research</strong>, never as citable grounding for report prose.</p>
+  {% set researchable_gaps = coverage.dimensions | selectattr('researchable') | selectattr('research_question') | list %}
+  {% if researchable_gaps %}
   <form method="post" action="/reports/{{ report.id }}/research-gaps">
-    <div class="filter-field">
-      <label for="gap-question">What's missing?</label>
-      <input id="gap-question" type="text" name="question" placeholder="e.g. recent production-volume figures">
-    </div>
-    <button type="submit" class="v2-btn v2-btn-quiet">Research missing public information</button>
+    <ul class="dimension-list">
+      {% for dim in researchable_gaps %}
+        <li>
+          <label>
+            <input type="checkbox" name="gap_keys" value="{{ dim.key }}">
+            {% if dim.status == 'PARTIAL' %}<span class="badge badge-status-unverified">PARTIAL</span>
+            {% else %}<span class="badge badge-muted">MISSING</span>{% endif %}
+            {{ dim.label }}
+            <span class="v2-meta">— "{{ dim.research_question }}"</span>
+          </label>
+        </li>
+      {% endfor %}
+    </ul>
+    <button type="submit" class="v2-btn v2-btn-quiet">Research selected gaps</button>
   </form>
-  {% if report.external_research_appendix %}
-    <p class="card-kicker">EXTERNAL RESEARCH APPENDIX (UNREVIEWED)</p>
+  {% else %}
+    <p class="v2-meta">No researchable public gaps identified for this scope right now.</p>
+  {% endif %}
+
+  {% if report.research_batches %}
+    <p class="card-kicker">RESEARCH HISTORY</p>
     <ul>
+      {% for batch in report.research_batches %}
+        <li class="v2-meta">{{ batch.requested_at }} — gaps: {{ batch.gap_keys | join(', ') }} — {{ batch.finding_count }} finding(s)
+          {% for key, msg in batch.status_messages.items() %}<br><em>{{ key }}: {{ msg }}</em>{% endfor %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if report.external_research_appendix %}
+    <p class="card-kicker">EXTERNAL PUBLIC RESEARCH — UNREVIEWED</p>
+    <ul class="research-finding-list">
       {% for row in report.external_research_appendix %}
-        <li><a href="{{ row.url }}" target="_blank" rel="noopener">{{ row.title }}</a></li>
+        <li>
+          <span class="badge badge-ai-proposed">EXTERNAL PUBLIC RESEARCH — UNREVIEWED</span>
+          {% if row.gap_label %}<span class="v2-meta">[{{ row.gap_label }}]</span>{% endif %}
+          <a href="{{ row.url }}" target="_blank" rel="noopener">{{ row.title }}</a>
+          <span class="v2-meta">{{ row.provider }}{% if row.retrieved_at %}, retrieved {{ row.retrieved_at }}{% endif %}</span>
+          <form method="post" action="/reports/{{ report.id }}/research/{{ row.id }}/state" class="v2-inline-form">
+            <input type="hidden" name="reviewed" value="{{ 'false' if row.reviewed else 'true' }}">
+            <input type="hidden" name="included_in_report" value="{{ 'true' if row.included_in_report else 'false' }}">
+            <button type="submit" class="v2-btn v2-btn-quiet">{{ 'Mark unreviewed' if row.reviewed else 'Mark reviewed' }}</button>
+          </form>
+          <form method="post" action="/reports/{{ report.id }}/research/{{ row.id }}/state" class="v2-inline-form">
+            <input type="hidden" name="reviewed" value="{{ 'true' if row.reviewed else 'false' }}">
+            <input type="hidden" name="included_in_report" value="{{ 'false' if row.included_in_report else 'true' }}">
+            <button type="submit" class="v2-btn v2-btn-quiet">{{ 'Exclude from report' if row.included_in_report else 'Include in report' }}</button>
+          </form>
+          {% if row.sent_to_review_draft_id %}
+            <span class="v2-meta">Sent to Evidence review: <a href="/review/{{ row.sent_to_review_draft_id }}">{{ row.sent_to_review_draft_id }}</a></span>
+          {% else %}
+            <form method="post" action="/reports/{{ report.id }}/research/{{ row.id }}/send-to-review" class="v2-inline-form">
+              <button type="submit" class="v2-btn v2-btn-quiet">Send to Evidence review</button>
+            </form>
+          {% endif %}
+        </li>
       {% endfor %}
     </ul>
   {% endif %}

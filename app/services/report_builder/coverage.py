@@ -4,11 +4,20 @@ Plain counts over the packet, plus a small set of defensible zero-count
 gap messages -- the same idiom as strategic_question_workspace.py's
 GAP_MESSAGES. No LLM is involved anywhere in this module: coverage and
 gaps must never be invented or estimated by a model, only counted.
+
+Report Quality & Public Gap Research V1 additionally returns
+`dimensions`: an ordered list of AVAILABLE/PARTIAL/MISSING states (see
+report_builder.coverage_dimensions) built from the same counts plus a
+few packet-derived signals -- `counts`/`gaps` are unchanged and remain
+the contract synthesis.py already depends on for its narrative-section
+gating.
 """
 
 from __future__ import annotations
 
 from typing import Any
+
+from app.services.report_builder.coverage_dimensions import report_coverage_dimensions
 
 GAP_MESSAGES = (
     ("evidence_count", "No trusted Evidence captured for this scope yet."),
@@ -19,7 +28,12 @@ GAP_MESSAGES = (
 )
 
 
-def report_coverage(packet: dict[str, Any]) -> dict[str, Any]:
+def report_coverage(
+    packet: dict[str, Any],
+    *,
+    berry_label: str = "",
+    geography_labels: tuple[str, ...] = (),
+) -> dict[str, Any]:
     if packet.get("strategic_question") is not None:
         sq = packet["strategic_question"]
         counts = {
@@ -30,7 +44,14 @@ def report_coverage(packet: dict[str, Any]) -> dict[str, Any]:
             "recommendation_count": len(sq.get("recommendations") or []),
         }
         gaps = list(sq.get("gaps") or [])
-        return {"counts": counts, "gaps": gaps}
+        dimensions = report_coverage_dimensions(
+            packet,
+            report_type="strategic_question_brief",
+            counts=counts,
+            berry_label=berry_label,
+            geography_labels=geography_labels,
+        )
+        return {"counts": counts, "gaps": gaps, "dimensions": dimensions}
 
     counts = {
         "evidence_count": len(packet.get("source_trace") or []),
@@ -41,4 +62,11 @@ def report_coverage(packet: dict[str, Any]) -> dict[str, Any]:
         "assessment_count": len(packet.get("assessments") or []),
     }
     gaps = [message for key, message in GAP_MESSAGES if counts.get(key, 0) == 0]
-    return {"counts": counts, "gaps": gaps}
+    dimensions = report_coverage_dimensions(
+        packet,
+        report_type=str(packet.get("report_type") or ""),
+        counts=counts,
+        berry_label=berry_label,
+        geography_labels=geography_labels,
+    )
+    return {"counts": counts, "gaps": gaps, "dimensions": dimensions}
