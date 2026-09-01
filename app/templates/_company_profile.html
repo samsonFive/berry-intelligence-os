@@ -5,7 +5,7 @@
     <p class="sh-kicker eyebrow">Company</p>
     <h1>{{ entity.name }}</h1>
     {% if entity.aliases %}
-      <p class="sh-lede also-known-as" data-pagefind-weight="10">Also known as {{ entity.aliases|join(', ') }}</p>
+      <p class="sh-lede also-known-as" data-pagefind-weight="10">Also known as: {{ entity.aliases|join(', ') }}</p>
     {% endif %}
     <p class="sh-meta v2-company-meta">
       {% if entity.status %}<span>{{ entity.status|humanize_label }}</span>{% endif %}
