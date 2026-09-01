@@ -1727,4 +1727,36 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_intelligence_front_page_v1.py::test_dedup_folds_evidence_into_citing_assessment` |
 
+### TD-107 — The Packer has no active article/news collector, only its podcast
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | collection / source coverage |
+| **Date discovered** | 2026-09-01 |
+| **Evidence** | Continuous Newsroom Intake V1 production-acceptance audit, explicitly requested. `source-20260806173428-47f6-the-packer-72` ("The Packer", `data/configuration/sources.json`) carries `discovery: None` -- a reference-only entry with no `discovery.adapter`, so it is not `is_collection_eligible()` and is never scheduled. The only actively collected The Packer Source is `source-the-packer-podcast` (podcast_rss), which covers their podcast episodes, not their main news/article output. Fruitnet (`source-fruitnet-produce-plus`) and FreshPlaza (`source-freshplaza-global` / see TD-108) both have real, live-verified `article_rss` feeds and are actively collected. |
+| **Impact** | The Packer is a major specialist fresh-produce trade outlet with no article-level discovery today -- its news coverage can only reach this corpus via Industry Pulse's Google News catch-net (as an unknown/novel-domain hit) or manual ad hoc capture, never a standing feed. |
+| **Workaround** | None needed for correctness; Industry Pulse's catch-net can still surface individual The Packer articles as novel-domain discovery hits, which the intake bridge (`app/services/industry_pulse/intake.py`) can turn into Publication drafts even without a registered Source of thepacker.com's article content specifically. |
+| **Recommended resolution** | Verify whether thepacker.com publishes a real, live article RSS/Atom feed (their homepage returns HTTP 403 to non-browser fetches per `source-the-packer-podcast`'s own discovery notes, the same obstacle that made podcast discovery require the iTunes Lookup API workaround) and onboard it as a proper `article_rss` Source if one exists, following the exact live-verification discipline Source Coverage Gap Closure V1 and the Fruitnet/FreshPlaza-V3 mission already established. Out of this mission's bounded scope (building the intake bridge, not auditing/expanding individual Sources). |
+| **Status** | active |
+| **Owner lane** | data / collection |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none -- a coverage-gap finding, not a code defect |
+
+### TD-108 — FreshPlaza is registered as two separate Source records pointing at the same feed
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | source inventory / data quality |
+| **Date discovered** | 2026-09-01 |
+| **Evidence** | Continuous Newsroom Intake V1 production-acceptance audit. `source-20260806173428-a004-fresh-plaza-74` ("Fresh Plaza") and `source-freshplaza-global` ("FreshPlaza global fresh produce news") both configure `discovery.adapter: "article_rss"` against the identical feed URL `https://www.freshplaza.com/rss.xml`. Same pattern as the pre-existing TD-104 hortifrut.com duplicate. |
+| **Impact** | Both Sources are independently polled by `CollectionRunner`, doubling request volume against the same feed and splitting any per-Source duplicate-suppression memory across two identities for what is really one publisher relationship -- not a trust or correctness issue (both are legitimately the real publisher), just wasted collection effort and split provenance bookkeeping. |
+| **Workaround** | None needed; `article_dedup.find_duplicate_article`'s canonical-URL/title matching still correctly collapses any article both Sources happen to discover into one Evidence/Publication record downstream. |
+| **Recommended resolution** | Merge into one Source record (or retire one via `source_lifecycle.with_lifecycle(..., state="RETIRED")`) once an operator confirms which of the two carries the more complete/accurate metadata. Out of this mission's bounded scope (auditing whether major specialist outlets are collected at all, not deduplicating the existing 201-Source registry). |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none -- a data-quality finding, not a code defect |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

@@ -266,7 +266,10 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
     # source-20260901-blueberrybreeding-newsroom, added for Source
     # Coverage Gap Closure V1 (2026-09-01), both with real
     # discovery.adapter blocks and both collection-eligible (76 = 74 + 2).
-    assert report.sources_configured == 200 and report.sources_discoverable == 76
+    # 201 = 200 plus source-industry-pulse-catchnet, added for Continuous
+    # Newsroom Intake V1 (2026-09-01) -- reference type, no discovery.adapter,
+    # enabled=false, so sources_discoverable stays 76 unchanged.
+    assert report.sources_configured == 201 and report.sources_discoverable == 76
     assert expected <= {source.source_id for source in report.sources}
 
 

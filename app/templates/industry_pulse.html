@@ -14,9 +14,15 @@
   </div>
 </section>
 
-{% with help_what="A bounded berry × geography × topic Google News matrix, normalized through a provider-neutral discover() adapter.", help_why="Ordinary web search can currently surface fresher berry-industry developments than the trusted corpus.", help_do="Inspect window counts and novel hosts. Run the matrix from Collection-adjacent POST or scripts/industry_pulse.py. Do not treat hits as Evidence.", help_after="Nothing on GET writes Sources or Evidence. Unknown publication dates stay unknown." %}
+{% with help_what="A bounded berry × geography × topic Google News matrix, normalized through a provider-neutral discover() adapter, followed by a novelty-checked, bounded intake bridge that turns a qualifying result into a real Publication draft.", help_why="Ordinary web search can currently surface fresher berry-industry developments than the trusted corpus, and those discoveries used to stay trapped here instead of reaching Publication Review.", help_do="Inspect window counts and novel hosts. Run a full newsroom cycle from the button below, or let the scheduled industry_pulse_intake pipeline run it every 4 hours. Do not treat hits as Evidence -- created drafts still require Publication Review.", help_after="GET never writes Sources or Evidence. A run may create ordinary Publication drafts under inbox/evidence/ -- never trusted Evidence, never a bypass of review." %}
   {% include "_workspace_help.html" %}
 {% endwith %}
+
+{% if run_outcome == "ok" %}
+  <p class="banner">Newsroom cycle completed. See Provider telemetry and Recent newsroom runs below.</p>
+{% elif run_outcome == "refused" %}
+  <p class="banner banner-warning">Run refused: {{ run_refusal_reason }}</p>
+{% endif %}
 
 <section class="v2-company-section" id="freshness-baseline">
   <h2>Corpus freshness</h2>
@@ -122,11 +128,41 @@
 {% endif %}
 
 <section class="v2-company-section" id="pulse-run">
-  <h2>Run catch-net</h2>
-  <p class="context-limit">POST is explicit. It writes normalized discovery metadata under inbox/industry_pulse/ only. It does not publish Evidence.</p>
+  <h2>Run newsroom cycle</h2>
+  <p class="context-limit">POST is explicit. Discovers and qualifies the 7-day matrix, then attempts a bounded, novelty-checked intake of qualifying results into ordinary Publication drafts (never trusted Evidence, never a Source, never a review bypass). Refuses instead of running twice if a cycle -- scheduled or manual -- is already active.</p>
+  {% if newsroom_lock.active and not newsroom_lock.stale %}
+    <p class="v2-meta">A newsroom-intake cycle is running now (started {{ newsroom_lock.started_at }}).</p>
+  {% endif %}
   <form method="post" action="/industry-pulse/run">
-    <button class="v2-btn" type="submit">Run 7-day matrix</button>
+    <button class="v2-btn" type="submit">Run newsroom cycle</button>
   </form>
+</section>
+
+<section class="v2-company-section" id="pulse-run-history">
+  <h2>Recent newsroom runs</h2>
+  <p class="context-limit">Scheduled (industry_pulse_intake, every 4 hours) and manual runs both appear here.</p>
+  {% if recent_newsroom_runs %}
+  <div class="table-wrap">
+    <table class="brief-table">
+      <thead>
+        <tr><th>Run</th><th>Refused</th><th>Drafts created</th><th>Acquisition attempted/succeeded</th><th>Errors</th></tr>
+      </thead>
+      <tbody>
+        {% for run in recent_newsroom_runs %}
+        <tr>
+          <td>{{ run.as_of }}</td>
+          <td>{{ "yes" if run.refused else "no" }}</td>
+          <td>{{ (run.intake or {}).drafts_created | default(0) }}</td>
+          <td>{{ (run.intake or {}).acquisition_attempted | default(0) }} / {{ (run.intake or {}).acquisition_succeeded | default(0) }}</td>
+          <td>{{ (run.intake or {}).errors | default(0) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <p class="empty-state">No newsroom-intake cycle has run yet.</p>
+  {% endif %}
 </section>
 </div>
 {% endblock %}

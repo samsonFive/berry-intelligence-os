@@ -5111,5 +5111,23 @@
     "created_at": "2026-09-01",
     "last_checked_at": null,
     "last_status": null
+  },
+  {
+    "id": "source-industry-pulse-catchnet",
+    "type": "reference",
+    "label": "Industry Pulse discovery catch-net (attribution placeholder -- not a publisher)",
+    "value": "",
+    "url": "",
+    "why_it_matters": "Not a real publisher and never independently polled -- has no discovery.adapter, so it is not collection-eligible and CollectionRunner never schedules it. It exists only to satisfy the Publication draft schema and this app's Source-linkage requirement for drafts created by the Industry Pulse intake bridge (app/services/industry_pulse/intake.py) when a qualifying discovery hit's real publisher domain has no registered Source of its own yet. Every such draft still carries the REAL discovered publisher in its own source_name/source_url/pulse_provenance.publisher_domain fields -- this record is a technical attribution container, never displayed as if it were the actual source.",
+    "entity_types": [],
+    "berry_ids": [],
+    "region_coverage": [],
+    "monitoring_priority": "low",
+    "update_cadence": "event_driven",
+    "linked_competitor_ids": [],
+    "enabled": false,
+    "created_at": "2026-09-01",
+    "last_checked_at": null,
+    "last_status": null
   }
 ]

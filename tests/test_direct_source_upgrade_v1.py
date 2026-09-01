@@ -72,7 +72,10 @@ def test_coverage_mix_and_source_counts_are_selective_not_broad_expansion() -> N
     # source-20260901-blueberrybreeding-newsroom: sitemap_xml, blueberry
     # only, no linked_competitor_ids) -- both enabled/eligible, neither
     # article_rss, neither counted in linked_direct.
-    assert len(sources) == 200
+    # Continuous Newsroom Intake V1 (2026-09-01) added
+    # source-industry-pulse-catchnet: enabled=false, no discovery block,
+    # not discoverable, not eligible, not counted anywhere else here.
+    assert len(sources) == 201
     assert len(discoverable) == 77
     assert len(eligible) == 76  # Growing Produce remains scheduled-but-paused/operator-action-required.
     assert len(direct_rss) == 33

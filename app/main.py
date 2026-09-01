@@ -120,6 +120,12 @@ from app.services.industry_pulse import audit_freshness, load_snapshot, query_co
 from app.services.industry_pulse.providers import GoogleNewsRssProvider
 from app.services.industry_pulse.perplexity_provider import PerplexitySearchProvider
 from app.services.industry_pulse.credentials import has_perplexity
+from app.services.industry_pulse.newsroom_cycle import (
+    load_recent_runs as load_recent_newsroom_runs,
+    newsroom_lock_status,
+    run_newsroom_cycle,
+)
+from app.services.guided_analyst import freshness_clock_label
 from app.services.guided_analyst import (
     atomic_pending_count,
     build_attention_queues,
@@ -3398,11 +3404,23 @@ def today_page(request: Request) -> HTMLResponse:
         coverage_watch=coverage_watch,
         berry_id=berry_id,
     )
+    newsroom_status = None
+    if AUTHORING_MODE:
+        recent_runs = load_recent_newsroom_runs(INBOX_DIR, limit=1)
+        last_run = recent_runs[0] if recent_runs else None
+        last_run_at = last_run.get("as_of") if last_run else None
+        newsroom_status = {
+            "last_run_at": last_run_at,
+            "last_run_label": freshness_clock_label(last_run_at) if last_run_at else None,
+            "last_run_drafts_created": ((last_run or {}).get("intake") or {}).get("drafts_created"),
+            "lock": newsroom_lock_status(INBOX_DIR),
+        }
     page = {
         "berry_id": berry_id,
         "freshness": front_page["freshness"],
         "worth_revisiting": front_page["worth_revisiting"],
         "last_seen_at": front_page["last_seen_at"],
+        "newsroom_status": newsroom_status,
     }
     nav = nav_work_template_context(request).get("nav_work_counts") or {}
     freshness = page.get("freshness") or {}
@@ -3619,7 +3637,7 @@ def coverage_assurance_page(request: Request) -> HTMLResponse:
 
 
 @app.get("/industry-pulse", response_class=HTMLResponse)
-def industry_pulse_page(request: Request) -> HTMLResponse:
+def industry_pulse_page(request: Request, ran: str = "", reason: str = "") -> HTMLResponse:
     """Authoring-only catch-net. GET never fetches the public web, never
     publishes Evidence, and never onboards a Source."""
     if not AUTHORING_MODE:
@@ -3653,6 +3671,10 @@ def industry_pulse_page(request: Request) -> HTMLResponse:
             "berries": BERRIES,
             "perplexity_pulse_enabled": PERPLEXITY_PULSE_ENABLED,
             "perplexity_credential_present": has_perplexity(),
+            "recent_newsroom_runs": load_recent_newsroom_runs(INBOX_DIR, limit=5),
+            "newsroom_lock": newsroom_lock_status(INBOX_DIR),
+            "run_outcome": ran,
+            "run_refusal_reason": reason,
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -3661,7 +3683,12 @@ def industry_pulse_page(request: Request) -> HTMLResponse:
 
 @app.post("/industry-pulse/run")
 def industry_pulse_run() -> RedirectResponse:
-    """Explicit catch-net run. Writes inbox metadata only."""
+    """Explicit newsroom-intake cycle: discovery+qualification, then the
+    pulse-to-Publication bridge. Writes only inbox metadata and, for
+    genuinely novel qualifying results, ordinary Publication drafts under
+    inbox/evidence/ -- never trusted Evidence, never a Source, never a
+    review bypass. Lock-protected against overlapping the scheduled
+    industry_pulse_intake pipeline; refuses instead of running twice."""
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Industry Pulse is authoring-only")
     varieties, _candidates, _report = variety_candidate_universe()
@@ -3672,22 +3699,23 @@ def industry_pulse_run() -> RedirectResponse:
     # run_pulse()'s generic `catch_net_provider.available()` pre-check does
     # not apply to it.
     catch_net = PerplexitySearchProvider() if (PERPLEXITY_PULSE_ENABLED and has_perplexity()) else None
-    run_pulse(
+    publications = [row for row in list_drafts_metadata() if row.get("evidence_role") == "publication_artifact"]
+    result = run_newsroom_cycle(
         provider=GoogleNewsRssProvider(),
         catch_net_provider=catch_net,
         sources=load_sources(),
         published_evidence=published_evidence(),
+        drafts=list_pending_drafts(),
         varieties=varieties,
         entities=all_entities(),
-        publications=[
-            row
-            for row in list_drafts_metadata()
-            if row.get("evidence_role") == "publication_artifact"
-        ],
+        publications=publications,
         discovered_items=list_discovered_items(INBOX_DIR),
-        persist_dir=INBOX_DIR,
+        inbox_dir=INBOX_DIR,
+        data_dir=DATA_DIR,
     )
-    return RedirectResponse(url="/industry-pulse", status_code=303)
+    ran = "refused" if result["refused"] else "ok"
+    reason = result.get("refusal_reason") or ""
+    return RedirectResponse(url=f"/industry-pulse?ran={ran}&reason={quote(reason)}", status_code=303)
 
 
 @app.get("/collection-ops", response_class=HTMLResponse)

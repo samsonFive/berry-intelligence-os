@@ -3783,6 +3783,9 @@
     },
     {
       "id": "source-20260901-blueberrybreeding-newsroom", "collector_type": "rss", "label": "BlueberryBreeding.com (University of Florida) Blog", "query_or_url": "https://www.blueberrybreeding.com/blog-posts-sitemap.xml", "url": "https://www.blueberrybreeding.com/blog", "geography_focus": ["north_america"], "entity_coverage": ["breeding_program", "research_institution"], "berry_coverage": ["berry-blueberry"], "monitoring_priority": "high", "update_cadence": "monthly", "default_active": true, "notes": "Source Coverage Gap Closure V1 (2026-09-01). Official University of Florida blueberry breeding program site; leaf blog-posts sitemap (not the sitemap index) verified live with 120+ real breeding-program articles. Cited in 8 existing trusted-Evidence records with no collection-eligible Source."
+    },
+    {
+      "id": "source-industry-pulse-catchnet", "collector_type": "reference_manual", "label": "Industry Pulse discovery catch-net (attribution placeholder -- not a publisher)", "query_or_url": "Industry Pulse discovery catch-net (not a queryable source; attribution placeholder only)", "url": null, "geography_focus": [], "entity_coverage": [], "berry_coverage": [], "monitoring_priority": "low", "update_cadence": "event_driven", "default_active": false, "notes": "Continuous Newsroom Intake V1 (2026-09-01). Never independently collected -- has no discovery.adapter and default_active is false. Technical Source-linkage placeholder only for Publication drafts the Industry Pulse intake bridge creates when a discovered story's real publisher has no registered Source yet; each such draft still carries the real publisher in its own source_name/source_url fields."
     }
   ]
 }

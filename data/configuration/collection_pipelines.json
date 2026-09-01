@@ -70,6 +70,16 @@
       "runner": "scripts/runtime_backup.py rotate --keep 14",
       "state": "operations/pipelines/runtime_backup/runs",
       "notes": "Daily verified backup outside the app runtime; retain 14 valid archives, never auto-delete invalid archives, and never retain fewer than two by policy."
+    },
+    {
+      "id": "industry_pulse_intake",
+      "enabled": true,
+      "scheduled": true,
+      "schedule_entrypoint": true,
+      "cadence_seconds": 14400,
+      "runner": "scripts/industry_pulse_intake.py --json",
+      "state": "operations/pipelines/industry_pulse_intake/runs",
+      "notes": "Continuous Newsroom Intake V1 (2026-09-01). Every 4 hours: Google News RSS discovery + qualification, then the pulse-to-Publication intake bridge (novelty check, bounded body acquisition, Publication draft creation) so a qualifying story can reach Publication Review and the Front Page's Emerging/Unreviewed section without a human clicking Run Pulse first. Lock-protected against overlap with itself (app/services/industry_pulse/newsroom_cycle.py's own lock, separate from the main collection lock -- pulse discovery and per-Source RSS polling are independent resources). Never writes trusted Evidence, never onboards a Source, never bypasses Publication Review. Perplexity catch-net stays a separate, explicit ENABLE_PERPLEXITY_PULSE opt-in -- not baked into this runner string by default."
     }
   ]
 }
