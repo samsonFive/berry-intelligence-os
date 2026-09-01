@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+{% block title %}Coverage Assurance — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">COVERAGE ASSURANCE</p>
+    <h1>Public intelligence coverage</h1>
+    <p class="context-limit">Raw counts of what is known, collected, healthy, or missing. This is not a completeness score. The public universe is not claimed to be fully enumerated. Viewing this page does not onboard Sources or publish Evidence.</p>
+  </div>
+  <div class="v2-company-actions">
+    <a class="v2-btn v2-btn-quiet" href="/sources">Onboard via Source Health</a>
+    <a class="v2-btn v2-btn-quiet" href="/collection-ops">Collection Ops</a>
+    <a class="v2-btn v2-btn-quiet" href="/varieties/coverage">Variety coverage</a>
+  </div>
+</section>
+
+{% with help_what="Known publishers versus actively collected Sources, technical health versus intelligence yield, and independent benchmark misses.", help_why="A trusted Evidence citation is not the same as collecting that publisher. Italian Berry was cited and still not collected.", help_do="Inspect cited-but-not-collected hosts and yield-degraded Sources. Onboard only through Source Health. Benchmarks are coverage tests, not Evidence.", help_after="Nothing on this page adds a Source, publishes Evidence, or changes trust." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+
+<section class="v2-company-section" id="coverage-totals">
+  <h2>Totals</h2>
+  <dl class="v2-role-list">
+    <dt>Known sources / resources</dt><dd>{{ report.known_resources }}</dd>
+    <dt>Actively collected Sources</dt><dd>{{ report.actively_collected }}</dd>
+    <dt>Collected publisher hosts</dt><dd>{{ report.collected_publisher_hosts }}</dd>
+    <dt>Known / not collected</dt><dd>{{ report.known_not_collected }}</dd>
+    <dt>Cited but not collected</dt><dd>{{ report.cited_not_collected_count }}</dd>
+    <dt>Unknown source identity</dt><dd>{{ report.unknown_identity | length }}</dd>
+    <dt>Technically healthy</dt><dd>{{ report.technically_healthy | length }}</dd>
+    <dt>Yield degraded</dt><dd>{{ report.yield_degraded_count }}</dd>
+    <dt>Broken collectors</dt><dd>{{ report.broken_collectors | length }}</dd>
+    <dt>Intentionally excluded</dt><dd>{{ report.intentionally_excluded | length }}</dd>
+    <dt>Coverage gaps requiring attention</dt><dd>{{ report.attention_count }}</dd>
+  </dl>
+  <p class="context-limit">These are counts, not a score. Zero in a cell means none recorded here.</p>
+</section>
+
+<section class="v2-company-section" id="cited-not-collected">
+  <h2>Cited in trusted Evidence, not collected</h2>
+  <p class="context-limit">The Italian Berry class of failure: a publisher already appears in trusted Evidence but has no active collector. Do not auto-onboard from this list.</p>
+  {% if report.cited_not_collected %}
+  <div class="table-wrap">
+    <table class="brief-table">
+      <thead>
+        <tr>
+          <th>Host</th>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Class</th>
+          <th>Cited Evidence</th>
+          <th>Next step</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in report.cited_not_collected %}
+        <tr>
+          <td><code>{{ row.hostname }}</code></td>
+          <td>{{ row.display_name }}</td>
+          <td>{{ row.collection_status_label }}</td>
+          <td>{{ row.source_class }}</td>
+          <td>{{ row.cited_evidence_ids | join(", ") }}</td>
+          <td><a href="{{ row.onboard_href }}">Inspect / onboard via Sources</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="empty-state">No trusted Evidence hosts are currently uncollected (excluding intentional exclusions).</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="yield-degraded">
+  <h2>Technically healthy, yield degraded</h2>
+  <p class="context-limit">Collector succeeds, but observed relevant items in the last 90 days are zero, and either earlier yield was observed or an explicit expectation exists. No publication frequency is invented.</p>
+  {% if report.yield_degraded %}
+  <ul class="today-list">
+    {% for row in report.yield_degraded %}
+    <li>
+      <strong>{{ row.display_name }}</strong> <code>{{ row.hostname }}</code>
+      — {{ row.liveness.reason }}
+      {% if row.known_source_id %} · <a href="/sources#source-{{ row.known_source_id }}">Source</a>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="empty-state">No collected Source currently meets the yield-degraded rule.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="coverage-matrix">
+  <h2>Coverage matrix</h2>
+  <p class="context-limit">{{ report.matrix.notes[0] }}</p>
+  <h3>By berry</h3>
+  <div class="table-wrap">
+    <table class="brief-table">
+      <thead>
+        <tr>
+          <th>Berry</th>
+          <th>Known</th>
+          <th>Active</th>
+          <th>Healthy</th>
+          <th>Yield degraded</th>
+          <th>Cited, not collected</th>
+          <th>Benchmark misses</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in report.matrix.by_berry %}
+        <tr>
+          <td>{{ row.label }}</td>
+          <td>{{ row.known_sources }}</td>
+          <td>{{ row.active_sources }}</td>
+          <td>{{ row.healthy }}</td>
+          <td>{{ row.yield_degraded }}</td>
+          <td>{{ row.cited_but_not_collected }}</td>
+          <td>{{ row.independent_benchmark_misses }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <h3>By geography</h3>
+  <div class="table-wrap">
+    <table class="brief-table">
+      <thead>
+        <tr>
+          <th>Geography</th>
+          <th>Known</th>
+          <th>Active</th>
+          <th>Healthy</th>
+          <th>Yield degraded</th>
+          <th>Cited, not collected</th>
+          <th>Benchmark misses</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in report.matrix.by_geography %}
+        <tr>
+          <td>{{ row.label }}</td>
+          <td>{{ row.known_sources }}</td>
+          <td>{{ row.active_sources }}</td>
+          <td>{{ row.healthy }}</td>
+          <td>{{ row.yield_degraded }}</td>
+          <td>{{ row.cited_but_not_collected }}</td>
+          <td>{{ row.independent_benchmark_misses }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <h3>By source class</h3>
+  <div class="table-wrap">
+    <table class="brief-table">
+      <thead>
+        <tr>
+          <th>Source class</th>
+          <th>Known</th>
+          <th>Active</th>
+          <th>Healthy</th>
+          <th>Yield degraded</th>
+          <th>Cited, not collected</th>
+          <th>Benchmark misses</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in report.matrix.by_source_class %}
+        <tr>
+          <td>{{ row.label }}</td>
+          <td>{{ row.known_sources }}</td>
+          <td>{{ row.active_sources }}</td>
+          <td>{{ row.healthy }}</td>
+          <td>{{ row.yield_degraded }}</td>
+          <td>{{ row.cited_but_not_collected }}</td>
+          <td>{{ row.independent_benchmark_misses }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="v2-company-section" id="benchmarks">
+  <h2>Independent recall benchmarks</h2>
+  <p class="context-limit">Each benchmark is a coverage test generated outside the normal collector. Results are not trusted Evidence and do not onboard Sources.</p>
+  {% if report.benchmarks %}
+    {% for bench in report.benchmarks %}
+    <h3>{{ bench.id }}</h3>
+    <p class="context-limit">{{ bench.question }}</p>
+    <dl class="v2-role-list">
+      <dt>Qualifying external results</dt><dd>{{ bench.qualifying_external_results }}</dd>
+      <dt>Fully represented</dt><dd>{{ bench.counts.FULLY_REPRESENTED }}</dd>
+      <dt>Source known but item missed</dt><dd>{{ bench.counts.SOURCE_COLLECTED_ITEM_MISSED }}</dd>
+      <dt>Source known, not collected</dt><dd>{{ bench.counts.SOURCE_KNOWN_NOT_COLLECTED }}</dd>
+      <dt>Source unknown</dt><dd>{{ bench.counts.SOURCE_UNKNOWN }}</dd>
+      <dt>Item captured, entity missed</dt><dd>{{ bench.counts.ITEM_COLLECTED_ENTITY_MISSED }}</dd>
+      <dt>Identity unresolved</dt><dd>{{ bench.counts.ENTITY_FOUND_IDENTITY_UNRESOLVED }}</dd>
+      <dt>Date/chronology failure</dt><dd>{{ bench.counts.DATE_CHRONOLOGY_FAILURE }}</dd>
+      <dt>Geography linkage failure</dt><dd>{{ bench.counts.GEOGRAPHY_LINKAGE_FAILURE }}</dd>
+      <dt>Unsupported / not qualifying</dt><dd>{{ bench.counts.UNSUPPORTED_NOT_QUALIFYING }}</dd>
+    </dl>
+    <p class="v2-meta">This is not a coverage percentage. It is the result of this specific benchmark.</p>
+    {% endfor %}
+  {% else %}
+  <p class="empty-state">No independent benchmark files are stored under inbox/coverage_assurance/benchmarks/ or data/imports/*/benchmark.json.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="inventory">
+  <h2>Source Universe inventory</h2>
+  <p class="context-limit">Known resources plus onboarded publisher hosts. Wrapper hosts such as news.google.com stay INTENTIONALLY EXCLUDED.</p>
+  <div class="table-wrap">
+    <table class="brief-table">
+      <thead>
+        <tr>
+          <th>Host</th>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Technical</th>
+          <th>Yield</th>
+          <th>Class</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in report.rows %}
+        <tr>
+          <td><code>{{ row.hostname }}</code></td>
+          <td>{{ row.display_name }}</td>
+          <td>{{ row.collection_status_label }}</td>
+          <td>{{ row.technical_health }}</td>
+          <td>{{ row.yield_state }}</td>
+          <td>{{ row.source_class }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+</div>
+{% endblock %}

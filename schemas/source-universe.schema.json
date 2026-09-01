@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://berry-intelligence.local/schemas/source-universe.schema.json",
+  "title": "Source Universe / Coverage Registry",
+  "description": "Body-free registry of strategically relevant publishers and resources. Article bodies are forbidden.",
+  "type": "object",
+  "required": ["schema_version", "entries"],
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "kind": { "type": "string" },
+    "notes": { "type": "string" },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "hostname", "display_name", "source_class"],
+        "additionalProperties": true,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "hostname": { "type": "string", "minLength": 1 },
+          "display_name": { "type": "string", "minLength": 1 },
+          "source_class": {
+            "type": "string",
+            "enum": [
+              "breeder_genetics_owner",
+              "pbr_pvp_registry",
+              "government_statistical",
+              "university_extension",
+              "peer_reviewed_academic",
+              "trade_press",
+              "grower_marketer_organization",
+              "nursery_propagation_catalogue",
+              "retailer_brand_disclosure",
+              "conference_trial_material",
+              "industry_association"
+            ]
+          },
+          "body": false,
+          "article_body": false,
+          "html": false
+        }
+      }
+    }
+  }
+}

@@ -1615,4 +1615,36 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | none yet |
 
+### TD-101 — Source Universe is not a census of the public web
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | coverage assurance / known-publisher registry |
+| **Date discovered** | 2026-09-01 |
+| **Evidence** | Public Intelligence Coverage Assurance V1. `data/configuration/source_universe.json` is a body-free registry of strategically relevant publishers plus a runtime overlay of onboarded Source hosts. It is not, and must never be presented as, a complete list of berry-relevant public publishers. Independent research can still find a SOURCE UNKNOWN host. Italian Berry is seeded because it was already cited in trusted Evidence while uncollected; other cited-but-not-collected hosts are discovered at runtime from Evidence `source_url` and may remain UNKNOWN SOURCE IDENTITY until an operator adds a universe row. |
+| **Impact** | Operators can now see cited-but-not-collected hosts (the Italian Berry class of failure). They cannot treat Known sources as "we have the market covered." |
+| **Workaround** | Use Coverage Assurance raw counts and miss classes. Run independent recall benchmarks. Do not convert those counts into a completeness percentage. |
+| **Recommended resolution** | Keep adding universe rows only with provenance. Never auto-onboard from benchmarks or Evidence hosts. |
+| **Status** | limitation |
+| **Owner lane** | product |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_coverage_assurance.py` |
+
+### TD-102 — Coverage Assurance technical-health rows are mostly MANUAL locally, pending real discovery-state coverage
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | coverage assurance / technical health |
+| **Date discovered** | 2026-09-01 |
+| **Evidence** | `yield_status.technical_health_of()` falls back to `TECHNICAL_MANUAL` whenever `classify_source_freshness()` returns no state, which happens whenever `media_discovery.read_source_discovery_state()` finds no per-Source discovery-state file for that Source in `inbox/`. Against the real local corpus this produced `healthy: 0` despite 54 actively-collected Sources -- not a Coverage Assurance bug, but a reflection that this local dev environment's `inbox/` lacks the operational discovery-state history a live production deployment accumulates over time. |
+| **Impact** | The Technical health vs Yield distinction is real and correctly wired, but its practical value is only visible where discovery-state history actually exists (production, or a seeded test fixture). |
+| **Workaround** | None needed -- this is expected given local dev's thin operational history, not a defect. |
+| **Recommended resolution** | Re-check this split against production's real discovery-state history after deploy; no code change anticipated. |
+| **Status** | observed |
+| **Owner lane** | ops |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_coverage_assurance.py::test_technical_healthy_good_yield` (fixture-level proof the split works) |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

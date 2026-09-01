@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "kind": "source_universe",
+  "notes": "Body-free Coverage Registry of strategically relevant publishers and resources, whether or not they are currently onboarded Sources. This is not a complete census of the public web. Article bodies are never stored. Collection status is derived at runtime from sources.json and is not a stored score.",
+  "entries": [
+    {
+      "id": "su-italianberry",
+      "hostname": "italianberry.it",
+      "display_name": "Italian Berry",
+      "geography": ["EU"],
+      "berry_scope": ["blueberry", "raspberry", "strawberry", "blackberry"],
+      "source_class": "trade_press",
+      "discovery_basis": "cited_in_trusted_evidence",
+      "known_source_id": null,
+      "expected_content_type": "trade_press_article",
+      "coverage_category": "variety_dense_trade_press",
+      "variety_dense": true,
+      "first_observed": "2026-08-03",
+      "last_externally_observed": "2026-08-03",
+      "notes": "Cited in trusted Evidence (ev-italianberry-peru-varieties-2025, ev-italianberry-mbo-chile-2020) but not an actively collected Source. The cultivar-dense blackberry article that named Clara, Kalika, Equa, Furia, Nemus and others was found manually because this publisher was known-as-cited, not collected.",
+      "provenance": {
+        "kind": "trusted_evidence",
+        "evidence_ids": [
+          "ev-italianberry-peru-varieties-2025",
+          "ev-italianberry-mbo-chile-2020"
+        ],
+        "reference": "https://italianberry.it/"
+      },
+      "intentionally_excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "id": "su-news-google",
+      "hostname": "news.google.com",
+      "display_name": "Google News (redirect host)",
+      "geography": [],
+      "berry_scope": [],
+      "source_class": "trade_press",
+      "discovery_basis": "redirect_host",
+      "known_source_id": null,
+      "expected_content_type": "search_wrapper",
+      "coverage_category": "wrapper_not_publisher",
+      "variety_dense": false,
+      "first_observed": "2026-08-06",
+      "last_externally_observed": null,
+      "notes": "Google News is a redirect/search wrapper used by keyword Sources. It is not a publisher and must not be treated as collected coverage of any outlet that appears in search hits.",
+      "provenance": {
+        "kind": "platform_guard",
+        "reference": "app.main.UNBLOCKABLE_DOMAINS"
+      },
+      "intentionally_excluded": true,
+      "exclusion_reason": "Redirect host, not a publisher. Collecting or blocking it would disable keyword Sources rather than add a publisher."
+    }
+  ]
+}
