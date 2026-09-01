@@ -28,6 +28,7 @@ SOURCES_RELATIVE_PATH = Path("configuration") / "sources.json"
 AUTHORITATIVE_CONFIG_PATHS = {
     Path("configuration") / "collection_pipelines.json",
     Path("configuration") / "source_collection_cadence.json",
+    Path("configuration") / "source_universe.json",
 }
 PROMOTABLE_ROOTS = {
     "assessments",

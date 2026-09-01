@@ -114,6 +114,7 @@ from app.services.collection_ops import (
     trigger_bounded_run,
 )
 from app.services.today import build_today
+from app.services.coverage_assurance import build_coverage_report
 from app.services.guided_analyst import (
     atomic_pending_count,
     build_attention_queues,
@@ -3534,6 +3535,44 @@ def review_operations_page(request: Request) -> HTMLResponse:
             "recent_sessions": list_recent_sessions(INBOX_DIR),
         },
     )
+
+
+@app.get("/coverage-assurance", response_class=HTMLResponse)
+def coverage_assurance_page(request: Request) -> HTMLResponse:
+    """Private Coverage Assurance surface. GET is read-only by
+    construction -- it never onboards a Source, publishes Evidence, or
+    writes the Source Universe registry. Distinguishes known publishers
+    from actively collected Sources, technical health from intelligence
+    yield, and independent benchmark misses from trusted Evidence; there
+    is no completeness score."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Coverage Assurance is authoring-only")
+    varieties, candidates, _corpus_report = variety_candidate_universe()
+    report = build_coverage_report(
+        data_dir=DATA_DIR,
+        sources=load_sources(),
+        published_evidence=published_evidence(),
+        publications=list_drafts_metadata(),
+        variety_candidates=candidates,
+        varieties=varieties,
+        discovered_items=list_discovered_items(INBOX_DIR),
+        blocked_domains=load_blocked_domains(),
+        inbox_dir=INBOX_DIR,
+    )
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="coverage_assurance.html",
+        context={
+            "report": report,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
 
 
 @app.get("/collection-ops", response_class=HTMLResponse)
