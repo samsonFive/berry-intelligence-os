@@ -3777,6 +3777,12 @@
     },
     {
       "id": "source-20260825-summer-berry-company-news", "collector_type": "rss", "label": "The Summer Berry Company News", "query_or_url": "https://summerberry.co.uk/feed/", "url": "https://summerberry.co.uk/news/", "geography_focus": ["europe"], "entity_coverage": ["grower_marketer", "genetics_licensee"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official Company RSS; ten-item feed and two full-body production-image probes verified 2026-08-25."
+    },
+    {
+      "id": "source-news-search-italian-berry", "collector_type": "keyword_search", "label": "Site-restricted news search -- Italian Berry", "query_or_url": "site:italianberry.it", "url": "https://news.google.com/", "geography_focus": ["europe"], "entity_coverage": ["trade_press"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Source Coverage Gap Closure V1 (2026-09-01). Italian Berry (italianberry.it) is a custom Laravel platform with no RSS feed and no crawlable generic sitemap; already cited in trusted Evidence with no collection-eligible Source, and the source of a real, uncaptured cultivar-dense blackberry article. Site-restricted Google News search verified live to return 50+ real cultivar/genetics items spanning 2019-2026."
+    },
+    {
+      "id": "source-20260901-blueberrybreeding-newsroom", "collector_type": "rss", "label": "BlueberryBreeding.com (University of Florida) Blog", "query_or_url": "https://www.blueberrybreeding.com/blog-posts-sitemap.xml", "url": "https://www.blueberrybreeding.com/blog", "geography_focus": ["north_america"], "entity_coverage": ["breeding_program", "research_institution"], "berry_coverage": ["berry-blueberry"], "monitoring_priority": "high", "update_cadence": "monthly", "default_active": true, "notes": "Source Coverage Gap Closure V1 (2026-09-01). Official University of Florida blueberry breeding program site; leaf blog-posts sitemap (not the sitemap index) verified live with 120+ real breeding-program articles. Cited in 8 existing trusted-Evidence records with no collection-eligible Source."
     }
   ]
 }

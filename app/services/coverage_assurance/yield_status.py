@@ -10,6 +10,7 @@ from __future__ import annotations
 from datetime import UTC, date, datetime, timedelta
 from typing import Any
 
+from app.services.coverage_assurance.statuses import COLLECTED
 from app.services.recall_audit.classify import hostname
 from app.services.source_freshness import (
     BLOCKED,
@@ -92,8 +93,14 @@ def yield_for_source(
     variety_candidates: list[dict[str, Any]],
     universe_row: dict[str, Any] | None,
     today: date,
+    force_collected: bool = False,
 ) -> dict[str, Any]:
-    collected = is_collection_eligible(source) if source else False
+    """`force_collected` is for a host reconciled as COLLECTED via a
+    structural pipeline (Coverage Assurance's STRUCTURAL_COLLECTORS,
+    e.g. patent_monitor/cpvo_registry) that has no matching Source
+    record at all -- without it, `source` is empty and this would
+    contradict its own COLLECTED status by reporting NOT_APPLICABLE."""
+    collected = force_collected or (is_collection_eligible(source) if source else False)
     freshness_state = getattr(freshness, "state", None) if freshness is not None else None
     technical = technical_health_of(freshness_state, collected=collected)
     source_id = str((source or {}).get("id") or "")
@@ -225,6 +232,7 @@ def attach_liveness(
             variety_candidates=variety_candidates,
             universe_row=row,
             today=today,
+            force_collected=bool(source is None and row.get("collection_status") == COLLECTED),
         )
         row["technical_health"] = liveness["technical_health"]
         row["yield_state"] = liveness["yield_state"]

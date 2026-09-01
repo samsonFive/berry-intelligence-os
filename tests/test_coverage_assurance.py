@@ -167,8 +167,11 @@ def test_trusted_evidence_host_not_collected_italian_berry(tmp_path: Path) -> No
     assert "ev-italianberry-peru-varieties-2025" in row["cited_evidence_ids"]
 
 
-def test_italian_berry_gap_is_visible_on_canonical_corpus() -> None:
-    """The live failure that prompted this mission: cited, not collected."""
+def test_italian_berry_gap_was_closed_on_canonical_corpus() -> None:
+    """Originally documented the live failure that prompted this
+    mission (cited, not collected). Source Coverage Gap Closure V1
+    (2026-09-01) closed it with a real news_search_rss Source, so this
+    now documents the fix, not the gap."""
     report = build_coverage_report(
         data_dir=main.DATA_DIR,
         sources=main.load_sources(),
@@ -177,11 +180,11 @@ def test_italian_berry_gap_is_visible_on_canonical_corpus() -> None:
         now=TODAY,
     )
     cited = {item["hostname"] for item in report["cited_not_collected"]}
-    assert "italianberry.it" in cited
+    assert "italianberry.it" not in cited
     collected_hosts = {item["hostname"] for item in report["rows"] if item["collection_status"] == COLLECTED}
-    assert "italianberry.it" not in collected_hosts
+    assert "italianberry.it" in collected_hosts
     eligible = [source for source in main.load_sources() if is_collection_eligible(source)]
-    assert not any("italianberry.it" in (source.get("url") or "") for source in eligible)
+    assert any("italianberry.it" in (source.get("url") or "") for source in eligible)
 
 
 def test_intentionally_excluded_host(tmp_path: Path) -> None:

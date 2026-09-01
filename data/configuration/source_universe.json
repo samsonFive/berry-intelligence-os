@@ -50,6 +50,138 @@
       },
       "intentionally_excluded": true,
       "exclusion_reason": "Redirect host, not a publisher. Collecting or blocking it would disable keyword Sources rather than add a publisher."
+    },
+    {
+      "id": "su-mountainblue",
+      "hostname": "mountainblue.com.au",
+      "display_name": "Mountain Blue Orchards",
+      "geography": ["au_nz"],
+      "berry_scope": ["blueberry"],
+      "source_class": "grower_marketer_organization",
+      "discovery_basis": "cited_in_trusted_evidence",
+      "known_source_id": null,
+      "expected_content_type": null,
+      "coverage_category": null,
+      "variety_dense": false,
+      "first_observed": "2026-09-01",
+      "last_externally_observed": "2026-09-01",
+      "notes": "Source Coverage Gap Closure V1. robots.txt verified live: explicitly disallows ClaudeBot by name and declares ai-train=no for all crawlers. Deliberately NOT onboarded regardless of technical feasibility -- this is a clear, explicit site-owner signal to respect, not a technical or editorial gap.",
+      "provenance": {
+        "kind": "robots_txt_exclusion",
+        "reference": "https://www.mountainblue.com.au/robots.txt"
+      },
+      "intentionally_excluded": true,
+      "exclusion_reason": "robots.txt explicitly disallows ClaudeBot and declares ai-train=no. Respected, not routed around."
+    },
+    {
+      "id": "su-lens-org",
+      "hostname": "lens.org",
+      "display_name": "The Lens (patent/scholarly search)",
+      "geography": [],
+      "berry_scope": [],
+      "source_class": "pbr_pvp_registry",
+      "discovery_basis": "cited_in_trusted_evidence",
+      "known_source_id": null,
+      "expected_content_type": null,
+      "coverage_category": null,
+      "variety_dense": false,
+      "first_observed": "2026-09-01",
+      "last_externally_observed": "2026-09-01",
+      "notes": "Source Coverage Gap Closure V1. robots.txt verified live: explicitly disallows anthropic-ai, Claude-Web, ClaudeBot, Claude-SearchBot, and Claude-User by name; also disallows /lens/search, /lens/patent, /lens/scholar, and /lens/api for every crawler. Deliberately NOT onboarded -- unambiguous site-owner exclusion of Claude-affiliated access, and the search/patent/scholar surfaces are disallowed for all automated access regardless.",
+      "provenance": {
+        "kind": "robots_txt_exclusion",
+        "reference": "https://www.lens.org/robots.txt"
+      },
+      "intentionally_excluded": true,
+      "exclusion_reason": "robots.txt explicitly disallows anthropic-ai/Claude-Web/ClaudeBot/Claude-SearchBot/Claude-User, and disallows the search/patent/scholar paths for every crawler."
+    },
+    {
+      "id": "su-cfia-pbr",
+      "hostname": "active.inspection.gc.ca",
+      "display_name": "Canadian Food Inspection Agency -- Plant Breeders' Rights Register",
+      "geography": ["canada"],
+      "berry_scope": ["blueberry", "raspberry", "strawberry", "blackberry"],
+      "source_class": "pbr_pvp_registry",
+      "discovery_basis": "cited_in_trusted_evidence",
+      "known_source_id": null,
+      "expected_content_type": "registry_record",
+      "coverage_category": null,
+      "variety_dense": true,
+      "first_observed": "2026-09-01",
+      "last_externally_observed": "2026-09-01",
+      "notes": "Source Coverage Gap Closure V1. Structurally similar to the existing CPVO registry integration (app.services.cpvo_registry) -- a real, plain-HTML government PBR register organized by crop kind and botanical name, with a periodic Plant Varieties Journal. No existing adapter or module covers it. Deliberately deferred rather than built here: a correct structured-registry module (mirroring cpvo_registry.py's search/normalize/build_review_draft/persist_drafts/run_*_monitor shape) is real, separately-scoped work, not a quick Source config addition -- forcing it through generic article-feed semantics would misrepresent structured registry data as news.",
+      "provenance": {
+        "kind": "trusted_evidence",
+        "reference": "https://active.inspection.gc.ca/"
+      },
+      "intentionally_excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "id": "su-fallcreekcatalogs",
+      "hostname": "fallcreekcatalogs.com",
+      "display_name": "Fall Creek Variety Catalogs",
+      "geography": [],
+      "berry_scope": ["blueberry"],
+      "source_class": "nursery_propagation_catalogue",
+      "discovery_basis": "cited_in_trusted_evidence",
+      "known_source_id": null,
+      "expected_content_type": "catalog_page",
+      "coverage_category": null,
+      "variety_dense": true,
+      "first_observed": "2026-09-01",
+      "last_externally_observed": "2026-09-01",
+      "notes": "Source Coverage Gap Closure V1. robots.txt confirmed open with a sitemap index (sitemap_index.xml) -- technically reachable via sitemap_xml, but this is catalog/reference material (variety-by-variety pages), not a recurring news/updates flow the way Fall Creek's own newsroom Source (source-20260824-fall-creek-newsroom) already covers. Deferred: onboarding a second Fall Creek Source for largely-static catalog content did not meet the 'repeatedly yields qualifying material' bar this mission set for grower/marketer sites -- a bounded, one-time catalog capture (not a recurring Source) would be the more honest mechanism if pursued.",
+      "provenance": {
+        "kind": "trusted_evidence",
+        "reference": "https://fallcreekcatalogs.com/"
+      },
+      "intentionally_excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "id": "su-ozblu",
+      "hostname": "ozblu.com",
+      "display_name": "OZblu",
+      "geography": ["au_nz"],
+      "berry_scope": ["blueberry"],
+      "source_class": "grower_marketer_organization",
+      "discovery_basis": "cited_in_trusted_evidence",
+      "known_source_id": null,
+      "expected_content_type": null,
+      "coverage_category": null,
+      "variety_dense": false,
+      "first_observed": "2026-09-01",
+      "last_externally_observed": "2026-09-01",
+      "notes": "Source Coverage Gap Closure V1. robots.txt confirmed open with a sitemap index; no AI-crawler exclusion found. Deferred, not rejected: only 4 existing cited-evidence hits and no confirmed dedicated news/blog leaf sitemap identified during this pass (the sitemap index has not yet been decomposed into its sub-sitemaps) -- worth a follow-up pass once a genuine recurring-content leaf sitemap is confirmed, rather than guessing at one now.",
+      "provenance": {
+        "kind": "trusted_evidence",
+        "reference": "https://ozblu.com/"
+      },
+      "intentionally_excluded": false,
+      "exclusion_reason": null
+    },
+    {
+      "id": "su-hortifrut-investor",
+      "hostname": "investor.hortifrut.com",
+      "display_name": "Hortifrut Investor Relations",
+      "geography": [],
+      "berry_scope": ["blueberry"],
+      "source_class": "grower_marketer_organization",
+      "discovery_basis": "cited_in_trusted_evidence",
+      "known_source_id": null,
+      "expected_content_type": null,
+      "coverage_category": null,
+      "variety_dense": false,
+      "first_observed": "2026-09-01",
+      "last_externally_observed": "2026-09-01",
+      "notes": "Source Coverage Gap Closure V1. WordPress site; robots.txt open with a sitemap (wp-sitemap.xml), but the standard /feed/ RSS endpoint returned a live HTTP 500 (broken, not blocked). Deferred: narrow single-company investor-relations scope, and the direct-feed path is currently broken -- a sitemap-based fallback is technically possible but adds complexity disproportionate to 3 existing cited-evidence hits for one company's press-release feed alone.",
+      "provenance": {
+        "kind": "trusted_evidence",
+        "reference": "https://investor.hortifrut.com/"
+      },
+      "intentionally_excluded": false,
+      "exclusion_reason": null
     }
   ]
 }

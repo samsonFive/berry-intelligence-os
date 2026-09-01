@@ -67,15 +67,20 @@ def test_coverage_mix_and_source_counts_are_selective_not_broad_expansion() -> N
         if source["discovery"]["adapter"] != "news_search_rss" and source.get("linked_competitor_ids")
     ]
 
-    assert len(sources) == 198
-    assert len(discoverable) == 75
-    assert len(eligible) == 74  # Growing Produce remains scheduled-but-paused/operator-action-required.
+    # Source Coverage Gap Closure V1 (2026-09-01) added 2 sources
+    # (source-news-search-italian-berry: news_search_rss, all 4 berries;
+    # source-20260901-blueberrybreeding-newsroom: sitemap_xml, blueberry
+    # only, no linked_competitor_ids) -- both enabled/eligible, neither
+    # article_rss, neither counted in linked_direct.
+    assert len(sources) == 200
+    assert len(discoverable) == 77
+    assert len(eligible) == 76  # Growing Produce remains scheduled-but-paused/operator-action-required.
     assert len(direct_rss) == 33
     assert len(linked_direct) == 18
-    assert sum("berry-blueberry" in source.get("berry_ids", []) for source in discoverable) == 63
-    assert sum("berry-strawberry" in source.get("berry_ids", []) for source in discoverable) == 45
-    assert sum("berry-raspberry" in source.get("berry_ids", []) for source in discoverable) == 44
-    assert sum("berry-blackberry" in source.get("berry_ids", []) for source in discoverable) == 43
+    assert sum("berry-blueberry" in source.get("berry_ids", []) for source in discoverable) == 65
+    assert sum("berry-strawberry" in source.get("berry_ids", []) for source in discoverable) == 46
+    assert sum("berry-raspberry" in source.get("berry_ids", []) for source in discoverable) == 45
+    assert sum("berry-blackberry" in source.get("berry_ids", []) for source in discoverable) == 44
 
 
 def test_weekly_cadence_and_never_run_freshness_remain_existing_semantics() -> None:

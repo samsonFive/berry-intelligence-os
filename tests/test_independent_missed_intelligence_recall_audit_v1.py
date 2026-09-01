@@ -28,8 +28,18 @@ from app.services.source_lifecycle import is_collection_eligible
 ROOT = Path(__file__).resolve().parents[1]
 BENCHMARK_PATH = ROOT / "data" / "imports" / "missed-intelligence-recall-audit-v1" / "benchmark.json"
 
+# Source Coverage Gap Closure V1 (2026-09-01) onboarded a real Source for
+# Italian Berry (source-news-search-italian-berry, news_search_rss) --
+# every benchmark row citing italianberry.it correctly shifts from
+# SOURCE_KNOWN_NOT_COLLECTED to SOURCE_COLLECTED_ITEM_MISSED: the
+# publisher is now collected, but these specific historical articles are
+# not yet captured as Evidence. This is the mission's own explicitly
+# stated acceptable outcome -- "the next failure layer is now visible" --
+# not a regression. Recall benchmark before -> after (RA-EU-BK-01,
+# RA-US-BB-06, RA-EU-ST-02): SOURCE_KNOWN_NOT_COLLECTED (3) ->
+# SOURCE_COLLECTED_ITEM_MISSED (3).
 EXPECTED_CLASSES = {
-    "RA-EU-BK-01": SOURCE_KNOWN_NOT_COLLECTED,
+    "RA-EU-BK-01": SOURCE_COLLECTED_ITEM_MISSED,
     "RA-EU-BK-03": SOURCE_COLLECTED_ITEM_MISSED,
     "RA-EU-BK-04": SOURCE_COLLECTED_ITEM_MISSED,
     "RA-EU-BK-GEO": FULLY_REPRESENTED,
@@ -45,10 +55,10 @@ EXPECTED_CLASSES = {
     "RA-US-BB-03": SOURCE_COLLECTED_ITEM_MISSED,
     "RA-US-BB-04": ENTITY_FOUND_IDENTITY_UNRESOLVED,
     "RA-US-BB-05": GEOGRAPHY_LINKAGE_FAILURE,
-    "RA-US-BB-06": SOURCE_KNOWN_NOT_COLLECTED,
+    "RA-US-BB-06": SOURCE_COLLECTED_ITEM_MISSED,
     "RA-US-BB-07": FULLY_REPRESENTED,
     "RA-EU-ST-01": SOURCE_UNKNOWN,
-    "RA-EU-ST-02": SOURCE_KNOWN_NOT_COLLECTED,
+    "RA-EU-ST-02": SOURCE_COLLECTED_ITEM_MISSED,
     "RA-EU-ST-05": SOURCE_KNOWN_NOT_COLLECTED,
     "RA-EU-ST-06": FULLY_REPRESENTED,
 }
@@ -106,17 +116,26 @@ def test_expected_miss_classes_against_canonical_corpus(scored):
     assert observed == EXPECTED_CLASSES
 
 
-def test_italian_berry_is_cited_but_not_collected(corpus, scored):
+def test_italian_berry_gap_was_closed_by_source_coverage_gap_closure_v1(corpus, scored):
+    """This test originally documented the live failure that prompted
+    the recall audit: cited in trusted Evidence, no collection-eligible
+    Source. Source Coverage Gap Closure V1 (2026-09-01) closed it with a
+    real news_search_rss Source (site:italianberry.it) -- verified live
+    to return 50+ real cultivar/genetics items -- so this test now
+    documents the fix instead of the gap."""
     sources, evidence, _varieties, _entities, _facts = corpus
-    assert not any("italianberry.it" in json.dumps(source) for source in sources)
+    from app.services.source_lifecycle import is_collection_eligible
+
+    italian_berry_sources = [s for s in sources if "italianberry.it" in json.dumps(s)]
+    assert len(italian_berry_sources) == 1, "expected exactly one Italian Berry Source"
+    assert is_collection_eligible(italian_berry_sources[0])
     cited = any(
         "italianberry.it" in str(row.get("source_url") or "")
         for row in evidence
         if row.get("status") == "published"
     )
     assert cited
-    assert _row(scored, "RA-EU-BK-01")["miss_classification"] == SOURCE_KNOWN_NOT_COLLECTED
-    assert not any(is_collection_eligible(source) and "italianberry" in json.dumps(source) for source in sources)
+    assert _row(scored, "RA-EU-BK-01")["miss_classification"] == SOURCE_COLLECTED_ITEM_MISSED
 
 
 def test_apex_entity_and_geography_failures(scored):

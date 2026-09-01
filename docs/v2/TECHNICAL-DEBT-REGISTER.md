@@ -1658,10 +1658,26 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Impact** | Variety/genetics recall is weaker than Source counts and existing Evidence citations imply. Positive controls (SEKOYA Nova, RedSayra) show the corpus can represent a cultivar when both item and entity exist; they are not a completeness score. |
 | **Workaround** | Use the recall-audit benchmark as an operator checklist. Coverage Assurance loads `data/imports/*/benchmark.json` automatically. Do not auto-onboard Italian Berry or treat benchmark rows as Evidence. |
 | **Recommended resolution** | Operator-governed collectors for cited-but-uncollected variety-dense publishers; widen bounded include paths only where first-party genetics pages are in scope; entity-link Apex/Collection cultivars and Everlast via existing review, not this audit. |
-| **Status** | active |
+| **Status** | partially resolved (2026-09-01) |
 | **Owner lane** | collection / data |
+| **PR/SHA when resolved** | Source Coverage Gap Closure V1 closed the Italian Berry portion only (real `news_search_rss` Source, `source-news-search-italian-berry`) -- CFIA (`inspection.gc.ca`), NDA (`nda.gov.za`), the off-path-page misses, and the Apex/Everlast entity-link gaps remain open. |
+| **Regression-test reference** | `tests/test_independent_missed_intelligence_recall_audit_v1.py`, `tests/test_source_coverage_gap_closure_v1.py` |
+
+### TD-104 — hortifrut.com claimed by two different Source records
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | source inventory / data quality |
+| **Date discovered** | 2026-09-01 |
+| **Evidence** | Source Coverage Gap Closure V1's own duplicate-host test (`tests/test_source_coverage_gap_closure_v1.py::test_no_duplicate_source_ids`, scoped only to this mission's new additions after this was found) surfaced that `source-20260806173428-071f-hortifrut-genetica-pmg-2` and `source-20260806173428-5266-hortifrut-s-a-27` both resolve to the publisher host `hortifrut.com` -- a pre-existing condition, not introduced by this mission. |
+| **Impact** | `Coverage Assurance`'s per-host reconciliation (`app/services/coverage_assurance/reconcile.py::_source_by_publisher_host`) silently picks one of the two when building its host index; the other's own lifecycle/eligibility state is invisible to Coverage Assurance's rollup, though `CollectionRunner` itself still runs both independently. Not observed to cause any incorrect trust behavior -- purely a Coverage Assurance modeling blind spot. |
+| **Workaround** | None needed today; `CollectionRunner` is unaffected (it dispatches per Source id, not per host). |
+| **Recommended resolution** | Confirm intent (two genuinely distinct discovery paths for the same publisher, e.g. a genetics-specific feed vs. a general one) and either merge into one Source with multiple `feed_urls`, or document the intentional split. Out of this mission's bounded scope (onboarding new Sources, not auditing all 200+ existing ones). |
+| **Status** | active |
+| **Owner lane** | data |
 | **PR/SHA when resolved** | — |
-| **Regression-test reference** | `tests/test_independent_missed_intelligence_recall_audit_v1.py` |
+| **Regression-test reference** | `tests/test_source_coverage_gap_closure_v1.py::test_new_sources_do_not_duplicate_any_existing_publisher_host` |
 
 ### TD-104 — Collection-eligible items can still miss when the live feed/path window never saw them
 
