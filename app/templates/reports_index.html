@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}AI-Assisted Reports — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">AI-ASSISTED REPORT BUILDER</p>
+    <h1>Reports</h1>
+    <p class="also-known-as">Report prose is AI-drafted from this system's own trusted intelligence and is analyst-reviewed before circulation. It is report output, not canonical intelligence -- generating a report never creates or edits Evidence, Signals, Assessments, or Strategic Questions.</p>
+  </div>
+</section>
+
+<nav class="landscape-filter-bar" aria-label="Report filters">
+  <div class="landscape-filter-group">
+    <strong>Show</strong>
+    <a class="filter-chip{% if status != 'archived' and status != 'all' %} is-active{% endif %}" href="/reports">Drafts &amp; active</a>
+    <a class="filter-chip{% if status == 'archived' %} is-active{% endif %}" href="/reports?status=archived">Archived</a>
+    <a class="filter-chip{% if status == 'all' %} is-active{% endif %}" href="/reports?status=all">All</a>
+  </div>
+  <div class="landscape-filter-group">
+    <a class="v2-btn v2-btn-quiet" href="/reports/new">New report</a>
+  </div>
+</nav>
+
+{% if reports %}
+  <div class="balanced-card-grid">
+    {% for r in reports %}
+      <article class="card entity-card">
+        <p class="card-kicker">{{ report_type_labels.get(r.report_type, r.report_type) }} · {{ r.section_count }} section{{ 's' if r.section_count != 1 else '' }} · {{ r.status|upper }}</p>
+        <h2><a href="{{ r.href }}">{{ r.title }}</a></h2>
+        <p class="v2-meta">Updated {{ r.updated_at[:10]|us_date if r.updated_at else "—" }}</p>
+        <p class="v2-card-line">
+          <a href="{{ r.href }}">Open</a>
+          <a href="{{ r.href }}/export.pdf">Export PDF</a>
+          {% if r.status != 'archived' %}
+            <form method="post" action="{{ r.href }}/archive" style="display:inline" onsubmit="return confirm('Archive this report?');">
+              <button class="v2-btn v2-btn-quiet" type="submit">Archive</button>
+            </form>
+          {% endif %}
+        </p>
+      </article>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="empty-state">No reports yet. <a href="/reports/new">Build one</a> from a natural-language request.</p>
+{% endif %}
+</div>
+{% endblock %}

@@ -20,7 +20,7 @@ from urllib.parse import quote, urlencode, urlparse, urlsplit
 import feedparser
 import httpx
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
-from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from jsonschema import Draft202012Validator, FormatChecker
@@ -247,6 +247,31 @@ from app.services.learner import (
 )
 from app.services.berries.landscape import PRIMARY_SOURCE_TYPES as LANDSCAPE_PRIMARY_SOURCE_TYPES
 from app.services.brief_pack import compose_brief_pack
+from app.services.ai_gateway.credentials import resolve_perplexity_api_key
+from app.services.ai_gateway.perplexity_research import PerplexityResearchClient
+from app.services.ai_gateway.untrusted_complete import maybe_untrusted_completer
+from app.services.report_builder.coverage import report_coverage
+from app.services.report_builder.packet import build_report_packet
+from app.services.report_builder.pdf_export import render_report_pdf
+from app.services.report_builder.perplexity_gap_research import PublicQueryContext, research_public_gaps
+from app.services.report_builder.reports_store import (
+    append_research_appendix,
+    archive_report as archive_report_record,
+    create_report,
+    list_reports,
+    load_report,
+    present_report_row,
+    replace_section,
+    save_report_edits,
+)
+from app.services.report_builder.scope import (
+    REPORT_TYPE_LABELS,
+    REPORT_TYPES,
+    ResolvedScope,
+    interpret_scope_text,
+    resolve_scope,
+)
+from app.services.report_builder.synthesis import generate_report_sections
 from app.services.executive_readout import (
     caution as executive_readout_caution,
     top_assessments as executive_readout_top_assessments,
@@ -4729,6 +4754,349 @@ def unarchive_brief_pack_route(pack_id: str) -> RedirectResponse:
     if record is None:
         raise HTTPException(status_code=404, detail="Saved brief pack not found")
     return RedirectResponse(url="/brief-packs", status_code=303)
+
+
+# --- AI-Assisted Report Builder V1 --------------------------------------
+# Private/live-only throughout: never registered in scripts/build_static.py
+# (same posture as Brief Pack, Saved Brief Packs, Watchlist -- see
+# AGENTS.md). Report prose is REPORT OUTPUT, never canonical intelligence:
+# nothing here writes Evidence/Signal/Assessment/Strategic Question/
+# trusted Variety data.
+
+
+def _report_scope_context(scope: ResolvedScope) -> dict[str, Any]:
+    return {
+        "report_type": scope.report_type,
+        "berry_id": scope.berry_id,
+        "geography_ids": list(scope.geography_ids),
+        "company_ids": list(scope.company_ids),
+        "variety_ids": list(scope.variety_ids),
+        "strategic_question_id": scope.strategic_question_id,
+        "date_window_days": scope.date_window_days,
+        "focus_notes": scope.focus_notes,
+    }
+
+
+def _scope_from_form(
+    *,
+    report_type: str,
+    berry: str,
+    geography_ids: str,
+    company_ids: str,
+    variety_ids: str,
+    strategic_question_id: str,
+    date_window_days: str,
+    focus_notes: str,
+) -> ResolvedScope:
+    return ResolvedScope(
+        report_type=report_type if report_type in REPORT_TYPES else "market_landscape",
+        berry_id=berry or None,
+        geography_ids=tuple(_csv_ids(geography_ids)),
+        company_ids=tuple(_csv_ids(company_ids)),
+        variety_ids=tuple(_csv_ids(variety_ids)),
+        strategic_question_id=strategic_question_id or None,
+        date_window_days=int(date_window_days) if str(date_window_days).strip().isdigit() else None,
+        focus_notes=focus_notes or "",
+    )
+
+
+def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], dict[str, Any]]:
+    entities = entity_index()
+    _varieties, visible_candidates, _corpus_report = variety_candidate_universe()
+    packet = build_report_packet(
+        scope,
+        entities=entities,
+        relationships=all_relationships(),
+        published_evidence=published_evidence(),
+        facts=all_facts(),
+        signals=all_signals(),
+        assessments=all_assessments(),
+        strategic_questions=load_strategic_questions(),
+        recommendations=all_recommendations(),
+        variety_candidates=visible_candidates,
+        berry_labels=BERRIES,
+    )
+    coverage = report_coverage(packet)
+    return packet, coverage
+
+
+@app.get("/reports", response_class=HTMLResponse)
+def reports_index_page(request: Request, status: str = "draft") -> HTMLResponse:
+    rows = [present_report_row(r) for r in list_reports(INBOX_DIR, status=status if status != "all" else None)]
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="reports_index.html",
+        context={
+            "reports": rows,
+            "status": status,
+            "report_type_labels": REPORT_TYPE_LABELS,
+            "authoring_mode": AUTHORING_MODE,
+            "ui_context": ui,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/reports/new", response_class=HTMLResponse)
+def report_new_page(request: Request) -> HTMLResponse:
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="report_new.html",
+        context={
+            "step": "start",
+            "report_types": REPORT_TYPES,
+            "report_type_labels": REPORT_TYPE_LABELS,
+            "berries": BERRIES,
+            "authoring_mode": AUTHORING_MODE,
+            "ui_context": ui,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/reports/new", response_class=HTMLResponse)
+def report_new_submit(
+    request: Request,
+    step: str = Form("interpret"),
+    request_text: str = Form(""),
+    report_type: str = Form("market_landscape"),
+    berry: str = Form(""),
+    geography_ids: str = Form(""),
+    company_ids: str = Form(""),
+    variety_ids: str = Form(""),
+    strategic_question_id: str = Form(""),
+    date_window_days: str = Form(""),
+    focus_notes: str = Form(""),
+    title: str = Form(""),
+) -> HTMLResponse:
+    """Handles all three scope steps on one page:
+    - step="interpret": natural-language request -> AI-or-fallback
+      proposal -> deterministic entity resolution -> confirm screen.
+    - step="preview": analyst-edited scope fields -> re-resolve ->
+      refreshed coverage/gaps, no AI call.
+    - step="generate": confirmed scope -> packet -> section synthesis ->
+      persist -> redirect to the new report's workspace."""
+    entities_list = list(entity_index().values())
+    questions = load_strategic_questions()
+
+    if step == "interpret":
+        proposal = interpret_scope_text(request_text, berries=BERRIES, completer=maybe_untrusted_completer())
+        scope = resolve_scope(proposal, entities=entities_list, berries=BERRIES, questions=questions)
+    else:
+        scope = _scope_from_form(
+            report_type=report_type,
+            berry=berry,
+            geography_ids=geography_ids,
+            company_ids=company_ids,
+            variety_ids=variety_ids,
+            strategic_question_id=strategic_question_id,
+            date_window_days=date_window_days,
+            focus_notes=focus_notes,
+        )
+
+    if step == "generate":
+        packet, _coverage = _build_packet_and_coverage(scope)
+        completer = maybe_untrusted_completer()
+        drafts = generate_report_sections(packet, report_type=scope.report_type, completer=completer)
+        sections = [
+            {
+                "section_id": d.section_id,
+                "title": d.title,
+                "generated_prose": d.prose,
+                "edited_prose": None,
+                "citation_ids": list(d.citation_ids),
+                "status": d.status,
+                "provider": d.provider,
+                "model": d.model,
+            }
+            for d in drafts
+        ]
+        report_title = title.strip() or f"{REPORT_TYPE_LABELS.get(scope.report_type, scope.report_type)} — {BERRIES.get(scope.berry_id or '', scope.berry_id or 'multi-scope')}"
+        record = create_report(
+            INBOX_DIR,
+            title=report_title,
+            report_type=scope.report_type,
+            scope=_report_scope_context(scope),
+            sections=sections,
+        )
+        return RedirectResponse(url=f"/reports/{record['id']}", status_code=303)
+
+    packet, coverage = _build_packet_and_coverage(scope)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="report_new.html",
+        context={
+            "step": "confirm",
+            "scope": scope,
+            "request_text": request_text,
+            "packet": packet,
+            "coverage": coverage,
+            "report_types": REPORT_TYPES,
+            "report_type_labels": REPORT_TYPE_LABELS,
+            "berries": BERRIES,
+            "geography_ids_csv": ",".join(scope.geography_ids),
+            "company_ids_csv": ",".join(scope.company_ids),
+            "variety_ids_csv": ",".join(scope.variety_ids),
+            "authoring_mode": AUTHORING_MODE,
+            "ui_context": ui,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+def _load_report_or_404(report_id: str) -> dict[str, Any]:
+    record = load_report(INBOX_DIR, report_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail="Report not found")
+    return record
+
+
+def _scope_from_record(record: dict[str, Any]) -> ResolvedScope:
+    scope = record.get("scope") or {}
+    return ResolvedScope(
+        report_type=scope.get("report_type") or "market_landscape",
+        berry_id=scope.get("berry_id"),
+        geography_ids=tuple(scope.get("geography_ids") or []),
+        company_ids=tuple(scope.get("company_ids") or []),
+        variety_ids=tuple(scope.get("variety_ids") or []),
+        strategic_question_id=scope.get("strategic_question_id"),
+        date_window_days=scope.get("date_window_days"),
+        focus_notes=scope.get("focus_notes") or "",
+    )
+
+
+@app.get("/reports/{report_id}", response_class=HTMLResponse)
+def report_workspace_page(request: Request, report_id: str) -> HTMLResponse:
+    record = _load_report_or_404(report_id)
+    scope = _scope_from_record(record)
+    packet, coverage = _build_packet_and_coverage(scope)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="report_workspace.html",
+        context={
+            "report": record,
+            "packet": packet,
+            "coverage": coverage,
+            "report_type_labels": REPORT_TYPE_LABELS,
+            "authoring_mode": AUTHORING_MODE,
+            "ui_context": ui,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/reports/{report_id}/save")
+def report_save_route(
+    request: Request,
+    report_id: str,
+    title: str = Form(""),
+    section_ids: list[str] = Form(default=[]),
+    section_texts: list[str] = Form(default=[]),
+) -> RedirectResponse:
+    record = _load_report_or_404(report_id)
+    edited_by_id = dict(zip(section_ids, section_texts))
+    sections = record.get("sections") or []
+    for section in sections:
+        sid = section.get("section_id")
+        if sid in edited_by_id:
+            new_text = edited_by_id[sid]
+            section["edited_prose"] = new_text if new_text.strip() else None
+    save_report_edits(INBOX_DIR, report_id, title=title, sections=sections, status="active")
+    return RedirectResponse(url=f"/reports/{report_id}", status_code=303)
+
+
+@app.post("/reports/{report_id}/section/{section_id}/regenerate")
+def report_regenerate_section_route(report_id: str, section_id: str) -> RedirectResponse:
+    record = _load_report_or_404(report_id)
+    scope = _scope_from_record(record)
+    packet, _coverage = _build_packet_and_coverage(scope)
+    completer = maybe_untrusted_completer()
+    drafts = generate_report_sections(packet, report_type=scope.report_type, completer=completer)
+    match = next((d for d in drafts if d.section_id == section_id), None)
+    if match is None:
+        raise HTTPException(status_code=404, detail="Unknown section id")
+    updated = replace_section(
+        INBOX_DIR,
+        report_id,
+        section_id,
+        generated_prose=match.prose,
+        citation_ids=list(match.citation_ids),
+        status=match.status,
+        provider=match.provider,
+        model=match.model,
+    )
+    if updated is None:
+        raise HTTPException(status_code=404, detail="Report not found")
+    return RedirectResponse(url=f"/reports/{report_id}", status_code=303)
+
+
+@app.post("/reports/{report_id}/research-gaps")
+def report_research_gaps_route(
+    report_id: str,
+    question: str = Form(""),
+) -> RedirectResponse:
+    """Explicit analyst opt-in only. Sends ONLY public berry/geography/
+    company/variety labels plus the analyst's own question -- never
+    Evidence/Assessment/Signal content or report prose (see
+    app.services.report_builder.perplexity_gap_research's module
+    docstring for the enforced boundary)."""
+    record = _load_report_or_404(report_id)
+    scope = _scope_from_record(record)
+    entities = entity_index()
+    context = PublicQueryContext(
+        berry_label=BERRIES.get(scope.berry_id or "", ""),
+        geography_labels=tuple(entities[g]["name"] for g in scope.geography_ids if g in entities and entities[g].get("name")),
+        company_names=tuple(entities[c]["name"] for c in scope.company_ids if c in entities and entities[c].get("name")),
+        variety_names=tuple(entities[v]["name"] for v in scope.variety_ids if v in entities and entities[v].get("name")),
+        question=question,
+    )
+
+    def _factory() -> PerplexityResearchClient:
+        return PerplexityResearchClient(api_key=resolve_perplexity_api_key())
+
+    try:
+        resolve_perplexity_api_key()
+        factory = _factory
+    except Exception:
+        factory = None
+    proposals, _status_message = research_public_gaps(context, research_client_factory=factory)
+    if proposals:
+        append_research_appendix(
+            INBOX_DIR,
+            report_id,
+            [{"title": p.title, "url": p.url, "snippet": p.snippet, "source": p.source, "reviewed": False} for p in proposals],
+        )
+    return RedirectResponse(url=f"/reports/{report_id}", status_code=303)
+
+
+@app.post("/reports/{report_id}/archive")
+def report_archive_route(report_id: str) -> RedirectResponse:
+    record = archive_report_record(INBOX_DIR, report_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail="Report not found")
+    return RedirectResponse(url="/reports", status_code=303)
+
+
+@app.get("/reports/{report_id}/export.pdf")
+def report_export_pdf_route(report_id: str) -> Response:
+    record = _load_report_or_404(report_id)
+    scope = _scope_from_record(record)
+    packet, coverage = _build_packet_and_coverage(scope)
+    pdf_bytes = render_report_pdf(record, packet, coverage)
+    filename = f"{record['id']}.pdf"
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
 
 
 @app.get("/signals", response_class=HTMLResponse)

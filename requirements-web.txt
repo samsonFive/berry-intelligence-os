@@ -21,3 +21,9 @@ requests==2.32.3
 # faster-whisper/yt-dlp/playwright, which stay local-only). Pinned to the
 # same version as requirements.txt.
 trafilatura==2.2.0
+# reportlab -- server-side PDF rendering for AI-Assisted Report Builder V1
+# (app/services/report_builder/pdf_export.py). Pure Python + a small C
+# extension with prebuilt wheels, no browser binary or system dependency
+# to install (unlike playwright, which stays local-only), so it works
+# identically in both the full and remote-interactive deployments.
+reportlab==4.2.5

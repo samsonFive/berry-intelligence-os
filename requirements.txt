@@ -14,6 +14,12 @@ httpx==0.28.1
 # working (2.2.0) against real trade-press article pages during this
 # feature's own pilot run.
 trafilatura==2.2.0
+# reportlab -- server-side PDF rendering for AI-Assisted Report Builder V1
+# (app/services/report_builder/pdf_export.py). Pure Python + a small C
+# extension with prebuilt wheels, no browser binary or system dependency
+# to install, so it works identically in both the full and
+# remote-interactive deployments (also pinned in requirements-web.txt).
+reportlab==4.2.5
 itsdangerous==2.2.0
 openpyxl==3.1.5
 playwright==1.62.0

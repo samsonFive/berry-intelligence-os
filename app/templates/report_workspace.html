@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}{{ report.title }} — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">AI-ASSISTED REPORT · {{ report_type_labels.get(report.report_type, report.report_type)|upper }}</p>
+    <h1>{{ report.title }}</h1>
+    <p class="also-known-as">AI-assisted; analyst-reviewed. Report prose is report output, not canonical intelligence -- editing or regenerating a section here never changes any Evidence, Signal, Assessment, or Strategic Question.</p>
+  </div>
+  <div class="v2-card-actions">
+    <a class="v2-btn v2-btn-quiet" href="/reports/{{ report.id }}/export.pdf">Export PDF</a>
+    <a class="v2-btn v2-btn-quiet" href="/reports">All reports</a>
+  </div>
+</section>
+
+<section class="v2-card" style="margin-bottom:16px">
+  <p class="card-kicker">INTELLIGENCE COVERAGE</p>
+  <ul class="stat-list">
+    {% for key, value in coverage.counts.items() %}
+      <li>{{ value }} {{ key.replace('_', ' ') }}</li>
+    {% endfor %}
+  </ul>
+  {% if coverage.gaps %}
+    <p class="card-kicker">KNOWN GAPS</p>
+    <ul>{% for gap in coverage.gaps %}<li>{{ gap }}</li>{% endfor %}</ul>
+  {% endif %}
+</section>
+
+<form method="post" action="/reports/{{ report.id }}/save">
+  <div class="filter-field" style="max-width:480px;margin-bottom:16px">
+    <label for="title-field">Title</label>
+    <input id="title-field" type="text" name="title" value="{{ report.title }}">
+  </div>
+
+  {% for section in report.sections %}
+  <section class="v2-card" style="margin-bottom:16px">
+    <p class="card-kicker">
+      {{ section.title }}
+      {% if section.status == 'ai_draft' %}<span class="badge badge-ai-proposed">AI DRAFT</span>
+      {% elif section.status == 'structured' %}<span class="badge badge-muted">STRUCTURED</span>
+      {% elif section.status == 'unsupported' %}<span class="badge badge-muted">UNSUPPORTED</span>
+      {% elif section.status == 'unavailable' %}<span class="badge badge-muted">AI UNAVAILABLE</span>
+      {% endif %}
+    </p>
+    <input type="hidden" name="section_ids" value="{{ section.section_id }}">
+    <textarea name="section_texts" rows="6" style="width:100%">{{ section.edited_prose if section.edited_prose is not none else section.generated_prose }}</textarea>
+    {% if section.citation_ids %}
+      <p class="v2-meta">Sources: {% for cid in section.citation_ids %}<a href="#src-{{ cid }}">{{ cid }}</a>{{ ", " if not loop.last }}{% endfor %}</p>
+    {% endif %}
+    {% if section.status in ('ai_draft', 'unsupported', 'unavailable') %}
+      <button type="submit" formaction="/reports/{{ report.id }}/section/{{ section.section_id }}/regenerate" formmethod="post" class="v2-btn v2-btn-quiet">Regenerate this section</button>
+    {% endif %}
+  </section>
+  {% endfor %}
+
+  <button type="submit" class="v2-btn">Save edits</button>
+</form>
+
+<section class="v2-card" style="margin:16px 0">
+  <p class="card-kicker">PUBLIC GAP RESEARCH (OPTIONAL)</p>
+  <p class="v2-meta">Sends only the report's public berry/geography/company/variety labels plus your question -- never Evidence, Assessment, Signal content, or report text. Findings return as unreviewed research proposals, never as citable grounding.</p>
+  <form method="post" action="/reports/{{ report.id }}/research-gaps">
+    <div class="filter-field">
+      <label for="gap-question">What's missing?</label>
+      <input id="gap-question" type="text" name="question" placeholder="e.g. recent production-volume figures">
+    </div>
+    <button type="submit" class="v2-btn v2-btn-quiet">Research missing public information</button>
+  </form>
+  {% if report.external_research_appendix %}
+    <p class="card-kicker">EXTERNAL RESEARCH APPENDIX (UNREVIEWED)</p>
+    <ul>
+      {% for row in report.external_research_appendix %}
+        <li><a href="{{ row.url }}" target="_blank" rel="noopener">{{ row.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+
+<section class="v2-card" id="sources">
+  <p class="card-kicker">SOURCES</p>
+  <ul>
+    {% for row in (packet.source_trace or (packet.strategic_question or {}).get('source_trace') or []) %}
+      <li id="src-{{ row.id }}"><a href="{{ row.href }}">{{ row.title }}</a> — {{ row.source_name }} ({{ row.date or 'date unknown' }})</li>
+    {% endfor %}
+  </ul>
+</section>
+</div>
+{% endblock %}

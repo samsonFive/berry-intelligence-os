@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block title %}New Report — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">AI-ASSISTED REPORT BUILDER</p>
+    <h1>New report</h1>
+    <p class="also-known-as">Describe the report you want. The system proposes a scope from this system's own trusted intelligence -- it never guesses an unresolved company, variety, or geography; you confirm or fix anything ambiguous before a draft is generated.</p>
+  </div>
+</section>
+
+{% if step == 'start' %}
+<form class="filters" method="post" action="/reports/new">
+  <input type="hidden" name="step" value="interpret">
+  <div class="filter-field" style="flex:1;min-width:320px">
+    <label for="request-text">Report request</label>
+    <textarea id="request-text" name="request_text" rows="3" placeholder="e.g. Give me a competitive landscape for blueberry genetics in Europe." required></textarea>
+  </div>
+  <button type="submit" class="v2-btn">Interpret request</button>
+</form>
+<p class="v2-meta">Or <a href="#manual-scope">build a scope manually</a> without a natural-language request.</p>
+<form id="manual-scope" class="filters" method="post" action="/reports/new">
+  <input type="hidden" name="step" value="preview">
+  <div class="filter-field">
+    <label for="report-type">Report type</label>
+    <select id="report-type" name="report_type">
+      {% for rt in report_types %}<option value="{{ rt }}">{{ report_type_labels.get(rt, rt) }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="filter-field">
+    <label for="berry-select">Berry</label>
+    <select id="berry-select" name="berry">
+      <option value="">Any</option>
+      {% for bid, label in berries.items() %}<option value="{{ bid }}">{{ label }}</option>{% endfor %}
+    </select>
+  </div>
+  <button type="submit" class="v2-btn v2-btn-quiet">Preview scope</button>
+</form>
+
+{% else %}
+<section class="v2-card" style="margin-bottom:16px">
+  <p class="card-kicker">INTERPRETED SCOPE</p>
+  {% if request_text %}<p class="v2-meta">From: "{{ request_text }}"</p>{% endif %}
+  <form method="post" action="/reports/new">
+    <input type="hidden" name="step" value="preview">
+    <div class="filters">
+      <div class="filter-field">
+        <label for="report-type-c">Report type</label>
+        <select id="report-type-c" name="report_type">
+          {% for rt in report_types %}<option value="{{ rt }}" {% if rt == scope.report_type %}selected{% endif %}>{{ report_type_labels.get(rt, rt) }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="filter-field">
+        <label for="berry-c">Berry</label>
+        <select id="berry-c" name="berry">
+          <option value="">Any</option>
+          {% for bid, label in berries.items() %}<option value="{{ bid }}" {% if bid == scope.berry_id %}selected{% endif %}>{{ label }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="filter-field">
+        <label for="geo-c">Geography ids (comma-separated)</label>
+        <input id="geo-c" type="text" name="geography_ids" value="{{ geography_ids_csv }}">
+      </div>
+      <div class="filter-field">
+        <label for="companies-c">Company ids (comma-separated)</label>
+        <input id="companies-c" type="text" name="company_ids" value="{{ company_ids_csv }}">
+      </div>
+      <div class="filter-field">
+        <label for="varieties-c">Variety ids (comma-separated)</label>
+        <input id="varieties-c" type="text" name="variety_ids" value="{{ variety_ids_csv }}">
+      </div>
+      <div class="filter-field">
+        <label for="sq-c">Strategic Question id</label>
+        <input id="sq-c" type="text" name="strategic_question_id" value="{{ scope.strategic_question_id or '' }}">
+      </div>
+      <div class="filter-field">
+        <label for="days-c">Date window (days, optional)</label>
+        <input id="days-c" type="number" name="date_window_days" value="{{ scope.date_window_days or '' }}">
+      </div>
+    </div>
+    <input type="hidden" name="request_text" value="{{ request_text }}">
+    <button type="submit" class="v2-btn v2-btn-quiet">Update preview</button>
+  </form>
+
+  {% set unresolved = (scope.unresolved_companies|list) + (scope.unresolved_varieties|list) %}
+  {% if unresolved %}
+    <p class="banner banner-warning" role="status">Could not resolve: {{ unresolved|join(', ') }}. Add the correct canonical id(s) above, or these are left out of the report.</p>
+  {% endif %}
+  {% if scope.ambiguous_companies or scope.ambiguous_varieties %}
+    <p class="banner banner-warning" role="status">
+      Ambiguous names need an explicit id:
+      {% for r in scope.ambiguous_companies %}"{{ r.query }}" could be {{ r.ambiguous_ids|join(' or ') }}. {% endfor %}
+      {% for r in scope.ambiguous_varieties %}"{{ r.query }}" could be {{ r.ambiguous_ids|join(' or ') }}. {% endfor %}
+    </p>
+  {% endif %}
+  {% if scope.geography_unresolved %}
+    <p class="banner banner-warning" role="status">Geography "{{ scope.geography_text }}" did not match a known Geography or region.</p>
+  {% endif %}
+</section>
+
+<section class="v2-card" style="margin-bottom:16px">
+  <p class="card-kicker">INTELLIGENCE COVERAGE</p>
+  {% if packet.strategic_question %}
+    <ul class="stat-list">
+      <li>{{ coverage.counts.fact_count }} Facts</li>
+      <li>{{ coverage.counts.evidence_count }} sourced Evidence</li>
+      <li>{{ coverage.counts.signal_count }} Signals</li>
+      <li>{{ coverage.counts.assessment_count }} Assessments</li>
+      <li>{{ coverage.counts.recommendation_count }} Recommendations</li>
+    </ul>
+  {% else %}
+    <ul class="stat-list">
+      <li>{{ coverage.counts.evidence_count }} relevant Evidence records</li>
+      <li>{{ coverage.counts.company_count }} Companies</li>
+      <li>{{ coverage.counts.trusted_variety_count }} trusted Varieties</li>
+      <li>{{ coverage.counts.variety_candidate_count }} Variety candidates</li>
+      <li>{{ coverage.counts.signal_count }} Signals</li>
+      <li>{{ coverage.counts.assessment_count }} Assessments</li>
+    </ul>
+  {% endif %}
+  {% if coverage.gaps %}
+    <p class="card-kicker">KNOWN GAPS</p>
+    <ul>
+      {% for gap in coverage.gaps %}<li>{{ gap }}</li>{% endfor %}
+    </ul>
+  {% endif %}
+</section>
+
+<form method="post" action="/reports/new">
+  <input type="hidden" name="step" value="generate">
+  <input type="hidden" name="report_type" value="{{ scope.report_type }}">
+  <input type="hidden" name="berry" value="{{ scope.berry_id or '' }}">
+  <input type="hidden" name="geography_ids" value="{{ geography_ids_csv }}">
+  <input type="hidden" name="company_ids" value="{{ company_ids_csv }}">
+  <input type="hidden" name="variety_ids" value="{{ variety_ids_csv }}">
+  <input type="hidden" name="strategic_question_id" value="{{ scope.strategic_question_id or '' }}">
+  <input type="hidden" name="date_window_days" value="{{ scope.date_window_days or '' }}">
+  <div class="filter-field" style="max-width:420px">
+    <label for="report-title">Report title</label>
+    <input id="report-title" type="text" name="title" placeholder="Untitled report">
+  </div>
+  <button type="submit" class="v2-btn">Generate draft</button>
+  <a class="v2-btn v2-btn-quiet" href="/reports/new">Start over</a>
+</form>
+{% endif %}
+</div>
+{% endblock %}
