@@ -1,0 +1,38 @@
+{
+  "id": "hortidaily-coverage-audit-v1",
+  "as_of": "2026-09-01",
+  "source_id": "source-20260819-hortidaily",
+  "collector_state": "already_collected",
+  "adapter": "article_rss",
+  "feed_url": "https://www.hortidaily.com/rss.xml",
+  "category_rss": {
+    "query_param_tried": "rss.xml?section={breeding,special-breeding,company-news,market-information,retail,research,crop-protection,berries}",
+    "result": "identical_payload",
+    "sha256_12": "3b7a50738ab2",
+    "conclusion": "Section query is a no-op. Do not treat category RSS as distinct coverage."
+  },
+  "sitemap": {
+    "index": "https://www.hortidaily.com/sitemap.xml",
+    "current_leaf": "https://www.hortidaily.com/sitemap/news/2026/",
+    "leaf_is_urlset": true,
+    "news_namespace": true,
+    "reusable_adapter": "sitemap_xml",
+    "berry_slug_filter_example": [
+      "blueberry",
+      "strawberr",
+      "raspberr",
+      "blackberr"
+    ]
+  },
+  "robots": {
+    "search": "yes",
+    "ai-input": "no",
+    "ai-train": "no"
+  },
+  "onboarded": false,
+  "notes": [
+    "Existing site-wide RSS remains the collected Source.",
+    "Do not add a HortiDaily-only scraper.",
+    "A future Source may point sitemap_xml at the current-year leaf with include_url_patterns for berry slugs."
+  ]
+}

@@ -19,6 +19,7 @@ from app.services.industry_pulse.authority import (
 )
 from app.services.industry_pulse.brightdata import BrightDataSearchProvider
 from app.services.industry_pulse.brightdata import available as brightdata_available
+from app.services.industry_pulse.catchall_provider import available as catchall_available
 from app.services.industry_pulse.dedup import dedupe_hits, identity_key, unique_hits
 from app.services.industry_pulse.exa import ExaSearchProvider
 from app.services.industry_pulse.exa import available as exa_available
@@ -48,6 +49,7 @@ UNIT_COST_USD = {
     "exa": 0.007,
     "firecrawl": 0.0,  # credit-based; estimated in the written cost model only
     "brightdata": 0.0015,
+    "newscatcher_catchall": 0.10,
 }
 
 PROPRIETARY_TOKENS = (
@@ -320,6 +322,14 @@ def credential_status() -> dict[str, dict[str, Any]]:
             "live": brightdata_available(),
             "reason": None if brightdata_available() else "BRIGHTDATA_API_KEY / BRIGHTDATA_SERP_ZONE absent",
         },
+        "newscatcher_catchall": {
+            "live": False,
+            "reason": (
+                "async event API; not slice-looped"
+                if catchall_available()
+                else "NEWSCATCHER_API_KEY / CATCHALL_API_KEY absent; async event API is not slice-looped"
+            ),
+        },
     }
 
 
@@ -428,6 +438,11 @@ def run_bakeoff(
         "providers": metrics_rows,
         "unions": unions,
         "firecrawl_acquisition": acquisition,
+        "catchall_probe": {
+            "tested": False,
+            "reason": status["newscatcher_catchall"]["reason"],
+            "note": "CatchAll jobs take 10-15 minutes and bill per validated record. Do not create production monitors.",
+        },
         "notes": [
             "No composite score. Compare raw columns only.",
             "Unknown-unknown hosts are not onboarded.",

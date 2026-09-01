@@ -541,6 +541,8 @@ Retrieval Provider Bake-Off V1 (same day): 18-slice comparable run. Google News 
 
 Industry Pulse Qualification + Editorial Relevance V1 (same day): provider-neutral layered qualifier. Frozen 34-row qualification benchmark precision 0.720 → 1.000 with 0 recall losses on expected-qualify rows. Genetics recall `benchmark.json` untouched. Not a coverage-maturity promotion. Full detail: `docs/v2/INDUSTRY-PULSE-QUALIFICATION-AND-EDITORIAL-RELEVANCE-V1.md`.
 
+Authoritative Data + NewsCatcher CatchAll Expansion Bake-Off V1 (same day): USDA PVPO monthly XLSX is a live structured national registry (57 berry rows; no documented API). UPOV PLUTO is a paid normalization index with a 100-record distribution cap — not a SaaS derived database. USPTO ODP / BigQuery patents / CatchAll are prototyped; keys absent so not live-tested. HortiDaily remains the existing RSS Source. Not a coverage-maturity promotion. Full detail: `docs/v2/AUTHORITATIVE-DATA-NEWSCATCHER-CATCHALL-V1.md`.
+
 ---
 
 ## How to refresh the evidence-class counts

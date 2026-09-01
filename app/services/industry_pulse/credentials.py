@@ -9,6 +9,8 @@ FIRECRAWL_API_KEY_ENV = "FIRECRAWL_API_KEY"
 BRIGHTDATA_API_KEY_ENV = "BRIGHTDATA_API_KEY"
 BRIGHTDATA_ZONE_ENV = "BRIGHTDATA_SERP_ZONE"
 PERPLEXITY_API_KEY_ENV = "PERPLEXITY_API_KEY"
+NEWSCATCHER_API_KEY_ENV = "NEWSCATCHER_API_KEY"
+CATCHALL_API_KEY_ENV = "CATCHALL_API_KEY"
 
 
 def env_key(name: str) -> str:
@@ -29,3 +31,11 @@ def has_brightdata() -> bool:
 
 def has_perplexity() -> bool:
     return bool(env_key(PERPLEXITY_API_KEY_ENV))
+
+
+def catchall_key() -> str:
+    return env_key(NEWSCATCHER_API_KEY_ENV) or env_key(CATCHALL_API_KEY_ENV)
+
+
+def has_catchall() -> bool:
+    return bool(catchall_key())
