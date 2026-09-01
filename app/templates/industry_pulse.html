@@ -41,6 +41,22 @@
   <p class="context-limit">{{ live_query_count }} live queries: 20 berry × geography pulse rows plus 12 global topic intensifiers. Not one Source row per cell.</p>
 </section>
 
+<section class="v2-company-section" id="semantic-catch-net">
+  <h2>Semantic catch-net (Perplexity)</h2>
+  <p class="context-limit">Optional, additive, off by default. Never replaces Google News RSS. Runs a bounded 20-query subset (Americas + Africa regional rows, plus all 12 global topic intensifiers) alongside the full 32-query Google matrix.</p>
+  <dl class="v2-role-list">
+    <dt>ENABLE_PERPLEXITY_PULSE</dt>
+    <dd>{{ "on" if perplexity_pulse_enabled else "off" }}</dd>
+    <dt>PERPLEXITY_API_KEY configured</dt>
+    <dd>{{ "yes" if perplexity_credential_present else "no" }}</dd>
+    <dt>Will run on next POST</dt>
+    <dd>{{ "yes" if (perplexity_pulse_enabled and perplexity_credential_present) else "no -- Google News RSS only" }}</dd>
+  </dl>
+  {% if perplexity_pulse_enabled and not perplexity_credential_present %}
+    <p class="banner banner-warning">Flag is on but no credential is configured. The next run falls back to Google-only automatically -- no crash, no missing report fields.</p>
+  {% endif %}
+</section>
+
 {% if snapshot %}
 <section class="v2-company-section" id="pulse-windows">
   <h2>Last pulse snapshot</h2>
@@ -75,6 +91,28 @@
     </table>
   </div>
   <p class="context-limit">Novel Source hosts: {{ snapshot.novel_source_count }}. Known-source / item-missed: {{ snapshot.known_source_item_missed_count }}. Known / not collected: {{ snapshot.known_source_not_collected_count | default(0) }}.</p>
+  {% if snapshot.provider_telemetry %}
+  <h3>Provider telemetry (this run)</h3>
+  <div class="table-wrap">
+    <table class="brief-table">
+      <thead>
+        <tr><th>Provider</th><th>Queries</th><th>Hits</th><th>Errors</th><th>Provider-unique qualifying</th></tr>
+      </thead>
+      <tbody>
+        {% for name, stats in snapshot.provider_telemetry.items() %}
+        <tr>
+          <td>{{ name }}</td>
+          <td>{{ stats.queries_issued }}</td>
+          <td>{{ stats.hits_returned }}</td>
+          <td>{{ stats.errors }}</td>
+          <td>{{ stats.unique_qualifying }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="context-limit">Union unique: {{ snapshot.union_unique_count | default(0) }}. Found by more than one provider: {{ snapshot.overlap_qualifying_count | default(0) }}. No dollar cost is computed at runtime -- see docs/v2/RETRIEVAL-PROVIDER-BAKE-OFF-V1.md for the recorded pricing snapshot.</p>
+  {% endif %}
 </section>
 {% else %}
 <section class="v2-company-section" id="pulse-empty">

@@ -10,7 +10,7 @@ from __future__ import annotations
 import json
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Callable, Iterable
 
 from app.services.industry_pulse.dedup import dedupe_hits, identity_key, unique_hits
 from app.services.industry_pulse.freshness import audit_freshness
@@ -19,6 +19,8 @@ from app.services.industry_pulse.matrix import (
     GEOGRAPHIES,
     WINDOW_DAYS,
     WINDOWS,
+    PulseQuery,
+    catch_net_queries,
     generate_pulse_queries,
     query_count,
 )
@@ -133,6 +135,8 @@ def names_from_entities(entities: Iterable[dict[str, Any]], *, prefix: str) -> f
 def run_pulse(
     *,
     provider: DiscoveryProvider | None = None,
+    catch_net_provider: DiscoveryProvider | None = None,
+    catch_net_query_filter: Callable[[list[PulseQuery]], list[PulseQuery]] | None = None,
     sources: list[dict[str, Any]],
     published_evidence: list[dict[str, Any]],
     varieties: list[dict[str, Any]] | None = None,
@@ -142,17 +146,72 @@ def run_pulse(
     today: date | None = None,
     persist_dir: Path | None = None,
 ) -> dict[str, Any]:
+    """catch_net_provider is an optional SECOND provider run alongside
+    `provider` (never a replacement) -- e.g. a semantic search provider run
+    against a bounded query subset (see matrix.catch_net_queries) as an
+    additive discovery layer. A catch-net failure (missing credential,
+    timeout, rate limit, any error) is isolated per-query exactly like the
+    primary provider's own per-query isolation below: it never aborts the
+    run or reduces the primary provider's own results. Passing None (the
+    default) reproduces the exact prior Google-News-only behavior."""
+
     today = today or datetime.now(timezone.utc).date()
     provider = provider or GoogleNewsRssProvider()
     varieties = varieties or []
     queries = [row.with_window("7d") for row in generate_pulse_queries()]
     raw: list[DiscoveryHit] = []
     failures: list[dict[str, str]] = []
-    for query in queries:
-        try:
-            raw.extend(provider.discover(query))
-        except Exception as exc:  # noqa: BLE001 — one query must not abort the matrix
-            failures.append({"query_id": query.id, "error": f"{type(exc).__name__}: {exc}"})
+    provider_stats: dict[str, dict[str, int]] = {
+        provider.name: {"queries_issued": 0, "hits_returned": 0, "errors": 0}
+    }
+    # found_by tracks, per pre-dedup identity, which provider name(s) turned
+    # it up -- this is deliberately NOT stored on DiscoveryHit itself (that
+    # shared model has one `provider` field and many other callers), so
+    # cross-provider provenance lives only in this local reporting map.
+    found_by: dict[str, set[str]] = {}
+
+    def _run_provider(active_provider: DiscoveryProvider, active_queries: list[PulseQuery]) -> None:
+        stats = provider_stats.setdefault(
+            active_provider.name, {"queries_issued": 0, "hits_returned": 0, "errors": 0}
+        )
+        for query in active_queries:
+            stats["queries_issued"] += 1
+            try:
+                hits = active_provider.discover(query)
+            except Exception as exc:  # noqa: BLE001 — one query/provider must not abort the run
+                stats["errors"] += 1
+                failures.append(
+                    {
+                        "query_id": query.id,
+                        "provider": active_provider.name,
+                        "error": f"{type(exc).__name__}: {exc}",
+                    }
+                )
+                continue
+            stats["hits_returned"] += len(hits)
+            raw.extend(hits)
+            for hit in hits:
+                found_by.setdefault(identity_key(hit), set()).add(active_provider.name)
+
+    _run_provider(provider, queries)
+
+    if catch_net_provider is not None:
+        available = getattr(catch_net_provider, "available", None)
+        if callable(available) and not available():
+            provider_stats.setdefault(
+                catch_net_provider.name, {"queries_issued": 0, "hits_returned": 0, "errors": 0}
+            )
+            failures.append(
+                {
+                    "query_id": "",
+                    "provider": catch_net_provider.name,
+                    "error": "ProviderUnavailable: credential not configured, catch-net skipped",
+                }
+            )
+        else:
+            selected = (catch_net_query_filter or catch_net_queries)(queries)
+            _run_provider(catch_net_provider, selected)
+
     company_names = names_from_entities(entities or [], prefix="company-")
     variety_names = {str(row.get("name") or "") for row in varieties if row.get("name")}
     for alias_row in varieties:
@@ -221,12 +280,40 @@ def run_pulse(
         for hit in qualifying_7d
         if hit.miss_classification == SOURCE_KNOWN_NOT_COLLECTED
     ]
+    # Provider-unique qualifying: of the final deduped/qualifying hits, how
+    # many were found by exactly one provider (and which), vs. found by more
+    # than one (overlap). Looked up from `found_by` (populated pre-dedup,
+    # keyed the same way dedup itself keys identity) rather than from the
+    # single winning `hit.provider` field, since dedup only keeps one
+    # representative per identity and that field alone cannot show a second
+    # provider also found the same story.
+    provider_unique_qualifying: dict[str, int] = {name: 0 for name in provider_stats}
+    overlap_qualifying_count = 0
+    for hit in unique_hits(classified):
+        if not hit.qualifying:
+            continue
+        providers_found = found_by.get(identity_key(hit)) or {hit.provider}
+        if len(providers_found) > 1:
+            overlap_qualifying_count += 1
+        elif len(providers_found) == 1:
+            (only,) = tuple(providers_found)
+            if only in provider_unique_qualifying:
+                provider_unique_qualifying[only] += 1
+    provider_telemetry = {
+        name: {**stats, "unique_qualifying": provider_unique_qualifying.get(name, 0)}
+        for name, stats in provider_stats.items()
+    }
+
     report = {
         "as_of": today.isoformat(),
         "provider": provider.name,
+        "catch_net_provider": catch_net_provider.name if catch_net_provider is not None else None,
         "live_query_count": query_count(),
         "queries_attempted": len(queries),
         "query_failures": failures,
+        "provider_telemetry": provider_telemetry,
+        "union_unique_count": len(found_by),
+        "overlap_qualifying_count": overlap_qualifying_count,
         "windows": windows,
         "novel_source_count": len(novel_hosts),
         "novel_source_hosts": novel_hosts,
@@ -254,6 +341,10 @@ def run_pulse(
             "Unknown published_date is excluded from 24h/3d/7d window counts.",
             "GET /industry-pulse never publishes Evidence or onboards Sources.",
             "novel_source_count and stored hits are the 7d published_date window only.",
+            "provider_telemetry records measured request/result counts only -- "
+            "no dollar cost estimate is computed at runtime (see "
+            "docs/v2/RETRIEVAL-PROVIDER-BAKE-OFF-V1.md for the bake-off's "
+            "separately-recorded pricing snapshot).",
         ],
     }
     if persist_dir is not None:

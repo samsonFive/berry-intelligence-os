@@ -118,6 +118,8 @@ from app.services.front_page import build_front_page
 from app.services.coverage_assurance import build_coverage_report
 from app.services.industry_pulse import audit_freshness, load_snapshot, query_count, run_pulse
 from app.services.industry_pulse.providers import GoogleNewsRssProvider
+from app.services.industry_pulse.perplexity_provider import PerplexitySearchProvider
+from app.services.industry_pulse.credentials import has_perplexity
 from app.services.guided_analyst import (
     atomic_pending_count,
     build_attention_queues,
@@ -340,6 +342,15 @@ AUTHORING_MODE = os.environ.get("BIOS_MODE", "authoring") == "authoring"
 # deployment that wants monitoring sets ENABLE_SOURCE_POLLING=true
 # explicitly; nothing else changes that decision on its behalf.
 SOURCE_POLLING_ENABLED = os.environ.get("ENABLE_SOURCE_POLLING", "").lower() in {"1", "true", "yes"}
+
+# Perplexity Semantic Pulse Activation V1: an operator opts a paid semantic
+# catch-net INTO Industry Pulse alongside (never instead of) Google News RSS
+# by setting ENABLE_PERPLEXITY_PULSE=true explicitly. Default is off in every
+# environment. With the flag off, or with it on but PERPLEXITY_API_KEY unset,
+# /industry-pulse/run behaves exactly as before this mission (Google-only,
+# no crash, no degraded UX) -- run_pulse()'s own credential pre-check makes
+# this safe even if the flag were left on with no key configured.
+PERPLEXITY_PULSE_ENABLED = os.environ.get("ENABLE_PERPLEXITY_PULSE", "").lower() in {"1", "true", "yes"}
 
 INTAKE_TYPES = {
     "article_or_url": "Article or URL",
@@ -3640,6 +3651,8 @@ def industry_pulse_page(request: Request) -> HTMLResponse:
             "static_build": False,
             "ui_context": ui,
             "berries": BERRIES,
+            "perplexity_pulse_enabled": PERPLEXITY_PULSE_ENABLED,
+            "perplexity_credential_present": has_perplexity(),
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -3652,8 +3665,16 @@ def industry_pulse_run() -> RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Industry Pulse is authoring-only")
     varieties, _candidates, _report = variety_candidate_universe()
+    # has_perplexity() gate here (not just run_pulse()'s own per-query
+    # isolation) avoids 20 noisy per-query auth failures when the flag is on
+    # but no key is configured -- PerplexitySearchProvider exposes
+    # `available()` as a module-level function, not an instance method, so
+    # run_pulse()'s generic `catch_net_provider.available()` pre-check does
+    # not apply to it.
+    catch_net = PerplexitySearchProvider() if (PERPLEXITY_PULSE_ENABLED and has_perplexity()) else None
     run_pulse(
         provider=GoogleNewsRssProvider(),
+        catch_net_provider=catch_net,
         sources=load_sources(),
         published_evidence=published_evidence(),
         varieties=varieties,
