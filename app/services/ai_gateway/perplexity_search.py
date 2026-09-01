@@ -9,7 +9,8 @@ scoped task can build a consuming workflow without inventing this transport.
 Verified against docs.perplexity.ai as of 2026-08-16: `POST
 https://api.perplexity.ai/search` with `{"query": ..., "max_results": ...}`,
 bearer auth, returning `{"id", "results": [{"title", "url", "snippet",
-"date"}]}`.
+"date"}]}`. Optional recency/date filters (2026-09-01 bake-off) are omitted
+from the default body so existing callers stay identical.
 """
 
 from __future__ import annotations
@@ -47,13 +48,30 @@ class PerplexitySearchClient:
     def __post_init__(self) -> None:
         self.base_url = _validate_base_url(self.base_url)
 
-    def search(self, query: str, *, max_results: int = 10) -> SearchResponse:
+    def search(
+        self,
+        query: str,
+        *,
+        max_results: int = 10,
+        search_recency_filter: str | None = None,
+        search_after_date_filter: str | None = None,
+        search_before_date_filter: str | None = None,
+        country: str | None = None,
+    ) -> SearchResponse:
         if not query.strip():
             raise ValueError("query must be nonempty")
         if not (1 <= max_results <= 20):
             raise ValueError("max_results must be between 1 and 20")
         headers = {"Content-Type": "application/json", "Authorization": f"Bearer {self.api_key}"}
-        body = {"query": query, "max_results": max_results}
+        body: dict[str, Any] = {"query": query, "max_results": max_results}
+        if search_recency_filter:
+            body["search_recency_filter"] = search_recency_filter
+        if search_after_date_filter:
+            body["search_after_date_filter"] = search_after_date_filter
+        if search_before_date_filter:
+            body["search_before_date_filter"] = search_before_date_filter
+        if country:
+            body["country"] = country
         started = self.clock()
         try:
             response = self.post(self.base_url, headers=headers, json=body, timeout=self.timeout_seconds)

@@ -108,6 +108,7 @@ class PulseQuery:
     hl: str
     gl: str
     ceid: str
+    date_window: str | None = None
 
     def with_window(self, window: str) -> "PulseQuery":
         if window not in WINDOW_WHEN:
@@ -124,6 +125,7 @@ class PulseQuery:
             hl=self.hl,
             gl=self.gl,
             ceid=self.ceid,
+            date_window=window,
         )
 
     def feed_url(self) -> str:

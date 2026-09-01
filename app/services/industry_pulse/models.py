@@ -35,6 +35,7 @@ class DiscoveryHit:
     collected: bool = False
     novel_domain: bool = False
     already_represented: bool = False
+    provider_metadata: dict[str, Any] = field(default_factory=dict)
 
     def as_dict(self) -> dict[str, Any]:
         return asdict(self)

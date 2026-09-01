@@ -537,6 +537,8 @@ Full detail: `docs/v2/INDUSTRY-PULSE-DISCOVERY-AND-NEWS-RECALL-V1.md`. This is a
 
 Live Google News RSS on 2026-09-01 (32 generated queries): 24h 23 unique / 1 qualifying; 7d 79 unique / 4 qualifying (3 SOURCE_UNKNOWN, 1 SOURCE_KNOWN_NOT_COLLECTED). Regional RSS yield remains 1 unique URL per non-global geography. Do not mark Mainstream news STRONG from this.
 
+Retrieval Provider Bake-Off V1 (same day): 18-slice comparable run. Google News 114 unique / 19 qualifying; Perplexity Search 104 unique / 20 qualifying; URL-identity overlap 0; host overlap 5. Exa/Firecrawl/Bright Data not live. Production pulse remains Google News. Full detail: `docs/v2/RETRIEVAL-PROVIDER-BAKE-OFF-V1.md`.
+
 ---
 
 ## How to refresh the evidence-class counts
