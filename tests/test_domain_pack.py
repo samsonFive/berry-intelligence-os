@@ -416,7 +416,14 @@ def test_all_live_sources_accounted_for() -> None:
     # 120+ real breeding-program articles). A third candidate
     # (producereport.com) was found already collected by a pre-existing
     # Source and was not duplicated.
-    assert len(sources) == 200
+    # 201 = 200 plus source-industry-pulse-catchnet, added for Continuous
+    # Newsroom Intake V1 (2026-09-01): a reference_manual, default_active
+    # false, never-independently-collected technical Source-linkage
+    # placeholder for Publication drafts app/services/industry_pulse/
+    # intake.py creates when a qualifying discovery hit's real publisher
+    # domain has no registered Source of its own yet -- every such draft
+    # still carries the real publisher in its own source_name/source_url.
+    assert len(sources) == 201
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}
