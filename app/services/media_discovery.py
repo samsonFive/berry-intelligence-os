@@ -342,6 +342,69 @@ def _fetch_podcast_rss(feed_url: str) -> tuple[Any, bytes]:
     return parsed, response.content
 
 
+DEFAULT_MAX_FEED_PAGES = 3
+MAX_FEED_PAGES_CAP = 8
+
+
+def _feed_next_url(parsed: Any) -> str | None:
+    feed = getattr(parsed, "feed", None)
+    if feed is None:
+        return None
+    for link in getattr(feed, "links", None) or []:
+        rel = str(link.get("rel") or "").lower()
+        href = str(link.get("href") or "").strip()
+        if rel == "next" and href:
+            return href
+    return None
+
+
+def _dedupe_feed_entries(entries: list[Any]) -> list[Any]:
+    seen: set[str] = set()
+    out: list[Any] = []
+    for entry in entries:
+        key = str(getattr(entry, "id", None) or getattr(entry, "link", None) or getattr(entry, "title", None) or "")
+        if key and key in seen:
+            continue
+        if key:
+            seen.add(key)
+        out.append(entry)
+    return out
+
+
+def _fetch_paginated_rss(
+    feed_url: str,
+    *,
+    max_pages: int = DEFAULT_MAX_FEED_PAGES,
+    fetch: Callable[[str], tuple[Any, bytes]] | None = None,
+) -> tuple[Any, bytes]:
+    """Follow Atom/RSS `rel=next` a bounded number of times.
+
+    A single-page feed is unchanged. Pagination never invents URLs; it only
+    follows a publisher-declared next link. Default window is 3 pages,
+    capped at 8, so an Atom 15-item ceiling is not the entire history.
+    """
+    fetch_page = fetch or _fetch_podcast_rss
+    pages = max(1, min(int(max_pages), MAX_FEED_PAGES_CAP))
+    first_parsed: Any | None = None
+    first_bytes = b""
+    seen_urls: set[str] = set()
+    collected: list[Any] = []
+    current = feed_url
+    for _ in range(pages):
+        if not current or current in seen_urls:
+            break
+        seen_urls.add(current)
+        parsed, raw = fetch_page(current)
+        if first_parsed is None:
+            first_parsed, first_bytes = parsed, raw
+        collected.extend(list(getattr(parsed, "entries", None) or []))
+        current = _feed_next_url(parsed)
+    if first_parsed is None:
+        return fetch_page(feed_url)
+    first_parsed.entries = _dedupe_feed_entries(collected)
+    return first_parsed, first_bytes
+
+
 def _classify_podcast_media_format(entry: Any) -> str:
     """Podcast-RSS-specific classification, based on the enclosure MIME
     type the publisher declared -- not a guess from the title/description.
@@ -1394,6 +1457,49 @@ class DiscoveryRunResult:
         }
 
 
+def _positive_int_config(value: Any, *, field: str, source_id: str) -> int:
+    if not isinstance(value, int) or isinstance(value, bool) or value < 1:
+        raise DiscoveryError(f"source {source_id!r} discovery.{field} must be a positive integer")
+    return value
+
+
+def _apply_discovery_item_limits(
+    normalized_pairs: list[tuple[int, Any, NormalizedItem]],
+    discovery_config: dict[str, Any],
+    source_id: str,
+) -> list[tuple[int, Any, NormalizedItem]]:
+    """Global `item_limit`, or per-include-pattern caps when a sitemap
+    covers more than one in-scope path family (e.g. newsroom vs regional
+    grower pages). Per-pattern slicing happens after sort, so each path
+    family keeps its own newest window instead of one family crowding out
+    the other.
+    """
+    include_raw = discovery_config.get("include_url_patterns") or []
+    per_pattern = discovery_config.get("item_limit_per_include_pattern")
+    if per_pattern is not None and include_raw:
+        limit = _positive_int_config(per_pattern, field="item_limit_per_include_pattern", source_id=source_id)
+        kept: list[tuple[int, Any, NormalizedItem]] = []
+        seen: set[str] = set()
+        for pattern in (re.compile(raw) for raw in include_raw):
+            group = [
+                pair
+                for pair in normalized_pairs
+                if pair[2].canonical_url and pattern.search(pair[2].canonical_url)
+            ]
+            for pair in group[:limit]:
+                url = pair[2].canonical_url or ""
+                if url in seen:
+                    continue
+                kept.append(pair)
+                seen.add(url)
+        return kept
+    item_limit = discovery_config.get("item_limit")
+    if item_limit is not None:
+        limit = _positive_int_config(item_limit, field="item_limit", source_id=source_id)
+        return normalized_pairs[:limit]
+    return normalized_pairs
+
+
 def discover_source(
     source_id: str,
     *,
@@ -1446,6 +1552,16 @@ def discover_source(
         raise DiscoveryError(f"unknown discovery adapter type: {adapter_type!r}")
 
     fetch, list_entries, normalize = ADAPTER_TYPES[adapter_type]
+    if adapter_type in {"article_rss", "news_search_rss"}:
+        max_pages = discovery_config.get("max_feed_pages", DEFAULT_MAX_FEED_PAGES)
+        if not isinstance(max_pages, int) or isinstance(max_pages, bool) or max_pages < 1:
+            raise DiscoveryError(f"source {source_id!r} discovery.max_feed_pages must be a positive integer")
+        max_pages = min(max_pages, MAX_FEED_PAGES_CAP)
+        page_fetch = fetch
+
+        def fetch(feed_url: str, _fetch=page_fetch, _pages=max_pages) -> tuple[Any, bytes]:
+            return _fetch_paginated_rss(feed_url, max_pages=_pages, fetch=_fetch)
+
     now = _now_iso()
 
     entries: list[Any] = []
@@ -1511,11 +1627,7 @@ def discover_source(
         ]
     if discovery_config.get("sort") == "published_desc":
         normalized_pairs.sort(key=lambda pair: pair[2].published_date or "", reverse=True)
-    item_limit = discovery_config.get("item_limit")
-    if item_limit is not None:
-        if not isinstance(item_limit, int) or isinstance(item_limit, bool) or item_limit < 1:
-            raise DiscoveryError(f"source {source_id!r} discovery.item_limit must be a positive integer")
-        normalized_pairs = normalized_pairs[:item_limit]
+    normalized_pairs = _apply_discovery_item_limits(normalized_pairs, discovery_config, source_id)
 
     first_ever_success = prior_last_success_at is None
     backlog_indexes: set[int] = set()

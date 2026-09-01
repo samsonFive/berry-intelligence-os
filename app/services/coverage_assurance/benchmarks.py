@@ -86,6 +86,9 @@ def score_all_benchmarks(
     published_evidence: list[dict[str, Any]],
     varieties: list[dict[str, Any]] | None = None,
     candidates: list[dict[str, Any]] | None = None,
+    entities: list[dict[str, Any]] | None = None,
+    facts: list[dict[str, Any]] | None = None,
+    discover_mentions: bool = True,
 ) -> list[dict[str, Any]]:
     return [
         classify_score_benchmark(
@@ -94,6 +97,9 @@ def score_all_benchmarks(
             published_evidence=published_evidence,
             varieties=varieties or [],
             candidates=candidates,
+            entities=entities,
+            facts=facts,
+            discover_mentions=discover_mentions,
         )
         for benchmark in benchmarks
     ]

@@ -109,6 +109,33 @@ _PARENTAGE_CODE_RE = re.compile(r"^(?=.*\d)[A-Za-z0-9]{1,6}(?:[ \-][A-Za-z0-9]{1
 _DENOMINATION_CODE_RE = re.compile(
     r"(?i)^(dris|pla|ridley|fc|fcm|ns|bb|fl|eb|th|zf|bk)"
 )
+LAUNCH_TITLE_SOURCE_TYPES = {
+    "news_search",
+    "trade_press",
+    "company_press_release",
+}
+_LAUNCH_TITLE_RE = re.compile(
+    r"(?i)\b(?:launches?|introduces?|unveils?|releases?)\s+"
+    r"(?:the\s+|its\s+|a\s+|an\s+)?"
+    r"([A-Z][A-Za-z0-9'’\-]+(?:\s+[A-Z][A-Za-z0-9'’\-]+){0,3})\s+"
+    r"(?:blueberry|strawberry|raspberry|blackberry)\s+variet"
+)
+_NEW_NAMED_VARIETY_TITLE_RE = re.compile(
+    r"(?i)\bnew\s+(?:blueberry|strawberry|raspberry|blackberry)\s+"
+    r"(?:variety|cultivar)\s+"
+    r"([A-Z][A-Za-z0-9'’\-]+(?:\s+[A-Z][A-Za-z0-9'’\-]+){0,3})"
+)
+_TITLE_STOP_FOLDS = {
+    "two",
+    "new",
+    "its",
+    "the",
+    "first",
+    "latest",
+    "another",
+    "several",
+    "multiple",
+}
 
 
 def _active_facts(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -240,7 +267,7 @@ def _mention(
         "source_tier": "tier_1_registry" if _is_registry_source(record) else "",
         "source_label": record.get("source_name") or record.get("source_id") or "",
         "source_url": record.get("source_url") or "",
-        "published_date": record.get("published_date") or record.get("captured_date") or "",
+        "published_date": record.get("published_date") or "",
         "breeder_owner": breeder_owner,
         "jurisdiction": "",
     }
@@ -356,6 +383,51 @@ def _extract_from_text(
                 extra={"breeder_code": code, "denomination": _clean_name(match.group(1))},
             )
 
+    return mentions, exclusions
+
+
+def _extract_launch_titles(
+    evidence: dict[str, Any],
+    *,
+    berry_id: str,
+    blocked: set[str],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Title-only launch/denomination patterns. Never scans article bodies."""
+    mentions: list[dict[str, Any]] = []
+    exclusions: list[dict[str, Any]] = []
+    if evidence.get("source_type") not in LAUNCH_TITLE_SOURCE_TYPES:
+        return mentions, exclusions
+    title = str(evidence.get("title") or "")
+    if not title:
+        return mentions, exclusions
+    berry_id = _berry_from_text(title, berry_id)
+    seen: set[str] = set()
+    for regex, kind in (
+        (_LAUNCH_TITLE_RE, "launch_title"),
+        (_NEW_NAMED_VARIETY_TITLE_RE, "new_named_variety_title"),
+    ):
+        for match in regex.finditer(title):
+            cleaned = _clean_name(match.group(1))
+            folded = fold_identity(cleaned)
+            if not cleaned or folded in seen:
+                continue
+            seen.add(folded)
+            if folded in _TITLE_STOP_FOLDS or _is_stop_name(cleaned, blocked):
+                exclusions.append({"name": cleaned, "reason": "not_a_variety", "kind": kind})
+                continue
+            if _looks_like_parentage_code(cleaned):
+                exclusions.append({"name": cleaned, "reason": "parentage_or_selection_code", "kind": kind})
+                continue
+            mentions.append(
+                _mention(
+                    name=cleaned,
+                    berry_id=berry_id,
+                    kind=kind,
+                    evidence=evidence,
+                    fact=None,
+                    context=title,
+                )
+            )
     return mentions, exclusions
 
 
@@ -517,6 +589,12 @@ def discover_corpus_variety_mentions(
         mentions.extend(found)
         exclusions.extend(excluded)
 
+    for record in evidence:
+        berry_id = berry_for(record)
+        found, excluded = _extract_launch_titles(record, berry_id=berry_id, blocked=blocked)
+        mentions.extend(found)
+        exclusions.extend(excluded)
+
     # Deduplicate mentions by folded name + berry, merging provenance.
     merged: dict[str, dict[str, Any]] = {}
     for mention in mentions:
@@ -600,6 +678,39 @@ def discover_corpus_variety_mentions(
         "explicit_variety_ids": sorted(set(already_canonical_ids)),
         "unresolved_variety_ids": sorted(set(missing_variety_ids)),
     }
+
+
+def mentions_as_scoring_candidates(report: dict[str, Any]) -> list[dict[str, Any]]:
+    """Read-only candidate-shaped rows for recall scoring. No inbox writes."""
+    rows: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for mention in report.get("mentions") or []:
+        if mention.get("disposition") == "berry_mismatch":
+            continue
+        name = str(mention.get("candidate_name") or "").strip()
+        if not name:
+            continue
+        berry = str(mention.get("berry_id") or "")
+        existing_id = str(mention.get("existing_candidate_id") or "")
+        key = existing_id or f"mention:{fold_identity(name)}|{berry}"
+        if key in seen:
+            continue
+        seen.add(key)
+        rows.append(
+            {
+                "id": key,
+                "candidate_name": name,
+                "name": name,
+                "berry_id": berry,
+                "disposition": mention.get("disposition"),
+                "evidence_id": mention.get("evidence_id") or "",
+                "evidence_ids": list(mention.get("evidence_ids") or []),
+                "source_url": mention.get("source_url") or "",
+                "published_date": mention.get("published_date") or "",
+                "mention_kind": mention.get("mention_kind"),
+            }
+        )
+    return rows
 
 
 def mentions_to_import_rows(mentions: list[dict[str, Any]]) -> list[dict[str, Any]]:
