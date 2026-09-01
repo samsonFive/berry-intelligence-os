@@ -262,7 +262,11 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
     # 198 = 196 plus source-uk-pvro-seeds-gazette and source-za-pbr-dalrrd,
     # added for Variety Universe Expansion V1 (2026-08-26) as reference
     # Sources with no discovery.adapter (structured import only).
-    assert report.sources_configured == 198 and report.sources_discoverable == 74
+    # 200 = 198 plus source-news-search-italian-berry and
+    # source-20260901-blueberrybreeding-newsroom, added for Source
+    # Coverage Gap Closure V1 (2026-09-01), both with real
+    # discovery.adapter blocks and both collection-eligible (76 = 74 + 2).
+    assert report.sources_configured == 200 and report.sources_discoverable == 76
     assert expected <= {source.source_id for source in report.sources}
 
 

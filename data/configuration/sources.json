@@ -5059,5 +5059,57 @@
     "created_at": "2026-08-26",
     "last_checked_at": null,
     "last_status": null
+  },
+  {
+    "id": "source-news-search-italian-berry",
+    "type": "rss",
+    "label": "Site-restricted news search -- Italian Berry",
+    "value": "https://news.google.com/rss/search?q=site:italianberry.it&hl=en-US&gl=US&ceid=US:en",
+    "url": "https://italianberry.it/",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=site:italianberry.it&hl=en-US&gl=US&ceid=US:en",
+      "feed_url_verified_at": "2026-09-01",
+      "item_limit": 15,
+      "notes": "Source Coverage Gap Closure V1. Italian Berry (italianberry.it) is a custom Laravel platform (confirmed live: no WordPress-style /feed/, no crawlable generic sitemap despite robots.txt claiming one) with a real /berry-news/ portal and cultivar-dense category/tag archives (/news-page/category/varieta, /news-page/category/breeding, /tag/mora [blackberry], /tag/mirtillo [blueberry, 1716 articles]) but no direct RSS/API. Already cited as trusted Evidence (ev-italianberry-peru-varieties-2025, ev-italianberry-mbo-chile-2020) while having no collection-eligible Source -- the exact Coverage Assurance / Recall Audit failure this Source closes. A site-restricted Google News search feed was verified live to return 50+ real items spanning 2019-2026 with genuine cultivar/genetics content (\"DRAPER BLUEBERRY: VARIETY CHART\", \"Two new Southern Highbush blueberry varieties\", \"Pairwise patents first seedless blackberry with CRISPR\"), through the modern discover -> screen -> acquire -> draft pipeline (news_search_rss, not the legacy app/main.py keyword-source loop, so items get real relevance screening and sit in inbox/evidence/ for human review rather than writing straight to data/evidence/ as validated=false). Known limitation, reported honestly: the one specific already-identified benchmark-gap article (\"Fresh blackberries: quality, varieties, Europe, consumption\") was verified live NOT to appear in this query -- it is outside Google News' current index for this site, and this Source's ongoing recurring collection does not retroactively guarantee that specific item. relevance_screen.py already carries the needed Italian-language berry-identity terms (mirtillo, lampone, mora, fragola)."
+    },
+    "why_it_matters": "Closes the Italian Berry Coverage Assurance / Recall Audit gap: a publisher already cited in trusted Evidence with no collection-eligible Source, and the source of a real, still-uncaptured cultivar-dense blackberry article naming Clara/Kalika/Equa/Furia/Nemus/BlackSultana/Loch Katrine.",
+    "entity_types": ["trade_press"],
+    "berry_ids": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"],
+    "region_coverage": ["europe"],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-09-01",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-20260901-blueberrybreeding-newsroom",
+    "type": "reference",
+    "label": "BlueberryBreeding.com (University of Florida) Blog",
+    "value": "https://www.blueberrybreeding.com/blog-posts-sitemap.xml",
+    "url": "https://www.blueberrybreeding.com/blog",
+    "discovery": {
+      "adapter": "sitemap_xml",
+      "feed_url": "https://www.blueberrybreeding.com/blog-posts-sitemap.xml",
+      "sort": "published_desc",
+      "item_limit": 10,
+      "feed_url_verified_at": "2026-09-01",
+      "language": "en",
+      "notes": "Source Coverage Gap Closure V1. Official University of Florida blueberry breeding program site (Wix-hosted). robots.txt confirmed no AI-crawler exclusions and an open sitemap index (5 sub-sitemaps: blog-posts, blog-categories, team members, a dedicated Blueberry Varieties dynamic sitemap, and pages) -- this Source deliberately points at the LEAF blog-posts sitemap (sitemap_xml requires a leaf urlset, never a sitemap index) for recurring breeding-program updates. The dedicated Blueberry Varieties dynamic sitemap (dynamic-blueberryvarieties_...-sitemap.xml, last modified 2026-01-28) is real, cultivar-dense structured content but is not article-shaped -- a future structured-catalog integration, not this generic article collector, would be the right way to model it; noted for a follow-up, not built here."
+    },
+    "why_it_matters": "Cited-but-not-collected host with 8 existing trusted-Evidence citations (UF breeding program cultivar releases: Colossus, Emerald, Farthing, Jewel, Meadowlark, Optimus, Patrecia, Sentinel) and no collection-eligible Source -- an authoritative, first-party breeding-program feed for a monitored institution.",
+    "entity_types": ["breeding_program", "research_institution"],
+    "berry_ids": ["berry-blueberry"],
+    "region_coverage": ["north_america"],
+    "monitoring_priority": "high",
+    "update_cadence": "monthly",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-09-01",
+    "last_checked_at": null,
+    "last_status": null
   }
 ]

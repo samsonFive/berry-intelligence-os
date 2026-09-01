@@ -21,6 +21,24 @@ from app.services.coverage_assurance.universe import berry_tokens, geography_tok
 from app.services.recall_audit.classify import WRAPPER_HOSTS, hostname, publisher_hosts
 from app.services.source_lifecycle import is_collection_eligible, lifecycle_state
 
+# Hosts genuinely, actively collected through a dedicated structured
+# pipeline that never registers itself as a Source in sources.json and
+# never runs through CollectionRunner -- so the generic Source-based
+# reconciliation below would otherwise, incorrectly, call them
+# UNKNOWN_SOURCE_IDENTITY. Verified against each pipeline's own
+# source_url construction (Source Coverage Gap Closure V1):
+# app.services.patent_monitor.google_patents (patents.google.com/xhr/query),
+# app.services.patent_monitor.uspto_odp (patentcenter.uspto.gov), and
+# app.services.cpvo_registry (online.plantvarieties.eu). This is a
+# reconciliation-modeling fix only -- it does not change what those
+# pipelines collect or how, and adds no new collection mechanism.
+STRUCTURAL_COLLECTORS: dict[str, str] = {
+    "patents.google.com": "app.services.patent_monitor.google_patents (structured patent registry pipeline)",
+    "patentcenter.uspto.gov": "app.services.patent_monitor.uspto_odp (structured patent registry pipeline)",
+    "online.plantvarieties.eu": "app.services.cpvo_registry (structured plant-variety-rights registry pipeline)",
+}
+
+
 def _source_by_publisher_host(sources: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
     index: dict[str, list[dict[str, Any]]] = {}
     for source in sources:
@@ -68,6 +86,9 @@ def collection_status_for_host(
         elif host in blocked_domains:
             reason = reason or "Host is on the operator blocklist."
         return INTENTIONALLY_EXCLUDED, reason, None
+
+    if host in STRUCTURAL_COLLECTORS:
+        return COLLECTED, f"Collected via {STRUCTURAL_COLLECTORS[host]}, not a generic Source.", None
 
     matching = sources_by_host.get(host) or []
     collected = [row for row in matching if is_collection_eligible(row)]

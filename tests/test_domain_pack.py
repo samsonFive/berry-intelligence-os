@@ -388,7 +388,16 @@ def test_all_live_sources_accounted_for() -> None:
     # Source identities and therefore do not change this count.
     # Variety Universe Expansion V1 adds two reference Sources
     # (UK PVRO gazette, South Africa DALRRD) with no discovery.adapter.
-    assert len(sources) == 198
+    # 200 = 198 plus 2 sources added (each with a matching
+    # collector_templates entry) for Source Coverage Gap Closure V1
+    # (2026-09-01): source-news-search-italian-berry (a site-restricted
+    # Google News keyword_search, live-verified to return 50+ real
+    # cultivar/genetics items) and source-20260901-blueberrybreeding-
+    # newsroom (a direct leaf-sitemap rss collector, live-verified with
+    # 120+ real breeding-program articles). A third candidate
+    # (producereport.com) was found already collected by a pre-existing
+    # Source and was not duplicated.
+    assert len(sources) == 200
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}
