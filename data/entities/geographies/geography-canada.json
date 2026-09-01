@@ -16,7 +16,8 @@
     "ev-cfia-blueberry-index",
     "ev-cfia-pbr-drisblueseventeen",
     "ev-cfia-pbr-drisbluetwentythree",
-    "ev-hortifrut-integrated-report-2023"
+    "ev-hortifrut-integrated-report-2023",
+    "ev-un-m49-geographic-regions"
   ],
   "fact_ids": [
     "fact-hortifrut-psp-4956",
@@ -28,7 +29,8 @@
   ],
   "relationship_ids": [
     "rel-driscolls-operates-in-canada",
-    "rel-cfia-operates-in-canada"
+    "rel-cfia-operates-in-canada",
+    "rel-canada-part-of-north-america"
   ],
   "attributes": {}
 }

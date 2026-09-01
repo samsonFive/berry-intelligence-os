@@ -4937,7 +4937,7 @@ def report_new_submit(
             completer=maybe_untrusted_completer(),
             entities=entities_list,
         )
-        scope = resolve_scope(proposal, entities=entities_list, berries=BERRIES, questions=questions)
+        scope = resolve_scope(proposal, entities=entities_list, berries=BERRIES, questions=questions, relationships=all_relationships())
     else:
         scope = _scope_from_form(
             report_type=report_type,

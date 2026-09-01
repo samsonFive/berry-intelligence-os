@@ -17,7 +17,8 @@
     "ev-freshuelva-atlantic-blue",
     "ev-planasa-blue-manila-datasheet",
     "ev-uspp031345-plablue-1545",
-    "ev-planasa-about-us"
+    "ev-planasa-about-us",
+    "ev-un-m49-geographic-regions"
   ],
   "fact_ids": [
     "fact-fruitnet-eureka-sunrise-2023-2",
@@ -28,7 +29,8 @@
   "relationship_ids": [
     "rel-united-exports-operates-in-spain",
     "rel-hortifrut-operates-in-spain",
-    "rel-planasa-operates-in-spain"
+    "rel-planasa-operates-in-spain",
+    "rel-spain-part-of-europe"
   ],
   "attributes": {
     "iso_3166_1_alpha_2": "ES",

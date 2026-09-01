@@ -18,10 +18,13 @@
   ],
   "evidence_ids": [
     "ev-fruitnet-driscolls-zara-best-strawberry",
-    "ev-hortweek-driscolls-victoria-award"
+    "ev-hortweek-driscolls-victoria-award",
+    "ev-un-m49-geographic-regions"
   ],
   "fact_ids": [],
-  "relationship_ids": [],
+  "relationship_ids": [
+    "rel-united-kingdom-part-of-europe"
+  ],
   "attributes": {
     "iso_3166_1_alpha_2": "GB",
     "region": "Europe"

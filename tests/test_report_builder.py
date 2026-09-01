@@ -757,3 +757,201 @@ def test_trusted_and_candidate_varieties_stay_in_separate_buckets():
     assert trusted_ids == {"variety-alpha"}
     assert candidate_ids == {"vcand-1"}
     assert trusted_ids.isdisjoint(candidate_ids)
+
+
+# --- Geographic Intelligence Resolution V1 -----------------------------------
+# Report Builder's geography scoping previously only checked entity_ids,
+# and never expanded a parent Geography (Europe) to its canonical
+# descendants (Spain, Portugal, ...) via stored part_of Relationship
+# records. These tests cover the mission's 15-item list against
+# build_report_packet directly.
+
+
+def _geo_entity(entity_id: str, name: str, **overrides) -> dict:
+    return _entity(id=entity_id, entity_type="geography", name=name, **overrides)
+
+
+def _geo_entities():
+    entities = _base_entities()
+    for row in (
+        _geo_entity("geography-europe", "Europe"),
+        _geo_entity("geography-portugal", "Portugal"),
+        _geo_entity("geography-morocco", "Morocco"),
+        _entity(id="company-iberia-berries", entity_type="company", name="Iberia Berries", berry_ids=["berry-blueberry"]),
+    ):
+        entities[row["id"]] = row
+    return entities
+
+
+def _part_of(subject_id: str, object_id: str) -> dict:
+    return {
+        "id": f"rel-{subject_id}-part-of-{object_id}",
+        "record_type": "relationship",
+        "subject_id": subject_id,
+        "predicate": "part_of",
+        "object_id": object_id,
+        "status": "active",
+        "evidence_ids": ["ev-un-m49-geographic-regions"],
+    }
+
+
+_GEO_RELATIONSHIPS = [
+    _part_of("geography-spain", "geography-europe"),
+    _part_of("geography-portugal", "geography-europe"),
+]
+
+
+def _europe_scope(**overrides) -> ResolvedScope:
+    base = dict(
+        report_type="competitive_landscape",
+        berry_id="berry-blueberry",
+        geography_ids=("geography-europe", "geography-spain", "geography-portugal"),
+        company_ids=(),
+        variety_ids=(),
+        strategic_question_id=None,
+        date_window_days=None,
+        focus_notes="",
+        geography_descendant_ids=("geography-spain", "geography-portugal"),
+    )
+    base.update(overrides)
+    return ResolvedScope(**base)
+
+
+def _build_geo_packet(scope: ResolvedScope, *, evidence: list[dict], relationships: list[dict] | None = None) -> dict:
+    return build_report_packet(
+        scope,
+        entities=_geo_entities(),
+        relationships=relationships if relationships is not None else [],
+        published_evidence=evidence,
+        facts=[],
+        signals=[],
+        assessments=[],
+        strategic_questions=[],
+        recommendations=[],
+        variety_candidates=[],
+        berry_labels=BERRIES,
+    )
+
+
+def test_geo_1_europe_resolves_spain_linked_evidence():
+    evidence = [_evidence(id="ev-spain", geography_ids=["geography-spain"], entity_ids=[])]
+    packet = _build_geo_packet(_europe_scope(), evidence=evidence)
+    assert {r["id"] for r in packet["source_trace"]} == {"ev-spain"}
+
+
+def test_geo_2_europe_resolves_portugal_linked_evidence():
+    evidence = [_evidence(id="ev-portugal", geography_ids=["geography-portugal"], entity_ids=[])]
+    packet = _build_geo_packet(_europe_scope(), evidence=evidence)
+    assert {r["id"] for r in packet["source_trace"]} == {"ev-portugal"}
+
+
+def test_geo_3_direct_europe_linked_evidence_still_included():
+    evidence = [_evidence(id="ev-europe-direct", geography_ids=["geography-europe"], entity_ids=[])]
+    packet = _build_geo_packet(_europe_scope(), evidence=evidence)
+    assert {r["id"] for r in packet["source_trace"]} == {"ev-europe-direct"}
+
+
+def test_geo_4_unrelated_geography_excluded():
+    evidence = [
+        _evidence(id="ev-spain", geography_ids=["geography-spain"], entity_ids=[]),
+        _evidence(id="ev-morocco", geography_ids=["geography-morocco"], entity_ids=[]),
+    ]
+    packet = _build_geo_packet(_europe_scope(), evidence=evidence)
+    ids = {r["id"] for r in packet["source_trace"]}
+    assert "ev-morocco" not in ids
+    assert "ev-spain" in ids
+
+
+def test_geo_5_child_query_does_not_include_siblings():
+    spain_only_scope = _europe_scope(geography_ids=("geography-spain",), geography_descendant_ids=())
+    evidence = [
+        _evidence(id="ev-spain", geography_ids=["geography-spain"], entity_ids=[]),
+        _evidence(id="ev-portugal", geography_ids=["geography-portugal"], entity_ids=[]),
+    ]
+    packet = _build_geo_packet(spain_only_scope, evidence=evidence)
+    ids = {r["id"] for r in packet["source_trace"]}
+    assert ids == {"ev-spain"}
+
+
+def test_geo_6_parent_and_child_tag_on_same_record_dedupes():
+    evidence = [_evidence(id="ev-both", geography_ids=["geography-europe", "geography-spain"], entity_ids=[])]
+    packet = _build_geo_packet(_europe_scope(), evidence=evidence)
+    assert [r["id"] for r in packet["source_trace"]] == ["ev-both"]  # exactly once
+
+
+def test_geo_7_missing_hierarchy_behaves_as_direct_only():
+    morocco_scope = _europe_scope(geography_ids=("geography-morocco",), geography_descendant_ids=())
+    evidence = [_evidence(id="ev-morocco", geography_ids=["geography-morocco"], entity_ids=[])]
+    packet = _build_geo_packet(morocco_scope, evidence=evidence)
+    assert {r["id"] for r in packet["source_trace"]} == {"ev-morocco"}
+
+
+def test_geo_8_cyclic_relationship_data_does_not_hang_packet_build():
+    cyclic = [_part_of("geography-europe", "geography-spain"), _part_of("geography-spain", "geography-europe")]
+    evidence = [_evidence(id="ev-spain", geography_ids=["geography-spain"], entity_ids=[])]
+    # Must complete without hanging or raising even with bad upstream data.
+    packet = _build_geo_packet(_europe_scope(), evidence=evidence, relationships=cyclic)
+    assert isinstance(packet["source_trace"], list)
+
+
+def test_geo_9_company_operating_in_descendant_geography_resolves():
+    scope = _europe_scope()  # no explicit company_ids -- derived via geography
+    relationships = [
+        *_GEO_RELATIONSHIPS,
+        {
+            "id": "rel-iberia-operates-in-spain", "record_type": "relationship",
+            "subject_id": "company-iberia-berries", "predicate": "operates_in", "object_id": "geography-spain",
+            "status": "active", "evidence_ids": ["ev-fixture"],
+        },
+    ]
+    packet = _build_geo_packet(scope, evidence=[], relationships=relationships)
+    company_ids = {c["id"] for c in packet["companies"]}
+    assert "company-iberia-berries" in company_ids
+
+
+def test_geo_10_variety_linked_evidence_surfaces_under_geography_scope():
+    evidence = [_evidence(id="ev-variety-spain", geography_ids=["geography-spain"], entity_ids=["variety-alpha"])]
+    packet = _build_geo_packet(_europe_scope(), evidence=evidence)
+    assert {r["id"] for r in packet["source_trace"]} == {"ev-variety-spain"}
+
+
+def test_geo_11_report_builder_europe_full_acceptance():
+    evidence = [
+        _evidence(id="ev-spain", geography_ids=["geography-spain"], entity_ids=[]),
+        _evidence(id="ev-portugal", geography_ids=["geography-portugal"], entity_ids=[]),
+        _evidence(id="ev-europe-direct", geography_ids=["geography-europe"], entity_ids=[]),
+        _evidence(id="ev-unrelated", berry_ids=["berry-blueberry"], geography_ids=[], entity_ids=[]),
+    ]
+    packet = _build_geo_packet(_europe_scope(), evidence=evidence)
+    coverage = report_coverage(packet)
+    ids = {r["id"] for r in packet["source_trace"]}
+    assert {"ev-spain", "ev-portugal", "ev-europe-direct"} <= ids
+    assert coverage["counts"]["evidence_count"] >= 3
+
+
+def test_geo_12_text_only_mention_never_included():
+    evidence = [_evidence(id="ev-text-only", title="Berries thrive across Europe this season", geography_ids=[], entity_ids=[])]
+    packet = _build_geo_packet(_europe_scope(), evidence=evidence)
+    assert {r["id"] for r in packet["source_trace"]} == set()
+
+
+def test_geo_13_provenance_retains_actual_linked_geography():
+    evidence = [_evidence(id="ev-spain", geography_ids=["geography-spain"], entity_ids=[], published_date="2026-05-01")]
+    packet = _build_geo_packet(_europe_scope(), evidence=evidence)
+    row = next(r for r in packet["recent_developments"] if r["id"] == "ev-spain")
+    assert row["matched_geography_ids"] == ("geography-spain",)
+    assert "geography-europe" not in row["matched_geography_ids"]
+
+
+def test_geo_14_packet_build_does_not_mutate_inputs():
+    entities = _geo_entities()
+    evidence = [_evidence(id="ev-spain", geography_ids=["geography-spain"], entity_ids=[])]
+    entities_snapshot = {k: dict(v) for k, v in entities.items()}
+    evidence_snapshot = [dict(e) for e in evidence]
+    build_report_packet(
+        _europe_scope(), entities=entities, relationships=_GEO_RELATIONSHIPS, published_evidence=evidence,
+        facts=[], signals=[], assessments=[], strategic_questions=[], recommendations=[],
+        variety_candidates=[], berry_labels=BERRIES,
+    )
+    assert entities == entities_snapshot
+    assert evidence == evidence_snapshot

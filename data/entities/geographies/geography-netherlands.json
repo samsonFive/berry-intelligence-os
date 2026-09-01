@@ -15,7 +15,8 @@
     "ev-fruitnet-ozblu-dispute-2020",
     "ev-ciopora-united-exports-pbr-2020",
     "ev-abb-varieties",
-    "ev-cinven-planasa-ew-group"
+    "ev-cinven-planasa-ew-group",
+    "ev-un-m49-geographic-regions"
   ],
   "fact_ids": [
     "fact-fruitnet-driesvenplant-2018-1",
@@ -24,7 +25,8 @@
   ],
   "relationship_ids": [
     "rel-fall-creek-operates-in-netherlands",
-    "rel-advanced-berry-breeding-operates-in-netherlands"
+    "rel-advanced-berry-breeding-operates-in-netherlands",
+    "rel-netherlands-part-of-europe"
   ],
   "attributes": {
     "iso_3166_1_alpha_2": "NL",

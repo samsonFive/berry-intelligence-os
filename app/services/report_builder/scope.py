@@ -30,6 +30,7 @@ from typing import Any, Callable
 
 from app.services.ai_gateway.untrusted_complete import UntrustedJsonResult
 from app.services.berries.geography import REGIONS, geography_region
+from app.services.geography_hierarchy import geography_descendants
 from app.services.global_search import _fold, _names_for_entity
 
 REPORT_TYPES = (
@@ -509,15 +510,29 @@ class GeographyResolution:
     query: str
     geography_ids: tuple[str, ...]
     matched_as: str  # "single" | "region" | "unresolved"
+    selected_id: str | None = None
+    descendant_ids: tuple[str, ...] = ()
 
 
-def resolve_geography_text(text: str, *, entities: list[dict[str, Any]]) -> GeographyResolution | None:
+def resolve_geography_text(
+    text: str,
+    *,
+    entities: list[dict[str, Any]],
+    relationships: list[dict[str, Any]] | None = None,
+) -> GeographyResolution | None:
     """A geography phrase resolves one of two honest ways: an exact match
-    against one canonical Geography entity (matched_as="single"), or an
-    exact match against one of the five fixed region labels in
+    against one canonical Geography entity (matched_as="single" --
+    expanded to include every canonical descendant via stored "part_of"
+    Relationship records, e.g. Europe -> Spain/Portugal/UK/Germany/
+    Netherlands, resolved once here rather than per record), or an exact
+    match against one of the five fixed region labels in
     app.services.berries.geography.REGIONS, expanded to every geography
-    entity in that region (matched_as="region"). Anything else is
-    "unresolved" -- never a partial/fuzzy geographic guess."""
+    entity carrying that free-text label (matched_as="region" -- the
+    pre-hierarchy fallback, kept only for labels with no canonical
+    entity match, e.g. "Latin America"). Anything else is "unresolved"
+    -- never a partial/fuzzy geographic guess. A geography with no
+    stored descendants (most of the corpus today) resolves exactly as
+    before -- fully backward compatible."""
     query = (text or "").strip()
     if not query:
         return None
@@ -527,7 +542,13 @@ def resolve_geography_text(text: str, *, entities: list[dict[str, Any]]) -> Geog
             continue
         canonical, aliases = _names_for_entity(entity)
         if folded_query == _fold(canonical) or folded_query in {_fold(a) for a in aliases}:
-            return GeographyResolution(query=query, geography_ids=(str(entity["id"]),), matched_as="single")
+            selected_id = str(entity["id"])
+            descendants = tuple(sorted(geography_descendants(selected_id, relationships=relationships or [])))
+            geo_ids = tuple(dict.fromkeys([selected_id, *descendants]))
+            return GeographyResolution(
+                query=query, geography_ids=geo_ids, matched_as="single",
+                selected_id=selected_id, descendant_ids=descendants,
+            )
     for region in REGIONS:
         if _fold(region) == folded_query:
             ids = _region_reverse_index(entities).get(folded_query, [])
@@ -571,6 +592,7 @@ class ResolvedScope:
     ambiguous_varieties: tuple[NameResolution, ...] = ()
     geography_text: str = ""
     geography_unresolved: bool = False
+    geography_descendant_ids: tuple[str, ...] = ()
 
 
 def resolve_scope(
@@ -579,6 +601,7 @@ def resolve_scope(
     entities: list[dict[str, Any]],
     berries: dict[str, str],
     questions: list[dict[str, Any]],
+    relationships: list[dict[str, Any]] | None = None,
 ) -> ResolvedScope:
     berry_id = None
     if proposal.berry_text:
@@ -588,9 +611,10 @@ def resolve_scope(
                 berry_id = bid
                 break
 
-    geo = resolve_geography_text(proposal.geography_text, entities=entities)
+    geo = resolve_geography_text(proposal.geography_text, entities=entities, relationships=relationships)
     geography_ids = geo.geography_ids if geo else ()
     geography_unresolved = bool(geo and geo.matched_as == "unresolved")
+    geography_descendant_ids = geo.descendant_ids if geo else ()
 
     company_res = resolve_entity_names(list(proposal.company_names), entities=entities, entity_type="company")
     variety_res = resolve_entity_names(list(proposal.variety_names), entities=entities, entity_type="variety")
@@ -612,4 +636,5 @@ def resolve_scope(
         ambiguous_varieties=tuple(r for r in variety_res if r.ambiguous_ids),
         geography_text=proposal.geography_text,
         geography_unresolved=geography_unresolved,
+        geography_descendant_ids=geography_descendant_ids,
     )

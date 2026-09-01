@@ -1,0 +1,14 @@
+{
+  "id": "rel-netherlands-part-of-europe",
+  "record_type": "relationship",
+  "subject_id": "geography-netherlands",
+  "predicate": "part_of",
+  "object_id": "geography-europe",
+  "status": "active",
+  "evidence_ids": [
+    "ev-un-m49-geographic-regions"
+  ],
+  "effective_date": null,
+  "confidence": "high",
+  "notes": "UN M49 standard continental/regional grouping -- structural geographic containment, not a competitive-intelligence claim. Authored by scripts/generate_geography_containment.py."
+}

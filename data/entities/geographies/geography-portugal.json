@@ -14,7 +14,8 @@
   ],
   "evidence_ids": [
     "ev-cfia-pbr-drisblueseventeen",
-    "ev-hortifrut-investor-company"
+    "ev-hortifrut-investor-company",
+    "ev-un-m49-geographic-regions"
   ],
   "fact_ids": [
     "fact-hortifrut-bfruit-2019",
@@ -22,7 +23,8 @@
   ],
   "relationship_ids": [
     "rel-hortifrut-operates-in-portugal",
-    "rel-driscolls-operates-in-portugal"
+    "rel-driscolls-operates-in-portugal",
+    "rel-portugal-part-of-europe"
   ],
   "attributes": {}
 }
