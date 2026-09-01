@@ -402,3 +402,75 @@ def write_pilot_audit(folder: Path, audit: dict[str, Any], *, stamp: str) -> Pat
     temporary.write_text(encoded, encoding="utf-8")
     temporary.replace(path)
     return path
+
+
+def load_committed_benchmark_urls(data_dir: Path) -> list[str]:
+    """Every qualifying URL from committed data/imports/*/benchmark.json files.
+
+    Generic over any committed coverage test, not a hardcoded row-id list.
+    """
+    urls: list[str] = []
+    imports_dir = Path(data_dir) / "imports"
+    if not imports_dir.is_dir():
+        return urls
+    for path in sorted(imports_dir.glob("*/benchmark.json")):
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(payload, dict):
+            continue
+        for row in payload.get("results") or []:
+            if not isinstance(row, dict):
+                continue
+            if str(row.get("qualification") or "").strip().lower() != "qualifying":
+                continue
+            url = str(row.get("url") or "").strip()
+            if url:
+                urls.append(url)
+    return urls
+
+
+def plan_uncollected_eligible_urls(
+    urls: list[str],
+    *,
+    sources: list[dict[str, Any]],
+    published_evidence: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Bounded historical backlog for collection-eligible hosts whose item
+    is not published Evidence. Planning only — no network, no Evidence writes.
+    """
+    from app.services.recall_audit.classify import collected_publisher_hosts, hostname
+
+    collected_hosts = collected_publisher_hosts(sources)
+    evidence_urls = {
+        normalize_canonical_url(row.get("source_url") or row.get("canonical_url"))
+        for row in published_evidence
+        if row.get("status") in {None, "published"}
+    }
+    evidence_urls.discard("")
+    planned: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for url in urls:
+        canonical = normalize_canonical_url(url)
+        if not canonical or canonical in seen:
+            continue
+        seen.add(canonical)
+        host = hostname(url)
+        if host not in collected_hosts:
+            continue
+        if canonical in evidence_urls:
+            continue
+        planned.append(
+            {
+                "url": url,
+                "canonical_url": canonical,
+                "host": host,
+                "reason": "collection_eligible_host_item_not_in_published_evidence",
+                "historical_backlog": True,
+                "network_acquisition_performed": False,
+                "expected_review_path": "SOURCE_FIDELITY_REVIEW",
+                "trust_notice": "Planning only. Does not write trusted Evidence.",
+            }
+        )
+    return planned

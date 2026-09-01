@@ -1663,4 +1663,20 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_independent_missed_intelligence_recall_audit_v1.py` |
 
+### TD-104 — Collection-eligible items can still miss when the live feed/path window never saw them
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | collection / variety recall |
+| **Date discovered** | 2026-09-01 |
+| **Evidence** | Collector Recall + Entity Extraction Gap Closure V1. FreshPlaza/Fruitnet/HortiDaily RSS items (Loch Katrine, GPG raspberries show, MegaEarly, Everlast) and first-party pages outside the configured channel (Hutton `/scientific-services/`, GPG `/crop/raspberries/`) remain SOURCE_COLLECTED_ITEM_MISSED until historical reacquisition + review publishes them. Fall Creek `/commercial-fruit-growers/` was a path-filter miss (now included with a per-pattern window). Apex/FFP is a different URL from the Fruitnet GNews wrapper. |
+| **Impact** | Tomorrow's similar item is collectable if it is still in the paginated feed, an included sitemap path, or the bounded historical planner; already-aged items need operator reacquisition, not a benchmark-URL hardcode. |
+| **Workaround** | `plan_uncollected_eligible_urls` over committed `data/imports/*/benchmark.json` URLs. Do not treat wrapper captures as the publisher URL. |
+| **Recommended resolution** | Operator-run bounded historical reacquisition of collection-eligible missed URLs; optional additional catalog/sitemap paths on existing Sources where a second channel is verified. |
+| **Status** | active |
+| **Owner lane** | collection / ops |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_collector_recall_entity_extraction_v1.py` |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

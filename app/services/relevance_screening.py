@@ -27,6 +27,7 @@ HIGH_WEIGHT_TERMS: tuple[tuple[str, int], ...] = (
     ("arándano", 8),
     ("arandano", 8),
     ("cultivar", 6),
+    ("pbr", 6),
     ("variety", 5),
     ("varieties", 5),
     ("breeding", 6),

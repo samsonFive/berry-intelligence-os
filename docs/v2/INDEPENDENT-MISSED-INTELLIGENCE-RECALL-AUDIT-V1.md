@@ -103,4 +103,4 @@ Same-class items not given their own row (documented, not double-counted): Plus 
 
 ## Tests
 
-`tests/test_independent_missed_intelligence_recall_audit_v1.py` scores the real canonical corpus. If a later SHA onboards Italian Berry or creates `variety-apex`, those tests should fail until the benchmark is re-scored honestly.
+`tests/test_independent_missed_intelligence_recall_audit_v1.py` scores the real canonical corpus. Collector Recall + Entity Extraction Gap Closure V1 (`docs/v2/COLLECTOR-RECALL-ENTITY-EXTRACTION-GAP-CLOSURE-V1.md`) re-scores the **same unchanged 22-row file** after general collector/extraction fixes; expected classes in that test file track honest movements, not edited benchmark URLs. If a later SHA onboards Italian Berry or creates `variety-apex`, those tests should fail until the benchmark is re-scored honestly.

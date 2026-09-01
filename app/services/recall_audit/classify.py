@@ -10,6 +10,7 @@ from __future__ import annotations
 from typing import Any
 from urllib.parse import urlparse
 
+from app.services.article_dedup import normalize_canonical_url
 from app.services.source_lifecycle import is_collection_eligible
 
 WRAPPER_HOSTS = frozenset({"news.google.com"})
@@ -130,6 +131,110 @@ def _index(records: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     return {str(row.get("id")): row for row in records if row.get("id")}
 
 
+def explicit_geography_ids(
+    record: dict[str, Any] | None,
+    *,
+    evidence_by_id: dict[str, dict[str, Any]] | None = None,
+    follow_linked_evidence: bool = False,
+) -> set[str]:
+    """Canonical geography ids actually recorded on this object.
+
+    Unions `geography_ids` with geography-typed `entity_ids`. Optionally
+    follows one hop of explicitly linked Evidence (`evidence_ids`). Never
+    infers a country from free text, company HQ, or sibling geographies.
+    """
+    if not record:
+        return set()
+    ids = {str(gid) for gid in (record.get("geography_ids") or []) if gid}
+    for eid in record.get("entity_ids") or []:
+        text = str(eid)
+        if text.startswith("geography-"):
+            ids.add(text)
+    if follow_linked_evidence and evidence_by_id:
+        for evid in record.get("evidence_ids") or []:
+            linked = evidence_by_id.get(str(evid))
+            if linked:
+                ids |= explicit_geography_ids(linked, follow_linked_evidence=False)
+    return ids
+
+
+def match_evidence_for_result(
+    result: dict[str, Any],
+    *,
+    evidence_index: dict[str, dict[str, Any]],
+    published_evidence: list[dict[str, Any]],
+) -> dict[str, Any] | None:
+    """Prefer the operator pointer. Otherwise match the same canonical URL.
+
+    Different publishers of the same story are not the same item.
+    """
+    pointed = evidence_index.get(str(result.get("matched_evidence_id") or ""))
+    if pointed:
+        return pointed
+    wanted = normalize_canonical_url(result.get("url"))
+    if not wanted:
+        return None
+    for row in published_evidence:
+        if row.get("status") not in {None, "published"}:
+            continue
+        for field in ("source_url", "canonical_url"):
+            if normalize_canonical_url(row.get(field)) == wanted:
+                return row
+    return None
+
+
+def _wanted_cultivar_names(result: dict[str, Any]) -> set[str]:
+    names = {_normalize_name(item) for item in (result.get("cultivar_names") or []) if item}
+    alias = _normalize_name(result.get("expected_alias"))
+    if alias:
+        names.add(alias)
+    return {name for name in names if name}
+
+
+def _candidate_evidence_ids(row: dict[str, Any]) -> set[str]:
+    ids = {str(item) for item in (row.get("evidence_ids") or []) if item}
+    if row.get("evidence_id"):
+        ids.add(str(row["evidence_id"]))
+    knowledge = row.get("knowledge") if isinstance(row.get("knowledge"), dict) else {}
+    ids.update(str(item) for item in (knowledge.get("evidence_ids") or []) if item)
+    return ids
+
+
+def match_candidate_for_result(
+    result: dict[str, Any],
+    *,
+    candidates: list[dict[str, Any]],
+    matched_evidence: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    """Name-match candidates only against the matched item's own provenance.
+
+    An uncollected article must not inherit a Variety candidate from some
+    other record that happens to share a cultivar name.
+    """
+    if not matched_evidence:
+        return None
+    candidate_index = _index(candidates)
+    pointed = candidate_index.get(str(result.get("matched_candidate_id") or ""))
+    if pointed:
+        return pointed
+    evidence_id = str(matched_evidence.get("id") or "")
+    if not evidence_id:
+        return None
+    wanted = _wanted_cultivar_names(result)
+    expected_entity = str(result.get("expected_entity_id") or "")
+    scoped = [row for row in candidates if evidence_id in _candidate_evidence_ids(row)]
+    for row in scoped:
+        if expected_entity and str(row.get("id") or "") == expected_entity:
+            return row
+        names = {
+            _normalize_name(row.get("candidate_name")),
+            _normalize_name(row.get("name")),
+        }
+        if wanted & {name for name in names if name}:
+            return row
+    return None
+
+
 def classify_result(
     result: dict[str, Any],
     *,
@@ -151,11 +256,15 @@ def classify_result(
 
     evidence_index = _index(published_evidence)
     variety_index = _index(varieties)
-    candidate_index = _index(candidates or [])
+    candidate_rows = list(candidates or [])
 
-    matched_evidence = evidence_index.get(str(result.get("matched_evidence_id") or ""))
+    matched_evidence = match_evidence_for_result(
+        result, evidence_index=evidence_index, published_evidence=published_evidence
+    )
     matched_entity = variety_index.get(str(result.get("matched_entity_id") or ""))
-    matched_candidate = candidate_index.get(str(result.get("matched_candidate_id") or ""))
+    matched_candidate = match_candidate_for_result(
+        result, candidates=candidate_rows, matched_evidence=matched_evidence
+    )
 
     expected_entity = str(result.get("expected_entity_id") or "")
     expected_alias = _normalize_name(result.get("expected_alias"))
@@ -166,8 +275,10 @@ def classify_result(
         miss = ENTITY_FOUND_IDENTITY_UNRESOLVED
     elif matched_evidence:
         entity_ids = {str(eid) for eid in (matched_evidence.get("entity_ids") or [])}
-        geography_ids = {str(gid) for gid in (matched_evidence.get("geography_ids") or [])}
-        entity_geos = {str(gid) for gid in ((matched_entity or {}).get("geography_ids") or [])}
+        geography_ids = explicit_geography_ids(matched_evidence)
+        entity_geos = explicit_geography_ids(
+            matched_entity, evidence_by_id=evidence_index, follow_linked_evidence=True
+        )
         if expected_entity and expected_entity not in entity_ids and not matched_entity:
             miss = ENTITY_FOUND_IDENTITY_UNRESOLVED if matched_candidate else ITEM_COLLECTED_ENTITY_MISSED
         elif expected_entity and expected_entity not in entity_ids:
@@ -180,7 +291,9 @@ def classify_result(
         else:
             miss = FULLY_REPRESENTED
     elif expected_geography and matched_entity:
-        entity_geos = {str(gid) for gid in (matched_entity.get("geography_ids") or [])}
+        entity_geos = explicit_geography_ids(
+            matched_entity, evidence_by_id=evidence_index, follow_linked_evidence=True
+        )
         miss = GEOGRAPHY_LINKAGE_FAILURE if expected_geography not in entity_geos else FULLY_REPRESENTED
     elif matched_candidate:
         miss = ENTITY_FOUND_IDENTITY_UNRESOLVED
@@ -216,6 +329,30 @@ def classify_result(
     }
 
 
+def scoring_candidates_from_corpus(
+    *,
+    varieties: list[dict[str, Any]],
+    published_evidence: list[dict[str, Any]],
+    entities: list[dict[str, Any]] | None = None,
+    facts: list[dict[str, Any]] | None = None,
+    existing_candidates: list[dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
+    """One corpus discovery pass for scoring. Never writes inbox or entities."""
+    from app.services.variety_universe.corpus_discovery import (
+        discover_corpus_variety_mentions,
+        mentions_as_scoring_candidates,
+    )
+
+    report = discover_corpus_variety_mentions(
+        varieties=varieties,
+        entities=entities or [],
+        published_evidence=published_evidence,
+        facts=facts or [],
+        existing_candidates=existing_candidates,
+    )
+    return mentions_as_scoring_candidates(report)
+
+
 def score_benchmark(
     benchmark: dict[str, Any],
     *,
@@ -223,14 +360,34 @@ def score_benchmark(
     published_evidence: list[dict[str, Any]],
     varieties: list[dict[str, Any]],
     candidates: list[dict[str, Any]] | None = None,
+    entities: list[dict[str, Any]] | None = None,
+    facts: list[dict[str, Any]] | None = None,
+    discover_mentions: bool = True,
 ) -> dict[str, Any]:
+    scoring_candidates = list(candidates or [])
+    if discover_mentions:
+        discovered = scoring_candidates_from_corpus(
+            varieties=varieties,
+            published_evidence=published_evidence,
+            entities=entities,
+            facts=facts,
+            existing_candidates=scoring_candidates,
+        )
+        seen = {str(row.get("id") or "") for row in scoring_candidates if row.get("id")}
+        for row in discovered:
+            key = str(row.get("id") or "")
+            if key and key in seen:
+                continue
+            scoring_candidates.append(row)
+            if key:
+                seen.add(key)
     scored = [
         classify_result(
             row,
             sources=sources,
             published_evidence=published_evidence,
             varieties=varieties,
-            candidates=candidates,
+            candidates=scoring_candidates,
         )
         for row in (benchmark.get("results") or [])
         if isinstance(row, dict)
