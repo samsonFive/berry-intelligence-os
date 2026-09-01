@@ -447,19 +447,55 @@ def test_ai_grounded_section_with_valid_citation_is_kept():
 
 def test_unsupported_section_stays_explicitly_unsupported_without_calling_model():
     packet = _minimal_packet()
-    packet["signals"] = []  # zero coverage for the "signals" section
+    # varieties/variety_candidates are already [] in _minimal_packet() --
+    # zero coverage for the "variety_landscape" section.
     fake = _FakeCompleter({"prose": "should not be used", "citation_ids": ["ev-1"]})
     drafts = generate_report_sections(packet, report_type="market_landscape", completer=fake)
-    signals_section = next(d for d in drafts if d.section_id == "signals")
+    variety_section = next(d for d in drafts if d.section_id == "variety_landscape")
     # If the zero-coverage short-circuit had NOT fired, the fake completer
     # would have returned a validly-cited "should not be used" draft
     # (status "ai_draft") -- getting "unsupported" with the fixed
     # INSUFFICIENT phrase instead proves the model was never consulted for
     # this section, without needing to isolate a global call count across
     # every other section in the same report_type.
-    assert signals_section.status == "unsupported"
-    assert signals_section.prose == INSUFFICIENT
-    assert signals_section.citation_ids == ()
+    assert variety_section.status == "unsupported"
+    assert variety_section.prose == INSUFFICIENT
+    assert variety_section.citation_ids == ()
+
+
+def test_signals_and_assessments_are_never_sent_to_ai_provider():
+    """Security boundary: Signal observation / Assessment rationale text
+    is this system's own proprietary analysis and must never reach the
+    AI provider, even for grounded synthesis. These sections render
+    deterministically instead of being narrated."""
+    packet = _minimal_packet()
+    packet["signals"] = [{"id": "sig-1", "title": "Momentum signal", "status": "confirmed", "observation": "PRIVATE: internal field report about Driscoll's unreleased sensory panel."}]
+    packet["assessments"] = [{"id": "assessment-1", "title": "Ownership consolidating", "confidence": "medium", "rationale": "PRIVATE: internal RedJade/Tableau trend analysis not for external disclosure."}]
+    fake = _FakeCompleter({"prose": "should never be used", "citation_ids": ["ev-1"]})
+    drafts = generate_report_sections(packet, report_type="market_landscape", completer=fake)
+    signals_section = next(d for d in drafts if d.section_id == "signals")
+    assessments_section = next(d for d in drafts if d.section_id == "assessments")
+    assert signals_section.status == "structured"
+    assert assessments_section.status == "structured"
+    # The model was never called for these sections at all -- their prose
+    # is deterministic and must never contain the private text above.
+    assert "PRIVATE" not in signals_section.prose
+    assert "PRIVATE" not in assessments_section.prose
+    assert "sig-1" in signals_section.prose
+    assert "assessment-1" in assessments_section.prose
+
+
+def test_grounding_digest_never_contains_assessment_or_signal_free_text():
+    from app.services.report_builder.synthesis import _grounding_digest
+
+    packet = _minimal_packet()
+    packet["signals"] = [{"id": "sig-1", "title": "Momentum signal", "observation": "SECRET_MARKER_OBSERVATION"}]
+    packet["assessments"] = [{"id": "assessment-1", "title": "Ownership", "rationale": "SECRET_MARKER_RATIONALE"}]
+    for section_id in ("executive_summary", "market_context", "variety_landscape", "recent_developments"):
+        digest = _grounding_digest(packet, section_id)
+        joined = "\n".join(digest)
+        assert "SECRET_MARKER_OBSERVATION" not in joined
+        assert "SECRET_MARKER_RATIONALE" not in joined
 
 
 def test_no_ai_credential_marks_sections_unavailable_not_fabricated():
