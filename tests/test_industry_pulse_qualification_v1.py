@@ -18,8 +18,8 @@ from app.services.industry_pulse.providers import MemoryProvider
 
 REPO = Path(__file__).resolve().parents[1]
 RECALL_BENCHMARK = REPO / "data" / "imports" / "missed-intelligence-recall-audit-v1" / "benchmark.json"
-# Frozen SHA-256 of the 22-row genetics recall benchmark at bake-off merge.
-RECALL_BENCHMARK_SHA256 = "b1174b6a1eb58495e71c3ef02a27c754a0f21335dcd9d826b7f1f7dc7dd322ce"
+# Frozen SHA-256 of the 22-row genetics recall benchmark (LF bytes as stored in git).
+RECALL_BENCHMARK_SHA256 = "88b219f0822384c2a220bf55cfc0e38899f51fa370f8dee61e7a53db55091e27"
 
 
 def _hit(**kwargs) -> DiscoveryHit:
@@ -309,7 +309,7 @@ def test_qualification_reasons_deterministic() -> None:
 
 
 def test_existing_frozen_recall_benchmark_unchanged() -> None:
-    payload = RECALL_BENCHMARK.read_bytes()
+    payload = RECALL_BENCHMARK.read_bytes().replace(b"\r\n", b"\n")
     digest = hashlib.sha256(payload).hexdigest()
     assert RECALL_BENCHMARK.is_file()
     assert digest == RECALL_BENCHMARK_SHA256

@@ -7,7 +7,8 @@ provider switch.
 
 **As-of:** 2026-09-01. Started from bake-off merge `07d2b39`
 (PR #207). Frozen genetics recall `data/imports/missed-intelligence-recall-audit-v1/benchmark.json`
-is unchanged (SHA-256 `b1174b6a1eb58495e71c3ef02a27c754a0f21335dcd9d826b7f1f7dc7dd322ce`).
+is unchanged (SHA-256 `88b219f0822384c2a220bf55cfc0e38899f51fa370f8dee61e7a53db55091e27`,
+LF bytes as stored in git).
 
 Claude's Perplexity Pulse activation is a separate lane. This mission does
 not touch provider activation, VPS, `/`, or `/today`.
