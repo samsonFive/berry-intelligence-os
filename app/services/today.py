@@ -248,6 +248,14 @@ def build_today(
         if items:
             banded.append({"key": key, "label": label, "rows": items})
     last_seen = parse_brief_stamp(brief_last_seen(inbox_dir))
+    if last_seen and last_seen.tzinfo is None:
+        # morning_brief._parse_stamp deliberately returns a naive stamp
+        # (its own callers compare it against other naive values); _parse
+        # (chronology.parse_stamp) below always returns UTC-aware. Only
+        # this local comparison needs the two reconciled -- attach UTC
+        # here rather than changing either shared parser's return type,
+        # which other callers rely on.
+        last_seen = last_seen.replace(tzinfo=UTC)
     new_since = []
     if last_seen:
         for row in rows:

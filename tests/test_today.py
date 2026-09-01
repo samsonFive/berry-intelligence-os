@@ -31,6 +31,32 @@ def _ev(eid: str, published: str, *, captured: str | None = None, reading: str =
     return record
 
 
+def test_today_handles_naive_last_seen_stamp_against_aware_captured_date(tmp_path: Path) -> None:
+    """morning_brief._parse_stamp deliberately returns a naive datetime
+    (its own module's convention); chronology.parse_stamp (used for
+    captured_date here) always returns a UTC-aware one. GET /brief's
+    mark_seen=True side effect can leave a real, naive last_seen_at in
+    inbox state -- build_today must not raise comparing the two."""
+    import json
+
+    inbox_dir = tmp_path / "inbox"
+    inbox_dir.mkdir()
+    (inbox_dir / "analyst_queue_state.json").write_text(
+        json.dumps({"meta": {"brief": {"last_seen_at": "2026-08-31T20:30:45", "updated_at": "2026-08-31T20:30:45"}}}),
+        encoding="utf-8",
+    )
+    page = build_today(
+        published=[_ev("ev-recent", "2026-09-01", captured="2026-09-01")],
+        signals=[],
+        assessments=[],
+        sources=[],
+        inbox_dir=inbox_dir,
+        data_dir=tmp_path,
+        now=datetime(2026, 9, 1, 12, 0, tzinfo=UTC),
+    )
+    assert isinstance(page, dict)  # did not raise
+
+
 def test_today_item_leads_over_21_day_important() -> None:
     page = build_today(
         published=[
