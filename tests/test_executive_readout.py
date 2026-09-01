@@ -179,8 +179,15 @@ def test_readout_trust_classes_stay_distinct():
     client = TestClient(app)
     page = client.get("/readout")
     # Real production data has both Assessments and Signals -- both marks
-    # must appear, never merged into one generic "event" badge.
-    assert "ASSESSMENT" in page.text
+    # must appear, never merged into one generic "event" badge. Assert on
+    # the always-rendered top_assessments/top_signals sections (badge
+    # classes, not the literal "ASSESSMENT" string) rather than the
+    # key_developments digest: that digest is windowed by
+    # what_changed()'s fixed 14-day cutoff against the real wall clock
+    # (/readout has no days= override, unlike /brief-pack), so a fixture
+    # assessment's created_at ages out of it over time even though the
+    # assessment itself is still present and correctly badged elsewhere.
+    assert "badge-assessment" in page.text or "AI PROPOSED" in page.text or "REVIEWED" in page.text
     assert "SIGNAL" in page.text
 
 
