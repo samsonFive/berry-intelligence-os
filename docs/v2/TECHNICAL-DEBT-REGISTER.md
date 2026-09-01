@@ -1647,4 +1647,20 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_coverage_assurance.py::test_technical_healthy_good_yield` (fixture-level proof the split works) |
 
+### TD-103 — Cited publishers without collectors, and feed-path filters, hide new genetics items
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | collection / variety recall |
+| **Date discovered** | 2026-08-31 |
+| **Evidence** | Independent Missed Intelligence Recall Audit V1 (`docs/v2/INDEPENDENT-MISSED-INTELLIGENCE-RECALL-AUDIT-V1.md`). Italian Berry, CFIA (`inspection.gc.ca`), and NDA (`nda.gov.za`) already appear on trusted Evidence while none is a collection-eligible Source — new named-cultivar items from those hosts miss (Clara/Kalika/Loch Katrine coverage, Skye raspberry PBR, Collection blueberries on the SA export list). Collection-eligible feeds still miss off-path pages (Hutton `/scientific-services/`, GPG `/crop/raspberries/`, Fall Creek `/commercial-fruit-growers/`, HortiDaily Everlast, FreshPlaza Loch Katrine, Fruitnet MegaEarly). Apex was captured via Google News without a Variety entity or `geography_ids`. `variety-fc11-164` lacks the commercial name Everlast. CPVO still queries only already-tracked Variety names, so Malling Centenary never enters. |
+| **Impact** | Variety/genetics recall is weaker than Source counts and existing Evidence citations imply. Positive controls (SEKOYA Nova, RedSayra) show the corpus can represent a cultivar when both item and entity exist; they are not a completeness score. |
+| **Workaround** | Use the recall-audit benchmark as an operator checklist. Coverage Assurance loads `data/imports/*/benchmark.json` automatically. Do not auto-onboard Italian Berry or treat benchmark rows as Evidence. |
+| **Recommended resolution** | Operator-governed collectors for cited-but-uncollected variety-dense publishers; widen bounded include paths only where first-party genetics pages are in scope; entity-link Apex/Collection cultivars and Everlast via existing review, not this audit. |
+| **Status** | active |
+| **Owner lane** | collection / data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_independent_missed_intelligence_recall_audit_v1.py` |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
