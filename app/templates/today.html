@@ -181,6 +181,16 @@
   {% if front_page.coverage_watch %}
     <p class="front-coverage-watch">Coverage watch: {{ front_page.coverage_watch.attention_count }} known Source(s) not collected, {{ front_page.coverage_watch.cited_not_collected_count }} cited-but-not-collected publisher(s). <a href="/coverage-assurance">Open Coverage Assurance</a></p>
   {% endif %}
+  {% if today.newsroom_status %}
+    {% if today.newsroom_status.last_run_at %}
+      <p class="front-coverage-watch">Live discovery last completed {{ today.newsroom_status.last_run_label or today.newsroom_status.last_run_at }}{% if today.newsroom_status.last_run_drafts_created %} · {{ today.newsroom_status.last_run_drafts_created }} new draft(s){% endif %}.</p>
+    {% else %}
+      <p class="front-coverage-watch">Live discovery has not completed a newsroom-intake cycle yet.</p>
+    {% endif %}
+    {% if today.newsroom_status.lock.active and not today.newsroom_status.lock.stale %}
+      <p class="v2-meta">A newsroom-intake cycle is running now.</p>
+    {% endif %}
+  {% endif %}
 </section>
 
 {% if today.worth_revisiting %}
