@@ -281,6 +281,7 @@ def test_route_flag_off_never_constructs_perplexity_provider(monkeypatch, tmp_pa
     monkeypatch.setattr(main, "published_evidence", lambda: [])
     monkeypatch.setattr(main, "all_entities", lambda: [])
     monkeypatch.setattr(main, "list_drafts_metadata", lambda: [])
+    monkeypatch.setattr(main, "list_pending_drafts", lambda: [])
     monkeypatch.setattr(main, "list_discovered_items", lambda *_a, **_k: [])
     monkeypatch.setattr(main, "variety_candidate_universe", lambda: ([], [], {}))
 
@@ -288,9 +289,9 @@ def test_route_flag_off_never_constructs_perplexity_provider(monkeypatch, tmp_pa
 
     def _stub(**kwargs):
         captured["catch_net_provider"] = kwargs.get("catch_net_provider")
-        return {}
+        return {"refused": False, "refusal_reason": ""}
 
-    monkeypatch.setattr(main, "run_pulse", _stub)
+    monkeypatch.setattr(main, "run_newsroom_cycle", _stub)
     client = TestClient(main.app)
     resp = client.post("/industry-pulse/run", follow_redirects=False)
     assert resp.status_code == 303
@@ -306,6 +307,7 @@ def test_route_flag_on_without_credential_still_passes_none(monkeypatch, tmp_pat
     monkeypatch.setattr(main, "published_evidence", lambda: [])
     monkeypatch.setattr(main, "all_entities", lambda: [])
     monkeypatch.setattr(main, "list_drafts_metadata", lambda: [])
+    monkeypatch.setattr(main, "list_pending_drafts", lambda: [])
     monkeypatch.setattr(main, "list_discovered_items", lambda *_a, **_k: [])
     monkeypatch.setattr(main, "variety_candidate_universe", lambda: ([], [], {}))
 
@@ -313,9 +315,9 @@ def test_route_flag_on_without_credential_still_passes_none(monkeypatch, tmp_pat
 
     def _stub(**kwargs):
         captured["catch_net_provider"] = kwargs.get("catch_net_provider")
-        return {}
+        return {"refused": False, "refusal_reason": ""}
 
-    monkeypatch.setattr(main, "run_pulse", _stub)
+    monkeypatch.setattr(main, "run_newsroom_cycle", _stub)
     client = TestClient(main.app)
     resp = client.post("/industry-pulse/run", follow_redirects=False)
     assert resp.status_code == 303
