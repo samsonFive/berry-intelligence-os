@@ -3129,20 +3129,9 @@
       "label": "UK Plant Varieties and Seeds Gazette (APHA / PVRO)",
       "query_or_url": "scripts/import_variety_universe_pilot.py (structured gazette-class rows; no PDF scrape, no scheduled collector)",
       "url": "https://www.gov.uk/government/collections/plant-varieties-and-seeds-gazette",
-      "geography_focus": [
-        "europe"
-      ],
-      "entity_coverage": [
-        "variety",
-        "patent",
-        "genetics_company"
-      ],
-      "berry_coverage": [
-        "berry-strawberry",
-        "berry-blueberry",
-        "berry-raspberry",
-        "berry-blackberry"
-      ],
+      "geography_focus": ["europe"],
+      "entity_coverage": ["variety", "patent", "genetics_company"],
+      "berry_coverage": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
       "monitoring_priority": "high",
       "update_cadence": "event_driven",
       "default_active": true,
@@ -3154,20 +3143,9 @@
       "label": "South Africa DALRRD Plant Breeders' Rights",
       "query_or_url": "scripts/import_variety_universe_pilot.py (deployment-class candidates; no invented grant numbers, no scheduled collector)",
       "url": "https://www.dalrrd.gov.za/",
-      "geography_focus": [
-        "africa"
-      ],
-      "entity_coverage": [
-        "variety",
-        "patent",
-        "genetics_company"
-      ],
-      "berry_coverage": [
-        "berry-strawberry",
-        "berry-blueberry",
-        "berry-raspberry",
-        "berry-blackberry"
-      ],
+      "geography_focus": ["africa"],
+      "entity_coverage": ["variety", "patent", "genetics_company"],
+      "berry_coverage": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
       "monitoring_priority": "high",
       "update_cadence": "event_driven",
       "default_active": true,
@@ -3735,564 +3713,79 @@
       "notes": "Chile is a real major raspberry exporter with zero prior raspberry-specific query (the existing Chile source is blueberry-only). Added for the Blackberry/Raspberry Vertical V1 mission (2026-08-22)."
     },
     {
-      "id": "source-20260824-global-plant-genetics-newsroom",
-      "collector_type": "rss",
-      "label": "Global Plant Genetics Newsroom",
-      "query_or_url": "https://www.globalplantgenetics.com/feed/",
-      "url": "https://www.globalplantgenetics.com/news/",
-      "geography_focus": [
-        "global"
-      ],
-      "entity_coverage": [
-        "genetics_company"
-      ],
-      "berry_coverage": [
-        "berry-blueberry",
-        "berry-raspberry",
-        "berry-strawberry",
-        "berry-blackberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Direct official newsroom RSS; live discovery and rich-body acquisition verified 2026-08-24."
+      "id": "source-20260824-global-plant-genetics-newsroom", "collector_type": "rss", "label": "Global Plant Genetics Newsroom", "query_or_url": "https://www.globalplantgenetics.com/feed/", "url": "https://www.globalplantgenetics.com/news/", "geography_focus": ["global"], "entity_coverage": ["genetics_company"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official newsroom RSS; live discovery and rich-body acquisition verified 2026-08-24."
     },
     {
-      "id": "source-20260824-james-hutton-news",
-      "collector_type": "rss",
-      "label": "James Hutton Institute News",
-      "query_or_url": "https://www.hutton.ac.uk/feed/",
-      "url": "https://www.hutton.ac.uk/news/",
-      "geography_focus": [
-        "europe"
-      ],
-      "entity_coverage": [
-        "breeding_program",
-        "research_institution"
-      ],
-      "berry_coverage": [
-        "berry-raspberry",
-        "berry-blackberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Direct official research RSS; live discovery and rich-body acquisition verified 2026-08-24."
+      "id": "source-20260824-james-hutton-news", "collector_type": "rss", "label": "James Hutton Institute News", "query_or_url": "https://www.hutton.ac.uk/feed/", "url": "https://www.hutton.ac.uk/news/", "geography_focus": ["europe"], "entity_coverage": ["breeding_program", "research_institution"], "berry_coverage": ["berry-raspberry", "berry-blackberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official research RSS; live discovery and rich-body acquisition verified 2026-08-24."
     },
     {
-      "id": "source-20260824-arkansas-aaes-news",
-      "collector_type": "rss",
-      "label": "Arkansas Agricultural Experiment Station News",
-      "query_or_url": "https://aaes.uada.edu/feed/",
-      "url": "https://aaes.uada.edu/news/",
-      "geography_focus": [
-        "north_america"
-      ],
-      "entity_coverage": [
-        "breeding_program",
-        "research_institution"
-      ],
-      "berry_coverage": [
-        "berry-blackberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Direct official public Blackberry breeding/research RSS; live verified 2026-08-24."
+      "id": "source-20260824-arkansas-aaes-news", "collector_type": "rss", "label": "Arkansas Agricultural Experiment Station News", "query_or_url": "https://aaes.uada.edu/feed/", "url": "https://aaes.uada.edu/news/", "geography_focus": ["north_america"], "entity_coverage": ["breeding_program", "research_institution"], "berry_coverage": ["berry-blackberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official public Blackberry breeding/research RSS; live verified 2026-08-24."
     },
     {
-      "id": "source-20260824-uf-ifas-news",
-      "collector_type": "rss",
-      "label": "University of Florida IFAS News",
-      "query_or_url": "https://blogs.ifas.ufl.edu/news/feed/",
-      "url": "https://blogs.ifas.ufl.edu/news/",
-      "geography_focus": [
-        "north_america"
-      ],
-      "entity_coverage": [
-        "breeding_program",
-        "research_institution"
-      ],
-      "berry_coverage": [
-        "berry-strawberry",
-        "berry-blueberry"
-      ],
-      "monitoring_priority": "medium",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Direct official research RSS; deterministic relevance screening limits broad institutional arrivals."
+      "id": "source-20260824-uf-ifas-news", "collector_type": "rss", "label": "University of Florida IFAS News", "query_or_url": "https://blogs.ifas.ufl.edu/news/feed/", "url": "https://blogs.ifas.ufl.edu/news/", "geography_focus": ["north_america"], "entity_coverage": ["breeding_program", "research_institution"], "berry_coverage": ["berry-strawberry", "berry-blueberry"], "monitoring_priority": "medium", "update_cadence": "weekly", "default_active": true, "notes": "Direct official research RSS; deterministic relevance screening limits broad institutional arrivals."
     },
     {
-      "id": "source-20260824-nc-state-cals-news",
-      "collector_type": "rss",
-      "label": "NC State CALS News",
-      "query_or_url": "https://cals.ncsu.edu/news/feed/",
-      "url": "https://cals.ncsu.edu/news/",
-      "geography_focus": [
-        "north_america"
-      ],
-      "entity_coverage": [
-        "breeding_program",
-        "research_institution"
-      ],
-      "berry_coverage": [
-        "berry-strawberry",
-        "berry-raspberry",
-        "berry-blackberry",
-        "berry-blueberry"
-      ],
-      "monitoring_priority": "medium",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Direct official research RSS; deterministic relevance screening limits broad institutional arrivals."
+      "id": "source-20260824-nc-state-cals-news", "collector_type": "rss", "label": "NC State CALS News", "query_or_url": "https://cals.ncsu.edu/news/feed/", "url": "https://cals.ncsu.edu/news/", "geography_focus": ["north_america"], "entity_coverage": ["breeding_program", "research_institution"], "berry_coverage": ["berry-strawberry", "berry-raspberry", "berry-blackberry", "berry-blueberry"], "monitoring_priority": "medium", "update_cadence": "weekly", "default_active": true, "notes": "Direct official research RSS; deterministic relevance screening limits broad institutional arrivals."
     },
     {
-      "id": "source-20260824-berryworld-newsroom",
-      "collector_type": "rss",
-      "label": "BerryWorld Newsroom",
-      "query_or_url": "https://www.berryworld.com/sitemaps-2-section-news-9-sitemap.xml",
-      "url": "https://www.berryworld.com/en-gb/about/news",
-      "geography_focus": [
-        "global"
-      ],
-      "entity_coverage": [
-        "grower_marketer",
-        "genetics_company"
-      ],
-      "berry_coverage": [
-        "berry-blueberry",
-        "berry-raspberry",
-        "berry-strawberry",
-        "berry-blackberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Direct official article-only leaf sitemap; bounded and rich-body verified 2026-08-24."
+      "id": "source-20260824-berryworld-newsroom", "collector_type": "rss", "label": "BerryWorld Newsroom", "query_or_url": "https://www.berryworld.com/sitemaps-2-section-news-9-sitemap.xml", "url": "https://www.berryworld.com/en-gb/about/news", "geography_focus": ["global"], "entity_coverage": ["grower_marketer", "genetics_company"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official article-only leaf sitemap; bounded and rich-body verified 2026-08-24."
     },
     {
-      "id": "source-20260824-fall-creek-newsroom",
-      "collector_type": "rss",
-      "label": "Fall Creek Newsroom",
-      "query_or_url": "https://www.fallcreeknursery.com/sitemap.xml",
-      "url": "https://www.fallcreeknursery.com/blog",
-      "geography_focus": [
-        "global"
-      ],
-      "entity_coverage": [
-        "genetics_company",
-        "nursery_propagator"
-      ],
-      "berry_coverage": [
-        "berry-blueberry",
-        "berry-raspberry",
-        "berry-blackberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Direct official sitemap filtered to /blog/, newest-first and capped; malformed future lastmod guarded."
+      "id": "source-20260824-fall-creek-newsroom", "collector_type": "rss", "label": "Fall Creek Newsroom", "query_or_url": "https://www.fallcreeknursery.com/sitemap.xml", "url": "https://www.fallcreeknursery.com/blog", "geography_focus": ["global"], "entity_coverage": ["genetics_company", "nursery_propagator"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-blackberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official sitemap filtered to /blog/, newest-first and capped; malformed future lastmod guarded."
     },
     {
-      "id": "source-20260824-naturipe-newsroom",
-      "collector_type": "rss",
-      "label": "Naturipe Farms Newsroom",
-      "query_or_url": "https://www.naturipefarms.com/post-sitemap.xml",
-      "url": "https://www.naturipefarms.com/newsroom/",
-      "geography_focus": [
-        "north_america",
-        "global"
-      ],
-      "entity_coverage": [
-        "grower_marketer"
-      ],
-      "berry_coverage": [
-        "berry-blueberry",
-        "berry-raspberry",
-        "berry-strawberry",
-        "berry-blackberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Direct official post sitemap, filtered and capped; live discovery and rich-body verified."
+      "id": "source-20260824-naturipe-newsroom", "collector_type": "rss", "label": "Naturipe Farms Newsroom", "query_or_url": "https://www.naturipefarms.com/post-sitemap.xml", "url": "https://www.naturipefarms.com/newsroom/", "geography_focus": ["north_america", "global"], "entity_coverage": ["grower_marketer"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official post sitemap, filtered and capped; live discovery and rich-body verified."
     },
     {
-      "id": "source-20260824-sekoya-news",
-      "collector_type": "rss",
-      "label": "SEKOYA News",
-      "query_or_url": "https://sekoya.com/feed/",
-      "url": "https://sekoya.com/news/",
-      "geography_focus": [
-        "global"
-      ],
-      "entity_coverage": [
-        "genetics_company",
-        "variety_platform"
-      ],
-      "berry_coverage": [
-        "berry-blueberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Direct official variety-platform RSS; seven current items and rich bodies live verified."
+      "id": "source-20260824-sekoya-news", "collector_type": "rss", "label": "SEKOYA News", "query_or_url": "https://sekoya.com/feed/", "url": "https://sekoya.com/news/", "geography_focus": ["global"], "entity_coverage": ["genetics_company", "variety_platform"], "berry_coverage": ["berry-blueberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official variety-platform RSS; seven current items and rich bodies live verified."
     },
     {
-      "id": "source-20260824-costa-group-newsroom",
-      "collector_type": "rss",
-      "label": "Costa Group Newsroom",
-      "query_or_url": "https://costagroup.com.au/feed/",
-      "url": "https://costagroup.com.au/news/",
-      "geography_focus": [
-        "asia_pacific",
-        "global"
-      ],
-      "entity_coverage": [
-        "grower_marketer",
-        "genetics_company"
-      ],
-      "berry_coverage": [
-        "berry-blueberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Direct official company RSS; removes avoidable sole dependence on a Google News wrapper."
+      "id": "source-20260824-costa-group-newsroom", "collector_type": "rss", "label": "Costa Group Newsroom", "query_or_url": "https://costagroup.com.au/feed/", "url": "https://costagroup.com.au/news/", "geography_focus": ["asia_pacific", "global"], "entity_coverage": ["grower_marketer", "genetics_company"], "berry_coverage": ["berry-blueberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official company RSS; removes avoidable sole dependence on a Google News wrapper."
     },
     {
-      "id": "source-20260824-blueberries-consulting-articles",
-      "collector_type": "rss",
-      "label": "Blueberries Consulting Articles",
-      "query_or_url": "https://www.blueberriesconsulting.com/feed/",
-      "url": "https://blueberriesconsulting.com/",
-      "geography_focus": [
-        "south_america",
-        "global"
-      ],
-      "entity_coverage": [
-        "trade_press"
-      ],
-      "berry_coverage": [
-        "berry-blueberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "daily",
-      "default_active": true,
-      "notes": "Direct Spanish-language written-article RSS, distinct from the existing video channel; rich-body verified."
+      "id": "source-20260824-blueberries-consulting-articles", "collector_type": "rss", "label": "Blueberries Consulting Articles", "query_or_url": "https://www.blueberriesconsulting.com/feed/", "url": "https://blueberriesconsulting.com/", "geography_focus": ["south_america", "global"], "entity_coverage": ["trade_press"], "berry_coverage": ["berry-blueberry"], "monitoring_priority": "high", "update_cadence": "daily", "default_active": true, "notes": "Direct Spanish-language written-article RSS, distinct from the existing video channel; rich-body verified."
     },
     {
-      "id": "source-20260824-british-berry-growers-news",
-      "collector_type": "rss",
-      "label": "British Berry Growers News",
-      "query_or_url": "https://britishberrygrowers.org.uk/feed/",
-      "url": "https://britishberrygrowers.org.uk/news/",
-      "geography_focus": [
-        "europe"
-      ],
-      "entity_coverage": [
-        "industry_association"
-      ],
-      "berry_coverage": [
-        "berry-blueberry",
-        "berry-raspberry",
-        "berry-strawberry",
-        "berry-blackberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Direct official association RSS; live Blackberry rich-body probe verified."
+      "id": "source-20260824-british-berry-growers-news", "collector_type": "rss", "label": "British Berry Growers News", "query_or_url": "https://britishberrygrowers.org.uk/feed/", "url": "https://britishberrygrowers.org.uk/news/", "geography_focus": ["europe"], "entity_coverage": ["industry_association"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official association RSS; live Blackberry rich-body probe verified."
     },
     {
-      "id": "source-20260824-perishable-news-produce",
-      "collector_type": "rss",
-      "label": "Perishable News - Produce",
-      "query_or_url": "https://perishablenews.com/category/produce/feed/",
-      "url": "https://perishablenews.com/category/produce/",
-      "geography_focus": [
-        "north_america",
-        "global"
-      ],
-      "entity_coverage": [
-        "trade_press"
-      ],
-      "berry_coverage": [
-        "berry-blueberry",
-        "berry-raspberry",
-        "berry-strawberry",
-        "berry-blackberry"
-      ],
-      "monitoring_priority": "medium",
-      "update_cadence": "daily",
-      "default_active": true,
-      "notes": "Direct produce-category RSS from a publisher already represented in trusted berry Evidence."
+      "id": "source-20260824-perishable-news-produce", "collector_type": "rss", "label": "Perishable News - Produce", "query_or_url": "https://perishablenews.com/category/produce/feed/", "url": "https://perishablenews.com/category/produce/", "geography_focus": ["north_america", "global"], "entity_coverage": ["trade_press"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "monitoring_priority": "medium", "update_cadence": "daily", "default_active": true, "notes": "Direct produce-category RSS from a publisher already represented in trusted berry Evidence."
     },
     {
-      "id": "source-20260824-produce-business",
-      "collector_type": "rss",
-      "label": "Produce Business",
-      "query_or_url": "https://producebusiness.com/feed/",
-      "url": "https://producebusiness.com/",
-      "geography_focus": [
-        "north_america",
-        "global"
-      ],
-      "entity_coverage": [
-        "trade_press"
-      ],
-      "berry_coverage": [
-        "berry-blueberry",
-        "berry-raspberry",
-        "berry-strawberry",
-        "berry-blackberry"
-      ],
-      "monitoring_priority": "medium",
-      "update_cadence": "daily",
-      "default_active": true,
-      "notes": "Direct publisher RSS; live discovery and rich-body acquisition verified."
+      "id": "source-20260824-produce-business", "collector_type": "rss", "label": "Produce Business", "query_or_url": "https://producebusiness.com/feed/", "url": "https://producebusiness.com/", "geography_focus": ["north_america", "global"], "entity_coverage": ["trade_press"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "monitoring_priority": "medium", "update_cadence": "daily", "default_active": true, "notes": "Direct publisher RSS; live discovery and rich-body acquisition verified."
     },
     {
-      "id": "source-20260824-ushbc-blueberry-org",
-      "collector_type": "rss",
-      "label": "U.S. Highbush Blueberry Council - Blueberry.org",
-      "query_or_url": "https://blueberry.org/feed/",
-      "url": "https://blueberry.org/",
-      "geography_focus": [
-        "north_america"
-      ],
-      "entity_coverage": [
-        "industry_association"
-      ],
-      "berry_coverage": [
-        "berry-blueberry"
-      ],
-      "monitoring_priority": "medium",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Direct official written-article RSS, distinct from the existing Business of Blueberries podcast."
+      "id": "source-20260824-ushbc-blueberry-org", "collector_type": "rss", "label": "U.S. Highbush Blueberry Council - Blueberry.org", "query_or_url": "https://blueberry.org/feed/", "url": "https://blueberry.org/", "geography_focus": ["north_america"], "entity_coverage": ["industry_association"], "berry_coverage": ["berry-blueberry"], "monitoring_priority": "medium", "update_cadence": "weekly", "default_active": true, "notes": "Direct official written-article RSS, distinct from the existing Business of Blueberries podcast."
     },
     {
-      "id": "source-20260824-specialty-crop-grower",
-      "collector_type": "rss",
-      "label": "Specialty Crop Grower",
-      "query_or_url": "https://specialtycropgrower.com/feed/",
-      "url": "https://specialtycropgrower.com/",
-      "geography_focus": [
-        "north_america"
-      ],
-      "entity_coverage": [
-        "trade_press"
-      ],
-      "berry_coverage": [
-        "berry-raspberry",
-        "berry-strawberry",
-        "berry-blackberry",
-        "berry-blueberry"
-      ],
-      "monitoring_priority": "medium",
-      "update_cadence": "daily",
-      "default_active": true,
-      "notes": "Direct publisher RSS; broad arrivals pass through deterministic berry relevance screening."
+      "id": "source-20260824-specialty-crop-grower", "collector_type": "rss", "label": "Specialty Crop Grower", "query_or_url": "https://specialtycropgrower.com/feed/", "url": "https://specialtycropgrower.com/", "geography_focus": ["north_america"], "entity_coverage": ["trade_press"], "berry_coverage": ["berry-raspberry", "berry-strawberry", "berry-blackberry", "berry-blueberry"], "monitoring_priority": "medium", "update_cadence": "daily", "default_active": true, "notes": "Direct publisher RSS; broad arrivals pass through deterministic berry relevance screening."
     },
     {
-      "id": "source-20260824-berries-australia",
-      "collector_type": "rss",
-      "label": "Berries Australia",
-      "query_or_url": "https://berries.net.au/feed/",
-      "url": "https://berries.net.au/",
-      "geography_focus": [
-        "asia_pacific"
-      ],
-      "entity_coverage": [
-        "industry_association"
-      ],
-      "berry_coverage": [
-        "berry-blueberry",
-        "berry-raspberry",
-        "berry-strawberry",
-        "berry-blackberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Direct official association RSS across all four berries; live rich-body verified."
+      "id": "source-20260824-berries-australia", "collector_type": "rss", "label": "Berries Australia", "query_or_url": "https://berries.net.au/feed/", "url": "https://berries.net.au/", "geography_focus": ["asia_pacific"], "entity_coverage": ["industry_association"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official association RSS across all four berries; live rich-body verified."
     },
     {
-      "id": "source-20260824-redagricola-articles",
-      "collector_type": "rss",
-      "label": "Redagricola Articles",
-      "query_or_url": "https://redagricola.com/feed/",
-      "url": "https://redagricola.com/",
-      "geography_focus": [
-        "south_america",
-        "global"
-      ],
-      "entity_coverage": [
-        "trade_press"
-      ],
-      "berry_coverage": [
-        "berry-blueberry",
-        "berry-raspberry",
-        "berry-strawberry",
-        "berry-blackberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "daily",
-      "default_active": true,
-      "notes": "Direct Spanish-language written-article RSS, distinct from the existing video channel; exceptionally rich probe."
+      "id": "source-20260824-redagricola-articles", "collector_type": "rss", "label": "Redagricola Articles", "query_or_url": "https://redagricola.com/feed/", "url": "https://redagricola.com/", "geography_focus": ["south_america", "global"], "entity_coverage": ["trade_press"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "monitoring_priority": "high", "update_cadence": "daily", "default_active": true, "notes": "Direct Spanish-language written-article RSS, distinct from the existing video channel; exceptionally rich probe."
     },
     {
-      "id": "source-20260824-portalfruticola",
-      "collector_type": "rss",
-      "label": "PortalFruticola",
-      "query_or_url": "https://www.portalfruticola.com/feed/",
-      "url": "https://www.portalfruticola.com/",
-      "geography_focus": [
-        "south_america",
-        "north_america",
-        "global"
-      ],
-      "entity_coverage": [
-        "trade_press"
-      ],
-      "berry_coverage": [
-        "berry-blueberry",
-        "berry-raspberry",
-        "berry-strawberry",
-        "berry-blackberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "daily",
-      "default_active": true,
-      "notes": "Direct Spanish-language Latin American fruit-trade RSS; live discovery and rich-body verified."
+      "id": "source-20260824-portalfruticola", "collector_type": "rss", "label": "PortalFruticola", "query_or_url": "https://www.portalfruticola.com/feed/", "url": "https://www.portalfruticola.com/", "geography_focus": ["south_america", "north_america", "global"], "entity_coverage": ["trade_press"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "monitoring_priority": "high", "update_cadence": "daily", "default_active": true, "notes": "Direct Spanish-language Latin American fruit-trade RSS; live discovery and rich-body verified."
     },
     {
-      "id": "source-20260824-aneberries-mexico",
-      "collector_type": "rss",
-      "label": "Aneberries Mexico",
-      "query_or_url": "https://aneberries.mx/feed/",
-      "url": "https://aneberries.mx/",
-      "geography_focus": [
-        "north_america"
-      ],
-      "entity_coverage": [
-        "industry_association"
-      ],
-      "berry_coverage": [
-        "berry-blueberry",
-        "berry-raspberry",
-        "berry-strawberry",
-        "berry-blackberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Direct official Spanish-language Mexican berry-association RSS; mixed but majority-full five-path probe."
+      "id": "source-20260824-aneberries-mexico", "collector_type": "rss", "label": "Aneberries Mexico", "query_or_url": "https://aneberries.mx/feed/", "url": "https://aneberries.mx/", "geography_focus": ["north_america"], "entity_coverage": ["industry_association"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official Spanish-language Mexican berry-association RSS; mixed but majority-full five-path probe."
     },
     {
-      "id": "source-20260825-advanced-berry-breeding-news",
-      "collector_type": "rss",
-      "label": "Advanced Berry Breeding News",
-      "query_or_url": "https://www.abbreeding.nl/feed/",
-      "url": "https://www.abbreeding.nl/",
-      "geography_focus": [
-        "europe",
-        "global"
-      ],
-      "entity_coverage": [
-        "genetics_company",
-        "breeding_program"
-      ],
-      "berry_coverage": [
-        "berry-raspberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Direct official Raspberry breeding RSS; ten-item feed and two full-body production-image probes verified 2026-08-25."
+      "id": "source-20260825-advanced-berry-breeding-news", "collector_type": "rss", "label": "Advanced Berry Breeding News", "query_or_url": "https://www.abbreeding.nl/feed/", "url": "https://www.abbreeding.nl/", "geography_focus": ["europe", "global"], "entity_coverage": ["genetics_company", "breeding_program"], "berry_coverage": ["berry-raspberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official Raspberry breeding RSS; ten-item feed and two full-body production-image probes verified 2026-08-25."
     },
     {
-      "id": "source-20260825-summer-berry-company-news",
-      "collector_type": "rss",
-      "label": "The Summer Berry Company News",
-      "query_or_url": "https://summerberry.co.uk/feed/",
-      "url": "https://summerberry.co.uk/news/",
-      "geography_focus": [
-        "europe"
-      ],
-      "entity_coverage": [
-        "grower_marketer",
-        "genetics_licensee"
-      ],
-      "berry_coverage": [
-        "berry-blueberry",
-        "berry-raspberry",
-        "berry-strawberry",
-        "berry-blackberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Direct official Company RSS; ten-item feed and two full-body production-image probes verified 2026-08-25."
+      "id": "source-20260825-summer-berry-company-news", "collector_type": "rss", "label": "The Summer Berry Company News", "query_or_url": "https://summerberry.co.uk/feed/", "url": "https://summerberry.co.uk/news/", "geography_focus": ["europe"], "entity_coverage": ["grower_marketer", "genetics_licensee"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Direct official Company RSS; ten-item feed and two full-body production-image probes verified 2026-08-25."
     },
     {
-      "id": "source-news-search-italian-berry",
-      "collector_type": "keyword_search",
-      "label": "Site-restricted news search -- Italian Berry",
-      "query_or_url": "site:italianberry.it",
-      "url": "https://news.google.com/",
-      "geography_focus": [
-        "europe"
-      ],
-      "entity_coverage": [
-        "trade_press"
-      ],
-      "berry_coverage": [
-        "berry-blueberry",
-        "berry-raspberry",
-        "berry-strawberry",
-        "berry-blackberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Source Coverage Gap Closure V1 (2026-09-01). Italian Berry (italianberry.it) is a custom Laravel platform with no RSS feed and no crawlable generic sitemap; already cited in trusted Evidence with no collection-eligible Source, and the source of a real, uncaptured cultivar-dense blackberry article. Site-restricted Google News search verified live to return 50+ real cultivar/genetics items spanning 2019-2026."
+      "id": "source-news-search-italian-berry", "collector_type": "keyword_search", "label": "Site-restricted news search -- Italian Berry", "query_or_url": "site:italianberry.it", "url": "https://news.google.com/", "geography_focus": ["europe"], "entity_coverage": ["trade_press"], "berry_coverage": ["berry-blueberry", "berry-raspberry", "berry-strawberry", "berry-blackberry"], "monitoring_priority": "high", "update_cadence": "weekly", "default_active": true, "notes": "Source Coverage Gap Closure V1 (2026-09-01). Italian Berry (italianberry.it) is a custom Laravel platform with no RSS feed and no crawlable generic sitemap; already cited in trusted Evidence with no collection-eligible Source, and the source of a real, uncaptured cultivar-dense blackberry article. Site-restricted Google News search verified live to return 50+ real cultivar/genetics items spanning 2019-2026."
     },
     {
-      "id": "source-20260901-blueberrybreeding-newsroom",
-      "collector_type": "rss",
-      "label": "BlueberryBreeding.com (University of Florida) Blog",
-      "query_or_url": "https://www.blueberrybreeding.com/blog-posts-sitemap.xml",
-      "url": "https://www.blueberrybreeding.com/blog",
-      "geography_focus": [
-        "north_america"
-      ],
-      "entity_coverage": [
-        "breeding_program",
-        "research_institution"
-      ],
-      "berry_coverage": [
-        "berry-blueberry"
-      ],
-      "monitoring_priority": "high",
-      "update_cadence": "monthly",
-      "default_active": true,
-      "notes": "Source Coverage Gap Closure V1 (2026-09-01). Official University of Florida blueberry breeding program site; leaf blog-posts sitemap (not the sitemap index) verified live with 120+ real breeding-program articles. Cited in 8 existing trusted-Evidence records with no collection-eligible Source."
+      "id": "source-20260901-blueberrybreeding-newsroom", "collector_type": "rss", "label": "BlueberryBreeding.com (University of Florida) Blog", "query_or_url": "https://www.blueberrybreeding.com/blog-posts-sitemap.xml", "url": "https://www.blueberrybreeding.com/blog", "geography_focus": ["north_america"], "entity_coverage": ["breeding_program", "research_institution"], "berry_coverage": ["berry-blueberry"], "monitoring_priority": "high", "update_cadence": "monthly", "default_active": true, "notes": "Source Coverage Gap Closure V1 (2026-09-01). Official University of Florida blueberry breeding program site; leaf blog-posts sitemap (not the sitemap index) verified live with 120+ real breeding-program articles. Cited in 8 existing trusted-Evidence records with no collection-eligible Source."
     },
     {
-      "id": "source-industry-pulse-catchnet",
-      "collector_type": "reference_manual",
-      "label": "Industry Pulse discovery catch-net (attribution placeholder -- not a publisher)",
-      "query_or_url": "Industry Pulse discovery catch-net (not a queryable source; attribution placeholder only)",
-      "url": null,
-      "geography_focus": [],
-      "entity_coverage": [],
-      "berry_coverage": [],
-      "monitoring_priority": "low",
-      "update_cadence": "event_driven",
-      "default_active": false,
-      "notes": "Never independently collected -- has no discovery.adapter and default_active is false. Technical Source-linkage placeholder only for Publication drafts the Industry Pulse intake bridge creates when a discovered story's real publisher has no registered Source yet; each such draft still carries the real publisher in its own source_name/source_url fields."
+      "id": "source-industry-pulse-catchnet", "collector_type": "reference_manual", "label": "Industry Pulse discovery catch-net (attribution placeholder -- not a publisher)", "query_or_url": "Industry Pulse discovery catch-net (not a queryable source; attribution placeholder only)", "url": null, "geography_focus": [], "entity_coverage": [], "berry_coverage": [], "monitoring_priority": "low", "update_cadence": "event_driven", "default_active": false, "notes": "Continuous Newsroom Intake V1 (2026-09-01). Never independently collected -- has no discovery.adapter and default_active is false. Technical Source-linkage placeholder only for Publication drafts the Industry Pulse intake bridge creates when a discovered story's real publisher has no registered Source yet; each such draft still carries the real publisher in its own source_name/source_url fields."
     }
   ]
 }
