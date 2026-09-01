@@ -59,15 +59,10 @@ def test_today_is_a_morning_console_with_source_problems_and_next_work(monkeypat
     monkeypatch.setattr(main, "load_sources", lambda: [])
     page = TestClient(main.app).get("/today")
     assert page.status_code == 200
-    assert "data-today-source-problems" in page.text
-    assert "Open Source Health" in page.text
-    assert 'href="/sources"' in page.text
-    assert 'href="/review-ops"' in page.text
-    assert 'href="/pending"' in page.text
-    assert 'href="/review?kind=atomic"' in page.text
-    assert 'href="/watches"' in page.text
-    assert 'href="/strategic-questions"' in page.text
+    assert "What matters now" in page.text
     assert "What changed in the last 24 hours" in page.text
+    assert 'href="/watches"' in page.text
+    assert "Publication Review" not in page.text
     assert "name=\"decision\"" not in page.text
 
 
@@ -86,7 +81,7 @@ def test_today_get_does_not_mark_watchlist_seen_or_write_review_events(monkeypat
 
 
 def test_sidebar_puts_strategic_questions_in_decide_and_renames_monitoring_queue() -> None:
-    page = TestClient(app).get("/today")
+    page = TestClient(app).get("/brief")
     assert page.status_code == 200
     html = page.text
     decide_at = html.find(">Decide<")
@@ -194,5 +189,5 @@ def test_review_queue_reset_preserves_kind() -> None:
 def test_evidence_geography_links_to_geography_workspace() -> None:
     page = TestClient(app).get("/geographies/geography-spain")
     assert page.status_code == 200
-    assert "GEOGRAPHY INTELLIGENCE" in page.text
+    assert "Market" in page.text
     assert "Intelligence timeline" in page.text

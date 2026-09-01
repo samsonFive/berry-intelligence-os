@@ -115,6 +115,11 @@ from app.services.collection_ops import (
 )
 from app.services.today import build_today
 from app.services.front_page import build_front_page
+from app.services.stakeholder_ui import (
+    REPORT_EXAMPLE_PROMPTS,
+    compose_stakeholder_front,
+    humanize_label,
+)
 from app.services.coverage_assurance import build_coverage_report
 from app.services.industry_pulse import audit_freshness, load_snapshot, query_count, run_pulse
 from app.services.industry_pulse.providers import GoogleNewsRssProvider
@@ -1276,6 +1281,7 @@ templates.env.filters["us_date"] = us_date
 templates.env.filters["as_bullets"] = as_bullets
 templates.env.filters["is_redundant_summary"] = is_redundant_summary
 templates.env.filters["dated_label"] = dated_label
+templates.env.filters["humanize_label"] = humanize_label
 templates.env.globals["entity_path"] = entity_path
 
 
@@ -3443,6 +3449,7 @@ def today_page(request: Request) -> HTMLResponse:
         context={
             "today": page,
             "front_page": front_page,
+            "stakeholder_front": compose_stakeholder_front(front_page, page.get("worth_revisiting")),
             "attention_queues": attention,
             "monitoring": watch_monitoring_snapshot(inbox_dir=INBOX_DIR),
             "berries": [{"id": key, "label": label} for key, label in BERRIES.items()],
@@ -5080,6 +5087,18 @@ def reports_index_page(request: Request, status: str = "draft") -> HTMLResponse:
 @app.get("/reports/new", response_class=HTMLResponse)
 def report_new_page(request: Request) -> HTMLResponse:
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    example_key = str(request.query_params.get("example") or "").strip().lower()
+    example_request = ""
+    for row in REPORT_EXAMPLE_PROMPTS:
+        if example_key and example_key in row["label"].casefold().replace(" ", ""):
+            example_request = row["text"]
+            break
+    aliases = {
+        "europe": REPORT_EXAMPLE_PROMPTS[0]["text"],
+        "planasa": REPORT_EXAMPLE_PROMPTS[1]["text"],
+        "sekoya": REPORT_EXAMPLE_PROMPTS[2]["text"],
+    }
+    example_request = aliases.get(example_key, example_request)
     response = templates.TemplateResponse(
         request=request,
         name="report_new.html",
@@ -5090,6 +5109,8 @@ def report_new_page(request: Request) -> HTMLResponse:
             "berries": BERRIES,
             "authoring_mode": AUTHORING_MODE,
             "ui_context": ui,
+            "example_request": example_request,
+            "report_examples": REPORT_EXAMPLE_PROMPTS,
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -7433,12 +7454,12 @@ def global_search_page(
     q: str = "",
     berry: str | None = None,
     include_global: str | None = None,
-    sort: str = "newest",
+    sort: str = "relevance",
 ) -> HTMLResponse:
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     berry_id = parse_berry(berry or ui.get("berry"), BERRIES)
     broaden = str(include_global or "1").strip() not in {"0", "false", "no"}
-    sort_mode = sort if sort in {"newest", "relevance"} else "newest"
+    sort_mode = sort if sort in {"newest", "relevance"} else "relevance"
     results = run_global_search(
         q,
         berry=berry_id,

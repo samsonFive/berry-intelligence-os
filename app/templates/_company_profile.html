@@ -1,32 +1,31 @@
 {% set ui = ui_context if ui_context is defined else {"berry": "global", "berry_label": "Global", "feed_view": "grid"} %}
-<div class="v2-page v2-company">
-<section class="page-heading v2-page-header" data-pagefind-filter="type:entity">
+<div class="sh-page v2-page v2-company">
+<section class="sh-header page-heading v2-page-header" data-pagefind-filter="type:entity">
   <div>
-    <p class="eyebrow">COMPANY</p>
+    <p class="sh-kicker eyebrow">Company</p>
     <h1>{{ entity.name }}</h1>
     {% if entity.aliases %}
-      <p class="also-known-as" data-pagefind-weight="10">Also known as: {{ entity.aliases|join(', ') }}</p>
+      <p class="sh-lede also-known-as" data-pagefind-weight="10">Also known as {{ entity.aliases|join(', ') }}</p>
     {% endif %}
-    <p class="v2-company-meta">
-      <span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span>
-      {% if entity.roles %}<span class="v2-meta">{{ entity.roles|join(' · ') }}</span>{% endif %}
-      {% if last_updated %}<span class="v2-meta">Updated {{ last_updated|us_date }}</span>{% endif %}
-      {% if ui.berry != 'global' %}<span class="v2-mark v2-mark-direct">{{ ui.berry_label }} context</span>{% endif %}
+    <p class="sh-meta v2-company-meta">
+      {% if entity.status %}<span>{{ entity.status|humanize_label }}</span>{% endif %}
+      {% if entity.roles %}<span>{% for role in entity.roles %}{{ role|humanize_label }}{% if not loop.last %} · {% endif %}{% endfor %}</span>{% endif %}
+      {% if last_updated %}<span>Updated {{ last_updated|us_date }}</span>{% endif %}
+      {% if ui.berry != 'global' %}<span>{{ ui.berry_label }} context</span>{% endif %}
     </p>
   </div>
-  <div class="v2-company-actions">
+  <div class="sh-actions v2-company-actions">
     {% if not static_build %}
-      <a class="v2-btn v2-btn-quiet" href="/entities/company/compare?ids={{ entity.id }}">Compare</a>
-      <form method="post" action="/watches/toggle" style="display:inline">
+      <form method="post" action="/watches/toggle">
         <input type="hidden" name="watch_type" value="company">
         <input type="hidden" name="object_id" value="{{ entity.id }}">
         <input type="hidden" name="action" value="{{ 'remove' if is_watched else 'add' }}">
         <input type="hidden" name="return_to" value="{{ request.url.path }}">
-        <button class="v2-btn v2-btn-quiet" type="submit">{{ 'Remove from watchlist' if is_watched else 'Add to watchlist' }}</button>
+        <button class="sh-btn" type="submit">{{ 'Remove from watchlist' if is_watched else 'Add to watchlist' }}</button>
       </form>
     {% endif %}
-    <a class="v2-btn v2-btn-quiet" href="/entities/company/{{ entity.id }}/portfolio">Portfolio</a>
-    <a class="v2-btn v2-btn-primary" href="#recent-intelligence">Open Evidence</a>
+    <a class="sh-btn" href="/entities/company/{{ entity.id }}/portfolio">Varieties</a>
+    <a class="sh-btn sh-btn-primary" href="#what-changed">Recent activity</a>
   </div>
 </section>
 

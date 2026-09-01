@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Berry Intelligence{% endblock %}</title>
+  <link rel="stylesheet" href="/static/vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/v2.css">
+  <link rel="stylesheet" href="/static/stakeholder.css">
+</head>
+<body class="sh-body">
+  <div class="sh-app">
+    <header class="sh-topbar">
+      <div class="sh-topbar-inner">
+        <a class="sh-brand" href="/today">Berry Intelligence<span>Intelligence OS</span></a>
+        <nav class="sh-nav sh-nav-desktop" aria-label="Primary">
+          {% include "_stakeholder_nav.html" %}
+        </nav>
+        {% if not static_build %}
+        <form class="sh-search" action="/search" method="get" role="search">
+          <label class="visually-hidden" for="global-search">Search companies, varieties, and markets</label>
+          <input id="global-search" name="q" type="search" autocomplete="off" placeholder="Search companies, varieties, markets…" value="{{ request.query_params.get('q', '') if request.url.path == '/search' else '' }}">
+        </form>
+        {% endif %}
+        {% if analyst_display_name %}
+        <div class="sh-session">
+          <span>{{ analyst_display_name }}</span>
+          <form action="/logout" method="post">
+            <button type="submit">Sign out</button>
+          </form>
+        </div>
+        {% endif %}
+        <details class="sh-more sh-mobile-panel sh-mobile-toggle">
+          <summary class="sh-btn" aria-label="Open menu">Menu</summary>
+          <nav class="sh-nav" aria-label="Primary mobile">
+            {% include "_stakeholder_nav.html" %}
+          </nav>
+        </details>
+      </div>
+    </header>
+    <div class="sh-canvas" data-pagefind-body>
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+  {% include "_v2_reader_offcanvas.html" %}
+  <script src="/static/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="/static/v2.js"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

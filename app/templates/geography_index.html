@@ -1,13 +1,14 @@
-{% extends "base.html" %}
-{% block title %}Geographies{% endblock %}
+{% extends "base_stakeholder.html" %}
+{% block title %}Markets{% endblock %}
 {% block content %}
 {% set geographies = geographies if geographies is defined else [] %}
-<div class="v2-page">
-<section class="page-heading v2-page-header" data-pagefind-filter="type:entity">
+<div class="sh-page v2-page">
+<section class="sh-header page-heading v2-page-header" data-pagefind-filter="type:entity">
   <div>
-    <p class="eyebrow">GEOGRAPHY INTELLIGENCE</p>
-    <h1>Geographies</h1>
-    <p class="also-known-as">Captured intelligence about a place, not complete market reality. Absence of evidence never means absence of activity.</p>
+    <p class="sh-kicker eyebrow">Markets</p>
+    <h1>Markets &amp; regions</h1>
+    <p class="sh-lede also-known-as">Captured intelligence about a place, not a complete market census.</p>
+    <p class="sh-note"><a href="/geographies/geography-europe">Europe</a> · <a href="/geographies/geography-americas">Americas</a> · <a href="/geographies/geography-spain">Spain</a></p>
   </div>
 </section>
 

@@ -1,26 +1,17 @@
-{% extends "base.html" %}
-{% block title %}AI-Assisted Reports — Berry Intelligence OS{% endblock %}
+{% extends "base_stakeholder.html" %}
+{% block title %}Reports — Berry Intelligence{% endblock %}
 {% block content %}
-<div class="v2-page">
-<section class="page-heading v2-page-header">
+<div class="sh-page v2-page">
+<section class="sh-header page-heading v2-page-header">
   <div>
-    <p class="eyebrow">AI-ASSISTED REPORT BUILDER</p>
+    <p class="sh-kicker eyebrow">Reports</p>
     <h1>Reports</h1>
-    <p class="also-known-as">Report prose is AI-drafted from this system's own trusted intelligence and is analyst-reviewed before circulation. It is report output, not canonical intelligence -- generating a report never creates or edits Evidence, Signals, Assessments, or Strategic Questions.</p>
+    <p class="sh-lede also-known-as">Ask a question, confirm the scope, then review a draft you can export. A report never creates or edits trusted intelligence.</p>
+  </div>
+  <div class="sh-actions">
+    <a class="sh-btn sh-btn-primary v2-btn v2-btn-primary" href="/reports/new">Build a report</a>
   </div>
 </section>
-
-<nav class="landscape-filter-bar" aria-label="Report filters">
-  <div class="landscape-filter-group">
-    <strong>Show</strong>
-    <a class="filter-chip{% if status != 'archived' and status != 'all' %} is-active{% endif %}" href="/reports">Drafts &amp; active</a>
-    <a class="filter-chip{% if status == 'archived' %} is-active{% endif %}" href="/reports?status=archived">Archived</a>
-    <a class="filter-chip{% if status == 'all' %} is-active{% endif %}" href="/reports?status=all">All</a>
-  </div>
-  <div class="landscape-filter-group">
-    <a class="v2-btn v2-btn-quiet" href="/reports/new">New report</a>
-  </div>
-</nav>
 
 {% if reports %}
   <div class="balanced-card-grid">
@@ -42,7 +33,14 @@
     {% endfor %}
   </div>
 {% else %}
-  <p class="empty-state">No reports yet. <a href="/reports/new">Build one</a> from a natural-language request.</p>
+  <p class="sh-empty empty-state">No saved reports yet.</p>
+  <p><a class="sh-btn sh-btn-primary" href="/reports/new">Build a report</a></p>
+  <p class="sh-note">Start from an example:</p>
+  <p class="sh-examples">
+    <a class="sh-btn" href="/reports/new?example=europe">Blueberry genetics in Europe</a>
+    <a class="sh-btn" href="/reports/new?example=planasa">Planasa now</a>
+    <a class="sh-btn" href="/reports/new?example=sekoya">SEKOYA Grande</a>
+  </p>
 {% endif %}
 </div>
 {% endblock %}

@@ -1,54 +1,49 @@
 {% set ui = ui_context if ui_context is defined else {"berry": "global", "berry_label": "Global", "feed_view": "grid"} %}
 {% set identity = identity if identity is defined else {"canonical_name": entity.name, "aliases": entity.aliases or [], "commercial_names": [], "denomination": "", "breeder_code": "", "package_note": ""} %}
 {% set roles = roles if roles is defined else {} %}
-<div class="v2-page v2-variety v2-variety-detail">
-<section class="page-heading v2-page-header" data-pagefind-filter="type:entity">
+<div class="sh-page v2-page v2-variety v2-variety-detail v2-company">
+<section class="sh-header page-heading v2-page-header" data-pagefind-filter="type:entity">
   <div>
-    <p class="eyebrow">VARIETY</p>
+    <p class="sh-kicker eyebrow">Variety</p>
     <h1>{{ identity.canonical_name }}</h1>
     {% if identity.aliases %}
-      <p class="also-known-as" data-pagefind-weight="10">Aliases: {{ identity.aliases|join(', ') }}</p>
+      <p class="sh-lede also-known-as" data-pagefind-weight="10">Also known as {{ identity.aliases|join(', ') }}</p>
     {% endif %}
-    {% if identity.commercial_names or identity.denomination or identity.breeder_code %}
-      <p class="v2-company-meta">
-        {% if identity.commercial_names %}<span class="v2-meta">Commercial name {{ identity.commercial_names|join(', ') }}</span>{% endif %}
-        {% if identity.denomination %}<span class="v2-meta">Denomination {{ identity.denomination }}</span>{% endif %}
-        {% if identity.breeder_code %}<span class="v2-meta">Breeder code {{ identity.breeder_code }}</span>{% endif %}
-      </p>
-    {% endif %}
-    <p class="v2-company-meta">
-      <span class="badge badge-status-{{ entity.status }}">{{ entity.status }}</span>
+    <p class="sh-meta v2-company-meta">
+      {% if entity.status %}<span>{{ entity.status|humanize_label }}</span>{% endif %}
       {% for berry_id in entity.berry_ids %}
-        <span class="v2-chip v2-chip-berry">{{ berry_label(berry_id) }}</span>
+        <span>{{ berry_label(berry_id) }}</span>
       {% endfor %}
-      {% if ui.berry != 'global' %}<span class="v2-mark v2-mark-direct">{{ ui.berry_label }} context</span>{% endif %}
+      {% if identity.commercial_names %}<span>Commercial name {{ identity.commercial_names|join(', ') }}</span>{% endif %}
+      {% if identity.denomination %}<span>Denomination {{ identity.denomination }}</span>{% endif %}
+      {% if identity.breeder_code %}<span>Breeder code {{ identity.breeder_code }}</span>{% endif %}
     </p>
   </div>
-  <div class="v2-company-actions">
-    <a class="v2-btn v2-btn-quiet" href="/entities/variety">Variety index</a>
-    {% if landscape_href %}<a class="v2-btn v2-btn-quiet" href="{{ landscape_href }}">Landscape context</a>{% endif %}
+  <div class="sh-actions v2-company-actions">
     {% if not static_build %}
-      <a class="v2-btn v2-btn-quiet" href="/entities/variety/compare?ids={{ entity.id }}">Compare</a>
-      <form method="post" action="/watches/toggle" style="display:inline">
+      <form method="post" action="/watches/toggle">
         <input type="hidden" name="watch_type" value="variety">
         <input type="hidden" name="object_id" value="{{ entity.id }}">
         <input type="hidden" name="action" value="{{ 'remove' if is_watched else 'add' }}">
         <input type="hidden" name="return_to" value="{{ request.url.path }}">
-        <button class="v2-btn v2-btn-quiet" type="submit">{{ 'Remove from watchlist' if is_watched else 'Add to watchlist' }}</button>
+        <button class="sh-btn" type="submit">{{ 'Remove from watchlist' if is_watched else 'Add to watchlist' }}</button>
       </form>
     {% endif %}
-    <a class="v2-btn v2-btn-primary" href="#recent-intelligence">Open Evidence</a>
+    <a class="sh-btn sh-btn-primary" href="#recent-intelligence">Recent intelligence</a>
   </div>
 </section>
 
 {% if entity.description %}
-  <p class="v2-company-lede">{{ entity.description|truncate(360) }}</p>
+  <p class="sh-lede v2-company-lede">{{ entity.description|truncate(360) }}</p>
 {% endif %}
 {% if identity.package_note %}
-  <p class="context-limit">{{ identity.package_note }}</p>
+  <p class="sh-note">{{ identity.package_note }}</p>
 {% endif %}
 {% if regions %}
-  <p class="v2-company-meta"><span class="v2-meta">Connected regions</span> {{ regions|join(', ') }}</p>
+<section class="sh-section" id="connected-regions">
+  <h2>Regions</h2>
+  <p class="sh-meta">{{ regions|join(', ') }}</p>
+</section>
 {% endif %}
 {% if uk_named_pilot %}
   <p class="brief-window">UK retail pilot named-variety case. Only two listings in that 18-observation pilot named a cultivar. Absence of other UK listings here does not mean this variety is unknown globally.</p>
@@ -61,7 +56,7 @@
   <ul class="entity-links">
     {% for issue in identity_issues %}
       <li>
-        <span class="badge">{{ issue.identity_label }}</span>
+        <span class="badge">{{ issue.identity_label|humanize_label }}</span>
         <a href="/varieties/candidates#{{ issue.id }}">{{ issue.candidate_name }}</a>
         {% if issue.jurisdiction %}<span class="draft-meta"> · {{ issue.jurisdiction }}</span>{% endif %}
       </li>
@@ -70,19 +65,23 @@
 </section>
 {% endif %}
 
-<section class="v2-company-section" id="roles">
+<section class="sh-section v2-company-section" id="roles">
   <h2>Who is involved</h2>
-  <p class="context-limit">Roles stay distinct. The same company may appear twice when two facts are evidenced (for example breeder and rights holder).</p>
-  <dl class="v2-role-list">
+  {% set filled_roles = namespace(any=false) %}
+  <dl class="sh-role-list v2-role-list">
     {% for bucket, label in role_labels.items() %}
-      <dt>{{ label }}</dt>
-      <dd>
-        {% if roles[bucket] %}
+      {% if roles[bucket] %}
+        {% set filled_roles.any = true %}
+        <dt>{{ label }}</dt>
+        <dd>
           {% for party in roles[bucket] %}<a href="{{ party.href }}">{{ party.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
-        {% else %}—{% endif %}
-      </dd>
+        </dd>
+      {% endif %}
     {% endfor %}
   </dl>
+  {% if not filled_roles.any %}
+    <p class="sh-empty">No breeder, owner, or licensee is recorded yet.</p>
+  {% endif %}
 </section>
 
 <section class="v2-company-section" id="rights">

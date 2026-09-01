@@ -63,10 +63,10 @@ def test_anonymous_protected_routes_redirect_to_login(monkeypatch) -> None:
     assert client.get("/healthz").status_code == 200
     login = client.get("/login")
     assert login.status_code == 200
-    assert "Intelligence Workbench" in login.text
+    assert "Berry Intelligence" in login.text
     assert "Private analyst workspace" in login.text
-    assert "Sign in to start on Today" in login.text
-    assert "Scan. Review. Trust." in login.text
+    assert "what matters in berry genetics" in login.text
+    assert "Trusted intelligence" in login.text
     assert "FastAPI" not in login.text
     assert "Docker" not in login.text
     assert "Basic Auth" not in login.text
