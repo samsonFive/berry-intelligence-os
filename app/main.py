@@ -115,6 +115,8 @@ from app.services.collection_ops import (
 )
 from app.services.today import build_today
 from app.services.coverage_assurance import build_coverage_report
+from app.services.industry_pulse import audit_freshness, load_snapshot, query_count, run_pulse
+from app.services.industry_pulse.providers import GoogleNewsRssProvider
 from app.services.guided_analyst import (
     atomic_pending_count,
     build_attention_queues,
@@ -3573,6 +3575,68 @@ def coverage_assurance_page(request: Request) -> HTMLResponse:
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
     return response
+
+
+@app.get("/industry-pulse", response_class=HTMLResponse)
+def industry_pulse_page(request: Request) -> HTMLResponse:
+    """Authoring-only catch-net. GET never fetches the public web, never
+    publishes Evidence, and never onboards a Source."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Industry Pulse is authoring-only")
+    sources = load_sources()
+    evidence = published_evidence()
+    publications = [
+        row
+        for row in list_drafts_metadata()
+        if row.get("evidence_role") == "publication_artifact"
+    ]
+    discovered = list_discovered_items(INBOX_DIR)
+    freshness = audit_freshness(
+        sources=sources,
+        published_evidence=evidence,
+        publications=publications,
+        discovered_items=discovered,
+    )
+    snapshot = load_snapshot(INBOX_DIR)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="industry_pulse.html",
+        context={
+            "freshness": freshness,
+            "snapshot": snapshot,
+            "live_query_count": query_count(),
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/industry-pulse/run")
+def industry_pulse_run() -> RedirectResponse:
+    """Explicit catch-net run. Writes inbox metadata only."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Industry Pulse is authoring-only")
+    varieties, _candidates, _report = variety_candidate_universe()
+    run_pulse(
+        provider=GoogleNewsRssProvider(),
+        sources=load_sources(),
+        published_evidence=published_evidence(),
+        varieties=varieties,
+        entities=all_entities(),
+        publications=[
+            row
+            for row in list_drafts_metadata()
+            if row.get("evidence_role") == "publication_artifact"
+        ],
+        discovered_items=list_discovered_items(INBOX_DIR),
+        persist_dir=INBOX_DIR,
+    )
+    return RedirectResponse(url="/industry-pulse", status_code=303)
 
 
 @app.get("/collection-ops", response_class=HTMLResponse)

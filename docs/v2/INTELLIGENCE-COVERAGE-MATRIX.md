@@ -531,6 +531,14 @@ Blackberry trusted Varieties remain sparse (Victoria exists; Clara/Kalika/Loch K
 
 ---
 
+## Industry Pulse Discovery + News Recall V1 (2026-09-01)
+
+Full detail: `docs/v2/INDUSTRY-PULSE-DISCOVERY-AND-NEWS-RECALL-V1.md`. This is a catch-net, not a maturity promotion and not a Source onboard.
+
+Live Google News RSS on 2026-09-01 (32 generated queries): 24h 23 unique / 1 qualifying; 7d 79 unique / 4 qualifying (3 SOURCE_UNKNOWN, 1 SOURCE_KNOWN_NOT_COLLECTED). Regional RSS yield remains 1 unique URL per non-global geography. Do not mark Mainstream news STRONG from this.
+
+---
+
 ## How to refresh the evidence-class counts
 
 Re-count committed `data/evidence/*.json` by stored `source_type` /
