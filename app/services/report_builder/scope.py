@@ -15,12 +15,11 @@ inference elsewhere ("Do not infer berry from title, rationale, or
 company names").
 
 Works with or without an AI provider credential: without one, a
-deterministic keyword-based interpreter still proposes a report_type
-and extracts obvious company/variety mentions by substring match against
-known canonical names, so the feature is never blocked on a missing
-PERPLEXITY_API_KEY -- it just skips the free-text nuance a model adds
-for things like "Europe" -> geography phrasing or an implied date
-window.
+deterministic interpreter still proposes a phrase-aware report_type
+and extracts explicit known Company/Variety/Geography names and aliases
+from the request text. AI, when present, may add nuance, but a
+reconciliation pass keeps obvious canonical mentions that the provider
+omitted. Missing PERPLEXITY_API_KEY never blocks the feature.
 """
 
 from __future__ import annotations
@@ -32,7 +31,6 @@ from typing import Any, Callable
 from app.services.ai_gateway.untrusted_complete import UntrustedJsonResult
 from app.services.berries.geography import REGIONS, geography_region
 from app.services.global_search import _fold, _names_for_entity
-from app.services.variety_workspace import identity_fields
 
 REPORT_TYPES = (
     "market_landscape",
@@ -99,46 +97,287 @@ class ScopeProposal:
     source: str  # "ai" | "keyword_fallback"
 
 
-_COMPARISON_HINTS = ("compare", " vs ", " versus ", "comparison")
 _SQ_HINTS = ("strategic question", "sq-")
-_VARIETY_HINTS = ("variety", "genetics", "cultivar", "breeding")
+_COMPARISON_RE = re.compile(r"\b(compare|comparing|comparison|versus|vs\.?)\b", re.IGNORECASE)
+_MARKET_PHRASES = ("market report", "market landscape", "market overview")
+_COMPETITIVE_PHRASES = ("competitive landscape", "competitor landscape")
+_VARIETY_PHRASES = ("variety landscape", "genetics landscape", "cultivar landscape")
+_LIST_SPLIT_RE = re.compile(r"\s*(?:,|;|\band\b|&|versus|\bvs\.?)\s+", re.IGNORECASE)
+_TRAILING_SCOPE_RE = re.compile(
+    r"\s+(?:in|for|across|within)\s+(?:the\s+)?(.+)$",
+    re.IGNORECASE,
+)
+_US_GEO_RE = re.compile(r"\b(u\.?\s*s\.?a?\.?)\b", re.IGNORECASE)
+_SKIP_NAME_FOLDS = frozenset(
+    {
+        "report",
+        "market",
+        "landscape",
+        "competitive",
+        "competitor",
+        "compare",
+        "comparison",
+        "versus",
+        "vs",
+        "variety",
+        "varieties",
+        "genetics",
+        "cultivar",
+        "cultivars",
+        "breeding",
+        "overview",
+        "blueberry",
+        "strawberry",
+        "raspberry",
+        "blackberry",
+        "company",
+        "companies",
+        "and",
+        "the",
+        "for",
+        "in",
+        "on",
+        "of",
+        "a",
+        "an",
+        "me",
+        "build",
+        "give",
+        "europe",
+        "americas",
+        "oceania",
+        "asia",
+    }
+)
+_MIN_NAME_FOLD = 3
 
 
 def _guess_report_type(text: str) -> str:
+    """Phrase-aware deterministic type. A generic token such as
+    ``genetics`` must not override ``competitive landscape``."""
     lowered = text.casefold()
+    if _COMPARISON_RE.search(text):
+        return "competitor_comparison"
+    if any(phrase in lowered for phrase in _COMPETITIVE_PHRASES):
+        return "competitive_landscape"
+    if any(phrase in lowered for phrase in _MARKET_PHRASES):
+        return "market_landscape"
+    if any(phrase in lowered for phrase in _VARIETY_PHRASES):
+        return "variety_genetics_landscape"
     if any(hint in lowered for hint in _SQ_HINTS):
         return "strategic_question_brief"
-    if any(hint in lowered for hint in _COMPARISON_HINTS):
-        return "competitor_comparison"
-    if any(hint in lowered for hint in _VARIETY_HINTS):
-        return "variety_genetics_landscape"
     if "competitive" in lowered or "competitor" in lowered:
         return "competitive_landscape"
     return "market_landscape"
 
 
-def _keyword_fallback_proposal(text: str, *, berries: dict[str, str]) -> ScopeProposal:
-    """Deterministic, no-AI-required interpretation: proposes a report_type
-    by simple keyword match and a berry by substring match against known
-    berry labels. Company/variety/geography text extraction is left blank
-    here -- the analyst fills those in on the scope-confirmation screen --
-    rather than attempting fragile NL entity extraction without a model."""
+def _berry_from_text(text: str, berries: dict[str, str]) -> str:
     lowered = text.casefold()
-    berry_text = ""
     for berry_id, label in berries.items():
         if label.casefold() in lowered or berry_id.removeprefix("berry-") in lowered:
-            berry_text = label
-            break
+            return label
+    return ""
+
+
+def _already_represented(folded: str, kept: set[str]) -> bool:
+    if folded in kept:
+        return True
+    for item in kept:
+        if item.startswith(folded + " ") or folded.startswith(item + " "):
+            return True
+        if folded in item.split():
+            return True
+    return False
+
+
+def _merge_name_tuples(*groups: tuple[str, ...]) -> tuple[str, ...]:
+    """Prefer longer known aliases; drop compare-list fragments they cover."""
+    ranked = sorted(
+        (str(raw).strip() for group in groups for raw in group if str(raw).strip()),
+        key=lambda query: (len(_fold(query).split()), len(_fold(query))),
+        reverse=True,
+    )
+    kept: set[str] = set()
+    out: list[str] = []
+    for query in ranked:
+        folded = _fold(query)
+        if not folded or _already_represented(folded, kept):
+            continue
+        kept.add(folded)
+        out.append(query)
+    return tuple(out)
+
+
+def _name_phrase_index(
+    entities: list[dict[str, Any]], entity_type: str
+) -> list[tuple[str, str, tuple[str, ...]]]:
+    """(folded_phrase, surface, entity_ids) longest-first. Same folded
+    phrase hitting more than one id stays together so callers can mark
+    ambiguous instead of first-match."""
+    buckets: dict[str, dict[str, Any]] = {}
+    for entity in entities:
+        if entity.get("entity_type") != entity_type or not entity.get("id"):
+            continue
+        entity_id = str(entity["id"])
+        canonical, aliases = _names_for_entity(entity)
+        for surface in (canonical, *aliases):
+            folded = _fold(surface)
+            if len(folded) < _MIN_NAME_FOLD or folded in _SKIP_NAME_FOLDS:
+                continue
+            bucket = buckets.setdefault(folded, {"surface": surface, "ids": set()})
+            bucket["ids"].add(entity_id)
+            if len(surface) > len(bucket["surface"]):
+                bucket["surface"] = surface
+    phrases = [
+        (folded, row["surface"], tuple(sorted(row["ids"])))
+        for folded, row in buckets.items()
+    ]
+    phrases.sort(key=lambda row: (len(row[0].split()), len(row[0])), reverse=True)
+    return phrases
+
+
+def _scan_known_phrases(text: str, phrases: list[tuple[str, str, tuple[str, ...]]]) -> tuple[str, ...]:
+    tokens = _fold(text).split()
+    if not tokens:
+        return ()
+    consumed = [False] * len(tokens)
+    found: list[str] = []
+    seen: set[str] = set()
+    for folded, surface, _ids in phrases:
+        ptoks = folded.split()
+        width = len(ptoks)
+        if width == 0 or width > len(tokens):
+            continue
+        index = 0
+        while index <= len(tokens) - width:
+            window = slice(index, index + width)
+            if not any(consumed[window]) and tokens[window] == ptoks:
+                if folded not in seen:
+                    found.append(surface)
+                    seen.add(folded)
+                for pos in range(index, index + width):
+                    consumed[pos] = True
+                index += width
+            else:
+                index += 1
+    return tuple(found)
+
+
+def _split_compare_names(blob: str) -> tuple[str, ...]:
+    names: list[str] = []
+    seen: set[str] = set()
+    for part in _LIST_SPLIT_RE.split(blob):
+        query = part.strip(" .;:")
+        folded = _fold(query)
+        if not query or len(folded) < _MIN_NAME_FOLD or folded in _SKIP_NAME_FOLDS or folded in seen:
+            continue
+        seen.add(folded)
+        names.append(query)
+    return tuple(names)
+
+
+def _comparison_name_list(text: str) -> tuple[str, ...]:
+    """Comma/and lists after compare/versus. Unknown items stay as text."""
+    match = re.search(r"\b(?:compare|comparing|comparison of)\s+(.+)$", text, re.IGNORECASE)
+    blob = ""
+    if match:
+        blob = match.group(1)
+    else:
+        versus = re.search(r"(.+?)\s+(?:versus|\bvs\.?)\s+(.+)$", text, re.IGNORECASE)
+        if versus:
+            blob = f"{versus.group(1)}, {versus.group(2)}"
+    if not blob:
+        return ()
+    geo_tail = _TRAILING_SCOPE_RE.search(blob)
+    if geo_tail:
+        blob = blob[: geo_tail.start()]
+    return _split_compare_names(blob)
+
+
+def _geography_from_text(text: str, *, entities: list[dict[str, Any]] | None) -> str:
+    """Exact region label, canonical Geography name/alias, or an honest
+    U.S. surface. Never expands a region into member countries."""
+    folded = _fold(text)
+    tokens = folded.split()
+    region_hits = [region for region in REGIONS if _fold(region) and _fold(region) in folded]
+    geo_hits: list[str] = []
+    if entities:
+        phrases = _name_phrase_index(entities, "geography")
+        geo_hits = list(_scan_known_phrases(text, phrases))
+    if geo_hits:
+        return geo_hits[0]
+    if region_hits:
+        return max(region_hits, key=lambda row: len(_fold(row)))
+    us_match = _US_GEO_RE.search(text)
+    if us_match and "united states" not in folded:
+        return us_match.group(1)
+    if tokens and "united states" in folded:
+        return "United States"
+    return ""
+
+
+def extract_known_mentions(
+    text: str,
+    *,
+    berries: dict[str, str],
+    entities: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Deterministic mentions from analyst text. Exact folded name/alias
+    only -- no fuzzy resolution, no candidate Varieties."""
+    rows = [row for row in (entities or []) if row.get("entity_type") in {"company", "variety", "geography"}]
+    companies = _merge_name_tuples(
+        _scan_known_phrases(text, _name_phrase_index(rows, "company")),
+        _comparison_name_list(text),
+    )
+    varieties = _scan_known_phrases(text, _name_phrase_index(rows, "variety"))
+    return {
+        "berry_text": _berry_from_text(text, berries),
+        "geography_text": _geography_from_text(text, entities=rows),
+        "company_names": companies,
+        "variety_names": varieties,
+    }
+
+
+def _keyword_fallback_proposal(
+    text: str,
+    *,
+    berries: dict[str, str],
+    entities: list[dict[str, Any]] | None = None,
+) -> ScopeProposal:
+    """Deterministic interpretation when no AI credential is available."""
+    extracted = extract_known_mentions(text, berries=berries, entities=entities)
     return ScopeProposal(
         report_type=_guess_report_type(text),
-        berry_text=berry_text,
-        geography_text="",
-        company_names=(),
-        variety_names=(),
+        berry_text=extracted["berry_text"],
+        geography_text=extracted["geography_text"],
+        company_names=extracted["company_names"],
+        variety_names=extracted["variety_names"],
         strategic_question_text="",
         date_window_days=None,
         focus_notes="",
         source="keyword_fallback",
+    )
+
+
+def _reconcile_with_canonical_mentions(
+    proposal: ScopeProposal,
+    text: str,
+    *,
+    berries: dict[str, str],
+    entities: list[dict[str, Any]] | None,
+) -> ScopeProposal:
+    """Keep AI report_type; fill in obvious canonical names the provider dropped."""
+    extracted = extract_known_mentions(text, berries=berries, entities=entities)
+    return ScopeProposal(
+        report_type=proposal.report_type,
+        berry_text=proposal.berry_text or extracted["berry_text"],
+        geography_text=proposal.geography_text or extracted["geography_text"],
+        company_names=_merge_name_tuples(proposal.company_names, extracted["company_names"]),
+        variety_names=_merge_name_tuples(proposal.variety_names, extracted["variety_names"]),
+        strategic_question_text=proposal.strategic_question_text,
+        date_window_days=proposal.date_window_days,
+        focus_notes=proposal.focus_notes,
+        source=proposal.source,
     )
 
 
@@ -147,13 +386,15 @@ def interpret_scope_text(
     *,
     berries: dict[str, str],
     completer: Callable[..., UntrustedJsonResult] | None,
+    entities: list[dict[str, Any]] | None = None,
     model: str = "anthropic/claude-haiku-4-5",
 ) -> ScopeProposal:
     """Propose a structured scope from natural language. `completer` is
     typically `app.services.ai_gateway.untrusted_complete.maybe_untrusted_completer()`
     -- pass None explicitly to force the deterministic fallback (used by
     tests, and automatically the case whenever no provider credential is
-    configured)."""
+    configured). `entities` is the trusted catalog used for exact
+    name/alias extraction; inbox Variety candidates are never passed in."""
     text = (text or "").strip()
     if not text:
         return ScopeProposal(
@@ -168,7 +409,7 @@ def interpret_scope_text(
             source="keyword_fallback",
         )
     if completer is None:
-        return _keyword_fallback_proposal(text, berries=berries)
+        return _keyword_fallback_proposal(text, berries=berries, entities=entities)
     try:
         result = completer(
             f"{_INTERPRET_INSTRUCTIONS}\n\nAnalyst request:\n{text}",
@@ -179,10 +420,10 @@ def interpret_scope_text(
     except Exception:
         # Any provider failure degrades to the deterministic fallback --
         # scope interpretation must never hard-fail the workspace.
-        return _keyword_fallback_proposal(text, berries=berries)
+        return _keyword_fallback_proposal(text, berries=berries, entities=entities)
     parsed = result.parsed
     report_type = parsed.get("report_type") if parsed.get("report_type") in REPORT_TYPES else _guess_report_type(text)
-    return ScopeProposal(
+    proposal = ScopeProposal(
         report_type=report_type,
         berry_text=str(parsed.get("berry_text") or ""),
         geography_text=str(parsed.get("geography_text") or ""),
@@ -193,6 +434,7 @@ def interpret_scope_text(
         focus_notes=str(parsed.get("focus_notes") or ""),
         source="ai",
     )
+    return _reconcile_with_canonical_mentions(proposal, text, berries=berries, entities=entities)
 
 
 @dataclass(frozen=True)

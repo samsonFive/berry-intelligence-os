@@ -28,6 +28,7 @@ from app.services.report_builder.reports_store import (
 )
 from app.services.report_builder.scope import (
     ResolvedScope,
+    extract_known_mentions,
     interpret_scope_text,
     resolve_entity_names,
     resolve_geography_text,
@@ -63,11 +64,30 @@ BERRIES = {"berry-blueberry": "Blueberry", "berry-strawberry": "Strawberry"}
 
 def _base_entities():
     rows = [
-        _entity(id="company-fallcreek", entity_type="company", name="Fall Creek", berry_ids=["berry-blueberry"]),
-        _entity(id="company-driscolls", entity_type="company", name="Driscoll's", berry_ids=["berry-blueberry", "berry-strawberry"]),
+        _entity(
+            id="company-fallcreek",
+            entity_type="company",
+            name="Fall Creek Farm & Nursery, Inc.",
+            aliases=["Fall Creek", "Fall Creek Farm and Nursery", "Fall Creek Nursery"],
+            berry_ids=["berry-blueberry"],
+        ),
+        _entity(
+            id="company-driscolls",
+            entity_type="company",
+            name="Driscoll's, Inc.",
+            aliases=["Driscoll's", "Driscolls"],
+            berry_ids=["berry-blueberry", "berry-strawberry"],
+        ),
+        _entity(
+            id="company-planasa",
+            entity_type="company",
+            name="Plantas de Navarra, S.A.",
+            aliases=["Planasa"],
+            berry_ids=["berry-blueberry"],
+        ),
         _entity(id="company-sonata-a", entity_type="company", name="Sonata"),
         _entity(id="company-sonata-b", entity_type="company", name="Sonata"),
-        _entity(id="variety-alpha", entity_type="variety", name="Alpha", berry_ids=["berry-blueberry"]),
+        _entity(id="variety-alpha", entity_type="variety", name="Alpha", aliases=["Alpha Blue"], berry_ids=["berry-blueberry"]),
         _entity(id="geography-spain", entity_type="geography", name="Spain"),
         _entity(id="geography-usa", entity_type="geography", name="United States"),
     ]
@@ -79,19 +99,150 @@ def _base_entities():
 
 def test_us_blueberry_market_request_parses_correctly():
     proposal = interpret_scope_text(
-        "Build me a report on the U.S. blueberry market.", berries=BERRIES, completer=None
+        "Build me a report on the U.S. blueberry market.",
+        berries=BERRIES,
+        completer=None,
+        entities=list(_base_entities().values()),
     )
     assert proposal.report_type == "market_landscape"
     assert proposal.berry_text == "Blueberry"
     assert proposal.source == "keyword_fallback"
+    assert proposal.company_names == ()
 
 
 def test_european_competitive_landscape_request_parses_correctly():
     proposal = interpret_scope_text(
-        "Give me a competitive landscape for blueberry genetics in Europe.", berries=BERRIES, completer=None
+        "Give me a competitive landscape for blueberry genetics in Europe.",
+        berries=BERRIES,
+        completer=None,
+        entities=list(_base_entities().values()),
     )
-    assert proposal.report_type in {"competitive_landscape", "variety_genetics_landscape"}
+    assert proposal.report_type == "competitive_landscape"
     assert proposal.berry_text == "Blueberry"
+    assert proposal.geography_text == "Europe"
+    assert proposal.source == "keyword_fallback"
+
+
+def test_compare_fall_creek_driscolls_planasa_and_unresolved_berry_genetics():
+    entities = list(_base_entities().values())
+    request = "Compare Fall Creek, Driscoll's, Planasa and Berry Genetics in Europe."
+    proposal = interpret_scope_text(request, berries=BERRIES, completer=None, entities=entities)
+    assert proposal.report_type == "competitor_comparison"
+    assert proposal.geography_text == "Europe"
+    assert proposal.source == "keyword_fallback"
+    scope = resolve_scope(proposal, entities=entities, berries=BERRIES, questions=[])
+    assert set(scope.company_ids) == {"company-fallcreek", "company-driscolls", "company-planasa"}
+    assert scope.unresolved_companies == ("Berry Genetics",)
+    assert scope.ambiguous_companies == ()
+
+
+def test_fallback_extracts_aliases_and_punctuation():
+    entities = list(_base_entities().values())
+    proposal = interpret_scope_text(
+        "Compare Driscolls vs Fall Creek Farm and Nursery.",
+        berries=BERRIES,
+        completer=None,
+        entities=entities,
+    )
+    assert proposal.report_type == "competitor_comparison"
+    scope = resolve_scope(proposal, entities=entities, berries=BERRIES, questions=[])
+    assert set(scope.company_ids) == {"company-driscolls", "company-fallcreek"}
+
+
+def test_fallback_handles_two_to_eight_companies():
+    extras = [
+        _entity(id=f"company-extra-{index}", entity_type="company", name=f"ExtraCo{index}")
+        for index in range(1, 6)
+    ]
+    entities = list(_base_entities().values()) + extras
+    names = ["Fall Creek", "Driscoll's", "Planasa"] + [f"ExtraCo{index}" for index in range(1, 6)]
+    request = "Compare " + ", ".join(names[:-1]) + f" and {names[-1]}."
+    proposal = interpret_scope_text(request, berries=BERRIES, completer=None, entities=entities)
+    assert proposal.report_type == "competitor_comparison"
+    scope = resolve_scope(proposal, entities=entities, berries=BERRIES, questions=[])
+    assert len(scope.company_ids) == 8
+    assert not scope.unresolved_companies
+
+
+def test_overlapping_company_name_uses_longest_canonical_alias():
+    mentions = extract_known_mentions(
+        "Fall Creek Farm and Nursery announced a Spain trial.",
+        berries=BERRIES,
+        entities=list(_base_entities().values()),
+    )
+    assert mentions["company_names"] == ("Fall Creek Farm and Nursery",)
+    assert mentions["geography_text"] == "Spain"
+
+
+def test_ambiguous_name_in_request_is_not_auto_picked():
+    entities = list(_base_entities().values())
+    proposal = interpret_scope_text(
+        "Compare Sonata and Planasa.", berries=BERRIES, completer=None, entities=entities
+    )
+    scope = resolve_scope(proposal, entities=entities, berries=BERRIES, questions=[])
+    assert "company-planasa" in scope.company_ids
+    assert "company-sonata-a" not in scope.company_ids
+    assert "company-sonata-b" not in scope.company_ids
+    assert len(scope.ambiguous_companies) == 1
+    assert set(scope.ambiguous_companies[0].ambiguous_ids) == {"company-sonata-a", "company-sonata-b"}
+
+
+def test_known_variety_is_extracted_candidate_is_not():
+    entities = list(_base_entities().values())
+    trusted = interpret_scope_text(
+        "Give me a variety landscape for Alpha in Spain.",
+        berries=BERRIES,
+        completer=None,
+        entities=entities,
+    )
+    assert trusted.report_type == "variety_genetics_landscape"
+    assert "Alpha" in trusted.variety_names
+    scope = resolve_scope(trusted, entities=entities, berries=BERRIES, questions=[])
+    assert scope.variety_ids == ("variety-alpha",)
+    candidate_only = interpret_scope_text(
+        "Give me a variety landscape for Roberto.",
+        berries=BERRIES,
+        completer=None,
+        entities=entities,
+    )
+    assert candidate_only.variety_names == ()
+    candidate_scope = resolve_scope(candidate_only, entities=entities, berries=BERRIES, questions=[])
+    assert candidate_scope.variety_ids == ()
+    assert "Roberto" not in candidate_scope.unresolved_varieties
+
+
+def test_ai_path_keeps_provider_type_but_does_not_drop_known_companies():
+    entities = list(_base_entities().values())
+
+    def fake_completer(prompt, schema, model, max_output_tokens):
+        return UntrustedJsonResult(
+            parsed={
+                "report_type": "competitive_landscape",
+                "berry_text": "Blueberry",
+                "geography_text": "Europe",
+                "company_names": [],
+                "variety_names": [],
+                "strategic_question_text": "",
+                "date_window_days": 90,
+                "focus_notes": "provider nuance",
+            },
+            provider="test",
+            model=model,
+        )
+
+    proposal = interpret_scope_text(
+        "Compare Fall Creek, Driscoll's, Planasa and Berry Genetics in Europe.",
+        berries=BERRIES,
+        completer=fake_completer,
+        entities=entities,
+    )
+    assert proposal.source == "ai"
+    assert proposal.report_type == "competitive_landscape"
+    assert proposal.date_window_days == 90
+    assert proposal.focus_notes == "provider nuance"
+    scope = resolve_scope(proposal, entities=entities, berries=BERRIES, questions=[])
+    assert set(scope.company_ids) == {"company-fallcreek", "company-driscolls", "company-planasa"}
+    assert scope.unresolved_companies == ("Berry Genetics",)
 
 
 # --- 3/4. Entity resolution -------------------------------------------------
