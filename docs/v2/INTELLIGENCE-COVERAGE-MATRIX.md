@@ -510,6 +510,27 @@ limitations, not hidden operational state.
 
 ---
 
+## Independent Missed Intelligence Recall Audit V1 (2026-08-31)
+
+Full detail: `docs/v2/INDEPENDENT-MISSED-INTELLIGENCE-RECALL-AUDIT-V1.md`. This is **not** a coverage percentage and did not add Sources or trusted Evidence.
+
+22 qualifying public genetics items scored against canonical `8226a5d`:
+
+| Class | Count in this set |
+|---|---:|
+| FULLY REPRESENTED | 2 (SEKOYA Nova; RedSayra) |
+| SOURCE UNKNOWN | 1 (Bayer / Baya Solara) |
+| SOURCE KNOWN, NOT COLLECTED | 5 (Italian Berry ×3 rows; CFIA Skye; CPVO Malling Centenary) |
+| SOURCE COLLECTED, ITEM MISSED | 8 |
+| ITEM COLLECTED, ENTITY MISSED | 2 (NDA AzraBlue; Apex capture) |
+| ENTITY FOUND, IDENTITY UNRESOLVED | 1 (`variety-fc11-164` / Everlast) |
+| DATE/CHRONOLOGY FAILURE | 1 (MegaCrisp page vs MegaEarly 2025 harvest) |
+| GEOGRAPHY LINKAGE FAILURE | 2 (Apex empty `geography_ids`; Victoria has none) |
+
+Blackberry trusted Varieties remain sparse (Victoria exists; Clara/Kalika/Loch Katrine do not). Raspberry still has no Glen Mor / Glen Eden / Skye entities. Collection blueberries named on the NDA list and Fall Creek SA page (AzraBlue, AtlasBlue, …) are not trusted Varieties. Do not promote matrix maturity cells from this audit.
+
+---
+
 ## How to refresh the evidence-class counts
 
 Re-count committed `data/evidence/*.json` by stored `source_type` /
