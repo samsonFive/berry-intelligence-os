@@ -16,6 +16,13 @@ services:
       BIOS_SESSION_SECRET: ${BIOS_SESSION_SECRET:?set BIOS_SESSION_SECRET in deploy/.env}
       BIOS_BASIC_AUTH: ${BIOS_BASIC_AUTH:-false}
       BIOS_CANONICAL_SHA: ${BIOS_CANONICAL_SHA:-unknown}
+      # Optional. AI-Assisted Report Builder V1's scope interpretation and
+      # section synthesis (app/services/ai_gateway/untrusted_complete.py)
+      # degrade gracefully to a deterministic fallback when unset -- never
+      # required for the app to start. Never given a default value here;
+      # an empty/unset deploy/.env entry means the feature simply stays
+      # off, exactly like today.
+      PERPLEXITY_API_KEY: ${PERPLEXITY_API_KEY:-}
     volumes:
       - ${BIOS_DEMO_RUNTIME:-../demo-runtime}/data:/app/runtime/data
       - ${BIOS_DEMO_RUNTIME:-../demo-runtime}/inbox:/app/runtime/inbox
