@@ -4884,7 +4884,12 @@ def report_new_submit(
     questions = load_strategic_questions()
 
     if step == "interpret":
-        proposal = interpret_scope_text(request_text, berries=BERRIES, completer=maybe_untrusted_completer())
+        proposal = interpret_scope_text(
+            request_text,
+            berries=BERRIES,
+            completer=maybe_untrusted_completer(),
+            entities=entities_list,
+        )
         scope = resolve_scope(proposal, entities=entities_list, berries=BERRIES, questions=questions)
     else:
         scope = _scope_from_form(
