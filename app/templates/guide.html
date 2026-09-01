@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}How Berry Intelligence Works — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page guide-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">ORIENTATION</p>
+    <h1>How Berry Intelligence Works</h1>
+    <p class="also-known-as">A short map of the workbench. Nothing on this page publishes, reviews, or clears a queue.</p>
+  </div>
+  {% if not static_build %}
+    <a class="button-link" href="/today">Start on Today</a>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="start-here">
+  <h2>Where to start</h2>
+  <p>{% if not static_build %}<a href="/today">Today</a> is the morning console:{% else %}On the live workbench, Today is the morning console:{% endif %} what happened recently, what needs a human decision, whether collection is healthy, and what to do next.</p>
+</section>
+
+<section class="v2-company-section" id="lifecycle">
+  <h2>Trusted intelligence lifecycle</h2>
+  <ol class="guide-lifecycle">
+    <li><strong>Sources</strong> — places we watch for public material (company sites, registries, trade press).</li>
+    <li><strong>Publications</strong> — individual articles, filings, or pages DISCOVERED from those Sources.</li>
+    <li><strong>Publication Review</strong> — REVIEW REQUIRED. A human decides whether a Publication may enter the trusted workflow. Rejecting it does not erase the Source.</li>
+    <li><strong>Evidence</strong> — TRUSTED published material after review. This is the corpus later work cites.</li>
+    <li><strong>Signals</strong> — a pattern that may be emerging, supported by Evidence. AI PROPOSED candidates stay untrusted until reviewed.</li>
+    <li><strong>Assessments</strong> — analyst interpretation of Facts. Never auto-created from a Signal.</li>
+    <li><strong>Strategic Questions</strong> — enduring questions you maintain. The system organizes trusted material against them; it does not answer them.</li>
+    <li><strong>Brief Packs</strong> — a presentation composed from existing trusted intelligence. Not a new trust object.{% if not static_build %} Reports, when available, are the same idea: an output, not a review action.{% endif %}</li>
+  </ol>
+</section>
+
+<section class="v2-company-section" id="variety-path">
+  <h2>Variety identity (separate from trusted Varieties)</h2>
+  <ol class="guide-lifecycle">
+    <li><strong>Variety discovery</strong> — a public cultivar name appears in a registry import or trusted corpus mention.</li>
+    <li><strong>Candidate</strong> — CANDIDATE. Not a trusted Variety. The Variety index never treats this count as coverage.</li>
+    <li><strong>Identity Review</strong> — decide DISTINCT, POSSIBLE ALIAS, UNKNOWN, or (human only) CONFIRMED SAME.</li>
+    <li><strong>Trusted Variety</strong> — only an existing canonical Variety record. Reviewing a candidate never auto-creates one.</li>
+  </ol>
+</section>
+
+<section class="v2-company-section" id="collection-path">
+  <h2>Collection</h2>
+  <ol class="guide-lifecycle">
+    <li><strong>Collection Ops</strong> — status of the scheduled collector. Viewing it never starts a run.</li>
+    <li><strong>Fresh public material</strong> — newly seen pages and filings staged from Sources.</li>
+    <li><strong>Review queue</strong> — those Publications wait in Publication Review until a human decides.</li>
+  </ol>
+</section>
+
+<section class="v2-company-section" id="words">
+  <h2>Words this workbench reuses</h2>
+  <dl class="v2-role-list">
+    <dt>DISCOVERED</dt><dd>Found by collection. Not yet trusted.</dd>
+    <dt>REVIEW REQUIRED</dt><dd>Waiting for a human decision.</dd>
+    <dt>TRUSTED</dt><dd>Accepted into the published intelligence corpus.</dd>
+    <dt>AI PROPOSED</dt><dd>A machine suggestion. Untrusted until reviewed.</dd>
+    <dt>REVIEWED</dt><dd>A human has recorded a decision.</dd>
+    <dt>CANDIDATE</dt><dd>Proposed identity or pattern. Not the trusted object.</dd>
+    <dt>POSSIBLE ALIAS</dt><dd>May be the same Variety as an existing record. Human must decide.</dd>
+    <dt>OPERATOR ACTION</dt><dd>A collection/Source problem for an operator, not a trust decision.</dd>
+  </dl>
+</section>
+
+{% if not static_build %}
+<nav class="guide-links" aria-label="Open a workspace">
+  <a href="/today">Today</a>
+  <a href="/pending">Publication Review</a>
+  <a href="/review?kind=atomic">Atomic Review</a>
+  <a href="/signals">Signals</a>
+  <a href="/assessments">Assessments</a>
+  <a href="/strategic-questions">Strategic Questions</a>
+  <a href="/varieties/coverage">Variety coverage</a>
+  <a href="/watches">Watchlists</a>
+  <a href="/collection-ops">Collection Ops</a>
+  <a href="/brief-packs">Brief Packs</a>
+</nav>
+{% else %}
+<p class="context-limit">Review queues, collection controls, and Today stay on the live Intelligence OS. This public snapshot shows trusted published intelligence only.</p>
+<nav class="guide-links" aria-label="Open a trusted catalog">
+  <a href="/signals">Signals</a>
+  <a href="/assessments">Assessments</a>
+  <a href="/strategic-questions">Strategic Questions</a>
+  <a href="/entities/variety">Trusted Varieties</a>
+  <a href="/brief-pack">Brief Packs</a>
+  <a href="/learn">Learn</a>
+</nav>
+{% endif %}
+</div>
+{% endblock %}

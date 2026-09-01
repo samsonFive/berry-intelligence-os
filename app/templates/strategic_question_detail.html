@@ -24,6 +24,8 @@
       </form>
       {% if sq.signals or sq.assessments %}
         <a class="v2-btn v2-btn-quiet" href="/brief-pack?title={{ sq.title|urlencode }}&signals={{ sq.signals|map(attribute='id')|join(',') }}&assessments={{ sq.assessments|map(attribute='id')|join(',') }}">Add to Brief Pack</a>
+      {% else %}
+        <a class="v2-btn v2-btn-quiet" href="/brief-pack?title={{ sq.title|urlencode }}">Compose a Brief Pack</a>
       {% endif %}
     {% endif %}
   </div>

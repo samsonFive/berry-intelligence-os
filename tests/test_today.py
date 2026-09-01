@@ -157,7 +157,7 @@ def test_today_route_reader_and_mobile_css(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setattr(main, "load_sources", lambda: [])
     page = TestClient(main.app).get("/today")
     assert page.status_code == 200
-    assert "Latest developments" in page.text
+    assert "Recent intelligence" in page.text
     assert "data-open-reader" in page.text
     assert "COMPANY-REPORTED" in page.text
     assert "name=\"decision\"" not in page.text

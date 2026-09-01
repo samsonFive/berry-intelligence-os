@@ -15,6 +15,10 @@
   {% endif %}
 </section>
 
+{% with help_what="A Signal is a pattern that may be emerging, supported by Evidence. This catalog is TRUSTED Signals only.", help_why="Signals sit between Evidence and Assessments. They are not news items and not a Watchlist.", help_do="Read a Signal to see what supports it. Review AI PROPOSED candidates separately so they cannot be mistaken for published Signals.", help_after="Confirming or rejecting a candidate is a review action on that candidate only. It does not create an Assessment or resolve a Strategic Question." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+
 {% if signals %}
   <section class="entity-list balanced-card-grid public-card-index">
     {% for signal in signals %}
@@ -23,6 +27,6 @@
     {% endfor %}
   </section>
 {% else %}
-  <p class="empty-state">No signals recorded yet.</p>
+  <p class="empty-state">No trusted Signals yet. A Signal is a pattern that may be emerging, supported by Evidence. Untrusted candidates are reviewed separately.{% if authoring_mode %} <a href="/signals/review">Review Signal candidates</a>{% endif %}</p>
 {% endif %}
 {% endblock %}

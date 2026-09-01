@@ -1,0 +1,11 @@
+{% set help_title = help_title|default("About this workspace") %}
+<details class="workspace-help" data-workspace-help>
+  <summary>{{ help_title }}</summary>
+  <div class="workspace-help-body">
+    {% if help_what %}<p><strong>What this is.</strong> {{ help_what }}</p>{% endif %}
+    {% if help_why %}<p><strong>Why it matters.</strong> {{ help_why }}</p>{% endif %}
+    {% if help_do %}<p><strong>What to do.</strong> {{ help_do }}</p>{% endif %}
+    {% if help_after %}<p><strong>What happens after.</strong> {{ help_after }}</p>{% endif %}
+    {% if help_note %}<p class="context-limit">{{ help_note }}</p>{% endif %}
+  </div>
+</details>

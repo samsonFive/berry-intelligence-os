@@ -65,7 +65,7 @@ def test_anonymous_protected_routes_redirect_to_login(monkeypatch) -> None:
     assert login.status_code == 200
     assert "Intelligence Workbench" in login.text
     assert "Private analyst workspace" in login.text
-    assert "Sign in to review and curate incoming intelligence." in login.text
+    assert "Sign in to start on Today" in login.text
     assert "Scan. Review. Trust." in login.text
     assert "FastAPI" not in login.text
     assert "Docker" not in login.text

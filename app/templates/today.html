@@ -5,39 +5,27 @@
 <section class="page-heading v2-page-header today-header">
   <div>
     <p class="eyebrow">TODAY</p>
-    <h1>What is new right now</h1>
+    <h1>Today</h1>
+    <p class="also-known-as">Start here each morning. Newest reliable intelligence first. Opening this page does not mark anything seen, reviewed, or published.</p>
   </div>
 </section>
 
-<section class="today-freshness" data-today-freshness>
+{% with help_what="Your morning console: recent trusted intelligence, queues that need a human decision, watchlist presence, and collection health.", help_why="Intelligence without chronology looks weak. Today answers what happened recently, what needs attention, and whether Sources are healthy.", help_do="Read Recent intelligence, then work Needs your attention. Use Collection if freshness is degraded.", help_after="Nothing you only view here is approved, rejected, or marked seen. Decisions happen on the linked review pages.", help_note="How Berry Intelligence Works is a short map of Sources → Publications → Evidence → Signals → Assessments → Questions → Brief Packs." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+<p class="today-welcome">New here? <a href="/guide">How Berry Intelligence Works</a> — then come back to this page.</p>
+
+<section class="today-freshness" data-today-freshness id="collection-status">
   {% if today.freshness.degraded %}
     <p class="banner banner-warning">Collection is degraded. Do not treat this screen as fully current.</p>
+  {% elif today.freshness.current_through_label %}
+    <p class="today-current"><strong>Intelligence current through</strong> {{ today.freshness.current_through_label }}</p>
   {% elif today.freshness.current_through %}
     <p class="today-current"><strong>Intelligence current through</strong> {{ today.freshness.current_through }}</p>
   {% else %}
     <p class="today-current">Collection freshness is not established from a successful run.</p>
   {% endif %}
-  {% if today.freshness.last_collection_at %}<p class="v2-meta">Last collection run {{ today.freshness.last_collection_at }}</p>{% endif %}
-  {% if today.freshness.last_captured_at %}<p class="v2-meta">Last new item captured {{ today.freshness.last_captured_at }}</p>{% endif %}
-  <p class="v2-meta">{{ today.freshness.discoverable_sources }} discoverable sources monitored</p>
-  {% set source_counts = today.freshness.counts or {} %}
-  {% if source_counts.failing or source_counts.overdue or source_counts.blocked %}
-    <p class="banner banner-warning" data-today-source-problems>
-      Source problems: {{ source_counts.failing or 0 }} failing · {{ source_counts.overdue or 0 }} overdue · {{ source_counts.blocked or 0 }} blocked.
-      <a href="/sources">Open Source Health</a>
-    </p>
-  {% endif %}
-  <p class="v2-meta">Collection: <a href="/collection-ops">Collection Operations</a></p>
 </section>
-
-<nav class="today-next-work" aria-label="Next analyst work">
-  <a href="/review-ops">Review Operations{% if nav_work_counts.review_now %} · {{ nav_work_counts.review_now }} pending{% endif %}</a>
-  <a href="/pending">Publication Review</a>
-  <a href="/review?kind=atomic">Atomic Evidence Review</a>
-  <a href="/sources">Source Health</a>
-  <a href="/watches">My Watches</a>
-  <a href="/strategic-questions">Strategic Questions</a>
-</nav>
 
 <nav class="today-berries" aria-label="Berry filter">
   <a href="/today" class="{% if not today.berry_id %}is-active{% endif %}">All berries</a>
@@ -46,31 +34,13 @@
   {% endfor %}
 </nav>
 
-<section class="brief-section" id="new-since">
-  <h2>New since last Morning Brief</h2>
-  <p class="context-limit">This uses the last time Morning Brief was opened. Opening Today does not mark items seen.</p>
-  {% if today.last_seen_at %}
-    {% if today.new_since_last_visit %}
-      <ul class="today-list">
-        {% for item in today.new_since_last_visit %}
-          {% include "_today_item.html" %}
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p class="empty-state">No new trusted Evidence captured since {{ today.last_seen_at[:10]|us_date }}.</p>
-    {% endif %}
-  {% else %}
-    <p class="empty-state">No last-visit baseline yet. Latest developments below are the current recency picture. Opening <a href="/brief">Morning Brief</a> records a visit so this section can show what changed next time.</p>
-  {% endif %}
-</section>
-
-<section class="brief-section" id="latest-developments">
-  <h2>Latest developments</h2>
-  <p class="context-limit">Recency first. Older high-value intelligence is not current news.</p>
+<section class="brief-section" id="recent-intelligence">
+  <h2>Recent intelligence</h2>
+  <p class="context-limit">Newest trusted developments first. Every card shows a publication/event date or an honest Date unknown / Captured label. Older high-value intelligence is not current news.</p>
   {% if today.quiet %}
     <div class="today-quiet" data-today-quiet>
       <p><strong>No new trusted developments captured in the last 14 days.</strong></p>
-      <p>The system is current. The captured market has been quiet.</p>
+      <p>The captured market has been quiet. That is not the same as a broken collector — check Collection below if freshness is degraded.</p>
       <p><a href="/work-queue">View last 30 days on Live Intelligence</a></p>
     </div>
   {% else %}
@@ -85,10 +55,90 @@
   {% endif %}
 </section>
 
+<section class="brief-section" id="new-since">
+  <h2>New since last Morning Brief</h2>
+  <p class="context-limit">This uses the last time Morning Brief was opened — not a Today visit, and not an invented last-login clock. Opening Today does not mark items seen.</p>
+  {% if today.last_seen_at %}
+    {% if today.new_since_last_visit %}
+      <ul class="today-list">
+        {% for item in today.new_since_last_visit %}
+          {% include "_today_item.html" %}
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty-state">No new trusted Evidence captured since {{ today.last_seen_at[:10]|us_date }}.</p>
+    {% endif %}
+  {% else %}
+    <p class="empty-state">No last-visit baseline yet. Recent intelligence above is the current recency picture. Opening <a href="/brief">Morning Brief</a> records a visit so this section can show what changed next time.</p>
+  {% endif %}
+</section>
+
+<section class="brief-section" id="needs-attention">
+  <h2>Needs your attention</h2>
+  <p class="context-limit">Waiting totals only. A recent/new count appears only when the last Morning Brief timestamp makes it knowable. Clearing a count reviews or hides an item — it does not delete the Source record.</p>
+  <ul class="today-attention">
+    {% for queue in attention_queues %}
+      <li class="today-attention-card" data-attention="{{ queue.key }}">
+        <h3>{{ queue.title }}</h3>
+        <p class="today-attention-count">{{ queue.waiting_label }}{% if queue.recent_label %} · {{ queue.recent_label }}{% endif %}</p>
+        <p>{{ queue.contains if queue.waiting else queue.empty }}</p>
+        {% if queue.waiting %}<p class="context-limit">{{ queue.after }}</p>{% endif %}
+        <p><a href="{{ queue.href }}">{{ queue.action }}</a></p>
+      </li>
+    {% endfor %}
+  </ul>
+  <nav class="today-next-work" aria-label="Next analyst work">
+    <a href="/review-ops">Review Operations{% if nav_work_counts.review_now %} · {{ nav_work_counts.labels.review_now if nav_work_counts.labels is defined else nav_work_counts.review_now ~ ' pending' }}{% endif %}</a>
+    <a href="/pending">Publication Review</a>
+    <a href="/review?kind=atomic">Atomic Evidence Review</a>
+    <a href="/sources">Source Health</a>
+    <a href="/watches">My Watches</a>
+    <a href="/strategic-questions">Strategic Questions</a>
+    <a href="/guide">How it works</a>
+  </nav>
+</section>
+
+<section class="brief-section" id="monitoring">
+  <h2>Monitoring</h2>
+  <p class="context-limit">Watchlist presence only. Opening Today never marks a Watch seen. Signal objects below are not a substitute for Watch recency.</p>
+  {% if monitoring.has_watches %}
+    <p>{{ monitoring.watch_count }} watch{{ 'es' if monitoring.watch_count != 1 else '' }} on My Watches{% if monitoring.unchecked_count %} · {{ monitoring.unchecked_count }} not yet checked{% endif %}.</p>
+    <p><a href="/watches">Open My Watches</a> to see what is new since you last opened a watched object.</p>
+  {% else %}
+    <p class="empty-state">You are not monitoring anything yet. Add a Watch from a Company, Variety, Geography, or Strategic Question page.</p>
+  {% endif %}
+</section>
+
+<section class="brief-section" id="collection">
+  <h2>Collection</h2>
+  <p class="context-limit">Compact status from the shared freshness contract. Viewing Today never starts a collection run.</p>
+  <dl class="v2-role-list">
+    <dt>Last run</dt>
+    <dd>{% if today.freshness.last_run_label %}{{ today.freshness.last_run_label }}{% elif today.freshness.last_run_at %}{{ today.freshness.last_run_at }}{% else %}Not recorded{% endif %}</dd>
+    <dt>Last success</dt>
+    <dd>{% if today.freshness.last_collection_label %}{{ today.freshness.last_collection_label }}{% elif today.freshness.last_collection_at %}{{ today.freshness.last_collection_at }}{% else %}No successful collection yet{% endif %}</dd>
+    <dt>Last new item captured</dt>
+    <dd>{% if today.freshness.last_captured_label %}{{ today.freshness.last_captured_label }}{% elif today.freshness.last_captured_at %}{{ today.freshness.last_captured_at }}{% else %}None recorded{% endif %}</dd>
+    <dt>Discoverable Sources</dt>
+    <dd>{{ today.freshness.discoverable_sources }}</dd>
+    <dt>Degraded Sources</dt>
+    <dd>{% set source_counts = today.freshness.counts or {} %}{{ (source_counts.failing or 0) + (source_counts.overdue or 0) + (source_counts.blocked or 0) }} <span class="v2-meta">({{ source_counts.failing or 0 }} failing · {{ source_counts.overdue or 0 }} overdue · {{ source_counts.blocked or 0 }} blocked)</span></dd>
+  </dl>
+  {% set source_counts = today.freshness.counts or {} %}
+  {% if source_counts.failing or source_counts.overdue or source_counts.blocked %}
+    <p class="banner banner-warning" data-today-source-problems>
+      Source problems: {{ source_counts.failing or 0 }} failing · {{ source_counts.overdue or 0 }} overdue · {{ source_counts.blocked or 0 }} blocked.
+      <a href="/sources">Open Source Health</a>
+      · <a href="/collection-ops">Collection Ops</a>
+    </p>
+  {% endif %}
+  <p class="v2-meta">Next action: <a href="/collection-ops">Collection Operations</a> — last run, retries, and OPERATOR ACTION items. Viewing that page does not start a run.</p>
+</section>
+
 {% if today.developing_signals %}
 <section class="brief-section" id="developing-signals">
   <h2>Developing signals</h2>
-  <p class="context-limit">These are Signal objects, not Evidence.</p>
+  <p class="context-limit">These are Signal objects, not Evidence. First-seen dates are shown. This list is not Watchlist recency.</p>
   <ul class="today-list">
     {% for item in today.developing_signals %}
       {% include "_today_item.html" %}
@@ -109,6 +159,6 @@
 </section>
 {% endif %}
 
-<p class="today-browse"><a href="/work-queue">Browse Live Intelligence</a> · <a href="/">Browse the newsfeed</a> · <a href="/brief">Morning Brief</a></p>
+<p class="today-browse"><a href="/work-queue">Browse Live Intelligence</a> · <a href="/">Browse the newsfeed</a> · <a href="/brief">Morning Brief</a> · <a href="/brief-packs">Brief Packs</a></p>
 </div>
 {% endblock %}

@@ -6,7 +6,7 @@
   <div>
     <p class="eyebrow">VARIETY UNIVERSE</p>
     <h1>Variety identity review</h1>
-    <p class="context-limit">Inbox and corpus-discovered candidates. Exact name/code/registration matches are possible aliases, not automatic merges. GET does not change identity state. Candidate names are not trusted Varieties.</p>
+    <p class="context-limit">Inbox and corpus-discovered candidates. Exact name/code/registration matches are possible aliases, not automatic merges. GET does not change identity state. Candidate names are not trusted Varieties. Candidate count is never trusted Variety count.</p>
   </div>
   <div class="v2-company-actions">
     <a class="v2-btn v2-btn-quiet" href="/varieties/coverage">Coverage</a>
@@ -14,8 +14,12 @@
   </div>
 </section>
 
+{% with help_what="Public cultivar identities DISCOVERED from registries or the trusted corpus. Each row is a CANDIDATE, not a trusted Variety.", help_why="The Variety index stays canonical-only. Identity review decides whether a discovered name is DISTINCT, a POSSIBLE ALIAS of an existing Variety, UNKNOWN, or (human only) CONFIRMED SAME.", help_do="Read the source and any canonical match. Keep as needs review (POSSIBLE ALIAS), leave unresolved (UNKNOWN), mark DISTINCT, confirm same when you are sure, or reject junk.", help_after="A decision records identity state only. Confirming same links a candidate to an existing trusted Variety. Marking DISTINCT does not create a new trusted Variety. Rejecting removes the candidate from the waiting queue and does not delete trusted records.", help_note="GET never changes identity. CONFIRMED SAME is human-only." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+
 {% if not candidates %}
-  <p class="empty-state">No variety candidates. Run corpus discovery or the EU/UK/South Africa registry import to propose rows for review.</p>
+  <p class="empty-state">No Variety candidates are waiting for identity review. Trusted Varieties stay on the Variety index. <a href="/varieties/coverage">Variety coverage</a> shows trusted vs candidate counts. <a href="/entities/variety">Trusted Variety index</a></p>
 {% endif %}
 
 {% for row in candidates %}

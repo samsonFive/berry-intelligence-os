@@ -10,6 +10,10 @@
   </div>
 </section>
 
+{% with help_what="Saved selections for a manager Brief Pack. Opening a pack always renders CURRENT trusted intelligence, not a frozen snapshot.", help_why="This is how you create an output from intelligence you already trust — a presentation, not a new trust object.", help_do="Open a pack to present it, or start a new Brief Pack and choose Companies, Varieties, Signals, and Assessments.", help_after="Saving stores your selection only. It does not publish, approve, or resolve Questions." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+
 <nav class="landscape-filter-bar" aria-label="Saved brief pack filters">
   <div class="landscape-filter-group">
     <strong>Show</strong>

@@ -45,6 +45,12 @@
 </span>
 {%- endmacro %}
 {% macro count_label(count) -%}{% if count %}, {{ count }}{% endif %}{%- endmacro %}
+{% set labels = nav_work_counts.labels if nav_work_counts.labels is defined else {} %}
+{% macro count_badge(count, meaning, action=true) -%}
+  {%- if count -%}
+    <span class="v2-count {% if action %}v2-count-action{% else %}v2-count-inventory{% endif %}" title="{{ meaning }}" aria-label="{{ meaning }}">{{ count }}</span>
+  {%- endif -%}
+{%- endmacro %}
 <div class="v2-brand">BERRY<span>INTELLIGENCE OS</span></div>
 <nav class="v2-nav" aria-label="Primary">
   <p class="v2-nav-group">Work</p>
@@ -53,9 +59,12 @@
     {{ nav_icon('brief') }}<span class="v2-nav-text">Today</span>
   </a>
   {% endif %}
+  <a href="/guide" class="v2-nav-link{% if path == '/guide' %} is-active{% endif %}" title="How it works" aria-label="How it works"{% if path == '/guide' %} aria-current="page"{% endif %}>
+    {{ nav_icon('learn') }}<span class="v2-nav-text">How it works</span>
+  </a>
   <a href="/brief" class="v2-nav-link{% if path == '/brief' %} is-active{% endif %}" title="Morning Brief" aria-label="Morning Brief{{ count_label(nav_work_counts.brief_action) }}"{% if path == '/brief' %} aria-current="page"{% endif %}>
     {{ nav_icon('brief') }}<span class="v2-nav-text">Morning Brief</span>
-    {% if nav_work_counts.brief_action %}<span class="v2-count v2-count-action">{{ nav_work_counts.brief_action }}</span>{% endif %}
+    {{ count_badge(nav_work_counts.brief_action, labels.brief_action or (nav_work_counts.brief_action ~ ' items new since last Morning Brief')) }}
   </a>
   <a href="/work-queue" class="v2-nav-link{% if path == '/work-queue' or path.startswith('/intelligence/') or path.startswith('/threads/') %} is-active{% endif %}" title="Live Intelligence" aria-label="Live Intelligence"{% if path == '/work-queue' %} aria-current="page"{% endif %}>
     {{ nav_icon('feed') }}<span class="v2-nav-text">Live Intelligence</span>
@@ -67,18 +76,18 @@
   {% endif %}
   <a href="/queues/reading" class="v2-nav-link{% if path == '/queues/reading' %} is-active{% endif %}" title="Reading Queue" aria-label="Reading Queue{{ count_label(nav_work_counts.reading_action) }}">
     {{ nav_icon('reading') }}<span class="v2-nav-text">Reading Queue</span>
-    {% if nav_work_counts.reading_action %}<span class="v2-count v2-count-action">{{ nav_work_counts.reading_action }}</span>{% endif %}
+    {{ count_badge(nav_work_counts.reading_action, labels.reading_action or (nav_work_counts.reading_action ~ ' items remaining in the Reading Queue')) }}
   </a>
 
   <p class="v2-nav-group">Decide</p>
   {% if not static_build %}
   <a href="/pending" class="v2-nav-link{% if path == '/pending' %} is-active{% endif %}" title="Pending Review" aria-label="Pending Review{{ count_label(nav_work_counts.review_now) }}"{% if path == '/pending' %} aria-current="page"{% endif %}>
     {{ nav_icon('review') }}<span class="v2-nav-text">Pending Review</span>
-    {% if nav_work_counts.review_now %}<span class="v2-count v2-count-action">{{ nav_work_counts.review_now }}</span>{% endif %}
+    {{ count_badge(nav_work_counts.review_now, labels.review_now or (nav_work_counts.review_now ~ ' Publications awaiting review')) }}
   </a>
   <a href="/signals/review" class="v2-nav-link{% if path.startswith('/signals/review') or path.startswith('/signals/candidates') %} is-active{% endif %}" title="Signal Review" aria-label="Signal Review{{ count_label(nav_work_counts.emerging_signals) }}"{% if path.startswith('/signals/review') %} aria-current="page"{% endif %}>
     {{ nav_icon('signals') }}<span class="v2-nav-text">Signal Review</span>
-    {% if nav_work_counts.emerging_signals %}<span class="v2-count v2-count-action">{{ nav_work_counts.emerging_signals }}</span>{% endif %}
+    {{ count_badge(nav_work_counts.emerging_signals, labels.emerging_signals or (nav_work_counts.emerging_signals ~ ' Signal candidates awaiting review')) }}
   </a>
   {% endif %}
   <a href="/assessments" class="v2-nav-link{% if path.startswith('/assessments') %} is-active{% endif %}" title="Assessments" aria-label="Assessments">{{ nav_icon('assess') }}<span class="v2-nav-text">Assessments</span></a>
@@ -87,11 +96,11 @@
   <p class="v2-nav-group">Monitor</p>
   <a href="/queues/monitoring" class="v2-nav-link{% if path == '/queues/monitoring' %} is-active{% endif %}" title="Monitoring queue" aria-label="Monitoring queue{{ count_label(nav_work_counts.monitoring_inventory) }}">
     {{ nav_icon('watch') }}<span class="v2-nav-text">Monitoring queue</span>
-    {% if nav_work_counts.monitoring_inventory %}<span class="v2-count v2-count-inventory">{{ nav_work_counts.monitoring_inventory }}</span>{% endif %}
+    {{ count_badge(nav_work_counts.monitoring_inventory, labels.monitoring_inventory or (nav_work_counts.monitoring_inventory ~ ' items on the Monitoring queue'), false) }}
   </a>
   <a href="/queues/monitoring#alerts" class="v2-nav-link" title="Alerts" aria-label="Alerts{{ count_label(nav_work_counts.signal_alerts) }}">
     {{ nav_icon('alert') }}<span class="v2-nav-text">Alerts</span>
-    {% if nav_work_counts.signal_alerts %}<span class="v2-count v2-count-action">{{ nav_work_counts.signal_alerts }}</span>{% endif %}
+    {{ count_badge(nav_work_counts.signal_alerts, labels.signal_alerts or (nav_work_counts.signal_alerts ~ ' open Signal alerts')) }}
   </a>
   <a href="/watches" class="v2-nav-link{% if path == '/watches' %} is-active{% endif %}" title="My Watches" aria-label="My Watches"{% if path == '/watches' %} aria-current="page"{% endif %}>
     {{ nav_icon('watch') }}<span class="v2-nav-text">My Watches</span>
@@ -107,7 +116,7 @@
   <a href="/varieties/coverage" class="v2-nav-link{% if path.startswith('/varieties/coverage') %} is-active{% endif %}" title="Variety coverage" aria-label="Variety coverage">{{ nav_icon('variety') }}<span class="v2-nav-text">Variety coverage</span></a>
   {% endif %}
   {% if authoring_mode and not static_build %}
-  <a href="/varieties/candidates" class="v2-nav-link{% if path.startswith('/varieties/candidates') %} is-active{% endif %}" title="Variety identity review" aria-label="Variety identity review">{{ nav_icon('review') }}<span class="v2-nav-text">Variety identity</span></a>
+  <a href="/varieties/candidates" class="v2-nav-link{% if path.startswith('/varieties/candidates') %} is-active{% endif %}" title="Variety identity review" aria-label="Variety identity review{{ count_label(nav_work_counts.variety_identity) }}">{{ nav_icon('review') }}<span class="v2-nav-text">Variety identity</span>{{ count_badge(nav_work_counts.variety_identity, labels.variety_identity or (nav_work_counts.variety_identity ~ ' Variety identities awaiting review')) }}</a>
   {% endif %}
   <a href="/geographies" class="v2-nav-link{% if path.startswith('/geographies') or path.startswith('/entities/geography') %} is-active{% endif %}" title="Geographies" aria-label="Geographies">{{ nav_icon('geo') }}<span class="v2-nav-text">Geographies</span></a>
   <a href="{{ ui.landscape_href }}" class="v2-nav-link{% if path.startswith('/landscapes') or path.startswith('/entities/berry') %} is-active{% endif %}" title="Landscape" aria-label="Landscape">{{ nav_icon('landscape') }}<span class="v2-nav-text">Landscape</span></a>
@@ -127,15 +136,15 @@
     <a href="/review?kind=publication" class="v2-nav-link{% if path.startswith('/review') and 'atomic' not in request.url.query %} is-active{% endif %}" title="Publications" aria-label="Publications{{ count_label(nav_work_counts.review_now if nav_work_counts.review_now is defined and nav_work_counts.review_now is not none else pending_review_count()) }}">
       {{ nav_icon('pub') }}<span class="v2-nav-text">Publications</span>
       {% set pub_count = nav_work_counts.review_now if nav_work_counts.review_now is defined and nav_work_counts.review_now is not none else pending_review_count() %}
-      {% if pub_count %}<span class="v2-count {% if nav_work_counts.review_now %}v2-count-action{% else %}v2-count-inventory{% endif %}">{{ pub_count }}</span>{% endif %}
+      {{ count_badge(pub_count, labels.review_now or (pub_count ~ ' Publications awaiting review')) }}
     </a>
-    <a href="/review?kind=atomic" class="v2-nav-link{% if path.startswith('/review') and 'atomic' in request.url.query %} is-active{% endif %}" title="Claims" aria-label="Claims">{{ nav_icon('review') }}<span class="v2-nav-text">Claims</span></a>
+    <a href="/review?kind=atomic" class="v2-nav-link{% if path.startswith('/review') and 'atomic' in request.url.query %} is-active{% endif %}" title="Claims" aria-label="Claims{{ count_label(nav_work_counts.atomic_pending) }}">{{ nav_icon('review') }}<span class="v2-nav-text">Claims</span>{{ count_badge(nav_work_counts.atomic_pending, labels.atomic_pending or (nav_work_counts.atomic_pending ~ ' Atomic Evidence proposals awaiting review')) }}</a>
     <a href="/source-fidelity" class="v2-nav-link{% if path.startswith('/source-fidelity') %} is-active{% endif %}" title="Source fidelity" aria-label="Source fidelity">{{ nav_icon('source') }}<span class="v2-nav-text">Source fidelity</span></a>
     <a href="/collection-ops" class="v2-nav-link{% if path.startswith('/collection-ops') %} is-active{% endif %}" title="Collection Operations" aria-label="Collection Operations">{{ nav_icon('source') }}<span class="v2-nav-text">Collection Operations</span></a>
     {% endif %}
     <a href="/queues/testing" class="v2-nav-link{% if path.startswith('/queues/testing') %} is-active{% endif %}" title="Claim testing" aria-label="Claim testing{{ count_label(nav_work_counts.testing_action) }}">
       {{ nav_icon('assess') }}<span class="v2-nav-text">Claim testing</span>
-      {% if nav_work_counts.testing_action %}<span class="v2-count v2-count-action">{{ nav_work_counts.testing_action }}</span>{% endif %}
+      {{ count_badge(nav_work_counts.testing_action, labels.testing_action or (nav_work_counts.testing_action ~ ' items remaining in Claim testing')) }}
     </a>
     <a href="/signals" class="v2-nav-link{% if path == '/signals' or path.startswith('/signals/new') or (path.startswith('/signals/') and not path.startswith('/signals/review') and not path.startswith('/signals/candidates')) %} is-active{% endif %}" title="Signal catalog" aria-label="Signal catalog">{{ nav_icon('signals') }}<span class="v2-nav-text">Signal catalog</span></a>
     <a href="/" class="v2-nav-link{% if path == '/' %} is-active{% endif %}" title="Newsfeed" aria-label="Newsfeed">{{ nav_icon('feed') }}<span class="v2-nav-text">Newsfeed</span></a>

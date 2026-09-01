@@ -215,8 +215,21 @@ a{color:#3d5c94}
 .today-berries a.is-active{background:#213653;color:white}
 .today-quiet{border:1px solid #dfe5ee;padding:16px;border-radius:10px;background:#f8fafc}
 .today-freshness{margin:0 0 16px}
-.today-next-work{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.today-welcome{margin:0 0 16px}
+.today-next-work{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
 .today-next-work a{padding:6px 10px;border:1px solid #dfe5ee;border-radius:999px;font-size:13px}
+.today-attention{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.today-attention-card{border:1px solid #dfe5ee;border-radius:10px;padding:14px 16px;background:#fff}
+.today-attention-card h3{margin:0 0 6px;font-size:16px}
+.today-attention-count{font-weight:700;margin:0 0 8px}
+.workspace-help{margin:0 0 16px;border:1px solid #dfe5ee;border-radius:8px;background:#f8fafc;padding:8px 12px}
+.workspace-help summary{cursor:pointer;font-weight:700}
+.workspace-help-body{margin-top:8px}
+.workspace-help-body p{margin:0 0 8px}
+.guide-lifecycle{margin:0;padding-left:1.2rem}
+.guide-lifecycle li{margin:0 0 8px}
+.guide-links{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.guide-links a{padding:6px 10px;border:1px solid #dfe5ee;border-radius:999px;font-size:13px}
 .review-session-start,.review-session-resume{margin:16px 0;padding:16px}
 .review-session-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .review-session-progress{display:flex;flex-wrap:wrap;gap:12px;list-style:none;padding:0}

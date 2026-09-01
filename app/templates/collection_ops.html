@@ -10,6 +10,10 @@
   </div>
 </section>
 
+{% with help_what="Status of scheduled collection: last run, last success, degraded Sources, retries, and OPERATOR ACTION items.", help_why="Fresh public material has to be collected before it can enter Publication Review. If Sources are failing, Today cannot honestly claim to be current.", help_do="Read last run and degraded Sources. Open a failing Source on Source Health to check or pause it. Use the manual trigger only when you intend to start a bounded run.", help_after="A successful run stages newly discovered Publications for review. Viewing this page does not publish, approve, or clear any queue." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+
 {% if just_ran == 'completed' %}
   <p class="banner banner-success">Run completed. See "Last run" and history below.</p>
 {% elif just_ran == 'refused' %}
@@ -113,7 +117,7 @@
   {% if degraded_sources %}
     <ul class="entity-links">
       {% for row in degraded_sources %}
-        <li><a href="/sources">{{ row.label or row.id }}</a> <span class="badge badge-counterevidence">{{ (row.freshness.state or row.freshness.label or 'DEGRADED')|upper }}</span></li>
+        <li><a href="/sources#source-{{ row.id }}">{{ row.label or row.id }}</a> <span class="badge badge-counterevidence">{{ (row.freshness.state or row.freshness.label or 'DEGRADED')|upper }}</span> · <a href="/sources#source-{{ row.id }}">Open Source</a></li>
       {% endfor %}
     </ul>
   {% else %}

@@ -10,6 +10,10 @@
   </div>
 </section>
 
+{% with help_what="Enduring questions you maintain. The system organizes trusted Evidence, Facts, Signals, Assessments, and Recommendations against each question.", help_why="A Strategic Question is how you keep a live brief on a decision that does not expire when one article does.", help_do="Open a question to see coverage and gaps. Add it to a Watch or compose a Brief Pack from its linked Signals and Assessments.", help_after="Nothing here is generated. Viewing a question does not resolve it. A Brief Pack is an output, not a new trust object." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+
 {% if questions %}
   <section class="entity-list balanced-card-grid public-card-index">
     {% for sq in questions %}
@@ -28,6 +32,6 @@
     {% endfor %}
   </section>
 {% else %}
-  <p class="empty-state">No strategic questions recorded yet.</p>
+  <p class="empty-state">No Strategic Questions are recorded yet. A Strategic Question is an enduring question the analyst maintains — the system does not generate it. When one exists, open it and compose a <a href="/brief-pack">Brief Pack</a> from its linked intelligence.</p>
 {% endif %}
 {% endblock %}

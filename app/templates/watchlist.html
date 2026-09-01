@@ -11,6 +11,10 @@
   </div>
 </section>
 
+{% with help_what="Private monitoring interest in Companies, Varieties, Geographies, or Strategic Questions you already trust.", help_why="A Watch tells you what is new since you last opened that object. It is navigation only.", help_do="Open a Watch to check it. Filter to items with new intelligence when you want the delta.", help_after="Opening a watched object from this list can mark that Watch seen. Rendering this page, Today, or any GET help view does not. A Watch never publishes, affirms, approves, or rejects anything." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+
 <nav class="landscape-filter-bar" aria-label="Watchlist filters">
   <div class="landscape-filter-group">
     <strong>Type</strong>

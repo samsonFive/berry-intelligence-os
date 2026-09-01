@@ -10,6 +10,15 @@
   <aside class="shortcut-key" aria-label="Keyboard shortcuts"><kbd>j</kbd>/<kbd>k</kbd> or <kbd>n</kbd>/<kbd>p</kbd> move · <kbd>a</kbd> approve panel · <kbd>e</kbd> edit · <kbd>r</kbd> reject panel · <kbd>Esc</kbd> close</aside>
 </section>
 {% include "_review_session_banner.html" %}
+{% if workbench.filters.kind == 'atomic' %}
+{% with help_what="Proposed individual intelligence statements (Atomic Evidence) extracted from a Publication. Each row is AI PROPOSED until you review it.", help_why="Approval is human, proposition-specific, and never bulk. This is how a source sentence becomes trusted Evidence — or is rejected.", help_do="Read the source wording, then accept or reject that one statement. Correct first when the wording is right but the proposal is wrong.", help_after="Approval accepts that statement only. Rejection rejects the proposal and does not delete the parent Publication or the original Source. An empty queue usually means automated extraction is still disabled or unqualified.", help_note="Extraction stays off until a qualified model and trusted source bodies are available. This workspace does not invent proposals." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+{% else %}
+{% with help_what="Publication artifacts still waiting for a human decision before they enter the trusted workflow.", help_why="AI suggestions stay untrusted until you accept them. This queue is REVIEW REQUIRED, not a trash can.", help_do="Open a Publication, then continue/promote or reject it. Use Pending Review for ranked triage.", help_after="Continue/promote means the Publication may proceed to downstream evidence processing. Rejecting it does not erase the original Source record.", help_note="Pending Review is the ranked morning queue. This form is the advanced publication workbench." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+{% endif %}
 
 {% if workbench.filters.kind != 'atomic' %}
   {% with compact=true %}{% include "_scanner_strip.html" %}{% endwith %}
@@ -217,7 +226,7 @@
   {% endfor %}
 </div>
 {% elif workbench.filters.kind == 'atomic' %}
-<p class="empty-state">No Atomic Evidence proposals are currently awaiting review. Extraction stays disabled until a qualified model and trusted source bodies are available. This workspace does not invent proposals.</p>
+<p class="empty-state">No Atomic Evidence proposals are available. Automated extraction remains disabled or unqualified until a qualified model and trusted source bodies are available. This workspace does not invent proposals. <a href="/collection-ops">Collection Ops</a> · <a href="/pending">Publication Review</a> · <a href="/today">Today</a></p>
 {% endif %}
 
 {% if workbench.filters.kind != 'atomic' %}
