@@ -14,6 +14,7 @@ from app.services.chronology import (
 )
 from app.services.morning_brief import brief_last_seen, _parse_stamp as parse_brief_stamp
 from app.services.freshness_assurance import build_runtime_freshness
+from app.services.guided_analyst import freshness_clock_label
 from app.services.variety_workspace import SOURCE_TYPE_LABEL
 
 LATEST_WINDOW_DAYS = 14
@@ -102,6 +103,27 @@ def _berry_ok(record: dict[str, Any], berry_id: str) -> bool:
     return berry_id in (record.get("berry_ids") or []) or berry_id in (record.get("market_ids") or [])
 
 
+def _date_fields(when: datetime | None, origin: str, *, now: datetime) -> dict[str, Any]:
+    basis = date_label(origin) if origin else ""
+    if when is None:
+        return {
+            "when": "",
+            "when_origin": origin,
+            "age_label": "Date unknown",
+            "exact_date": "",
+            "date_basis_label": basis or "Date unknown",
+            "band": None,
+        }
+    return {
+        "when": when.isoformat(),
+        "when_origin": origin,
+        "age_label": age_label(when, now=now),
+        "exact_date": when.strftime("%b %d, %Y"),
+        "date_basis_label": basis or "Date unknown",
+        "band": recency_band(when, now=now),
+    }
+
+
 def _present_evidence(record: dict[str, Any], *, now: datetime) -> dict[str, Any]:
     when, origin = development_stamp(record)
     return {
@@ -114,11 +136,7 @@ def _present_evidence(record: dict[str, Any], *, now: datetime) -> dict[str, Any
         "source_class": _source_class(record),
         "href": f"/intelligence/{record.get('id')}",
         "open_reader": True,
-        "when": when.isoformat() if when else "",
-        "when_origin": origin,
-        "age_label": age_label(when, now=now) if when else "",
-        "exact_date": when.strftime("%b %d, %Y") if when else "",
-        "band": recency_band(when, now=now) if when else None,
+        **_date_fields(when, origin, now=now),
         "priority_rank": _priority_rank(record),
     }
 
@@ -136,11 +154,7 @@ def _present_signal(record: dict[str, Any], *, now: datetime) -> dict[str, Any] 
         "source_class": "SIGNAL",
         "href": f"/signals/{record.get('id')}",
         "open_reader": False,
-        "when": when.isoformat(),
-        "when_origin": "signal",
-        "age_label": age_label(when, now=now),
-        "exact_date": when.strftime("%b %d, %Y"),
-        "band": recency_band(when, now=now),
+        **_date_fields(when, "first_seen", now=now),
         "priority_rank": 1,
         "status": record.get("status") or "",
     }
@@ -159,11 +173,7 @@ def _present_assessment(record: dict[str, Any], *, now: datetime) -> dict[str, A
         "source_class": "ANALYST ASSESSMENT",
         "href": f"/assessments/{record.get('id')}",
         "open_reader": False,
-        "when": when.isoformat(),
-        "when_origin": "assessment",
-        "age_label": age_label(when, now=now),
-        "exact_date": when.strftime("%b %d, %Y"),
-        "band": recency_band(when, now=now),
+        **_date_fields(when, "created_at", now=now),
         "priority_rank": 1,
     }
 
@@ -187,8 +197,15 @@ def _freshness(
         "degraded": contract["system_state"] != "CURRENT",
         "last_collection_at": contract["last_successful_collection"],
         "last_captured_at": contract["last_new_intelligence"],
+        "last_run_at": contract.get("last_collection_attempt") or contract.get("last_scheduler_run"),
         "discoverable_sources": contract["counts"]["scheduled_sources"],
         "now": now.isoformat(),
+        "current_through_label": freshness_clock_label(contract.get("current_through")),
+        "last_collection_label": freshness_clock_label(contract.get("last_successful_collection")),
+        "last_captured_label": freshness_clock_label(contract.get("last_new_intelligence")),
+        "last_run_label": freshness_clock_label(
+            contract.get("last_collection_attempt") or contract.get("last_scheduler_run")
+        ),
     })
     return contract
 

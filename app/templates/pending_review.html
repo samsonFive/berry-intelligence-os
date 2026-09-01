@@ -11,6 +11,10 @@
   <a class="button-link" href="/review?kind=publication">Advanced publication form</a>
 </section>
 
+{% with help_what="Newly discovered Publications that have not yet been accepted into the trusted intelligence workflow. This is REVIEW REQUIRED, not Live Intelligence.", help_why="A Publication must be reviewed before it can proceed to downstream evidence processing. The count is waiting work, not a deletion target.", help_do="Work Review now first. Continue/promote a Publication that should enter the trusted workflow. Reject noise. Dismiss only hides a draft from triage.", help_after="Continue/promote means the Publication may proceed to downstream evidence processing. Rejecting it does not erase the original Source record. Dismiss keeps the file. Clearing this queue does not delete information.", help_note="Related reprints can collapse into a developing story. Grouping is organizational only." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+
 <p class="brief-window">Buckets use stored relevance, recency, source authority, primary subject, and watch-match quality — not an opaque AI score. Berry context filters this workspace. Completeness badges use stored capture metadata; this list does not load full article bodies. Dismiss hides a draft from triage and keeps the file. Reject / Save / Promote use the existing review services.</p>
 
 <form class="workbench-filters" method="get" action="/pending">
@@ -84,7 +88,7 @@
           </form>
         {% endif %}
       {% else %}
-        <p class="empty-state">Nothing in this bucket.</p>
+        <p class="empty-state">No Publications are waiting in this bucket.</p>
       {% endif %}
       {% if group.remainder %}
         <p class="context-limit">{{ group.remainder }} more in this bucket. Open the advanced publication form for the rest.</p>
@@ -92,7 +96,7 @@
     </section>
   {% endfor %}
 {% else %}
-  <p class="empty-state">No pending drafts or unvalidated captures in this runtime.</p>
+  <p class="empty-state">No Publications are waiting for review. Newly discovered public material is staged here after collection. <a href="/collection-ops">Collection Ops</a> · <a href="/today">Today</a></p>
 {% endif %}
 </div>
 {% endblock %}

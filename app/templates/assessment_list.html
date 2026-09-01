@@ -13,6 +13,10 @@
   {% endif %}
 </section>
 
+{% with help_what="An Assessment is analyst interpretation of Facts. It is not a Signal, not a Signal candidate, and never auto-created from Signal confirmation.", help_why="This is where you record judgment. Facts stay Facts; Assessments are your reading of them.", help_do="Open an Assessment to see its Fact lineage. Create one only from Facts you can cite.", help_after="Saving an Assessment does not publish Evidence, confirm a Signal, or resolve a Strategic Question. AI PROPOSED Assessments stay labeled until REVIEWED." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+
 <p class="brief-window">Berry scope is stored <code>market_ids</code> only. Absent <code>market_ids</code> means company-wide / unscoped — not “every berry.” Lineage always requires at least one Fact.</p>
 
 {% if assessments %}
@@ -33,7 +37,7 @@
     {% endfor %}
   </ul>
 {% else %}
-  <p class="empty-state">No assessments recorded yet.</p>
+  <p class="empty-state">No Assessments yet. An Assessment is your interpretation of trusted Facts — never auto-created from a Signal.{% if authoring_mode %} <a href="/assessments/new">New Assessment</a>{% endif %} Start from <a href="/signals">Signals</a> or a <a href="/strategic-questions">Strategic Question</a> when you have Facts to interpret.</p>
 {% endif %}
 </div>
 {% endblock %}

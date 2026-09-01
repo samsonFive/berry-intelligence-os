@@ -114,6 +114,13 @@ from app.services.collection_ops import (
     trigger_bounded_run,
 )
 from app.services.today import build_today
+from app.services.guided_analyst import (
+    atomic_pending_count,
+    build_attention_queues,
+    nav_count_labels,
+    variety_identity_waiting_count,
+    watch_monitoring_snapshot,
+)
 from app.services.chronology import date_label, dated_label, meaningful_date_text, meaningful_stamp
 from app.services.request_corpus import (
     RequestCorpus,
@@ -703,6 +710,9 @@ def _compute_nav_work_counts() -> dict[str, Any]:
     counts["emerging_signals"] = sum(
         1 for candidate in load_candidates(INBOX_DIR) if candidate.get("status") in EMERGING_STATUSES
     )
+    counts["atomic_pending"] = atomic_pending_count(pending_rows)
+    counts["variety_identity"] = variety_identity_waiting_count(INBOX_DIR)
+    counts["labels"] = nav_count_labels(counts)
     return counts
 
 
@@ -3276,12 +3286,44 @@ def today_page(request: Request) -> HTMLResponse:
         data_dir=DATA_DIR,
         berry_id=berry_id,
     )
+    nav = nav_work_template_context(request).get("nav_work_counts") or {}
+    freshness = page.get("freshness") or {}
+    source_counts = freshness.get("counts") or {}
+    last_seen = page.get("last_seen_at")
+    attention = build_attention_queues(
+        publication_waiting=int(nav.get("review_now") or 0),
+        publication_since_brief=int(nav.get("brief_action") or 0) if last_seen else None,
+        atomic_waiting=int(nav.get("atomic_pending") or 0),
+        variety_waiting=int(nav.get("variety_identity") or 0),
+        source_failing=int(source_counts.get("failing") or 0),
+        source_overdue=int(source_counts.get("overdue") or 0),
+        source_blocked=int(source_counts.get("blocked") or 0),
+        retrying=int(source_counts.get("retrying") or freshness.get("retrying_count") or 0),
+        authoring_mode=AUTHORING_MODE,
+    )
     return templates.TemplateResponse(
         request=request,
         name="today.html",
         context={
             "today": page,
+            "attention_queues": attention,
+            "monitoring": watch_monitoring_snapshot(inbox_dir=INBOX_DIR),
             "berries": [{"id": key, "label": label} for key, label in BERRIES.items()],
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+        },
+    )
+
+
+@app.get("/guide", response_class=HTMLResponse)
+def guide_page(request: Request) -> HTMLResponse:
+    """Product orientation. Read-only. No inbox, no trust mutation."""
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    return templates.TemplateResponse(
+        request=request,
+        name="guide.html",
+        context={
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
             "ui_context": ui,

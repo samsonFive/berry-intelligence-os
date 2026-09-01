@@ -11,6 +11,10 @@
   </div>
 </section>
 
+{% with help_what="The registry of places we watch for public material, shown as collection health (healthy, quiet, failing, blocked).", help_why="If Sources fail, new Publications stop arriving and Today cannot claim to be current. Source volume is never recall.", help_do="Open a failing or overdue Source row. On the live workbench you can fetch or pause it. Then return to Collection Ops or Publication Review.", help_after="Fetching a Source pulls public material. It does not publish, approve, or review anything. Healthy vs failing is OPERATOR ACTION status, not a trust state." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+
 <p class="brief-window v2-recall-note">Healthy vs quiet vs failed vs not configured for discovery are collection states. Source volume must never be presented as recall. The Coverage Matrix remains the authoritative maturity record.</p>
 
 {% if not authoring_mode and not static_build %}

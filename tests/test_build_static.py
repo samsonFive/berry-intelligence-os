@@ -207,6 +207,8 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert "Review Operations" not in scanner_html
     assert "/today" not in scanner_html
     assert "What is new right now" not in scanner_html
+    assert "Start here each morning" not in scanner_html
+    assert "Needs your attention" not in scanner_html
     assert "Review session" not in scanner_html
     assert "Start review session" not in scanner_html
     assert "data-promote" not in scanner_html
@@ -219,6 +221,14 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert "Add a source" not in sources_html
     assert "Check now" not in sources_html
     assert "Remove" not in sources_html
+
+    guide_html = (output_dir / "guide" / "index.html").read_text(encoding="utf-8")
+    assert "How Berry Intelligence Works" in guide_html
+    assert "Trusted intelligence lifecycle" in guide_html
+    assert "/pending" not in guide_html
+    assert "/review?kind=atomic" not in guide_html
+    assert "/collection-ops" not in guide_html
+    assert "name=\"decision\"" not in guide_html
 
 
 def test_static_build_detects_leak_if_validation_bypassed(monkeypatch, tmp_path) -> None:

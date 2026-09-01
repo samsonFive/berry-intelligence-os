@@ -6,6 +6,9 @@
     <p class="eyebrow">PRIVATE OPERATIONAL REVIEW</p>
     <h1>Source fidelity review</h1>
     <p>Decide whether a recovered or reacquired source artifact is the source behind already-published Evidence. This does not re-review claims, rewrite summaries, create Facts, or run extraction.</p>
+    {% with help_what="A fidelity check: is this recovered page or transcript the same source already behind published Evidence?", help_why="Reacquisition can look like new news. Fidelity review keeps chronology honest without re-litigating claims.", help_do="Affirm when the artifact matches the published Evidence source. Reject or mark needs investigation when it does not.", help_after="Fidelity review does not change claim text, rewrite summaries, create Facts, approve Atomic Evidence, or run extraction. It does not publish or unpublish Evidence." %}
+      {% include "_workspace_help.html" %}
+    {% endwith %}
   </div>
   <p class="v2-count v2-count-action" aria-label="{{ pending_count }} pending">{{ pending_count }} pending</p>
 </section>

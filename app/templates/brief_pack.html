@@ -8,6 +8,9 @@
     <h1>{{ title }}</h1>
     {% if context_note %}<p class="also-known-as">{{ context_note }}</p>{% endif %}
     <p class="context-limit">A presentation composed from existing trusted intelligence -- not a new trust object, not AI-generated narrative. Every section below preserves its real Evidence / Fact / Signal / Assessment / Educational-knowledge badge.</p>
+    {% with help_what="A Brief Pack is an output composed from existing trusted intelligence. It is not a report-generation engine and not a new trust object.", help_why="Use this when you need to show someone the current picture without inventing narrative.", help_do="Select Companies, Varieties, Signals, and Assessments. Save the selection. Open presentation mode when you are ready to walk through it.", help_after="Saving stores your selection only. Opening a saved pack always renders current trusted intelligence." %}
+      {% include "_workspace_help.html" %}
+    {% endwith %}
     {% if not static_build %}
       <p class="v2-card-line">
         {% if presentation_mode %}<a href="?{% for k,v in raw_params.items() %}{{ k }}={{ v|urlencode }}&{% endfor %}">Exit presentation mode</a>{% else %}<a href="?{% for k,v in raw_params.items() %}{{ k }}={{ v|urlencode }}&{% endfor %}present=1">Presentation mode</a>{% endif %}
@@ -227,7 +230,7 @@
     <div class="table-wrap"><table class="brief-table assessment-brief-table"><thead><tr><th>View</th><th>Rationale</th><th>Support</th><th>Would change our view</th></tr></thead><tbody>
       {% for a in assessments %}
         <tr>
-          <td><a href="{{ a.href }}"><strong>{{ a.title }}</strong></a><br><span class="badge {{ 'badge-ai-proposed' if a.ai_proposed else 'badge-assessment' }}">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span> <span class="badge badge-muted">{{ a.confidence|upper if a.confidence else 'UNSTATED' }}</span></td>
+          <td><a href="{{ a.href }}"><strong>{{ a.title }}</strong></a><br><span class="badge badge-assessment">ASSESSMENT</span> <span class="badge {{ 'badge-ai-proposed' if a.ai_proposed else 'badge-assessment' }}">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span> <span class="badge badge-muted">{{ a.confidence|upper if a.confidence else 'UNSTATED' }}</span></td>
           <td>{{ a.rationale|truncate(220) if a.rationale else "Not yet documented for this assessment." }}</td>
           <td>{{ a.supporting_fact_count }} facts<br>{{ a.supporting_evidence_count }} evidence</td>
           <td>{{ a.would_change_our_view if a.would_change_our_view else "Not yet documented for this assessment." }}{% if a.strategic_question_ids %}<br><a href="/strategic-questions/{{ a.strategic_question_ids[0] }}">View strategic question</a>{% endif %}</td>

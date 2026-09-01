@@ -16,6 +16,10 @@
   </div>
 </section>
 
+{% with help_what="Raw counts of trusted Varieties versus untrusted CANDIDATE identities. This is not a completeness score.", help_why="A named cultivar in Evidence is not automatically a trusted Variety. Coverage shows what is actually recorded.", help_do="Use the Variety index for TRUSTED records. Open Identity review for CANDIDATE rows that still need DISTINCT / POSSIBLE ALIAS / UNKNOWN / CONFIRMED SAME.", help_after="Nothing on this page changes identity or trust. Reviewing a candidate never auto-creates a trusted Variety." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+
 <section class="v2-company-section">
   <h2>Totals</h2>
   <dl class="v2-role-list">

@@ -90,7 +90,7 @@
     <div class="table-wrap"><table class="brief-table assessment-brief-table"><thead><tr><th>View</th><th>Rationale</th><th>Support</th><th>Would change our view</th></tr></thead><tbody>
       {% for assessment in assessments %}
         <tr>
-          <td><a href="/assessments/{{ assessment.id }}"><strong>{{ assessment.title }}</strong></a><br><span class="badge {{ 'badge-ai-proposed' if assessment.ai_proposed else 'badge-assessment' }}">{{ 'AI PROPOSED' if assessment.ai_proposed else 'REVIEWED' }}</span> <span class="badge badge-muted">{{ assessment.confidence|upper if assessment.confidence else 'UNSTATED' }}</span></td>
+          <td><a href="/assessments/{{ assessment.id }}"><strong>{{ assessment.title }}</strong></a><br><span class="badge badge-assessment">ASSESSMENT</span> <span class="badge {{ 'badge-ai-proposed' if assessment.ai_proposed else 'badge-assessment' }}">{{ 'AI PROPOSED' if assessment.ai_proposed else 'REVIEWED' }}</span> <span class="badge badge-muted">{{ assessment.confidence|upper if assessment.confidence else 'UNSTATED' }}</span></td>
           <td>{{ assessment.rationale|truncate(260) if assessment.rationale else "Not yet documented for this assessment." }}</td>
           <td>{{ assessment.supporting_fact_count }} facts<br>{{ assessment.supporting_evidence_count }} evidence</td>
           <td>{{ assessment.would_change_our_view if assessment.would_change_our_view else "Not yet documented for this assessment." }}{% if assessment.strategic_question_ids %}<br><a href="/strategic-questions/{{ assessment.strategic_question_ids[0] }}">View strategic question</a>{% endif %}</td>
