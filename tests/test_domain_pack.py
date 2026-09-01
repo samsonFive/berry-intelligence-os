@@ -258,7 +258,15 @@ def test_every_live_relationship_resolves_to_a_declared_predicate() -> None:
     # develops-ponca, rel-university-of-arkansas-develops-ouachita,
     # rel-psg-owns-rejoice, rel-psg-develops-bk-6-13, rel-onubafruit-grows-
     # malaika, rel-onubafruit-operates-in-spain.
-    assert total == 234, f"expected 234 live relationships, found {total}"
+    # 241 = 234 plus 7 real geography containment relationships added for
+    # the Geographic Intelligence Resolution V1 mission (2026-09-01), one
+    # per (country, continent) pair with both Geography entities already
+    # canonical and a real UN M49 continental-grouping citation (see
+    # scripts/generate_geography_containment.py): rel-spain-part-of-europe,
+    # rel-portugal-part-of-europe, rel-united-kingdom-part-of-europe,
+    # rel-germany-part-of-europe, rel-netherlands-part-of-europe,
+    # rel-united-states-part-of-north-america, rel-canada-part-of-north-america.
+    assert total == 241, f"expected 241 live relationships, found {total}"
 
 
 def test_all_ten_v1_predicates_and_six_extensions_present() -> None:
@@ -273,7 +281,11 @@ def test_all_ten_v1_predicates_and_six_extensions_present() -> None:
     }
     assert v1_ten.issubset(declared)
     assert extensions_six.issubset(declared)
-    assert len(declared) == 16
+    # 17 = 16 plus "part_of" (Geographic Intelligence Resolution V1,
+    # 2026-09-01) -- geography-to-geography containment, the only
+    # predicate this domain pack declares with both subject and object
+    # types restricted to "geography".
+    assert len(declared) == 17
 
 
 # ---------------------------------------------------------------------------

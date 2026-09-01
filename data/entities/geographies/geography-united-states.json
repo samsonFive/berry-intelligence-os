@@ -21,7 +21,8 @@
     "ev-uaex-blueberry-trial-2024",
     "ev-fall-creek-our-history",
     "ev-uf-ifas-hs1245",
-    "ev-driscolls-cbc-appeal-2025"
+    "ev-driscolls-cbc-appeal-2025",
+    "ev-un-m49-geographic-regions"
   ],
   "fact_ids": [
     "fact-ozblu-migiva-2019-1",
@@ -36,7 +37,8 @@
     "rel-united-exports-operates-in-united-states",
     "rel-hortifrut-operates-in-united-states",
     "rel-driscolls-operates-in-united-states",
-    "rel-university-of-arkansas-operates-in-united-states"
+    "rel-university-of-arkansas-operates-in-united-states",
+    "rel-united-states-part-of-north-america"
   ],
   "attributes": {
     "iso_3166_1_alpha_2": "US",

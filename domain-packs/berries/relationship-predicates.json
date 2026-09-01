@@ -150,6 +150,16 @@
       "live_count": 0,
       "source": "blueberry_proposal_p2",
       "_comment": "Distinguishes true corporate ownership structure from the more general 'owns' or 'partners_with'."
+    },
+    {
+      "id": "part_of",
+      "label": "Part Of",
+      "subject_types": ["geography"],
+      "object_types": ["geography"],
+      "evidence_required": true,
+      "live_count": 7,
+      "source": "geographic_intelligence_resolution_v1",
+      "_comment": "Geographic Intelligence Resolution V1 (2026-09-01). The only predicate expressing true geographic containment (subject Geography contained within object Geography, e.g. Spain part_of Europe) -- distinct from 'operates_in' (company presence in a geography) and from any commercial-reach predicate. Authored once by scripts/generate_geography_containment.py from the UN M49 standard as a deterministic bootstrap; see app/services/geography_hierarchy.py, the sole runtime reader."
     }
   ]
 }

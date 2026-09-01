@@ -7,9 +7,18 @@
   "status": "active",
   "description": "",
   "roles": [],
-  "berry_ids": ["berry-blueberry"],
-  "evidence_ids": ["ev-sample-variety-launch", "ev-sample-retail-placement"],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-sample-variety-launch",
+    "ev-sample-retail-placement",
+    "ev-un-m49-geographic-regions"
+  ],
   "fact_ids": [],
-  "relationship_ids": [],
+  "relationship_ids": [
+    "rel-united-states-part-of-north-america",
+    "rel-canada-part-of-north-america"
+  ],
   "attributes": {}
 }

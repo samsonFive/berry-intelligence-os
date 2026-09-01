@@ -13,13 +13,15 @@
     "berry-blueberry"
   ],
   "evidence_ids": [
-    "ev-cinven-planasa-ew-group"
+    "ev-cinven-planasa-ew-group",
+    "ev-un-m49-geographic-regions"
   ],
   "fact_ids": [
     "fact-planasa-ew-group-sale"
   ],
   "relationship_ids": [
-    "rel-ew-group-operates-in-germany"
+    "rel-ew-group-operates-in-germany",
+    "rel-germany-part-of-europe"
   ],
   "attributes": {}
 }

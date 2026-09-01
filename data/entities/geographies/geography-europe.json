@@ -7,9 +7,20 @@
   "status": "active",
   "description": "",
   "roles": [],
-  "berry_ids": ["berry-raspberry"],
-  "evidence_ids": ["ev-sample-patent-published"],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "evidence_ids": [
+    "ev-sample-patent-published",
+    "ev-un-m49-geographic-regions"
+  ],
   "fact_ids": [],
-  "relationship_ids": [],
+  "relationship_ids": [
+    "rel-spain-part-of-europe",
+    "rel-portugal-part-of-europe",
+    "rel-united-kingdom-part-of-europe",
+    "rel-germany-part-of-europe",
+    "rel-netherlands-part-of-europe"
+  ],
   "attributes": {}
 }

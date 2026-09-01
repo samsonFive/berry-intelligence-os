@@ -8,7 +8,10 @@
     "id": {"type": "string", "pattern": "^rel-[a-z0-9-]+$"},
     "record_type": {"const": "relationship"},
     "subject_id": {"type": "string"},
-    "predicate": {"enum": ["owns", "develops", "licenses", "distributes", "grows", "trials", "sells", "carries", "partners_with", "operates_in", "markets"]},
+    "predicate": {
+      "enum": ["owns", "develops", "licenses", "distributes", "grows", "trials", "sells", "carries", "partners_with", "operates_in", "markets", "part_of"],
+      "$comment": "Geographic Intelligence Resolution V1 addition: `part_of` is the only predicate expressing true geographic containment (subject Geography is contained within object Geography, e.g. Spain part_of Europe) -- distinct from `operates_in`/company-to-geography presence and from `markets`/`sells`/`distributes` commercial-reach relationships, none of which imply the subject is located within the object. Only ever subject_id/object_id of entity_type geography; see app/services/geography_hierarchy.py, the sole reader of this predicate."
+    },
     "object_id": {"type": "string"},
     "status": {"enum": ["active", "historical", "disputed"]},
     "evidence_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},

@@ -18,6 +18,22 @@ Reuses existing composition primitives rather than re-deriving them:
   linkage.
 - app.services.strategic_question_workspace's strategic_question_detail
   for the Strategic Question Brief report type.
+- app.services.geography_hierarchy's resolve_geography_scope for
+  descendant-aware geography retrieval (Geographic Intelligence
+  Resolution V1) -- scope.geography_ids already carries the expanded
+  (selected + canonical-descendant) id set by the time it reaches this
+  module, resolved once upstream in
+  report_builder.scope.resolve_geography_text(), never re-walked per
+  record here.
+
+Geographic Intelligence Resolution V1 root-cause fix: a record's
+geography linkage can legitimately live in either its `entity_ids` or
+its `geography_ids` field across this corpus's history (the same
+dual-check app.services.geography_workspace and app.services.
+global_search already use) -- `_entity_intersect()` previously checked
+only `entity_ids`, silently dropping every record whose geography
+linkage lived in `geography_ids` alone, independent of any hierarchy
+question.
 """
 
 from __future__ import annotations
@@ -27,6 +43,7 @@ from typing import Any
 
 from app.services.brief_pack import company_snapshot, source_trace, variety_snapshot
 from app.services.chronology import meaningful_stamp
+from app.services.geography_hierarchy import matched_geography_ids
 from app.services.global_search import GEO_PREDICATES
 from app.services.report_builder.scope import ResolvedScope
 from app.services.strategic_question_workspace import strategic_question_detail
@@ -36,9 +53,9 @@ MAX_UNSCOPED_VARIETIES = 40
 RECENT_DEVELOPMENTS_LIMIT = 15
 
 
-def _evidence_date_row(record: dict[str, Any]) -> dict[str, Any]:
+def _evidence_date_row(record: dict[str, Any], *, scope_geography_ids: frozenset[str] = frozenset()) -> dict[str, Any]:
     when, origin = meaningful_stamp(record, mode="timeline_evidence")
-    return {
+    row = {
         "id": record.get("id"),
         "title": record.get("title") or record.get("source_name") or record.get("id"),
         "source_name": record.get("source_name") or "",
@@ -49,6 +66,13 @@ def _evidence_date_row(record: dict[str, Any]) -> dict[str, Any]:
         "href": f"/evidence/{record.get('id')}",
         "reader_href": f"/intelligence/{record.get('id')}",
     }
+    if scope_geography_ids:
+        # Provenance: which specific geography this record actually
+        # carries, never silently relabeled as the broader query
+        # geography it was pulled in under (e.g. a Spain-tagged record
+        # matched by a Europe query stays visibly "Spain").
+        row["matched_geography_ids"] = matched_geography_ids(record, scope_geography_ids)
+    return row
 
 
 def _entity_ids_in_scope(scope: ResolvedScope) -> set[str]:
@@ -63,7 +87,8 @@ def _in_berry(record: dict[str, Any], berry_id: str | None) -> bool:
 
 
 def _entity_intersect(record: dict[str, Any], entity_ids: set[str]) -> bool:
-    return bool(entity_ids & set(record.get("entity_ids") or []))
+    record_ids = set(record.get("entity_ids") or []) | set(record.get("geography_ids") or [])
+    return bool(entity_ids & record_ids)
 
 
 def _select_records(
@@ -283,6 +308,11 @@ def build_report_packet(
         | {c["id"] for c in candidate_rows if c.get("id")}
     )
 
+    scope_geography_ids = frozenset(scope.geography_ids)
+    contributing_geography_ids: set[str] = set()
+    for record in scoped_evidence:
+        contributing_geography_ids.update(matched_geography_ids(record, scope_geography_ids))
+
     return {
         "report_type": scope.report_type,
         "berry_id": scope.berry_id,
@@ -290,11 +320,14 @@ def build_report_packet(
         "companies": companies,
         "varieties": varieties,
         "variety_candidates": candidate_rows,
-        "recent_developments": [_evidence_date_row(r) for r in recent],
+        "recent_developments": [_evidence_date_row(r, scope_geography_ids=scope_geography_ids) for r in recent],
         "signals": signal_rows,
         "assessments": assessment_rows,
         "source_trace": source_trace(trace_evidence_ids, evidence_by_id),
         "known_ids": known_ids,
+        "geography_ids": list(scope.geography_ids),
+        "geography_descendant_ids": list(scope.geography_descendant_ids),
+        "contributing_geography_ids": sorted(contributing_geography_ids),
     }
 
 

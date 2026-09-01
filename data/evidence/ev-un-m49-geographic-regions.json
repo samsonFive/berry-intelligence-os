@@ -1,0 +1,71 @@
+{
+  "id": "ev-un-m49-geographic-regions",
+  "record_type": "evidence",
+  "status": "published",
+  "source_type": "government_registry",
+  "title": "UN M49 Standard Country or Area Codes for Statistical Use -- Continental/Regional Groupings",
+  "source_name": "United Nations Statistics Division",
+  "source_url": "https://unstats.un.org/unsd/methodology/m49/",
+  "published_date": null,
+  "captured_date": "2026-09-01",
+  "summary": "The UN M49 standard defines the continental and regional groupings used to classify countries and areas for statistical purposes -- including Europe and Northern America as standard geographic regions with defined country memberships (Spain, Portugal, the United Kingdom, Germany, and the Netherlands under Europe; the United States and Canada under Northern America).",
+  "why_it_matters": "Provides an authoritative, non-inferred basis for expressing which trusted Geography entities already tracked in this corpus are contained within a broader Geography entity also already tracked here -- used only to source explicit part_of Relationship records between existing Geography entities, never to add a new Geography entity and never to infer geography for any Company/Variety/Evidence record.",
+  "submitted_by": "migration/generate_geography_containment.py",
+  "berry_ids": [],
+  "geography_ids": [
+    "geography-canada",
+    "geography-europe",
+    "geography-germany",
+    "geography-netherlands",
+    "geography-north-america",
+    "geography-portugal",
+    "geography-spain",
+    "geography-united-kingdom",
+    "geography-united-states"
+  ],
+  "entity_ids": [
+    "geography-canada",
+    "geography-europe",
+    "geography-germany",
+    "geography-netherlands",
+    "geography-north-america",
+    "geography-portugal",
+    "geography-spain",
+    "geography-united-kingdom",
+    "geography-united-states"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-spain-part-of-europe",
+    "rel-portugal-part-of-europe",
+    "rel-united-kingdom-part-of-europe",
+    "rel-germany-part-of-europe",
+    "rel-netherlands-part-of-europe",
+    "rel-united-states-part-of-north-america",
+    "rel-canada-part-of-north-america"
+  ],
+  "strategic_question_ids": [],
+  "tags": [
+    "reference",
+    "geography",
+    "structural"
+  ],
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Structural reference data, not a competitive-intelligence development."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Not applicable to a geographic reference standard."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Not applicable."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "A stable international standard; not a recurring monitoring target."
+    }
+  }
+}
