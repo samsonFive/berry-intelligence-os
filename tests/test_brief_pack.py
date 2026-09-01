@@ -289,6 +289,15 @@ def test_brief_pack_trust_classes_stay_distinct():
         params={
             "signals": "sig-breeder-and-patent-attribution-drift-in-public-sources",
             "assessments": "assessment-blueberry-genetics-commercialized-through-platforms",
+            # The literal "ASSESSMENT" text below only ever renders via
+            # key_developments (readout_what_changed()'s default
+            # window_days=14 against today's real wall clock, no
+            # deterministic `today` override exists there) -- the fixture
+            # assessment's created_at ages out of the default window as
+            # real time passes. days=90 (the route's own accepted cap)
+            # keeps this fixture inside the window for a long time without
+            # depending on when the test happens to run.
+            "days": 90,
         },
     )
     assert page.status_code == 200
