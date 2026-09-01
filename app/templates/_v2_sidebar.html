@@ -117,6 +117,7 @@
   {% endif %}
   {% if authoring_mode and not static_build %}
   <a href="/varieties/candidates" class="v2-nav-link{% if path.startswith('/varieties/candidates') %} is-active{% endif %}" title="Variety identity review" aria-label="Variety identity review{{ count_label(nav_work_counts.variety_identity) }}">{{ nav_icon('review') }}<span class="v2-nav-text">Variety identity</span>{{ count_badge(nav_work_counts.variety_identity, labels.variety_identity or (nav_work_counts.variety_identity ~ ' Variety identities awaiting review')) }}</a>
+  <a href="/entities/identity" class="v2-nav-link{% if path.startswith('/entities/identity') %} is-active{% endif %}" title="Entity identity integrity" aria-label="Entity identity integrity">{{ nav_icon('review') }}<span class="v2-nav-text">Entity identity</span></a>
   {% endif %}
   <a href="/geographies" class="v2-nav-link{% if path.startswith('/geographies') or path.startswith('/entities/geography') %} is-active{% endif %}" title="Geographies" aria-label="Geographies">{{ nav_icon('geo') }}<span class="v2-nav-text">Geographies</span></a>
   <a href="{{ ui.landscape_href }}" class="v2-nav-link{% if path.startswith('/landscapes') or path.startswith('/entities/berry') %} is-active{% endif %}" title="Landscape" aria-label="Landscape">{{ nav_icon('landscape') }}<span class="v2-nav-text">Landscape</span></a>

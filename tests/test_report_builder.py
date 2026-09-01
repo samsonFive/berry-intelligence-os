@@ -136,6 +136,27 @@ def test_compare_fall_creek_driscolls_planasa_and_unresolved_berry_genetics():
     assert scope.ambiguous_companies == ()
 
 
+def test_report_builder_resolves_planasa_after_identity_repair():
+    from app.services.entity_identity import living_entities
+
+    entities = list(_base_entities().values())
+    entities.append(
+        _entity(id="company-planasa-2", entity_type="company", name="Planasa", aliases=["Planasa"])
+    )
+    redirects = [{"retired_id": "company-planasa-2", "surviving_id": "company-planasa"}]
+    living = living_entities(entities, redirects=redirects)
+    proposal = interpret_scope_text(
+        "Compare Fall Creek, Driscoll's, Planasa and Berry Genetics in Europe.",
+        berries=BERRIES,
+        completer=None,
+        entities=living,
+    )
+    scope = resolve_scope(proposal, entities=living, berries=BERRIES, questions=[])
+    assert scope.company_ids.count("company-planasa") == 1
+    assert "company-planasa-2" not in scope.company_ids
+    assert scope.ambiguous_companies == ()
+
+
 def test_fallback_extracts_aliases_and_punctuation():
     entities = list(_base_entities().values())
     proposal = interpret_scope_text(

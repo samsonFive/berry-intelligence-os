@@ -77,6 +77,21 @@ def _compare(ids, entities=None, **kwargs):
     return present_company_compare(ids, **defaults)
 
 
+def test_redirected_duplicate_company_is_not_compared_twice():
+    entities = _entities()
+    entities["company-planasa"] = _entity(
+        id="company-planasa", entity_type="company", name="Plantas de Navarra, S.A.", aliases=["Planasa"]
+    )
+    entities["company-planasa-2"] = _entity(id="company-planasa-2", entity_type="company", name="Planasa")
+    result = _compare(
+        ["company-planasa", "company-planasa-2"],
+        entities=entities,
+        redirects=[{"retired_id": "company-planasa-2", "surviving_id": "company-planasa"}],
+    )
+    assert [card["id"] for card in result["companies"]] == ["company-planasa"]
+    assert result["count"] == 1
+
+
 def test_dedupes_and_caps_at_max_companies():
     result = _compare(["company-a", "company-a", "company-b", "company-sparse", "company-a"])
     ids = [card["id"] for card in result["companies"]]

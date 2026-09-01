@@ -1,0 +1,11 @@
+{
+  "redirects": [
+    {
+      "retired_id": "company-planasa-2",
+      "surviving_id": "company-planasa",
+      "state": "confirmed_duplicate",
+      "decided_on": "2026-09-01",
+      "reason": "Accidental second Company minted when publish treated the trade name Planasa as a new legal name. Plantas de Navarra, S.A. already carries alias Planasa. Same commercial entity, not a parent/subsidiary or regional counterpart."
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Entity identity integrity — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">AUTHORING</p>
+    <h1>Entity identity integrity</h1>
+    <p class="context-limit">Exact name, alias, registration, and redirect collisions only. This page does not score similarity and does not merge anything.</p>
+  </div>
+  <div class="v2-company-actions">
+    <a class="v2-btn v2-btn-quiet" href="/entities/company">Companies</a>
+    <a class="v2-btn v2-btn-quiet" href="/entities/variety">Varieties</a>
+  </div>
+</section>
+
+{% with help_what="A read-only inventory of exact Company and Variety identity collisions.", help_why="Duplicate canonical IDs make search, reports, and compare refuse to resolve a name the analyst already knows.", help_do="Treat CONFIRMED DUPLICATE as a merge candidate. Leave LIKELY RELATED / NEEDS REVIEW and UNKNOWN unresolved.", help_after="Nothing on this GET page writes data, publishes, or changes trust." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+
+<section class="v2-company-section">
+  <h2>Companies</h2>
+  <dl class="v2-role-list">
+    <dt>Living companies</dt><dd>{{ report.companies.count }}</dd>
+    <dt>Exact duplicates</dt><dd>{{ report.companies.exact_duplicates|length }}</dd>
+    <dt>Alias collisions</dt><dd>{{ report.companies.alias_collisions|length }}</dd>
+    <dt>Unresolved probable duplicates</dt><dd>{{ report.companies.unresolved_probable_duplicates|length }}</dd>
+  </dl>
+  <div class="table-wrap">
+    <table class="brief-table">
+      <thead>
+        <tr>
+          <th>State</th>
+          <th>IDs</th>
+          <th>Reason</th>
+          <th>Matched value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in report.companies.issues %}
+        <tr>
+          <td>{{ row.label }}</td>
+          <td>{{ row.entity_ids|join(", ") }}</td>
+          <td>{{ row.reason }}</td>
+          <td>{{ row.matched_value }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4">No Company identity collisions in the living catalog.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="v2-company-section">
+  <h2>Varieties</h2>
+  <dl class="v2-role-list">
+    <dt>Living varieties</dt><dd>{{ report.varieties.count }}</dd>
+    <dt>Canonical collisions</dt><dd>{{ report.varieties.canonical_collisions|length }}</dd>
+    <dt>Candidate / canonical conflicts</dt><dd>{{ report.varieties.candidate_canonical_conflicts|length }}</dd>
+  </dl>
+  <div class="table-wrap">
+    <table class="brief-table">
+      <thead>
+        <tr>
+          <th>State</th>
+          <th>IDs</th>
+          <th>Reason</th>
+          <th>Matched value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in report.varieties.issues %}
+        <tr>
+          <td>{{ row.label }}</td>
+          <td>{{ row.entity_ids|join(", ") }}</td>
+          <td>{{ row.reason }}</td>
+          <td>{{ row.matched_value }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4">No Variety canonical collisions in the living catalog.</td></tr>
+        {% endfor %}
+        {% for row in report.varieties.candidate_canonical_conflicts %}
+        <tr>
+          <td>{{ row.label }}</td>
+          <td>{{ row.entity_ids|join(", ") }}</td>
+          <td>{{ row.reason }}</td>
+          <td>{{ row.candidate_name }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+</div>
+{% endblock %}
