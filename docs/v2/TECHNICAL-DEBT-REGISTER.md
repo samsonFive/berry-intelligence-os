@@ -1695,4 +1695,20 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_collector_recall_entity_extraction_v1.py` |
 
+### TD-105 — Google News RSS catch-net is not a regional census
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | discovery / freshness |
+| **Date discovered** | 2026-09-01 |
+| **Evidence** | Industry Pulse Discovery + News Recall V1 live run. Trusted Evidence newest `published_date` is 2026-08-06. The 32-query matrix queries Americas/Europe/Africa/APAC × four berries, but Google News RSS 7d query yield was global 109 vs regional 1/1/1/1, with APAC/Africa qualifying 0. 24h unique hits were 23, of which 22 were correctly non-qualifying consumer/device noise; 1 qualifying unknown-Source item (Pairwise seedless blackberry). `east-fruit.com` Ukraine blueberry variety strategy is SOURCE_KNOWN_NOT_COLLECTED. Paid Exa/Firecrawl/Bright Data credentials are absent. |
+| **Impact** | A human Google search can still surface a current berry-industry development faster than trusted Evidence. Known-Source collectors (Italian Berry, BlueberryBreeding) can be fresh; the catch-net beyond those hosts is still thin and geographically skewed on the free RSS provider. |
+| **Workaround** | Operator `scripts/industry_pulse.py` / POST `/industry-pulse/run`. Do not auto-onboard pulse hosts. Do not use `captured_date` as publication. |
+| **Recommended resolution** | Bake-off Exa or Firecrawl Search behind the existing `DiscoveryProvider` boundary for regional/APAC/Africa recall. Keep Google News RSS as the free default. |
+| **Status** | active |
+| **Owner lane** | collection / discovery |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_industry_pulse_discovery_v1.py` |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

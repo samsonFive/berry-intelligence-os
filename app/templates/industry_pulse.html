@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Industry Pulse — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">INDUSTRY PULSE</p>
+    <h1>Catch-net discovery</h1>
+    <p class="context-limit">Live query-derived news recall. This page never publishes Evidence, never onboards a Source, and is not a completeness score. Hits are discovery material only.</p>
+  </div>
+  <div class="v2-company-actions">
+    <a class="v2-btn v2-btn-quiet" href="/coverage-assurance">Coverage Assurance</a>
+    <a class="v2-btn v2-btn-quiet" href="/collection-ops">Collection Ops</a>
+  </div>
+</section>
+
+{% with help_what="A bounded berry × geography × topic Google News matrix, normalized through a provider-neutral discover() adapter.", help_why="Ordinary web search can currently surface fresher berry-industry developments than the trusted corpus.", help_do="Inspect window counts and novel hosts. Run the matrix from Collection-adjacent POST or scripts/industry_pulse.py. Do not treat hits as Evidence.", help_after="Nothing on GET writes Sources or Evidence. Unknown publication dates stay unknown." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+
+<section class="v2-company-section" id="freshness-baseline">
+  <h2>Corpus freshness</h2>
+  <p class="context-limit">Publication date only. Capture time is shown separately and is never used as a publication date.</p>
+  <dl class="v2-role-list">
+    <dt>As of</dt><dd>{{ freshness.as_of }}</dd>
+    <dt>Newest trusted Evidence (published_date)</dt>
+    <dd>{{ freshness.newest_trusted_evidence.published_date if freshness.newest_trusted_evidence else "unknown" }}</dd>
+    <dt>Newest Publication (published_date)</dt>
+    <dd>{{ freshness.newest_publication.published_date if freshness.newest_publication else "unknown" }}</dd>
+    <dt>Newest discovered item (published_date)</dt>
+    <dd>{{ freshness.newest_discovered_item.published_date if freshness.newest_discovered_item else "unknown / inbox absent" }}</dd>
+    <dt>Newest captured_date on Evidence</dt>
+    <dd>{{ freshness.newest_captured_date_on_evidence.captured_date if freshness.newest_captured_date_on_evidence else "unknown" }}</dd>
+    <dt>Existing Google News Source queries</dt><dd>{{ freshness.existing_google_news_queries }}</dd>
+    <dt>Collected Sources with no recent published yield</dt><dd>{{ freshness.sources_with_no_recent_yield_count }}</dd>
+  </dl>
+</section>
+
+<section class="v2-company-section" id="query-matrix">
+  <h2>Query matrix</h2>
+  <p class="context-limit">{{ live_query_count }} live queries: 20 berry × geography pulse rows plus 12 global topic intensifiers. Not one Source row per cell.</p>
+</section>
+
+{% if snapshot %}
+<section class="v2-company-section" id="pulse-windows">
+  <h2>Last pulse snapshot</h2>
+  <p class="context-limit">Provider {{ snapshot.provider }} · as of {{ snapshot.as_of }} · {{ snapshot.live_query_count }} queries. Auto-trust: no. Persisted bodies: no.</p>
+  <div class="table-wrap">
+    <table class="brief-table">
+      <thead>
+        <tr>
+          <th>Window</th>
+          <th>Discovered</th>
+          <th>Qualifying</th>
+          <th>Novel source</th>
+          <th>Known source</th>
+          <th>Duplicates</th>
+          <th>Unknown date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for window in ["24h", "3d", "7d"] %}
+        {% set row = snapshot.windows[window] %}
+        <tr>
+          <td>{{ window }}</td>
+          <td>{{ row.discovered }}</td>
+          <td>{{ row.qualifying }}</td>
+          <td>{{ row.novel }}</td>
+          <td>{{ row.known }}</td>
+          <td>{{ row.duplicates }}</td>
+          <td>{{ row.unknown_date }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="context-limit">Novel Source hosts: {{ snapshot.novel_source_count }}. Known-source / item-missed: {{ snapshot.known_source_item_missed_count }}. Known / not collected: {{ snapshot.known_source_not_collected_count | default(0) }}.</p>
+</section>
+{% else %}
+<section class="v2-company-section" id="pulse-empty">
+  <h2>No pulse snapshot yet</h2>
+  <p class="context-limit">GET never fetches the public web. Run <code>python scripts/industry_pulse.py</code> or POST /industry-pulse/run from authoring mode. Results stay in private inbox metadata.</p>
+</section>
+{% endif %}
+
+<section class="v2-company-section" id="pulse-run">
+  <h2>Run catch-net</h2>
+  <p class="context-limit">POST is explicit. It writes normalized discovery metadata under inbox/industry_pulse/ only. It does not publish Evidence.</p>
+  <form method="post" action="/industry-pulse/run">
+    <button class="v2-btn" type="submit">Run 7-day matrix</button>
+  </form>
+</section>
+</div>
+{% endblock %}
