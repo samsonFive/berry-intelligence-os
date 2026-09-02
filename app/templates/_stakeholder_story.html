@@ -5,9 +5,15 @@
 <article class="{{ 'sh-lead-story' if featured else 'sh-story' }}">
   <p class="sh-story-meta">
     {% if trust %}<span class="sh-trust{% if 'propos' in trust|lower or 'unreviewed' in trust|lower %} sh-trust-proposed{% elif 'pending' in trust|lower or 'await' in trust|lower %} sh-trust-pending{% elif 'signal' in trust|lower %} sh-trust-signal{% endif %}">{{ trust }}</span>{% endif %}
+    {% if item.is_watched %}<span class="sh-trust sh-trust-watched">WATCHING</span>{% endif %}
     {% if item.source_name %}<span>{{ item.source_name }}</span>{% endif %}
     {% if date %}<span>{{ date }}{% if item.date_basis_label %} · {{ item.date_basis_label }}{% endif %}</span>{% endif %}
   </p>
   <h3 class="sh-story-title"><a href="{{ href }}" {% if item.open_reader or item.id %}data-open-reader data-item-id="{{ item.id }}"{% endif %}>{{ title }}</a></h3>
   {% if item.summary %}<p class="sh-story-summary">{{ item.summary }}</p>{% endif %}
+  {% if item.strategic_question_ids %}
+    <p class="sh-story-sq">Related Strategic Question{{ 's' if item.strategic_question_ids|length != 1 else '' }}:
+      {% for sq_id in item.strategic_question_ids %}<a href="/strategic-questions/{{ sq_id }}">{{ sq_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+    </p>
+  {% endif %}
 </article>

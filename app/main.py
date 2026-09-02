@@ -122,6 +122,7 @@ from app.services.today import build_today
 from app.services.front_page import build_front_page
 from app.services.stakeholder_ui import (
     REPORT_EXAMPLE_PROMPTS,
+    brief_handoff_query_string,
     compose_stakeholder_front,
     humanize_label,
 )
@@ -191,6 +192,7 @@ from app.services.watchlist import (
     WATCH_TYPES,
     add_watch,
     is_watched,
+    load_watches,
     mark_watch_seen,
     remove_watch,
     watchlist_index,
@@ -3429,6 +3431,8 @@ def today_page(request: Request) -> HTMLResponse:
         data_dir=DATA_DIR,
         coverage_watch=coverage_watch,
         berry_id=berry_id,
+        market_observations_repo=get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations,
+        watches=load_watches(INBOX_DIR),
     )
     newsroom_status = None
     if AUTHORING_MODE:
@@ -3470,6 +3474,7 @@ def today_page(request: Request) -> HTMLResponse:
             "today": page,
             "front_page": front_page,
             "stakeholder_front": compose_stakeholder_front(front_page, page.get("worth_revisiting")),
+            "brief_handoff_query": brief_handoff_query_string(front_page),
             "attention_queues": attention,
             "monitoring": watch_monitoring_snapshot(inbox_dir=INBOX_DIR),
             "berries": [{"id": key, "label": label} for key, label in BERRIES.items()],
