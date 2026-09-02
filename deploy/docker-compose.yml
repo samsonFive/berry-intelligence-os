@@ -23,6 +23,14 @@ services:
       # an empty/unset deploy/.env entry means the feature simply stays
       # off, exactly like today.
       PERPLEXITY_API_KEY: ${PERPLEXITY_API_KEY:-}
+      # Single activation switch, read identically by app/main.py's routes
+      # (Industry Pulse's manual "Run Pulse" button, Competitor Pulse V1's
+      # live company queries) and scripts/industry_pulse_intake.py's
+      # scheduled CLI. Defaults off (empty/unset = false) exactly like
+      # PERPLEXITY_API_KEY above -- see docs/v2/COMPETITOR-PULSE-V1.md and
+      # docs/v2/CONTINUOUS-NEWSROOM-INTAKE-V1.md for the activation
+      # decisions recorded for each surface.
+      ENABLE_PERPLEXITY_PULSE: ${ENABLE_PERPLEXITY_PULSE:-false}
     volumes:
       - ${BIOS_DEMO_RUNTIME:-../demo-runtime}/data:/app/runtime/data
       - ${BIOS_DEMO_RUNTIME:-../demo-runtime}/inbox:/app/runtime/inbox
