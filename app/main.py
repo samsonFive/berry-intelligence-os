@@ -153,6 +153,7 @@ from app.services.global_week import (
 )
 from app.services.emerging_radar import (
     cache_is_fresh,
+    developments_for,
     edition_from_cache,
     run_radar_intelligence,
 )
@@ -324,6 +325,7 @@ from app.services.report_builder.scope import (
     interpret_scope_text,
     resolve_scope,
 )
+from app.services.market_reality.research_desk import market_context_for_research_scope
 from app.services.report_builder.synthesis import generate_report_sections
 from app.services.research_desk import (
     ResearchScope,
@@ -3792,6 +3794,32 @@ def _research_scope_display(scope: ResearchScope, entities: dict[str, dict[str, 
     }
 
 
+def _radar_developments_for_scope(scope: ResearchScope) -> list[dict[str, Any]]:
+    """Ask Berry OS -> Radar seam. Read-only cached-edition filter -- never
+    triggers a live Radar fetch from inside a research answer. Only
+    relevant developments (already bounded by developments_for()'s own
+    company/berry/geography filters, plus a hard cap here), never every
+    cached item."""
+    rows = developments_for(
+        company_ids=scope.company_ids,
+        berry_ids=[scope.berry_id] if scope.berry_id else None,
+        geography_ids=scope.geography_ids,
+        inbox_dir=INBOX_DIR,
+    )
+    return [
+        {
+            "id": row.get("id"),
+            "title": row.get("title") or row.get("id"),
+            "event_type": row.get("event_type") or "",
+            "date": row.get("event_date") or row.get("latest_update") or row.get("first_seen") or "",
+            "href": f"/radar/{row.get('id')}",
+            "trust_state": row.get("trust_state") or "LIVE / UNREVIEWED DEVELOPMENT",
+            "company_names": list(row.get("company_names") or [])[:4],
+        }
+        for row in rows[:6]
+    ]
+
+
 def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, Any] | None]:
     entities = entity_index()
     evidence = published_evidence()
@@ -3799,6 +3827,7 @@ def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, An
     relationships = all_relationships()
     signals = all_signals()
     assessments = all_assessments()
+    market_repo = get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations
     packet = assemble_research_packet(
         scope,
         entities=entities,
@@ -3807,9 +3836,8 @@ def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, An
         facts=facts,
         signals=signals,
         assessments=assessments,
-        # Claude's Market Reality provider can plug in here without a
-        # ResearchPacket or UI redesign.
-        market_context_provider=None,
+        market_context_provider=lambda s: market_context_for_research_scope(market_repo, s),
+        developments_provider=_radar_developments_for_scope,
     )
     comparison = None
     if scope.comparison and len(scope.company_ids) >= 2:
@@ -3831,12 +3859,19 @@ def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, An
 @app.get("/research", response_class=HTMLResponse)
 def research_desk_page(request: Request) -> HTMLResponse:
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    # "Ask Berry OS about this" handoff from /today and /radar (Overnight
+    # Flagship Integration V1, sections 4-5): a natural-language question
+    # only -- reuses the existing free-text /research entry point rather
+    # than adding a second, structured conversational-state path. No
+    # article body is ever passed, only the caller-constructed question.
+    prefill_question = str(request.query_params.get("q") or "").strip()
     response = templates.TemplateResponse(
         request=request,
         name="research_desk.html",
         context={
             "scope": None,
             "example_prompts": RESEARCH_EXAMPLE_PROMPTS,
+            "prefill_question": prefill_question,
             "authoring_mode": AUTHORING_MODE,
             "ui_context": ui,
             "static_build": False,
@@ -4255,11 +4290,20 @@ def radar_detail_page(request: Request, development_id: str) -> HTMLResponse:
         raise HTTPException(status_code=404, detail="Development not in the current Radar cache")
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     payload = development.as_dict() if hasattr(development, "as_dict") else development
+    # "Ask Berry OS about this" handoff (Overnight Flagship Integration V1,
+    # section 4): title + entity names only, never development.what_happened
+    # or article-body text -- the question reuses the same interpretation
+    # path any other free-text question does.
+    ask_parts = [str(payload.get("title") or "")]
+    ask_parts.extend(str(name) for name in (payload.get("company_names") or [])[:2])
+    ask_parts.extend(str(label) for label in (payload.get("geography_labels") or [])[:2])
+    ask_question = "What should I know about: " + " -- ".join(p for p in ask_parts if p)
     response = templates.TemplateResponse(
         request=request,
         name="radar_detail.html",
         context={
             "development": payload,
+            "ask_berry_os_href": f"/research?{urlencode({'q': ask_question})}",
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
             "ui_context": ui,

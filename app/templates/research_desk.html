@@ -10,7 +10,7 @@
     <form class="rd-ask" method="post" action="/research">
       <label for="rd-question">What do you want to know?</label>
       <div class="rd-ask-row">
-        <textarea id="rd-question" name="question" rows="2" autofocus required placeholder="What is Planasa doing in strawberries right now?"></textarea>
+        <textarea id="rd-question" name="question" rows="2" autofocus required placeholder="What is Planasa doing in strawberries right now?">{{ prefill_question or '' }}</textarea>
         <button type="submit">Research</button>
       </div>
     </form>

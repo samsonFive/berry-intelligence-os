@@ -140,3 +140,55 @@ def market_reality_highlights(
         )
     cards.sort(key=lambda c: abs(c["pct_change"]), reverse=True)
     return cards[:limit]
+
+
+def market_context_for_research_scope(repo: Any, scope: Any, *, limit: int = 6) -> list[dict[str, Any]]:
+    """Adapter for Ask Berry OS's `market_context_provider` seam
+    (`app/services/research_desk.py::assemble_research_packet`). Takes any
+    object with `.berry_id` (str | None) and `.geography_ids` (list[str])
+    attributes -- duck-typed, not a hard import of ResearchScope, so this
+    module keeps its "no knowledge of the consumer" property. Returns rows
+    shaped like the packet's own evidence_rows (id/title/source_name/date/
+    href/structured_kind) so the existing "Market context" section in
+    _research_result.html renders them with zero template changes.
+
+    Flagship acceptance case (Overnight Flagship Integration V1, section
+    6): this is the only place Market Reality data enters an Ask Berry OS
+    answer -- read-only, never inferring causality, always carrying the
+    real source/date/unit in the title string itself."""
+    berry_id = getattr(scope, "berry_id", None) or None
+    geography_ids = list(getattr(scope, "geography_ids", None) or [])
+    cards = market_reality_highlights(repo, berry_id=berry_id, limit=limit * 2)
+    if geography_ids:
+        result = market_reality_for(repo, berry_id=berry_id)
+        allowed_geographies = {
+            obs["geography"] for obs in result["observations"] if obs.get("geography_id") in geography_ids
+        }
+        if allowed_geographies:
+            cards = [
+                c for c in market_reality_highlights(repo, berry_id=berry_id, limit=limit * 4)
+                if c["geography_label"] in {_GEOGRAPHY_LABELS.get(g, g) for g in allowed_geographies}
+            ]
+    rows: list[dict[str, Any]] = []
+    for card in cards[:limit]:
+        arrow = "up" if card["direction"] == "up" else ("down" if card["direction"] == "down" else "flat")
+        title = (
+            f"{card['geography_label']} {card['commodity_label']} -- {card['metric'].replace('_', ' ').title()} "
+            f"{'+' if arrow == 'up' else ('-' if arrow == 'down' else '')}{abs(card['pct_change']):.1f}% "
+            f"({card['previous_period']} -> {card['latest_period']}, {card['previous_value']:,.0f} -> {card['latest_value']:,.0f} {card['unit']})"
+        )
+        rows.append(
+            {
+                "id": f"mkt-{card['source_dataset']}-{card['metric']}-{card['geography_label']}",
+                "title": title,
+                "source_name": card.get("source") or "",
+                "date": (card.get("captured_at") or "")[:10],
+                "href": card.get("source_url") or "#",
+                "reader_href": card.get("source_url") or "#",
+                "trust_class": "MARKET REALITY",
+                "structured_kind": "MARKET OBSERVATION",
+                "entity_ids": [],
+                "geography_ids": [],
+            }
+        )
+    return rows

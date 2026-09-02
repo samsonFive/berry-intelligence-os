@@ -311,6 +311,7 @@ def assemble_research_packet(
     signals: list[dict[str, Any]],
     assessments: list[dict[str, Any]],
     market_context_provider: Callable[[ResearchScope], list[dict[str, Any]]] | None = None,
+    developments_provider: Callable[[ResearchScope], list[dict[str, Any]]] | None = None,
     today: date | None = None,
 ) -> dict[str, Any]:
     """Assemble only relevant canonical layers; never query everything blindly."""
@@ -404,12 +405,17 @@ def assemble_research_packet(
     market_rows = [row for row in evidence_rows if row.get("structured_kind") in {"MARKET OBSERVATION", "TRADE OBSERVATION"}]
     if market_context_provider is not None:
         market_rows.extend(market_context_provider(scope) or [])
+    development_rows: list[dict[str, Any]] = []
+    if developments_provider is not None:
+        development_rows = list(developments_provider(scope) or [])[:6]
 
     layers = ["TRUSTED_EVIDENCE", "COMPANIES", "RELATIONSHIPS"]
     if variety_rows or any(topic in scope.topics for topic in ("genetics", "rights_ip")):
         layers.extend(["VARIETIES", "PBR_RIGHTS", "PATENTS"])
     if market_rows or any(topic in scope.topics for topic in ("supply", "expansion", "commercial")):
         layers.append("MARKET_REALITY")
+    if development_rows:
+        layers.append("EMERGING_RADAR")
     if signal_rows:
         layers.append("SIGNALS")
     if assessment_rows:
@@ -439,6 +445,7 @@ def assemble_research_packet(
         "relationships": relationship_rows,
         "rights_ip": rights_rows,
         "market_context": market_rows,
+        "radar_developments": development_rows,
         "signals": signal_rows,
         "assessments": assessment_rows,
         "coverage_gaps": gaps,
@@ -757,6 +764,7 @@ def compose_research_answer(
         "competitive_context": {"companies": packet.get("companies") or [], "relationships": packet.get("relationships") or []},
         "rights_ip": packet.get("rights_ip") or [],
         "market_context": packet.get("market_context") or [],
+        "radar_developments": packet.get("radar_developments") or [],
         "signals": packet.get("signals") or [],
         "assessments": packet.get("assessments") or [],
         "weak_signals": weak,

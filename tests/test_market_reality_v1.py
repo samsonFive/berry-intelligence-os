@@ -16,7 +16,7 @@ from app.repositories.json.market_observations import MarketObservationRepositor
 from app.services.market_reality.change_detection import latest_vs_previous, year_over_year
 from app.services.market_reality.eurostat_apro import build_observations, decode_jsonstat
 from app.services.market_reality.normalization import normalize_berry, normalize_geography
-from app.services.market_reality.research_desk import market_reality_for
+from app.services.market_reality.research_desk import market_context_for_research_scope, market_reality_for
 
 
 # --- normalization -----------------------------------------------------
@@ -284,3 +284,44 @@ def test_market_reality_for_empty_filters_do_not_crash(repo):
     result = market_reality_for(repo)
     assert result["observations"] == []
     assert result["change_by_series"] == {}
+
+
+# --- Ask Berry OS adapter (Overnight Flagship Integration V1, section 6) ---
+
+
+class _FakeScope:
+    """Duck-typed stand-in for ResearchScope -- the adapter only reads
+    .berry_id / .geography_ids, proving it has no hard import dependency
+    on app.services.research_desk (would be circular)."""
+
+    def __init__(self, berry_id=None, geography_ids=()):
+        self.berry_id = berry_id
+        self.geography_ids = list(geography_ids)
+
+
+def test_market_context_for_research_scope_returns_display_ready_rows(repo):
+    rows = decode_jsonstat({
+        "id": ["crops", "strucpro", "geo", "time"],
+        "size": [1, 1, 2, 2],
+        "dimension": {
+            "crops": {"category": {"index": {"S0000": 0}}},
+            "strucpro": {"category": {"index": {"HPRD_HUMD_EU_THS_T": 0}}},
+            "geo": {"category": {"index": {"ES": 0, "DE": 1}}},
+            "time": {"category": {"index": {"2023": 0, "2024": 1}}},
+        },
+        "value": {"0": 300.0, "1": 320.0},
+    })
+    for captured_at, bump in [("2026-09-01T00:00:00+00:00", 0.0)]:
+        for obs in build_observations(rows, captured_at=captured_at):
+            repo.create(obs)
+
+    result = market_context_for_research_scope(repo, _FakeScope(berry_id="berry-strawberry"))
+    assert result  # a real change exists (2023 -> 2024) for ES
+    row = result[0]
+    assert {"id", "title", "source_name", "date", "href", "trust_class", "structured_kind"} <= set(row)
+    assert row["structured_kind"] == "MARKET OBSERVATION"
+    assert "Spain" in row["title"]
+
+
+def test_market_context_for_research_scope_no_data_returns_empty_not_error(repo):
+    assert market_context_for_research_scope(repo, _FakeScope(berry_id="berry-raspberry")) == []

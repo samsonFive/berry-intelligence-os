@@ -16,4 +16,7 @@
       {% for sq_id in item.strategic_question_ids %}<a href="/strategic-questions/{{ sq_id }}">{{ sq_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
     </p>
   {% endif %}
+  {% if featured and not static_build %}
+    <p class="sh-actions"><a class="sh-btn sh-btn-quiet" href="/research?{{ {'q': 'What should I know about: ' ~ title}|urlencode }}">Ask Berry OS about this</a></p>
+  {% endif %}
 </article>

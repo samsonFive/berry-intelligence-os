@@ -243,3 +243,88 @@ def test_live_endpoint_uses_structured_selection_state(monkeypatch) -> None:
     assert response.status_code == 200
     assert "Research complete" in response.text
     assert "Time to first content" in response.text
+
+
+# --- Overnight Flagship Integration V1: Market Reality + Radar seams ---
+
+
+def test_market_context_provider_populates_packet_and_answer() -> None:
+    def fake_market_provider(scope):
+        return [{
+            "id": "mkt-fake-1", "title": "Peru Fresh Blueberries -- Export Volume +32.2%",
+            "source_name": "usda_fas", "date": "2026-09-02", "href": "https://example.invalid/fas.pdf",
+            "trust_class": "MARKET REALITY", "structured_kind": "MARKET OBSERVATION",
+            "entity_ids": [], "geography_ids": [],
+        }]
+
+    packet = assemble_research_packet(
+        _scope(topics=("supply",)),
+        entities={row["id"]: row for row in _entities()},
+        relationships=[],
+        published_evidence=[],
+        facts=[],
+        signals=[],
+        assessments=[],
+        market_context_provider=fake_market_provider,
+        today=date(2026, 9, 1),
+    )
+    assert packet["market_context"][0]["title"] == "Peru Fresh Blueberries -- Export Volume +32.2%"
+    assert "MARKET_REALITY" in packet["requested_layers"]
+
+    answer = compose_research_answer(packet)
+    assert answer["market_context"][0]["structured_kind"] == "MARKET OBSERVATION"
+
+
+def test_developments_provider_populates_packet_and_answer_bounded() -> None:
+    def fake_developments_provider(scope):
+        return [
+            {"id": f"dev-{i}", "title": f"Development {i}", "event_type": "PRODUCTION_EXPANSION"}
+            for i in range(10)
+        ]
+
+    packet = assemble_research_packet(
+        _scope(),
+        entities={row["id"]: row for row in _entities()},
+        relationships=[],
+        published_evidence=[],
+        facts=[],
+        signals=[],
+        assessments=[],
+        developments_provider=fake_developments_provider,
+        today=date(2026, 9, 1),
+    )
+    assert len(packet["radar_developments"]) == 6  # bounded, never every cached item
+    assert "EMERGING_RADAR" in packet["requested_layers"]
+
+    answer = compose_research_answer(packet)
+    assert len(answer["radar_developments"]) == 6
+    assert answer["radar_developments"][0]["title"] == "Development 0"
+
+
+def test_no_providers_means_no_market_or_radar_rows_not_an_error() -> None:
+    packet = assemble_research_packet(
+        _scope(),
+        entities={row["id"]: row for row in _entities()},
+        relationships=[],
+        published_evidence=[],
+        facts=[],
+        signals=[],
+        assessments=[],
+        today=date(2026, 9, 1),
+    )
+    assert packet["market_context"] == []
+    assert packet["radar_developments"] == []
+    assert "MARKET_REALITY" not in packet["requested_layers"]
+    assert "EMERGING_RADAR" not in packet["requested_layers"]
+
+
+def test_research_desk_get_prefills_question_from_handoff_query_param() -> None:
+    page = TestClient(app).get("/research?q=What+should+I+know+about%3A+Hortifrut")
+    assert page.status_code == 200
+    assert "What should I know about: Hortifrut" in page.text
+
+
+def test_research_desk_get_without_q_has_no_prefill() -> None:
+    page = TestClient(app).get("/research")
+    assert page.status_code == 200
+    assert '<textarea id="rd-question" name="question" rows="2" autofocus required placeholder="What is Planasa doing in strawberries right now?"></textarea>' in page.text
