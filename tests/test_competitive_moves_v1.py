@@ -355,4 +355,3 @@ def test_marketing_campaign_is_not_a_genetics_launch() -> None:
     )
     moves = derive_moves(rows)
     assert all(row.move_type != "GENETICS_LAUNCH" for row in moves)
-
