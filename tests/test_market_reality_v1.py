@@ -171,6 +171,39 @@ def test_market_observation_exact_recapture_raises_duplicate_not_silent_overwrit
         repo.create(obs)  # identical id (same everything, including captured_at) -- must reject, not overwrite
 
 
+def test_latest_by_key_does_not_collide_across_different_forms(repo):
+    """Regression test for a real bug found during this mission's own
+    data-quality pass: US blueberry price for the same year is a
+    genuinely different number fresh vs. processed vs. unspecified, and
+    latest_by_key() must return all three, not silently collapse them to
+    whichever happened to be created last."""
+    base = {
+        "record_type": "market_observation",
+        "metric": "PRICE",
+        "berry_id": "berry-blueberry",
+        "source_commodity_label": "Blueberry, Cultivated",
+        "source_commodity_code": "BLUEBERRY",
+        "geography": "US",
+        "geography_id": "geography-united-states",
+        "period": "2024",
+        "period_type": "year",
+        "unit": "USD/lb",
+        "source": "usda_nass",
+        "source_dataset": "ncit0525",
+        "captured_at": "2026-09-02T00:00:00+00:00",
+        "berry_ids": ["berry-blueberry"],
+        "geography_ids": ["geography-united-states"],
+    }
+    repo.create({**base, "id": "mkt-price-2024-unspecified", "form": "unspecified", "value": 1.450})
+    repo.create({**base, "id": "mkt-price-2024-fresh", "form": "fresh", "value": 2.220})
+    repo.create({**base, "id": "mkt-price-2024-processed", "form": "processed", "value": 0.526})
+
+    latest = repo.latest_by_key(metric="PRICE", source_commodity_code="BLUEBERRY", geography="US")
+    assert len(latest) == 3  # all three forms survive, none silently dropped
+    by_form = {r["form"]: r["value"] for r in latest}
+    assert by_form == {"unspecified": 1.450, "fresh": 2.220, "processed": 0.526}
+
+
 def test_latest_by_key_returns_most_recently_captured_value(repo):
     rows = decode_jsonstat(_tiny_jsonstat_payload())
     first = build_observations(rows, captured_at="2026-09-01T00:00:00+00:00")[0]
