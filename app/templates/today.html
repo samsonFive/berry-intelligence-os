@@ -17,6 +17,12 @@
         {% if not static_build %}<a href="/week">What changed this week?</a>{% endif %}
       </p>
     </div>
+    {% if not static_build %}
+    <div class="sh-header-actions">
+      <a class="sh-btn sh-btn-primary" href="/week">Refresh live intelligence</a>
+      <a class="sh-btn" href="/reports/new?{{ brief_handoff_query }}">Create leadership brief</a>
+    </div>
+    {% endif %}
   </header>
 
   <nav class="sh-pills today-berries" aria-label="Berry filter">
@@ -79,6 +85,60 @@
     {% endif %}
   </section>
 
+  {% if front_page.watchlist_matches %}
+  <section class="sh-section sh-section-highlight" id="watchlist-matches">
+    <h2>On your watchlist</h2>
+    <ul class="sh-story-list">
+      {% for item in front_page.watchlist_matches %}
+        <li>{% include "_stakeholder_story.html" %}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if front_page.market_reality %}
+  <section class="sh-section sh-section-highlight" id="market-reality">
+    <h2>Market Reality</h2>
+    <p class="sh-note">Structured, sourced price/production/trade data -- distinct from news coverage below.</p>
+    <div class="sh-market-grid">
+      {% for card in front_page.market_reality %}
+      <article class="sh-market-card">
+        <p class="sh-story-meta">
+          <span>{{ card.commodity_label }}</span><span>{{ card.geography_label }}</span>
+        </p>
+        <p class="sh-market-headline">
+          {{ card.metric|replace('_', ' ')|title }}
+          <span class="sh-market-change sh-market-{{ card.direction }}">
+            {% if card.direction == 'up' %}▲{% elif card.direction == 'down' %}▼{% else %}—{% endif %}
+            {{ '%.1f'|format(card.pct_change|abs) }}%
+          </span>
+        </p>
+        <p class="sh-story-meta">
+          {{ '{:,.0f}'.format(card.previous_value) }} → {{ '{:,.0f}'.format(card.latest_value) }} {{ card.unit }}
+          ({{ card.previous_period }} → {{ card.latest_period }})
+        </p>
+        <p class="sh-story-meta">
+          {% if card.source_url %}<a href="{{ card.source_url }}" rel="noreferrer" target="_blank">{{ card.source }}</a>{% else %}{{ card.source }}{% endif %}
+          / {{ card.source_dataset }}
+        </p>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if front_page.trusted_intelligence %}
+  <section class="sh-section sh-section-highlight" id="trusted-intelligence">
+    <h2>Trusted Intelligence</h2>
+    <p class="sh-note">Reviewed Evidence, Signals, and Assessments only -- distinct from unreviewed live/emerging material below.</p>
+    <ul class="sh-story-list">
+      {% for item in front_page.trusted_intelligence[:8] %}
+        <li>{% include "_stakeholder_story.html" %}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
   <div class="sh-grid-2">
     {% for section in front_page.sections %}
       {% if section.key not in ("top_stories", "trusted_intelligence") and section.rows %}
@@ -116,6 +176,16 @@
       {% endfor %}
     </ul>
   </section>
+  {% endif %}
+
+  {% if today.freshness.counts %}
+  <p class="sh-footnote sh-coverage-watch">
+    Coverage watch:
+    {{ today.freshness.counts.scheduled_sources|default(0) }} sources scheduled
+    {% if today.freshness.counts.failing %}· {{ today.freshness.counts.failing }} failing{% endif %}
+    {% if today.freshness.counts.overdue %}· {{ today.freshness.counts.overdue }} overdue{% endif %}
+    {% if monitoring.has_watches %}· {{ monitoring.watch_count }} watchlist entr{{ 'y' if monitoring.watch_count == 1 else 'ies' }}{% endif %}
+  </p>
   {% endif %}
 
   <p class="sh-footnote">

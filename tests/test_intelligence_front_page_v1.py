@@ -18,6 +18,7 @@ from fastapi.testclient import TestClient
 
 from app import main
 from app.services.front_page import build_front_page
+from app.services.stakeholder_ui import brief_handoff_query_string
 
 NOW = datetime(2026, 9, 1, 12, 0, tzinfo=UTC)
 
@@ -384,6 +385,124 @@ def test_ranking_is_deterministic_across_repeated_calls(tmp_path: Path) -> None:
     first = [item["id"] for item in build_front_page(**kwargs)["top_stories"]]
     second = [item["id"] for item in build_front_page(**kwargs)["top_stories"]]
     assert first == second
+
+
+# --- Morning Intelligence Edition V1 additions ---
+
+
+class _FakeMarketRepo:
+    """Minimal stand-in for MarketObservationRepository.latest_by_key()."""
+
+    def __init__(self, rows: list[dict]) -> None:
+        self._rows = rows
+
+    def latest_by_key(self, **filters) -> list[dict]:
+        rows = self._rows
+        for field, value in filters.items():
+            rows = [r for r in rows if r.get(field) == value]
+        return sorted(rows, key=lambda r: r.get("period", ""))
+
+
+def _market_obs(period: str, value: float, **overrides) -> dict:
+    row = {
+        "id": f"mkt-{period}-{value}",
+        "record_type": "market_observation",
+        "metric": "PRODUCTION",
+        "berry_id": "berry-blueberry",
+        "source_commodity_label": "Fresh Blueberries",
+        "source_commodity_code": "081040",
+        "form": "unspecified",
+        "geography": "PE",
+        "geography_id": "geography-peru",
+        "period": period,
+        "period_type": "year",
+        "unit": "MT",
+        "value": value,
+        "source": "usda_fas",
+        "source_dataset": "PE2025-0010",
+        "source_url": "https://example.invalid/fas.pdf",
+        "captured_at": "2026-09-02T00:00:00+00:00",
+    }
+    row.update(overrides)
+    return row
+
+
+def test_front_page_includes_market_reality_cards_when_repo_given(tmp_path: Path) -> None:
+    repo = _FakeMarketRepo([_market_obs("2023/24", 242000.0), _market_obs("2024/25e", 320000.0)])
+    page = build_front_page(**_base_kwargs(tmp_path, market_observations_repo=repo))
+    assert page["market_reality"]
+    card = page["market_reality"][0]
+    assert card["metric"] == "PRODUCTION"
+    assert card["direction"] == "up"
+    assert card["pct_change"] > 0
+    assert card["source"] == "usda_fas"
+
+
+def test_front_page_omits_market_reality_when_no_repo(tmp_path: Path) -> None:
+    page = build_front_page(**_base_kwargs(tmp_path))
+    assert page["market_reality"] == []
+
+
+def test_front_page_market_reality_skips_forecast_vs_forecast(tmp_path: Path) -> None:
+    repo = _FakeMarketRepo([_market_obs("2025/26f", 355000.0), _market_obs("2026/27f", 365000.0)])
+    page = build_front_page(**_base_kwargs(tmp_path, market_observations_repo=repo))
+    assert page["market_reality"] == []  # both periods are forecast -- not a real "change"
+
+
+def test_front_page_trusted_intelligence_key_present_and_populated(tmp_path: Path) -> None:
+    evidence = _evidence("ev-trusted", published="2026-08-31", captured="2026-08-31")
+    page = build_front_page(**_base_kwargs(tmp_path, published=[evidence]))
+    assert any(row["id"] == "ev-trusted" for row in page["trusted_intelligence"])
+
+
+def test_front_page_watchlist_match_surfaced_and_tagged(tmp_path: Path) -> None:
+    evidence = _evidence(
+        "ev-watched", published="2026-08-31", captured="2026-08-31", entity_ids=["company-driscolls"]
+    )
+    other = _evidence("ev-unwatched", published="2026-08-31", captured="2026-08-31")
+    watches = [{"watch_type": "company", "object_id": "company-driscolls"}]
+    page = build_front_page(**_base_kwargs(tmp_path, published=[evidence, other], watches=watches))
+    watched_ids = {row["id"] for row in page["watchlist_matches"]}
+    assert "ev-watched" in watched_ids
+    assert "ev-unwatched" not in watched_ids
+    matched_item = next(i for i in page["top_stories"] if i["id"] == "ev-watched")
+    assert matched_item["is_watched"] is True
+
+
+def test_front_page_no_watches_gives_empty_watchlist_matches_not_error(tmp_path: Path) -> None:
+    evidence = _evidence("ev-a", published="2026-08-31", captured="2026-08-31")
+    page = build_front_page(**_base_kwargs(tmp_path, published=[evidence]))
+    assert page["watchlist_matches"] == []
+
+
+def test_front_page_item_carries_strategic_question_ids(tmp_path: Path) -> None:
+    evidence = _evidence(
+        "ev-sq", published="2026-08-31", captured="2026-08-31", strategic_question_ids=["sq-001"]
+    )
+    page = build_front_page(**_base_kwargs(tmp_path, published=[evidence]))
+    item = next(i for i in page["top_stories"] if i["id"] == "ev-sq")
+    assert item["strategic_question_ids"] == ["sq-001"]
+
+
+def test_brief_handoff_query_string_derives_from_top_stories(tmp_path: Path) -> None:
+    evidence = _evidence(
+        "ev-handoff",
+        published="2026-08-31",
+        captured="2026-08-31",
+        entity_ids=["company-driscolls", "variety-legacy"],
+        geography_ids=["geography-peru"],
+    )
+    page = build_front_page(**_base_kwargs(tmp_path, published=[evidence], berry_id="berry-blueberry"))
+    query = brief_handoff_query_string(page)
+    assert "company_ids=company-driscolls" in query
+    assert "variety_ids=variety-legacy" in query
+    assert "geography_ids=geography-peru" in query
+    assert "berry=blueberry" in query
+
+
+def test_brief_handoff_query_string_empty_when_no_top_stories(tmp_path: Path) -> None:
+    page = build_front_page(**_base_kwargs(tmp_path))
+    assert brief_handoff_query_string(page) == ""
 
 
 def test_front_page_route_smoke(monkeypatch, tmp_path: Path) -> None:

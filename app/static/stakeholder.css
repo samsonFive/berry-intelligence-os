@@ -511,6 +511,62 @@ html, body.sh-body {
   }
 }
 
+/* Morning Intelligence Edition V1 */
+
+.sh-header-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.sh-section-highlight {
+  padding: 20px 24px;
+  background: var(--sh-paper);
+  border: 1px solid var(--sh-line);
+  border-radius: 10px;
+}
+
+.sh-trust-watched { color: var(--sh-warn); }
+
+.sh-story-sq {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--sh-muted);
+}
+
+.sh-market-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px 20px;
+}
+
+.sh-market-card {
+  padding: 14px 16px;
+  background: var(--sh-bg);
+  border: 1px solid var(--sh-line);
+  border-radius: 8px;
+}
+
+.sh-market-headline {
+  margin: 6px 0 4px;
+  font-family: var(--sh-serif);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sh-market-change { font-size: 15px; font-weight: 700; white-space: nowrap; }
+.sh-market-up { color: var(--sh-trust); }
+.sh-market-down { color: var(--sh-warn); }
+.sh-market-flat { color: var(--sh-muted); }
+
+.sh-coverage-watch { margin-top: -12px; }
+
 @media (max-width: 768px) {
   .sh-page { padding: 24px 16px 56px; }
   .sh-page h1 { font-size: 28px; }
@@ -518,6 +574,8 @@ html, body.sh-body {
   .sh-lead-main .sh-story-title { font-size: 26px; }
   .sh-actions { justify-content: flex-start; margin-top: 12px; }
   .sh-role-list { grid-template-columns: 1fr; }
+  .sh-header-actions { margin-top: 16px; }
+  .sh-market-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 1366px) {

@@ -74,6 +74,7 @@ from app.services.chronology import date_label, meaningful_stamp, parse_stamp
 from app.services.evidence_claim_review import trust_tier_label
 from app.services.geography_hierarchy import resolve_geography_scope
 from app.services.intelligence_feed import MARKET_TAGS, classify_kind, entity_chips
+from app.services.market_reality.research_desk import market_reality_highlights
 from app.services.today import WORTH_REVISITING_LIMIT, build_today, recency_band
 
 SINCE_YESTERDAY_WINDOW_HOURS = 24
@@ -198,6 +199,7 @@ def _project(
         "entity_ids": entity_ids,
         "entities": chips,
         "tags": [str(t).casefold() for t in (record.get("tags") or [])],
+        "strategic_question_ids": [str(v) for v in (record.get("strategic_question_ids") or []) if v],
         "summary": summary,
         "href": href,
         "dedup_key": _normalized_source_key(record),
@@ -315,6 +317,8 @@ def build_front_page(
     coverage_watch: dict[str, Any] | None = None,
     berry_id: str = "",
     now: datetime | None = None,
+    market_observations_repo: Any | None = None,
+    watches: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     instant = (now or datetime.now(UTC)).astimezone(UTC)
     entity_index = {e["id"]: e for e in entities if e.get("id")}
@@ -414,6 +418,19 @@ def build_front_page(
         )
 
     deduped = _dedupe(items, evidence_by_id)
+    # Watchlist personalization: tag, never a separate empty module when
+    # the operator has no watches (Morning Intelligence Edition V1,
+    # section H). watch_type in {company, variety, geography} entries
+    # store an entity id directly comparable to entity_ids/geography_ids.
+    watched_ids = {str(w.get("object_id")) for w in (watches or []) if w.get("object_id")}
+    if watched_ids:
+        for item in deduped:
+            item["is_watched"] = bool(
+                (set(item["entity_ids"]) | set(item["geography_ids"])) & watched_ids
+            )
+    else:
+        for item in deduped:
+            item["is_watched"] = False
     # Every section below is scoped to the same 14-day recency window Today
     # already uses (today.py's BANDS) -- "Top Stories" means stories from
     # now, not a backfill of month-old Assessments dressed up as news. An
@@ -423,6 +440,9 @@ def build_front_page(
     banded = [i for i in deduped if i["band"]]
     ranked = sorted(banded, key=_rank_key, reverse=True)
     top_stories = ranked[:16]
+    watchlist_matches = sorted(
+        [i for i in banded if i.get("is_watched")], key=_rank_key, reverse=True
+    )[:8]
     stale_reason = None
     if not banded:
         freshness = today_page.get("freshness") or {}
@@ -520,6 +540,16 @@ def build_front_page(
         reverse=True,
     )[:16]
 
+    # Market Reality: structured, sourced observations, deliberately not a
+    # story-row section (different shape -- numbers/units/change, not a
+    # headline+source card) -- see docs/v2/MARKET-REALITY-DATA-LAYER-V1.md.
+    # Omitted entirely (not padded) when no repo is wired or nothing
+    # qualifies for this berry.
+    market_reality_cards: list[dict[str, Any]] = []
+    if market_observations_repo is not None:
+        lookup_berry_id = berry_id if berry_id and berry_id != "global" else None
+        market_reality_cards = market_reality_highlights(market_observations_repo, berry_id=lookup_berry_id)
+
     sections = [
         {"key": "top_stories", "label": "Top Stories", "rows": top_stories},
         {"key": "competitor_moves", "label": "Competitor Moves", "rows": competitor_moves},
@@ -538,6 +568,9 @@ def build_front_page(
         "quiet": not banded and not emerging_unreviewed,
         "stale_reason": stale_reason,
         "top_stories": top_stories,
+        "watchlist_matches": watchlist_matches,
+        "market_reality": market_reality_cards,
+        "trusted_intelligence": trusted_intelligence,
         "since_yesterday": since_yesterday,
         "by_region": by_region,
         "region_gaps": region_gaps,

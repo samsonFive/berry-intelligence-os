@@ -98,3 +98,34 @@ def compose_stakeholder_front(
         ),
         "stale_reason": front_page.get("stale_reason") or "",
     }
+
+
+def brief_handoff_query_string(front_page: dict[str, Any], *, limit: int = 8) -> str:
+    """Build the query string for /reports/new?... that pre-scopes a new
+    Leadership Brief to Morning Edition's own top stories -- reuses
+    report_new_submit()'s existing comma-separated id form fields
+    (company_ids/variety_ids/geography_ids/berry). No second report
+    engine, no new persistence: this only prefills a form."""
+    companies: list[str] = []
+    varieties: list[str] = []
+    geographies: list[str] = []
+    for item in (front_page.get("top_stories") or [])[:limit]:
+        for entity_id in item.get("entity_ids") or []:
+            if entity_id.startswith("company-") and entity_id not in companies:
+                companies.append(entity_id)
+            elif entity_id.startswith("variety-") and entity_id not in varieties:
+                varieties.append(entity_id)
+        for geo_id in item.get("geography_ids") or []:
+            if geo_id not in geographies:
+                geographies.append(geo_id)
+    params: list[str] = []
+    if companies:
+        params.append("company_ids=" + ",".join(companies))
+    if varieties:
+        params.append("variety_ids=" + ",".join(varieties))
+    if geographies:
+        params.append("geography_ids=" + ",".join(geographies))
+    berry_id = front_page.get("berry_id")
+    if berry_id and berry_id != "global":
+        params.append("berry=" + berry_id.removeprefix("berry-"))
+    return "&".join(params)
