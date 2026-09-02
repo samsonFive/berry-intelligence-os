@@ -28,6 +28,12 @@
 <p class="v2-meta">Or <a href="#manual-scope">build a scope manually</a> without a natural-language request.</p>
 <form id="manual-scope" class="filters" method="post" action="/reports/new">
   <input type="hidden" name="step" value="preview">
+  {% if handoff_geography_ids_csv or handoff_company_ids_csv or handoff_variety_ids_csv %}
+    <p class="v2-meta">Prefilled from Today's top stories.</p>
+    <input type="hidden" name="geography_ids" value="{{ handoff_geography_ids_csv }}">
+    <input type="hidden" name="company_ids" value="{{ handoff_company_ids_csv }}">
+    <input type="hidden" name="variety_ids" value="{{ handoff_variety_ids_csv }}">
+  {% endif %}
   <div class="filter-field">
     <label for="report-type">Report type</label>
     <select id="report-type" name="report_type">
@@ -38,7 +44,7 @@
     <label for="berry-select">Berry</label>
     <select id="berry-select" name="berry">
       <option value="">Any</option>
-      {% for bid, label in berries.items() %}<option value="{{ bid }}">{{ label }}</option>{% endfor %}
+      {% for bid, label in berries.items() %}<option value="{{ bid }}" {% if handoff_berry_id and bid == handoff_berry_id %}selected{% endif %}>{{ label }}</option>{% endfor %}
     </select>
   </div>
   <button type="submit" class="v2-btn v2-btn-quiet">Preview scope</button>
