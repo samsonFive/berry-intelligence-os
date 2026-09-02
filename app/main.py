@@ -151,6 +151,11 @@ from app.services.global_week import (
     generate_week_brief,
     run_week_intelligence,
 )
+from app.services.emerging_radar import (
+    cache_is_fresh,
+    edition_from_cache,
+    run_radar_intelligence,
+)
 from app.services.guided_analyst import freshness_clock_label
 from app.services.guided_analyst import (
     atomic_pending_count,
@@ -3977,6 +3982,102 @@ def week_send_to_review(
         )
         status = "promoted" if summary.drafts_created else "already_represented"
     return RedirectResponse(url=f"/week/live?window={window}&promoted={status}", status_code=303)
+
+
+def _radar_discovery_stack() -> tuple[list[Any], Any, Any]:
+    from app.services.industry_pulse.live_stack import radar_discovery_stack
+
+    return radar_discovery_stack(perplexity_enabled=PERPLEXITY_PULSE_ENABLED)
+
+
+def _radar_edition_live() -> Any:
+    entities = all_entities()
+    providers, catch_net, specialist = _radar_discovery_stack()
+    from app.services.industry_pulse.live_stack import week_background_hits
+
+    return run_radar_intelligence(
+        providers=providers,
+        catch_net_provider=catch_net,
+        specialist_provider=specialist,
+        entities=entities,
+        sources=load_sources(),
+        evidence=published_evidence(),
+        assessments=all_assessments(),
+        background_hits=week_background_hits(inbox_dir=INBOX_DIR),
+        market_repo=get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations,
+        inbox_dir=INBOX_DIR,
+        persist=True,
+    )
+
+
+def _radar_page_context(request: Request, *, edition: Any, live: bool) -> dict[str, Any]:
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    return {
+        "edition": edition,
+        "live": live,
+        "authoring_mode": AUTHORING_MODE,
+        "static_build": False,
+        "ui_context": ui,
+        "berries": BERRIES,
+    }
+
+
+@app.get("/radar", response_class=HTMLResponse)
+def radar_page(request: Request) -> HTMLResponse:
+    """Stakeholder Emerging Developments Radar. Serves a fresh cache
+    immediately. A stale or missing cache still renders honestly, then
+    /radar/live refreshes the bounded Google + specialist + Exa stack.
+    Never writes Evidence."""
+    cached = edition_from_cache(inbox_dir=INBOX_DIR)
+    fresh = cache_is_fresh(inbox_dir=INBOX_DIR)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="radar.html",
+        context=_radar_page_context(request, edition=cached, live=bool(cached and fresh)),
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/radar/live", response_class=HTMLResponse)
+def radar_live_page(request: Request, fragment: str = "") -> HTMLResponse:
+    """LIVE RESEARCH PLANE. Bounded Radar queries only — not Pulse 32."""
+    edition = _radar_edition_live()
+    template = "radar_fragment.html" if fragment in {"1", "true", "yes"} else "radar.html"
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name=template,
+        context=_radar_page_context(request, edition=edition, live=True),
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/radar/{development_id}", response_class=HTMLResponse)
+def radar_detail_page(request: Request, development_id: str) -> HTMLResponse:
+    cached = edition_from_cache(inbox_dir=INBOX_DIR)
+    development = None
+    if cached:
+        development = next((row for row in cached.developments if row.id == development_id), None)
+    if development is None:
+        raise HTTPException(status_code=404, detail="Development not in the current Radar cache")
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    payload = development.as_dict() if hasattr(development, "as_dict") else development
+    response = templates.TemplateResponse(
+        request=request,
+        name="radar_detail.html",
+        context={
+            "development": payload,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
 
 
 @app.get("/collection-ops", response_class=HTMLResponse)

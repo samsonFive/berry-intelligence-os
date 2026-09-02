@@ -41,6 +41,21 @@ def week_discovery_stack(*, perplexity_enabled: bool) -> tuple[list[Any], Any, A
     return primary, catch_net, specialist
 
 
+def radar_discovery_stack(*, perplexity_enabled: bool) -> tuple[list[Any], Any, Any]:
+    """Request-time Radar stack from the live provider bake-off.
+
+    CORE: Google News RSS, specialist RSS, Exa (when keyed).
+    OPTIONAL: Perplexity, three catch-net themes.
+    NOT REQUEST-TIME: APITube, live CatchAll.
+    """
+    primary: list[Any] = [GoogleNewsRssProvider()]
+    if has_exa():
+        primary.append(ExaSearchProvider())
+    catch_net = PerplexitySearchProvider() if (perplexity_enabled and has_perplexity()) else None
+    specialist = SpecialistRssProvider()
+    return primary, catch_net, specialist
+
+
 def week_background_hits(*, inbox_dir: Path | None = None) -> list[DiscoveryHit]:
     """Already-fetched CatchAll rows. Empty when the cache has not been written."""
     return hits_from_cache(inbox_dir)

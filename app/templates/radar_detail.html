@@ -1,0 +1,94 @@
+{% extends "base_stakeholder.html" %}
+{% block title %}{{ development.title }} — Emerging developments{% endblock %}
+{% block content %}
+<div class="sh-page radar-detail">
+  <p class="sh-kicker"><a href="/radar">Emerging developments</a> · {{ development.trust_state }}</p>
+  <h1>{{ development.title }}</h1>
+  <p class="sh-lede">{{ development.what_happened }}</p>
+  <p class="sh-story-meta">
+    <span>{{ development.event_type | replace("_", " ") }}</span>
+    <span>{{ development.corroboration }}</span>
+    {% if development.weak_signal_label %}<span>{{ development.weak_signal_label }}</span>{% endif %}
+  </p>
+  <p class="radar-why"><span>Why this is on your radar</span> {{ development.radar_reasons | join(" · ") }}</p>
+  <p class="sh-story-meta">
+    {% if development.company_names %}<span>{{ development.company_names | join(", ") }}</span>{% endif %}
+    {% if development.variety_names %}<span>{{ development.variety_names | join(", ") }}</span>{% endif %}
+    {% if development.geography_labels %}<span>{{ development.geography_labels | join(", ") }}</span>{% endif %}
+    {% if development.berry_labels %}<span>{{ development.berry_labels | join(", ") }}</span>{% endif %}
+    <span>First seen {{ development.first_seen }}</span>
+    <span>Latest update {{ development.latest_update }}</span>
+    {% if development.event_date %}<span>Event date {{ development.event_date }}</span>{% endif %}
+  </p>
+
+  {% if development.market_context and development.market_context.rows %}
+  <section class="sh-section">
+    <h2>Market context</h2>
+    <ul class="sh-story-list">
+      {% for row in development.market_context.rows %}
+        <li>{{ row.label }}{% if row.latest_period %} · {{ row.latest_period }}{% endif %}</li>
+      {% endfor %}
+    </ul>
+    <p class="sh-note">{{ development.market_context.disclaimer }}</p>
+  </section>
+  {% endif %}
+
+  {% if development.trusted_context %}
+  <section class="sh-section">
+    <h2>Trusted knowledge</h2>
+    <p class="sh-note">Kept distinct from this live development. Nothing here changes trust state.</p>
+    <ul class="sh-story-list">
+      {% for row in development.trusted_context %}
+        <li><span class="sh-trust">{{ row.kind }}</span> <a href="{{ row.href }}">{{ row.title }}</a> · {{ row.relation }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  <section class="sh-section">
+    <h2>Sources</h2>
+    <ul class="sh-story-list">
+      {% for source in development.sources %}
+        <li>
+          <a href="{{ source.url }}" rel="noreferrer" target="_blank">{{ source.title }}</a>
+          <p class="sh-story-meta">
+            <span>{{ source.publisher }}</span>
+            {% if source.published_date %}<span>{{ source.published_date }}</span>{% endif %}
+            <span>via {{ source.provider }}</span>
+            {% if source.social %}<span>COMMUNITY / CHATTER — UNVERIFIED</span>{% endif %}
+            {% if source.syndicated %}<span>Syndicated copy — not independent</span>{% endif %}
+          </p>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  {% if development.evolution %}
+  <section class="sh-section">
+    <h2>How this story evolved</h2>
+    <ul class="sh-story-list">
+      {% for event in development.evolution %}
+        <li>
+          <p class="sh-story-meta"><span>{{ event.kind | replace("_", " ") }}</span> <span>{{ event.at }}</span></p>
+          <p>{{ event.detail }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if development.proposed_related_ids %}
+  <section class="sh-section">
+    <h2>Possibly related</h2>
+    <p class="sh-note">Semantic similarity proposed these. They were not silently merged.</p>
+    <ul>
+      {% for related_id in development.proposed_related_ids %}
+        <li><a href="/radar/{{ related_id }}">{{ related_id }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  <p class="sh-note">Provenance: {{ development.provenance | join(", ") }}. {% if development.google_stack_would_find %}A Google/specialist stack could have reached at least one source.{% else %}Existing Google-only coverage would not have surfaced this on its own.{% endif %}</p>
+</div>
+{% endblock %}

@@ -36,6 +36,7 @@ def test_stakeholder_today_has_slim_nav_not_ops_chrome() -> None:
     assert 'class="sh-nav' in html
     assert ">Today<" in html
     assert ">This week<" in html
+    assert ">Radar<" in html
     assert ">Companies<" in html
     assert ">Markets<" in html
     assert ">Watchlist<" in html
