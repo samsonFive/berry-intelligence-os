@@ -91,10 +91,10 @@ _RESEARCH_RE = re.compile(
 )
 
 _BERRY_PATTERNS: dict[str, re.Pattern[str]] = {
-    "berry-blueberry": re.compile(r"\bblueberr\w*|ar[aá]ndano\w*|myrtille\w*\b", re.IGNORECASE),
-    "berry-strawberry": re.compile(r"\bstrawberr\w*|fresa\w*|fraise\w*\b", re.IGNORECASE),
-    "berry-raspberry": re.compile(r"\braspberr\w*|frambuesa\w*|framboise\w*\b", re.IGNORECASE),
-    "berry-blackberry": re.compile(r"\bblackberr\w*|caneberr\w*|zarzamora\w*\b", re.IGNORECASE),
+    "berry-blueberry": re.compile(r"\bblueberr\w*|ar[aá]ndano\w*|myrtille\w*|蓝莓|ブルーベリー", re.IGNORECASE),
+    "berry-strawberry": re.compile(r"\bstrawberr\w*|fresa\w*|fraise\w*|草莓|イチゴ", re.IGNORECASE),
+    "berry-raspberry": re.compile(r"\braspberr\w*|frambuesa\w*|framboise\w*|覆盆子|ラズベリー", re.IGNORECASE),
+    "berry-blackberry": re.compile(r"\bblackberr\w*|caneberr\w*|zarzamora\w*|黑莓|ブラックベリー", re.IGNORECASE),
 }
 
 _GEOGRAPHY_PATTERNS: dict[str, re.Pattern[str]] = {
@@ -103,7 +103,11 @@ _GEOGRAPHY_PATTERNS: dict[str, re.Pattern[str]] = {
     ),
     "europe": re.compile(r"\b(Europe|Spain|UK|United Kingdom|Britain|British|England|Scotland|Netherlands|Poland|Germany|Italy|Portugal|Belgium|France|Bulgaria|Ukraine)\b"),
     "africa": re.compile(r"\b(Africa|South Africa|Morocco|Egypt|Kenya|Zimbabwe)\b"),
-    "apac": re.compile(r"\b(Australia|China|Japan|Korea|New Zealand|India|Vietnam|Tasmania)\b"),
+    "apac": re.compile(
+        r"\b(Australia|China|Japan|Korea|New Zealand|India|Vietnam|Tasmania|"
+        r"Thailand|Indonesia|Philippines|Malaysia|Taiwan|Hong Kong)\b|"
+        r"中国|日本|韩国|韓國|澳洲|澳大利亚|越南|台湾|台灣|香港"
+    ),
 }
 
 

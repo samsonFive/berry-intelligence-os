@@ -156,6 +156,35 @@
   </section>
 </div>
 
+<div class="sh-grid-2">
+  <section class="sh-section" id="pbr-regulatory">
+    <h2>PBR / regulatory</h2>
+    <p class="sh-note">Plant-variety rights and official regulatory items only. Not mixed into generic news.</p>
+    {% if edition.pbr_regulatory %}
+      <ul class="sh-story-list">
+        {% for item in edition.pbr_regulatory %}
+          <li>{% include "_week_item.html" %}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="sh-empty">No PBR or official variety-rights items in this window.</p>
+    {% endif %}
+  </section>
+  <section class="sh-section" id="patents-genetics">
+    <h2>Patents / genetics filings</h2>
+    <p class="sh-note">Patent and plant-patent mentions from the live plane. Structured USPTO/BigQuery rows stay on their own adapters.</p>
+    {% if edition.patents_genetics %}
+      <ul class="sh-story-list">
+        {% for item in edition.patents_genetics %}
+          <li>{% include "_week_item.html" %}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="sh-empty">No patent or plant-patent items in this window.</p>
+    {% endif %}
+  </section>
+</div>
+
 <section class="sh-section" id="older-circulating">
   <h2>Older items still in this live search</h2>
   <p class="sh-note">These qualified in the live search but their article dates are outside the selected window. They are not counted as what changed this week.</p>

@@ -3747,10 +3747,9 @@ def industry_pulse_run() -> RedirectResponse:
 
 
 def _pulse_providers() -> list[Any]:
-    providers: list[Any] = [GoogleNewsRssProvider()]
-    if PERPLEXITY_PULSE_ENABLED and has_perplexity():
-        providers.append(PerplexitySearchProvider())
-    return providers
+    from app.services.industry_pulse.live_stack import pulse_discovery_providers
+
+    return pulse_discovery_providers(perplexity_enabled=PERPLEXITY_PULSE_ENABLED)
 
 
 @app.get("/pulse/company/{company_id}", response_class=HTMLResponse)
@@ -3845,11 +3844,11 @@ def pulse_company_promote(company_id: str, url: str = Form(...), window: str = F
     return RedirectResponse(url=f"/pulse/company/{company_id}?window={window}&promoted={status}", status_code=303)
 
 
-def _week_discovery_stack() -> tuple[list[Any], Any]:
-    """Google News is the primary provider. Perplexity is catch-net only."""
-    primary = [GoogleNewsRssProvider()]
-    catch_net = PerplexitySearchProvider() if (PERPLEXITY_PULSE_ENABLED and has_perplexity()) else None
-    return primary, catch_net
+def _week_discovery_stack() -> tuple[list[Any], Any, Any]:
+    """Google (+ optional sync high-recall), Perplexity catch-net, specialist RSS."""
+    from app.services.industry_pulse.live_stack import week_discovery_stack
+
+    return week_discovery_stack(perplexity_enabled=PERPLEXITY_PULSE_ENABLED)
 
 
 def _week_edition_context(request: Request, *, window: str, promoted: str = "") -> dict[str, Any]:
@@ -3857,11 +3856,12 @@ def _week_edition_context(request: Request, *, window: str, promoted: str = "") 
         window = WEEK_DEFAULT_WINDOW
     entities = all_entities()
     varieties = [row for row in entities if row.get("entity_type") == "variety"]
-    providers, catch_net = _week_discovery_stack()
+    providers, catch_net, specialist = _week_discovery_stack()
     edition = run_week_intelligence(
         window=window,
         providers=providers,
         catch_net_provider=catch_net,
+        specialist_provider=specialist,
         entities=entities,
         varieties=varieties,
         sources=load_sources(),
@@ -3940,12 +3940,13 @@ def week_send_to_review(
         window = WEEK_DEFAULT_WINDOW
     entities = all_entities()
     varieties = [row for row in entities if row.get("entity_type") == "variety"]
-    providers, catch_net = _week_discovery_stack()
+    providers, catch_net, specialist = _week_discovery_stack()
     hit = find_week_hit_by_url(
         url=url,
         window=window,
         providers=providers,
         catch_net_provider=catch_net,
+        specialist_provider=specialist,
         entities=entities,
         varieties=varieties,
         sources=load_sources(),

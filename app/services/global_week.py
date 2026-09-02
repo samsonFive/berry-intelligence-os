@@ -31,7 +31,9 @@ from app.services.competitor_pulse import (
 )
 from app.services.industry_pulse.dedup import dedupe_hits, identity_key, unique_hits
 from app.services.industry_pulse.matrix import (
+    ALL_BERRIES_TERMS,
     BERRIES,
+    GEO_EDITIONS,
     WINDOW_DAYS,
     WINDOW_WHEN,
     PulseQuery,
@@ -39,6 +41,10 @@ from app.services.industry_pulse.matrix import (
     generate_pulse_queries,
     regional_language_queries,
     week_retail_query,
+)
+from app.services.industry_pulse.specialist_feeds import (
+    week_specialist_feed_queries,
+    week_specialist_site_queries,
 )
 from app.services.industry_pulse.models import DiscoveryHit
 from app.services.industry_pulse.providers import DiscoveryProvider
@@ -88,7 +94,17 @@ SECTION_EMERGING = "emerging_unreviewed"
 WHAT_MATTERS_LIMIT = 8
 SECTION_LIMIT = 8
 MAX_PER_PUBLISHER_LEAD = 2
-MAX_WORKERS = 12
+MAX_WORKERS = 16
+# Provider `when:` is advisory. Retrieve broader, then keep the displayed
+# window honest using the article's normalized published_date.
+RETRIEVE_WINDOW = {"24h": "7d", "7d": "30d", "30d": "30d"}
+
+_PBR_RE = re.compile(
+    r"\b(PBR|PVP|PVPO|CPVO|plant breeders? rights|plant variety protection|"
+    r"variety registration|certificate issued)\b",
+    re.IGNORECASE,
+)
+_PATENT_RE = re.compile(r"\b(USPTO|patent|patents|plant patent|WO20|US20)\b", re.IGNORECASE)
 
 SPECIALIST_CONTEXTS = frozenset({SOURCE_TRADE, SOURCE_BREEDER, SOURCE_UNIVERSITY})
 OFFICIAL_CONTEXTS = frozenset({SOURCE_GOV_AG})
@@ -103,13 +119,71 @@ _EVENT_RE = re.compile(
 _SLUG_FROM_BERRY_ID = {f"berry-{slug}": slug for slug in BERRIES}
 
 
+def retrieve_window_for(display_window: str) -> str:
+    if display_window not in RETRIEVE_WINDOW:
+        raise ValueError(f"unsupported window: {display_window}")
+    return RETRIEVE_WINDOW[display_window]
+
+
+def week_apac_focus_queries() -> list[PulseQuery]:
+    """Bounded current-week APAC discovery. Not a translation platform."""
+    au = GEO_EDITIONS["apac"]
+    return [
+        PulseQuery(
+            id="apac:en",
+            text=(
+                f"({ALL_BERRIES_TERMS} OR berry OR berries) "
+                "(Australia OR \"New Zealand\" OR Vietnam OR China OR Japan OR Korea "
+                "OR Tasmania OR Indonesia OR Thailand OR \"Hong Kong\") "
+                "(harvest OR export OR import OR price OR variety OR cultivar OR "
+                '"market access" OR branding OR grower OR volumes)'
+            ),
+            berry=None,
+            geography="apac",
+            topic="industry_pulse",
+            kind="apac_focus",
+            hl=au["hl"],
+            gl=au["gl"],
+            ceid=au["ceid"],
+        ),
+        PulseQuery(
+            id="apac:zh-focus",
+            text="(蓝莓 OR 草莓) (价格 OR 出口 OR 品种 OR 种植 OR 市场)",
+            berry=None,
+            geography="apac",
+            topic="industry_pulse",
+            kind="apac_focus",
+            hl="zh-CN",
+            gl="CN",
+            ceid="CN:zh-Hans",
+        ),
+        PulseQuery(
+            id="apac:ja-focus",
+            text="(イチゴ OR ブルーベリー) (品種 OR ブランド OR 輸出 OR 産地)",
+            berry=None,
+            geography="apac",
+            topic="industry_pulse",
+            kind="apac_focus",
+            hl="ja-JP",
+            gl="JP",
+            ceid="JP:ja",
+        ),
+    ]
+
+
 def week_queries() -> list[PulseQuery]:
     """Industry Pulse 32-query matrix plus bounded extras for this edition.
 
     Does not change `generate_pulse_queries()` -- Industry Pulse stay at 32.
-    Extra rows: 5 local-language regional editions + 1 global retail topic.
+    Extra rows: language editions, retail, specialist site: hosts, APAC focus.
     """
-    return [*generate_pulse_queries(), *regional_language_queries(), week_retail_query()]
+    return [
+        *generate_pulse_queries(),
+        *regional_language_queries(),
+        week_retail_query(),
+        *week_specialist_site_queries(),
+        *week_apac_focus_queries(),
+    ]
 
 
 def week_catch_net_queries(queries: list[PulseQuery]) -> list[PulseQuery]:
@@ -118,9 +192,13 @@ def week_catch_net_queries(queries: list[PulseQuery]) -> list[PulseQuery]:
     APAC was the known weak region on earlier Pulse tests; routing it to the
     semantic catch-net is a bounded addition, not a doubled matrix.
     """
-    selected: dict[str, PulseQuery] = {query.id: query for query in catch_net_queries(queries)}
+    selected: dict[str, PulseQuery] = {
+        query.id: query for query in catch_net_queries(queries) if query.kind != "specialist_site"
+    }
     for query in queries:
-        if query.geography == "apac" or query.kind == "regional_language":
+        if query.kind == "specialist_site":
+            continue
+        if query.geography == "apac" or query.kind in {"regional_language", "apac_focus"}:
             selected[query.id] = query
     return list(selected.values())
 
@@ -436,6 +514,8 @@ class WeekEdition:
     by_berry: dict[str, list[WeekItem]]
     market_supply_trade: list[WeekItem]
     research_regulation: list[WeekItem]
+    pbr_regulatory: list[WeekItem]
+    patents_genetics: list[WeekItem]
     emerging_unreviewed: list[WeekItem]
     older_circulating: list[WeekItem]
     stats: dict[str, Any]
@@ -459,6 +539,8 @@ class WeekEdition:
             "by_berry": {key: [item.as_dict() for item in rows] for key, rows in self.by_berry.items()},
             "market_supply_trade": [item.as_dict() for item in self.market_supply_trade],
             "research_regulation": [item.as_dict() for item in self.research_regulation],
+            "pbr_regulatory": [item.as_dict() for item in self.pbr_regulatory],
+            "patents_genetics": [item.as_dict() for item in self.patents_genetics],
             "emerging_unreviewed": [item.as_dict() for item in self.emerging_unreviewed],
             "older_circulating": [item.as_dict() for item in self.older_circulating],
             "stats": self.stats,
@@ -511,6 +593,7 @@ def compose_edition(
     provider_telemetry: dict[str, dict[str, int]],
     query_failures: list[dict[str, str]],
     query_count: int,
+    retrieve_window: str | None = None,
 ) -> WeekEdition:
     ranked = sorted(items, key=_rank_tuple, reverse=True)
     current = [item for item in ranked if item.in_window]
@@ -520,6 +603,12 @@ def compose_edition(
     varieties = [item for item in current if _in_topic(item, EDITORIAL_VARIETY) or any("cultivar" in reason for reason in item.qualify_reasons)][:SECTION_LIMIT]
     market = [item for item in current if _in_topic(item, EDITORIAL_MARKET)][:SECTION_LIMIT]
     research = [item for item in current if _in_topic(item, EDITORIAL_RESEARCH) or item.official][:SECTION_LIMIT]
+    pbr = [item for item in current if _PBR_RE.search(f"{item.title} {item.snippet}")][:SECTION_LIMIT]
+    patents = [
+        item
+        for item in current
+        if _PATENT_RE.search(f"{item.title} {item.snippet}") and item not in pbr
+    ][:SECTION_LIMIT]
     emerging = [
         item
         for item in current
@@ -584,6 +673,8 @@ def compose_edition(
         "newest_item": newest,
         "query_count": query_count,
         "window": window,
+        "retrieve_window": retrieve_window or RETRIEVE_WINDOW.get(window, window),
+        "display_window": window,
     }
     diversity = {
         "publisher_count": len(publisher_counts),
@@ -606,6 +697,8 @@ def compose_edition(
         by_berry=by_berry,
         market_supply_trade=market,
         research_regulation=research,
+        pbr_regulatory=pbr,
+        patents_genetics=patents,
         emerging_unreviewed=emerging,
         older_circulating=older[:SECTION_LIMIT],
         stats=stats,
@@ -630,11 +723,22 @@ def _qualify_raw(
     dedupe_hits(raw)
 
 
+def _provider_available(provider: DiscoveryProvider) -> bool:
+    available = getattr(provider, "available", None)
+    if callable(available):
+        try:
+            return bool(available())
+        except Exception:  # noqa: BLE001 -- missing credential is a skip, not a crash
+            return False
+    return True
+
+
 def run_week_intelligence(
     *,
     window: str = DEFAULT_WINDOW,
     providers: Iterable[DiscoveryProvider] = (),
     catch_net_provider: DiscoveryProvider | None = None,
+    specialist_provider: DiscoveryProvider | None = None,
     entities: Iterable[dict[str, Any]] = (),
     varieties: Iterable[dict[str, Any]] = (),
     sources: Iterable[dict[str, Any]] = (),
@@ -649,7 +753,8 @@ def run_week_intelligence(
     now = now or datetime.now(timezone.utc)
     started = time.monotonic()
     provider_list = list(providers)
-    queries = [row.with_window(window) for row in week_queries()]
+    retrieve = retrieve_window_for(window)
+    queries = [row.with_window(retrieve) for row in week_queries()]
     if query_filter is not None:
         queries = query_filter(queries)
 
@@ -657,13 +762,15 @@ def run_week_intelligence(
     found_by: dict[str, set[str]] = {}
     telemetry: dict[str, dict[str, int]] = {}
     failures: list[dict[str, str]] = []
+    jobs: list[tuple[DiscoveryProvider, PulseQuery]] = [
+        (provider, query) for provider in provider_list for query in queries
+    ]
 
-    for provider in provider_list:
-        _run_provider_queries(provider, queries, raw=raw, found_by=found_by, telemetry=telemetry, failures=failures)
+    if specialist_provider is not None:
+        jobs.extend((specialist_provider, query) for query in week_specialist_feed_queries())
 
     if catch_net_provider is not None:
-        available = getattr(catch_net_provider, "available", None)
-        if callable(available) and not available():
+        if not _provider_available(catch_net_provider):
             telemetry.setdefault(catch_net_provider.name, {"queries_issued": 0, "hits_returned": 0, "errors": 0})
             failures.append(
                 {
@@ -673,15 +780,24 @@ def run_week_intelligence(
                 }
             )
         else:
-            selected = week_catch_net_queries(queries)
-            _run_provider_queries(
-                catch_net_provider,
-                selected,
-                raw=raw,
-                found_by=found_by,
-                telemetry=telemetry,
-                failures=failures,
-            )
+            jobs.extend((catch_net_provider, query) for query in week_catch_net_queries(queries))
+
+    if jobs:
+        workers = min(MAX_WORKERS, len(jobs))
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            futures = [pool.submit(_discover_one, provider, query) for provider, query in jobs]
+            for future in as_completed(futures):
+                name, query, hits, error = future.result()
+                stats = telemetry.setdefault(name, {"queries_issued": 0, "hits_returned": 0, "errors": 0})
+                stats["queries_issued"] += 1
+                if error:
+                    stats["errors"] += 1
+                    failures.append({"query_id": query.id, "provider": name, "error": error})
+                    continue
+                stats["hits_returned"] += len(hits)
+                raw.extend(hits)
+                for hit in hits:
+                    found_by.setdefault(identity_key(hit), set()).add(name)
 
     index = _qualify_corpus(entities=entities, varieties=varieties, sources=sources)
     _qualify_raw(raw, index=index, window=window, today=now.date())
@@ -699,6 +815,7 @@ def run_week_intelligence(
         provider_telemetry=telemetry,
         query_failures=failures,
         query_count=len(queries),
+        retrieve_window=retrieve,
     )
 
 
@@ -708,6 +825,7 @@ def find_week_hit_by_url(
     window: str,
     providers: Iterable[DiscoveryProvider],
     catch_net_provider: DiscoveryProvider | None = None,
+    specialist_provider: DiscoveryProvider | None = None,
     entities: Iterable[dict[str, Any]] = (),
     varieties: Iterable[dict[str, Any]] = (),
     sources: Iterable[dict[str, Any]] = (),
@@ -730,13 +848,21 @@ def find_week_hit_by_url(
     if window not in LIVE_WINDOWS:
         return None
     provider_list = list(providers)
-    queries = only_query([row.with_window(window) for row in week_queries()])
+    retrieve = retrieve_window_for(window)
+    queries = only_query([row.with_window(retrieve) for row in week_queries()])
     raw: list[DiscoveryHit] = []
     found_by: dict[str, set[str]] = {}
     telemetry: dict[str, dict[str, int]] = {}
     failures: list[dict[str, str]] = []
     for provider in provider_list:
         _run_provider_queries(provider, queries, raw=raw, found_by=found_by, telemetry=telemetry, failures=failures)
+    if specialist_provider is not None and (not query_id or str(query_id).startswith("feed:")):
+        feed_rows = week_specialist_feed_queries()
+        if query_id:
+            feed_rows = [row for row in feed_rows if row.id == query_id or query_id.startswith(row.id)]
+        _run_provider_queries(
+            specialist_provider, feed_rows, raw=raw, found_by=found_by, telemetry=telemetry, failures=failures
+        )
     if catch_net_provider is not None and not query_id:
         selected = week_catch_net_queries(queries)
         _run_provider_queries(

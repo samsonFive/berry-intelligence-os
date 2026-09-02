@@ -11,6 +11,7 @@ BRIGHTDATA_ZONE_ENV = "BRIGHTDATA_SERP_ZONE"
 PERPLEXITY_API_KEY_ENV = "PERPLEXITY_API_KEY"
 NEWSCATCHER_API_KEY_ENV = "NEWSCATCHER_API_KEY"
 CATCHALL_API_KEY_ENV = "CATCHALL_API_KEY"
+APITUBE_API_KEY_ENV = "APITUBE_API_KEY"
 
 
 def env_key(name: str) -> str:
@@ -39,3 +40,7 @@ def catchall_key() -> str:
 
 def has_catchall() -> bool:
     return bool(catchall_key())
+
+
+def has_apitube() -> bool:
+    return bool(env_key(APITUBE_API_KEY_ENV))

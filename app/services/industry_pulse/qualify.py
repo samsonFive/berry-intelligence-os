@@ -123,16 +123,20 @@ _UNRELATED_SCIENCE = re.compile(
     re.IGNORECASE,
 )
 _BERRY_CROP = re.compile(
-    r"\b("
+    r"(?:"
+    r"\b(?:"
     r"blueberr\w*|strawberr\w*|raspberr\w*|blackberr\w*|caneberr\w*|"
     r"highbush|arándano\w*|arandano\w*|mirtill\w*|fresa\w*|fragol\w*|"
     r"frambuesa\w*|lampon\w*|zarzamora\w*"
-    r")\b",
+    r")\b"
+    r"|蓝莓|草莓|覆盆子|黑莓|ブルーベリー|イチゴ|ラズベリー|ブラックベリー"
+    r")",
     re.IGNORECASE,
 )
 _BERRY_COLLECTIVE = re.compile(r"\bberr(?:y|ies)\b", re.IGNORECASE)
 _INDUSTRY = re.compile(
-    r"\b("
+    r"(?:"
+    r"\b(?:"
     r"cultivar|breeder|breeding|genetics|nursery|pbr|"
     r"plant breeders|plant patent|plant variety|cpvo|"
     r"licensing|variety license|grower|growers|"
@@ -145,8 +149,11 @@ _INDUSTRY = re.compile(
     r"partnership|planting|harvest|pricing|spot price|"
     r"market report|supply|frost|drought|weather|"
     r"trade|tariff|university|extension|research station|"
-    r"producing|yield|brix"
-    r")\b",
+    r"producing|yield|brix|volumes?|bumper|heatwave|"
+    r"market access|branding"
+    r")\b"
+    r"|价格|出口|进口|品种|种植|育种|ブランド|輸出|産地"
+    r")",
     re.IGNORECASE,
 )
 _VARIETY_TERMS = re.compile(

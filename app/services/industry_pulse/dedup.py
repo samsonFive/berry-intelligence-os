@@ -8,9 +8,16 @@ global query and a regional query, keep the regional attribution.
 
 from __future__ import annotations
 
+from urllib.parse import urlparse
+
 from app.services.article_dedup import normalize_canonical_url, normalize_title
 from app.services.industry_pulse.models import DiscoveryHit
 from app.services.recall_audit.classify import WRAPPER_HOSTS, hostname
+
+
+def _is_homepage(url: str) -> bool:
+    parsed = urlparse(url if "://" in url else f"https://{url}")
+    return parsed.path in {"", "/"}
 
 GEO_SPECIFICITY = {
     "global": 0,
@@ -23,10 +30,10 @@ GEO_SPECIFICITY = {
 
 def identity_key(hit: DiscoveryHit) -> str:
     publisher = normalize_canonical_url(hit.origin_publisher_url or "")
-    if publisher and hostname(publisher) not in WRAPPER_HOSTS:
+    if publisher and hostname(publisher) not in WRAPPER_HOSTS and not _is_homepage(publisher):
         return f"url:{publisher}"
     canonical = normalize_canonical_url(hit.url)
-    if canonical and hostname(canonical) not in WRAPPER_HOSTS:
+    if canonical and hostname(canonical) not in WRAPPER_HOSTS and not _is_homepage(canonical):
         return f"url:{canonical}"
     wrapper = normalize_canonical_url(hit.wrapper_url or "")
     if wrapper:

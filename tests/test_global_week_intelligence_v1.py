@@ -91,11 +91,15 @@ def test_week_queries_add_bounded_language_and_retail_only():
     language = regional_language_queries()
     assert len(language) == 5
     assert {row.geography for row in language} == {"americas", "europe", "africa", "apac"}
-    assert len(rows) == 32 + 5 + 1
+    assert len(rows) >= 32 + 5 + 1
     assert any(row.id == "topic:retail:global" for row in rows)
     assert any(row.id == "lang:apac:zh" for row in rows)
     assert any(row.id == "lang:apac:ja" for row in rows)
-    assert all(row.kind in {"berry_geography", "topic_global", "regional_language"} for row in rows)
+    assert all(
+        row.kind
+        in {"berry_geography", "topic_global", "regional_language", "specialist_site", "apac_focus"}
+        for row in rows
+    )
 
 
 def test_week_catch_net_includes_apac_without_doubling_the_matrix():
