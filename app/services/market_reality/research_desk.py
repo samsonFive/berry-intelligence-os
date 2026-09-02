@@ -158,17 +158,25 @@ def market_context_for_research_scope(repo: Any, scope: Any, *, limit: int = 6) 
     real source/date/unit in the title string itself."""
     berry_id = getattr(scope, "berry_id", None) or None
     geography_ids = list(getattr(scope, "geography_ids", None) or [])
-    cards = market_reality_highlights(repo, berry_id=berry_id, limit=limit * 2)
     if geography_ids:
+        # A real bug found during this mission's own demo-question testing:
+        # a Europe-scoped question was returning unfiltered Peru/US cards
+        # because the old code fell back to the unfiltered list whenever no
+        # geography matched, instead of returning nothing. No matching
+        # geography now means an honest empty list -- never someone else's
+        # region silently relabeled as if it answered the question asked.
         result = market_reality_for(repo, berry_id=berry_id)
         allowed_geographies = {
             obs["geography"] for obs in result["observations"] if obs.get("geography_id") in geography_ids
         }
-        if allowed_geographies:
-            cards = [
-                c for c in market_reality_highlights(repo, berry_id=berry_id, limit=limit * 4)
-                if c["geography_label"] in {_GEOGRAPHY_LABELS.get(g, g) for g in allowed_geographies}
-            ]
+        if not allowed_geographies:
+            return []
+        cards = [
+            c for c in market_reality_highlights(repo, berry_id=berry_id, limit=limit * 4)
+            if c["geography_label"] in {_GEOGRAPHY_LABELS.get(g, g) for g in allowed_geographies}
+        ]
+    else:
+        cards = market_reality_highlights(repo, berry_id=berry_id, limit=limit * 2)
     rows: list[dict[str, Any]] = []
     for card in cards[:limit]:
         arrow = "up" if card["direction"] == "up" else ("down" if card["direction"] == "down" else "flat")

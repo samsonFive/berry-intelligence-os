@@ -325,3 +325,36 @@ def test_market_context_for_research_scope_returns_display_ready_rows(repo):
 
 def test_market_context_for_research_scope_no_data_returns_empty_not_error(repo):
     assert market_context_for_research_scope(repo, _FakeScope(berry_id="berry-raspberry")) == []
+
+
+def test_market_context_for_research_scope_unmatched_geography_returns_empty_not_wrong_region(repo):
+    """Regression test for a real bug found during Overnight Flagship
+    Integration V1's own demo-question testing: a Europe-scoped question
+    was silently returning unfiltered Peru/US cards because the geography
+    filter fell back to the unfiltered list when nothing matched, instead
+    of returning nothing. Store only has a Spain series; a Peru-scoped
+    request must get an honest empty result, never Spain's data relabeled
+    as if it answered a Peru question."""
+    rows = decode_jsonstat({
+        "id": ["crops", "strucpro", "geo", "time"],
+        "size": [1, 1, 1, 2],
+        "dimension": {
+            "crops": {"category": {"index": {"S0000": 0}}},
+            "strucpro": {"category": {"index": {"HPRD_HUMD_EU_THS_T": 0}}},
+            "geo": {"category": {"index": {"ES": 0}}},
+            "time": {"category": {"index": {"2023": 0, "2024": 1}}},
+        },
+        "value": {"0": 300.0, "1": 320.0},
+    })
+    for obs in build_observations(rows, captured_at="2026-09-01T00:00:00+00:00"):
+        repo.create(obs)
+
+    # Real Spain data exists and is returned when geography is unscoped or matches.
+    assert market_context_for_research_scope(repo, _FakeScope(berry_id="berry-strawberry"))
+    assert market_context_for_research_scope(
+        repo, _FakeScope(berry_id="berry-strawberry", geography_ids=["geography-spain"])
+    )
+    # A geography with zero matching observations must return [], not Spain's data.
+    assert market_context_for_research_scope(
+        repo, _FakeScope(berry_id="berry-strawberry", geography_ids=["geography-peru"])
+    ) == []
