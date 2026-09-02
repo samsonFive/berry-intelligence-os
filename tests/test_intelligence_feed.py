@@ -345,10 +345,12 @@ def test_feed_promote_save_reject_use_existing_review_paths(monkeypatch, tmp_pat
         follow_redirects=False,
     )
     assert promoted.status_code == 303
-    assert promoted.headers["location"] == f"/work-queue?promoted={promote['id']}"
-    feed = client.get(promoted.headers["location"])
-    assert "Promoted to trusted intelligence" in feed.text
-    assert f'href="/intelligence/{promote["id"]}"' in feed.text
+    # Trusted Evidence Semantics Repair V1: Promote now redirects to the
+    # distinct Evidence claim decision instead of straight back to the
+    # feed -- the source is approved and published, but not yet trusted
+    # Evidence until a claim is approved (see test_trusted_evidence_
+    # semantics_repair_v1.py for that path's own dedicated coverage).
+    assert promoted.headers["location"].startswith(f"/review/{promote['id']}/claim")
     assert repos.evidence.get(promote["id"])["status"] == "published"
     assert main.get_draft(promote["id"]) is None
 
@@ -461,14 +463,34 @@ def test_reader_promote_save_and_trusted_feedback(monkeypatch, tmp_path: Path) -
         follow_redirects=False,
     )
     assert promoted.status_code == 303
-    assert promoted.headers["location"] == f"/intelligence/{draft['id']}?promoted=1"
-    trusted = client.get(promoted.headers["location"])
+    # Trusted Evidence Semantics Repair V1: the source is approved and
+    # published, but is an APPROVED SOURCE, not yet trusted Evidence,
+    # until a distinct claim is approved on the new claim-review screen.
+    assert promoted.headers["location"].startswith(f"/review/{draft['id']}/claim")
+    approved_source = repos.evidence.get(draft["id"])
+    assert approved_source["status"] == "published"
+    assert approved_source["fact_ids"] == []
+    assert main.get_draft(draft["id"]) is None
+
+    claim = client.post(
+        f"/review/{draft['id']}/claim/approve",
+        data={
+            "statement": approved_source["pending_claim"]["candidate_statement"],
+            "proposed_statement": approved_source["pending_claim"]["candidate_statement"],
+            "reviewer": "analyst-fixture",
+            "return_to": f"/intelligence/{draft['id']}?promoted=1",
+        },
+        follow_redirects=False,
+    )
+    assert claim.status_code == 303
+    assert claim.headers["location"] == f"/intelligence/{draft['id']}?promoted=1"
+    trusted = client.get(claim.headers["location"])
     assert trusted.status_code == 200
     assert "Promoted to trusted intelligence" in trusted.text
     assert ">Trusted<" in trusted.text
     assert "Promote publication" not in trusted.text
     assert repos.evidence.get(draft["id"])["status"] == "published"
-    assert main.get_draft(draft["id"]) is None
+    assert len(repos.evidence.get(draft["id"])["fact_ids"]) == 1
 
 
 def test_spoken_and_patent_reader_shell(monkeypatch, tmp_path: Path) -> None:

@@ -51,6 +51,7 @@ from typing import Any, Callable
 
 from app.repositories.base import DuplicateRecord
 from app.services.entity_identity import match_named_entity
+from app.services.evidence_claim_review import prepare_candidate_proposition
 from app.services.review_events import EventAppendResult, append_review_event, remove_created_event
 from app.services.source_completeness import source_completeness
 
@@ -313,6 +314,22 @@ class ReviewPublishService:
             "reviewed_at": date.today().isoformat(),
         }
 
+        # Trusted Evidence Semantics Repair V1: an ordinary Publication
+        # (evidence_role="publication_artifact") that publishes with no
+        # analyst-supplied facts_input is an APPROVED SOURCE, not yet
+        # TRUSTED EVIDENCE -- see evidence_claim_review.evidence_trust_tier().
+        # The candidate claim proposition must be computed from the DRAFT
+        # here, before it is deleted below: structured registry fields
+        # (cpvo_filing/patent_filing) are deliberately not carried onto the
+        # published record (see the preserved-fields list a few lines
+        # down), so this is the only point where they are still available.
+        if request.draft.get("evidence_role") == "publication_artifact" and not fact_ids:
+            candidate_statement, candidate_origin = prepare_candidate_proposition(request.draft)
+            evidence_record["pending_claim"] = {
+                "candidate_statement": candidate_statement,
+                "origin": candidate_origin,
+            }
+
         # Intake drafts may carry optional, schema-supported publication
         # metadata that the general review form does not edit. Preserve it
         # through the same human-review transaction instead of dropping it.
@@ -462,3 +479,130 @@ class ReviewPublishService:
             raise
 
         return PublishResult(evidence_id=evidence_id, outcome="created")
+
+    def approve_claim(self, request: "ApproveClaimRequest") -> "ApproveClaimResult":
+        """Trusted Evidence Semantics Repair V1 -- the second, distinct
+        trust decision: which explicit factual claim from an already-
+        approved source Publication should enter trusted Evidence.
+        Reuses the Fact schema unchanged (adds three optional, additive
+        fields -- `origin`, `proposed_statement`, `edited_before_approval`
+        -- the schema has no `additionalProperties: false`, so this is
+        not a migration) and the same review_events audit trail, under a
+        new `workflow="evidence_claim_review"` value rather than a
+        second Evidence model. Never touches the source Publication's own
+        record beyond appending to `fact_ids`; never mutates unrelated
+        legacy Evidence."""
+        evidence = self._repos.evidence.get(request.evidence_id)
+        if evidence is None:
+            return ApproveClaimResult(schema_errors=["Source Evidence record not found."])
+        if evidence.get("status") != "published":
+            return ApproveClaimResult(schema_errors=["Source Evidence record is not an approved, published source."])
+
+        existing_fact_ids = list(evidence.get("fact_ids") or [])
+        fact_id = f"fact-{request.evidence_id[3:]}-{len(existing_fact_ids) + 1}"
+        edited = _norm(request.statement) != _norm(request.proposed_statement)
+        fact_record = {
+            "id": fact_id,
+            "record_type": "fact",
+            "statement": request.statement,
+            "classification": request.classification,
+            "confidence": request.confidence,
+            "status": "active",
+            "reviewer": request.reviewer,
+            "created_at": date.today().isoformat(),
+            "evidence_ids": [request.evidence_id],
+            "entity_ids": list(evidence.get("entity_ids") or []),
+            # Additive, schema-permissive provenance fields -- the same
+            # kind of disclosure atomic_evidence's review_outcome already
+            # makes for transcript-derived content, now available for
+            # Publication-derived claims too.
+            "origin": request.origin,
+            "proposed_statement": request.proposed_statement,
+            "edited_before_approval": edited,
+            "reviewed_at": date.today().isoformat(),
+        }
+        schema_errors = [e.message for e in self._get_validator("fact.schema.json").iter_errors(fact_record)]
+        if schema_errors:
+            return ApproveClaimResult(schema_errors=schema_errors)
+
+        updated_evidence = deepcopy(evidence)
+        updated_evidence["fact_ids"] = self._append_unique(existing_fact_ids, fact_id)
+        updated_evidence.pop("pending_claim", None)
+
+        uow = self._unit_of_work_factory()
+        review_event: EventAppendResult | None = None
+        try:
+            with uow:
+                uow.facts.create(fact_record)
+                uow.evidence.update(request.evidence_id, updated_evidence)
+                for entity_id in updated_evidence.get("entity_ids") or []:
+                    entity = self._repos.entities.get(entity_id)
+                    if entity is None:
+                        continue
+                    updated_entity = deepcopy(entity)
+                    updated_entity["fact_ids"] = self._append_unique(list(entity.get("fact_ids") or []), fact_id)
+                    uow.entities.update(entity_id, updated_entity)
+                if self._review_events_inbox is not None:
+                    review_event = append_review_event(
+                        self._review_events_inbox,
+                        workflow="evidence_claim_review",
+                        object_id=fact_id,
+                        object_type="fact",
+                        action="approve_claim",
+                        prior_state="proposed",
+                        new_state="approved",
+                        actor=request.reviewer,
+                        subject={
+                            "evidence_id": request.evidence_id,
+                            "statement": request.statement,
+                            "proposed_statement": request.proposed_statement,
+                            "edited_before_approval": edited,
+                            "origin": request.origin,
+                        },
+                        source=None,
+                    )
+        except Exception:
+            if review_event:
+                remove_created_event(review_event)
+            raise
+        return ApproveClaimResult(fact_id=fact_id)
+
+    def reject_claim(self, *, evidence_id: str, reviewer: str, reason: str) -> None:
+        """Records that a proposed claim was reviewed and declined without
+        creating a Fact or touching the source Publication's trust state
+        at all -- the source stays an approved, published source; it
+        simply has no approved claim yet."""
+        if self._review_events_inbox is not None:
+            append_review_event(
+                self._review_events_inbox,
+                workflow="evidence_claim_review",
+                object_id=evidence_id,
+                object_type="evidence",
+                action="reject_claim",
+                prior_state="proposed",
+                new_state="no_approved_claim",
+                actor=reviewer,
+                subject={"evidence_id": evidence_id, "reason": reason},
+                source=None,
+            )
+
+
+@dataclass
+class ApproveClaimRequest:
+    evidence_id: str
+    statement: str
+    proposed_statement: str
+    classification: str
+    confidence: str
+    reviewer: str
+    origin: str
+
+
+@dataclass
+class ApproveClaimResult:
+    fact_id: str | None = None
+    schema_errors: list[str] = field(default_factory=list)
+
+    @property
+    def ok(self) -> bool:
+        return bool(self.fact_id) and not self.schema_errors
