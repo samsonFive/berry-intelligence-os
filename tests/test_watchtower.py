@@ -154,6 +154,35 @@ def test_weak_signal_without_corroboration_does_not_alert() -> None:
     assert alerts == []
 
 
+def test_coarse_berry_watch_suppresses_single_source_no_company_noise() -> None:
+    # Real-world case found during this mission's own top-20 inspection: a
+    # generic single-country, no-named-competitor blueberry story (e.g.
+    # "Poland blueberry prices rise") should not alert a berry watcher --
+    # only company/variety watches are inherently narrow enough for a bare
+    # single source to be alert-worthy.
+    dev = _development(company_ids=(), company_names=(), corroboration="ONE SOURCE", independent_source_count=1, berry_ids=("berry-blueberry",))
+    alerts = _generate(developments=[dev], watches=[{"watch_type": "berry", "object_id": "berry-blueberry"}])
+    assert alerts == []
+
+
+def test_coarse_geography_watch_allows_named_company_even_at_one_source() -> None:
+    dev = _development(company_ids=("company-planasa",), company_names=("Planasa",), corroboration="ONE SOURCE", independent_source_count=1, geography_ids=("geography-peru",))
+    alerts = _generate(developments=[dev], watches=[{"watch_type": "geography", "object_id": "geography-peru"}])
+    assert any(a.trigger_type == "NEW_DEVELOPMENT" for a in alerts)
+
+
+def test_coarse_berry_watch_allows_corroborated_no_company_story() -> None:
+    dev = _development(company_ids=(), company_names=(), corroboration="MULTIPLE INDEPENDENT SOURCES", independent_source_count=3, berry_ids=("berry-blueberry",))
+    alerts = _generate(developments=[dev], watches=[{"watch_type": "berry", "object_id": "berry-blueberry"}])
+    assert any(a.trigger_type == "NEW_DEVELOPMENT" for a in alerts)
+
+
+def test_company_watch_is_unaffected_by_the_coarse_materiality_bar() -> None:
+    dev = _development(corroboration="ONE SOURCE", independent_source_count=1)
+    alerts = _generate(developments=[dev], watches=[{"watch_type": "company", "object_id": "company-planasa"}])
+    assert any(a.trigger_type == "NEW_DEVELOPMENT" for a in alerts)
+
+
 def test_development_outside_recency_window_does_not_alert() -> None:
     dev = _development(event_date="2025-01-01", latest_update="2025-01-01T00:00:00+00:00", first_seen="2025-01-01T00:00:00+00:00")
     alerts = _generate(developments=[dev], watches=[{"watch_type": "company", "object_id": "company-planasa"}])

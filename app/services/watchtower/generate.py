@@ -42,6 +42,24 @@ _FORECAST_SUFFIX = "f"
 # (mirrors Competitive Moves' own `_development_eligible` eligibility gate).
 _ALERTABLE_EVENT_STATUSES = {"emerging"}
 
+# A `company`/`variety`/`move_type` watch is inherently narrow -- there are
+# only ever a handful of Developments naming one specific competitor. A
+# `berry`/`geography` watch is a whole-commodity or whole-country scope, so
+# it needs its own, higher materiality bar (see _coarse_watch_clears_
+# materiality_bar) or it alerts on every single-source story that merely
+# mentions the berry/country, which is exactly the "cries wolf" failure the
+# mission's own top-20 signal-to-noise pass exists to catch.
+_COARSE_WATCH_TYPES = {"berry", "geography"}
+_COARSE_MATERIALITY_MIN_INDEPENDENT_SOURCES = 2
+
+
+def _coarse_watch_clears_materiality_bar(dev: Development) -> bool:
+    if dev.company_ids:
+        return True
+    if dev.corroboration and dev.corroboration != "ONE SOURCE":
+        return True
+    return dev.independent_source_count >= _COARSE_MATERIALITY_MIN_INDEPENDENT_SOURCES
+
 
 def _alert_id(*parts: str) -> str:
     digest = hashlib.sha1("|".join(parts).encode("utf-8")).hexdigest()[:16]
@@ -216,6 +234,18 @@ def generate_alerts(
         for watch in watch_rows:
             wt, oid = str(watch["watch_type"]), str(watch["object_id"])
             if not _development_matches(dev, wt, oid):
+                continue
+            if wt in _COARSE_WATCH_TYPES and not _coarse_watch_clears_materiality_bar(dev):
+                # Signal-to-noise tuning against real production data (this
+                # mission's own top-20 inspection): a `berry` or `geography`
+                # watch is a whole-commodity/whole-country scope, unlike a
+                # `company`/`variety` watch which is inherently narrow --
+                # without this bar, watching "Blueberry" alerted on every
+                # single-source, no-named-competitor blueberry story on
+                # earth (Poland prices, a Belarusian family farm, generic
+                # UK-growers coverage), none of which name anyone this
+                # analyst is actually tracking. Require either a named
+                # canonical company or real independent corroboration.
                 continue
             label = subject_label(wt, oid)
             reasons = [f"Watched {wt.replace('_', ' ')}: {label}"]
