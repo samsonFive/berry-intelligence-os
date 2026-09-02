@@ -505,6 +505,36 @@ def test_brief_handoff_query_string_empty_when_no_top_stories(tmp_path: Path) ->
     assert brief_handoff_query_string(page) == ""
 
 
+def test_today_coverage_watch_is_ttl_cached_not_recomputed_every_request(monkeypatch, tmp_path: Path) -> None:
+    """Regression test: build_coverage_report() measured at ~26s on real
+    production data (Overnight Flagship Integration V1's own latency
+    measurement) -- must not run on every /today load."""
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
+    monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
+    monkeypatch.setattr(main, "AUTHORING_MODE", True)
+    monkeypatch.setattr(main, "variety_candidate_universe", lambda: ([], [], {}))
+    monkeypatch.setattr(main, "load_sources", lambda: [])
+    monkeypatch.setattr(main, "published_evidence", lambda: [])
+    monkeypatch.setattr(main, "list_drafts_metadata", lambda: [])
+    monkeypatch.setattr(main, "list_discovered_items", lambda inbox_dir: [])
+    monkeypatch.setattr(main, "load_blocked_domains", lambda: [])
+    main._TODAY_COVERAGE_CACHE["value"] = None
+    main._TODAY_COVERAGE_CACHE["computed_at"] = 0.0
+
+    calls = {"count": 0}
+
+    def counting_build_coverage_report(**kwargs):
+        calls["count"] += 1
+        return {"attention_count": 3, "cited_not_collected_count": 1}
+
+    monkeypatch.setattr(main, "build_coverage_report", counting_build_coverage_report)
+
+    first = main._today_coverage_watch()
+    second = main._today_coverage_watch()
+    assert first == second == {"attention_count": 3, "cited_not_collected_count": 1}
+    assert calls["count"] == 1  # second call served from cache, not recomputed
+
+
 def test_front_page_route_smoke(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
     monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
