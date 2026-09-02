@@ -16,6 +16,7 @@ from app.repositories.json.market_observations import MarketObservationRepositor
 from app.services.market_reality.change_detection import latest_vs_previous, year_over_year
 from app.services.market_reality.eurostat_apro import build_observations, decode_jsonstat
 from app.services.market_reality.normalization import normalize_berry, normalize_geography
+from app.services.market_reality.research_desk import market_reality_for
 
 
 # --- normalization -----------------------------------------------------
@@ -255,3 +256,31 @@ def test_year_over_year_matches_exact_year_gap():
 def test_year_over_year_returns_none_when_no_matching_prior_year():
     series = _series({"2020": 80.0, "2025": 110.0})
     assert year_over_year(series, years_back=1) is None  # no 2024 point -- must not fabricate one
+
+
+# --- Research Desk read interface -------------------------------------
+
+
+def test_market_reality_for_returns_observations_and_change_by_series(repo):
+    rows = decode_jsonstat(_tiny_jsonstat_payload())
+    for captured_at, bump in [("2026-09-01T00:00:00+00:00", 0.0), ("2026-09-01T00:00:01+00:00", 20.0)]:
+        adjusted = [{**r, "value": r["value"] + bump} for r in rows]
+        for obs in build_observations(adjusted, captured_at=captured_at):
+            try:
+                repo.create(obs)
+            except DuplicateRecord:
+                pass
+
+    result = market_reality_for(repo, source_commodity_code="S0000", geography="ES")
+    assert result["filters"] == {"source_commodity_code": "S0000", "geography": "ES"}
+    assert len(result["observations"]) == 1  # one series (PRODUCTION/S0000/fresh/ES), one period (2025)
+    label = next(iter(result["change_by_series"]))
+    assert "PRODUCTION" in label and "S0000" in label and "ES" in label
+    # Only one period exists for this key, so no change is computable yet -- must not fabricate one.
+    assert result["change_by_series"][label]["latest_vs_previous"] is None
+
+
+def test_market_reality_for_empty_filters_do_not_crash(repo):
+    result = market_reality_for(repo)
+    assert result["observations"] == []
+    assert result["change_by_series"] == {}
