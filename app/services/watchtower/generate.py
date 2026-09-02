@@ -358,39 +358,47 @@ def generate_alerts(
                 )
             )
 
-            if move.strategic_questions:
-                for sq in move.strategic_questions:
-                    sq_id = str(sq.get("id") or "")
-                    if not any(w.get("watch_type") == "strategic_question" and str(w.get("object_id")) == sq_id for w in watch_rows):
-                        continue
-                    sq_label = subject_label("strategic_question", sq_id)
-                    sq_reasons = [f"Watched Strategic Question: {sq_label}", f"New Competitive Move: {move.company_name} — {move.move_label}"]
-                    priority_sq, reasons_sq = _priority(tuple(sq_reasons))
-                    upsert(
-                        Alert(
-                            id=_alert_id("WATCHED_STRATEGIC_QUESTION_MATCH", "strategic_question", sq_id, move.id),
-                            trigger_type="WATCHED_STRATEGIC_QUESTION_MATCH",
-                            subject_type="strategic_question",
-                            subject_id=sq_id,
-                            subject_label=sq_label,
-                            title=f"{move.company_name} — {move.move_label} bears on: {sq_label}",
-                            what_happened=move.what_happened,
-                            why_triggered=reasons_sq,
-                            priority=priority_sq,
-                            priority_reasons=reasons_sq,
-                            generated_at=generated_at,
-                            first_generated_at=generated_at,
-                            event_at=move.latest_update,
-                            sources=list(move.supporting_sources[:3]),
-                            trust_state=move.trust_state,
-                            related_move_id=move.id,
-                            market_context=move.market_context,
-                            trusted_context=list(move.trusted_context or [])[:3],
-                            open_href=f"/moves/{move.company_id}",
-                            ask_berry_os_href=_ask_berry_os_href(sq_label, company_names=(move.company_name,)),
-                            create_brief_href=_create_brief_href(company_ids=(move.company_id,), geography_ids=move.geography_ids, berry_ids=move.berry_ids),
-                        )
-                    )
+    # -- Competitive Moves bearing on a watched Strategic Question: a
+    # Strategic Question watch alone is enough to fire this, independent
+    # of whether any company/geography/berry/move_type watch also matches
+    # the move (a real bug found during this mission's own test pass: the
+    # earlier version nested this inside the watch loop above, so it only
+    # fired when a redundant company watch also existed). --
+    for move in board.moves:
+        if not _within_window(move.latest_update, now=instant):
+            continue
+        for sq in move.strategic_questions:
+            sq_id = str(sq.get("id") or "")
+            if not any(w.get("watch_type") == "strategic_question" and str(w.get("object_id")) == sq_id for w in watch_rows):
+                continue
+            sq_label = subject_label("strategic_question", sq_id)
+            sq_reasons = [f"Watched Strategic Question: {sq_label}", f"New Competitive Move: {move.company_name} — {move.move_label}"]
+            priority_sq, reasons_sq = _priority(tuple(sq_reasons))
+            upsert(
+                Alert(
+                    id=_alert_id("WATCHED_STRATEGIC_QUESTION_MATCH", "strategic_question", sq_id, move.id),
+                    trigger_type="WATCHED_STRATEGIC_QUESTION_MATCH",
+                    subject_type="strategic_question",
+                    subject_id=sq_id,
+                    subject_label=sq_label,
+                    title=f"{move.company_name} — {move.move_label} bears on: {sq_label}",
+                    what_happened=move.what_happened,
+                    why_triggered=reasons_sq,
+                    priority=priority_sq,
+                    priority_reasons=reasons_sq,
+                    generated_at=generated_at,
+                    first_generated_at=generated_at,
+                    event_at=move.latest_update,
+                    sources=list(move.supporting_sources[:3]),
+                    trust_state=move.trust_state,
+                    related_move_id=move.id,
+                    market_context=move.market_context,
+                    trusted_context=list(move.trusted_context or [])[:3],
+                    open_href=f"/moves/{move.company_id}",
+                    ask_berry_os_href=_ask_berry_os_href(sq_label, company_names=(move.company_name,)),
+                    create_brief_href=_create_brief_href(company_ids=(move.company_id,), geography_ids=move.geography_ids, berry_ids=move.berry_ids),
+                )
+            )
 
     # -- Company patterns: REPEATED_MOVE_PATTERN --
     for pattern in board.patterns:

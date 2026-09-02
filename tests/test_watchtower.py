@@ -380,7 +380,7 @@ def test_digest_omits_dismissed_and_read_alerts_from_needs_attention() -> None:
         a["state"] = "dismissed"
     digest = build_digest(alerts)
     assert digest["total_open"] == 0
-    assert digest["items"] == []
+    assert digest["top_alerts"] == []
 
 
 def test_present_watchtower_groups_by_trigger_family() -> None:

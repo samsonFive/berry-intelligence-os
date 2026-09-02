@@ -49,7 +49,7 @@
     <h2>Needs your attention</h2>
     <p class="sh-note">{{ watchtower_digest.headline }}{% if watchtower_digest.high_count %} — {{ watchtower_digest.high_count }} high attention{% endif %}. <a href="/watchtower">Open Watchtower</a></p>
     <ul class="sh-story-list">
-      {% for item in watchtower_digest.items %}
+      {% for item in watchtower_digest.top_alerts %}
         <li>
           <p class="sh-story-meta">
             <span class="sh-trust sh-trust-watched">{{ item.priority }}</span>

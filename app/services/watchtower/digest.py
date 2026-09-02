@@ -37,6 +37,12 @@ def build_digest(alerts: list[dict[str, Any]], *, limit: int = 5) -> dict[str, A
             if open_alerts else "Nothing needs your attention right now"
         ),
         "total_open": len(open_alerts),
-        "items": top,
+        # Deliberately not "items" -- a plain dict's `.items` attribute
+        # resolves to the bound `dict.items` method before Jinja falls
+        # back to subscript lookup, so `{{ digest.items }}` in a template
+        # silently returns the method object instead of this list (a real
+        # bug caught by this mission's own render test against a populated
+        # digest).
+        "top_alerts": top,
         "high_count": sum(1 for a in open_alerts if a.get("priority") == PRIORITY_HIGH),
     }
