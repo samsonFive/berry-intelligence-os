@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "market-observation.schema.json",
+  "title": "Market Observation Record",
+  "$comment": "Market Reality Data Layer V1. A structured time-series measurement from an authoritative public source -- production, acreage, yield, price, shipment volume, or trade flow. Deliberately NOT a Publication and NOT Evidence: no analyst review step, no fact/claim distinction. Trust here means 'sourced from a named authoritative statistical agency with a preserved methodology reference,' not 'analyst-approved.' Immutable once written: create() rejects a duplicate id, and id is derived from (source, source_dataset, metric, source_commodity_code, geography, period, captured_at) -- a later re-fetch of the same logical series gets a NEW id (new captured_at), never overwrites a prior capture. Revision detection compares the new value against the most recent prior captured_at for the same logical key and reports a difference; it never deletes or edits the earlier record.",
+  "type": "object",
+  "required": [
+    "id",
+    "record_type",
+    "metric",
+    "source_commodity_label",
+    "source_commodity_code",
+    "geography",
+    "period",
+    "period_type",
+    "unit",
+    "value",
+    "source",
+    "source_dataset",
+    "captured_at"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^mkt-[a-z0-9-]+$"
+    },
+    "record_type": {"const": "market_observation"},
+    "metric": {
+      "enum": [
+        "PRICE",
+        "SHIPMENT_VOLUME",
+        "PRODUCTION",
+        "ACREAGE",
+        "YIELD",
+        "IMPORT_VOLUME",
+        "EXPORT_VOLUME",
+        "IMPORT_VALUE",
+        "EXPORT_VALUE"
+      ]
+    },
+    "berry_id": {
+      "type": ["string", "null"],
+      "$comment": "Normalized link to data/entities/berries/*.json, e.g. 'berry-strawberry'. Null when the source commodity category spans multiple berries or a non-berry crop and cannot be honestly collapsed to one -- see source_commodity_label/source_commodity_code for the real, preserved category. Never guess a single berry for a mixed category."
+    },
+    "source_commodity_label": {
+      "type": "string",
+      "minLength": 1,
+      "$comment": "Verbatim source-provided commodity label, e.g. 'Strawberries' or 'Berries (excluding strawberries)'. Always preserved even when berry_id is set."
+    },
+    "source_commodity_code": {
+      "type": "string",
+      "minLength": 1,
+      "$comment": "Verbatim source-provided commodity/crop code, e.g. Eurostat crop code 'S0000', or an HS code for trade data. Preserved for traceability regardless of normalization."
+    },
+    "form": {
+      "enum": ["fresh", "frozen", "processed", "unspecified"],
+      "default": "unspecified"
+    },
+    "geography": {
+      "type": "string",
+      "minLength": 1,
+      "$comment": "Verbatim source geography code, e.g. Eurostat 'ES' or 'EU27_2020'. Always preserved even when geography_id is set."
+    },
+    "geography_id": {
+      "type": ["string", "null"],
+      "$comment": "Normalized link to data/entities/geographies/*.json when the source geography maps to exactly one real country/region entity. Null for supranational aggregates (e.g. 'EU27_2020') or any geography without an existing entity -- never invent a geography entity here."
+    },
+    "period": {
+      "type": "string",
+      "minLength": 1,
+      "$comment": "Source-native period label, e.g. '2025' (year) or '2025-06' (month). Not reformatted."
+    },
+    "period_type": {
+      "enum": ["year", "quarter", "month", "week", "day"]
+    },
+    "unit": {
+      "type": "string",
+      "minLength": 1,
+      "$comment": "Verbatim source unit, e.g. '1000 t', '1000 ha', 't/ha', 'USD/kg'. Never converted or normalized -- unit conversion across sources is a real, separate hazard this V1 does not attempt."
+    },
+    "value": {"type": "number"},
+    "source": {
+      "type": "string",
+      "minLength": 1,
+      "$comment": "Short source identifier, e.g. 'eurostat'. See docs/v2/MARKET-REALITY-DATA-LAYER-V1.md for the full licensing/attribution note per source."
+    },
+    "source_dataset": {
+      "type": "string",
+      "minLength": 1,
+      "$comment": "Source's own dataset/table code, e.g. 'apro_cpsh1', for exact reproducibility."
+    },
+    "source_url": {"type": "string"},
+    "methodology_reference": {
+      "type": "string",
+      "$comment": "Short pointer to the source's own methodology note, where available. Not a full legal/statistical review."
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time",
+      "$comment": "When Berry Intelligence OS retrieved this value -- distinct from 'period' (when the measurement itself covers). Drives revision detection."
+    },
+    "berry_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "Graph-connection field for entity linking (mirrors the berry_ids convention used elsewhere), populated identically to [berry_id] when berry_id is set, else empty."
+    },
+    "geography_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "$comment": "Graph-connection field, populated identically to [geography_id] when set, else empty."
+    }
+  },
+  "additionalProperties": false
+}

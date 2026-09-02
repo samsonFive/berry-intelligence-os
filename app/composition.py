@@ -56,6 +56,7 @@ from app.repositories.json.assessments import AssessmentRepository
 from app.repositories.json.entities import EntityRepository
 from app.repositories.json.evidence import EvidenceRepository
 from app.repositories.json.facts import FactRepository
+from app.repositories.json.market_observations import MarketObservationRepository
 from app.repositories.json.recommendations import RecommendationRepository
 from app.repositories.json.relationships import RelationshipRepository
 from app.repositories.json.signals import SignalRepository
@@ -77,7 +78,7 @@ _pending_review_query_cache: dict[Path, PendingReviewQueryService] = {}
 
 
 def get_repositories(data_dir: Path = DEFAULT_DATA_DIR, schemas_dir: Path = SCHEMAS_DIR) -> Repositories:
-    """The 9 record repositories, keyed by (data_dir, schemas_dir). See the
+    """The 10 record repositories, keyed by (data_dir, schemas_dir). See the
     module docstring for why this is cached-by-key rather than a plain
     module-level singleton."""
     key = (data_dir, schemas_dir)
@@ -92,6 +93,7 @@ def get_repositories(data_dir: Path = DEFAULT_DATA_DIR, schemas_dir: Path = SCHE
             recommendations=RecommendationRepository(data_dir=data_dir, schemas_dir=schemas_dir),
             strategic_questions=StrategicQuestionRepository(data_dir=data_dir, schemas_dir=schemas_dir),
             sources=JsonSourceRepository(data_dir=data_dir),
+            market_observations=MarketObservationRepository(data_dir=data_dir, schemas_dir=schemas_dir),
         )
     return _repository_cache[key]
 
