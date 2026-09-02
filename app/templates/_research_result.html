@@ -1,0 +1,162 @@
+<div class="rd-layout">
+  <article class="rd-brief">
+    <section class="rd-section rd-lead-section">
+      <div class="rd-section-title">
+        <p>What you need to know</p>
+        {% if phase == 'trusted' %}<span id="rd-live-status" class="rd-progress"><i></i> Checking live sources</span>
+        {% else %}<span class="rd-complete">Research complete · {{ answer.latency_seconds }}s live</span>{% endif %}
+      </div>
+      {% if answer.findings %}
+      <ol class="rd-findings">
+        {% for row in answer.findings %}
+        <li>
+          <span class="rd-claim-kind">{{ row.kind }}</span>
+          <p>{{ row.text }}</p>
+          <span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span>
+        </li>
+        {% endfor %}
+      </ol>
+      {% else %}
+      <p class="rd-empty">The current packet does not support a substantive answer yet. The gaps below say exactly what is missing.</p>
+      {% endif %}
+    </section>
+
+    <section class="rd-section">
+      <div class="rd-section-title"><p>What's happening now</p><span>LIVE / UNREVIEWED</span></div>
+      {% if answer.current_developments %}
+      <div class="rd-source-cards">
+        {% for row in answer.current_developments[:8] %}
+        <article>
+          <div><span>LIVE / UNREVIEWED</span><time>{{ row.date or 'date unknown' }}</time></div>
+          <h3><a href="{{ row.url }}" target="_blank" rel="noopener">{{ row.title }}</a></h3>
+          <p>{{ row.source_name }}{% if row.snippet %} · {{ row.snippet|truncate(210) }}{% endif %}</p>
+        </article>
+        {% endfor %}
+      </div>
+      {% elif phase == 'trusted' %}
+      <p class="rd-empty">Live providers are being checked. Trusted material is already available in the rest of this brief.</p>
+      {% else %}
+      <p class="rd-empty">No qualifying current development was found in this window. This is a measured gap, not a claim that nothing happened.</p>
+      {% endif %}
+    </section>
+
+    <section class="rd-section">
+      <div class="rd-section-title"><p>Why it matters</p><span>{% if answer.ai_synthesis %}AI SYNTHESIS · NOT YET REVIEWED{% else %}REVIEWED ASSESSMENTS{% endif %}</span></div>
+      {% if answer.implications %}
+      <ul class="rd-implications">
+        {% for row in answer.implications %}<li>{{ row.text }} <span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></li>{% endfor %}
+      </ul>
+      {% endif %}
+      {% if answer.assessments %}
+      <div class="rd-record-list">
+        {% for row in answer.assessments %}
+        <a href="{{ row.href }}"><span>{% if row.ai_proposed %}AI PROPOSED ASSESSMENT{% else %}REVIEWED ASSESSMENT{% endif %}</span><strong>{{ row.title }}</strong><small>Confidence {{ row.confidence or 'unstated' }}</small></a>
+        {% endfor %}
+      </div>
+      {% elif not answer.implications %}<p class="rd-empty">No reviewed Assessment or source-grounded generated implication is available for this scope.</p>{% endif %}
+    </section>
+
+    {% if comparison and comparison.companies %}
+    <section class="rd-section">
+      <div class="rd-section-title"><p>Competitive comparison</p><span>COVERAGE, NOT PERFORMANCE</span></div>
+      <div class="rd-compare-wrap">
+        <table class="rd-compare">
+          <thead><tr><th>Dimension</th>{% for company in comparison.companies %}<th><a href="{{ company.href }}">{{ company.name }}</a></th>{% endfor %}</tr></thead>
+          <tbody>
+            <tr><th>Current coverage</th>{% for company in comparison.companies %}<td>{{ company.coverage.evidence_count }} evidence · latest {{ company.coverage.latest_date or 'unknown' }}</td>{% endfor %}</tr>
+            <tr><th>Regions</th>{% for company in comparison.companies %}<td>{% for geo in company.geographies[:5] %}{{ geo.name }}{{ ', ' if not loop.last }}{% else %}No captured geography{% endfor %}</td>{% endfor %}</tr>
+            <tr><th>Varieties</th>{% for company in comparison.companies %}<td>{{ company.coverage.variety_count }} linked</td>{% endfor %}</tr>
+            <tr><th>Rights / IP</th>{% for company in comparison.companies %}<td>{{ company.rights_published|length }} filings captured</td>{% endfor %}</tr>
+            <tr><th>Signals / assessments</th>{% for company in comparison.companies %}<td>{{ company.coverage.signal_count }} / {{ company.coverage.assessment_count }}</td>{% endfor %}</tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="rd-method-note">Counts describe captured intelligence coverage; they are not company scores or proof of commercial strength.</p>
+    </section>
+    {% endif %}
+
+    <section class="rd-section rd-two-column">
+      <div>
+        <div class="rd-section-title"><p>Competitive context</p><span>STRUCTURED INTELLIGENCE</span></div>
+        {% if answer.competitive_context.relationships %}
+        <ul class="rd-relations">
+          {% for row in answer.competitive_context.relationships[:12] %}<li><strong>{{ row.subject_name }}</strong> {{ row.predicate|replace('_', ' ') }} <strong>{{ row.object_name }}</strong></li>{% endfor %}
+        </ul>
+        {% else %}<p class="rd-empty">No scoped company relationship was captured.</p>{% endif %}
+      </div>
+      <div>
+        <div class="rd-section-title"><p>IP / genetics</p><span>STRUCTURED INTELLIGENCE</span></div>
+        {% if answer.rights_ip %}
+        <ul class="rd-compact-sources">{% for row in answer.rights_ip[:8] %}<li><span>{{ row.structured_kind }}</span><a href="{{ row.href }}">{{ row.title }}</a><small>{{ row.date or 'date unknown' }}</small></li>{% endfor %}</ul>
+        {% else %}<p class="rd-empty">No matching PBR/PVP or patent record in this packet.</p>{% endif %}
+      </div>
+    </section>
+
+    {% if answer.market_context %}
+    <section class="rd-section">
+      <div class="rd-section-title"><p>Market context</p><span>STRUCTURED INTELLIGENCE</span></div>
+      <ul class="rd-compact-sources">{% for row in answer.market_context[:8] %}<li><span>{{ row.structured_kind or row.trust_class }}</span><a href="{{ row.href or '#' }}">{{ row.title }}</a><small>{{ row.date or 'date unknown' }}</small></li>{% endfor %}</ul>
+    </section>
+    {% endif %}
+
+    <section class="rd-section rd-two-column">
+      <div>
+        <div class="rd-section-title"><p>Weak signals / things to watch</p><span>RELATED / EMERGING</span></div>
+        {% if answer.weak_signals %}
+        <ul class="rd-watch-list">{% for row in answer.weak_signals[:8] %}<li>{% if row.url %}<a href="{{ row.url }}" target="_blank" rel="noopener">{{ row.title }}</a>{% else %}<a href="{{ row.href }}">{{ row.title }}</a>{% endif %}</li>{% endfor %}</ul>
+        {% else %}<p class="rd-empty">No bounded semantic expansion result or emerging Signal was found.</p>{% endif %}
+      </div>
+      <div>
+        <div class="rd-section-title"><p>What we don't know</p><span>COVERAGE GAPS</span></div>
+        {% if answer.gaps %}<ul class="rd-gap-list">{% for gap in answer.gaps %}<li>{{ gap }}</li>{% endfor %}</ul>{% else %}<p class="rd-empty">No structural packet gap was detected; this does not imply complete recall.</p>{% endif %}
+      </div>
+    </section>
+
+    <section class="rd-section" id="rd-sources">
+      <div class="rd-section-title"><p>Sources</p><span>{{ answer.sources|length }} TRACEABLE RECORDS</span></div>
+      <ol class="rd-sources">
+        {% for row in answer.sources %}
+        <li id="rd-source-{{ row.id }}">
+          <span>{{ row.trust_class }}</span>
+          {% if row.url %}<a href="{{ row.url }}" target="_blank" rel="noopener">{{ row.title }}</a>{% else %}<a href="{{ row.href }}">{{ row.title }}</a>{% endif %}
+          <small>{{ row.source_name }}{% if row.date %} · {{ row.date }}{% endif %}</small>
+        </li>
+        {% endfor %}
+      </ol>
+    </section>
+  </article>
+
+  <aside class="rd-rail">
+    <div class="rd-rail-card">
+      <p>Research packet</p>
+      <dl>
+        <div><dt>Trusted / approved</dt><dd>{{ packet.evidence|length }}</dd></div>
+        <div><dt>Live results</dt><dd>{{ answer.current_developments|length + answer.weak_signals|selectattr('url')|list|length }}</dd></div>
+        <div><dt>Companies</dt><dd>{{ packet.companies|length }}</dd></div>
+        <div><dt>Varieties</dt><dd>{{ packet.varieties|length }}</dd></div>
+        <div><dt>Rights / IP</dt><dd>{{ packet.rights_ip|length }}</dd></div>
+        <div><dt>Signals</dt><dd>{{ packet.signals|length }}</dd></div>
+      </dl>
+      <p class="rd-layer-label">Layers requested</p>
+      <p class="rd-layer-list">{{ packet.requested_layers|join(' · ') }}</p>
+    </div>
+    <form class="rd-create-brief" method="post" action="/reports/new">
+      <input type="hidden" name="step" value="preview">
+      <input type="hidden" name="report_type" value="{{ 'competitor_comparison' if scope.comparison else 'competitive_landscape' }}">
+      <input type="hidden" name="berry" value="{{ scope.berry_id or '' }}">
+      <input type="hidden" name="geography_ids" value="{{ scope.geography_ids|join(',') }}">
+      <input type="hidden" name="company_ids" value="{{ scope.company_ids|join(',') }}">
+      <input type="hidden" name="variety_ids" value="{{ scope.variety_ids|join(',') }}">
+      <input type="hidden" name="date_window_days" value="{{ scope.window_days }}">
+      <input type="hidden" name="focus_notes" value="{{ scope.question }}">
+      <button type="submit">Create leadership brief</button>
+      <span>Review scope and sources before anything is saved.</span>
+    </form>
+    {% if phase == 'complete' %}
+    <div class="rd-latency">
+      <span>Time to first content</span><strong>{{ first_content_ms }} ms</strong>
+      <span>Complete answer</span><strong>{{ complete_ms }} ms</strong>
+    </div>
+    {% endif %}
+  </aside>
+</div>

@@ -113,6 +113,9 @@
 
 <section class="v2-card" style="margin-bottom:16px">
   <p class="card-kicker">INTELLIGENCE COVERAGE</p>
+  {% if scope.focus_notes %}
+    <p><strong>Research question:</strong> {{ scope.focus_notes }}</p>
+  {% endif %}
   {% if packet.strategic_question %}
     <ul class="stat-list">
       <li>{{ coverage.counts.fact_count }} Facts</li>
@@ -137,6 +140,18 @@
       {% for gap in coverage.gaps %}<li>{{ gap }}</li>{% endfor %}
     </ul>
   {% endif %}
+  {% if scope.focus_notes or packet.recent_developments %}
+    <p class="card-kicker">PRESELECTED SOURCE-BACKED FINDINGS</p>
+    {% if packet.recent_developments %}
+    <ul>
+      {% for row in packet.recent_developments[:5] %}
+        <li><a href="{{ row.href }}">{{ row.title }}</a> <span class="v2-meta">{{ row.source_name }}{% if row.date %} · {{ row.date }}{% endif %}</span></li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p class="v2-meta">No source-backed development falls inside this confirmed date window. The draft will preserve that gap instead of silently widening the research scope.</p>
+    {% endif %}
+  {% endif %}
 </section>
 
 <form method="post" action="/reports/new">
@@ -148,6 +163,7 @@
   <input type="hidden" name="variety_ids" value="{{ variety_ids_csv }}">
   <input type="hidden" name="strategic_question_id" value="{{ scope.strategic_question_id or '' }}">
   <input type="hidden" name="date_window_days" value="{{ scope.date_window_days or '' }}">
+  <input type="hidden" name="focus_notes" value="{{ scope.focus_notes or '' }}">
   <div class="filter-field" style="max-width:420px">
     <label for="report-title">Report title</label>
     <input id="report-title" type="text" name="title" placeholder="Untitled report">

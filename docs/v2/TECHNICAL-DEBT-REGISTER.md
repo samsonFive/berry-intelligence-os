@@ -1806,3 +1806,19 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Regression-test reference** | manual verification (browser DOM inspection); no dedicated JS test harness exists in this repo for keyboard interaction |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
+
+### TD-112 — Research Desk live recall remains provider- and index-dependent
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | Research Desk / live discovery |
+| **Date discovered** | 2026-09-01 |
+| **Evidence** | Ask Berry OS V1's required manual-web challenge found two current specialist results that its configured Google News + Perplexity pass did not return: the 2026-08-10 Plablue 15122 variety-rights listing for Planasa and the 2026-08-27 Camposol Chao packing-capacity expansion. The providers did return other relevant current genetics and Peru-expansion results, and the canonical packet added company, variety, relationship, and rights context, but these two material developments were absent. Hortifrut also produced some same-name retail/company-directory noise before qualification. |
+| **Impact** | A current answer can be materially useful without being exhaustive. Users must continue to see explicit coverage gaps and source lists; absence from a Research Desk answer must not be read as proof that no development exists. |
+| **Workaround** | The UI labels live material `LIVE / UNREVIEWED`, exposes providers and gaps, and combines it with the deeper canonical graph. Analysts can use the source trace and ordinary manual research for decisions requiring exhaustive current recall. |
+| **Recommended resolution** | Build a frozen Research Desk recall/precision challenge set from these acceptance misses, then improve bounded query variants and specialist-source routing through the existing provider abstraction. Do not add provider-specific branches to Research Desk or weaken entity/geography qualification to inflate recall. |
+| **Status** | active |
+| **Owner lane** | discovery / product |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | `tests/test_research_desk.py::test_live_research_is_provider_neutral_and_keeps_live_separate`; manual challenge in `docs/v2/ASK-BERRY-OS-V1.md` |

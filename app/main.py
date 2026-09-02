@@ -325,6 +325,13 @@ from app.services.report_builder.scope import (
     resolve_scope,
 )
 from app.services.report_builder.synthesis import generate_report_sections
+from app.services.research_desk import (
+    ResearchScope,
+    assemble_research_packet,
+    compose_research_answer,
+    interpret_research_scope,
+    run_live_research,
+)
 from app.services.executive_readout import (
     caution as executive_readout_caution,
     top_assessments as executive_readout_top_assessments,
@@ -3765,6 +3772,189 @@ def _pulse_providers() -> list[Any]:
     from app.services.industry_pulse.live_stack import pulse_discovery_providers
 
     return pulse_discovery_providers(perplexity_enabled=PERPLEXITY_PULSE_ENABLED)
+
+
+RESEARCH_EXAMPLE_PROMPTS = (
+    "What changed with Planasa this month?",
+    "What is happening in European blueberry genetics?",
+    "Which competitors are expanding berry production in Peru?",
+    "What should I know about blackberry innovation?",
+)
+
+
+def _research_scope_display(scope: ResearchScope, entities: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    return {
+        "intelligence_type": humanize_label(scope.intelligence_type),
+        "berry": BERRIES.get(scope.berry_id or "", ""),
+        "companies": [entities[c].get("name") or c for c in scope.company_ids if c in entities],
+        "geographies": [entities[g].get("name") or g for g in scope.geography_ids if g in entities],
+        "topics": [humanize_label(topic) for topic in scope.topics],
+    }
+
+
+def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, Any] | None]:
+    entities = entity_index()
+    evidence = published_evidence()
+    facts = all_facts()
+    relationships = all_relationships()
+    signals = all_signals()
+    assessments = all_assessments()
+    packet = assemble_research_packet(
+        scope,
+        entities=entities,
+        relationships=relationships,
+        published_evidence=evidence,
+        facts=facts,
+        signals=signals,
+        assessments=assessments,
+        # Claude's Market Reality provider can plug in here without a
+        # ResearchPacket or UI redesign.
+        market_context_provider=None,
+    )
+    comparison = None
+    if scope.comparison and len(scope.company_ids) >= 2:
+        comparison = present_company_compare(
+            list(scope.company_ids),
+            entities=entities,
+            relationships=relationships,
+            published_evidence=evidence,
+            facts=facts,
+            evidence_by_id={row["id"]: row for row in evidence if row.get("id")},
+            signals=signals,
+            assessments=assessments,
+            berry_labels=BERRIES,
+            redirects=load_identity_redirects(DATA_DIR),
+        )
+    return packet, comparison
+
+
+@app.get("/research", response_class=HTMLResponse)
+def research_desk_page(request: Request) -> HTMLResponse:
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="research_desk.html",
+        context={
+            "scope": None,
+            "example_prompts": RESEARCH_EXAMPLE_PROMPTS,
+            "authoring_mode": AUTHORING_MODE,
+            "ui_context": ui,
+            "static_build": False,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/research", response_class=HTMLResponse)
+def research_desk_submit(
+    request: Request,
+    question: str = Form(""),
+    previous_scope: str = Form(""),
+) -> HTMLResponse:
+    started = time.monotonic()
+    prior = None
+    if previous_scope:
+        try:
+            prior = ResearchScope.from_dict(json.loads(previous_scope))
+        except (TypeError, ValueError, json.JSONDecodeError):
+            prior = None
+    entities_list = living_catalog()
+    scope = interpret_research_scope(
+        question,
+        berries=BERRIES,
+        entities=entities_list,
+        questions=load_strategic_questions(),
+        relationships=all_relationships(),
+        previous=prior,
+    )
+    packet, comparison = _research_packet(scope)
+    answer = compose_research_answer(packet)
+    first_content_ms = round((time.monotonic() - started) * 1000)
+    scope_json = json.dumps(scope.as_dict(), separators=(",", ":"))
+    entities = entity_index()
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="research_desk.html",
+        context={
+            "scope": scope,
+            "scope_json": scope_json,
+            "scope_display": _research_scope_display(scope, entities),
+            "packet": packet,
+            "answer": answer,
+            "comparison": comparison,
+            "phase": "trusted",
+            "first_content_ms": first_content_ms,
+            "complete_ms": first_content_ms,
+            "example_prompts": RESEARCH_EXAMPLE_PROMPTS,
+            "authoring_mode": AUTHORING_MODE,
+            "ui_context": ui,
+            "static_build": False,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/api/research/live", response_class=HTMLResponse)
+async def research_desk_live(request: Request) -> HTMLResponse:
+    started = time.monotonic()
+    payload = await request.json()
+    raw_scope = payload.get("scope") if isinstance(payload, dict) else None
+    if not isinstance(raw_scope, dict):
+        raise HTTPException(status_code=422, detail="A structured research scope is required")
+    scope = ResearchScope.from_dict(raw_scope)
+    entities = entity_index()
+    # Browser-carried state is selection state only. Unknown/wrong-type IDs
+    # are discarded before any packet or provider query is constructed.
+    scope = ResearchScope(
+        question=scope.question,
+        berry_id=scope.berry_id if scope.berry_id in BERRIES else None,
+        geography_ids=tuple(g for g in scope.geography_ids if (entities.get(g) or {}).get("entity_type") == "geography"),
+        company_ids=tuple(c for c in scope.company_ids if (entities.get(c) or {}).get("entity_type") == "company"),
+        variety_ids=tuple(v for v in scope.variety_ids if (entities.get(v) or {}).get("entity_type") == "variety"),
+        window_days=scope.window_days,
+        topics=scope.topics,
+        intelligence_type=scope.intelligence_type,
+        comparison=scope.comparison,
+        unresolved=scope.unresolved,
+        ambiguous=scope.ambiguous,
+        interpretation_source=scope.interpretation_source,
+    )
+    packet, comparison = _research_packet(scope)
+    from app.services.industry_pulse.live_stack import week_background_hits
+
+    live = await asyncio.to_thread(
+        run_live_research,
+        scope,
+        providers=_pulse_providers(),
+        entities=entities,
+        sources=load_sources(),
+        background_hits=week_background_hits(inbox_dir=INBOX_DIR),
+    )
+    answer = compose_research_answer(packet, live=live, completer=maybe_untrusted_completer())
+    try:
+        first_content_ms = int(payload.get("first_content_ms") or 0)
+    except (TypeError, ValueError):
+        first_content_ms = 0
+    # This is browser-supplied UX telemetry, never a performance/trust input.
+    first_content_ms = max(0, min(first_content_ms, 60_000))
+    complete_ms = first_content_ms + round((time.monotonic() - started) * 1000)
+    return templates.TemplateResponse(
+        request=request,
+        name="_research_result.html",
+        context={
+            "scope": scope,
+            "packet": packet,
+            "answer": answer,
+            "comparison": comparison,
+            "phase": "complete",
+            "first_content_ms": first_content_ms,
+            "complete_ms": complete_ms,
+            "static_build": False,
+        },
+    )
 
 
 @app.get("/pulse/company/{company_id}", response_class=HTMLResponse)
