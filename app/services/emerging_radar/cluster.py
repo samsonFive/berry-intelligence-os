@@ -171,6 +171,29 @@ def _stable_id(parts: Iterable[str]) -> str:
     return "dev-" + hashlib.sha1(key.encode("utf-8")).hexdigest()[:12]
 
 
+def is_publisher_home_url(url: str) -> bool:
+    """RSS items sometimes carry the publisher homepage instead of the article."""
+    path = (urlparse(url or "").path or "").strip("/")
+    return not path
+
+
+def _prior_matches_cluster(
+    prior: Development,
+    *,
+    event_type: str,
+    company_ids: tuple[str, ...],
+    variety_ids: tuple[str, ...],
+    concept: str,
+) -> bool:
+    if prior.event_type != event_type:
+        return False
+    if set(prior.company_ids) & set(company_ids):
+        return True
+    if set(prior.variety_ids) & set(variety_ids):
+        return True
+    return bool(concept) and concept_key(prior.title) == concept
+
+
 class EntityResolver:
     """Name → canonical IDs. Does not create entities."""
 
@@ -412,10 +435,12 @@ def cluster_hits(
     for item in previous:
         previous_by_id[item.id] = item
         for url in item.live_hit_urls:
-            previous_by_url[url] = item
+            if url and not is_publisher_home_url(url):
+                previous_by_url[url] = item
 
     developments: list[Development] = []
     pending_ids: list[str] = []
+    used_ids: set[str] = set()
     for index, members in enumerate(groups):
         clustered = [rows[i] for i in members]
         hits_in = [row["hit"] for row in clustered]
@@ -435,8 +460,19 @@ def cluster_hits(
         prior = previous_by_id.get(new_id)
         if prior is None:
             for url in urls:
-                if url in previous_by_url:
-                    prior = previous_by_url[url]
+                if is_publisher_home_url(url):
+                    continue
+                candidate = previous_by_url.get(url)
+                if candidate is None:
+                    continue
+                if _prior_matches_cluster(
+                    candidate,
+                    event_type=event_type,
+                    company_ids=company_ids,
+                    variety_ids=variety_ids,
+                    concept=concept,
+                ):
+                    prior = candidate
                     new_id = prior.id
                     break
         dates = [day for day in (_hit_day(hit) for hit in hits_in) if day]
@@ -450,6 +486,10 @@ def cluster_hits(
                 hit.published_date or "",
             ),
         )
+        if new_id in used_ids:
+            new_id = _stable_id((new_id, lead.title, urls[0] if urls else str(index)))
+            prior = None
+        used_ids.add(new_id)
         shape, independent_count = corroboration_shape(sources)
         social_only = shape == WEAK_SIGNAL_LABEL or (sources and all(source.social for source in sources))
         providers = tuple(dict.fromkeys(hit.provider for hit in hits_in))

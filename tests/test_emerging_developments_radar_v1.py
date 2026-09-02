@@ -262,6 +262,37 @@ def test_story_evolution_updates_one_development() -> None:
     assert "NEW_SOURCE" in kinds
 
 
+def test_publisher_homepage_urls_do_not_collapse_distinct_developments() -> None:
+    nova = _hit(
+        title="Nova Siri Genetics set to distribute 150 millions of strawberry plants",
+        url="https://italianberry.it",
+        source_domain="italianberry.it",
+        origin_publisher_url="https://italianberry.it",
+        origin_publisher_name="Italian Berry",
+        provider="specialist_rss",
+        snippet="Nova Siri Genetics will increase strawberry plant distribution by 15 percent.",
+        berry="strawberry",
+    )
+    ceo = _hit(
+        title="Brie Reiter Smith appointed CEO of Driscoll's",
+        url="https://italianberry.it",
+        source_domain="italianberry.it",
+        origin_publisher_url="https://italianberry.it",
+        origin_publisher_name="Italian Berry",
+        provider="specialist_rss",
+        snippet="Driscoll's appointed Brie Reiter Smith as chief executive officer.",
+        berry="",
+    )
+    first = cluster_hits([nova], entities=ENTITIES, now=NOW)
+    second = cluster_hits([nova, ceo], entities=ENTITIES, previous=first, now=NOW)
+    assert len(second) == 2
+    assert len({row.id for row in second}) == 2
+    titles = " ".join(row.title for row in second)
+    assert "Nova Siri" in titles
+    assert "Brie Reiter" in titles
+    assert second[0].id == first[0].id or second[1].id == first[0].id
+
+
 def test_no_trust_mutation_when_attaching_trusted_context() -> None:
     evidence = [
         {
