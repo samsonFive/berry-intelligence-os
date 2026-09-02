@@ -130,6 +130,14 @@ from app.services.industry_pulse.newsroom_cycle import (
     newsroom_lock_status,
     run_newsroom_cycle,
 )
+from app.services.industry_pulse.intake import intake_qualified_hits
+from app.services.competitor_pulse import (
+    DEFAULT_WINDOW as PULSE_DEFAULT_WINDOW,
+    LIVE_WINDOWS as PULSE_LIVE_WINDOWS,
+    find_live_hit_by_url as pulse_find_live_hit_by_url,
+    generate_current_brief as pulse_generate_current_brief,
+    run_company_pulse,
+)
 from app.services.guided_analyst import freshness_clock_label
 from app.services.guided_analyst import (
     atomic_pending_count,
@@ -3723,6 +3731,105 @@ def industry_pulse_run() -> RedirectResponse:
     ran = "refused" if result["refused"] else "ok"
     reason = result.get("refusal_reason") or ""
     return RedirectResponse(url=f"/industry-pulse?ran={ran}&reason={quote(reason)}", status_code=303)
+
+
+def _pulse_providers() -> list[Any]:
+    providers: list[Any] = [GoogleNewsRssProvider()]
+    if PERPLEXITY_PULSE_ENABLED and has_perplexity():
+        providers.append(PerplexitySearchProvider())
+    return providers
+
+
+@app.get("/pulse/company/{company_id}", response_class=HTMLResponse)
+def pulse_company_page(request: Request, company_id: str, window: str = PULSE_DEFAULT_WINDOW, promoted: str = "") -> HTMLResponse:
+    """LIVE RESEARCH PLANE -- structurally separate from the durable trust
+    model. Never writes Evidence, never mutates Company truth, never
+    creates a Signal/Assessment, never silently onboards a Source. Unlike
+    Industry Pulse's 32-query matrix, this is one bounded, company-scoped
+    query per provider, so GET runs it directly: the product requirement
+    is that a user opening a Company sees current results immediately,
+    not after a separate manual "run" step."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Competitor Pulse is authoring-only")
+    if window not in PULSE_LIVE_WINDOWS:
+        window = PULSE_DEFAULT_WINDOW
+    entities = entity_index()
+    company = entities.get(company_id)
+    if not company or company.get("entity_type") != "company":
+        raise HTTPException(status_code=404, detail="company not found")
+    relationships = relationships_for_entity(company_id, all_relationships())
+    providers = _pulse_providers()
+    result = run_company_pulse(
+        company,
+        relationships=relationships,
+        entities_by_id=entities,
+        window=window,
+        providers=providers,
+    )
+    brief = pulse_generate_current_brief(result.items, completer=maybe_untrusted_completer())
+    indexed_items = {f"live-{i}": item for i, item in enumerate(result.items[:25])}
+    brief_rows = [
+        {"text": statement.text, "sources": [indexed_items[sid] for sid in statement.source_ids if sid in indexed_items]}
+        for statement in brief
+    ]
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="pulse_company.html",
+        context={
+            "company": company,
+            "pulse": result,
+            "brief_rows": brief_rows,
+            "window": window,
+            "windows": PULSE_LIVE_WINDOWS,
+            "perplexity_available": any(getattr(p, "name", "") == "perplexity" for p in providers),
+            "promoted": promoted,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/pulse/company/{company_id}/promote")
+def pulse_company_promote(company_id: str, url: str = Form(...), window: str = Form(PULSE_DEFAULT_WINDOW)) -> RedirectResponse:
+    """Optional bridge from a LIVE result into the existing, unchanged
+    Publication Review / Evidence Review path -- reuses
+    industry_pulse.intake.intake_qualified_hits() verbatim. Re-runs the
+    same live query rather than trusting anything cached client-side, so
+    the promoted draft is built from a freshly re-qualified hit."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Competitor Pulse is authoring-only")
+    if window not in PULSE_LIVE_WINDOWS:
+        window = PULSE_DEFAULT_WINDOW
+    entities = entity_index()
+    company = entities.get(company_id)
+    if not company or company.get("entity_type") != "company":
+        raise HTTPException(status_code=404, detail="company not found")
+    relationships = relationships_for_entity(company_id, all_relationships())
+    hit = pulse_find_live_hit_by_url(
+        company,
+        relationships=relationships,
+        entities_by_id=entities,
+        window=window,
+        providers=_pulse_providers(),
+        url=url,
+    )
+    status = "not_found"
+    if hit is not None:
+        summary = intake_qualified_hits(
+            [hit],
+            sources=load_sources(),
+            published_evidence=published_evidence(),
+            drafts=list_pending_drafts(),
+            entities=all_entities(),
+            inbox_dir=INBOX_DIR,
+        )
+        status = "promoted" if summary.drafts_created else "already_represented"
+    return RedirectResponse(url=f"/pulse/company/{company_id}?window={window}&promoted={status}", status_code=303)
 
 
 @app.get("/collection-ops", response_class=HTMLResponse)

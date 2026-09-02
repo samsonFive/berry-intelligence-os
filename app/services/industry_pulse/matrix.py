@@ -31,8 +31,14 @@ TOPICS = (
     "disease_regulation",
 )
 WINDOWS = ("24h", "3d", "7d")
-WINDOW_WHEN = {"24h": "1d", "3d": "3d", "7d": "7d"}
-WINDOW_DAYS = {"24h": 1, "3d": 3, "7d": 7}
+# "30d" is deliberately NOT added to WINDOWS -- that tuple drives the fixed
+# per-window shape of run_pulse()/bakeoff.py/slices.py reporting, which this
+# mission must not perturb. It IS added to WINDOW_WHEN/WINDOW_DAYS below so
+# the ad-hoc discover() entry point (used by Competitor Pulse V1) can request
+# it directly: .with_window("30d") and query_text.window_start() both key off
+# these dicts, not the WINDOWS tuple.
+WINDOW_WHEN = {"24h": "1d", "3d": "3d", "7d": "7d", "30d": "30d"}
+WINDOW_DAYS = {"24h": 1, "3d": 3, "7d": 7, "30d": 30}
 
 BERRY_TERMS: dict[str, str] = {
     "blueberry": "(blueberry OR blueberries OR arándano OR arandano OR myrtille)",

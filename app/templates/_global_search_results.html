@@ -31,6 +31,9 @@
             {% endif %}
             {% if row.subtitle %}<span class="sh-search-sub v2-search-sub">{{ row.subtitle }}</span>{% endif %}
           </a>
+          {% if row.object_type == 'company' and not static_build %}
+            <a class="v2-btn v2-btn-quiet v2-search-pulse-action" href="/pulse/company/{{ row.id }}">Pulse</a>
+          {% endif %}
         </li>
         {% endfor %}
       </ul>
@@ -46,6 +49,9 @@
             {% if row.date_display %}<span class="sh-search-sub">{{ row.date_display }}</span>{% endif %}
             {% if row.subtitle %}<span class="sh-search-sub v2-search-sub">{{ row.subtitle }}</span>{% endif %}
           </a>
+          {% if row.object_type == 'company' and not static_build %}
+            <a class="v2-btn v2-btn-quiet v2-search-pulse-action" href="/pulse/company/{{ row.id }}">Pulse</a>
+          {% endif %}
         </li>
         {% endfor %}
       </ul>

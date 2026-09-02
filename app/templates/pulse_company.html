@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Competitor Pulse — {{ company.name }} — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">COMPETITOR PULSE · LIVE / UNREVIEWED</p>
+    <h1>{{ company.name }}</h1>
+    <p class="context-limit">Current public chatter, searched live just now. This is not Reviewed Evidence -- it has not been through Publication Review or Evidence Review. Durable trust stays separate.</p>
+  </div>
+  <div class="v2-company-actions">
+    <a class="v2-btn v2-btn-quiet" href="/entities/company/{{ company.id }}">Back to {{ company.name }}</a>
+  </div>
+</section>
+
+{% if promoted == "promoted" %}
+  <p class="banner">Sent to Publication Review. It will appear there as an ordinary draft, unchanged by this live search.</p>
+{% elif promoted == "already_represented" %}
+  <p class="banner banner-warning">Already represented in Publication Review or trusted Evidence -- nothing new was created.</p>
+{% elif promoted == "not_found" %}
+  <p class="banner banner-warning">That item is no longer part of the current live result set -- searches are live and can shift between page loads. Try again from the current results below.</p>
+{% endif %}
+
+<section class="v2-company-section" id="pulse-controls">
+  <div class="v2-card-line" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.75rem;">
+    <div class="filter-chip-row" role="group" aria-label="Time window">
+      {% for w in windows %}
+        <a class="filter-chip{% if w == window %} is-active{% endif %}" href="?window={{ w }}">{{ {"24h": "24 hours", "7d": "7 days", "30d": "30 days"}[w] }}</a>
+      {% endfor %}
+    </div>
+    <p class="v2-meta">Searched at {{ pulse.searched_at }} · {{ pulse.latency_seconds }}s · {{ pulse.qualifying_count }} qualifying of {{ pulse.raw_hit_count }} found</p>
+  </div>
+  <p class="context-limit">
+    Query terms: {{ pulse.query_terms | join(", ") }}.
+    Providers: {{ pulse.provider_telemetry.keys() | join(", ") if pulse.provider_telemetry else "none configured" }}{% if not perplexity_available %} (Perplexity semantic catch-net not active in this environment){% endif %}.
+  </p>
+</section>
+
+<section class="v2-company-section" id="pulse-brief">
+  <h2>What should I know?</h2>
+  {% if brief_rows %}
+    <ul class="v2-role-list" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.6rem;">
+      {% for row in brief_rows %}
+        <li>
+          <p class="v2-card-line">{{ row.text }}</p>
+          <p class="v2-meta">
+            {% for src in row.sources %}
+              <a href="{{ src.url }}" rel="noreferrer">{{ src.publisher }}{% if src.published_date %} · {{ src.published_date }}{% endif %}</a>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+          </p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No grounded current briefing available for this window -- see the sourced items below directly.</p>
+  {% endif %}
+</section>
+
+{% if not pulse.items %}
+<section class="v2-company-section" id="pulse-empty">
+  <h2>No current results</h2>
+  <p class="empty-state">Nothing qualifying found for {{ company.name }} in the last {{ window }}. Try a wider window above.</p>
+</section>
+{% else %}
+  {% for category, rows in pulse.grouped.items() %}
+  <section class="v2-company-section" id="pulse-group-{{ loop.index }}">
+    <h2>{{ category }}</h2>
+    <ul class="v2-card-grid" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.75rem;">
+      {% for item in rows %}
+      <li class="v2-card">
+        <p class="v2-card-kicker">
+          <span class="badge">{{ item.trust_label }}</span>
+          <span class="v2-source">{{ item.publisher }}</span>
+          <span class="v2-meta">{{ item.published_date or "date unknown" }}</span>
+          {% if item.berry %}<span class="v2-chip v2-chip-berry">{{ item.berry.replace("berry-", "") | capitalize }}</span>{% endif %}
+          {% if item.geography %}<span class="v2-chip v2-chip-entity">{{ item.geography | capitalize }}</span>{% endif %}
+        </p>
+        <h3 class="v2-card-title"><a href="{{ item.url }}" rel="noreferrer" target="_blank">{{ item.title }}</a></h3>
+        {% if item.snippet %}<p class="v2-card-summary">{{ item.snippet | truncate(200) }}</p>{% endif %}
+        <footer class="v2-card-footer">
+          <span class="v2-meta">via {{ item.provider }}</span>
+        </footer>
+        {% if authoring_mode %}
+        <div class="v2-card-actions">
+          <form method="post" action="/pulse/company/{{ company.id }}/promote">
+            <input type="hidden" name="url" value="{{ item.url }}">
+            <input type="hidden" name="window" value="{{ window }}">
+            <button class="v2-btn v2-btn-quiet" type="submit">Send to Publication Review</button>
+          </form>
+        </div>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+{% endif %}
+</div>
+{% endblock %}
