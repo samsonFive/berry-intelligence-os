@@ -711,6 +711,8 @@
   color: inherit;
 }
 .v2-search-list a.is-current, .v2-search-list a:hover { border-color: #8aa4c8; background: #eef4ff; }
+.v2-search-list li { position: relative; }
+.v2-search-pulse-action { position: absolute; top: 10px; right: 12px; font-size: 0.72rem; padding: 3px 9px; z-index: 1; }
 .v2-search-title { grid-area: title; font-weight: 650; }
 .v2-search-state {
   grid-area: state;

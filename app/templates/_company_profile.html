@@ -24,9 +24,10 @@
         <input type="hidden" name="return_to" value="{{ request.url.path }}">
         <button class="sh-btn" type="submit">{{ 'Remove from watchlist' if is_watched else 'Add to watchlist' }}</button>
       </form>
+      <a class="sh-btn sh-btn-primary v2-btn v2-btn-primary" href="/pulse/company/{{ entity.id }}">Competitor Pulse</a>
     {% endif %}
     <a class="sh-btn" href="/entities/company/{{ entity.id }}/portfolio">Varieties</a>
-    <a class="sh-btn sh-btn-primary" href="#what-changed">Recent activity</a>
+    <a class="sh-btn" href="#what-changed">Recent activity</a>
   </div>
 </section>
 

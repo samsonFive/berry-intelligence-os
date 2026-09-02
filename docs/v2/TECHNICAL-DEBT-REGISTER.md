@@ -1759,4 +1759,20 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | none -- a data-quality finding, not a code defect |
 
+### TD-109 — Hortifrut's entity `aliases` list includes a Chilean tax-ID string, not a name variant
+
+| Field | Value |
+|---|---|
+| **Severity** | Low |
+| **Area** | entity data quality |
+| **Date discovered** | 2026-09-01 |
+| **Evidence** | Competitor Pulse V1 production-acceptance run against `company-hortifrut`. `data/entities/companies/company-hortifrut.json`'s `aliases` array includes `"RUT 96.896.990-0"` (a Chilean company registration number) alongside real name variants ("Hortifrut", "Hortifrut S.A."). Competitor Pulse's `company_query_terms()` uses `aliases` verbatim (deliberately, per its "never invent a term" discipline), so this string is included in the live search query text and the qualification name-regex, harmlessly (no article text will ever literally contain that RUT string) but incorrectly categorized as a name alias. |
+| **Impact** | None observed -- it never matched a real article in acceptance testing, so it is pure noise in the query string, not a false positive source. Flagged because a RUT/registration-number field being stored under `aliases` rather than a dedicated identifier field is a modeling gap other consumers of `aliases` (e.g. future Company search) could trip on. |
+| **Workaround** | None needed. |
+| **Recommended resolution** | Move Chile RUT-style identifiers (and any other jurisdiction's registration numbers found the same way) to a dedicated `attributes.registration_ids` -style field, out of `aliases`. Out of this mission's bounded scope (live research plane, not entity-schema cleanup). |
+| **Status** | active |
+| **Owner lane** | data |
+| **PR/SHA when resolved** | — |
+| **Regression-test reference** | none -- a data-quality finding, not a code defect |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
