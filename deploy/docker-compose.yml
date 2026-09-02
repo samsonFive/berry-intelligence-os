@@ -31,6 +31,13 @@ services:
       # docs/v2/CONTINUOUS-NEWSROOM-INTAKE-V1.md for the activation
       # decisions recorded for each surface.
       ENABLE_PERPLEXITY_PULSE: ${ENABLE_PERPLEXITY_PULSE:-false}
+      # Optional discovery-provider credentials (app/services/industry_pulse/
+      # credentials.py). Each adapter degrades to an honest "unconfigured"
+      # state and stays off when its key is empty -- never required for the
+      # app to start, and none of these alone schedules any recurring work.
+      APITUBE_API_KEY: ${APITUBE_API_KEY:-}
+      EXA_API_KEY: ${EXA_API_KEY:-}
+      NEWSCATCHER_API_KEY: ${NEWSCATCHER_API_KEY:-}
     volumes:
       - ${BIOS_DEMO_RUNTIME:-../demo-runtime}/data:/app/runtime/data
       - ${BIOS_DEMO_RUNTIME:-../demo-runtime}/inbox:/app/runtime/inbox
