@@ -1,0 +1,28 @@
+{% extends "base_stakeholder.html" %}
+{% block title %}Competitive moves — Berry Intelligence{% endblock %}
+{% block content %}
+<div class="sh-page moves-page">
+  <header class="sh-header">
+    <div>
+      <p class="sh-kicker">Competitive moves · {{ board.trust_label if board else "LIVE / UNREVIEWED MOVE" }}</p>
+      <h1>Who is moving.</h1>
+      <p class="sh-lede">
+        Competitive moves derived from Radar Developments — expansion, genetics, partnerships, market entry, leadership, and IP.
+        Not a wall of articles. Live public discovery stays unreviewed. Trusted Evidence, when it exists, stays distinct.
+      </p>
+    </div>
+    {% if not static_build %}
+    <div class="sh-actions">
+      <a class="sh-btn" href="/radar">Emerging developments</a>
+      <a class="sh-btn" href="/radar/live">Refresh Radar</a>
+    </div>
+    {% endif %}
+  </header>
+
+  {% if board %}
+    {% include "_moves_board.html" %}
+  {% else %}
+    <p class="sh-empty">No Radar cache. <a class="sh-btn sh-btn-primary" href="/radar/live">Load emerging developments</a> then return here.</p>
+  {% endif %}
+</div>
+{% endblock %}

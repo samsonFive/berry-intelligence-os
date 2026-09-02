@@ -79,6 +79,18 @@
   {% endif %}
 </section>
 
+{% if not static_build and company_competitive_moves %}
+<section class="v2-company-section" id="competitive-moves">
+  <h2>Recent competitive moves</h2>
+  <p class="context-limit">LIVE / UNREVIEWED MOVE — derived from Radar Developments, not trusted Evidence.{% if company_move_pattern %} {{ company_move_pattern.label }}: {{ company_move_pattern.theme }}.{% endif %} <a href="/moves/{{ entity.id }}">Full chronology</a></p>
+  <ul class="sh-story-list">
+    {% for item in company_competitive_moves %}
+      <li>{% include "_move_card.html" %}</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
 {% if open_signals and (open_signals.emerging or open_signals.confirmed or open_signals.deferred) %}
 <section class="v2-company-section" id="open-signals">
   <h2>Open signals</h2>

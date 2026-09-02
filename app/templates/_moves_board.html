@@ -1,0 +1,75 @@
+<div class="radar-fresh">
+  <p class="sh-note">{{ board.freshness_label }} · {{ board.trust_label }} · {{ board.stats.moves }} moves · {{ board.stats.companies }} companies · {{ board.stats.patterns }} patterns</p>
+</div>
+
+{% if board.patterns %}
+<section class="sh-section move-patterns" id="patterns">
+  <h2>Repeated move patterns</h2>
+  <p class="sh-note">Multiple supporting events for the same company. Not labelled a strategy unless the sources already say so.</p>
+  <ul class="sh-story-list">
+    {% for pattern in board.patterns[:6] %}
+      <li class="move-pattern">
+        <p class="sh-story-meta"><span>{{ pattern.label }}</span> <span>{{ pattern.theme }}</span></p>
+        <h3 class="sh-story-title"><a href="/moves/{{ pattern.company_id }}">{{ pattern.company_name }}</a></h3>
+        <p>{{ pattern.why }}</p>
+        <p class="sh-story-meta">
+          {% for t in pattern.supporting_move_types %}<span>{{ t | replace("_", " ") }}</span>{% endfor %}
+          <span>{{ pattern.move_count }} supporting moves</span>
+        </p>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+{% for section in board.sections %}
+<section class="sh-section move-section move-section-{{ section.key }}" id="{{ section.key }}">
+  <h2>{{ section.title }}</h2>
+  <p class="sh-note">{{ section.kicker }}</p>
+  {% if section.kind == "momentum" %}
+    <ul class="move-momentum">
+      {% for item in section.rows %}
+        <li>
+          <a href="{{ item.href }}"><strong>{{ item.company_name }}</strong></a>
+          <span>{{ item.move_count }} move{{ "s" if item.move_count != 1 else "" }}</span>
+          <span>{{ item.move_type_labels | join(" · ") }}</span>
+          <span>Latest {{ item.latest_update }}</span>
+          {% if item.geographies %}<span>{{ item.geographies | join(", ") }}</span>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <ul class="sh-story-list">
+      {% for item in section.rows %}
+        <li>{% include "_move_card.html" %}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+{% else %}
+<p class="sh-empty">No competitive moves yet. Radar cache is empty or no canonical company was named. Refresh <a href="/radar">Emerging developments</a> first.</p>
+{% endfor %}
+
+{% if board.featured_timeline and board.featured_timeline.rows %}
+<section class="sh-section" id="timeline">
+  <h2>Move timeline — {{ board.featured_timeline.company_name }}</h2>
+  <p class="sh-note">Chronology reused from supporting Developments. <a href="{{ board.featured_timeline.entity_href }}">Company page</a> · <a href="{{ board.featured_timeline.href }}">All moves</a></p>
+  <table class="move-timeline">
+    <thead>
+      <tr><th>Date</th><th>Move</th><th>Source</th><th>Geography</th><th>Variety / berry</th><th>Trust</th></tr>
+    </thead>
+    <tbody>
+      {% for row in board.featured_timeline.rows %}
+      <tr>
+        <td>{{ row.date }}</td>
+        <td><a href="{{ row.href }}">{{ row.what_happened }}</a></td>
+        <td>{{ row.source }}</td>
+        <td>{{ row.geography }}</td>
+        <td>{{ row.variety_or_berry }}</td>
+        <td>{{ row.trust_state }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
