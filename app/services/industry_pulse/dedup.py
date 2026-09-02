@@ -11,6 +11,7 @@ from __future__ import annotations
 from urllib.parse import urlparse
 
 from app.services.article_dedup import normalize_canonical_url, normalize_title
+from app.services.industry_pulse.canonical_urls import is_article_url, is_homepage, is_wrapper, url_quality
 from app.services.industry_pulse.models import DiscoveryHit
 from app.services.recall_audit.classify import WRAPPER_HOSTS, hostname
 
@@ -47,6 +48,10 @@ def identity_key(hit: DiscoveryHit) -> str:
 
 
 def _more_specific(left: DiscoveryHit, right: DiscoveryHit) -> bool:
+    left_quality = url_quality(left)
+    right_quality = url_quality(right)
+    if left_quality != right_quality:
+        return left_quality > right_quality
     return GEO_SPECIFICITY.get(left.geography, 0) > GEO_SPECIFICITY.get(right.geography, 0)
 
 
@@ -69,5 +74,47 @@ def dedupe_hits(hits: list[DiscoveryHit]) -> list[DiscoveryHit]:
     return hits
 
 
+def _story_key(hit: DiscoveryHit) -> str | None:
+    title = normalize_title(hit.title)
+    domain = hostname(hit.origin_publisher_url or "") or (hit.source_domain or "").lower().removeprefix("www.")
+    if domain in WRAPPER_HOSTS:
+        domain = (hit.source_domain or "").lower().removeprefix("www.")
+    day = (hit.published_date or "")[:10]
+    if title and domain and day and domain not in WRAPPER_HOSTS:
+        return f"story:{domain}:{title}:{day}"
+    return None
+
+
+def _weak_url(hit: DiscoveryHit) -> bool:
+    origin = hit.origin_publisher_url or hit.url
+    return is_homepage(origin) or is_wrapper(origin) or is_wrapper(hit.url) or is_wrapper(hit.wrapper_url)
+
+
 def unique_hits(hits: list[DiscoveryHit]) -> list[DiscoveryHit]:
-    return [hit for hit in hits if not hit.duplicate_of]
+    """Keep distinct first-party articles. Collapse only wrapper/homepage twins."""
+    survivors = [hit for hit in hits if not hit.duplicate_of]
+    best: dict[str, DiscoveryHit] = {}
+    leftover: list[DiscoveryHit] = []
+    for hit in survivors:
+        key = _story_key(hit)
+        if not key:
+            leftover.append(hit)
+            continue
+        prior = best.get(key)
+        if prior is None:
+            best[key] = hit
+            continue
+        if is_article_url(hit.origin_publisher_url or hit.url) and is_article_url(
+            prior.origin_publisher_url or prior.url
+        ):
+            leftover.append(hit)
+            continue
+        if not (_weak_url(hit) or _weak_url(prior)):
+            leftover.append(hit)
+            continue
+        if _more_specific(hit, prior):
+            prior.duplicate_of = key
+            best[key] = hit
+        else:
+            hit.duplicate_of = key
+    return [hit for hit in [*best.values(), *leftover] if not hit.duplicate_of]

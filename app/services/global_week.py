@@ -29,7 +29,9 @@ from app.services.competitor_pulse import (
     _normalize_quotes,
     detect_geography,
 )
+from app.services.industry_pulse.canonical_urls import preferred_url, url_quality
 from app.services.industry_pulse.dedup import dedupe_hits, identity_key, unique_hits
+from app.services.industry_pulse.exa_queries import week_unknown_unknown_queries
 from app.services.industry_pulse.matrix import (
     ALL_BERRIES_TERMS,
     BERRIES,
@@ -316,6 +318,7 @@ class WeekItem:
     named_entity_count: int = 0
     corroboration: int = 1
     in_window: bool = True
+    first_party_article: bool = False
     rank_reasons: tuple[str, ...] = ()
     trust_label: str = TRUST_LABEL
 
@@ -336,6 +339,8 @@ def _rank_reasons(item: WeekItem) -> tuple[str, ...]:
         reasons.append("Official source")
     if item.specialist:
         reasons.append("Specialist source")
+    if item.first_party_article:
+        reasons.append("First-party publisher URL")
     if item.corroboration > 1:
         reasons.append(f"Corroborated across {item.corroboration} publishers")
     if item.named_entity_count:
@@ -360,6 +365,7 @@ def _rank_tuple(item: WeekItem) -> tuple[Any, ...]:
         1 if item.explicit_event else 0,
         1 if item.official else 0,
         1 if item.specialist else 0,
+        1 if item.first_party_article else 0,
         item.corroboration,
         item.named_entity_count,
         item.published_date or "",
@@ -368,10 +374,7 @@ def _rank_tuple(item: WeekItem) -> tuple[Any, ...]:
 
 
 def display_url(hit: DiscoveryHit) -> str:
-    origin = hit.origin_publisher_url or hit.url
-    if _is_homepage(origin) and hit.wrapper_url:
-        return hit.wrapper_url
-    return origin
+    return preferred_url(hit)
 
 
 def _to_item(
@@ -410,6 +413,7 @@ def _to_item(
         named_entity_count=_named_entity_count(hit),
         corroboration=corroboration,
         in_window=_in_selected_window(hit.published_date, today=today, window=window),
+        first_party_article=url_quality(hit) >= 4,
     )
     item.rank_reasons = _rank_reasons(item)
     return item
@@ -744,6 +748,7 @@ def run_week_intelligence(
     sources: Iterable[dict[str, Any]] = (),
     now: datetime | None = None,
     query_filter: Callable[[list[PulseQuery]], list[PulseQuery]] | None = None,
+    background_hits: Iterable[DiscoveryHit] = (),
 ) -> WeekEdition:
     """Live, read-only. Writes nothing. Qualifying hits stay LIVE / UNREVIEWED."""
     if window not in LIVE_WINDOWS:
@@ -768,6 +773,10 @@ def run_week_intelligence(
 
     if specialist_provider is not None:
         jobs.extend((specialist_provider, query) for query in week_specialist_feed_queries())
+
+    for provider in provider_list:
+        if getattr(provider, "name", "") == "exa":
+            jobs.extend((provider, query) for query in week_unknown_unknown_queries())
 
     if catch_net_provider is not None:
         if not _provider_available(catch_net_provider):
@@ -798,6 +807,14 @@ def run_week_intelligence(
                 raw.extend(hits)
                 for hit in hits:
                     found_by.setdefault(identity_key(hit), set()).add(name)
+
+    cached = list(background_hits or [])
+    if cached:
+        telemetry.setdefault("newscatcher_catchall", {"queries_issued": 0, "hits_returned": 0, "errors": 0})
+        telemetry["newscatcher_catchall"]["hits_returned"] += len(cached)
+        raw.extend(cached)
+        for hit in cached:
+            found_by.setdefault(identity_key(hit), set()).add(hit.provider or "newscatcher_catchall")
 
     index = _qualify_corpus(entities=entities, varieties=varieties, sources=sources)
     _qualify_raw(raw, index=index, window=window, today=now.date())

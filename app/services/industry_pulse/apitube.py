@@ -23,10 +23,13 @@ from app.services.industry_pulse.query_text import date_window_of, semantic_quer
 
 APITUBE_SEARCH_URL = "https://api.apitube.io/v1/news/everything"
 APITUBE_SETUP = (
-    "Operator setup: create an APITube account, copy the News API key, and set "
-    f"{APITUBE_API_KEY_ENV} in the process environment (never commit it). "
-    "Authenticate with the X-API-Key header. Free/Starter plans exist; "
-    "commercial redistribution and full-text retention need vendor/counsel review."
+    f"SET {APITUBE_API_KEY_ENV} → provider becomes available. "
+    "Operator setup: create an APITube account, copy the News API key (live keys start with "
+    "api_live_), and set it in the process environment (never commit it). "
+    "GET https://api.apitube.io/v1/news/everything with X-API-Key. "
+    "Free plan: 100 req/day, 10/min, per_page<=10, first 5 pages, 200-char body "
+    "preview. No documented embargo delay on the free plan. "
+    "Commercial redistribution and full-text retention need vendor/counsel review."
 )
 
 

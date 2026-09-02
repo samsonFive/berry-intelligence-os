@@ -3862,6 +3862,8 @@ def _week_edition_context(request: Request, *, window: str, promoted: str = "") 
     entities = all_entities()
     varieties = [row for row in entities if row.get("entity_type") == "variety"]
     providers, catch_net, specialist = _week_discovery_stack()
+    from app.services.industry_pulse.live_stack import week_background_hits
+
     edition = run_week_intelligence(
         window=window,
         providers=providers,
@@ -3870,6 +3872,7 @@ def _week_edition_context(request: Request, *, window: str, promoted: str = "") 
         entities=entities,
         varieties=varieties,
         sources=load_sources(),
+        background_hits=week_background_hits(inbox_dir=INBOX_DIR),
     )
     brief = generate_week_brief(edition.what_matters or edition.items, completer=maybe_untrusted_completer())
     indexed = {f"live-{i}": item for i, item in enumerate((edition.what_matters or edition.items)[:25])}

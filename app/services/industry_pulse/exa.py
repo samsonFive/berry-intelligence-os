@@ -22,6 +22,14 @@ from app.services.industry_pulse.query_text import (
 )
 
 EXA_SEARCH_URL = "https://api.exa.ai/search"
+EXA_SETUP = (
+    "SET EXA_API_KEY → provider becomes available. "
+    "Create a key at https://dashboard.exa.ai/api-keys and set it in the "
+    "process environment (never commit it). POST https://api.exa.ai/search "
+    "with Authorization: Bearer. Not required at app boot. "
+    "2026 list price: $7/1k searches (10 results included); $10 free credits/month. "
+    "Unknown-unknown queries use type=auto and do not require the crop name in the title."
+)
 
 
 def _today() -> date:
@@ -42,17 +50,20 @@ class ExaSearchProvider:
     def discover(self, query: PulseQuery) -> list[DiscoveryHit]:
         key = (self.api_key or env_key(EXA_API_KEY_ENV)).strip()
         if not key:
-            raise ProviderAuthError("EXA_API_KEY is not configured")
+            raise ProviderAuthError(f"EXA_API_KEY is not configured. {EXA_SETUP}")
         window = date_window_of(query)
         today = self.today or _today()
         text = semantic_query_text(query)
+        search_type = "auto"
         body: dict[str, Any] = {
             "query": text,
-            "type": "auto",
+            "type": search_type,
             "numResults": min(max(self.num_results, 1), 100),
             "startPublishedDate": exa_start_published(window, today=today),
             "contents": {"text": False, "highlights": {"maxCharacters": 400}},
         }
+        if query.kind == "unknown_unknown":
+            body["category"] = "news"
         country = iso_country(query.geography)
         if country:
             body["userLocation"] = country
