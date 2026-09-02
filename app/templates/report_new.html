@@ -1,24 +1,30 @@
-{% extends "base.html" %}
-{% block title %}New Report — Berry Intelligence OS{% endblock %}
+{% extends "base_stakeholder.html" %}
+{% block title %}New report — Berry Intelligence{% endblock %}
 {% block content %}
-<div class="v2-page">
-<section class="page-heading v2-page-header">
+<div class="sh-page v2-page">
+<section class="sh-header page-heading v2-page-header">
   <div>
-    <p class="eyebrow">AI-ASSISTED REPORT BUILDER</p>
-    <h1>New report</h1>
-    <p class="also-known-as">Describe the report you want. The system proposes a scope from this system's own trusted intelligence -- it never guesses an unresolved company, variety, or geography; you confirm or fix anything ambiguous before a draft is generated.</p>
+    <p class="sh-kicker eyebrow">Reports</p>
+    <h1>Build a report</h1>
+    <p class="sh-lede also-known-as">Ask → confirm scope → research → review → export. The draft uses this system's trusted intelligence only.</p>
   </div>
 </section>
 
 {% if step == 'start' %}
-<form class="filters" method="post" action="/reports/new">
+<form class="sh-search-form filters" method="post" action="/reports/new">
   <input type="hidden" name="step" value="interpret">
-  <div class="filter-field" style="flex:1;min-width:320px">
-    <label for="request-text">Report request</label>
-    <textarea id="request-text" name="request_text" rows="3" placeholder="e.g. Give me a competitive landscape for blueberry genetics in Europe." required></textarea>
+  <div class="sh-field sh-field-grow filter-field">
+    <label for="request-text">What do you want to understand?</label>
+    <textarea id="request-text" name="request_text" rows="4" placeholder="Give me a competitive landscape for blueberry genetics in Europe." required>{{ example_request or '' }}</textarea>
   </div>
-  <button type="submit" class="v2-btn">Interpret request</button>
+  <button type="submit" class="sh-btn sh-btn-primary v2-btn">Continue</button>
 </form>
+<p class="sh-note">Examples</p>
+<p class="sh-examples">
+  <button type="button" class="sh-example" data-example="Give me a competitive landscape for blueberry genetics in Europe.">Blueberry genetics in Europe</button>
+  <button type="button" class="sh-example" data-example="What is Planasa doing in blueberries, and which varieties matter?">Planasa now</button>
+  <button type="button" class="sh-example" data-example="Write a variety brief for SEKOYA Grande: identity, rights, and recent intelligence.">SEKOYA Grande</button>
+</p>
 <p class="v2-meta">Or <a href="#manual-scope">build a scope manually</a> without a natural-language request.</p>
 <form id="manual-scope" class="filters" method="post" action="/reports/new">
   <input type="hidden" name="step" value="preview">
@@ -140,9 +146,22 @@
     <label for="report-title">Report title</label>
     <input id="report-title" type="text" name="title" placeholder="Untitled report">
   </div>
-  <button type="submit" class="v2-btn">Generate draft</button>
+  <button type="submit" class="sh-btn sh-btn-primary v2-btn">Generate draft</button>
   <a class="v2-btn v2-btn-quiet" href="/reports/new">Start over</a>
 </form>
 {% endif %}
 </div>
+{% endblock %}
+{% block scripts %}
+<script>
+  document.querySelectorAll(".sh-example").forEach(function (button) {
+    button.addEventListener("click", function () {
+      var field = document.getElementById("request-text");
+      if (field) {
+        field.value = button.getAttribute("data-example") || "";
+        field.focus();
+      }
+    });
+  });
+</script>
 {% endblock %}

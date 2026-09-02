@@ -1,70 +1,50 @@
-{% extends "base.html" %}
-{% block title %}{{ geo.name }} — Geography Intelligence{% endblock %}
+{% extends "base_stakeholder.html" %}
+{% block title %}{{ geo.name }} — Markets{% endblock %}
 {% block content %}
 {% set geo = geo if geo is defined else {} %}
-<div class="v2-page v2-company">
-<section class="page-heading v2-page-header" data-pagefind-filter="type:entity">
+<div class="sh-page v2-page v2-company">
+<section class="sh-header page-heading v2-page-header" data-pagefind-filter="type:entity">
   <div>
-    <p class="eyebrow">GEOGRAPHY INTELLIGENCE</p>
+    <p class="sh-kicker eyebrow">Market</p>
     <h1>{{ geo.name }}</h1>
-    <p class="v2-company-meta">
-      <span class="v2-meta">{{ geo.type }}</span>
-      {% if geo.region_href %}<a href="{{ geo.region_href }}">{{ geo.region_name }}</a>{% elif geo.region_label %}<span class="v2-meta">{{ geo.region_label }}</span>{% endif %}
-      {% for b in geo.berries %}<span class="v2-chip v2-chip-berry">{{ b }}</span>{% endfor %}
+    <p class="sh-meta v2-company-meta">
+      {% if geo.region_href %}<a href="{{ geo.region_href }}">{{ geo.region_name }}</a>{% elif geo.region_label %}<span>{{ geo.region_label }}</span>{% endif %}
+      {% if geo.type %}<span>{{ geo.type|humanize_label }}</span>{% endif %}
+      {% for b in geo.berries %}<span>{{ b }}</span>{% endfor %}
     </p>
-    {% if geo.description %}<p class="also-known-as">{{ geo.description }}</p>{% endif %}
+    {% if geo.description %}<p class="sh-lede also-known-as">{{ geo.description }}</p>{% endif %}
+    <p class="sh-note" id="geography-coverage">
+      {{ geo.coverage.company_count }} companies · {{ geo.coverage.variety_count }} varieties · {{ geo.coverage.evidence_count }} trusted items
+      {% if geo.coverage.latest_date %} · Latest {{ geo.coverage.latest_date|us_date }}{% endif %}
+    </p>
   </div>
-  <div class="v2-company-actions">
-    <a class="v2-btn v2-btn-quiet" href="/geographies">All geographies</a>
+  <div class="sh-actions v2-company-actions">
+    <a class="sh-btn v2-btn v2-btn-quiet" href="/geographies">All markets</a>
     {% if not static_build %}
-      <form method="post" action="/watches/toggle" style="display:inline">
+      <form method="post" action="/watches/toggle">
         <input type="hidden" name="watch_type" value="geography">
         <input type="hidden" name="object_id" value="{{ geo.id }}">
         <input type="hidden" name="action" value="{{ 'remove' if is_watched else 'add' }}">
         <input type="hidden" name="return_to" value="{{ request.url.path }}">
-        <button class="v2-btn v2-btn-quiet" type="submit">{{ 'Remove from watchlist' if is_watched else 'Add to watchlist' }}</button>
+        <button class="sh-btn v2-btn v2-btn-quiet" type="submit">{{ 'Remove from watchlist' if is_watched else 'Add to watchlist' }}</button>
       </form>
     {% endif %}
   </div>
 </section>
 
-<section class="v2-company-section" id="geography-coverage">
-  <h2>Evidence coverage</h2>
-  <p class="context-limit">{{ geo.coverage_caveat }}</p>
-  <div class="balanced-card-grid">
-    <article class="card">
-      <p class="card-kicker">TRUSTED EVIDENCE</p>
-      <h2>{{ geo.coverage.evidence_count }}</h2>
-      <p>from {{ geo.coverage.source_count }} distinct source{{ 's' if geo.coverage.source_count != 1 else '' }}</p>
-    </article>
-    <article class="card">
-      <p class="card-kicker">COMPANIES REPRESENTED</p>
-      <h2>{{ geo.coverage.company_count }}</h2>
-      <p>in our captured intelligence for this geography</p>
-    </article>
-    <article class="card">
-      <p class="card-kicker">VARIETIES REPRESENTED</p>
-      <h2>{{ geo.coverage.variety_count }}</h2>
-      <p>with trusted geography grounding</p>
-    </article>
-    <article class="card">
-      <p class="card-kicker">SIGNALS</p>
-      <h2>{{ geo.coverage.signal_count }}</h2>
-      <p>materially linked to this geography</p>
-    </article>
-    <article class="card">
-      <p class="card-kicker">ASSESSMENTS</p>
-      <h2>{{ geo.coverage.assessment_count }}</h2>
-      <p>analyst interpretation captured</p>
-    </article>
-    <article class="card">
-      <p class="card-kicker">LATEST ACTIVITY</p>
-      <h2>{{ geo.coverage.latest_date|us_date if geo.coverage.latest_date else "—" }}</h2>
-      <p>most recent captured item, not necessarily event date</p>
-    </article>
-  </div>
-  {% if geo.coverage.evidence_count == 0 %}
-    <p class="empty-state">Limited trusted intelligence captured for this geography.</p>
+<section class="sh-section v2-company-section" id="geography-recent">
+  <h2>Current developments</h2>
+  {% if geo.recent_moves %}
+    <ul class="sh-story-list entity-links">
+      {% for move in geo.recent_moves %}
+        <li>
+          <p class="sh-story-meta"><span>{{ move.kind|humanize_label }}</span>{% if move.date %}<span>{{ move.date|us_date }}</span>{% endif %}</p>
+          <h3 class="sh-story-title"><a href="{{ move.href }}">{{ move.title }}</a></h3>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="sh-empty empty-state">No recent published-date developments for this market.</p>
   {% endif %}
 </section>
 
@@ -132,20 +112,6 @@
     </ul>
   {% else %}
     <p class="empty-state">No trusted commercial observation captured for this geography.</p>
-  {% endif %}
-</section>
-
-<section class="v2-company-section" id="geography-recent">
-  <h2>Recent developments</h2>
-  <p class="context-limit">Bounded published-date snapshot. Full chronology is in Intelligence timeline below.</p>
-  {% if geo.recent_moves %}
-    <ul class="entity-links">
-      {% for move in geo.recent_moves %}
-        <li><span class="badge badge-muted">{{ move.kind|upper }}</span> <a href="{{ move.href }}">{{ move.title }}</a><span class="draft-meta"> · {{ move.date|us_date }}</span></li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p class="empty-state">No recent published-date trusted developments.</p>
   {% endif %}
 </section>
 

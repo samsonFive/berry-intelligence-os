@@ -1,10 +1,10 @@
-{% extends "base.html" %}
-{% block title %}{{ report.title }} — Berry Intelligence OS{% endblock %}
+{% extends "base_stakeholder.html" %}
+{% block title %}{{ report.title }} — Berry Intelligence{% endblock %}
 {% block content %}
-<div class="v2-page">
-<section class="page-heading v2-page-header">
+<div class="sh-page v2-page">
+<section class="sh-header page-heading v2-page-header">
   <div>
-    <p class="eyebrow">AI-ASSISTED REPORT · {{ report_type_labels.get(report.report_type, report.report_type)|upper }}</p>
+    <p class="sh-kicker eyebrow">{{ report_type_labels.get(report.report_type, report.report_type)|humanize_label }}</p>
     <h1>{{ report.title }}</h1>
     <p class="also-known-as">AI-assisted; analyst-reviewed. Report prose is report output, not canonical intelligence -- editing or regenerating a section here never changes any Evidence, Signal, Assessment, or Strategic Question.</p>
   </div>

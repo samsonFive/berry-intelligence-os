@@ -116,16 +116,12 @@ def test_today_route_console_help_and_no_trust_mutation(monkeypatch, tmp_path: P
     assert page.status_code == 200
     html = page.text
     assert "Top Stories" in html
-    assert "Needs your attention" in html
-    assert "Publications awaiting review" in html
-    assert "data-workspace-help" in html
-    assert "How Berry Intelligence Works" in html
-    assert 'href="/guide"' in html
+    assert "What matters now" in html
     assert "new since last visit" not in html.lower()
-    assert "Open Source Health" in html
-    assert 'href="/collection-ops"' in html
     assert "name=\"decision\"" not in html
     assert "Create Report" not in html
+    assert "Publication Review" not in html
+    assert "Collection Ops" not in html
     after = load_watches(inbox)[0]
     assert after["last_seen_at"] is None
     assert not (inbox / "review_events").exists()
@@ -155,9 +151,9 @@ def test_today_sparse_empty_states(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setattr(main, "load_sources", lambda: [])
     page = TestClient(main.app).get("/today")
     assert page.status_code == 200
-    assert "No new intelligence in the last 14 days" in page.text
-    assert "You are not monitoring anything yet" in page.text
-    assert "No Publications are waiting for review" in page.text
+    assert "What matters now" in page.text
+    assert "Top Stories" in page.text
+    assert "Publication Review" not in page.text
     snapshot = watch_monitoring_snapshot(inbox_dir=inbox)
     assert snapshot["watch_count"] == 0
     assert snapshot["has_watches"] is False
@@ -219,7 +215,6 @@ def test_collection_ops_and_source_degradation_next_action() -> None:
 def test_contextual_help_on_major_pages() -> None:
     client = TestClient(main.app)
     for path in (
-        "/today",
         "/sources",
         "/collection-ops",
         "/pending",
@@ -239,8 +234,8 @@ def test_contextual_help_on_major_pages() -> None:
 
 
 def test_queue_count_semantics_in_sidebar() -> None:
-    html = TestClient(main.app).get("/today").text
-    assert "Publications awaiting review" in html
+    html = TestClient(main.app).get("/brief").text
+    assert "Pending Review" in html
     assert "How it works" in html
     assert 'href="/guide"' in html
 

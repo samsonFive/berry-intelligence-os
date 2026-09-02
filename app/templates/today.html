@@ -1,210 +1,128 @@
-{% extends "base.html" %}
-{% block title %}Today — Berry Intelligence OS{% endblock %}
+{% extends "base_stakeholder.html" %}
+{% block title %}Today — Berry Intelligence{% endblock %}
 {% block content %}
-<div class="v2-page today-page">
-<section class="page-heading v2-page-header today-header">
-  <div>
-    <p class="eyebrow">TODAY</p>
-    <h1>Today</h1>
-    <p class="also-known-as">Start here each morning. Newest reliable intelligence first. Opening this page does not mark anything seen, reviewed, or published.</p>
-  </div>
-</section>
+<div class="sh-page today-page">
+  <header class="sh-header">
+    <div>
+      <p class="sh-kicker">Today</p>
+      <h1>What matters now</h1>
+      <p class="sh-lede">
+        {% if today.freshness.current_through_label %}
+          Current through {{ today.freshness.current_through_label }}.
+        {% elif today.freshness.current_through %}
+          Current through {{ today.freshness.current_through }}.
+        {% else %}
+          Publication dates below are trusted dates, not a claim that collection is current.
+        {% endif %}
+      </p>
+    </div>
+  </header>
 
-{% with help_what="Your front page: fresh and trusted intelligence together with honest trust labels, queues that need a human decision, watchlist presence, and collection health.", help_why="Intelligence without chronology looks weak. Today answers what happened recently, what needs attention, and whether Sources are healthy.", help_do="Read Top Stories, then work Needs your attention. Use Collection if freshness is degraded.", help_after="Nothing you only view here is approved, rejected, or marked seen. Decisions happen on the linked review pages.", help_note="How Berry Intelligence Works is a short map of Sources → Publications → Evidence → Signals → Assessments → Questions → Brief Packs." %}
-  {% include "_workspace_help.html" %}
-{% endwith %}
-<p class="today-welcome">New here? <a href="/guide">How Berry Intelligence Works</a> — then come back to this page.</p>
-
-<section class="today-freshness" data-today-freshness id="collection-status">
-  {% if today.freshness.degraded %}
-    <p class="banner banner-warning">Collection is degraded. Do not treat this screen as fully current.</p>
-  {% elif today.freshness.current_through_label %}
-    <p class="today-current"><strong>Intelligence current through</strong> {{ today.freshness.current_through_label }}</p>
-  {% elif today.freshness.current_through %}
-    <p class="today-current"><strong>Intelligence current through</strong> {{ today.freshness.current_through }}</p>
-  {% else %}
-    <p class="today-current">Collection freshness is not established from a successful run.</p>
-  {% endif %}
-</section>
-
-<nav class="today-berries" aria-label="Berry filter">
-  <a href="/today" class="{% if not today.berry_id %}is-active{% endif %}">All berries</a>
-  {% for berry in berries %}
-    <a href="/today?berry={{ berry.id }}" class="{% if today.berry_id == berry.id %}is-active{% endif %}">{{ berry.label }}</a>
-  {% endfor %}
-</nav>
-
-<nav class="front-page-nav" aria-label="Front page sections">
-  <a href="#top-stories">Latest</a>
-  {% for geo_id, region in front_page.by_region.items() %}<a href="#region-{{ geo_id }}">{{ region.label }}</a>{% endfor %}
-  {% for berry_id, berry in front_page.by_berry.items() %}<a href="#berry-{{ berry_id }}">{{ berry.label }}</a>{% endfor %}
-  <a href="#competitor-moves">Competitors</a>
-  <a href="#variety-genetics">Genetics</a>
-</nav>
-
-{% if front_page.stale_reason %}
-<div class="front-page-stale" data-front-page-stale>
-  <p><strong>{{ front_page.stale_reason }}</strong></p>
-  <p><a href="/work-queue">View last 30 days on Live Intelligence</a></p>
-</div>
-{% endif %}
-
-<section class="front-section front-page-hero" id="top-stories">
-  <h2>Top Stories</h2>
-  <p class="context-limit">Ranked by recency, whether a Signal or Assessment has already formed around it, whether it introduces a new company or variety, and how many canonical entities it touches — not simply newest timestamp first.</p>
-  {% if front_page.top_stories %}
-    <ul class="front-story-list">
-      {% for item in front_page.top_stories %}{% include "_front_page_item.html" %}{% endfor %}
-    </ul>
-  {% else %}
-    <p class="empty-state">Nothing qualifies as a top story in the current window.</p>
-  {% endif %}
-</section>
-
-<section class="front-section" id="since-yesterday">
-  <h2>What changed in the last 24 hours</h2>
-  <p class="context-limit">Rolling 24-hour window from now ({{ front_page.since_yesterday.cutoff[:16]|replace("T", " ") }} UTC cutoff), not wall-clock-naive.</p>
-  {% if front_page.since_yesterday.total %}
-    <p>
-      {{ front_page.since_yesterday.new_publications|length }} new Publication draft(s) ·
-      {{ front_page.since_yesterday.newly_reviewed_evidence|length }} newly reviewed Evidence ·
-      {{ front_page.since_yesterday.new_signals|length }} new Signal(s) ·
-      {{ front_page.since_yesterday.new_assessments|length }} new Assessment(s)
-    </p>
-  {% else %}
-    <p class="empty-state">Nothing new in the last 24 hours.</p>
-  {% endif %}
-</section>
-
-<div class="front-page-grid">
-  {% for geo_id, region in front_page.by_region.items() %}
-    {% if region.rows %}
-    <section class="front-section" id="region-{{ geo_id }}">
-      <h2>{{ region.label }}</h2>
-      <ul class="front-story-list">
-        {% for item in region.rows %}{% include "_front_page_item.html" %}{% endfor %}
-      </ul>
-    </section>
-    {% endif %}
-  {% endfor %}
-  {% for berry_id, berry in front_page.by_berry.items() %}
-    {% if berry.rows %}
-    <section class="front-section" id="berry-{{ berry_id }}">
-      <h2>{{ berry.label }}</h2>
-      <ul class="front-story-list">
-        {% for item in berry.rows %}{% include "_front_page_item.html" %}{% endfor %}
-      </ul>
-    </section>
-    {% endif %}
-  {% endfor %}
-  {% for section in front_page.sections %}
-    {% if section.key not in ("top_stories",) %}
-    <section class="front-section" id="{{ section.key|replace('_', '-') }}">
-      <h2>{{ section.label }}</h2>
-      <ul class="front-story-list">
-        {% for item in section.rows %}{% include "_front_page_item.html" %}{% endfor %}
-      </ul>
-    </section>
-    {% endif %}
-  {% endfor %}
-</div>
-
-{% if front_page.region_gaps or front_page.berry_gaps %}
-<section class="brief-section" id="coverage-gaps">
-  <h3>No fresh items</h3>
-  <ul class="front-gap-notes">
-    {% for note in front_page.region_gaps + front_page.berry_gaps %}<li>{{ note }}</li>{% endfor %}
-  </ul>
-</section>
-{% endif %}
-
-<section class="brief-section" id="needs-attention">
-  <h2>Needs your attention</h2>
-  <p class="context-limit">Waiting totals only. A recent/new count appears only when the last Morning Brief timestamp makes it knowable. Clearing a count reviews or hides an item — it does not delete the Source record.</p>
-  <ul class="today-attention">
-    {% for queue in attention_queues %}
-      <li class="today-attention-card" data-attention="{{ queue.key }}">
-        <h3>{{ queue.title }}</h3>
-        <p class="today-attention-count">{{ queue.waiting_label }}{% if queue.recent_label %} · {{ queue.recent_label }}{% endif %}</p>
-        <p>{{ queue.contains if queue.waiting else queue.empty }}</p>
-        {% if queue.waiting %}<p class="context-limit">{{ queue.after }}</p>{% endif %}
-        <p><a href="{{ queue.href }}">{{ queue.action }}</a></p>
-      </li>
-    {% endfor %}
-  </ul>
-  <nav class="today-next-work" aria-label="Next analyst work">
-    <a href="/review-ops">Review Operations{% if nav_work_counts.review_now %} · {{ nav_work_counts.labels.review_now if nav_work_counts.labels is defined else nav_work_counts.review_now ~ ' pending' }}{% endif %}</a>
-    <a href="/pending">Publication Review</a>
-    <a href="/review?kind=atomic">Atomic Evidence Review</a>
-    <a href="/sources">Source Health</a>
-    <a href="/watches">My Watches</a>
-    <a href="/strategic-questions">Strategic Questions</a>
-    <a href="/guide">How it works</a>
-  </nav>
-</section>
-
-<section class="brief-section" id="monitoring">
-  <h2>Monitoring</h2>
-  <p class="context-limit">Watchlist presence only. Opening Today never marks a Watch seen. Signal objects below are not a substitute for Watch recency.</p>
-  {% if monitoring.has_watches %}
-    <p>{{ monitoring.watch_count }} watch{{ 'es' if monitoring.watch_count != 1 else '' }} on My Watches{% if monitoring.unchecked_count %} · {{ monitoring.unchecked_count }} not yet checked{% endif %}.</p>
-    <p><a href="/watches">Open My Watches</a> to see what is new since you last opened a watched object.</p>
-  {% else %}
-    <p class="empty-state">You are not monitoring anything yet. Add a Watch from a Company, Variety, Geography, or Strategic Question page.</p>
-  {% endif %}
-</section>
-
-<section class="brief-section" id="collection">
-  <h2>Collection</h2>
-  <p class="context-limit">Compact status from the shared freshness contract. Viewing Today never starts a collection run.</p>
-  <dl class="v2-role-list">
-    <dt>Last run</dt>
-    <dd>{% if today.freshness.last_run_label %}{{ today.freshness.last_run_label }}{% elif today.freshness.last_run_at %}{{ today.freshness.last_run_at }}{% else %}Not recorded{% endif %}</dd>
-    <dt>Last success</dt>
-    <dd>{% if today.freshness.last_collection_label %}{{ today.freshness.last_collection_label }}{% elif today.freshness.last_collection_at %}{{ today.freshness.last_collection_at }}{% else %}No successful collection yet{% endif %}</dd>
-    <dt>Last new item captured</dt>
-    <dd>{% if today.freshness.last_captured_label %}{{ today.freshness.last_captured_label }}{% elif today.freshness.last_captured_at %}{{ today.freshness.last_captured_at }}{% else %}None recorded{% endif %}</dd>
-    <dt>Discoverable Sources</dt>
-    <dd>{{ today.freshness.discoverable_sources }}</dd>
-    <dt>Degraded Sources</dt>
-    <dd>{% set source_counts = today.freshness.counts or {} %}{{ (source_counts.failing or 0) + (source_counts.overdue or 0) + (source_counts.blocked or 0) }} <span class="v2-meta">({{ source_counts.failing or 0 }} failing · {{ source_counts.overdue or 0 }} overdue · {{ source_counts.blocked or 0 }} blocked)</span></dd>
-  </dl>
-  {% set source_counts = today.freshness.counts or {} %}
-  {% if source_counts.failing or source_counts.overdue or source_counts.blocked %}
-    <p class="banner banner-warning" data-today-source-problems>
-      Source problems: {{ source_counts.failing or 0 }} failing · {{ source_counts.overdue or 0 }} overdue · {{ source_counts.blocked or 0 }} blocked.
-      <a href="/sources">Open Source Health</a>
-      · <a href="/collection-ops">Collection Ops</a>
-    </p>
-  {% endif %}
-  <p class="v2-meta">Next action: <a href="/collection-ops">Collection Operations</a> — last run, retries, and OPERATOR ACTION items. Viewing that page does not start a run.</p>
-  {% if front_page.coverage_watch %}
-    <p class="front-coverage-watch">Coverage watch: {{ front_page.coverage_watch.attention_count }} known Source(s) not collected, {{ front_page.coverage_watch.cited_not_collected_count }} cited-but-not-collected publisher(s). <a href="/coverage-assurance">Open Coverage Assurance</a></p>
-  {% endif %}
-  {% if today.newsroom_status %}
-    {% if today.newsroom_status.last_run_at %}
-      <p class="front-coverage-watch">Live discovery last completed {{ today.newsroom_status.last_run_label or today.newsroom_status.last_run_at }}{% if today.newsroom_status.last_run_drafts_created %} · {{ today.newsroom_status.last_run_drafts_created }} new draft(s){% endif %}.</p>
+  <nav class="sh-pills today-berries" aria-label="Berry filter">
+    <a href="/today" class="{% if not today.berry_id %}is-active{% endif %}">All berries</a>
+    {% if berries is mapping %}
+      {% for berry_id, berry_label in berries.items() %}
+        <a href="/today?berry={{ berry_id }}" class="{% if today.berry_id == berry_id %}is-active{% endif %}">{{ berry_label }}</a>
+      {% endfor %}
     {% else %}
-      <p class="front-coverage-watch">Live discovery has not completed a newsroom-intake cycle yet.</p>
+      {% for berry in berries %}
+        <a href="/today?berry={{ berry.id }}" class="{% if today.berry_id == berry.id %}is-active{% endif %}">{{ berry.label }}</a>
+      {% endfor %}
     {% endif %}
-    {% if today.newsroom_status.lock.active and not today.newsroom_status.lock.stale %}
-      <p class="v2-meta">A newsroom-intake cycle is running now.</p>
-    {% endif %}
+  </nav>
+
+  {% if stakeholder_front.freshness_note %}
+    <p class="sh-note">{{ stakeholder_front.freshness_note }}</p>
+  {% elif front_page.stale_reason %}
+    <p class="sh-note">{{ front_page.stale_reason }}</p>
   {% endif %}
-</section>
 
-{% if today.worth_revisiting %}
-<section class="brief-section" id="worth-revisiting">
-  <h2>Worth revisiting</h2>
-  <p class="context-limit">Older strategically important items. Age here does not imply freshness.</p>
-  <ul class="today-list">
-    {% for item in today.worth_revisiting %}
-      {% include "_today_item.html" %}
+  <section class="sh-lead" id="top-stories">
+    <h2 class="visually-hidden">Top Stories</h2>
+    <div class="sh-lead-main">
+      <p class="sh-kicker">{% if stakeholder_front.using_fallback %}Current picture{% else %}Top story{% endif %}</p>
+      {% if stakeholder_front.lead %}
+        {% with item=stakeholder_front.lead, featured=true %}{% include "_stakeholder_story.html" %}{% endwith %}
+      {% else %}
+        <h2>Top Stories</h2>
+        <p class="sh-empty">Nothing qualifies as a top story in the current window.</p>
+      {% endif %}
+    </div>
+    <div>
+      <p class="sh-kicker">Latest developments</p>
+      {% if stakeholder_front.supporting %}
+        <ul class="sh-story-list">
+          {% for item in stakeholder_front.supporting %}
+            <li>{% include "_stakeholder_story.html" %}</li>
+          {% endfor %}
+        </ul>
+      {% elif front_page.top_stories %}
+        <p class="sh-empty">No additional stories in this window.</p>
+      {% else %}
+        <p class="sh-empty">No additional developments to show beside the current picture.</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="sh-section" id="since-yesterday">
+    <h2>What changed in the last 24 hours</h2>
+    {% if front_page.since_yesterday.total %}
+      <p class="sh-note">
+        {{ front_page.since_yesterday.new_publications|length }} new draft{{ 's' if front_page.since_yesterday.new_publications|length != 1 else '' }},
+        {{ front_page.since_yesterday.newly_reviewed_evidence|length }} newly reviewed,
+        {{ front_page.since_yesterday.new_signals|length }} signal{{ 's' if front_page.since_yesterday.new_signals|length != 1 else '' }},
+        {{ front_page.since_yesterday.new_assessments|length }} assessment{{ 's' if front_page.since_yesterday.new_assessments|length != 1 else '' }}.
+      </p>
+    {% else %}
+      <p class="sh-empty">Nothing new in the last 24 hours.</p>
+    {% endif %}
+  </section>
+
+  <div class="sh-grid-2">
+    {% for section in front_page.sections %}
+      {% if section.key not in ("top_stories", "trusted_intelligence") and section.rows %}
+      <section class="sh-section" id="{{ section.key|replace('_', '-') }}">
+        <h2>{{ section.label }}</h2>
+        <ul class="sh-story-list">
+          {% for item in section.rows[:6] %}
+            <li>{% include "_stakeholder_story.html" %}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
     {% endfor %}
-  </ul>
-</section>
-{% endif %}
+    {% for geo_id, region in front_page.by_region.items() %}
+      {% if region.rows %}
+      <section class="sh-section" id="region-{{ geo_id }}">
+        <h2>{{ region.label }}</h2>
+        <ul class="sh-story-list">
+          {% for item in region.rows[:5] %}
+            <li>{% include "_stakeholder_story.html" %}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+    {% endfor %}
+  </div>
 
-<p class="today-browse"><a href="/work-queue">Browse Live Intelligence</a> · <a href="/">Browse the newsfeed</a> · <a href="/brief">Morning Brief</a> · <a href="/brief-packs">Brief Packs</a></p>
+  {% if today.worth_revisiting and not stakeholder_front.using_fallback %}
+  <section class="sh-section" id="worth-revisiting">
+    <h2>Worth revisiting</h2>
+    <p class="sh-note">Older strategically important items. Age here does not imply freshness.</p>
+    <ul class="sh-story-list">
+      {% for item in today.worth_revisiting[:6] %}
+        <li>{% include "_stakeholder_story.html" %}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  <p class="sh-footnote">
+    {% if today.freshness.degraded %}Collection is not fully current.{% endif %}
+    Dates are publication dates.
+    <a href="/watches">Watchlist</a>
+    · <a href="/reports">Reports</a>
+    {% if today.freshness.degraded %}· <a href="/review-ops">Analyst workspace</a>{% endif %}
+  </p>
 </div>
 {% endblock %}

@@ -1,12 +1,12 @@
-{% extends "base.html" %}
-{% block title %}My Watches{% endblock %}
+{% extends "base_stakeholder.html" %}
+{% block title %}Watchlist{% endblock %}
 {% block content %}
 {% set watches = watches if watches is defined else [] %}
-<div class="v2-page">
-<section class="page-heading v2-page-header">
+<div class="sh-page v2-page">
+<section class="sh-header page-heading v2-page-header">
   <div>
-    <p class="eyebrow">PRIVATE MONITORING</p>
-    <h1>My watches</h1>
+    <p class="sh-kicker eyebrow">Watchlist</p>
+    <h1>Watchlist</h1>
     <p class="also-known-as">What you're personally monitoring, and what's genuinely new since you last checked. A Watch is navigation only -- it never publishes, affirms, approves, or rejects anything.</p>
   </div>
 </section>

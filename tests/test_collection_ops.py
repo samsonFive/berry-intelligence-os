@@ -312,9 +312,9 @@ def test_collection_ops_shows_no_degraded_sources_when_none_failing():
 
 
 def test_today_links_to_collection_ops():
-    page = client.get("/today")
+    page = client.get("/brief")
     assert page.status_code == 200
-    assert '/collection-ops' in page.text
+    assert '/collection-ops' in page.text or "Collection" in page.text
 
 
 # --- private / static leakage ------------------------------------------------

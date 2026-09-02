@@ -1,12 +1,13 @@
-{% extends "base.html" %}
-{% block title %}Search — Berry Intelligence OS{% endblock %}
+{% extends "base_stakeholder.html" %}
+{% block title %}Search — Berry Intelligence{% endblock %}
 {% block content %}
-<section class="page-heading">
+<div class="sh-page">
+<section class="sh-header page-heading">
   <div>
-    <p class="eyebrow">NAVIGATION</p>
-    <h1 id="search-heading">{% if search_query %}Search results for “{{ search_query }}”{% else %}Search{% endif %}</h1>
+    <p class="sh-kicker eyebrow">Search</p>
+    <h1 id="search-heading">{% if search_query %}Results for “{{ search_query }}”{% else %}Search{% endif %}</h1>
     {% if not static_build %}
-    <p class="also-known-as">Global intelligence search is navigation, not a trust layer. Pending stays pending.</p>
+    <p class="sh-lede also-known-as">Find a company, variety, market, or source. Search does not change review status.</p>
     {% endif %}
   </div>
 </section>
@@ -131,33 +132,32 @@
   runSearch(initialQuery);
 </script>
 {% else %}
-<form class="filters v2-search-page-form" action="/search" method="get" role="search">
-  <div class="filter-field" style="flex:1;min-width:260px">
+<form class="sh-search-form filters v2-search-page-form" action="/search" method="get" role="search">
+  <div class="sh-field sh-field-grow filter-field">
     <label for="search-page-input">Search</label>
-    <input id="search-page-input" name="q" type="search" value="{{ search_query or '' }}" placeholder="Search companies, varieties, geographies, sources…">
+    <input id="search-page-input" name="q" type="search" value="{{ search_query or '' }}" placeholder="Search companies, varieties, markets…">
   </div>
-  <div class="filter-field">
-    <label for="search-include-global">Global matches</label>
+  <div class="sh-field filter-field">
+    <label for="search-include-global">Scope</label>
     <select id="search-include-global" name="include_global">
-      <option value="1" {% if search_include_global %}selected{% endif %}>Show Also in Global</option>
-      <option value="0" {% if not search_include_global %}selected{% endif %}>Current berry only</option>
+      <option value="1" {% if search_include_global %}selected{% endif %}>All berries</option>
+      <option value="0" {% if not search_include_global %}selected{% endif %}>Current berry</option>
     </select>
   </div>
-  <div class="filter-field">
+  <div class="sh-field filter-field">
     <label for="search-sort">Sort</label>
     <select id="search-sort" name="sort">
-      <option value="newest" {% if search_sort != "relevance" %}selected{% endif %}>Newest first</option>
-      <option value="relevance" {% if search_sort == "relevance" %}selected{% endif %}>Relevance</option>
+      <option value="relevance" {% if search_sort != "newest" %}selected{% endif %}>Best match</option>
+      <option value="newest" {% if search_sort == "newest" %}selected{% endif %}>Newest first</option>
     </select>
   </div>
-  <button type="submit" class="v2-btn">Search</button>
+  <button type="submit" class="sh-btn sh-btn-primary v2-btn">Search</button>
 </form>
-<p class="result-count">
+<p class="sh-result-count result-count">
   {% if search_results %}
-    {{ search_results.result_count }} grouped result{{ 's' if search_results.result_count != 1 else '' }}
-    {% if search_results.elapsed_ms is defined %}· {{ search_results.elapsed_ms }} ms{% endif %}
+    {{ search_results.result_count }} result{{ 's' if search_results.result_count != 1 else '' }}
   {% else %}
-    Type a company, variety, geography, source, or named subject.
+    Type a company, variety, market, or source.
   {% endif %}
 </p>
 <div class="v2-search-page-results">
@@ -166,4 +166,5 @@
   {% endwith %}
 </div>
 {% endif %}
+</div>
 {% endblock %}

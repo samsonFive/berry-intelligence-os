@@ -174,7 +174,13 @@ def _sort_rows_newest_first(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         key=lambda row: (str(row.get("date") or ""), str(row.get("title") or "").casefold(), str(row.get("id") or "")),
         reverse=True,
     )
-    undated.sort(key=lambda row: (str(row.get("title") or "").casefold(), str(row.get("id") or "")))
+    undated.sort(
+        key=lambda row: (
+            -int(row.get("rank") or 0),
+            str(row.get("title") or "").casefold(),
+            str(row.get("id") or ""),
+        )
+    )
     return dated + undated
 
 

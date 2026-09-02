@@ -1,9 +1,12 @@
-{% extends "base.html" %}
+{% extends "base_stakeholder.html" %}
 {% block title %}{% if entity_type == 'variety' %}Variety Intelligence{% else %}{{ entity_type|replace('_',' ')|title }} records{% endif %} — Berry Intelligence OS{% endblock %}
 {% block content %}
 {% if entity_type == 'variety' %}
+<div class="sh-page">
 {% include "_variety_workspace.html" %}
+</div>
 {% else %}
+<div class="sh-page">
 <section class="page-heading">
   <div>
     <p class="eyebrow">ENTITIES</p>
@@ -61,5 +64,6 @@
     <p class="empty-state">No matching records.</p>
   {% endfor %}
 </section>
+</div>
 {% endif %}
 {% endblock %}

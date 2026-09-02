@@ -217,6 +217,7 @@ def build() -> list[Path]:
     shutil.copy2(ROOT / "app" / "static" / "app.css", static_out / "app.css")
     shutil.copy2(ROOT / "app" / "static" / "search-core.js", static_out / "search-core.js")
     shutil.copy2(ROOT / "app" / "static" / "v2.css", static_out / "v2.css")
+    shutil.copy2(ROOT / "app" / "static" / "stakeholder.css", static_out / "stakeholder.css")
     shutil.copy2(ROOT / "app" / "static" / "v2.js", static_out / "v2.js")
     vendor_src = ROOT / "app" / "static" / "vendor"
     if vendor_src.is_dir():
