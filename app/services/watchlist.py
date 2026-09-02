@@ -23,7 +23,7 @@ from app.services.company_workspace import _humanize_source_type
 from app.services.variety_workspace import _party
 
 STATE_FILENAME = "watchlist_state.json"
-WATCH_TYPES = ("company", "variety", "geography", "strategic_question")
+WATCH_TYPES = ("company", "variety", "geography", "berry", "strategic_question", "move_type")
 RECENT_LIMIT = 5
 
 
@@ -125,6 +125,10 @@ def _sq_linked(records: list[dict[str, Any]], sq_id: str) -> list[dict[str, Any]
     return [r for r in records if sq_id in (r.get("strategic_question_ids") or [])]
 
 
+def _berry_linked(records: list[dict[str, Any]], berry_id: str) -> list[dict[str, Any]]:
+    return [r for r in records if berry_id in (r.get("berry_ids") or [])]
+
+
 def _new_evidence_count(evidence: list[dict[str, Any]], last_seen_at: str | None) -> int:
     """Only real-world published_date counts as "new" -- a captured-only
     (no published_date) record never counts, so a historical reacquisition
@@ -224,6 +228,63 @@ def present_watch(
             "would_change_our_view": sorted(
                 {a.get("would_change_our_view") for a in sq_assessments if a.get("would_change_our_view")}
             ),
+            "monitoring": None,
+        }
+
+    if watch_type == "berry":
+        # Berries have no dedicated entity record (they live in main.py's
+        # BERRIES id->label map, not `entities`), so this branch reads
+        # berry_ids directly off Evidence/Signal/Assessment the same way
+        # geography reads geography_ids -- no invented entity, no new page.
+        if object_id not in berry_labels:
+            return None
+        berry_evidence = _berry_linked(published_evidence, object_id)
+        berry_signals = _berry_linked(signals, object_id)
+        berry_assessments = _berry_linked(assessments, object_id)
+        dates = [str(r.get("published_date") or "") for r in berry_evidence if r.get("published_date")]
+        return {
+            "watch_type": watch_type,
+            "object_id": object_id,
+            "name": berry_labels.get(object_id, object_id),
+            "href": f"/today?berry={object_id}",
+            "open_href": f"/watches/open?watch_type=berry&object_id={object_id}",
+            "berries": [berry_labels.get(object_id, object_id)],
+            "last_seen_at": last_seen_at,
+            "never_seen": last_seen_at is None,
+            "latest_activity": max(dates) if dates else "",
+            "new_evidence_count": _new_evidence_count(berry_evidence, last_seen_at),
+            "new_assessment_count": _new_assessment_count(berry_assessments, last_seen_at),
+            "evidence_count": len(berry_evidence),
+            "signal_count": len(berry_signals),
+            "assessment_count": len(berry_assessments),
+            "monitoring": None,
+        }
+
+    if watch_type == "move_type":
+        # Competitive Move type is a LIVE-plane classification, not a
+        # canonical trust object -- there is no Evidence/Signal/Assessment
+        # to count here. This card is deliberately count-free; new-move
+        # notifications for a watched move_type surface on /watchtower
+        # instead (Strategic Watchtower + Actionable Alerts V1).
+        from app.services.competitive_moves.models import MOVE_LABELS
+
+        if object_id not in MOVE_LABELS:
+            return None
+        return {
+            "watch_type": watch_type,
+            "object_id": object_id,
+            "name": MOVE_LABELS.get(object_id, object_id),
+            "href": "/moves",
+            "open_href": f"/watches/open?watch_type=move_type&object_id={object_id}",
+            "berries": [],
+            "last_seen_at": last_seen_at,
+            "never_seen": last_seen_at is None,
+            "latest_activity": "",
+            "new_evidence_count": 0,
+            "new_assessment_count": 0,
+            "evidence_count": 0,
+            "signal_count": 0,
+            "assessment_count": 0,
             "monitoring": None,
         }
 

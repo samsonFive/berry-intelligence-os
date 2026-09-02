@@ -1,0 +1,84 @@
+{% extends "base_stakeholder.html" %}
+{% block title %}Watchtower — Berry Intelligence{% endblock %}
+{% block content %}
+<div class="sh-page watchtower-page">
+  <header class="sh-header">
+    <div>
+      <p class="sh-kicker">Watchtower · {{ page.watch_count }} watch{{ 'es' if page.watch_count != 1 else '' }}</p>
+      <h1>{{ page.digest.headline }}</h1>
+      <p class="sh-lede">
+        Deterministic alerts for what you watch — a new Development, a new Competitive Move, a repeated pattern,
+        a Market Reality move past threshold, or new trusted Evidence. An alert is a notification, not a trust
+        promotion: it always points at something that already carries its own trust state.
+      </p>
+      <p class="sh-note">{{ page.radar_freshness_label }}</p>
+    </div>
+    {% if not static_build %}
+    <div class="sh-actions">
+      <a class="sh-btn" href="/watches">Manage watchlist</a>
+      <a class="sh-btn" href="/radar/live">Refresh Radar</a>
+    </div>
+    {% endif %}
+  </header>
+
+  {% if page.watch_count == 0 %}
+    <p class="sh-empty">You aren't watching anything yet. <a class="sh-btn sh-btn-primary" href="/watches">Add a watch</a> — Company, Variety, Geography, Berry, Strategic Question, or Competitive Move type — then return here.</p>
+  {% elif page.needs_attention %}
+    <section class="sh-section sh-section-highlight" id="needs-attention">
+      <h2>Needs your attention</h2>
+      <ul class="sh-story-list">
+        {% for item in page.needs_attention %}
+          <li>{% include "_alert_card.html" %}</li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% else %}
+    <p class="sh-empty">Nothing needs your attention right now. Quiet is a legitimate state — it means nothing deterministic has crossed a watched threshold since the last review.</p>
+  {% endif %}
+
+  {% if page.market_moves %}
+  <section class="sh-section" id="market-moves">
+    <h2>Market moves</h2>
+    <ul class="sh-story-list">
+      {% for item in page.market_moves %}<li>{% include "_alert_card.html" %}</li>{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if page.competitor_moves %}
+  <section class="sh-section" id="competitor-moves">
+    <h2>Competitor moves</h2>
+    <ul class="sh-story-list">
+      {% for item in page.competitor_moves %}<li>{% include "_alert_card.html" %}</li>{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if page.genetics_ip %}
+  <section class="sh-section" id="genetics-ip">
+    <h2>Genetics / IP</h2>
+    <ul class="sh-story-list">
+      {% for item in page.genetics_ip %}<li>{% include "_alert_card.html" %}</li>{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if page.watched_questions %}
+  <section class="sh-section" id="watched-questions">
+    <h2>Watched questions</h2>
+    <ul class="sh-story-list">
+      {% for item in page.watched_questions %}<li>{% include "_alert_card.html" %}</li>{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if page.recently_reviewed %}
+  <section class="sh-section" id="recently-reviewed">
+    <h2>Recently reviewed</h2>
+    <ul class="sh-story-list">
+      {% for item in page.recently_reviewed %}<li>{% include "_alert_card.html" %}</li>{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

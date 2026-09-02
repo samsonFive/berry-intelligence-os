@@ -158,6 +158,8 @@ from app.services.emerging_radar import (
     run_radar_intelligence,
 )
 from app.services.competitive_moves.board import compose_moves_board
+from app.services.watchtower.compose import compose_watchtower
+from app.services.watchtower.store import apply_alert_action
 from app.services.guided_analyst import freshness_clock_label
 from app.services.guided_analyst import (
     atomic_pending_count,
@@ -3475,6 +3477,33 @@ def _today_coverage_watch() -> dict[str, Any]:
     return value
 
 
+# Strategic Watchtower + Actionable Alerts V1: `compose_watchtower()` itself
+# never fetches a provider (it only reads the existing Radar cache, derives
+# Moves from it, and reads the Market Observation store), so it is already
+# cheap -- this short TTL exists only to avoid a redundant persist_alerts()
+# disk write on rapid repeated navigation between /today and /watchtower,
+# not to hide an expensive scan the way _today_coverage_watch above does.
+_WATCHTOWER_CACHE: dict[str, Any] = {"value": None, "computed_at": 0.0}
+_WATCHTOWER_TTL_SECONDS = 60.0
+
+
+def _watchtower_cached() -> dict[str, Any]:
+    now = time.monotonic()
+    if _WATCHTOWER_CACHE["value"] is not None and now - _WATCHTOWER_CACHE["computed_at"] < _WATCHTOWER_TTL_SECONDS:
+        return _WATCHTOWER_CACHE["value"]
+    value = compose_watchtower(
+        inbox_dir=INBOX_DIR,
+        published_evidence=published_evidence(),
+        strategic_questions=load_strategic_questions(),
+        entities=entity_index(),
+        berry_labels=BERRIES,
+        market_repo=get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations,
+    )
+    _WATCHTOWER_CACHE["value"] = value
+    _WATCHTOWER_CACHE["computed_at"] = now
+    return value
+
+
 @app.get("/today", response_class=HTMLResponse)
 def today_page(request: Request) -> HTMLResponse:
     """Recency-first landing. What is new, not what is important."""
@@ -3532,6 +3561,7 @@ def today_page(request: Request) -> HTMLResponse:
         retrying=int(source_counts.get("retrying") or freshness.get("retrying_count") or 0),
         authoring_mode=AUTHORING_MODE,
     )
+    watchtower_digest = _watchtower_cached()["digest"] if load_watches(INBOX_DIR) else None
     return templates.TemplateResponse(
         request=request,
         name="today.html",
@@ -3542,6 +3572,7 @@ def today_page(request: Request) -> HTMLResponse:
             "brief_handoff_query": brief_handoff_query_string(front_page),
             "attention_queues": attention,
             "monitoring": watch_monitoring_snapshot(inbox_dir=INBOX_DIR),
+            "watchtower_digest": watchtower_digest,
             "berries": [{"id": key, "label": label} for key, label in BERRIES.items()],
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
@@ -4416,6 +4447,44 @@ def moves_company_page(request: Request, company_id: str) -> HTMLResponse:
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
     return response
+
+
+@app.get("/watchtower", response_class=HTMLResponse)
+def watchtower_page(request: Request) -> HTMLResponse:
+    """Proactive alerts for watched Companies/Varieties/Geographies/
+    Berries/Strategic Questions/Move types -- never fetches a provider
+    itself (refresh /radar/live first if the underlying cache is stale)."""
+    from app.services.watchtower.present import present_watchtower
+
+    page = present_watchtower(_watchtower_cached())
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="watchtower.html",
+        context={
+            "page": page,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/watchtower/{alert_id}/action")
+def watchtower_alert_action(alert_id: str, action: str = Form(...), return_to: str = Form("/watchtower")) -> RedirectResponse:
+    """Explicit, user-initiated only -- never fired by rendering the page.
+    Alert state is a notification-review flag, never a trust mutation: it
+    never touches Evidence/Signal/Assessment/Development/Move (mission
+    section 11)."""
+    try:
+        apply_alert_action(INBOX_DIR, alert_id, action)
+    except ValueError:
+        raise HTTPException(status_code=400, detail=f"unsupported alert action: {action!r}")
+    safe_target = return_to if return_to.startswith("/") and not return_to.startswith("//") else "/watchtower"
+    return RedirectResponse(url=safe_target, status_code=303)
 
 
 @app.get("/collection-ops", response_class=HTMLResponse)

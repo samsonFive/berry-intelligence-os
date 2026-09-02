@@ -758,3 +758,9 @@ html, body.sh-body {
   .move-momentum li { grid-template-columns: 1fr; }
   .move-timeline { display: block; overflow-x: auto; }
 }
+
+.alert-card { border-left: 3px solid var(--sh-line); padding-left: 12px; }
+.alert-card.alert-priority-high-attention { border-left-color: var(--sh-warn); }
+.alert-card.alert-priority-attention { border-left-color: var(--sh-trust); }
+.alert-actions { justify-content: flex-start; margin-top: 10px; }
+.alert-actions form { display: inline-flex; margin: 0; }
