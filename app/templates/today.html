@@ -44,6 +44,25 @@
     <p class="sh-note">{{ front_page.stale_reason }}</p>
   {% endif %}
 
+  {% if watchtower_digest and watchtower_digest.total_open %}
+  <section class="sh-section sh-section-highlight" id="needs-your-attention">
+    <h2>Needs your attention</h2>
+    <p class="sh-note">{{ watchtower_digest.headline }}{% if watchtower_digest.high_count %} — {{ watchtower_digest.high_count }} high attention{% endif %}. <a href="/watchtower">Open Watchtower</a></p>
+    <ul class="sh-story-list">
+      {% for item in watchtower_digest.top_alerts %}
+        <li>
+          <p class="sh-story-meta">
+            <span class="sh-trust sh-trust-watched">{{ item.priority }}</span>
+            <span>{{ item.trigger_label }}</span>
+          </p>
+          <p class="sh-story-title"><a href="{{ item.open_href }}">{{ item.title }}</a></p>
+          <p class="sh-story-meta"><span>Watching: {{ item.subject_label }}</span></p>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
   <section class="sh-lead" id="top-stories">
     <h2 class="visually-hidden">Top Stories</h2>
     <div class="sh-lead-main">
