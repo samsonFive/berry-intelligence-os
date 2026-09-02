@@ -99,6 +99,13 @@
     </section>
     {% endif %}
 
+    {% if answer.radar_developments %}
+    <section class="rd-section">
+      <div class="rd-section-title"><p>Emerging developments</p><span>LIVE / UNREVIEWED</span></div>
+      <ul class="rd-compact-sources">{% for row in answer.radar_developments[:6] %}<li><span>{{ row.event_type|replace('_', ' ')|title }}</span><a href="{{ row.href }}">{{ row.title }}</a><small>{{ row.date or 'date unknown' }}</small></li>{% endfor %}</ul>
+    </section>
+    {% endif %}
+
     <section class="rd-section rd-two-column">
       <div>
         <div class="rd-section-title"><p>Weak signals / things to watch</p><span>RELATED / EMERGING</span></div>
