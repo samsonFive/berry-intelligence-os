@@ -50,7 +50,12 @@ from app.repositories.base import DuplicateRecord
 from app.services.deterministic_tagging import apply_known_name_matches, matchers_from_entities
 from app.services.entity_alias_recall import linked_evidence_for_entity
 from app.services.media_discovery import list_discovered_items, read_source_discovery_state
-from app.services.review_publish import PublishRequest, ReviewPublishService
+from app.services.review_publish import ApproveClaimRequest, PublishRequest, ReviewPublishService
+from app.services.evidence_claim_review import (
+    ORIGIN_PUBLICATION_PROSE,
+    evidence_trust_tier,
+    trust_tier_label,
+)
 from app.services.publication_review_workspace import (
     apply_dossier_prefill,
     build_publication_review_dossier,
@@ -7419,9 +7424,115 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
             status_code=400,
         )
 
+    # Trusted Evidence Semantics Repair V1: an ordinary Publication that
+    # published with no analyst-supplied Facts is an APPROVED SOURCE, not
+    # yet TRUSTED EVIDENCE -- send the analyst straight to the second,
+    # distinct claim-approval decision rather than silently treating
+    # "source approved" as "claim approved". Takes priority over the
+    # advance-to-next-draft convenience; the claim-review screen has its
+    # own return_to plumbing back into that flow. Publications where the
+    # analyst already supplied Facts via the advanced form (facts_input
+    # non-empty) already satisfy the claim requirement -- no extra stop.
+    if draft.get("evidence_role") == "publication_artifact" and not facts_input:
+        claim_return = f"/review/{next_id}" if next_id else (return_to or "/pending")
+        return RedirectResponse(
+            url=f"/review/{result.evidence_id}/claim?return_to={quote(claim_return, safe='')}",
+            status_code=303,
+        )
+
     if next_id:
         return RedirectResponse(url=f"/review/{next_id}", status_code=303)
     return RedirectResponse(url=return_to or f"/evidence/{result.evidence_id}", status_code=303)
+
+
+@app.get("/review/{evidence_id}/claim", response_class=HTMLResponse)
+def review_claim_form(request: Request, evidence_id: str) -> HTMLResponse:
+    """Trusted Evidence Semantics Repair V1 -- the second, distinct trust
+    decision, kept separate from Publication approval. GET never mutates:
+    shows the machine-prepared candidate proposition (built from the
+    source draft before it was deleted -- see review_publish.py) beside
+    the approved-source excerpt, for an explicit Approve / Edit & Approve
+    / Reject."""
+    repos = get_repositories(DATA_DIR, SCHEMAS_DIR)
+    evidence = repos.evidence.get(evidence_id)
+    if evidence is None:
+        raise HTTPException(status_code=404, detail="Evidence record not found")
+    if evidence.get("evidence_role") != "publication_artifact":
+        raise HTTPException(status_code=400, detail="Claim review only applies to Publication-derived Evidence")
+    pending_claim = evidence.get("pending_claim") or {}
+    reviewer = session_username(request) or review_username() or ""
+    return templates.TemplateResponse(
+        request=request,
+        name="claim_review.html",
+        context={
+            "evidence": evidence,
+            "candidate_statement": pending_claim.get("candidate_statement", ""),
+            "origin": pending_claim.get("origin", ORIGIN_PUBLICATION_PROSE),
+            "trust_tier": evidence_trust_tier(evidence),
+            "trust_tier_label": trust_tier_label(evidence),
+            "reviewer": reviewer,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "return_to": request.query_params.get("return_to", "/pending"),
+        },
+    )
+
+
+@app.post("/review/{evidence_id}/claim/approve")
+def review_claim_approve(
+    evidence_id: str,
+    statement: str = Form(...),
+    proposed_statement: str = Form(""),
+    classification: str = Form("fact"),
+    confidence: str = Form("medium"),
+    reviewer: str = Form(""),
+    origin: str = Form(ORIGIN_PUBLICATION_PROSE),
+    return_to: str = Form("/pending"),
+) -> RedirectResponse:
+    """Creates the explicit, analyst-approved factual Fact this Publication
+    was missing -- the only action that moves a record from APPROVED
+    SOURCE to TRUSTED EVIDENCE. Reuses the Fact schema and review_events
+    audit trail unchanged; never creates a second Evidence record."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Claim approval is only available in authoring mode")
+    if not statement.strip() or not reviewer.strip():
+        raise HTTPException(status_code=400, detail="A factual statement and reviewer are required")
+    result = _review_publish_service().approve_claim(
+        ApproveClaimRequest(
+            evidence_id=evidence_id,
+            statement=statement.strip(),
+            proposed_statement=proposed_statement,
+            classification=classification if classification in FACT_CLASSIFICATIONS else "fact",
+            confidence=confidence if confidence in FACT_CONFIDENCE_LEVELS else "medium",
+            reviewer=reviewer.strip(),
+            origin=origin or ORIGIN_PUBLICATION_PROSE,
+        )
+    )
+    if not result.ok:
+        raise HTTPException(status_code=400, detail="Claim could not be approved: " + "; ".join(result.schema_errors))
+    return RedirectResponse(url=_safe_review_return(return_to), status_code=303)
+
+
+@app.post("/review/{evidence_id}/claim/reject")
+def review_claim_reject(
+    evidence_id: str,
+    reviewer: str = Form(""),
+    reason: str = Form("No distinct factual claim approved"),
+    return_to: str = Form("/pending"),
+) -> RedirectResponse:
+    """Records that no claim was approved this pass -- the source stays a
+    published, APPROVED SOURCE Publication; it simply never becomes
+    TRUSTED EVIDENCE without a later claim approval. Never rejects or
+    deletes the source Publication itself."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Claim review is only available in authoring mode")
+    if not reviewer.strip():
+        raise HTTPException(status_code=400, detail="Reviewer is required")
+    repos = get_repositories(DATA_DIR, SCHEMAS_DIR)
+    if repos.evidence.get(evidence_id) is None:
+        raise HTTPException(status_code=404, detail="Evidence record not found")
+    _review_publish_service().reject_claim(evidence_id=evidence_id, reviewer=reviewer.strip(), reason=reason.strip())
+    return RedirectResponse(url=_safe_review_return(return_to), status_code=303)
 
 
 @app.post("/review/{draft_id}/approve-atomic")

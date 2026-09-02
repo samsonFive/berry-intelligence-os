@@ -71,6 +71,7 @@ from pathlib import Path
 from typing import Any
 
 from app.services.chronology import date_label, meaningful_stamp, parse_stamp
+from app.services.evidence_claim_review import trust_tier_label
 from app.services.geography_hierarchy import resolve_geography_scope
 from app.services.intelligence_feed import MARKET_TAGS, classify_kind, entity_chips
 from app.services.today import WORTH_REVISITING_LIMIT, build_today, recency_band
@@ -163,10 +164,19 @@ def _project(
     band = recency_band(when, now=now) if when else None
     captured_at = parse_stamp(record.get("captured_date"))
     captured_band = recency_band(captured_at, now=now) if captured_at else None
+    trust_label = FRONT_TRUST_LABELS[front_kind]
+    if front_kind == "evidence" and record.get("evidence_role") == "publication_artifact":
+        # Trusted Evidence Semantics Repair V1: a published Publication
+        # with no analyst-approved factual claim is an APPROVED SOURCE,
+        # not REVIEWED EVIDENCE -- see evidence_claim_review.py. Legacy
+        # evidence_role=None records are untouched (unconditional
+        # "REVIEWED EVIDENCE" above), so this narrows, never widens, what
+        # counts as reviewed.
+        trust_label = trust_tier_label(record)
     return {
         "id": record.get("id"),
         "front_kind": front_kind,
-        "trust_label": FRONT_TRUST_LABELS[front_kind],
+        "trust_label": trust_label,
         "title": record.get("title") or record.get("id"),
         "source_name": record.get("source_name") or "",
         "source_type": record.get("source_type") or "",

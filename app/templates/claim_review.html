@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Approve claim — {{ evidence.title }}{% endblock %}
+{% block content %}
+<div class="v2-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">EVIDENCE CLAIM DECISION</p>
+    <h1>{{ evidence.title }}</h1>
+    <p class="also-known-as">{{ evidence.source_name or 'Source not recorded' }}{% if evidence.published_date %} · {{ evidence.published_date|us_date }}{% endif %}</p>
+  </div>
+</section>
+
+{% if not authoring_mode %}
+  <p class="empty-state" role="alert">Review is disabled. This deployment is running in read-only mode.</p>
+{% else %}
+
+<section class="v2-company-section" id="source-decision-recap">
+  <h2>Source decision (already recorded)</h2>
+  <p class="context-limit">
+    <span class="badge">{{ trust_tier_label }}</span>
+    This Publication was already approved as a source -- that decision is separate and does not change here.
+  </p>
+  {% if evidence.summary %}<p class="v2-company-lede">{{ evidence.summary|truncate(320) }}</p>{% endif %}
+  {% if evidence.source_url %}<p class="v2-meta"><a href="{{ evidence.source_url }}" rel="noreferrer" target="_blank">Open original source</a></p>{% endif %}
+</section>
+
+<section class="v2-company-section" id="claim-decision">
+  <h2>Evidence claim decision</h2>
+  <p class="context-limit">
+    Which explicit factual claim from this source should enter trusted Evidence? A candidate statement is prepared below from
+    {% if origin == 'structured_registry_claim_review' %}this record's own structured registry fields{% else %}the source's own summary/why-it-matters text{% endif %}
+    -- you are not retyping the article. Edit it if it is not exactly right, then approve. This record has no trusted factual claim until one is approved here.
+  </p>
+
+  <form method="post" action="/review/{{ evidence.id }}/claim/approve">
+    <input type="hidden" name="proposed_statement" value="{{ candidate_statement }}">
+    <input type="hidden" name="origin" value="{{ origin }}">
+    <input type="hidden" name="return_to" value="{{ return_to }}">
+    <input type="hidden" name="reviewer" value="{{ reviewer }}">
+    <label for="claim-statement"><strong>Proposed factual statement</strong></label>
+    <textarea id="claim-statement" name="statement" rows="4" style="width:100%; max-width:720px;" required>{{ candidate_statement }}</textarea>
+    <p class="v2-meta">Edit above if needed, then Approve. Editing is recorded automatically -- no separate step.</p>
+    <div class="v2-card-actions" style="margin-top:0.75rem;">
+      <label>Classification
+        <select name="classification">
+          <option value="fact" selected>Fact</option>
+          <option value="claim">Claim</option>
+        </select>
+      </label>
+      <label>Confidence
+        <select name="confidence">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+      </label>
+      <button class="v2-btn v2-btn-primary" type="submit">Approve</button>
+    </div>
+  </form>
+
+  <form method="post" action="/review/{{ evidence.id }}/claim/reject" style="margin-top:0.75rem;">
+    <input type="hidden" name="reviewer" value="{{ reviewer }}">
+    <input type="hidden" name="return_to" value="{{ return_to }}">
+    <input type="hidden" name="reason" value="No distinct factual claim in this source">
+    <button class="v2-btn" type="submit">No claim to approve -- leave as approved source only</button>
+  </form>
+</section>
+
+{% endif %}
+</div>
+{% endblock %}
