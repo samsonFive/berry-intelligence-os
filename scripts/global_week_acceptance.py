@@ -17,13 +17,12 @@ from app.main import all_entities, load_sources  # noqa: E402
 from app.services.global_week import LIVE_WINDOWS, run_week_intelligence  # noqa: E402
 from app.services.industry_pulse.credentials import has_perplexity  # noqa: E402
 from app.services.industry_pulse.perplexity_provider import PerplexitySearchProvider  # noqa: E402
-from app.services.industry_pulse.providers import GoogleNewsRssProvider  # noqa: E402
+from app.services.industry_pulse.live_stack import week_discovery_stack  # noqa: E402
 from app.main import PERPLEXITY_PULSE_ENABLED  # noqa: E402
 
 
 def _stack():
-    catch = PerplexitySearchProvider() if (PERPLEXITY_PULSE_ENABLED and has_perplexity()) else None
-    return [GoogleNewsRssProvider()], catch
+    return week_discovery_stack(perplexity_enabled=PERPLEXITY_PULSE_ENABLED or has_perplexity())
 
 
 def main() -> int:
@@ -35,13 +34,14 @@ def main() -> int:
     entities = all_entities()
     varieties = [row for row in entities if row.get("entity_type") == "variety"]
     sources = load_sources()
-    providers, catch_net = _stack()
+    providers, catch_net, specialist = _stack()
     reports = []
     for window in windows:
         edition = run_week_intelligence(
             window=window,
             providers=providers,
             catch_net_provider=catch_net,
+            specialist_provider=specialist,
             entities=entities,
             varieties=varieties,
             sources=sources,

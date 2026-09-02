@@ -78,7 +78,11 @@ GEO_EDITIONS: dict[str, dict[str, str]] = {
         "hl": "en-AU",
         "gl": "AU",
         "ceid": "AU:en",
-        "terms": "(Australia OR China OR Japan OR Korea OR \"New Zealand\" OR India OR Vietnam OR Tasmania)",
+        "terms": (
+            "(Australia OR China OR Japan OR Korea OR \"New Zealand\" OR India "
+            "OR Vietnam OR Tasmania OR Thailand OR Indonesia OR Philippines "
+            "OR Malaysia OR Taiwan OR \"Hong Kong\")"
+        ),
     },
 }
 
