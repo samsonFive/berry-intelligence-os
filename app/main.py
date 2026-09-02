@@ -3407,6 +3407,46 @@ def _filter_brief_for_berry(brief: dict[str, Any], berry: str) -> dict[str, Any]
     return brief
 
 
+# build_coverage_report() (scanning ~4,300 discovered_media rows plus the
+# full variety-candidate corpus) measured at ~26s on real production data
+# -- found while timing /today for Overnight Flagship Integration V1's own
+# latency requirement, not something the new Morning Edition/Radar/Ask
+# Berry OS work introduced. coverage_watch is a secondary operational
+# status line (attention_count/cited_not_collected_count), not
+# trust-critical, so a bounded TTL is safe and correct here -- unlike
+# Landscape's folder-signature cache, this read spans too many
+# INBOX_DIR/DATA_DIR subtrees to key precisely without real risk of
+# missing an invalidation, and a stale-by-minutes attention count is a far
+# smaller product harm than a 26-second blank /today load.
+_TODAY_COVERAGE_CACHE: dict[str, Any] = {"value": None, "computed_at": 0.0}
+_TODAY_COVERAGE_TTL_SECONDS = 300.0
+
+
+def _today_coverage_watch() -> dict[str, Any]:
+    now = time.monotonic()
+    if _TODAY_COVERAGE_CACHE["value"] is not None and now - _TODAY_COVERAGE_CACHE["computed_at"] < _TODAY_COVERAGE_TTL_SECONDS:
+        return _TODAY_COVERAGE_CACHE["value"]
+    varieties, candidates, _corpus_report = variety_candidate_universe()
+    coverage_report = build_coverage_report(
+        data_dir=DATA_DIR,
+        sources=load_sources(),
+        published_evidence=published_evidence(),
+        publications=list_drafts_metadata(),
+        variety_candidates=candidates,
+        varieties=varieties,
+        discovered_items=list_discovered_items(INBOX_DIR),
+        blocked_domains=load_blocked_domains(),
+        inbox_dir=INBOX_DIR,
+    )
+    value = {
+        "attention_count": coverage_report.get("attention_count") or 0,
+        "cited_not_collected_count": coverage_report.get("cited_not_collected_count") or 0,
+    }
+    _TODAY_COVERAGE_CACHE["value"] = value
+    _TODAY_COVERAGE_CACHE["computed_at"] = now
+    return value
+
+
 @app.get("/today", response_class=HTMLResponse)
 def today_page(request: Request) -> HTMLResponse:
     """Recency-first landing. What is new, not what is important."""
@@ -3415,24 +3455,7 @@ def today_page(request: Request) -> HTMLResponse:
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     if not berry_id and ui.get("berry") and ui["berry"] != "global":
         berry_id = ui["berry"] if str(ui["berry"]).startswith("berry-") else f"berry-{ui['berry']}"
-    coverage_watch = None
-    if AUTHORING_MODE:
-        varieties, candidates, _corpus_report = variety_candidate_universe()
-        coverage_report = build_coverage_report(
-            data_dir=DATA_DIR,
-            sources=load_sources(),
-            published_evidence=published_evidence(),
-            publications=list_drafts_metadata(),
-            variety_candidates=candidates,
-            varieties=varieties,
-            discovered_items=list_discovered_items(INBOX_DIR),
-            blocked_domains=load_blocked_domains(),
-            inbox_dir=INBOX_DIR,
-        )
-        coverage_watch = {
-            "attention_count": coverage_report.get("attention_count") or 0,
-            "cited_not_collected_count": coverage_report.get("cited_not_collected_count") or 0,
-        }
+    coverage_watch = _today_coverage_watch() if AUTHORING_MODE else None
     front_page = build_front_page(
         published=published_evidence(),
         drafts=pending_publication_drafts(),
