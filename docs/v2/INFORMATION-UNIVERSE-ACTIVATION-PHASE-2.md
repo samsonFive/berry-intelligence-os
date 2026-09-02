@@ -52,16 +52,16 @@ succeeds as `awaiting_key`.
 
 ## 2. Provider union
 
-FAST: Google, Perplexity, APITube, Exa  
-BACKGROUND: CatchAll cache  
-DIRECT SPECIALIST: existing specialist RSS / site-search  
+FAST: Google, Perplexity, APITube, Exa.
+BACKGROUND: CatchAll cache.
+DIRECT SPECIALIST: existing specialist RSS / site-search.
 
 Publisher ≠ discovery provider. Dedup prefers first-party article URLs over
 Google wrappers. Provider-unique counts stay on the edition stats.
 
 ## 3. USDA PVPO — live bounded import (2026-09-02)
 
-Official file: `https://www.ams.usda.gov/sites/default/files/media/PVPOApplicationStatus.xlsx`  
+Official file: `https://www.ams.usda.gov/sites/default/files/media/PVPOApplicationStatus.xlsx`.
 Downloaded 1,346,585 bytes. No HTML scrape.
 
 | Metric | Value |
@@ -106,8 +106,8 @@ class, not cleaned by inventing a new relevance rule in this mission.
 ## 5. Google Patents / BigQuery
 
 Templates ready, LIMIT-bounded: keyword, assignee, CPC/IPC (`A01H6/74`,
-`A01H6/36`, `A01H5/08`), bibliographic, similarity.  
-`GOOGLE_CLOUD_PROJECT` absent. No live bytes processed.  
+`A01H6/36`, `A01H5/08`), bibliographic, similarity.
+`GOOGLE_CLOUD_PROJECT` absent. No live bytes processed.
 Operator: create a GCP project, `gcloud auth application-default login`,
 `SET GOOGLE_CLOUD_PROJECT`. $6.25/TiB, 1 TiB/month free.
 
