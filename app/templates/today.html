@@ -14,6 +14,7 @@
         {% else %}
           Publication dates below are trusted dates, not a claim that collection is current.
         {% endif %}
+        {% if not static_build %}<a href="/week">What changed this week?</a>{% endif %}
       </p>
     </div>
   </header>
@@ -120,7 +121,7 @@
   <p class="sh-footnote">
     {% if today.freshness.degraded %}Collection is not fully current.{% endif %}
     Dates are publication dates.
-    <a href="/watches">Watchlist</a>
+    {% if not static_build %}<a href="/week">This week</a> · {% endif %}<a href="/watches">Watchlist</a>
     · <a href="/reports">Reports</a>
     {% if today.freshness.degraded %}· <a href="/review-ops">Analyst workspace</a>{% endif %}
   </p>

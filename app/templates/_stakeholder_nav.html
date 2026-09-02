@@ -1,6 +1,9 @@
 {% set path = request.url.path %}
 {% set ui = ui_context if ui_context is defined else {"berry": "global", "berry_label": "Global", "landscape_href": "/landscapes"} %}
 <a href="/today" class="{% if path == '/today' %}is-active{% endif %}"{% if path == '/today' %} aria-current="page"{% endif %}>Today</a>
+{% if not static_build %}
+<a href="/week" class="{% if path.startswith('/week') %}is-active{% endif %}"{% if path.startswith('/week') %} aria-current="page"{% endif %}>This week</a>
+{% endif %}
 <a href="/entities/company" class="{% if path.startswith('/entities/company') %}is-active{% endif %}">Companies</a>
 <a href="/entities/variety" class="{% if path.startswith('/entities/variety') %}is-active{% endif %}">Varieties</a>
 <a href="/geographies" class="{% if path.startswith('/geographies') or path.startswith('/entities/geography') %}is-active{% endif %}">Markets</a>

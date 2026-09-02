@@ -478,6 +478,8 @@ html, body.sh-body {
 .sh-page .v2-berry-chip.is-active { background: var(--sh-accent); border-color: var(--sh-accent); color: #fff; }
 .sh-page .v2-berry-portfolio form { display: inline; margin: 0; }
 
+.sh-week-review { margin-top: 8px; }
+
 .sh-examples { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
 .sh-examples button {
   border: 1px solid var(--sh-line-strong);

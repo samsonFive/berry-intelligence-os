@@ -17,6 +17,7 @@ VIEWPORTS = {
 }
 PAGES = [
     ("today", "/today"),
+    ("week", "/week"),
     ("search_planasa", "/search?q=Planasa"),
     ("company_planasa", "/entities/company/company-planasa"),
     ("variety_sekoya", "/entities/variety/variety-sekoya-grande"),

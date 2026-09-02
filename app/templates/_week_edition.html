@@ -1,0 +1,199 @@
+{% if promoted == "promoted" %}
+  <p class="sh-banner">Sent to review as an ordinary draft. It is not trusted Evidence and did not create a signal or assessment.</p>
+{% elif promoted == "already_represented" %}
+  <p class="sh-banner">Already in the review queue or trusted corpus — nothing new was created.</p>
+{% elif promoted == "not_found" %}
+  <p class="sh-banner">That item is no longer in the live result set. Live search can shift between page loads — try again from the current list.</p>
+{% endif %}
+
+<section class="sh-section" id="week-brief">
+  <h2>What should I know this week?</h2>
+  {% if brief_rows %}
+    <ul class="sh-story-list">
+      {% for row in brief_rows %}
+        <li>
+          <p class="sh-story-summary" style="color: var(--sh-ink); font-size: 16px;">{{ row.text }}</p>
+          <p class="sh-story-meta">
+            {% for src in row.sources %}
+              <a href="{{ src.url }}" rel="noreferrer">{{ src.publisher }}{% if src.published_date %} · {{ src.published_date }}{% endif %}</a>{% if not loop.last %} · {% endif %}
+            {% endfor %}
+          </p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="sh-empty">No grounded briefing from the displayed public items — read the sourced developments below.</p>
+  {% endif %}
+</section>
+
+<section class="sh-lead" id="what-matters">
+  <div class="sh-lead-main">
+    <p class="sh-kicker">What matters most</p>
+    {% if edition.what_matters %}
+      {% with item = edition.what_matters[0] %}{% include "_week_item.html" %}{% endwith %}
+    {% else %}
+      <p class="sh-empty">No qualifying public items in this window.</p>
+    {% endif %}
+  </div>
+  <div>
+    <p class="sh-kicker">Also in this window</p>
+    {% if edition.what_matters|length > 1 %}
+      <ul class="sh-story-list">
+        {% for item in edition.what_matters[1:] %}
+          <li>{% include "_week_item.html" %}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="sh-empty">No additional lead items after source-diversity capping.</p>
+    {% endif %}
+  </div>
+</section>
+
+<section class="sh-section" id="source-diversity">
+  <h2>Source diversity</h2>
+  <p class="sh-note">
+    {{ edition.source_diversity.publisher_count }} publishers
+    · discovery via {{ edition.source_diversity.provider_counts.keys() | join(", ") if edition.source_diversity.provider_counts else "none" }}.
+    Publisher and discovery provider are kept separate.
+    Lead section caps any one publisher at {{ edition.source_diversity.max_per_publisher_in_what_matters }} items.
+    {% if edition.source_diversity.lead_publisher %}
+      Most-cited publisher in the full set: {{ edition.source_diversity.lead_publisher }} ({{ edition.source_diversity.lead_publisher_count }}).
+    {% endif %}
+  </p>
+</section>
+
+<div class="sh-grid-2">
+  <section class="sh-section" id="competitor-moves">
+    <h2>Competitor moves</h2>
+    {% if edition.competitor_moves %}
+      <ul class="sh-story-list">
+        {% for item in edition.competitor_moves %}
+          <li>{% include "_week_item.html" %}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="sh-empty">No named competitor or commercial-move items in this window.</p>
+    {% endif %}
+  </section>
+  <section class="sh-section" id="varieties-genetics">
+    <h2>Varieties / genetics</h2>
+    {% if edition.varieties_genetics %}
+      <ul class="sh-story-list">
+        {% for item in edition.varieties_genetics %}
+          <li>{% include "_week_item.html" %}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="sh-empty">No variety or genetics items in this window.</p>
+    {% endif %}
+  </section>
+</div>
+
+<section class="sh-section" id="by-region">
+  <h2>By region</h2>
+  <div class="sh-grid-2">
+    {% for geo, label in [("americas", "Americas"), ("europe", "Europe"), ("africa", "Africa"), ("apac", "APAC")] %}
+      <div>
+        <h3>{{ label }}</h3>
+        {% if edition.by_region[geo] %}
+          <ul class="sh-story-list">
+            {% for item in edition.by_region[geo] %}
+              <li>{% include "_week_item.html" %}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="sh-empty">No qualifying public items found for {{ label }} in this window.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="sh-section" id="by-berry">
+  <h2>By berry</h2>
+  <div class="sh-grid-2">
+    {% for berry, label in [("blueberry", "Blueberry"), ("strawberry", "Strawberry"), ("raspberry", "Raspberry"), ("blackberry", "Blackberry")] %}
+      <div>
+        <h3>{{ label }}</h3>
+        {% if edition.by_berry[berry] %}
+          <ul class="sh-story-list">
+            {% for item in edition.by_berry[berry] %}
+              <li>{% include "_week_item.html" %}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="sh-empty">No qualifying public items found for {{ label }} in this window. Scarcity is not hidden in a global total.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<div class="sh-grid-2">
+  <section class="sh-section" id="market-supply">
+    <h2>Market / supply / trade</h2>
+    {% if edition.market_supply_trade %}
+      <ul class="sh-story-list">
+        {% for item in edition.market_supply_trade %}
+          <li>{% include "_week_item.html" %}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="sh-empty">No market, supply, or trade items in this window.</p>
+    {% endif %}
+  </section>
+  <section class="sh-section" id="research-regulation">
+    <h2>Research / regulation</h2>
+    {% if edition.research_regulation %}
+      <ul class="sh-story-list">
+        {% for item in edition.research_regulation %}
+          <li>{% include "_week_item.html" %}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="sh-empty">No research or regulation items in this window.</p>
+    {% endif %}
+  </section>
+</div>
+
+<section class="sh-section" id="older-circulating">
+  <h2>Older items still in this live search</h2>
+  <p class="sh-note">These qualified in the live search but their article dates are outside the selected window. They are not counted as what changed this week.</p>
+  {% if edition.older_circulating %}
+    <ul class="sh-story-list">
+      {% for item in edition.older_circulating %}
+        <li>{% include "_week_item.html" %}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="sh-empty">No older circulating items in this search.</p>
+  {% endif %}
+</section>
+
+<section class="sh-section" id="emerging">
+  <h2>Emerging / unreviewed</h2>
+  <p class="sh-note">Qualifying public items that are not yet from an official or specialist source and are not corroborated across publishers. Still {{ edition.trust_label }} — not trusted Evidence.</p>
+  {% if edition.emerging_unreviewed %}
+    <ul class="sh-story-list">
+      {% for item in edition.emerging_unreviewed %}
+        <li>{% include "_week_item.html" %}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="sh-empty">Nothing extra in the emerging set — see the sections above.</p>
+  {% endif %}
+</section>
+
+<p class="sh-footnote">
+  {{ edition.stats.in_window_qualifying or 0 }} in this window of {{ edition.stats.qualifying }} qualifying
+  · {{ edition.stats.raw_discovered }} discovered
+  · {{ edition.stats.unique }} unique
+  · {{ edition.stats.publishers }} publishers
+  · {{ edition.stats.specialist_sources }} specialist
+  · {{ edition.stats.official_sources }} official
+  · searched {{ edition.searched_at }}
+  · {{ edition.latency_seconds }}s
+  {% if edition.stats.newest_item %}· newest {{ edition.stats.newest_item }}{% endif %}
+  {% if edition.weak_regions %}· weak regions: {{ edition.weak_regions | join(", ") }}{% endif %}
+  {% if edition.weak_berries %}· weak berries: {{ edition.weak_berries | join(", ") }}{% endif %}
+</p>

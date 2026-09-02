@@ -138,6 +138,13 @@ from app.services.competitor_pulse import (
     generate_current_brief as pulse_generate_current_brief,
     run_company_pulse,
 )
+from app.services.global_week import (
+    DEFAULT_WINDOW as WEEK_DEFAULT_WINDOW,
+    LIVE_WINDOWS as WEEK_LIVE_WINDOWS,
+    find_week_hit_by_url,
+    generate_week_brief,
+    run_week_intelligence,
+)
 from app.services.guided_analyst import freshness_clock_label
 from app.services.guided_analyst import (
     atomic_pending_count,
@@ -3836,6 +3843,126 @@ def pulse_company_promote(company_id: str, url: str = Form(...), window: str = F
         )
         status = "promoted" if summary.drafts_created else "already_represented"
     return RedirectResponse(url=f"/pulse/company/{company_id}?window={window}&promoted={status}", status_code=303)
+
+
+def _week_discovery_stack() -> tuple[list[Any], Any]:
+    """Google News is the primary provider. Perplexity is catch-net only."""
+    primary = [GoogleNewsRssProvider()]
+    catch_net = PerplexitySearchProvider() if (PERPLEXITY_PULSE_ENABLED and has_perplexity()) else None
+    return primary, catch_net
+
+
+def _week_edition_context(request: Request, *, window: str, promoted: str = "") -> dict[str, Any]:
+    if window not in WEEK_LIVE_WINDOWS:
+        window = WEEK_DEFAULT_WINDOW
+    entities = all_entities()
+    varieties = [row for row in entities if row.get("entity_type") == "variety"]
+    providers, catch_net = _week_discovery_stack()
+    edition = run_week_intelligence(
+        window=window,
+        providers=providers,
+        catch_net_provider=catch_net,
+        entities=entities,
+        varieties=varieties,
+        sources=load_sources(),
+    )
+    brief = generate_week_brief(edition.what_matters or edition.items, completer=maybe_untrusted_completer())
+    indexed = {f"live-{i}": item for i, item in enumerate((edition.what_matters or edition.items)[:25])}
+    brief_rows = [
+        {"text": statement.text, "sources": [indexed[sid] for sid in statement.source_ids if sid in indexed]}
+        for statement in brief
+    ]
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    return {
+        "edition": edition,
+        "brief_rows": brief_rows,
+        "window": window,
+        "promoted": promoted,
+        "live": True,
+        "authoring_mode": AUTHORING_MODE,
+        "static_build": False,
+        "ui_context": ui,
+        "berries": BERRIES,
+    }
+
+
+@app.get("/week", response_class=HTMLResponse)
+def week_page(request: Request, window: str = WEEK_DEFAULT_WINDOW) -> HTMLResponse:
+    """Stakeholder weekly intelligence shell. GET does not fetch the public
+    web -- the live edition loads from /week/live so the first paint is
+    immediate. Trust stays visibly LIVE / UNREVIEWED."""
+    if window not in WEEK_LIVE_WINDOWS:
+        window = WEEK_DEFAULT_WINDOW
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="week.html",
+        context={
+            "edition": None,
+            "brief_rows": [],
+            "window": window,
+            "promoted": "",
+            "live": False,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/week/live", response_class=HTMLResponse)
+def week_live_page(request: Request, window: str = WEEK_DEFAULT_WINDOW, fragment: str = "", promoted: str = "") -> HTMLResponse:
+    """LIVE RESEARCH PLANE. Runs the Industry Pulse query matrix against
+    Google News (and Perplexity catch-net when configured). Never writes
+    Evidence, Signals, or Assessments."""
+    context = _week_edition_context(request, window=window, promoted=promoted)
+    template = "week_fragment.html" if fragment in {"1", "true", "yes"} else "week.html"
+    ui = context["ui_context"]
+    response = templates.TemplateResponse(request=request, name=template, context=context)
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/week/review")
+def week_send_to_review(
+    url: str = Form(...),
+    window: str = Form(WEEK_DEFAULT_WINDOW),
+    query_id: str = Form(""),
+) -> RedirectResponse:
+    """Optional bridge into unchanged Publication Review. Does not approve
+    Evidence and does not create a Signal or Assessment."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Send to review is authoring-only")
+    if window not in WEEK_LIVE_WINDOWS:
+        window = WEEK_DEFAULT_WINDOW
+    entities = all_entities()
+    varieties = [row for row in entities if row.get("entity_type") == "variety"]
+    providers, catch_net = _week_discovery_stack()
+    hit = find_week_hit_by_url(
+        url=url,
+        window=window,
+        providers=providers,
+        catch_net_provider=catch_net,
+        entities=entities,
+        varieties=varieties,
+        sources=load_sources(),
+        query_id=query_id or None,
+    )
+    status = "not_found"
+    if hit is not None:
+        summary = intake_qualified_hits(
+            [hit],
+            sources=load_sources(),
+            published_evidence=published_evidence(),
+            drafts=list_pending_drafts(),
+            entities=entities,
+            inbox_dir=INBOX_DIR,
+        )
+        status = "promoted" if summary.drafts_created else "already_represented"
+    return RedirectResponse(url=f"/week/live?window={window}&promoted={status}", status_code=303)
 
 
 @app.get("/collection-ops", response_class=HTMLResponse)
