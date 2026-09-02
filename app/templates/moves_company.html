@@ -1,0 +1,52 @@
+{% extends "base_stakeholder.html" %}
+{% block title %}{{ company_name }} — Competitive moves{% endblock %}
+{% block content %}
+<div class="sh-page moves-page">
+  <p class="sh-kicker"><a href="/moves">Competitive moves</a> · {{ trust_label }}</p>
+  <h1>{{ company_name }}</h1>
+  <p class="sh-lede">Recent competitive moves derived from Radar Developments. <a href="/entities/company/{{ company_id }}">Company page</a></p>
+
+  {% if pattern %}
+  <section class="sh-section">
+    <p class="sh-story-meta"><span>{{ pattern.label }}</span> <span>{{ pattern.theme }}</span></p>
+    <p>{{ pattern.why }}</p>
+  </section>
+  {% endif %}
+
+  {% if timeline %}
+  <section class="sh-section">
+    <h2>Move timeline</h2>
+    <table class="move-timeline">
+      <thead>
+        <tr><th>Date</th><th>Move</th><th>Source</th><th>Geography</th><th>Variety / berry</th><th>Trust</th></tr>
+      </thead>
+      <tbody>
+        {% for row in timeline %}
+        <tr>
+          <td>{{ row.date }}</td>
+          <td><a href="{{ row.href }}">{{ row.what_happened }}</a></td>
+          <td>{{ row.source }}</td>
+          <td>{{ row.geography }}</td>
+          <td>{{ row.variety_or_berry }}</td>
+          <td>{{ row.trust_state }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  {% endif %}
+
+  <section class="sh-section">
+    <h2>Recent competitive moves</h2>
+    {% if moves %}
+    <ul class="sh-story-list">
+      {% for item in moves %}
+        <li>{% include "_move_card.html" %}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="sh-empty">No qualifying competitive moves for this company in the current Radar cache.</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

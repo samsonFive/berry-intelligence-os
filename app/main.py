@@ -157,6 +157,7 @@ from app.services.emerging_radar import (
     edition_from_cache,
     run_radar_intelligence,
 )
+from app.services.competitive_moves.board import compose_moves_board
 from app.services.guided_analyst import freshness_clock_label
 from app.services.guided_analyst import (
     atomic_pending_count,
@@ -2897,6 +2898,31 @@ def company_profile_context(
         if str((row.get("other") or {}).get("id") or "") not in variety_ids
         and str((row.get("other") or {}).get("id") or "") not in geo_ids
     ]
+    competitive_moves: list[dict[str, Any]] = []
+    move_pattern: dict[str, Any] | None = None
+    if include_candidates:
+        from app.services.competitive_moves.board import compose_moves_board
+
+        board = compose_moves_board(inbox_dir=INBOX_DIR)
+        berry_key = "" if berry in {"", "global"} else berry
+        if berry_key.startswith("berry-"):
+            berry_id = berry_key
+        elif berry_key:
+            berry_id = f"berry-{berry_key}"
+        else:
+            berry_id = ""
+        for move in board.moves:
+            if move.company_id != entity.get("id"):
+                continue
+            if berry_id and move.berry_ids and berry_id not in move.berry_ids:
+                continue
+            competitive_moves.append(move.as_dict())
+            if len(competitive_moves) >= 8:
+                break
+        move_pattern = next(
+            (row.as_dict() for row in board.patterns if row.company_id == entity.get("id")),
+            None,
+        )
     return {
         "company_portfolio": company_berry_portfolio(entity),
         "company_what_changed": _company_feed_cards(
@@ -2911,6 +2937,8 @@ def company_profile_context(
         "company_network": network,
         "company_watched": _company_is_watched(linked_evidence),
         "company_berry_filter": berry,
+        "company_competitive_moves": competitive_moves,
+        "company_move_pattern": move_pattern,
     }
 
 
@@ -4327,6 +4355,59 @@ def radar_detail_page(request: Request, development_id: str) -> HTMLResponse:
         context={
             "development": payload,
             "ask_berry_os_href": f"/research?{urlencode({'q': ask_question})}",
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/moves", response_class=HTMLResponse)
+def moves_page(request: Request) -> HTMLResponse:
+    """Who is moving — Competitive Moves derived from the Radar cache.
+
+    Does not fetch providers. Refresh Radar first if the cache is empty.
+    """
+    board = compose_moves_board(inbox_dir=INBOX_DIR)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="moves.html",
+        context={
+            "board": board.as_dict(),
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/moves/{company_id}", response_class=HTMLResponse)
+def moves_company_page(request: Request, company_id: str) -> HTMLResponse:
+    board = compose_moves_board(inbox_dir=INBOX_DIR)
+    moves = [row.as_dict() for row in board.moves if row.company_id == company_id]
+    pattern = next((row.as_dict() for row in board.patterns if row.company_id == company_id), None)
+    entity = entity_index().get(company_id) or {}
+    company_name = entity.get("name") or (moves[0]["company_name"] if moves else company_id)
+    timeline = [row for item in moves for row in (item.get("timeline") or [])]
+    timeline.sort(key=lambda row: row.get("date") or "", reverse=True)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="moves_company.html",
+        context={
+            "company_id": company_id,
+            "company_name": company_name,
+            "moves": moves,
+            "pattern": pattern,
+            "timeline": timeline[:20],
+            "trust_label": board.trust_label,
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
             "ui_context": ui,

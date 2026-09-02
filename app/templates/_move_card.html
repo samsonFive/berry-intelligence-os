@@ -1,0 +1,54 @@
+<article class="move-card">
+  <p class="sh-story-meta">
+    <span class="sh-trust sh-trust-proposed">{{ item.trust_state }}</span>
+    <span>{{ item.move_label }}</span>
+    <span>{{ item.corroboration }}</span>
+  </p>
+  <h3 class="sh-story-title">
+    <a href="/entities/company/{{ item.company_id }}">{{ item.company_name }}</a>
+    <span class="move-did">{{ item.move_label | lower }}</span>
+  </h3>
+  <p class="radar-happened">{{ item.what_happened }}</p>
+  <p class="radar-why">
+    <span>Why it matters to watch</span>
+    {{ item.why_move | join(" · ") }}
+  </p>
+  <p class="sh-story-meta">
+    {% if item.geography_labels %}<span>{{ item.geography_labels | join(", ") }}</span>{% endif %}
+    {% if item.berry_labels %}<span>{{ item.berry_labels | join(", ") }}</span>{% endif %}
+    {% if item.variety_names %}<span>{{ item.variety_names | join(", ") }}</span>{% endif %}
+    <span>First seen {{ item.first_seen }}</span>
+    <span>Latest {{ item.latest_update }}</span>
+  </p>
+  {% if item.supporting_sources %}
+  <p class="sh-story-meta">
+    {% for source in item.supporting_sources[:3] %}
+      <a href="{{ source.url }}" rel="noreferrer" target="_blank">{{ source.publisher or source.title }}</a>{% if not loop.last %} · {% endif %}
+    {% endfor %}
+    {% if item.supporting_development_ids %}
+      · <a href="/radar/{{ item.supporting_development_ids[0] }}">Development</a>
+    {% endif %}
+  </p>
+  {% endif %}
+  {% if item.market_context and item.market_context.rows %}
+  <div class="radar-market">
+    <p class="radar-market-kicker">Market context</p>
+    <p>{{ item.market_context.rows | map(attribute="label") | join(" · ") }}</p>
+    <p class="radar-market-note">{{ item.market_context.disclaimer }}</p>
+  </div>
+  {% endif %}
+  {% if item.trusted_context %}
+  <p class="radar-trusted">
+    {% for row in item.trusted_context[:3] %}
+      <span>{{ row.kind }}</span> <a href="{{ row.href }}">{{ row.title }}</a>{% if not loop.last %} · {% endif %}
+    {% endfor %}
+  </p>
+  {% endif %}
+  {% if item.strategic_questions %}
+  <p class="move-sq">Bears on
+    {% for sq in item.strategic_questions %}
+      <a href="{{ sq.href }}">{{ sq.title }}</a>{% if not loop.last %} · {% endif %}
+    {% endfor %}
+  </p>
+  {% endif %}
+</article>
