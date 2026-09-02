@@ -113,6 +113,29 @@ def test_reports_empty_has_primary_build_action() -> None:
     assert "Interpret request" not in builder.text
 
 
+def test_reports_new_prefills_manual_scope_from_morning_edition_handoff() -> None:
+    """front_page.py's brief_handoff_query_string() links here with
+    company_ids/geography_ids/variety_ids/berry -- GET must actually
+    consume them (as hidden fields on the manual-scope form the existing
+    "Preview scope" button submits), not silently ignore them."""
+    page = TestClient(app).get(
+        "/reports/new?company_ids=company-driscolls&geography_ids=geography-peru&variety_ids=variety-legacy&berry=blueberry"
+    )
+    assert page.status_code == 200
+    html = page.text
+    assert 'name="company_ids" value="company-driscolls"' in html
+    assert 'name="geography_ids" value="geography-peru"' in html
+    assert 'name="variety_ids" value="variety-legacy"' in html
+    assert '<option value="berry-blueberry" selected>' in html
+    assert "Prefilled from Today" in html
+
+
+def test_reports_new_without_handoff_params_shows_no_prefill_note() -> None:
+    page = TestClient(app).get("/reports/new")
+    assert page.status_code == 200
+    assert "Prefilled from Today" not in page.text
+
+
 def test_analyst_shell_still_has_work_nav() -> None:
     page = TestClient(app).get("/brief")
     assert page.status_code == 200

@@ -5353,6 +5353,13 @@ def report_new_page(request: Request) -> HTMLResponse:
         "sekoya": REPORT_EXAMPLE_PROMPTS[2]["text"],
     }
     example_request = aliases.get(example_key, example_request)
+    # Morning Intelligence Edition V1's "Create leadership brief" handoff
+    # (front_page.py's brief_handoff_query_string()) passes the edition's
+    # own top-story entities this way -- prefilling the manual-scope form
+    # rather than the natural-language box, since the caller already has a
+    # curated, real scope and shouldn't have to describe it in prose.
+    handoff_berry = str(request.query_params.get("berry") or "").strip()
+    handoff_berry_id = handoff_berry if not handoff_berry or handoff_berry.startswith("berry-") else f"berry-{handoff_berry}"
     response = templates.TemplateResponse(
         request=request,
         name="report_new.html",
@@ -5365,6 +5372,10 @@ def report_new_page(request: Request) -> HTMLResponse:
             "ui_context": ui,
             "example_request": example_request,
             "report_examples": REPORT_EXAMPLE_PROMPTS,
+            "handoff_berry_id": handoff_berry_id,
+            "handoff_geography_ids_csv": str(request.query_params.get("geography_ids") or ""),
+            "handoff_company_ids_csv": str(request.query_params.get("company_ids") or ""),
+            "handoff_variety_ids_csv": str(request.query_params.get("variety_ids") or ""),
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
