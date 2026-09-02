@@ -1775,4 +1775,34 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | none -- a data-quality finding, not a code defect |
 
+### TD-110 — RESOLVED: structured registry filings (PVR/patent) were silently bucketed into `older_backlog` by `/pending`'s calendar_age test
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | review workflow / triage correctness |
+| **Date discovered** | 2026-09-02 |
+| **Evidence** | Trusted Freshness Recovery + Review Triage V1's production backlog audit. All 48 structured registry-filing drafts (28 CPVO PVR + 20 patent, `intake_type in {pvr_filing, patent_filing}`, `source_tier: tier_1_primary`, `priority.monitoring.level: high`) were confirmed absent from every `review_now`/`review_soon`/`adjacent`/`likely_ignore` preview and accounted for entirely inside `older_backlog`'s 1,476 items -- `assign_pending_triage()`'s `calendar_age <= 45` recency test judged them by their filing/grant date (frequently years old), which reflects the underlying legal event, not how current the review decision is. |
+| **Impact** | 48 authoritative, near-mechanical, high-confidence records were operationally invisible to an analyst working `/pending` top-down, indistinguishable from 1,400+ genuinely stale news articles. |
+| **Fix** | `app/services/morning_brief.py::assign_pending_triage()` now routes any `intake_type in STRUCTURED_REGISTRY_INTAKE_TYPES` into a new, dedicated `structured_registry` triage bucket before the calendar_age-based news logic runs -- bypassing that test entirely rather than trying to force a registry-appropriate recency threshold onto a signal built for news. New bucket rendered on `/pending` with its own explanatory copy. |
+| **Status** | resolved |
+| **Owner lane** | product |
+| **PR/SHA when resolved** | see `docs/v2/TRUSTED-FRESHNESS-RECOVERY-AND-REVIEW-TRIAGE-V1.md` |
+| **Regression-test reference** | `tests/test_pending_triage.py::test_structured_registry_filings_bypass_calendar_age_into_own_bucket` |
+
+### TD-111 — RESOLVED: `/pending`'s per-item action buttons lacked the `data-*` attributes the app's existing keyboard shortcuts require
+
+| Field | Value |
+|---|---|
+| **Severity** | Medium |
+| **Area** | review workflow / UX |
+| **Date discovered** | 2026-09-02 |
+| **Evidence** | `app/static/v2.js`'s existing global keydown handler binds `a`/`s`/`r` to `submitAction("promote"/"save"/"reject")`, which looks up `[data-promote]`/`[data-save]`/`[data-reject]` inside the current `[data-intel-card]`. `app/templates/_pending_decision_actions.html` (the action bar used by `/pending`'s Review now / Review soon rows) rendered plain `<button>` elements with none of these attributes -- the app-wide keyboard shortcuts silently did nothing on the one page whose entire purpose is fast triage. |
+| **Impact** | An analyst using j/k to scan the queue could not actually act on an item without reaching for the mouse -- directly undercuts a 15-30-minute daily triage target. |
+| **Fix** | Added `data-promote`/`data-save`/`data-reject` to the existing buttons, plus new `data-duplicate` (reject with the existing `rejection_category=duplicate`, previously only reachable via the advanced form) and `data-defer` (relabels the existing "Dismiss" action, semantics unchanged: keeps the file, hides from today's triage). Bound `d` and `x` alongside the existing `a`/`s`/`r` in `v2.js`. |
+| **Status** | resolved |
+| **Owner lane** | product |
+| **PR/SHA when resolved** | see `docs/v2/TRUSTED-FRESHNESS-RECOVERY-AND-REVIEW-TRIAGE-V1.md` |
+| **Regression-test reference** | manual verification (browser DOM inspection); no dedicated JS test harness exists in this repo for keyboard interaction |
+
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.

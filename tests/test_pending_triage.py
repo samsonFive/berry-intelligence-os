@@ -195,6 +195,62 @@ def test_pending_triage_buckets_and_review_now_reasons(monkeypatch, tmp_path: Pa
     assert any(bullet["id"] == "draft-planasa-now" for bullet in deltas[0]["bullets"])
 
 
+def test_structured_registry_filings_bypass_calendar_age_into_own_bucket(monkeypatch, tmp_path: Path) -> None:
+    # A PVR grant from years ago is still a live IP-rights fact discovered
+    # recently -- calendar_age (built for news recency) must not bury it in
+    # older_backlog alongside stale news the same age. See TD-110.
+    _isolate(monkeypatch, tmp_path)
+    repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    _seed_entities(repos)
+    drafts = [
+        _draft(
+            "draft-pvr-old-grant",
+            title="CPVO Community Plant Variety Right -- Bella (Rubus idaeus L.)",
+            intake_type="pvr_filing",
+            source_type="plant_breeders_rights_record",
+            source_tier="tier_1_primary",
+            published_date="2019-01-28",
+            captured_date=_today(),
+        ),
+        _draft(
+            "draft-patent-old-grant",
+            title="US Plant Patent -- Blue Ribbon blueberry",
+            intake_type="patent_filing",
+            source_type="patent_record",
+            source_tier="tier_1_primary",
+            published_date="2018-05-01",
+            captured_date=_today(),
+        ),
+        _draft(
+            "draft-old-news",
+            title="Old generic packing note",
+            published_date="2019-01-28",
+            captured_date="2019-01-28",
+            berry_ids=[],
+            relevance_tier=None,
+        ),
+    ]
+    brief = build_morning_brief(
+        inbox_dir=main.INBOX_DIR,
+        published=repos.evidence.list(),
+        drafts=drafts,
+        entities={entity["id"]: entity for entity in repos.entities.list()},
+        berry_labels={"berry-blueberry": "Blueberry"},
+        sources=[],
+        mark_seen=False,
+    )
+    counts = brief["pending_triage"]["counts"]
+    assert counts["structured_registry"] == 2
+    registry_ids = set()
+    for group in brief["pending_triage"]["buckets"]:
+        if group["key"] == "structured_registry":
+            registry_ids = {entry["id"] for entry in group["entries"]}
+        if group["key"] == "older_backlog":
+            assert "draft-pvr-old-grant" not in {entry["id"] for entry in group["entries"]}
+            assert "draft-patent-old-grant" not in {entry["id"] for entry in group["entries"]}
+    assert registry_ids == {"draft-pvr-old-grant", "draft-patent-old-grant"}
+
+
 def test_company_primary_watch_outranks_geography_headline(monkeypatch, tmp_path: Path) -> None:
     _isolate(monkeypatch, tmp_path)
     repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)

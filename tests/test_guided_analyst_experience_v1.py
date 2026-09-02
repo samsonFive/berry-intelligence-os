@@ -185,7 +185,7 @@ def test_publication_and_atomic_and_variety_explanations() -> None:
     pending = client.get("/pending")
     assert pending.status_code == 200
     assert "Newly discovered Publications that have not yet been accepted" in pending.text
-    assert "does not erase the original Source record" in pending.text
+    assert "do not erase the original Source record" in pending.text
     assert "data-workspace-help" in pending.text
     atomic = client.get("/review?kind=atomic")
     assert atomic.status_code == 200
