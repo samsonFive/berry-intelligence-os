@@ -11,9 +11,29 @@
   <a class="button-link" href="/review?kind=publication">Advanced publication form</a>
 </section>
 
-{% with help_what="Newly discovered Publications that have not yet been accepted into the trusted intelligence workflow. This is REVIEW REQUIRED, not Live Intelligence.", help_why="A Publication must be reviewed before it can proceed to downstream evidence processing. The count is waiting work, not a deletion target.", help_do="Work Review now first. Continue/promote a Publication that should enter the trusted workflow. Reject noise. Dismiss only hides a draft from triage.", help_after="Continue/promote means the Publication may proceed to downstream evidence processing. Rejecting it does not erase the original Source record. Dismiss keeps the file. Clearing this queue does not delete information.", help_note="Related reprints can collapse into a developing story. Grouping is organizational only." %}
+{% with help_what="Newly discovered Publications that have not yet been accepted into the trusted intelligence workflow. This is REVIEW REQUIRED, not Live Intelligence.", help_why="A Publication must be reviewed before it can proceed to downstream evidence processing. The count is waiting work, not a deletion target.", help_do="Work Review now and Structured registry first. Promote a Publication that should enter the trusted workflow -- that single click already creates the trusted Evidence record, there is no separate extraction step for ordinary articles. Duplicate marks it as already-covered noise. Defer hides it from today's triage without rejecting it. Reject genuine non-relevance.", help_after="Promote means the Publication is now trusted Evidence. Reject/Duplicate do not erase the original Source record. Defer keeps the file. Clearing this queue does not delete information.", help_note="Related reprints can collapse into a developing story. Grouping is organizational only. Keyboard: j/k select, Enter/o open, a Promote, s Save, d Duplicate, x Defer, r Reject." %}
   {% include "_workspace_help.html" %}
 {% endwith %}
+
+{% if freshness_telemetry %}
+<section class="v2-company-section" id="trusted-freshness" data-pagefind-ignore>
+  <h2>Trusted freshness</h2>
+  <dl class="v2-role-list">
+    <dt>Newest trusted source date</dt>
+    <dd>{{ freshness_telemetry.newest_trusted_source_date or "unknown" }}</dd>
+    <dt>Current-priority pending (Review now + Structured registry)</dt>
+    <dd>{{ freshness_telemetry.current_priority_pending }}</dd>
+    <dt>Oldest current-priority item (published date)</dt>
+    <dd>{{ freshness_telemetry.oldest_current_priority_published_date or "n/a" }}</dd>
+    <dt>Publications approved today</dt>
+    <dd>{{ freshness_telemetry.publications_approved_today }}</dd>
+    <dt>Evidence approved today</dt>
+    <dd>{{ freshness_telemetry.evidence_approved_today }} <span class="v2-meta">(same event as Publications approved -- Promote creates the trusted Evidence record directly)</span></dd>
+    <dt>Current-priority queue age</dt>
+    <dd>{% if freshness_telemetry.queue_age_days is not none %}{{ freshness_telemetry.queue_age_days }} day{{ 's' if freshness_telemetry.queue_age_days != 1 else '' }} since the oldest current-priority item was captured{% else %}n/a{% endif %}</dd>
+  </dl>
+</section>
+{% endif %}
 
 <p class="brief-window">Buckets use stored relevance, recency, source authority, primary subject, and watch-match quality — not an opaque AI score. Berry context filters this workspace. Completeness badges use stored capture metadata; this list does not load full article bodies. Dismiss hides a draft from triage and keeps the file. Reject / Save / Promote use the existing review services.</p>
 
@@ -48,6 +68,7 @@
 
 <ul class="brief-delta-strip">
   <li><a href="#triage-review_now">Review now</a><strong>{{ brief.pending_triage.counts.review_now or 0 }}</strong></li>
+  <li><a href="#triage-structured_registry">Structured registry</a><strong>{{ brief.pending_triage.counts.structured_registry or 0 }}</strong></li>
   <li><a href="#triage-review_soon">Review soon</a><strong>{{ brief.pending_triage.counts.review_soon or 0 }}</strong></li>
   <li><a href="#triage-adjacent">Adjacent</a><strong>{{ brief.pending_triage.counts.adjacent or 0 }}</strong></li>
   <li><a href="#triage-likely_ignore">Likely ignore</a><strong>{{ brief.pending_triage.counts.likely_ignore or 0 }}</strong></li>
@@ -60,6 +81,8 @@
       <h2>{{ group.label }} — {{ group.count }}{% if group.story_count and group.story_count < group.count %} · {{ group.story_count }} stor{{ 'y' if group.story_count == 1 else 'ies' }}{% endif %}</h2>
       {% if group.key == 'review_now' %}
         <p class="context-limit">Direct berry intelligence, tracked-company primary subject, primary watch match, current article, or high-authority source. Related reprints collapse into a developing story; they are not deleted.</p>
+      {% elif group.key == 'structured_registry' %}
+        <p class="context-limit">Tier-1 primary registry filings (PVR/patent) -- authoritative source, direct relevance already established. Filing/grant dates are often years old; that reflects the underlying legal event, not how current this review decision is. Fast, near-mechanical review: check the applicant/denomination/species against the linked variety, then Promote.</p>
       {% elif group.key == 'review_soon' %}
         <p class="context-limit">Related coverage of one event is grouped as a developing story. Remaining rows are distinct decisions. Grouping is organizational only.</p>
       {% elif group.key == 'adjacent' %}

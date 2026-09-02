@@ -22,7 +22,7 @@
           <input type="hidden" name="berries" value="{{ berry }}">
         {% endfor %}
         <input type="hidden" name="reviewer" value="{{ reviewer }}">
-        <button class="action-button action-approve" type="submit">Promote</button>
+        <button class="action-button action-approve" type="submit" data-promote>Promote</button>
       </form>
       <form action="/review/{{ item.id }}/save" method="post">
         <input type="hidden" name="return_to" value="{{ return_to or '/pending' }}">
@@ -33,21 +33,28 @@
         {% for berry in item.review_values.berries %}
           <input type="hidden" name="berries" value="{{ berry }}">
         {% endfor %}
-        <button class="action-button" type="submit">Save</button>
+        <button class="action-button" type="submit" data-save>Save</button>
       </form>
     {% endif %}
+    <form action="/review/{{ item.id }}/reject" method="post">
+      <input type="hidden" name="return_to" value="{{ return_to or '/pending' }}">
+      <input type="hidden" name="reviewer" value="{{ reviewer }}">
+      <input type="hidden" name="rejection_reason" value="Duplicate of coverage already in the queue">
+      <input type="hidden" name="rejection_category" value="duplicate">
+      <button class="action-button" type="submit" data-duplicate title="Not new -- another item already covers this story">Duplicate</button>
+    </form>
     <form action="/queues/pending/{{ item.id }}" method="post">
       <input type="hidden" name="action" value="dismiss">
       <input type="hidden" name="reviewer" value="{{ reviewer }}">
       <input type="hidden" name="return_to" value="{{ return_to or '/pending' }}">
-      <button class="action-button" type="submit">Dismiss</button>
+      <button class="action-button" type="submit" data-defer title="Keep the draft, hide it from today's triage -- not rejected, not lost">Defer</button>
     </form>
     <form action="/review/{{ item.id }}/reject" method="post">
       <input type="hidden" name="return_to" value="{{ return_to or '/pending' }}">
       <input type="hidden" name="reviewer" value="{{ reviewer }}">
       <input type="hidden" name="rejection_reason" value="Rejected from pending triage">
       <input type="hidden" name="rejection_category" value="other">
-      <button class="action-button action-reject" type="submit">Reject</button>
+      <button class="action-button action-reject" type="submit" data-reject>Reject</button>
     </form>
   </div>
 {% endif %}

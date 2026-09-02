@@ -424,6 +424,8 @@
     } else if (event.key === "a") { event.preventDefault(); submitAction("promote"); }
     else if (event.key === "s") { event.preventDefault(); submitAction("save"); }
     else if (event.key === "r") { event.preventDefault(); submitAction("reject"); }
+    else if (event.key === "d") { event.preventDefault(); submitAction("duplicate"); }
+    else if (event.key === "x") { event.preventDefault(); submitAction("defer"); }
   });
   if (cards.length) active = 0;
 })();

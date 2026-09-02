@@ -214,7 +214,7 @@ from app.services.assessment_scope import (
     attach_assessment_scope,
     parse_assessment_market_ids,
 )
-from app.services.morning_brief import brief_last_seen, build_morning_brief
+from app.services.morning_brief import brief_last_seen, build_morning_brief, pending_freshness_telemetry
 from app.services.monitor_workspace import (
     failing_source_health_rows,
     group_source_health,
@@ -3548,6 +3548,11 @@ def pending_review_page(request: Request) -> HTMLResponse:
     reviewer = session_username(request) or review_username() or ""
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     brief = _filter_brief_for_berry(brief, ui["berry"])
+    freshness_telemetry = pending_freshness_telemetry(
+        published=published_evidence(),
+        pending_triage=brief.get("pending_triage") or {},
+        inbox_dir=INBOX_DIR,
+    )
     for group in (brief.get("pending_triage") or {}).get("buckets") or []:
         _attach_pending_decision_actions(group.get("entries") or [], reviewer)
         for item in group.get("entries") or []:
@@ -3557,6 +3562,7 @@ def pending_review_page(request: Request) -> HTMLResponse:
         name="pending_review.html",
         context={
             "brief": brief,
+            "freshness_telemetry": freshness_telemetry,
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
             "reviewer": reviewer,

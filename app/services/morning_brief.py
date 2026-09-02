@@ -10,7 +10,8 @@ snapshot in the same object). That is not a new event store.
 from __future__ import annotations
 
 from collections import Counter, defaultdict
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
+from pathlib import Path
 import re
 from typing import Any
 
@@ -62,11 +63,19 @@ BUCKETS = (
 WATCH_ENTITY_TYPES = {"company", "variety", "geography", "person"}
 PENDING_TRIAGE_BUCKETS = (
     ("review_now", "Review now"),
+    ("structured_registry", "Structured registry (PVR / patent)"),
     ("review_soon", "Review soon"),
     ("adjacent", "Adjacent / context"),
     ("likely_ignore", "Likely ignore"),
     ("older_backlog", "Older backlog"),
 )
+# intake_type values for tier-1-primary structured registry filings (CPVO/
+# USDA PVPO/UPOV PLUTO/USPTO/patent records). Their own filing/grant date
+# reflects the underlying legal event, not how current the REVIEW decision
+# is -- a 2019 PVR grant discovered last week is still a live IP-rights fact
+# worth a fast, authoritative-source approval, not "older backlog" by the
+# same calendar_age test built for news recency. See TD-110.
+STRUCTURED_REGISTRY_INTAKE_TYPES = frozenset({"pvr_filing", "patent_filing"})
 TOP_PER_CLUSTER = 2
 TOP_DEVELOPMENTS_LIMIT = 7
 NEW_DEVELOPMENTS_LIMIT = 10
@@ -763,6 +772,14 @@ def assign_pending_triage(ranked: list[dict[str, Any]], *, state: dict[str, dict
         if is_pending_dismissed(item_id, state):
             item["triage_bucket"] = "dismissed"
             continue
+        if item.get("intake_type") in STRUCTURED_REGISTRY_INTAKE_TYPES:
+            item["triage_bucket"] = "structured_registry"
+            item["why_decision"] = (
+                "Why this needs your decision: structured tier-1 registry filing "
+                "(PVR/patent) -- authoritative source, direct relevance already "
+                "established, near-mechanical review."
+            )
+            continue
         screening = item.get("relevance_screening") or {}
         skip = screening.get("decision") == "skip" or "generic produce coverage" in (item.get("reasons") or [])
         adjacent = item.get("relevance_tier") == "adjacent"
@@ -856,6 +873,70 @@ def _pending_triage_groups(
         )
     counts["total"] = open_total
     return {"counts": counts, "buckets": buckets}
+
+
+CURRENT_PRIORITY_TRIAGE_KEYS = frozenset({"review_now", "structured_registry"})
+
+
+def pending_freshness_telemetry(
+    *,
+    published: list[dict[str, Any]],
+    pending_triage: dict[str, Any],
+    inbox_dir: Path,
+    now: datetime | None = None,
+) -> dict[str, Any]:
+    """Compact, no-opaque-score freshness surface for the analyst REVIEW
+    workspace only -- never stakeholder Today. Every field is a real,
+    directly computed count or date, not a synthesized score. "Evidence
+    approved today" intentionally equals "Publications approved today" for
+    ordinary articles: there is no separate extraction-proposal stage for
+    Publications in this architecture -- Promote already creates the
+    trusted Evidence record in one step (see docs/v2/
+    TRUSTED-FRESHNESS-RECOVERY-AND-REVIEW-TRIAGE-V1.md)."""
+    from app.services.review_events import load_review_events
+
+    now = now or datetime.now(timezone.utc)
+    today_prefix = now.date().isoformat()
+
+    source_dates = [str(row.get("published_date") or "") for row in published if row.get("published_date")]
+    newest_trusted_source_date = max(source_dates) if source_dates else None
+
+    current_priority_items: list[dict[str, Any]] = []
+    for group in pending_triage.get("buckets") or []:
+        if group.get("key") in CURRENT_PRIORITY_TRIAGE_KEYS:
+            current_priority_items.extend(group.get("entries") or [])
+    current_priority_pending = sum(
+        int((pending_triage.get("counts") or {}).get(key) or 0) for key in CURRENT_PRIORITY_TRIAGE_KEYS
+    )
+
+    published_dates = sorted(
+        {str(item.get("date") or item.get("published_date") or "") for item in current_priority_items if (item.get("date") or item.get("published_date"))}
+    )
+    oldest_current_priority_published_date = published_dates[0] if published_dates else None
+
+    captured_dates = sorted(
+        {str(item.get("captured_date") or "") for item in current_priority_items if item.get("captured_date")}
+    )
+    queue_age_days = None
+    if captured_dates:
+        oldest_captured = _parse_day(captured_dates[0])
+        if oldest_captured:
+            queue_age_days = (now.date() - oldest_captured).days
+
+    events = load_review_events(inbox_dir, workflow="publication_review")
+    published_today = [
+        row for row in events if row.get("action") == "publish" and str(row.get("occurred_at") or "").startswith(today_prefix)
+    ]
+
+    return {
+        "as_of": now.isoformat(),
+        "newest_trusted_source_date": newest_trusted_source_date,
+        "current_priority_pending": current_priority_pending,
+        "oldest_current_priority_published_date": oldest_current_priority_published_date,
+        "publications_approved_today": len(published_today),
+        "evidence_approved_today": len(published_today),
+        "queue_age_days": queue_age_days,
+    }
 
 
 def _bucket_groups(ranked: list[dict[str, Any]]) -> list[dict[str, Any]]:
