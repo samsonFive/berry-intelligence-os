@@ -131,3 +131,88 @@ and returned 200 real observations. Collection happens once, centrally
   for V1).
 - Does not touch Comext (EU trade) or any of the 4 US-federal sources'
   actual data -- verified access only, not activated.
+
+## Addendum: real US/Peru answers, found after the initial keyless-source search
+
+The initial source investigation above concluded no keyless path existed
+for US blueberry prices or Peru blueberry exports. That was wrong in one
+respect: it only checked the *modern REST APIs* (which do require a key)
+and missed each agency's own **public report archive**, which needs no
+key at all:
+
+- **USDA NASS**, *Noncitrus Fruits and Nuts 2024 Summary* (published May
+  2025): `https://www.nass.usda.gov/Publications/Todays_Reports/reports/ncit0525.pdf`
+  -- a direct, keyless PDF with US cultivated-blueberry price, utilized
+  production, and acreage for 2022-2024, broken out by fresh/processed/
+  all-utilization.
+- **USDA FAS GAIN**, Report PE2025-0010, *Peru: Blueberry Annual*
+  (published June 13, 2025): `https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Blueberry+Annual_Lima_Peru_PE2025-0010.pdf`
+  -- a direct, keyless PDF with Peru's official PSD table (production,
+  exports, exports-to-US specifically, by marketing year), export prices,
+  and destination mix, sourced from Peruvian Customs.
+
+34 records were built from these two PDFs and loaded into the same
+`market_observation` store via a one-off script, `source`/`source_dataset`/
+`source_url`/`methodology_reference` populated identically to the coded
+Eurostat path. **No coded, re-runnable collector exists yet for either** --
+PDF table extraction is materially harder to make robust than Eurostat's
+clean JSON API, and this mission's remaining time went to proving the
+capability with real numbers rather than building that parser. That is a
+real, named V1.1 candidate, not a silent gap.
+
+## Real data-quality findings (from actually reading the source tables)
+
+- **Fresh vs. processed vs. blended are three different numbers.** US
+  blueberry price per pound in 2024: **$1.45 blended** (all utilization),
+  **$2.22 fresh only**, **$0.526 processed only** -- collapsing these
+  would be a real distortion, not a rounding difference. This exact
+  problem surfaced a genuine bug (below).
+- **A real bug this pass found and fixed**: `MarketObservationRepository
+  .latest_by_key()`'s dedup key didn't include `form`, so querying "US
+  blueberry price" returned an arbitrary one of the three numbers above
+  instead of all three -- fixed, with a regression test, in a follow-up PR
+  before this mission's numbers were finalized.
+- **HS 081040 (fresh blueberries) is the correct, narrow FAS/Comtrade
+  code** -- Peru's PSD table is fresh-only, matching Eurostat's `form:
+  "fresh"` on the strawberry series; no frozen/processed figures were
+  mixed in.
+- **Eurostat's F3000 ("Berries excluding strawberries") really is a
+  combined raspberry/blackberry/currant category** -- confirmed by
+  reading Eurostat's own crop-code label text, not assumed; `berry_id`
+  stays `null` for it, exactly per the commodity-normalization design.
+- **"Exports to the US" isn't a real geography.** FAS's own table breaks
+  out Peru's US-bound export volume specifically. I stored it as
+  `geography: "PE-to-US"` with `geography_id: null` since there's no
+  clean single-entity representation of a bilateral trade *flow* in the
+  current geography model -- a real, named design gap (not silently
+  mapped to Peru or to the US).
+- **All prices recorded are nominal USD, not inflation-adjusted.** A
+  multi-year price comparison (the FAS series runs 2016/17-2024/25) should
+  not be read as a real/inflation-adjusted trend without that caveat.
+- **The NASS source itself withholds some state-level data** (`(D)` =
+  "Withheld to avoid disclosing data for individual operations," e.g.
+  Florida blueberry price in most years) -- confirmed by reading the
+  actual table, not inferred. Only US-total rows were ingested this pass,
+  so this particular gap did not propagate into the stored data, but a
+  future state-level ingestion would need to handle `(D)` explicitly
+  rather than treating it as zero.
+- **FAS's 2025/26 and 2026/27 rows are the report's own forward
+  forecast**, not actuals -- stored with `period` suffixed `f` (e.g.
+  `"2025/26f"`) and a methodology_reference that says so explicitly, and
+  the analyst answers below use the actual/estimate columns
+  (`2023/24`/`2024/25e`) as the real "current" comparison, not the
+  forecast-vs-forecast one.
+
+## Stakeholder-facing surface: deliberately not shipped this mission
+
+Eurostat has a real, tested, re-runnable collector. NASS and FAS do not
+yet -- their 34 records are a real, correctly-sourced, but one-time manual
+capture. Shipping a "Market Reality" card in the stakeholder shell right
+now would visually imply the same live-refresh guarantee `/week`'s `LIVE /
+UNREVIEWED` badge carries, which would misrepresent a single PDF snapshot
+as a live feed. `app/services/market_reality/research_desk.py`
+(`market_reality_for()`) is the service-level seam a future UI -- or the
+concurrent Research Desk work -- would consume; it is built, tested, and
+demonstrated with real production output below. UI should wait for either
+a NASS/FAS collector or an explicit decision to ship a clearly-labeled
+point-in-time snapshot instead of a live one.

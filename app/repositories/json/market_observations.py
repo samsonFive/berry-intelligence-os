@@ -28,14 +28,27 @@ class MarketObservationRepository(JsonRecordRepository):
         return sorted(records, key=lambda r: (r.get("period", ""), r.get("captured_at", "")))
 
     def latest_by_key(self, **filters: Any) -> list[dict[str, Any]]:
-        """One record per (metric, source_commodity_code, geography, period)
-        -- the most recently captured_at value for each. Use this for any
+        """One record per (metric, source_commodity_code, form, geography,
+        period) -- the most recently captured_at value for each. `form` is
+        part of the key: fresh/processed/unspecified are genuinely
+        different series for the same metric/commodity/geography/period
+        (e.g. US blueberry price is a different number fresh vs.
+        processed), and collapsing them together silently picked an
+        arbitrary one of the three -- a real bug found and fixed during
+        this mission's own data-quality pass, see
+        docs/v2/MARKET-REALITY-DATA-LAYER-V1.md. Use this for any
         analyst-facing read; use list() only when the capture history
         itself (revisions) is what's being examined."""
         records = self.list(**filters)
         latest: dict[tuple[Any, ...], dict[str, Any]] = {}
         for record in records:
-            key = (record.get("metric"), record.get("source_commodity_code"), record.get("geography"), record.get("period"))
+            key = (
+                record.get("metric"),
+                record.get("source_commodity_code"),
+                record.get("form"),
+                record.get("geography"),
+                record.get("period"),
+            )
             current = latest.get(key)
             if current is None or record.get("captured_at", "") >= current.get("captured_at", ""):
                 latest[key] = record

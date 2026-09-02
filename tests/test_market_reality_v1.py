@@ -16,6 +16,7 @@ from app.repositories.json.market_observations import MarketObservationRepositor
 from app.services.market_reality.change_detection import latest_vs_previous, year_over_year
 from app.services.market_reality.eurostat_apro import build_observations, decode_jsonstat
 from app.services.market_reality.normalization import normalize_berry, normalize_geography
+from app.services.market_reality.research_desk import market_reality_for
 
 
 # --- normalization -----------------------------------------------------
@@ -171,6 +172,39 @@ def test_market_observation_exact_recapture_raises_duplicate_not_silent_overwrit
         repo.create(obs)  # identical id (same everything, including captured_at) -- must reject, not overwrite
 
 
+def test_latest_by_key_does_not_collide_across_different_forms(repo):
+    """Regression test for a real bug found during this mission's own
+    data-quality pass: US blueberry price for the same year is a
+    genuinely different number fresh vs. processed vs. unspecified, and
+    latest_by_key() must return all three, not silently collapse them to
+    whichever happened to be created last."""
+    base = {
+        "record_type": "market_observation",
+        "metric": "PRICE",
+        "berry_id": "berry-blueberry",
+        "source_commodity_label": "Blueberry, Cultivated",
+        "source_commodity_code": "BLUEBERRY",
+        "geography": "US",
+        "geography_id": "geography-united-states",
+        "period": "2024",
+        "period_type": "year",
+        "unit": "USD/lb",
+        "source": "usda_nass",
+        "source_dataset": "ncit0525",
+        "captured_at": "2026-09-02T00:00:00+00:00",
+        "berry_ids": ["berry-blueberry"],
+        "geography_ids": ["geography-united-states"],
+    }
+    repo.create({**base, "id": "mkt-price-2024-unspecified", "form": "unspecified", "value": 1.450})
+    repo.create({**base, "id": "mkt-price-2024-fresh", "form": "fresh", "value": 2.220})
+    repo.create({**base, "id": "mkt-price-2024-processed", "form": "processed", "value": 0.526})
+
+    latest = repo.latest_by_key(metric="PRICE", source_commodity_code="BLUEBERRY", geography="US")
+    assert len(latest) == 3  # all three forms survive, none silently dropped
+    by_form = {r["form"]: r["value"] for r in latest}
+    assert by_form == {"unspecified": 1.450, "fresh": 2.220, "processed": 0.526}
+
+
 def test_latest_by_key_returns_most_recently_captured_value(repo):
     rows = decode_jsonstat(_tiny_jsonstat_payload())
     first = build_observations(rows, captured_at="2026-09-01T00:00:00+00:00")[0]
@@ -222,3 +256,31 @@ def test_year_over_year_matches_exact_year_gap():
 def test_year_over_year_returns_none_when_no_matching_prior_year():
     series = _series({"2020": 80.0, "2025": 110.0})
     assert year_over_year(series, years_back=1) is None  # no 2024 point -- must not fabricate one
+
+
+# --- Research Desk read interface -------------------------------------
+
+
+def test_market_reality_for_returns_observations_and_change_by_series(repo):
+    rows = decode_jsonstat(_tiny_jsonstat_payload())
+    for captured_at, bump in [("2026-09-01T00:00:00+00:00", 0.0), ("2026-09-01T00:00:01+00:00", 20.0)]:
+        adjusted = [{**r, "value": r["value"] + bump} for r in rows]
+        for obs in build_observations(adjusted, captured_at=captured_at):
+            try:
+                repo.create(obs)
+            except DuplicateRecord:
+                pass
+
+    result = market_reality_for(repo, source_commodity_code="S0000", geography="ES")
+    assert result["filters"] == {"source_commodity_code": "S0000", "geography": "ES"}
+    assert len(result["observations"]) == 1  # one series (PRODUCTION/S0000/fresh/ES), one period (2025)
+    label = next(iter(result["change_by_series"]))
+    assert "PRODUCTION" in label and "S0000" in label and "ES" in label
+    # Only one period exists for this key, so no change is computable yet -- must not fabricate one.
+    assert result["change_by_series"][label]["latest_vs_previous"] is None
+
+
+def test_market_reality_for_empty_filters_do_not_crash(repo):
+    result = market_reality_for(repo)
+    assert result["observations"] == []
+    assert result["change_by_series"] == {}
