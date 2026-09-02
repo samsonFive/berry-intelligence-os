@@ -1,0 +1,24 @@
+{% set berries = item.berries if item.berries is defined else [] %}
+<article class="sh-story">
+  <p class="sh-story-meta">
+    <span class="sh-trust sh-trust-proposed">{{ item.trust_label }}</span>
+    <span>{{ item.publisher }}</span>
+    {% if item.published_date %}<span>{{ item.published_date }}</span>{% endif %}
+    {% if item.berry %}<span>{{ {"blueberry": "Blueberry", "strawberry": "Strawberry", "raspberry": "Raspberry", "blackberry": "Blackberry"}.get(item.berry, item.berry) }}</span>{% endif %}
+    {% if item.geography %}<span>{{ {"americas": "Americas", "europe": "Europe", "africa": "Africa", "apac": "APAC"}.get(item.geography, item.geography) }}</span>{% endif %}
+  </p>
+  <h3 class="sh-story-title"><a href="{{ item.url }}" rel="noreferrer" target="_blank">{{ item.title }}</a></h3>
+  {% if item.snippet %}<p class="sh-story-summary">{{ item.snippet[:220] }}{% if item.snippet|length > 220 %}…{% endif %}</p>{% endif %}
+  <p class="sh-story-meta">
+    <span>via {{ item.providers | join(", ") if item.providers else item.provider }}</span>
+    {% if item.rank_reasons %}<span>{{ item.rank_reasons | join(" · ") }}</span>{% endif %}
+  </p>
+  {% if authoring_mode and item.url %}
+  <form method="post" action="/week/review" class="sh-week-review">
+    <input type="hidden" name="url" value="{{ item.url }}">
+    <input type="hidden" name="window" value="{{ window }}">
+    <input type="hidden" name="query_id" value="{{ item.query_id }}">
+    <button class="sh-btn" type="submit">Send to review</button>
+  </form>
+  {% endif %}
+</article>

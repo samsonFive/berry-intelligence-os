@@ -33,7 +33,7 @@ def semantic_query_text(query: PulseQuery) -> str:
 def date_window_of(query: PulseQuery) -> str:
     if query.date_window in WINDOW_DAYS:
         return query.date_window
-    for window in ("24h", "3d", "7d"):
+    for window in ("24h", "3d", "7d", "30d"):
         if query.id.endswith(f":{window}"):
             return window
     match = re.search(r"when:(\d+d)\s*$", query.text)
@@ -43,6 +43,8 @@ def date_window_of(query: PulseQuery) -> str:
         return "3d"
     if match and match.group(1) == "7d":
         return "7d"
+    if match and match.group(1) == "30d":
+        return "30d"
     return "7d"
 
 

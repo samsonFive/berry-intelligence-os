@@ -223,3 +223,108 @@ def catch_net_queries(queries: list[PulseQuery]) -> list[PulseQuery]:
         for query in queries
         if query.kind == "topic_global" or query.geography in CATCH_NET_GEOGRAPHIES
     ]
+
+
+# Bounded local-language edition variants. Not a translation layer: one extra
+# Google News edition per weak/uneven region (plus a second APAC edition),
+# using berry terms the existing BERRY_TERMS already carry plus a few native
+# tokens the English edition historically missed.
+def regional_language_queries() -> list[PulseQuery]:
+    return [
+        PulseQuery(
+            id="lang:americas:es",
+            text=(
+                "(arándano OR arandano OR fresa OR frambuesa OR zarzamora) "
+                "(Perú OR Peru OR Chile OR México OR Mexico OR Argentina OR Colombia) "
+                "(variedad OR cultivo OR exportación OR cosecha OR vivero OR patente)"
+            ),
+            berry=None,
+            geography="americas",
+            topic="industry_pulse",
+            kind="regional_language",
+            hl="es-419",
+            gl="MX",
+            ceid="MX:es",
+        ),
+        PulseQuery(
+            id="lang:europe:es",
+            text=(
+                "(arándano OR fresa OR frambuesa OR zarzamora OR mora) "
+                "(España OR Europa OR \"Países Bajos\" OR Polonia OR Italia) "
+                "(variedad OR cultivo OR exportación OR PBR OR vivero)"
+            ),
+            berry=None,
+            geography="europe",
+            topic="industry_pulse",
+            kind="regional_language",
+            hl="es-ES",
+            gl="ES",
+            ceid="ES:es",
+        ),
+        PulseQuery(
+            id="lang:africa:fr",
+            text=(
+                "(myrtille OR fraise OR framboise OR mûre OR baie) "
+                "(Maroc OR \"Afrique du Sud\" OR Kenya OR Égypte OR Egypte) "
+                "(variété OR récolte OR exportation OR pépinière OR cultivar)"
+            ),
+            berry=None,
+            geography="africa",
+            topic="industry_pulse",
+            kind="regional_language",
+            hl="fr-FR",
+            gl="MA",
+            ceid="MA:fr",
+        ),
+        PulseQuery(
+            id="lang:apac:zh",
+            text=(
+                "(蓝莓 OR 草莓 OR 覆盆子 OR 黑莓) "
+                "(中国 OR 澳洲 OR 日本 OR 韩国 OR 越南) "
+                "(品种 OR 种植 OR 出口 OR 育种)"
+            ),
+            berry=None,
+            geography="apac",
+            topic="industry_pulse",
+            kind="regional_language",
+            hl="zh-CN",
+            gl="CN",
+            ceid="CN:zh-Hans",
+        ),
+        PulseQuery(
+            id="lang:apac:ja",
+            text=(
+                "(ブルーベリー OR イチゴ OR ラズベリー OR ブラックベリー) "
+                "(日本 OR オーストラリア OR 中国 OR 韓国) "
+                "(品種 OR 栽培 OR 輸出 OR 育種)"
+            ),
+            berry=None,
+            geography="apac",
+            topic="industry_pulse",
+            kind="regional_language",
+            hl="ja-JP",
+            gl="JP",
+            ceid="JP:ja",
+        ),
+    ]
+
+
+RETAIL_TOPIC_TERMS = (
+    '(retail OR supermarket OR "private label" OR Tesco OR Walmart OR Costco '
+    'OR Aldi OR Lidl OR "grocery" OR "fresh produce aisle")'
+)
+
+
+def week_retail_query() -> PulseQuery:
+    edition = GEO_EDITIONS["global"]
+    return PulseQuery(
+        id="topic:retail:global",
+        text=f"({ALL_BERRIES_TERMS}) {RETAIL_TOPIC_TERMS}",
+        berry=None,
+        geography="global",
+        topic="retail",
+        kind="topic_global",
+        hl=edition["hl"],
+        gl=edition["gl"],
+        ceid=edition["ceid"],
+    )

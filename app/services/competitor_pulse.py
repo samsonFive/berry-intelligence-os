@@ -101,7 +101,7 @@ _GEOGRAPHY_PATTERNS: dict[str, re.Pattern[str]] = {
     "americas": re.compile(
         r"\b(Peru|Chile|Mexico|Canada|Brazil|California|Florida|Argentina|Colombia|United States|U\.S\.|USA)\b"
     ),
-    "europe": re.compile(r"\b(Europe|Spain|UK|United Kingdom|Netherlands|Poland|Germany|Italy|Portugal|Belgium)\b"),
+    "europe": re.compile(r"\b(Europe|Spain|UK|United Kingdom|Britain|British|England|Scotland|Netherlands|Poland|Germany|Italy|Portugal|Belgium|France|Bulgaria|Ukraine)\b"),
     "africa": re.compile(r"\b(Africa|South Africa|Morocco|Egypt|Kenya|Zimbabwe)\b"),
     "apac": re.compile(r"\b(Australia|China|Japan|Korea|New Zealand|India|Vietnam|Tasmania)\b"),
 }
