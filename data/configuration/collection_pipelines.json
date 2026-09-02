@@ -100,6 +100,16 @@
       "runner": "scripts/import_usda_pvpo.py --json",
       "state": "operations/pipelines/usda_pvpo/runs",
       "notes": "Weekly bounded import of the official USDA PVPO Application Status XLSX. Berry rows only. Inbox Variety candidates. No automatic canonical identity merge. No Evidence writes."
+    },
+    {
+      "id": "emerging_radar",
+      "enabled": true,
+      "scheduled": true,
+      "schedule_entrypoint": true,
+      "cadence_seconds": 3600,
+      "runner": "scripts/emerging_radar_refresh.py --json",
+      "state": "operations/radar/cache.json",
+      "notes": "Background Emerging Developments Radar refresh. Bounded Google + specialist RSS + Exa semantic themes (not Pulse 32, not APITube, never a live CatchAll submit). Writes inbox/operations/radar/cache.json so /radar is instant. LIVE / UNREVIEWED only. No Evidence writes."
     }
   ]
 }

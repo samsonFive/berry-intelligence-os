@@ -581,3 +581,37 @@ html, body.sh-body {
 @media (max-width: 1366px) {
   .sh-page h1 { font-size: 32px; }
 }
+
+.radar-card { padding: 4px 0 8px; }
+.radar-happened { margin: 0 0 8px; color: var(--sh-ink); font-size: 15px; max-width: 46em; }
+.radar-why { margin: 0 0 8px; color: var(--sh-muted); font-size: 13px; max-width: 46em; }
+.radar-why span {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sh-faint);
+  margin-bottom: 2px;
+}
+.radar-market {
+  margin: 10px 0;
+  padding: 10px 12px;
+  background: var(--sh-accent-soft);
+  border-radius: 6px;
+  max-width: 42em;
+}
+.radar-market p { margin: 0; font-size: 13px; }
+.radar-market-kicker {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sh-accent);
+  margin-bottom: 4px !important;
+}
+.radar-market-note { margin-top: 6px !important; color: var(--sh-muted); font-size: 12px; }
+.radar-trusted { margin: 8px 0 0; font-size: 13px; color: var(--sh-trust); }
+.radar-trusted a { color: inherit; }
+.radar-section-weak_signals .radar-card { background: var(--sh-proposed-bg); padding: 12px; border-radius: 6px; }
+.radar-fresh { margin: 0 0 8px; }

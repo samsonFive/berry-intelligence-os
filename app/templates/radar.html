@@ -1,0 +1,56 @@
+{% extends "base_stakeholder.html" %}
+{% block title %}Emerging developments — Berry Intelligence{% endblock %}
+{% block content %}
+<div class="sh-page radar-page">
+  <header class="sh-header">
+    <div>
+      <p class="sh-kicker">Emerging developments · {{ edition.trust_label if edition else "LIVE / UNREVIEWED DEVELOPMENT" }}</p>
+      <h1>Things moving in the berry industry that may matter before they become obvious.</h1>
+      <p class="sh-lede">
+        Development-first radar — not a wall of articles. Live public discovery stays unreviewed.
+        Trusted Evidence, when it exists, is shown separately and never flattened into this board.
+      </p>
+    </div>
+    {% if not static_build %}
+    <div class="sh-actions">
+      <a class="sh-btn" href="/radar/live">Refresh now</a>
+    </div>
+    {% endif %}
+  </header>
+
+  {% if not live %}
+    <p class="sh-note" id="radar-status">{% if edition %}Showing last refresh while a newer edition loads…{% else %}Searching public berry developments the analyst did not have to query for…{% endif %}</p>
+    <p class="sh-empty" id="radar-noscript">
+      <a class="sh-btn sh-btn-primary" href="/radar/live">Load emerging developments</a>
+    </p>
+  {% endif %}
+  <div id="radar-live-root"{% if not live %} data-radar-live="/radar/live?fragment=1"{% endif %}>
+    {% if edition %}
+      {% include "_radar_edition.html" %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+{% if not live %}
+<script>
+(function () {
+  var root = document.getElementById("radar-live-root");
+  if (!root || !root.dataset.radarLive) return;
+  var status = document.getElementById("radar-status");
+  var noscript = document.getElementById("radar-noscript");
+  if (noscript) noscript.hidden = true;
+  fetch(root.dataset.radarLive, { headers: { "Accept": "text/html" } })
+    .then(function (response) { return response.text(); })
+    .then(function (html) {
+      if (html && html.trim()) root.innerHTML = html;
+      if (status) status.remove();
+    })
+    .catch(function () {
+      if (status) status.textContent = "Live radar did not finish. Use Load emerging developments.";
+      if (noscript) noscript.hidden = false;
+    });
+})();
+</script>
+{% endif %}
+{% endblock %}
