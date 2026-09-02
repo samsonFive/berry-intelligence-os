@@ -80,6 +80,26 @@
       "runner": "scripts/industry_pulse_intake.py --json",
       "state": "operations/pipelines/industry_pulse_intake/runs",
       "notes": "Continuous Newsroom Intake V1 (2026-09-01). Every 4 hours: Google News RSS discovery + qualification, then the pulse-to-Publication intake bridge (novelty check, bounded body acquisition, Publication draft creation) so a qualifying story can reach Publication Review and the Front Page's Emerging/Unreviewed section without a human clicking Run Pulse first. Lock-protected against overlap with itself (app/services/industry_pulse/newsroom_cycle.py's own lock, separate from the main collection lock -- pulse discovery and per-Source RSS polling are independent resources). Never writes trusted Evidence, never onboards a Source, never bypasses Publication Review. Perplexity catch-net stays a separate, explicit ENABLE_PERPLEXITY_PULSE opt-in -- not baked into this runner string by default. DELIBERATELY DISABLED as of 2026-09-01 (enabled: false): production's own trusted-freshness-funnel audit found 1,710 Publication drafts pending review against 3 ever published and one recorded review decision in all of history -- review throughput, not discovery volume, is the bottleneck. Recurring intake adds more volume to an already-unclearable queue. Re-enable only once a current-priority review/triage workflow exists and can demonstrably keep pace with arrival rate (see the queued Trusted Freshness Recovery + Review Triage V1 mission's own explicit activation gate). Until then, run manually via POST /industry-pulse/run or `python scripts/industry_pulse_intake.py` for bounded/operator-mode use."
+    },
+    {
+      "id": "catchall_recall",
+      "enabled": true,
+      "scheduled": true,
+      "schedule_entrypoint": true,
+      "cadence_seconds": 21600,
+      "runner": "scripts/catchall_recall.py --json",
+      "state": "operations/catchall_recall/cache.json",
+      "notes": "Background NewsCatcher CatchAll recall. Base mode is 10-15 minutes and must never run on request-time /week. This job writes normalized hits to inbox/operations/catchall_recall/cache.json; /week consumes already-fetched rows. Without NEWSCATCHER_API_KEY or CATCHALL_API_KEY the runner succeeds as awaiting_key — SET the env var and the next scheduled run becomes live. No Publication drafts. No Evidence writes."
+    },
+    {
+      "id": "usda_pvpo",
+      "enabled": true,
+      "scheduled": true,
+      "schedule_entrypoint": true,
+      "cadence_seconds": 604800,
+      "runner": "scripts/import_usda_pvpo.py --json",
+      "state": "operations/pipelines/usda_pvpo/runs",
+      "notes": "Weekly bounded import of the official USDA PVPO Application Status XLSX. Berry rows only. Inbox Variety candidates. No automatic canonical identity merge. No Evidence writes."
     }
   ]
 }

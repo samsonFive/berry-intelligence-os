@@ -1,0 +1,72 @@
+{
+  "schema": "information-universe-frozen-corpus-v1",
+  "question": "Would the current information universe have found this?",
+  "do_not_change_expected_outcomes_to_pass": true,
+  "cases": [
+    {
+      "id": "news-guardian-uk-harvest-2026-08-27",
+      "lane": "NEWS",
+      "title": "Record heatwaves help deliver bumper UK berry harvest",
+      "url": "https://www.theguardian.com/environment/2026/aug/27/record-heatwaves-help-deliver-bumper-uk-berry-harvest",
+      "published_date": "2026-08-27",
+      "expected_findable_by": ["google_news_rss", "perplexity"],
+      "expected_in_true_7d_from_2026-09-01": true,
+      "notes": "V2 recovered via Perplexity/Yahoo syndication. Direct guardian.com not required."
+    },
+    {
+      "id": "specialist-fruitnet-fpj-2026-09-01",
+      "lane": "SPECIALIST_PRESS",
+      "title": "Hot summer boosts British blueberry volumes by 11 per cent",
+      "url": "https://www.fruitnet.com/fresh-produce-journal/hot-summer-boosts-british-blueberry-volumes-by-11-per-cent/272546.article",
+      "published_date": "2026-09-01",
+      "expected_findable_by": ["specialist_rss", "google_news_rss"],
+      "expected_in_true_7d_from_2026-09-01": true,
+      "notes": "Fruitnet 45.rss is Produce Plus, not FPJ. Recovered via site-search + homepage-identity fix."
+    },
+    {
+      "id": "company-hortifrut-naturipe-mbo-2026-07-30",
+      "lane": "COMPANY_RELEASES",
+      "title": "Naturipe Farms and Hortifrut partner up with Mountain Blue Orchards",
+      "url": "https://www.freshfruitportal.com/news/2026/07/30/hortifrut-mbo-berry-deal/",
+      "published_date": "2026-07-30",
+      "expected_findable_by": ["specialist_rss"],
+      "expected_in_true_7d_from_2026-09-01": false,
+      "notes": "Outside true 7d. Must remain older circulating. Do not inject into What Matters."
+    },
+    {
+      "id": "apac-japan-strawberry-branding-2026-08-31",
+      "lane": "APAC",
+      "title": "Japan strawberry seedling trafficking / branded cultivar coverage",
+      "published_date": "2026-08-31",
+      "expected_findable_by": ["perplexity", "google_news_rss", "specialist_rss"],
+      "expected_in_true_7d_from_2026-09-01": true,
+      "notes": "APAC language/provider gap in V1. V2 found in-window JP coverage."
+    },
+    {
+      "id": "pbr-usda-pvpo-structured",
+      "lane": "PBR",
+      "title": "USDA PVPO berry application/certificate row",
+      "expected_findable_by": ["usda_pvpo"],
+      "expected_in_true_7d_from_2026-09-01": null,
+      "notes": "Not a news article. Found only via structured XLSX import, not /week news search."
+    },
+    {
+      "id": "patent-uspp35665p2",
+      "lane": "PATENTS",
+      "title": "Blueberry plant named ‘FC12-029’",
+      "publication_number": "USPP35665P2",
+      "expected_findable_by": ["uspto_odp", "google_patents_json", "google_patents_bigquery"],
+      "expected_in_true_7d_from_2026-09-01": null,
+      "notes": "Authoritative patent record. News-plane keyword search is not the discovery path."
+    },
+    {
+      "id": "mainstream-uk-harvest-context",
+      "lane": "MAINSTREAM_CONTEXT",
+      "title": "Record heatwaves help deliver bumper UK berry harvest",
+      "url": "https://www.theguardian.com/environment/2026/aug/27/record-heatwaves-help-deliver-bumper-uk-berry-harvest",
+      "expected_findable_by": ["perplexity"],
+      "expected_in_true_7d_from_2026-09-01": true,
+      "notes": "Same event as news-guardian. Tests mainstream catch-net, not specialist RSS."
+    }
+  ]
+}

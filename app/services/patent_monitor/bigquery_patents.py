@@ -53,6 +53,72 @@ def available() -> bool:
     return project_id() is not None
 
 
+def keyword_sql(*, limit: int = 25) -> str:
+    """Known berry keyword retrieval. Research table, bounded."""
+    if limit < 1 or limit > 50:
+        raise BigQueryPatentsError("keyword limit must be 1..50")
+    likes = " OR ".join(f"LOWER(title) LIKE '%{term}%'" for term in BERRY_TERMS)
+    return f"""
+SELECT
+  publication_number,
+  title,
+  assignee,
+  filing_date,
+  publication_date,
+  country
+FROM {RESEARCH}
+WHERE country IN ('US', 'EP', 'WO')
+  AND ({likes})
+LIMIT {int(limit)}
+""".strip()
+
+
+def assignee_sql(*, limit: int = 25) -> str:
+    if limit < 1 or limit > 50:
+        raise BigQueryPatentsError("assignee limit must be 1..50")
+    assignees = " OR ".join(f"LOWER(assignee) LIKE '%{name.lower()}%'" for name in KNOWN_ASSIGNEES)
+    return f"""
+SELECT
+  publication_number,
+  title,
+  assignee,
+  filing_date,
+  publication_date,
+  country
+FROM {RESEARCH}
+WHERE country IN ('US', 'EP', 'WO')
+  AND ({assignees})
+LIMIT {int(limit)}
+""".strip()
+
+
+def cpc_sql(*, limit: int = 25) -> str:
+    """CPC/IPC-assisted retrieval. No full-table scan."""
+    if limit < 1 or limit > 50:
+        raise BigQueryPatentsError("cpc limit must be 1..50")
+    return f"""
+SELECT
+  publication_number,
+  title_localized,
+  filing_date,
+  publication_date,
+  country_code
+FROM {PUBLICATIONS}
+WHERE country_code IN ('US', 'EP', 'WO')
+  AND (
+    EXISTS (SELECT 1 FROM UNNEST(cpc) AS c
+            WHERE c.code LIKE 'A01H6/74%'
+               OR c.code LIKE 'A01H6/36%'
+               OR c.code LIKE 'A01H5/08%')
+    OR EXISTS (SELECT 1 FROM UNNEST(ipc) AS i
+               WHERE i.code LIKE 'A01H6/74%'
+                  OR i.code LIKE 'A01H6/36%'
+                  OR i.code LIKE 'A01H5/08%')
+  )
+LIMIT {int(limit)}
+""".strip()
+
+
 def bibliographic_sql(*, limit: int = 25) -> str:
     if limit < 1 or limit > 50:
         raise BigQueryPatentsError("bibliographic limit must be 1..50")
@@ -163,3 +229,27 @@ def run_bounded_query(
             "rows": list(result.get("rows") or []),
         }
     raise BigQueryPatentsError("live BigQuery client is not configured in this environment")
+
+
+OPERATOR_SETUP = (
+    "Operator setup: create a Google Cloud project, enable BigQuery, run "
+    "`gcloud auth application-default login`, then SET GOOGLE_CLOUD_PROJECT. "
+    "Queries stay LIMIT-bounded. On-demand pricing is $6.25/TiB with 1 TiB/month free."
+)
+
+
+def prototype_bundle(*, limit: int = 15) -> dict[str, Any]:
+    """Four bounded templates. Executes only when a project/client exists."""
+    templates = {
+        "keyword": keyword_sql(limit=limit),
+        "assignee": assignee_sql(limit=limit),
+        "cpc_ipc": cpc_sql(limit=limit),
+        "bibliographic": bibliographic_sql(limit=limit),
+    }
+    reports = {name: run_bounded_query(sql) for name, sql in templates.items()}
+    return {
+        "available": available(),
+        "operator_setup": OPERATOR_SETUP,
+        "templates": templates,
+        "reports": reports,
+    }

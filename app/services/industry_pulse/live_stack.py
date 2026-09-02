@@ -1,16 +1,23 @@
 """Shared live discovery stack for /week and Competitor Pulse.
 
-CatchAll is deliberately excluded: it is an async 10-15 minute paid job,
-not a request-time news search. Do not invent credentials.
+FAST REQUEST-TIME: Google, Perplexity, APITube, Exa.
+BACKGROUND HIGH-RECALL: CatchAll cache only — never a live CatchAll submit.
+DIRECT SPECIALIST: SpecialistRssProvider.
+
+Publisher != discovery provider. Do not invent credentials.
+SET APITUBE_API_KEY / EXA_API_KEY to activate those providers with no code change.
 """
 
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any
 
 from app.services.industry_pulse.apitube import ApiTubeSearchProvider
+from app.services.industry_pulse.catchall_cache import hits_from_cache
 from app.services.industry_pulse.credentials import has_apitube, has_exa, has_perplexity
 from app.services.industry_pulse.exa import ExaSearchProvider
+from app.services.industry_pulse.models import DiscoveryHit
 from app.services.industry_pulse.perplexity_provider import PerplexitySearchProvider
 from app.services.industry_pulse.providers import GoogleNewsRssProvider
 from app.services.industry_pulse.specialist_feeds import SpecialistRssProvider
@@ -32,6 +39,11 @@ def week_discovery_stack(*, perplexity_enabled: bool) -> tuple[list[Any], Any, A
     catch_net = PerplexitySearchProvider() if (perplexity_enabled and has_perplexity()) else None
     specialist = SpecialistRssProvider()
     return primary, catch_net, specialist
+
+
+def week_background_hits(*, inbox_dir: Path | None = None) -> list[DiscoveryHit]:
+    """Already-fetched CatchAll rows. Empty when the cache has not been written."""
+    return hits_from_cache(inbox_dir)
 
 
 def pulse_discovery_providers(*, perplexity_enabled: bool) -> list[Any]:

@@ -9,13 +9,14 @@ fields. It never writes trusted Evidence or onboarded Sources.
 
 from __future__ import annotations
 
+import json
 from io import BytesIO
 from pathlib import Path
 from typing import Any, BinaryIO, Callable
 
 from openpyxl import load_workbook
 
-from app.services.variety_universe.registry_import import import_registry_rows
+from app.services.variety_universe.registry_import import build_candidate, import_registry_rows
 
 STATUS_REPORT_URL = "https://www.ams.usda.gov/sites/default/files/media/PVPOApplicationStatus.xlsx"
 SOURCE_ID = "usda-pvpo-application-status"
@@ -42,10 +43,20 @@ COL = {
 BERRY_COMMON = {
     "blueberry": "berry-blueberry",
     "blueberry, rootstock": "berry-blueberry",
+    "blueberry, highbush": "berry-blueberry",
+    "blueberry, rabbiteye": "berry-blueberry",
     "strawberry": "berry-strawberry",
     "raspberry": "berry-raspberry",
+    "raspberry, red": "berry-raspberry",
+    "raspberry, black": "berry-raspberry",
     "blackberry": "berry-blackberry",
 }
+BERRY_PREFIXES = (
+    ("blueberry", "berry-blueberry"),
+    ("strawberry", "berry-strawberry"),
+    ("raspberry", "berry-raspberry"),
+    ("blackberry", "berry-blackberry"),
+)
 SCI_HINTS = (
     ("vaccinium", "berry-blueberry"),
     ("fragaria", "berry-strawberry"),
@@ -64,6 +75,9 @@ def berry_id_for(*, common_name: str, scientific_name: str) -> str | None:
     common = (common_name or "").strip().lower()
     if common in BERRY_COMMON:
         return BERRY_COMMON[common]
+    for prefix, berry_id in BERRY_PREFIXES:
+        if common == prefix or common.startswith(prefix + ",") or common.startswith(prefix + " "):
+            return berry_id
     sci = (scientific_name or "").strip().lower()
     for hint, berry_id in SCI_HINTS:
         if hint in sci:
@@ -149,3 +163,106 @@ def import_berry_rows(
 ) -> dict[str, Any]:
     """Inbox Variety candidates only. Never trusted Evidence."""
     return import_registry_rows(rows, varieties=varieties, inbox_dir=inbox_dir)
+
+
+def _load_variety_entities(data_dir: Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    root = data_dir / "entities"
+    if not root.is_dir():
+        return rows
+    for path in root.rglob("*.json"):
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if isinstance(payload, dict) and payload.get("entity_type") in {None, "variety"} and payload.get("id"):
+            if payload.get("entity_type") == "variety" or "variety" in str(payload.get("id")):
+                rows.append(payload)
+    return [row for row in rows if row.get("entity_type") == "variety"]
+
+
+def _parse_date(value: Any) -> str:
+    text = str(value or "").strip()
+    return text[:10] if text else ""
+
+
+def summarize_berry_import(
+    rows: list[dict[str, Any]],
+    import_report: dict[str, Any],
+) -> dict[str, Any]:
+    from app.services.authoritative_registries.events import classify_pvp_event
+
+    names = sorted({str(row.get("denomination") or row.get("candidate_name") or "") for row in rows if row.get("candidate_name")})
+    filings = [_parse_date(row.get("application_date")) for row in rows]
+    updates = [_parse_date(row.get("status_date") or row.get("grant_date")) for row in rows]
+    events = [classify_pvp_event(row) for row in rows]
+    candidates = import_report.get("candidates") or []
+    matched = [
+        row
+        for row in candidates
+        if row.get("candidate_canonical_match") or row.get("identity_state") == "possible_alias"
+    ]
+    ambiguous = [
+        row
+        for row in candidates
+        if row.get("identity_state") in {"possible_alias", "unknown"}
+    ]
+    return {
+        "state": "ok",
+        "source_url": STATUS_REPORT_URL,
+        "layer": "AUTHORITATIVE_REGISTRY",
+        "raw_berry_records": len(rows),
+        "distinct_variety_names": len(names),
+        "variety_names": names[:80],
+        "matched_canonical": len(matched),
+        "candidates": int(import_report.get("written_count") or 0),
+        "built_count": int(import_report.get("built_count") or 0),
+        "ambiguous_identity": len(ambiguous),
+        "distinct_new": int(import_report.get("distinct_new") or 0),
+        "possible_alias": int(import_report.get("possible_alias") or 0),
+        "unknown": int(import_report.get("unknown") or 0),
+        "newest_filing": max((item for item in filings if item), default=None),
+        "newest_update": max((item for item in updates if item), default=None),
+        "event_counts": {
+            kind: sum(1 for event in events if event["event_kind"] == kind)
+            for kind in {event["event_kind"] for event in events}
+        },
+        "auto_confirmed": False,
+        "trust_state": "UNREVIEWED_REGISTRY",
+    }
+
+
+def run_bounded_import(
+    *,
+    data_dir: Path,
+    inbox_dir: Path,
+    persist: bool = True,
+    get: Callable[..., Any] | None = None,
+) -> dict[str, Any]:
+    """Fetch the official XLSX, map berry rows, propose candidates only."""
+    raw = fetch_status_report(get=get)
+    rows = parse_status_workbook(raw)
+    varieties = _load_variety_entities(data_dir)
+    if persist:
+        imported = import_berry_rows(rows, varieties=varieties, inbox_dir=inbox_dir)
+    else:
+        built = [build_candidate(row, varieties=varieties) for row in rows]
+        imported = {
+            "input_count": len(rows),
+            "built_count": len(built),
+            "written_count": 0,
+            "written_ids": [],
+            "rejected_count": sum(1 for row in built if row.get("status") == "rejected"),
+            "distinct_new": sum(1 for row in built if row.get("identity_state") == "distinct"),
+            "possible_alias": sum(1 for row in built if row.get("identity_state") == "possible_alias"),
+            "unknown": sum(1 for row in built if row.get("identity_state") == "unknown"),
+            "candidates": built,
+            "state": "dry_run",
+        }
+    summary = summarize_berry_import(rows, imported)
+    if not persist:
+        summary["state"] = "dry_run"
+        summary["candidates"] = 0
+    summary["bytes_downloaded"] = len(raw)
+    summary["canonical_varieties_checked"] = len(varieties)
+    return summary

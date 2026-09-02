@@ -19,6 +19,7 @@ from app.services.industry_pulse.authority import (
 )
 from app.services.industry_pulse.brightdata import BrightDataSearchProvider
 from app.services.industry_pulse.brightdata import available as brightdata_available
+from app.services.industry_pulse.apitube import available as apitube_available
 from app.services.industry_pulse.catchall_provider import available as catchall_available
 from app.services.industry_pulse.dedup import dedupe_hits, identity_key, unique_hits
 from app.services.industry_pulse.exa import ExaSearchProvider
@@ -50,6 +51,7 @@ UNIT_COST_USD = {
     "firecrawl": 0.0,  # credit-based; estimated in the written cost model only
     "brightdata": 0.0015,
     "newscatcher_catchall": 0.10,
+    "apitube": 0.0,
 }
 
 PROPRIETARY_TOKENS = (
@@ -325,10 +327,14 @@ def credential_status() -> dict[str, dict[str, Any]]:
         "newscatcher_catchall": {
             "live": False,
             "reason": (
-                "async event API; not slice-looped"
+                "async event API; background cache only — not slice-looped"
                 if catchall_available()
                 else "NEWSCATCHER_API_KEY / CATCHALL_API_KEY absent; async event API is not slice-looped"
             ),
+        },
+        "apitube": {
+            "live": apitube_available(),
+            "reason": None if apitube_available() else "APITUBE_API_KEY absent; SET APITUBE_API_KEY to activate",
         },
     }
 

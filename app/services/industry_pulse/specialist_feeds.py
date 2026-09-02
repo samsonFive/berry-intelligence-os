@@ -124,6 +124,7 @@ WEEK_SPECIALIST_FEEDS: tuple[dict[str, str], ...] = (
         "feed_url": "https://news.google.com/rss/search?q=site:thepacker.com+(berry+OR+blueberry+OR+strawberry+OR+raspberry+OR+blackberry)&hl=en-US&gl=US&ceid=US:en",
         "adapter": "news_search_rss",
         "geography": "americas",
+        "access_note": "First-party /rss.xml and /feed return 403. Google site-search only. Do not scrape.",
     },
     {
         "id": "feed:hortifrut-newsroom",
