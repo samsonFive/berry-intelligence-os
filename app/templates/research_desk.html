@@ -1,0 +1,89 @@
+{% extends "base_stakeholder.html" %}
+{% block title %}Ask Berry OS — Berry Intelligence{% endblock %}
+{% block content %}
+<main class="rd-page{% if scope %} rd-page-result{% endif %}">
+  {% if not scope %}
+  <section class="rd-hero">
+    <p class="rd-kicker">STRATEGY RESEARCH DESK</p>
+    <h1>Ask Berry OS</h1>
+    <p class="rd-hero-copy">One question. Current developments, trusted intelligence, competitive context, and the gaps that still matter.</p>
+    <form class="rd-ask" method="post" action="/research">
+      <label for="rd-question">What do you want to know?</label>
+      <div class="rd-ask-row">
+        <textarea id="rd-question" name="question" rows="2" autofocus required placeholder="What is Planasa doing in strawberries right now?"></textarea>
+        <button type="submit">Research</button>
+      </div>
+    </form>
+    <div class="rd-prompts" aria-label="Example research questions">
+      {% for prompt in example_prompts %}
+      <button type="button" data-research-example="{{ prompt }}">{{ prompt }}</button>
+      {% endfor %}
+    </div>
+  </section>
+  {% else %}
+  <header class="rd-result-header">
+    <div>
+      <p class="rd-kicker">ASK BERRY OS · RESEARCH DESK</p>
+      <h1>{{ scope.question }}</h1>
+      <p class="rd-subline">Canonical intelligence assembled in {{ first_content_ms }} ms. Live research is additive and remains unreviewed.</p>
+    </div>
+    <a class="rd-new-link" href="/research">New question</a>
+  </header>
+
+  <section class="rd-scope" aria-labelledby="rd-scope-title">
+    <div class="rd-scope-heading">
+      <p id="rd-scope-title">Interpreted scope</p>
+      <span>Correct it with a follow-up</span>
+    </div>
+    <div class="rd-scope-chips">
+      <span>{{ scope_display.intelligence_type }}</span>
+      {% if scope_display.berry %}<span>{{ scope_display.berry }}</span>{% endif %}
+      {% for label in scope_display.companies %}<span>{{ label }}</span>{% endfor %}
+      {% for label in scope_display.geographies %}<span>{{ label }}</span>{% endfor %}
+      {% for label in scope_display.topics %}<span>{{ label }}</span>{% endfor %}
+      <span>{{ scope.window_days }} days</span>
+    </div>
+    {% if scope.unresolved or scope.ambiguous %}
+    <p class="rd-scope-warning">Needs correction: {{ (scope.unresolved + scope.ambiguous)|join(', ') }}</p>
+    {% endif %}
+    <form class="rd-followup" method="post" action="/research">
+      <input type="hidden" name="previous_scope" value="{{ scope_json }}">
+      <label class="visually-hidden" for="rd-followup">Ask a follow-up</label>
+      <input id="rd-followup" name="question" type="text" placeholder="Only show genetics · What about Europe? · Compare that to Fall Creek" required>
+      <button type="submit">Follow up</button>
+    </form>
+  </section>
+
+  <div id="rd-result" data-live-endpoint="/api/research/live" data-scope="{{ scope_json }}" data-first-content-ms="{{ first_content_ms }}">
+    {% include "_research_result.html" %}
+  </div>
+  {% endif %}
+</main>
+{% endblock %}
+{% block scripts %}
+<script>
+  document.querySelectorAll("[data-research-example]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      var field = document.getElementById("rd-question");
+      if (field) { field.value = button.dataset.researchExample || ""; field.focus(); }
+    });
+  });
+  (function () {
+    var result = document.getElementById("rd-result");
+    if (!result || !result.dataset.liveEndpoint || !result.dataset.scope) return;
+    var status = document.getElementById("rd-live-status");
+    fetch(result.dataset.liveEndpoint, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({scope: JSON.parse(result.dataset.scope), first_content_ms: Number(result.dataset.firstContentMs || 0)})
+    }).then(function (response) {
+      if (!response.ok) throw new Error("research failed");
+      return response.text();
+    }).then(function (html) {
+      result.innerHTML = html;
+    }).catch(function () {
+      if (status) status.textContent = "Live research could not complete. Canonical intelligence remains available below.";
+    });
+  }());
+</script>
+{% endblock %}

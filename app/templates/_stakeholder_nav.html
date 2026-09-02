@@ -2,6 +2,7 @@
 {% set ui = ui_context if ui_context is defined else {"berry": "global", "berry_label": "Global", "landscape_href": "/landscapes"} %}
 <a href="/today" class="{% if path == '/today' %}is-active{% endif %}"{% if path == '/today' %} aria-current="page"{% endif %}>Today</a>
 {% if not static_build %}
+<a href="/research" class="{% if path.startswith('/research') %}is-active{% endif %}"{% if path.startswith('/research') %} aria-current="page"{% endif %}>Ask Berry</a>
 <a href="/radar" class="{% if path.startswith('/radar') %}is-active{% endif %}"{% if path.startswith('/radar') %} aria-current="page"{% endif %}>Radar</a>
 <a href="/week" class="{% if path.startswith('/week') %}is-active{% endif %}"{% if path.startswith('/week') %} aria-current="page"{% endif %}>This week</a>
 {% endif %}
