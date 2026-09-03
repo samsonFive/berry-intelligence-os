@@ -289,6 +289,42 @@ def test_war_room_page_with_scope_renders_session(monkeypatch) -> None:
     assert "SUGGESTED DISCUSSION QUESTIONS" in page.text
 
 
+def test_war_room_needs_attention_never_shows_broken_reopen_button(monkeypatch) -> None:
+    # Real bug found during this mission's own demo pass: ephemeral War
+    # Room alerts are never persisted, so they never get a "state" key the
+    # way real Watchtower alerts do -- _alert_card.html's else-branch
+    # rendered a bare "Reopen ()" and posted to a Watchtower alert id that
+    # was never stored.
+    fake_alert = {
+        "id": "wta-fake", "trigger_type": "MARKET_REALITY_CHANGE", "trigger_label": "Market Reality change",
+        "subject_type": "berry", "subject_id": "berry-blueberry", "subject_label": "Blueberry",
+        "title": "Peru Blueberries — Export Volume +32.2%", "what_happened": "242,000 -> 320,000 MT",
+        "why_triggered": ["Watched berry: Blueberry"], "priority": "HIGH ATTENTION", "priority_reasons": ["Watched berry: Blueberry"],
+        "generated_at": "2026-09-02T12:00:00+00:00", "first_generated_at": "2026-09-02T12:00:00+00:00", "event_at": "2026-09-02",
+        "sources": [], "trust_state": "MARKET REALITY", "related_development_id": None, "related_move_id": None,
+        "market_context": None, "trusted_context": [], "open_href": "/today",
+        "ask_berry_os_href": "/research?q=x", "create_brief_href": "/reports/new",
+        # deliberately no "state" key -- exactly what generate_alerts()'s Alert.as_dict() produces
+    }
+    monkeypatch.setattr("app.main.compose_war_room", lambda scope, **kwargs: {
+        "scope_label": "Blueberry", "window_days": 30, "radar_freshness_label": "fresh",
+        "executive_snapshot": {"moves": 0, "developments": 0, "market_changes": 1, "needs_attention": 1, "genetics_ip": 0, "strategic_questions": 0, "findings": []},
+        "what_changed": [], "who_is_moving": [], "needs_attention": [fake_alert],
+        "competitive_positioning": None, "market_reality": [], "genetics_ip": {"moves": [], "developments": []},
+        "emerging_developments": [], "key_uncertainties": [], "coverage_unknown": [], "competitive_overlap": [],
+        "landscape_questions": [], "whitespace_watch_next": [], "whitespace_href": None,
+        "questions_for_team": {"questions": ["x"], "source": "deterministic"},
+        "strategic_questions": [], "watch_next": [], "notes": [], "ask_berry_os_href": "/research?q=x",
+        "compare_href": None, "create_meeting_brief_href": "/reports/new", "watchtower_href": "/watchtower",
+        "scope": {"berry_id": "berry-blueberry", "geography_ids": [], "company_ids": [], "window_days": 30},
+    })
+    page = TestClient(app).get("/war-room?berry=blueberry")
+    assert page.status_code == 200
+    assert "Reopen (" not in page.text
+    assert 'action="/watchtower/wta-fake/action"' not in page.text
+    assert "Ask Berry OS about this" in page.text  # the safe, non-mutating actions still show
+
+
 def test_war_room_notes_route_persists_and_redirects(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
     response = TestClient(app).post(

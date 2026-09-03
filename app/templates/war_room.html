@@ -95,7 +95,7 @@
   <section class="sh-section sh-section-highlight" id="needs-attention">
     <h2>Needs attention</h2>
     <ul class="sh-story-list">
-      {% for item in session.needs_attention %}<li>{% include "_alert_card.html" %}</li>{% endfor %}
+      {% for item in session.needs_attention %}<li>{% with ephemeral=true %}{% include "_alert_card.html" %}{% endwith %}</li>{% endfor %}
     </ul>
   </section>
   {% endif %}

@@ -40,28 +40,30 @@
     <a class="sh-btn sh-btn-primary" href="{{ item.ask_berry_os_href }}">Ask Berry OS about this</a>
     <a class="sh-btn" href="{{ item.open_href }}">Open</a>
     <a class="sh-btn" href="{{ item.create_brief_href }}">Create brief</a>
-    {% if item.state == 'open' %}
-    <form method="post" action="/watchtower/{{ item.id }}/action">
-      <input type="hidden" name="action" value="mark_read">
-      <input type="hidden" name="return_to" value="/watchtower">
-      <button class="sh-btn sh-btn-quiet" type="submit">Mark read</button>
-    </form>
-    <form method="post" action="/watchtower/{{ item.id }}/action">
-      <input type="hidden" name="action" value="dismiss">
-      <input type="hidden" name="return_to" value="/watchtower">
-      <button class="sh-btn sh-btn-quiet" type="submit">Dismiss</button>
-    </form>
-    <form method="post" action="/watchtower/{{ item.id }}/action">
-      <input type="hidden" name="action" value="snooze">
-      <input type="hidden" name="return_to" value="/watchtower">
-      <button class="sh-btn sh-btn-quiet" type="submit">Snooze</button>
-    </form>
-    {% else %}
-    <form method="post" action="/watchtower/{{ item.id }}/action">
-      <input type="hidden" name="action" value="reopen">
-      <input type="hidden" name="return_to" value="/watchtower">
-      <button class="sh-btn sh-btn-quiet" type="submit">Reopen ({{ item.state }})</button>
-    </form>
+    {% if not (ephemeral is defined and ephemeral) %}
+      {% if item.state == 'open' %}
+      <form method="post" action="/watchtower/{{ item.id }}/action">
+        <input type="hidden" name="action" value="mark_read">
+        <input type="hidden" name="return_to" value="/watchtower">
+        <button class="sh-btn sh-btn-quiet" type="submit">Mark read</button>
+      </form>
+      <form method="post" action="/watchtower/{{ item.id }}/action">
+        <input type="hidden" name="action" value="dismiss">
+        <input type="hidden" name="return_to" value="/watchtower">
+        <button class="sh-btn sh-btn-quiet" type="submit">Dismiss</button>
+      </form>
+      <form method="post" action="/watchtower/{{ item.id }}/action">
+        <input type="hidden" name="action" value="snooze">
+        <input type="hidden" name="return_to" value="/watchtower">
+        <button class="sh-btn sh-btn-quiet" type="submit">Snooze</button>
+      </form>
+      {% else %}
+      <form method="post" action="/watchtower/{{ item.id }}/action">
+        <input type="hidden" name="action" value="reopen">
+        <input type="hidden" name="return_to" value="/watchtower">
+        <button class="sh-btn sh-btn-quiet" type="submit">Reopen ({{ item.state }})</button>
+      </form>
+      {% endif %}
     {% endif %}
   </div>
   {% endif %}
