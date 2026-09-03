@@ -112,11 +112,12 @@ def test_overflow_beyond_max_is_reported():
     entities["company-c"] = _entity(id="company-c", entity_type="company", name="Company C")
     entities["company-d"] = _entity(id="company-d", entity_type="company", name="Company D")
     entities["company-e"] = _entity(id="company-e", entity_type="company", name="Company E")
+    entities["company-f"] = _entity(id="company-f", entity_type="company", name="Company F")
     result = _compare(
-        ["company-a", "company-b", "company-c", "company-d", "company-e"], entities=entities
+        ["company-a", "company-b", "company-c", "company-d", "company-e", "company-f"], entities=entities
     )
     assert result["count"] == COMPARE_MAX_COMPANIES
-    assert result["overflow_ids"] == ["company-e"]
+    assert result["overflow_ids"] == ["company-f"]
     assert result["max_reached"] is True
 
 
@@ -262,17 +263,17 @@ def test_compare_invalid_id_reported_not_crashed():
     assert "Not found or not a Company" in page.text
 
 
-def test_compare_overflow_beyond_four_reported():
+def test_compare_overflow_beyond_five_reported():
     client = TestClient(app)
     page = client.get(
         "/entities/company/compare",
         params={
             "ids": "company-planasa,company-costa-group-holdings,"
-            "company-fall-creek-farm-and-nursery,company-sanlucar,company-driscolls"
+            "company-fall-creek-farm-and-nursery,company-sanlucar,company-driscolls,company-hortifrut"
         },
     )
     assert page.status_code == 200
-    assert "Only the first 4 selected ids are compared" in page.text
+    assert "Only the first 5 selected ids are compared" in page.text
     assert "company-driscolls" in page.text
 
 

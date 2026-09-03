@@ -25,7 +25,7 @@ from app.services.variety_workspace import (
     variety_footprint,
 )
 
-COMPARE_MAX_COMPANIES = 4
+COMPARE_MAX_COMPANIES = 5
 RECENT_INTELLIGENCE_LIMIT = 5
 PORTFOLIO_RECENT_MOVES_LIMIT = 10
 
@@ -58,6 +58,7 @@ def _company_portfolio_roles(
             continue
         party = _party(variety)
         if party:
+            party["berry_ids"] = [str(value) for value in (variety.get("berry_ids") or []) if value]
             seen_per_bucket[bucket].add(variety["id"])
             roles[bucket].append(party)
     return roles
