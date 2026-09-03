@@ -851,3 +851,120 @@ html, body.sh-body {
 @media (max-width: 768px) {
   .war-room-scope-form { flex-direction: column; align-items: stretch; }
 }
+
+.ws-page { max-width: 1280px; }
+.ws-header { align-items: flex-start; }
+.ws-legend {
+  list-style: none;
+  margin: 0 0 28px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.ws-legend li {
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--sh-line);
+  color: var(--sh-muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.ws-legend strong { display: block; margin-bottom: 4px; letter-spacing: 0.04em; font-size: 11px; }
+.ws-legend .is-active { background: #e6f2ec; border-color: #b7d4c6; }
+.ws-legend .is-active strong { color: var(--sh-trust); }
+.ws-legend .is-low { background: #f6ecd8; border-color: #e2d0a8; }
+.ws-legend .is-low strong { color: var(--sh-pending); }
+.ws-legend .is-unknown {
+  background: repeating-linear-gradient(-45deg, #f3f1ec, #f3f1ec 8px, #e8e4db 8px, #e8e4db 16px);
+  color: var(--sh-faint);
+}
+.ws-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+  margin: 0 0 36px;
+  padding: 16px;
+  background: var(--sh-paper);
+  border: 1px solid var(--sh-line);
+  border-radius: 12px;
+}
+.ws-filters label { display: grid; gap: 6px; color: var(--sh-faint); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.ws-filters .ws-grow { flex: 1 1 220px; }
+.ws-filters input, .ws-filters select {
+  min-height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--sh-line-strong);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--sh-ink);
+  font: 13px/1.3 var(--sh-sans);
+}
+.ws-questions ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.ws-questions li { padding: 14px 16px; background: #1c3554; color: #f4efe3; border-radius: 10px; }
+.ws-questions li p:first-child { margin: 0 0 6px; color: #c9d6e6; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; }
+.ws-questions li p:last-child { margin: 0; font-family: var(--sh-serif); font-size: 17px; line-height: 1.35; }
+.ws-note { margin: -8px 0 16px; color: var(--sh-muted); font-size: 13px; }
+.ws-market-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.ws-market-card, .ws-footprint {
+  padding: 16px 18px;
+  background: var(--sh-paper);
+  border: 1px solid var(--sh-line);
+  border-radius: 12px;
+}
+.ws-market-card header, .ws-footprint header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.ws-market-card header a, .ws-footprint header a {
+  color: var(--sh-accent);
+  font-family: var(--sh-serif);
+  font-size: 22px;
+  text-decoration: none;
+}
+.ws-market-card ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.ws-market-card small, .ws-actors { display: block; color: var(--sh-faint); font-size: 11px; }
+.ws-actors { margin: 12px 0 0; }
+.ws-grid-wrap { overflow-x: auto; border: 1px solid var(--sh-line-strong); border-radius: 12px; background: #111c2b; }
+.ws-grid { width: 100%; border-collapse: separate; border-spacing: 8px; min-width: 720px; }
+.ws-grid th, .ws-grid td { vertical-align: top; }
+.ws-grid thead th, .ws-grid tbody th {
+  color: #d7e0ea;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 10px 8px;
+}
+.ws-grid thead th a, .ws-grid tbody th a { color: inherit; text-decoration: none; }
+.ws-cell {
+  min-width: 160px;
+  padding: 12px;
+  border-radius: 8px;
+  color: #1b2118;
+}
+.ws-cell.is-active { background: #7fbf9a; }
+.ws-cell.is-low-activity { background: #e4c37a; }
+.ws-cell.is-low-coverage {
+  background: repeating-linear-gradient(-45deg, #8b9098, #8b9098 7px, #6f747c 7px, #6f747c 14px);
+  color: #eef1f4;
+}
+.ws-state { margin: 0 0 6px; font-size: 10px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
+.ws-count { margin: 0 0 8px; font-family: var(--sh-serif); font-size: 15px; }
+.ws-ribbons, .ws-mini { margin: 0 0 8px; font-size: 11px; line-height: 1.35; }
+.ws-ribbons span { display: inline-block; margin: 0 6px 4px 0; }
+.ws-ask { color: inherit; font-size: 11px; font-weight: 700; }
+.ws-footprints { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.ws-footprint dl { margin: 0; display: grid; gap: 10px; }
+.ws-footprint dt { color: var(--sh-faint); font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.ws-footprint dd { margin: 2px 0 0; font-size: 13px; }
+.ws-readout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.ws-readout ul { margin: 0; padding-left: 18px; color: var(--sh-muted); }
+.ws-readout a { color: var(--sh-accent); }
+.ws-method { margin: 8px 0 0; color: var(--sh-faint); font-size: 12px; max-width: 72em; }
+@media (max-width: 900px) {
+  .ws-legend, .ws-market-grid, .ws-footprints, .ws-readout { grid-template-columns: 1fr; }
+}

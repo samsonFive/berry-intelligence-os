@@ -160,6 +160,12 @@ from app.services.emerging_radar import (
 from app.services.competitive_moves.board import compose_moves_board
 from app.services.competitive_moves.research_desk import competitive_moves_for
 from app.services.research_decision_support import build_research_decision_support
+from app.services.geography_hierarchy import resolve_geography_scope
+from app.services.whitespace_radar import (
+    compose_whitespace_landscape,
+    default_demo_scope,
+    parse_id_list,
+)
 from app.services.watchtower.compose import compose_watchtower
 from app.services.watchtower.store import apply_alert_action
 from app.services.war_room.compose import compose_war_room
@@ -713,6 +719,54 @@ def _cached_landscape_context_all() -> dict[str, Any]:
         _LANDSCAPE_CACHE["value"] = {}
     if cache_key not in _LANDSCAPE_CACHE["value"]:
         _LANDSCAPE_CACHE["value"][cache_key] = get_domain_services(DATA_DIR).landscape.landscape_context_all_berries(BERRIES)
+    return _LANDSCAPE_CACHE["value"][cache_key]
+
+
+def _cached_whitespace_landscape(
+    berry_id: str,
+    company_ids: list[str],
+    geography_ids: list[str],
+    window_days: int,
+) -> dict[str, Any]:
+    """Whitespace is query-scoped and also reads the Radar cache."""
+    key = _landscape_cache_key()
+    radar_sig = _path_sig(INBOX_DIR / "operations" / "radar" / "cache.json")
+    cache_key = (
+        key,
+        "whitespace",
+        berry_id,
+        tuple(company_ids),
+        tuple(geography_ids),
+        window_days,
+        radar_sig,
+    )
+    if _LANDSCAPE_CACHE["key"] != key:
+        _LANDSCAPE_CACHE["key"] = key
+        _LANDSCAPE_CACHE["value"] = {}
+    if cache_key not in _LANDSCAPE_CACHE["value"]:
+        board = compose_moves_board(inbox_dir=INBOX_DIR)
+        timeframe = "7d" if window_days == 7 else "30d"
+        relationships = all_relationships()
+        expanded_geos: list[str] = []
+        for geography_id in geography_ids:
+            expanded_geos.extend(resolve_geography_scope(geography_id, relationships=relationships).all_ids)
+        moves = competitive_moves_for(
+            berries=[berry_id],
+            geography=expanded_geos or None,
+            timeframe=timeframe,
+            moves=board.moves,
+        )
+        _LANDSCAPE_CACHE["value"][cache_key] = compose_whitespace_landscape(
+            berry_id=berry_id,
+            company_ids=company_ids,
+            geography_ids=geography_ids,
+            window_days=window_days,
+            entities=entity_index(),
+            relationships=relationships,
+            published_evidence=published_evidence(),
+            moves=moves,
+            market_repo=get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations,
+        )
     return _LANDSCAPE_CACHE["value"][cache_key]
 
 
@@ -4528,6 +4582,44 @@ def moves_page(request: Request) -> HTMLResponse:
         name="moves.html",
         context={
             "board": board.as_dict(),
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/whitespace", response_class=HTMLResponse)
+def whitespace_page(
+    request: Request,
+    berry: str | None = None,
+    companies: str | None = None,
+    geographies: str | None = None,
+    window: int = 30,
+) -> HTMLResponse:
+    """Observed competitive concentration vs coverage — not opportunity."""
+    demo = default_demo_scope()
+    berry_id = berry or demo["berry_id"]
+    if berry_id not in BERRIES:
+        berry_id = demo["berry_id"]
+    window_days = 7 if int(window or 30) <= 7 else 30
+    company_ids = parse_id_list(companies, demo["company_ids"])
+    geography_ids = parse_id_list(geographies, demo["geography_ids"])
+    landscape = _cached_whitespace_landscape(
+        berry_id=berry_id,
+        company_ids=company_ids,
+        geography_ids=geography_ids,
+        window_days=window_days,
+    )
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="whitespace.html",
+        context={
+            "landscape": landscape,
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
             "ui_context": ui,
