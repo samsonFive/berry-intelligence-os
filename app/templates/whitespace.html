@@ -1,0 +1,250 @@
+{% extends "base_stakeholder.html" %}
+{% block title %}Strategic Whitespace — Berry Intelligence{% endblock %}
+{% block content %}
+<div class="sh-page ws-page">
+  <header class="sh-header ws-header">
+    <div>
+      <p class="sh-kicker">Strategic landscape · observed activity, not opportunity</p>
+      <h1>{{ landscape.berry_label }} concentration vs whitespace</h1>
+      <p class="sh-lede">
+        Where competitors are visibly concentrating activity — and where Berry OS currently
+        observes little activity, or cannot say because coverage is thin.
+        Low coverage is never opportunity.
+      </p>
+    </div>
+    {% if not static_build %}
+    <div class="sh-actions">
+      <a class="sh-btn" href="/moves">Competitive moves</a>
+      <a class="sh-btn" href="/radar">Radar</a>
+      <form class="rd-create-brief" method="post" action="/reports/new">
+        <input type="hidden" name="step" value="preview">
+        <input type="hidden" name="report_type" value="competitor_comparison">
+        <input type="hidden" name="berry" value="{{ landscape.berry_id or '' }}">
+        <input type="hidden" name="geography_ids" value="{{ landscape.geographies|map(attribute='id')|join(',') }}">
+        <input type="hidden" name="company_ids" value="{{ landscape.companies|map(attribute='id')|join(',') }}">
+        <input type="hidden" name="date_window_days" value="{{ landscape.window_days }}">
+        <input type="hidden" name="focus_notes" value="{{ landscape.brief_focus_notes }}">
+        <button class="sh-btn sh-btn-primary" type="submit">Create leadership brief</button>
+      </form>
+    </div>
+    {% endif %}
+  </header>
+
+  <ul class="ws-legend" aria-label="Three-state discipline">
+    <li class="is-active"><strong>ACTIVE / CONCENTRATED</strong> Multiple supported moves or actors, and coverage is adequate.</li>
+    <li class="is-low"><strong>LOW OBSERVED ACTIVITY</strong> Coverage is adequate; few moves are visible.</li>
+    <li class="is-unknown"><strong>LOW COVERAGE / UNKNOWN</strong> Not enough sources to describe activity. Not whitespace.</li>
+  </ul>
+
+  <form class="ws-filters" method="get" action="/whitespace">
+    <label>Berry
+      <select name="berry">
+        {% for berry_id, berry_label in berries.items() %}
+        <option value="{{ berry_id }}"{% if landscape.berry_id == berry_id %} selected{% endif %}>{{ berry_label }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Window
+      <select name="window">
+        <option value="7"{% if landscape.window_days == 7 %} selected{% endif %}>7 days</option>
+        <option value="30"{% if landscape.window_days == 30 %} selected{% endif %}>30 days</option>
+      </select>
+    </label>
+    <label class="ws-grow">Companies
+      <input name="companies" value="{{ landscape.companies|map(attribute='id')|join(',') }}" spellcheck="false">
+    </label>
+    <label class="ws-grow">Geographies
+      <input name="geographies" value="{{ landscape.geographies|map(attribute='id')|join(',') }}" spellcheck="false">
+    </label>
+    <button class="sh-btn sh-btn-primary" type="submit">Update landscape</button>
+  </form>
+
+  <section class="sh-section ws-questions" id="strategy-questions">
+    <h2>What this landscape can answer</h2>
+    <ol>
+      {% for item in landscape.questions %}
+      <li>
+        <p>{{ item.prompt }}</p>
+        <p>{{ item.answer }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+
+  <section class="sh-section" id="market-context">
+    <h2>Market Reality — shown separately</h2>
+    <p class="ws-note">Market series are not allocated to any company and do not imply that observed competitors caused the change.</p>
+    <div class="ws-market-grid">
+      {% for geo in landscape.geographies %}
+        {% set coverage = landscape.geo_coverage[geo.id] %}
+        <article class="ws-market-card">
+          <header>
+            <a href="{{ geo.href }}">{{ geo.name }}</a>
+            <span>{{ landscape.berry_label }}</span>
+          </header>
+          {% if coverage.market %}
+            <ul>
+              {% for card in coverage.market %}
+              <li>
+                <a href="{{ card.href }}">{{ card.title }}</a>
+                <small>{{ card.source_name }} · {{ card.date }} · {{ card.trust_class }}</small>
+              </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>No Market Reality series currently matches this geography and berry.</p>
+          {% endif %}
+          {% if coverage.observed_actors %}
+            <p class="ws-actors">Observed competitive activity: {{ coverage.observed_actors|join(', ') }}</p>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="sh-section" id="company-geography">
+    <h2>Company × geography</h2>
+    <p class="ws-note">Categorical cells. The number is a transparent count of visible moves plus rights/IP filings, not a score.</p>
+    <div class="ws-grid-wrap">
+      <table class="ws-grid">
+        <thead>
+          <tr>
+            <th scope="col">Company</th>
+            {% for geo in landscape.geographies %}
+            <th scope="col"><a href="{{ geo.href }}">{{ geo.name }}</a></th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for company in landscape.companies %}
+          <tr>
+            <th scope="row"><a href="{{ company.href }}">{{ company.name }}</a></th>
+            {% for geo in landscape.geographies %}
+              {% set cell = landscape.company_geo_lookup[company.id ~ '|' ~ geo.id] %}
+              <td class="ws-cell is-{{ cell.state_key }}">
+                <p class="ws-state">{{ cell.state }}</p>
+                <p class="ws-count">{{ cell.activity_count }} visible {{ 'record' if cell.activity_count == 1 else 'records' }}</p>
+                {% if cell.coverage_failure %}
+                <p class="ws-mini">Coverage failure — not low activity.</p>
+                {% endif %}
+                {% if cell.lanes %}
+                <p class="ws-ribbons">{% for lane in cell.lanes %}<span>{{ lane.label }} {{ lane.count }}</span>{% endfor %}</p>
+                {% endif %}
+                <a class="ws-ask" href="{{ cell.ask_href }}">Ask Berry OS about this</a>
+              </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="sh-section" id="geography-activity">
+    <h2>Geography × activity type</h2>
+    <div class="ws-grid-wrap">
+      <table class="ws-grid ws-grid-activity">
+        <thead>
+          <tr>
+            <th scope="col">Geography</th>
+            {% for lane in landscape.lanes %}
+            <th scope="col">{{ lane.label }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for geo in landscape.geographies %}
+          <tr>
+            <th scope="row"><a href="{{ geo.href }}">{{ geo.name }}</a></th>
+            {% for lane in landscape.lanes %}
+              {% set cell = landscape.geo_activity_lookup[geo.id ~ '|' ~ lane.key] %}
+              <td class="ws-cell is-{{ cell.state_key }}">
+                <p class="ws-state">{{ cell.state }}</p>
+                <p class="ws-count">{{ cell.move_count }} · {{ cell.actor_count }} {{ 'company' if cell.actor_count == 1 else 'companies' }}</p>
+                {% if cell.actor_names %}<p class="ws-mini">{{ cell.actor_names|join(', ') }}</p>{% endif %}
+                <a class="ws-ask" href="{{ cell.ask_href }}">Ask Berry OS about this</a>
+              </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="sh-section" id="footprints">
+    <h2>Company positioning</h2>
+    <p class="ws-note">Footprints are observed coverage, not competitive strength.</p>
+    <div class="ws-footprints">
+      {% for card in landscape.footprints %}
+      <article class="ws-footprint">
+        <header>
+          <a href="{{ card.href }}">{{ card.name }}</a>
+          <span>{{ card.recent_move_count }} recent moves</span>
+        </header>
+        <dl>
+          <div><dt>Where we observe activity</dt><dd>{{ card.observed_geographies|join(', ') or 'None in this window' }}</dd></div>
+          <div><dt>What types of moves</dt><dd>{{ card.move_types|join(', ') or 'None derived' }}</dd></div>
+          <div><dt>Which berries</dt><dd>{{ card.berries|join(', ') or 'Undeclared' }}</dd></div>
+          <div><dt>Varieties / genetics</dt><dd>{{ card.varieties|join(', ') or 'None named' }}</dd></div>
+          <div><dt>Rights / IP</dt><dd>{{ card.rights_count }} trusted filings</dd></div>
+          <div><dt>Source coverage</dt><dd>{{ card.trusted_count }} trusted records · {{ card.live_source_count }} live sources</dd></div>
+        </dl>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="sh-section ws-readout" id="interpretation">
+    <div>
+      <h2>Observed concentration</h2>
+      {% if landscape.concentration %}
+      <ul>
+        {% for item in landscape.concentration %}
+        <li>{{ item.text }} <a href="{{ item.ask_href }}">Ask Berry OS</a></li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No cell in this scope currently meets ACTIVE / CONCENTRATED.</p>
+      {% endif %}
+    </div>
+    <div>
+      <h2>Potential areas to investigate</h2>
+      <p class="ws-note">Hypotheses only — not recommendations and not opportunity labels.</p>
+      {% if landscape.investigate %}
+      <ul>
+        {% for item in landscape.investigate %}
+        <li>{{ item.text }} <a href="{{ item.ask_href }}">Ask Berry OS</a></li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No low-activity-with-coverage hypothesis is currently generated from this scope.</p>
+      {% endif %}
+    </div>
+    <div>
+      <h2>Coverage gaps</h2>
+      {% if landscape.coverage_gaps %}
+      <ul>
+        {% for item in landscape.coverage_gaps %}
+        <li>{{ item.text }} <a href="{{ item.ask_href }}">Ask Berry OS</a></li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No selected geography is currently classified as LOW COVERAGE / UNKNOWN.</p>
+      {% endif %}
+    </div>
+    <div>
+      <h2>What to watch next</h2>
+      {% if landscape.watch_next %}
+      <ul>
+        {% for item in landscape.watch_next %}<li>{{ item }}</li>{% endfor %}
+      </ul>
+      {% else %}
+      <p>No concrete next watch item is available from current moves.</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <p class="ws-method">{{ landscape.method_note }}</p>
+</div>
+{% endblock %}
