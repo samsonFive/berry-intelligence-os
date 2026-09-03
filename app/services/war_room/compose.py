@@ -15,6 +15,7 @@ from urllib.parse import urlencode
 
 from app.services.company_workspace import present_company_compare
 from app.services.competitive_moves.board import compose_moves_board
+from app.services.competitive_moves.research_desk import competitive_moves_for
 from app.services.emerging_radar.cache import edition_from_cache
 from app.services.emerging_radar.research_desk import developments_for
 from app.services.geography_hierarchy import resolve_geography_scope
@@ -24,6 +25,7 @@ from app.services.war_room.models import WarRoomScope
 from app.services.war_room.notes import list_notes_for_scope
 from app.services.watchlist import is_watched
 from app.services.watchtower.generate import generate_alerts
+from app.services.whitespace_radar import compose_whitespace_landscape
 
 _GENETICS_IP_MOVE_TYPES = {"GENETICS_LAUNCH", "VARIETY_COMMERCIALIZATION", "LICENSING", "PBR / IP", "R&D / TECHNOLOGY"}
 _GENETICS_IP_EVENT_TYPES = {"GENETICS_INNOVATION", "VARIETY_LAUNCH", "PBR", "PATENT"}
@@ -105,6 +107,32 @@ def compose_war_room(
         if _move_matches_scope(m, company_ids=company_ids, geo_ids=geo_ids, berry_id=scope.berry_id)
     ]
     scoped_moves.sort(key=lambda m: m.latest_update, reverse=True)
+
+    # Strategic Whitespace Radar needs a company x geography grid -- only
+    # call it when the scope actually has both dimensions (a company-only
+    # or geography-less scope, e.g. "Hortifrut, global, 90 days", has no
+    # grid to build). Reused verbatim, never re-derived: coverage_gaps
+    # becomes this session's honest "what we don't know" section, overlap
+    # becomes "where competitors overlap."
+    whitespace = None
+    if company_ids and scope.geography_ids and scope.berry_id:
+        whitespace_moves = competitive_moves_for(
+            berries=[scope.berry_id],
+            geography=list(geo_ids) or None,
+            timeframe=_timeframe_for(scope.window_days),
+            moves=board.moves,
+        )
+        whitespace = compose_whitespace_landscape(
+            berry_id=scope.berry_id,
+            company_ids=list(company_ids),
+            geography_ids=list(scope.geography_ids),
+            window_days=30 if scope.window_days > 7 else 7,
+            entities=entities,
+            relationships=relationships,
+            published_evidence=published_evidence,
+            moves=whitespace_moves,
+            market_repo=market_repo,
+        )
 
     scoped_developments = developments_for(
         company_ids=company_ids or None,
@@ -265,10 +293,23 @@ def compose_war_room(
             "needs_attention": len([a for a in session_alerts if a.priority in {"HIGH ATTENTION", "ATTENTION"}]),
             "genetics_ip": len(genetics_ip_moves) + len(genetics_ip_developments),
             "strategic_questions": len(scoped_sq),
+            # 3-7 source-grounded findings, each already tagged with its
+            # real kind (Competitive Move / Market Reality / Trusted
+            # Evidence) -- not a fourth synthesis layer; reuses what_changed
+            # verbatim so there is exactly one place this ranking happens.
+            "findings": what_changed[:6],
         },
         "what_changed": what_changed,
         "who_is_moving": [m.as_dict() for m in scoped_moves[:10]],
         "needs_attention": [a.as_dict() for a in session_alerts[:10]],
+        "coverage_unknown": whitespace["coverage_gaps"] if whitespace else [],
+        "competitive_overlap": whitespace["overlap"] if whitespace else [],
+        "landscape_questions": whitespace["questions"] if whitespace else [],
+        "whitespace_watch_next": whitespace["watch_next"] if whitespace else [],
+        "whitespace_href": (
+            f"/whitespace?berry={scope.berry_id}&companies={','.join(company_ids)}&geographies={','.join(scope.geography_ids)}&window={scope.window_days}"
+            if whitespace else None
+        ),
         "competitive_positioning": company_compare,
         "market_reality": market_changes[:8],
         "genetics_ip": {

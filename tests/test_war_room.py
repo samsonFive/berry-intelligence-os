@@ -101,6 +101,32 @@ def test_moves_filtered_to_scope_company() -> None:
     pass  # covered via _move_matches_scope below (pure function, no I/O needed)
 
 
+# ---- Strategic Whitespace Radar integration (reused, not duplicated) ----
+
+def test_whitespace_omitted_without_a_geography_scope(monkeypatch, tmp_path: Path) -> None:
+    # Demo 3's shape: a company-only, global scope -- Whitespace needs a
+    # company x geography grid, so this must honestly omit it rather than
+    # fabricate one.
+    planasa_move = _move()
+    scope = WarRoomScope(berry_id="berry-blueberry", company_ids=("company-planasa",))
+    session = _compose(monkeypatch, scope=scope, moves=[planasa_move], inbox_dir=tmp_path)
+    assert session["coverage_unknown"] == []
+    assert session["competitive_overlap"] == []
+    assert session["whitespace_href"] is None
+
+
+def test_whitespace_populated_with_full_scope(monkeypatch, tmp_path: Path) -> None:
+    planasa_move = _move()
+    hortifrut_move = _move(id="move-hortifrut", company_id="company-hortifrut", company_name="Hortifrut S.A.", geography_ids=("geography-spain",), geography_labels=("Spain",))
+    scope = WarRoomScope(berry_id="berry-blueberry", geography_ids=("geography-europe",), company_ids=("company-planasa", "company-hortifrut"))
+    session = _compose(monkeypatch, scope=scope, moves=[planasa_move, hortifrut_move], inbox_dir=tmp_path)
+    assert session["whitespace_href"] is not None
+    assert session["whitespace_href"].startswith("/whitespace?")
+    # Two companies both showing activity in the same (expanded) geography
+    # is exactly what "competitors overlap" should surface.
+    assert session["competitive_overlap"]
+
+
 def test_who_is_moving_filters_by_company(monkeypatch, tmp_path: Path) -> None:
     hortifrut_move = _move(id="move-hortifrut", company_id="company-hortifrut", company_name="Hortifrut S.A.")
     planasa_move = _move()

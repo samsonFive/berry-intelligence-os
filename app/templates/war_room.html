@@ -82,6 +82,13 @@
       <div><strong>{{ session.executive_snapshot.genetics_ip }}</strong><span>Genetics / IP</span></div>
       <div><strong>{{ session.executive_snapshot.strategic_questions }}</strong><span>Strategic questions</span></div>
     </div>
+    {% if session.executive_snapshot.findings %}
+    <ul class="wr-changed-list" style="margin-top:16px">
+      {% for row in session.executive_snapshot.findings %}
+      <li><span class="sh-trust">{{ row.kind }}</span> <a href="{{ row.href }}">{{ row.title }}</a> <span class="sh-story-meta">{{ row.when }}</span></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
   </section>
 
   {% if session.needs_attention %}
@@ -113,10 +120,15 @@
   </section>
   {% endif %}
 
-  {% if session.competitive_positioning %}
+  {% if session.competitive_positioning or session.competitive_overlap %}
   <section class="sh-section" id="competitive-positioning">
     <h2>Competitive positioning</h2>
-    <p class="sh-note">Trusted-intelligence-only, no synthetic score. <a href="{{ session.compare_href }}">Open full comparison</a></p>
+    <p class="sh-note">
+      Trusted-intelligence-only, no synthetic score.
+      {% if session.compare_href %}<a href="{{ session.compare_href }}">Open full comparison</a>{% endif %}
+      {% if session.whitespace_href %} · <a href="{{ session.whitespace_href }}">Open whitespace landscape</a>{% endif %}
+    </p>
+    {% if session.competitive_positioning %}
     <div class="wr-compare-grid">
       {% for card in session.competitive_positioning.companies %}
       <article class="wr-compare-card">
@@ -130,6 +142,19 @@
       </article>
       {% endfor %}
     </div>
+    {% endif %}
+    {% if session.competitive_overlap %}
+    <h3>Where competitors overlap</h3>
+    <ul class="wr-changed-list">
+      {% for row in session.competitive_overlap %}<li>{{ row.text }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% if session.landscape_questions %}
+    <h3>What this landscape can answer</h3>
+    <ul class="wr-changed-list">
+      {% for q in session.landscape_questions %}<li><strong>{{ q.prompt }}</strong><br>{{ q.answer }}</li>{% endfor %}
+    </ul>
+    {% endif %}
   </section>
   {% endif %}
 
@@ -177,14 +202,23 @@
   </section>
   {% endif %}
 
-  {% if session.key_uncertainties %}
-  <section class="sh-section" id="key-uncertainties">
-    <h2>Key uncertainties</h2>
+  {% if session.key_uncertainties or session.coverage_unknown %}
+  <section class="sh-section" id="coverage-unknown">
+    <h2>Coverage / unknown</h2>
+    <p class="sh-note">Low coverage is never opportunity — it means Berry OS cannot currently say.</p>
+    {% if session.coverage_unknown %}
+    <ul class="wr-changed-list">
+      {% for row in session.coverage_unknown %}<li>{{ row.text }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% if session.key_uncertainties %}
+    <h3>Single-source developments worth validating</h3>
     <ul class="wr-changed-list">
       {% for row in session.key_uncertainties %}
       <li><a href="{{ row.href }}">{{ row.title }}</a> <span class="sh-story-meta">{{ row.why }}</span></li>
       {% endfor %}
     </ul>
+    {% endif %}
   </section>
   {% endif %}
 
@@ -210,9 +244,14 @@
   </section>
   {% endif %}
 
-  {% if session.watch_next %}
+  {% if session.watch_next or session.whitespace_watch_next %}
   <section class="sh-section" id="watch-next">
     <h2>What to watch next</h2>
+    {% if session.whitespace_watch_next %}
+    <ul class="wr-changed-list">
+      {% for line in session.whitespace_watch_next %}<li>{{ line }}</li>{% endfor %}
+    </ul>
+    {% endif %}
     <div class="sh-actions" style="justify-content:flex-start">
       {% for w in session.watch_next %}
         {% if w.already_watched %}
