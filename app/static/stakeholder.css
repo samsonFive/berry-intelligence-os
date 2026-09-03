@@ -821,6 +821,37 @@ html, body.sh-body {
 .alert-actions { justify-content: flex-start; margin-top: 10px; }
 .alert-actions form { display: inline-flex; margin: 0; }
 
+.war-room-scope-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  padding: 16px;
+  margin: 16px 0 24px;
+  background: var(--sh-panel, #fff);
+  border: 1px solid var(--sh-line);
+  border-radius: 10px;
+}
+.war-room-scope-form .wr-field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
+.war-room-scope-form label { color: var(--sh-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+.war-room-scope-form select { border: 1px solid var(--sh-line); border-radius: 6px; padding: 6px 8px; font: inherit; min-width: 10em; }
+.wr-snapshot { margin-bottom: 24px; }
+.wr-snapshot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(9em, 1fr)); gap: 16px; margin-top: 10px; }
+.wr-snapshot-grid div { display: flex; flex-direction: column; gap: 2px; }
+.wr-snapshot-grid strong { font-size: 28px; font-weight: 600; }
+.wr-snapshot-grid span { font-size: 12px; color: var(--sh-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.wr-changed-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.wr-changed-list li { padding: 8px 0; border-bottom: 1px solid var(--sh-line); }
+.wr-compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14em, 1fr)); gap: 12px; margin-top: 10px; }
+.wr-compare-card { border: 1px solid var(--sh-line); border-radius: 8px; padding: 12px; }
+.wr-questions { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 10px; }
+.wr-questions li { padding: 10px 12px; background: var(--sh-panel, #fff); border-left: 3px solid var(--sh-trust); border-radius: 4px; font-size: 15px; }
+.wr-note-form { display: flex; gap: 8px; align-items: flex-start; margin-top: 12px; }
+.wr-note-form textarea { flex: 1; border: 1px solid var(--sh-line); border-radius: 6px; padding: 8px; font: inherit; resize: vertical; }
+@media (max-width: 768px) {
+  .war-room-scope-form { flex-direction: column; align-items: stretch; }
+}
+
 .ws-page { max-width: 1280px; }
 .ws-header { align-items: flex-start; }
 .ws-legend {

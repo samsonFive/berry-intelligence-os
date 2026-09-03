@@ -1,0 +1,296 @@
+{% extends "base_stakeholder.html" %}
+{% block title %}War Room — Berry Intelligence{% endblock %}
+{% block content %}
+<div class="sh-page war-room-page">
+  <header class="sh-header">
+    <div>
+      <p class="sh-kicker">Strategy War Room</p>
+      <h1>{% if session %}{{ session.scope_label }}{% else %}Prepare for the meeting{% endif %}</h1>
+      <p class="sh-lede">
+        {% if session %}
+          A working session, not a homepage — composed from what's already trusted and live for this scope.
+          {{ session.radar_freshness_label }}
+        {% else %}
+          Pick a berry, geography, and up to a few companies — the session composes What Changed, Who Is Moving,
+          Needs Attention, Market Reality, Genetics/IP, and open questions, all from real, already-collected intelligence.
+        {% endif %}
+      </p>
+    </div>
+    {% if session and not static_build %}
+    <div class="sh-header-actions">
+      <a class="sh-btn sh-btn-primary" href="{{ session.ask_berry_os_href }}">Ask Berry OS about this</a>
+      <a class="sh-btn" href="/war-room/live?{{ request.url.query }}">Refresh live</a>
+      <a class="sh-btn" href="{{ session.create_meeting_brief_href }}">Create meeting brief</a>
+    </div>
+    {% endif %}
+  </header>
+
+  <form method="get" action="/war-room" class="war-room-scope-form">
+    <div class="wr-field">
+      <label for="wr-berry">Berry</label>
+      <select id="wr-berry" name="berry">
+        <option value="">Any berry</option>
+        {% for bid, label in berries.items() %}
+          <option value="{{ bid }}" {% if scope.berry_id == bid %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="wr-field">
+      <label for="wr-geo">Geography</label>
+      <select id="wr-geo" name="geography_ids" multiple size="4">
+        {% for g in geographies %}
+          <option value="{{ g.id }}" {% if g.id in scope.geography_ids %}selected{% endif %}>{{ g.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="wr-field">
+      <label for="wr-co">Companies</label>
+      <select id="wr-co" name="company_ids" multiple size="4">
+        {% for c in companies %}
+          <option value="{{ c.id }}" {% if c.id in scope.company_ids %}selected{% endif %}>{{ c.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="wr-field">
+      <label for="wr-days">Timeframe</label>
+      <select id="wr-days" name="days">
+        <option value="7" {% if scope.window_days == 7 %}selected{% endif %}>7 days</option>
+        <option value="30" {% if scope.window_days == 30 %}selected{% endif %}>30 days</option>
+        <option value="90" {% if scope.window_days == 90 %}selected{% endif %}>90 days</option>
+      </select>
+    </div>
+    <button class="sh-btn sh-btn-primary" type="submit">Compose session</button>
+  </form>
+
+  {% if not session %}
+  <section class="sh-section">
+    <p class="sh-kicker">Try a real scope</p>
+    <div class="sh-actions" style="justify-content:flex-start">
+      <a class="sh-btn" href="/war-room?berry=berry-blueberry&geography_ids=geography-peru,geography-europe&company_ids=company-planasa,company-fall-creek-farm-and-nursery,company-hortifrut&days=30">Blueberry · Peru + Europe · Planasa / Fall Creek / Hortifrut</a>
+      <a class="sh-btn" href="/war-room?berry=berry-blackberry&days=30">Blackberry innovation · Global · 30 days</a>
+    </div>
+  </section>
+  {% else %}
+
+  <section class="wr-snapshot sh-section-highlight">
+    <p class="sh-kicker">Executive snapshot</p>
+    <div class="wr-snapshot-grid">
+      <div><strong>{{ session.executive_snapshot.needs_attention }}</strong><span>Need attention</span></div>
+      <div><strong>{{ session.executive_snapshot.moves }}</strong><span>Competitive moves</span></div>
+      <div><strong>{{ session.executive_snapshot.developments }}</strong><span>Emerging developments</span></div>
+      <div><strong>{{ session.executive_snapshot.market_changes }}</strong><span>Market Reality moves</span></div>
+      <div><strong>{{ session.executive_snapshot.genetics_ip }}</strong><span>Genetics / IP</span></div>
+      <div><strong>{{ session.executive_snapshot.strategic_questions }}</strong><span>Strategic questions</span></div>
+    </div>
+    {% if session.executive_snapshot.findings %}
+    <ul class="wr-changed-list" style="margin-top:16px">
+      {% for row in session.executive_snapshot.findings %}
+      <li><span class="sh-trust">{{ row.kind }}</span> <a href="{{ row.href }}">{{ row.title }}</a> <span class="sh-story-meta">{{ row.when }}</span></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </section>
+
+  {% if session.needs_attention %}
+  <section class="sh-section sh-section-highlight" id="needs-attention">
+    <h2>Needs attention</h2>
+    <ul class="sh-story-list">
+      {% for item in session.needs_attention %}<li>{% include "_alert_card.html" %}</li>{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if session.what_changed %}
+  <section class="sh-section" id="what-changed">
+    <h2>What changed</h2>
+    <ul class="wr-changed-list">
+      {% for row in session.what_changed %}
+      <li><span class="sh-trust">{{ row.kind }}</span> <a href="{{ row.href }}">{{ row.title }}</a> <span class="sh-story-meta">{{ row.when }}</span></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if session.who_is_moving %}
+  <section class="sh-section" id="who-is-moving">
+    <h2>Who is moving</h2>
+    <ul class="sh-story-list">
+      {% for item in session.who_is_moving %}<li>{% include "_move_card.html" %}</li>{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if session.competitive_positioning or session.competitive_overlap %}
+  <section class="sh-section" id="competitive-positioning">
+    <h2>Competitive positioning</h2>
+    <p class="sh-note">
+      Trusted-intelligence-only, no synthetic score.
+      {% if session.compare_href %}<a href="{{ session.compare_href }}">Open full comparison</a>{% endif %}
+      {% if session.whitespace_href %} · <a href="{{ session.whitespace_href }}">Open whitespace landscape</a>{% endif %}
+    </p>
+    {% if session.competitive_positioning %}
+    <div class="wr-compare-grid">
+      {% for card in session.competitive_positioning.companies %}
+      <article class="wr-compare-card">
+        <h3><a href="{{ card.href }}">{{ card.name }}</a></h3>
+        <p class="sh-story-meta">
+          <span>{{ card.coverage.evidence_count }} evidence</span>
+          <span>{{ card.coverage.geography_count }} geographies</span>
+          <span>{{ card.coverage.variety_count }} varieties</span>
+          <span>{{ card.coverage.signal_count }} signals</span>
+        </p>
+      </article>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% if session.competitive_overlap %}
+    <h3>Where competitors overlap</h3>
+    <ul class="wr-changed-list">
+      {% for row in session.competitive_overlap %}<li>{{ row.text }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% if session.landscape_questions %}
+    <h3>What this landscape can answer</h3>
+    <ul class="wr-changed-list">
+      {% for q in session.landscape_questions %}<li><strong>{{ q.prompt }}</strong><br>{{ q.answer }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  {% if session.market_reality %}
+  <section class="sh-section" id="market-reality">
+    <h2>Market Reality</h2>
+    <div class="sh-market-grid">
+      {% for card in session.market_reality %}
+      <article class="sh-market-card">
+        <p class="sh-story-meta"><span>{{ card.commodity_label }}</span><span>{{ card.geography_label }}</span></p>
+        <p class="sh-market-headline">
+          {{ card.metric|replace('_',' ')|title }}
+          <span class="sh-market-change sh-market-{{ card.direction }}">
+            {% if card.direction == 'up' %}▲{% elif card.direction == 'down' %}▼{% else %}—{% endif %}
+            {{ '%.1f'|format(card.pct_change|abs) }}%
+          </span>
+        </p>
+        <p class="sh-story-meta">{{ '{:,.0f}'.format(card.previous_value) }} → {{ '{:,.0f}'.format(card.latest_value) }} {{ card.unit }} ({{ card.previous_period }} → {{ card.latest_period }})</p>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if session.genetics_ip.moves or session.genetics_ip.developments %}
+  <section class="sh-section" id="genetics-ip">
+    <h2>Genetics / IP</h2>
+    <ul class="sh-story-list">
+      {% for item in session.genetics_ip.moves %}<li>{% include "_move_card.html" %}</li>{% endfor %}
+      {% for dev in session.genetics_ip.developments %}
+      <li><span class="sh-trust">{{ dev.trust_state }}</span> <a href="/radar/{{ dev.id }}">{{ dev.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if session.emerging_developments %}
+  <section class="sh-section" id="emerging-developments">
+    <h2>Emerging developments</h2>
+    <ul class="wr-changed-list">
+      {% for dev in session.emerging_developments %}
+      <li><span class="sh-trust">{{ dev.trust_state }}</span> <a href="/radar/{{ dev.id }}">{{ dev.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if session.key_uncertainties or session.coverage_unknown %}
+  <section class="sh-section" id="coverage-unknown">
+    <h2>Coverage / unknown</h2>
+    <p class="sh-note">Low coverage is never opportunity — it means Berry OS cannot currently say.</p>
+    {% if session.coverage_unknown %}
+    <ul class="wr-changed-list">
+      {% for row in session.coverage_unknown %}<li>{{ row.text }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% if session.key_uncertainties %}
+    <h3>Single-source developments worth validating</h3>
+    <ul class="wr-changed-list">
+      {% for row in session.key_uncertainties %}
+      <li><a href="{{ row.href }}">{{ row.title }}</a> <span class="sh-story-meta">{{ row.why }}</span></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  <section class="sh-section sh-section-highlight" id="questions-for-team">
+    <h2>Questions for the team</h2>
+    <p class="sh-note">
+      {% if session.questions_for_team.source == 'ai' %}AI-GENERATED DISCUSSION QUESTIONS{% else %}SUGGESTED DISCUSSION QUESTIONS{% endif %}
+      — not reviewed Assessments.
+    </p>
+    <ul class="wr-questions">
+      {% for q in session.questions_for_team.questions %}<li>{{ q }}</li>{% endfor %}
+    </ul>
+  </section>
+
+  {% if session.strategic_questions %}
+  <section class="sh-section" id="strategic-questions">
+    <h2>Strategic questions</h2>
+    <ul class="wr-changed-list">
+      {% for sq in session.strategic_questions %}
+      <li><a href="/strategic-questions/{{ sq.id }}">{{ sq.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if session.watch_next or session.whitespace_watch_next %}
+  <section class="sh-section" id="watch-next">
+    <h2>What to watch next</h2>
+    {% if session.whitespace_watch_next %}
+    <ul class="wr-changed-list">
+      {% for line in session.whitespace_watch_next %}<li>{{ line }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    <div class="sh-actions" style="justify-content:flex-start">
+      {% for w in session.watch_next %}
+        {% if w.already_watched %}
+          <span class="sh-btn sh-btn-quiet">✓ Watching {{ w.label }}</span>
+        {% else %}
+          <form method="post" action="/watches/toggle" style="display:inline">
+            <input type="hidden" name="watch_type" value="{{ w.watch_type }}">
+            <input type="hidden" name="object_id" value="{{ w.object_id }}">
+            <input type="hidden" name="action" value="add">
+            <input type="hidden" name="return_to" value="/war-room?{{ request.url.query }}">
+            <button class="sh-btn" type="submit">Watch {{ w.label }}</button>
+          </form>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="sh-section" id="session-notes">
+    <h2>Session notes</h2>
+    {% if session.notes %}
+    <ul class="wr-changed-list">
+      {% for note in session.notes %}<li>{{ note.text }} <span class="sh-story-meta">{{ note.created_at }}</span></li>{% endfor %}
+    </ul>
+    {% else %}
+    <p class="sh-empty">No takeaways saved for this scope yet.</p>
+    {% endif %}
+    {% if not static_build %}
+    <form method="post" action="/war-room/notes" class="wr-note-form">
+      <input type="hidden" name="berry" value="{{ scope.berry_id or '' }}">
+      <input type="hidden" name="geography_ids" value="{{ scope.geography_ids|join(',') }}">
+      <input type="hidden" name="company_ids" value="{{ scope.company_ids|join(',') }}">
+      <input type="hidden" name="return_to" value="/war-room?{{ request.url.query }}">
+      <textarea name="text" placeholder="Takeaway for the meeting..." rows="2" required></textarea>
+      <button class="sh-btn" type="submit">Save takeaway</button>
+    </form>
+    {% endif %}
+  </section>
+
+  {% endif %}
+</div>
+{% endblock %}
