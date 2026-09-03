@@ -160,6 +160,9 @@ from app.services.emerging_radar import (
 from app.services.competitive_moves.board import compose_moves_board
 from app.services.watchtower.compose import compose_watchtower
 from app.services.watchtower.store import apply_alert_action
+from app.services.war_room.compose import compose_war_room
+from app.services.war_room.models import WarRoomScope
+from app.services.war_room.notes import add_note as war_room_add_note
 from app.services.guided_analyst import freshness_clock_label
 from app.services.guided_analyst import (
     atomic_pending_count,
@@ -4484,6 +4487,103 @@ def watchtower_alert_action(alert_id: str, action: str = Form(...), return_to: s
     except ValueError:
         raise HTTPException(status_code=400, detail=f"unsupported alert action: {action!r}")
     safe_target = return_to if return_to.startswith("/") and not return_to.startswith("//") else "/watchtower"
+    return RedirectResponse(url=safe_target, status_code=303)
+
+
+def _war_room_scope_from_params(request: Request) -> WarRoomScope:
+    berry = (request.query_params.get("berry") or "").strip()
+    berry_id = berry if not berry or berry.startswith("berry-") else f"berry-{berry}"
+    geography_ids = tuple(v.strip() for v in (request.query_params.get("geography_ids") or "").split(",") if v.strip())
+    company_ids = tuple(v.strip() for v in (request.query_params.get("company_ids") or "").split(",") if v.strip())
+    try:
+        window_days = int(request.query_params.get("days") or 30)
+    except ValueError:
+        window_days = 30
+    window_days = max(1, min(window_days, 90))
+    return WarRoomScope(berry_id=berry_id or None, geography_ids=geography_ids, company_ids=company_ids, window_days=window_days)
+
+
+def _compose_war_room_for_request(scope: WarRoomScope) -> dict[str, Any]:
+    return compose_war_room(
+        scope,
+        inbox_dir=INBOX_DIR,
+        entities=entity_index(),
+        relationships=all_relationships(),
+        published_evidence=published_evidence(),
+        facts=all_facts(),
+        signals=all_signals(),
+        assessments=all_assessments(),
+        strategic_questions=load_strategic_questions(),
+        berry_labels=BERRIES,
+        identity_redirects=identity_redirects(),
+        market_repo=get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations,
+        completer=maybe_untrusted_completer(),
+    )
+
+
+@app.get("/war-room", response_class=HTMLResponse)
+def war_room_page(request: Request) -> HTMLResponse:
+    """Strategy War Room -- a working strategy session, not a homepage.
+
+    Composes from the existing Radar cache / Moves board / Market
+    Reality store / trusted Evidence for the requested scope. Never
+    fetches a live provider itself; refresh /radar/live first (or use
+    /war-room/live) if the underlying cache is stale."""
+    scope = _war_room_scope_from_params(request)
+    session = _compose_war_room_for_request(scope) if not scope.is_empty else None
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="war_room.html",
+        context={
+            "session": session,
+            "scope": scope.as_dict(),
+            "companies": [{"id": e["id"], "name": e.get("name") or e["id"]} for e in all_entities() if e.get("entity_type") == "company"],
+            "geographies": [{"id": e["id"], "name": e.get("name") or e["id"]} for e in all_entities() if e.get("entity_type") == "geography"],
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/war-room/live", response_class=HTMLResponse)
+def war_room_live_page(request: Request) -> HTMLResponse:
+    """Explicit live refresh: run the bounded Radar stack first, then
+    compose the same way /war-room does. Mission section 13 -- default
+    load stays cache-only; this is the opt-in."""
+    scope = _war_room_scope_from_params(request)
+    if not scope.is_empty:
+        _radar_edition_live()
+    return RedirectResponse(url=f"/war-room?{request.url.query}", status_code=303)
+
+
+@app.post("/war-room/notes")
+def war_room_add_note_route(
+    request: Request,
+    text: str = Form(...),
+    berry: str = Form(""),
+    geography_ids: str = Form(""),
+    company_ids: str = Form(""),
+    return_to: str = Form("/war-room"),
+) -> RedirectResponse:
+    """Private session takeaway -- never persisted intelligence, never a
+    trust object (mission section 9)."""
+    berry_id = berry if not berry or berry.startswith("berry-") else f"berry-{berry}"
+    try:
+        war_room_add_note(
+            INBOX_DIR,
+            text=text,
+            berry_id=berry_id or None,
+            geography_ids=tuple(v.strip() for v in geography_ids.split(",") if v.strip()),
+            company_ids=tuple(v.strip() for v in company_ids.split(",") if v.strip()),
+        )
+    except ValueError:
+        pass
+    safe_target = return_to if return_to.startswith("/") and not return_to.startswith("//") else "/war-room"
     return RedirectResponse(url=safe_target, status_code=303)
 
 
