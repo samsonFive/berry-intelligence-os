@@ -56,7 +56,106 @@
       {% elif not answer.implications %}<p class="rd-empty">No reviewed Assessment or source-grounded generated implication is available for this scope.</p>{% endif %}
     </section>
 
-    {% if comparison and comparison.companies %}
+    {% if decision_support %}
+    <section class="rd-section rd-decision-support">
+      <div class="rd-section-title">
+        <p>{% if decision_support.mode == 'comparison' %}Strategic comparison{% else %}Company deep-dive{% endif %}</p>
+        <span>SOURCED DECISION SUPPORT</span>
+      </div>
+      <div class="rd-executive-takeaway">
+        <span>Executive takeaway</span>
+        <p>{{ decision_support.executive_takeaway }}</p>
+      </div>
+      {% if decision_support.positioning %}
+      <div class="rd-comparison-subsection">
+        <h3>Current positioning snapshot</h3>
+        <p class="rd-positioning-note">Who is moving, where, around which berries or varieties, and what kind of move — from captured sources only. No score.</p>
+        <div class="rd-positioning-grid" style="--rd-company-count: {{ decision_support.positioning|length }}">
+          {% for company in decision_support.positioning %}
+          <article class="rd-positioning-card">
+            <header>
+              <a href="{{ company.href }}">{{ company.name }}</a>
+              <span>{{ company.observed_move_count }} observed moves · {{ company.coverage_depth }} trusted records</span>
+            </header>
+            {% if company.move_kinds %}<p class="rd-move-kinds">{% for kind in company.move_kinds %}<span>{{ kind|replace('_', ' ') }}</span>{% endfor %}</p>{% endif %}
+            <dl>
+              {% if company.visible_current_moves %}<div><dt>Visible current moves</dt><dd>{{ company.visible_current_moves.lead }}</dd></div>{% endif %}
+              {% if company.primary_geographies %}<div><dt>Primary geographies</dt><dd>{{ company.primary_geographies.lead }}</dd></div>{% endif %}
+              {% if company.genetics_activity %}<div><dt>Genetics activity</dt><dd>{{ company.genetics_activity.lead }}</dd></div>{% endif %}
+              {% if company.commercialization_activity %}<div><dt>Commercialization activity</dt><dd>{{ company.commercialization_activity.lead }}</dd></div>{% endif %}
+              {% if company.ip_rights_activity %}<div><dt>IP / rights activity</dt><dd>{{ company.ip_rights_activity.lead }}</dd></div>{% endif %}
+              {% if company.emerging_issues %}<div><dt>Emerging issues</dt><dd>{{ company.emerging_issues.lead }}</dd></div>{% endif %}
+            </dl>
+          </article>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+      {% if decision_support.market_context %}
+      <div class="rd-comparison-subsection rd-market-strip">
+        <h3>Market context</h3>
+        <p>Shared setting for the compared companies — not a company score and not market share.</p>
+        <ul>{% for row in decision_support.market_context[:4] %}<li>{% if row.href %}<a href="{{ row.href }}">{{ row.title or row.id }}</a>{% else %}{{ row.title or row.id }}{% endif %}<small>{{ row.trust_class or row.structured_kind }}{% if row.date %} · {{ row.date }}{% endif %}</small></li>{% endfor %}</ul>
+      </div>
+      {% endif %}
+      {% if decision_support.key_differences %}
+      <div class="rd-comparison-subsection">
+        <h3>Key differences</h3>
+        <ol class="rd-difference-list">
+          {% for row in decision_support.key_differences %}
+          <li><p>{{ row.text }}</p><span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></li>
+          {% endfor %}
+        </ol>
+      </div>
+      {% endif %}
+      {% if decision_support.mode == 'comparison' and decision_support.coverage_difference.different %}
+      <aside class="rd-coverage-difference">
+        <div><strong>Observed activity vs coverage depth</strong><span>MORE SOURCES ≠ MORE ACTIVITY</span></div>
+        <p>{{ decision_support.coverage_difference.note }}</p>
+        <div class="rd-coverage-split">
+          <div>
+            <strong>Observed activity</strong>
+            <p>{{ decision_support.coverage_difference.observed_note }}</p>
+            <ul>{% for company in decision_support.companies %}<li><a href="{{ company.href }}">{{ company.name }}</a><span>{{ company.observed_move_count }} visible moves</span></li>{% endfor %}</ul>
+          </div>
+          <div>
+            <strong>Coverage depth</strong>
+            <p>{{ decision_support.coverage_difference.coverage_note }}</p>
+            <ul>{% for company in decision_support.companies %}<li><a href="{{ company.href }}">{{ company.name }}</a><span>{{ company.trusted_source_count }} trusted scoped records · {{ company.current_source_count }} current sources</span></li>{% endfor %}</ul>
+          </div>
+        </div>
+      </aside>
+      {% endif %}
+      {% if decision_support.dimensions %}
+      <div class="rd-strategy-matrix" style="--rd-company-count: {{ decision_support.companies|length }}">
+        <div class="rd-strategy-head"><span>What we can see</span>{% for company in decision_support.companies %}<a href="{{ company.href }}">{{ company.name }}</a>{% endfor %}</div>
+        {% for dimension in decision_support.dimensions %}
+        <div class="rd-strategy-row">
+          <h3>{{ dimension.label }}</h3>
+          {% for cell in dimension.cells %}
+          <div class="rd-strategy-cell">
+            {% if cell['items'] %}<strong>{{ cell.summary }}</strong><ul>{% for item in cell['items'][:3] %}<li>{% if item.href %}<a href="{{ item.href }}">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %}<small>{{ item.kind|replace('_', ' ') }}{% if item.date %} · {{ item.date }}{% endif %}</small></li>{% endfor %}</ul>
+            {% else %}<span class="rd-no-coverage">No captured record in this scope</span>{% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% if decision_support.interpretation %}
+      <div class="rd-comparison-subsection">
+        <h3>What this may mean <span>AI/SYSTEM SYNTHESIS · NOT YET REVIEWED</span></h3>
+        <ul class="rd-interpretation-list">{% for row in decision_support.interpretation %}<li>{{ row.text }} <span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></li>{% endfor %}</ul>
+      </div>
+      {% endif %}
+      <div class="rd-comparison-subsection rd-watch-next">
+        <h3>What should a strategy team watch next?</h3>
+        {% if decision_support.watch_next %}<ol>{% for row in decision_support.watch_next %}<li>{{ row.text }} <span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></li>{% endfor %}</ol>
+        {% else %}<p class="rd-empty">This packet does not support a concrete sourced monitoring priority yet.</p>{% endif %}
+      </div>
+      <p class="rd-method-note">Only dimensions with captured data are shown. Absence of a captured record is not evidence of absence. Counts describe visible source coverage, never company performance, market share, or a winner.</p>
+    </section>
+    {% elif comparison and comparison.companies %}
     <section class="rd-section">
       <div class="rd-section-title"><p>Competitive comparison</p><span>COVERAGE, NOT PERFORMANCE</span></div>
       <div class="rd-compare-wrap">
@@ -92,7 +191,7 @@
       </div>
     </section>
 
-    {% if answer.market_context %}
+    {% if answer.market_context and not decision_support %}
     <section class="rd-section">
       <div class="rd-section-title"><p>Market context</p><span>STRUCTURED INTELLIGENCE</span></div>
       <ul class="rd-compact-sources">{% for row in answer.market_context[:8] %}<li><span>{{ row.structured_kind or row.trust_class }}</span><a href="{{ row.href or '#' }}">{{ row.title }}</a><small>{{ row.date or 'date unknown' }}</small></li>{% endfor %}</ul>
@@ -152,10 +251,10 @@
       <input type="hidden" name="report_type" value="{{ 'competitor_comparison' if scope.comparison else 'competitive_landscape' }}">
       <input type="hidden" name="berry" value="{{ scope.berry_id or '' }}">
       <input type="hidden" name="geography_ids" value="{{ scope.geography_ids|join(',') }}">
-      <input type="hidden" name="company_ids" value="{{ scope.company_ids|join(',') }}">
+      <input type="hidden" name="company_ids" value="{{ (packet.comparison_company_ids or scope.company_ids)|join(',') }}">
       <input type="hidden" name="variety_ids" value="{{ scope.variety_ids|join(',') }}">
       <input type="hidden" name="date_window_days" value="{{ scope.window_days }}">
-      <input type="hidden" name="focus_notes" value="{{ scope.question }}">
+      <input type="hidden" name="focus_notes" value="{{ brief_focus_notes or scope.question }}">
       <button type="submit">Create leadership brief</button>
       <span>Review scope and sources before anything is saved.</span>
     </form>

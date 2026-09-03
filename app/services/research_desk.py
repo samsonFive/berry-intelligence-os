@@ -33,6 +33,7 @@ from app.services.report_builder.scope import ResolvedScope, interpret_scope_tex
 DEFAULT_WINDOW_DAYS = 30
 MAX_PACKET_EVIDENCE = 36
 MAX_LIVE_RESULTS = 24
+MAX_COMPARE_COMPANIES = 5
 
 TOPIC_TERMS: dict[str, tuple[str, ...]] = {
     "genetics": ("genetic", "genetics", "breeding", "breeder", "cultivar", "variety", "varieties"),
@@ -47,6 +48,11 @@ TOPIC_TERMS: dict[str, tuple[str, ...]] = {
 
 _WINDOW_RE = re.compile(r"\b(?:last|past|previous)\s+(\d{1,3})\s*days?\b", re.IGNORECASE)
 _COMPARE_RE = re.compile(r"\b(compare|comparison|versus|vs\.?)\b", re.IGNORECASE)
+_COMPARATIVE_INTENT_RE = re.compile(
+    r"\b(who\s+(?:appears\s+)?(?:is\s+)?(?:most\s+active|best\s+positioned)|"
+    r"most\s+important\s+differences?|competitive\s+activity)\b",
+    re.IGNORECASE,
+)
 _BERRY_INDUSTRY_RE = re.compile(
     r"\b(grower|farm|crop|harvest|production|cultivar|variet(?:y|ies)|breeding|"
     r"genetic\w*|nursery|export|import|acreage|hectare|yield|commercial|retail|"
@@ -90,7 +96,7 @@ class ResearchScope:
             question=str(raw.get("question") or ""),
             berry_id=str(raw["berry_id"]) if raw.get("berry_id") else None,
             geography_ids=tuple(str(v) for v in raw.get("geography_ids") or []),
-            company_ids=tuple(str(v) for v in raw.get("company_ids") or []),
+            company_ids=tuple(dict.fromkeys(str(v) for v in raw.get("company_ids") or []))[:MAX_COMPARE_COMPANIES],
             variety_ids=tuple(str(v) for v in raw.get("variety_ids") or []),
             window_days=max(1, min(window_days, 3650)),
             topics=tuple(str(v) for v in raw.get("topics") or [] if str(v) in TOPIC_TERMS),
@@ -135,6 +141,22 @@ def _has_explicit_window(text: str) -> bool:
     )
 
 
+def _mentioned_berry(text: str, berries: Mapping[str, str]) -> str | None:
+    folded = text.casefold()
+    irregular = {
+        "blueberries": "blueberry",
+        "strawberries": "strawberry",
+        "raspberries": "raspberry",
+        "blackberries": "blackberry",
+    }
+    for berry_id, label in berries.items():
+        names = {str(label).casefold(), str(berry_id).removeprefix("berry-").casefold()}
+        names.update(plural for plural, singular in irregular.items() if singular in names)
+        if any(_term_present(folded, name) for name in names):
+            return str(berry_id)
+    return None
+
+
 def _mentioned_order(ids: tuple[str, ...], text: str, entities: Mapping[str, dict[str, Any]]) -> tuple[str, ...]:
     """Preserve the stakeholder's comparison order, not alias-length scan order."""
     folded = text.casefold()
@@ -166,7 +188,7 @@ def interpret_research_scope(
     geography/berry replaces the prior one; a new company is added when the
     wording is comparative, otherwise it becomes the new company scope.
     """
-    clean = " ".join((question or "").split())
+    clean = _normalize_quotes(" ".join((question or "").split()))
     proposal = interpret_scope_text(clean, berries=berries, completer=None, entities=entities)
     resolved = resolve_scope(
         proposal,
@@ -180,8 +202,8 @@ def interpret_research_scope(
     company_ids = _mentioned_order(resolved.company_ids, clean, entity_index)
     variety_ids = resolved.variety_ids
     geography_ids = resolved.geography_ids
-    berry_id = resolved.berry_id
-    comparison = bool(_COMPARE_RE.search(clean) or len(company_ids) > 1)
+    berry_id = resolved.berry_id or _mentioned_berry(clean, berries)
+    comparison = bool(_COMPARE_RE.search(clean) or _COMPARATIVE_INTENT_RE.search(clean) or len(company_ids) > 1)
 
     if previous:
         if company_ids:
@@ -197,6 +219,11 @@ def interpret_research_scope(
         comparison = comparison or (previous.comparison and len(company_ids) > 1)
 
     unresolved = tuple(dict.fromkeys((*resolved.unresolved_companies, *resolved.unresolved_varieties)))
+    if comparison and not company_ids and _COMPARATIVE_INTENT_RE.search(clean):
+        unresolved = tuple(
+            value for value in unresolved
+            if not str(value).casefold().startswith("competitive activity")
+        )
     ambiguous = tuple(
         f"{row.query}: {', '.join(row.ambiguous_ids)}"
         for row in (*resolved.ambiguous_companies, *resolved.ambiguous_varieties)
@@ -219,7 +246,7 @@ def interpret_research_scope(
         question=clean,
         berry_id=berry_id,
         geography_ids=tuple(geography_ids),
-        company_ids=tuple(company_ids),
+        company_ids=tuple(company_ids[:MAX_COMPARE_COMPANIES]),
         variety_ids=tuple(variety_ids),
         window_days=(
             previous.window_days
@@ -312,6 +339,8 @@ def assemble_research_packet(
     assessments: list[dict[str, Any]],
     market_context_provider: Callable[[ResearchScope], list[dict[str, Any]]] | None = None,
     developments_provider: Callable[[ResearchScope], list[dict[str, Any]]] | None = None,
+    radar_provider: Callable[[ResearchScope], list[dict[str, Any]]] | None = None,
+    competitive_moves_provider: Callable[[ResearchScope], list[dict[str, Any]]] | None = None,
     today: date | None = None,
 ) -> dict[str, Any]:
     """Assemble only relevant canonical layers; never query everything blindly."""
@@ -327,19 +356,40 @@ def assemble_research_packet(
 
     company_ids = list(scope.company_ids)
     variety_ids = list(scope.variety_ids)
+    inferred_company_counts: dict[str, int] = {}
     for record in selected:
         for entity_id in record.get("entity_ids") or []:
             entity = entities.get(str(entity_id))
             if entity and entity.get("entity_type") == "company" and entity_id not in company_ids:
                 company_ids.append(entity_id)
+                inferred_company_counts[str(entity_id)] = inferred_company_counts.get(str(entity_id), 0) + 1
+            elif entity and entity.get("entity_type") == "company":
+                inferred_company_counts[str(entity_id)] = inferred_company_counts.get(str(entity_id), 0) + 1
             if entity and entity.get("entity_type") == "variety" and entity_id not in variety_ids:
+                if scope.berry_id and scope.berry_id not in set(entity.get("berry_ids") or []):
+                    continue
                 variety_ids.append(entity_id)
+
+    if not scope.company_ids:
+        company_ids.sort(key=lambda value: (-inferred_company_counts.get(str(value), 0), str(value)))
+
+    for relationship in relationships:
+        if relationship.get("subject_id") not in company_ids:
+            continue
+        candidate_id = str(relationship.get("object_id") or "")
+        candidate = entities.get(candidate_id)
+        if not candidate or candidate.get("entity_type") != "variety":
+            continue
+        if scope.berry_id and scope.berry_id not in set(candidate.get("berry_ids") or []):
+            continue
+        if candidate_id not in variety_ids:
+            variety_ids.append(candidate_id)
 
     company_rows = [
         {"id": cid, "name": entities[cid].get("name") or cid, "href": f"/entities/company/{cid}",
          "berry_ids": list(entities[cid].get("berry_ids") or [])}
         for cid in company_ids if cid in entities
-    ][:10]
+    ][:MAX_COMPARE_COMPANIES if scope.comparison else 10]
     variety_rows = [
         {"id": vid, "name": entities[vid].get("name") or vid, "href": f"/entities/variety/{vid}",
          "berry_ids": list(entities[vid].get("berry_ids") or [])}
@@ -386,6 +436,7 @@ def assemble_research_packet(
         signal_rows.append({
             "id": row.get("id"), "title": row.get("title") or row.get("id"),
             "status": row.get("status") or "", "strength": row.get("strength") or "",
+            "entity_ids": list(row.get("entity_ids") or []),
             "source_ids": [str(eid) for eid in row.get("evidence_ids") or [] if str(eid) in evidence_ids],
             "href": f"/signals/{row.get('id')}", "trust_class": "SIGNAL",
         })
@@ -397,6 +448,7 @@ def assemble_research_packet(
         assessment_rows.append({
             "id": row.get("id"), "title": row.get("title") or row.get("id"),
             "confidence": row.get("confidence") or "", "ai_proposed": bool(row.get("ai_proposed")),
+            "entity_ids": list(row.get("entity_ids") or []),
             "source_ids": [str(eid) for eid in row.get("evidence_ids") or [] if str(eid) in evidence_ids],
             "href": f"/assessments/{row.get('id')}", "trust_class": "ASSESSMENT",
         })
@@ -406,8 +458,12 @@ def assemble_research_packet(
     if market_context_provider is not None:
         market_rows.extend(market_context_provider(scope) or [])
     development_rows: list[dict[str, Any]] = []
-    if developments_provider is not None:
-        development_rows = list(developments_provider(scope) or [])[:6]
+    radar_fn = developments_provider or radar_provider
+    if radar_fn is not None:
+        development_rows = list(radar_fn(scope) or [])[:6]
+    move_rows: list[dict[str, Any]] = []
+    if competitive_moves_provider is not None:
+        move_rows = list(competitive_moves_provider(scope) or [])[:12]
 
     layers = ["TRUSTED_EVIDENCE", "COMPANIES", "RELATIONSHIPS"]
     if variety_rows or any(topic in scope.topics for topic in ("genetics", "rights_ip")):
@@ -416,6 +472,9 @@ def assemble_research_packet(
         layers.append("MARKET_REALITY")
     if development_rows:
         layers.append("EMERGING_RADAR")
+        layers.append("RADAR_DEVELOPMENTS")
+    if move_rows:
+        layers.append("COMPETITIVE_MOVES")
     if signal_rows:
         layers.append("SIGNALS")
     if assessment_rows:
@@ -442,15 +501,78 @@ def assemble_research_packet(
         "facts": fact_rows,
         "companies": company_rows,
         "varieties": variety_rows,
+        "geographies": [
+            {"id": gid, "name": (entities.get(gid) or {}).get("name") or gid, "href": f"/entities/geography/{gid}"}
+            for gid in scope.geography_ids
+        ],
         "relationships": relationship_rows,
         "rights_ip": rights_rows,
         "market_context": market_rows,
         "radar_developments": development_rows,
+        "competitive_moves": move_rows,
         "signals": signal_rows,
         "assessments": assessment_rows,
         "coverage_gaps": gaps,
-        "source_index": {row["id"]: row for row in evidence_rows if row.get("id")},
+        "source_index": {
+            row["id"]: row
+            for row in [*evidence_rows, *market_rows, *development_rows, *move_rows]
+            if row.get("id")
+        },
     }
+
+
+def comparison_candidate_ids(
+    scope: ResearchScope,
+    *,
+    packet: Mapping[str, Any],
+    entities: Mapping[str, dict[str, Any]],
+    relationships: Iterable[Mapping[str, Any]],
+    live: Mapping[str, Any] | None = None,
+) -> list[str]:
+    """Choose up to five evidence-visible Companies for an ambient compare.
+
+    Explicit stakeholder selections always win. For "who appears active" or
+    geography comparisons, candidates are ranked on visible row coverage. A
+    genetics request additionally requires a canonical Company→Variety role,
+    avoiding financial owners that merely co-occur in acquisition coverage.
+    """
+    if scope.company_ids:
+        return list(scope.company_ids[:MAX_COMPARE_COMPANIES])
+    scores: dict[str, int] = {}
+
+    def add(rows: Iterable[Mapping[str, Any]], weight: int) -> None:
+        for row in rows:
+            ids = list(row.get("company_ids") or row.get("entity_ids") or [])
+            if row.get("company_id"):
+                ids.append(row["company_id"])
+            for entity_id in ids:
+                entity_id = str(entity_id)
+                if (entities.get(entity_id) or {}).get("entity_type") == "company":
+                    scores[entity_id] = scores.get(entity_id, 0) + weight
+
+    add(packet.get("evidence") or [], 2)
+    add(packet.get("rights_ip") or [], 3)
+    add(packet.get("radar_developments") or [], 4)
+    add(packet.get("competitive_moves") or [], 5)
+    add((live or {}).get("items") or [], 5)
+
+    if "genetics" in scope.topics or "rights_ip" in scope.topics:
+        operational: set[str] = set()
+        for relationship in relationships:
+            company_id = str(relationship.get("subject_id") or "")
+            variety = entities.get(str(relationship.get("object_id") or "")) or {}
+            if (entities.get(company_id) or {}).get("entity_type") != "company" or variety.get("entity_type") != "variety":
+                continue
+            if scope.berry_id and scope.berry_id not in set(variety.get("berry_ids") or []):
+                continue
+            operational.add(company_id)
+        if operational:
+            scores = {company_id: score for company_id, score in scores.items() if company_id in operational}
+
+    return [
+        company_id
+        for company_id, _score in sorted(scores.items(), key=lambda item: (-item[1], item[0]))[:MAX_COMPARE_COMPANIES]
+    ]
 
 
 def _query_text(scope: ResearchScope, entities: Mapping[str, dict[str, Any]]) -> str:
@@ -731,7 +853,16 @@ def compose_research_answer(
             continue
         if row.get("statement") and ids:
             findings.append({"text": row["statement"], "source_ids": ids, "kind": "FACT"})
-    for row in (live.get("items") or []):
+    packet_developments = [
+        *(packet.get("competitive_moves") or []),
+        *(packet.get("radar_developments") or []),
+    ]
+    seen_developments: set[str] = set()
+    for row in [*packet_developments, *(live.get("items") or [])]:
+        row_id = str(row.get("id") or "")
+        if not row_id or row_id in seen_developments:
+            continue
+        seen_developments.add(row_id)
         findings.append({"text": row["title"], "source_ids": [row["id"]], "kind": "OBSERVED DEVELOPMENT"})
     if len(findings) < 3:
         for row in packet.get("evidence") or []:
@@ -765,6 +896,7 @@ def compose_research_answer(
         "rights_ip": packet.get("rights_ip") or [],
         "market_context": packet.get("market_context") or [],
         "radar_developments": packet.get("radar_developments") or [],
+        "competitive_moves": packet.get("competitive_moves") or [],
         "signals": packet.get("signals") or [],
         "assessments": packet.get("assessments") or [],
         "weak_signals": weak,

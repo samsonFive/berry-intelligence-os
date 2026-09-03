@@ -216,7 +216,10 @@ def test_research_desk_stakeholder_surface_and_brief_handoff() -> None:
     page = client.post("/research", data={"question": "Compare Planasa and Fall Creek."})
     assert page.status_code == 200
     assert "Interpreted scope" in page.text
-    assert "Competitive comparison" in page.text
+    assert "Strategic comparison" in page.text
+    assert "Current positioning snapshot" in page.text
+    assert "Observed activity vs coverage depth" in page.text
+    assert "What should a strategy team watch next?" in page.text
     assert "LIVE / UNREVIEWED" in page.text
     assert "TRUSTED" in page.text or "APPROVED SOURCE" in page.text
     assert 'action="/reports/new"' in page.text

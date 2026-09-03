@@ -158,6 +158,8 @@ from app.services.emerging_radar import (
     run_radar_intelligence,
 )
 from app.services.competitive_moves.board import compose_moves_board
+from app.services.competitive_moves.research_desk import competitive_moves_for
+from app.services.research_decision_support import build_research_decision_support
 from app.services.watchtower.compose import compose_watchtower
 from app.services.watchtower.store import apply_alert_action
 from app.services.war_room.compose import compose_war_room
@@ -336,6 +338,7 @@ from app.services.report_builder.synthesis import generate_report_sections
 from app.services.research_desk import (
     ResearchScope,
     assemble_research_packet,
+    comparison_candidate_ids,
     compose_research_answer,
     interpret_research_scope,
     run_live_research,
@@ -3899,13 +3902,116 @@ def _radar_developments_for_scope(scope: ResearchScope) -> list[dict[str, Any]]:
             "date": row.get("event_date") or row.get("latest_update") or row.get("first_seen") or "",
             "href": f"/radar/{row.get('id')}",
             "trust_state": row.get("trust_state") or "LIVE / UNREVIEWED DEVELOPMENT",
+            "trust_class": "LIVE / UNREVIEWED DEVELOPMENT",
+            "company_ids": list(row.get("company_ids") or []),
             "company_names": list(row.get("company_names") or [])[:4],
+            "geography_ids": list(row.get("geography_ids") or []),
+            "geography_labels": list(row.get("geography_labels") or []),
+            "berry_ids": list(row.get("berry_ids") or []),
+            "variety_ids": list(row.get("variety_ids") or []),
+            "variety_names": list(row.get("variety_names") or []),
+            "source_count": int(row.get("independent_source_count") or row.get("source_count") or 1),
         }
         for row in rows[:6]
     ]
 
 
-def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, Any] | None]:
+def _research_competitive_moves(scope: ResearchScope, board=None) -> list[dict[str, Any]]:
+    """Official Competitive Move Detector read seam. Never reads inbox JSON directly."""
+    timeframe = "7d" if scope.window_days <= 7 else "30d"
+    board = board or compose_moves_board(inbox_dir=INBOX_DIR)
+    rows = competitive_moves_for(
+        companies=scope.company_ids or None,
+        geography=scope.geography_ids or None,
+        berries=[scope.berry_id] if scope.berry_id else None,
+        timeframe=timeframe,
+        inbox_dir=INBOX_DIR,
+        moves=board.moves,
+    )
+    adapted: list[dict[str, Any]] = []
+    for row in rows[:12]:
+        sources = list(row.get("supporting_sources") or [])
+        first = sources[0] if sources else {}
+        company_id = row.get("company_id")
+        adapted.append({
+            "id": row.get("id"),
+            "title": row.get("title") or row.get("what_happened"),
+            "what_happened": row.get("what_happened"),
+            "event_type": row.get("move_type") or "OTHER",
+            "move_type": row.get("move_type"),
+            "date": row.get("latest_update") or row.get("first_seen") or "",
+            "href": f"/moves/{company_id}" if company_id else "/moves",
+            "url": first.get("url") or "",
+            "source_name": first.get("publisher") or "Competitive Move Detector",
+            "trust_class": "LIVE / UNREVIEWED MOVE",
+            "company_ids": [company_id] if company_id else [],
+            "company_id": company_id,
+            "variety_ids": list(row.get("variety_ids") or []),
+            "variety_names": list(row.get("variety_names") or []),
+            "geography_ids": list(row.get("geography_ids") or []),
+            "geography_labels": list(row.get("geography_labels") or []),
+            "berry_ids": list(row.get("berry_ids") or []),
+            "berry_labels": list(row.get("berry_labels") or []),
+            "sources": sources,
+            "source_count": max(1, len(sources)),
+            "why_move": list(row.get("why_move") or []),
+            "layer": "COMPETITIVE MOVE",
+        })
+    return adapted
+
+
+def _research_move_patterns(scope: ResearchScope, move_rows: list[dict[str, Any]], board=None) -> list[dict[str, Any]]:
+    board = board or compose_moves_board(inbox_dir=INBOX_DIR)
+    selected = {str(row.get("company_id") or "") for row in move_rows} | set(scope.company_ids)
+    return [
+        row.as_dict()
+        for row in board.patterns
+        if row.company_id in selected
+    ]
+
+
+def _research_brief_notes(scope: ResearchScope, decision_support: dict[str, Any] | None) -> str:
+    lines = [scope.question]
+    if decision_support:
+        differences = decision_support.get("brief_key_differences") or []
+        watch = decision_support.get("brief_watch_next") or []
+        source_ids = decision_support.get("selected_source_ids") or []
+        companies = [row.get("name") for row in decision_support.get("companies") or [] if row.get("name")]
+        if companies:
+            lines.extend(["", "Compared companies: " + ", ".join(companies)])
+        if differences:
+            lines.extend(["", "Key differences:", *[f"- {row}" for row in differences[:5]]])
+        if watch:
+            lines.extend(["", "Watch next:", *[f"- {row}" for row in watch[:5]]])
+        if source_ids:
+            lines.extend(["", "Selected Research Desk source IDs: " + ", ".join(source_ids[:12])])
+    return "\n".join(lines)
+
+
+def _present_research_company_compare(company_ids: list[str]) -> dict[str, Any] | None:
+    if not company_ids:
+        return None
+    entities = entity_index()
+    evidence = published_evidence()
+    facts = all_facts()
+    relationships = all_relationships()
+    signals = all_signals()
+    assessments = all_assessments()
+    return present_company_compare(
+        company_ids,
+        entities=entities,
+        relationships=relationships,
+        published_evidence=evidence,
+        facts=facts,
+        evidence_by_id={row["id"]: row for row in evidence if row.get("id")},
+        signals=signals,
+        assessments=assessments,
+        berry_labels=BERRIES,
+        redirects=load_identity_redirects(DATA_DIR),
+    )
+
+
+def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, Any] | None, dict[str, Any] | None]:
     entities = entity_index()
     evidence = published_evidence()
     facts = all_facts()
@@ -3913,6 +4019,7 @@ def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, An
     signals = all_signals()
     assessments = all_assessments()
     market_repo = get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations
+    moves_board = compose_moves_board(inbox_dir=INBOX_DIR)
     packet = assemble_research_packet(
         scope,
         entities=entities,
@@ -3923,22 +4030,16 @@ def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, An
         assessments=assessments,
         market_context_provider=lambda s: market_context_for_research_scope(market_repo, s),
         developments_provider=_radar_developments_for_scope,
+        competitive_moves_provider=lambda s: _research_competitive_moves(s, moves_board),
     )
-    comparison = None
-    if scope.comparison and len(scope.company_ids) >= 2:
-        comparison = present_company_compare(
-            list(scope.company_ids),
-            entities=entities,
-            relationships=relationships,
-            published_evidence=evidence,
-            facts=facts,
-            evidence_by_id={row["id"]: row for row in evidence if row.get("id")},
-            signals=signals,
-            assessments=assessments,
-            berry_labels=BERRIES,
-            redirects=load_identity_redirects(DATA_DIR),
-        )
-    return packet, comparison
+    packet["move_patterns"] = _research_move_patterns(scope, packet.get("competitive_moves") or [], moves_board)
+    comparison_ids = comparison_candidate_ids(
+        scope, packet=packet, entities=entities, relationships=relationships
+    ) if (scope.comparison or scope.company_ids) else []
+    comparison = _present_research_company_compare(comparison_ids)
+    packet["comparison_company_ids"] = [row.get("id") for row in (comparison or {}).get("companies") or []]
+    decision_support = build_research_decision_support(scope, packet=packet, company_compare=comparison)
+    return packet, comparison, decision_support
 
 
 @app.get("/research", response_class=HTMLResponse)
@@ -3988,7 +4089,7 @@ def research_desk_submit(
         relationships=all_relationships(),
         previous=prior,
     )
-    packet, comparison = _research_packet(scope)
+    packet, comparison, decision_support = _research_packet(scope)
     answer = compose_research_answer(packet)
     first_content_ms = round((time.monotonic() - started) * 1000)
     scope_json = json.dumps(scope.as_dict(), separators=(",", ":"))
@@ -4004,6 +4105,8 @@ def research_desk_submit(
             "packet": packet,
             "answer": answer,
             "comparison": comparison,
+            "decision_support": decision_support,
+            "brief_focus_notes": _research_brief_notes(scope, decision_support),
             "phase": "trusted",
             "first_content_ms": first_content_ms,
             "complete_ms": first_content_ms,
@@ -4042,7 +4145,7 @@ async def research_desk_live(request: Request) -> HTMLResponse:
         ambiguous=scope.ambiguous,
         interpretation_source=scope.interpretation_source,
     )
-    packet, comparison = _research_packet(scope)
+    packet, comparison, _initial_decision_support = _research_packet(scope)
     from app.services.industry_pulse.live_stack import week_background_hits
 
     live = await asyncio.to_thread(
@@ -4053,7 +4156,18 @@ async def research_desk_live(request: Request) -> HTMLResponse:
         sources=load_sources(),
         background_hits=week_background_hits(inbox_dir=INBOX_DIR),
     )
+    if scope.comparison and not scope.company_ids:
+        comparison_ids = comparison_candidate_ids(
+            scope,
+            packet=packet,
+            entities=entities,
+            relationships=all_relationships(),
+            live=live,
+        )
+        comparison = _present_research_company_compare(comparison_ids)
+        packet["comparison_company_ids"] = [row.get("id") for row in (comparison or {}).get("companies") or []]
     answer = compose_research_answer(packet, live=live, completer=maybe_untrusted_completer())
+    decision_support = build_research_decision_support(scope, packet=packet, company_compare=comparison, live=live)
     try:
         first_content_ms = int(payload.get("first_content_ms") or 0)
     except (TypeError, ValueError):
@@ -4069,6 +4183,8 @@ async def research_desk_live(request: Request) -> HTMLResponse:
             "packet": packet,
             "answer": answer,
             "comparison": comparison,
+            "decision_support": decision_support,
+            "brief_focus_notes": _research_brief_notes(scope, decision_support),
             "phase": "complete",
             "first_content_ms": first_content_ms,
             "complete_ms": complete_ms,
