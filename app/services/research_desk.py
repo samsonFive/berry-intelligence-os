@@ -130,6 +130,11 @@ def _window_days(text: str, proposed: int | None) -> int:
         return 30
     if "this year" in folded:
         return 365
+    if "this season" in folded:
+        return 90
+    from app.services.change_scenario import change_question
+    if change_question(text):
+        return 90
     return max(1, min(int(proposed or DEFAULT_WINDOW_DAYS), 3650))
 
 
@@ -137,7 +142,11 @@ def _has_explicit_window(text: str) -> bool:
     folded = text.casefold()
     return bool(
         _WINDOW_RE.search(text)
-        or any(term in folded for term in ("today", "right now", "currently", "this week", "this month", "this year"))
+        or any(term in folded for term in (
+            "today", "right now", "currently", "this week", "this month", "this year", "this season",
+        ))
+        or "what changed" in folded
+        or "what has shifted" in folded
     )
 
 
@@ -904,4 +913,5 @@ def compose_research_answer(
         "sources": list(sources.values()),
         "ai_synthesis": bool(implications),
         "latency_seconds": live.get("latency_seconds") or 0.0,
+        "change_scenario": packet.get("change_scenario"),
     }

@@ -40,6 +40,87 @@
       {% endif %}
     </section>
 
+    {% set cs = answer.change_scenario %}
+    {% if cs and (cs.changes or cs.scenarios or cs.timeline or 'what changed' in (scope.question or '')|lower or 'scenario' in (scope.question or '')|lower or 'shifted' in (scope.question or '')|lower or 'competitive position' in (scope.question or '')|lower) %}
+    <section class="rd-section rd-change-scenario" id="rd-what-changed">
+      <div class="rd-section-title"><p>What changed</p><span>BEFORE → NOW · NOT A FORECAST</span></div>
+      <p class="rd-change-window">Earlier window {{ cs.before_period }} · Later window {{ cs.after_period }} · {{ cs.window_days }} days</p>
+      {% if cs.changes %}
+      <div class="rd-change-cards">
+        {% for row in cs.changes %}
+        <article class="rd-change-card{% if row.change_type == 'COVERAGE_CHANGE' %} rd-change-coverage{% endif %}">
+          <span>{{ row.change_type|replace('_', ' ') }}</span>
+          <h3>{{ row.what_changed }}</h3>
+          <dl>
+            <div><dt>Before</dt><dd>{{ row.before }}</dd></div>
+            <div><dt>Now</dt><dd>{{ row.now }}</dd></div>
+          </dl>
+          <p class="rd-change-basis">{{ row.evidence_basis }}</p>
+          {% if row.coverage_notes %}<p class="rd-change-note">{{ row.coverage_notes }}</p>{% endif %}
+          {% if row.supporting_ids %}<span class="rd-citations">{% for source_id in row.supporting_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span>{% endif %}
+        </article>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="rd-empty">No dated before/now delta is supported in this window. That is a coverage or chronology gap, not a claim that nothing changed.</p>
+      {% endif %}
+      {% if cs.scenarios or cs.competitor_next %}
+      <div class="rd-change-block">
+        <h3>What could happen next</h3>
+        <p class="rd-positioning-note">Scenarios to watch — not forecasts, and not assigned probabilities.</p>
+        {% if cs.scenarios %}
+        <ol class="rd-scenario-list">
+          {% for row in cs.scenarios %}
+          <li>
+            <span>{{ row.kind }}</span>
+            <p>{{ row.text }}</p>
+            <dl>
+              <div><dt>Why plausible</dt><dd>{{ row.why_plausible }}</dd></div>
+              <div><dt>Would confirm</dt><dd>{{ row.would_confirm }}</dd></div>
+              <div><dt>Would refute</dt><dd>{{ row.would_refute }}</dd></div>
+              <div><dt>Watch</dt><dd>{{ row.watch }}</dd></div>
+            </dl>
+            <span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span>
+          </li>
+          {% endfor %}
+        </ol>
+        {% endif %}
+        {% if cs.competitor_next %}
+        <ul class="rd-next-moves">
+          {% for row in cs.competitor_next %}
+          <li><span>{{ row.kind }}</span><p>{{ row.text }}</p><span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+      {% endif %}
+      {% if cs.questions %}
+      <div class="rd-change-block">
+        <h3>AI-generated strategic questions</h3>
+        <p class="rd-positioning-note">These are not saved as canonical Strategic Questions unless you explicitly save them.</p>
+        <ul class="rd-generated-questions">{% for row in cs.questions %}<li><span>{{ row.kind }}</span>{{ row.text }}</li>{% endfor %}</ul>
+      </div>
+      {% endif %}
+      {% if cs.timeline %}
+      <div class="rd-change-block">
+        <h3>How the current state emerged</h3>
+        <ol class="rd-change-timeline">
+          {% for row in cs.timeline %}
+          <li>
+            <time>{{ row.date }}</time>
+            <div>
+              <strong>{% if row.href %}<a href="{{ row.href }}">{{ row.title }}</a>{% else %}{{ row.title }}{% endif %}</strong>
+              <small>{{ row.kind|replace('_', ' ') }} · {{ row.source }} · {{ row.trust_state }}{% if row.coverage_artifact %} · coverage artifact{% endif %}</small>
+            </div>
+          </li>
+          {% endfor %}
+        </ol>
+      </div>
+      {% endif %}
+      <p class="rd-method-note">{{ cs.method_note }}</p>
+    </section>
+    {% endif %}
+
     <section class="rd-section">
       <div class="rd-section-title"><p>Why it matters</p><span>{% if answer.ai_synthesis %}AI SYNTHESIS · NOT YET REVIEWED{% else %}REVIEWED ASSESSMENTS{% endif %}</span></div>
       {% if answer.implications %}
@@ -103,6 +184,17 @@
         <h3>Key differences</h3>
         <ol class="rd-difference-list">
           {% for row in decision_support.key_differences %}
+          <li><p>{{ row.text }}</p><span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></li>
+          {% endfor %}
+        </ol>
+      </div>
+      {% endif %}
+      {% if decision_support.temporal_differences %}
+      <div class="rd-comparison-subsection" id="rd-what-changed-differently">
+        <h3>What changed differently</h3>
+        <p class="rd-positioning-note">Temporal dimension only — later window versus earlier window, not a score.</p>
+        <ol class="rd-difference-list">
+          {% for row in decision_support.temporal_differences %}
           <li><p>{{ row.text }}</p><span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></li>
           {% endfor %}
         </ol>

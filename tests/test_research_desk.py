@@ -45,6 +45,19 @@ def _scope(**overrides) -> ResearchScope:
     return ResearchScope(**values)
 
 
+def test_change_questions_default_to_ninety_days() -> None:
+    scope = interpret_research_scope(
+        "What changed in Peru blueberries?",
+        berries={"berry-blueberry": "Blueberry"},
+        entities=_entities(),
+        questions=[],
+        relationships=[],
+    )
+    assert scope.window_days == 90
+    assert scope.geography_ids == ("geography-peru",)
+    assert scope.berry_id == "berry-blueberry"
+
+
 def test_interprets_scope_and_never_silently_guesses_identity() -> None:
     scope = interpret_research_scope(
         "Compare Planasa and Fall Creek in Peru over the last 30 days",
@@ -236,6 +249,14 @@ def test_research_desk_stakeholder_surface_and_brief_handoff() -> None:
     assert "Research question:" in preview.text
     assert "PRESELECTED SOURCE-BACKED FINDINGS" in preview.text
     assert 'name="focus_notes"' in preview.text
+
+
+def test_change_scenario_section_renders_on_research_desk() -> None:
+    page = TestClient(app).post("/research", data={"question": "What changed around Hortifrut in the last 90 days?"})
+    assert page.status_code == 200
+    assert "What changed" in page.text
+    assert "NOT A FORECAST" in page.text
+    assert "AI-generated strategic questions" in page.text or "No dated before/now delta" in page.text
 
 
 def test_live_endpoint_uses_structured_selection_state(monkeypatch) -> None:

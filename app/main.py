@@ -340,6 +340,7 @@ from app.services.report_builder.scope import (
     interpret_scope_text,
     resolve_scope,
 )
+from app.services.change_scenario import build_change_scenario
 from app.services.market_reality.research_desk import market_context_for_research_scope
 from app.services.report_builder.synthesis import generate_report_sections
 from app.services.research_desk import (
@@ -3920,10 +3921,10 @@ def _pulse_providers() -> list[Any]:
 
 
 RESEARCH_EXAMPLE_PROMPTS = (
+    "What changed around Hortifrut in the last 90 days?",
     "What changed with Planasa this month?",
+    "What scenarios should we watch next in Peru blueberries?",
     "What is happening in European blueberry genetics?",
-    "Which competitors are expanding berry production in Peru?",
-    "What should I know about blackberry innovation?",
 )
 
 
@@ -3954,6 +3955,9 @@ def _radar_developments_for_scope(scope: ResearchScope) -> list[dict[str, Any]]:
             "id": row.get("id"),
             "title": row.get("title") or row.get("id"),
             "event_type": row.get("event_type") or "",
+            "event_date": row.get("event_date") or "",
+            "first_seen": row.get("first_seen") or "",
+            "latest_update": row.get("latest_update") or "",
             "date": row.get("event_date") or row.get("latest_update") or row.get("first_seen") or "",
             "href": f"/radar/{row.get('id')}",
             "trust_state": row.get("trust_state") or "LIVE / UNREVIEWED DEVELOPMENT",
@@ -3973,7 +3977,12 @@ def _radar_developments_for_scope(scope: ResearchScope) -> list[dict[str, Any]]:
 
 def _research_competitive_moves(scope: ResearchScope, board=None) -> list[dict[str, Any]]:
     """Official Competitive Move Detector read seam. Never reads inbox JSON directly."""
-    timeframe = "7d" if scope.window_days <= 7 else "30d"
+    if scope.window_days <= 7:
+        timeframe = "7d"
+    elif scope.window_days <= 30:
+        timeframe = "30d"
+    else:
+        timeframe = "90d"
     board = board or compose_moves_board(inbox_dir=INBOX_DIR)
     rows = competitive_moves_for(
         companies=scope.company_ids or None,
@@ -3988,13 +3997,22 @@ def _research_competitive_moves(scope: ResearchScope, board=None) -> list[dict[s
         sources = list(row.get("supporting_sources") or [])
         first = sources[0] if sources else {}
         company_id = row.get("company_id")
+        source_dates = [
+            str(source.get("published_date") or "")[:10]
+            for source in sources
+            if str(source.get("published_date") or "")[:10]
+        ]
+        event_date = min(source_dates) if source_dates else ""
         adapted.append({
             "id": row.get("id"),
             "title": row.get("title") or row.get("what_happened"),
             "what_happened": row.get("what_happened"),
             "event_type": row.get("move_type") or "OTHER",
             "move_type": row.get("move_type"),
-            "date": row.get("latest_update") or row.get("first_seen") or "",
+            "event_date": event_date,
+            "first_seen": row.get("first_seen") or "",
+            "latest_update": row.get("latest_update") or "",
+            "date": event_date or row.get("latest_update") or row.get("first_seen") or "",
             "href": f"/moves/{company_id}" if company_id else "/moves",
             "url": first.get("url") or "",
             "source_name": first.get("publisher") or "Competitive Move Detector",
@@ -4093,6 +4111,7 @@ def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, An
     ) if (scope.comparison or scope.company_ids) else []
     comparison = _present_research_company_compare(comparison_ids)
     packet["comparison_company_ids"] = [row.get("id") for row in (comparison or {}).get("companies") or []]
+    packet["change_scenario"] = build_change_scenario(scope, packet)
     decision_support = build_research_decision_support(scope, packet=packet, company_compare=comparison)
     return packet, comparison, decision_support
 
