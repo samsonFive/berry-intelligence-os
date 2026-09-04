@@ -283,6 +283,61 @@ def test_change_scenario_engine_output_is_remapped_to_expected_field_names(monke
     assert row["citation_ids"] == ["mkt-real-series"]
 
 
+def test_cross_geography_genetics_context_is_labeled_not_collapsed(monkeypatch, tmp_path: Path) -> None:
+    """Phase 3 (Analyst Dogfood Loop): a genetics development that shares a
+    Variety/platform with in-scope activity but occurred in a DIFFERENT
+    geography must appear labeled CROSS-GEOGRAPHY RELATED / GLOBAL PLATFORM
+    CONTEXT with its reason -- never folded into direct in-scope activity,
+    and never described as independent confirmation."""
+    from app.services.report_builder import decision_memo as dm
+
+    def fake_change_scenario_for(scope, packet):
+        return {
+            "scenarios": [],
+            "genetics_geography": {
+                "in_scope": [],
+                "cross_geography_related": [{
+                    "id": "dev-genetics-eu",
+                    "title": "Driscoll's licenses the same variety platform in Spain",
+                    "date": "2026-08-20",
+                    "geography": "Spain",
+                    "relationship": "same Variety: Sekoya Pop",
+                    "geo_class": "CROSS-GEOGRAPHY RELATED",
+                    "kind": "LICENSING",
+                    "source_ids": ["dev-genetics-eu"],
+                }],
+                "global_platform_context": [{
+                    "id": "dev-genetics-global",
+                    "title": "Multi-company genetics platform announces global rollout",
+                    "date": "2026-08-15",
+                    "geography": "Chile, Spain",
+                    "relationship": "same licensing / genetics platform (Planasa, Hortifrut)",
+                    "geo_class": "GLOBAL / PLATFORM CONTEXT",
+                    "kind": "PBR / IP",
+                    "source_ids": ["dev-genetics-global"],
+                }],
+                "excluded": [],
+                "footprints": [],
+                "propagation": [],
+                "timeline": [],
+                "program_expansions": [],
+            },
+        }
+
+    monkeypatch.setattr(dm, "change_scenario_for", fake_change_scenario_for)
+    packet = _build_packet(monkeypatch, scope=_scope(), moves=[_move()], inbox_dir=tmp_path)
+    assert "dev-genetics-eu" in packet["known_ids"]
+    assert "dev-genetics-global" in packet["known_ids"]
+    sections = generate_decision_memo_sections(packet)
+    genetics = next(s for s in sections if s.section_id == "genetics_ip")
+    assert "CROSS-GEOGRAPHY RELATED" in genetics.prose
+    assert "GLOBAL / PLATFORM CONTEXT" in genetics.prose
+    assert "same Variety: Sekoya Pop" in genetics.prose
+    assert "not independent confirmation" in genetics.prose
+    assert "dev-genetics-eu" in genetics.citation_ids
+    assert "dev-genetics-global" in genetics.citation_ids
+
+
 # ---- Market Reality: structured, not prose ----
 
 def test_market_reality_section_is_structured_with_units_and_source(monkeypatch, tmp_path: Path) -> None:
