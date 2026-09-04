@@ -825,4 +825,3 @@ def change_scenario_for(scope: Any, packet: Mapping[str, Any], *, today: date | 
         "geographic_propagation": list((model.get("genetics_geography") or {}).get("propagation") or []),
         "genetics_footprints": list((model.get("genetics_geography") or {}).get("footprints") or []),
     }
-
