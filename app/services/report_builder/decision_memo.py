@@ -89,7 +89,7 @@ def _build_change_scenarios(
     signals: list[dict[str, Any]],
     assessments: list[dict[str, Any]],
     market_repo: Any | None,
-) -> list[dict[str, Any]]:
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     try:
         research_scope = ResearchScope(
             question=scope.focus_notes or "Decision memo",
@@ -124,9 +124,9 @@ def _build_change_scenarios(
         )
         result = change_scenario_for(research_scope, research_packet)
     except Exception:
-        return []
+        return [], {}
     rows = result.get("scenarios") or []
-    return [
+    scenarios = [
         {
             "title": row.get("text") or "",
             "why_plausible": row.get("why_plausible") or "",
@@ -138,6 +138,13 @@ def _build_change_scenarios(
         for row in rows
         if row.get("text")
     ]
+    # Already computed by change_scenario_for() (it classifies IN-SCOPE vs
+    # CROSS-GEOGRAPHY RELATED vs GLOBAL / PLATFORM CONTEXT vs OUT-OF-SCOPE
+    # via genetics_geography.py) -- reused here rather than re-derived so a
+    # cross-geography genetics recurrence keeps its "why" instead of being
+    # silently dropped or collapsed into direct-geography activity.
+    genetics_geography = result.get("genetics_geography") or {}
+    return scenarios, genetics_geography
 
 
 # ---------------------------------------------------------------------------
@@ -185,7 +192,7 @@ def build_decision_memo_packet(
         now=now,
     )
 
-    scenarios = _build_change_scenarios(
+    scenarios, genetics_geography = _build_change_scenarios(
         scope,
         window_days=war_room_scope.window_days,
         inbox_dir=inbox_dir,
@@ -197,6 +204,14 @@ def build_decision_memo_packet(
         assessments=assessments,
         market_repo=market_repo,
     )
+    genetics_geography_citation_ids = [
+        str(row["id"])
+        for row in (
+            list(genetics_geography.get("cross_geography_related") or [])
+            + list(genetics_geography.get("global_platform_context") or [])
+        )
+        if row.get("id")
+    ]
 
     # One index, keyed by id, covering every citable thing this packet's
     # sections might reference -- what_changed, competitive_moves, market
@@ -251,6 +266,7 @@ def build_decision_memo_packet(
         "competitive_moves": session["who_is_moving"],
         "market_reality": session["market_reality"],
         "genetics_ip": session["genetics_ip"],
+        "genetics_geography": genetics_geography,
         "competitive_positioning": session["competitive_positioning"],
         "whitespace": session.get("whitespace"),
         "coverage_unknown": session["coverage_unknown"],
@@ -261,13 +277,20 @@ def build_decision_memo_packet(
         "strategic_questions": session["strategic_questions"],
         "needs_attention": session["needs_attention"],
         "scenarios": scenarios,
-        "known_ids": set(source_index) | {cid for s in scenarios for cid in s["citation_ids"]},
+        "known_ids": (
+            set(source_index)
+            | {cid for s in scenarios for cid in s["citation_ids"]}
+            | set(genetics_geography_citation_ids)
+        ),
         "source_trace": list(source_index.values()) + [
             {
                 "id": cid, "title": cid, "href": f"/radar/{cid}" if cid.startswith("dev-") else "/evidence/" + cid,
                 "source_name": "Change & Scenario Engine", "date": "",
             }
-            for cid in dict.fromkeys(cid for s in scenarios for cid in s["citation_ids"])
+            for cid in dict.fromkeys(
+                [cid for s in scenarios for cid in s["citation_ids"]]
+                + genetics_geography_citation_ids
+            )
             if cid not in source_index
         ],
     }
@@ -412,14 +435,41 @@ def _section_genetics_ip(packet: dict[str, Any]) -> SectionDraft | None:
     genetics = packet["genetics_ip"]
     moves = genetics.get("moves") or []
     developments = genetics.get("developments") or []
-    if not moves and not developments:
+    geo = packet.get("genetics_geography") or {}
+    related = [row for row in (geo.get("cross_geography_related") or []) if row.get("id")]
+    global_ctx = [row for row in (geo.get("global_platform_context") or []) if row.get("id")]
+    if not moves and not developments and not related and not global_ctx:
         return None
     lines = [f"[{m['id']}] {m['company_name']} — {m.get('move_label') or m.get('move_type')}" for m in moves if m.get("id")]
     lines += [f"[{d['id']}] {d.get('event_type')}: {d['title']} ({d.get('trust_state')})" for d in developments if d.get("id")]
-    cites = tuple(row["id"] for row in (moves + developments) if row.get("id"))
+    cites = [row["id"] for row in (moves + developments) if row.get("id")]
+    if related or global_ctx:
+        # Cross-geography genetics recurrence is a feature, not noise, when
+        # it shares an explicit Variety/breeding program/IP family/platform
+        # with in-scope activity (genetics_geography.py) -- kept as its own
+        # labeled block, never folded into direct in-scope activity above,
+        # and never described as independent confirmation.
+        lines.append("")
+        lines.append(
+            "Cross-geography genetics context (same Variety, breeding program, IP family, or "
+            "platform as in-scope activity -- not independent confirmation unless the underlying "
+            "sources are genuinely independent):"
+        )
+        for row in related:
+            lines.append(
+                f"[{row['id']}] CROSS-GEOGRAPHY RELATED — {row['title']} "
+                f"({row.get('geography') or 'geography unstated'}): {row.get('relationship')}"
+            )
+        for row in global_ctx:
+            lines.append(
+                f"[{row['id']}] GLOBAL / PLATFORM CONTEXT — {row['title']} "
+                f"({row.get('geography') or 'geography unstated'}): {row.get('relationship')}"
+            )
+        cites.extend(row["id"] for row in related)
+        cites.extend(row["id"] for row in global_ctx)
     return SectionDraft(
         section_id="genetics_ip", title=SECTION_TITLES["genetics_ip"], prose="\n".join(lines),
-        citation_ids=cites, status="structured", provider=None, model=None,
+        citation_ids=tuple(dict.fromkeys(cites)), status="structured", provider=None, model=None,
     )
 
 
