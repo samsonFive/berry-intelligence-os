@@ -29,15 +29,17 @@
 <form id="manual-scope" class="filters" method="post" action="/reports/new">
   <input type="hidden" name="step" value="preview">
   {% if handoff_geography_ids_csv or handoff_company_ids_csv or handoff_variety_ids_csv %}
-    <p class="v2-meta">Prefilled from Today's top stories.</p>
+    <p class="v2-meta">{% if handoff_report_type == 'decision_memo' %}Prefilled from your War Room session.{% else %}Prefilled from Today's top stories.{% endif %}</p>
     <input type="hidden" name="geography_ids" value="{{ handoff_geography_ids_csv }}">
     <input type="hidden" name="company_ids" value="{{ handoff_company_ids_csv }}">
     <input type="hidden" name="variety_ids" value="{{ handoff_variety_ids_csv }}">
   {% endif %}
+  {% if handoff_focus_notes %}<input type="hidden" name="focus_notes" value="{{ handoff_focus_notes }}">{% endif %}
+  {% if handoff_date_window_days %}<input type="hidden" name="date_window_days" value="{{ handoff_date_window_days }}">{% endif %}
   <div class="filter-field">
     <label for="report-type">Report type</label>
     <select id="report-type" name="report_type">
-      {% for rt in report_types %}<option value="{{ rt }}">{{ report_type_labels.get(rt, rt) }}</option>{% endfor %}
+      {% for rt in report_types %}<option value="{{ rt }}" {% if handoff_report_type and rt == handoff_report_type %}selected{% endif %}>{{ report_type_labels.get(rt, rt) }}</option>{% endfor %}
     </select>
   </div>
   <div class="filter-field">
@@ -116,7 +118,14 @@
   {% if scope.focus_notes %}
     <p><strong>Research question:</strong> {{ scope.focus_notes }}</p>
   {% endif %}
-  {% if packet.strategic_question %}
+  {% if scope.report_type == 'decision_memo' %}
+    <ul class="stat-list">
+      <li>{{ coverage.counts.what_changed_count }} recent changes</li>
+      <li>{{ coverage.counts.competitive_move_count }} Competitive Moves</li>
+      <li>{{ coverage.counts.market_reality_count }} Market Reality series</li>
+      <li>{{ coverage.counts.coverage_gap_count }} coverage gaps</li>
+    </ul>
+  {% elif packet.strategic_question %}
     <ul class="stat-list">
       <li>{{ coverage.counts.fact_count }} Facts</li>
       <li>{{ coverage.counts.evidence_count }} sourced Evidence</li>
@@ -140,7 +149,7 @@
       {% for gap in coverage.gaps %}<li>{{ gap }}</li>{% endfor %}
     </ul>
   {% endif %}
-  {% if scope.focus_notes or packet.recent_developments %}
+  {% if scope.report_type != 'decision_memo' and (scope.focus_notes or packet.recent_developments) %}
     <p class="card-kicker">PRESELECTED SOURCE-BACKED FINDINGS</p>
     {% if packet.recent_developments %}
     <ul>

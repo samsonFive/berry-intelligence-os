@@ -316,6 +316,7 @@ from app.services.ai_gateway.credentials import resolve_perplexity_api_key
 from app.services.ai_gateway.perplexity_research import PerplexityResearchClient
 from app.services.ai_gateway.untrusted_complete import maybe_untrusted_completer
 from app.services.report_builder.coverage import report_coverage
+from app.services.report_builder.decision_memo import build_decision_memo_packet, generate_decision_memo_sections
 from app.services.report_builder.packet import build_report_packet
 from app.services.report_builder.pdf_export import render_report_pdf
 from app.services.report_builder.perplexity_gap_research import PublicQueryContext, research_public_gaps
@@ -6109,7 +6110,40 @@ def _scope_from_form(
     )
 
 
+def _decision_memo_coverage(packet: dict[str, Any]) -> dict[str, Any]:
+    """Minimal coverage shape for report_workspace.html's generic
+    counts/gaps rendering -- decision_memo's packet isn't the generic
+    Company/Variety/Evidence shape report_coverage() expects, so this is
+    a small, honest adapter rather than forcing packet-shape
+    compatibility onto a differently-sourced report type."""
+    counts = {
+        "what_changed_count": len(packet.get("what_changed") or []),
+        "competitive_move_count": len(packet.get("competitive_moves") or []),
+        "market_reality_count": len(packet.get("market_reality") or []),
+        "coverage_gap_count": len(packet.get("coverage_unknown") or []),
+    }
+    gaps = [row["text"] for row in (packet.get("coverage_unknown") or [])]
+    return {"counts": counts, "gaps": gaps, "dimensions": []}
+
+
 def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], dict[str, Any]]:
+    if scope.report_type == "decision_memo":
+        packet = build_decision_memo_packet(
+            scope,
+            inbox_dir=INBOX_DIR,
+            entities=entity_index(),
+            relationships=all_relationships(),
+            published_evidence=published_evidence(),
+            facts=all_facts(),
+            signals=all_signals(),
+            assessments=all_assessments(),
+            strategic_questions=load_strategic_questions(),
+            berry_labels=BERRIES,
+            identity_redirects=identity_redirects(),
+            market_repo=get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations,
+            completer=maybe_untrusted_completer(),
+        )
+        return packet, _decision_memo_coverage(packet)
     entities = entity_index()
     _varieties, visible_candidates, _corpus_report = variety_candidate_universe()
     packet = build_report_packet(
@@ -6133,6 +6167,12 @@ def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], di
         ),
     )
     return packet, coverage
+
+
+def _generate_sections_for(scope: ResolvedScope, packet: dict[str, Any], *, completer: Any) -> list[Any]:
+    if scope.report_type == "decision_memo":
+        return generate_decision_memo_sections(packet, completer=completer)
+    return generate_report_sections(packet, report_type=scope.report_type, completer=completer)
 
 
 @app.get("/reports", response_class=HTMLResponse)
@@ -6176,6 +6216,14 @@ def report_new_page(request: Request) -> HTMLResponse:
     # curated, real scope and shouldn't have to describe it in prose.
     handoff_berry = str(request.query_params.get("berry") or "").strip()
     handoff_berry_id = handoff_berry if not handoff_berry or handoff_berry.startswith("berry-") else f"berry-{handoff_berry}"
+    # Strategy War Room's "Create Decision Memo" handoff (compose_war_room()'s
+    # create_decision_memo_href) additionally carries report_type + a
+    # focus_notes summary of the session scope -- validated against
+    # REPORT_TYPES the same way the manual-scope form field already is.
+    handoff_report_type_raw = str(request.query_params.get("report_type") or "").strip()
+    handoff_report_type = handoff_report_type_raw if handoff_report_type_raw in REPORT_TYPES else ""
+    handoff_focus_notes = str(request.query_params.get("focus_notes") or "").strip()
+    handoff_date_window_days = str(request.query_params.get("date_window_days") or "").strip()
     response = templates.TemplateResponse(
         request=request,
         name="report_new.html",
@@ -6192,6 +6240,9 @@ def report_new_page(request: Request) -> HTMLResponse:
             "handoff_geography_ids_csv": str(request.query_params.get("geography_ids") or ""),
             "handoff_company_ids_csv": str(request.query_params.get("company_ids") or ""),
             "handoff_variety_ids_csv": str(request.query_params.get("variety_ids") or ""),
+            "handoff_report_type": handoff_report_type,
+            "handoff_focus_notes": handoff_focus_notes,
+            "handoff_date_window_days": handoff_date_window_days,
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -6246,7 +6297,7 @@ def report_new_submit(
     if step == "generate":
         packet, _coverage = _build_packet_and_coverage(scope)
         completer = maybe_untrusted_completer()
-        drafts = generate_report_sections(packet, report_type=scope.report_type, completer=completer)
+        drafts = _generate_sections_for(scope, packet, completer=completer)
         sections = [
             {
                 "section_id": d.section_id,
@@ -6364,7 +6415,7 @@ def report_regenerate_section_route(report_id: str, section_id: str) -> Redirect
     scope = _scope_from_record(record)
     packet, _coverage = _build_packet_and_coverage(scope)
     completer = maybe_untrusted_completer()
-    drafts = generate_report_sections(packet, report_type=scope.report_type, completer=completer)
+    drafts = _generate_sections_for(scope, packet, completer=completer)
     match = next((d for d in drafts if d.section_id == section_id), None)
     if match is None:
         raise HTTPException(status_code=404, detail="Unknown section id")

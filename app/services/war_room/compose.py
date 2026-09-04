@@ -166,6 +166,7 @@ def compose_war_room(
                 source_row = series_rows[-1] if series_rows else {}
                 market_changes.append(
                     {
+                        "id": f"mkt-{code}-{metric}-{geography}".lower().replace(" ", "-"),
                         "metric": metric,
                         "commodity_label": source_row.get("source_commodity_label") or code,
                         "geography_label": geography,
@@ -206,10 +207,10 @@ def compose_war_room(
 
     what_changed: list[dict[str, Any]] = []
     for m in scoped_moves[:6]:
-        what_changed.append({"kind": "Competitive Move", "title": f"{m.company_name} — {m.move_label}", "when": m.latest_update, "href": f"/moves/{m.company_id}"})
+        what_changed.append({"id": m.id, "kind": "Competitive Move", "title": f"{m.company_name} — {m.move_label}", "when": m.latest_update, "href": f"/moves/{m.company_id}"})
     for c in market_changes[:4]:
         arrow = "up" if c["direction"] == "up" else ("down" if c["direction"] == "down" else "flat")
-        what_changed.append({"kind": "Market Reality", "title": f"{c['geography_label']} {c['commodity_label']} {c['metric'].replace('_',' ').title()} {'+' if arrow=='up' else '-'}{abs(c['pct_change']):.1f}%", "when": c["latest_period"], "href": "/today"})
+        what_changed.append({"id": c["id"], "kind": "Market Reality", "title": f"{c['geography_label']} {c['commodity_label']} {c['metric'].replace('_',' ').title()} {'+' if arrow=='up' else '-'}{abs(c['pct_change']):.1f}%", "when": c["latest_period"], "href": "/today"})
     for record in published_evidence:
         rec_entities = set(record.get("entity_ids") or [])
         rec_geo = set(record.get("geography_ids") or [])
@@ -222,7 +223,7 @@ def compose_war_room(
             continue
         if not _within(record.get("published_date"), cutoff_days=scope.window_days, now=instant):
             continue
-        what_changed.append({"kind": "Trusted Evidence", "title": str(record.get("title") or record.get("id")), "when": str(record.get("published_date") or ""), "href": f"/evidence/{record.get('id')}"})
+        what_changed.append({"id": record.get("id"), "kind": "Trusted Evidence", "title": str(record.get("title") or record.get("id")), "when": str(record.get("published_date") or ""), "href": f"/evidence/{record.get('id')}"})
     what_changed.sort(key=lambda i: str(i.get("when") or ""), reverse=True)
     what_changed = what_changed[:10]
 
@@ -270,16 +271,20 @@ def compose_war_room(
     scope_label_parts = [p for p in ([berry_label] + geography_labels + company_labels) if p]
     scope_label = " · ".join(scope_label_parts) or "All berries, all markets"
 
-    brief_query = urlencode(
-        {
-            k: v for k, v in {
-                "berry": scope.berry_id or "",
-                "geography_ids": ",".join(scope.geography_ids),
-                "company_ids": ",".join(scope.company_ids),
-            }.items() if v
-        }
-    )
+    base_scope_query = {
+        "berry": scope.berry_id or "",
+        "geography_ids": ",".join(scope.geography_ids),
+        "company_ids": ",".join(scope.company_ids),
+    }
+    brief_query = urlencode({k: v for k, v in base_scope_query.items() if v})
     ask_question = f"What should I know about: {scope_label} — last {scope.window_days} days"
+    memo_focus = f"Prepare a decision memo: {scope_label} — last {scope.window_days} days"
+    memo_query = urlencode({
+        **{k: v for k, v in base_scope_query.items() if v},
+        "report_type": "decision_memo",
+        "focus_notes": memo_focus,
+        "date_window_days": scope.window_days,
+    })
 
     return {
         "scope": scope.as_dict(),
@@ -302,6 +307,7 @@ def compose_war_room(
         "what_changed": what_changed,
         "who_is_moving": [m.as_dict() for m in scoped_moves[:10]],
         "needs_attention": [a.as_dict() for a in session_alerts[:10]],
+        "whitespace": whitespace,
         "coverage_unknown": whitespace["coverage_gaps"] if whitespace else [],
         "competitive_overlap": whitespace["overlap"] if whitespace else [],
         "landscape_questions": whitespace["questions"] if whitespace else [],
@@ -325,5 +331,6 @@ def compose_war_room(
         "ask_berry_os_href": f"/research?{urlencode({'q': ask_question})}",
         "compare_href": f"/entities/company/compare?ids={','.join(list(company_ids)[:4])}" if len(company_ids) >= 2 else None,
         "create_meeting_brief_href": f"/reports/new?{brief_query}" if brief_query else "/reports/new",
+        "create_decision_memo_href": f"/reports/new?{memo_query}",
         "watchtower_href": "/watchtower",
     }
