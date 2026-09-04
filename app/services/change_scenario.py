@@ -21,6 +21,8 @@ CHANGE_TYPES = (
     "LEADERSHIP_CHANGE",
     "LEGAL_CONSTRAINT_CHANGE",
     "COVERAGE_CHANGE",
+    "GENETICS_GEOGRAPHIC_EXPANSION",
+    "GEOGRAPHIC_PROPAGATION",
     "OTHER",
 )
 
@@ -236,6 +238,7 @@ def _copy_rows(packet: Mapping[str, Any]) -> list[dict[str, Any]]:
         ("signals", "SIGNAL"),
         ("assessments", "ASSESSMENT"),
         ("rights_ip", "RIGHTS / IP"),
+        ("related_genetics", "RELATED GENETICS"),
     ):
         for row in packet.get(key) or []:
             payload = dict(row)
@@ -312,7 +315,22 @@ def build_change_scenario(
     today = today or date.today()
     window_days = int(getattr(scope, "window_days", None) or (packet.get("scope") or {}).get("window_days") or 30)
     start, mid, end = split_windows(window_days, today=today)
-    rows = [_row for _row in _copy_rows(packet) if _row_fits_scope(scope, packet, _row)]
+    from app.services.genetics_geography import (
+        IN_SCOPE,
+        build_genetics_geography,
+        wants_genetics_geography,
+    )
+
+    copied = _copy_rows(packet)
+    genetics_geo = None
+    if wants_genetics_geography(scope) or packet.get("related_genetics"):
+        genetics_geo = build_genetics_geography(scope, packet, copied)
+        rows = [
+            row for row in genetics_geo["classified_rows"]
+            if row.get("_geo_class") == IN_SCOPE
+        ]
+    else:
+        rows = [row for row in copied if _row_fits_scope(scope, packet, row)]
 
     coverage_ids = {
         _row_id(row) or str(index)
@@ -422,10 +440,41 @@ def build_change_scenario(
             "last_updated": (max(_event_date(row) for row in dated).isoformat() if dated else end.isoformat()),
         })
 
-    scenarios = _scenarios(changes, now_rows, packet)
+    if genetics_geo:
+        changes.extend(genetics_geo.get("program_expansions") or [])
+        for row in genetics_geo.get("propagation") or []:
+            changes.append({
+                "change_type": "GEOGRAPHIC_PROPAGATION",
+                "what_changed": row["text"],
+                "before": "The same genetics object had not yet been assembled across these geographies in this packet.",
+                "now": row["text"],
+                "evidence_basis": "Shared Variety, breeding program, IP family, or multi-company platform across geographies.",
+                "coverage_notes": "This is an observed footprint, not a claim of global strategy.",
+                "supporting_ids": list(row.get("source_ids") or [])[:8],
+                "first_observed": "",
+                "last_updated": "",
+            })
+
+    scenarios = _scenarios(changes, now_rows, packet, genetics_geo=genetics_geo)
     competitor_next = _competitor_next(now_rows, packet)
     questions = _generated_questions(changes, scope)
     timeline = _timeline([*now_rows, *before_rows, *coverage_rows])
+    if genetics_geo and genetics_geo.get("timeline"):
+        timeline = [
+            {
+                "date": row["date"],
+                "title": row["genetics_development"],
+                "kind": row.get("kind") or "GENETICS",
+                "source": row.get("geography") or "",
+                "trust_state": row.get("geo_class") or "",
+                "id": row.get("id") or "",
+                "href": "",
+                "coverage_artifact": False,
+                "geography": row.get("geography") or "",
+                "relationship": row.get("relationship") or "",
+            }
+            for row in genetics_geo["timeline"]
+        ]
     temporal = _temporal_differences(scope, packet, before_rows, now_rows)
 
     blob = " ".join(
@@ -450,18 +499,49 @@ def build_change_scenario(
         "coverage_notes": [
             row["what_changed"] for row in changes if row["change_type"] == "COVERAGE_CHANGE"
         ],
+        "genetics_geography": (
+            {
+                "in_scope": genetics_geo["in_scope"],
+                "cross_geography_related": genetics_geo["cross_geography_related"],
+                "global_platform_context": genetics_geo["global_platform_context"],
+                "excluded": genetics_geo["excluded"],
+                "footprints": genetics_geo["footprints"],
+                "propagation": genetics_geo["propagation"],
+                "timeline": genetics_geo["timeline"],
+                "what_this_may_mean": _genetics_meaning(genetics_geo),
+                "watch_next": _genetics_watch(genetics_geo),
+            }
+            if genetics_geo
+            else None
+        ),
         "method_note": (
             "BEFORE is the earlier half of the selected window; NOW is the later half. "
             "Dates use published/event dates, not captured_date. "
+            "Cross-geography genetics stay in a separate section and only when an explicit "
+            "Variety, platform, IP family, or multi-company program is shared. "
             "Scenarios are hypotheses to watch, not forecasts, and have no probabilities."
         ),
     }
+
+
+def _genetics_meaning(model: Mapping[str, Any]) -> list[dict[str, Any]]:
+    from app.services.genetics_geography import _what_this_may_mean
+
+    return _what_this_may_mean(model)
+
+
+def _genetics_watch(model: Mapping[str, Any]) -> list[dict[str, Any]]:
+    from app.services.genetics_geography import _watch_next
+
+    return _watch_next(model)
 
 
 def _scenarios(
     changes: list[dict[str, Any]],
     now_rows: list[Mapping[str, Any]],
     packet: Mapping[str, Any],
+    *,
+    genetics_geo: Mapping[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     out: list[dict[str, Any]] = []
     ids = [sid for change in changes for sid in change.get("supporting_ids") or []]
@@ -527,6 +607,24 @@ def _scenarios(
             "No further partnership or expansion records appear while other move types dominate.",
             "Competitive Moves of type PARTNERSHIP, LICENSING, EXPANSION, or MARKET_ENTRY.",
             ids,
+        ))
+    if genetics_geo and (genetics_geo.get("cross_geography_related") or genetics_geo.get("propagation")):
+        watch_ids = [
+            sid
+            for row in [
+                *(genetics_geo.get("cross_geography_related") or []),
+                *(genetics_geo.get("propagation") or []),
+            ]
+            for sid in (row.get("source_ids") or ([row.get("id")] if row.get("id") else []))
+            if sid
+        ]
+        out.append(_scenario(
+            "Additional geographic commercialization is a development to watch.",
+            "The same Variety, breeding platform, or multi-company program already appears in more than one geography.",
+            "A later dated commercialization or licensing record appears in another geography for the same genetics object.",
+            "Later items stay in the original geography with no further licensing or commercialization record.",
+            "Licensing, commercialization, and variety-launch records for the same genetics object.",
+            watch_ids or ids,
         ))
     return [row for row in out if row.get("source_ids")]
 
@@ -723,5 +821,8 @@ def change_scenario_for(scope: Any, packet: Mapping[str, Any], *, today: date | 
         "after_period": model["after_period"],
         "coverage_notes": model["coverage_notes"],
         "method_note": model["method_note"],
+        "genetics_geography": model.get("genetics_geography"),
+        "geographic_propagation": list((model.get("genetics_geography") or {}).get("propagation") or []),
+        "genetics_footprints": list((model.get("genetics_geography") or {}).get("footprints") or []),
     }
 

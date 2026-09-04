@@ -16,6 +16,7 @@ from app.services.change_scenario import (
     classify_coverage_artifact,
     split_windows,
 )
+from app.services.genetics_geography import genetics_geography_for
 from app.services.market_reality.research_desk import market_context_for_research_scope
 from app.services.research_desk import (
     ResearchScope,
@@ -353,15 +354,16 @@ def test_compose_passes_change_scenario_through() -> None:
     assert "PARTNERSHIP_CHANGE" in {row["change_type"] for row in answer["change_scenario"]["changes"]}
 
 
-def test_europe_blueberry_genetics_rejects_americas_and_raspberry_patent() -> None:
-    europe = (
-        "geography-europe",
-        "geography-germany",
-        "geography-spain",
-        "geography-united-kingdom",
-    )
-    entities = {
+def _europe_entities() -> dict[str, dict]:
+    return {
         "company-hortifrut": {"id": "company-hortifrut", "name": "Hortifrut", "entity_type": "company"},
+        "company-mountain-blue-orchards": {
+            "id": "company-mountain-blue-orchards",
+            "name": "Mountain Blue",
+            "entity_type": "company",
+        },
+        "company-naturipe-farms": {"id": "company-naturipe-farms", "name": "Naturipe Farms", "entity_type": "company"},
+        "company-fall-creek": {"id": "company-fall-creek", "name": "Fall Creek", "entity_type": "company"},
         "variety-example-red": {
             "id": "variety-example-red",
             "name": "Example Red",
@@ -374,15 +376,47 @@ def test_europe_blueberry_genetics_rejects_americas_and_raspberry_patent() -> No
             "entity_type": "variety",
             "berry_ids": ["berry-blueberry"],
         },
+        "variety-zara": {
+            "id": "variety-zara",
+            "name": "Zara",
+            "entity_type": "variety",
+            "berry_ids": ["berry-strawberry"],
+        },
+        "company-driscolls": {
+            "id": "company-driscolls",
+            "name": "Driscoll's",
+            "entity_type": "company",
+            "berry_ids": ["berry-blueberry", "berry-strawberry", "berry-raspberry", "berry-blackberry"],
+        },
+        "geography-spain": {"id": "geography-spain", "name": "Spain", "entity_type": "geography"},
+        "geography-peru": {"id": "geography-peru", "name": "Peru", "entity_type": "geography"},
+        "geography-united-kingdom": {
+            "id": "geography-united-kingdom",
+            "name": "United Kingdom",
+            "entity_type": "geography",
+            "berry_ids": ["berry-blueberry", "berry-strawberry"],
+        },
     }
+
+
+EUROPE = (
+    "geography-europe",
+    "geography-germany",
+    "geography-spain",
+    "geography-united-kingdom",
+)
+
+
+def test_europe_blueberry_genetics_keeps_related_variety_and_drops_unrelated() -> None:
+    entities = _europe_entities()
     evidence = [
         {
             "id": "ev-hortifrut-mbo-genetics-2026",
             "title": "Naturipe Farms and Hortifrut expand berry genetics platform with Mountain Blue",
             "published_date": "2026-07-30",
-            "entity_ids": ["company-hortifrut", "geography-united-states", "geography-mexico", "geography-peru"],
+            "entity_ids": ["company-hortifrut", "company-naturipe-farms", "company-mountain-blue-orchards", "geography-peru"],
             "berry_ids": ["berry-blueberry"],
-            "geography_ids": [],
+            "geography_ids": ["geography-peru", "geography-mexico", "geography-united-states"],
         },
         {
             "id": "ev-sample-patent-published",
@@ -402,14 +436,39 @@ def test_europe_blueberry_genetics_rejects_americas_and_raspberry_patent() -> No
             "geography_ids": ["geography-spain"],
             "berry_ids": ["berry-blueberry"],
         },
+        {
+            "id": "ev-pe-eu-blue-commercial",
+            "title": "Peru commercialization of Euro Blue after the Spanish launch",
+            "published_date": "2026-08-20",
+            "entity_ids": ["variety-eu-blue", "company-hortifrut", "geography-peru"],
+            "geography_ids": ["geography-peru"],
+            "berry_ids": ["berry-blueberry"],
+        },
+        {
+            "id": "ev-fruitnet-driscolls-zara-best-strawberry",
+            "title": "Driscoll's Zara named 'best overall supermarket strawberry'",
+            "published_date": "2026-06-23",
+            "entity_ids": ["variety-zara", "company-driscolls"],
+            "geography_ids": ["geography-united-kingdom"],
+            "berry_ids": ["berry-strawberry"],
+        },
+        {
+            "id": "ev-un-m49-geographic-regions",
+            "title": "UN M49 Standard Country or Area Codes for Statistical Use",
+            "published_date": None,
+            "entity_ids": ["geography-europe", "geography-united-kingdom", "geography-united-states"],
+            "geography_ids": ["geography-europe", "geography-united-kingdom", "geography-united-states"],
+            "berry_ids": [],
+        },
     ]
+    scope = _scope(
+        question="What changed in European blueberry genetics?",
+        company_ids=(),
+        geography_ids=EUROPE,
+        topics=("genetics",),
+    )
     packet = assemble_research_packet(
-        _scope(
-            question="What changed in European blueberry genetics?",
-            company_ids=(),
-            geography_ids=europe,
-            topics=("genetics",),
-        ),
+        scope,
         entities=entities,
         relationships=[],
         published_evidence=evidence,
@@ -424,8 +483,8 @@ def test_europe_blueberry_genetics_rejects_americas_and_raspberry_patent() -> No
                 "move_type": "VARIETY_COMMERCIALIZATION",
                 "published_date": "2026-08-03",
                 "event_date": "2026-08-03",
-                "geography_ids": ["geography-peru", "geography-mexico", "geography-united-kingdom"],
-                "berry_ids": ["berry-blueberry", "berry-raspberry"],
+                "geography_ids": ["geography-peru", "geography-mexico"],
+                "berry_ids": ["berry-blueberry"],
             },
             {
                 "id": "mv-spain-genetics",
@@ -436,24 +495,85 @@ def test_europe_blueberry_genetics_rejects_americas_and_raspberry_patent() -> No
                 "event_date": "2026-08-12",
                 "geography_ids": ["geography-spain"],
                 "berry_ids": ["berry-blueberry"],
+                "variety_ids": ["variety-eu-blue"],
+                "entity_ids": ["variety-eu-blue", "company-fall-creek"],
             },
         ],
         today=TODAY,
     )
     ids = {row["id"] for row in packet["evidence"]}
+    related_ids = {row["id"] for row in packet["related_genetics"]}
     assert "ev-eu-blue-launch" in ids
+    assert "ev-pe-eu-blue-commercial" in related_ids
     assert "ev-hortifrut-mbo-genetics-2026" not in ids
+    assert "ev-hortifrut-mbo-genetics-2026" not in related_ids
     assert "ev-sample-patent-published" not in ids
+    assert "ev-fruitnet-driscolls-zara-best-strawberry" not in ids
+    assert "ev-un-m49-geographic-regions" not in ids
     assert packet["rights_ip"] == []
-    model = build_change_scenario(
-        _scope(question="What changed in European blueberry genetics?", company_ids=(), geography_ids=europe, topics=("genetics",)),
-        packet,
+    model = build_change_scenario(scope, packet, today=TODAY)
+    gg = model["genetics_geography"]
+    assert gg
+    in_titles = " ".join(row["title"] for row in gg["in_scope"]).casefold()
+    related_titles = " ".join(row["title"] for row in gg["cross_geography_related"]).casefold()
+    assert "spanish blueberry" in in_titles or "spanish blueberry selection" in in_titles
+    assert "euro blue" in related_titles
+    assert "mountain blue" not in related_titles
+    assert "raspberry genetics program" not in str(model).casefold()
+    assert "zara" not in str(gg).casefold()
+    assert any("same variety" in row["relationship"].casefold() for row in gg["cross_geography_related"])
+    assert gg["footprints"]
+    assert any(len(row["geographies_observed"]) >= 2 for row in gg["footprints"])
+    assert gg["propagation"]
+    assert all("is a global strategy" not in str(row.get("text") or "").casefold() for row in gg["what_this_may_mean"])
+    seam = genetics_geography_for(scope, packet)
+    assert seam["cross_geography_related"]
+    assert seam["watch_next"][0]["text"].startswith("Additional geographic commercialization")
+    assert "will " not in seam["watch_next"][0]["text"].casefold()
+
+
+def test_shared_genetics_platform_is_cross_geography_not_bleed() -> None:
+    entities = _europe_entities()
+    europe_platform = {
+        "id": "ev-eu-mbo-license",
+        "title": "Hortifrut and Mountain Blue license the platform in Spain",
+        "published_date": "2026-08-18",
+        "entity_ids": ["company-hortifrut", "company-mountain-blue-orchards", "geography-spain"],
+        "geography_ids": ["geography-spain"],
+        "berry_ids": ["berry-blueberry"],
+    }
+    americas_platform = {
+        "id": "ev-hortifrut-mbo-genetics-2026",
+        "title": "Naturipe Farms and Hortifrut expand berry genetics platform with Mountain Blue",
+        "published_date": "2026-07-30",
+        "entity_ids": ["company-hortifrut", "company-naturipe-farms", "company-mountain-blue-orchards", "geography-peru"],
+        "geography_ids": ["geography-peru", "geography-mexico", "geography-united-states"],
+        "berry_ids": ["berry-blueberry"],
+    }
+    scope = _scope(
+        question="What changed in European blueberry genetics?",
+        company_ids=(),
+        geography_ids=EUROPE,
+        topics=("genetics",),
+    )
+    packet = assemble_research_packet(
+        scope,
+        entities=entities,
+        relationships=[],
+        published_evidence=[europe_platform, americas_platform],
+        facts=[],
+        signals=[],
+        assessments=[],
         today=TODAY,
     )
-    blob = str(model).casefold()
-    assert "mountain blue" not in blob
-    assert "raspberry genetics program" not in blob
-    assert "spanish blueberry" in blob or "spanish blueberry selection" in blob
+    related_ids = {row["id"] for row in packet["related_genetics"]}
+    assert "ev-hortifrut-mbo-genetics-2026" in related_ids
+    model = build_change_scenario(scope, packet, today=TODAY)
+    related = model["genetics_geography"]["cross_geography_related"]
+    assert related
+    assert "mountain blue" in related[0]["title"].casefold()
+    assert "platform" in related[0]["relationship"].casefold()
+    assert any(row["change_type"] == "GENETICS_GEOGRAPHIC_EXPANSION" for row in model["changes"]) or model["genetics_geography"]["what_this_may_mean"]
 
 
 def test_structured_market_reality_beats_article_language(tmp_path: Path) -> None:

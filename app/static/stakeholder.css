@@ -776,6 +776,17 @@ html, body.sh-body {
 .rd-change-timeline time { color: var(--rd-green); font-size: 11px; font-weight: 750; }
 .rd-change-timeline a { color: var(--rd-navy); text-decoration: none; }
 .rd-change-timeline small { display: block; margin-top: 3px; color: var(--sh-faint); font-size: 10px; }
+.rd-geo-list { margin: 0; padding: 0; list-style: none; }
+.rd-geo-list li { padding: 12px 0; border-top: 1px solid var(--sh-line); }
+.rd-geo-list span { color: var(--rd-gold); font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.rd-geo-list p { margin: 6px 0 4px; color: var(--rd-navy); font: 600 15px/1.4 var(--sh-sans); }
+.rd-geo-list small { color: var(--sh-faint); font-size: 11px; }
+.rd-footprint { margin-top: 14px; padding: 16px 18px; border: 1px solid var(--sh-line); border-radius: 10px; background: #fff; }
+.rd-footprint span { color: var(--rd-gold); font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.rd-footprint h4 { margin: 6px 0 10px; color: var(--rd-navy); font: 650 16px var(--sh-sans); }
+.rd-footprint dl { margin: 0; display: grid; gap: 8px; }
+.rd-footprint dt { color: var(--sh-faint); font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.rd-footprint dd { margin: 2px 0 0; color: var(--rd-navy); font-size: 13px; line-height: 1.4; }
 .rd-market-strip ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
 .rd-market-strip li { color: var(--rd-navy); font-size: 13px; }
 .rd-market-strip a { color: inherit; }

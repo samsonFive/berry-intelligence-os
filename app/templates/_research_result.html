@@ -110,12 +110,110 @@
             <time>{{ row.date }}</time>
             <div>
               <strong>{% if row.href %}<a href="{{ row.href }}">{{ row.title }}</a>{% else %}{{ row.title }}{% endif %}</strong>
-              <small>{{ row.kind|replace('_', ' ') }} · {{ row.source }} · {{ row.trust_state }}{% if row.coverage_artifact %} · coverage artifact{% endif %}</small>
+              <small>{{ row.kind|replace('_', ' ') }}{% if row.geography %} · {{ row.geography }}{% endif %}{% if row.relationship %} · {{ row.relationship }}{% endif %} · {{ row.source }} · {{ row.trust_state }}{% if row.coverage_artifact %} · coverage artifact{% endif %}</small>
             </div>
           </li>
           {% endfor %}
         </ol>
       </div>
+      {% endif %}
+      {% set gg = cs.genetics_geography %}
+      {% if gg %}
+      <div class="rd-change-block rd-genetics-geo">
+        <h3>Directly observed in scoped geography</h3>
+        {% if gg.in_scope %}
+        <ol class="rd-geo-list">
+          {% for row in gg.in_scope %}
+          <li>
+            <span>{{ row.geo_class }}</span>
+            <p>{{ row.title }}</p>
+            <small>{{ row.date }}{% if row.geography %} · {{ row.geography }}{% endif %} · {{ row.relationship }}</small>
+          </li>
+          {% endfor %}
+        </ol>
+        {% else %}
+        <p class="rd-empty">No in-scope genetics development is dated in this geography for the window.</p>
+        {% endif %}
+      </div>
+      {% if gg.cross_geography_related or gg.global_platform_context %}
+      <div class="rd-change-block rd-genetics-geo">
+        <h3>Related cross-geography genetics activity</h3>
+        <p class="rd-positioning-note">Kept only when the same Variety, breeding platform, licensing program, or IP family is explicit. A company name alone is not enough.</p>
+        <ol class="rd-geo-list">
+          {% for row in gg.cross_geography_related %}
+          <li>
+            <span>{{ row.geo_class }}</span>
+            <p>{{ row.title }}</p>
+            <small>{{ row.date }}{% if row.geography %} · {{ row.geography }}{% endif %} · {{ row.relationship }}</small>
+          </li>
+          {% endfor %}
+          {% for row in gg.global_platform_context %}
+          <li>
+            <span>{{ row.geo_class }}</span>
+            <p>{{ row.title }}</p>
+            <small>{{ row.date }}{% if row.geography %} · {{ row.geography }}{% endif %} · {{ row.relationship }}</small>
+          </li>
+          {% endfor %}
+        </ol>
+      </div>
+      {% endif %}
+      {% if gg.footprints or gg.propagation %}
+      <div class="rd-change-block rd-genetics-geo">
+        <h3>Geographic propagation / footprint</h3>
+        {% if gg.propagation %}
+        <ul class="rd-geo-list">
+          {% for row in gg.propagation %}
+          <li><span>{{ row.kind }}</span><p>{{ row.text }}</p></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        {% for row in gg.footprints %}
+        <article class="rd-footprint">
+          <span>{{ row.object_kind|replace('_', ' ') }}</span>
+          <h4>{{ row.label }}</h4>
+          <dl>
+            <div><dt>First observed</dt><dd>{{ row.first_observed or 'unstated' }}</dd></div>
+            <div><dt>Geographies observed</dt><dd>{{ row.geographies_observed|join(', ') or 'unstated' }}</dd></div>
+            <div><dt>Companies / licensees</dt><dd>{{ row.companies|join(', ') or 'unstated' }}</dd></div>
+            <div><dt>Varieties</dt><dd>{{ row.varieties|join(', ') or 'unstated' }}</dd></div>
+            <div><dt>PBR / IP</dt><dd>{{ row.pbr_ip|join(', ') or 'none in this packet' }}</dd></div>
+            <div><dt>Commercialization events</dt><dd>{{ row.commercialization_events|join('; ') or 'none in this packet' }}</dd></div>
+            <div><dt>Latest observed</dt><dd>{{ row.latest_observed or 'unstated' }}</dd></div>
+          </dl>
+        </article>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% if gg.what_this_may_mean %}
+      <div class="rd-change-block">
+        <h3>What this may mean</h3>
+        <ul class="rd-geo-list">
+          {% for row in gg.what_this_may_mean %}
+          <li><p>{{ row.text }}</p></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      {% if gg.watch_next %}
+      <div class="rd-change-block">
+        <h3>What to watch next</h3>
+        <ol class="rd-scenario-list">
+          {% for row in gg.watch_next %}
+          <li>
+            <p>{{ row.text }}</p>
+            {% if row.why_plausible %}
+            <dl>
+              <div><dt>Why plausible</dt><dd>{{ row.why_plausible }}</dd></div>
+              <div><dt>Would confirm</dt><dd>{{ row.would_confirm }}</dd></div>
+              <div><dt>Would refute</dt><dd>{{ row.would_refute }}</dd></div>
+              <div><dt>Watch</dt><dd>{{ row.watch }}</dd></div>
+            </dl>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ol>
+      </div>
+      {% endif %}
       {% endif %}
       <p class="rd-method-note">{{ cs.method_note }}</p>
     </section>
