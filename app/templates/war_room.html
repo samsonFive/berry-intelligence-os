@@ -18,7 +18,8 @@
     </div>
     {% if session and not static_build %}
     <div class="sh-header-actions">
-      <a class="sh-btn sh-btn-primary" href="{{ session.ask_berry_os_href }}">Ask Berry OS about this</a>
+      <a class="sh-btn sh-btn-primary" href="{{ session.create_decision_memo_href }}">Create decision memo</a>
+      <a class="sh-btn" href="{{ session.ask_berry_os_href }}">Ask Berry OS about this</a>
       <a class="sh-btn" href="/war-room/live?{{ request.url.query }}">Refresh live</a>
       <a class="sh-btn" href="{{ session.create_meeting_brief_href }}">Create meeting brief</a>
     </div>

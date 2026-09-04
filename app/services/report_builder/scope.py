@@ -39,6 +39,7 @@ REPORT_TYPES = (
     "competitor_comparison",
     "variety_genetics_landscape",
     "strategic_question_brief",
+    "decision_memo",
 )
 REPORT_TYPE_LABELS = {
     "market_landscape": "Market Landscape",
@@ -46,7 +47,18 @@ REPORT_TYPE_LABELS = {
     "competitor_comparison": "Competitor Comparison",
     "variety_genetics_landscape": "Variety / Genetics Landscape",
     "strategic_question_brief": "Strategic Question Brief",
+    "decision_memo": "Executive Decision Memo",
 }
+
+# "decision_memo" is deliberately NOT routed through build_report_packet()/
+# generate_report_sections() in this module or synthesis.py -- its packet
+# sources from app.services.war_room.compose_war_room() (richer, differently
+# shaped than the generic Evidence/Company/Variety packet those two
+# functions build) via a dedicated builder in
+# app/services/report_builder/decision_memo.py, dispatched by report_type
+# in app/main.py's _build_packet_and_coverage()/_generate_sections_for().
+# Registered here only so the report_type <select>/form validation accepts
+# it -- see report_builder/decision_memo.py for the real docstring.
 
 _INTERPRET_SCHEMA = {
     "type": "object",
