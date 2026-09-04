@@ -19,11 +19,16 @@ rationale, or Evidence beyond title/source/date). Every section's
 citation_ids are validated against the packet's own `known_ids` before
 being shown; an ungrounded claim degrades to INSUFFICIENT, never rendered.
 
-PLAUSIBLE SCENARIOS / WHAT WOULD CONFIRM-REFUTE are a pluggable seam
-(`scenario_provider`), disconnected until Grok's separate Change & Scenario
-Engine PR lands -- see `_section_plausible_scenarios()`. Both sections are
-omitted entirely (not a placeholder) while disconnected, matching "do not
-show empty sections."
+PLAUSIBLE SCENARIOS / WHAT WOULD CONFIRM-REFUTE now consume Grok's Change &
+Scenario Engine (`app.services.change_scenario`, merged after this module
+was first authored) via `_build_change_scenarios()` -- the official
+`change_scenario_for(scope, packet)` read seam, never re-derived. That
+engine calls no AI provider itself (pure deterministic templating over an
+already-assembled ResearchPacket, filtered through its own FORBIDDEN_CLAIMS
+guard), so wiring it introduces no new model-security surface. Both
+sections are still omitted entirely (not a placeholder) whenever the
+engine produces nothing grounded for this scope, or raises, matching "do
+not show empty sections."
 """
 
 from __future__ import annotations
@@ -32,8 +37,13 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Callable
 
+from app.services.change_scenario import change_scenario_for
+from app.services.competitive_moves.research_desk import competitive_moves_for
+from app.services.emerging_radar.research_desk import developments_for
+from app.services.market_reality.research_desk import market_context_for_research_scope
 from app.services.report_builder.scope import ResolvedScope
 from app.services.report_builder.synthesis import SectionDraft
+from app.services.research_desk import ResearchScope, assemble_research_packet
 from app.services.war_room.compose import compose_war_room
 from app.services.war_room.models import WarRoomScope
 
@@ -55,6 +65,79 @@ SECTION_TITLES: dict[str, str] = {
     "sources_provenance": "Sources / Provenance",
     "internal_data_needed": "Internal Data Needed",
 }
+
+
+# ---------------------------------------------------------------------------
+# Change & Scenario Engine adapter -- consumes the official read seam,
+# never re-derives it. change_scenario_for() itself calls no AI provider
+# (deterministic templating over an already-assembled ResearchPacket, with
+# its own FORBIDDEN_CLAIMS guard against certainty language) -- this
+# adapter's only job is building the ResearchPacket shape that function
+# expects and renaming its output fields to this module's own vocabulary.
+# ---------------------------------------------------------------------------
+
+
+def _build_change_scenarios(
+    scope: ResolvedScope,
+    *,
+    window_days: int,
+    inbox_dir: Path,
+    entities: dict[str, dict[str, Any]],
+    relationships: list[dict[str, Any]],
+    published_evidence: list[dict[str, Any]],
+    facts: list[dict[str, Any]],
+    signals: list[dict[str, Any]],
+    assessments: list[dict[str, Any]],
+    market_repo: Any | None,
+) -> list[dict[str, Any]]:
+    try:
+        research_scope = ResearchScope(
+            question=scope.focus_notes or "Decision memo",
+            berry_id=scope.berry_id,
+            geography_ids=tuple(scope.geography_ids),
+            company_ids=tuple(scope.company_ids),
+            variety_ids=(),
+            window_days=window_days,
+            topics=(),
+            intelligence_type="competitor" if len(scope.company_ids) > 1 else "domain_intelligence",
+            comparison=len(scope.company_ids) > 1,
+        )
+        research_packet = assemble_research_packet(
+            research_scope,
+            entities=entities,
+            relationships=relationships,
+            published_evidence=published_evidence,
+            facts=facts,
+            signals=signals,
+            assessments=assessments,
+            market_context_provider=(lambda s: market_context_for_research_scope(market_repo, s)) if market_repo is not None else None,
+            developments_provider=lambda s: developments_for(
+                company_ids=s.company_ids or None, berry_ids={s.berry_id} if s.berry_id else None,
+                geography_ids=s.geography_ids or None, timeframe="90d" if s.window_days > 30 else "30d",
+                inbox_dir=inbox_dir,
+            ),
+            competitive_moves_provider=lambda s: competitive_moves_for(
+                companies=s.company_ids or None, berries={s.berry_id} if s.berry_id else None,
+                geography=s.geography_ids or None, timeframe="90d" if s.window_days > 30 else "30d",
+                inbox_dir=inbox_dir,
+            ),
+        )
+        result = change_scenario_for(research_scope, research_packet)
+    except Exception:
+        return []
+    rows = result.get("scenarios") or []
+    return [
+        {
+            "title": row.get("text") or "",
+            "why_plausible": row.get("why_plausible") or "",
+            "what_to_watch": row.get("watch") or "",
+            "what_confirms": row.get("would_confirm") or "",
+            "what_refutes": row.get("would_refute") or "",
+            "citation_ids": [str(v) for v in (row.get("source_ids") or [])],
+        }
+        for row in rows
+        if row.get("text")
+    ]
 
 
 # ---------------------------------------------------------------------------
@@ -100,6 +183,19 @@ def build_decision_memo_packet(
         market_repo=market_repo,
         completer=completer,
         now=now,
+    )
+
+    scenarios = _build_change_scenarios(
+        scope,
+        window_days=war_room_scope.window_days,
+        inbox_dir=inbox_dir,
+        entities=entities,
+        relationships=relationships,
+        published_evidence=published_evidence,
+        facts=facts,
+        signals=signals,
+        assessments=assessments,
+        market_repo=market_repo,
     )
 
     # One index, keyed by id, covering every citable thing this packet's
@@ -164,8 +260,16 @@ def build_decision_memo_packet(
         "questions_for_team": session["questions_for_team"],
         "strategic_questions": session["strategic_questions"],
         "needs_attention": session["needs_attention"],
-        "known_ids": set(source_index),
-        "source_trace": list(source_index.values()),
+        "scenarios": scenarios,
+        "known_ids": set(source_index) | {cid for s in scenarios for cid in s["citation_ids"]},
+        "source_trace": list(source_index.values()) + [
+            {
+                "id": cid, "title": cid, "href": f"/radar/{cid}" if cid.startswith("dev-") else "/evidence/" + cid,
+                "source_name": "Change & Scenario Engine", "date": "",
+            }
+            for cid in dict.fromkeys(cid for s in scenarios for cid in s["citation_ids"])
+            if cid not in source_index
+        ],
     }
 
 
@@ -389,16 +493,12 @@ def _section_what_we_do_not_know(packet: dict[str, Any]) -> SectionDraft | None:
     )
 
 
-def _section_plausible_scenarios(packet: dict[str, Any], *, scenario_provider: Callable[..., Any] | None) -> SectionDraft | None:
-    """Pluggable seam for Grok's Change & Scenario Engine (separate PR,
-    not yet merged as of this module's authoring). Omitted entirely, not
-    shown as a placeholder, while disconnected -- see module docstring."""
-    if scenario_provider is None:
-        return None
-    try:
-        scenarios = scenario_provider(packet)
-    except Exception:
-        return None
+def _section_plausible_scenarios(packet: dict[str, Any]) -> SectionDraft | None:
+    """Reads packet["scenarios"] -- built once, in build_decision_memo_packet(),
+    by _build_change_scenarios() consuming the Change & Scenario Engine's
+    own read seam. Omitted entirely, not shown as a placeholder, whenever
+    the engine produced nothing grounded for this scope."""
+    scenarios = packet.get("scenarios") or []
     if not scenarios:
         return None
     lines = []
@@ -416,13 +516,8 @@ def _section_plausible_scenarios(packet: dict[str, Any], *, scenario_provider: C
     )
 
 
-def _section_confirm_refute(packet: dict[str, Any], *, scenario_provider: Callable[..., Any] | None) -> SectionDraft | None:
-    if scenario_provider is None:
-        return None
-    try:
-        scenarios = scenario_provider(packet)
-    except Exception:
-        return None
+def _section_confirm_refute(packet: dict[str, Any]) -> SectionDraft | None:
+    scenarios = packet.get("scenarios") or []
     if not scenarios:
         return None
     lines = [
@@ -505,14 +600,15 @@ def generate_decision_memo_sections(
     *,
     completer: Callable[..., Any] | None = None,
     model: str = MODEL_DEFAULT,
-    scenario_provider: Callable[..., Any] | None = None,
 ) -> list[SectionDraft]:
     """Never shows an empty section (mission section 3) -- each builder
     returns None when it has nothing real to say, and this assembly step
     simply omits it rather than padding with placeholder prose. The one
     exception is `internal_data_needed`, which is always present by
     design (mission section 9: communicate the boundary even when there
-    is nothing on the other side of it yet)."""
+    is nothing on the other side of it yet). Plausible Scenarios / What
+    Would Confirm-Refute read packet["scenarios"], already computed (or
+    left empty) by build_decision_memo_packet()."""
     drafts: list[SectionDraft | None] = [
         _section_executive_takeaway(packet, completer=completer, model=model),
         _section_what_changed(packet),
@@ -522,8 +618,8 @@ def generate_decision_memo_sections(
         _section_competitive_positioning(packet),
         _section_what_we_know(packet),
         _section_what_we_do_not_know(packet),
-        _section_plausible_scenarios(packet, scenario_provider=scenario_provider),
-        _section_confirm_refute(packet, scenario_provider=scenario_provider),
+        _section_plausible_scenarios(packet),
+        _section_confirm_refute(packet),
         _section_watch_next(packet),
         _section_questions_for_team(packet),
         _section_sources_provenance(packet),

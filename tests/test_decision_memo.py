@@ -212,42 +212,75 @@ def test_executive_takeaway_completer_exception_falls_back(monkeypatch, tmp_path
     assert takeaway.status == "structured"
 
 
-# ---- Scenario seam ----
+# ---- Scenario seam (packet["scenarios"], built by build_decision_memo_packet()
+# via the real Change & Scenario Engine's change_scenario_for() read seam) ----
 
-def test_scenarios_omitted_without_provider(monkeypatch, tmp_path: Path) -> None:
+def test_scenarios_omitted_when_packet_has_none(monkeypatch, tmp_path: Path) -> None:
     packet = _build_packet(monkeypatch, scope=_scope(), moves=[_move()], inbox_dir=tmp_path)
-    sections = generate_decision_memo_sections(packet, scenario_provider=None)
+    packet["scenarios"] = []
+    sections = generate_decision_memo_sections(packet)
     assert not any(s.section_id in {"plausible_scenarios", "confirm_refute"} for s in sections)
 
 
-def test_scenarios_present_with_provider_and_preserve_language(monkeypatch, tmp_path: Path) -> None:
+def test_scenarios_present_preserve_language(monkeypatch, tmp_path: Path) -> None:
     packet = _build_packet(monkeypatch, scope=_scope(), moves=[_move()], inbox_dir=tmp_path)
-
-    def fake_scenario_provider(packet):
-        return [{
-            "title": "Peru blueberry consolidation accelerates",
-            "why_plausible": "Multiple companies show concentrated genetics activity in Peru.",
-            "what_confirms": "A third company enters the same lane within 90 days.",
-            "what_refutes": "Activity plateaus with no new entrants.",
-            "what_to_watch": "New PBR filings in Peru.",
-            "citation_ids": [packet["what_changed"][0]["id"]],
-        }]
-
-    sections = generate_decision_memo_sections(packet, scenario_provider=fake_scenario_provider)
+    packet["scenarios"] = [{
+        "title": "Peru blueberry consolidation accelerates",
+        "why_plausible": "Multiple companies show concentrated genetics activity in Peru.",
+        "what_confirms": "A third company enters the same lane within 90 days.",
+        "what_refutes": "Activity plateaus with no new entrants.",
+        "what_to_watch": "New PBR filings in Peru.",
+        "citation_ids": [packet["what_changed"][0]["id"]],
+    }]
+    sections = generate_decision_memo_sections(packet)
     scenarios = next(s for s in sections if s.section_id == "plausible_scenarios")
     assert "PLAUSIBLE SCENARIO -- NOT FORECAST" in scenarios.prose
     confirm_refute = next(s for s in sections if s.section_id == "confirm_refute")
     assert "CONFIRMS" in confirm_refute.prose and "REFUTES" in confirm_refute.prose
 
 
-def test_scenario_provider_exception_omits_section_rather_than_crashing(monkeypatch, tmp_path: Path) -> None:
-    packet = _build_packet(monkeypatch, scope=_scope(), moves=[_move()], inbox_dir=tmp_path)
+def test_build_change_scenarios_swallows_exceptions_and_returns_empty(monkeypatch, tmp_path: Path) -> None:
+    """The real engine call (assemble_research_packet + change_scenario_for)
+    is wrapped defensively in build_decision_memo_packet() -- a raise from
+    either must degrade to an empty scenario list, not crash the whole
+    packet build."""
+    from app.services.report_builder import decision_memo as dm
 
-    def broken_provider(packet):
+    def broken_assemble(*args, **kwargs):
         raise RuntimeError("engine not ready")
 
-    sections = generate_decision_memo_sections(packet, scenario_provider=broken_provider)
+    monkeypatch.setattr(dm, "assemble_research_packet", broken_assemble)
+    packet = _build_packet(monkeypatch, scope=_scope(), moves=[_move()], inbox_dir=tmp_path)
+    assert packet["scenarios"] == []
+    sections = generate_decision_memo_sections(packet)
     assert not any(s.section_id in {"plausible_scenarios", "confirm_refute"} for s in sections)
+
+
+def test_change_scenario_engine_output_is_remapped_to_expected_field_names(monkeypatch, tmp_path: Path) -> None:
+    """The real engine's field names (text/watch/would_confirm/would_refute/
+    source_ids) must be remapped, not passed through raw."""
+    from app.services.report_builder import decision_memo as dm
+
+    def fake_change_scenario_for(scope, packet):
+        return {"scenarios": [{
+            "text": "Continued supply expansion could keep pressuring price.",
+            "why_plausible": "Acreage and volume are both rising while price falls.",
+            "would_confirm": "Price keeps falling as acreage keeps rising.",
+            "would_refute": "Price stabilizes despite acreage growth.",
+            "watch": "Next season's acreage report.",
+            "source_ids": ["mkt-real-series"],
+            "kind": "SCENARIO TO WATCH",
+        }]}
+
+    monkeypatch.setattr(dm, "change_scenario_for", fake_change_scenario_for)
+    packet = _build_packet(monkeypatch, scope=_scope(), moves=[_move()], inbox_dir=tmp_path)
+    assert len(packet["scenarios"]) == 1
+    row = packet["scenarios"][0]
+    assert row["title"] == "Continued supply expansion could keep pressuring price."
+    assert row["what_confirms"] == "Price keeps falling as acreage keeps rising."
+    assert row["what_refutes"] == "Price stabilizes despite acreage growth."
+    assert row["what_to_watch"] == "Next season's acreage report."
+    assert row["citation_ids"] == ["mkt-real-series"]
 
 
 # ---- Market Reality: structured, not prose ----
