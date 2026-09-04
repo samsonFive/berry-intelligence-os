@@ -945,6 +945,19 @@ def _derived_review_for_template(
 templates.env.globals["derived_review_for"] = _derived_review_for_template
 
 
+def _request_full_path(request: Request) -> str:
+    """request.url.path alone drops the query string -- on a scoped page
+    like /war-room?berry=...&geography_ids=...&company_ids=... that silently
+    throws the composed scope away on the post-review redirect. Templates
+    that need a return_to reflecting the CURRENT scoped URL should call this
+    rather than reading request.url.path directly."""
+    url = request.url
+    return f"{url.path}?{url.query}" if url.query else url.path
+
+
+templates.env.globals["request_full_path"] = _request_full_path
+
+
 @app.get("/healthz")
 def healthz() -> dict[str, Any]:
     """Liveness probe. Unauthenticated even in remote interactive mode."""

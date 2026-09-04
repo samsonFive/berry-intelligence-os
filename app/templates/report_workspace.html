@@ -75,7 +75,7 @@
   <p class="card-kicker">ANALYST REVIEW BY SECTION</p>
   <p class="v2-meta">Your judgment on how each section framed the evidence -- not a challenge to the evidence itself. Editing prose above already handles wording; use this when you agree/disagree with the section's INTERPRETATION.</p>
   {% for section in report.sections %}
-    {% set derived_review = derived_review_for(report.id ~ ':' ~ section.section_id, object_type="decision_memo_section", trusted_context=[{"href": "#sources"}], return_to=request.url.path) %}
+    {% set derived_review = derived_review_for(report.id ~ ':' ~ section.section_id, object_type="decision_memo_section", trusted_context=[{"href": "#sources"}], return_to=request_full_path(request)) %}
     <p class="v2-meta"><strong>{{ section.title }}</strong></p>
     {% include "_derived_review.html" %}
   {% endfor %}
