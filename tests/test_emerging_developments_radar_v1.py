@@ -342,6 +342,54 @@ def test_market_context_is_linked_not_causal() -> None:
     assert any("EXPORT_VOLUME" in row["label"] for row in developments[0].market_context["rows"])
 
 
+def test_parenthetical_third_party_nationality_is_not_tagged_as_geography() -> None:
+    # Real production defect: "Inka's Berries operates a new blueberry
+    # packing plant in Ica" (a Peru story) was tagged geography-spain
+    # purely because its snippet named an unrelated co-investor
+    # parenthetically as "(a Spanish firm...)". The event's own location
+    # is stated nowhere in the main clause, so this must resolve to no
+    # geography at all -- an honest gap, never a wrong country.
+    hit = _hit(
+        title="Inka's Berries operates a new blueberry packing plant in Ica",
+        snippet=(
+            "It will probably be a new variety that is being developed this year, together with "
+            "Bloom Fresh (a Spanish firm that acquired 66% of the genetics business). The plan is "
+            "that of these 200 hectares, 100 hectares will be used for new growth on the Ica farm."
+        ),
+        berry="blueberry",
+        qualify_reasons=["explicit blueberry crop"],
+    )
+    developments = cluster_hits([hit], entities=ENTITIES, now=NOW)
+    assert developments[0].geography_ids == ()
+    assert "geography-spain" not in developments[0].geography_ids
+
+
+def test_geography_stated_in_main_clause_still_resolves() -> None:
+    # The fix must not blind the whole pipeline to real geography
+    # mentions -- only parenthetical asides are excluded.
+    hit = _hit(
+        title="Berry Fresh expands blueberry production in Chile",
+        snippet="The company confirmed a new planting program in Chile this season.",
+        berry="blueberry",
+        qualify_reasons=["explicit blueberry crop"],
+    )
+    developments = cluster_hits([hit], entities=ENTITIES, now=NOW)
+    assert "geography-chile" in developments[0].geography_ids
+
+
+def test_geography_named_only_inside_parens_is_still_excluded_even_when_it_is_the_only_mention() -> None:
+    # A stricter check than the two above: even when a geography name
+    # appears NOWHERE outside parentheses, it must not leak through.
+    hit = _hit(
+        title="Regional berry group announces new partnership",
+        snippet="The consortium partnered with a fruit cooperative (based in Poland) on logistics.",
+        berry="blueberry",
+        qualify_reasons=["explicit blueberry crop"],
+    )
+    developments = cluster_hits([hit], entities=ENTITIES, now=NOW)
+    assert developments[0].geography_ids == ()
+
+
 def test_developments_for_research_desk_filters() -> None:
     rows = cluster_hits(
         [
