@@ -112,6 +112,62 @@
   <p class="context-limit">A collection run never enables extraction on its own, regardless of scope chosen below -- this is a separate, independently-gated opt-in this page cannot turn on.</p>
 </section>
 
+<section class="v2-company-section" id="radar-tag-quality">
+  <h2>Radar tag-quality candidates</h2>
+  <p class="context-limit">
+    Review candidates for persisted Radar berry/geography tags. This is not a second review queue and does not publish, approve, or rewrite trusted Evidence.
+    Deterministic repairs (nationality-adjective vs event place; title-strong event type) are applied in memory when Radar or Ask Berry OS reads the cache. They are not written by opening this page.
+  </p>
+  {% set tag_audit = radar_tag_audit or {} %}
+  <p class="v2-card-line">
+    <span class="v2-meta">Radar cache</span>
+    {{ tag_audit.cache_status or 'empty' }}
+    · {{ tag_audit.development_count or 0 }} developments
+    · {{ tag_audit.candidate_count or 0 }} candidates
+  </p>
+  {% if tag_audit.candidates %}
+    <div class="table-wrap">
+      <table class="brief-table">
+        <thead>
+          <tr>
+            <th>Record</th>
+            <th>Suspect field</th>
+            <th>Stored</th>
+            <th>Evidence-derived</th>
+            <th>Why flagged</th>
+            <th>Provenance</th>
+            <th>Repair</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in tag_audit.candidates %}
+            {% for flag in row.flags %}
+            <tr>
+              <td>{% if loop.first %}<a href="{{ row.href }}">{{ row.title }}</a>{% endif %}</td>
+              <td>{{ flag.field }}</td>
+              <td>{{ flag.stored if flag.stored is string else flag.stored|join(", ") or "—" }}</td>
+              <td>{{ flag.evidence_derived if flag.evidence_derived is string else flag.evidence_derived|join(", ") or "—" }}</td>
+              <td>{{ flag.why }}</td>
+              <td>
+                {% if loop.first %}
+                  {% for item in row.provenance[:4] %}
+                    {{ item.origin }}: {{ item.span or item.value }} ({{ item.text_field }}){% if not loop.last %}; {% endif %}
+                  {% endfor %}
+                {% endif %}
+              </td>
+              <td>{{ "Deterministic (applied on read)" if flag.repair_eligible else "Manual review" }}</td>
+            </tr>
+            {% endfor %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="empty-state">No high-confidence Radar tag defects in the current cache.</p>
+  {% endif %}
+  <p class="v2-card-line"><a href="/radar">Open Emerging Developments Radar</a></p>
+</section>
+
 <section class="v2-company-section" id="collection-sources">
   <h2>Degraded / failing Sources</h2>
   {% if degraded_sources %}

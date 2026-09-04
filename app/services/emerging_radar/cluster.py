@@ -44,27 +44,81 @@ EVENT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     ("RESEARCH", re.compile(r"\b(university|trial|extension|journal|doi:|research station)\b", re.I)),
 )
 
+# Country *nouns* only. Nationality adjectives are handled separately so
+# "a Spanish firm" is not stored as the event's direct geography.
 COUNTRY_GEOGRAPHY: tuple[tuple[re.Pattern[str], str, str], ...] = (
-    (re.compile(r"\bPeru(?:vian)?\b", re.I), "geography-peru", "Peru"),
-    (re.compile(r"\bChile(?:an)?\b", re.I), "geography-chile", "Chile"),
-    (re.compile(r"\bMexico|Mexican\b", re.I), "geography-mexico", "Mexico"),
-    (re.compile(r"\bSpain|Spanish\b", re.I), "geography-spain", "Spain"),
-    (re.compile(r"\bChina|Chinese\b", re.I), "geography-china", "China"),
+    (re.compile(r"\bPeru\b", re.I), "geography-peru", "Peru"),
+    (re.compile(r"\bChile\b", re.I), "geography-chile", "Chile"),
+    (re.compile(r"\bMexico\b", re.I), "geography-mexico", "Mexico"),
+    (re.compile(r"\bSpain\b", re.I), "geography-spain", "Spain"),
+    (re.compile(r"\bChina\b", re.I), "geography-china", "China"),
     (re.compile(r"\bUnited States|\bUSA\b|\bU\.S\.A?\.?\b|\bCalifornia\b|\bFlorida\b", re.I), "geography-united-states", "United States"),
-    (re.compile(r"\bNetherlands|Dutch\b", re.I), "geography-netherlands", "Netherlands"),
+    (re.compile(r"\bNetherlands\b", re.I), "geography-netherlands", "Netherlands"),
     (re.compile(r"\bMorocco|Maroc\b", re.I), "geography-morocco", "Morocco"),
-    (re.compile(r"\bSouth Africa|South African\b", re.I), "geography-south-africa", "South Africa"),
+    (re.compile(r"\bSouth Africa\b", re.I), "geography-south-africa", "South Africa"),
     (re.compile(r"\bAustralia|Tasmania\b", re.I), "geography-australia", "Australia"),
     (re.compile(r"\bUnited Kingdom|\bBritain\b|\bEngland\b|\bUK\b", re.I), "geography-united-kingdom", "United Kingdom"),
-    (re.compile(r"\bUkraine|Ukrainian\b", re.I), "geography-ukraine", "Ukraine"),
-    (re.compile(r"\bPoland|Polish\b", re.I), "geography-poland", "Poland"),
-    (re.compile(r"\bPortugal|Portuguese\b", re.I), "geography-portugal", "Portugal"),
-    (re.compile(r"\bGermany|German\b", re.I), "geography-germany", "Germany"),
-    (re.compile(r"\bJapan|Japanese\b", re.I), "geography-japan", "Japan"),
-    (re.compile(r"\bIndia|Indian\b", re.I), "geography-india", "India"),
-    (re.compile(r"\bCanada|Canadian\b", re.I), "geography-canada", "Canada"),
-    (re.compile(r"\bBrazil|Brazilian\b", re.I), "geography-brazil", "Brazil"),
+    (re.compile(r"\bUkraine\b", re.I), "geography-ukraine", "Ukraine"),
+    (re.compile(r"\bPoland\b", re.I), "geography-poland", "Poland"),
+    (re.compile(r"\bPortugal\b", re.I), "geography-portugal", "Portugal"),
+    (re.compile(r"\bGermany\b", re.I), "geography-germany", "Germany"),
+    (re.compile(r"\bJapan\b", re.I), "geography-japan", "Japan"),
+    (re.compile(r"\bIndia\b", re.I), "geography-india", "India"),
+    (re.compile(r"\bCanada\b", re.I), "geography-canada", "Canada"),
+    (re.compile(r"\bBrazil\b", re.I), "geography-brazil", "Brazil"),
     (re.compile(r"\bNew Zealand\b", re.I), "geography-new-zealand", "New Zealand"),
+)
+
+# Closed, high-confidence berry-region places. Do not widen speculatively.
+PLACE_GEOGRAPHY: tuple[tuple[re.Pattern[str], str, str], ...] = (
+    (re.compile(r"\bIca\b", re.I), "geography-peru", "Peru"),
+    (re.compile(r"\bHuelva\b", re.I), "geography-spain", "Spain"),
+)
+
+LOCATION_ADJECTIVES: dict[str, tuple[str, str]] = {
+    "spanish": ("geography-spain", "Spain"),
+    "chilean": ("geography-chile", "Chile"),
+    "peruvian": ("geography-peru", "Peru"),
+    "mexican": ("geography-mexico", "Mexico"),
+    "dutch": ("geography-netherlands", "Netherlands"),
+    "portuguese": ("geography-portugal", "Portugal"),
+    "german": ("geography-germany", "Germany"),
+    "chinese": ("geography-china", "China"),
+    "japanese": ("geography-japan", "Japan"),
+    "indian": ("geography-india", "India"),
+    "brazilian": ("geography-brazil", "Brazil"),
+    "australian": ("geography-australia", "Australia"),
+    "canadian": ("geography-canada", "Canada"),
+    "moroccan": ("geography-morocco", "Morocco"),
+    "ukrainian": ("geography-ukraine", "Ukraine"),
+    "polish": ("geography-poland", "Poland"),
+}
+
+NATIONALITY_COMPANY = re.compile(
+    r"\b(?P<adj>Spanish|Chilean|Peruvian|Mexican|Dutch|Portuguese|German|"
+    r"Chinese|Japanese|Indian|Brazilian|Australian|Canadian|Moroccan|"
+    r"Ukrainian|Polish)[ -]+"
+    r"(?:firm|company|companies|breeder|grower|group|business|player|"
+    r"multinational|owner|conglomerate|acquirer|partner|subsidiary|affiliate)\b",
+    re.I,
+)
+
+TAG_ORIGIN_EXPLICIT = "explicit_text"
+TAG_ORIGIN_INFERRED_PLACE = "inferred_place"
+TAG_ORIGIN_NATIONALITY = "nationality_mention"
+TAG_ORIGIN_STALE = "stale_cache"
+TAG_ORIGIN_CURATED = "curated"
+
+TITLE_STRONG_EVENTS = frozenset(
+    {
+        "PRODUCTION_EXPANSION",
+        "PATENT",
+        "PBR",
+        "LEGAL",
+        "LEADERSHIP",
+        "LICENSING",
+        "MARKET_ACCESS",
+    }
 )
 
 BERRY_LABELS = {
@@ -106,11 +160,48 @@ STOP_CONCEPT = {
 }
 
 
-def classify_event_type(text: str) -> str:
+def _first_event_type(text: str) -> str:
     for event_type, pattern in EVENT_PATTERNS:
         if pattern.search(text or ""):
             return event_type
     return "OTHER"
+
+
+def classify_event_type(text: str, *, title: str | None = None) -> str:
+    """Title-strong events win over incidental snippet phrases.
+
+    A packing-plant headline must not become VARIETY_LAUNCH because the
+    body later mentions a new variety under development.
+    """
+    if title:
+        title_type = _first_event_type(title)
+        if title_type in TITLE_STRONG_EVENTS:
+            return title_type
+    return _first_event_type(text or "")
+
+
+def tag_attribution(
+    field: str,
+    value: str,
+    origin: str,
+    span: str,
+    text_field: str,
+) -> dict[str, str]:
+    return {
+        "field": field,
+        "value": value,
+        "origin": origin,
+        "span": span,
+        "text_field": text_field,
+    }
+
+
+def _search_fields(title: str, snippet: str, pattern: re.Pattern[str]) -> list[tuple[str, str]]:
+    found: list[tuple[str, str]] = []
+    for field_name, blob in (("title", title), ("snippet", snippet)):
+        for match in pattern.finditer(blob or ""):
+            found.append((match.group(0), field_name))
+    return found
 
 
 def _registrable(host: str) -> str:
@@ -232,33 +323,102 @@ class EntityResolver:
             elif row_id.startswith("variety-") or entity_type == "variety":
                 self.varieties.append((pattern, row_id, label))
 
-    def resolve(self, text: str) -> dict[str, tuple[str, ...]]:
+    def resolve(self, text: str, *, title: str = "", snippet: str = "") -> dict[str, Any]:
+        """Resolve names from title + snippet. Direct geography is event location.
+
+        Nationality of a mentioned firm ("Spanish firm") is provenance only.
+        A title place/country wins over a conflicting snippet-only country.
+        """
+        title = title or ""
+        snippet = snippet or ""
+        if not title and not snippet:
+            title = text or ""
+        combined = text or f"{title} {snippet}".strip()
+        attributions: list[dict[str, str]] = []
+
         company_ids: list[str] = []
         company_names: list[str] = []
         for pattern, row_id, label in self.companies:
-            if pattern.search(text) and row_id not in company_ids:
+            matches = _search_fields(title, snippet, pattern)
+            if not matches and pattern.search(combined):
+                matches = [(label, "title")]
+            if matches and row_id not in company_ids:
                 company_ids.append(row_id)
                 company_names.append(label)
+                span, field = matches[0]
+                attributions.append(tag_attribution("company", row_id, TAG_ORIGIN_EXPLICIT, span, field))
+
         variety_ids: list[str] = []
         variety_names: list[str] = []
         for pattern, row_id, label in self.varieties:
-            if pattern.search(text) and row_id not in variety_ids:
+            matches = _search_fields(title, snippet, pattern)
+            if not matches and pattern.search(combined):
+                matches = [(label, "title")]
+            if matches and row_id not in variety_ids:
                 variety_ids.append(row_id)
                 variety_names.append(label)
+                span, field = matches[0]
+                attributions.append(tag_attribution("variety", row_id, TAG_ORIGIN_EXPLICIT, span, field))
+
+        blocked: dict[str, tuple[str, str]] = {}
+        for field_name, blob in (("title", title), ("snippet", snippet)):
+            for match in NATIONALITY_COMPANY.finditer(blob or ""):
+                adj = (match.group("adj") or "").casefold()
+                mapped = LOCATION_ADJECTIVES.get(adj)
+                if not mapped:
+                    continue
+                geo_id, _label = mapped
+                blocked[geo_id] = (match.group(0), field_name)
+                attributions.append(
+                    tag_attribution("geography", geo_id, TAG_ORIGIN_NATIONALITY, match.group(0), field_name)
+                )
+
         geography_ids: list[str] = []
         geography_labels: list[str] = []
-        geography_text = _PARENTHETICAL.sub(" ", text)
-        for pattern, row_id, label in COUNTRY_GEOGRAPHY:
-            if pattern.search(geography_text) and row_id not in geography_ids:
-                geography_ids.append(row_id)
+        title_geo_ids: set[str] = set()
+        # Parenthetical asides often name a third party's nationality
+        # ("Bloom Fresh (a Spanish firm...)") rather than the event location.
+        # Country nouns and location adjectives use stripped text; place
+        # aliases and nationality provenance still read the raw source.
+        title_for_country = _PARENTHETICAL.sub(" ", title)
+        snippet_for_country = _PARENTHETICAL.sub(" ", snippet)
+
+        def _add_geo(geo_id: str, label: str, origin: str, span: str, field: str) -> None:
+            attributions.append(tag_attribution("geography", geo_id, origin, span, field))
+            if geo_id not in geography_ids:
+                geography_ids.append(geo_id)
                 geography_labels.append(label)
+            if field == "title":
+                title_geo_ids.add(geo_id)
+
+        for pattern, row_id, label in COUNTRY_GEOGRAPHY:
+            for span, field in _search_fields(title_for_country, snippet_for_country, pattern):
+                _add_geo(row_id, label, TAG_ORIGIN_EXPLICIT, span, field)
+        for pattern, row_id, label in PLACE_GEOGRAPHY:
+            for span, field in _search_fields(title, snippet, pattern):
+                _add_geo(row_id, label, TAG_ORIGIN_INFERRED_PLACE, span, field)
+        for adj, (row_id, label) in LOCATION_ADJECTIVES.items():
+            if row_id in blocked:
+                continue
+            adj_pattern = re.compile(rf"\b{re.escape(adj)}\b", re.I)
+            for span, field in _search_fields(title_for_country, snippet_for_country, adj_pattern):
+                _add_geo(row_id, label, TAG_ORIGIN_EXPLICIT, span, field)
+
+        if title_geo_ids:
+            kept = [(geo_id, label) for geo_id, label in zip(geography_ids, geography_labels) if geo_id in title_geo_ids]
+            geography_ids = [geo_id for geo_id, _label in kept]
+            geography_labels = [label for _geo_id, label in kept]
+
         berry_ids: list[str] = []
         berry_labels: list[str] = []
-        folded = text.casefold()
-        for slug, berry_id in BERRY_IDS.items():
-            if slug in folded and berry_id not in berry_ids:
-                berry_ids.append(berry_id)
-                berry_labels.append(BERRY_LABELS[berry_id])
+        for field_name, blob in (("title", title), ("snippet", snippet or combined)):
+            folded = (blob or "").casefold()
+            for slug, berry_id in BERRY_IDS.items():
+                if slug in folded and berry_id not in berry_ids:
+                    berry_ids.append(berry_id)
+                    berry_labels.append(BERRY_LABELS[berry_id])
+                    attributions.append(tag_attribution("berry", berry_id, TAG_ORIGIN_EXPLICIT, slug, field_name))
+
         return {
             "company_ids": tuple(company_ids),
             "company_names": tuple(company_names),
@@ -268,6 +428,7 @@ class EntityResolver:
             "geography_labels": tuple(geography_labels),
             "berry_ids": tuple(berry_ids),
             "berry_labels": tuple(berry_labels),
+            "tag_provenance": tuple(attributions),
         }
 
 
@@ -420,8 +581,8 @@ def cluster_hits(
         if is_social_profile_url(hit.origin_publisher_url or hit.url):
             continue
         text = f"{hit.title} {hit.snippet}"
-        resolved = resolver.resolve(text)
-        event_type = classify_event_type(text)
+        resolved = resolver.resolve(text, title=hit.title or "", snippet=hit.snippet or "")
+        event_type = classify_event_type(text, title=hit.title)
         rows.append(
             {
                 "hit": hit,
@@ -470,6 +631,14 @@ def cluster_hits(
         variety_names = tuple(dict.fromkeys(name for row in clustered for name in row["variety_names"]))
         geography_labels = tuple(dict.fromkeys(name for row in clustered for name in row["geography_labels"]))
         berry_labels = tuple(dict.fromkeys(name for row in clustered for name in row["berry_labels"]))
+        tag_provenance = tuple(
+            dict.fromkeys(
+                tuple(sorted(item.items()))
+                for row in clustered
+                for item in (row.get("tag_provenance") or ())
+            )
+        )
+        tag_provenance = tuple(dict(item) for item in tag_provenance)
         concept = clustered[0]["concept"]
         new_id = _stable_id((event_type, ",".join(company_ids), ",".join(variety_ids), concept))
         prior = previous_by_id.get(new_id)
@@ -547,6 +716,7 @@ def cluster_hits(
                 variety_names=variety_names,
                 geography_labels=geography_labels,
                 berry_labels=berry_labels,
+                tag_provenance=tag_provenance,
                 sources=sources,
                 live_hit_urls=urls,
                 corroboration=shape,

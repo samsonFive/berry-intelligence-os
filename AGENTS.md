@@ -211,6 +211,8 @@ Brief ranking is deterministic: direct > adjacent (stored `relevance_tier`), hig
 
 A larger object-model rewrite is still open: first-class Position objects do not exist; three monitoring concepts still coexist (evidence `priority.monitoring`, Source `monitoring_priority`, Signal `status`); model qualification stays in scripts. Do not flatten those into one object type without an explicit IA migration.
 
+**Radar Data Quality & Scope-Tag Audit V1** (`app/services/emerging_radar/tag_audit.py`, `docs/v2/RADAR-DATA-QUALITY-AND-SCOPE-TAG-AUDIT-V1.md`) repairs incorrect persisted Radar metadata at `EntityResolver`, not in Change/Scenario matchers. Direct geography is a country noun or a closed place alias (Ica→Peru, Huelva→Spain). "A Spanish firm" is `nationality_mention` provenance and is never stored as the event geography. Title-strong event types (packing plant, patent, PBR, legal) win over incidental snippet phrases. `/collection-ops#radar-tag-quality` lists review candidates; GET never writes the cache. Deterministic repairs run in memory when the Radar cache is read. Do not inherit berry or geography from company or geography catalogs. Do not widen `PLACE_GEOGRAPHY` speculatively.
+
 ### Mutable runtime integrity
 
 `inbox/` is runtime state; never solve cross-worktree visibility by committing

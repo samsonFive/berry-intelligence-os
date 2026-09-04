@@ -102,6 +102,7 @@ class Development:
     variety_names: tuple[str, ...] = ()
     geography_labels: tuple[str, ...] = ()
     berry_labels: tuple[str, ...] = ()
+    tag_provenance: tuple[dict[str, str], ...] = ()
     sources: list[SourceRef] = field(default_factory=list)
     live_hit_urls: tuple[str, ...] = ()
     evidence_ids: tuple[str, ...] = ()
@@ -176,6 +177,7 @@ def development_from_dict(row: dict[str, Any]) -> Development:
         "variety_names",
         "geography_labels",
         "berry_labels",
+        "tag_provenance",
         "live_hit_urls",
         "evidence_ids",
         "assessment_ids",

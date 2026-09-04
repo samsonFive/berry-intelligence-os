@@ -25,6 +25,23 @@
     {% if development.event_date %}<span>Event date {{ development.event_date }}</span>{% endif %}
   </p>
 
+  {% if development.tag_provenance %}
+  <section class="sh-section">
+    <h2>Tag provenance</h2>
+    <p class="sh-note">How berry and geography tags were assigned from the source text. Nationality of a mentioned firm is not a direct event geography.</p>
+    <ul class="sh-story-list">
+      {% for item in development.tag_provenance %}
+        <li>
+          <span class="sh-trust">{{ item.field }}</span>
+          {{ item.value }} · {{ item.origin }}
+          {% if item.span %} · “{{ item.span }}”{% endif %}
+          · {{ item.text_field }}
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
   {% if development.market_context and development.market_context.rows %}
   <section class="sh-section">
     <h2>Market context</h2>

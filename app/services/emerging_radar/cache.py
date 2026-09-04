@@ -108,6 +108,9 @@ def edition_from_cache(payload: dict[str, Any] | None = None, *, inbox_dir: Path
     from app.services.emerging_radar.models import Development, RadarEdition as Edition
 
     developments = [development_from_dict(item) for item in raw.get("developments") or []]
+    from app.services.emerging_radar.tag_audit import rehydrate_developments
+
+    rehydrate_developments(developments)
     current = now or datetime.now(timezone.utc)
     fresh = cache_is_fresh(row, now=current)
     status = "fresh" if fresh else "stale"

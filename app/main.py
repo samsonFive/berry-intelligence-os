@@ -154,6 +154,7 @@ from app.services.global_week import (
     run_week_intelligence,
 )
 from app.services.emerging_radar import (
+    audit_radar_cache,
     cache_is_fresh,
     developments_for,
     edition_from_cache,
@@ -4887,6 +4888,7 @@ def collection_ops_page(request: Request, ran: str = "", reason: str = "") -> HT
             "polling_enabled": SOURCE_POLLING_ENABLED,
             "just_ran": ran,
             "just_ran_reason": reason,
+            "radar_tag_audit": audit_radar_cache(inbox_dir=INBOX_DIR, apply_repairs=False),
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
             "ui_context": ui,

@@ -16,4 +16,9 @@ Retrieval (from the live provider bake-off, not a new vendor evaluation):
 
 /radar serves inbox/operations/radar/cache.json when fresh (1h TTL).
 scripts/emerging_radar_refresh.py refreshes that cache in the background.
+
+Tag provenance and the Inka Ica defect: see
+`docs/v2/RADAR-DATA-QUALITY-AND-SCOPE-TAG-AUDIT-V1.md`.
+Direct geography is event location (country noun or closed place alias).
+"A Spanish firm" is nationality provenance, not Spain as the event geography.
 """

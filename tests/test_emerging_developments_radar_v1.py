@@ -347,8 +347,8 @@ def test_parenthetical_third_party_nationality_is_not_tagged_as_geography() -> N
     # packing plant in Ica" (a Peru story) was tagged geography-spain
     # purely because its snippet named an unrelated co-investor
     # parenthetically as "(a Spanish firm...)". The event's own location
-    # is stated nowhere in the main clause, so this must resolve to no
-    # geography at all -- an honest gap, never a wrong country.
+    # is Ica (title + main-clause "Ica farm"), which maps to Peru. Spain
+    # must not become the direct geography from the parenthetical firm.
     hit = _hit(
         title="Inka's Berries operates a new blueberry packing plant in Ica",
         snippet=(
@@ -360,7 +360,7 @@ def test_parenthetical_third_party_nationality_is_not_tagged_as_geography() -> N
         qualify_reasons=["explicit blueberry crop"],
     )
     developments = cluster_hits([hit], entities=ENTITIES, now=NOW)
-    assert developments[0].geography_ids == ()
+    assert developments[0].geography_ids == ("geography-peru",)
     assert "geography-spain" not in developments[0].geography_ids
 
 
