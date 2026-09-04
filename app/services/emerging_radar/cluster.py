@@ -194,6 +194,20 @@ def _prior_matches_cluster(
     return bool(concept) and concept_key(prior.title) == concept
 
 
+# A geography name inside a parenthetical aside is disproportionately
+# likely to describe a THIRD PARTY's nationality ("...together with Bloom
+# Fresh (a Spanish firm that acquired 66% of the genetics business)...")
+# rather than the development's own location -- a real, live production
+# defect: "Inka's Berries operates a new blueberry packing plant in Ica"
+# (a Peru story) was tagged geography-spain purely because its snippet
+# named an unrelated Spanish co-investor parenthetically. An actual event
+# location is overwhelmingly stated in the main clause ("expanding to
+# Chile"), not parenthetically, so geography matching -- and only
+# geography matching, not company/variety/berry -- runs against text with
+# parenthetical content removed.
+_PARENTHETICAL = re.compile(r"\([^()]*\)")
+
+
 class EntityResolver:
     """Name → canonical IDs. Does not create entities."""
 
@@ -233,8 +247,9 @@ class EntityResolver:
                 variety_names.append(label)
         geography_ids: list[str] = []
         geography_labels: list[str] = []
+        geography_text = _PARENTHETICAL.sub(" ", text)
         for pattern, row_id, label in COUNTRY_GEOGRAPHY:
-            if pattern.search(text) and row_id not in geography_ids:
+            if pattern.search(geography_text) and row_id not in geography_ids:
                 geography_ids.append(row_id)
                 geography_labels.append(label)
         berry_ids: list[str] = []
