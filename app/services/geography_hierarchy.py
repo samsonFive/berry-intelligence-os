@@ -117,6 +117,35 @@ def resolve_geography_scope(geography_id: str, *, relationships: list[dict[str, 
     )
 
 
+def record_geography_ids(record: Any) -> set[str]:
+    """Geography ids actually attached to a record — never inferred from title."""
+    geos = getattr(record, "geography_ids", None)
+    if geos is None and isinstance(record, dict):
+        geos = record.get("geography_ids")
+    entity_ids = getattr(record, "entity_ids", None)
+    if entity_ids is None and isinstance(record, dict):
+        entity_ids = record.get("entity_ids")
+    out = {str(value) for value in (geos or []) if value}
+    out.update(str(value) for value in (entity_ids or []) if str(value).startswith("geography-"))
+    return out
+
+
+def geography_scope_match(record_geo_ids: Any, scope_geo_ids: Any) -> bool:
+    """True when the record is about the scoped geography.
+
+    A stray European id on an otherwise extra-regional record is not enough:
+    extra-regional country/region ids must not outnumber the scoped ones.
+    """
+    scope = {str(value) for value in (scope_geo_ids or []) if value}
+    if not scope:
+        return True
+    rec = {str(value) for value in (record_geo_ids or []) if value}
+    inside = rec & scope
+    if not inside:
+        return False
+    return len(inside) > len(rec - scope)
+
+
 def matched_geography_ids(record: dict[str, Any], scope_geography_ids: frozenset[str] | set[str]) -> tuple[str, ...]:
     """Provenance: which specific geography id(s) on this record actually
     matched a (possibly hierarchy-expanded) scope -- e.g. a Europe query

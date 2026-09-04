@@ -197,6 +197,24 @@ def market_context_for_research_scope(repo: Any, scope: Any, *, limit: int = 6) 
                 "structured_kind": "MARKET OBSERVATION",
                 "entity_ids": [],
                 "geography_ids": [],
+                "metric": card["metric"],
+                "unit": card["unit"],
+                "pct_change": card["pct_change"],
+                "direction": card["direction"],
+                "previous_period": card["previous_period"],
+                "previous_value": card["previous_value"],
+                "latest_period": card["latest_period"],
+                "latest_value": card["latest_value"],
+                "latest_vs_previous": {
+                    "metric": card["metric"],
+                    "unit": card["unit"],
+                    "pct_change": card["pct_change"],
+                    "direction": card["direction"],
+                    "previous_period": card["previous_period"],
+                    "previous_value": card["previous_value"],
+                    "latest_period": card["latest_period"],
+                    "latest_value": card["latest_value"],
+                },
             }
         )
     return rows

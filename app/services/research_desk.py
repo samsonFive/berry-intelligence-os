@@ -17,7 +17,7 @@ import hashlib
 import re
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from datetime import date, datetime, timedelta, timezone
 from typing import Any, Callable, Iterable, Mapping
 
@@ -130,6 +130,11 @@ def _window_days(text: str, proposed: int | None) -> int:
         return 30
     if "this year" in folded:
         return 365
+    if "this season" in folded:
+        return 90
+    from app.services.change_scenario import change_question
+    if change_question(text):
+        return 90
     return max(1, min(int(proposed or DEFAULT_WINDOW_DAYS), 3650))
 
 
@@ -137,7 +142,11 @@ def _has_explicit_window(text: str) -> bool:
     folded = text.casefold()
     return bool(
         _WINDOW_RE.search(text)
-        or any(term in folded for term in ("today", "right now", "currently", "this week", "this month", "this year"))
+        or any(term in folded for term in (
+            "today", "right now", "currently", "this week", "this month", "this year", "this season",
+        ))
+        or "what changed" in folded
+        or "what has shifted" in folded
     )
 
 
@@ -279,14 +288,132 @@ def _within_window(record: Mapping[str, Any], window_days: int, *, today: date) 
         return True
 
 
-def _matches_scope(record: Mapping[str, Any], scope: ResearchScope) -> bool:
-    linked = set(record.get("entity_ids") or []) | set(record.get("geography_ids") or [])
-    selected = set(scope.company_ids) | set(scope.variety_ids) | set(scope.geography_ids)
-    if selected and linked.intersection(selected):
+def _record_berry_ids(record: Mapping[str, Any], entities: Mapping[str, dict[str, Any]] | None = None) -> set[str]:
+    """Berries this record is about.
+
+    Explicit record berry_ids win. Company and geography berry lists are
+    catalogs, not a reason to admit a strawberry article into a blueberry
+    packet or a UN geography reference into a blueberry market answer.
+    Variety/berry entities may fill an empty record.
+    """
+    berries = {str(value) for value in (record.get("berry_ids") or record.get("market_ids") or []) if value}
+    if berries or not entities:
+        return berries
+    for entity_id in record.get("entity_ids") or []:
+        entity = entities.get(str(entity_id)) or {}
+        entity_type = str(entity.get("entity_type") or "")
+        if entity_type == "berry":
+            berries.add(str(entity_id))
+        elif entity_type == "variety":
+            berries.update(str(value) for value in (entity.get("berry_ids") or []) if value)
+    return berries
+
+
+def _matches_scope(
+    record: Mapping[str, Any],
+    scope: ResearchScope,
+    entities: Mapping[str, dict[str, Any]] | None = None,
+) -> bool:
+    from app.services.geography_hierarchy import geography_scope_match, record_geography_ids
+
+    record_geos = record_geography_ids(record)
+    record_berries = _record_berry_ids(record, entities)
+    linked_entities = {str(value) for value in (record.get("entity_ids") or []) if value}
+    selected_entities = set(scope.company_ids) | set(scope.variety_ids)
+
+    if scope.geography_ids and not geography_scope_match(record_geos, scope.geography_ids):
+        return False
+    if scope.berry_id:
+        if record_berries and scope.berry_id not in record_berries:
+            return False
+        if not record_berries and scope.geography_ids:
+            return False
+
+    if selected_entities and linked_entities.intersection(selected_entities):
         return True
-    if scope.berry_id and scope.berry_id in set(record.get("berry_ids") or record.get("market_ids") or []):
+    if scope.geography_ids:
         return True
-    return not selected and not scope.berry_id
+    if scope.berry_id and scope.berry_id in record_berries:
+        return True
+    return not selected_entities and not scope.berry_id
+
+
+def _geo_in_scope(record: Mapping[str, Any], scope: ResearchScope) -> bool:
+    if not scope.geography_ids:
+        return True
+    from app.services.geography_hierarchy import geography_scope_match, record_geography_ids
+
+    return geography_scope_match(record_geography_ids(record), scope.geography_ids)
+
+
+def _related_genetics_rows(
+    scope: ResearchScope,
+    *,
+    entities: Mapping[str, dict[str, Any]],
+    published_evidence: list[dict[str, Any]],
+    selected_ids: set[str],
+    in_scope_rows: list[Mapping[str, Any]],
+    developments_provider: Callable[[ResearchScope], list[dict[str, Any]]] | None,
+    competitive_moves_provider: Callable[[ResearchScope], list[dict[str, Any]]] | None,
+    today: date,
+) -> list[dict[str, Any]]:
+    from app.services.genetics_geography import (
+        classify_row,
+        genetics_object_ids,
+        platform_partner_ids,
+        wants_genetics_geography,
+    )
+
+    if not wants_genetics_geography(scope):
+        return []
+    in_objects: set[str] = set()
+    in_partners: set[str] = set()
+    for row in in_scope_rows:
+        in_objects.update(genetics_object_ids(row))
+        in_partners.update(platform_partner_ids(row))
+    if not in_objects and len(in_partners) < 2:
+        return []
+
+    seen = set(selected_ids)
+    related: list[dict[str, Any]] = []
+
+    def consider(row: Mapping[str, Any], *, as_evidence: bool = False) -> None:
+        row_id = str(row.get("id") or "")
+        if not row_id or row_id in seen:
+            return
+        if scope.berry_id and scope.berry_id not in _record_berry_ids(row, entities):
+            return
+        if _geo_in_scope(row, scope):
+            return
+        classified = classify_row(
+            row,
+            scope_geo_ids=scope.geography_ids,
+            berry_id=scope.berry_id,
+            in_objects=in_objects,
+            in_partners=in_partners,
+            entities=entities,
+        )
+        if classified.get("_geo_class") not in {"CROSS-GEOGRAPHY RELATED", "GLOBAL / PLATFORM CONTEXT"}:
+            return
+        seen.add(row_id)
+        payload = _evidence_row(dict(row)) if as_evidence else dict(classified)
+        payload["_geo_class"] = classified.get("_geo_class")
+        payload["_geo_reason"] = classified.get("_geo_reason")
+        payload["_geo_labels"] = classified.get("_geo_labels") or []
+        related.append(payload)
+
+    for record in published_evidence:
+        if _matches_scope(record, scope, entities) and _within_window(record, scope.window_days, today=today):
+            continue
+        consider(record, as_evidence=True)
+    wide = replace(scope, geography_ids=())
+    if developments_provider is not None:
+        for row in developments_provider(wide) or []:
+            consider(row)
+    if competitive_moves_provider is not None:
+        for row in competitive_moves_provider(wide) or []:
+            consider(row)
+    return related[:8]
 
 
 def _topic_rank(record: Mapping[str, Any], topics: tuple[str, ...]) -> int:
@@ -325,6 +452,7 @@ def _evidence_row(record: dict[str, Any]) -> dict[str, Any]:
         "structured_kind": structured_kind,
         "entity_ids": list(record.get("entity_ids") or []),
         "geography_ids": list(record.get("geography_ids") or []),
+        "berry_ids": list(record.get("berry_ids") or record.get("market_ids") or []),
     }
 
 
@@ -347,7 +475,7 @@ def assemble_research_packet(
     today = today or date.today()
     selected = [
         row for row in published_evidence
-        if _matches_scope(row, scope) and _within_window(row, scope.window_days, today=today)
+        if _matches_scope(row, scope, entities) and _within_window(row, scope.window_days, today=today)
     ]
     selected.sort(key=lambda row: (_topic_rank(row, scope.topics), _record_date(row)), reverse=True)
     selected = selected[:MAX_PACKET_EVIDENCE]
@@ -416,7 +544,7 @@ def assemble_research_packet(
 
     fact_rows = []
     for row in facts:
-        if not _matches_scope(row, scope):
+        if not _matches_scope(row, scope, entities):
             continue
         if scope.topics and _topic_rank({"title": row.get("statement") or ""}, scope.topics) == 0:
             continue
@@ -431,7 +559,7 @@ def assemble_research_packet(
 
     signal_rows = []
     for row in signals:
-        if not _matches_scope(row, scope):
+        if not _matches_scope(row, scope, entities):
             continue
         signal_rows.append({
             "id": row.get("id"), "title": row.get("title") or row.get("id"),
@@ -443,7 +571,7 @@ def assemble_research_packet(
 
     assessment_rows = []
     for row in assessments:
-        if not _matches_scope(row, scope):
+        if not _matches_scope(row, scope, entities):
             continue
         assessment_rows.append({
             "id": row.get("id"), "title": row.get("title") or row.get("id"),
@@ -460,10 +588,20 @@ def assemble_research_packet(
     development_rows: list[dict[str, Any]] = []
     radar_fn = developments_provider or radar_provider
     if radar_fn is not None:
-        development_rows = list(radar_fn(scope) or [])[:6]
+        development_rows = [row for row in (radar_fn(scope) or []) if _geo_in_scope(row, scope)][:6]
     move_rows: list[dict[str, Any]] = []
     if competitive_moves_provider is not None:
-        move_rows = list(competitive_moves_provider(scope) or [])[:12]
+        move_rows = [row for row in (competitive_moves_provider(scope) or []) if _geo_in_scope(row, scope)][:12]
+    related_genetics = _related_genetics_rows(
+        scope,
+        entities=entities,
+        published_evidence=published_evidence,
+        selected_ids=evidence_ids,
+        in_scope_rows=[*evidence_rows, *development_rows, *move_rows],
+        developments_provider=radar_fn,
+        competitive_moves_provider=competitive_moves_provider,
+        today=today,
+    )
 
     layers = ["TRUSTED_EVIDENCE", "COMPANIES", "RELATIONSHIPS"]
     if variety_rows or any(topic in scope.topics for topic in ("genetics", "rights_ip")):
@@ -475,6 +613,8 @@ def assemble_research_packet(
         layers.append("RADAR_DEVELOPMENTS")
     if move_rows:
         layers.append("COMPETITIVE_MOVES")
+    if related_genetics:
+        layers.append("RELATED_GENETICS")
     if signal_rows:
         layers.append("SIGNALS")
     if assessment_rows:
@@ -510,12 +650,13 @@ def assemble_research_packet(
         "market_context": market_rows,
         "radar_developments": development_rows,
         "competitive_moves": move_rows,
+        "related_genetics": related_genetics,
         "signals": signal_rows,
         "assessments": assessment_rows,
         "coverage_gaps": gaps,
         "source_index": {
             row["id"]: row
-            for row in [*evidence_rows, *market_rows, *development_rows, *move_rows]
+            for row in [*evidence_rows, *market_rows, *development_rows, *move_rows, *related_genetics]
             if row.get("id")
         },
     }
@@ -904,4 +1045,5 @@ def compose_research_answer(
         "sources": list(sources.values()),
         "ai_synthesis": bool(implications),
         "latency_seconds": live.get("latency_seconds") or 0.0,
+        "change_scenario": packet.get("change_scenario"),
     }

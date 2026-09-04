@@ -504,4 +504,5 @@ def build_research_decision_support(
             key_differences[0]["text"] if key_differences
             else "The packet supports a structured comparison, but not a source-grounded claim that one company is ahead."
         ),
+        "temporal_differences": list((packet.get("change_scenario") or {}).get("temporal_differences") or []),
     }

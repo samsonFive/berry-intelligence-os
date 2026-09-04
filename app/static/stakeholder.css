@@ -755,6 +755,38 @@ html, body.sh-body {
 .rd-positioning-card dl div { display: grid; gap: 2px; }
 .rd-positioning-card dt { color: var(--sh-faint); font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
 .rd-positioning-card dd { margin: 0; color: var(--rd-navy); font-size: 13px; line-height: 1.35; }
+.rd-change-window { margin: -8px 0 18px; color: var(--sh-muted); font-size: 12px; }
+.rd-change-cards { display: grid; gap: 12px; }
+.rd-change-card { padding: 18px 20px; border: 1px solid var(--sh-line); border-radius: 10px; background: #fff; }
+.rd-change-card > span, .rd-scenario-list span, .rd-next-moves span, .rd-generated-questions span { color: var(--rd-gold); font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.rd-change-card h3 { margin: 8px 0 12px; color: var(--rd-navy); font: 650 17px/1.4 var(--sh-sans); }
+.rd-change-card dl, .rd-scenario-list dl { margin: 0; display: grid; gap: 8px; }
+.rd-change-card dt, .rd-scenario-list dt { color: var(--sh-faint); font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.rd-change-card dd, .rd-scenario-list dd { margin: 2px 0 0; color: var(--rd-navy); font-size: 13px; line-height: 1.45; }
+.rd-change-basis, .rd-change-note { margin: 10px 0 0; color: var(--sh-muted); font-size: 12px; line-height: 1.45; }
+.rd-change-coverage { border-color: #dfcfaa; background: #fffaf0; }
+.rd-change-block { margin-top: 28px; }
+.rd-change-block > h3 { margin: 0 0 8px; color: var(--rd-navy); font: 700 19px var(--sh-serif); }
+.rd-scenario-list, .rd-next-moves, .rd-generated-questions, .rd-change-timeline { margin: 0; padding: 0; list-style: none; }
+.rd-scenario-list li, .rd-next-moves li { padding: 16px 0; border-top: 1px solid var(--sh-line); }
+.rd-scenario-list p, .rd-next-moves p { margin: 6px 0 10px; color: var(--rd-navy); font: 600 16px/1.4 var(--sh-sans); }
+.rd-generated-questions li { padding: 10px 0; border-top: 1px solid var(--sh-line); color: var(--rd-navy); }
+.rd-generated-questions span { display: block; margin-bottom: 4px; }
+.rd-change-timeline li { display: grid; grid-template-columns: 92px 1fr; gap: 12px; padding: 10px 0; border-top: 1px solid var(--sh-line); }
+.rd-change-timeline time { color: var(--rd-green); font-size: 11px; font-weight: 750; }
+.rd-change-timeline a { color: var(--rd-navy); text-decoration: none; }
+.rd-change-timeline small { display: block; margin-top: 3px; color: var(--sh-faint); font-size: 10px; }
+.rd-geo-list { margin: 0; padding: 0; list-style: none; }
+.rd-geo-list li { padding: 12px 0; border-top: 1px solid var(--sh-line); }
+.rd-geo-list span { color: var(--rd-gold); font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.rd-geo-list p { margin: 6px 0 4px; color: var(--rd-navy); font: 600 15px/1.4 var(--sh-sans); }
+.rd-geo-list small { color: var(--sh-faint); font-size: 11px; }
+.rd-footprint { margin-top: 14px; padding: 16px 18px; border: 1px solid var(--sh-line); border-radius: 10px; background: #fff; }
+.rd-footprint span { color: var(--rd-gold); font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.rd-footprint h4 { margin: 6px 0 10px; color: var(--rd-navy); font: 650 16px var(--sh-sans); }
+.rd-footprint dl { margin: 0; display: grid; gap: 8px; }
+.rd-footprint dt { color: var(--sh-faint); font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.rd-footprint dd { margin: 2px 0 0; color: var(--rd-navy); font-size: 13px; line-height: 1.4; }
 .rd-market-strip ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
 .rd-market-strip li { color: var(--rd-navy); font-size: 13px; }
 .rd-market-strip a { color: inherit; }

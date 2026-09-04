@@ -20,6 +20,7 @@ from app.main import app
 from app.services.geography_hierarchy import (
     geography_ancestors,
     geography_descendants,
+    geography_scope_match,
     matched_geography_ids,
     resolve_geography_scope,
 )
@@ -90,6 +91,17 @@ def test_ancestors_walk_is_reverse_of_descendants():
     ancestors = geography_ancestors("geography-spain", relationships=_FLAT_RELATIONSHIPS)
     assert ancestors == {"geography-europe"}
     assert geography_ancestors("geography-europe", relationships=_FLAT_RELATIONSHIPS) == set()
+
+
+def test_geography_scope_match_rejects_americas_majority_with_stray_europe_tag():
+    europe = {"geography-europe", "geography-united-kingdom", "geography-spain"}
+    assert geography_scope_match(
+        ["geography-peru", "geography-mexico", "geography-united-kingdom"],
+        europe,
+    ) is False
+    assert geography_scope_match(["geography-spain"], europe) is True
+    assert geography_scope_match(["geography-united-kingdom"], europe) is True
+    assert geography_scope_match(["geography-spain", "geography-peru"], europe) is False
 
 
 # --- 8. Cycle safety -----------------------------------------------------
