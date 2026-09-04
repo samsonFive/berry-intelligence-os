@@ -52,7 +52,7 @@
   </p>
   {% endif %}
   {% if not static_build and item.id %}
-    {% set derived_review = derived_review_for(item.id, object_type="competitive_move", trusted_context=item.trusted_context, return_to=request.url.path) %}
+    {% set derived_review = derived_review_for(item.id, object_type="competitive_move", trusted_context=item.trusted_context, return_to=request_full_path(request)) %}
     {% include "_derived_review.html" %}
   {% endif %}
 </article>

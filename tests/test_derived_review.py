@@ -207,3 +207,37 @@ def test_route_rejects_unknown_object_type(monkeypatch, tmp_path: Path) -> None:
         follow_redirects=False,
     )
     assert response.status_code == 404
+
+
+def test_review_form_return_to_preserves_the_full_scoped_url(monkeypatch) -> None:
+    """Real bug found live-dogfooding this feature on a scoped War Room
+    session: request.url.path alone drops the query string, so submitting
+    a review from /war-room?berry=...&geography_ids=...&company_ids=...
+    redirected back to a BARE, unscoped /war-room -- exactly the dead end
+    Phase 2 of this mission fixed for other handoffs. return_to must carry
+    the full path+query the page was actually requested with."""
+    fake_alert = {
+        "id": "wta-fake", "trigger_type": "MARKET_REALITY_CHANGE", "trigger_label": "Market Reality change",
+        "subject_type": "berry", "subject_id": "berry-blueberry", "subject_label": "Blueberry",
+        "title": "Peru Blueberries — Export Volume +32.2%", "what_happened": "242,000 -> 320,000 MT",
+        "why_triggered": ["Watched berry: Blueberry"], "priority": "HIGH ATTENTION", "priority_reasons": ["Watched berry: Blueberry"],
+        "generated_at": "2026-09-02T12:00:00+00:00", "first_generated_at": "2026-09-02T12:00:00+00:00", "event_at": "2026-09-02",
+        "sources": [], "trust_state": "MARKET REALITY", "related_development_id": None, "related_move_id": None,
+        "market_context": None, "trusted_context": [], "open_href": "/today",
+        "ask_berry_os_href": "/research?q=x", "create_brief_href": "/reports/new",
+    }
+    monkeypatch.setattr("app.main.compose_war_room", lambda scope, **kwargs: {
+        "scope_label": "Blueberry", "window_days": 30, "radar_freshness_label": "fresh",
+        "executive_snapshot": {"moves": 0, "developments": 0, "market_changes": 1, "needs_attention": 1, "genetics_ip": 0, "strategic_questions": 0, "findings": []},
+        "what_changed": [], "who_is_moving": [], "needs_attention": [fake_alert],
+        "competitive_positioning": None, "market_reality": [], "genetics_ip": {"moves": [], "developments": []},
+        "emerging_developments": [], "key_uncertainties": [], "coverage_unknown": [], "competitive_overlap": [],
+        "landscape_questions": [], "whitespace_watch_next": [], "whitespace_href": None,
+        "questions_for_team": {"questions": ["x"], "source": "deterministic"},
+        "strategic_questions": [], "watch_next": [], "notes": [], "ask_berry_os_href": "/research?q=x",
+        "compare_href": None, "create_meeting_brief_href": "/reports/new", "watchtower_href": "/watchtower",
+        "scope": {"berry_id": "berry-blueberry", "geography_ids": [], "company_ids": [], "window_days": 30},
+    })
+    page = TestClient(app).get("/war-room?berry=blueberry&geography_ids=geography-peru&company_ids=company-planasa")
+    assert page.status_code == 200
+    assert 'name="return_to" value="/war-room?berry=blueberry&amp;geography_ids=geography-peru&amp;company_ids=company-planasa"' in page.text
