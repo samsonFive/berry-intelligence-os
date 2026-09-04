@@ -1000,3 +1000,51 @@ html, body.sh-body {
 @media (max-width: 900px) {
   .ws-legend, .ws-market-grid, .ws-footprints, .ws-readout { grid-template-columns: 1fr; }
 }
+
+/* Derived-object analyst review (Analyst Dogfood Loop Phase 4) -- one
+   compact disclosure per card/section, not permanent buttons. */
+.dr-review {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--sh-line);
+  border-radius: 8px;
+  background: #fafafa;
+}
+.dr-review-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  list-style: none;
+}
+.dr-review-summary::-webkit-details-marker { display: none; }
+.dr-review-notes { margin: 8px 0 0; font-size: 13px; font-style: italic; color: var(--sh-ink); }
+.dr-review-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.dr-review-form textarea {
+  flex: 1 1 100%;
+  min-height: 44px;
+  padding: 6px 8px;
+  border: 1px solid var(--sh-line-strong);
+  border-radius: 6px;
+  font: inherit;
+  font-size: 13px;
+  resize: vertical;
+}
+.dr-review-form select {
+  flex: 1 1 auto;
+  min-height: 36px;
+  border: 1px solid var(--sh-line-strong);
+  border-radius: 6px;
+  font: inherit;
+  font-size: 13px;
+}
+.dr-review-form .sh-actions { flex: 1 1 100%; justify-content: flex-start; }
+.dr-review-hint { margin: 8px 0 0; color: var(--sh-faint); font-size: 12px; }
+.dr-review-hint a { color: var(--sh-accent); }

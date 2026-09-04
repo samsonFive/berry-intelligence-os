@@ -1,0 +1,30 @@
+<details class="dr-review">
+  <summary class="dr-review-summary">
+    <span class="sh-trust">{{ derived_review.label }}</span>
+    <span>Analyst review</span>
+    {% if derived_review.reviewer %}<span class="sh-story-meta">{{ derived_review.reviewer }}{% if derived_review.updated_at %} · {{ derived_review.updated_at }}{% endif %}</span>{% endif %}
+  </summary>
+  {% if derived_review.review_notes %}
+  <p class="dr-review-notes">&ldquo;{{ derived_review.review_notes }}&rdquo;{% if derived_review.reason_category_label %} <span class="sh-story-meta">({{ derived_review.reason_category_label }})</span>{% endif %}</p>
+  {% endif %}
+  <form method="post" action="/derived-review/{{ derived_review.object_type }}/{{ derived_review.item_id }}" class="dr-review-form">
+    <input type="hidden" name="return_to" value="{{ derived_review.return_to }}">
+    <textarea name="review_notes" placeholder="Notes (optional)" rows="2">{{ derived_review.review_notes }}</textarea>
+    <select name="reason_category">
+      <option value="">Reason (optional — mainly for Dispute)</option>
+      {% for value, label in derived_review.dispute_reasons %}
+      <option value="{{ value }}"{% if derived_review.reason_category == value %} selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+    <div class="sh-actions">
+      <button class="sh-btn" type="submit" name="action" value="confirm">Confirm</button>
+      <button class="sh-btn" type="submit" name="action" value="dispute">Dispute</button>
+      <button class="sh-btn sh-btn-quiet" type="submit" name="action" value="defer">Defer</button>
+      <button class="sh-btn sh-btn-quiet" type="submit" name="action" value="dismiss">Dismiss</button>
+    </div>
+  </form>
+  <p class="dr-review-hint">
+    This records your judgment on the interpretation, not the underlying evidence.
+    {% if derived_review.source_review_href %}<a href="{{ derived_review.source_review_href }}">Review source evidence instead →</a>{% endif %}
+  </p>
+</details>

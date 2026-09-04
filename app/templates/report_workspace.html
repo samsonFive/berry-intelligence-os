@@ -70,6 +70,18 @@
   <button type="submit" class="v2-btn">Save edits</button>
 </form>
 
+{% if report.report_type == 'decision_memo' %}
+<section class="v2-card" style="margin-bottom:16px">
+  <p class="card-kicker">ANALYST REVIEW BY SECTION</p>
+  <p class="v2-meta">Your judgment on how each section framed the evidence -- not a challenge to the evidence itself. Editing prose above already handles wording; use this when you agree/disagree with the section's INTERPRETATION.</p>
+  {% for section in report.sections %}
+    {% set derived_review = derived_review_for(report.id ~ ':' ~ section.section_id, object_type="decision_memo_section", trusted_context=[{"href": "#sources"}], return_to=request.url.path) %}
+    <p class="v2-meta"><strong>{{ section.title }}</strong></p>
+    {% include "_derived_review.html" %}
+  {% endfor %}
+</section>
+{% endif %}
+
 <section class="v2-card" style="margin:16px 0">
   <p class="card-kicker">RESEARCH MISSING PUBLIC INFORMATION (OPTIONAL)</p>
   <p class="v2-meta">Sends only the report's public berry/geography/company/variety labels plus the fixed question shown for each gap you select below -- never Evidence, Assessment, Signal content, or report text. Nothing is sent until you pick at least one gap and submit. Findings return as <strong>unreviewed external research</strong>, never as citable grounding for report prose.</p>

@@ -67,5 +67,7 @@
       {% endif %}
     {% endif %}
   </div>
+  {% set derived_review = derived_review_for(item.id, object_type="watchtower_alert", trusted_context=item.trusted_context, return_to=request.url.path) %}
+  {% include "_derived_review.html" %}
   {% endif %}
 </article>

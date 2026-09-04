@@ -76,6 +76,37 @@ MONITORING_LABELS = {
     "stopped": "Stopped",
 }
 
+# Analyst review of DERIVED intelligence objects (Radar Development,
+# Competitive Move, Watchtower Alert, Decision Memo section) -- Analyst
+# Dogfood Loop Phase 4. A challenge to a derived object is analyst
+# feedback on an INTERPRETATION, not a challenge to its underlying
+# Evidence (see app.services.derived_review's module docstring). Reuses
+# this exact dimension/state-store/review-event mechanism, deliberately
+# narrow: four actions only, no edit vocabulary (an object type only gets
+# edit where a safe edit model already exists, e.g. a Decision Memo
+# section's existing Save/Regenerate -- that stays its own existing
+# route, not part of this action set).
+DERIVED_REVIEW_DEFAULT = "unreviewed"
+DERIVED_REVIEW_ACTIONS = {
+    "confirm": "confirmed",
+    "dispute": "disputed",
+    "defer": "deferred",
+    "dismiss": "dismissed",
+}
+DERIVED_REVIEW_LABELS = {
+    "unreviewed": "Unreviewed",
+    "confirmed": "Confirmed",
+    "disputed": "Disputed",
+    "deferred": "Deferred",
+    "dismissed": "Dismissed",
+}
+DERIVED_REVIEW_OBJECT_TYPES = {
+    "radar_development",
+    "competitive_move",
+    "watchtower_alert",
+    "decision_memo_section",
+}
+
 
 def _empty_state() -> dict[str, dict[str, dict[str, Any]]]:
     return {
@@ -85,6 +116,7 @@ def _empty_state() -> dict[str, dict[str, dict[str, Any]]]:
         "proposals": {},
         "signals": {},
         "pending": {},
+        "derived_review": {},
         "meta": {},
     }
 
@@ -159,6 +191,15 @@ def signal_alert_state(item_id: str, state: dict[str, dict[str, dict[str, Any]]]
     return value if value in SIGNAL_ALERT_LABELS else SIGNAL_ALERT_DEFAULT
 
 
+def derived_review_entry(item_id: str, state: dict[str, dict[str, dict[str, Any]]]) -> dict[str, Any]:
+    return _entry(item_id, "derived_review", state)
+
+
+def derived_review_state(item_id: str, state: dict[str, dict[str, dict[str, Any]]]) -> str:
+    value = str(derived_review_entry(item_id, state).get("state") or DERIVED_REVIEW_DEFAULT)
+    return value if value in DERIVED_REVIEW_LABELS else DERIVED_REVIEW_DEFAULT
+
+
 def pending_workflow_state(item_id: str, state: dict[str, dict[str, dict[str, Any]]]) -> str:
     value = str(_entry(item_id, "pending", state).get("state") or PENDING_DEFAULT)
     return value if value in PENDING_LABELS else PENDING_DEFAULT
@@ -195,8 +236,17 @@ def apply_action(
     reviewer: str = "",
     subject: dict[str, Any] | None = None,
     source: dict[str, Any] | None = None,
+    object_type: str | None = None,
+    notes: str = "",
+    reason_category: str | None = None,
+    supporting_ids: tuple[str, ...] = (),
+    origin_href: str = "",
 ) -> str:
-    """Record an analyst decision. Returns the resulting workflow state."""
+    """Record an analyst decision. Returns the resulting workflow state.
+
+    object_type/notes/reason_category/supporting_ids/origin_href are only
+    meaningful for dimension="derived_review" (Analyst Dogfood Loop Phase
+    4) -- every other dimension ignores them, unchanged from before."""
 
     state = load_state(inbox_dir)
     if dimension == "reading":
@@ -231,32 +281,56 @@ def apply_action(
         if not next_state:
             raise ValueError(f"Unknown pending action: {action}")
         bucket = "pending"
+    elif dimension == "derived_review":
+        next_state = DERIVED_REVIEW_ACTIONS.get(action)
+        if not next_state:
+            raise ValueError(f"Unknown derived-review action: {action}")
+        if object_type not in DERIVED_REVIEW_OBJECT_TYPES:
+            raise ValueError(f"Unknown derived-review object_type: {object_type!r}")
+        bucket = "derived_review"
     else:
         raise ValueError(f"No workflow actions on {dimension}")
     current_entry = (state.get(bucket) or {}).get(item_id) or {}
     defaults = {
         "reading": READING_DEFAULT, "testing": TESTING_DEFAULT, "monitoring": MONITORING_DEFAULT,
         "proposals": PROPOSAL_DEFAULT, "signals": SIGNAL_ALERT_DEFAULT, "pending": PENDING_DEFAULT,
+        "derived_review": DERIVED_REVIEW_DEFAULT,
     }
     prior_state = str(current_entry.get("state") or defaults[bucket])
-    if prior_state == next_state and current_entry.get("action") == action and current_entry.get("reviewer", "") == reviewer:
+    unchanged = (
+        prior_state == next_state and current_entry.get("action") == action and current_entry.get("reviewer", "") == reviewer
+    )
+    if unchanged and dimension == "derived_review":
+        # Notes/reason are the point of a re-submission here (e.g. an
+        # analyst correcting or extending a dispute note) -- the other six
+        # dimensions have no meaningful free text, so their idempotent-retry
+        # behavior above is untouched.
+        unchanged = (
+            current_entry.get("review_notes", "") == notes
+            and current_entry.get("reason_category") == reason_category
+        )
+    if unchanged:
         return next_state
     workflow = {
         "reading": "reading_queue", "testing": "claim_testing",
         "proposals": "recommendation_proposal_review", "signals": "signal_alert_review",
-        "pending": "publication_triage",
+        "pending": "publication_triage", "derived_review": "derived_object_review",
     }.get(dimension)
     event_result = None
     if workflow:
-        object_type = {
+        event_object_type = object_type if dimension == "derived_review" else {
             "reading": "evidence", "testing": "evidence", "pending": "publication_draft",
             "proposals": "recommendation", "signals": "signal",
         }[dimension]
         event_result = append_review_event(
             inbox_dir, workflow=workflow, object_id=item_id,
-            object_type=object_type,
+            object_type=event_object_type,
             action=action, prior_state=prior_state, new_state=next_state, actor=reviewer,
             subject=subject, source=source,
+            reason_category=reason_category if dimension == "derived_review" else None,
+            notes=notes or None if dimension == "derived_review" else None,
+            supporting_ids=list(supporting_ids) if dimension == "derived_review" and supporting_ids else None,
+            origin_href=origin_href or None if dimension == "derived_review" else None,
         )
     payload: dict[str, Any] = {
         "state": next_state,
@@ -267,6 +341,10 @@ def apply_action(
     if dimension == "monitoring" and action in {"snooze", "pause"}:
         days = 7 if action == "snooze" else 1
         payload["snooze_until"] = (date.today() + timedelta(days=days)).isoformat()
+    if dimension == "derived_review":
+        payload["object_type"] = object_type
+        payload["review_notes"] = notes
+        payload["reason_category"] = reason_category
     state.setdefault(bucket, {})[item_id] = payload
     try:
         save_state(inbox_dir, state)
