@@ -13,6 +13,7 @@
   <p class="radar-why"><span>Why this is on your radar</span> {{ development.radar_reasons | join(" · ") }}</p>
   {% if not static_build %}
   <p class="sh-actions"><a class="sh-btn sh-btn-primary" href="{{ ask_berry_os_href }}">Ask Berry OS about this</a></p>
+  {% include "_derived_review.html" %}
   {% endif %}
   <p class="sh-story-meta">
     {% if development.company_names %}<span>{{ development.company_names | join(", ") }}</span>{% endif %}

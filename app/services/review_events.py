@@ -84,6 +84,9 @@ def append_review_event(
     source: dict[str, Any] | None = None,
     reason_category: str | None = None,
     occurred_at: str | None = None,
+    notes: str | None = None,
+    supporting_ids: list[str] | tuple[str, ...] | None = None,
+    origin_href: str | None = None,
 ) -> EventAppendResult:
     subject, source = subject or {}, source or {}
     if not re.fullmatch(r"[a-z][a-z0-9_]{1,63}", workflow):
@@ -140,6 +143,12 @@ def append_review_event(
         "queue_entered_at": entered,
         "reason_category": reason_category,
         "previous_event_id": previous_id,
+        # Free-text analyst judgment and cheap traceability -- kept minimal
+        # (ids/href only, never the underlying object's own content) per
+        # derived-object review (Analyst Dogfood Loop Phase 4).
+        "notes": notes or None,
+        "supporting_ids": list(supporting_ids) if supporting_ids else [],
+        "origin_href": origin_href or None,
     }
     object_dir.mkdir(parents=True, exist_ok=True)
     path = object_dir / f"{event_id}.json"

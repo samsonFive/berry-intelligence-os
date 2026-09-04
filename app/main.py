@@ -100,6 +100,7 @@ from app.services.analyst_queue import (
     build_dimension_page,
     bulk_dismiss_pending,
     bulk_mark_read,
+    DERIVED_REVIEW_OBJECT_TYPES,
     is_open_signal_alert,
     is_pending_dismissed,
     load_state as load_analyst_queue_state,
@@ -109,6 +110,7 @@ from app.services.analyst_queue import (
     signal_alert_state,
     work_counts,
 )
+from app.services.derived_review import present_derived_review, section_review_key
 from app.services.commercial_positions import commercial_page_model
 from app.services.review_operations import build_review_operations
 from app.services.collection_ops import (
@@ -922,6 +924,25 @@ templates.env.globals["nav_work"] = lambda: work_counts(
     published=published_evidence(),
     signals=all_signals(),
 )
+
+
+def _derived_review_for_template(
+    item_id: str, *, object_type: str, trusted_context: Any = None, return_to: str = ""
+) -> dict[str, Any]:
+    """Jinja global so _move_card.html/_alert_card.html (shared partials
+    included from several pages) can render the compact analyst-review
+    disclosure without every including page threading queue state through
+    by hand (Analyst Dogfood Loop Phase 4)."""
+    return present_derived_review(
+        item_id,
+        object_type=object_type,
+        state=load_analyst_queue_state(INBOX_DIR),
+        return_to=return_to,
+        trusted_context=trusted_context,
+    )
+
+
+templates.env.globals["derived_review_for"] = _derived_review_for_template
 
 
 @app.get("/healthz")
@@ -4580,12 +4601,20 @@ def radar_detail_page(request: Request, development_id: str) -> HTMLResponse:
     ask_parts.extend(str(name) for name in (payload.get("company_names") or [])[:2])
     ask_parts.extend(str(label) for label in (payload.get("geography_labels") or [])[:2])
     ask_question = "What should I know about: " + " -- ".join(p for p in ask_parts if p)
+    derived_review = present_derived_review(
+        development_id,
+        object_type="radar_development",
+        state=load_analyst_queue_state(INBOX_DIR),
+        return_to=f"/radar/{development_id}",
+        trusted_context=payload.get("trusted_context"),
+    )
     response = templates.TemplateResponse(
         request=request,
         name="radar_detail.html",
         context={
             "development": payload,
             "ask_berry_os_href": f"/research?{urlencode({'q': ask_question})}",
+            "derived_review": derived_review,
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
             "ui_context": ui,
@@ -5635,6 +5664,44 @@ def queue_item_action(
         params.append("show_completed=1")
     suffix = ("?" + "&".join(params)) if params else ""
     return RedirectResponse(url=f"/queues/{dimension}{suffix}", status_code=303)
+
+
+@app.post("/derived-review/{object_type}/{item_id}")
+def derived_review_action(
+    request: Request,
+    object_type: str,
+    item_id: str,
+    action: str = Form(...),
+    review_notes: str = Form(""),
+    reason_category: str = Form(""),
+    reviewer: str = Form(""),
+    return_to: str = Form(""),
+) -> RedirectResponse:
+    """Analyst review of a DERIVED intelligence object (Analyst Dogfood
+    Loop Phase 4). Confirm/dispute/defer/dismiss records the analyst's
+    judgment on this object's INTERPRETATION -- it never touches Evidence/
+    Signal/Assessment trust state (mirrors watchtower_alert_action's own
+    boundary, generalized across object types via the existing
+    analyst_queue "derived_review" dimension)."""
+    if object_type not in DERIVED_REVIEW_OBJECT_TYPES:
+        raise HTTPException(status_code=404, detail="Unknown derived-review object type")
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Review actions are only available in authoring mode")
+    try:
+        apply_queue_action(
+            INBOX_DIR,
+            dimension="derived_review",
+            item_id=item_id,
+            action=action,
+            reviewer=reviewer.strip() or session_username(request) or review_username() or "",
+            object_type=object_type,
+            notes=review_notes.strip(),
+            reason_category=reason_category.strip() or None,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    destination = safe_next_path(return_to) if return_to else ""
+    return RedirectResponse(url=destination or "/today", status_code=303)
 
 
 @app.post("/recommendations/{recommendation_id}/proposal-decision")
