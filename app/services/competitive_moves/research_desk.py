@@ -78,8 +78,10 @@ def competitive_moves_for(
     for row in rows:
         if company_ids and row.company_id not in company_ids:
             continue
-        if geos and not geos.intersection(row.geography_ids):
-            continue
+        if geos:
+            from app.services.geography_hierarchy import geography_scope_match
+            if not geography_scope_match(row.geography_ids, geos):
+                continue
         if berry_ids and not berry_ids.intersection(row.berry_ids):
             continue
         if types and row.move_type not in types:

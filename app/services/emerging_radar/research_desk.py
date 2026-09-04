@@ -69,8 +69,10 @@ def developments_for(
             continue
         if berries and not berries.intersection(row.berry_ids):
             continue
-        if geos and not geos.intersection(row.geography_ids):
-            continue
+        if geos:
+            from app.services.geography_hierarchy import geography_scope_match
+            if not geography_scope_match(row.geography_ids, geos):
+                continue
         if types and row.event_type not in types:
             continue
         stamp = _parse_day(row.event_date or row.latest_update)

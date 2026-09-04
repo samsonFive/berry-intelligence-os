@@ -312,7 +312,7 @@ def build_change_scenario(
     today = today or date.today()
     window_days = int(getattr(scope, "window_days", None) or (packet.get("scope") or {}).get("window_days") or 30)
     start, mid, end = split_windows(window_days, today=today)
-    rows = _copy_rows(packet)
+    rows = [_row for _row in _copy_rows(packet) if _row_fits_scope(scope, packet, _row)]
 
     coverage_ids = {
         _row_id(row) or str(index)
@@ -354,7 +354,11 @@ def build_change_scenario(
             "last_updated": max((_seen_date(row) or end).isoformat() for row in coverage_rows),
         })
 
-    changes.extend(_market_changes(packet))
+    structured_market = _market_changes(packet)
+    changes.extend(structured_market)
+    if structured_market:
+        before_rows = [row for row in before_rows if not _is_weaker_market_article(row)]
+        now_rows = [row for row in now_rows if not _is_weaker_market_article(row)]
 
     by_type: dict[str, list[dict[str, Any]]] = {}
     for row in now_rows:
@@ -464,7 +468,13 @@ def _scenarios(
     types = {change["change_type"] for change in changes}
     supply = [change for change in changes if change["change_type"] == "SUPPLY_CHANGE"]
     market = [change for change in changes if change["change_type"] == "MARKET_CONDITION_CHANGE"]
-    market_ids = [sid for change in [*supply, *market] for sid in change.get("supporting_ids") or []]
+    structured_ids = [
+        sid
+        for row in packet.get("market_context") or []
+        if row.get("latest_vs_previous") or str(row.get("trust_class") or "") == "MARKET REALITY"
+        for sid in ([_row_id(row)] if _row_id(row) else [])
+    ]
+    market_ids = structured_ids or [sid for change in [*supply, *market] for sid in change.get("supporting_ids") or []]
     hay = " ".join(change.get("what_changed") or "" for change in [*supply, *market]).casefold()
     opposing = (
         any(hint in hay for hint in _SUPPLY_HINTS)
@@ -526,6 +536,7 @@ def _scenario(text: str, why: str, confirm: str, refute: str, watch: str, source
     return {
         "text": text,
         "why_plausible": why,
+        "supporting_evidence": ", ".join(ids[:8]),
         "would_confirm": confirm,
         "would_refute": refute,
         "watch": watch,
@@ -670,3 +681,47 @@ def _temporal_differences(
             "kind": "TEMPORAL DIFFERENCE",
         })
     return out
+
+
+def _row_fits_scope(scope: Any, packet: Mapping[str, Any], row: Mapping[str, Any]) -> bool:
+    from app.services.geography_hierarchy import geography_scope_match, record_geography_ids
+
+    geos = tuple(getattr(scope, "geography_ids", None) or (packet.get("scope") or {}).get("geography_ids") or ())
+    berry_id = getattr(scope, "berry_id", None) or (packet.get("scope") or {}).get("berry_id")
+    if geos and not geography_scope_match(record_geography_ids(row), geos):
+        return False
+    if berry_id:
+        berries = {str(value) for value in (row.get("berry_ids") or row.get("market_ids") or []) if value}
+        if berries and berry_id not in berries:
+            return False
+    return True
+
+
+def _is_weaker_market_article(row: Mapping[str, Any]) -> bool:
+    return row.get("_origin") == "evidence" and _looks_like_market_text(row) and not row.get("latest_vs_previous")
+
+
+def change_scenario_for(scope: Any, packet: Mapping[str, Any], *, today: date | None = None) -> dict[str, Any]:
+    """Official read seam for Ask Berry OS and War Room. Creates no store and no UI."""
+    model = build_change_scenario(scope, packet, today=today)
+    return {
+        "what_changed": model["changes"],
+        "scenarios": [
+            {
+                "text": row["text"],
+                "why_plausible": row["why_plausible"],
+                "supporting_evidence": row.get("supporting_evidence") or ", ".join(row.get("source_ids") or []),
+                "would_confirm": row["would_confirm"],
+                "would_refute": row["would_refute"],
+                "watch": row["watch"],
+                "source_ids": row["source_ids"],
+                "kind": row["kind"],
+            }
+            for row in model["scenarios"]
+        ],
+        "before_period": model["before_period"],
+        "after_period": model["after_period"],
+        "coverage_notes": model["coverage_notes"],
+        "method_note": model["method_note"],
+    }
+

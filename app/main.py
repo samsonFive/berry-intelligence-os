@@ -3944,10 +3944,17 @@ def _radar_developments_for_scope(scope: ResearchScope) -> list[dict[str, Any]]:
     relevant developments (already bounded by developments_for()'s own
     company/berry/geography filters, plus a hard cap here), never every
     cached item."""
+    if scope.window_days <= 7:
+        timeframe = "7d"
+    elif scope.window_days <= 30:
+        timeframe = "30d"
+    else:
+        timeframe = "90d"
     rows = developments_for(
         company_ids=scope.company_ids,
         berry_ids=[scope.berry_id] if scope.berry_id else None,
         geography_ids=scope.geography_ids,
+        timeframe=timeframe,
         inbox_dir=INBOX_DIR,
     )
     return [

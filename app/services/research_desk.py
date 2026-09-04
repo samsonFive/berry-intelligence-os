@@ -288,14 +288,44 @@ def _within_window(record: Mapping[str, Any], window_days: int, *, today: date) 
         return True
 
 
-def _matches_scope(record: Mapping[str, Any], scope: ResearchScope) -> bool:
-    linked = set(record.get("entity_ids") or []) | set(record.get("geography_ids") or [])
-    selected = set(scope.company_ids) | set(scope.variety_ids) | set(scope.geography_ids)
-    if selected and linked.intersection(selected):
+def _record_berry_ids(record: Mapping[str, Any], entities: Mapping[str, dict[str, Any]] | None = None) -> set[str]:
+    berries = {str(value) for value in (record.get("berry_ids") or record.get("market_ids") or []) if value}
+    if entities:
+        for entity_id in record.get("entity_ids") or []:
+            entity = entities.get(str(entity_id)) or {}
+            berries.update(str(value) for value in (entity.get("berry_ids") or []) if value)
+            if entity.get("entity_type") == "berry":
+                berries.add(str(entity_id))
+    return berries
+
+
+def _matches_scope(
+    record: Mapping[str, Any],
+    scope: ResearchScope,
+    entities: Mapping[str, dict[str, Any]] | None = None,
+) -> bool:
+    from app.services.geography_hierarchy import geography_scope_match, record_geography_ids
+
+    record_geos = record_geography_ids(record)
+    record_berries = _record_berry_ids(record, entities)
+    linked_entities = {str(value) for value in (record.get("entity_ids") or []) if value}
+    selected_entities = set(scope.company_ids) | set(scope.variety_ids)
+
+    if scope.geography_ids and not geography_scope_match(record_geos, scope.geography_ids):
+        return False
+    if scope.berry_id:
+        if record_berries and scope.berry_id not in record_berries:
+            return False
+        if not record_berries and scope.geography_ids:
+            return False
+
+    if selected_entities and linked_entities.intersection(selected_entities):
         return True
-    if scope.berry_id and scope.berry_id in set(record.get("berry_ids") or record.get("market_ids") or []):
+    if scope.geography_ids:
         return True
-    return not selected and not scope.berry_id
+    if scope.berry_id and scope.berry_id in record_berries:
+        return True
+    return not selected_entities and not scope.berry_id
 
 
 def _topic_rank(record: Mapping[str, Any], topics: tuple[str, ...]) -> int:
@@ -334,6 +364,7 @@ def _evidence_row(record: dict[str, Any]) -> dict[str, Any]:
         "structured_kind": structured_kind,
         "entity_ids": list(record.get("entity_ids") or []),
         "geography_ids": list(record.get("geography_ids") or []),
+        "berry_ids": list(record.get("berry_ids") or record.get("market_ids") or []),
     }
 
 
@@ -356,7 +387,7 @@ def assemble_research_packet(
     today = today or date.today()
     selected = [
         row for row in published_evidence
-        if _matches_scope(row, scope) and _within_window(row, scope.window_days, today=today)
+        if _matches_scope(row, scope, entities) and _within_window(row, scope.window_days, today=today)
     ]
     selected.sort(key=lambda row: (_topic_rank(row, scope.topics), _record_date(row)), reverse=True)
     selected = selected[:MAX_PACKET_EVIDENCE]
@@ -425,7 +456,7 @@ def assemble_research_packet(
 
     fact_rows = []
     for row in facts:
-        if not _matches_scope(row, scope):
+        if not _matches_scope(row, scope, entities):
             continue
         if scope.topics and _topic_rank({"title": row.get("statement") or ""}, scope.topics) == 0:
             continue
@@ -440,7 +471,7 @@ def assemble_research_packet(
 
     signal_rows = []
     for row in signals:
-        if not _matches_scope(row, scope):
+        if not _matches_scope(row, scope, entities):
             continue
         signal_rows.append({
             "id": row.get("id"), "title": row.get("title") or row.get("id"),
@@ -452,7 +483,7 @@ def assemble_research_packet(
 
     assessment_rows = []
     for row in assessments:
-        if not _matches_scope(row, scope):
+        if not _matches_scope(row, scope, entities):
             continue
         assessment_rows.append({
             "id": row.get("id"), "title": row.get("title") or row.get("id"),

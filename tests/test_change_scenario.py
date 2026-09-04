@@ -5,13 +5,18 @@ from __future__ import annotations
 from copy import deepcopy
 from datetime import date
 
+from pathlib import Path
+
+from app.repositories.json.market_observations import MarketObservationRepository
 from app.services.change_scenario import (
     CHANGE_TYPES,
     build_change_scenario,
     change_question,
+    change_scenario_for,
     classify_coverage_artifact,
     split_windows,
 )
+from app.services.market_reality.research_desk import market_context_for_research_scope
 from app.services.research_desk import (
     ResearchScope,
     assemble_research_packet,
@@ -346,3 +351,199 @@ def test_compose_passes_change_scenario_through() -> None:
     answer = compose_research_answer(packet)
     assert answer["change_scenario"]["changes"]
     assert "PARTNERSHIP_CHANGE" in {row["change_type"] for row in answer["change_scenario"]["changes"]}
+
+
+def test_europe_blueberry_genetics_rejects_americas_and_raspberry_patent() -> None:
+    europe = (
+        "geography-europe",
+        "geography-germany",
+        "geography-spain",
+        "geography-united-kingdom",
+    )
+    entities = {
+        "company-hortifrut": {"id": "company-hortifrut", "name": "Hortifrut", "entity_type": "company"},
+        "variety-example-red": {
+            "id": "variety-example-red",
+            "name": "Example Red",
+            "entity_type": "variety",
+            "berry_ids": ["berry-raspberry"],
+        },
+        "variety-eu-blue": {
+            "id": "variety-eu-blue",
+            "name": "Euro Blue",
+            "entity_type": "variety",
+            "berry_ids": ["berry-blueberry"],
+        },
+    }
+    evidence = [
+        {
+            "id": "ev-hortifrut-mbo-genetics-2026",
+            "title": "Naturipe Farms and Hortifrut expand berry genetics platform with Mountain Blue",
+            "published_date": "2026-07-30",
+            "entity_ids": ["company-hortifrut", "geography-united-states", "geography-mexico", "geography-peru"],
+            "berry_ids": ["berry-blueberry"],
+            "geography_ids": [],
+        },
+        {
+            "id": "ev-sample-patent-published",
+            "title": "Patent published for a late-ripening, high-yield raspberry genetics program",
+            "published_date": "2026-07-15",
+            "entity_ids": ["variety-example-red", "geography-europe"],
+            "geography_ids": ["geography-europe"],
+            "berry_ids": ["berry-raspberry"],
+            "intake_type": "patent_filing",
+            "patent_filing": {"application": "EP1"},
+        },
+        {
+            "id": "ev-eu-blue-launch",
+            "title": "Spanish blueberry breeding program names a new cultivar",
+            "published_date": "2026-08-10",
+            "entity_ids": ["variety-eu-blue", "geography-spain"],
+            "geography_ids": ["geography-spain"],
+            "berry_ids": ["berry-blueberry"],
+        },
+    ]
+    packet = assemble_research_packet(
+        _scope(
+            question="What changed in European blueberry genetics?",
+            company_ids=(),
+            geography_ids=europe,
+            topics=("genetics",),
+        ),
+        entities=entities,
+        relationships=[],
+        published_evidence=evidence,
+        facts=[],
+        signals=[],
+        assessments=[],
+        competitive_moves_provider=lambda _s: [
+            {
+                "id": "mv-mbo-americas",
+                "title": "Hortifrut MBO Americas platform",
+                "company_id": "company-hortifrut",
+                "move_type": "VARIETY_COMMERCIALIZATION",
+                "published_date": "2026-08-03",
+                "event_date": "2026-08-03",
+                "geography_ids": ["geography-peru", "geography-mexico", "geography-united-kingdom"],
+                "berry_ids": ["berry-blueberry", "berry-raspberry"],
+            },
+            {
+                "id": "mv-spain-genetics",
+                "title": "Fall Creek names a Spanish blueberry selection",
+                "company_id": "company-fall-creek",
+                "move_type": "GENETICS_LAUNCH",
+                "published_date": "2026-08-12",
+                "event_date": "2026-08-12",
+                "geography_ids": ["geography-spain"],
+                "berry_ids": ["berry-blueberry"],
+            },
+        ],
+        today=TODAY,
+    )
+    ids = {row["id"] for row in packet["evidence"]}
+    assert "ev-eu-blue-launch" in ids
+    assert "ev-hortifrut-mbo-genetics-2026" not in ids
+    assert "ev-sample-patent-published" not in ids
+    assert packet["rights_ip"] == []
+    model = build_change_scenario(
+        _scope(question="What changed in European blueberry genetics?", company_ids=(), geography_ids=europe, topics=("genetics",)),
+        packet,
+        today=TODAY,
+    )
+    blob = str(model).casefold()
+    assert "mountain blue" not in blob
+    assert "raspberry genetics program" not in blob
+    assert "spanish blueberry" in blob or "spanish blueberry selection" in blob
+
+
+def test_structured_market_reality_beats_article_language(tmp_path: Path) -> None:
+    schemas = Path(__file__).resolve().parents[1] / "schemas"
+    repo = MarketObservationRepository(data_dir=tmp_path, schemas_dir=schemas)
+    base = {
+        "record_type": "market_observation",
+        "berry_id": "berry-blueberry",
+        "source_commodity_label": "Fresh blueberries",
+        "source_commodity_code": "BLUEBERRY",
+        "form": "fresh",
+        "source": "proarandanos",
+        "source_dataset": "season-close",
+        "source_url": "https://example.test/peru-blueberries",
+        "captured_at": "2026-06-25T00:00:00+00:00",
+        "berry_ids": ["berry-blueberry"],
+        "geography_ids": ["geography-peru"],
+        "period_type": "year",
+    }
+    for period, metric, geography, geography_id, unit, value, suffix in (
+        ("2024/25", "EXPORT_VOLUME", "PE", "geography-peru", "MT", 319000.0, "vol-24"),
+        ("2025/26", "EXPORT_VOLUME", "PE", "geography-peru", "MT", 382934.0, "vol-25"),
+        ("2024/25", "PRICE", "PE", "geography-peru", "USD/kg", 6.61, "px-24"),
+        ("2025/26", "PRICE", "PE", "geography-peru", "USD/kg", 5.55, "px-25"),
+        ("2024/25", "EXPORT_VOLUME", "PE-to-US", "geography-peru", "MT", 155000.0, "us-24"),
+        ("2025/26", "EXPORT_VOLUME", "PE-to-US", "geography-peru", "MT", 186000.0, "us-25"),
+    ):
+        repo.create({
+            **base,
+            "id": f"mkt-peru-{suffix}",
+            "metric": metric,
+            "geography": geography,
+            "geography_id": geography_id,
+            "period": period,
+            "unit": unit,
+            "value": value,
+        })
+    scope = _scope(
+        question="What changed in Peru blueberries?",
+        company_ids=(),
+        geography_ids=("geography-peru",),
+    )
+    market_rows = market_context_for_research_scope(repo, scope, limit=6)
+    assert market_rows
+    packet = _packet(
+        competitive_moves=[],
+        market_context=market_rows,
+        companies=[],
+        evidence=[{
+            "id": "ev-article-price",
+            "title": "Overlapping supply windows pressure global blueberry prices - FreshPlaza",
+            "published_date": "2026-08-01",
+            "trust_class": "TRUSTED EVIDENCE",
+        }],
+    )
+    model = build_change_scenario(scope, packet, today=TODAY)
+    types = {row["change_type"] for row in model["changes"]}
+    assert "SUPPLY_CHANGE" in types
+    assert "MARKET_CONDITION_CHANGE" in types
+    volume = next(row for row in model["changes"] if row["change_type"] == "SUPPLY_CHANGE")
+    assert "319000" in volume["before"] or "319,000" in volume["what_changed"] or "319000" in volume["what_changed"]
+    assert "382934" in volume["now"] or "382,934" in volume["what_changed"] or "32." in volume["what_changed"]
+    assert all(not str(row.get("what_changed") or "").startswith("Overlapping supply") for row in model["changes"])
+    assert model["scenarios"]
+    for row in model["scenarios"]:
+        assert row["source_ids"]
+        assert row["why_plausible"]
+        assert row["supporting_evidence"]
+        assert row["would_confirm"]
+        assert row["would_refute"]
+        assert row["watch"]
+        assert "will " not in row["text"].casefold()
+        assert "%" not in row["text"] or "probability" not in row["text"].casefold()
+    seam = change_scenario_for(scope, packet, today=TODAY)
+    assert seam["what_changed"]
+    assert seam["scenarios"][0]["would_confirm"]
+    assert seam["scenarios"][0]["source_ids"]
+
+
+def test_recently_observed_event_stays_real_change() -> None:
+    row = _move(
+        "mv-recent",
+        company="company-hortifrut",
+        move_type="PARTNERSHIP",
+        event="2026-08-12",
+        seen="2026-08-14",
+        title="Hortifrut signs a new genetics counterpart",
+    )
+    row["latest_update"] = "2026-08-14"
+    model = build_change_scenario(_scope(), _packet(competitive_moves=[row]), today=TODAY)
+    types = {change["change_type"] for change in model["changes"]}
+    assert "PARTNERSHIP_CHANGE" in types
+    assert "COVERAGE_CHANGE" not in types
