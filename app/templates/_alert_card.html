@@ -40,6 +40,7 @@
     <a class="sh-btn sh-btn-primary" href="{{ item.ask_berry_os_href }}">Ask Berry OS about this</a>
     <a class="sh-btn" href="{{ item.open_href }}">Open</a>
     <a class="sh-btn" href="{{ item.create_brief_href }}">Create brief</a>
+    {% if item.war_room_href %}<a class="sh-btn" href="{{ item.war_room_href }}">Open in War Room</a>{% endif %}
     {% if not (ephemeral is defined and ephemeral) %}
       {% if item.state == 'open' %}
       <form method="post" action="/watchtower/{{ item.id }}/action">

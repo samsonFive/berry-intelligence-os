@@ -94,6 +94,7 @@ class Alert:
     open_href: str = ""
     ask_berry_os_href: str = ""
     create_brief_href: str = ""
+    war_room_href: str = ""
 
     def as_dict(self) -> dict[str, Any]:
         payload = asdict(self)

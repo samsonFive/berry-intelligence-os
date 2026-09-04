@@ -308,6 +308,27 @@ def test_ask_berry_os_href_never_carries_raw_body_text() -> None:
     assert alert.ask_berry_os_href.startswith("/research?q=")
 
 
+def test_alert_carries_a_scoped_war_room_href() -> None:
+    """Analyst Dogfood Loop Phase 2: an alert with a real company/geography/
+    berry scope must link straight into a scoped War Room session -- before
+    this, /watchtower had no path into /war-room at all (a confirmed dead
+    end from the workflow audit)."""
+    dev = _development(company_ids=("company-planasa",), geography_ids=("geography-spain",), berry_ids=("berry-strawberry",))
+    alerts = _generate(developments=[dev], watches=[{"watch_type": "company", "object_id": "company-planasa"}])
+    alert = next(a for a in alerts if a.trigger_type == "NEW_DEVELOPMENT")
+    assert alert.war_room_href.startswith("/war-room?")
+    assert "company_ids=company-planasa" in alert.war_room_href
+    assert "geography_ids=geography-spain" in alert.war_room_href
+    assert "berry=berry-strawberry" in alert.war_room_href
+
+
+def test_market_reality_alert_war_room_href_carries_geography_scope() -> None:
+    repo = FakeMarketRepo(_market_rows())
+    alerts = _generate(market_repo=repo, watches=[{"watch_type": "geography", "object_id": "geography-peru"}], market_threshold_pct=MARKET_CHANGE_THRESHOLD_PCT)
+    alert = next(a for a in alerts if a.trigger_type == "MARKET_REALITY_CHANGE")
+    assert alert.war_room_href == "/war-room?geography_ids=geography-peru"
+
+
 # ---- Idempotency / persistence / restart-safety ----
 
 def test_generate_alerts_is_idempotent_across_repeated_calls() -> None:

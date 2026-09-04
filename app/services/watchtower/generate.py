@@ -100,6 +100,21 @@ def _create_brief_href(*, company_ids: tuple[str, ...] = (), geography_ids: tupl
     return f"/reports/new?{urlencode(query)}" if query else "/reports/new"
 
 
+def _war_room_href(*, company_ids: tuple[str, ...] = (), geography_ids: tuple[str, ...] = (), berry_ids: tuple[str, ...] = ()) -> str:
+    """Same scope-carrying convention _create_brief_href already uses, read
+    by /war-room's own _war_room_scope_from_params() -- lets an analyst jump
+    from an alert straight into a scoped War Room session instead of a bare,
+    unscoped /watchtower<->/war-room dead end (Analyst Dogfood Loop Phase 2)."""
+    query: dict[str, str] = {}
+    if company_ids:
+        query["company_ids"] = ",".join(company_ids[:6])
+    if geography_ids:
+        query["geography_ids"] = ",".join(geography_ids[:6])
+    if berry_ids:
+        query["berry"] = berry_ids[0]
+    return f"/war-room?{urlencode(query)}" if query else "/war-room"
+
+
 def _priority(reasons: tuple[str, ...]) -> tuple[str, tuple[str, ...]]:
     if len(reasons) >= 3:
         return PRIORITY_HIGH, reasons
@@ -258,6 +273,7 @@ def generate_alerts(
             priority, reasons_t = _priority(tuple(reasons))
             ask_href = _ask_berry_os_href(dev.title, company_names=dev.company_names, geography_labels=dev.geography_labels)
             brief_href = _create_brief_href(company_ids=dev.company_ids, geography_ids=dev.geography_ids, berry_ids=dev.berry_ids)
+            wr_href = _war_room_href(company_ids=dev.company_ids, geography_ids=dev.geography_ids, berry_ids=dev.berry_ids)
             upsert(
                 Alert(
                     id=_alert_id("NEW_DEVELOPMENT", wt, oid, dev.id),
@@ -281,6 +297,7 @@ def generate_alerts(
                     open_href=f"/radar/{dev.id}",
                     ask_berry_os_href=ask_href,
                     create_brief_href=brief_href,
+                    war_room_href=wr_href,
                 )
             )
 
@@ -313,6 +330,7 @@ def generate_alerts(
                         open_href=f"/radar/{dev.id}",
                         ask_berry_os_href=ask_href,
                         create_brief_href=brief_href,
+                        war_room_href=wr_href,
                     )
                 )
 
@@ -345,6 +363,7 @@ def generate_alerts(
                         open_href=f"/radar/{dev.id}",
                         ask_berry_os_href=ask_href,
                         create_brief_href=brief_href,
+                        war_room_href=wr_href,
                     )
                 )
 
@@ -362,6 +381,7 @@ def generate_alerts(
             priority, reasons_t = _priority(tuple(dict.fromkeys(reasons)))
             ask_href = _ask_berry_os_href(move.title, company_names=(move.company_name,), geography_labels=move.geography_labels)
             brief_href = _create_brief_href(company_ids=(move.company_id,), geography_ids=move.geography_ids, berry_ids=move.berry_ids)
+            wr_href = _war_room_href(company_ids=(move.company_id,), geography_ids=move.geography_ids, berry_ids=move.berry_ids)
             upsert(
                 Alert(
                     id=_alert_id("NEW_COMPETITIVE_MOVE", wt, oid, move.id),
@@ -385,6 +405,7 @@ def generate_alerts(
                     open_href=f"/moves/{move.company_id}",
                     ask_berry_os_href=ask_href,
                     create_brief_href=brief_href,
+                    war_room_href=wr_href,
                 )
             )
 
@@ -427,6 +448,7 @@ def generate_alerts(
                     open_href=f"/moves/{move.company_id}",
                     ask_berry_os_href=_ask_berry_os_href(sq_label, company_names=(move.company_name,)),
                     create_brief_href=_create_brief_href(company_ids=(move.company_id,), geography_ids=move.geography_ids, berry_ids=move.berry_ids),
+                    war_room_href=_war_room_href(company_ids=(move.company_id,), geography_ids=move.geography_ids, berry_ids=move.berry_ids),
                 )
             )
 
@@ -460,6 +482,7 @@ def generate_alerts(
                     open_href=f"/moves/{pattern.company_id}",
                     ask_berry_os_href=_ask_berry_os_href(f"{pattern.company_name} {pattern.label}", company_names=(pattern.company_name,)),
                     create_brief_href=_create_brief_href(company_ids=(pattern.company_id,)),
+                    war_room_href=_war_room_href(company_ids=(pattern.company_id,)),
                 )
             )
 
@@ -513,6 +536,7 @@ def generate_alerts(
                         open_href="/today",
                         ask_berry_os_href=_ask_berry_os_href(headline, geography_labels=(change["geography"],) if wt == "geography" else ()),
                         create_brief_href=_create_brief_href(geography_ids=(oid,) if wt == "geography" else (), berry_ids=(oid,) if wt == "berry" else ()),
+                        war_room_href=_war_room_href(geography_ids=(oid,) if wt == "geography" else (), berry_ids=(oid,) if wt == "berry" else ()),
                     )
                 )
 
@@ -559,6 +583,7 @@ def generate_alerts(
                         open_href=href,
                         ask_berry_os_href=_ask_berry_os_href(title),
                         create_brief_href=_create_brief_href(company_ids=tuple(entity_ids), geography_ids=tuple(geography_ids), berry_ids=tuple(berry_ids)),
+                        war_room_href=_war_room_href(company_ids=tuple(entity_ids), geography_ids=tuple(geography_ids), berry_ids=tuple(berry_ids)),
                     )
                 )
             if wt == "strategic_question" and oid in sq_ids:
