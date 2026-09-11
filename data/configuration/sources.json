@@ -484,7 +484,7 @@
     "label": "California Giant Berry Farms Breeding Partnerships",
     "value": "California Giant Berry Farms Breeding Partnerships",
     "url": "https://www.calgiant.com/news/press-releases/",
-    "why_it_matters": "Grower-marketer with its own breeding partnerships across three berries -- a demand-side signal for which genetics are actually being planted at scale, not just announced.",
+    "why_it_matters": "Grower-marketer with its own breeding partnerships across three berries -- a demand-side signal for which genetics are actually being planted at scale, not just announced. Duplicate of source-20260806173428-6b33-california-giant-berry-farms-28 for acquisition purposes; see that record's why_it_matters for the 2026-09-11 Cloudflare/TLS-fingerprint blocked-acquisition diagnosis (same domain, same block).",
     "entity_types": [
       "grower_marketer"
     ],
@@ -724,7 +724,7 @@
     "label": "California Giant Berry Farms",
     "value": "California Giant Berry Farms",
     "url": "https://www.calgiant.com/news/press-releases/",
-    "why_it_matters": "Company press releases on berry supply, marketing and operations. Reference source for manual review; automated article requests were blocked during the 2026-09-11 repair audit.",
+    "why_it_matters": "Company press releases on berry supply, marketing and operations. Reference source for manual review; automated acquisition remains blocked as of 2026-09-11. Diagnosis (2026-09-11): robots.txt explicitly permits all crawling (Disallow: none) and declares a working Yoast sitemap at https://www.calgiant.com/sitemap_index.xml, whose cpt_cg_news-sitemap.xml sub-sitemap lists the real newsroom URLs (including the verified coverage-gap stories from Aug/Jul/Jun 2026). Both the sitemap and individual /newsroom/ article pages return HTTP 403 to this project's httpx-based fetcher, while the identical URL and User-Agent string succeed via curl -- confirmed a client TLS/HTTP fingerprint block (Cloudflare bot management), not a robots.txt or credential restriction. Per this project's discipline, this is reported as a structural 'blocked' status and left alone rather than worked around with a different client fingerprint. Do not treat calgiant.com sitemap lastmod values as reliable publication dates if acquisition is ever restored -- confirmed several unrelated historical posts share a single bulk-republish lastmod (2026-07-14) from a site migration.",
     "entity_types": [
       "grower_marketer"
     ],

@@ -1,0 +1,243 @@
+{
+  "state": "ok",
+  "source_id": "source-20260819-blue-book-services",
+  "counts": {
+    "discovered": 10,
+    "selected": 10,
+    "relevant": 0,
+    "skipped_irrelevant": 5,
+    "borderline_checked": 0,
+    "borderline_confirmed_relevant": 0,
+    "borderline_confirmed_irrelevant": 0,
+    "acquired": 0,
+    "acquisition_failed": 5,
+    "duplicate": 0,
+    "enriched": 0,
+    "enrichment_unavailable": 0,
+    "review_ready": 0
+  },
+  "items": [
+    {
+      "item_id": "discovered-source-20260819-blue-book-services-11dd79848371a6e3",
+      "title": "Church Brothers Farms strengthens FSQA leadership",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-20260819-blue-book-services-169e8bac291bb31e",
+      "title": "Creekside Organics focuses on the next generation of growth grower storytelling",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography"
+        ],
+        "matched_terms": [
+          "grower"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquisition_failure_category": "blocked",
+      "acquisition_failure_retryable": false,
+      "error": "403 fetching https://www.bluebookservices.com/creekside-organics-focuses-on-the-next-generation-of-growth-grower-storytelling/ -- likely bot-blocked",
+      "outcome": "acquisition_failed"
+    },
+    {
+      "item_id": "discovered-source-20260819-blue-book-services-224b69346ff8428f",
+      "title": "Week in Review: Retail insights at SEPC Southern Innovations",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (market_pricing, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "retail"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquisition_failure_category": "blocked",
+      "acquisition_failure_retryable": false,
+      "error": "403 fetching https://www.bluebookservices.com/week-in-review-retail-insights-at-sepc-southern-innovations/ -- likely bot-blocked",
+      "outcome": "acquisition_failed"
+    },
+    {
+      "item_id": "discovered-source-20260819-blue-book-services-5f55a2fc38b23698",
+      "title": "Healthy Family Project launches first campaign with Albertsons Companies",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (market_pricing, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "retail"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquisition_failure_category": "blocked",
+      "acquisition_failure_retryable": false,
+      "error": "403 fetching https://www.bluebookservices.com/healthy-family-project-launches-first-campaign/ -- likely bot-blocked",
+      "outcome": "acquisition_failed"
+    },
+    {
+      "item_id": "discovered-source-20260819-blue-book-services-6310baf201b98611",
+      "title": "Titan Farms achieves SQF quality certification",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-20260819-blue-book-services-6f659650a97701c0",
+      "title": "Fyffes aims for regenerative agriculture",
+      "relevance_screen_stage_a": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, market_pricing, score 4) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "growers",
+          "supply"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquisition_failure_category": "blocked",
+      "acquisition_failure_retryable": false,
+      "error": "403 fetching https://www.bluebookservices.com/fyffes-aims-for-regenerative-agriculture/ -- likely bot-blocked",
+      "outcome": "acquisition_failed"
+    },
+    {
+      "item_id": "discovered-source-20260819-blue-book-services-719359a3480fe5e8",
+      "title": "Produce industry headlines: September 11, 2026",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (market_pricing, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "supply"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquisition_failure_category": "blocked",
+      "acquisition_failure_retryable": false,
+      "error": "403 fetching https://www.bluebookservices.com/produce-industry-headlines-september-11-2026/ -- likely bot-blocked",
+      "outcome": "acquisition_failed"
+    },
+    {
+      "item_id": "discovered-source-20260819-blue-book-services-7d27a85dc0cf79c3",
+      "title": "Truck Availability Report, September 11, 2026",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-20260819-blue-book-services-7b7df9fe068d667e",
+      "title": "Lipman Family Farms to brighten up Southern Innovations with local offerings",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-20260819-blue-book-services-e355dae19b88767b",
+      "title": "Six questions leaders should ask themselves",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    }
+  ]
+}

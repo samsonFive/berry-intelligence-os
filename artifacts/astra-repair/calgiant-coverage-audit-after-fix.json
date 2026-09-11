@@ -1,0 +1,19 @@
+{
+  "company_id": "company-california-giant-berry-farms",
+  "as_of": "2026-09-11",
+  "scope": "Selected data directory, published records only. Inbox and production runtime were not inspected.",
+  "matching_records_all_time": 20,
+  "access_screen_records_all_time": 9,
+  "current": {
+    "items": [],
+    "undated": [],
+    "historical_count": 20,
+    "start": "2026-06-14",
+    "end": "2026-09-11",
+    "days": 90,
+    "pending_count": 0,
+    "usable_count": 0
+  },
+  "limitation": "Captured coverage is not web recall. Zero captured articles does not establish zero company activity."
+}
+

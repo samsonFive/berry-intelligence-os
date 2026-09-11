@@ -139,6 +139,49 @@ def test_relevant_article_produces_a_review_ready_draft_with_real_body(tmp_path,
     draft = json.loads((tmp_path / "inbox" / "evidence" / f"{result.publication_draft_id}.json").read_text(encoding="utf-8"))
     assert draft["article"]["word_count"] > 0
     assert len(draft["article"]["paragraphs"]) > 0
+    # _RELEVANT_HTML carries no extractable publish date, so the discovery
+    # feed's own pubDate (2026-08-18, from _feed_item's hardcoded <pubDate>)
+    # is kept as-is and honestly labeled as its basis.
+    assert draft["published_date"] == "2026-08-18"
+    assert draft["published_date_basis"] == "discovery_feed"
+
+
+_STALE_LASTMOD_HTML = """
+<html><head>
+<title>Strong forecast for winter strawberries</title>
+<meta property="article:published_time" content="2021-12-14T08:00:00-08:00">
+</head>
+<body><article>
+<p>California Giant Berry Farms today announced its forecast for a strong winter strawberry crop,
+led by its Florida and Mexico growing regions, according to district manager James Tipton.</p>
+<p>Weather always plays a critical role in the winter strawberry season, Tipton said.</p>
+</article></body></html>
+"""
+
+
+def test_stale_feed_date_is_overridden_by_the_articles_own_published_date(tmp_path, repos, source, monkeypatch):
+    """Reproduces the real defect this fix targets: a discovery feed (a
+    sitemap `lastmod`, or here the test feed's own hardcoded 2026-08-18
+    <pubDate>) can report a recent touch/republish time for an article
+    that was actually written years earlier. The page's own
+    article:published_time meta tag is the truth; it must win."""
+    item = _discover_one(
+        tmp_path, source, monkeypatch,
+        title="Strong forecast for winter strawberries", link="https://example.invalid/winter-strawberries",
+        description="Winter strawberry crop forecast.",
+    )
+    assert item["published_date"] == "2026-08-18"  # the (wrong) discovery-stage signal
+    monkeypatch.setattr(article_acquisition.httpx, "get", lambda *a, **k: _FakeArticleResponse(_STALE_LASTMOD_HTML))
+
+    orchestrator = _orchestrator(repos, tmp_path)
+    result, extra = process_discovered_article(item, orchestrator=orchestrator, inbox_dir=tmp_path / "inbox")
+
+    assert result.publication_draft_id is not None
+    draft = json.loads((tmp_path / "inbox" / "evidence" / f"{result.publication_draft_id}.json").read_text(encoding="utf-8"))
+    assert draft["published_date"] == "2021-12-14"
+    assert draft["published_date_basis"] == "article_body"
+    assert draft["discovery_provenance"]["discovery_published_date"] == "2026-08-18"
+    assert extra["published_date_basis"] == "article_body"
 
 
 def test_confidently_irrelevant_article_is_skipped_before_any_acquisition(tmp_path, repos, source, monkeypatch):

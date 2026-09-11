@@ -20,11 +20,11 @@ this as a drop-in replacement for a plain process() call on article items.
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable
 
-from app.services.article_acquisition import ArticleAcquisitionError, fetch_article, repeated_body_conflict
+from app.services.article_acquisition import ArticleAcquisitionError, ArticleBody, fetch_article, repeated_body_conflict
 from app.services.media_orchestration import (
     MediaOrchestrationError,
     MediaOrchestrationService,
@@ -45,6 +45,58 @@ from app.services.source_completeness import RETRYABLE_FAILURES, normalize_failu
 # retry can still resolve and must not be treated as permanently
 # inaccessible.
 _ACCESS_LIMITED_CATEGORIES = frozenset({"blocked", "paywall", "empty_body", "interstitial", "script_rendered"})
+
+
+def _valid_iso_date(value: str | None) -> str | None:
+    """A body-extracted date is only trustworthy as *the* published_date of
+    record if it parses as a real calendar date and isn't absurd -- the same
+    sanity bounds media_discovery.py's sitemap normalizer already applies to
+    a feed's own lastmod/publication_date, applied here to trafilatura's
+    metadata extraction instead. Returns the normalized YYYY-MM-DD string,
+    or None if `value` is missing/malformed/out of range."""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    candidate = value.strip()[:10]
+    try:
+        parsed = datetime.strptime(candidate, "%Y-%m-%d").date()
+    except ValueError:
+        return None
+    today = datetime.now(timezone.utc).date()
+    if parsed < date(2000, 1, 1) or parsed > today + timedelta(days=2):
+        return None
+    return candidate
+
+
+def _reconcile_published_date(draft: dict[str, Any], body: ArticleBody) -> None:
+    """Prefer the real article page's own extracted publish date over the
+    discovery feed's signal (RSS pubDate or, worse, a sitemap `lastmod`
+    that reflects a last-modified/republish timestamp, not the original
+    publication date) for the record's *top-level* `published_date` --
+    the field every date-based view (news homepage windows, company
+    90-day coverage, report generation) actually reads.
+
+    Confirmed necessary against a real case: calgiant.com's Yoast sitemap
+    stamps `lastmod` at bulk-republish time, so a page last touched during
+    a 2026-07 site migration reports that date even for a 2021 article --
+    exactly the "old stories shown as current" defect this project was
+    asked to fix. `ArticleBody.as_dict()` already computed
+    `published_date_basis` for this purpose but nothing downstream ever
+    read it; this is that wiring.
+
+    Only overrides when the body's own date is present and passes
+    `_valid_iso_date`'s sanity check -- an extractor miss (no date found,
+    or a bogus one) must never blank out a perfectly good discovery-stage
+    date, so the discovery value is always the fallback, never discarded.
+    """
+    discovery_date = draft.get("published_date")
+    body_date = _valid_iso_date(body.published_date)
+    if body_date:
+        if discovery_date and discovery_date != body_date:
+            draft.setdefault("discovery_provenance", {})["discovery_published_date"] = discovery_date
+        draft["published_date"] = body_date
+        draft["published_date_basis"] = "article_body"
+    else:
+        draft["published_date_basis"] = "discovery_feed"
 
 
 def _error_result(item_id: str, *, state: str, message: str, transcript_status: str = "not_applicable") -> OrchestrationResult:
@@ -458,6 +510,8 @@ def process_discovered_article(
     draft_path = inbox_dir / "evidence" / f"{result.publication_draft_id}.json"
     draft = json.loads(draft_path.read_text(encoding="utf-8"))
     draft["article"] = body.as_dict()
+    _reconcile_published_date(draft, body)
+    extra["published_date_basis"] = draft["published_date_basis"]
     # "direct" | "adjacent" -- never "irrelevant" here, since an
     # irrelevant/borderline-rejected item never reaches draft creation.
     # Read by pending_publication_drafts()'s sort so direct berry
