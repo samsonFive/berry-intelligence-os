@@ -1,0 +1,66 @@
+{
+  "dataset_id": "github-master-checked-in-only",
+  "inspected_at": "2026-09-11",
+  "git_commit": "ec801d538003c93b53679c8bcdcca5b3a3dba505",
+  "git_branch_inspected": "master",
+  "repo": "github.com/samsonFive/berry-intelligence-os",
+  "requested_but_unavailable": {
+    "local_path": "C:/Users/Johnny/Downloads/sscanar/berry-intelligence-os-astra-repair",
+    "branch": "fix/astra-news-reader",
+    "status_file": "artifacts/astra-repair/REVIEW-STATUS.md"
+  },
+  "queues": {
+    "legacy_unvalidated_evidence": {
+      "present": true,
+      "live_count": 0,
+      "location": "data/evidence/*.json where auto_captured=true and validated=false",
+      "note": "Queue mechanism exists via scripts/export_for_review.py + apply_review_decisions.py. Checked-in master has 0 matching rows. Historical snapshot review/review-backlog-2026-08-06.xlsx had 1585 rows already fully decided (1139 validate / 446 purge) and applied; it is NOT treated as the current backlog."
+    },
+    "pending_publication": {
+      "present": false,
+      "live_count": null,
+      "location": "inbox/evidence/*.json (gitignored runtime drafts)",
+      "note": "No inbox/ directory in this checkout. Feature-branch code supports Promote/Save/Dismiss/Reject on pending drafts. Production backlog is not in git."
+    },
+    "source_fidelity_recovery": {
+      "present": false,
+      "live_count": null,
+      "location": "inbox/source_fidelity/artifacts/*.json",
+      "note": "No fidelity artifacts present. Supported decisions on feature branches: affirmed / rejected / needs_investigation. Affirmation does not create facts or authorize extraction by itself beyond attaching recovered body text for later extraction readiness."
+    },
+    "atomic_evidence_claim": {
+      "present": false,
+      "live_count": null,
+      "location": "inbox drafts with evidence_role=atomic_evidence (+ trusted published atomic)",
+      "note": "No atomic draft queue present. Approving a publication/source must NOT auto-approve atomic claims."
+    }
+  },
+  "records": [],
+  "batches": [],
+  "exceptions": [
+    {
+      "exception_id": "EX-DATASET-UNAVAILABLE",
+      "severity": "missing_live_backlog",
+      "detail": "Live pending publication, source-fidelity, and atomic queues were not available in this Cloud Agent checkout. No article recommendations were produced.",
+      "required_export": "See HANDOFF-REPORT.md §Exports required"
+    },
+    {
+      "exception_id": "EX-ASTRA-CONTEXT-MISSING",
+      "severity": "missing_repair_context",
+      "detail": "Branch fix/astra-news-reader and artifacts/astra-repair/REVIEW-STATUS.md are not on origin; not inspected.",
+      "required_export": "Push or upload the astra-repair workspace / REVIEW-STATUS.md"
+    },
+    {
+      "exception_id": "EX-DO-NOT-USE-2026-08-06-SNAPSHOT",
+      "severity": "stale_decided_snapshot",
+      "detail": "review/review-backlog-2026-08-06.xlsx is a completed historical decision file, not an open backlog. Do not re-approve or re-apply it.",
+      "required_export": null
+    }
+  ],
+  "limitations": [
+    "No production runtime/inbox data mounted in this environment.",
+    "No public source URLs were opened because no pending rows were available to resolve.",
+    "Recommendations intentionally left empty to avoid inventing approvals.",
+    "Application code and records were not modified."
+  ]
+}
