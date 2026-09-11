@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from fastapi.testclient import TestClient
+from app import main
 
 from app.main import app
 from app.services.global_search import SearchPools, search_global
@@ -104,7 +105,8 @@ def test_company_page_humanizes_roles() -> None:
     assert 'class="sh-page' in html
 
 
-def test_reports_empty_has_primary_build_action() -> None:
+def test_reports_empty_has_primary_build_action(monkeypatch, tmp_path) -> None:
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
     page = TestClient(app).get("/reports")
     assert page.status_code == 200
     assert "Build a report" in page.text

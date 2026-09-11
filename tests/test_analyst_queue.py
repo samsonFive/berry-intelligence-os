@@ -234,7 +234,7 @@ def test_nav_uses_action_badges_not_raw_inventory_for_review(monkeypatch, tmp_pa
     repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
     _seed(repos, [])
     client = TestClient(app)
-    home = client.get("/")
+    home = client.get("/brief")
     assert "need review" in home.text or "Publications" in home.text
     assert "Reading Queue (124)" not in home.text
     assert "nav-action" in home.text or "Publications" in home.text

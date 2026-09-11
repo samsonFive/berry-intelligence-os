@@ -483,7 +483,7 @@
     "type": "reference",
     "label": "California Giant Berry Farms Breeding Partnerships",
     "value": "California Giant Berry Farms Breeding Partnerships",
-    "url": "",
+    "url": "https://www.calgiant.com/news/press-releases/",
     "why_it_matters": "Grower-marketer with its own breeding partnerships across three berries -- a demand-side signal for which genetics are actually being planted at scale, not just announced.",
     "entity_types": [
       "grower_marketer"
@@ -723,8 +723,8 @@
     "type": "reference",
     "label": "California Giant Berry Farms",
     "value": "California Giant Berry Farms",
-    "url": "",
-    "why_it_matters": "Three-berry grower-marketer, listed separately here for its marketing/demand-side reporting distinct from its breeding partnerships entry above.",
+    "url": "https://www.calgiant.com/news/press-releases/",
+    "why_it_matters": "Company press releases on berry supply, marketing and operations. Reference source for manual review; automated article requests were blocked during the 2026-09-11 repair audit.",
     "entity_types": [
       "grower_marketer"
     ],

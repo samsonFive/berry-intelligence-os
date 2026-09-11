@@ -1,0 +1,3 @@
+Search index built (pagefind).
+Static build complete: 1630 pages written to generated/
+Verified: no unpublished draft ids or titles appear in the output.

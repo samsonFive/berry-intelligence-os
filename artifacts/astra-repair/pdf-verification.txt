@@ -1,0 +1,58 @@
+Internal / Confidential  Working report; analyst review required
+Page 1
+ California Giant — local coverage verification
+Generated 2026-09-11 — Intelligence/data cutoff: Unknown (no dated Evidence in packet)
+Internal / Confidential — Working report; analyst review required
+Scope
+Report type: Competitive Landscape
+Companies: California Giant Berry Farms
+Publication window: 2026-06-14 through 2026-09-11
+Intelligence Coverage
+Category
+Count
+Evidence Count
+0
+Company Count
+1
+Trusted Variety Count
+0
+Variety Candidate Count
+0
+Signal Count
+0
+Assessment Count
+0
+Known Gaps
+ No trusted Evidence captured for this scope yet.
+ No trusted Varieties captured for this scope yet.
+ No Signals captured for this scope yet.
+ No analyst Assessment captured for this scope yet.
+Executive Summary
+AI draft unavailable -- no provider credential configured for this environment. Add source material and write this
+section manually.
+Scope & Method
+Report type: competitive_landscape. Berry: not scoped.
+Market / Competitive Context
+Insufficient sourced intelligence.
+
+Internal / Confidential  Working report; analyst review required
+Page 2
+Key Actors
+AI draft unavailable -- no provider credential configured for this environment. Add source material and write this
+section manually.
+Variety / Genetics Landscape
+Insufficient sourced intelligence.
+Recent Developments
+Insufficient sourced intelligence.
+Signals
+No Signals captured for this scope.
+Assessments / Strategic Implications
+No Assessments captured for this scope.
+Known Gaps
+- No trusted Evidence captured for this scope yet. - No trusted Varieties captured for this scope yet. - No
+Signals captured for this scope yet. - No analyst Assessment captured for this scope yet.
+Sources
+No sourced Evidence in this packet.
+Captured company reporting
+Published 2026-06-14 through 2026-09-11. Pending sources are excluded from trusted synthesis.
+No captured articles with confirmed publication dates in this window.

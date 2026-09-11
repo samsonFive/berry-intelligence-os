@@ -130,14 +130,14 @@
         {% endfor %}
       </section>
     {% elif not pending %}
-      <section class="intel-claims">
-        <h2>Claims</h2>
+      <details class="intel-claims sh-evidence-metadata">
+        <summary>No reviewed claims available · extraction details</summary>
         {% if extract_claims.runnable %}
           <p>A qualified extraction model is configured. Run extraction through the collection runner; this reader will not call an unqualified model.</p>
         {% else %}
           <p>{{ extract_claims.detail }}</p>
         {% endif %}
-      </section>
+      </details>
     {% else %}
       <section class="intel-claims">
         <h2>Claims</h2>
@@ -174,7 +174,7 @@
             {% endif %}
             <span class="badge badge-muted">{{ attribution.primary.method|replace('_',' ') }} · {{ attribution.primary.strength }}</span>
           </p>
-          <p class="context-limit">Deterministic suggestion for pending content. Trusted entity links are not rewritten until you promote.</p>
+          <p class="context-limit">Suggested subject from the source metadata. A company mention does not establish a business relationship.</p>
         {% else %}
           <p class="empty-state">No primary subject from title, newsroom identity, or alias match.</p>
         {% endif %}

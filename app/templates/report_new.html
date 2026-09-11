@@ -11,6 +11,7 @@
 </section>
 
 {% if step == 'start' %}
+{% if not handoff_company_names %}
 <form class="sh-search-form filters" method="post" action="/reports/new">
   <input type="hidden" name="step" value="interpret">
   <div class="sh-field sh-field-grow filter-field">
@@ -26,10 +27,11 @@
   <button type="button" class="sh-example" data-example="Write a variety brief for SEKOYA Grande: identity, rights, and recent intelligence.">SEKOYA Grande</button>
 </p>
 <p class="v2-meta">Or <a href="#manual-scope">build a scope manually</a> without a natural-language request.</p>
+{% endif %}
 <form id="manual-scope" class="filters" method="post" action="/reports/new">
   <input type="hidden" name="step" value="preview">
   {% if handoff_geography_ids_csv or handoff_company_ids_csv or handoff_variety_ids_csv %}
-    <p class="v2-meta">{% if handoff_report_type == 'decision_memo' %}Prefilled from your War Room session.{% else %}Prefilled from Today's top stories.{% endif %}</p>
+    <p class="v2-meta">{% if handoff_company_names %}<strong>{{ handoff_company_names|join(', ') }}</strong> · Published in the last {{ handoff_date_window_days }} days. Preview the captured reporting before generating a draft.{% elif handoff_report_type == 'decision_memo' %}Prefilled from your War Room session.{% else %}Prefilled from Today's top stories.{% endif %}</p>
     <input type="hidden" name="geography_ids" value="{{ handoff_geography_ids_csv }}">
     <input type="hidden" name="company_ids" value="{{ handoff_company_ids_csv }}">
     <input type="hidden" name="variety_ids" value="{{ handoff_variety_ids_csv }}">
@@ -56,6 +58,9 @@
 <section class="v2-card" style="margin-bottom:16px">
   <p class="card-kicker">INTERPRETED SCOPE</p>
   {% if request_text %}<p class="v2-meta">From: "{{ request_text }}"</p>{% endif %}
+  {% if packet.companies %}<p><strong>{{ packet.companies|map(attribute='name')|join(', ') }}</strong>{% if scope.date_window_days %} · Last {{ scope.date_window_days }} days{% endif %}</p>{% endif %}
+  <details{% if not scope.company_ids %} open{% endif %}>
+  <summary>Edit scope</summary>
   <form method="post" action="/reports/new">
     <input type="hidden" name="step" value="preview">
     <div class="filters">
@@ -96,6 +101,7 @@
     <input type="hidden" name="request_text" value="{{ request_text }}">
     <button type="submit" class="v2-btn v2-btn-quiet">Update preview</button>
   </form>
+  </details>
 
   {% set unresolved = (scope.unresolved_companies|list) + (scope.unresolved_varieties|list) %}
   {% if unresolved %}

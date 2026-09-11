@@ -10,7 +10,7 @@ from app.services.entity_alias_recall import match_evidence_to_entity
 from app.services.industry_pulse.models import DiscoveryHit
 from app.services.industry_pulse.qualify import QualificationIndex, qualify_hit
 
-WINDOWS = {"latest": "Latest · 14 days", "today": "Today", "week": "Last 7 days",
+WINDOWS = {"latest": "Latest · 14 days", "today": "Today", "week": "Last 7 days", "quarter": "Last 90 days",
            "archive": "Archive · all dated reporting", "undated": "Date not established"}
 PAGE_SIZE = 24
 
@@ -73,7 +73,7 @@ def select_edition(items, *, entities, relationships, params, now=None):
             continue
         elif window == "today" and published_day != day:
             continue
-        elif window in {"week", "latest"} and published_day < day - timedelta(days=6 if window == "week" else 13):
+        elif window in {"week", "latest", "quarter"} and published_day < day - timedelta(days={"week": 6, "latest": 13, "quarter": 89}[window]):
             continue
         item = dict(raw)
         item["relevance_reason"] = qualified.qualify_reason

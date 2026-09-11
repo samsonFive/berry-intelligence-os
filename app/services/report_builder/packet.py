@@ -43,6 +43,8 @@ from typing import Any
 
 from app.services.brief_pack import company_snapshot, source_trace, variety_snapshot
 from app.services.chronology import meaningful_stamp
+from app.services.company_news_coverage import company_news_coverage
+from app.services.entity_alias_recall import linked_evidence_for_entity
 from app.services.geography_hierarchy import matched_geography_ids
 from app.services.global_search import GEO_PREDICATES
 from app.services.report_builder.scope import ResolvedScope
@@ -190,6 +192,7 @@ def build_report_packet(
     recommendations: list[dict[str, Any]],
     variety_candidates: list[dict[str, Any]],
     berry_labels: dict[str, str],
+    pending_publications: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Deterministic packet assembly for one resolved scope. Safe to call
     repeatedly with the same scope against the same trusted data -- it
@@ -224,10 +227,30 @@ def build_report_packet(
             "evidence_topic_signals": [],
         }
 
+    selected_evidence = _select_records(published_evidence, entity_ids=entity_ids, berry_id=scope.berry_id)
+    selected_ids = {r["id"] for r in selected_evidence}
+    company_coverages = []
+    for cid in scope.company_ids:
+        company = entities.get(cid)
+        if not company:
+            continue
+        for record in linked_evidence_for_entity(company, published_evidence):
+            if record["id"] not in selected_ids and _in_berry(record, scope.berry_id):
+                selected_evidence.append(record)
+                selected_ids.add(record["id"])
+        if scope.date_window_days:
+            company_coverages.append(company_news_coverage(
+                company,
+                published=[r for r in published_evidence if _in_berry(r, scope.berry_id)],
+                pending=[r for r in pending_publications or [] if _in_berry(r, scope.berry_id)],
+                days=scope.date_window_days,
+            ))
+    window_ids = {r["id"] for c in company_coverages for r in c["items"]}
     scoped_evidence = [
         r
-        for r in _select_records(published_evidence, entity_ids=entity_ids, berry_id=scope.berry_id)
+        for r in selected_evidence
         if _within_window(r, scope.date_window_days)
+        and (not company_coverages or r["id"] in window_ids)
     ]
     scoped_signals = _select_records(signals, entity_ids=entity_ids, berry_id=scope.berry_id)
     scoped_assessments = _select_records(assessments, entity_ids=entity_ids, berry_id=scope.berry_id)
@@ -258,7 +281,8 @@ def build_report_packet(
     candidate_rows = [
         c
         for c in variety_candidates
-        if not scope.berry_id or scope.berry_id == c.get("berry_id") or scope.berry_id in (c.get("berry_ids") or [])
+        if (not scope.berry_id or scope.berry_id == c.get("berry_id") or scope.berry_id in (c.get("berry_ids") or []))
+        and (not scope.company_ids or _entity_intersect(c, set(scope.company_ids)))
     ]
 
     recent = sorted(
@@ -330,6 +354,9 @@ def build_report_packet(
         "geography_descendant_ids": list(scope.geography_descendant_ids),
         "contributing_geography_ids": sorted(contributing_geography_ids),
         "evidence_topic_signals": [_topic_signal_row(r) for r in scoped_evidence],
+        "source_inventory": list({r["id"]: r for c in company_coverages for r in c["items"]}.values()),
+        "undated_source_inventory": list({r["id"]: r for c in company_coverages for r in c["undated"]}.values()),
+        "source_window": {"start": company_coverages[0]["start"], "end": company_coverages[0]["end"]} if company_coverages else None,
     }
 
 

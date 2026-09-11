@@ -6,7 +6,7 @@
   <div>
     <p class="sh-kicker eyebrow">{{ report_type_labels.get(report.report_type, report.report_type)|humanize_label }}</p>
     <h1>{{ report.title }}</h1>
-    <p class="also-known-as">AI-assisted; analyst-reviewed. Report prose is report output, not canonical intelligence -- editing or regenerating a section here never changes any Evidence, Signal, Assessment, or Strategic Question.</p>
+    <p class="also-known-as">Working report · {{ report.status|default('draft')|humanize_label }}. Generated text requires analyst review. Source publication and factual-claim approval remain separate.</p>
   </div>
   <div class="v2-card-actions">
     <a class="v2-btn v2-btn-quiet" href="/reports/{{ report.id }}/export.pdf">Export PDF</a>
@@ -82,6 +82,7 @@
 </section>
 {% endif %}
 
+{% include "_report_source_inventory.html" %}
 <section class="v2-card" style="margin:16px 0">
   <p class="card-kicker">RESEARCH MISSING PUBLIC INFORMATION (OPTIONAL)</p>
   <p class="v2-meta">Sends only the report's public berry/geography/company/variety labels plus the fixed question shown for each gap you select below -- never Evidence, Assessment, Signal content, or report text. Nothing is sent until you pick at least one gap and submit. Findings return as <strong>unreviewed external research</strong>, never as citable grounding for report prose.</p>

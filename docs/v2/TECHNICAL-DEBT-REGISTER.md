@@ -1807,6 +1807,20 @@ Unique withdrawn-draft items below keep their original IDs.
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
 
+### TD-113 — Company news coverage and source-body fidelity fail a current-company acceptance test
+
+| Field | Value |
+|---|---|
+| **Severity** | High |
+| **Area** | Company coverage / acquisition / stakeholder reporting |
+| **Date discovered** | 2026-09-11 |
+| **Evidence** | Local published snapshot: 20 Cal Giant mentions, nine access-screen captures, zero published items in June 14–September 11. Official newsroom lists current events absent here. Direct feed/article requests returned HTTP 403. Production counts reported by the user differ and were not reconciled to this local snapshot. |
+| **Implemented mitigation** | Canonical Cal Giant identity and alias recall; strict publication-date company window; read-time access-screen masking in news, readers and timelines; uncapped report inventory separating pending and undated records; honest working-report PDF marker; source reference links repaired without falsely enabling discovery. |
+| **Remaining work** | Establish reliable supported forward discovery/acquisition using existing adapters; stage usable recent sources privately; verify review-to-company/report propagation against actual production runtime before claiming freshness recovery. No automatic source-fidelity, publication, or atomic approval. |
+| **Status** | active — identity/presentation mitigated locally, acquisition unresolved |
+| **Owner lane** | acquisition / product |
+| **Regression-test reference** | `tests/test_company_news_coverage.py`, `tests/test_astra_news_reader.py`, `tests/test_entity_intelligence_timeline.py`; reproducible audit `scripts/audit_company_coverage.py`; checkpoint `artifacts/astra-repair/REPAIR-CHECKPOINT.md` |
+
 ### TD-112 — Research Desk live recall remains provider- and index-dependent
 
 | Field | Value |

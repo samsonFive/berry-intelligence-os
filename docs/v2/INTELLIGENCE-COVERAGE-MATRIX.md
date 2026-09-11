@@ -545,6 +545,12 @@ Authoritative Data + NewsCatcher CatchAll Expansion Bake-Off V1 (same day): USDA
 
 ---
 
+## Cal Giant current-company acceptance check — 2026-09-11
+
+The local checked-in published snapshot contains 20 Cal Giant mentions, nine with access-screen text, and no articles published in the inclusive 90-day window June 14–September 11. Reproduce with `scripts/audit_company_coverage.py company-california-giant-berry-farms --as-of 2026-09-11`. This audit excludes private inbox and production runtime; the user's production inventory is a different corpus.
+
+The canonical company and aliases now support discovery in the app. The two existing source references point to the official newsroom but remain manual reference sources. Direct automated feed/article requests returned HTTP 403. Public newsroom coverage from June–August remains a collection gap. UI quality checks and a source registry URL are not evidence of successful acquisition or recall. No evidence-class maturity cell is promoted by this repair. See TD-113 and `artifacts/astra-repair/REPAIR-CHECKPOINT.md`.
+
 ## How to refresh the evidence-class counts
 
 Re-count committed `data/evidence/*.json` by stored `source_type` /

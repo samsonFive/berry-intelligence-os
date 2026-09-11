@@ -1,0 +1,18 @@
+{% if packet.source_window %}
+<section class="sh-section" id="report-source-inventory">
+  <p class="sh-kicker">Source inventory · {{ packet.source_window.start|us_date }} – {{ packet.source_window.end|us_date }}</p>
+  <h2>All captured company reporting</h2>
+  <p class="sh-note">{{ packet.source_inventory|length }} articles published in this window. Pending sources are included for visibility and excluded from trusted synthesis. Named mentions do not establish business relationships.</p>
+  {% for row in packet.source_inventory %}
+  <article class="sh-report-source">
+    <p class="sh-story-meta">{{ loop.index }} · {{ row.source_name }} · {{ row.published_date|us_date }} · {{ row.trust_label }}</p>
+    <h3><a href="{{ row.href }}" data-open-reader data-item-id="{{ row.id }}">{{ row.title }}</a></h3>
+    {% if row.excerpt %}<blockquote>{{ row.excerpt }}…</blockquote><p class="sh-note">Opening source excerpt · {{ row.source_name }}</p>
+    {% elif row.summary %}<p>{{ row.summary }}</p><p class="sh-note">Stored source summary; full text unavailable.</p>{% endif %}
+    {% if row.notice %}<p class="sh-content-state">{{ row.notice }}</p>{% endif %}
+    <p class="sh-note">{{ row.match_basis }} · {{ row.content_state }} · Captured {{ row.captured_date|us_date }}{% if row.source_url %} · <a href="{{ row.source_url }}" target="_blank" rel="noopener">Original source ↗</a>{% endif %}</p>
+  </article>
+  {% else %}<p class="sh-note">No captured company reporting has a confirmed publication date within this window. Older or undated records have not been substituted.</p>{% endfor %}
+  {% if packet.undated_source_inventory %}<details><summary>{{ packet.undated_source_inventory|length }} sources need date verification</summary><ul>{% for row in packet.undated_source_inventory %}<li><a href="{{ row.href }}">{{ row.title }}</a> · Date not established</li>{% endfor %}</ul></details>{% endif %}
+</section>
+{% endif %}

@@ -37,6 +37,7 @@
     {% endif %}
   </h3>
   {% if row.excerpt %}<p class="v2-card-summary">{{ row.excerpt|truncate(220) }}</p>{% endif %}
+  {% if row.content_notice %}<p class="sh-content-state">{{ row.content_notice }}</p>{% endif %}
   {% if row.geography or row.entity_chips %}
     <p class="v2-card-line">
       {% for chip in row.geography %}<a href="{{ chip.href }}" class="v2-chip">{{ chip.name }}</a>{% endfor %}

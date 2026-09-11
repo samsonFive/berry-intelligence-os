@@ -5,7 +5,7 @@
   "name": "California Giant Berry Farms",
   "aliases": ["California Giant", "Cal Giant", "California Giant, Inc."],
   "status": "active",
-  "description": "California-based fresh berry company working with a grower network across strawberries, blueberries, raspberries and blackberries. Company reporting can be recalled by its canonical name and aliases; a mention does not establish a genetics or ownership relationship.",
+  "description": "California-based fresh berry company working with a grower network across strawberries, blueberries, raspberries and blackberries.",
   "roles": ["grower", "marketer"],
   "berry_ids": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
   "evidence_ids": [],

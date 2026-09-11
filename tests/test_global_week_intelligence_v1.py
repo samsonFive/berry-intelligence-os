@@ -468,7 +468,7 @@ def test_today_and_nav_point_at_this_week():
     page = TestClient(app).get("/today")
     assert page.status_code == 200
     assert ">This week<" in page.text
-    assert "What changed this week?" in page.text
+    assert 'href="/week"' in page.text
     assert "stakeholder.css" in page.text
 
 

@@ -11,6 +11,7 @@ a real network call.
 from __future__ import annotations
 
 from pathlib import Path
+from datetime import date
 
 import pytest
 
@@ -345,10 +346,10 @@ def test_strategic_question_report_packet():
 # --- 6. Date-window handling -------------------------------------------------
 
 
-def test_date_window_excludes_old_evidence_but_keeps_undated():
+def test_company_date_window_separates_undated_from_current_sources():
     entities = _base_entities()
     evidence = [
-        _evidence(id="ev-recent", published_date="2026-08-20", entity_ids=["company-fallcreek"]),
+        _evidence(id="ev-recent", published_date=date.today().isoformat(), entity_ids=["company-fallcreek"]),
         _evidence(id="ev-old", published_date="2020-01-01", entity_ids=["company-fallcreek"]),
         _evidence(id="ev-undated", published_date=None, entity_ids=["company-fallcreek"]),
     ]
@@ -377,7 +378,9 @@ def test_date_window_excludes_old_evidence_but_keeps_undated():
     )
     trace_ids = {row["id"] for row in packet["source_trace"]}
     assert "ev-old" not in trace_ids
-    assert "ev-undated" in trace_ids
+    assert "ev-recent" in trace_ids
+    assert "ev-undated" not in trace_ids
+    assert [r["id"] for r in packet["undated_source_inventory"]] == ["ev-undated"]
 
 
 # --- 7. Provenance preservation ----------------------------------------------

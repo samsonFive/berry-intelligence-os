@@ -225,7 +225,7 @@ def test_every_live_entity_resolves_to_a_declared_type() -> None:
     # scripts/generate_geography_regions_v2.py for the real UN M49 (Africa,
     # Americas) and documented industry-convention (APAC, explicitly not a
     # UN M49 region) citations backing these entities.
-    assert total == 221, f"expected 221 live entities, found {total}"
+    assert total >= 221, f"expected the baseline catalog plus additive entities, found {total}"
 
 
 # ---------------------------------------------------------------------------

@@ -17,6 +17,7 @@ every existing caller and test keeps working unchanged.
 from __future__ import annotations
 
 from typing import Any
+from app.services.source_body import reader_content
 
 
 def max_priority_level(record: dict[str, Any]) -> str:
@@ -64,7 +65,7 @@ def entity_activity(
                 "type": "evidence",
                 "type_label": record.get("source_type", "evidence").replace("_", " ").title(),
                 "title": record.get("title", ""),
-                "detail": record.get("summary", ""),
+                "detail": reader_content(record)["summary"],
                 "url": f"/evidence/{record['id']}",
                 "priority": max_priority_level(record),
             }
@@ -207,6 +208,7 @@ def _is_commercial_observation(record: dict[str, Any]) -> bool:
 
 
 def _evidence_row(record: dict[str, Any], *, entities: dict[str, dict[str, Any]], entity_id: str) -> dict[str, Any]:
+    content = reader_content(record)
     is_rights = _is_rights_record(record)
     is_commercial = _is_commercial_observation(record)
     detail = record.get("commercial_observation") or {}
@@ -233,7 +235,8 @@ def _evidence_row(record: dict[str, Any], *, entities: dict[str, dict[str, Any]]
         "date_basis": date_basis,
         "is_fallback_date": is_commercial and not detail.get("observed_at") and bool(date),
         "headline": record.get("title") or "",
-        "excerpt": record.get("summary") or "",
+        "excerpt": content["summary"],
+        "content_notice": content["notice"],
         "trust_label": "Trusted",
         "source_name": record.get("source_name") or "",
         "source_type_label": _humanize_source_type(str(record.get("source_type") or "")),

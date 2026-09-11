@@ -216,7 +216,7 @@ def test_company_profile_is_v2_and_multi_berry() -> None:
     assert ">RASPBERRY<" in html
     assert ">BLACKBERRY<" in html
     assert "What changed" in html
-    assert "Recent intelligence" in html
+    assert "Latest captured reporting" in html
     assert "Varieties / genetics" in html
     assert "Geographic activity" in html
     assert "Network / relationships" in html

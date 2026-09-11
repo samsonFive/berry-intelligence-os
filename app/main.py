@@ -61,6 +61,7 @@ from app.services.publication_review_workspace import (
     build_publication_review_dossier,
 )
 from app.services.html_text import decode_html_text
+from app.services.company_news_coverage import company_news_coverage
 from app.services.review_events import append_review_event, remove_created_event
 from app.services.source_freshness import (
     FRESHNESS_LABELS,
@@ -3413,6 +3414,9 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     evidence_idx=evidence_idx,
                 )
             if entity.get("entity_type") == "company":
+                synthesis["company_news"] = company_news_coverage(
+                    entity, published=linked_evidence, pending=pending_publication_drafts(),
+                )
                 synthesis.update(
                     company_profile_context(
                         entity,
@@ -6202,6 +6206,7 @@ def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], di
     _varieties, visible_candidates, _corpus_report = variety_candidate_universe()
     packet = build_report_packet(
         scope,
+        pending_publications=pending_publication_drafts(),
         entities=entities,
         relationships=all_relationships(),
         published_evidence=published_evidence(),
@@ -6297,6 +6302,8 @@ def report_new_page(request: Request) -> HTMLResponse:
             "handoff_report_type": handoff_report_type,
             "handoff_focus_notes": handoff_focus_notes,
             "handoff_date_window_days": handoff_date_window_days,
+            "handoff_company_names": [entity_index()[cid]["name"] for cid in str(request.query_params.get("company_ids") or "").split(",")
+                                      if cid in entity_index()] if request.query_params.get("origin") == "company" else [],
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -6365,7 +6372,8 @@ def report_new_submit(
             }
             for d in drafts
         ]
-        report_title = title.strip() or f"{REPORT_TYPE_LABELS.get(scope.report_type, scope.report_type)} — {BERRIES.get(scope.berry_id or '', scope.berry_id or 'multi-scope')}"
+        company_names = ", ".join(row["name"] for row in packet.get("companies") or [] if row.get("name")) if scope.company_ids else ""
+        report_title = title.strip() or f"{REPORT_TYPE_LABELS.get(scope.report_type, scope.report_type)} — {company_names or BERRIES.get(scope.berry_id or '', scope.berry_id or 'multi-scope')}"
         record = create_report(
             INBOX_DIR,
             title=report_title,
