@@ -1,111 +1,90 @@
 # Berry backlog human-approval handoff
 
-**Verdict:** The live article backlog was **not available** in this Cloud Agent checkout, so no article recommendations were produced. Deliverables are a ready-to-use workbook shell (Instructions + empty Review + Batches + Exceptions) plus this export request for the primary agent.
-
-## Dataset actually inspected
+## Dataset actually reviewed
 
 | Field | Value |
 |---|---|
 | Repo | `github.com/samsonFive/berry-intelligence-os` |
-| Branch / commit | `master` @ `ec801d538003c93b53679c8bcdcca5b3a3dba505` |
-| Local astra-repair path | **Not mounted** (`C:/Users/Johnny/Downloads/sscanar/berry-intelligence-os-astra-repair`) |
-| Branch `fix/astra-news-reader` | **Not on origin** |
-| `artifacts/astra-repair/REVIEW-STATUS.md` | **Missing** |
-| Runtime `inbox/` | **Missing** (gitignored; not present in checkout) |
+| Branch / commit | working tree on `cursor/berry-backlog-review-workbook-d16f` |
+| Dataset | Checked-in `data/evidence/*.json` with `auto_captured=true` |
+| Rows reviewed | **1139** |
+| Not reviewed | Runtime `inbox/` queues (absent in this checkout) |
 
-Checked-in evidence inventory on this commit:
+### Important status nuance
 
-- `data/evidence/`: **1263** published JSON records
-- Legacy unvalidated queue (`auto_captured` and not `validated`): **0**
-- Historical spreadsheet `review/review-backlog-2026-08-06.xlsx`: **1585** rows, **already fully decided** (1139 `validate` / 446 `purge`) and applied to checked-in data — **not** treated as the current open backlog
+These 1139 rows already have `validated=true` from the **2026-08-06 validate/purge spreadsheet** (1139 keep / 446 purge). That pass was a coarse keep/delete screen.
 
-## Queue inventory (keep distinct)
+They are **still commercially unreviewed**: every row’s `priority.*.rationale` still says *“not yet reviewed”*, and `why_it_matters` is empty. This workbook is that commercial batch review for offline approval while Astra repairs the app.
 
-| # | Queue | Present here? | Live count | Storage / mechanism |
-|---|---|---|---|---|
-| 1 | Legacy unvalidated evidence | Yes (empty) | **0** | `data/evidence` + `scripts/export_for_review.py` / `apply_review_decisions.py` |
-| 2 | Pending publication / article approval | No | unknown | `inbox/evidence/*.json` drafts → Promote / Reject / Dismiss |
-| 3 | Source-fidelity / content-recovery | No | unknown | `inbox/source_fidelity/artifacts/*.json` → `affirmed` / `rejected` / `needs_investigation` |
-| 4 | Atomic evidence / factual-claim review | No | unknown | drafts with `evidence_role=atomic_evidence` → approve/reject **separately** from source approval |
+Historical file `review/review-backlog-2026-08-06.xlsx` was **not** re-used as the open backlog; prior `validate` decisions are preserved in `prior_human_decision` / `current_status`. `final_decision` is left blank for you.
 
-**Boundary enforced in Instructions:** approving an article as a source must not approve claims, create facts, or authorize extraction.
+## Queue inventory (kept distinct)
 
-## Deliverables in this folder
+| Queue | Present? | Count | Notes |
+|---|---|---|---|
+| Legacy unvalidated / commercial evidence review | Yes | **1139** | Checked-in auto-captured corpus |
+| Pending publication | No | 0 | No `inbox/` in this checkout |
+| Source-fidelity / content-recovery queue | No | 0 | No fidelity artifacts here; recovery **recommendations** still appear as actions on thin snippets |
+| Atomic / claim review | No | 0 | Approving a source here does **not** approve claims or create facts |
 
-1. `berry-backlog-review.xlsx` — tabs: Instructions, Review, Batches, Exceptions
-2. `berry-backlog-review.json` — matching machine-readable scope + empty `records[]`
-3. This report
+## Recommendation totals
 
-`final_decision` is blank by design. No executable `purge` / `purge+block` recommendations were written.
+| recommended_action | Count | Meaning |
+|---|---|---|
+| validate | 608 | Confirm keep as Evidence/source |
+| reject_as_source | 175 | Recommend drop; **not** executable purge |
+| needs_content_recovery | 95 | Likely relevant; recover body before trusting content |
+| hold | 261 | Human judgment needed |
+| **final_decision** | **all blank** | For your approval |
 
-## Exports required (precise)
+### Proposed batches
 
-Have the primary coding agent (on the astra-repair / production runtime machine) produce **one combined JSON export** (preferred) or four queue files, without applying decisions:
+| Batch | Rows | Suggested action |
+|---|---|---|
+| B01_genetics_ip_varieties | 25 | validate |
+| B02_trade_export_supply | 279 | validate |
+| B03_company_maa_investment | 28 | validate |
+| B04_production_agronomy | 81 | validate |
+| B05_litigation_regulation | 24 | validate |
+| B06_trade_press_general | 171 | validate |
+| B07_consumer_fluff_reject | 15 | reject_as_source |
+| B08_offtopic_produce_reject | 159 | reject_as_source |
+| B09_false_match_reject | 1 | reject_as_source |
+| B10_content_recovery | 95 | needs_content_recovery |
+| B11_likely_duplicates | 5 | hold |
+| B12_borderline_hold | 256 | hold |
 
-### A. Legacy unvalidated (if any remain on that machine)
+Exceptions tab: **249** rows (thin content, duplicates, uncertain dates/identity, unresolved Google News wrappers, etc.).
 
-```bash
-python scripts/export_for_review.py review/legacy-unvalidated-export.xlsx
-```
+## Decision mapping for the primary agent
 
-Also emit JSON lines with at least: `id`, `title`, `source_name`, `source_url`, `published_date`, `captured_date`, `summary`, `auto_captured`, `validated`, berry/company/geo ids, `origin_domain`.
+| Workbook action | App transition |
+|---|---|
+| `validate` | `scripts/apply_review_decisions.py` → `validate` (confirm keep). No facts/claims/extraction. |
+| `reject_as_source` | Recommendation only. Map to legacy `purge` **only** after explicit human confirmation. Do **not** auto-emit `purge` / `purge+block`. |
+| `needs_content_recovery` | Not validate/purge. Route to content recovery / source-fidelity. Missing body ≠ automatic reject. |
+| `hold` / blank `final_decision` | Leave untouched. |
 
-### B. Pending publication drafts
+Hard rule: source approval ≠ claim approval ≠ fact creation ≠ extraction authorization.
 
-From runtime inbox (do not commit secrets):
+## How to use
 
-- Folder: `$INBOX_DIR/evidence/*.json` where status is not `published`/`rejected`
-- Include: `id`, `title`, `source_name`/`publisher`, `source_url`/`canonical_url`, `published_date`, `captured_date`, `summary`, berry/company/geo fields, content completeness / `article` presence flag (not necessarily full body), any existing human decision fields
-
-### C. Source-fidelity / content-recovery
-
-- Folder: `$INBOX_DIR/source_fidelity/artifacts/*.json` with `review.status == pending` (and optionally non-pending for preservation)
-- Include: `evidence_id`, `source_title`, `source_url`, `final_url`, `published_date`, `match_class`, `identity_proof`, `artifact_type`, `source_chars`, `review`, trust notices
-- Optionally attach thin trusted Evidence metadata for the linked `evidence_id`
-
-### D. Atomic / claim review
-
-- Inbox (and trusted, if in review) records with `evidence_role == "atomic_evidence"` pending review
-- Include parent publication id, claim text/summary, links, current status, any existing reviewer decision
-
-### E. Repair context
-
-Upload or push:
-
-- `artifacts/astra-repair/REVIEW-STATUS.md`
-- Branch `fix/astra-news-reader` (or the actual repair branch name)
-
-### Preferred package shape
-
-`berry-backlog-live-export.json`:
-
-```json
-{
-  "exported_at": "ISO-8601",
-  "runtime_label": "astra-repair|production|demo",
-  "git_commit": "...",
-  "queues": {
-    "legacy_unvalidated_evidence": [],
-    "pending_publication": [],
-    "source_fidelity_recovery": [],
-    "atomic_evidence_claim": []
-  }
-}
-```
-
-Re-run the backlog review against **that** package only. Do not substitute the 2026-08-06 snapshot.
-
-## How the primary agent should interpret the workbook (once filled)
-
-1. Apply only rows with non-blank `final_decision`.
-2. Honor `queue_type` — no cross-queue side effects.
-3. Map decisions per the Instructions tab (source promote ≠ fidelity affirm ≠ atomic approve).
-4. Preserve IDs/URLs; skip missing ids; report them.
-5. Do not run importers, alter blocklists, or invent company/geo/date facts.
+1. Open `berry-backlog-review.xlsx`.
+2. Start with **Batches** (filter Review by `proposed_batch`).
+3. Skim **Exceptions** separately.
+4. Enter `final_decision` only where you agree (or override).
+5. Return the workbook + JSON to the primary coding agent for safe, queue-scoped apply.
 
 ## Limitations
 
-- No pending rows were scored for commercial berry relevance.
-- No public sources were opened.
-- Feature-branch queue semantics were read from origin feature refs for mapping only; app code was not changed.
-- Local checked-in records may differ from production; this report labels the inspected dataset explicitly.
+- Judged from **title + stored snippet** only (almost all `source_url`s are Google News wrappers).
+- Public pages were not opened for every row; uncertain cases are `hold` or `needs_content_recovery`.
+- Company/geography columns only show linked entity IDs already on the record (often empty) — no inferred relationships.
+- Publication / fidelity / atomic runtime queues were unavailable here; if production has additional pending rows, export those separately and merge.
+
+## Deliverables
+
+- `berry-backlog-review.xlsx`
+- `berry-backlog-review.json`
+- `build_workbook.py` (regenerator)
+- this report
