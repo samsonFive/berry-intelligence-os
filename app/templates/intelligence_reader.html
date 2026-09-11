@@ -1,13 +1,14 @@
-{% extends "base.html" %}
+{% extends "base_stakeholder.html" %}
 {% block title %}{{ item.title }} — Berry Intelligence OS{% endblock %}
 {% block content %}
+<div class="sh-page">
 <section class="page-heading">
   <div>
     <p class="eyebrow">INTELLIGENCE READER</p>
     <h1>{{ item.title }}</h1>
     <p class="also-known-as">{{ item.source_name }}{% if item.date %} · {{ item.date|us_date }}{% endif %} · {{ item.kind_label }}</p>
   </div>
-  <a class="button-link" href="/work-queue">Back to feed</a>
+  <a class="button-link" href="/today">Back to news</a>
 </section>
 
 {% if promoted %}
@@ -22,6 +23,7 @@
 
 <div class="intel-reader">
   <article class="intel-reader-main">
+    {% if reader_content.notice %}<p class="sh-note" role="status">{{ reader_content.notice }}</p>{% endif %}
     <div class="intel-card-meta">
       <span class="badge intel-trust-{{ item.trust }}">{{ item.trust_label }}</span>
       <span class="badge badge-muted">{{ item.kind_label }}</span>
@@ -35,8 +37,8 @@
             <p id="{{ paragraph.locator }}"><small class="locator">{{ paragraph.locator }}</small> {{ paragraph.text }}</p>
           {% endfor %}
         </div>
-      {% elif record.summary %}
-        <div class="intel-body"><p>{{ record.summary }}</p></div>
+      {% elif reader_content.summary %}
+        <div class="intel-body"><p>{{ reader_content.summary }}</p></div>
       {% elif publisher_description %}
         <div class="intel-body"><p>{{ publisher_description }}</p></div>
       {% endif %}
@@ -67,7 +69,7 @@
         <dt>Cultivar</dt><dd>{{ patent.cultivar_name or '—' }}</dd>
         {% if source_authority %}<dt>Source authority</dt><dd>{{ source_authority }}</dd>{% endif %}
       </dl>
-      {% if record.summary %}<p>{{ record.summary }}</p>{% endif %}
+      {% if reader_content.summary %}<p>{{ reader_content.summary }}</p>{% endif %}
       {% if does_not_prove %}
         <div class="banner banner-warning">
           <strong>Does not prove</strong>
@@ -83,7 +85,7 @@
         </ul>
       {% endif %}
     {% else %}
-      {% if record.summary %}<div class="intel-body"><p>{{ record.summary }}</p></div>{% endif %}
+      {% if reader_content.summary %}<div class="intel-body"><p>{{ reader_content.summary }}</p></div>{% endif %}
       {% if publisher_description and publisher_description != record.summary %}<details><summary>Publisher description</summary><p>{{ publisher_description }}</p></details>{% endif %}
     {% endif %}
 
@@ -309,4 +311,5 @@
   });
 </script>
 {% endif %}
+</div>
 {% endblock %}

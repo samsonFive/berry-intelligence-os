@@ -1,218 +1,76 @@
 {% extends "base_stakeholder.html" %}
-{% block title %}Today — Berry Intelligence{% endblock %}
+{% block title %}{{ edition.window_label }} — Berry Intelligence{% endblock %}
 {% block content %}
-<div class="sh-page today-page">
-  <header class="sh-header">
+<div class="sh-page today-page" id="news-top">
+  <header class="sh-header sh-news-masthead">
     <div>
-      <p class="sh-kicker">Today</p>
-      <h1>What matters now</h1>
-      <p class="sh-lede">
-        {% if today.freshness.current_through_label %}
-          Current through {{ today.freshness.current_through_label }}.
-        {% elif today.freshness.current_through %}
-          Current through {{ today.freshness.current_through }}.
-        {% else %}
-          Publication dates below are trusted dates, not a claim that collection is current.
-        {% endif %}
-        {% if not static_build %}<a href="/radar">Emerging developments</a> · <a href="/week">What changed this week?</a>{% endif %}
-      </p>
+      <p class="sh-kicker">The global berry briefing · {{ edition.day_label }}</p>
+      <h1>Berry news, in context.</h1>
+      <p class="sh-lede">Follow the reporting. Read the source. Understand what it supports.</p>
     </div>
-    {% if not static_build %}
-    <div class="sh-header-actions">
-      <a class="sh-btn sh-btn-primary" href="/week">Refresh live intelligence</a>
-      <a class="sh-btn" href="/reports/new?{{ brief_handoff_query }}">Create leadership brief</a>
-    </div>
-    {% endif %}
+    <a class="sh-btn" href="/watches">Your watchlist</a>
   </header>
 
-  <nav class="sh-pills today-berries" aria-label="Berry filter">
-    <a href="/today" class="{% if not today.berry_id %}is-active{% endif %}">All berries</a>
-    {% if berries is mapping %}
-      {% for berry_id, berry_label in berries.items() %}
-        <a href="/today?berry={{ berry_id }}" class="{% if today.berry_id == berry_id %}is-active{% endif %}">{{ berry_label }}</a>
-      {% endfor %}
-    {% else %}
-      {% for berry in berries %}
-        <a href="/today?berry={{ berry.id }}" class="{% if today.berry_id == berry.id %}is-active{% endif %}">{{ berry.label }}</a>
-      {% endfor %}
-    {% endif %}
-  </nav>
+  <form class="sh-news-filters" method="get" action="/today" aria-label="Focus the news">
+    <div><label for="news-berry">Berry</label><select id="news-berry" name="berry">
+      <option value="">All berries</option>
+      {% for bid, label in berries.items() %}<option value="{{ bid }}" {% if edition.filters.berry == bid %}selected{% endif %}>{{ label }}</option>{% endfor %}
+    </select></div>
+    <div><label for="news-geography">Geography</label><select id="news-geography" name="geography">
+      <option value="">Global · all geographies</option>
+      {% for entity in edition.geographies %}<option value="{{ entity.id }}" {% if edition.filters.geography == entity.id %}selected{% endif %}>{{ entity.name }}</option>{% endfor %}
+    </select></div>
+    <div><label for="news-company">Company</label><select id="news-company" name="company">
+      <option value="">All companies</option>
+      {% for entity in edition.companies %}<option value="{{ entity.id }}" {% if edition.filters.company == entity.id %}selected{% endif %}>{{ entity.name }}</option>{% endfor %}
+    </select></div>
+    <div><label for="news-date">Publication date</label><select id="news-date" name="date">
+      {% for value, label in edition.windows.items() %}<option value="{{ value }}" {% if edition.filters.date == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+    </select></div>
+    <div class="sh-news-query"><label for="news-query">Find a story</label><input id="news-query" name="q" type="search" value="{{ edition.filters.q }}" placeholder="Company, variety or headline"></div>
+    <div><label for="news-timezone">Your timezone</label><input id="news-timezone" name="tz" value="{{ edition.filters.tz }}" list="news-timezones" autocomplete="off"><datalist id="news-timezones"><option value="UTC"><option value="America/Los_Angeles"><option value="America/New_York"><option value="Europe/London"><option value="Europe/Madrid"><option value="Africa/Johannesburg"><option value="Australia/Sydney"></datalist></div>
+    <button class="sh-btn sh-btn-primary" type="submit">Apply focus</button>
+    <a class="sh-btn sh-btn-quiet" href="/today?berry=&amp;date=latest&amp;tz={{ edition.filters.tz|urlencode }}">Reset</a>
+  </form>
 
-  {% if stakeholder_front.freshness_note %}
-    <p class="sh-note">{{ stakeholder_front.freshness_note }}</p>
-  {% elif front_page.stale_reason %}
-    <p class="sh-note">{{ front_page.stale_reason }}</p>
-  {% endif %}
-
-  {% if watchtower_digest and watchtower_digest.total_open %}
-  <section class="sh-section sh-section-highlight" id="needs-your-attention">
-    <h2>Needs your attention</h2>
-    <p class="sh-note">{{ watchtower_digest.headline }}{% if watchtower_digest.high_count %} — {{ watchtower_digest.high_count }} high attention{% endif %}. <a href="/watchtower">Open Watchtower</a></p>
-    <ul class="sh-story-list">
-      {% for item in watchtower_digest.top_alerts %}
-        <li>
-          <p class="sh-story-meta">
-            <span class="sh-trust sh-trust-watched">{{ item.priority }}</span>
-            <span>{{ item.trigger_label }}</span>
-          </p>
-          <p class="sh-story-title"><a href="{{ item.open_href }}">{{ item.title }}</a></p>
-          <p class="sh-story-meta"><span>Watching: {{ item.subject_label }}</span></p>
-        </li>
-      {% endfor %}
-    </ul>
-  </section>
-  {% endif %}
-
-  <section class="sh-lead" id="top-stories">
-    <h2 class="visually-hidden">Top Stories</h2>
-    <div class="sh-lead-main">
-      <p class="sh-kicker">{% if stakeholder_front.using_fallback %}Current picture{% else %}Top story{% endif %}</p>
-      {% if stakeholder_front.lead %}
-        {% with item=stakeholder_front.lead, featured=true %}{% include "_stakeholder_story.html" %}{% endwith %}
-      {% else %}
-        <h2>Top Stories</h2>
-        <p class="sh-empty">Nothing qualifies as a top story in the current window.</p>
-      {% endif %}
-    </div>
-    <div>
-      <p class="sh-kicker">Latest developments</p>
-      {% if stakeholder_front.supporting %}
-        <ul class="sh-story-list">
-          {% for item in stakeholder_front.supporting %}
-            <li>{% include "_stakeholder_story.html" %}</li>
-          {% endfor %}
-        </ul>
-      {% elif front_page.top_stories %}
-        <p class="sh-empty">No additional stories in this window.</p>
-      {% else %}
-        <p class="sh-empty">No additional developments to show beside the current picture.</p>
-      {% endif %}
-    </div>
-  </section>
-
-  <section class="sh-section" id="since-yesterday">
-    <h2>What changed in the last 24 hours</h2>
-    {% if front_page.since_yesterday.total %}
-      <p class="sh-note">
-        {{ front_page.since_yesterday.new_publications|length }} new draft{{ 's' if front_page.since_yesterday.new_publications|length != 1 else '' }},
-        {{ front_page.since_yesterday.newly_reviewed_evidence|length }} newly reviewed,
-        {{ front_page.since_yesterday.new_signals|length }} signal{{ 's' if front_page.since_yesterday.new_signals|length != 1 else '' }},
-        {{ front_page.since_yesterday.new_assessments|length }} assessment{{ 's' if front_page.since_yesterday.new_assessments|length != 1 else '' }}.
-      </p>
-    {% else %}
-      <p class="sh-empty">Nothing new in the last 24 hours.</p>
-    {% endif %}
-  </section>
-
-  {% if front_page.watchlist_matches %}
-  <section class="sh-section sh-section-highlight" id="watchlist-matches">
-    <h2>On your watchlist</h2>
-    <ul class="sh-story-list">
-      {% for item in front_page.watchlist_matches %}
-        <li>{% include "_stakeholder_story.html" %}</li>
-      {% endfor %}
-    </ul>
-  </section>
-  {% endif %}
-
-  {% if front_page.market_reality %}
-  <section class="sh-section sh-section-highlight" id="market-reality">
-    <h2>Market Reality</h2>
-    <p class="sh-note">Structured, sourced price/production/trade data -- distinct from news coverage below.</p>
-    <div class="sh-market-grid">
-      {% for card in front_page.market_reality %}
-      <article class="sh-market-card">
-        <p class="sh-story-meta">
-          <span>{{ card.commodity_label }}</span><span>{{ card.geography_label }}</span>
-        </p>
-        <p class="sh-market-headline">
-          {{ card.metric|replace('_', ' ')|title }}
-          <span class="sh-market-change sh-market-{{ card.direction }}">
-            {% if card.direction == 'up' %}▲{% elif card.direction == 'down' %}▼{% else %}—{% endif %}
-            {{ '%.1f'|format(card.pct_change|abs) }}%
-          </span>
-        </p>
-        <p class="sh-story-meta">
-          {{ '{:,.0f}'.format(card.previous_value) }} → {{ '{:,.0f}'.format(card.latest_value) }} {{ card.unit }}
-          ({{ card.previous_period }} → {{ card.latest_period }})
-        </p>
-        <p class="sh-story-meta">
-          {% if card.source_url %}<a href="{{ card.source_url }}" rel="noreferrer" target="_blank">{{ card.source }}</a>{% else %}{{ card.source }}{% endif %}
-          / {{ card.source_dataset }}
-        </p>
-      </article>
-      {% endfor %}
-    </div>
-  </section>
-  {% endif %}
-
-  {% if front_page.trusted_intelligence %}
-  <section class="sh-section sh-section-highlight" id="trusted-intelligence">
-    <h2>Trusted Intelligence</h2>
-    <p class="sh-note">Reviewed Evidence, Signals, and Assessments only -- distinct from unreviewed live/emerging material below.</p>
-    <ul class="sh-story-list">
-      {% for item in front_page.trusted_intelligence[:8] %}
-        <li>{% include "_stakeholder_story.html" %}</li>
-      {% endfor %}
-    </ul>
-  </section>
-  {% endif %}
-
-  <div class="sh-grid-2">
-    {% for section in front_page.sections %}
-      {% if section.key not in ("top_stories", "trusted_intelligence") and section.rows %}
-      <section class="sh-section" id="{{ section.key|replace('_', '-') }}">
-        <h2>{{ section.label }}</h2>
-        <ul class="sh-story-list">
-          {% for item in section.rows[:6] %}
-            <li>{% include "_stakeholder_story.html" %}</li>
-          {% endfor %}
-        </ul>
-      </section>
-      {% endif %}
-    {% endfor %}
-    {% for geo_id, region in front_page.by_region.items() %}
-      {% if region.rows %}
-      <section class="sh-section" id="region-{{ geo_id }}">
-        <h2>{{ region.label }}</h2>
-        <ul class="sh-story-list">
-          {% for item in region.rows[:5] %}
-            <li>{% include "_stakeholder_story.html" %}</li>
-          {% endfor %}
-        </ul>
-      </section>
-      {% endif %}
-    {% endfor %}
+  <div class="sh-edition-line" role="status">
+    <h2>{{ edition.window_label }}</h2>
+    <span>{{ edition.total }} stor{{ 'y' if edition.total == 1 else 'ies' }} · {{ edition.filters.tz }}</span>
   </div>
+  <p class="sh-note">Ordered by publication date. Capture and review dates do not make an old article new. Company results include linked entities and clearly named source mentions; geography requires a recorded link.</p>
 
-  {% if today.worth_revisiting and not stakeholder_front.using_fallback %}
-  <section class="sh-section" id="worth-revisiting">
-    <h2>Worth revisiting</h2>
-    <p class="sh-note">Older strategically important items. Age here does not imply freshness.</p>
-    <ul class="sh-story-list">
-      {% for item in today.worth_revisiting[:6] %}
-        <li>{% include "_stakeholder_story.html" %}</li>
-      {% endfor %}
-    </ul>
+  {% if edition.lead %}
+  <section class="sh-lead" aria-label="Leading coverage">
+    <div class="sh-lead-main">
+      <p class="sh-kicker">{% if edition.filters.date == 'archive' %}From the archive{% elif edition.filters.date == 'undated' %}Date not established{% else %}Lead story{% endif %}</p>
+      {% with item=edition.lead, featured=true %}{% include "_stakeholder_story.html" %}{% endwith %}
+    </div>
+    <div><p class="sh-kicker">More to read</p><ul class="sh-story-list">
+      {% for item in edition.supporting %}<li>{% with featured=false %}{% include "_stakeholder_story.html" %}{% endwith %}</li>{% endfor %}
+    </ul></div>
+  </section>
+  {% if edition.stream %}
+  <section class="sh-section" id="news-stream" aria-label="News stream">
+    <h2>Continue reading</h2>
+    <div class="sh-news-stream">{% for item in edition.stream %}{% with featured=false %}{% include "_stakeholder_story.html" %}{% endwith %}{% endfor %}</div>
+  </section>
+  {% endif %}
+  {% else %}
+  <section class="sh-news-empty">
+    <p class="sh-kicker">No matching reporting</p>
+    <h2>{% if edition.filters.date == 'today' %}No confirmed publication dates for today in this scope.{% else %}No stories match this edition.{% endif %}</h2>
+    <p>Try another berry, geography or company, or browse older coverage. An empty feed describes what is captured here; it does not mean nothing happened.</p>
+    <a class="sh-btn sh-btn-primary" href="{{ edition.archive_href }}">Browse the archive</a>
+    <a class="sh-btn" href="/week">Explore this week</a>
   </section>
   {% endif %}
 
-  {% if today.freshness.counts %}
-  <p class="sh-footnote sh-coverage-watch">
-    Coverage watch:
-    {{ today.freshness.counts.scheduled_sources|default(0) }} sources scheduled
-    {% if today.freshness.counts.failing %}· {{ today.freshness.counts.failing }} failing{% endif %}
-    {% if today.freshness.counts.overdue %}· {{ today.freshness.counts.overdue }} overdue{% endif %}
-    {% if monitoring.has_watches %}· {{ monitoring.watch_count }} watchlist entr{{ 'y' if monitoring.watch_count == 1 else 'ies' }}{% endif %}
-  </p>
-  {% endif %}
-
-  <p class="sh-footnote">
-    {% if today.freshness.degraded %}Collection is not fully current.{% endif %}
-    Dates are publication dates.
-    {% if not static_build %}<a href="/week">This week</a> · {% endif %}<a href="/watches">Watchlist</a>
-    · <a href="/reports">Reports</a>
-    {% if today.freshness.degraded %}· <a href="/review-ops">Analyst workspace</a>{% endif %}
-  </p>
+  <nav class="sh-pagination" aria-label="News pages">
+    {% if edition.previous %}<a class="sh-btn" href="{{ edition.previous }}">Previous page</a>{% endif %}
+    <span>Page {{ edition.page }} of {{ edition.pages }}</span>
+    {% if edition.next %}<a class="sh-btn" href="{{ edition.next }}">Next page</a>{% endif %}
+    <a href="#news-top">Back to top ↑</a>
+  </nav>
+  <p class="sh-footnote">News and source summaries retain their review status. <a href="/review-ops">Analyst workspace</a> · <a href="/sources">Collection health</a></p>
 </div>
 {% endblock %}

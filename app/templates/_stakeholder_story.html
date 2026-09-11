@@ -2,15 +2,21 @@
 {% set href = item.href or "#" %}
 {% set trust = item.trust_label or item.kind_label or "" %}
 {% set date = item.exact_date or item.age_label or item.date or "" %}
-<article class="{{ 'sh-lead-story' if featured else 'sh-story' }}">
+<article class="{{ 'sh-lead-story' if featured else 'sh-story' }}" {% if item.open_reader and not static_build %}data-intel-card data-item-id="{{ item.id }}" tabindex="0"{% endif %}>
+  {% if item.image_url %}<figure class="sh-news-image"><img src="{{ item.image_url }}" alt="" loading="lazy" referrerpolicy="no-referrer"><figcaption>Image supplied by {{ item.source_name }}</figcaption></figure>{% endif %}
   <p class="sh-story-meta">
     {% if trust %}<span class="sh-trust{% if 'propos' in trust|lower or 'unreviewed' in trust|lower %} sh-trust-proposed{% elif 'pending' in trust|lower or 'await' in trust|lower %} sh-trust-pending{% elif 'signal' in trust|lower %} sh-trust-signal{% endif %}">{{ trust }}</span>{% endif %}
     {% if item.is_watched %}<span class="sh-trust sh-trust-watched">WATCHING</span>{% endif %}
+    {% if item.company_match_label %}<span>{{ item.company_match_label }}</span>{% endif %}
     {% if item.source_name %}<span>{{ item.source_name }}</span>{% endif %}
     {% if date %}<span>{{ date }}{% if item.date_basis_label %} · {{ item.date_basis_label }}{% endif %}</span>{% endif %}
   </p>
-  <h3 class="sh-story-title"><a href="{{ href }}" {% if item.open_reader or item.id %}data-open-reader data-item-id="{{ item.id }}"{% endif %}>{{ title }}</a></h3>
+  <h3 class="sh-story-title"><a href="{{ href }}" {% if item.open_reader and not static_build %}data-open-reader data-item-id="{{ item.id }}"{% endif %}>{{ title }}</a></h3>
   {% if item.summary %}<p class="sh-story-summary">{{ item.summary }}</p>{% endif %}
+  {% if item.content_notice %}<p class="sh-content-state">{{ item.content_notice }}</p>{% endif %}
+  {% if item.entities %}<p class="sh-story-meta">{% for entity in item.entities[:3] %}<a href="/entities/{{ entity.entity_type }}/{{ entity.id }}">{{ entity.name }}</a>{% endfor %}</p>{% endif %}
+  {% if not item.geography_ids %}<p class="sh-story-meta">Geography not established</p>{% endif %}
+  {% if item.open_reader and not static_build %}<a class="sh-read-link" href="{{ href }}" data-open-reader data-item-id="{{ item.id }}">Read story <span aria-hidden="true">→</span></a>{% endif %}
   {% if item.strategic_question_ids %}
     <p class="sh-story-sq">Related Strategic Question{{ 's' if item.strategic_question_ids|length != 1 else '' }}:
       {% for sq_id in item.strategic_question_ids %}<a href="/strategic-questions/{{ sq_id }}">{{ sq_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}

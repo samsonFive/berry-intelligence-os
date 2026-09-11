@@ -1,0 +1,24 @@
+{
+  "id": "company-california-giant-berry-farms",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "California Giant Berry Farms",
+  "aliases": ["California Giant", "Cal Giant", "California Giant, Inc."],
+  "status": "active",
+  "description": "California-based fresh berry company working with a grower network across strawberries, blueberries, raspberries and blackberries. Company reporting can be recalled by its canonical name and aliases; a mention does not establish a genetics or ownership relationship.",
+  "roles": ["grower", "marketer"],
+  "berry_ids": ["berry-strawberry", "berry-blueberry", "berry-raspberry", "berry-blackberry"],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "country": "United States",
+    "website": "https://www.calgiant.com/",
+    "identity_sources": [
+      "https://www.calgiant.com/about-us/",
+      "https://www.calgiant.com/wp-content/uploads/2024/06/California-Giant-Impact-Report-2023-Final.pdf"
+    ],
+    "identity_verified_date": "2026-09-11",
+    "identity_note": "The 2023 corporate impact report identifies California Giant Berry Farms as California Giant, Inc. Affiliates remain separate entities. No trusted factual claims or relationships were created by this identity repair."
+  }
+}

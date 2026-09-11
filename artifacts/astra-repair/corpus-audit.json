@@ -1,0 +1,242 @@
+{
+  "scope": "Checked-in data at c0de14c; production not copied",
+  "records": 1269,
+  "contaminated_count": 71,
+  "contaminated_examples": [
+    {
+      "id": "ev-20260806173541-65a1-jc-clinard-taylor-hazelwood-and-more-dis",
+      "title": "JC Clinard, Taylor Hazelwood, and More Discuss Company Evolution 2.5 Years After Frutura Acquired Sun Belle - AndNowUKnow",
+      "published_date": "2026-05-06"
+    },
+    {
+      "id": "ev-20260806173544-2da8-california-berry-cultivars-expands-premi",
+      "title": "California Berry Cultivars Expands Premium Variety Portfolio with Castaic and Alhambra; Kyle VandenLangenberg Comments - AndNowUKnow",
+      "published_date": "2025-03-13"
+    },
+    {
+      "id": "ev-20260806173545-f34a-california-resources-completes-acquisiti",
+      "title": "California Resources completes acquisition of Berry Corp, BRY shares delisted from Nasdaq - Investing.com",
+      "published_date": "2025-12-18"
+    },
+    {
+      "id": "ev-20260806173546-167d-driscoll-s-takes-significant-stake-in-co",
+      "title": "Driscoll\u2019s Takes Significant Stake in Costa Group; Soren Bjorn Comments - AndNowUKnow",
+      "published_date": "2024-02-26"
+    },
+    {
+      "id": "ev-20260806173546-3060-venturefruit-strengthens-north-american-",
+      "title": "VentureFruit Strengthens North American Footprint Through New Strategic Berry Partnership; Morgan Rogers and Joe Barsi Detail - AndNowUKnow",
+      "published_date": "2026-02-20"
+    },
+    {
+      "id": "ev-20260806173546-668f-red-sun-farms-announces-partnership-with",
+      "title": "Red Sun Farms Announces Partnership with OZblu Blueberries for Expansion into North America - AndNowUKnow",
+      "published_date": "2019-02-07"
+    },
+    {
+      "id": "ev-20260806173546-f046-double-diamond-farms-launches-liberty-na",
+      "title": "Double Diamond Farms Launches Liberty Natural with Gene Simmons - AndNowUKnow",
+      "published_date": "2018-10-18"
+    },
+    {
+      "id": "ev-20260806173547-c581-california-berry-genetics-expands-bluebe",
+      "title": "California Berry Genetics Expands Blueberry Industry with New Varieties - AndNowUKnow",
+      "published_date": "2023-11-01"
+    },
+    {
+      "id": "ev-20260806173548-669f-investors-in-namibia-s-blueberry-industr",
+      "title": "Investors in Namibia\u2019s blueberry industry aim for the big leagues - Farmer's Weekly SA",
+      "published_date": "2025-10-01"
+    },
+    {
+      "id": "ev-20260806173548-d3f7-california-giant-berry-farms-welcomes-to",
+      "title": "California Giant Berry Farms Welcomes Tom Smith as VP of Sales and Marketing, Signals Strong Forward Momentum with Strategic Team Expansion; Joe Barsi Comments - AndNowUKnow",
+      "published_date": "2026-06-04"
+    }
+  ],
+  "cal_giant_entities": [],
+  "cal_giant_reporting": [
+    {
+      "id": "ev-20260806173546-04ff-venturefruit-strengthens-north-american-",
+      "title": "VentureFruit strengthens North American footprint through new strategic berry partnership - FreshFruitPortal.com",
+      "published_date": "2026-02-20",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173546-0fde-venturefruit-partners-with-california-gi",
+      "title": "VentureFruit Partners With California Giant to Bring Premium Berry Genetics to North America - The Packer",
+      "published_date": "2026-02-27",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173547-c062-ohalo-launches-the-ohalo-strawberry-cons",
+      "title": "Ohalo\u00ae Launches the Ohalo Strawberry Consortium: A Groundbreaking Collaboration with Industry Leaders to Develop More Flavorful Strawberries While Benefiting Farmers by Bringing Them to Market as True Seed - The Daily Astorian",
+      "published_date": "2025-03-10",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173548-d3f7-california-giant-berry-farms-welcomes-to",
+      "title": "California Giant Berry Farms Welcomes Tom Smith as VP of Sales and Marketing, Signals Strong Forward Momentum with Strategic Team Expansion; Joe Barsi Comments - AndNowUKnow",
+      "published_date": "2026-06-04",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173550-2807-california-giant-berry-farms-forecasts-s",
+      "title": "California Giant Berry Farms Forecasts Strong Pacific Northwest Blueberry Supplies; Markus Duran Comments - AndNowUKnow",
+      "published_date": "2024-06-24",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173550-d96f-california-giant-berry-farms-announces-r",
+      "title": "California Giant Berry Farms Announces Robust Strawberry Forecast; Brad Peterson Comments - AndNowUKnow",
+      "published_date": "2026-04-01",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173609-f020-california-giant-berry-farms-tim-youmans",
+      "title": "California Giant Berry Farms' Tim Youmans Shares Details of Southern Exposure Showcase - AndNowUKnow",
+      "published_date": "2025-02-24",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173609-f898-new-berry-product-in-the-spotlight-fresh",
+      "title": "New berry product in the spotlight - FreshPlaza",
+      "published_date": "2026-02-09",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173852-430c-strong-forecast-for-winter-strawberries-",
+      "title": "Strong forecast for winter strawberries - bluebookservices.com",
+      "published_date": "2021-12-14",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173852-870f-california-giant-berry-farms-sees-strong",
+      "title": "California Giant Berry Farms sees strong volumes - The Packer",
+      "published_date": "2025-01-21",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173852-d071-california-giant-berry-farms-expects-str",
+      "title": "California Giant Berry Farms expects strong fall strawberry harvest - The Packer",
+      "published_date": "2022-10-07",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173853-d3c7-california-giant-berry-farms-ramps-up-or",
+      "title": "California Giant Berry Farms Ramps Up Organic and Conventional Production - AndNowUKnow",
+      "published_date": "2020-10-06",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173903-45df-california-giant-berry-farms-winter-seas",
+      "title": "California Giant Berry Farms winter season blues - The Packer",
+      "published_date": "2021-11-29",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173903-7901-california-giant-berry-farms-tim-youmans",
+      "title": "California Giant Berry Farms' Tim Youmans Shares Blueberry Season Update - AndNowUKnow",
+      "published_date": "2026-01-28",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173913-1e6d-40th-anniversary-celebrated-california-g",
+      "title": "40th Anniversary Celebrated: California Giant Berry Farms remains focused on berry category - Produce News",
+      "published_date": "2023-10-04",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173913-20f4-california-giant-berry-farms-details-pac",
+      "title": "California Giant Berry Farms Details Pacific Northwest Blueberry Harvests - Perishable News",
+      "published_date": "2025-07-22",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806175533-281f-california-giant-boosts-blueberry-offer-",
+      "title": "California Giant boosts blueberry offer - Fruitnet",
+      "published_date": "2014-01-07",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806181227-53a3-california-giant-berry-farms-forecasts-s",
+      "title": "California Giant Berry Farms forecasts strong strawberry season - The Packer",
+      "published_date": "2025-04-01",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806181227-9232-california-giant-berry-farms-details-str",
+      "title": "California Giant Berry Farms Details Strawberry Outlook, Forecasts Strong California Strawberry Season; Tim Youmans Comments - AndNowUKnow",
+      "published_date": "2025-04-02",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806181227-e791-california-giant-berry-farms-announces-a",
+      "title": "California Giant Berry Farms Announces Abundant Strawberry Crop for National Strawberry Month - Forecasts High Spring and Summer Yields; Tim Youmans Comments - AndNowUKnow",
+      "published_date": "2025-05-13",
+      "entity_ids": []
+    }
+  ],
+  "historical_examples": [
+    {
+      "id": "ev-20260806173538-5271-breeding-better-blueberries-nc-state-uni",
+      "title": "Breeding Better Blueberries - NC State University",
+      "published_date": "2017-06-26",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "id": "ev-20260806173540-178b-jury-sides-with-uc-davis-in-strawberry-b",
+      "title": "Jury Sides With UC Davis in Strawberry Breeding Trial - UC Davis",
+      "published_date": "2017-05-23",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "id": "ev-20260806173540-ffd0-public-strawberry-breeding-program-backg",
+      "title": "Public Strawberry Breeding Program Backgrounder: Frequently Asked Questions - UC Davis",
+      "published_date": "2017-05-08",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "id": "ev-20260806173556-0978-how-driscoll-s-reinvented-the-strawberry",
+      "title": "How Driscoll\u2019s Reinvented the Strawberry - The New Yorker",
+      "published_date": "2017-08-14",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "id": "ev-20260806173609-2ffe-room-for-berry-category-growth-produce-b",
+      "title": "Room for Berry Category Growth - Produce Business",
+      "published_date": "2017-03-01",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "id": "ev-20260806173842-2f7b-bitter-court-fight-over-millions-in-swee",
+      "title": "Bitter Court Fight Over Millions in Sweet Strawberries - Courthouse News",
+      "published_date": "2017-05-16",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "id": "ev-20260806173842-3bf7-column-the-university-of-california-wins",
+      "title": "Column: The University of California wins a jury verdict in strawberry case, then gets blasted by the judge - Los Angeles Times",
+      "published_date": "2017-05-25",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "id": "ev-20260806173848-4f85-costa-takes-reins-of-african-blue-fruitn",
+      "title": "Costa takes reins of African Blue - Fruitnet",
+      "published_date": "2017-11-03",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "id": "ev-20260806173853-e952-delfrescopure-announces-phase-one-of-ten",
+      "title": "DelFrescoPure\u00ae Announces Phase One of Ten Acre Expansion - AndNowUKnow",
+      "published_date": "2017-10-04",
+      "captured_date": "2026-08-06"
+    },
+    {
+      "id": "ev-20260806173913-6dfa-imported-berries-can-boost-year-round-ca",
+      "title": "Imported Berries Can Boost Year-Round Category Sales - Produce Business",
+      "published_date": "2017-11-23",
+      "captured_date": "2026-08-06"
+    }
+  ]
+}

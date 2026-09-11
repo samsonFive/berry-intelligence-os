@@ -20,9 +20,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime, timezone
 import hashlib
+from html.parser import HTMLParser
 import re
 from typing import Any
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urljoin
 
 import httpx
 import trafilatura
@@ -106,6 +107,7 @@ class ArticleBody:
     title: str | None = None
     published_date: str | None = None
     language: str | None = None
+    image_url: str | None = None
 
     @property
     def full_text(self) -> str:
@@ -122,6 +124,9 @@ class ArticleBody:
             "title": self.title,
             "published_date": self.published_date,
             "language": self.language,
+            "image_url": self.image_url,
+            "image_source_url": (self.final_url or self.source_url) if self.image_url else None,
+            "published_date_basis": "publisher_metadata" if self.published_date else "unknown",
             "acquisition": {
                 "method": "readable_text_extraction",
                 "extractor": self.extractor,
@@ -134,6 +139,35 @@ class ArticleBody:
 
 def _now_iso() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def publisher_image(html: str, page_url: str) -> str | None:
+    """Only explicit publisher social metadata; never substitute stock imagery."""
+    class Metadata(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.images = {}
+
+        def handle_starttag(self, tag, attrs):
+            fields = dict(attrs)
+            key = (fields.get("property") or fields.get("name") or "").lower()
+            if tag == "meta" and key in {"og:image", "twitter:image"}:
+                self.images.setdefault(key, fields.get("content") or "")
+
+    parser = Metadata()
+    parser.feed(html)
+    for key in ("og:image", "twitter:image"):
+        value = parser.images.get(key, "").strip()
+        if not value:
+            continue
+        try:
+            resolved = urljoin(page_url, value)
+            parts = urlparse(resolved)
+            if parts.scheme in {"https", "http"} and parts.hostname and not parts.username and not parts.password:
+                return resolved
+        except ValueError:
+            continue
+    return None
 
 
 _SCRIPT_STYLE_RE = re.compile(r"<(script|style)\b[^>]*>.*?</\1>", re.IGNORECASE | re.DOTALL)
@@ -277,6 +311,9 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
         raise ArticleAcquisitionError(f"extractor returned malformed output for {url}: {exc}", category="malformed_html") from exc
 
     body_text = (extracted.get("text") or "").strip()
+    from app.services.source_body import looks_like_interstitial
+    if looks_like_interstitial(body_text):
+        raise ArticleAcquisitionError("Extracted content is a consent or access screen", category="interstitial")
     if len(body_text) < MIN_BODY_CHARS:
         raise ArticleAcquisitionError(
             f"extracted body too short ({len(body_text)} chars) at {url} -- likely not a real article page",
@@ -300,6 +337,7 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
         title=extracted.get("title") or None,
         published_date=extracted.get("date") or None,
         language=extracted.get("language") or None,
+        image_url=publisher_image(html, str(response.url)),
     )
 
 

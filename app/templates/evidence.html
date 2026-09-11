@@ -1,6 +1,9 @@
-{% extends "base.html" %}
+{% extends "base_stakeholder.html" %}
+{% set record = safe_source_record(record) %}
 {% block title %}{{ record.title }}{% endblock %}
 {% block content %}
+<div class="sh-page">
+{% if record.content_notice %}<p class="sh-note" role="status">{{ record.content_notice }}</p>{% endif %}
 <section class="page-heading" data-pagefind-filter="type:evidence" data-pagefind-sort="date:{{ record.published_date or record.captured_date }}"><div><p class="eyebrow">EVIDENCE — {{ record.source_type|replace('_',' ')|upper }}</p><h1>{{ record.title }}</h1></div></section>
 {% if record.auto_captured and not record.validated %}
   <div class="banner banner-warning auto-captured-banner" role="status">
@@ -184,4 +187,5 @@
   {% endif %}
 
 </article>
+</div>
 {% endblock %}

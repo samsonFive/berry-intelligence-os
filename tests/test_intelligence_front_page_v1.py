@@ -538,14 +538,17 @@ def test_today_coverage_watch_is_ttl_cached_not_recomputed_every_request(monkeyp
 def test_front_page_route_smoke(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
     monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
-    monkeypatch.setattr(main, "published_evidence", lambda: [_evidence("ev-smoke", published="2026-08-31", captured="2026-08-31")])
+    monkeypatch.setattr(main, "published_evidence", lambda: [_evidence("ev-smoke", published="2026-08-31", captured="2026-08-31", title="Blueberry harvest update")])
     monkeypatch.setattr(main, "all_signals", lambda: [])
     monkeypatch.setattr(main, "all_assessments", lambda: [])
     monkeypatch.setattr(main, "load_sources", lambda: [])
-    monkeypatch.setattr(main, "pending_publication_drafts", lambda: [_draft("ev-smoke-draft", captured="2026-08-31")])
+    monkeypatch.setattr(main, "pending_publication_drafts", lambda: [_draft("ev-smoke-draft", captured="2026-08-31", title="Blueberry crop condition")])
     monkeypatch.setattr(main, "all_entities", lambda: [])
     monkeypatch.setattr(main, "all_relationships", lambda: [])
-    page = TestClient(main.app).get("/today")
+    page = TestClient(main.app).get("/today?date=archive")
     assert page.status_code == 200
-    assert "FRESH / UNREVIEWED" in page.text
+    assert "Draft ev-smoke-draft" not in page.text
+    undated = TestClient(main.app).get("/today?date=undated")
+    assert "FRESH / UNREVIEWED" in undated.text
+    assert "Date not established" in undated.text
     assert "REVIEWED EVIDENCE" in page.text

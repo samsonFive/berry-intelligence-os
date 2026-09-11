@@ -8,7 +8,7 @@ from __future__ import annotations
 from typing import Any
 
 from app.services.html_text import decode_html_text
-from app.services.intelligence_feed import article_paragraphs
+import re
 
 INTERSTITIAL_SIGNALS = (
     "before you continue to google",
@@ -27,6 +27,8 @@ INTERSTITIAL_SIGNALS = (
     "sign in to continue",
     "subscribe to continue reading",
     "this content is for subscribers only",
+    "this website uses a security service to protect against malicious bots",
+    "this page is displayed while the website verifies you are not a bot",
 )
 
 BODY_STATE_LABELS = {
@@ -41,6 +43,7 @@ BODY_STATE_LABELS = {
 
 
 def article_full_text(record: dict[str, Any]) -> str:
+    from app.services.intelligence_feed import article_paragraphs
     paragraphs = article_paragraphs(record)
     if paragraphs:
         return "\n\n".join(decode_html_text(row.get("text") or "") for row in paragraphs if row.get("text"))
@@ -52,7 +55,40 @@ def looks_like_interstitial(text: str) -> bool:
     haystack = decode_html_text(text).casefold()
     if not haystack:
         return False
-    return any(signal in haystack for signal in INTERSTITIAL_SIGNALS)
+    # An incidental footer is not an access wall. Evaluate independent prose
+    # blocks so a real article mentioning a cookie policy remains usable.
+    blocks = [b.strip() for b in re.split(r"\n+|(?<=[.!?])\s+", haystack) if b.strip()]
+    wall = [b for b in blocks if any(s in b for s in INTERSTITIAL_SIGNALS)
+            or any(s in b for s in ("accept all cookies", "manage consent", "cookie preferences", "reject all cookies"))]
+    useful = [b for b in blocks if b not in wall and len(b.split()) >= 12]
+    return bool(wall) and (not useful or sum(map(len, wall)) >= len(haystack) * .4)
+
+
+def reader_content(record: dict[str, Any]) -> dict[str, Any]:
+    """Read-time protection also covers old records without rewriting history."""
+    body = classify_source_body(record)
+    contaminated = body["state"] == "interstitial"
+    candidates = [record.get("summary"), record.get("publisher_description")]
+    summary = next((decode_html_text(s) for s in candidates
+                    if s and not looks_like_interstitial(str(s))), "")
+    if contaminated:
+        summary = ""
+    return {
+        **body,
+        "summary": summary,
+        "contaminated": contaminated,
+        "notice": ("Article text could not be recovered: the stored page contains consent or access-screen text. Open the original source to read it."
+                   if contaminated else
+                   "Limited source content: only a publisher description or summary is available."
+                   if not body["usable_in_app"] else ""),
+    }
+
+
+def safe_source_record(record: dict[str, Any]) -> dict[str, Any]:
+    """Template projection; original fields and review history stay on disk."""
+    content = reader_content(record)
+    return {**record, "summary": content["summary"], "content_notice": content["notice"],
+            "why_it_matters": "" if content["contaminated"] else record.get("why_it_matters", "")}
 
 
 def classify_source_body(record: dict[str, Any]) -> dict[str, Any]:

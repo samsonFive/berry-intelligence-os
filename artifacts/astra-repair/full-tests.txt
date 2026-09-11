@@ -1,0 +1,360 @@
+........................................................................ [  2%]
+........................................................................ [  5%]
+........................................................................ [  8%]
+....................................................................F... [ 10%]
+.............FF...............F......................................... [ 13%]
+......................................................F................. [ 16%]
+........................................................................ [ 19%]
+........................................................................ [ 21%]
+........................................................................ [ 24%]
+........................................................................ [ 27%]
+........................................................................ [ 30%]
+........................................................................ [ 32%]
+...............................F........................................ [ 35%]
+........................................................................ [ 38%]
+........................................................................ [ 41%]
+........................................................................ [ 43%]
+..........................................F..................FF......... [ 46%]
+........................................................................ [ 49%]
+........................................................................ [ 51%]
+........................................................................ [ 54%]
+........................................................................ [ 57%]
+........................................................................ [ 60%]
+........................................................................ [ 62%]
+........................................................................ [ 65%]
+........................................................................ [ 68%]
+........................................................................ [ 71%]
+........................................................................ [ 73%]
+........................................................................ [ 76%]
+........................................................................ [ 79%]
+........................................................................ [ 82%]
+........................................................................ [ 84%]
+........................................................................ [ 87%]
+........................................................................ [ 90%]
+........................................................................ [ 92%]
+........................................................................ [ 95%]
+............................................F........................... [ 98%]
+..........................................                               [100%]
+================================== FAILURES ===================================
+_____ test_today_is_a_morning_console_with_source_problems_and_next_work ______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000028702A40BB0>
+tmp_path = WindowsPath('C:/Users/Johnny/Downloads/sscanar/berry-intelligence-os-astra-repair/.astra-tests-full/test_today_is_a_morning_consol0')
+
+    def test_today_is_a_morning_console_with_source_problems_and_next_work(monkeypatch, tmp_path: Path) -> None:
+        monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
+        monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
+        (tmp_path / "inbox").mkdir(parents=True, exist_ok=True)
+        main._NAV_WORK_CACHE["key"] = None
+        main._NAV_WORK_CACHE["value"] = None
+        expected = {
+            "system_state": "DEGRADED",
+            "current_through": "2026-08-24T12:00:00+00:00",
+            "last_successful_collection": "2026-08-24T12:00:00+00:00",
+            "last_new_intelligence": "2026-08-24T11:58:00+00:00",
+            "can_claim_current": False,
+            "counts": {"scheduled_sources": 73, "overdue": 2, "failing": 1, "blocked": 0},
+        }
+        monkeypatch.setattr("app.services.today.build_runtime_freshness", lambda **_kwargs: expected.copy())
+        monkeypatch.setattr(main, "published_evidence", lambda: [_ev("new-low", "2026-08-24")])
+        monkeypatch.setattr(main, "all_signals", lambda: [])
+        monkeypatch.setattr(main, "all_assessments", lambda: [])
+        monkeypatch.setattr(main, "load_sources", lambda: [])
+        page = TestClient(main.app).get("/today")
+        assert page.status_code == 200
+>       assert "What matters now" in page.text
+E       assert 'What matters now' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>'
+E        +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>' = <Response [200 OK]>.text
+
+tests\test_analyst_dogfood_ux.py:62: AssertionError
+__________ test_nav_uses_action_badges_not_raw_inventory_for_review ___________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000028716AF9160>
+tmp_path = WindowsPath('C:/Users/Johnny/Downloads/sscanar/berry-intelligence-os-astra-repair/.astra-tests-full/test_nav_uses_action_badges_no0')
+
+    def test_nav_uses_action_badges_not_raw_inventory_for_review(monkeypatch, tmp_path: Path) -> None:
+        _isolate(monkeypatch, tmp_path)
+        repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+        _seed(repos, [])
+        client = TestClient(app)
+        home = client.get("/")
+>       assert "need review" in home.text or "Publications" in home.text
+E       assert ('need review' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>' or 'Publications' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>')
+E        +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>' = <Response [200 OK]>.text
+E        +  and   '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>' = <Response [200 OK]>.text
+
+tests\test_analyst_queue.py:238: AssertionError
+______________________ test_home_renders_sample_evidence ______________________
+
+    def test_home_renders_sample_evidence() -> None:
+        response = client.get("/")
+        assert response.status_code == 200
+>       assert "Example breeder announces" in response.text
+E       assert 'Example breeder announces' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>'
+E        +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>' = <Response [200 OK]>.text
+
+tests\test_app.py:18: AssertionError
+_______ test_feed_page_renders_competitor_and_geography_filter_options ________
+
+    def test_feed_page_renders_competitor_and_geography_filter_options() -> None:
+        response = client.get("/")
+        assert response.status_code == 200
+>       assert "Competitor" in response.text
+E       assert 'Competitor' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>'
+E        +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>' = <Response [200 OK]>.text
+
+tests\test_app.py:160: AssertionError
+___ test_feed_shows_linked_geography_tags_and_suppresses_redundant_summary ____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002870366A580>
+tmp_path = WindowsPath('C:/Users/Johnny/Downloads/sscanar/berry-intelligence-os-astra-repair/.astra-tests-full/test_feed_shows_linked_geograp0')
+
+    def test_feed_shows_linked_geography_tags_and_suppresses_redundant_summary(monkeypatch, tmp_path) -> None:
+        _isolate(monkeypatch, tmp_path)
+        main.save_evidence(
+            {
+                "id": "ev-fictional-auto-tagged",
+                "record_type": "evidence",
+                "status": "published",
+                "source_type": "news_search",
+                "title": "Fictional headline about Peru blueberries",
+                "source_name": "Fictional Publisher",
+                "source_url": "https://example.invalid/x",
+                "captured_date": "2026-01-01",
+                "summary": "Fictional headline about Peru blueberries&nbsp;&nbsp;Fictional Publisher",
+                "submitted_by": "tester",
+                "auto_captured": True,
+                "validated": False,
+                "auto_tagged": True,
+                "geography_ids": ["geography-peru"],
+                "entity_ids": [],
+                "priority": {dim: {"level": "none", "rationale": ""} for dim in main.PRIORITY_DIMENSIONS},
+            }
+        )
+    
+        response = client.get("/")
+    
+>       assert "Peru" in response.text
+E       assert 'Peru' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>'
+E        +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>' = <Response [200 OK]>.text
+
+tests\test_app.py:1706: AssertionError
+_____________ test_every_live_entity_resolves_to_a_declared_type ______________
+
+    def test_every_live_entity_resolves_to_a_declared_type() -> None:
+        # BL-019's own stated acceptance criterion, checked per-entity, not just
+        # per-distinct-type.
+        declared = {t["id"] for t in _load("entity-types.json")["entity_types"]}
+        total = 0
+        for f in glob.glob(str(ROOT / "data" / "entities" / "*" / "*.json")):
+            record = json.loads(Path(f).read_text(encoding="utf-8"))
+            assert record.get("entity_type") in declared, f"{f}: entity_type {record.get('entity_type')!r} not declared"
+            total += 1
+        # 164 = 162 plus two real company entities (SanLucar, USHBC) added for
+        # the Freshness + Company News Recall sprint's deterministic-matching
+        # coverage -- both real, already-referenced organizations that had no
+        # entity record at all, discovered via a real recall-test gap check.
+        # 173 = 164 plus 9 real entities added for the multi-berry portability
+        # audit (2026-08-20): berry-strawberry/berry-raspberry/berry-blackberry
+        # (the platform referenced these berry_ids everywhere but shipped no
+        # resolvable entity, same gap berry-blueberry itself documents having
+        # already had); company-california-berry-cultivars, company-the-summer-
+        # berry-company, company-plant-sciences-genetics (real companies backing
+        # already-existing but previously unlinked strawberry/raspberry/
+        # blackberry Evidence); breeding_program-uc-davis-strawberry; and
+        # trait-fruiting-habit/trait-flowering-habit (primocane/floricane and
+        # day-neutral/short-day -- categorical variety traits with no blueberry
+        # equivalent, absent from the original blueberry-only trait vocabulary).
+        # 184 = 173 plus 11 real entities added for the Strawberry Vertical V1
+        # depth mission (2026-08-20): company-nova-siri-genetics, company-civ-
+        # italy, company-eurosemillas, company-rijk-zwaan, company-freshuelva
+        # (5 real companies/breeders/associations backing already-existing but
+        # previously unlinked strawberry Evidence -- Melissa/Marimbella,
+        # Flavia, the former UC Davis strawberry licensee, a genuine
+        # cross-berry breeder, and the Huelva growers' association);
+        # breeding_program-njaes-rutgers-strawberry (1); and 5 real variety
+        # entities with a named breeder in Evidence (variety-redsayra,
+        # variety-melissa, variety-marimbella, variety-flavia, variety-
+        # rutgers-dlight).
+        # 202 = 184 plus 18 real entities added for the Raspberry Vertical V1
+        # depth mission (2026-08-20): company-wish-farms, company-global-plant-
+        # genetics, company-james-hutton-ltd, company-chambers, company-
+        # berrytech (5 real companies/breeders backing already-existing but
+        # previously unlinked raspberry Evidence); breeding_program-cornell-
+        # berry (1); trait-fruit-color (1, a real generic gap found while
+        # adding Cornell's Crimson Treasure, whose own coverage described
+        # "vibrant colors" with no existing trait to record it against); and
+        # 11 real raspberry varieties with a named real breeder in Evidence
+        # (variety-double-gold, variety-crimson-night, variety-crimson-
+        # treasure, variety-malaika, variety-zawadi, variety-sarafina,
+        # variety-rafiki, variety-baridi, variety-shani, variety-kwanza,
+        # variety-amalia-rossa).
+        # 211 = 202 plus 9 real entities added for the Variety Intelligence
+        # Backbone V1 mission (2026-08-21): variety-zara and variety-victoria
+        # (2, real multi-source-confirmed Driscoll's commercial names --
+        # Victoria is blackberry's first variety entity), geography-united-
+        # kingdom (1, a real gap: the platform's own first retail-observation
+        # pilot market had no Geography entity at all), and 6 real UK
+        # retailers (retailer-tesco, retailer-sainsburys, retailer-waitrose,
+        # retailer-marks-and-spencer, retailer-morrisons, retailer-asda) for
+        # the UK retail commercial-observation pilot.
+        # 218 = 211 plus 7 real entities added for the Caneberry Variety + Actor
+        # Expansion V1 mission (2026-08-22): company-nc-state-university,
+        # company-onubafruit (2 real organizations, each grounded in trusted
+        # Evidence and needed for a real relationship); variety-ervin,
+        # variety-ponca, variety-ouachita, variety-bk-6-13 (4 real blackberry
+        # varieties found by systematically searching trusted Evidence, not
+        # merely the mission brief's 3 named examples -- Ponca/Ouachita were
+        # found this way); brand-rejoice (1, modeled as a brand/platform per
+        # the existing BluGenix/Eterna precedent, with BK 6-13 as its one
+        # evidenced component variety, not force-fit into a single cultivar).
+        # Yosemite (Planasa) was deliberately NOT added: its only grounding
+        # Evidence remains an unreviewed inbox/ draft, failing the same
+        # trust-gate every existing Variety entity meets.
+        # 221 = 218 plus 3 real continent-level Geography entities added for the
+        # Intelligence Front Page V1 mission (2026-09-01): geography-africa,
+        # geography-americas, geography-apac. The prior Geographic Intelligence
+        # Resolution V1 mission deliberately left every country outside Europe/
+        # North America without a continent parent because no such entity
+        # existed yet; the front page's required "By Region" section (Americas,
+        # Europe, Africa, APAC) needed it completed. See
+        # scripts/generate_geography_regions_v2.py for the real UN M49 (Africa,
+        # Americas) and documented industry-convention (APAC, explicitly not a
+        # UN M49 region) citations backing these entities.
+>       assert total == 221, f"expected 221 live entities, found {total}"
+E       AssertionError: expected 221 live entities, found 222
+E       assert 222 == 221
+
+tests\test_domain_pack.py:228: AssertionError
+____________________ test_today_and_nav_point_at_this_week ____________________
+
+    def test_today_and_nav_point_at_this_week():
+        page = TestClient(app).get("/today")
+        assert page.status_code == 200
+        assert ">This week<" in page.text
+>       assert "What changed this week?" in page.text
+E       assert 'What changed this week?' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>'
+E        +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>' = <Response [200 OK]>.text
+
+tests\test_global_week_intelligence_v1.py:471: AssertionError
+_____________ test_today_route_console_help_and_no_trust_mutation _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002871B168E50>
+tmp_path = WindowsPath('C:/Users/Johnny/Downloads/sscanar/berry-intelligence-os-astra-repair/.astra-tests-full/test_today_route_console_help_0')
+
+    def test_today_route_console_help_and_no_trust_mutation(monkeypatch, tmp_path: Path) -> None:
+        inbox = tmp_path / "inbox"
+        inbox.mkdir(parents=True, exist_ok=True)
+        monkeypatch.setattr(main, "INBOX_DIR", inbox)
+        monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
+        main._NAV_WORK_CACHE["key"] = None
+        main._NAV_WORK_CACHE["value"] = None
+        add_watch(inbox, "company", "company-planasa")
+        expected = {
+            "system_state": "DEGRADED",
+            "current_through": "2026-08-24T12:00:00+00:00",
+            "last_successful_collection": "2026-08-24T12:00:00+00:00",
+            "last_collection_attempt": "2026-08-24T12:05:00+00:00",
+            "last_new_intelligence": "2026-08-24T11:58:00+00:00",
+            "can_claim_current": False,
+            "retrying_count": 1,
+            "counts": {"scheduled_sources": 73, "overdue": 2, "failing": 1, "blocked": 0, "retrying": 1},
+        }
+        monkeypatch.setattr("app.services.today.build_runtime_freshness", lambda **_kwargs: expected.copy())
+        monkeypatch.setattr(main, "published_evidence", lambda: [_ev("new-low", "2026-08-24")])
+        monkeypatch.setattr(main, "all_signals", lambda: [])
+        monkeypatch.setattr(main, "all_assessments", lambda: [])
+        monkeypatch.setattr(main, "load_sources", lambda: [])
+        before = load_watches(inbox)[0]
+        assert before["last_seen_at"] is None
+        page = TestClient(main.app).get("/today")
+        assert page.status_code == 200
+        html = page.text
+>       assert "Top Stories" in html
+E       assert 'Top Stories' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>'
+
+tests\test_guided_analyst_experience_v1.py:118: AssertionError
+_______________________ test_today_sparse_empty_states ________________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002871BF6A0B0>
+tmp_path = WindowsPath('C:/Users/Johnny/Downloads/sscanar/berry-intelligence-os-astra-repair/.astra-tests-full/test_today_sparse_empty_states0')
+
+    def test_today_sparse_empty_states(monkeypatch, tmp_path: Path) -> None:
+        inbox = tmp_path / "inbox"
+        inbox.mkdir(parents=True, exist_ok=True)
+        monkeypatch.setattr(main, "INBOX_DIR", inbox)
+        monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
+        main._NAV_WORK_CACHE["key"] = None
+        main._NAV_WORK_CACHE["value"] = None
+        monkeypatch.setattr(
+            "app.services.today.build_runtime_freshness",
+            lambda **_kwargs: {
+                "system_state": "CURRENT",
+                "current_through": None,
+                "last_successful_collection": None,
+                "last_new_intelligence": None,
+                "can_claim_current": False,
+                "counts": {"scheduled_sources": 0, "overdue": 0, "failing": 0, "blocked": 0},
+            },
+        )
+        monkeypatch.setattr(main, "published_evidence", lambda: [])
+        monkeypatch.setattr(main, "all_signals", lambda: [])
+        monkeypatch.setattr(main, "all_assessments", lambda: [])
+        monkeypatch.setattr(main, "load_sources", lambda: [])
+        page = TestClient(main.app).get("/today")
+        assert page.status_code == 200
+>       assert "What matters now" in page.text
+E       assert 'What matters now' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>'
+E        +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>' = <Response [200 OK]>.text
+
+tests\test_guided_analyst_experience_v1.py:154: AssertionError
+____ test_today_page_shows_needs_attention_when_watchtower_has_open_alerts ____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000028713B395C0>
+
+    def test_today_page_shows_needs_attention_when_watchtower_has_open_alerts(monkeypatch) -> None:
+        dev = _development()
+        alerts = [a.as_dict() for a in _generate(developments=[dev], watches=[{"watch_type": "company", "object_id": "company-planasa"}])]
+        for a in alerts:
+            a["state"] = "open"
+        monkeypatch.setattr(main, "load_watches", lambda inbox_dir: [{"watch_type": "company", "object_id": "company-planasa"}])
+        monkeypatch.setattr(main, "_watchtower_cached", lambda: {
+            "alerts": alerts, "digest": build_digest(alerts), "cache_status": "fresh",
+            "radar_freshness_label": "fresh", "watch_count": 1, "watches": [],
+        })
+        page = TestClient(app).get("/today")
+        assert page.status_code == 200
+>       assert "needs-your-attention" in page.text
+E       assert 'needs-your-attention' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>'
+E        +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>' = <Response [200 OK]>.text
+
+tests\test_watchtower.py:517: AssertionError
+============================== warnings summary ===============================
+..\berry-intelligence-os\.venv\Lib\site-packages\reportlab\lib\rl_safe_eval.py:12
+  C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\reportlab\lib\rl_safe_eval.py:12: DeprecationWarning: ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    haveNameConstant = hasattr(ast,'NameConstant')
+
+tests/test_app.py: 144 warnings
+tests/test_archive_source_discovery_onboarding.py: 20 warnings
+tests/test_article_ingestion_pipeline.py: 26 warnings
+tests/test_article_refresh.py: 52 warnings
+tests/test_industry_pulse_discovery_v1.py: 3216 warnings
+tests/test_media_discovery.py: 268 warnings
+tests/test_media_discovery_source_expansion.py: 74 warnings
+tests/test_youtube_source_portability.py: 16 warnings
+  C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\feedparser\html.py:152: DeprecationWarning: 'count' is passed as positional argument
+    data = re.sub(r'<!((?!DOCTYPE|--|\[))', r'&lt;!\1', data, re.IGNORECASE)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_analyst_dogfood_ux.py::test_today_is_a_morning_console_with_source_problems_and_next_work
+FAILED tests/test_analyst_queue.py::test_nav_uses_action_badges_not_raw_inventory_for_review
+FAILED tests/test_app.py::test_home_renders_sample_evidence - assert 'Example...
+FAILED tests/test_app.py::test_feed_page_renders_competitor_and_geography_filter_options
+FAILED tests/test_app.py::test_feed_shows_linked_geography_tags_and_suppresses_redundant_summary
+FAILED tests/test_domain_pack.py::test_every_live_entity_resolves_to_a_declared_type
+FAILED tests/test_global_week_intelligence_v1.py::test_today_and_nav_point_at_this_week
+FAILED tests/test_guided_analyst_experience_v1.py::test_today_route_console_help_and_no_trust_mutation
+FAILED tests/test_guided_analyst_experience_v1.py::test_today_sparse_empty_states
+FAILED tests/test_watchtower.py::test_today_page_shows_needs_attention_when_watchtower_has_open_alerts
+10 failed, 2624 passed, 3817 warnings in 602.71s (0:10:02)

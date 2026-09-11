@@ -30,13 +30,15 @@
     </div>
   </header>
 
+  {% if reader_content.notice %}<p class="sh-note" role="status">{{ reader_content.notice }}</p>{% endif %}
   {% if item.why %}
     <section class="v2-reader-block">
-      <h3>Why it matters</h3>
-      <p>{{ item.why }}</p>
+      <h3>Interpretation</h3>
+      <p>{{ item.why }}</p><p class="v2-meta">Interpretation recorded with this source. Inspect its supporting text below.</p>
       {% if item.ai_untrusted %}<p class="v2-meta">AI-assisted · pending analyst review</p>{% endif %}
     </section>
   {% endif %}
+  {% if not item.why %}<p class="v2-meta">No supported competitive implication has been recorded for this source.</p>{% endif %}
   {% if item.summary %}
     <section class="v2-reader-block">
       <h3>Summary</h3>
@@ -48,12 +50,9 @@
     <div class="intel-body v2-reader-body">
       {% if paragraphs %}
         {% for paragraph in paragraphs %}
-          <p>{{ paragraph.text }}</p>
+          <p id="{{ paragraph.locator }}"><span class="sh-paragraph-label">{{ paragraph.locator }}</span> {{ paragraph.text }}</p>
         {% endfor %}
-      {% elif record.summary %}
-        <p>{{ record.summary }}</p>
-      {% elif publisher_description %}
-        <p>{{ publisher_description }}</p>
+
       {% endif %}
     </div>
   {% elif kind == 'spoken' %}
@@ -72,8 +71,7 @@
       <dt>Assignee</dt><dd>{{ patent.assignees|join(', ') if patent.assignees else '—' }}</dd>
       <dt>Cultivar</dt><dd>{{ patent.cultivar_name or '—' }}</dd>
     </dl>
-  {% elif record.summary %}
-    <div class="intel-body v2-reader-body"><p>{{ record.summary }}</p></div>
+
   {% endif %}
 
   {% if limited_evidence and evidence_quality %}
@@ -122,7 +120,7 @@
   {% endif %}
 
   <div class="v2-decision-bar">
-    {% if item.source_url %}<a class="v2-btn v2-btn-quiet" href="{{ item.source_url }}" rel="noreferrer">{{ item.source_action_label or 'Original' }}</a>{% endif %}
+    {% if item.source_url %}<a class="v2-btn v2-btn-quiet" href="{{ item.source_url }}" rel="noopener noreferrer" target="_blank">Open original source</a>{% endif %}
     {% if authoring_mode and pending %}
       <form action="/review/{{ item.id }}/save" method="post">
         <input type="hidden" name="return_to" value="/work-queue?saved=1">

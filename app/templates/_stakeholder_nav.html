@@ -1,6 +1,14 @@
 {% set path = request.url.path %}
 {% set ui = ui_context if ui_context is defined else {"berry": "global", "berry_label": "Global", "landscape_href": "/landscapes"} %}
-<a href="/today" class="{% if path == '/today' %}is-active{% endif %}"{% if path == '/today' %} aria-current="page"{% endif %}>Today</a>
+<a href="/today" class="{% if path == '/today' %}is-active{% endif %}"{% if path == '/today' %} aria-current="page"{% endif %}>News</a>
+<a href="/entities/company" class="{% if path.startswith('/entities/company') %}is-active{% endif %}">Companies</a>
+<a href="/entities/variety" class="{% if path.startswith('/entities/variety') %}is-active{% endif %}">Varieties</a>
+<a href="/geographies" class="{% if path.startswith('/geographies') or path.startswith('/entities/geography') %}is-active{% endif %}">Markets</a>
+<a href="/watches" class="{% if path.startswith('/watches') %}is-active{% endif %}">Watchlist</a>
+<details class="sh-more">
+  <summary>More</summary>
+  <div class="sh-more-panel">
+    <p class="sh-more-kicker">Explore intelligence</p>
 {% if not static_build %}
 <a href="/war-room" class="{% if path.startswith('/war-room') %}is-active{% endif %}"{% if path.startswith('/war-room') %} aria-current="page"{% endif %}>War Room</a>
 <a href="/research" class="{% if path.startswith('/research') %}is-active{% endif %}"{% if path.startswith('/research') %} aria-current="page"{% endif %}>Ask Berry</a>
@@ -9,17 +17,9 @@
 <a href="/watchtower" class="{% if path.startswith('/watchtower') %}is-active{% endif %}"{% if path.startswith('/watchtower') %} aria-current="page"{% endif %}>Watchtower</a>
 <a href="/whitespace" class="{% if path.startswith('/whitespace') %}is-active{% endif %}"{% if path.startswith('/whitespace') %} aria-current="page"{% endif %}>Whitespace</a>
 <a href="/week" class="{% if path.startswith('/week') %}is-active{% endif %}"{% if path.startswith('/week') %} aria-current="page"{% endif %}>This week</a>
-{% endif %}
-<a href="/entities/company" class="{% if path.startswith('/entities/company') %}is-active{% endif %}">Companies</a>
-<a href="/entities/variety" class="{% if path.startswith('/entities/variety') %}is-active{% endif %}">Varieties</a>
-<a href="/geographies" class="{% if path.startswith('/geographies') or path.startswith('/entities/geography') %}is-active{% endif %}">Markets</a>
 <a href="/search" class="{% if path == '/search' %}is-active{% endif %}">Search</a>
-<a href="/watches" class="{% if path.startswith('/watches') %}is-active{% endif %}">Watchlist</a>
 <a href="/reports" class="{% if path.startswith('/reports') %}is-active{% endif %}">Reports</a>
-<details class="sh-more">
-  <summary>More</summary>
-  <div class="sh-more-panel">
-    <p class="sh-more-kicker">Intelligence</p>
+{% endif %}
     <a href="{{ ui.landscape_href }}">Landscape</a>
     <a href="/assessments">Assessments</a>
     <a href="/signals">Signals</a>

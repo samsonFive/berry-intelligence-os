@@ -6,6 +6,7 @@ __pycache__/
 .test-tmp/
 .pkg-test-tmp*/
 .mem-test*/
+.astra-tests*/
 *.egg-info/
 
 # Virtual environment

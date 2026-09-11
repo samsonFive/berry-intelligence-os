@@ -103,6 +103,7 @@
 
 <section class="feed">
 {% for item in evidence %}
+{% set item = safe_source_record(item) %}
   <article class="card source-{{ item.source_type }}"{% if static_build %} data-feed-regions="{{ item.filter_regions|join(' ') }}"{% endif %}>
     <div class="card-header">
       <span class="badge">{{ item.source_type|replace('_', ' ')|upper }}</span>
@@ -138,6 +139,7 @@
         {% if item.auto_tagged %}<small class="auto-tagged-note">auto-tagged, unverified</small>{% endif %}
       </div>
     {% endif %}
+    {% if item.content_notice %}<p class="empty-state">{{ item.content_notice }}</p>{% endif %}
     {% set summary_is_redundant = item.summary|is_redundant_summary(item.title) %}
     {% if not summary_is_redundant %}
       {% set summary_lines = item.summary|as_bullets %}

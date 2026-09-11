@@ -883,7 +883,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     """Nav action counts for HTML pages. Overlay fragments skip nav work entirely."""
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
-    if str(getattr(request.url, "path", "") or "").startswith("/api/"):
+    if str(getattr(request.url, "path", "") or "").startswith("/api/") or request.url.path == "/today":
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -917,6 +917,8 @@ def pending_review_count_value() -> int:
 
 
 templates.env.globals["pending_review_count"] = pending_review_count_value
+from app.services.source_body import safe_source_record
+templates.env.globals["safe_source_record"] = safe_source_record
 templates.env.globals["queue_counts"] = lambda: queue_counts()
 templates.env.globals["learn_href_for_trait"] = learn_href_for_trait_id
 templates.env.globals["nav_work"] = lambda: work_counts(
@@ -2520,6 +2522,8 @@ def home(
     region: str | None = None,
     media_format: str | None = None,
 ) -> HTMLResponse:
+    if not request.url.query:
+        return RedirectResponse(url="/today", status_code=307)
     evidence = published_evidence()
     entities = entity_index()
     options = filter_options(evidence, entities)
@@ -3602,78 +3606,22 @@ def _watchtower_cached() -> dict[str, Any]:
 
 @app.get("/today", response_class=HTMLResponse)
 def today_page(request: Request) -> HTMLResponse:
-    """Recency-first landing. What is new, not what is important."""
-    berry = (request.query_params.get("berry") or "").strip()
-    berry_id = berry if berry.startswith("berry-") else (f"berry-{berry}" if berry else "")
-    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
-    if not berry_id and ui.get("berry") and ui["berry"] != "global":
-        berry_id = ui["berry"] if str(ui["berry"]).startswith("berry-") else f"berry-{ui['berry']}"
-    coverage_watch = _today_coverage_watch() if AUTHORING_MODE else None
-    front_page = build_front_page(
-        published=published_evidence(),
-        drafts=pending_publication_drafts(),
-        signals=all_signals(),
-        assessments=all_assessments(),
-        sources=load_sources(),
-        entities=all_entities(),
-        relationships=all_relationships(),
-        inbox_dir=INBOX_DIR,
-        data_dir=DATA_DIR,
-        coverage_watch=coverage_watch,
-        berry_id=berry_id,
-        market_observations_repo=get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations,
-        watches=load_watches(INBOX_DIR),
+    """A bounded news edition. Operational dashboards are not on this path."""
+    from app.services.news_edition import select_edition
+    entities = all_entities()
+    relationships = all_relationships()
+    projection = build_front_page(
+        published=published_evidence(), drafts=pending_publication_drafts(),
+        signals=[], assessments=[], sources=[], entities=entities,
+        relationships=relationships, inbox_dir=INBOX_DIR, data_dir=DATA_DIR,
+        news_only=True,
     )
-    newsroom_status = None
-    if AUTHORING_MODE:
-        recent_runs = load_recent_newsroom_runs(INBOX_DIR, limit=1)
-        last_run = recent_runs[0] if recent_runs else None
-        last_run_at = last_run.get("as_of") if last_run else None
-        newsroom_status = {
-            "last_run_at": last_run_at,
-            "last_run_label": freshness_clock_label(last_run_at) if last_run_at else None,
-            "last_run_drafts_created": ((last_run or {}).get("intake") or {}).get("drafts_created"),
-            "lock": newsroom_lock_status(INBOX_DIR),
-        }
-    page = {
-        "berry_id": berry_id,
-        "freshness": front_page["freshness"],
-        "worth_revisiting": front_page["worth_revisiting"],
-        "last_seen_at": front_page["last_seen_at"],
-        "newsroom_status": newsroom_status,
-    }
-    nav = nav_work_template_context(request).get("nav_work_counts") or {}
-    freshness = page.get("freshness") or {}
-    source_counts = freshness.get("counts") or {}
-    last_seen = page.get("last_seen_at")
-    attention = build_attention_queues(
-        publication_waiting=int(nav.get("review_now") or 0),
-        publication_since_brief=int(nav.get("brief_action") or 0) if last_seen else None,
-        atomic_waiting=int(nav.get("atomic_pending") or 0),
-        variety_waiting=int(nav.get("variety_identity") or 0),
-        source_failing=int(source_counts.get("failing") or 0),
-        source_overdue=int(source_counts.get("overdue") or 0),
-        source_blocked=int(source_counts.get("blocked") or 0),
-        retrying=int(source_counts.get("retrying") or freshness.get("retrying_count") or 0),
-        authoring_mode=AUTHORING_MODE,
-    )
-    watchtower_digest = _watchtower_cached()["digest"] if load_watches(INBOX_DIR) else None
+    edition = select_edition(projection["items"], entities=entities,
+                             relationships=relationships, params=request.query_params)
     return templates.TemplateResponse(
-        request=request,
-        name="today.html",
-        context={
-            "today": page,
-            "front_page": front_page,
-            "stakeholder_front": compose_stakeholder_front(front_page, page.get("worth_revisiting")),
-            "brief_handoff_query": brief_handoff_query_string(front_page),
-            "attention_queues": attention,
-            "monitoring": watch_monitoring_snapshot(inbox_dir=INBOX_DIR),
-            "watchtower_digest": watchtower_digest,
-            "berries": [{"id": key, "label": label} for key, label in BERRIES.items()],
-            "authoring_mode": AUTHORING_MODE,
-            "static_build": False,
-            "ui_context": ui,
-        },
+        request=request, name="today.html",
+        context={"edition": edition, "authoring_mode": AUTHORING_MODE,
+                 "static_build": False},
     )
 
 
