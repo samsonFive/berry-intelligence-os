@@ -1821,6 +1821,21 @@ Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
 | **Owner lane** | acquisition / product |
 | **Regression-test reference** | `tests/test_company_news_coverage.py`, `tests/test_astra_news_reader.py`, `tests/test_entity_intelligence_timeline.py`; reproducible audit `scripts/audit_company_coverage.py`; checkpoint `artifacts/astra-repair/REPAIR-CHECKPOINT.md` |
 
+### TD-114 — Discovery success does not persist downstream article-acquisition failure
+
+| Field | Value |
+|---|---|
+| **Severity** | High |
+| **Area** | Collection operations / source fidelity |
+| **Date discovered** | 2026-09-12 |
+| **Evidence** | The local Source execution audit shows Blue Book Services as successfully run because feed discovery completed, while the bounded ingestion run found all five selected article-body acquisitions blocked. Items that fail acquisition and produce no draft do not leave a durable per-Source outcome that Source Health can aggregate. |
+| **Impact** | Operators can see that discovery ran but cannot tell whether it produced readable evidence. A healthy-looking Source can therefore add no usable intelligence, the exact gap exposed by the Cal Giant stakeholder test. |
+| **Implemented mitigation** | Source Health now distinguishes discovery execution from freshness and explicitly states that successful discovery does not prove readable bodies or recall. Reproducible inventory: `scripts/audit_source_execution.py`. |
+| **Recommended resolution** | Persist bounded per-Source acquisition counters and latest outcome categories from the recurring orchestrator, then surface readable, blocked/contaminated, retryable-failure, and review-ready counts separately from discovery state. Validate with a known-good feed and the Blue Book blocked case before scaling collection. |
+| **Status** | active — discovery visibility shipped locally; acquisition visibility pending |
+| **Owner lane** | acquisition / collection operations |
+| **Regression-test reference** | `tests/test_source_freshness.py`, `tests/test_monitor_workspace.py`; planned acquisition-outcome tests |
+
 ### TD-112 — Research Desk live recall remains provider- and index-dependent
 
 | Field | Value |
