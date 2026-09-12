@@ -311,6 +311,9 @@ def test_source_health_page_is_v2_and_uses_generic_classes(monkeypatch, tmp_path
     assert "not intelligence recall" in html.lower() or "not intelligence recall" in html
     assert "SOURCE HEALTH" in html
     assert "SOURCE COVERAGE" not in html
+    assert "DISCOVERY EXECUTION" in html
+    assert "configured and runnable" in html
+    assert "Discovery: Never run" in html
     assert "Government / Regulatory" in html
     assert "Trade Press / News Outlet" in html
     assert "Not configured for discovery" in html

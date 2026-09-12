@@ -66,9 +66,11 @@ from app.services.review_events import append_review_event, remove_created_event
 from app.services.source_freshness import (
     FRESHNESS_LABELS,
     SOURCE_CADENCE_DAYS,
+    aggregate_source_execution,
     aggregate_source_coverage,
     classify_source_freshness,
     index_latest_item_dates,
+    source_execution_status,
 )
 from app.services.source_fidelity_recovery import (
     decide_recovery_artifact,
@@ -7494,17 +7496,27 @@ def sources_page_context(
     discovered_items = list_discovered_items(INBOX_DIR)
     published = published_evidence()
     latest_by_source = index_latest_item_dates(discovered_items=discovered_items, published_evidence=published)
+    discovery_states = {source["id"]: read_source_discovery_state(INBOX_DIR, source["id"]) for source in all_sources if source.get("id")}
+    retry_hints = retry_hints_by_source(INBOX_DIR)
 
     def _freshness_for(source: dict[str, Any]) -> dict[str, Any]:
         published_at, captured_at = latest_by_source.get(source["id"], (None, None))
         return classify_source_freshness(
             source,
-            discovery_state=read_source_discovery_state(INBOX_DIR, source["id"]),
+            discovery_state=discovery_states.get(source["id"]),
             latest_item_published_at=published_at,
             latest_item_captured_at=captured_at,
         ).as_dict()
 
     freshness_by_source = {source["id"]: _freshness_for(source) for source in all_sources if source.get("id")}
+    execution_by_source = {
+        source["id"]: source_execution_status(
+            source,
+            discovery_state=discovery_states.get(source["id"]),
+            retry_hint=retry_hints.get(source["id"]),
+        )
+        for source in all_sources if source.get("id")
+    }
     health_rows = present_source_health_rows(
         filtered,
         freshness_by_source=freshness_by_source,
@@ -7512,7 +7524,8 @@ def sources_page_context(
         berry_labels=BERRIES,
         region_labels=SOURCE_REGIONS,
         cadence_labels=SOURCE_CADENCES,
-        retry_hints=retry_hints_by_source(INBOX_DIR),
+        retry_hints=retry_hints,
+        execution_by_source=execution_by_source,
     )
     return {
         "sources": filtered,
@@ -7523,6 +7536,7 @@ def sources_page_context(
         "due_count": len([s for s in all_sources if source_is_due(s)]),
         "freshness_by_source": freshness_by_source,
         "source_coverage": aggregate_source_coverage(freshness_by_source),
+        "source_execution": aggregate_source_execution(execution_by_source),
         "freshness_states": FRESHNESS_LABELS,
         "source_types": SOURCE_TYPES,
         "source_entity_types": SOURCE_ENTITY_TYPES,

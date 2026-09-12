@@ -43,6 +43,11 @@
   {% if source_coverage.last_refresh_at %}· Last successful collection: {{ source_coverage.last_refresh_at }}{% endif %}
 </p>
 {% endif %}
+{% if source_execution %}
+<p class="result-count" title="Discovery execution only; a successful run does not prove article bodies were readable or that recall is complete.">
+  DISCOVERY EXECUTION — {{ source_execution.configured_runnable }} configured and runnable · {{ source_execution.successfully_run }} successfully run · {{ source_execution.never_run }} never run · {{ source_execution.retryable_failure }} retryable failure · {{ source_execution.blocked }} blocked · {{ source_execution.invalid_incomplete }} invalid / incomplete
+</p>
+{% endif %}
 
 {% if not static_build %}
 <form class="filters" action="/sources" method="get" aria-label="Filter sources">
@@ -118,6 +123,7 @@
               <span class="v2-mark v2-mark-source v2-mark-health-{{ group.key }}">{{ source.health_label }}</span>
               {% if source.monitoring_priority %}<span class="v2-meta">{{ source.monitoring_priority }} priority</span>{% endif %}
               {% if source.adapter %}<span class="v2-meta">{{ source.adapter }}</span>{% endif %}
+              {% if source.execution %}<span class="v2-mark v2-mark-source">Discovery: {{ source.execution.label }}</span>{% endif %}
               {% if not source.enabled %}<span class="v2-meta">paused</span>{% endif %}
             </p>
             <h3 class="v2-card-title">{{ source.label }}</h3>
@@ -144,6 +150,9 @@
             {% endif %}
             {% if source.freshness.reason %}
               <p class="v2-card-summary">{{ source.freshness.reason }}</p>
+            {% endif %}
+            {% if source.execution and source.execution.reason != source.freshness.reason %}
+              <p class="v2-card-line"><span class="v2-meta">Discovery execution</span> {{ source.execution.reason }}</p>
             {% endif %}
             {% if authoring_mode and not static_build %}
               <div class="v2-health-actions">
