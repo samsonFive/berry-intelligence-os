@@ -25,6 +25,14 @@
       "row_number": 9,
       "spreadsheet_label": "Denning Blueberries",
       "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    },
+    "identity_verification_2026_09_15": {
+      "verdict": "not_found",
+      "reason": "No official website, social presence, corporate registry entry, or trade-press mention was found for an entity matching this exact name across two independent search passes (this mission and the prior Competitor Source Strategy V1 mission). Existence itself is unconfirmed, not merely under-documented.",
+      "evidence_urls": [],
+      "confidence": "low",
+      "verification_date": "2026-09-15",
+      "verified_by": "competitor-identity-genetics-verification-v1"
     }
   }
 }

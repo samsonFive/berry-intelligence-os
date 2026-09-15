@@ -21,6 +21,16 @@
       "row_number": 27,
       "spreadsheet_label": "Splendor Produce",
       "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    },
+    "identity_verification_2026_09_15": {
+      "verdict": "existence_confirmed_no_primary_source",
+      "reason": "Existence as a real Mexican berry grower/exporter (450ha blackberries, 200ha raspberries, ~80% exported to the US) is corroborated by a Mexican federal government agriculture-ministry article, a reasonably authoritative secondary/institutional source. No official company website was found despite search effort. 'California Splendor, Inc.' (calsplendor.com) was checked and confirmed to be a distinct company (different crops/profile), not this entity -- avoiding a false identity match. Held provisional pending a primary source.",
+      "evidence_urls": [
+        "https://www.gob.mx/agricultura/articulos/splendor-produce-un-resplandeciente-negocio-de-berries"
+      ],
+      "confidence": "medium",
+      "verification_date": "2026-09-15",
+      "verified_by": "competitor-identity-genetics-verification-v1"
     }
   }
 }
