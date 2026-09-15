@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% block title %}Competitor Landscape — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page competitor-landscape" id="competitor-landscape">
+  <section class="page-heading competitor-landscape-hero">
+    <div>
+      <p class="eyebrow">COMPETITOR LANDSCAPE · FILTERABLE UNIVERSE</p>
+      <h1>Competitor Landscape</h1>
+      <p class="also-known-as">Who matters in the selected berry, region, and competitive tier — and what we currently know about them.</p>
+      <p class="context-limit">
+        Filter the complete competitor universe by berry, region, berry-specific tier/status, strategic priority, and competitor type.
+        Incomplete metadata stays visible as <strong>Unknown/Unassigned</strong>. Approving a landscape view does not create facts or genetics relationships.
+      </p>
+    </div>
+    <div class="competitor-landscape-stats" aria-label="Landscape coverage">
+      <div><strong>{{ universe_count }}</strong><small>Roster entries</small></div>
+      <div><strong>{{ result_count }}</strong><small>In view</small></div>
+      <div><strong>{{ completeness.canonical }}</strong><small>Canonical identities</small></div>
+      <div><strong>{{ completeness.pending }}</strong><small>Pending identities</small></div>
+    </div>
+  </section>
+
+  <p class="competitor-landscape-note" role="note">{{ fixture_note }}</p>
+
+  <form class="competitor-landscape-controls" method="get" action="/competitors" id="competitor-landscape-filters" aria-label="Landscape filters">
+    <div class="competitor-landscape-controls-grid">
+      <label class="competitor-field">
+        <span>Berry</span>
+        <select name="berry" aria-label="Berry">
+          {% for option in berry_options %}
+            <option value="{{ option.id }}"{% if filters.berry == option.id %} selected{% endif %}>{{ option.label }}</option>
+          {% endfor %}
+        </select>
+      </label>
+
+      <fieldset class="competitor-field competitor-field-regions">
+        <legend>Region</legend>
+        <div class="competitor-region-options">
+          {% for option in region_options %}
+            <label class="competitor-check">
+              <input type="checkbox" name="region" value="{{ option.id }}"{% if option.id in filters.regions %} checked{% endif %}>
+              <span>{{ option.label }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+
+      <label class="competitor-field">
+        <span>Tier / status</span>
+        <select name="tier" aria-label="Berry-specific tier or status">
+          <option value="">All statuses</option>
+          {% for option in tier_options %}
+            <option value="{{ option }}"{% if filters.tier == option %} selected{% endif %}>{{ option }}</option>
+          {% endfor %}
+        </select>
+      </label>
+
+      <label class="competitor-field">
+        <span>Priority</span>
+        <select name="priority" aria-label="Strategic priority">
+          <option value="">All priorities</option>
+          {% for option in priority_options %}
+            <option value="{{ option }}"{% if filters.priority == option %} selected{% endif %}>{{ option }}</option>
+          {% endfor %}
+        </select>
+      </label>
+
+      <label class="competitor-field">
+        <span>Competitor type</span>
+        <select name="type" aria-label="Competitor type">
+          <option value="">All types</option>
+          {% for option in type_options %}
+            <option value="{{ option }}"{% if filters.competitor_type == option %} selected{% endif %}>{{ option }}</option>
+          {% endfor %}
+        </select>
+      </label>
+
+      <label class="competitor-field competitor-field-search">
+        <span>Company search</span>
+        <input type="search" name="q" value="{{ filters.q }}" placeholder="Name or alias" aria-label="Company search">
+      </label>
+    </div>
+
+    <div class="competitor-landscape-control-actions">
+      <p class="competitor-result-count" aria-live="polite">
+        <strong>{{ result_count }}</strong> of {{ universe_count }} competitors
+        · {{ selected_berry_label }} view
+      </p>
+      <div class="competitor-chip-row" aria-label="Active filters">
+        {% for chip in active_chips %}
+          <span class="competitor-chip">{{ chip.label }}</span>
+        {% endfor %}
+      </div>
+      <div class="competitor-action-buttons">
+        <button class="action-button action-approve" type="submit">Apply filters</button>
+        <a class="action-button" href="{{ clear_href }}">Clear all</a>
+      </div>
+    </div>
+  </form>
+
+  <section class="competitor-tier-summary" aria-label="Tier status counts for selected berry">
+    {% for status, count in tier_counts.items() %}
+      <div class="competitor-tier-pill competitor-tier-{{ status|replace(' ', '-')|replace('/', '-')|lower }}{% if count == 0 %} is-empty{% endif %}">
+        <strong>{{ count }}</strong>
+        <span>{{ status }}</span>
+      </div>
+    {% endfor %}
+  </section>
+
+  {% if empty_message %}
+    <p class="empty-state competitor-empty" role="status">{{ empty_message }}</p>
+  {% else %}
+    <div class="competitor-bands">
+      {% for band in bands %}
+        {% if band.count %}
+          <section class="competitor-band competitor-band-{{ band.status|replace(' ', '-')|replace('/', '-')|lower }}" aria-labelledby="band-{{ loop.index }}">
+            <header class="competitor-band-header">
+              <h2 id="band-{{ loop.index }}">
+                <span class="competitor-band-marker" aria-hidden="true"></span>
+                {{ band.label }}
+              </h2>
+              <p>{{ band.count }} competit{{ 'ors' if band.count != 1 else 'or' }}</p>
+            </header>
+            <div class="competitor-card-grid">
+              {% for company in band.competitors %}
+                {% set company_href = '/competitors?' + query_string + ('&' if query_string else '') + 'company=' + company.entity_id %}
+                <article class="competitor-card{% if selected_company and selected_company.entity_id == company.entity_id %} is-selected{% endif %}" id="card-{{ company.entity_id }}">
+                  <div class="competitor-card-top">
+                    <h3>
+                      <a href="{{ company_href }}" class="competitor-open-detail" data-company-id="{{ company.entity_id }}">{{ company.display_name }}</a>
+                    </h3>
+                    <span class="competitor-status-badge" title="Selected berry tier/status">{{ company.selected_berry_status }}</span>
+                  </div>
+                  <p class="competitor-card-meta">
+                    {% if company.competitor_types %}
+                      {{ company.competitor_types|join(' · ') }}
+                    {% else %}
+                      Type Unknown/Unassigned
+                    {% endif %}
+                  </p>
+                  <ul class="competitor-card-facts">
+                    <li><span>Priority</span> {{ company.strategic_priority }}</li>
+                    <li><span>Regions</span>
+                      {% if company.regions %}
+                        {% for code in company.regions %}{{ region_labels.get(code, code) }}{% if not loop.last %}, {% endif %}{% endfor %}
+                      {% else %}
+                        Unknown/Unassigned
+                      {% endif %}
+                    </li>
+                    <li><span>Monitoring</span> {{ company.monitoring_state|replace('_', ' ') }}</li>
+                    <li><span>Identity</span> {{ company.canonical_or_pending_state }}</li>
+                  </ul>
+                  <p class="competitor-card-support">
+                    {{ company.recent_usable_coverage_count }} usable coverage
+                    · {{ company.genetics_relationship_count }} genetics links
+                  </p>
+                </article>
+              {% endfor %}
+            </div>
+          </section>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+{% if selected_company %}
+<div class="offcanvas offcanvas-end show competitor-detail-drawer" tabindex="-1" id="competitorDetailDrawer" aria-labelledby="competitorDetailLabel" style="visibility:visible;">
+  <div class="offcanvas-header">
+    <div>
+      <p class="eyebrow">COMPETITOR DETAIL</p>
+      <h2 class="offcanvas-title" id="competitorDetailLabel">{{ selected_company.display_name }}</h2>
+    </div>
+    <a class="btn-close" href="/competitors?{{ query_string }}" aria-label="Close competitor detail and return to landscape"></a>
+  </div>
+  <div class="offcanvas-body">
+    <p class="competitor-detail-lede">
+      Landscape context preserved.
+      Selected berry status: <strong>{{ selected_company.selected_berry_status }}</strong>.
+    </p>
+
+    <dl class="competitor-detail-grid">
+      <div><dt>Priority</dt><dd>{{ selected_company.strategic_priority }}</dd></div>
+      <div><dt>Types</dt><dd>{% if selected_company.competitor_types %}{{ selected_company.competitor_types|join(', ') }}{% else %}Unknown/Unassigned{% endif %}</dd></div>
+      <div><dt>Regions</dt><dd>{% if selected_company.regions %}{% for code in selected_company.regions %}{{ region_labels.get(code, code) }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}Unknown/Unassigned{% endif %}</dd></div>
+      <div><dt>Monitoring</dt><dd>{{ selected_company.monitoring_state|replace('_', ' ') }}</dd></div>
+      <div><dt>Identity</dt><dd>{{ selected_company.canonical_or_pending_state }}</dd></div>
+      <div><dt>Usable coverage</dt><dd>{{ selected_company.recent_usable_coverage_count }}</dd></div>
+      <div><dt>Genetics links</dt><dd>{{ selected_company.genetics_relationship_count }}</dd></div>
+    </dl>
+
+    <h3>Berry positions</h3>
+    <ul class="competitor-berry-positions">
+      {% for option in berry_options %}
+        <li>
+          <span>{{ option.label }}</span>
+          <strong>{{ selected_company.berry_positions.get(option.id, 'Unknown/Unassigned') }}</strong>
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% if selected_company.aliases %}
+      <h3>Aliases</h3>
+      <p>{{ selected_company.aliases|join(', ') }}</p>
+    {% endif %}
+
+    <h3>Explicit data gaps</h3>
+    {% if selected_company.data_gaps %}
+      <ul class="competitor-gaps">
+        {% for gap in selected_company.data_gaps %}
+          <li>{{ gap }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty-state">No explicit gaps flagged for this roster row.</p>
+    {% endif %}
+
+    <div class="competitor-detail-actions">
+      <a class="action-button" href="/competitors?{{ query_string }}">Return to landscape</a>
+      {% if selected_company.profile_url %}
+        <a class="action-button action-approve" href="{{ selected_company.profile_url }}">Open company profile</a>
+      {% else %}
+        <p class="context-limit">Company profile unavailable while identity is pending.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div class="offcanvas-backdrop fade show"></div>
+{% endif %}
+{% endblock %}

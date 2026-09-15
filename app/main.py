@@ -316,6 +316,11 @@ from app.services.learner import (
     search_concepts as learn_search_concepts,
 )
 from app.services.berries.landscape import PRIMARY_SOURCE_TYPES as LANDSCAPE_PRIMARY_SOURCE_TYPES
+from app.services.competitor_landscape import (
+    adapter_from_repositories,
+    build_landscape_context,
+    parse_filters,
+)
 from app.services.brief_pack import compose_brief_pack
 from app.services.ai_gateway.credentials import resolve_perplexity_api_key
 from app.services.ai_gateway.perplexity_research import PerplexityResearchClient
@@ -5847,6 +5852,32 @@ def geography_detail_page(request: Request, geography_id: str) -> HTMLResponse:
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
     return response
 
+
+
+
+@app.get("/competitors", response_class=HTMLResponse)
+def competitor_landscape(request: Request) -> HTMLResponse:
+    """Competitor Landscape V1 — filterable stakeholder universe.
+
+    Roster/classification arrive through CompetitorLandscapeAdapter (fixture
+    until Claude's canonical registry lands). Does not invent genetics
+    relationships or mutate company truth.
+    """
+    multi: dict[str, list[str]] = {}
+    for key, value in request.query_params.multi_items():
+        multi.setdefault(key, []).append(value)
+    filters = parse_filters(multi)
+    adapter = adapter_from_repositories(
+        entities=all_entities(),
+        evidence=published_evidence(),
+        relationships=all_relationships(),
+    )
+    context = build_landscape_context(adapter, filters)
+    return templates.TemplateResponse(
+        request=request,
+        name="competitor_landscape.html",
+        context={**context, "authoring_mode": AUTHORING_MODE},
+    )
 
 @app.get("/landscapes", response_class=HTMLResponse)
 def landscape_all(request: Request) -> HTMLResponse:
