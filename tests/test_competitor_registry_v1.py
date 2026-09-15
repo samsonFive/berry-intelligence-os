@@ -219,13 +219,21 @@ def test_every_roster_row_has_all_four_berry_tier_fields(matrix):
         assert set(row["berry_tier"].keys()) == set(BERRIES)
 
 
-def test_new_entities_are_marked_unverified_not_silently_trusted(matrix, entities):
+def test_new_entities_are_marked_unverified_or_actively_verified_never_silently_trusted(matrix, entities):
+    """As of this mission's own creation, every newly-created entity started
+    'unverified'. Competitor Identity and Genetics Verification V1 (a later
+    mission, see data/imports/competitor-identity-genetics-verification-2026-09-15/)
+    subsequently promoted 8 of the 17 to 'active' -- but only ever to one of
+    these two real, schema-supported statuses, each with a documented reason
+    (identity_verification_2026_09_15 in attributes for every one of the 17,
+    promoted or not), never silently or to a third, invented status."""
     by_id = {e["id"]: e for e in entities}
     new_rows = [r for r in matrix["rows"] if r["resolution_status"] == "newly_created"]
     assert len(new_rows) == 17
     for row in new_rows:
         entity = by_id[row["canonical_entity_id"]]
-        assert entity["status"] == "unverified"
+        assert entity["status"] in ("unverified", "active"), row["canonical_entity_id"]
+        assert "identity_verification_2026_09_15" in (entity.get("attributes") or {}), row["canonical_entity_id"]
 
 
 def test_aliases_resolve_to_the_canonical_entity(entities):
@@ -330,17 +338,37 @@ def test_load_latest_snapshot_finds_the_committed_import(matrix):
 # ---------------------------------------------------------------------------
 
 
-def test_seeded_genetics_relationships_exist_and_are_pending_review(relationships):
-    genetics_rels = [
-        r for r in relationships
+def test_seeded_genetics_relationships_exist_and_are_pending_review_or_verified(relationships):
+    """As seeded by this mission, all 3 were 'disputed' (pending-review).
+    Competitor Identity and Genetics Verification V1 (a later mission)
+    independently corroborated exactly one (AgroBerries <-> Mountain Blue
+    Orchards, via authoritative trade press naming the specific relationship
+    type) and upgraded it to 'active' with real added evidence; the other
+    two were searched for corroboration, found none, and were deliberately
+    left unchanged -- per that mission's own rule that absence of public
+    evidence does not disprove a handwritten assertion. See
+    data/imports/competitor-identity-genetics-verification-2026-09-15/genetics-relationship-evidence-assessment.json."""
+    genetics_rels = {
+        r["id"]: r for r in relationships
         if r["id"] in (
             "rel-agroberries-genetics-mountain-blue-orchards",
             "rel-agrovision-genetics-fall-creek-farm-and-nursery",
             "rel-california-giant-berry-farms-genetics-fall-creek-farm-and-nursery",
         )
-    ]
+    }
     assert len(genetics_rels) == 3
-    for rel in genetics_rels:
+    upgraded = genetics_rels["rel-agroberries-genetics-mountain-blue-orchards"]
+    assert upgraded["status"] == "active"
+    assert upgraded["confidence"] == "high"
+    assert set(upgraded["evidence_ids"]) == {
+        "ev-competitor-genetics-handwritten-notes-2026-09-15",
+        "ev-agroberries-mountain-blue-licensing-freshfruitportal-2026",
+    }
+    for rel_id in (
+        "rel-agrovision-genetics-fall-creek-farm-and-nursery",
+        "rel-california-giant-berry-farms-genetics-fall-creek-farm-and-nursery",
+    ):
+        rel = genetics_rels[rel_id]
         assert rel["status"] == "disputed"  # pending-review, never silently trusted
         assert rel["confidence"] in ("low", "medium", "high")
         assert rel["evidence_ids"] == ["ev-competitor-genetics-handwritten-notes-2026-09-15"]
