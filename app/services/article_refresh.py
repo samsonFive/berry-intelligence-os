@@ -25,6 +25,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from app.services.article_acquisition import ArticleAcquisitionError, ArticleBody, fetch_article, repeated_body_conflict
+from app.services.article_acquisition_outcomes import build_outcome, persist_outcome
 from app.services.media_orchestration import (
     MediaOrchestrationError,
     MediaOrchestrationService,
@@ -266,6 +267,21 @@ def process_discovered_article(
     threshold_kwargs = {"threshold": relevance_threshold} if relevance_threshold is not None else {}
     extra: dict[str, Any] = {}
 
+    def _record_attempt(
+        *, body: ArticleBody | None = None, error: ArticleAcquisitionError | None = None,
+        publication_id: str | None = None, content_quality: str | None = None,
+    ) -> dict[str, Any]:
+        recorded = persist_outcome(
+            inbox_dir,
+            item,
+            build_outcome(
+                item, body=body, error=error, publication_id=publication_id,
+                content_quality=content_quality,
+            ),
+        )
+        extra["acquisition_outcome"] = recorded
+        return recorded
+
     if dry_run:
         # No network calls in a dry-run, per this project's existing
         # dry-run contract ("makes no network calls and writes nothing").
@@ -285,6 +301,7 @@ def process_discovered_article(
                 body = fetch_article(item.get("resolved_canonical_url") or item.get("canonical_url") or "")
             except ArticleAcquisitionError as exc:
                 if exc.category in _ACCESS_LIMITED_CATEGORIES:
+                    _record_attempt(error=exc, publication_id=existing.evidence_id or existing.draft_id)
                     _persist_blocked_content_check(
                         inbox_dir,
                         item,
@@ -296,6 +313,7 @@ def process_discovered_article(
                     result = orchestrator.process(item_id, dry_run=False)
                     result.duplicate_rejected_late = True
                     return result, extra
+                _record_attempt(error=exc, publication_id=existing.evidence_id or existing.draft_id)
                 result = _error_result(
                     item_id,
                     state="article_update_check_failed",
@@ -305,6 +323,7 @@ def process_discovered_article(
                 result.parent_resolution = existing
                 result.publication_draft_id = existing.draft_id
                 return result, extra
+            _record_attempt(body=body, publication_id=existing.evidence_id or existing.draft_id)
             representation_id = existing.evidence_id or existing.draft_id
             prior_record = next(
                 (record for record in orchestrator.publication_records() if record.get("id") == representation_id),
@@ -405,6 +424,7 @@ def process_discovered_article(
             result.relevance_tier = winning_tier
             _persist_relevance_tier(inbox_dir, result.publication_draft_id, winning_tier, dry_run=dry_run)
             _persist_source_failure(inbox_dir, result.publication_draft_id, exc.category, dry_run=dry_run)
+            _record_attempt(error=exc, publication_id=result.publication_draft_id)
             return result, extra
         if (stage_a.query_corroboration or always_body_check) and exc.category in _ACCESS_LIMITED_CATEGORIES:
             # Two distinct real reasons Stage A was kept open despite zero
@@ -441,10 +461,12 @@ def process_discovered_article(
             result.relevance_tier = TIER_UNCERTAIN
             _persist_relevance_tier(inbox_dir, result.publication_draft_id, TIER_UNCERTAIN, dry_run=dry_run)
             _persist_source_failure(inbox_dir, result.publication_draft_id, exc.category, dry_run=dry_run)
+            _record_attempt(error=exc, publication_id=result.publication_draft_id)
             return result, extra
         failure_code = normalize_failure_category(exc.category)
         retryable = failure_code in RETRYABLE_FAILURES
         extra["acquisition_failure_retryable"] = retryable
+        _record_attempt(error=exc)
         return (
             OrchestrationResult(
                 item_id=item_id,
@@ -469,6 +491,13 @@ def process_discovered_article(
     if repeated_body_conflict(body, orchestrator.publication_records()):
         extra["acquisition_failure_category"] = "repeated_body"
         extra["acquisition_failure_retryable"] = False
+        _record_attempt(
+            error=ArticleAcquisitionError(
+                "Identical extracted body belongs to multiple publication URLs.",
+                category="repeated_body",
+            ),
+            content_quality="REPEATED_BODY",
+        )
         return (
             _error_result(
                 item_id,
@@ -489,6 +518,7 @@ def process_discovered_article(
         extra["relevance_screen_stage_b"] = stage_b.as_dict()
         winning_tier = stage_b.tier
         if not stage_b.relevant:
+            _record_attempt(body=body, content_quality="READABLE_IRRELEVANT")
             return (
                 OrchestrationResult(
                     item_id=item_id,
@@ -503,8 +533,10 @@ def process_discovered_article(
     try:
         result = orchestrator.process(item_id, dry_run=False)
     except MediaOrchestrationError as exc:
+        _record_attempt(body=body, content_quality="READABLE_ORCHESTRATION_FAILED")
         return _error_result(item_id, state="orchestration_error", message=str(exc)), extra
     if result.publication_draft_id is None:
+        _record_attempt(body=body, content_quality="READABLE_ALREADY_REPRESENTED")
         return result, extra
 
     draft_path = inbox_dir / "evidence" / f"{result.publication_draft_id}.json"
@@ -548,4 +580,5 @@ def process_discovered_article(
 
     draft = with_source_completeness(draft)
     draft_path.write_text(json.dumps(draft, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    _record_attempt(body=body, publication_id=result.publication_draft_id)
     return result, extra

@@ -242,6 +242,9 @@ def test_acquisition_failure_is_reported_as_retryable_not_operator(tmp_path, rep
     assert result.transcript_status == "acquisition_failed"
     assert result.publication_draft_id is None
     assert extra["acquisition_failure_category"]
+    assert extra["acquisition_outcome"]["outcome_category"] == "network_failure"
+    assert extra["acquisition_outcome"]["retryable"] is True
+    assert len(list((tmp_path / "inbox" / "operations" / "article_acquisition_outcomes").glob("*/*/*.json"))) == 1
 
 
 def test_dry_run_never_acquires_the_article_body(tmp_path, repos, source, monkeypatch):

@@ -48,6 +48,11 @@
   DISCOVERY EXECUTION — {{ source_execution.configured_runnable }} configured and runnable · {{ source_execution.successfully_run }} successfully run · {{ source_execution.never_run }} never run · {{ source_execution.retryable_failure }} retryable failure · {{ source_execution.blocked }} blocked · {{ source_execution.invalid_incomplete }} invalid / incomplete
 </p>
 {% endif %}
+{% if source_acquisition %}
+<p class="result-count" title="Article-body acquisition is separate from discovery execution and current company coverage.">
+  ARTICLE-BODY ACQUISITION — {{ source_acquisition.sources_with_attempts }} sources attempted · {{ source_acquisition.attempts }} attempts · {{ source_acquisition.readable }} readable · {{ source_acquisition.blocked_or_unusable }} blocked or unusable · {{ source_acquisition.retryable }} retryable
+</p>
+{% endif %}
 
 {% if not static_build %}
 <form class="filters" action="/sources" method="get" aria-label="Filter sources">
@@ -124,6 +129,7 @@
               {% if source.monitoring_priority %}<span class="v2-meta">{{ source.monitoring_priority }} priority</span>{% endif %}
               {% if source.adapter %}<span class="v2-meta">{{ source.adapter }}</span>{% endif %}
               {% if source.execution %}<span class="v2-mark v2-mark-source">Discovery: {{ source.execution.label }}</span>{% endif %}
+              {% if source.acquisition %}<span class="v2-mark v2-mark-source">Article body: {{ source.acquisition.label }}</span>{% endif %}
               {% if not source.enabled %}<span class="v2-meta">paused</span>{% endif %}
             </p>
             <h3 class="v2-card-title">{{ source.label }}</h3>
@@ -153,6 +159,9 @@
             {% endif %}
             {% if source.execution and source.execution.reason != source.freshness.reason %}
               <p class="v2-card-line"><span class="v2-meta">Discovery execution</span> {{ source.execution.reason }}</p>
+            {% endif %}
+            {% if source.acquisition and source.acquisition.latest %}
+              <p class="v2-card-line"><span class="v2-meta">Latest article-body attempt</span> {{ source.acquisition.latest.content_quality }} · {{ source.acquisition.latest.diagnostic }}</p>
             {% endif %}
             {% if authoring_mode and not static_build %}
               <div class="v2-health-actions">

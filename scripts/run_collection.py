@@ -373,6 +373,7 @@ def main(argv: list[str] | None = None) -> int:
             )
             result.relevance_tier = extra.get("relevance_tier")
             result.body_acquisition_attempted = bool(extra.get("body_acquisition_attempted"))
+            result.acquisition_outcome = extra.get("acquisition_outcome")
             result.duplicate_rejected_late = bool(
                 result.duplicate_rejected_late or extra.get("duplicate_stage")
             )

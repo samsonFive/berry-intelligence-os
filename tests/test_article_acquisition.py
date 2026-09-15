@@ -57,6 +57,7 @@ def test_403_response_is_a_blocked_failure_not_a_crash(monkeypatch):
     with pytest.raises(aa.ArticleAcquisitionError) as exc_info:
         aa.fetch_article("https://example.invalid/blocked")
     assert exc_info.value.category == "blocked"
+    assert exc_info.value.http_status == 403
 
 
 def test_paywall_signal_in_body_is_a_paywall_failure(monkeypatch):

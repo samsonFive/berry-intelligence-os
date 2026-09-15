@@ -74,9 +74,10 @@ class ArticleAcquisitionError(Exception):
     observed failure conditions.
     """
 
-    def __init__(self, message: str, *, category: str) -> None:
+    def __init__(self, message: str, *, category: str, http_status: int | None = None) -> None:
         super().__init__(message)
         self.category = category
+        self.http_status = http_status
 
 
 @dataclass(frozen=True)
@@ -261,12 +262,12 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
         raise ArticleAcquisitionError(f"transport error fetching {url}: {exc}", category="transport_error") from exc
 
     if response.status_code == 403:
-        raise ArticleAcquisitionError(f"403 fetching {url} -- likely bot-blocked", category="blocked")
+        raise ArticleAcquisitionError(f"403 fetching {url} -- likely bot-blocked", category="blocked", http_status=403)
     if response.status_code == 401:
-        raise ArticleAcquisitionError(f"401 fetching {url} -- authentication required", category="paywall")
+        raise ArticleAcquisitionError(f"401 fetching {url} -- authentication required", category="paywall", http_status=401)
     if response.status_code >= 400:
         raise ArticleAcquisitionError(
-            f"HTTP {response.status_code} fetching {url}", category="http_error"
+            f"HTTP {response.status_code} fetching {url}", category="http_error", http_status=response.status_code
         )
 
     # Google News RSS article links are JavaScript wrappers, not article

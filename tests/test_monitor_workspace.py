@@ -314,6 +314,8 @@ def test_source_health_page_is_v2_and_uses_generic_classes(monkeypatch, tmp_path
     assert "DISCOVERY EXECUTION" in html
     assert "configured and runnable" in html
     assert "Discovery: Never run" in html
+    assert "ARTICLE-BODY ACQUISITION" in html
+    assert "Article body: Never Attempted" in html
     assert "Government / Regulatory" in html
     assert "Trade Press / News Outlet" in html
     assert "Not configured for discovery" in html

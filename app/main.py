@@ -62,6 +62,7 @@ from app.services.publication_review_workspace import (
 )
 from app.services.html_text import decode_html_text
 from app.services.company_news_coverage import company_news_coverage
+from app.services.article_acquisition_outcomes import aggregate_acquisition_summaries, source_acquisition_summary
 from app.services.review_events import append_review_event, remove_created_event
 from app.services.source_freshness import (
     FRESHNESS_LABELS,
@@ -7517,6 +7518,10 @@ def sources_page_context(
         )
         for source in all_sources if source.get("id")
     }
+    acquisition_by_source = {
+        source["id"]: source_acquisition_summary(INBOX_DIR, source["id"])
+        for source in all_sources if source.get("id")
+    }
     health_rows = present_source_health_rows(
         filtered,
         freshness_by_source=freshness_by_source,
@@ -7526,6 +7531,7 @@ def sources_page_context(
         cadence_labels=SOURCE_CADENCES,
         retry_hints=retry_hints,
         execution_by_source=execution_by_source,
+        acquisition_by_source=acquisition_by_source,
     )
     return {
         "sources": filtered,
@@ -7537,6 +7543,7 @@ def sources_page_context(
         "freshness_by_source": freshness_by_source,
         "source_coverage": aggregate_source_coverage(freshness_by_source),
         "source_execution": aggregate_source_execution(execution_by_source),
+        "source_acquisition": aggregate_acquisition_summaries(acquisition_by_source),
         "freshness_states": FRESHNESS_LABELS,
         "source_types": SOURCE_TYPES,
         "source_entity_types": SOURCE_ENTITY_TYPES,

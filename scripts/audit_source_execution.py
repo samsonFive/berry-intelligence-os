@@ -13,6 +13,7 @@ from app.composition import get_repositories
 from app.repositories.paths import SCHEMAS_DIR
 from app.runtime_config import resolve_data_dir, resolve_inbox_dir
 from app.services.media_discovery import read_source_discovery_state
+from app.services.article_acquisition_outcomes import source_acquisition_summary
 from app.services.monitor_workspace import retry_hints_by_source
 from app.services.source_freshness import aggregate_source_execution, source_execution_status
 
@@ -37,7 +38,13 @@ def main(argv: list[str] | None = None) -> int:
             discovery_state=read_source_discovery_state(inbox_dir, source_id),
             retry_hint=retries.get(source_id),
         )
-        rows.append({"source_id": source_id, "label": source.get("label") or source_id, **status})
+        acquisition = source_acquisition_summary(inbox_dir, source_id)
+        rows.append({
+            "source_id": source_id,
+            "label": source.get("label") or source_id,
+            **status,
+            "article_body_acquisition": acquisition,
+        })
     payload = {
         "scope": "Configured Sources plus local per-source discovery state; no network calls or writes.",
         "counts": aggregate_source_execution({row["source_id"]: row for row in rows}),

@@ -192,6 +192,7 @@ class OrchestrationResult:
     # Deterministic collection-efficiency instrumentation. These fields do
     # not alter publication or extraction semantics.
     body_acquisition_attempted: bool = False
+    acquisition_outcome: dict[str, Any] | None = None
     duplicate_rejected_late: bool = False
 
     def as_dict(self) -> dict[str, Any]:
@@ -207,6 +208,7 @@ class OrchestrationResult:
             "extraction": self.extraction,
             "relevance_tier": self.relevance_tier,
             "body_acquisition_attempted": self.body_acquisition_attempted,
+            "acquisition_outcome": self.acquisition_outcome,
             "duplicate_rejected_late": self.duplicate_rejected_late,
             "next_action": self.next_action,
             "errors": self.errors,
