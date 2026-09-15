@@ -177,22 +177,39 @@ def test_login_lands_on_today_and_preserves_deep_link(monkeypatch) -> None:
 def test_today_route_front_page_and_mobile_css(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
     monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
-    monkeypatch.setattr(main, "published_evidence", lambda: [_ev("new-low", "2026-08-24", title="Blueberry harvest update")])
+    readable = _ev(
+        "new-low",
+        "2026-08-24",
+        title="Blueberry harvest update",
+        article={
+            "paragraphs": [
+                {
+                    "text": (
+                        "Growers reported an earlier harvest window across coastal fields this season. "
+                        "Packing capacity was expanded to protect fruit quality for export customers. "
+                        "Managers did not disclose varieties or capital expenditure in the release."
+                    )
+                }
+            ]
+        },
+    )
+    monkeypatch.setattr(main, "published_evidence", lambda: [readable])
     monkeypatch.setattr(main, "all_signals", lambda: [])
     monkeypatch.setattr(main, "all_assessments", lambda: [])
     monkeypatch.setattr(main, "load_sources", lambda: [])
     monkeypatch.setattr(main, "pending_publication_drafts", lambda: [])
     monkeypatch.setattr(main, "all_entities", lambda: [])
     monkeypatch.setattr(main, "all_relationships", lambda: [])
-    page = TestClient(main.app).get("/today?date=archive")
+    page = TestClient(main.app).get("/today")
     assert page.status_code == 200
-    assert "Focus the news" in page.text
-    assert "REVIEWED EVIDENCE" in page.text
+    assert "Daily Intelligence Briefing" in page.text
+    assert "What Changed" in page.text
+    assert "Blueberry harvest update" in page.text
     assert "Planasa Newsroom" in page.text
-    assert 'href="/intelligence/new-low"' in page.text
-    assert "name=\"decision\"" not in page.text
-    css = (Path(main.BASE_DIR) / "app" / "static" / "app.css").read_text(encoding="utf-8")
-    assert ".front-story" in css
-    assert "@media(max-width:834px)" in css
-    blueberry = TestClient(main.app).get("/today?berry=berry-raspberry")
+    assert "/today?reader=new-low" in page.text or 'data-item-id="new-low"' in page.text
+    assert 'name="decision"' not in page.text
+    css = (Path(main.BASE_DIR) / "app" / "static" / "v2.css").read_text(encoding="utf-8")
+    assert ".daily-briefing" in css
+    assert "@media (max-width: 720px)" in css
+    blueberry = TestClient(main.app).get("/today?berry=raspberry")
     assert blueberry.status_code == 200

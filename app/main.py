@@ -3618,22 +3618,82 @@ def _watchtower_cached() -> dict[str, Any]:
 
 @app.get("/today", response_class=HTMLResponse)
 def today_page(request: Request) -> HTMLResponse:
-    """A bounded news edition. Operational dashboards are not on this path."""
+    """Canonical Daily Intelligence Briefing (Slice 1)."""
+    from app.services.briefing_page import present_briefing_page
+    from app.services.competitor_landscape import (
+        adapter_from_repositories,
+        build_landscape_context,
+        parse_filters as parse_landscape_filters,
+    )
+    from app.services.daily_intelligence_briefing import (
+        build_daily_intelligence_briefing,
+        parse_briefing_filters,
+    )
+
+    entities = all_entities()
+    sources = load_sources()
+    evidence = published_evidence()
+    adapter = adapter_from_repositories(
+        data_dir=DATA_DIR,
+        inbox_dir=INBOX_DIR,
+        entities=entities,
+        sources=sources,
+        evidence=evidence,
+    )
+    landscape = build_landscape_context(adapter, parse_landscape_filters({}))
+    briefing = build_daily_intelligence_briefing(
+        evidence=evidence,
+        entities=entities,
+        sources=sources,
+        landscape_completeness=landscape.get("completeness") or {},
+        landscape_universe_count=int(landscape.get("universe_count") or 0),
+        filters=parse_briefing_filters(dict(request.query_params)),
+    )
+    page = present_briefing_page(briefing)
+    return templates.TemplateResponse(
+        request=request,
+        name="today.html",
+        context={
+            "briefing": page,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.get("/news", response_class=HTMLResponse)
+def news_edition_page(request: Request) -> HTMLResponse:
+    """Retained archive/news edition. Canonical daily entry remains /today."""
     from app.services.news_edition import select_edition
+
     entities = all_entities()
     relationships = all_relationships()
     projection = build_front_page(
-        published=published_evidence(), drafts=pending_publication_drafts(),
-        signals=[], assessments=[], sources=[], entities=entities,
-        relationships=relationships, inbox_dir=INBOX_DIR, data_dir=DATA_DIR,
+        published=published_evidence(),
+        drafts=pending_publication_drafts(),
+        signals=[],
+        assessments=[],
+        sources=[],
+        entities=entities,
+        relationships=relationships,
+        inbox_dir=INBOX_DIR,
+        data_dir=DATA_DIR,
         news_only=True,
     )
-    edition = select_edition(projection["items"], entities=entities,
-                             relationships=relationships, params=request.query_params)
+    edition = select_edition(
+        projection["items"],
+        entities=entities,
+        relationships=relationships,
+        params=request.query_params,
+    )
     return templates.TemplateResponse(
-        request=request, name="today.html",
-        context={"edition": edition, "authoring_mode": AUTHORING_MODE,
-                 "static_build": False},
+        request=request,
+        name="news.html",
+        context={
+            "edition": edition,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
     )
 
 

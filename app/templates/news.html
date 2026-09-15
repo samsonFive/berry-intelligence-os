@@ -1,0 +1,76 @@
+{% extends "base_stakeholder.html" %}
+{% block title %}{{ edition.window_label }} — Berry Intelligence{% endblock %}
+{% block content %}
+<div class="sh-page today-page" id="news-top">
+  <header class="sh-header sh-news-masthead">
+    <div>
+      <p class="sh-kicker">The global berry briefing · {{ edition.day_label }}</p>
+      <h1>Berry news, in context.</h1>
+      <p class="sh-lede">Follow the reporting. Read the source. Understand what it supports.</p>
+    </div>
+    <a class="sh-btn" href="/watches">Your watchlist</a>
+  </header>
+
+  <form class="sh-news-filters" method="get" action="/news" aria-label="Focus the news">
+    <div><label for="news-berry">Berry</label><select id="news-berry" name="berry">
+      <option value="">All berries</option>
+      {% for bid, label in berries.items() %}<option value="{{ bid }}" {% if edition.filters.berry == bid %}selected{% endif %}>{{ label }}</option>{% endfor %}
+    </select></div>
+    <div><label for="news-geography">Geography</label><select id="news-geography" name="geography">
+      <option value="">Global · all geographies</option>
+      {% for entity in edition.geographies %}<option value="{{ entity.id }}" {% if edition.filters.geography == entity.id %}selected{% endif %}>{{ entity.name }}</option>{% endfor %}
+    </select></div>
+    <div><label for="news-company">Company</label><select id="news-company" name="company">
+      <option value="">All companies</option>
+      {% for entity in edition.companies %}<option value="{{ entity.id }}" {% if edition.filters.company == entity.id %}selected{% endif %}>{{ entity.name }}</option>{% endfor %}
+    </select></div>
+    <div><label for="news-date">Publication date</label><select id="news-date" name="date">
+      {% for value, label in edition.windows.items() %}<option value="{{ value }}" {% if edition.filters.date == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+    </select></div>
+    <div class="sh-news-query"><label for="news-query">Find a story</label><input id="news-query" name="q" type="search" value="{{ edition.filters.q }}" placeholder="Company, variety or headline"></div>
+    <div><label for="news-timezone">Your timezone</label><input id="news-timezone" name="tz" value="{{ edition.filters.tz }}" list="news-timezones" autocomplete="off"><datalist id="news-timezones"><option value="UTC"><option value="America/Los_Angeles"><option value="America/New_York"><option value="Europe/London"><option value="Europe/Madrid"><option value="Africa/Johannesburg"><option value="Australia/Sydney"></datalist></div>
+    <button class="sh-btn sh-btn-primary" type="submit">Apply focus</button>
+    <a class="sh-btn sh-btn-quiet" href="/news?berry=&amp;date=latest&amp;tz={{ edition.filters.tz|urlencode }}">Reset</a>
+  </form>
+
+  <div class="sh-edition-line" role="status">
+    <h2>{{ edition.window_label }}</h2>
+    <span>{{ edition.total }} stor{{ 'y' if edition.total == 1 else 'ies' }} · {{ edition.filters.tz }}</span>
+  </div>
+  <p class="sh-note">Ordered by publication date. Capture and review dates do not make an old article new. Company results include linked entities and clearly named source mentions; geography requires a recorded link.</p>
+
+  {% if edition.lead %}
+  <section class="sh-lead" aria-label="Leading coverage">
+    <div class="sh-lead-main">
+      <p class="sh-kicker">{% if edition.filters.date == 'archive' %}From the archive{% elif edition.filters.date == 'undated' %}Date not established{% else %}Lead story{% endif %}</p>
+      {% with item=edition.lead, featured=true %}{% include "_stakeholder_story.html" %}{% endwith %}
+    </div>
+    <div><p class="sh-kicker">More to read</p><ul class="sh-story-list">
+      {% for item in edition.supporting %}<li>{% with featured=false %}{% include "_stakeholder_story.html" %}{% endwith %}</li>{% endfor %}
+    </ul></div>
+  </section>
+  {% if edition.stream %}
+  <section class="sh-section" id="news-stream" aria-label="News stream">
+    <h2>Continue reading</h2>
+    <div class="sh-news-stream">{% for item in edition.stream %}{% with featured=false %}{% include "_stakeholder_story.html" %}{% endwith %}{% endfor %}</div>
+  </section>
+  {% endif %}
+  {% else %}
+  <section class="sh-news-empty">
+    <p class="sh-kicker">No matching reporting</p>
+    <h2>{% if edition.filters.date == 'today' %}No confirmed publication dates for today in this scope.{% else %}No stories match this edition.{% endif %}</h2>
+    <p>Try another berry, geography or company, or browse older coverage. An empty feed describes what is captured here; it does not mean nothing happened.</p>
+    <a class="sh-btn sh-btn-primary" href="{{ edition.archive_href }}">Browse the archive</a>
+    <a class="sh-btn" href="/week">Explore this week</a>
+  </section>
+  {% endif %}
+
+  <nav class="sh-pagination" aria-label="News pages">
+    {% if edition.previous %}<a class="sh-btn" href="{{ edition.previous }}">Previous page</a>{% endif %}
+    <span>Page {{ edition.page }} of {{ edition.pages }}</span>
+    {% if edition.next %}<a class="sh-btn" href="{{ edition.next }}">Next page</a>{% endif %}
+    <a href="#news-top">Back to top ↑</a>
+  </nav>
+  <p class="sh-footnote">News and source summaries retain their review status. <a href="/review-ops">Analyst workspace</a> · <a href="/sources">Collection health</a></p>
+</div>
+{% endblock %}

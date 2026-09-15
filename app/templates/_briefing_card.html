@@ -1,0 +1,66 @@
+{# Compact briefing card. Expects `item` and optional `briefing`. #}
+<article class="daily-briefing-card{% if item.kind == 'source' %} is-source{% endif %}{% if not item.usable_in_app %} is-attention{% endif %}" data-briefing-card data-item-id="{{ item.id }}">
+  <div class="daily-briefing-card-media" aria-hidden="true">
+    <div class="daily-briefing-card-fallback">{{ (item.source_name or 'BI')[:2]|upper }}</div>
+  </div>
+  <div class="daily-briefing-card-body">
+    <div class="daily-briefing-card-topline">
+      <span class="daily-briefing-source">{{ item.source_name }}</span>
+      {% if item.attention_label %}
+      <span class="daily-briefing-status" data-state="{{ item.attention_reason or item.readable_body_state }}">{{ item.attention_label }}</span>
+      {% else %}
+      <span class="daily-briefing-status" data-state="{{ item.readable_body_state }}">{{ item.readable_body_label }}</span>
+      {% endif %}
+    </div>
+    <h3 class="daily-briefing-card-title">
+      {% if item.kind == 'source' %}
+      <a href="{{ item.reader_href }}">{{ item.headline }}</a>
+      {% else %}
+      <a href="{{ item.reader_href }}" data-briefing-open-reader data-item-id="{{ item.id }}">{{ item.headline }}</a>
+      {% endif %}
+    </h3>
+    <p class="daily-briefing-card-dates">
+      <span><strong>Published</strong> {{ item.publication_date or "unknown" }}</span>
+      <span><strong>Captured</strong> {{ item.capture_date or "unknown" }}</span>
+      <span>{{ item.recency_label }}</span>
+    </p>
+    {% if item.entities or item.berries or item.regions %}
+    <p class="daily-briefing-card-context">
+      {% for entity in item.entities[:3] %}
+      <a href="{{ entity.profile_url }}">{{ entity.name }}</a>{% if not loop.last %} · {% endif %}
+      {% endfor %}
+      {% if item.berries %} · {{ item.berries|join(', ') }}{% endif %}
+      {% if item.regions %} · {{ item.regions|join(', ') }}{% endif %}
+    </p>
+    {% endif %}
+    {% if item.usable_in_app and item.observed_change %}
+    <p class="daily-briefing-observed"><span class="daily-briefing-kicker">Observed</span> {{ item.observed_change|truncate(180) }}</p>
+    {% if item.implication_available and item.analyst_implication %}
+    <p class="daily-briefing-implication"><span class="daily-briefing-kicker">Interpretation</span> {{ item.analyst_implication|truncate(160) }}</p>
+    {% else %}
+    <p class="daily-briefing-implication muted"><span class="daily-briefing-kicker">Interpretation</span> Analyst implication not yet added.</p>
+    {% endif %}
+    {% elif item.attention_label %}
+    <p class="daily-briefing-attention-copy">{{ item.attention_label }}. No invented summary.</p>
+    {% endif %}
+    <div class="daily-briefing-card-actions">
+      {% if item.kind != 'source' %}
+      <a class="action-button action-approve" href="{{ item.reader_href }}" data-briefing-open-reader data-item-id="{{ item.id }}">Read in app</a>
+      {% endif %}
+      {% if item.landscape_url %}
+      <a class="action-button" href="{{ item.landscape_url }}">Landscape</a>
+      {% endif %}
+      {% if item.profile_url %}
+      <a class="action-button" href="{{ item.profile_url }}">Profile</a>
+      {% endif %}
+      {% if item.diagnostic_url %}
+      <a class="action-button" href="{{ item.diagnostic_url }}">Diagnostics</a>
+      {% elif item.intelligence_href %}
+      <a class="action-button" href="{{ item.intelligence_href }}">Evidence</a>
+      {% endif %}
+      {% if item.canonical_url %}
+      <a class="daily-briefing-secondary-link" href="{{ item.canonical_url }}" target="_blank" rel="noopener noreferrer">Original source</a>
+      {% endif %}
+    </div>
+  </div>
+</article>
