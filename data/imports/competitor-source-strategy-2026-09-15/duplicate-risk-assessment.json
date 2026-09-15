@@ -1,0 +1,58 @@
+{
+  "id": "competitor-source-strategy-v1-duplicate-risk-assessment",
+  "verification_date": "2026-09-15",
+  "count": 6,
+  "notes": [
+    {
+      "risk": "Multiple related domains for one company",
+      "entities": [
+        "SunBelle"
+      ],
+      "detail": "sun-belle.com, sunbelleberries.com, and sunbelle.info all appear to be the same company. Only sun-belle.com's feed was proposed; the other two must not be independently onboarded without confirming they are not mirrors of the same content (would double-count every article)."
+    },
+    {
+      "risk": "Possible corporate-family overlap",
+      "entities": [
+        "AgroBerries",
+        "BerryWorld"
+      ],
+      "detail": "Marketing copy found during research describes BerryWorld as part of an 'AgroBerries family of companies' alongside Berry Fresh. If true, their respective newsrooms could report overlapping/duplicate corporate news. Not confirmed or acted on -- flagged for the entity-identity workstream."
+    },
+    {
+      "risk": "Possible company merger/affiliation",
+      "entities": [
+        "Gem-Pack Berries",
+        "Well-Pict"
+      ],
+      "detail": "Trade press ('Gem-Pack and Well-Pict Berries combine companies' -- The Packer) suggests these two separate roster entries may now be one organization. If so, onboarding both as independent Sources risks duplicate coverage of what is actually one company's news. Flagged, not merged or resolved here."
+    },
+    {
+      "risk": "Aggregator/trade-press candidates need entity-targeted queries, not bare onboarding",
+      "entities": [
+        "Denning Blueberries",
+        "Expoberries",
+        "Splendor Produce",
+        "Marionnet",
+        "IQ Berries"
+      ],
+      "detail": "Where no dedicated company website was found, the only available leads are trade associations, licensing partners, or general trade press (Fruitnet, FreshFruitPortal, Blueberries Consulting, aneberries.mx). These are broad, multi-company publishers -- if ever onboarded as a Source for one of these companies, it must be as a company-scoped news_search_rss query (the existing pattern already used for Costa: source-news-search-costa-group), never a bare full-feed subscription that would flood review with unrelated companies' news."
+    },
+    {
+      "risk": "Low-frequency official sources -- sparse, not broken",
+      "entities": [
+        "Australasian Plant Genetics",
+        "Marionnet",
+        "Royakkers",
+        "IQ Berries"
+      ],
+      "detail": "Small breeding/nursery operations with variety-catalog-style sites are expected to publish rarely. A future Source Health view should not flag these as 'quiet'/failing after a normal multi-month gap between real updates -- that would misrepresent expected low cadence as a collection problem."
+    },
+    {
+      "risk": "Candidates that should not be activated without a prior human decision",
+      "entities": [
+        "The Berry Collective"
+      ],
+      "detail": "Technically ready (live feed, permissive robots.txt) but the underlying company identity is genuinely ambiguous (multiple unrelated organizations share the exact name, and the matched Australian site's business type does not obviously match the spreadsheet's 'University/Public' competitor type). Activating this source before identity confirmation risks importing an entirely unrelated organization's content under this roster entry's name."
+    }
+  ]
+}

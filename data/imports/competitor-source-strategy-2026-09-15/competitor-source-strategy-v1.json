@@ -1,0 +1,1020 @@
+{
+  "id": "competitor-source-strategy-v1",
+  "verification_date": "2026-09-15",
+  "base_commit": "4e54401da040be937cc68877f410b4da7b646d65",
+  "scope": "Research and import-planning only. No live Source records created, no collection run, no canonical entity/relationship/tier/priority/region data changed.",
+  "maturity_states": [
+    "candidate_identified",
+    "discovery_mechanism_understood",
+    "compatible_with_existing_adapter",
+    "requires_new_adapter",
+    "configured_but_untested",
+    "known_runnable",
+    "known_blocked",
+    "manual_monitoring_required",
+    "unsupported",
+    "identity_search_strategy_pending"
+  ],
+  "monitoring_states": [
+    "linked_to_runnable_source",
+    "source_configured_never_run",
+    "source_blocked",
+    "discovery_pending",
+    "no_supported_source",
+    "manual_monitoring_required"
+  ],
+  "row_count": 33,
+  "rows": [
+    {
+      "row_number": 2,
+      "spreadsheet_label": "Advanced Berry Breeding",
+      "canonical_entity_id": "company-advanced-berry-breeding",
+      "canonical_display_name": "Advanced Berry Breeding B.V.",
+      "entity_type": "company",
+      "official_domain": "abbreeding.nl",
+      "aliases_search_terms": [
+        "ABB",
+        "Advanced Berry Breeding B.V."
+      ],
+      "candidate_sources": [],
+      "recommended_initial_monitoring_state": "source_configured_never_run",
+      "manual_fallback": "n/a -- existing Source source-20260825-advanced-berry-breeding-news covers this",
+      "unresolved_questions": [],
+      "proposed_priority_for_implementation": "wave_1_already_configured"
+    },
+    {
+      "row_number": 3,
+      "spreadsheet_label": "AgroBerries",
+      "canonical_entity_id": "company-agroberries",
+      "canonical_display_name": "AgroBerries",
+      "entity_type": "company",
+      "official_domain": "agroberries.com",
+      "aliases_search_terms": [
+        "Agroberries Group",
+        "Agroberries Peru S.A.C.",
+        "Berry Fresh (North American brand)"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website_sitemap",
+          "url": "https://www.agroberries.com/sitemaps-1-sitemap.xml",
+          "region_language_scope": "Chile/Peru/Mexico/US/Morocco, English/Spanish",
+          "berry_relevance": "blueberry, raspberry, blackberry, strawberry",
+          "proposed_discovery_mechanism": "sitemap_xml adapter against the declared sitemap",
+          "existing_adapter_compatibility": "sitemap_xml (existing)",
+          "maturity": "candidate_identified",
+          "robots_access_observation": "robots.txt 200, permissive (only excludes /cpresources/, /vendor/, /.env, /cache/); sitemap declared in robots.txt",
+          "expected_publication_cadence": "inference: corporate press-release cadence, likely low-frequency (few per month)",
+          "confidence": "medium",
+          "evidence_urls": [
+            "https://www.agroberries.com/about",
+            "https://www.freshfruitportal.com/news/2026/06/24/agroberries-expansion/"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "Trade-press query (FreshFruitPortal, Blueberries Consulting) already surfaces real AgroBerries news; usable as a manual/analyst check pending sitemap onboarding.",
+      "unresolved_questions": [
+        "Search results describe AgroBerries as part of a 'global family of companies including Berry Fresh, BerryWorld, PrepWorld, and Poupart1895' -- BerryWorld is a SEPARATE roster entry (#4) with its own independent canonical entity and Source. This is an inference from marketing copy, not confirmed corporate-structure evidence; flagged for the entity-identity workstream, not resolved or acted on here.",
+        "Feed at /feed/ returned 404 -- site is not WordPress; sitemap is the only discovery path found."
+      ],
+      "proposed_priority_for_implementation": "wave_2_candidate"
+    },
+    {
+      "row_number": 4,
+      "spreadsheet_label": "Australasian Plant Genetics",
+      "canonical_entity_id": "company-australasian-plant-genetics",
+      "canonical_display_name": "Australasian Plant Genetics",
+      "entity_type": "company",
+      "official_domain": "ausplantgenetics.com.au",
+      "aliases_search_terms": [
+        "APG",
+        "Australian Strawberry Breeding Program commercialisation partner"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website_sitemap",
+          "url": "https://ausplantgenetics.com.au/sitemap.xml",
+          "region_language_scope": "Australia, English",
+          "berry_relevance": "strawberry (and macadamia, non-berry)",
+          "proposed_discovery_mechanism": "sitemap_xml adapter",
+          "existing_adapter_compatibility": "sitemap_xml (existing)",
+          "maturity": "discovery_mechanism_understood",
+          "robots_access_observation": "robots.txt 200; sitemap.xml reachable (200) to this project's own client",
+          "expected_publication_cadence": "inference: low-frequency (a small commercialisation body, likely a handful of variety-page updates per year)",
+          "confidence": "medium",
+          "evidence_urls": [
+            "https://ausplantgenetics.com.au/",
+            "https://ausplantgenetics.com.au/about/"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "Berries Australia (berries.net.au) variety pages reference APG varieties and can be checked manually.",
+      "unresolved_questions": [
+        "Site is variety-catalog-shaped, not a newsroom -- sitemap discovery may surface mostly static variety pages rather than dated news; cadence is inferred, not observed."
+      ],
+      "proposed_priority_for_implementation": "wave_2_candidate"
+    },
+    {
+      "row_number": 5,
+      "spreadsheet_label": "BerryWorld",
+      "canonical_entity_id": "company-berryworld",
+      "canonical_display_name": "BerryWorld Group",
+      "entity_type": "company",
+      "official_domain": "berryworld.com",
+      "aliases_search_terms": [
+        "BerryWorld Group"
+      ],
+      "candidate_sources": [],
+      "recommended_initial_monitoring_state": "source_configured_never_run",
+      "manual_fallback": "n/a -- existing Source source-20260824-berryworld-newsroom covers this",
+      "unresolved_questions": [
+        "See AgroBerries entry: found marketing language listing BerryWorld inside an 'AgroBerries family of companies' -- not confirmed, not acted on."
+      ],
+      "proposed_priority_for_implementation": "wave_1_already_configured"
+    },
+    {
+      "row_number": 6,
+      "spreadsheet_label": "Black Venture Farm",
+      "canonical_entity_id": "company-black-venture-farm",
+      "canonical_display_name": "Black Venture Farm",
+      "entity_type": "company",
+      "official_domain": "blackventurefarm.com",
+      "aliases_search_terms": [
+        "Black Venture Farm Oficial"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website",
+          "url": "https://blackventurefarm.com/",
+          "region_language_scope": "unspecified (a Facebook page uses Spanish-language branding 'Oficial', suggesting a Latin American operation)",
+          "berry_relevance": "unspecified",
+          "proposed_discovery_mechanism": "not yet determined -- homepage reachable (200) but no feed/sitemap probed this mission",
+          "existing_adapter_compatibility": "unknown -- needs a follow-up technical check",
+          "maturity": "candidate_identified",
+          "robots_access_observation": "robots.txt returned 404 (no robots.txt file); homepage returned 200",
+          "expected_publication_cadence": "unknown -- no news/press section identified",
+          "confidence": "low",
+          "evidence_urls": [
+            "https://blackventurefarm.com/",
+            "https://www.facebook.com/BlackVentureFarmOficial"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "Facebook page (facebook.com/BlackVentureFarmOficial) as manual check only -- social platforms are not a supported acquisition adapter in this codebase.",
+      "unresolved_questions": [
+        "No newsroom/press/blog section identified on the homepage in this pass -- a deeper site-map crawl (out of this mission's bounded scope) would be needed before recommending an adapter."
+      ],
+      "proposed_priority_for_implementation": "wave_3_low_confidence"
+    },
+    {
+      "row_number": 7,
+      "spreadsheet_label": "California Giant",
+      "canonical_entity_id": "company-california-giant-berry-farms",
+      "canonical_display_name": "California Giant Berry Farms",
+      "entity_type": "company",
+      "official_domain": "calgiant.com",
+      "aliases_search_terms": [
+        "California Giant Berry Farms",
+        "Cal Giant",
+        "California Giant, Inc."
+      ],
+      "candidate_sources": [],
+      "recommended_initial_monitoring_state": "source_blocked",
+      "manual_fallback": "See docs/v2/COMPETITOR-SOURCE-STRATEGY-V1.md section 5 (California Giant alternative-coverage assessment) for the full, separately-required treatment.",
+      "unresolved_questions": [
+        "See dedicated assessment document."
+      ],
+      "proposed_priority_for_implementation": "see_dedicated_assessment"
+    },
+    {
+      "row_number": 8,
+      "spreadsheet_label": "Costa",
+      "canonical_entity_id": "company-costa-group-holdings",
+      "canonical_display_name": "Costa Group Holdings Pty Ltd",
+      "entity_type": "company",
+      "official_domain": "costagroup.com.au",
+      "aliases_search_terms": [
+        "Costa Group Holdings",
+        "Costa Group",
+        "Costa Berry International"
+      ],
+      "candidate_sources": [],
+      "recommended_initial_monitoring_state": "source_configured_never_run",
+      "manual_fallback": "n/a -- existing Sources source-20260824-costa-group-newsroom and source-news-search-costa-group cover this",
+      "unresolved_questions": [],
+      "proposed_priority_for_implementation": "wave_1_already_configured"
+    },
+    {
+      "row_number": 9,
+      "spreadsheet_label": "Denning Blueberries",
+      "canonical_entity_id": "company-denning-blueberries",
+      "canonical_display_name": "Denning Blueberries",
+      "entity_type": "company",
+      "official_domain": null,
+      "aliases_search_terms": [
+        "Denning Blueberry Farm"
+      ],
+      "candidate_sources": [],
+      "recommended_initial_monitoring_state": "no_supported_source",
+      "manual_fallback": "None identified. Australian Blueberry Growers' Association (berries.net.au) member directory is a plausible lead for a human follow-up search, not verified this mission.",
+      "unresolved_questions": [
+        "No official website, social presence, or trade-press mention was found for an entity matching this exact name in two search passes. May be a smaller/regional operation with no public web presence, a name variant not yet tried, or a misread/abbreviated spreadsheet label."
+      ],
+      "proposed_priority_for_implementation": "identity_search_strategy_pending"
+    },
+    {
+      "row_number": 10,
+      "spreadsheet_label": "Expoberries",
+      "canonical_entity_id": "company-expoberries",
+      "canonical_display_name": "Expoberries",
+      "entity_type": "company",
+      "official_domain": null,
+      "aliases_search_terms": [
+        "Expoberries S.A. de C.V.",
+        "ExpoAgroberries"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "trade_association_page",
+          "url": "https://aneberries.mx/en/expoberries/",
+          "region_language_scope": "Mexico (Michoacán/Jalisco), English/Spanish",
+          "berry_relevance": "blueberry, raspberry, blackberry",
+          "proposed_discovery_mechanism": "not a feed -- a static association-directory profile page, not a source that publishes dated updates",
+          "existing_adapter_compatibility": "none -- not a publishing source",
+          "maturity": "identity_search_strategy_pending",
+          "robots_access_observation": "not checked -- not a candidate for automated discovery",
+          "expected_publication_cadence": "n/a",
+          "confidence": "low",
+          "evidence_urls": [
+            "https://aneberries.mx/en/expoberries/",
+            "https://mx.linkedin.com/company/expoberries",
+            "https://panjiva.com/Expoberries-S-A-De-C-V/31221334"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "no_supported_source",
+      "manual_fallback": "Aneberries (Mexican berry export association) directory profile and LinkedIn page as manual checks only.",
+      "unresolved_questions": [
+        "No dedicated company website found. 'ExpoAgroberries' (expoagroberries.com.mx) is a trade SHOW/event site, not confirmed to be this company's own site -- not treated as the same entity."
+      ],
+      "proposed_priority_for_implementation": "identity_search_strategy_pending"
+    },
+    {
+      "row_number": 11,
+      "spreadsheet_label": "Fall Creek",
+      "canonical_entity_id": "company-fall-creek-farm-and-nursery",
+      "canonical_display_name": "Fall Creek Farm & Nursery, Inc.",
+      "entity_type": "company",
+      "official_domain": "fallcreeknursery.com",
+      "aliases_search_terms": [
+        "Fall Creek Farm & Nursery",
+        "Fall Creek Nursery",
+        "Sekoya"
+      ],
+      "candidate_sources": [],
+      "recommended_initial_monitoring_state": "source_configured_never_run",
+      "manual_fallback": "n/a -- existing Sources source-20260824-fall-creek-newsroom and source-20260824-sekoya-news cover this",
+      "unresolved_questions": [],
+      "proposed_priority_for_implementation": "wave_1_already_configured"
+    },
+    {
+      "row_number": 12,
+      "spreadsheet_label": "Fresh Forward",
+      "canonical_entity_id": "company-fresh-forward",
+      "canonical_display_name": "Fresh Forward",
+      "entity_type": "company",
+      "official_domain": "fresh-forward.nl",
+      "aliases_search_terms": [
+        "Fresh Forward Breeding B.V.",
+        "Fresh Forward Breeding & Marketing"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website",
+          "url": "https://www.fresh-forward.nl/en",
+          "region_language_scope": "Netherlands, English/Dutch",
+          "berry_relevance": "strawberry (primary focus per search results; also apples, non-berry)",
+          "proposed_discovery_mechanism": "not yet determined -- /feed/ returned 404 (not WordPress); a sitemap.xml was not probed this mission",
+          "existing_adapter_compatibility": "unknown -- needs a follow-up technical check (likely sitemap_xml if a sitemap exists)",
+          "maturity": "candidate_identified",
+          "robots_access_observation": "not fully probed -- homepage identified, /feed/ absent",
+          "expected_publication_cadence": "inference: low-frequency (breeding company, not a daily news operation)",
+          "confidence": "medium",
+          "evidence_urls": [
+            "https://www.fresh-forward.nl/en",
+            "https://www.fresh-forward.nl/en/breeding"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "None beyond the official site itself for manual review.",
+      "unresolved_questions": [
+        "Discovery mechanism (sitemap vs. RSS vs. none) not yet confirmed -- /feed/ 404'd, no sitemap.xml check completed this mission."
+      ],
+      "proposed_priority_for_implementation": "wave_2_candidate"
+    },
+    {
+      "row_number": 13,
+      "spreadsheet_label": "Fruitist",
+      "canonical_entity_id": "company-agrovision",
+      "canonical_display_name": "Agrovision Corp. (Fruitist)",
+      "entity_type": "company",
+      "official_domain": "fruitist.com",
+      "aliases_search_terms": [
+        "Agrovision Corp.",
+        "Agrovision"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website_sitemap",
+          "url": "https://www.fruitist.com/sitemap.xml",
+          "region_language_scope": "United States, English",
+          "berry_relevance": "blueberry (primary), blackberry, raspberry, cherry",
+          "proposed_discovery_mechanism": "sitemap_xml adapter",
+          "existing_adapter_compatibility": "sitemap_xml (existing)",
+          "maturity": "discovery_mechanism_understood",
+          "robots_access_observation": "robots.txt 200, declares a sitemap; a guessed Shopify-style .atom blog feed (blogs/news.atom) returned 404, so sitemap is the confirmed path, not a blog feed",
+          "expected_publication_cadence": "inference: moderate (a fast-growing, well-funded consumer brand -- likely more frequent than a typical grower-shipper)",
+          "confidence": "medium",
+          "evidence_urls": [
+            "https://www.fruitist.com/",
+            "https://www.freshfruitportal.com/news/2025/04/22/agrovision-rebrands-say-hello-to-fruitist/",
+            "https://www.thepacker.com/news/industry/look-agrovisions-transition-fruitist"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "Extensive real trade-press coverage of the Agrovision-to-Fruitist rebrand (FreshFruitPortal, The Packer, CNBC, The Hustle) usable for manual/analyst review pending onboarding.",
+      "unresolved_questions": [
+        "Company rebranded from Agrovision to Fruitist in April 2025 -- canonical entity company-agrovision already carries 'Fruitist' as an alias (Company + Genetics Relationships V1); this mission's own domain finding (fruitist.com replacing agrovisioncorp.com) is consistent with, not a contradiction of, that prior work."
+      ],
+      "proposed_priority_for_implementation": "wave_1_candidate"
+    },
+    {
+      "row_number": 14,
+      "spreadsheet_label": "Gem-Pack Berries",
+      "canonical_entity_id": "company-gem-pack-berries",
+      "canonical_display_name": "Gem-Pack Berries",
+      "entity_type": "company",
+      "official_domain": "gem-packberries.com",
+      "aliases_search_terms": [
+        "Gem-Pack Berries, LLC"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website_feed",
+          "url": "https://www.gem-packberries.com/en/feed",
+          "region_language_scope": "United States (California, Florida, Mexico), English",
+          "berry_relevance": "strawberry, blueberry, blackberry, raspberry",
+          "proposed_discovery_mechanism": "article_rss adapter against the confirmed-live feed",
+          "existing_adapter_compatibility": "article_rss (existing)",
+          "maturity": "discovery_mechanism_understood",
+          "robots_access_observation": "feed URL returned HTTP 200 to this project's own User-Agent",
+          "expected_publication_cadence": "inference: seasonal harvest-forecast cadence, similar to other grower-shipper Sources already in this registry (e.g. Fall Creek, Costa)",
+          "confidence": "high",
+          "evidence_urls": [
+            "https://www.gem-packberries.com/en",
+            "https://theproducenews.com/berries/gem-pack-berries-unveils-new-website"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "The Packer / Produce News / Organic Produce Network already carry real Gem-Pack Berries coverage as a manual-check alternative.",
+      "unresolved_questions": [
+        "Real trade-press coverage ('Gem-Pack and Well-Pict Berries combine companies' -- The Packer) suggests Gem-Pack Berries and Well-Pict (roster entry #33) may now be affiliated or merged. Neither entity's canonical record was modified for this -- flagged as an unresolved question for the entity-identity workstream, not acted on in this mission."
+      ],
+      "proposed_priority_for_implementation": "wave_2_candidate"
+    },
+    {
+      "row_number": 15,
+      "spreadsheet_label": "Hortifrut Genetica",
+      "canonical_entity_id": "company-hortifrut",
+      "canonical_display_name": "Hortifrut S.A.",
+      "entity_type": "company",
+      "official_domain": "hortifrut.com",
+      "aliases_search_terms": [
+        "Hortifrut S.A.",
+        "Hortifrut Genetica"
+      ],
+      "candidate_sources": [],
+      "recommended_initial_monitoring_state": "source_configured_never_run",
+      "manual_fallback": "n/a -- existing Source source-20260819-hortifrut-newsroom covers this",
+      "unresolved_questions": [],
+      "proposed_priority_for_implementation": "wave_1_already_configured"
+    },
+    {
+      "row_number": 16,
+      "spreadsheet_label": "IQ Berries",
+      "canonical_entity_id": "company-iq-berries",
+      "canonical_display_name": "IQ Berries",
+      "entity_type": "company",
+      "official_domain": null,
+      "aliases_search_terms": [
+        "IQB",
+        "Peter Rolfe"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "licensing_partner_page",
+          "url": "https://www.osirisplant.com/en/iq-berries/",
+          "region_language_scope": "Australia (breeding) / Americas (via Osiris license), English/Spanish",
+          "berry_relevance": "blueberry",
+          "proposed_discovery_mechanism": "not a feed -- a static partner-page profile, not a dated publishing source",
+          "existing_adapter_compatibility": "none -- not a publishing source",
+          "maturity": "identity_search_strategy_pending",
+          "robots_access_observation": "not checked -- not a candidate for automated discovery",
+          "expected_publication_cadence": "n/a",
+          "confidence": "low",
+          "evidence_urls": [
+            "https://www.osirisplant.com/en/iq-berries/",
+            "https://www.fruitnet.com/iqb-teams-up-with-osiris-to-develop-new-blues-varieties/246169.article"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "no_supported_source",
+      "manual_fallback": "Fruitnet / FreshFruitPortal / International Blueberry Organization coverage of IQB-Osiris variety releases as a manual-check alternative.",
+      "unresolved_questions": [
+        "No independently-owned IQ Berries website was found -- IQ Berries (Brisbane, Australia, breeder Peter Rolfe) appears to publish primarily through its Americas licensing partner Osiris Plant Management and trade press, not its own newsroom."
+      ],
+      "proposed_priority_for_implementation": "identity_search_strategy_pending"
+    },
+    {
+      "row_number": 17,
+      "spreadsheet_label": "Marionnet",
+      "canonical_entity_id": "company-marionnet",
+      "canonical_display_name": "Marionnet",
+      "entity_type": "company",
+      "official_domain": null,
+      "aliases_search_terms": [
+        "Marionnet Label",
+        "Marionnet SAS",
+        "Andre Marionnet"
+      ],
+      "candidate_sources": [],
+      "recommended_initial_monitoring_state": "no_supported_source",
+      "manual_fallback": "Doriane.com case-study page and Google Patents/Justia patent filings under 'Andre Marionnet' as manual-check alternatives; neither is a dated news-publishing source suitable for an adapter.",
+      "unresolved_questions": [
+        "No official Marionnet/Marionnet Label website was found in two search passes. Company was 'taken over by the Agri Finest Company group' in 2018 per search results -- a parent-company website search was not attempted this mission (would exceed the bounded scope of re-verifying one already-ambiguous name)."
+      ],
+      "proposed_priority_for_implementation": "identity_search_strategy_pending"
+    },
+    {
+      "row_number": 18,
+      "spreadsheet_label": "Mountain Blue",
+      "canonical_entity_id": "company-mountain-blue-orchards",
+      "canonical_display_name": "Mountain Blue Orchards Pty Ltd",
+      "entity_type": "company",
+      "official_domain": "mountainblue.com.au",
+      "aliases_search_terms": [
+        "Mountain Blue Orchards",
+        "MBO",
+        "Mountain Blue Farms"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website_sitemap",
+          "url": "https://mountainblue.com.au/sitemap.xml",
+          "region_language_scope": "Australia, English",
+          "berry_relevance": "blueberry (primary), strawberry",
+          "proposed_discovery_mechanism": "sitemap_xml adapter",
+          "existing_adapter_compatibility": "sitemap_xml (existing)",
+          "maturity": "discovery_mechanism_understood",
+          "robots_access_observation": "robots.txt uses the newer IETF 'Content-Signal' opt-out convention (search/ai-input/ai-train) rather than classic Disallow rules, plus explicit named-bot blocks (Amazonbot, Applebot-Extended, Bytespider); sitemap.xml itself returned HTTP 200 to this project's own client. A dedicated /media page exists.",
+          "expected_publication_cadence": "inference: moderate (an active, media-page-maintaining breeder/grower)",
+          "confidence": "medium",
+          "evidence_urls": [
+            "https://www.mountainblue.com.au/media",
+            "https://www.mountainblue.com.au/mountain-blue-genetics"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "Berries Australia (berries.net.au/mountain-blue/) grower profile as a manual-check alternative.",
+      "unresolved_questions": [
+        "Site's robots.txt uses the Content-Signal protocol, a newer, distinct mechanism from classic Disallow rules -- this project's collection policy has not yet made an explicit decision on how to interpret Content-Signal ai-input/ai-train values (not fully captured in this pass) for a source it would use in an AI-assisted intelligence pipeline. Recommend a deliberate policy read before onboarding, not a code change in this mission."
+      ],
+      "proposed_priority_for_implementation": "wave_2_candidate"
+    },
+    {
+      "row_number": 19,
+      "spreadsheet_label": "Oishii",
+      "canonical_entity_id": "company-oishii",
+      "canonical_display_name": "Oishii",
+      "entity_type": "company",
+      "official_domain": "oishii.com",
+      "aliases_search_terms": [
+        "Oishii Berry",
+        "Omakase Berry"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website_feed",
+          "url": "https://oishii.com/blogs/press.atom",
+          "region_language_scope": "United States, English",
+          "berry_relevance": "strawberry",
+          "proposed_discovery_mechanism": "article_rss adapter against the confirmed-live Shopify blog Atom feed",
+          "existing_adapter_compatibility": "article_rss (existing -- Atom is already handled by the same generic feed fetch/list)",
+          "maturity": "discovery_mechanism_understood",
+          "robots_access_observation": "robots.txt 200 (standard e-commerce Disallow: /admin, /cart/, /checkout only -- does not block the /blogs/press path); feed URL returned HTTP 200",
+          "expected_publication_cadence": "inference: moderate-to-high (a well-funded, press-active startup with a dedicated press page and PR Newswire presence)",
+          "confidence": "high",
+          "evidence_urls": [
+            "https://oishii.com/pages/press",
+            "https://www.prnewswire.com/news/oishii/"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "PR Newswire's dedicated Oishii news page (prnewswire.com/news/oishii/) as a manual/redundant-corroboration check.",
+      "unresolved_questions": [],
+      "proposed_priority_for_implementation": "wave_1_candidate"
+    },
+    {
+      "row_number": 20,
+      "spreadsheet_label": "Ozblu",
+      "canonical_entity_id": "brand-ozblu",
+      "canonical_display_name": "OZblu",
+      "entity_type": "brand",
+      "official_domain": "ozblu.com",
+      "aliases_search_terms": [
+        "OZblu",
+        "United Exports",
+        "Oz Varieties",
+        "Nature Select"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website_feed",
+          "url": "https://www.ozblu.com/news/feed/",
+          "region_language_scope": "Australia/South Africa/Peru/Mexico/multi-region, English",
+          "berry_relevance": "blueberry",
+          "proposed_discovery_mechanism": "article_rss adapter against the confirmed-live feed",
+          "existing_adapter_compatibility": "article_rss (existing)",
+          "maturity": "discovery_mechanism_understood",
+          "robots_access_observation": "robots.txt 200, fully permissive (Disallow: none), sitemap_index.xml declared; feed URL returned HTTP 200",
+          "expected_publication_cadence": "inference: moderate (an active multi-region brand with a dedicated /news/ section)",
+          "confidence": "high",
+          "evidence_urls": [
+            "https://www.ozblu.com/",
+            "https://www.ozblu.com/news/world-development-finance-institutions-invest-in-a-united-exports-ozblu-blueberry-expansion/"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "United Exports' own site (united-exports.com) as a secondary manual check, since it is the brand owner behind Ozblu.",
+      "unresolved_questions": [
+        "Confirms the existing Company + Genetics Relationships V1 finding that brand-ozblu is a multi-party entity (United Exports owns the brand, Nature Select develops genetics, Oz Varieties licenses) -- this source would monitor the brand's own news, not resolve which party issued a given announcement; that attribution stays a human/analyst judgment at review time."
+      ],
+      "proposed_priority_for_implementation": "wave_1_candidate"
+    },
+    {
+      "row_number": 21,
+      "spreadsheet_label": "Pairwise",
+      "canonical_entity_id": "company-pairwise",
+      "canonical_display_name": "Pairwise",
+      "entity_type": "company",
+      "official_domain": "pairwise.com",
+      "aliases_search_terms": [
+        "Pairwise Plants"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website_page",
+          "url": "https://www.pairwise.com/insights",
+          "region_language_scope": "United States, English",
+          "berry_relevance": "unspecified (gene-editing platform; berry-specific work not confirmed in this pass)",
+          "proposed_discovery_mechanism": "not yet determined -- robots.txt permissive but no feed/sitemap URL was confirmed live this mission; the /insights page itself is not confirmed to expose a machine-readable feed",
+          "existing_adapter_compatibility": "unknown -- needs a follow-up technical check",
+          "maturity": "candidate_identified",
+          "robots_access_observation": "robots.txt 200; homepage and /insights page load",
+          "expected_publication_cadence": "inference: low-to-moderate (a well-funded biotech with periodic partnership announcements, e.g. the 2024 Corteva deal)",
+          "confidence": "low",
+          "evidence_urls": [
+            "https://www.pairwise.com/insights",
+            "https://www.corteva.com/resources/media-center/corteva-pairwise-join-forces-to-accelerate-gene-editing-advance-climate-resilience-in-agriculture.html"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "Corteva's own newsroom and GenEngNews/produce trade press already cover major Pairwise announcements as a manual-check alternative.",
+      "unresolved_questions": [
+        "Pairwise's public work is broader ag-biotech (CRISPR platform across multiple crops), not confirmed berry-specific in this pass -- berry relevance for this roster entry should be re-confirmed by whoever activates this source, not assumed from the company's general profile."
+      ],
+      "proposed_priority_for_implementation": "wave_3_low_confidence"
+    },
+    {
+      "row_number": 22,
+      "spreadsheet_label": "Perfection Fresh",
+      "canonical_entity_id": "company-perfection-fresh",
+      "canonical_display_name": "Perfection Fresh",
+      "entity_type": "company",
+      "official_domain": "perfection.com.au",
+      "aliases_search_terms": [
+        "Perfection Fresh Australia"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website_feed",
+          "url": "https://www.perfection.com.au/blog/rss.xml",
+          "region_language_scope": "Australia (Tasmania, Queensland), English",
+          "berry_relevance": "strawberry, blueberry, raspberry, blackberry",
+          "proposed_discovery_mechanism": "article_rss adapter against the confirmed-live blog RSS feed",
+          "existing_adapter_compatibility": "article_rss (existing)",
+          "maturity": "discovery_mechanism_understood",
+          "robots_access_observation": "robots.txt 200 (HubSpot-style Disallow rules for sample/preference pages only, not the blog); feed URL returned HTTP 200",
+          "expected_publication_cadence": "inference: moderate (an active company blog)",
+          "confidence": "high",
+          "evidence_urls": [
+            "https://www.perfection.com.au/perfection-berries",
+            "https://berries.net.au/wp-content/uploads/2024/01/AUT-21-PROFILE-PERFECTION.pdf"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "Berries Australia's own grower-profile PDF on Perfection Fresh as a manual-check corroboration source.",
+      "unresolved_questions": [],
+      "proposed_priority_for_implementation": "wave_2_candidate"
+    },
+    {
+      "row_number": 23,
+      "spreadsheet_label": "Planasa",
+      "canonical_entity_id": "company-planasa",
+      "canonical_display_name": "Plantas de Navarra, S.A.",
+      "entity_type": "company",
+      "official_domain": "planasa.com",
+      "aliases_search_terms": [
+        "Planasa"
+      ],
+      "candidate_sources": [],
+      "recommended_initial_monitoring_state": "source_configured_never_run",
+      "manual_fallback": "n/a -- existing Source source-20260819-planasa-newsroom covers this",
+      "unresolved_questions": [
+        "See Company + Genetics Relationships V1's own flagged pre-existing possible identity duplication (company-planasa / company-planasa-2 / company-plantas-de-navarra) -- not investigated further in this source-strategy mission; out of scope."
+      ],
+      "proposed_priority_for_implementation": "wave_1_already_configured"
+    },
+    {
+      "row_number": 24,
+      "spreadsheet_label": "Plant Sciences",
+      "canonical_entity_id": "company-plant-sciences-genetics",
+      "canonical_display_name": "Plant Sciences, Inc.",
+      "entity_type": "company",
+      "official_domain": "plantsciencesgenetics.com",
+      "aliases_search_terms": [
+        "Plant Sciences, Inc.",
+        "Plant Sciences Genetics",
+        "PSG"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website_sitemap",
+          "url": "https://www.plantsciencesgenetics.com/sitemap.xml",
+          "region_language_scope": "United States (Watsonville, CA), English",
+          "berry_relevance": "strawberry, raspberry, blackberry",
+          "proposed_discovery_mechanism": "sitemap_xml adapter",
+          "existing_adapter_compatibility": "sitemap_xml (existing)",
+          "maturity": "discovery_mechanism_understood",
+          "robots_access_observation": "robots.txt on plantsciencesgenetics.com returned 404 (no robots.txt file present -- not a block, simply absent, so no crawl restriction is declared); sitemap.xml itself returned HTTP 200",
+          "expected_publication_cadence": "inference: low (a breeding/IP company, not a frequent-news operation)",
+          "confidence": "medium",
+          "evidence_urls": [
+            "https://finance.yahoo.com/news/plant-sciences-inc-unveils-restructuring-140000641.html"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "Trade/financial press coverage of the 2026 Plant Sciences -> Plant Sciences Genetics (PSG) restructuring as a manual-check reference.",
+      "unresolved_questions": [
+        "Company recently restructured into a new entity, Plant Sciences Genetics, Inc., consolidating several prior berry-breeding affiliates (Berry Genetics, Strawberry Sciences, Via Berry Breeding, Vitae Caneberry Breeding, Fragaria Plant Sciences) -- the existing canonical entity company-plant-sciences-genetics already carries this exact alias, so this finding corroborates rather than contradicts the prior mission's reconciliation."
+      ],
+      "proposed_priority_for_implementation": "wave_2_candidate"
+    },
+    {
+      "row_number": 25,
+      "spreadsheet_label": "Royakkers",
+      "canonical_entity_id": "company-royakkers",
+      "canonical_display_name": "Royakkers",
+      "entity_type": "company",
+      "official_domain": "softfruit.be",
+      "aliases_search_terms": [
+        "Royakkers Fruit & Planten",
+        "Royakkers Planten & Fruit"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website",
+          "url": "https://www.softfruit.be/en/",
+          "region_language_scope": "Belgium (near the Netherlands border), English/Dutch",
+          "berry_relevance": "strawberry, raspberry, blackberry",
+          "proposed_discovery_mechanism": "not yet determined -- /en/feed/ returned 404; a sitemap.xml was not probed this mission",
+          "existing_adapter_compatibility": "unknown -- needs a follow-up technical check",
+          "maturity": "candidate_identified",
+          "robots_access_observation": "homepage reachable",
+          "expected_publication_cadence": "inference: low (a small family farm/nursery business)",
+          "confidence": "medium",
+          "evidence_urls": [
+            "https://www.softfruit.be/over-ons/",
+            "https://zakenblad.nl/2021/04/21/jan-en-gijs-royakkers-vader-en-zoon-in-een-gezond-familiebedrijf/"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "None beyond the official site itself for manual review.",
+      "unresolved_questions": [
+        "Spreadsheet lists Royakkers under regions DOA_DANZ/DEMEA; search results place the company in Kinrooi, Belgium, not the Netherlands the company's own surname might suggest -- a geographic detail worth a human's attention, not corrected here (this mission does not modify regions)."
+      ],
+      "proposed_priority_for_implementation": "wave_3_low_confidence"
+    },
+    {
+      "row_number": 26,
+      "spreadsheet_label": "Smart Berries",
+      "canonical_entity_id": "company-smart-berries",
+      "canonical_display_name": "Smart Berries",
+      "entity_type": "company",
+      "official_domain": "smartberries.com.au",
+      "aliases_search_terms": [
+        "Smart Berries Pty Ltd",
+        "Fresh Produce Group (FPG)",
+        "Pascoes"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website_feed",
+          "url": "https://www.smartberries.com.au/feed/",
+          "region_language_scope": "Australia/New Zealand, English",
+          "berry_relevance": "blueberry, raspberry, blackberry",
+          "proposed_discovery_mechanism": "article_rss adapter against the confirmed-live feed",
+          "existing_adapter_compatibility": "article_rss (existing)",
+          "maturity": "discovery_mechanism_understood",
+          "robots_access_observation": "robots.txt 200 (standard WordPress Disallow: /wp-admin/ only); feed URL returned HTTP 200",
+          "expected_publication_cadence": "inference: low-to-moderate",
+          "confidence": "high",
+          "evidence_urls": [
+            "https://www.smartberries.com.au/about-us/",
+            "https://www.fruitnet.com/asiafruit/smart-berries-building-up/170931.article"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "Fruitnet Asiafruit coverage as a manual-check corroboration source.",
+      "unresolved_questions": [],
+      "proposed_priority_for_implementation": "wave_2_candidate"
+    },
+    {
+      "row_number": 27,
+      "spreadsheet_label": "Splendor Produce",
+      "canonical_entity_id": "company-splendor-produce",
+      "canonical_display_name": "Splendor Produce",
+      "entity_type": "company",
+      "official_domain": null,
+      "aliases_search_terms": [
+        "Splendor Produce Mexico"
+      ],
+      "candidate_sources": [],
+      "recommended_initial_monitoring_state": "no_supported_source",
+      "manual_fallback": "Mexican government trade profile (gob.mx/agricultura article) and Facebook page (facebook.com/splendorproducemx) as manual-check-only references; neither is a dated publishing source suitable for an adapter.",
+      "unresolved_questions": [
+        "No official company website was found in two search passes despite the company being real and described in a Mexican government trade article (450ha blackberries, 200ha raspberries, ~80% exported to the US). 'California Splendor, Inc.' (calsplendor.com) appeared in results but is a distinct entity (strawberries/blackberries, different profile) -- NOT treated as the same company."
+      ],
+      "proposed_priority_for_implementation": "identity_search_strategy_pending"
+    },
+    {
+      "row_number": 28,
+      "spreadsheet_label": "SunBelle",
+      "canonical_entity_id": "company-sunbelle",
+      "canonical_display_name": "SunBelle",
+      "entity_type": "company",
+      "official_domain": "sun-belle.com",
+      "aliases_search_terms": [
+        "Sun Belle",
+        "Sunbelle",
+        "Sunbelle Berries"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website_feed",
+          "url": "https://www.sun-belle.com/feed/",
+          "region_language_scope": "United States, English",
+          "berry_relevance": "blueberry, raspberry, blackberry, golden berries, currants",
+          "proposed_discovery_mechanism": "article_rss adapter against the confirmed-live feed",
+          "existing_adapter_compatibility": "article_rss (existing)",
+          "maturity": "discovery_mechanism_understood",
+          "robots_access_observation": "robots.txt 200 (standard WordPress Disallow: /wp-admin/ only), sitemap also declared (wp-sitemap.xml); feed URL returned HTTP 200",
+          "expected_publication_cadence": "inference: low-to-moderate",
+          "confidence": "high",
+          "evidence_urls": [
+            "https://www.sun-belle.com/",
+            "https://www.thepacker.com/news/produce-crops/sun-belle-expands-berry-grower-relationships"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "The Packer's existing Sun Belle coverage as a manual-check corroboration source.",
+      "unresolved_questions": [
+        "Three related domains found (sun-belle.com, sunbelleberries.com, sunbelle.info) -- sun-belle.com's own confirmed-live feed is proposed as the single candidate; the other two are noted, not separately proposed, to avoid duplicate-content risk (see the duplicate-risk assessment)."
+      ],
+      "proposed_priority_for_implementation": "wave_2_candidate"
+    },
+    {
+      "row_number": 29,
+      "spreadsheet_label": "The Berry Collective",
+      "canonical_entity_id": "company-the-berry-collective",
+      "canonical_display_name": "The Berry Collective",
+      "entity_type": "company",
+      "official_domain": "theberrycollective.com.au",
+      "aliases_search_terms": [
+        "The Berry Collective (Australia)"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website_feed",
+          "url": "https://theberrycollective.com.au/feed/",
+          "region_language_scope": "Australia, English",
+          "berry_relevance": "unspecified (a berry supply/retail partnership site, not confirmed variety/genetics content)",
+          "proposed_discovery_mechanism": "article_rss adapter against the confirmed-live feed (technically ready)",
+          "existing_adapter_compatibility": "article_rss (existing)",
+          "maturity": "identity_search_strategy_pending",
+          "robots_access_observation": "robots.txt 200; feed URL returned HTTP 200",
+          "expected_publication_cadence": "unknown",
+          "confidence": "low",
+          "evidence_urls": [
+            "https://theberrycollective.com.au/",
+            "https://theberrycollective.com.au/about/"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "None -- identity ambiguity should be resolved by a human before any fallback is relied upon.",
+      "unresolved_questions": [
+        "Multiple, clearly distinct organizations share this exact name: a US/NYC wellness-and-community brand (theberrycollective.co), an events platform, a classical-music ensemble, and this Australian 'berry supply & fruit retailer' partnership (theberrycollective.com.au). The Australian one is the best fit for a berry-industry roster, but the spreadsheet's own Competitor Type for this row is 'University/Public,' which does not obviously match a growers-to-retailers supply partnership -- this mismatch is flagged, not resolved. Do not onboard this source until a human confirms which real-world organization the spreadsheet row actually means."
+      ],
+      "proposed_priority_for_implementation": "wave_3_low_confidence"
+    },
+    {
+      "row_number": 30,
+      "spreadsheet_label": "UC Davis",
+      "canonical_entity_id": "breeding_program-uc-davis-strawberry",
+      "canonical_display_name": "UC Davis Strawberry Breeding Program",
+      "entity_type": "breeding_program",
+      "official_domain": "strawberry.ucdavis.edu",
+      "aliases_search_terms": [
+        "UC Davis Strawberry Breeding Program",
+        "University of California, Davis Strawberry Breeding Program"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website_page",
+          "url": "https://strawberry.ucdavis.edu/news-and-events-0",
+          "region_language_scope": "United States, English",
+          "berry_relevance": "strawberry",
+          "proposed_discovery_mechanism": "unresolved -- see robots_access_observation",
+          "existing_adapter_compatibility": "sitemap_xml or article_rss, if access is resolved",
+          "maturity": "known_blocked",
+          "robots_access_observation": "robots.txt returned HTTP 200 (standard Drupal Disallow rules, not obviously blocking /news-and-events-0), but the site's HOME PAGE returned HTTP 403 to this project's own User-Agent on two separate checks -- a real, observed access limitation, not a guess. Not investigated further to avoid any appearance of probing around the block.",
+          "expected_publication_cadence": "inference: high-value but likely low-frequency (a public research program, not a daily news operation) -- real variety-release announcements (5 new Fusarium-resistant cultivars, international licensing deals) are exactly the kind of content this roster needs",
+          "confidence": "medium",
+          "evidence_urls": [
+            "https://strawberry.ucdavis.edu/news-and-events-0",
+            "https://www.ucdavis.edu/news/strawberry-breeding-program-backgrounder-frequently-asked-questions"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "source_blocked",
+      "manual_fallback": "UC Davis's main university newsroom (ucdavis.edu/news, a different subdomain) carries the same major strawberry-program announcements (Fusarium-resistant variety release, international licensing) and returned no observed block in this pass -- worth a follow-up technical check as an alternative entry point before assuming the whole ucdavis.edu domain is inaccessible.",
+      "unresolved_questions": [
+        "Whether the 403 is specific to the strawberry.ucdavis.edu subdomain, this project's exact User-Agent string, or a broader ucdavis.edu WAF policy was not determined -- would need the same kind of A/B (curl vs. httpx) diagnostic this project has already applied to California Giant, which was out of this mission's time-bounded scope to repeat for every blocked candidate."
+      ],
+      "proposed_priority_for_implementation": "wave_2_candidate_pending_access_resolution"
+    },
+    {
+      "row_number": 31,
+      "spreadsheet_label": "University of Arkansas",
+      "canonical_entity_id": "company-university-of-arkansas",
+      "canonical_display_name": "University of Arkansas Division of Agriculture",
+      "entity_type": "company",
+      "official_domain": "aaes.uada.edu",
+      "aliases_search_terms": [
+        "University of Arkansas Division of Agriculture",
+        "UADA",
+        "Arkansas Agricultural Experiment Station"
+      ],
+      "candidate_sources": [],
+      "recommended_initial_monitoring_state": "source_configured_never_run",
+      "manual_fallback": "n/a -- existing Source source-20260824-arkansas-aaes-news covers this",
+      "unresolved_questions": [],
+      "proposed_priority_for_implementation": "wave_1_already_configured"
+    },
+    {
+      "row_number": 32,
+      "spreadsheet_label": "University of Florida",
+      "canonical_entity_id": "company-university-of-florida",
+      "canonical_display_name": "University of Florida",
+      "entity_type": "company",
+      "official_domain": "blogs.ifas.ufl.edu",
+      "aliases_search_terms": [
+        "University of Florida IFAS",
+        "UF/IFAS",
+        "UF"
+      ],
+      "candidate_sources": [],
+      "recommended_initial_monitoring_state": "source_configured_never_run",
+      "manual_fallback": "n/a -- existing Source source-20260824-uf-ifas-news covers this",
+      "unresolved_questions": [],
+      "proposed_priority_for_implementation": "wave_1_already_configured"
+    },
+    {
+      "row_number": 33,
+      "spreadsheet_label": "Well-Pict",
+      "canonical_entity_id": "company-well-pict",
+      "canonical_display_name": "Well-Pict",
+      "entity_type": "company",
+      "official_domain": "wellpict.com",
+      "aliases_search_terms": [
+        "Well Pict Berries",
+        "Well•Pict Berries"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website",
+          "url": "https://www.wellpict.com/",
+          "region_language_scope": "United States (Watsonville, CA), English",
+          "berry_relevance": "strawberry, blueberry, blackberry, raspberry",
+          "proposed_discovery_mechanism": "not confirmed this mission -- see robots_access_observation",
+          "existing_adapter_compatibility": "unknown, pending a successful connection",
+          "maturity": "candidate_identified",
+          "robots_access_observation": "Both the homepage and /feed/ path returned a connection failure (curl exit/HTTP code 000, not a 4xx/5xx) on repeated attempts from this environment -- inconclusive, NOT the same as a confirmed HTTP-level block (compare California Giant's clean 403). Needs a re-check from a different network path before any access conclusion is drawn.",
+          "expected_publication_cadence": "inference: moderate (a real trade-press-covered relaunch of its site in 2013, with an active blog historically)",
+          "confidence": "low",
+          "evidence_urls": [
+            "https://www.supermarketnews.com/fresh-produce/well-pict-berries-launches-new-website",
+            "https://www.thepacker.com/news/industry/gem-pack-and-well-pict-berries-combine-companies"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "Trade press (Supermarket News, The Packer, Produce News) already covers Well-Pict as a manual-check alternative while the connection issue is investigated.",
+      "unresolved_questions": [
+        "Connection to wellpict.com failed outright (not a 403/blocked response) during this mission's verification -- could be a transient network condition in this research environment, a DNS/hosting issue, or a genuine access restriction; not distinguishable without a retry from elsewhere.",
+        "See Gem-Pack Berries entry: trade press reports Gem-Pack and Well-Pict Berries 'combining companies' -- a possible merger/affiliation between two separate roster entries, not investigated or acted on further (entity-identity scope, not this mission's)."
+      ],
+      "proposed_priority_for_implementation": "wave_2_candidate_pending_access_resolution"
+    },
+    {
+      "row_number": 34,
+      "spreadsheet_label": "Wish Farms",
+      "canonical_entity_id": "company-wish-farms",
+      "canonical_display_name": "Wish Farms",
+      "entity_type": "company",
+      "official_domain": "wishfarms.com",
+      "aliases_search_terms": [
+        "Wish Farms"
+      ],
+      "candidate_sources": [
+        {
+          "source_type": "official_website_feed",
+          "url": "https://wishfarms.com/newsroom/feed/",
+          "region_language_scope": "United States (Plant City, FL), English",
+          "berry_relevance": "strawberry, blueberry, blackberry, raspberry",
+          "proposed_discovery_mechanism": "article_rss adapter against the confirmed-live feed",
+          "existing_adapter_compatibility": "article_rss (existing)",
+          "maturity": "discovery_mechanism_understood",
+          "robots_access_observation": "robots.txt 200, fully permissive (Disallow: none), sitemap_index.xml also declared; feed URL returned HTTP 200",
+          "expected_publication_cadence": "inference: moderate-to-high (an active, dedicated newsroom with recent leadership, event, and breeding-program posts)",
+          "confidence": "high",
+          "evidence_urls": [
+            "https://wishfarms.com/newsroom/",
+            "https://wishfarms.com/newsroom-item/wish-farms-refreshes-its-brand-reveals-app-and-website/"
+          ],
+          "verification_date": "2026-09-15"
+        }
+      ],
+      "recommended_initial_monitoring_state": "discovery_pending",
+      "manual_fallback": "n/a -- source is strong enough that a manual fallback is not the priority recommendation.",
+      "unresolved_questions": [],
+      "proposed_priority_for_implementation": "wave_1_candidate"
+    }
+  ]
+}

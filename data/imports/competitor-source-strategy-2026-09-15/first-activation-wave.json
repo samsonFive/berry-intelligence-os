@@ -1,0 +1,80 @@
+{
+  "id": "competitor-source-strategy-v1-first-activation-wave",
+  "verification_date": "2026-09-15",
+  "count": 12,
+  "note": "Bounded first wave: the 8 already-configured-but-never-run Sources (zero new research needed, only an operator running collection) plus the highest-confidence newly-researched candidates (confirmed-live feed, permissive robots.txt, real trade-press corroboration).",
+  "entries": [
+    {
+      "spreadsheet_label": "Advanced Berry Breeding",
+      "canonical_entity_id": "company-advanced-berry-breeding",
+      "proposed_priority_for_implementation": "wave_1_already_configured",
+      "why": "Already configured, discovery-eligible, never run -- zero new research or adapter work needed."
+    },
+    {
+      "spreadsheet_label": "BerryWorld",
+      "canonical_entity_id": "company-berryworld",
+      "proposed_priority_for_implementation": "wave_1_already_configured",
+      "why": "Already configured, discovery-eligible, never run -- zero new research or adapter work needed."
+    },
+    {
+      "spreadsheet_label": "Costa",
+      "canonical_entity_id": "company-costa-group-holdings",
+      "proposed_priority_for_implementation": "wave_1_already_configured",
+      "why": "Already configured, discovery-eligible, never run -- zero new research or adapter work needed."
+    },
+    {
+      "spreadsheet_label": "Fall Creek",
+      "canonical_entity_id": "company-fall-creek-farm-and-nursery",
+      "proposed_priority_for_implementation": "wave_1_already_configured",
+      "why": "Already configured, discovery-eligible, never run -- zero new research or adapter work needed."
+    },
+    {
+      "spreadsheet_label": "Fruitist",
+      "canonical_entity_id": "company-agrovision",
+      "proposed_priority_for_implementation": "wave_1_candidate",
+      "why": "Confirmed-live official_website_sitemap (https://www.fruitist.com/sitemap.xml), medium confidence, existing adapter compatible."
+    },
+    {
+      "spreadsheet_label": "Hortifrut Genetica",
+      "canonical_entity_id": "company-hortifrut",
+      "proposed_priority_for_implementation": "wave_1_already_configured",
+      "why": "Already configured, discovery-eligible, never run -- zero new research or adapter work needed."
+    },
+    {
+      "spreadsheet_label": "Oishii",
+      "canonical_entity_id": "company-oishii",
+      "proposed_priority_for_implementation": "wave_1_candidate",
+      "why": "Confirmed-live official_website_feed (https://oishii.com/blogs/press.atom), high confidence, existing adapter compatible."
+    },
+    {
+      "spreadsheet_label": "Ozblu",
+      "canonical_entity_id": "brand-ozblu",
+      "proposed_priority_for_implementation": "wave_1_candidate",
+      "why": "Confirmed-live official_website_feed (https://www.ozblu.com/news/feed/), high confidence, existing adapter compatible."
+    },
+    {
+      "spreadsheet_label": "Planasa",
+      "canonical_entity_id": "company-planasa",
+      "proposed_priority_for_implementation": "wave_1_already_configured",
+      "why": "Already configured, discovery-eligible, never run -- zero new research or adapter work needed."
+    },
+    {
+      "spreadsheet_label": "University of Arkansas",
+      "canonical_entity_id": "company-university-of-arkansas",
+      "proposed_priority_for_implementation": "wave_1_already_configured",
+      "why": "Already configured, discovery-eligible, never run -- zero new research or adapter work needed."
+    },
+    {
+      "spreadsheet_label": "University of Florida",
+      "canonical_entity_id": "company-university-of-florida",
+      "proposed_priority_for_implementation": "wave_1_already_configured",
+      "why": "Already configured, discovery-eligible, never run -- zero new research or adapter work needed."
+    },
+    {
+      "spreadsheet_label": "Wish Farms",
+      "canonical_entity_id": "company-wish-farms",
+      "proposed_priority_for_implementation": "wave_1_candidate",
+      "why": "Confirmed-live official_website_feed (https://wishfarms.com/newsroom/feed/), high confidence, existing adapter compatible."
+    }
+  ]
+}
