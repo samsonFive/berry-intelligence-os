@@ -1,0 +1,28 @@
+{
+  "id": "competitor-source-strategy-v1-adapter-gap-analysis",
+  "verification_date": "2026-09-15",
+  "existing_adapters_sufficient_for_this_roster": [
+    "article_rss (RSS/Atom -- covers every confirmed-live feed candidate found this mission, including a Shopify .atom blog feed, which the existing generic feed fetch/list already handles)",
+    "sitemap_xml (covers every confirmed sitemap candidate found this mission)",
+    "news_search_rss (already proven for Costa; the right shape for any future company-scoped Google News query onboarded for a no-dedicated-website roster entry, e.g. Denning Blueberries or Splendor Produce, if ever attempted)"
+  ],
+  "no_new_adapter_type_required_by_this_research": "Every technically-confirmed candidate this mission found (feed or sitemap) fits an adapter that already exists in app/services/media_discovery.py. This roster did not surface a need for, e.g., a new social/video adapter -- no roster entry's best available source was a social/video channel with no feed.",
+  "access_limitations_found_requiring_a_policy_or_client_decision_not_a_new_adapter": [
+    {
+      "entity": "California Giant",
+      "issue": "TLS/HTTP-client fingerprint block (Cloudflare bot management) -- see dedicated assessment. Not an adapter gap; a client/policy question."
+    },
+    {
+      "entity": "UC Davis",
+      "issue": "strawberry.ucdavis.edu returns HTTP 403 to this project's client on two checks, while robots.txt itself does not obviously disallow the relevant path. Not diagnosed further (no curl-vs-httpx A/B run) -- flagged as a candidate for the same diagnostic already applied to California Giant, not solved here."
+    },
+    {
+      "entity": "Mountain Blue",
+      "issue": "robots.txt uses the newer IETF Content-Signal opt-out convention (search/ai-input/ai-train) rather than classic Disallow. This project has no documented policy yet for how to interpret an ai-input=no signal (if present) for a source it would use in an AI-assisted pipeline -- a governance question, not a technical adapter gap."
+    },
+    {
+      "entity": "Well-Pict",
+      "issue": "Connection failed outright (not an HTTP-level response) from this research environment -- inconclusive; needs a retry from the production/collection environment before drawing any access conclusion."
+    }
+  ]
+}
