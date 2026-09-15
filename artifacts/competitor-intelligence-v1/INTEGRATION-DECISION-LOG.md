@@ -35,7 +35,7 @@ conflicts occurred.
 ## Runtime boundary
 
 The ignored canary runtime was not copied or reconstructed. This integration
-worktree has no `inbox/` directory. The historical Sol audit remains labeled as
+worktree contains zero `inbox/` files; local app startup created empty runtime
+directories only. The historical Sol audit remains labeled as
 an earlier 11/33 base snapshot. The current post-integration audit is stored in
 `competitor-source-coverage-current.json` and `.md`.
-

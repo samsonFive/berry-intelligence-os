@@ -53,8 +53,9 @@ not overwritten or relabeled as current.
 
 ## Runtime and data mutations
 
-No ignored canary runtime was copied or reconstructed. This worktree has no
-`inbox/` directory. Therefore the integration imported zero of the 150 staged
+No ignored canary runtime was copied or reconstructed. This worktree contains
+zero `inbox/` files; local app startup created empty runtime directories only.
+Therefore the integration imported zero of the 150 staged
 discoveries, 5 discovery states, 10 operation items, 5 run records, 5
 acquisition outcomes, or the unapproved BerryWorld draft. Git-tracked canonical
 entities, provenance records, and pending relationships arrived only through
@@ -83,4 +84,3 @@ Claude's preserved commit.
   the isolated-output build succeeded and should be repeated by the Python 3.12 runner.
 
 Nothing was pushed, merged, deployed, collected, approved, published, or emailed.
-
