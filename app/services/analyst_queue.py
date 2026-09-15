@@ -117,6 +117,7 @@ def _empty_state() -> dict[str, dict[str, dict[str, Any]]]:
         "signals": {},
         "pending": {},
         "derived_review": {},
+        "trust_feedback": {},
         "meta": {},
     }
 
