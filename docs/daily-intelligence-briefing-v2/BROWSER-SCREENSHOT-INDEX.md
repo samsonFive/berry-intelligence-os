@@ -1,18 +1,18 @@
-# Browser screenshot index (Slice 1)
+# Browser screenshot index — Slice 1
 
-Artifacts are captured under `/opt/cursor/artifacts/` during verification.
+Artifacts in :
 
-| # | Scene | Source |
+| # | File | Scene |
 |---|---|---|
-| 1 | What Changed (honest empty / current feed) | Production `/today` |
-| 2 | Needs Attention failure state | Production `/today#needs-attention` |
-| 3 | Coverage Pulse | Production `/today` |
-| 4 | In-app reader with publication vs capture dates | Production `?reader=` |
-| 5 | Bot-wall / body-unavailable reader | Production reader |
-| 6 | Landscape handoff | `/competitors?...&from=today` |
-| 7 | Unknown-date section | Production `/today#unknown-dates` |
-| 8 | Historical-context section | Production `/today#historical-context` |
-| 9 | Mobile feed | Production `/today` narrow viewport |
-| 10 | Mobile reader | Production reader narrow viewport |
+| 1 |  | What Changed honest empty / current feed |
+| 2 |  | Needs Attention failure cards |
+| 3 |  | Coverage Pulse |
+| 4 |  | In-app reader publication vs capture dates |
+| 5 |  | Bot-wall / body-unavailable reader |
+| 6 |  | Landscape handoff  |
+| 7 |  | Unknown publication date section |
+| 8 |  | Historical context section |
+| 9 |  | Mobile feed |
+| 10 |  | Mobile reader |
 
-If a scene lacks production data, the artifact is labeled as prototype/design evidence rather than seeding fake production records.
+Also retained:  for interaction continuity.
