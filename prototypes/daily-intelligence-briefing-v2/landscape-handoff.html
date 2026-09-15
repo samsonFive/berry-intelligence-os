@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Competitor Landscape handoff — Prototype</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { --navy:#08234d; --text:#1c1812; --muted:#6d6458; --canvas:#f4f1ea; --border:#ddd4c6; --accent:#8a6a3b; --font:"Source Sans 3",sans-serif; --display:"Fraunces",Georgia,serif; }
+    body { margin:0; font-family:var(--font); color:var(--text); background:var(--canvas); }
+    main { max-width:52rem; margin:0 auto; padding:2rem 1.25rem 3rem; }
+    h1 { font-family:var(--display); }
+    .note { padding:.75rem 1rem; border-left:3px solid var(--accent); background:rgba(138,106,59,.08); color:var(--muted); }
+    .card { background:#fffcf7; border:1px solid var(--border); border-radius:14px; padding:1rem 1.1rem; margin:1rem 0; }
+    dl { display:grid; grid-template-columns:10rem 1fr; gap:.4rem .75rem; }
+    dt { color:var(--muted); text-transform:uppercase; font-size:.78rem; letter-spacing:.04em; }
+    dd { margin:0; font-weight:600; }
+    a.btn { display:inline-block; margin-top:1rem; padding:.45rem .9rem; border-radius:999px; background:var(--navy); color:#fff; text-decoration:none; }
+    code { background:#fff; border:1px solid var(--border); padding:.1rem .35rem; border-radius:6px; }
+  </style>
+</head>
+<body>
+  <main>
+    <p style="letter-spacing:.08em;text-transform:uppercase;color:#6d6458;font-size:.75rem">Prototype landscape handoff</p>
+    <h1>Competitor Landscape state contract</h1>
+    <p class="note">This page demonstrates briefing → landscape handoff via query parameters. It is not the production landscape route and does not mutate production data.</p>
+    <div class="card">
+      <h2>Received filter / focus state</h2>
+      <dl id="state"></dl>
+      <p id="empty" hidden>No landscape query parameters were provided.</p>
+    </div>
+    <p>State contract (documented for production implementation):</p>
+    <ul>
+      <li><code>berry</code> — berry context</li>
+      <li><code>region</code> — region code (repeatable later)</li>
+      <li><code>tier</code> — landscape tier / status</li>
+      <li><code>topic</code> — optional topic lens</li>
+      <li><code>focus</code> / <code>entity</code> — company or non-company entity focus</li>
+      <li><code>from=briefing-v2</code> — optional provenance for return navigation</li>
+    </ul>
+    <a class="btn" href="./index.html">Return to Daily Intelligence Briefing</a>
+  </main>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const keys = ["berry","region","tier","topic","focus","entity","from"];
+    const dl = document.getElementById("state");
+    let any = false;
+    keys.forEach(k => {
+      const v = params.get(k);
+      if (!v) return;
+      any = true;
+      const dt = document.createElement("dt"); dt.textContent = k;
+      const dd = document.createElement("dd"); dd.textContent = v;
+      dl.append(dt, dd);
+    });
+    document.getElementById("empty").hidden = any;
+  </script>
+</body>
+</html>
