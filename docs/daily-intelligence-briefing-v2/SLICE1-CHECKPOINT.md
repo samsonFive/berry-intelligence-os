@@ -19,7 +19,7 @@ Production Slice 1 implemented on `feature/daily-intelligence-briefing-v2-slice1
 ## Honesty counters / freeze statements
 - PROTOTYPE REMOTE HEAD: a6f307b5d62315c21bd3c07faa297cb43eee496f
 - PRODUCTION BRANCH: feature/daily-intelligence-briefing-v2-slice1
-- PRODUCTION LOCAL HEAD: REPLACE_AFTER_COMMIT
+- PRODUCTION LOCAL HEAD: 3dab123cce0821f49a53abcacb125a8de60a6921
 - PRODUCTION FIXTURE DEPENDENCY: NONE
 - READABLE ITEMS FORCE EXTERNAL NAVIGATION: NO
 - UNREADABLE CONTENT IN WHAT CHANGED: 0
