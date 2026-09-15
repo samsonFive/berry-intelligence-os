@@ -24,6 +24,17 @@
       "row_number": 29,
       "spreadsheet_label": "The Berry Collective",
       "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    },
+    "identity_verification_2026_09_15": {
+      "verdict": "genuine_identity_ambiguity",
+      "reason": "A real Australian berry-supply/retail-partnership organization (theberrycollective.com.au) was found and is the best available match, but the exact name is shared by at least four other, clearly unrelated organizations found in search results (a US wellness/community brand, an events platform, a classical-music ensemble). Compounding the ambiguity: the spreadsheet's own Competitor Type for this row is 'University/Public,' which does not obviously describe a growers-to-retailers supply partnership -- suggesting the matched .com.au site may not even be the organization the spreadsheet author intended. This is exactly the 'do not force ambiguous reconciliation' case; held firmly provisional pending a human confirming which real-world organization this row means.",
+      "evidence_urls": [
+        "https://theberrycollective.com.au/",
+        "https://theberrycollective.com.au/about/"
+      ],
+      "confidence": "low",
+      "verification_date": "2026-09-15",
+      "verified_by": "competitor-identity-genetics-verification-v1"
     }
   }
 }

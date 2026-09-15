@@ -3,8 +3,11 @@
   "record_type": "entity",
   "entity_type": "company",
   "name": "Royakkers",
-  "aliases": [],
-  "status": "unverified",
+  "aliases": [
+    "Royakkers Fruit & Planten",
+    "Royakkers Planten & Fruit"
+  ],
+  "status": "active",
   "description": "Added to the entity graph from the internal Competitor Registry spreadsheet snapshot (2026-09-15, row 25) as a tracked competitor of type 'Commercial'. Not yet independently verified or researched beyond that spreadsheet -- no company history, ownership, or activity detail is asserted here. See ev-competitor-registry-2026-09-15-import for provenance.",
   "roles": [
     "grower_marketer",
@@ -24,6 +27,17 @@
       "row_number": 25,
       "spreadsheet_label": "Royakkers",
       "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    },
+    "identity_verification_2026_09_15": {
+      "verdict": "externally_verified",
+      "reason": "Official domain softfruit.be confirms Royakkers as a family fruit-plant nursery/grower business (strawberries, raspberries, blackberries) run by Jan and Gijs Royakkers, based in Kinrooi, Belgium, corroborated by an independent Dutch/Belgian business-press profile (zakenblad.nl). Geographic note: located in Belgium, not the Netherlands its surname might suggest -- recorded here for the record; the spreadsheet's own region codes (DOA_DANZ/DEMEA) are unchanged, per this mission's explicit scope limits.",
+      "evidence_urls": [
+        "https://www.softfruit.be/over-ons/",
+        "https://zakenblad.nl/2021/04/21/jan-en-gijs-royakkers-vader-en-zoon-in-een-gezond-familiebedrijf/"
+      ],
+      "confidence": "high",
+      "verification_date": "2026-09-15",
+      "verified_by": "competitor-identity-genetics-verification-v1"
     }
   }
 }

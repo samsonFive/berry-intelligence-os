@@ -4,7 +4,7 @@
   "entity_type": "company",
   "name": "Oishii",
   "aliases": [],
-  "status": "unverified",
+  "status": "active",
   "description": "Added to the entity graph from the internal Competitor Registry spreadsheet snapshot (2026-09-15, row 19) as a tracked competitor of type 'Commercial'. Not yet independently verified or researched beyond that spreadsheet -- no company history, ownership, or activity detail is asserted here. See ev-competitor-registry-2026-09-15-import for provenance.",
   "roles": [
     "grower_marketer",
@@ -23,6 +23,18 @@
       "row_number": 19,
       "spreadsheet_label": "Oishii",
       "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    },
+    "identity_verification_2026_09_15": {
+      "verdict": "externally_verified",
+      "reason": "Extensively documented: official site oishii.com with a dedicated /pages/press newsroom, PR Newswire's own dedicated Oishii news page, multiple funding-round trade articles (Agriculture Dive), Wikipedia entry. Unambiguous, single, well-known organization (indoor vertical strawberry grower, Series C financing 2026).",
+      "evidence_urls": [
+        "https://oishii.com/pages/press",
+        "https://www.prnewswire.com/news/oishii/",
+        "https://en.wikipedia.org/wiki/Oishii"
+      ],
+      "confidence": "high",
+      "verification_date": "2026-09-15",
+      "verified_by": "competitor-identity-genetics-verification-v1"
     }
   }
 }

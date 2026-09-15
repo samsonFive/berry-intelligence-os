@@ -1,0 +1,314 @@
+{
+  "id": "competitor-identity-relationship-evidence-ledger-2026-09-15",
+  "verification_date": "2026-09-15",
+  "note": "Every row here traces back to either an externally-verified identity fact (company/organization identity research) or an externally-supported relationship (genetics-assertion corroboration). Internal spreadsheet classifications (tier/priority/region/competitor type) and user-provided handwritten assertions are tracked separately in the existing snapshot.json and genetics-transcription.json -- never represented here as though they were externally researched.",
+  "entry_count": 34,
+  "entries": [
+    {
+      "subject": "company-agroberries",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.agroberries.com/about",
+      "confidence": "medium",
+      "verdict": "identity_confirmed_relationship_ambiguity_unrelated",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-agroberries",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.freshfruitportal.com/news/2026/06/24/agroberries-expansion/",
+      "confidence": "medium",
+      "verdict": "identity_confirmed_relationship_ambiguity_unrelated",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-australasian-plant-genetics",
+      "subject_kind": "entity_identity",
+      "source_url": "https://ausplantgenetics.com.au/",
+      "confidence": "high",
+      "verdict": "externally_verified",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-australasian-plant-genetics",
+      "subject_kind": "entity_identity",
+      "source_url": "https://ausplantgenetics.com.au/about/",
+      "confidence": "high",
+      "verdict": "externally_verified",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-black-venture-farm",
+      "subject_kind": "entity_identity",
+      "source_url": "https://blackventurefarm.com/",
+      "confidence": "low",
+      "verdict": "insufficient_primary_evidence",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-black-venture-farm",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.facebook.com/BlackVentureFarmOficial",
+      "confidence": "low",
+      "verdict": "insufficient_primary_evidence",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-expoberries",
+      "subject_kind": "entity_identity",
+      "source_url": "https://aneberries.mx/en/expoberries/",
+      "confidence": "medium",
+      "verdict": "existence_confirmed_no_primary_source",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-expoberries",
+      "subject_kind": "entity_identity",
+      "source_url": "https://panjiva.com/Expoberries-S-A-De-C-V/31221334",
+      "confidence": "medium",
+      "verdict": "existence_confirmed_no_primary_source",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-fresh-forward",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.fresh-forward.nl/en",
+      "confidence": "high",
+      "verdict": "externally_verified",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-fresh-forward",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.fresh-forward.nl/en/breeding",
+      "confidence": "high",
+      "verdict": "externally_verified",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-gem-pack-berries",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.gem-packberries.com/en",
+      "confidence": "medium",
+      "verdict": "identity_confirmed_relationship_ambiguity_unrelated",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-gem-pack-berries",
+      "subject_kind": "entity_identity",
+      "source_url": "https://theproducenews.com/berries/gem-pack-berries-unveils-new-website",
+      "confidence": "medium",
+      "verdict": "identity_confirmed_relationship_ambiguity_unrelated",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-gem-pack-berries",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.thepacker.com/news/industry/gem-pack-and-well-pict-berries-combine-companies",
+      "confidence": "medium",
+      "verdict": "identity_confirmed_relationship_ambiguity_unrelated",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-marionnet",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.doriane.com/case-studies/marionnet-label",
+      "confidence": "medium",
+      "verdict": "structural_ambiguity",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-marionnet",
+      "subject_kind": "entity_identity",
+      "source_url": "https://patents.google.com/patent/USPP8517P/en",
+      "confidence": "medium",
+      "verdict": "structural_ambiguity",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-oishii",
+      "subject_kind": "entity_identity",
+      "source_url": "https://oishii.com/pages/press",
+      "confidence": "high",
+      "verdict": "externally_verified",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-oishii",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.prnewswire.com/news/oishii/",
+      "confidence": "high",
+      "verdict": "externally_verified",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-oishii",
+      "subject_kind": "entity_identity",
+      "source_url": "https://en.wikipedia.org/wiki/Oishii",
+      "confidence": "high",
+      "verdict": "externally_verified",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-pairwise",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.pairwise.com/insights",
+      "confidence": "high",
+      "verdict": "externally_verified_scope_question_flagged_separately",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-pairwise",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.corteva.com/resources/media-center/corteva-pairwise-join-forces-to-accelerate-gene-editing-advance-climate-resilience-in-agriculture.html",
+      "confidence": "high",
+      "verdict": "externally_verified_scope_question_flagged_separately",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-perfection-fresh",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.perfection.com.au/perfection-berries",
+      "confidence": "high",
+      "verdict": "externally_verified",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-perfection-fresh",
+      "subject_kind": "entity_identity",
+      "source_url": "https://berries.net.au/wp-content/uploads/2024/01/AUT-21-PROFILE-PERFECTION.pdf",
+      "confidence": "high",
+      "verdict": "externally_verified",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-royakkers",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.softfruit.be/over-ons/",
+      "confidence": "high",
+      "verdict": "externally_verified",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-royakkers",
+      "subject_kind": "entity_identity",
+      "source_url": "https://zakenblad.nl/2021/04/21/jan-en-gijs-royakkers-vader-en-zoon-in-een-gezond-familiebedrijf/",
+      "confidence": "high",
+      "verdict": "externally_verified",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-smart-berries",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.smartberries.com.au/about-us/",
+      "confidence": "high",
+      "verdict": "externally_verified",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-smart-berries",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.fruitnet.com/asiafruit/smart-berries-building-up/170931.article",
+      "confidence": "high",
+      "verdict": "externally_verified",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-splendor-produce",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.gob.mx/agricultura/articulos/splendor-produce-un-resplandeciente-negocio-de-berries",
+      "confidence": "medium",
+      "verdict": "existence_confirmed_no_primary_source",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-sunbelle",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.sun-belle.com/",
+      "confidence": "high",
+      "verdict": "externally_verified",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-sunbelle",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.thepacker.com/news/produce-crops/sun-belle-expands-berry-grower-relationships",
+      "confidence": "high",
+      "verdict": "externally_verified",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-the-berry-collective",
+      "subject_kind": "entity_identity",
+      "source_url": "https://theberrycollective.com.au/",
+      "confidence": "low",
+      "verdict": "genuine_identity_ambiguity",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-the-berry-collective",
+      "subject_kind": "entity_identity",
+      "source_url": "https://theberrycollective.com.au/about/",
+      "confidence": "low",
+      "verdict": "genuine_identity_ambiguity",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-well-pict",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.supermarketnews.com/fresh-produce/well-pict-berries-launches-new-website",
+      "confidence": "medium",
+      "verdict": "identity_confirmed_relationship_ambiguity_unrelated",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "company-well-pict",
+      "subject_kind": "entity_identity",
+      "source_url": "https://www.thepacker.com/news/industry/gem-pack-and-well-pict-berries-combine-companies",
+      "confidence": "medium",
+      "verdict": "identity_confirmed_relationship_ambiguity_unrelated",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_verified_identity_fact"
+    },
+    {
+      "subject": "rel-agroberries-genetics-mountain-blue-orchards",
+      "subject_kind": "relationship",
+      "source_url": "see ev-agroberries-mountain-blue-licensing-freshfruitportal-2026.json (data/evidence/)",
+      "confidence": "high",
+      "verdict": "upgraded",
+      "verification_date": "2026-09-15",
+      "evidence_type": "externally_supported_relationship"
+    }
+  ]
+}

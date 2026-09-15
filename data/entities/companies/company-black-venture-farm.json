@@ -25,6 +25,17 @@
       "row_number": 6,
       "spreadsheet_label": "Black Venture Farm",
       "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    },
+    "identity_verification_2026_09_15": {
+      "verdict": "insufficient_primary_evidence",
+      "reason": "Only a bare homepage (blackventurefarm.com, HTTP 200) and one Facebook page ('Black Venture Farm Oficial', Spanish-language branding) were found. No about/company page, no press coverage, no clear description of the business confirming it matches the berry-industry competitor this roster row expects. Not 'clearly verified' per this mission's bar -- a domain resolving is not proof of the correct real-world identity behind it.",
+      "evidence_urls": [
+        "https://blackventurefarm.com/",
+        "https://www.facebook.com/BlackVentureFarmOficial"
+      ],
+      "confidence": "low",
+      "verification_date": "2026-09-15",
+      "verified_by": "competitor-identity-genetics-verification-v1"
     }
   }
 }

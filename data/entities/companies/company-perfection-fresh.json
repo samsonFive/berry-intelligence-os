@@ -3,8 +3,10 @@
   "record_type": "entity",
   "entity_type": "company",
   "name": "Perfection Fresh",
-  "aliases": [],
-  "status": "unverified",
+  "aliases": [
+    "Perfection Fresh Australia"
+  ],
+  "status": "active",
   "description": "Added to the entity graph from the internal Competitor Registry spreadsheet snapshot (2026-09-15, row 22) as a tracked competitor of type 'Breeding; Genetics'. Not yet independently verified or researched beyond that spreadsheet -- no company history, ownership, or activity detail is asserted here. See ev-competitor-registry-2026-09-15-import for provenance.",
   "roles": [
     "breeder",
@@ -26,6 +28,17 @@
       "row_number": 22,
       "spreadsheet_label": "Perfection Fresh",
       "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    },
+    "identity_verification_2026_09_15": {
+      "verdict": "externally_verified",
+      "reason": "Official domain perfection.com.au confirms Perfection Fresh Australia, established 1978, a family-run business with dedicated berry farms in Tasmania and Queensland (Caboolture) and a Berries Australia grower-profile PDF corroborating the same facts independently.",
+      "evidence_urls": [
+        "https://www.perfection.com.au/perfection-berries",
+        "https://berries.net.au/wp-content/uploads/2024/01/AUT-21-PROFILE-PERFECTION.pdf"
+      ],
+      "confidence": "high",
+      "verification_date": "2026-09-15",
+      "verified_by": "competitor-identity-genetics-verification-v1"
     }
   }
 }
