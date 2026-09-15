@@ -1,0 +1,8 @@
+...............................                                          [100%]
+============================== warnings summary ===============================
+tests/test_competitor_source_activation_wave1.py: 16 warnings
+  C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\feedparser\html.py:152: DeprecationWarning: 'count' is passed as positional argument
+    data = re.sub(r'<!((?!DOCTYPE|--|\[))', r'&lt;!\1', data, re.IGNORECASE)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+31 passed, 16 warnings in 2.65s
