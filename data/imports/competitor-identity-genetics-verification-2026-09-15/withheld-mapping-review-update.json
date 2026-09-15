@@ -1,0 +1,199 @@
+{
+  "id": "competitor-genetics-withheld-mapping-review-2026-09-15",
+  "verification_date": "2026-09-15",
+  "row_count": 19,
+  "promoted_count": 0,
+  "note": "Zero of the 19 previously-withheld rows were promoted to a seeded relationship this mission -- every row either names no identifiable roster-canonical party, is a self-mapping, is an explicit author-marked unresolved ('??'/'???'), is a public-genetics/scoped observation that structurally cannot become a relationship, or names a real organization outside the mandatory 33-entry roster. AMBIGUOUS HANDWRITING GUESSED: 0.",
+  "rows": [
+    {
+      "tier": 1,
+      "item": 3,
+      "visible_text": "Hortifrut - Hortifrut",
+      "company_entity_id": "company-hortifrut",
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "self_mapping_requiring_semantic_caution",
+      "reclassification_note": "A company naming itself suggests proprietary/in-house genetics but is never converted to an 'owns' relationship without independent confirmation, per this mission's explicit rule. No relationship created; no new evidence found this mission that would change that.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 2,
+      "item": 1,
+      "visible_text": "Composol - Public (task hint reads 'Camposol')",
+      "company_entity_id": null,
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "public_genetics_observation",
+      "reclassification_note": "'Public' is a genetics-source classification, not a company -- it never becomes a relationship object. No entity was created for it and none should be.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 2,
+      "item": 2,
+      "visible_text": "Planasa - Planasa",
+      "company_entity_id": "company-planasa",
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "self_mapping_requiring_semantic_caution",
+      "reclassification_note": "A company naming itself suggests proprietary/in-house genetics but is never converted to an 'owns' relationship without independent confirmation, per this mission's explicit rule. No relationship created; no new evidence found this mission that would change that.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 2,
+      "item": 3,
+      "visible_text": "Family Tree - MBO",
+      "company_entity_id": null,
+      "provider_entity_id": "company-mountain-blue-orchards",
+      "reclassification_2026_09_15": "remains_ambiguous",
+      "reclassification_note": "The named party does not match any of the 33 mandatory roster labels or an existing canonical entity, and no external search this mission performed identified a specific real-world company it refers to. Genuinely unresolved, not merely out-of-scope.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 2,
+      "item": 4,
+      "visible_text": "Fall Creek - Fall Creek",
+      "company_entity_id": "company-fall-creek-farm-and-nursery",
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "self_mapping_requiring_semantic_caution",
+      "reclassification_note": "A company naming itself suggests proprietary/in-house genetics but is never converted to an 'owns' relationship without independent confirmation, per this mission's explicit rule. No relationship created; no new evidence found this mission that would change that.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 2,
+      "item": 5,
+      "visible_text": "[illegible name] - Planasa, MBO, Public",
+      "company_entity_id": null,
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "illegible_or_unresolved",
+      "reclassification_note": "Handwriting is illegible or the note's own author left it explicitly unresolved ('??'/'???'). Not guessed at.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 2,
+      "item": 6,
+      "visible_text": "MBO - MBO",
+      "company_entity_id": "company-mountain-blue-orchards",
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "self_mapping_requiring_semantic_caution",
+      "reclassification_note": "A company naming itself suggests proprietary/in-house genetics but is never converted to an 'owns' relationship without independent confirmation, per this mission's explicit rule. No relationship created; no new evidence found this mission that would change that.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 2,
+      "item": 7,
+      "visible_text": "Perfection Fresh - ??",
+      "company_entity_id": "company-perfection-fresh",
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "identity_clarified_relationship_still_unverified",
+      "reclassification_note": "This mission's identity verification work (see the provisional-identity matrix) confirmed the company side is a real, correctly-identified organization -- but the genetics-provider side of the handwritten note was left an explicit '??'/'???' by its own author, so no relationship can be seeded regardless of how well the company itself is now understood.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 2,
+      "item": 8,
+      "visible_text": "Well-Pict (partially obscured) - ???",
+      "company_entity_id": "company-well-pict",
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "identity_clarified_relationship_still_unverified",
+      "reclassification_note": "This mission's identity verification work (see the provisional-identity matrix) confirmed the company side is a real, correctly-identified organization -- but the genetics-provider side of the handwritten note was left an explicit '??'/'???' by its own author, so no relationship can be seeded regardless of how well the company itself is now understood.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 3,
+      "item": 1,
+      "visible_text": "Oishii - No blues",
+      "company_entity_id": "company-oishii",
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "scoped_no_blues_observation",
+      "reclassification_note": "'No blues' is a scoped observation (this company not active in blueberry) per this mission's rule, never proof of a global absence of blueberry activity, and not a genetics-provider relationship.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 3,
+      "item": 3,
+      "visible_text": "Plant Sciences - Plant Sciences",
+      "company_entity_id": "company-plant-sciences-genetics",
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "self_mapping_requiring_semantic_caution",
+      "reclassification_note": "A company naming itself suggests proprietary/in-house genetics but is never converted to an 'owns' relationship without independent confirmation, per this mission's explicit rule. No relationship created; no new evidence found this mission that would change that.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 3,
+      "item": 4,
+      "visible_text": "Pairwise - No blues",
+      "company_entity_id": "company-pairwise",
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "scoped_no_blues_observation",
+      "reclassification_note": "'No blues' is a scoped observation (this company not active in blueberry) per this mission's rule, never proof of a global absence of blueberry activity, and not a genetics-provider relationship.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 3,
+      "item": 5,
+      "visible_text": "Wish Farms - Public",
+      "company_entity_id": "company-wish-farms",
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "public_genetics_observation",
+      "reclassification_note": "'Public' is a genetics-source classification, not a company -- it never becomes a relationship object. No entity was created for it and none should be.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 3,
+      "item": 6,
+      "visible_text": "Dole - Inka Berries",
+      "company_entity_id": null,
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "out_of_roster_but_identifiable",
+      "reclassification_note": "The named party is plausibly a real, identifiable organization, but is not one of the 33 mandatory roster entities. Creating a new entity for it would exceed this mission's bounded scope; noted for visibility only.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 3,
+      "item": 7,
+      "visible_text": "SunBelle - Public (source reads 'Suabelle')",
+      "company_entity_id": "company-sunbelle",
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "public_genetics_observation",
+      "reclassification_note": "'Public' is a genetics-source classification, not a company -- it never becomes a relationship object. No entity was created for it and none should be.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 3,
+      "item": 8,
+      "visible_text": "Ozblu - Ozblu",
+      "company_entity_id": "brand-ozblu",
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "self_mapping_requiring_semantic_caution",
+      "reclassification_note": "A company naming itself suggests proprietary/in-house genetics but is never converted to an 'owns' relationship without independent confirmation, per this mission's explicit rule. No relationship created; no new evidence found this mission that would change that.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 3,
+      "item": 9,
+      "visible_text": "Fresc Kampo (unclear reading)",
+      "company_entity_id": null,
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "illegible_or_unresolved",
+      "reclassification_note": "Handwriting is illegible or the note's own author left it explicitly unresolved ('??'/'???'). Not guessed at.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 3,
+      "item": 10,
+      "visible_text": "Water Fresh Farms - No blue",
+      "company_entity_id": null,
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "out_of_roster_but_identifiable",
+      "reclassification_note": "The named party is plausibly a real, identifiable organization, but is not one of the 33 mandatory roster entities. Creating a new entity for it would exceed this mission's bounded scope; noted for visibility only.",
+      "promoted_this_mission": false
+    },
+    {
+      "tier": 3,
+      "item": 11,
+      "visible_text": "Good Farms - NA",
+      "company_entity_id": null,
+      "provider_entity_id": null,
+      "reclassification_2026_09_15": "out_of_roster_but_identifiable",
+      "reclassification_note": "The named party is plausibly a real, identifiable organization, but is not one of the 33 mandatory roster entities. Creating a new entity for it would exceed this mission's bounded scope; noted for visibility only.",
+      "promoted_this_mission": false
+    }
+  ]
+}
