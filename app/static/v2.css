@@ -1351,7 +1351,8 @@ body.v2-presentation-mode .v2-brief-pack-page h2 { font-size: 1.5rem; }
   margin: 0.2rem 0 0;
 }
 .competitor-berry-positions,
-.competitor-gaps {
+.competitor-gaps,
+.competitor-maturity-list {
   margin: 0 0 1.25rem;
   padding-left: 1.1rem;
 }
@@ -1360,6 +1361,32 @@ body.v2-presentation-mode .v2-brief-pack-page h2 { font-size: 1.5rem; }
   justify-content: space-between;
   gap: 1rem;
   padding: 0.25rem 0;
+}
+.competitor-maturity-list {
+  list-style-position: outside;
+  display: grid;
+  gap: 0.45rem;
+}
+.competitor-maturity-list li {
+  padding: 0.55rem 0.7rem;
+  border-left: 3px solid #9b9489;
+  background: var(--v2-surface-raised, #f7f5f1);
+}
+.competitor-maturity-list li.is-complete { border-left-color: #2f6f49; }
+.competitor-maturity-list li.is-gap { border-left-color: #b26a36; }
+.competitor-maturity-list span {
+  display: block;
+  margin-top: 0.1rem;
+  color: var(--v2-muted, #6d6458);
+  font-size: 0.86rem;
+}
+.competitor-blocked-note {
+  margin: -0.35rem 0 1.25rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid #ddb98e;
+  border-radius: 10px;
+  background: #fff5e9;
+  color: #6d3d18;
 }
 .competitor-detail-actions {
   display: flex;

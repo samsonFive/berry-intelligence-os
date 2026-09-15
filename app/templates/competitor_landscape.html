@@ -15,8 +15,8 @@
     <div class="competitor-landscape-stats" aria-label="Landscape coverage">
       <div><strong>{{ universe_count }}</strong><small>Roster entries</small></div>
       <div><strong>{{ result_count }}</strong><small>In view</small></div>
-      <div><strong>{{ completeness.canonical }}</strong><small>Canonical identities</small></div>
-      <div><strong>{{ completeness.pending }}</strong><small>Pending identities</small></div>
+      <div><strong>{{ completeness.represented }}</strong><small>Entities represented</small></div>
+      <div><strong>{{ completeness.pending_review }}</strong><small>Pending identity review</small></div>
     </div>
   </section>
 
@@ -147,8 +147,10 @@
                         Unknown/Unassigned
                       {% endif %}
                     </li>
-                    <li><span>Monitoring</span> {{ company.monitoring_state|replace('_', ' ') }}</li>
-                    <li><span>Identity</span> {{ company.canonical_or_pending_state }}</li>
+                    <li><span>Entity</span> {{ company.entity_type|replace('_', ' ') }} · {{ company.entity_review_state }}</li>
+                    <li><span>Discovery</span> {{ 'Operational' if company.monitoring_maturity.discovery_operational else ('Configured' if company.monitoring_maturity.discovery_configured else 'Not configured') }}</li>
+                    <li><span>Content</span> {{ 'Readable acquired' if company.monitoring_maturity.readable_content_acquired else 'No readable acquisition' }}</li>
+                    <li><span>Coverage</span> {{ 'Current usable' if company.monitoring_maturity.current_coverage_available else 'No current usable coverage' }}</li>
                   </ul>
                   <p class="competitor-card-support">
                     {{ company.recent_usable_coverage_count }} usable coverage
@@ -183,11 +185,24 @@
       <div><dt>Priority</dt><dd>{{ selected_company.strategic_priority }}</dd></div>
       <div><dt>Types</dt><dd>{% if selected_company.competitor_types %}{{ selected_company.competitor_types|join(', ') }}{% else %}Unknown/Unassigned{% endif %}</dd></div>
       <div><dt>Regions</dt><dd>{% if selected_company.regions %}{% for code in selected_company.regions %}{{ region_labels.get(code, code) }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}Unknown/Unassigned{% endif %}</dd></div>
-      <div><dt>Monitoring</dt><dd>{{ selected_company.monitoring_state|replace('_', ' ') }}</dd></div>
-      <div><dt>Identity</dt><dd>{{ selected_company.canonical_or_pending_state }}</dd></div>
-      <div><dt>Usable coverage</dt><dd>{{ selected_company.recent_usable_coverage_count }}</dd></div>
+      <div><dt>Canonical entity</dt><dd>{{ selected_company.canonical_display_name }} ({{ selected_company.entity_type|replace('_', ' ') }})</dd></div>
+      <div><dt>Identity review</dt><dd>{{ selected_company.entity_review_state }}</dd></div>
+      <div><dt>Monitoring maturity</dt><dd>{{ selected_company.monitoring_maturity.maturity_level }} of 5</dd></div>
+      <div><dt>Current usable coverage</dt><dd>{{ selected_company.recent_usable_coverage_count }}</dd></div>
       <div><dt>Genetics links</dt><dd>{{ selected_company.genetics_relationship_count }}</dd></div>
     </dl>
+
+    <h3>Monitoring stages</h3>
+    <ol class="competitor-maturity-list">
+      <li class="{{ 'is-complete' if selected_company.monitoring_maturity.entity_represented else 'is-gap' }}"><strong>Entity represented</strong><span>{{ 'Yes' if selected_company.monitoring_maturity.entity_represented else 'No' }}</span></li>
+      <li class="{{ 'is-complete' if selected_company.monitoring_maturity.discovery_configured else 'is-gap' }}"><strong>Discovery configured</strong><span>{{ 'Yes' if selected_company.monitoring_maturity.discovery_configured else 'No explicitly linked runnable source' }}</span></li>
+      <li class="{{ 'is-complete' if selected_company.monitoring_maturity.discovery_operational else 'is-gap' }}"><strong>Discovery operational</strong><span>{{ 'Yes' if selected_company.monitoring_maturity.discovery_operational else 'No successful linked discovery run' }}</span></li>
+      <li class="{{ 'is-complete' if selected_company.monitoring_maturity.readable_content_acquired else 'is-gap' }}"><strong>Readable content acquired</strong><span>{{ 'Yes' if selected_company.monitoring_maturity.readable_content_acquired else 'No' }}</span></li>
+      <li class="{{ 'is-complete' if selected_company.monitoring_maturity.current_coverage_available else 'is-gap' }}"><strong>Current coverage available</strong><span>{{ 'Yes' if selected_company.monitoring_maturity.current_coverage_available else 'No usable published coverage in the last 90 days' }}</span></li>
+    </ol>
+    {% if selected_company.monitoring_maturity.official_source_blocked %}
+      <p class="competitor-blocked-note"><strong>Official source blocked.</strong> {{ selected_company.monitoring_maturity.official_source_block_detail }}</p>
+    {% endif %}
 
     <h3>Berry positions</h3>
     <ul class="competitor-berry-positions">
@@ -204,6 +219,15 @@
       <p>{{ selected_company.aliases|join(', ') }}</p>
     {% endif %}
 
+    {% if selected_company.genetics_relationships %}
+      <h3>Genetics relationship assertions</h3>
+      <ul class="competitor-gaps">
+        {% for relationship in selected_company.genetics_relationships %}
+          <li>{{ relationship.other_entity_name }} · {{ relationship.predicate|replace('_', ' ') }} · <strong>{{ 'Pending review' if relationship.status == 'disputed' else relationship.status }}</strong></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
     <h3>Explicit data gaps</h3>
     {% if selected_company.data_gaps %}
       <ul class="competitor-gaps">
@@ -218,7 +242,7 @@
     <div class="competitor-detail-actions">
       <a class="action-button" href="/competitors?{{ query_string }}">Return to landscape</a>
       {% if selected_company.profile_url %}
-        <a class="action-button action-approve" href="{{ selected_company.profile_url }}">Open company profile</a>
+        <a class="action-button action-approve" href="{{ selected_company.profile_url }}">Open {{ selected_company.entity_type|replace('_', ' ') }} profile</a>
       {% else %}
         <p class="context-limit">Company profile unavailable while identity is pending.</p>
       {% endif %}

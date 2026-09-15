@@ -1,8 +1,9 @@
 """Competitor Landscape V1 — filterable stakeholder landscape foundation.
 
-Adapter-backed view model. Default source is the complete 33-entry test
-fixture until Claude's canonical competitor roster is integrated. Does not
-create a competing production registry or invent genetics relationships.
+Adapter-backed view model. Production rows come from the canonical competitor
+registry; the complete 33-entry JSON fixture is available only when tests pass
+its path explicitly. Does not create a competing production registry or invent
+genetics relationships.
 """
 
 from __future__ import annotations
@@ -14,6 +15,11 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 from urllib.parse import urlencode
+
+from app.services.competitor_registry import (
+    genetics_relationships_for_company,
+    unfiltered_competitor_registry,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_FIXTURE_PATH = ROOT / "tests" / "fixtures" / "competitor_landscape_registry_v1.json"
@@ -98,10 +104,13 @@ def normalize_tier_status(raw: Any) -> str:
     aliases = {
         "tier1": "Tier 1",
         "tier 1": "Tier 1",
+        "tier_1": "Tier 1",
         "tier2": "Tier 2",
         "tier 2": "Tier 2",
+        "tier_2": "Tier 2",
         "tier3": "Tier 3",
         "tier 3": "Tier 3",
+        "tier_3": "Tier 3",
         "present": "Present",
         "unknown": "Unknown/Unassigned",
         "unassigned": "Unknown/Unassigned",
@@ -239,17 +248,25 @@ class CompetitorLandscapeAdapter:
         self,
         *,
         fixture_path: Path | None = None,
+        canonical_rows: Iterable[dict[str, Any]] | None = None,
         entities_by_id: dict[str, dict[str, Any]] | None = None,
         evidence: Iterable[dict[str, Any]] | None = None,
         relationships: Iterable[dict[str, Any]] | None = None,
     ) -> None:
-        self.fixture_path = fixture_path or DEFAULT_FIXTURE_PATH
+        if fixture_path is None and canonical_rows is None:
+            raise ValueError("canonical_rows are required outside explicit fixture tests")
+        if fixture_path is not None and canonical_rows is not None:
+            raise ValueError("provide canonical_rows or fixture_path, not both")
+        self.fixture_path = fixture_path
         self.entities_by_id = entities_by_id or {}
         self.evidence = list(evidence or [])
         self.relationships = list(relationships or [])
-        payload = json.loads(self.fixture_path.read_text(encoding="utf-8"))
-        if not isinstance(payload, dict) or not isinstance(payload.get("entries"), list):
-            raise ValueError("competitor landscape fixture must provide entries[]")
+        if canonical_rows is not None:
+            payload = {"entries": list(canonical_rows), "source": "canonical_registry"}
+        else:
+            payload = json.loads(self.fixture_path.read_text(encoding="utf-8"))
+            if not isinstance(payload, dict) or not isinstance(payload.get("entries"), list):
+                raise ValueError("competitor landscape fixture must provide entries[]")
         self._payload = payload
 
     @property
@@ -265,7 +282,10 @@ class CompetitorLandscapeAdapter:
         return labels
 
     def roster_labels(self) -> list[str]:
-        return [str(row.get("registry_label") or "") for row in self._payload["entries"]]
+        return [
+            str(row.get("spreadsheet_label") or row.get("registry_label") or "")
+            for row in self._payload["entries"]
+        ]
 
     def missing_expected_labels(self) -> list[str]:
         have = set(self.roster_labels())
@@ -281,48 +301,77 @@ class CompetitorLandscapeAdapter:
         return rows
 
     def _row_from_entry(self, entry: dict[str, Any]) -> dict[str, Any]:
-        label = str(entry.get("registry_label") or "").strip()
+        label = str(entry.get("spreadsheet_label") or entry.get("registry_label") or "").strip()
         aliases = [str(a) for a in (entry.get("aliases") or []) if str(a).strip()]
-        types = [str(t).strip() for t in (entry.get("competitor_types") or []) if str(t).strip()]
+        raw_types = entry.get("competitor_types")
+        if raw_types is None:
+            raw_types = str(entry.get("competitor_type") or "").split(";")
+        types = [str(t).strip() for t in raw_types if str(t).strip()]
         regions = [str(r).strip() for r in (entry.get("regions") or []) if str(r).strip()]
         priority = normalize_priority(entry.get("strategic_priority"))
-        positions_raw = entry.get("berry_positions") if isinstance(entry.get("berry_positions"), dict) else {}
+        positions_raw = entry.get("berry_positions") or entry.get("berry_tier")
+        positions_raw = positions_raw if isinstance(positions_raw, dict) else {}
         berry_positions = {berry: normalize_tier_status(positions_raw.get(berry)) for berry, _ in BERRIES}
 
-        suggested = entry.get("suggested_entity_id")
+        suggested = entry.get("canonical_entity_id") or entry.get("suggested_entity_id")
         entity = self.entities_by_id.get(str(suggested)) if suggested else None
         if entity:
             entity_id = str(entity.get("id"))
             canonical_or_pending_state = "canonical"
-            profile_url = f"/entities/company/{entity_id}"
-            merged = list(dict.fromkeys([*(entity.get("aliases") or []), *aliases, entity.get("name") or ""]))
+            entity_review_state = "pending review" if entity.get("status") == "unverified" else "represented"
+            entity_type = str(entry.get("entity_type") or entity.get("entity_type") or "company")
+            profile_url = str(entry.get("entity_route") or f"/entities/{entity_type}/{entity_id}")
+            merged = list(dict.fromkeys([
+                *(entity.get("aliases") or []),
+                *(entry.get("aliases_added") or []),
+                *aliases,
+                entity.get("name") or "",
+            ]))
             aliases = [a for a in merged if a and a != label]
-            recent_usable_coverage_count = sum(
-                1
-                for ev in self.evidence
-                if entity_id in (ev.get("entity_ids") or []) and ev.get("status") == "published"
+            maturity = entry.get("monitoring_maturity") or {}
+            if maturity:
+                recent_usable_coverage_count = int(maturity.get("current_usable_coverage_count") or 0)
+            else:
+                recent_usable_coverage_count = sum(
+                    1 for ev in self.evidence
+                    if entity_id in (ev.get("entity_ids") or []) and ev.get("status") == "published"
+                )
+            genetics_relationships = genetics_relationships_for_company(
+                entity_id, relationships=self.relationships, entities=list(self.entities_by_id.values())
             )
-            genetics_relationship_count = sum(
-                1
-                for rel in self.relationships
-                if entity_id in {rel.get("subject_id"), rel.get("object_id")}
-                and str(rel.get("predicate") or "") in {"develops", "owns", "licenses", "breeds"}
-            )
-            monitoring_state = "monitored" if recent_usable_coverage_count else "thin_coverage"
+            genetics_relationship_count = int(entry.get("genetics_relationship_count") or len(genetics_relationships))
+            monitoring_state = str(entry.get("monitoring_state") or "no_supported_source")
         else:
             entity_id = f"pending-competitor-{_slug(label)}"
             canonical_or_pending_state = "pending"
+            entity_review_state = "missing"
+            entity_type = str(entry.get("entity_type") or "company")
             profile_url = ""
             recent_usable_coverage_count = 0
             genetics_relationship_count = 0
+            genetics_relationships = []
             monitoring_state = "identity_pending"
+            maturity = {
+                "entity_represented": False,
+                "discovery_configured": False,
+                "discovery_operational": False,
+                "readable_content_acquired": False,
+                "current_coverage_available": False,
+                "maturity_level": 0,
+                "linked_source_count": 0,
+                "runnable_source_count": 0,
+                "official_source_blocked": False,
+                "manual_or_alternative_source_required": False,
+            }
 
         return {
             "entity_id": entity_id,
             "display_name": label,
             "registry_label": label,
             "aliases": aliases,
-            "entity_type": "company",
+            "canonical_display_name": entry.get("entity_name_current") or entry.get("canonical_display_name") or (entity or {}).get("name") or label,
+            "entity_type": entity_type,
+            "entity_review_state": entity_review_state,
             "competitor_types": types,
             "strategic_priority": priority,
             "regions": regions,
@@ -330,8 +379,11 @@ class CompetitorLandscapeAdapter:
             "monitoring_state": monitoring_state,
             "recent_usable_coverage_count": recent_usable_coverage_count,
             "genetics_relationship_count": genetics_relationship_count,
+            "genetics_relationships": genetics_relationships,
             "canonical_or_pending_state": canonical_or_pending_state,
             "profile_url": profile_url,
+            "monitoring_detail": entry.get("monitoring_detail") or "",
+            "monitoring_maturity": maturity,
         }
 
 
@@ -435,8 +487,19 @@ def _data_gaps(row: dict[str, Any]) -> list[str]:
     for berry, label in BERRIES:
         if berry_status_for(row, berry) == "Unknown/Unassigned":
             gaps.append(f"{label} tier/status is Unknown/Unassigned.")
+    maturity = row.get("monitoring_maturity") or {}
+    if not maturity.get("discovery_configured"):
+        gaps.append("No explicitly linked runnable discovery source.")
+    elif not maturity.get("discovery_operational"):
+        gaps.append("Linked discovery is configured but has no successful run in this runtime.")
+    if maturity.get("official_source_blocked"):
+        gaps.append("Official source acquisition is blocked by publisher access controls.")
+    if not maturity.get("readable_content_acquired"):
+        gaps.append("No readable article body has been acquired from a linked source.")
     if row.get("recent_usable_coverage_count", 0) == 0:
         gaps.append("No recent usable trusted coverage counted for this identity.")
+    if maturity.get("manual_or_alternative_source_required"):
+        gaps.append("Manual acquisition or a compliant alternative source is required.")
     return gaps
 
 
@@ -452,8 +515,8 @@ def build_landscape_context(adapter: CompetitorLandscapeAdapter, filters: Landsc
         "with_priority": sum(
             1 for row in universe if normalize_priority(row.get("strategic_priority")) != "unassigned"
         ),
-        "canonical": sum(1 for row in universe if row.get("canonical_or_pending_state") == "canonical"),
-        "pending": sum(1 for row in universe if row.get("canonical_or_pending_state") == "pending"),
+        "represented": sum(bool((row.get("monitoring_maturity") or {}).get("entity_represented")) for row in universe),
+        "pending_review": sum(row.get("entity_review_state") == "pending review" for row in universe),
     }
     return {
         "filters": filters,
@@ -477,27 +540,49 @@ def build_landscape_context(adapter: CompetitorLandscapeAdapter, filters: Landsc
         "completeness": completeness,
         "missing_expected_labels": adapter.missing_expected_labels(),
         "fixture_note": (
-            "Showing the complete 33-entry competitor-universe fixture behind the "
-            "adapter contract. Canonical roster integration is owned separately."
+            "Showing the canonical 33-entry internal roster. Monitoring stages are live, separate facts; "
+            "entity representation alone does not mean discovery or current coverage is working."
         ),
     }
 
 
 def adapter_from_repositories(
     *,
+    data_dir: Path | None = None,
+    inbox_dir: Path | None = None,
     entities: Iterable[dict[str, Any]] | None = None,
+    sources: Iterable[dict[str, Any]] | None = None,
     evidence: Iterable[dict[str, Any]] | None = None,
     relationships: Iterable[dict[str, Any]] | None = None,
     fixture_path: Path | None = None,
 ) -> CompetitorLandscapeAdapter:
+    entity_rows = list(entities or [])
     entities_by_id = {
         str(row.get("id")): row
-        for row in (entities or [])
+        for row in entity_rows
         if isinstance(row, dict) and row.get("id")
     }
+    if fixture_path is not None:
+        return CompetitorLandscapeAdapter(
+            fixture_path=fixture_path,
+            entities_by_id=entities_by_id,
+            evidence=evidence,
+            relationships=relationships,
+        )
+    if data_dir is None or inbox_dir is None:
+        raise ValueError("production adapter requires data_dir and inbox_dir")
+    source_rows = list(sources or [])
+    evidence_rows = list(evidence or [])
+    canonical_rows = unfiltered_competitor_registry(
+        data_dir=data_dir,
+        inbox_dir=inbox_dir,
+        entities=entity_rows,
+        sources=source_rows,
+        published=evidence_rows,
+    )
     return CompetitorLandscapeAdapter(
-        fixture_path=fixture_path,
+        canonical_rows=canonical_rows,
         entities_by_id=entities_by_id,
-        evidence=evidence,
+        evidence=evidence_rows,
         relationships=relationships,
     )

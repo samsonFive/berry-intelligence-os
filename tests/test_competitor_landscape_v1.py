@@ -8,6 +8,7 @@ from fastapi.testclient import TestClient
 
 from app.main import app
 from app.services.competitor_landscape import (
+    DEFAULT_FIXTURE_PATH,
     EXPECTED_REGISTRY_LABELS,
     CompetitorLandscapeAdapter,
     adapter_from_repositories,
@@ -22,8 +23,12 @@ from app.services.competitor_landscape import (
 client = TestClient(app)
 
 
+def fixture_adapter(**kwargs) -> CompetitorLandscapeAdapter:
+    return CompetitorLandscapeAdapter(fixture_path=DEFAULT_FIXTURE_PATH, **kwargs)
+
+
 def test_fixture_universe_contains_exactly_33_registry_entries() -> None:
-    adapter = CompetitorLandscapeAdapter()
+    adapter = fixture_adapter()
     labels = adapter.roster_labels()
     assert len(labels) == 33
     assert len(set(labels)) == 33
@@ -33,7 +38,7 @@ def test_fixture_universe_contains_exactly_33_registry_entries() -> None:
 
 
 def test_every_expected_spreadsheet_label_resolves() -> None:
-    rows = CompetitorLandscapeAdapter().load_rows()
+    rows = fixture_adapter().load_rows()
     by_label = {row["registry_label"]: row for row in rows}
     for label in EXPECTED_REGISTRY_LABELS:
         assert label in by_label
@@ -41,7 +46,7 @@ def test_every_expected_spreadsheet_label_resolves() -> None:
 
 
 def test_default_view_returns_all_33() -> None:
-    adapter = CompetitorLandscapeAdapter()
+    adapter = fixture_adapter()
     context = build_landscape_context(adapter, parse_filters({}))
     assert context["universe_count"] == 33
     assert context["result_count"] == 33
@@ -49,7 +54,7 @@ def test_default_view_returns_all_33() -> None:
 
 
 def test_blank_tier_fields_remain_visible_as_unknown() -> None:
-    adapter = CompetitorLandscapeAdapter()
+    adapter = fixture_adapter()
     rows = adapter.load_rows()
     agro = next(row for row in rows if row["registry_label"] == "AgroBerries")
     assert berry_status_for(agro, "blueberry") == "Unknown/Unassigned"
@@ -67,7 +72,7 @@ def test_blank_tier_fields_remain_visible_as_unknown() -> None:
 
 
 def test_berry_filters_evaluate_only_selected_berry() -> None:
-    adapter = CompetitorLandscapeAdapter()
+    adapter = fixture_adapter()
     rows = adapter.load_rows()
     # Fall Creek is Blueberry Tier 1, Raspberry Tier 3 — not Strawberry Tier 1
     fall = next(row for row in rows if row["registry_label"] == "Fall Creek")
@@ -91,7 +96,7 @@ def test_present_and_tier_3_remain_distinct() -> None:
     assert normalize_tier_status("Tier 3") == "Tier 3"
     assert normalize_tier_status("Present") != normalize_tier_status("Tier 3")
 
-    adapter = CompetitorLandscapeAdapter()
+    adapter = fixture_adapter()
     rows = adapter.load_rows()
     expo = next(row for row in rows if row["registry_label"] == "Expoberries")
     assert berry_status_for(expo, "blueberry") == "Present"
@@ -107,7 +112,7 @@ def test_present_and_tier_3_remain_distinct() -> None:
 
 
 def test_multi_region_filtering_works() -> None:
-    adapter = CompetitorLandscapeAdapter()
+    adapter = fixture_adapter()
     rows = adapter.load_rows()
     demea = filter_rows(rows, parse_filters({"region": ["DEMEA"]}))
     names = {row["registry_label"] for row in demea}
@@ -124,7 +129,7 @@ def test_multi_region_filtering_works() -> None:
 
 
 def test_multi_type_filtering_works() -> None:
-    adapter = CompetitorLandscapeAdapter()
+    adapter = fixture_adapter()
     rows = adapter.load_rows()
     breeding = filter_rows(rows, parse_filters({"type": ["Breeding"]}))
     names = {row["registry_label"] for row in breeding}
@@ -139,7 +144,7 @@ def test_multi_type_filtering_works() -> None:
 
 
 def test_combined_filters_work() -> None:
-    adapter = CompetitorLandscapeAdapter()
+    adapter = fixture_adapter()
     rows = adapter.load_rows()
     matched = filter_rows(
         rows,
@@ -192,7 +197,7 @@ def test_query_parameters_restore_state() -> None:
 
 
 def test_search_finds_canonical_names_and_aliases() -> None:
-    adapter = CompetitorLandscapeAdapter()
+    adapter = fixture_adapter()
     rows = adapter.load_rows()
     by_name = filter_rows(rows, parse_filters({"q": ["Fall Creek"]}))
     assert {row["registry_label"] for row in by_name} == {"Fall Creek"}
@@ -246,7 +251,7 @@ def test_company_drilldown_preserves_filters() -> None:
 
 
 def test_pending_incomplete_identities_render_honestly() -> None:
-    adapter = CompetitorLandscapeAdapter()
+    adapter = fixture_adapter()
     rows = adapter.load_rows()
     pending = next(row for row in rows if row["registry_label"] == "Pairwise")
     assert pending["canonical_or_pending_state"] == "pending"
@@ -283,6 +288,7 @@ def test_route_renders_desktop_structure_and_mobile_friendly_controls() -> None:
 
 def test_adapter_from_repositories_marks_known_entities_canonical() -> None:
     adapter = adapter_from_repositories(
+        fixture_path=DEFAULT_FIXTURE_PATH,
         entities=[
             {
                 "id": "company-fall-creek-farm-and-nursery",

@@ -5860,16 +5860,19 @@ def geography_detail_page(request: Request, geography_id: str) -> HTMLResponse:
 def competitor_landscape(request: Request) -> HTMLResponse:
     """Competitor Landscape V1 — filterable stakeholder universe.
 
-    Roster/classification arrive through CompetitorLandscapeAdapter (fixture
-    until Claude's canonical registry lands). Does not invent genetics
-    relationships or mutate company truth.
+    Roster/classification come from the canonical registry while monitoring
+    facets are resolved from current sources and local operational state.
+    This read path does not invent relationships or mutate company truth.
     """
     multi: dict[str, list[str]] = {}
     for key, value in request.query_params.multi_items():
         multi.setdefault(key, []).append(value)
     filters = parse_filters(multi)
     adapter = adapter_from_repositories(
+        data_dir=DATA_DIR,
+        inbox_dir=INBOX_DIR,
         entities=all_entities(),
+        sources=load_sources(),
         evidence=published_evidence(),
         relationships=all_relationships(),
     )

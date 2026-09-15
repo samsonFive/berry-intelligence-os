@@ -30,8 +30,14 @@ overwriting this one, which is how classification history is preserved.
 from __future__ import annotations
 
 import json
+from datetime import date
 from pathlib import Path
 from typing import Any
+
+from app.services.article_acquisition_outcomes import source_acquisition_summary
+from app.services.company_news_coverage import company_news_coverage
+from app.services.media_discovery import read_source_discovery_state
+from app.services.source_freshness import source_execution_status
 
 MONITORING_STATES = (
     "linked_to_runnable_source",
@@ -107,6 +113,84 @@ def monitoring_state_for_entity(entity_id: str, *, sources: list[dict[str, Any]]
     }
 
 
+def monitoring_maturity_for_entity(
+    entity: dict[str, Any] | None,
+    *,
+    sources: list[dict[str, Any]],
+    published: list[dict[str, Any]],
+    inbox_dir: Path,
+    days: int = 90,
+    today: date | None = None,
+) -> dict[str, Any]:
+    """Return the five independent monitoring facts used by the roster UI.
+
+    The facts are deliberately cumulative but never collapsed into a claim
+    that the entity is "tracked". Discovery execution comes from runtime
+    state, body readability comes from the acquisition ledger, and current
+    coverage comes from usable published evidence.
+    """
+    entity_id = str((entity or {}).get("id") or "")
+    linked = [
+        source for source in sources
+        if entity_id and entity_id in (source.get("linked_competitor_ids") or [])
+    ]
+    source_rows: list[dict[str, Any]] = []
+    for source in linked:
+        source_id = str(source.get("id") or "")
+        discovery_state = read_source_discovery_state(inbox_dir, source_id)
+        execution = source_execution_status(source, discovery_state=discovery_state)
+        acquisition = source_acquisition_summary(inbox_dir, source_id)
+        source_rows.append({
+            "source_id": source_id,
+            "label": source.get("label") or source_id,
+            "discovery": execution,
+            "article_body_acquisition": acquisition,
+        })
+
+    configured = [row for row in source_rows if row["discovery"].get("runnable")]
+    operational = [
+        row for row in source_rows
+        if row["discovery"].get("state") == "SUCCESSFULLY_RUN"
+    ]
+    readable = [
+        row for row in source_rows
+        if row["article_body_acquisition"].get("latest_readable_acquired_at")
+    ]
+    coverage = company_news_coverage(
+        entity or {"id": entity_id, "name": entity_id},
+        published=published,
+        days=days,
+        today=today,
+    ) if entity_id else {"usable_count": 0, "items": []}
+    known_block = _KNOWN_BLOCKED_ENTITIES.get(entity_id)
+    facts = {
+        "entity_represented": entity is not None,
+        "discovery_configured": bool(configured),
+        "discovery_operational": bool(operational),
+        "readable_content_acquired": bool(readable),
+        "current_coverage_available": bool(coverage.get("usable_count")),
+    }
+    level = 0
+    for index, key in enumerate(facts, start=1):
+        if facts[key]:
+            level = index
+        else:
+            break
+    return {
+        **facts,
+        "maturity_level": level,
+        "linked_sources": source_rows,
+        "linked_source_count": len(linked),
+        "runnable_source_count": len(configured),
+        "successful_discovery_source_count": len(operational),
+        "readable_source_count": len(readable),
+        "current_usable_coverage_count": int(coverage.get("usable_count") or 0),
+        "official_source_blocked": bool(known_block),
+        "official_source_block_detail": known_block or "",
+        "manual_or_alternative_source_required": bool(known_block) and not configured,
+    }
+
+
 def load_latest_snapshot(data_dir: Path) -> dict[str, Any] | None:
     """Most recent `data/imports/competitor-registry-*/snapshot.json` by its
     own `snapshot_date` field -- a future re-import creates a new dated
@@ -148,6 +232,8 @@ def load_reconciliation_matrix(data_dir: Path, *, snapshot_date: str | None = No
 
 def unfiltered_competitor_registry(
     *, data_dir: Path, entities: list[dict[str, Any]], sources: list[dict[str, Any]],
+    published: list[dict[str, Any]] | None = None, inbox_dir: Path | None = None,
+    days: int = 90, today: date | None = None,
 ) -> list[dict[str, Any]]:
     """The full, unfiltered roster -- every row from the latest reconciliation
     matrix, always returned regardless of blank tier/priority fields, missing
@@ -170,6 +256,14 @@ def unfiltered_competitor_registry(
     for row in matrix["rows"]:
         entity = by_id.get(row["canonical_entity_id"])
         monitoring = monitoring_state_for_entity(row["canonical_entity_id"], sources=sources)
+        maturity = monitoring_maturity_for_entity(
+            entity,
+            sources=sources,
+            published=published or [],
+            inbox_dir=inbox_dir or (data_dir.parent / "inbox"),
+            days=days,
+            today=today,
+        )
         rows.append(
             {
                 **row,
@@ -179,6 +273,7 @@ def unfiltered_competitor_registry(
                 "entity_roles_current": entity.get("roles") if entity else [],
                 "monitoring_state": monitoring["state"],
                 "monitoring_detail": monitoring["detail"],
+                "monitoring_maturity": maturity,
             }
         )
     return rows
