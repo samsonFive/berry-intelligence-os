@@ -1,0 +1,29 @@
+{
+  "id": "company-the-berry-collective",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "The Berry Collective",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Added to the entity graph from the internal Competitor Registry spreadsheet snapshot (2026-09-15, row 29) as a tracked competitor of type 'University/Public'. Not yet independently verified or researched beyond that spreadsheet -- no company history, ownership, or activity detail is asserted here. See ev-competitor-registry-2026-09-15-import for provenance.",
+  "roles": [
+    "public_research_institution",
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-strawberry",
+    "berry-raspberry"
+  ],
+  "evidence_ids": [
+    "ev-competitor-registry-2026-09-15-import"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "competitor_registry_2026_09_15": {
+      "row_number": 29,
+      "spreadsheet_label": "The Berry Collective",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    }
+  }
+}

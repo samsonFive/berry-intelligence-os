@@ -1,0 +1,160 @@
+{
+  "id": "competitor-genetics-unresolved-queue-2026-09-15",
+  "snapshot_date": "2026-09-15",
+  "count": 19,
+  "note": "Every row here was deliberately withheld from entity/relationship creation -- self-mappings, explicit '??'/'???' markers, illegible names, public-genetics/scoped observations, and names outside the mandatory 33-entry roster. None should be silently resolved without a human decision.",
+  "rows": [
+    {
+      "tier": 1,
+      "item": 3,
+      "visible_text": "Hortifrut - Hortifrut",
+      "reason_withheld": "Self-mapping. Per explicit mission rule, not converted to an 'owns' relationship without confirmation; no relationship record created.",
+      "candidate_company": "Hortifrut",
+      "candidate_provider": "Hortifrut (self)"
+    },
+    {
+      "tier": 2,
+      "item": 1,
+      "visible_text": "Composol - Public (task hint reads 'Camposol')",
+      "reason_withheld": "Handwriting reads 'Composol'; the task's own hint list reads 'Camposol'. Neither spelling matches any of the 33 mandatory roster labels or an existing canonical entity. Not created as a new entity (out of mandatory-roster scope); 'Public' is a genetics-source classification per mission rules, not a company, so no relationship object exists to point to either way.",
+      "candidate_company": "Composol/Camposol (unclear)",
+      "candidate_provider": "Public genetics"
+    },
+    {
+      "tier": 2,
+      "item": 2,
+      "visible_text": "Planasa - Planasa",
+      "reason_withheld": "Self-mapping; no relationship created.",
+      "candidate_company": "Planasa",
+      "candidate_provider": "Planasa (self)"
+    },
+    {
+      "tier": 2,
+      "item": 3,
+      "visible_text": "Family Tree - MBO",
+      "reason_withheld": "'Family Tree' does not match any of the 33 mandatory roster labels or an existing canonical entity name/alias. Not created as a new entity (out of mandatory-roster scope this mission); withheld rather than guessed at which roster company it might mean.",
+      "candidate_company": "Family Tree",
+      "candidate_provider": "Mountain Blue Orchards (MBO)"
+    },
+    {
+      "tier": 2,
+      "item": 4,
+      "visible_text": "Fall Creek - Fall Creek",
+      "reason_withheld": "Self-mapping; no relationship created.",
+      "candidate_company": "Fall Creek",
+      "candidate_provider": "Fall Creek (self)"
+    },
+    {
+      "tier": 2,
+      "item": 5,
+      "visible_text": "[illegible name] - Planasa, MBO, Public",
+      "reason_withheld": "Company name is illegible in the source image (candidate reading 'Noposion' does not match any roster label or canonical entity). Per mission rule, unclear handwriting must not be guessed at. Fully withheld.",
+      "candidate_company": null,
+      "candidate_provider": "Planasa; Mountain Blue Orchards; Public genetics"
+    },
+    {
+      "tier": 2,
+      "item": 6,
+      "visible_text": "MBO - MBO",
+      "reason_withheld": "Self-mapping; no relationship created.",
+      "candidate_company": "MBO (Mountain Blue Orchards)",
+      "candidate_provider": "MBO (self)"
+    },
+    {
+      "tier": 2,
+      "item": 7,
+      "visible_text": "Perfection Fresh - ??",
+      "reason_withheld": "Explicit '??' -- unresolved by the note's own author, not just illegible.",
+      "candidate_company": "Perfection Fresh",
+      "candidate_provider": null
+    },
+    {
+      "tier": 2,
+      "item": 8,
+      "visible_text": "Well-Pict (partially obscured) - ???",
+      "reason_withheld": "Explicit '???' -- unresolved by the note's own author.",
+      "candidate_company": "Well-Pict",
+      "candidate_provider": null
+    },
+    {
+      "tier": 3,
+      "item": 1,
+      "visible_text": "Oishii - No blues",
+      "reason_withheld": "'No blues' is a scoped observation (Oishii not active in blueberry) per mission rule, not proof of zero blueberry activity generally and not a genetics relationship. No relationship record created; consistent with this company's own blueberry tier being recorded as unassigned, not tier_3, in the spreadsheet snapshot.",
+      "candidate_company": "Oishii",
+      "candidate_provider": null
+    },
+    {
+      "tier": 3,
+      "item": 3,
+      "visible_text": "Plant Sciences - Plant Sciences",
+      "reason_withheld": "Self-mapping; no relationship created.",
+      "candidate_company": "Plant Sciences",
+      "candidate_provider": "Plant Sciences (self)"
+    },
+    {
+      "tier": 3,
+      "item": 4,
+      "visible_text": "Pairwise - No blues",
+      "reason_withheld": "Scoped observation only, consistent with Pairwise's own blueberry tier being unassigned (tier_1 is recorded for strawberry/raspberry/blackberry, not blueberry) in the spreadsheet snapshot.",
+      "candidate_company": "Pairwise",
+      "candidate_provider": null
+    },
+    {
+      "tier": 3,
+      "item": 5,
+      "visible_text": "Wish Farms - Public",
+      "reason_withheld": "'Public' is a genetics-source classification per mission rule, not a company; recorded as an entity-level note on Wish Farms, not a relationship.",
+      "candidate_company": "Wish Farms",
+      "candidate_provider": "Public genetics"
+    },
+    {
+      "tier": 3,
+      "item": 6,
+      "visible_text": "Dole - Inka Berries",
+      "reason_withheld": "Neither 'Dole' nor 'Inka Berries' is one of the 33 mandatory roster labels or an existing canonical entity. Creating either would exceed this mission's mandated roster scope; both are recorded here for visibility only, with no entity or relationship created.",
+      "candidate_company": "Dole",
+      "candidate_provider": "Inka Berries"
+    },
+    {
+      "tier": 3,
+      "item": 7,
+      "visible_text": "SunBelle - Public (source reads 'Suabelle')",
+      "reason_withheld": "Handwriting reads 'Suabelle'; resolved to 'SunBelle' as the only plausible roster match. 'Public' recorded as an entity-level note, not a relationship.",
+      "candidate_company": "SunBelle",
+      "candidate_provider": "Public genetics"
+    },
+    {
+      "tier": 3,
+      "item": 8,
+      "visible_text": "Ozblu - Ozblu",
+      "reason_withheld": "Self-mapping. The real, multi-party Ozblu genetics network (Nature Select develops, Oz Varieties licenses, United Exports owns the brand) already exists in this graph as real relationship records; nothing new created here to avoid duplicating them.",
+      "candidate_company": "Ozblu",
+      "candidate_provider": "Ozblu (self)"
+    },
+    {
+      "tier": 3,
+      "item": 9,
+      "visible_text": "Fresc Kampo (unclear reading)",
+      "reason_withheld": "Does not match any of the 33 mandatory roster labels; withheld, no entity created.",
+      "candidate_company": "Fresc Kampo",
+      "candidate_provider": null
+    },
+    {
+      "tier": 3,
+      "item": 10,
+      "visible_text": "Water Fresh Farms - No blue",
+      "reason_withheld": "Does not match any of the 33 mandatory roster labels; withheld, no entity created.",
+      "candidate_company": "Water Fresh Farms",
+      "candidate_provider": null
+    },
+    {
+      "tier": 3,
+      "item": 11,
+      "visible_text": "Good Farms - NA",
+      "reason_withheld": "Does not match any of the 33 mandatory roster labels; withheld, no entity created.",
+      "candidate_company": "Good Farms",
+      "candidate_provider": null
+    }
+  ]
+}

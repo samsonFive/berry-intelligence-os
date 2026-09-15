@@ -12,7 +12,8 @@
   "roles": [
     "breeder",
     "genetics_licensor",
-    "planasa_group_member"
+    "planasa_group_member",
+    "competitor"
   ],
   "berry_ids": [
     "berry-raspberry"
@@ -43,6 +44,11 @@
     "leadership": "CEO Hubert Gadret; CSO Roy Briga",
     "blueberry_activity_identified": false,
     "primary_crop": "raspberry",
-    "managed_variety_platform": "Elite Raspberry Collection (ERC) Membership Program, tiered Bronze/Silver/Gold (raspberry, not blueberry)"
+    "managed_variety_platform": "Elite Raspberry Collection (ERC) Membership Program, tiered Bronze/Silver/Gold (raspberry, not blueberry)",
+    "competitor_registry_2026_09_15": {
+      "row_number": 2,
+      "spreadsheet_label": "Advanced Berry Breeding",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    }
   }
 }

@@ -6,7 +6,8 @@
   "aliases": [
     "Costa Group",
     "Costa Group Holdings Limited",
-    "ABN 68 151 363 129"
+    "ABN 68 151 363 129",
+    "Costa"
   ],
   "status": "active",
   "description": "Australian horticultural group and blueberry breeder. Formerly the ASX-listed Costa Group Holdings Limited; delisted 27 February 2024 after a take-private by Paine Schwartz Partners, Driscoll's and British Columbia Investment Management Corporation, and renamed to a proprietary company on 3 June 2024. Its blueberry breeding programme is run from Corindi, New South Wales.",
@@ -67,6 +68,11 @@
     "abn": "68 151 363 129",
     "ownership": "private, private-equity backed",
     "former_listing": "ASX code CGC, listed 24 July 2015, delisted 27 February 2024",
-    "entity_name_change_date": "2024-06-03"
+    "entity_name_change_date": "2024-06-03",
+    "competitor_registry_2026_09_15": {
+      "row_number": 8,
+      "spreadsheet_label": "Costa",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    }
   }
 }
