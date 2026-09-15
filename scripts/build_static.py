@@ -44,6 +44,7 @@ from app.main import (  # noqa: E402
     get_query_services,
     landscape_context,
     list_drafts,
+    load_sources,
     load_strategic_questions,
     published_evidence,
     queue_items,
@@ -866,7 +867,12 @@ def build() -> list[Path]:
         parse_filters,
     )
     competitor_adapter = adapter_from_repositories(
+        data_dir=DATA_DIR,
+        # Static output is trusted-data-only. An intentionally absent runtime
+        # path keeps local discovery/acquisition state out of the public build.
+        inbox_dir=OUTPUT_DIR / ".static-empty-inbox",
         entities=all_entities(),
+        sources=load_sources(),
         evidence=published_evidence(),
         relationships=all_relationships(),
     )
