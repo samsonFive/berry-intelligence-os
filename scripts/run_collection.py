@@ -93,6 +93,11 @@ def _parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--max-transcriptions", type=int, help="Maximum uncached transcription attempts in this run")
     parser.add_argument("--max-items", type=int, help="Maximum staged items processed in deterministic order")
+    parser.add_argument(
+        "--max-discoveries",
+        type=int,
+        help="Maximum discovery items persisted for the selected Source, applied before staging writes",
+    )
     parser.add_argument("--model", choices=AVAILABLE_WHISPER_MODELS, default=DEFAULT_WHISPER_MODEL)
     parser.add_argument("--device", choices=("cpu", "cuda"))
     parser.add_argument("--language", help="Requested transcript language")
@@ -191,6 +196,7 @@ def main(argv: list[str] | None = None) -> int:
     for name, value in (
         ("--max-transcriptions", args.max_transcriptions),
         ("--max-items", args.max_items),
+        ("--max-discoveries", args.max_discoveries),
         ("--retry-limit", args.retry_limit),
         ("--retry-backoff-seconds", args.retry_backoff_seconds),
         ("--lock-stale-seconds", args.lock_stale_seconds),
@@ -278,6 +284,7 @@ def main(argv: list[str] | None = None) -> int:
             data_dir=args.data_dir,
             schemas_dir=args.schemas_dir,
             allow_historical_backfill=args.allow_historical_backfill,
+            max_persisted_items=args.max_discoveries,
         )
 
     def transcript_ready(item: dict) -> bool:

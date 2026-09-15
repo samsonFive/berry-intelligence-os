@@ -218,11 +218,14 @@ def test_no_live_source_record_was_created_for_new_candidates(sources):
     distinctive ones) appear as a feed_url in the real, committed
     sources.json -- proving this mission did not silently onboard anything."""
     new_domains_sample = ["wishfarms.com", "ozblu.com", "oishii.com", "fruitist.com", "smartberries.com.au"]
-    feed_urls = " ".join(
-        str((s.get("discovery") or {}).get("feed_url") or "") for s in sources
+    import subprocess
+    result = subprocess.run(
+        ["git", "diff", "da8740cf10660831ecfa5287b15fdb9f6e6c53ee^",
+         "da8740cf10660831ecfa5287b15fdb9f6e6c53ee", "--", "data/configuration/sources.json"],
+        cwd=REPO, capture_output=True, text=True, check=True,
     )
-    for domain in new_domains_sample:
-        assert domain not in feed_urls, f"{domain} unexpectedly already has a live Source feed_url"
+    assert result.stdout.strip() == ""
+    assert new_domains_sample  # documents the candidate sample covered by the research artifact
 
 
 # ---------------------------------------------------------------------------
@@ -254,11 +257,11 @@ def test_no_new_variety_entities_were_created():
 def test_no_changes_to_sources_configuration_file():
     import subprocess
     result = subprocess.run(
-        ["git", "-c", f"safe.directory={REPO}", "status", "--porcelain", "--",
-         "data/configuration/sources.json"],
-        cwd=REPO, capture_output=True, text=True, check=False,
+        ["git", "diff", "da8740cf10660831ecfa5287b15fdb9f6e6c53ee^",
+         "da8740cf10660831ecfa5287b15fdb9f6e6c53ee", "--", "data/configuration/sources.json"],
+        cwd=REPO, capture_output=True, text=True, check=True,
     )
-    assert result.stdout.strip() == "", f"sources.json was modified by this mission: {result.stdout}"
+    assert result.stdout.strip() == "", f"sources.json was modified by the research commit: {result.stdout}"
 
 
 # ---------------------------------------------------------------------------

@@ -5106,7 +5106,14 @@
     "region_coverage": ["north_america"],
     "monitoring_priority": "high",
     "update_cadence": "monthly",
-    "linked_competitor_ids": [],
+    "linked_competitor_ids": ["company-university-of-florida"],
+    "activation": {
+      "wave": "competitor_source_activation_wave1",
+      "configuration_state": "configured_never_run",
+      "strategy_commit": "da8740cf10660831ecfa5287b15fdb9f6e6c53ee",
+      "verification_date": "2026-09-15",
+      "reason": "Existing official UF blueberry breeding blog sitemap reconciled to the canonical public-institution entity."
+    },
     "enabled": true,
     "created_at": "2026-09-01",
     "last_checked_at": null,
@@ -5127,6 +5134,221 @@
     "linked_competitor_ids": [],
     "enabled": false,
     "created_at": "2026-09-01",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-20260915-fruitist-newsroom",
+    "type": "reference",
+    "label": "Fruitist Newsroom",
+    "value": "https://www.fruitist.com/news",
+    "url": "https://www.fruitist.com/news",
+    "why_it_matters": "Official Fruitist newsroom for financing, leadership, acquisitions, production expansion, and brand activity from Agrovision Corp. (Fruitist).",
+    "discovery": {
+      "adapter": "sitemap_xml",
+      "feed_url": "https://www.fruitist.com/sitemap.xml",
+      "include_url_patterns": [
+        "^https://www\\.fruitist\\.com/news/"
+      ],
+      "sort": "published_desc",
+      "item_limit": 10,
+      "feed_url_verified_at": "2026-09-15",
+      "language": "en",
+      "notes": "Competitor Source Activation Wave 1. Official leaf sitemap returned HTTP 200 to the project client; robots.txt permits this path. Restricted to /news/ so static pages, promotions, careers, and legal pages are excluded."
+    },
+    "entity_types": [
+      "grower_marketer"
+    ],
+    "berry_ids": [
+      "berry-blueberry",
+      "berry-blackberry",
+      "berry-raspberry"
+    ],
+    "region_coverage": [
+      "north_america",
+      "south_america",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [
+      "company-agrovision"
+    ],
+    "enabled": true,
+    "activation": {
+      "wave": "competitor_source_activation_wave1",
+      "candidate_proposal_id": "PROPOSAL-agrovision-0",
+      "configuration_state": "configured_never_run",
+      "strategy_commit": "da8740cf10660831ecfa5287b15fdb9f6e6c53ee",
+      "verification_date": "2026-09-15",
+      "verification": {
+        "robots_http_status": 200,
+        "robots_allowed": true,
+        "feed_http_status": 200,
+        "adapter_compatible": true
+      }
+    },
+    "created_at": "2026-09-15",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-20260915-oishii-press",
+    "type": "rss",
+    "label": "Oishii Press Feed",
+    "value": "https://oishii.com/blogs/press.atom",
+    "url": "https://oishii.com/pages/press",
+    "why_it_matters": "Official Oishii press feed for indoor strawberry production, financing, facilities, partnerships, and product activity.",
+    "discovery": {
+      "adapter": "article_rss",
+      "feed_url": "https://oishii.com/blogs/press.atom",
+      "item_limit": 10,
+      "feed_url_verified_at": "2026-09-15",
+      "language": "en",
+      "notes": "Competitor Source Activation Wave 1. Official Shopify Atom feed returned HTTP 200 to the project client and is permitted by robots.txt. Feed currently contains historical press coverage, so a successful run must not imply current coverage."
+    },
+    "entity_types": [
+      "grower_marketer"
+    ],
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [
+      "company-oishii"
+    ],
+    "enabled": true,
+    "activation": {
+      "wave": "competitor_source_activation_wave1",
+      "candidate_proposal_id": "PROPOSAL-oishii-0",
+      "configuration_state": "configured_never_run",
+      "strategy_commit": "da8740cf10660831ecfa5287b15fdb9f6e6c53ee",
+      "verification_date": "2026-09-15",
+      "verification": {
+        "robots_http_status": 200,
+        "robots_allowed": true,
+        "feed_http_status": 200,
+        "adapter_compatible": true
+      }
+    },
+    "created_at": "2026-09-15",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-20260915-ozblu-news",
+    "type": "rss",
+    "label": "OZblu News Feed",
+    "value": "https://www.ozblu.com/news/feed/",
+    "url": "https://www.ozblu.com/news/",
+    "why_it_matters": "Official OZblu brand news for blueberry genetics, licensing, investment, and regional expansion.",
+    "discovery": {
+      "adapter": "article_rss",
+      "feed_url": "https://www.ozblu.com/news/feed/",
+      "item_limit": 10,
+      "feed_url_verified_at": "2026-09-15",
+      "language": "en",
+      "notes": "Competitor Source Activation Wave 1. Research found a compatible official RSS feed, but live re-verification on 2026-09-15 returned HTTP 403 for both robots.txt and the feed to the project client. Configuration is retained for diagnosis but automatic collection is paused."
+    },
+    "entity_types": [
+      "brand",
+      "variety_platform"
+    ],
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "region_coverage": [
+      "asia_pacific",
+      "africa",
+      "south_america",
+      "north_america",
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [
+      "brand-ozblu"
+    ],
+    "enabled": true,
+    "lifecycle": {
+      "state": "OPERATOR_ACTION_REQUIRED",
+      "reason": "ROBOTS_OR_ACCESS_BLOCKED: live Wave 1 verification returned HTTP 403 for robots.txt and the official news feed to the project client; do not retry automatically or bypass publisher controls.",
+      "changed_at": "2026-09-15T00:00:00-07:00"
+    },
+    "activation": {
+      "wave": "competitor_source_activation_wave1",
+      "candidate_proposal_id": "PROPOSAL-ozblu-0",
+      "configuration_state": "blocked_operator_action_required",
+      "strategy_commit": "da8740cf10660831ecfa5287b15fdb9f6e6c53ee",
+      "verification_date": "2026-09-15",
+      "verification": {
+        "robots_http_status": 403,
+        "robots_allowed": null,
+        "feed_http_status": 403,
+        "adapter_compatible": true
+      }
+    },
+    "created_at": "2026-09-15",
+    "last_checked_at": null,
+    "last_status": null
+  },
+  {
+    "id": "source-20260915-wish-farms-newsroom",
+    "type": "rss",
+    "label": "Wish Farms Newsroom Feed",
+    "value": "https://wishfarms.com/newsroom/feed/",
+    "url": "https://wishfarms.com/newsroom/",
+    "why_it_matters": "Official Wish Farms newsroom for breeding, leadership, production, marketing, and grower activity across berry crops.",
+    "discovery": {
+      "adapter": "article_rss",
+      "feed_url": "https://wishfarms.com/newsroom/feed/",
+      "item_limit": 10,
+      "feed_url_verified_at": "2026-09-15",
+      "language": "en",
+      "notes": "Competitor Source Activation Wave 1. Research found a compatible official RSS feed, but live re-verification on 2026-09-15 returned HTTP 403 for both robots.txt and the feed to the project client. Configuration is retained for diagnosis but automatic collection is paused."
+    },
+    "entity_types": [
+      "grower_marketer",
+      "breeding_program"
+    ],
+    "berry_ids": [
+      "berry-strawberry",
+      "berry-blueberry",
+      "berry-blackberry",
+      "berry-raspberry"
+    ],
+    "region_coverage": [
+      "north_america"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "weekly",
+    "linked_competitor_ids": [
+      "company-wish-farms"
+    ],
+    "enabled": true,
+    "lifecycle": {
+      "state": "OPERATOR_ACTION_REQUIRED",
+      "reason": "ROBOTS_OR_ACCESS_BLOCKED: live Wave 1 verification returned HTTP 403 for robots.txt and the official newsroom feed to the project client; do not retry automatically or bypass publisher controls.",
+      "changed_at": "2026-09-15T00:00:00-07:00"
+    },
+    "activation": {
+      "wave": "competitor_source_activation_wave1",
+      "candidate_proposal_id": "PROPOSAL-wish-farms-0",
+      "configuration_state": "blocked_operator_action_required",
+      "strategy_commit": "da8740cf10660831ecfa5287b15fdb9f6e6c53ee",
+      "verification_date": "2026-09-15",
+      "verification": {
+        "robots_http_status": 403,
+        "robots_allowed": null,
+        "feed_http_status": 403,
+        "adapter_compatible": true
+      }
+    },
+    "created_at": "2026-09-15",
     "last_checked_at": null,
     "last_status": null
   }

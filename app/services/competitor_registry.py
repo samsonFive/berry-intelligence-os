@@ -61,6 +61,11 @@ _KNOWN_BLOCKED_ENTITIES = {
         "calgiant.com acquisition is TLS/HTTP-client-fingerprint blocked (Cloudflare bot management), "
         "confirmed on fix/astra-news-reader (commit 721a20a). Cited, not re-diagnosed here."
     ),
+    "breeding_program-uc-davis-strawberry": (
+        "The official UC Davis Strawberry Breeding Program news candidate returned repeatable HTTP 403 "
+        "during Competitor Source Strategy V1 verification. It remains unconfigured rather than being "
+        "treated as an automated source or routed around."
+    ),
 }
 
 
@@ -68,7 +73,12 @@ def _entities_by_id(entities: list[dict[str, Any]]) -> dict[str, dict[str, Any]]
     return {e["id"]: e for e in entities if e.get("id")}
 
 
-def monitoring_state_for_entity(entity_id: str, *, sources: list[dict[str, Any]]) -> dict[str, str]:
+def monitoring_state_for_entity(
+    entity_id: str,
+    *,
+    sources: list[dict[str, Any]],
+    inbox_dir: Path | None = None,
+) -> dict[str, str]:
     """One current monitoring state for `entity_id`, from real data only --
     never fabricated and never a source count presented as recall (see
     AGENTS.md's Source Health rule, which this function deliberately
@@ -88,17 +98,44 @@ def monitoring_state_for_entity(entity_id: str, *, sources: list[dict[str, Any]]
             "researched or fabricated for it by this import.",
         }
 
-    runnable = [s for s in linked if (s.get("discovery") or {}).get("adapter") and (
+    configured = [s for s in linked if (s.get("discovery") or {}).get("adapter") and (
         (s.get("discovery") or {}).get("feed_url") or (s.get("discovery") or {}).get("feed_urls")
     )]
+    execution_rows = [
+        (
+            source,
+            source_execution_status(
+                source,
+                discovery_state=(
+                    read_source_discovery_state(inbox_dir, str(source.get("id") or ""))
+                    if inbox_dir is not None
+                    else None
+                ),
+            ),
+        )
+        for source in configured
+    ]
+    runnable = [source for source, execution in execution_rows if execution.get("runnable")]
     if not runnable:
+        blocked = [source for source, execution in execution_rows if execution.get("state") == "BLOCKED"]
+        if blocked:
+            names = ", ".join(sorted(str(source.get("id") or "") for source in blocked))
+            return {
+                "state": "source_blocked",
+                "detail": f"Configured Source(s) {names} require operator action before collection can run.",
+            }
         return {
             "state": "manual_monitoring_required",
-            "detail": f"{len(linked)} linked Source(s) exist but none carry a discovery adapter/feed "
-            "configuration -- manual/analyst-driven monitoring only.",
+            "detail": f"{len(linked)} linked Source(s) exist but none are eligible for automated discovery "
+            "-- manual/analyst-driven monitoring only.",
         }
 
-    never_run = [s for s in runnable if not s.get("last_checked_at")]
+    never_run = [
+        source
+        for source, execution in execution_rows
+        if execution.get("runnable")
+        if execution.get("state") == "NEVER_RUN"
+    ]
     if never_run:
         names = ", ".join(sorted(s["id"] for s in never_run))
         return {
@@ -255,7 +292,9 @@ def unfiltered_competitor_registry(
     rows = []
     for row in matrix["rows"]:
         entity = by_id.get(row["canonical_entity_id"])
-        monitoring = monitoring_state_for_entity(row["canonical_entity_id"], sources=sources)
+        monitoring = monitoring_state_for_entity(
+            row["canonical_entity_id"], sources=sources, inbox_dir=inbox_dir
+        )
         maturity = monitoring_maturity_for_entity(
             entity,
             sources=sources,
