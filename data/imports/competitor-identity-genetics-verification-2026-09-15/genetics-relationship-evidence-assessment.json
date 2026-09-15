@@ -1,0 +1,51 @@
+{
+  "id": "competitor-genetics-relationship-evidence-assessment-2026-09-15",
+  "verification_date": "2026-09-15",
+  "relationships_reviewed": 3,
+  "upgraded": 1,
+  "retained_pending": 2,
+  "rejected": 0,
+  "assessments": [
+    {
+      "relationship_id": "rel-agroberries-genetics-mountain-blue-orchards",
+      "pair": "AgroBerries <-> Mountain Blue Orchards",
+      "outcome": "upgraded",
+      "predicate_before": "partners_with",
+      "predicate_after": "licenses",
+      "status_before": "disputed",
+      "status_after": "active",
+      "confidence_before": "medium",
+      "confidence_after": "high",
+      "evidence_added": [
+        "ev-agroberries-mountain-blue-licensing-freshfruitportal-2026"
+      ],
+      "reasoning": "FreshFruitPortal.com (2026-06-24) independently and explicitly states AgroBerries signed licensing agreements with MBO to grow and market its blueberry genetics -- names both parties, the specific relationship type, and the berry. Meets the bar for external verification, not merely an internal assertion."
+    },
+    {
+      "relationship_id": "rel-agrovision-genetics-fall-creek-farm-and-nursery",
+      "pair": "Fruitist/Agrovision <-> Fall Creek",
+      "outcome": "retained_pending",
+      "predicate_before": "partners_with",
+      "predicate_after": "partners_with",
+      "status_before": "disputed",
+      "status_after": "disputed",
+      "confidence_before": "medium",
+      "confidence_after": "medium",
+      "evidence_added": [],
+      "reasoning": "Targeted search found no independent corroboration of a genetics relationship between these two specific companies. Per this mission's rule, absence of public evidence does not disprove the handwritten assertion -- left unchanged, with the search attempt documented in the relationship's own notes."
+    },
+    {
+      "relationship_id": "rel-california-giant-berry-farms-genetics-fall-creek-farm-and-nursery",
+      "pair": "California Giant <-> Fall Creek",
+      "outcome": "retained_pending",
+      "predicate_before": "partners_with",
+      "predicate_after": "partners_with",
+      "status_before": "disputed",
+      "status_after": "disputed",
+      "confidence_before": "medium",
+      "confidence_after": "medium",
+      "evidence_added": [],
+      "reasoning": "Targeted search found no independent corroboration; surfaced only California Giant's separate, already-tracked VentureFruit genetics partnership, which neither confirms nor denies a Fall Creek relationship. Left unchanged per the same absence-of-evidence rule."
+    }
+  ]
+}

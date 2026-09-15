@@ -1,0 +1,28 @@
+{
+  "id": "ev-agroberries-mountain-blue-licensing-freshfruitportal-2026",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "trade_press",
+  "title": "AgroBerries Group expands premium blueberry portfolio with new Mountain Blue Orchards licensing agreements",
+  "source_name": "FreshFruitPortal.com",
+  "source_url": "https://www.freshfruitportal.com/news/2026/06/24/agroberries-expansion/",
+  "published_date": "2026-06-24",
+  "captured_date": "2026-09-15",
+  "summary": "Externally verified via authoritative trade press (not the internal spreadsheet or handwritten notes): AgroBerries Group has signed new licensing agreements with Mountain Blue Orchards (MBO) to grow and market MBO's blueberry genetics across expanded global territories from 2027. This independently corroborates and specifies the relationship type for the previously generic, handwritten-note-only 'AgroBerries - MBO' association.",
+  "why_it_matters": "Provides independent, named, publisher-sourced corroboration of a specific relationship type (licensing) for a company-genetics assertion that was previously only a user-provided handwritten note.",
+  "submitted_by": "competitor-identity-genetics-verification-v1",
+  "berry_ids": ["berry-blueberry"],
+  "geography_ids": [],
+  "entity_ids": ["company-agroberries", "company-mountain-blue-orchards"],
+  "fact_ids": [],
+  "relationship_ids": ["rel-agroberries-genetics-mountain-blue-orchards"],
+  "strategic_question_ids": [],
+  "tags": ["genetics-relationship-verification", "externally-verified"],
+  "auto_captured": false,
+  "priority": {
+    "reading": {"level": "none", "rationale": "Verification-support evidence, not a triage item."},
+    "testing": {"level": "none", "rationale": "Not a testable claim in the Claim Testing sense; a relationship-corroboration citation."},
+    "commercial_position": {"level": "none", "rationale": "Not tagged for commercial-position review by this mission."},
+    "monitoring": {"level": "none", "rationale": "Not a monitored source; a one-time verification citation."}
+  }
+}
