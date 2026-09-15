@@ -1,0 +1,308 @@
+{
+  "schema_version": "competitor-landscape-registry-fixture-v1",
+  "note": "Temporary non-canonical preview fixture for competitor-landscape UI/tests until Claude's canonical roster lands. Not a production registry.",
+  "region_codes": {
+    "DOTA": {"label": "Americas (DOTA)", "canonical_region_hint": "Americas"},
+    "DEMEA": {"label": "Europe, Middle East & Africa (DEMEA)", "canonical_region_hint": "Europe"},
+    "DOA_DANZ": {"label": "Oceania / ANZ (DOA_DANZ)", "canonical_region_hint": "Oceania"}
+  },
+  "entries": [
+    {
+      "registry_label": "Advanced Berry Breeding",
+      "aliases": ["Advanced Berry Breeding B.V.", "ABB"],
+      "competitor_types": ["Breeding"],
+      "strategic_priority": null,
+      "regions": ["DEMEA"],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": "Tier 1", "blackberry": null},
+      "suggested_entity_id": "company-advanced-berry-breeding"
+    },
+    {
+      "registry_label": "AgroBerries",
+      "aliases": ["Agroberries", "Agro Berries"],
+      "competitor_types": ["Commercial"],
+      "strategic_priority": "Top",
+      "regions": ["DOTA", "DEMEA"],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": null, "blackberry": null},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "Australasian Plant Genetics",
+      "aliases": ["APG"],
+      "competitor_types": ["Genetics", "Technology"],
+      "strategic_priority": null,
+      "regions": ["DOA_DANZ"],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": null, "blackberry": null},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "BerryWorld",
+      "aliases": ["BerryWorld Group"],
+      "competitor_types": ["Breeding"],
+      "strategic_priority": null,
+      "regions": ["DOA_DANZ", "DEMEA"],
+      "berry_positions": {"strawberry": "Tier 2", "blueberry": "Tier 3", "raspberry": "Tier 1", "blackberry": "Tier 2"},
+      "suggested_entity_id": "company-berryworld"
+    },
+    {
+      "registry_label": "Black Venture Farm",
+      "aliases": [],
+      "competitor_types": ["Commercial"],
+      "strategic_priority": null,
+      "regions": [],
+      "berry_positions": {"strawberry": "Tier 3", "blueberry": null, "raspberry": "Tier 2", "blackberry": "Tier 1"},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "California Giant",
+      "aliases": ["California Giant Berry Farms"],
+      "competitor_types": ["Commercial"],
+      "strategic_priority": "Top",
+      "regions": ["DOTA"],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": null, "blackberry": null},
+      "suggested_entity_id": "company-california-giant-berry-farms"
+    },
+    {
+      "registry_label": "Costa",
+      "aliases": ["Costa Berry International", "Costa Group"],
+      "competitor_types": ["Commercial"],
+      "strategic_priority": null,
+      "regions": ["DEMEA"],
+      "berry_positions": {"strawberry": null, "blueberry": "Tier 1", "raspberry": null, "blackberry": null},
+      "suggested_entity_id": "company-costa-berry-international"
+    },
+    {
+      "registry_label": "Denning Blueberries",
+      "aliases": [],
+      "competitor_types": ["Commercial"],
+      "strategic_priority": "Watch",
+      "regions": ["DOA_DANZ"],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": null, "blackberry": null},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "Expoberries",
+      "aliases": [],
+      "competitor_types": [],
+      "strategic_priority": null,
+      "regions": [],
+      "berry_positions": {"strawberry": null, "blueberry": "Present", "raspberry": "Tier 2", "blackberry": "Tier 1"},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "Fall Creek",
+      "aliases": ["Fall Creek Farm & Nursery", "Fall Creek Farm and Nursery"],
+      "competitor_types": ["Breeding", "Genetics"],
+      "strategic_priority": null,
+      "regions": ["DOTA", "DOA_DANZ", "DEMEA"],
+      "berry_positions": {"strawberry": null, "blueberry": "Tier 1", "raspberry": "Tier 3", "blackberry": "Tier 3"},
+      "suggested_entity_id": "company-fall-creek-farm-and-nursery"
+    },
+    {
+      "registry_label": "Fresh Forward",
+      "aliases": [],
+      "competitor_types": ["Breeding"],
+      "strategic_priority": null,
+      "regions": ["DEMEA"],
+      "berry_positions": {"strawberry": "Tier 1", "blueberry": null, "raspberry": null, "blackberry": null},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "Fruitist",
+      "aliases": ["Agrovision", "Agrovision Corp. (Fruitist)"],
+      "competitor_types": ["Commercial"],
+      "strategic_priority": "Top",
+      "regions": ["DOTA"],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": null, "blackberry": null},
+      "suggested_entity_id": "company-agrovision"
+    },
+    {
+      "registry_label": "Gem-Pack Berries",
+      "aliases": ["Gem Pack"],
+      "competitor_types": ["Commercial"],
+      "strategic_priority": "Top",
+      "regions": ["DOTA"],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": null, "blackberry": null},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "Hortifrut Genetica",
+      "aliases": ["Hortifrut", "Hortifrut Genética"],
+      "competitor_types": ["Breeding"],
+      "strategic_priority": null,
+      "regions": ["DEMEA"],
+      "berry_positions": {"strawberry": null, "blueberry": "Tier 1", "raspberry": "Tier 1", "blackberry": "Tier 2"},
+      "suggested_entity_id": "company-hortifrut"
+    },
+    {
+      "registry_label": "IQ Berries",
+      "aliases": [],
+      "competitor_types": ["Genetics"],
+      "strategic_priority": null,
+      "regions": ["DOA_DANZ"],
+      "berry_positions": {"strawberry": "Present", "blueberry": "Tier 3", "raspberry": null, "blackberry": null},
+      "suggested_entity_id": "company-iq-berries"
+    },
+    {
+      "registry_label": "Marionnet",
+      "aliases": [],
+      "competitor_types": [],
+      "strategic_priority": null,
+      "regions": ["DEMEA"],
+      "berry_positions": {"strawberry": "Tier 3", "blueberry": null, "raspberry": "Tier 2", "blackberry": null},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "Mountain Blue",
+      "aliases": ["Mountain Blue Orchards", "MBO"],
+      "competitor_types": ["Breeding", "Genetics"],
+      "strategic_priority": null,
+      "regions": ["DOA_DANZ", "DEMEA"],
+      "berry_positions": {"strawberry": null, "blueberry": "Tier 1", "raspberry": null, "blackberry": "Tier 3"},
+      "suggested_entity_id": "company-mountain-blue-orchards"
+    },
+    {
+      "registry_label": "Oishii",
+      "aliases": [],
+      "competitor_types": ["Commercial"],
+      "strategic_priority": "Watch",
+      "regions": ["DOTA"],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": null, "blackberry": null},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "Ozblu",
+      "aliases": ["OZblu", "OZ Varieties"],
+      "competitor_types": [],
+      "strategic_priority": null,
+      "regions": ["DOTA", "DOA_DANZ", "DEMEA"],
+      "berry_positions": {"strawberry": null, "blueberry": "Tier 2", "raspberry": null, "blackberry": null},
+      "suggested_entity_id": "company-oz-varieties"
+    },
+    {
+      "registry_label": "Pairwise",
+      "aliases": [],
+      "competitor_types": ["Genetics", "Technology"],
+      "strategic_priority": null,
+      "regions": ["DOTA"],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": null, "blackberry": null},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "Perfection Fresh",
+      "aliases": [],
+      "competitor_types": ["Commercial"],
+      "strategic_priority": "Top",
+      "regions": ["DOA_DANZ"],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": null, "blackberry": null},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "Planasa",
+      "aliases": ["Plantas de Navarra"],
+      "competitor_types": ["Breeding", "Genetics"],
+      "strategic_priority": null,
+      "regions": ["DOTA", "DOA_DANZ", "DEMEA"],
+      "berry_positions": {"strawberry": "Tier 1", "blueberry": "Tier 2", "raspberry": "Tier 1", "blackberry": "Tier 2"},
+      "suggested_entity_id": "company-planasa"
+    },
+    {
+      "registry_label": "Plant Sciences",
+      "aliases": ["Plant Sciences, Inc.", "Plant Sciences Genetics"],
+      "competitor_types": ["Breeding", "Genetics"],
+      "strategic_priority": null,
+      "regions": ["DOTA", "DOA_DANZ", "DEMEA"],
+      "berry_positions": {"strawberry": "Tier 1", "blueberry": null, "raspberry": "Tier 1", "blackberry": "Tier 3"},
+      "suggested_entity_id": "company-plant-sciences-genetics"
+    },
+    {
+      "registry_label": "Royakkers",
+      "aliases": [],
+      "competitor_types": [],
+      "strategic_priority": null,
+      "regions": ["DEMEA"],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": "Tier 2", "blackberry": "Tier 2"},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "Smart Berries",
+      "aliases": [],
+      "competitor_types": ["Commercial"],
+      "strategic_priority": "Watch",
+      "regions": ["DOA_DANZ", "DEMEA"],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": "Tier 2", "blackberry": "Tier 1"},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "Splendor Produce",
+      "aliases": [],
+      "competitor_types": [],
+      "strategic_priority": null,
+      "regions": [],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": null, "blackberry": null},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "SunBelle",
+      "aliases": ["Sunbelle", "Sun Belle"],
+      "competitor_types": ["Commercial"],
+      "strategic_priority": "Watch",
+      "regions": ["DOTA", "DEMEA"],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": null, "blackberry": null},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "The Berry Collective",
+      "aliases": [],
+      "competitor_types": ["Commercial"],
+      "strategic_priority": "Top",
+      "regions": ["DOA_DANZ"],
+      "berry_positions": {"strawberry": "Tier 1", "blueberry": null, "raspberry": null, "blackberry": null},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "UC Davis",
+      "aliases": ["University of California, Davis", "UC Davis Strawberry Breeding Program"],
+      "competitor_types": ["University/Public"],
+      "strategic_priority": null,
+      "regions": [],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": null, "blackberry": "Tier 2"},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "University of Arkansas",
+      "aliases": ["University of Arkansas Division of Agriculture"],
+      "competitor_types": ["University/Public"],
+      "strategic_priority": null,
+      "regions": [],
+      "berry_positions": {"strawberry": "Tier 1", "blueberry": "Tier 2", "raspberry": null, "blackberry": null},
+      "suggested_entity_id": "company-university-of-arkansas"
+    },
+    {
+      "registry_label": "University of Florida",
+      "aliases": ["UF", "UF/IFAS"],
+      "competitor_types": ["University/Public"],
+      "strategic_priority": "Top",
+      "regions": ["DOTA"],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": null, "blackberry": null},
+      "suggested_entity_id": "company-university-of-florida"
+    },
+    {
+      "registry_label": "Well-Pict",
+      "aliases": ["Well Pict", "Wellpict"],
+      "competitor_types": ["Commercial"],
+      "strategic_priority": "Top",
+      "regions": ["DOTA"],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": null, "blackberry": null},
+      "suggested_entity_id": null
+    },
+    {
+      "registry_label": "Wish Farms",
+      "aliases": [],
+      "competitor_types": ["Commercial"],
+      "strategic_priority": "Watch",
+      "regions": ["DOTA"],
+      "berry_positions": {"strawberry": null, "blueberry": null, "raspberry": null, "blackberry": null},
+      "suggested_entity_id": "company-wish-farms"
+    }
+  ]
+}

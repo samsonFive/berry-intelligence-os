@@ -860,6 +860,27 @@ def build() -> list[Path]:
         )
     )
 
+    from app.services.competitor_landscape import (
+        adapter_from_repositories,
+        build_landscape_context,
+        parse_filters,
+    )
+    competitor_adapter = adapter_from_repositories(
+        entities=all_entities(),
+        evidence=published_evidence(),
+        relationships=all_relationships(),
+    )
+    written.append(
+        write_page(
+            "competitor_landscape.html",
+            "/competitors",
+            {
+                **build_landscape_context(competitor_adapter, parse_filters({})),
+                "authoring_mode": False,
+            },
+        )
+    )
+
     # Executive Intelligence Readout V1 -- trusted-only cross-corpus
     # synthesis, same static-safety story as Landscape above.
     _readout_evidence = published_evidence()
