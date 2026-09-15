@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Trust Feedback Controls V1 — Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --font:"Source Sans 3","Segoe UI",sans-serif;
+  --display:"Fraunces",Georgia,serif;
+  --navy:#08234d; --text:#1c1812; --muted:#6d6458;
+  --canvas:#f4f1ea; --surface:#fffcf7; --raised:#f7f5f1;
+  --border:#ddd4c6; --accent:#8a6a3b;
+  --ok:#1c6b42; --ok-bg:#e2f6e9; --ok-border:#b7dfc5;
+  --pending:#5e4b8a; --pending-bg:#eee8ff; --pending-border:#d5cbf3;
+  --warn:#8a5a10; --warn-bg:#fff8e5; --warn-border:#efd9a2;
+  --danger:#8f2f28; --danger-bg:#fdeaea; --danger-border:#efc4c1;
+  --info:#2f5d7a; --info-bg:#e7f1f6; --info-border:#b9d5e4;
+  --excluded:#4a4450; --excluded-bg:#efecef; --excluded-border:#d4ced8;
+  --shadow:0 10px 28px rgba(40,28,14,.08);
+  --touch:44px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:var(--font);color:var(--text);line-height:1.45;
+  background:
+    radial-gradient(1100px 420px at 8% -8%,rgba(138,106,59,.12),transparent 60%),
+    radial-gradient(900px 380px at 100% 0%,rgba(8,35,77,.08),transparent 55%),
+    var(--canvas);
+}
+a{color:#0c2d5d}
+a:focus-visible,button:focus-visible,[tabindex="0"]:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px;
+}
+.skip{position:absolute;left:-999px;top:0;background:#fff;padding:.5rem .75rem;z-index:1000}
+.skip:focus{left:.5rem;top:.5rem}
+.shell{display:grid;grid-template-columns:15rem minmax(0,1fr);min-height:100vh}
+.rail{
+  background:linear-gradient(180deg,var(--navy),#061936);color:#e8eef8;
+  padding:1.25rem 1rem;position:sticky;top:0;height:100vh;overflow:auto;
+}
+.brand{font-family:var(--display);margin:0 0 1.25rem;font-size:1.05rem}
+.brand small{display:block;margin-top:.35rem;color:#9db0cc;font-family:var(--font);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+.rail nav{display:grid;gap:.35rem}
+.rail a{color:#d7e2f3;text-decoration:none;padding:.55rem .7rem;border-radius:8px;font-size:.92rem}
+.rail a[aria-current="page"],.rail a:hover{background:rgba(255,255,255,.08);color:#fff}
+.proto{
+  margin-top:1.5rem;padding:.7rem .75rem;border:1px solid rgba(255,255,255,.18);
+  border-radius:10px;font-size:.78rem;color:#c6d4e8;background:rgba(0,0,0,.15);
+}
+.kbd-help{margin-top:1rem;font-size:.72rem;color:#9db0cc;line-height:1.5}
+.kbd-help kbd{
+  display:inline-block;min-width:1.2rem;padding:.1rem .35rem;border:1px solid rgba(255,255,255,.25);
+  border-radius:4px;background:rgba(0,0,0,.25);font-size:.68rem;text-align:center;
+}
+.main{padding:1.25rem 1.5rem 3rem;max-width:1120px}
+.eyebrow{margin:0;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:650;font-size:clamp(1.55rem,2.2vw,2rem);margin:.25rem 0 .4rem;letter-spacing:-.02em}
+.lede{margin:0;color:var(--muted);max-width:46rem}
+.note{
+  margin:1rem 0;padding:.75rem 1rem;border-left:3px solid var(--accent);
+  background:rgba(138,106,59,.08);color:var(--muted);border-radius:0 10px 10px 0;font-size:.9rem;
+}
+.toolbar{
+  position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;gap:.5rem;
+  align-items:center;justify-content:space-between;margin:0 0 1rem;
+  padding:.75rem .9rem;background:rgba(255,252,247,.95);border:1px solid var(--border);
+  border-radius:16px;backdrop-filter:blur(8px);box-shadow:var(--shadow);
+}
+.filters{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+.filter-btn,.btn{
+  border:1px solid var(--border);background:#fff;border-radius:8px;
+  padding:.4rem .75rem;font-size:.82rem;color:var(--text);cursor:pointer;
+  min-height:var(--touch);min-width:var(--touch);
+}
+.filter-btn[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.bulk-bar{
+  display:none;align-items:center;gap:.5rem;flex-wrap:wrap;
+  margin:0 0 1rem;padding:.65rem .85rem;border:1px dashed var(--border);
+  border-radius:12px;background:var(--raised);font-size:.88rem;
+}
+.bulk-bar.visible{display:flex}
+.list{display:grid;gap:.75rem}
+.card{
+  display:grid;gap:.55rem;padding:.9rem 1rem;border:1px solid var(--border);
+  border-radius:12px;background:#fff;transition:border-color .15s ease,box-shadow .15s ease;
+}
+.card.is-focused{border-color:#c9b79a;box-shadow:inset 3px 0 0 var(--accent)}
+.card.is-excluded-feed{
+  opacity:.92;background:var(--excluded-bg);border-style:dashed;
+}
+.card.is-excluded-feed::after{
+  content:"Excluded from trusted feed · retained for audit";
+  font-size:.75rem;color:var(--excluded);letter-spacing:.02em;
+}
+.card-topline{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;justify-content:space-between}
+.card-source{font-size:.84rem;color:var(--muted)}
+.card h3{margin:0;font-size:1.02rem;line-height:1.3}
+.card h3 button{
+  all:unset;cursor:pointer;color:var(--navy);font:inherit;font-weight:700;
+  text-align:left;
+}
+.card h3 button:hover{text-decoration:underline}
+.meta{color:var(--muted);font-size:.84rem;display:flex;flex-wrap:wrap;gap:.35rem .7rem}
+.badges{display:flex;flex-wrap:wrap;gap:.35rem}
+.badge{
+  display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;
+  letter-spacing:.02em;text-transform:uppercase;padding:.22rem .5rem;
+  border-radius:6px;border:1px solid var(--border);background:var(--raised);color:inherit;
+}
+.badge::before{content:"";width:.45rem;height:.45rem;border-radius:50%;background:currentColor;flex:none}
+.b-ok{color:var(--ok);background:var(--ok-bg);border-color:var(--ok-border)}
+.b-pending{color:var(--pending);background:var(--pending-bg);border-color:var(--pending-border)}
+.b-warn{color:var(--warn);background:var(--warn-bg);border-color:var(--warn-border)}
+.b-danger{color:var(--danger);background:var(--danger-bg);border-color:var(--danger-border)}
+.b-info{color:var(--info);background:var(--info-bg);border-color:var(--info-border)}
+.b-excluded{color:var(--excluded);background:var(--excluded-bg);border-color:var(--excluded-border)}
+.b-promoted{color:var(--ok);background:var(--ok-bg);border-color:var(--ok-border)}
+.excerpt{margin:0;font-size:.92rem;color:var(--text)}
+.attention{
+  margin:0;padding:.65rem .75rem;border-radius:10px;font-size:.9rem;
+  background:var(--warn-bg);border:1px solid var(--warn-border);color:var(--warn);
+}
+.trust-controls{
+  display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;padding-top:.25rem;
+}
+.trust-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.35rem;
+  min-height:var(--touch);min-width:var(--touch);padding:.4rem .7rem;
+  border:1px solid var(--border);border-radius:8px;background:#fff;
+  cursor:pointer;font-size:.85rem;color:var(--text);
+}
+.trust-btn[aria-pressed="true"][data-action="up"]{
+  background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok);
+}
+.trust-btn[aria-pressed="true"][data-action="down"]{
+  background:var(--excluded-bg);border-color:var(--excluded-border);color:var(--excluded);
+}
+.trust-btn.is-loading{opacity:.7;cursor:wait}
+.trust-btn .icon{font-size:1.05rem;line-height:1}
+.select-box{
+  display:inline-flex;align-items:center;gap:.35rem;min-height:var(--touch);
+  font-size:.82rem;color:var(--muted);
+}
+.select-box input{width:1.15rem;height:1.15rem}
+.reason-panel{
+  display:none;grid-template-columns:1fr;gap:.5rem;padding:.75rem;
+  border:1px solid var(--border);border-radius:10px;background:var(--raised);
+}
+.reason-panel.open{display:grid}
+.reason-panel legend{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:0}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem}
+.chip{
+  min-height:var(--touch);padding:.35rem .7rem;border:1px solid var(--border);
+  border-radius:8px;background:#fff;cursor:pointer;font-size:.82rem;
+}
+.chip[aria-checked="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.reason-actions{display:flex;flex-wrap:wrap;gap:.4rem}
+.state-line{font-size:.84rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:.35rem .65rem;align-items:center}
+.state-line strong{color:var(--text);font-weight:600}
+.block-msg{
+  margin:0;padding:.65rem .75rem;border-radius:10px;font-size:.88rem;
+  background:var(--danger-bg);border:1px solid var(--danger-border);color:var(--danger);
+}
+.block-msg[data-kind="pending"]{
+  background:var(--pending-bg);border-color:var(--pending-border);color:var(--pending);
+}
+.block-msg[data-kind="info"]{
+  background:var(--info-bg);border-color:var(--info-border);color:var(--info);
+}
+
+/* Reader drawer */
+.backdrop{position:fixed;inset:0;background:rgba(20,16,10,.42);z-index:80;opacity:0;pointer-events:none;transition:opacity .18s ease}
+.backdrop.open{opacity:1;pointer-events:auto}
+.drawer{
+  position:fixed;top:0;right:0;height:100vh;width:min(36rem,100vw);
+  background:var(--surface);z-index:90;border-left:1px solid var(--border);
+  box-shadow:-12px 0 40px rgba(0,0,0,.18);transform:translateX(105%);
+  transition:transform .2s ease;display:flex;flex-direction:column;
+}
+.drawer.open{transform:translateX(0)}
+.drawer header{
+  display:flex;justify-content:space-between;gap:1rem;align-items:start;
+  padding:1rem 1.1rem;border-bottom:1px solid var(--border);
+}
+.drawer header h2{margin:.15rem 0 0;font-family:var(--display);font-size:1.15rem}
+.drawer .x{
+  border:1px solid var(--border);background:#fff;border-radius:8px;
+  width:var(--touch);height:var(--touch);cursor:pointer;font-size:1.1rem;flex:none;
+}
+.drawer .body{padding:1rem 1.1rem 2rem;overflow:auto;display:grid;gap:1rem}
+.drawer .reader-meta{color:var(--muted);font-size:.88rem}
+.drawer .reader-body{
+  white-space:pre-wrap;background:var(--raised);border:1px solid var(--border);
+  border-radius:12px;padding:.9rem 1rem;margin:0;
+}
+.drawer .external-note{
+  font-size:.82rem;color:var(--muted);padding:.55rem .7rem;
+  border-left:3px solid var(--border);background:#fbfaf7;
+}
+.drawer .trust-strip{
+  position:sticky;bottom:0;margin:-.25rem -1.1rem -2rem;padding:.85rem 1.1rem 1.1rem;
+  background:linear-gradient(180deg,transparent,var(--surface) 18%);
+  border-top:1px solid var(--border);
+}
+
+/* Audit panel */
+.audit-panel{
+  margin-top:1.5rem;padding:1rem 1.05rem;background:var(--surface);
+  border:1px solid var(--border);border-radius:14px;
+}
+.audit-panel h2{margin:0 0 .35rem;font-family:var(--display);font-size:1.2rem}
+.audit-panel .help{margin:0 0 .85rem;color:var(--muted);font-size:.88rem}
+.audit-list{display:grid;gap:.55rem;margin:0;padding:0;list-style:none}
+.audit-item{
+  padding:.7rem .8rem;border:1px solid var(--border);border-radius:10px;
+  background:#fff;font-size:.88rem;
+}
+.audit-item strong{display:block;margin-bottom:.2rem}
+.audit-item .audit-meta{color:var(--muted);font-size:.8rem}
+
+/* Toast */
+.toast-region{
+  position:fixed;bottom:1.25rem;left:50%;transform:translateX(-50%);
+  z-index:100;display:grid;gap:.5rem;width:min(28rem,calc(100vw - 2rem));
+}
+.toast{
+  display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:space-between;
+  padding:.75rem .9rem;background:var(--navy);color:#fff;border-radius:12px;
+  box-shadow:0 12px 32px rgba(0,0,0,.22);font-size:.9rem;
+}
+.toast button{
+  border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  border-radius:8px;padding:.4rem .7rem;min-height:var(--touch);cursor:pointer;font-size:.85rem;
+}
+.toast button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+.live{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+@media(max-width:980px){
+  .shell{grid-template-columns:1fr}
+  .rail{position:relative;height:auto}
+  .rail nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:640px){
+  .main{padding:1rem .85rem 2.5rem}
+  .drawer{width:100vw}
+  .trust-controls{gap:.35rem}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to feed</a>
+<div class="shell">
+  <aside class="rail" aria-label="Prototype navigation">
+    <p class="brand">Berry Intelligence OS<small>Trust Feedback Prototype</small></p>
+    <nav>
+      <a href="#feed" aria-current="page">Trusted feed</a>
+      <a href="#audit">Audit / history</a>
+      <a href="./docs/FRONTEND-SERVICE-CONTRACT.md">Service contract</a>
+      <a href="./docs/STATE-INTERACTION-MATRIX.md">State matrix</a>
+      <a href="./docs/SOL-INTEGRATION-NOTES.md">Sol notes</a>
+    </nav>
+    <div class="proto">
+      Standalone interaction prototype. Synthetic fixtures only.
+      No production inbox reads. No live mutation endpoints.
+      Thumbs-down never deletes provenance.
+    </div>
+    <div class="kbd-help" aria-label="Keyboard shortcuts">
+      <div><kbd>j</kbd>/<kbd>k</kbd> move focus</div>
+      <div><kbd>u</kbd> thumbs up · <kbd>d</kbd> thumbs down</div>
+      <div><kbd>z</kbd> undo · <kbd>Enter</kbd> open reader</div>
+      <div><kbd>Esc</kbd> close panels</div>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <header>
+      <p class="eyebrow">Product experience · Trust Feedback Controls V1</p>
+      <h1>Trust feedback controls</h1>
+      <p class="lede">
+        Rapid thumbs up / down with undo, reason chips, and visible resulting state —
+        on feed cards and inside the in-app reader. Thumbs up does not auto-publish intelligence.
+      </p>
+    </header>
+
+    <p class="note" role="note">
+      <strong>SYNTHETIC DATA.</strong> Fixtures are labeled and local.
+      Unreadable / bot-wall / cookie / empty / navigation-shell records cannot show a successful trusted promotion.
+      Historical context stays historical. Unknown-date content retains that limitation.
+    </p>
+
+    <div class="toolbar" role="toolbar" aria-label="Feed filters">
+      <div class="filters">
+        <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" class="filter-btn" data-filter="active" aria-pressed="false">Active feed</button>
+        <button type="button" class="filter-btn" data-filter="excluded" aria-pressed="false">Excluded (audit)</button>
+        <button type="button" class="filter-btn" data-filter="blocked" aria-pressed="false">Blocked / attention</button>
+      </div>
+      <button type="button" class="btn" id="reset-demo">Reset demo state</button>
+    </div>
+
+    <div class="bulk-bar" id="bulk-bar" aria-live="polite">
+      <span id="bulk-count">0 selected</span>
+      <button type="button" class="btn" id="bulk-exclude" disabled>Exclude selected…</button>
+      <span class="meta">Smallest useful bulk concept — never bulk-promotes.</span>
+    </div>
+
+    <section id="feed" aria-labelledby="feed-title">
+      <h2 id="feed-title" class="sr-only">Feed cards</h2>
+      <div class="list" id="card-list"></div>
+    </section>
+
+    <section class="audit-panel" id="audit" aria-labelledby="audit-title">
+      <h2 id="audit-title">Audit / history</h2>
+      <p class="help">
+        Compensating events are appended. Exclusion changes feed projection only —
+        records remain visible here and when the Excluded filter is on.
+      </p>
+      <ul class="audit-list" id="audit-list"></ul>
+    </section>
+  </main>
+</div>
+
+<div class="backdrop" id="backdrop" hidden></div>
+<aside class="drawer" id="reader" aria-hidden="true" aria-labelledby="reader-title" role="dialog">
+  <header>
+    <div>
+      <p class="eyebrow">In-app reader</p>
+      <h2 id="reader-title">Reader</h2>
+    </div>
+    <button type="button" class="x" id="reader-close" aria-label="Close reader">×</button>
+  </header>
+  <div class="body" id="reader-body"></div>
+</aside>
+
+<div class="toast-region" id="toast-region" aria-live="polite"></div>
+<div class="live" id="status-live" aria-live="polite" aria-atomic="true"></div>
+
+<script src="./fixtures/trust-feedback-fixtures.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  const FIX = window.TRUST_FEEDBACK_FIXTURES;
+  const ACTOR = FIX.meta.actor;
+  const REASONS = FIX.reason_chips;
+
+  /** In-memory projection only — not a second canonical store. */
+  const store = {
+    records: structuredClone(FIX.records),
+    events: [],
+    filter: "all",
+    focusedId: null,
+    readerId: null,
+    lastFocusEl: null,
+    pendingUndo: null,
+    selected: new Set(),
+    idempotency: new Map()
+  };
+
+  const el = {
+    list: document.getElementById("card-list"),
+    audit: document.getElementById("audit-list"),
+    reader: document.getElementById("reader"),
+    readerBody: document.getElementById("reader-body"),
+    readerTitle: document.getElementById("reader-title"),
+    backdrop: document.getElementById("backdrop"),
+    toast: document.getElementById("toast-region"),
+    live: document.getElementById("status-live"),
+    bulkBar: document.getElementById("bulk-bar"),
+    bulkCount: document.getElementById("bulk-count"),
+    bulkExclude: document.getElementById("bulk-exclude")
+  };
+
+  function uid(prefix) {
+    return prefix + "-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36);
+  }
+
+  function nowIso() {
+    return new Date().toISOString();
+  }
+
+  function announce(msg) {
+    el.live.textContent = "";
+    requestAnimationFrame(function () { el.live.textContent = msg; });
+  }
+
+  function getRecord(id) {
+    return store.records.find(function (r) { return r.record_id === id; });
+  }
+
+  function stateLabel(state) {
+    const map = {
+      unreviewed: "Unreviewed",
+      promoted: "Promoted (awaiting publication review)",
+      relevant_pending_approval: "Relevant · awaiting approval",
+      excluded: "Excluded from trusted feed",
+      blocked: "Promotion blocked"
+    };
+    return map[state] || state;
+  }
+
+  function stateBadgeClass(state) {
+    if (state === "promoted") return "b-promoted";
+    if (state === "relevant_pending_approval") return "b-pending";
+    if (state === "excluded") return "b-excluded";
+    if (state === "blocked") return "b-danger";
+    return "b-info";
+  }
+
+  function honestyBadge(rec) {
+    if (rec.content_honesty === "unreadable") return { cls: "b-danger", text: "Unreadable" };
+    if (rec.content_honesty === "historical_context") return { cls: "b-warn", text: "Historical context" };
+    if (rec.content_honesty === "unknown_date") return { cls: "b-warn", text: "Unknown date" };
+    if (!rec.provenance_complete) return { cls: "b-warn", text: "Incomplete provenance" };
+    return { cls: "b-ok", text: "Readable in app" };
+  }
+
+  /* ---------- Mock Trust Feedback Service (frontend contract) ---------- */
+
+  function checkEligibility(record) {
+    const blockers = [];
+    if (record.content_honesty === "unreadable" ||
+        record.readable_body_state === "bot_wall" ||
+        record.readable_body_state === "cookie_wall" ||
+        record.readable_body_state === "empty" ||
+        record.readable_body_state === "navigation_shell") {
+      blockers.push({
+        code: "unreadable_content",
+        message: "Content is unreadable in-app. Trusted promotion is not available."
+      });
+    }
+    if (!record.provenance_complete) {
+      blockers.push({
+        code: "incomplete_provenance",
+        message: "Provenance is incomplete. Capture a stable source chain before promotion."
+      });
+    }
+    return {
+      record_id: record.record_id,
+      eligible: blockers.length === 0,
+      blockers: blockers,
+      approval_required: !!record.approval_required,
+      already_promoted: record.trust_state === "promoted" || !!record.already_promoted,
+      content_honesty: record.content_honesty
+    };
+  }
+
+  function delay(ms) {
+    return new Promise(function (resolve) { setTimeout(resolve, ms); });
+  }
+
+  async function mockService(op, request) {
+    await delay(220 + Math.floor(Math.random() * 180));
+    const record = getRecord(request.record_id);
+    if (!record) {
+      return {
+        ok: false,
+        error: { code: "not_found", message: "Record not found in prototype fixtures." }
+      };
+    }
+
+    if (request.expected_version != null && request.expected_version !== record.version) {
+      return {
+        ok: false,
+        error: {
+          code: "version_conflict",
+          message: "Expected version does not match current record version.",
+          current_version: record.version
+        }
+      };
+    }
+
+    const idemKey = request.idempotency_key;
+    if (idemKey && store.idempotency.has(idemKey)) {
+      return store.idempotency.get(idemKey);
+    }
+
+    let response;
+    if (op === "eligibility") {
+      response = { ok: true, result: checkEligibility(record) };
+    } else if (op === "promote") {
+      response = applyPromote(record, request);
+    } else if (op === "exclude") {
+      response = applyExclude(record, request);
+    } else if (op === "defer") {
+      response = applyDefer(record, request);
+    } else if (op === "undo") {
+      response = applyUndo(record, request);
+    } else if (op === "history") {
+      response = {
+        ok: true,
+        result: {
+          record_id: record.record_id,
+          events: store.events.filter(function (e) { return e.record_id === record.record_id; })
+        }
+      };
+    } else {
+      response = { ok: false, error: { code: "unknown_op", message: op } };
+    }
+
+    if (idemKey && response.ok) store.idempotency.set(idemKey, response);
+    return response;
+  }
+
+  function appendEvent(partial) {
+    const event = Object.assign({
+      event_id: uid("evt"),
+      event_type: "analyst_feedback",
+      object_type: "discovered_media",
+      actor_id: ACTOR.actor_id,
+      created_at: nowIso(),
+      undoes_event_id: null,
+      undo_available: true
+    }, partial);
+    store.events.unshift(event);
+    return event;
+  }
+
+  function applyPromote(record, request) {
+    const prior = record.trust_state;
+    const eligibility = checkEligibility(record);
+
+    if (eligibility.already_promoted || prior === "promoted") {
+      const event = appendEvent({
+        record_id: record.record_id,
+        action: "promote",
+        intent: request.intent || "relevant",
+        reason: null,
+        prior_state: prior,
+        resulting_state: "promoted",
+        blockers: [],
+        idempotent: true
+      });
+      return {
+        ok: true,
+        result: {
+          record_id: record.record_id,
+          event_id: event.event_id,
+          prior_state: prior,
+          resulting_state: "promoted",
+          blockers: [],
+          undo_available: true,
+          timestamp: event.created_at,
+          message: "Already promoted — idempotent confirmation. Does not re-publish.",
+          kind: "idempotent"
+        }
+      };
+    }
+
+    if (!eligibility.eligible) {
+      const event = appendEvent({
+        record_id: record.record_id,
+        action: "promote",
+        intent: request.intent || "relevant",
+        reason: null,
+        prior_state: prior,
+        resulting_state: prior,
+        blockers: eligibility.blockers,
+        undo_available: false
+      });
+      return {
+        ok: true,
+        result: {
+          record_id: record.record_id,
+          event_id: event.event_id,
+          prior_state: prior,
+          resulting_state: prior,
+          blockers: eligibility.blockers,
+          undo_available: false,
+          timestamp: event.created_at,
+          message: eligibility.blockers.map(function (b) { return b.message; }).join(" "),
+          kind: "blocked"
+        }
+      };
+    }
+
+    if (eligibility.approval_required) {
+      record.trust_state = "relevant_pending_approval";
+      record.version += 1;
+      const event = appendEvent({
+        record_id: record.record_id,
+        action: "promote",
+        intent: request.intent || "retain_for_review",
+        reason: null,
+        prior_state: prior,
+        resulting_state: "relevant_pending_approval",
+        blockers: []
+      });
+      return {
+        ok: true,
+        result: {
+          record_id: record.record_id,
+          event_id: event.event_id,
+          prior_state: prior,
+          resulting_state: "relevant_pending_approval",
+          blockers: [],
+          undo_available: true,
+          timestamp: event.created_at,
+          message: "Marked relevant — awaiting approval. Not published as trusted intelligence.",
+          kind: "pending"
+        }
+      };
+    }
+
+    record.trust_state = "promoted";
+    record.already_promoted = true;
+    record.version += 1;
+    const event = appendEvent({
+      record_id: record.record_id,
+      action: "promote",
+      intent: request.intent || "relevant",
+      reason: null,
+      prior_state: prior,
+      resulting_state: "promoted",
+      blockers: []
+    });
+    return {
+      ok: true,
+      result: {
+        record_id: record.record_id,
+        event_id: event.event_id,
+        prior_state: prior,
+        resulting_state: "promoted",
+        blockers: [],
+        undo_available: true,
+        timestamp: event.created_at,
+        message: "Promoted into the analyst working set. Publication review still required for Evidence.",
+        kind: "promoted"
+      }
+    };
+  }
+
+  function applyExclude(record, request) {
+    const prior = record.trust_state;
+    if (prior === "excluded" && record.exclude_reason === request.reason) {
+      const event = appendEvent({
+        record_id: record.record_id,
+        action: "exclude",
+        intent: null,
+        reason: request.reason || null,
+        prior_state: prior,
+        resulting_state: "excluded",
+        blockers: [],
+        idempotent: true
+      });
+      return {
+        ok: true,
+        result: {
+          record_id: record.record_id,
+          event_id: event.event_id,
+          prior_state: prior,
+          resulting_state: "excluded",
+          blockers: [],
+          undo_available: true,
+          timestamp: event.created_at,
+          message: "Already excluded — idempotent.",
+          kind: "idempotent"
+        }
+      };
+    }
+    record.trust_state = "excluded";
+    record.exclude_reason = request.reason || null;
+    record.version += 1;
+    const event = appendEvent({
+      record_id: record.record_id,
+      action: "exclude",
+      intent: null,
+      reason: request.reason || null,
+      prior_state: prior,
+      resulting_state: "excluded",
+      blockers: []
+    });
+    return {
+      ok: true,
+      result: {
+        record_id: record.record_id,
+        event_id: event.event_id,
+        prior_state: prior,
+        resulting_state: "excluded",
+        blockers: [],
+        undo_available: true,
+        timestamp: event.created_at,
+        message: "Excluded from trusted feed. Provenance and audit history retained.",
+        kind: "excluded"
+      }
+    };
+  }
+
+  function applyDefer(record, request) {
+    const prior = record.trust_state;
+    record.trust_state = "excluded";
+    record.exclude_reason = null;
+    record.reason_deferred = true;
+    record.version += 1;
+    const event = appendEvent({
+      record_id: record.record_id,
+      action: "defer",
+      intent: null,
+      reason: null,
+      prior_state: prior,
+      resulting_state: "excluded",
+      blockers: [],
+      note: "Reason deferred — exclusion applied immediately"
+    });
+    return {
+      ok: true,
+      result: {
+        record_id: record.record_id,
+        event_id: event.event_id,
+        prior_state: prior,
+        resulting_state: "excluded",
+        blockers: [],
+        undo_available: true,
+        timestamp: event.created_at,
+        message: "Excluded now. Reason can be added later from audit.",
+        kind: "deferred"
+      }
+    };
+  }
+
+  function applyUndo(record, request) {
+    const target = store.events.find(function (e) {
+      return e.event_id === request.event_id && e.record_id === record.record_id;
+    });
+    if (!target || !target.undo_available) {
+      return {
+        ok: false,
+        error: { code: "undo_unavailable", message: "Undo is not available for that event." }
+      };
+    }
+    const prior = record.trust_state;
+    record.trust_state = target.prior_state;
+    if (target.prior_state !== "excluded") {
+      record.exclude_reason = null;
+      record.reason_deferred = false;
+    }
+    if (target.prior_state !== "promoted") record.already_promoted = false;
+    record.version += 1;
+    target.undo_available = false;
+    const event = appendEvent({
+      record_id: record.record_id,
+      action: "undo",
+      intent: null,
+      reason: null,
+      prior_state: prior,
+      resulting_state: target.prior_state,
+      undoes_event_id: target.event_id,
+      undo_available: false
+    });
+    return {
+      ok: true,
+      result: {
+        record_id: record.record_id,
+        event_id: event.event_id,
+        prior_state: prior,
+        resulting_state: target.prior_state,
+        blockers: [],
+        undo_available: false,
+        timestamp: event.created_at,
+        message: "Undo applied. Prior projection restored; audit history kept.",
+        kind: "undo"
+      }
+    };
+  }
+
+  /* ---------- Rendering ---------- */
+
+  function matchesFilter(rec) {
+    if (store.filter === "all") return true;
+    if (store.filter === "active") return rec.trust_state !== "excluded";
+    if (store.filter === "excluded") return rec.trust_state === "excluded";
+    if (store.filter === "blocked") {
+      return !rec.provenance_complete || rec.content_honesty === "unreadable" ||
+        rec.content_honesty === "historical_context" || rec.content_honesty === "unknown_date";
+    }
+    return true;
+  }
+
+  function renderFeed() {
+    const visible = store.records.filter(matchesFilter);
+    if (!visible.length) {
+      el.list.innerHTML = '<p class="meta">No items match this filter. Excluded items remain in Audit.</p>';
+      return;
+    }
+    if (!store.focusedId || !visible.some(function (r) { return r.record_id === store.focusedId; })) {
+      store.focusedId = visible[0].record_id;
+    }
+    el.list.innerHTML = visible.map(renderCard).join("");
+    bindCardEvents();
+    updateBulkBar();
+  }
+
+  function renderCard(rec) {
+    const honesty = honestyBadge(rec);
+    const focused = rec.record_id === store.focusedId ? " is-focused" : "";
+    const excluded = rec.trust_state === "excluded" ? " is-excluded-feed" : "";
+    const checked = store.selected.has(rec.record_id) ? "checked" : "";
+    const upPressed = rec.trust_state === "promoted" || rec.trust_state === "relevant_pending_approval";
+    const downPressed = rec.trust_state === "excluded";
+    const reasonOpen = store.reasonOpenId === rec.record_id;
+    const blockHtml = rec.last_block_message
+      ? '<p class="block-msg" data-kind="' + (rec.last_block_kind || "blocked") + '">' + escapeHtml(rec.last_block_message) + "</p>"
+      : "";
+    const attention = rec.attention_label
+      ? '<p class="attention">' + escapeHtml(rec.attention_label) + "</p>"
+      : (rec.body_excerpt
+        ? '<p class="excerpt">' + escapeHtml(rec.body_excerpt) + "</p>"
+        : '<p class="attention">No usable body in app.</p>');
+
+    return (
+      '<article class="card' + focused + excluded + '" data-card data-record-id="' + rec.record_id + '" tabindex="-1">' +
+        '<div class="card-topline">' +
+          '<span class="card-source">' + escapeHtml(rec.source_name) + "</span>" +
+          '<label class="select-box"><input type="checkbox" data-select="' + rec.record_id + '" ' + checked + ' /> Select</label>' +
+        "</div>" +
+        "<h3><button type=\"button\" data-open-reader=\"" + rec.record_id + "\">" + escapeHtml(rec.headline) + "</button></h3>" +
+        '<div class="meta">' +
+          "<span>Published " + escapeHtml(rec.publication_date || "unknown") + "</span>" +
+          "<span>Captured " + escapeHtml(rec.capture_date || "unknown") + "</span>" +
+          "<span>" + escapeHtml((rec.entities || []).join(", ") || "—") + "</span>" +
+        "</div>" +
+        '<div class="badges">' +
+          '<span class="badge ' + honesty.cls + '">' + honesty.text + "</span>" +
+          '<span class="badge ' + stateBadgeClass(rec.trust_state) + '">' + stateLabel(rec.trust_state) + "</span>" +
+          (rec.exclude_reason ? '<span class="badge b-excluded">Reason: ' + escapeHtml(rec.exclude_reason) + "</span>" : "") +
+          (rec.reason_deferred ? '<span class="badge b-warn">Reason deferred</span>' : "") +
+          (rec.demo_scenario ? '<span class="badge b-info">Demo: ' + escapeHtml(rec.demo_scenario) + "</span>" : "") +
+        "</div>" +
+        attention +
+        blockHtml +
+        '<div class="trust-controls" role="group" aria-label="Trust feedback for ' + escapeHtml(rec.headline) + '">' +
+          '<button type="button" class="trust-btn" data-action="up" data-record-id="' + rec.record_id + '" aria-pressed="' + upPressed + '" aria-label="Thumbs up — mark relevant or promote when eligible">' +
+            '<span class="icon" aria-hidden="true">▲</span> Up' +
+          "</button>" +
+          '<button type="button" class="trust-btn" data-action="down" data-record-id="' + rec.record_id + '" aria-pressed="' + downPressed + '" aria-label="Thumbs down — exclude from trusted feed">' +
+            '<span class="icon" aria-hidden="true">▼</span> Down' +
+          "</button>" +
+          '<button type="button" class="trust-btn" data-action="history" data-record-id="' + rec.record_id + '" aria-label="Inspect audit history for this item">History</button>' +
+          (rec.canonical_url
+            ? '<a class="btn" href="' + escapeHtml(rec.canonical_url) + '" target="_blank" rel="noopener noreferrer">Original source</a>'
+            : '<span class="meta">Original source (synthetic — no live URL)</span>') +
+        "</div>" +
+        '<div class="state-line"><strong>State:</strong> <span>' + stateLabel(rec.trust_state) + "</span>" +
+          (rec.last_event_id ? " · last event " + escapeHtml(rec.last_event_id) : "") +
+        "</div>" +
+        renderReasonPanel(rec, reasonOpen) +
+      "</article>"
+    );
+  }
+
+  function renderReasonPanel(rec, open) {
+    const chips = REASONS.map(function (r) {
+      const suggested = rec.suggested_down_reason === r.id;
+      return '<button type="button" class="chip" role="radio" aria-checked="false" data-reason="' + r.id + '" data-record-id="' + rec.record_id + '"' +
+        (suggested ? ' data-suggested="true"' : "") + ">" + escapeHtml(r.label) +
+        (suggested ? " · suggested" : "") + "</button>";
+    }).join("");
+    return (
+      '<fieldset class="reason-panel' + (open ? " open" : "") + '" data-reason-panel="' + rec.record_id + '" ' + (open ? "" : "hidden") + ">" +
+        "<legend>Why exclude? (optional now)</legend>" +
+        '<div class="chips" role="radiogroup" aria-label="Exclusion reasons">' + chips + "</div>" +
+        '<div class="reason-actions">' +
+          '<button type="button" class="btn primary" data-confirm-exclude="' + rec.record_id + '">Exclude with reason</button>' +
+          '<button type="button" class="btn" data-defer-reason="' + rec.record_id + '">Exclude · defer reason</button>' +
+          '<button type="button" class="btn" data-cancel-reason="' + rec.record_id + '">Cancel</button>' +
+        "</div>" +
+      "</fieldset>"
+    );
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function bindCardEvents() {
+    el.list.querySelectorAll("[data-card]").forEach(function (card) {
+      card.addEventListener("click", function () {
+        store.focusedId = card.getAttribute("data-record-id");
+        el.list.querySelectorAll("[data-card]").forEach(function (c) {
+          c.classList.toggle("is-focused", c === card);
+        });
+      });
+    });
+    el.list.querySelectorAll("[data-open-reader]").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        openReader(btn.getAttribute("data-open-reader"));
+      });
+    });
+    el.list.querySelectorAll('[data-action="up"]').forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        doPromote(btn.getAttribute("data-record-id"), btn);
+      });
+    });
+    el.list.querySelectorAll('[data-action="down"]').forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        openReasonPanel(btn.getAttribute("data-record-id"));
+      });
+    });
+    el.list.querySelectorAll('[data-action="history"]').forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        focusAudit(btn.getAttribute("data-record-id"));
+      });
+    });
+    el.list.querySelectorAll("[data-select]").forEach(function (box) {
+      box.addEventListener("change", function () {
+        const id = box.getAttribute("data-select");
+        if (box.checked) store.selected.add(id); else store.selected.delete(id);
+        updateBulkBar();
+      });
+    });
+    el.list.querySelectorAll("[data-reason]").forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        const panel = chip.closest("[data-reason-panel]");
+        panel.querySelectorAll("[data-reason]").forEach(function (c) {
+          c.setAttribute("aria-checked", c === chip ? "true" : "false");
+        });
+      });
+    });
+    el.list.querySelectorAll("[data-confirm-exclude]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        const id = btn.getAttribute("data-confirm-exclude");
+        const panel = el.list.querySelector('[data-reason-panel="' + id + '"]');
+        const selected = panel.querySelector('[aria-checked="true"]');
+        doExclude(id, selected ? selected.getAttribute("data-reason") : null);
+      });
+    });
+    el.list.querySelectorAll("[data-defer-reason]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        doDefer(btn.getAttribute("data-defer-reason"));
+      });
+    });
+    el.list.querySelectorAll("[data-cancel-reason]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        store.reasonOpenId = null;
+        renderFeed();
+        if (store.readerId) renderReader(store.readerId);
+      });
+    });
+  }
+
+  function updateBulkBar() {
+    const n = store.selected.size;
+    el.bulkBar.classList.toggle("visible", n > 0);
+    el.bulkCount.textContent = n + " selected";
+    el.bulkExclude.disabled = n === 0;
+  }
+
+  function renderAudit() {
+    if (!store.events.length) {
+      el.audit.innerHTML = '<li class="audit-item meta">No feedback events yet. Actions append here; undo never erases history.</li>';
+      return;
+    }
+    el.audit.innerHTML = store.events.map(function (e) {
+      const rec = getRecord(e.record_id);
+      return (
+        '<li class="audit-item" data-audit-record="' + e.record_id + '">' +
+          "<strong>" + escapeHtml(e.action.toUpperCase()) +
+          (e.reason ? " · " + escapeHtml(e.reason) : "") +
+          (e.intent ? " · intent " + escapeHtml(e.intent) : "") +
+          (e.idempotent ? " · idempotent" : "") +
+          "</strong>" +
+          '<div class="audit-meta">' +
+            escapeHtml(rec ? rec.headline : e.record_id) + "<br/>" +
+            escapeHtml(e.prior_state) + " → " + escapeHtml(e.resulting_state) +
+            " · " + escapeHtml(e.created_at) +
+            " · event " + escapeHtml(e.event_id) +
+            (e.undoes_event_id ? " · undoes " + escapeHtml(e.undoes_event_id) : "") +
+            (e.blockers && e.blockers.length ? " · blockers: " + e.blockers.map(function (b) { return b.code; }).join(", ") : "") +
+          "</div>" +
+        "</li>"
+      );
+    }).join("");
+  }
+
+  function focusAudit(recordId) {
+    document.getElementById("audit").scrollIntoView({ behavior: "smooth", block: "start" });
+    renderAudit();
+    const items = el.audit.querySelectorAll('[data-audit-record="' + recordId + '"]');
+    items.forEach(function (item) {
+      item.style.outline = "2px solid var(--accent)";
+      setTimeout(function () { item.style.outline = ""; }, 1800);
+    });
+    announce("Showing audit history for selected item.");
+  }
+
+  /* ---------- Actions ---------- */
+
+  function setLoading(btn, on) {
+    if (!btn) return;
+    btn.classList.toggle("is-loading", on);
+    btn.disabled = on;
+  }
+
+  async function doPromote(recordId, btn) {
+    const record = getRecord(recordId);
+    if (!record) return;
+    store.lastFocusEl = btn || document.activeElement;
+    setLoading(btn, true);
+    const req = {
+      record_id: recordId,
+      actor_id: ACTOR.actor_id,
+      idempotency_key: uid("idem"),
+      expected_version: record.version,
+      action: "promote",
+      intent: record.approval_required ? "retain_for_review" : "relevant",
+      reason: null
+    };
+    const res = await mockService("promote", req);
+    setLoading(btn, false);
+    if (!res.ok) {
+      announce(res.error.message);
+      showToast(res.error.message, null);
+      restoreFocus();
+      return;
+    }
+    const r = res.result;
+    record.last_event_id = r.event_id;
+    if (r.kind === "blocked") {
+      record.last_block_message = r.message;
+      record.last_block_kind = "blocked";
+    } else if (r.kind === "pending") {
+      record.last_block_message = r.message;
+      record.last_block_kind = "pending";
+    } else if (r.kind === "idempotent") {
+      record.last_block_message = r.message;
+      record.last_block_kind = "info";
+    } else {
+      record.last_block_message = r.message;
+      record.last_block_kind = "info";
+    }
+    store.reasonOpenId = null;
+    renderFeed();
+    renderAudit();
+    if (store.readerId === recordId) renderReader(recordId);
+    announce(r.message);
+    if (r.undo_available) showUndoToast(r.message, r.event_id, recordId);
+    else showToast(r.message, null);
+    restoreFocus();
+  }
+
+  function openReasonPanel(recordId) {
+    store.reasonOpenId = recordId;
+    store.focusedId = recordId;
+    renderFeed();
+    if (store.readerId === recordId) renderReader(recordId);
+    const panel = document.querySelector('[data-reason-panel="' + recordId + '"]');
+    if (panel) {
+      const suggested = panel.querySelector('[data-suggested="true"]') || panel.querySelector("[data-reason]");
+      if (suggested) {
+        suggested.setAttribute("aria-checked", "true");
+        suggested.focus();
+      }
+    }
+    announce("Choose an exclusion reason, or defer reason.");
+  }
+
+  async function doExclude(recordId, reason) {
+    const record = getRecord(recordId);
+    if (!record) return;
+    const req = {
+      record_id: recordId,
+      actor_id: ACTOR.actor_id,
+      idempotency_key: uid("idem"),
+      expected_version: record.version,
+      action: "exclude",
+      intent: null,
+      reason: reason
+    };
+    const res = await mockService("exclude", req);
+    if (!res.ok) {
+      announce(res.error.message);
+      return;
+    }
+    const r = res.result;
+    record.last_event_id = r.event_id;
+    record.last_block_message = r.message;
+    record.last_block_kind = "info";
+    store.reasonOpenId = null;
+    renderFeed();
+    renderAudit();
+    if (store.readerId === recordId) renderReader(recordId);
+    announce(r.message);
+    showUndoToast(r.message, r.event_id, recordId);
+  }
+
+  async function doDefer(recordId) {
+    const record = getRecord(recordId);
+    if (!record) return;
+    const req = {
+      record_id: recordId,
+      actor_id: ACTOR.actor_id,
+      idempotency_key: uid("idem"),
+      expected_version: record.version,
+      action: "defer",
+      intent: null,
+      reason: null
+    };
+    const res = await mockService("defer", req);
+    if (!res.ok) {
+      announce(res.error.message);
+      return;
+    }
+    const r = res.result;
+    record.last_event_id = r.event_id;
+    record.last_block_message = r.message;
+    record.last_block_kind = "info";
+    store.reasonOpenId = null;
+    renderFeed();
+    renderAudit();
+    if (store.readerId === recordId) renderReader(recordId);
+    announce(r.message);
+    showUndoToast(r.message, r.event_id, recordId);
+  }
+
+  async function doUndo(eventId, recordId) {
+    const record = getRecord(recordId);
+    if (!record) return;
+    const req = {
+      record_id: recordId,
+      actor_id: ACTOR.actor_id,
+      idempotency_key: uid("idem"),
+      expected_version: record.version,
+      action: "undo",
+      event_id: eventId
+    };
+    const res = await mockService("undo", req);
+    clearToasts();
+    if (!res.ok) {
+      announce(res.error.message);
+      showToast(res.error.message, null);
+      return;
+    }
+    const r = res.result;
+    record.last_event_id = r.event_id;
+    record.last_block_message = r.message;
+    record.last_block_kind = "info";
+    renderFeed();
+    renderAudit();
+    if (store.readerId === recordId) renderReader(recordId);
+    announce(r.message);
+    showToast(r.message, null);
+    restoreFocus();
+  }
+
+  function showUndoToast(message, eventId, recordId) {
+    clearToasts();
+    store.pendingUndo = { eventId: eventId, recordId: recordId };
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.setAttribute("role", "status");
+    toast.innerHTML =
+      "<span>" + escapeHtml(message) + "</span>" +
+      '<button type="button" data-undo>Undo</button>';
+    toast.querySelector("[data-undo]").addEventListener("click", function () {
+      doUndo(eventId, recordId);
+    });
+    el.toast.appendChild(toast);
+    toast.querySelector("[data-undo]").focus();
+    setTimeout(function () {
+      if (store.pendingUndo && store.pendingUndo.eventId === eventId) {
+        clearToasts();
+        restoreFocus();
+      }
+    }, 8000);
+  }
+
+  function showToast(message, onAction) {
+    clearToasts();
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.setAttribute("role", "status");
+    toast.innerHTML = "<span>" + escapeHtml(message) + "</span>";
+    if (onAction) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = "OK";
+      b.addEventListener("click", onAction);
+      toast.appendChild(b);
+    }
+    el.toast.appendChild(toast);
+  }
+
+  function clearToasts() {
+    el.toast.innerHTML = "";
+    store.pendingUndo = null;
+  }
+
+  function restoreFocus() {
+    if (store.lastFocusEl && document.contains(store.lastFocusEl)) {
+      store.lastFocusEl.focus();
+    } else if (store.focusedId) {
+      const card = el.list.querySelector('[data-record-id="' + store.focusedId + '"]');
+      if (card) card.focus();
+    }
+  }
+
+  /* ---------- Reader ---------- */
+
+  function openReader(recordId) {
+    store.lastFocusEl = document.activeElement;
+    store.readerId = recordId;
+    store.focusedId = recordId;
+    renderReader(recordId);
+    el.backdrop.hidden = false;
+    el.backdrop.classList.add("open");
+    el.reader.classList.add("open");
+    el.reader.setAttribute("aria-hidden", "false");
+    document.getElementById("reader-close").focus();
+    announce("Reader opened. Trust controls remain available without leaving the feed.");
+  }
+
+  function closeReader() {
+    el.reader.classList.remove("open");
+    el.reader.setAttribute("aria-hidden", "true");
+    el.backdrop.classList.remove("open");
+    el.backdrop.hidden = true;
+    store.readerId = null;
+    restoreFocus();
+    announce("Reader closed. Feed position and filters preserved.");
+  }
+
+  function renderReader(recordId) {
+    const rec = getRecord(recordId);
+    if (!rec) return;
+    el.readerTitle.textContent = rec.headline;
+    const honesty = honestyBadge(rec);
+    const upPressed = rec.trust_state === "promoted" || rec.trust_state === "relevant_pending_approval";
+    const downPressed = rec.trust_state === "excluded";
+    const reasonOpen = store.reasonOpenId === rec.record_id;
+    const body = rec.body_excerpt
+      ? '<pre class="reader-body">' + escapeHtml(rec.body_excerpt) + "</pre>"
+      : '<p class="block-msg">' + escapeHtml(rec.attention_label || "Unreadable — no body available in app.") + "</p>";
+    const blockHtml = rec.last_block_message
+      ? '<p class="block-msg" data-kind="' + (rec.last_block_kind || "blocked") + '">' + escapeHtml(rec.last_block_message) + "</p>"
+      : "";
+
+    el.readerBody.innerHTML =
+      '<p class="reader-meta">' + escapeHtml(rec.source_name) +
+        " · Published " + escapeHtml(rec.publication_date || "unknown") +
+        " · Captured " + escapeHtml(rec.capture_date || "unknown") +
+      "</p>" +
+      '<div class="badges">' +
+        '<span class="badge ' + honesty.cls + '">' + honesty.text + "</span>" +
+        '<span class="badge ' + stateBadgeClass(rec.trust_state) + '">' + stateLabel(rec.trust_state) + "</span>" +
+      "</div>" +
+      body +
+      blockHtml +
+      '<p class="external-note">Original source is a separate action and does not change trust state. Trust controls below stay in-app.</p>' +
+      '<div class="trust-strip">' +
+        '<div class="trust-controls" role="group" aria-label="Reader trust feedback">' +
+          '<button type="button" class="trust-btn" id="reader-up" aria-pressed="' + upPressed + '" aria-label="Thumbs up from reader">' +
+            '<span class="icon" aria-hidden="true">▲</span> Up</button>' +
+          '<button type="button" class="trust-btn" id="reader-down" aria-pressed="' + downPressed + '" aria-label="Thumbs down from reader">' +
+            '<span class="icon" aria-hidden="true">▼</span> Down</button>' +
+          '<button type="button" class="trust-btn" id="reader-history" aria-label="Open audit history">History</button>' +
+        "</div>" +
+        (reasonOpen ? readerReasonHtml(rec) : "") +
+        '<div class="state-line"><strong>State:</strong> ' + stateLabel(rec.trust_state) + "</div>" +
+      "</div>";
+
+    document.getElementById("reader-up").addEventListener("click", function () {
+      doPromote(recordId, document.getElementById("reader-up"));
+    });
+    document.getElementById("reader-down").addEventListener("click", function () {
+      openReasonPanel(recordId);
+    });
+    document.getElementById("reader-history").addEventListener("click", function () {
+      focusAudit(recordId);
+    });
+    if (reasonOpen) bindReaderReason(rec);
+  }
+
+  function readerReasonHtml(rec) {
+    const chips = REASONS.map(function (r) {
+      return '<button type="button" class="chip" role="radio" aria-checked="false" data-reader-reason="' + r.id + '">' +
+        escapeHtml(r.label) + "</button>";
+    }).join("");
+    return (
+      '<fieldset class="reason-panel open" style="margin-top:.65rem">' +
+        "<legend>Why exclude?</legend>" +
+        '<div class="chips" role="radiogroup" aria-label="Reader exclusion reasons">' + chips + "</div>" +
+        '<div class="reason-actions">' +
+          '<button type="button" class="btn primary" id="reader-confirm-exclude">Exclude with reason</button>' +
+          '<button type="button" class="btn" id="reader-defer">Exclude · defer reason</button>' +
+          '<button type="button" class="btn" id="reader-cancel-reason">Cancel</button>' +
+        "</div>" +
+      "</fieldset>"
+    );
+  }
+
+  function bindReaderReason(rec) {
+    const chips = el.readerBody.querySelectorAll("[data-reader-reason]");
+    chips.forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        chips.forEach(function (c) { c.setAttribute("aria-checked", c === chip ? "true" : "false"); });
+      });
+    });
+    const suggested = Array.prototype.find.call(chips, function (c) {
+      return c.getAttribute("data-reader-reason") === rec.suggested_down_reason;
+    }) || chips[0];
+    if (suggested) {
+      suggested.setAttribute("aria-checked", "true");
+      suggested.focus();
+    }
+    document.getElementById("reader-confirm-exclude").addEventListener("click", function () {
+      const selected = el.readerBody.querySelector('[data-reader-reason][aria-checked="true"]');
+      doExclude(rec.record_id, selected ? selected.getAttribute("data-reader-reason") : null);
+    });
+    document.getElementById("reader-defer").addEventListener("click", function () {
+      doDefer(rec.record_id);
+    });
+    document.getElementById("reader-cancel-reason").addEventListener("click", function () {
+      store.reasonOpenId = null;
+      renderFeed();
+      renderReader(rec.record_id);
+    });
+  }
+
+  /* ---------- Filters / bulk / keyboard ---------- */
+
+  document.querySelectorAll(".filter-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      store.filter = btn.getAttribute("data-filter");
+      document.querySelectorAll(".filter-btn").forEach(function (b) {
+        b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+      });
+      renderFeed();
+      announce("Filter: " + store.filter);
+    });
+  });
+
+  document.getElementById("reset-demo").addEventListener("click", function () {
+    store.records = structuredClone(FIX.records);
+    store.events = [];
+    store.selected.clear();
+    store.idempotency.clear();
+    store.reasonOpenId = null;
+    store.pendingUndo = null;
+    clearToasts();
+    if (store.readerId) closeReader();
+    renderFeed();
+    renderAudit();
+    announce("Demo state reset. Synthetic fixtures restored.");
+  });
+
+  el.bulkExclude.addEventListener("click", async function () {
+    const ids = Array.from(store.selected);
+    if (!ids.length) return;
+    if (!window.confirm("Exclude " + ids.length + " selected items from the trusted feed? This never bulk-promotes. Provenance is retained.")) {
+      return;
+    }
+    for (const id of ids) {
+      await doExclude(id, "irrelevant");
+    }
+    store.selected.clear();
+    updateBulkBar();
+    announce("Bulk exclude complete for " + ids.length + " items.");
+  });
+
+  document.getElementById("reader-close").addEventListener("click", closeReader);
+  el.backdrop.addEventListener("click", closeReader);
+
+  document.addEventListener("keydown", function (e) {
+    const tag = (e.target && e.target.tagName || "").toLowerCase();
+    const typing = tag === "input" || tag === "textarea" || (e.target && e.target.isContentEditable);
+    if (typing) return;
+
+    if (e.key === "Escape") {
+      if (store.reasonOpenId) {
+        store.reasonOpenId = null;
+        renderFeed();
+        if (store.readerId) renderReader(store.readerId);
+        e.preventDefault();
+        return;
+      }
+      if (store.readerId) {
+        closeReader();
+        e.preventDefault();
+      }
+      return;
+    }
+
+    if (store.readerId && (e.key === "u" || e.key === "d" || e.key === "z")) {
+      // allow shortcuts inside reader too
+    } else if (store.readerId && e.key !== "j" && e.key !== "k") {
+      // other keys ignored while reading unless handled above
+    }
+
+    const visible = store.records.filter(matchesFilter);
+    const idx = visible.findIndex(function (r) { return r.record_id === store.focusedId; });
+
+    if (e.key === "j") {
+      const next = visible[Math.min(visible.length - 1, Math.max(0, idx) + 1)];
+      if (next) {
+        store.focusedId = next.record_id;
+        renderFeed();
+        const card = el.list.querySelector('[data-record-id="' + next.record_id + '"]');
+        if (card) { card.focus(); card.scrollIntoView({ block: "nearest" }); }
+      }
+      e.preventDefault();
+    } else if (e.key === "k") {
+      const prev = visible[Math.max(0, idx - 1)];
+      if (prev) {
+        store.focusedId = prev.record_id;
+        renderFeed();
+        const card = el.list.querySelector('[data-record-id="' + prev.record_id + '"]');
+        if (card) { card.focus(); card.scrollIntoView({ block: "nearest" }); }
+      }
+      e.preventDefault();
+    } else if (e.key === "u") {
+      const id = store.readerId || store.focusedId;
+      if (id) doPromote(id, null);
+      e.preventDefault();
+    } else if (e.key === "d") {
+      const id = store.readerId || store.focusedId;
+      if (id) openReasonPanel(id);
+      e.preventDefault();
+    } else if (e.key === "z") {
+      if (store.pendingUndo) {
+        doUndo(store.pendingUndo.eventId, store.pendingUndo.recordId);
+        e.preventDefault();
+      }
+    } else if (e.key === "Enter" && !store.readerId && store.focusedId) {
+      openReader(store.focusedId);
+      e.preventDefault();
+    }
+  });
+
+  /* Seed already-promoted audit event for demo clarity */
+  (function seed() {
+    const promoted = getRecord("syn-already-promoted");
+    if (promoted) {
+      store.events.push({
+        event_id: "evt-seed-promoted-001",
+        event_type: "analyst_feedback",
+        object_type: "discovered_media",
+        record_id: "syn-already-promoted",
+        actor_id: ACTOR.actor_id,
+        action: "promote",
+        intent: "relevant",
+        reason: null,
+        prior_state: "unreviewed",
+        resulting_state: "promoted",
+        created_at: "2026-09-14T16:00:00.000Z",
+        undoes_event_id: null,
+        undo_available: true,
+        blockers: []
+      });
+    }
+  })();
+
+  renderFeed();
+  renderAudit();
+})();
+</script>
+</body>
+</html>
