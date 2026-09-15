@@ -1,17 +1,19 @@
-# Test runner handoff — source discovery execution
+# Test-runner handoff — article acquisition outcomes V1
 
-Branch: `fix/astra-news-reader`
+Branch: `fix/article-acquisition-failures-v1`
+Base: `bd96fca1231dc97ae4ec3fc316743b0a3f2e8427`
 
-Application commit under test: `e8b3efb215889fee5dea1ddf08eea28c6a0869c2`
+Run from `C:/Users/Johnny/Downloads/sscanar/berry-intelligence-os-article-acquisition-failures-v1` with the sibling environment at `../berry-intelligence-os/.venv/Scripts/python.exe`.
 
-Run the full suite against the final branch HEAD after the documentation handoff commit. The implementation adds a read-only Source discovery-execution classification, Source Health rendering, and an audit CLI. It does not change Source configuration, run live collection, publish, or mutate production data.
+Focused validation:
 
-Focused validation already completed:
+```powershell
+$python = '..\berry-intelligence-os\.venv\Scripts\python.exe'
+& $python -m pytest tests/test_article_acquisition.py tests/test_article_acquisition_outcomes.py tests/test_article_refresh.py tests/test_collection_runner.py tests/test_monitor_workspace.py tests/test_source_freshness.py tests/test_source_reacquisition.py -q
+& $python -m pytest tests/test_company_news_coverage.py tests/test_intelligence_front_page_v1.py tests/test_review_publish_duplicate.py tests/test_review_publish_portability.py -q
+& $python scripts/validate_records.py
+& $python scripts/audit_source_execution.py --inbox-dir inbox --output artifacts/astra-repair/acquisition-outcome-audit.json
+& $python scripts/audit_competitor_source_coverage.py --inbox-dir inbox --as-of 2026-09-15 --output artifacts/astra-repair/competitor-source-coverage.json
+```
 
-- `pytest tests/test_source_freshness.py tests/test_monitor_workspace.py tests/test_source_cadence.py tests/test_source_lifecycle.py -q`: **50 passed**
-- `scripts/validate_records.py`: **passed**
-- Browser verification at `/sources`: **passed**
-
-Expected browser snapshot counts for the current local data: 201 total Sources; 76 configured and runnable; 3 successfully run; 73 never run; 1 blocked; 123 manual; 1 disabled.
-
-Full-suite validation: **NOT RUN in this checkpoint — assigned here to the separate runner.**
+Expected focused results are recorded in `artifacts/astra-repair/acquisition-outcome-tests.txt` and `downstream-honesty-tests.txt`. The five-source canary has already run; do not repeat it during routine test verification. The ignored worktree `inbox/` contains its exact private state and one unapproved BerryWorld draft. Full suite was not run.

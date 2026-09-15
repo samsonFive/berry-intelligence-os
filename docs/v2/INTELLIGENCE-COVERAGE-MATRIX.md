@@ -553,6 +553,8 @@ The canonical company and aliases now support discovery in the app. The two exis
 
 **2026-09-12 execution audit:** Source Health now separates discovery execution from freshness and recall. In the local snapshot, 76 of 201 Sources are configured and runnable, but only 3 have a recorded successful discovery run and 73 have never run; 1 automated Source is blocked. No maturity cell is promoted: discovery success still does not prove readable article bodies, and downstream acquisition outcomes are not yet durably summarized per Source (TD-114).
 
+**2026-09-15 acquisition-outcome repair:** article-body attempts now persist a compact operational outcome independently of publication drafts, and Source Health reports acquisition separately from discovery. A private five-source canary recorded five body attempts: four readable and one Blue Book bot-wall outcome. This closes TD-114's local observability gap but does not promote coverage maturity. The 33-company roster audit resolves 11 entities in this base; California Giant remains level 1 (entity represented), with no explicitly linked runnable Source and no current usable coverage.
+
 ## How to refresh the evidence-class counts
 
 Re-count committed `data/evidence/*.json` by stored `source_type` /

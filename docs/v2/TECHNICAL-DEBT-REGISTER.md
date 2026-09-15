@@ -1830,11 +1830,11 @@ Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
 | **Date discovered** | 2026-09-12 |
 | **Evidence** | The local Source execution audit shows Blue Book Services as successfully run because feed discovery completed, while the bounded ingestion run found all five selected article-body acquisitions blocked. Items that fail acquisition and produce no draft do not leave a durable per-Source outcome that Source Health can aggregate. |
 | **Impact** | Operators can see that discovery ran but cannot tell whether it produced readable evidence. A healthy-looking Source can therefore add no usable intelligence, the exact gap exposed by the Cal Giant stakeholder test. |
-| **Implemented mitigation** | Source Health now distinguishes discovery execution from freshness and explicitly states that successful discovery does not prove readable bodies or recall. Reproducible inventory: `scripts/audit_source_execution.py`. |
-| **Recommended resolution** | Persist bounded per-Source acquisition counters and latest outcome categories from the recurring orchestrator, then surface readable, blocked/contaminated, retryable-failure, and review-ready counts separately from discovery state. Validate with a known-good feed and the Blue Book blocked case before scaling collection. |
-| **Status** | active — discovery visibility shipped locally; acquisition visibility pending |
+| **Implemented mitigation** | Article-body attempts now write immutable, redacted operational outcome records even when no draft is created. Source Health separately presents discovery execution, acquisition attempts, readable bodies, blocked/unusable outcomes, and retryable outcomes. The recurring runner includes the same counters. A five-source canary produced four readable outcomes and one honest Blue Book `bot_wall` outcome without publishing anything. Reproducible audits: `scripts/audit_source_execution.py` and `scripts/audit_competitor_source_coverage.py`. |
+| **Recommended resolution** | Carry the outcome contract into production-runtime scheduling and alerting after review. Add a compliant, explicitly linked California Giant discovery route; the official site remains HTTP 403 to the approved Python client and was not bypassed. |
+| **Status** | mitigated locally — persistence and operator visibility complete; production scheduling and Cal Giant coverage remain open |
 | **Owner lane** | acquisition / collection operations |
-| **Regression-test reference** | `tests/test_source_freshness.py`, `tests/test_monitor_workspace.py`; planned acquisition-outcome tests |
+| **Regression-test reference** | `tests/test_article_acquisition_outcomes.py`, `tests/test_article_refresh.py`, `tests/test_collection_runner.py`, `tests/test_monitor_workspace.py`; canary `artifacts/astra-repair/acquisition-canary-results.json` |
 
 ### TD-112 — Research Desk live recall remains provider- and index-dependent
 

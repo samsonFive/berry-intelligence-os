@@ -1,3 +1,66 @@
+# Article acquisition failure repair checkpoint — 2026-09-15
+
+Branch: `fix/article-acquisition-failures-v1`
+Base: `bd96fca1231dc97ae4ec3fc316743b0a3f2e8427`
+Worktree: `C:/Users/Johnny/Downloads/sscanar/berry-intelligence-os-article-acquisition-failures-v1`
+
+## Completed
+
+- Added an immutable operational ledger for every attempted article-body request in forward collection and bounded historical reacquisition, including attempts that create no draft. Records preserve identifiers, a redacted URL, timestamps, stage, normalized outcome, HTTP status, retryability, attempt count, content quality, versions, optional article date, and a scrubbed diagnostic. Response bodies and wall HTML are never stored.
+- Propagated acquisition outcomes through standalone article refresh and the recurring collection runner. Run summaries now count body attempts, readable bodies, blocked/unusable outcomes, and retryable failures separately.
+- Kept discovery records for diagnosis while existing source-completeness and source-body gates continue to exclude unusable captures from readable evidence, summaries, Today, company coverage, and reports.
+- Updated Source Health to separate source freshness, discovery execution, article-body acquisition, and readable-content success. A successful feed run no longer looks like proof of readable evidence.
+- Extended the read-only source execution audit with per-source acquisition results.
+- Added a read-only five-level audit for the required 33-company roster. It accepts a later canonical roster file and does not create entities or classifications.
+
+## Canary
+
+Five sources were run independently with `--max-items 2`, transcription skipped, extraction disabled, and a private worktree inbox:
+
+1. `source-freshplaza-global`: 70 discoveries, 2 processed, 2 readable bodies, both rejected as irrelevant.
+2. `source-20260824-perishable-news-produce`: 10 discoveries, 2 processed, 1 readable body rejected as irrelevant; the other item was rejected before body acquisition.
+3. `source-20260819-blue-book-services`: 10 discoveries, 2 processed, 1 HTTP 403 persisted as `bot_wall`, non-retryable, manual acquisition required; the other item was rejected before body acquisition.
+4. `source-20260824-berryworld-newsroom`: 10 discoveries, 2 processed, 1 readable direct item staged as private draft `ev-media-d0d76be2f0c6c09a3d96`; the other item was rejected before body acquisition.
+5. `source-news-search-costa-group`: 50 discoveries, 2 processed, both rejected before body acquisition.
+
+Totals: 150 discoveries, 10 processed items, 5 body attempts, 4 readable outcomes, 1 blocked/unusable outcome, 0 retryable outcomes, and 1 private unapproved draft. No current California Giant item appeared in the processed trade-source window. The official Cal Giant restriction was not bypassed.
+
+Exact isolated application-data mutations under this worktree's ignored `inbox/`: 150 discovered-item files, 5 discovery-state files, 10 operation-item files, 5 run files, 5 acquisition-outcome files, and 1 private evidence draft. No published or approved records were written.
+
+## Roster audit
+
+11 of 33 roster labels resolve uniquely in this base; 22 are reported unresolved for the entity owner. California Giant is maturity 1 of 5: represented, with no explicitly linked Source and no current usable published coverage. BerryWorld reaches maturity 4 from the readable canary body but has no current usable published coverage. No entity, tier, relationship, landscape, or Radar data changed.
+
+## Validation
+
+- Affected acquisition, orchestration, runner, Source Health, freshness, and historical-reacquisition tests: 86 passed. The focused historical subset: 16 passed.
+- Downstream honesty tests covering company news, Today/front-page selection, and publication portability: 49 passed.
+- Python compilation and diff whitespace validation passed.
+- Browser verification passed on `/sources`; screenshots show the aggregate separation and the Blue Book discovery-success/body-bot-wall case.
+- Fast record validation is recorded in `record-validation.txt`.
+- Full suite was not run.
+
+## Remaining issues
+
+- California Giant still has no compliant runnable source linked to its canonical entity. Its official newsroom remains HTTP 403 to the approved Python client. Closing current coverage requires a supported discovery route or a legitimate publisher-access change.
+- Twenty-two roster labels await Claude's entity-resolution work. The audit is ready to consume that canonical roster later.
+- Automatic collection remains off. This checkpoint validates five sources only and does not authorize broad activation.
+- The canary's one BerryWorld draft is historical (published 2025-08-29) and remains private and unapproved.
+
+## Artifacts
+
+- `acquisition-outcome-audit.json`
+- `acquisition-canary-results.json`
+- `competitor-source-coverage.json`
+- `competitor-source-coverage-summary.md`
+- `acquisition-outcome-tests.txt`
+- `downstream-honesty-tests.txt`
+- `reacquisition-outcome-tests.txt`
+- `record-validation.txt`
+- `screenshots/article-acquisition-source-health.png`
+- `screenshots/blue-book-acquisition-outcome.png`
+
+---
 # Berry OS repair checkpoint — 2026-09-11 (continuation session)
 
 Branch: `fix/astra-news-reader` in `C:/Users/Johnny/Downloads/sscanar/berry-intelligence-os-astra-repair`. No merge, production deployment, production writes, or model calls performed in this or the prior checkpoint. Previous checkpoints: bdb4c69, 759ed42, bfbf77a. Use `git log -5 --oneline` for the newest repair commit.
