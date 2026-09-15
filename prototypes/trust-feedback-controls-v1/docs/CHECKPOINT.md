@@ -33,4 +33,6 @@
 
 ## Tip SHA
 
-Authoritative tip is the branch tip after the prototype commit is pushed. Do not hardcode a self-referential SHA in docs before push.
+Authoritative tip is the branch tip after verification artifacts are committed and pushed. Do not hardcode a self-referential SHA in this file before that push.
+
+Base Daily Briefing HEAD (immutable for this prototype): `d6941bc2b2de7ffdd5fc76767f9180c4938aaf25`

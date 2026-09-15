@@ -1185,14 +1185,22 @@ h1{font-family:var(--display);font-weight:650;font-size:clamp(1.55rem,2.2vw,2rem
     toast.className = "toast";
     toast.setAttribute("role", "status");
     toast.innerHTML = "<span>" + escapeHtml(message) + "</span>";
-    if (onAction) {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.textContent = "OK";
-      b.addEventListener("click", onAction);
-      toast.appendChild(b);
-    }
+    const dismiss = document.createElement("button");
+    dismiss.type = "button";
+    dismiss.textContent = onAction ? "OK" : "Dismiss";
+    dismiss.addEventListener("click", function () {
+      if (onAction) onAction();
+      clearToasts();
+      restoreFocus();
+    });
+    toast.appendChild(dismiss);
     el.toast.appendChild(toast);
+    setTimeout(function () {
+      if (el.toast.contains(toast)) {
+        clearToasts();
+        restoreFocus();
+      }
+    }, 6000);
   }
 
   function clearToasts() {
