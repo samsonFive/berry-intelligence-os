@@ -1,0 +1,82 @@
+{
+  "id": "ev-competitor-registry-2026-09-15-import",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "internal_analyst_note",
+  "title": "Internal Competitor Registry spreadsheet snapshot (2026-09-15)",
+  "source_name": "Berry Intelligence OS operator -- internal competitor registry spreadsheet",
+  "source_url": "",
+  "captured_date": "2026-09-15",
+  "published_date": null,
+  "summary": "A 33-row internal competitor-tracking spreadsheet (Competitor / Competitor Type / Priority / Region / Strawberry-Blueberry-Raspberry-Blackberry Tier), provided by the operator as a screenshot and imported verbatim into data/imports/competitor-registry-2026-09-15/snapshot.json. An internal, user-curated classification, not externally verified market research -- see docs/v2/COMPANY-GENETICS-RELATIONSHIPS-V1.md for scope and the transcription caveat.",
+  "why_it_matters": "",
+  "submitted_by": "operator-import",
+  "berry_ids": [
+    "berry-strawberry",
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-blackberry"
+  ],
+  "geography_ids": [],
+  "entity_ids": [
+    "brand-ozblu",
+    "breeding_program-uc-davis-strawberry",
+    "company-advanced-berry-breeding",
+    "company-agroberries",
+    "company-agrovision",
+    "company-australasian-plant-genetics",
+    "company-berryworld",
+    "company-black-venture-farm",
+    "company-california-giant-berry-farms",
+    "company-costa-group-holdings",
+    "company-denning-blueberries",
+    "company-expoberries",
+    "company-fall-creek-farm-and-nursery",
+    "company-fresh-forward",
+    "company-gem-pack-berries",
+    "company-hortifrut",
+    "company-iq-berries",
+    "company-marionnet",
+    "company-mountain-blue-orchards",
+    "company-oishii",
+    "company-pairwise",
+    "company-perfection-fresh",
+    "company-planasa",
+    "company-plant-sciences-genetics",
+    "company-royakkers",
+    "company-smart-berries",
+    "company-splendor-produce",
+    "company-sunbelle",
+    "company-the-berry-collective",
+    "company-university-of-arkansas",
+    "company-university-of-florida",
+    "company-well-pict",
+    "company-wish-farms"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "strategic_question_ids": [],
+  "tags": [
+    "competitor-registry",
+    "internal-classification"
+  ],
+  "auto_captured": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Registry import; not an article for analyst reading triage."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Not a testable claim; internal classification, not a factual assertion."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Classification-only import; no commercial-position tag applied."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Not a monitored source; a one-time internal snapshot import."
+    }
+  }
+}

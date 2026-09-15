@@ -73,6 +73,11 @@
   ],
   "attributes": {
     "headquarters": "Gainesville, Florida, United States",
-    "sector": "public_research"
+    "sector": "public_research",
+    "competitor_registry_2026_09_15": {
+      "row_number": 32,
+      "spreadsheet_label": "University of Florida",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    }
   }
 }

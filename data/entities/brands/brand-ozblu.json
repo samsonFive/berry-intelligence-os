@@ -4,13 +4,15 @@
   "entity_type": "brand",
   "name": "OZblu",
   "aliases": [
-    "OZblu®"
+    "OZblu®",
+    "Ozblu"
   ],
   "status": "active",
   "description": "Consumer and trade brand under which United Exports markets blueberry varieties bred by Nature Select. Brand ownership sits with United Exports; the underlying genetics do not.",
   "roles": [
     "consumer_brand",
-    "variety_platform"
+    "variety_platform",
+    "competitor"
   ],
   "berry_ids": [
     "berry-blueberry"
@@ -60,6 +62,11 @@
   ],
   "attributes": {
     "operator": "United Exports",
-    "genetics_origin": "Nature Select (Mazzardis programme)"
+    "genetics_origin": "Nature Select (Mazzardis programme)",
+    "competitor_registry_2026_09_15": {
+      "row_number": 20,
+      "spreadsheet_label": "Ozblu",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    }
   }
 }

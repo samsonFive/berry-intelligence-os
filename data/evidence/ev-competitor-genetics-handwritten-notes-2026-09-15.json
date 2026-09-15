@@ -1,0 +1,64 @@
+{
+  "id": "ev-competitor-genetics-handwritten-notes-2026-09-15",
+  "record_type": "evidence",
+  "status": "in_review",
+  "source_type": "internal_analyst_note",
+  "title": "Internal handwritten company-genetics notes (photographed, 2026-09-15)",
+  "source_name": "Berry Intelligence OS operator -- handwritten competitor/genetics notes",
+  "source_url": "",
+  "captured_date": "2026-09-15",
+  "published_date": null,
+  "summary": "Photographed handwritten notes pairing companies with genetics providers/breeding programs, organized into three legibility/confidence tiers by the note's own author. Transcribed into data/imports/competitor-registry-2026-09-15/genetics-transcription.json. These are unverified user assertions, not independently confirmed variety-level relationships -- see docs/v2/COMPANY-GENETICS-RELATIONSHIPS-V1.md.",
+  "why_it_matters": "",
+  "submitted_by": "operator-import",
+  "berry_ids": [],
+  "geography_ids": [],
+  "entity_ids": [
+    "brand-ozblu",
+    "company-agroberries",
+    "company-agrovision",
+    "company-california-giant-berry-farms",
+    "company-fall-creek-farm-and-nursery",
+    "company-hortifrut",
+    "company-mountain-blue-orchards",
+    "company-oishii",
+    "company-pairwise",
+    "company-perfection-fresh",
+    "company-planasa",
+    "company-plant-sciences-genetics",
+    "company-sunbelle",
+    "company-well-pict",
+    "company-wish-farms"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [
+    "rel-agroberries-genetics-mountain-blue-orchards",
+    "rel-agrovision-genetics-fall-creek-farm-and-nursery",
+    "rel-california-giant-berry-farms-genetics-fall-creek-farm-and-nursery"
+  ],
+  "strategic_question_ids": [],
+  "tags": [
+    "competitor-registry",
+    "genetics-relationships",
+    "pending-review"
+  ],
+  "auto_captured": false,
+  "priority": {
+    "reading": {
+      "level": "none",
+      "rationale": "Handwritten-note import; not an article for analyst reading triage."
+    },
+    "testing": {
+      "level": "none",
+      "rationale": "Underlying assertions are pending-review relationships, tracked there."
+    },
+    "commercial_position": {
+      "level": "none",
+      "rationale": "Not a commercial-position tag; a relationship-seeding import."
+    },
+    "monitoring": {
+      "level": "none",
+      "rationale": "Not a monitored source; a one-time internal note import."
+    }
+  }
+}

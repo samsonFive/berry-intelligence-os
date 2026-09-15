@@ -9,7 +9,8 @@
   "roles": [
     "grower",
     "marketer",
-    "breeder"
+    "breeder",
+    "competitor"
   ],
   "berry_ids": [
     "berry-raspberry",
@@ -23,6 +24,11 @@
   "attributes": {
     "country": "United States",
     "lead_breeder": "Carlos Fear",
-    "lead_breeder_background": "35 years in industry, largely at Driscoll's; inventor/co-inventor on 35 patents across raspberry, blackberry and strawberry"
+    "lead_breeder_background": "35 years in industry, largely at Driscoll's; inventor/co-inventor on 35 patents across raspberry, blackberry and strawberry",
+    "competitor_registry_2026_09_15": {
+      "row_number": 34,
+      "spreadsheet_label": "Wish Farms",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    }
   }
 }

@@ -1,0 +1,608 @@
+{
+  "id": "competitor-registry-snapshot-2026-09-15",
+  "snapshot_date": "2026-09-15",
+  "source": "internal_competitor_registry_spreadsheet",
+  "provenance_evidence_id": "ev-competitor-registry-2026-09-15-import",
+  "transcription_caveat": "Transcribed directly from the operator-provided spreadsheet screenshot by the agent that built this import; not independently re-verified against the source spreadsheet file. Recommend one human spot-check pass before treating any single cell as authoritative.",
+  "row_count": 33,
+  "rows": [
+    {
+      "row_number": 2,
+      "spreadsheet_label": "Advanced Berry Breeding",
+      "competitor_type": "Breeding",
+      "strategic_priority": null,
+      "regions": [
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "tier_1"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 3,
+      "spreadsheet_label": "AgroBerries",
+      "competitor_type": "Commercial",
+      "strategic_priority": "Top",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 4,
+      "spreadsheet_label": "Australasian Plant Genetics",
+      "competitor_type": "Genetics; Technology",
+      "strategic_priority": null,
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 5,
+      "spreadsheet_label": "BerryWorld",
+      "competitor_type": "Breeding",
+      "strategic_priority": null,
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "tier_2",
+        "blueberry": "tier_3",
+        "raspberry": "tier_1",
+        "blackberry": "tier_2"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 6,
+      "spreadsheet_label": "Black Venture Farm",
+      "competitor_type": "Commercial",
+      "strategic_priority": null,
+      "regions": [],
+      "berry_tier": {
+        "strawberry": "tier_3",
+        "blueberry": "unassigned",
+        "raspberry": "tier_2",
+        "blackberry": "tier_1"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 7,
+      "spreadsheet_label": "California Giant",
+      "competitor_type": "Commercial",
+      "strategic_priority": "Top",
+      "regions": [
+        "DOTA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "tier_1",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 8,
+      "spreadsheet_label": "Costa",
+      "competitor_type": "Commercial",
+      "strategic_priority": null,
+      "regions": [
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "tier_1",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 9,
+      "spreadsheet_label": "Denning Blueberries",
+      "competitor_type": "Commercial",
+      "strategic_priority": "Watch",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "present",
+        "raspberry": "tier_2",
+        "blackberry": "tier_1"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 10,
+      "spreadsheet_label": "Expoberries",
+      "competitor_type": null,
+      "strategic_priority": null,
+      "regions": [],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "tier_1",
+        "raspberry": "tier_3",
+        "blackberry": "tier_3"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 11,
+      "spreadsheet_label": "Fall Creek",
+      "competitor_type": "Breeding; Genetics",
+      "strategic_priority": null,
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "tier_1",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 12,
+      "spreadsheet_label": "Fresh Forward",
+      "competitor_type": "Breeding",
+      "strategic_priority": null,
+      "regions": [
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "tier_1",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 13,
+      "spreadsheet_label": "Fruitist",
+      "competitor_type": "Commercial",
+      "strategic_priority": "Top",
+      "regions": [
+        "DOTA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 14,
+      "spreadsheet_label": "Gem-Pack Berries",
+      "competitor_type": "Commercial",
+      "strategic_priority": "Top",
+      "regions": [
+        "DOTA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "tier_1",
+        "raspberry": "tier_1",
+        "blackberry": "tier_2"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 15,
+      "spreadsheet_label": "Hortifrut Genetica",
+      "competitor_type": "Breeding",
+      "strategic_priority": null,
+      "regions": [
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "present",
+        "blueberry": "unassigned",
+        "raspberry": "tier_3",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 16,
+      "spreadsheet_label": "IQ Berries",
+      "competitor_type": "Genetics",
+      "strategic_priority": null,
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "tier_3",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 17,
+      "spreadsheet_label": "Marionnet",
+      "competitor_type": "Breeding; Genetics",
+      "strategic_priority": null,
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "tier_1",
+        "blueberry": "unassigned",
+        "raspberry": "tier_3",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 18,
+      "spreadsheet_label": "Mountain Blue",
+      "competitor_type": "Breeding; Genetics",
+      "strategic_priority": null,
+      "regions": [
+        "DOTA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "tier_2",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 19,
+      "spreadsheet_label": "Oishii",
+      "competitor_type": "Commercial",
+      "strategic_priority": "Watch",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "tier_2",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 20,
+      "spreadsheet_label": "Ozblu",
+      "competitor_type": "Genetics; Technology",
+      "strategic_priority": null,
+      "regions": [
+        "DOTA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 21,
+      "spreadsheet_label": "Pairwise",
+      "competitor_type": "Commercial",
+      "strategic_priority": "Top",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "berry_tier": {
+        "strawberry": "tier_1",
+        "blueberry": "tier_2",
+        "raspberry": "tier_1",
+        "blackberry": "tier_2"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 22,
+      "spreadsheet_label": "Perfection Fresh",
+      "competitor_type": "Breeding; Genetics",
+      "strategic_priority": null,
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "tier_1",
+        "blueberry": "unassigned",
+        "raspberry": "tier_1",
+        "blackberry": "tier_2"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 23,
+      "spreadsheet_label": "Planasa",
+      "competitor_type": "Breeding; Genetics",
+      "strategic_priority": null,
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "tier_1",
+        "blueberry": "tier_1",
+        "raspberry": "tier_3",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 24,
+      "spreadsheet_label": "Plant Sciences",
+      "competitor_type": "Breeding; Genetics",
+      "strategic_priority": null,
+      "regions": [
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "tier_2",
+        "blackberry": "tier_1"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 25,
+      "spreadsheet_label": "Royakkers",
+      "competitor_type": "Commercial",
+      "strategic_priority": "Watch",
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "tier_2",
+        "raspberry": "unassigned",
+        "blackberry": "tier_1"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 26,
+      "spreadsheet_label": "Smart Berries",
+      "competitor_type": "Commercial",
+      "strategic_priority": "Watch",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "tier_2",
+        "blackberry": "tier_1"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 27,
+      "spreadsheet_label": "Splendor Produce",
+      "competitor_type": "Commercial",
+      "strategic_priority": "Watch",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 28,
+      "spreadsheet_label": "SunBelle",
+      "competitor_type": "Commercial",
+      "strategic_priority": "Top",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "berry_tier": {
+        "strawberry": "tier_1",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 29,
+      "spreadsheet_label": "The Berry Collective",
+      "competitor_type": "University/Public",
+      "strategic_priority": null,
+      "regions": [],
+      "berry_tier": {
+        "strawberry": "tier_1",
+        "blueberry": "unassigned",
+        "raspberry": "tier_2",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 30,
+      "spreadsheet_label": "UC Davis",
+      "competitor_type": "University/Public",
+      "strategic_priority": null,
+      "regions": [],
+      "berry_tier": {
+        "strawberry": "tier_1",
+        "blueberry": "tier_2",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 31,
+      "spreadsheet_label": "University of Arkansas",
+      "competitor_type": "University/Public",
+      "strategic_priority": "Top",
+      "regions": [
+        "DOTA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 32,
+      "spreadsheet_label": "University of Florida",
+      "competitor_type": "Commercial",
+      "strategic_priority": "Watch",
+      "regions": [
+        "DOTA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 33,
+      "spreadsheet_label": "Well-Pict",
+      "competitor_type": "Commercial",
+      "strategic_priority": "Watch",
+      "regions": [],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    },
+    {
+      "row_number": 34,
+      "spreadsheet_label": "Wish Farms",
+      "competitor_type": "Commercial",
+      "strategic_priority": "Top",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "tier_1",
+        "raspberry": "unassigned",
+        "blackberry": "tier_2"
+      },
+      "snapshot_date": "2026-09-15",
+      "source": "internal_competitor_registry_spreadsheet",
+      "review_state": "unreviewed_import"
+    }
+  ]
+}

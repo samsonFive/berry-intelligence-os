@@ -6,7 +6,8 @@
   "aliases": [
     "Plant Sciences Genetics",
     "PSG",
-    "Plant Sciences Europe"
+    "Plant Sciences Europe",
+    "Plant Sciences"
   ],
   "status": "active",
   "description": "California (Watsonville-based) commercial genetics and nursery company breeding proprietary strawberry and blackberry varieties, a private-sector counterweight to public programs such as UC Davis (strawberry) and University of Arkansas (blackberry). Launched a year-round primocane blackberry platform, covered independently by The Packer and Fruitnet.",
@@ -33,6 +34,11 @@
   "attributes": {
     "headquarters": "Watsonville, California, United States",
     "country": "United States",
-    "breeds_own_genetics": true
+    "breeds_own_genetics": true,
+    "competitor_registry_2026_09_15": {
+      "row_number": 24,
+      "spreadsheet_label": "Plant Sciences",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    }
   }
 }

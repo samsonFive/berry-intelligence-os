@@ -60,6 +60,11 @@
     "registered_varieties_all_crops": "more than 225",
     "rnd_centres": 7,
     "plants_per_year": "more than 1,000 million",
-    "countries_present": "more than 25"
+    "countries_present": "more than 25",
+    "competitor_registry_2026_09_15": {
+      "row_number": 23,
+      "spreadsheet_label": "Planasa",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    }
   }
 }

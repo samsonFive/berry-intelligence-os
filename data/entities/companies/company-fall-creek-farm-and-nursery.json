@@ -145,6 +145,11 @@
     "business_model": [
       "open_catalogue",
       "managed_variety_platform"
-    ]
+    ],
+    "competitor_registry_2026_09_15": {
+      "row_number": 11,
+      "spreadsheet_label": "Fall Creek",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    }
   }
 }
