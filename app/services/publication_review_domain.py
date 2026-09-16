@@ -283,13 +283,13 @@ def check_eligibility(
     elif body_state == "interstitial":
         blockers.append(BLOCKER_NAVIGATION_ONLY_SHELL)
     elif retryable:
-        # `classify_source_body`'s own `access_limited` state only fires
-        # for `discovery_provenance.failure_category` -- real acquisition
-        # output stores `acquisition_failure_category` instead (see
-        # `source_completeness()`, which checks both keys). Trust
-        # `source_completeness`'s already-correct `retryable` flag here
-        # rather than depending on that narrower, effectively-dead
-        # `access_limited` branch for real drafts.
+        # `source_completeness()`'s `retryable` flag distinguishes
+        # transient failures (TIMEOUT/HTTP_ERROR/TRANSPORT_ERROR/
+        # REDIRECT_ERROR) from permanent ones (paywall/robots/empty body);
+        # `classify_source_body`'s `access_limited` state does not make
+        # that distinction, so this check stays keyed off `retryable`
+        # rather than `body_state` even though both now read the same
+        # `acquisition_failure_category` key.
         blockers.append(BLOCKER_RETRYABLE_ACQUISITION)
     elif body_state in {"access_limited", "body_unavailable"}:
         blockers.append(BLOCKER_NAVIGATION_ONLY_SHELL)

@@ -217,3 +217,18 @@ def test_review_ops_route_has_no_trust_actions(monkeypatch, tmp_path: Path) -> N
     css = (Path(main.BASE_DIR) / "app" / "static" / "app.css").read_text(encoding="utf-8")
     assert ".review-ops-grid" in css
     assert "@media(max-width:834px)" in css
+
+
+def test_review_ops_links_to_the_readonly_publication_review_page(monkeypatch, tmp_path: Path) -> None:
+    inbox = tmp_path / "inbox"
+    data = tmp_path / "data"
+    _write(inbox / "evidence", _pub(0))
+    monkeypatch.setattr(main, "INBOX_DIR", inbox)
+    monkeypatch.setattr(main, "DATA_DIR", data)
+    monkeypatch.setattr(main, "entity_index", lambda: ENTITIES)
+    monkeypatch.setattr(main, "load_sources", lambda: list(SOURCES.values()))
+    monkeypatch.setattr(main, "published_evidence", lambda: [])
+    monkeypatch.setattr(main, "list_drafts", lambda: [])
+    page = TestClient(main.app).get("/review-ops")
+    assert page.status_code == 200
+    assert 'href="/review-ops/publications"' in page.text
