@@ -6,6 +6,53 @@
   var dialog = root.querySelector("#briefing-reader");
   var lastFocus = null;
   var live = null;
+  var openerStorageKey = "dailyBriefingReaderOpener";
+
+  function readerOpeners() {
+    return Array.prototype.slice.call(
+      root.querySelectorAll("[data-briefing-open-reader][data-item-id]")
+    );
+  }
+
+  function rememberOpener(opener) {
+    var openers = readerOpeners();
+    var position = openers.indexOf(opener);
+    if (position < 0) return;
+    try {
+      window.sessionStorage.setItem(openerStorageKey, JSON.stringify({
+        itemId: opener.getAttribute("data-item-id"),
+        position: position
+      }));
+    } catch (error) {
+      // Storage can be disabled; the item-id fallback below still restores focus.
+    }
+  }
+
+  function storedOpener() {
+    var saved = null;
+    try {
+      saved = JSON.parse(window.sessionStorage.getItem(openerStorageKey) || "null");
+    } catch (error) {
+      saved = null;
+    }
+    var openers = readerOpeners();
+    if (saved && openers[saved.position] &&
+        openers[saved.position].getAttribute("data-item-id") === saved.itemId) {
+      return openers[saved.position];
+    }
+    var readerId = new URL(window.location.href).searchParams.get("reader");
+    return openers.find(function (opener) {
+      return opener.getAttribute("data-item-id") === readerId;
+    }) || null;
+  }
+
+  function forgetOpener() {
+    try {
+      window.sessionStorage.removeItem(openerStorageKey);
+    } catch (error) {
+      // Storage can be disabled without affecting reader behavior.
+    }
+  }
 
   function ensureLive() {
     if (live) return live;
@@ -58,11 +105,12 @@
     if (lastFocus && typeof lastFocus.focus === "function") {
       lastFocus.focus();
     }
+    forgetOpener();
   }
 
   function openReaderEffects() {
     if (!layer || !dialog) return;
-    lastFocus = document.activeElement;
+    lastFocus = storedOpener() || document.activeElement;
     layer.hidden = false;
     document.body.classList.add("daily-briefing-reader-open");
     window.setTimeout(function () {
@@ -74,6 +122,8 @@
   }
 
   root.addEventListener("click", function (event) {
+    var opener = event.target.closest("[data-briefing-open-reader][data-item-id]");
+    if (opener) rememberOpener(opener);
     var closer = event.target.closest("[data-briefing-reader-close]");
     if (closer) {
       event.preventDefault();

@@ -153,6 +153,15 @@ def test_reader_dialog_accessibility_contract():
     assert "In-app reader" in body
 
 
+def test_reader_script_restores_the_exact_opener_after_navigation():
+    script = (STATIC / "daily_briefing.js").read_text(encoding="utf-8")
+    assert 'var openerStorageKey = "dailyBriefingReaderOpener"' in script
+    assert "rememberOpener(opener)" in script
+    assert "lastFocus = storedOpener() || document.activeElement" in script
+    assert "lastFocus.focus()" in script
+    assert "forgetOpener()" in script
+
+
 def test_reader_payload_preserves_trust_display_without_mutations():
     entities_by_id = {e["id"]: e for e in _entities()}
     item = present_briefing_item(_record(), entities_by_id=entities_by_id, today=TODAY)
