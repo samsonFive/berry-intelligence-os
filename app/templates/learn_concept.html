@@ -42,6 +42,21 @@
   <p>{{ concept.how_to_interpret }}</p>
 </section>
 
+{% if concept.media %}
+<section class="v2-company-section" id="teaching-visuals">
+  <h2>Teaching visuals</h2>
+  <p class="context-limit">Educational citations to diagrams or photographs at the publisher. These links are not Evidence, not a hosted image library, and never a diagnosis of a named farm.</p>
+  <ul class="entity-links">
+    {% for item in concept.media %}
+      <li>
+        {% if item.url %}<a href="{{ item.url }}" rel="noopener">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %}
+        <span class="v2-meta">{% if item.kind %} · {{ item.kind }}{% endif %}{% if item.publisher %} · {{ item.publisher }}{% endif %}</span>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
 <section class="v2-company-section" id="related-terms">
   <h2>Related terms</h2>
   {% if related %}

@@ -1,0 +1,33 @@
+{
+  "id": "concept-sugar-acid-balance",
+  "slug": "sugar-acid-balance",
+  "name": "Sugar–acid balance",
+  "aliases": ["SSC", "soluble solids", "Brix", "titratable acidity", "SSC/TA", "sweet-tart"],
+  "pillar": "taste_consumer_science",
+  "knowledge_class": "foundational_knowledge",
+  "trait_ids": ["trait-soluble-solids", "trait-titratable-acidity"],
+  "summary": "How sweet and how tart a berry tastes together — soluble solids and titratable acidity are lab measures, not a marketing adjective.",
+  "what_is_it": "Soluble solids concentration (SSC, often reported as °Brix) estimates sugars and other dissolved solids in juice. Titratable acidity (TA) estimates the acids that drive tartness. Consumers respond to the combination: high sugar with very low acid can taste flat; high acid with modest sugar can taste sour even when SSC is 'good.' Flavor as a whole still includes aroma volatiles; sugar–acid is the soluble-taste skeleton, not the entire flavor.",
+  "why_it_matters": "Variety claims about 'high Brix' or 'sweet eating quality' are incomplete without acid context and without saying when fruit was picked. Competitive comparisons that quote one number from one trial are easy to over-read.",
+  "how_evaluated": "Refractometer for SSC; titration for TA; sometimes a ratio SSC/TA. Sampling must name ripeness, pack, and delay after harvest. A single berry or a packed clamshell average are different samples.",
+  "what_affects_it": "Genetics, crop load, light, water, harvest maturity, and postharvest time. Overripe fruit can rise in SSC while flavor and texture collapse. Protected culture and open field can differ in the same cultivar.",
+  "how_to_interpret": "A Brix figure in a catalog or a retailer spec is not a Fact about every berry from that variety. Do not treat a higher SSC as 'winning' without acid, aroma, and the trial's geography. Pair with Flavor and with volatile aroma; do not collapse those three into one score.",
+  "related_concept_ids": ["concept-flavor", "concept-volatile-aroma", "concept-color"],
+  "sources": [
+    {
+      "publisher": "UC Davis Postharvest Technology Center",
+      "title": "Produce Fact Sheets",
+      "url": "https://postharvest.ucdavis.edu/produce-facts-sheets"
+    },
+    {
+      "publisher": "PLOS ONE",
+      "title": "Identifying Breeding Priorities for Blueberry Flavor Using Biochemical, Sensory, and Genotype by Environment Analyses",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0138494"
+    },
+    {
+      "publisher": "Bioscience, Biotechnology, and Biochemistry (Oxford Academic)",
+      "title": "Standardization of strawberry sourness and sweetness intensities",
+      "url": "https://academic.oup.com/bbb/article/87/8/890/7157093"
+    }
+  ]
+}

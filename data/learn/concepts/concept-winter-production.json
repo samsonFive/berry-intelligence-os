@@ -12,7 +12,7 @@
   "how_evaluated": "Winter-production capability is assessed at the system/region level -- whether a production system, growing region, or variety's chill requirement actually supports fruiting in the target off-season window -- rather than through a single measurable trait on the fruit itself.",
   "what_affects_it": "Chill-hour requirement of the variety, availability and cost of protected-culture infrastructure, regional climate, and market access/logistics for reaching demand during the target window all determine whether winter production is viable.",
   "how_to_interpret": "Winter-production claims are regional and system-dependent -- a variety or growing approach that supports winter production in one climate zone will not automatically do so elsewhere. Treat winter-production claims the same way as other regional production-practice claims: look for the specific geography and growing system before generalizing.",
-  "related_concept_ids": ["concept-double-cropping", "concept-precocity"],
+  "related_concept_ids": ["concept-double-cropping", "concept-precocity", "concept-protected-culture", "concept-chill-hours"],
   "sources": [
     {
       "publisher": "University of Arkansas Cooperative Extension",

@@ -33,6 +33,7 @@ PILLAR_LABELS: dict[str, str] = {
     "pest_disease_process": "Pest, Disease & Cross-Cutting Process",
     "harvest_technology_agtech": "Harvest Technology & AgTech",
     "taste_consumer_science": "Taste & Consumer Science",
+    "visual_content_sourcing": "Visual Content Sourcing",
 }
 
 PILLAR_ORDER = list(PILLAR_LABELS.keys())
@@ -129,7 +130,7 @@ def concepts_by_pillar() -> list[dict[str, Any]]:
 
 def search_concepts(query: str) -> list[dict[str, Any]]:
     """Deterministic name/alias/keyword/pillar substring match -- no
-    semantic search, no ranking model. Fast over ~10 records is the
+    semantic search, no ranking model. Fast over a small finite set is the
     entire performance requirement here."""
     q = (query or "").strip().lower()
     if not q:
@@ -174,9 +175,8 @@ def related_intelligence_for_concept(
     both a real trait-* entity this concept declares and a real Variety --
     the exact same recall mechanism present_variety_intelligence() already
     uses. A single pass over the already-loaded facts list; no corpus
-    re-scan. Concepts with no trait_ids (Bloom, Texture, Precocity, Double
-    cropping, Winter production as of this mission) honestly return no
-    rows rather than fabricating a text-keyword match."""
+    re-scan. Concepts with no trait_ids honestly return no rows rather
+    than fabricating a text-keyword match."""
     trait_ids = set(concept.get("trait_ids") or [])
     if not trait_ids:
         return {"rows": [], "has_any": False}

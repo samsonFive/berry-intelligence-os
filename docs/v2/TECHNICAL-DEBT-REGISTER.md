@@ -1743,7 +1743,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | none -- a coverage-gap finding, not a code defect |
 
-### TD-108 — FreshPlaza is registered as two separate Source records pointing at the same feed
+### TD-108 — RESOLVED: FreshPlaza is registered as two separate Source records pointing at the same feed
 
 | Field | Value |
 |---|---|
@@ -1753,13 +1753,13 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Evidence** | Continuous Newsroom Intake V1 production-acceptance audit. `source-20260806173428-a004-fresh-plaza-74` ("Fresh Plaza") and `source-freshplaza-global` ("FreshPlaza global fresh produce news") both configure `discovery.adapter: "article_rss"` against the identical feed URL `https://www.freshplaza.com/rss.xml`. Same pattern as the pre-existing TD-104 hortifrut.com duplicate. |
 | **Impact** | Both Sources are independently polled by `CollectionRunner`, doubling request volume against the same feed and splitting any per-Source duplicate-suppression memory across two identities for what is really one publisher relationship -- not a trust or correctness issue (both are legitimately the real publisher), just wasted collection effort and split provenance bookkeeping. |
 | **Workaround** | None needed; `article_dedup.find_duplicate_article`'s canonical-URL/title matching still correctly collapses any article both Sources happen to discover into one Evidence/Publication record downstream. |
-| **Recommended resolution** | Merge into one Source record (or retire one via `source_lifecycle.with_lifecycle(..., state="RETIRED")`) once an operator confirms which of the two carries the more complete/accurate metadata. Out of this mission's bounded scope (auditing whether major specialist outlets are collected at all, not deduplicating the existing 201-Source registry). |
-| **Status** | active |
+| **Recommended resolution** | Retire the older duplicate `source-20260806173428-a004-fresh-plaza-74` via `lifecycle.state=RETIRED` with `replacement_source_id=source-freshplaza-global`. Keep the later, daily, specialist-feed-linked Source as the sole collection-eligible identity for `https://www.freshplaza.com/rss.xml`. |
+| **Status** | resolved |
 | **Owner lane** | data |
-| **PR/SHA when resolved** | — |
-| **Regression-test reference** | none -- a data-quality finding, not a code defect |
+| **PR/SHA when resolved** | `fix/td-108-109-learner-ipm-v1` (not yet merged) |
+| **Regression-test reference** | `tests/test_td_108_109_hygiene.py` |
 
-### TD-109 — Hortifrut's entity `aliases` list includes a Chilean tax-ID string, not a name variant
+### TD-109 — RESOLVED: Hortifrut's entity `aliases` list includes a Chilean tax-ID string, not a name variant
 
 | Field | Value |
 |---|---|
@@ -1769,11 +1769,11 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Evidence** | Competitor Pulse V1 production-acceptance run against `company-hortifrut`. `data/entities/companies/company-hortifrut.json`'s `aliases` array includes `"RUT 96.896.990-0"` (a Chilean company registration number) alongside real name variants ("Hortifrut", "Hortifrut S.A."). Competitor Pulse's `company_query_terms()` uses `aliases` verbatim (deliberately, per its "never invent a term" discipline), so this string is included in the live search query text and the qualification name-regex, harmlessly (no article text will ever literally contain that RUT string) but incorrectly categorized as a name alias. |
 | **Impact** | None observed -- it never matched a real article in acceptance testing, so it is pure noise in the query string, not a false positive source. Flagged because a RUT/registration-number field being stored under `aliases` rather than a dedicated identifier field is a modeling gap other consumers of `aliases` (e.g. future Company search) could trip on. |
 | **Workaround** | None needed. |
-| **Recommended resolution** | Move Chile RUT-style identifiers (and any other jurisdiction's registration numbers found the same way) to a dedicated `attributes.registration_ids` -style field, out of `aliases`. Out of this mission's bounded scope (live research plane, not entity-schema cleanup). |
-| **Status** | active |
+| **Recommended resolution** | Move Chile RUT-style identifiers to `attributes.registration_ids` (jurisdiction/kind/value), out of `aliases`, so `company_query_terms()` and other alias consumers never treat a tax ID as a name variant. |
+| **Status** | resolved |
 | **Owner lane** | data |
-| **PR/SHA when resolved** | — |
-| **Regression-test reference** | none -- a data-quality finding, not a code defect |
+| **PR/SHA when resolved** | `fix/td-108-109-learner-ipm-v1` (not yet merged) |
+| **Regression-test reference** | `tests/test_td_108_109_hygiene.py` |
 
 ### TD-110 — RESOLVED: structured registry filings (PVR/patent) were silently bucketed into `older_backlog` by `/pending`'s calendar_age test
 

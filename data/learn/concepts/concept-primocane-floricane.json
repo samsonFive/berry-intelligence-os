@@ -1,0 +1,41 @@
+{
+  "id": "concept-primocane-floricane",
+  "slug": "primocane-floricane",
+  "name": "Primocane vs floricane",
+  "aliases": ["primocane", "floricane", "fall-fruiting", "summer-fruiting", "everbearing caneberry", "fruiting habit"],
+  "pillar": "plant_biology_agronomy",
+  "knowledge_class": "foundational_knowledge",
+  "trait_ids": ["trait-fruiting-habit"],
+  "summary": "On raspberry and blackberry, first-year canes (primocanes) and second-year canes (floricanes) fruit on different schedules — the distinction that drives pruning, trellis, and harvest timing. Blueberry does not use this two-year cane pattern.",
+  "what_is_it": "A primocane is a first-year cane. A floricane is that same cane in its second year. Floricane-fruiting (summer-bearing) types flower and fruit on second-year wood, then that cane is removed. Primocane-fruiting (fall-bearing / everbearing) types can fruit on first-year canes, which changes pruning and can enable a later harvest or, in some systems, two crops. Dual-cropping types can do both. This is caneberry biology; highbush blueberry shoots do not follow a primocane/floricane fruiting calendar.",
+  "why_it_matters": "The habit determines when fruit is picked, how the plant is pruned, what trellis is used, and which climates are commercially realistic. Primocane-fruiting blackberry (for example University of Arkansas Prime-Ark series) is often discussed as expanding where blackberry can be grown because first-year fruiting reduces winter-cane survival risk. A news item about a 'primocane blackberry' is unintelligible without this distinction.",
+  "how_evaluated": "Nurseries and variety descriptions state the habit as a category (primocane, floricane, or both). In the field it is observed from which canes carry flowers and fruit, and from the pruning system in use. It is not a Brix reading or a firmness instrument value.",
+  "what_affects_it": "Genetics set the habit. Climate, winter injury, tipping, and whether a grower manages for a single fall crop or also a summer floricane crop change how the habit is used commercially. The same cultivar can be managed differently by region.",
+  "how_to_interpret": "Do not treat 'primocane' as a quality grade or a claim that fruit is sweeter. It names cane-year fruiting biology. Blueberry 'everbearing' marketing is a different plant. When intelligence names a primocane raspberry or blackberry, look for the crop, the habit, and the geography before generalizing to other berries or to commercial success.",
+  "related_concept_ids": ["concept-double-cropping", "concept-trellis-training", "concept-precocity"],
+  "media": [
+    {
+      "kind": "diagram",
+      "title": "Pruning and Training Caneberries (Blackberries and Raspberries)",
+      "publisher": "University of Tennessee Extension",
+      "url": "https://uthort.tennessee.edu/wp-content/uploads/sites/228/2023/11/SP284-G.pdf"
+    }
+  ],
+  "sources": [
+    {
+      "publisher": "Alabama Cooperative Extension System",
+      "title": "Commercial Production Guide: Blackberry and Raspberry (ANR-0896)",
+      "url": "https://www.aces.edu/wp-content/uploads/2023/03/ANR-0896_CommericalProductionGuideBlackberryandRaspberry_030723L-G.pdf"
+    },
+    {
+      "publisher": "Michigan State University Extension",
+      "title": "Raspberry and Blackberry Production Guide",
+      "url": "https://www.canr.msu.edu/foodsystems/uploads/files/Raspberry-and-Blackberry-Production-Guide.pdf"
+    },
+    {
+      "publisher": "New Mexico State University Extension",
+      "title": "Commercial Everbearing Red Raspberry Production for New Mexico (H-318)",
+      "url": "https://pubs.nmsu.edu/_h/H318/"
+    }
+  ]
+}

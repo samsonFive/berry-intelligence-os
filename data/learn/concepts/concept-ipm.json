@@ -1,0 +1,33 @@
+{
+  "id": "concept-ipm",
+  "slug": "ipm",
+  "name": "Integrated Pest Management (IPM)",
+  "aliases": ["IPM", "integrated pest management", "biological control", "biocontrol"],
+  "pillar": "pest_disease_process",
+  "knowledge_class": "foundational_knowledge",
+  "trait_ids": [],
+  "summary": "A decision framework that combines monitoring, thresholds, cultural practices, biological control, and pesticides used only as needed — not a single spray program and not proof that a named farm is pest-free.",
+  "what_is_it": "Integrated Pest Management (IPM) is a structured way to decide when and how to intervene against insects, mites, pathogens, nematodes, and weeds. It starts with identification and monitoring, then uses economic or damage thresholds, and prefers cultural and biological tactics before chemical ones. Biological control agents used in berry systems can include predatory mites, parasitoid wasps, entomopathogenic fungi or nematodes, and baculoviruses; they are tools inside IPM, not a substitute for the whole framework.",
+  "why_it_matters": "Berry crops are high-value, often harvested by hand, and sold fresh, so pest and disease pressure affects yield, fruit quality, residue expectations, and labor. Pesticide resistance and tighter labels are why commercial programs talk about IPM rather than calendar spraying. Interpreting competitive intelligence requires knowing that 'uses IPM' is a management claim, not independent evidence of a specific pest, a specific product, or superior fruit.",
+  "how_evaluated": "In the field, IPM is evaluated by scouting records, trap counts, damage thresholds, which tactics were used, and whether interventions stayed within labeled, resistance-aware programs. Regional production guides (updated as labels and resistance change) are the usual written source, not a one-time news mention. There is no single IPM score; presence of a biocontrol product in a catalog also does not prove it was used in a given season.",
+  "what_affects_it": "Crop (strawberry virus management is largely clean planting stock and vector control, not a curative spray), production system (open field vs protected culture/substrate), region, weather, resistance status, and which products are legally labeled that season. Protected-culture blueberry and strawberry in coir or peat-based troughs change pest complexes relative to soil production.",
+  "how_to_interpret": "When a company, variety, or region is described as practicing IPM, treat that as educational context unless a specific, dated source names the pest, the tactic, and the place. Do not read this page as a spray schedule, a resistance map, or a claim that one competitor has fewer pests. Specific pesticide recommendations belong in current regional technical guidance and change; this concept explains the framework only. A concept page is not a Fact, Signal, or Assessment.",
+  "related_concept_ids": ["concept-winter-production", "concept-clean-planting-stock", "concept-protected-culture"],
+  "sources": [
+    {
+      "publisher": "University of California Statewide Integrated Pest Management Program",
+      "title": "What is Integrated Pest Management (IPM)?",
+      "url": "https://ipm.ucanr.edu/what-is-ipm/"
+    },
+    {
+      "publisher": "Southern Region Small Fruit Consortium",
+      "title": "IPM and production guides for strawberry and other small fruit",
+      "url": "https://smallfruits.org/ipm-production-guides/"
+    },
+    {
+      "publisher": "USDA National Institute of Food and Agriculture",
+      "title": "Integrated Pest Management Program (IPM)",
+      "url": "https://www.nifa.usda.gov/grants/programs/integrated-pest-management-program-ipm"
+    }
+  ]
+}

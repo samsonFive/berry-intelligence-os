@@ -1,0 +1,33 @@
+{
+  "id": "concept-harvest-robotics",
+  "slug": "harvest-robotics",
+  "name": "Harvest robotics",
+  "aliases": ["robotic harvester", "vision-guided picker", "selective harvest robot", "soft gripper"],
+  "pillar": "harvest_technology_agtech",
+  "knowledge_class": "current_technical_guidance",
+  "trait_ids": [],
+  "summary": "Vision-guided, often soft-gripper machines that try to pick ripe berries without bruising — an active R&D frontier, not proof a named company has deployed robots commercially.",
+  "what_is_it": "Harvest robotics for berries is selective picking by a machine that locates fruit (cameras, depth, learned detectors) and then grasps or detaches it with a mechanism meant not to crush flesh. Research systems include university strawberry prototypes that combine 3D vision with soft grippers and leaf-clearing, blackberry perception stacks, and modular strawberry pickers published as academic systems. This is different from over-the-row shake-and-catch machines used on some process blueberry and caneberry acreage: those are mechanical harvest, not a humanoid or arm picker in a fresh clamshell row.",
+  "why_it_matters": "Hand harvest is a labor and bruising constraint on fresh berries. Competitors and universities talk about robots because labor cost and availability are strategic. A press mention of a trial, a grant, or a demo video is not the same as commercial conversion of a farm.",
+  "how_evaluated": "Research papers report detection accuracy, cycle time, harvest rate, and bruise rates under experimental conditions. Those numbers are not interchangeable across papers or with a grower's packout. Commercial evaluation would be whether a named operation runs the machine on a named crop and pack — which this page does not assert.",
+  "what_affects_it": "Canopy architecture, fruit hiding in leaves, ripeness mix, weather, and whether the system is open-field or protected-culture table-top. Soft fruit (strawberry, ripe raspberry) is harder than firm process blueberry. Training systems that present fruit in a plane help both human and machine pickers.",
+  "how_to_interpret": "Treat robotics coverage as current technical guidance that ages quickly. Do not read a university demo or an accuracy percentage as a Fact about a competitor's harvest method. Do not collapse this into machine-harvest suitability of a variety: a cultivar can be shake-harvestable and still have nothing to do with a vision-guided arm. Pair with harvest methods and, for caneberries, trellis/training.",
+  "related_concept_ids": ["concept-harvest-methods", "concept-protected-culture", "concept-trellis-training", "concept-firmness"],
+  "sources": [
+    {
+      "publisher": "phys.org / Washington State University coverage",
+      "title": "Robotic harvester uses AI vision and soft grippers to pick hidden strawberries",
+      "url": "https://phys.org/news/2025-09-robotic-harvester-ai-vision-soft.html"
+    },
+    {
+      "publisher": "Mississippi State University",
+      "title": "Automated Agriculture",
+      "url": "https://www.research.msstate.edu/blog/2024/12/automated-agriculture"
+    },
+    {
+      "publisher": "arXiv",
+      "title": "Autonomous Strawberry Picking Robotic System (Robofruit)",
+      "url": "https://arxiv.org/abs/2301.03947"
+    }
+  ]
+}

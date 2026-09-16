@@ -15,7 +15,7 @@
   <form class="filters" action="/learn" method="get" role="search" aria-label="Search Learner Mode concepts">
     <div class="filter-field">
       <label for="learn-q">Search concepts</label>
-      <input id="learn-q" type="search" name="q" value="{{ search_query }}" placeholder="e.g. firmness, double cropping, bloom…" autofocus>
+      <input id="learn-q" type="search" name="q" value="{{ search_query }}" placeholder="e.g. firmness, primocane, IPM…" autofocus>
     </div>
     <div class="filter-actions">
       <button type="submit">Search</button>
@@ -55,7 +55,7 @@
       </div>
     </section>
   {% endfor %}
-  <p class="context-limit">{{ concept_count }} starter concept{{ 's' if concept_count != 1 else '' }} today, spanning taste/consumer science and plant biology/agronomy. More pillars and concepts are being added.</p>
+  <p class="context-limit">{{ concept_count }} concept{{ 's' if concept_count != 1 else '' }} today across all five educational pillars. Growing Profiles, OS-wide glossary chrome, hosted image libraries, and live robotics/VOC monitoring feeds are still out of scope — these pages explain vocabulary and practice; they are never Facts, Signals, or Assessments.</p>
 {% endif %}
 </div>
 {% endblock %}
