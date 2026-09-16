@@ -117,6 +117,10 @@ from app.services.analyst_queue import (
 from app.services.derived_review import present_derived_review, section_review_key
 from app.services.commercial_positions import commercial_page_model
 from app.services.review_operations import build_review_operations
+from app.services.publication_review_readonly import (
+    build_publication_review_readonly_view,
+    select_source_drafts,
+)
 from app.services.collection_ops import (
     DEFAULT_RUN_SIZE,
     RUN_SIZE_CHOICES,
@@ -3845,6 +3849,69 @@ def review_operations_page(request: Request) -> HTMLResponse:
             "active_session": present_session(active) if active else None,
             "recent_sessions": list_recent_sessions(INBOX_DIR),
         },
+    )
+
+
+def _publication_review_readonly_context(
+    request: Request,
+    *,
+    selected_id: str | None = None,
+    content_filter: str = "all",
+) -> dict[str, Any]:
+    """Build template context for the private read-only publication review UI.
+
+    Decision mutations are intentionally omitted: no POST handlers and
+    ``decisions_enabled`` remains false for Slice 1.
+    """
+    durable = [
+        record
+        for record in pending_publication_drafts()
+        if record.get("evidence_role") == "publication_artifact"
+    ]
+    drafts, source = select_source_drafts(durable_drafts=durable)
+    view = build_publication_review_readonly_view(
+        drafts=drafts,
+        selected_id=selected_id,
+        content_filter=content_filter or "all",
+        source=source,
+    )
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    return {
+        "publication_review": view,
+        "authoring_mode": AUTHORING_MODE,
+        "static_build": False,
+        "ui_context": ui,
+    }
+
+
+@app.get("/review-ops/publications", response_class=HTMLResponse)
+def publication_review_readonly_queue(request: Request) -> HTMLResponse:
+    """Private read-only publication review queue + workspace (Slice 1)."""
+    content_filter = (request.query_params.get("filter") or "all").strip()
+    selected_id = (request.query_params.get("draft") or "").strip() or None
+    return templates.TemplateResponse(
+        request=request,
+        name="publication_review_readonly.html",
+        context=_publication_review_readonly_context(
+            request,
+            selected_id=selected_id,
+            content_filter=content_filter,
+        ),
+    )
+
+
+@app.get("/review-ops/publications/{draft_id}", response_class=HTMLResponse)
+def publication_review_readonly_detail(request: Request, draft_id: str) -> HTMLResponse:
+    """Private read-only publication review workspace for one draft."""
+    content_filter = (request.query_params.get("filter") or "all").strip()
+    return templates.TemplateResponse(
+        request=request,
+        name="publication_review_readonly.html",
+        context=_publication_review_readonly_context(
+            request,
+            selected_id=draft_id,
+            content_filter=content_filter,
+        ),
     )
 
 

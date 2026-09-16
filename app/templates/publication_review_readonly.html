@@ -1,0 +1,323 @@
+{% extends "base.html" %}
+{% block title %}Publication Review — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/pvs_tokens.css">
+<link rel="stylesheet" href="/static/publication_review_readonly.css">
+{% endblock %}
+{% block content %}
+{% set view = publication_review %}
+<div class="v2-page pub-review-ro" id="publication-review-readonly" data-pagefind-ignore data-decisions-enabled="false" data-slice="{{ view.slice_id }}">
+  <a class="skip-link" href="#pr-workspace">Skip to review workspace</a>
+
+  <section class="page-heading v2-page-header">
+    <div>
+      <p class="eyebrow">WORK · PRIVATE OPERATOR</p>
+      <h1>Publication Review</h1>
+      <p class="also-known-as">
+        Read-only queue and workspace for publication drafts.
+        Approval here means <strong>publication approval</strong> only — not Evidence approval — and is disconnected in this slice.
+      </p>
+    </div>
+    <a class="button-link" href="/review-ops">Back to Review Operations</a>
+  </section>
+
+  <p class="pr-banner" role="status" data-pagefind-ignore>
+    <strong>decisions_enabled: false.</strong>
+    {{ view.capability_banner }}
+    Bulk approval is not available. No mutation endpoint is registered for these controls.
+  </p>
+
+  {% if view.source == 'rehearsal' %}
+  <p class="pr-banner" role="status">
+    Rehearsal fixtures are active for browser verification only. They are not durable production backlog.
+  </p>
+  {% endif %}
+
+  <div class="pr-toolbar">
+    <span class="pr-count" aria-live="polite">Pending review: <strong>{{ view.pending_count }}</strong></span>
+    <span class="pr-meta">Source: {{ view.source }} · decisions_enabled=false</span>
+  </div>
+
+  <div class="pr-filters" role="toolbar" aria-label="Content state filters">
+    {% for f in view.filters %}
+      <a class="pr-chip"
+         href="/review-ops/publications?filter={{ f.id }}{% if view.selected_id %}&amp;draft={{ view.selected_id }}{% endif %}"
+         aria-current="{{ 'true' if view.content_filter == f.id else 'false' }}">{{ f.label }}</a>
+    {% endfor %}
+  </div>
+
+  {% if view.loading %}
+    <p class="pr-loading" role="status">Loading publication review queue…</p>
+  {% elif view.error %}
+    <p class="pr-error" role="alert">{{ view.error }}</p>
+  {% elif view.empty %}
+    <p class="pr-empty" role="status">{{ view.empty_message }}</p>
+  {% else %}
+  <div class="pr-layout">
+    <section class="pr-panel" aria-labelledby="pr-queue-heading" data-pagefind-ignore>
+      <div class="pr-panel-head">
+        <h2 id="pr-queue-heading">Queue</h2>
+        <span class="pr-meta">Needs-attention order · {{ view.queue|length }} shown</span>
+      </div>
+      <div class="pr-queue" role="listbox" aria-label="Publication drafts" id="pr-queue">
+        {% for item in view.queue %}
+          <a class="pr-queue-item{% if item.selected %} is-selected{% endif %}{% if item.review_state not in ['pending_review','pending'] %} is-handled{% endif %}"
+             role="option"
+             href="/review-ops/publications/{{ item.draft_id }}?filter={{ view.content_filter }}"
+             aria-selected="{{ 'true' if item.selected else 'false' }}"
+             data-draft-id="{{ item.draft_id }}"
+             data-attention="{{ item.needs_attention_rank }}">
+            <div class="pr-source">{{ item.source_name }}</div>
+            <strong>{{ item.title }}</strong>
+            <div class="pr-meta">
+              Published {{ item.publication_date or "unknown" }}
+              · confidence {{ item.publication_date_confidence }}
+              · cap {{ (item.captured_at or "")[:10] or "—" }}
+            </div>
+            <div class="pr-badges">
+              {% if item.content_class == 'readable' %}
+                <span class="pr-badge ok">{{ item.content_class_label }}</span>
+              {% elif item.content_class == 'transcript' %}
+                <span class="pr-badge info">{{ item.content_class_label }}</span>
+              {% elif item.content_class == 'problem' %}
+                <span class="pr-badge danger">{{ item.content_class_label }}</span>
+              {% else %}
+                <span class="pr-badge warn">{{ item.content_class_label }}</span>
+              {% endif %}
+              {% if item.duplicate and item.duplicate.status == 'probable' %}
+                <span class="pr-badge warn">Probable duplicate</span>
+              {% endif %}
+              {% if item.entity_match.status == 'missing' %}
+                <span class="pr-badge warn">Missing entity</span>
+              {% endif %}
+              {% if item.publication_date_confidence in ['low','none','unknown'] %}
+                <span class="pr-badge warn">Uncertain date</span>
+              {% endif %}
+              {% if item.blocker_count %}
+                <span class="pr-badge danger">Blocking</span>
+              {% endif %}
+              {% if item.review_state not in ['pending_review','pending'] %}
+                <span class="pr-badge pending">{{ item.review_state }}</span>
+              {% endif %}
+            </div>
+          </a>
+        {% else %}
+          <p class="pr-meta">No drafts match this filter.</p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="pr-panel pr-workspace" id="pr-workspace" aria-live="polite" data-pagefind-ignore>
+      {% if not view.detail %}
+        <p class="pr-empty" role="status">Select a draft from the queue.</p>
+      {% else %}
+        {% set d = view.detail %}
+        <header class="pr-panel-head">
+          <div>
+            <p class="eyebrow">Review workspace</p>
+            <h2 id="pr-workspace-title">{{ d.title }}</h2>
+            <p class="pr-meta">
+              State {{ d.review_state }} · version {{ d.review_version }}
+              · digest {{ d.review_content_digest }}
+              {% if d.fixture_state %} · fixture {{ d.fixture_state }}{% endif %}
+            </p>
+          </div>
+          {% if d.content_class == 'readable' %}
+            <span class="pr-badge ok">{{ d.content_class_label }}</span>
+          {% elif d.content_class == 'transcript' %}
+            <span class="pr-badge info">{{ d.content_class_label }}</span>
+          {% elif d.content_class == 'problem' %}
+            <span class="pr-badge danger">{{ d.content_class_label }}</span>
+          {% else %}
+            <span class="pr-badge warn">{{ d.content_class_label }}</span>
+          {% endif %}
+        </header>
+
+        <div class="pr-block" aria-label="Trust bands">
+          <h3>How to read this workspace</h3>
+          <ul class="pr-trust-bands">
+            <li><strong>Trusted source metadata</strong> — publisher identity, URLs, capture/discovery timestamps.</li>
+            <li><strong>Acquired body content</strong> — readable extract or transcript from acquisition (still untrusted until publication approval).</li>
+            <li><strong>Untrusted AI enrichment</strong> — suggestions only; never verified content.</li>
+            <li><strong>Proposed entity associations</strong> — operator aids; not entity creation.</li>
+            <li><strong>Atomic Evidence</strong> — {{ d.atomic_evidence_note }}</li>
+          </ul>
+        </div>
+
+        <div class="pr-block" aria-label="Source metadata">
+          <h3>Original source metadata</h3>
+          <dl class="pr-dl">
+            <dt>Source</dt><dd>{{ d.source_name }}</dd>
+            <dt>Source URL</dt>
+            <dd>
+              {% if d.source_url %}
+                <a href="{{ d.source_url }}" target="_blank" rel="noopener noreferrer">{{ d.source_url }}</a>
+              {% else %}
+                <em>Missing</em>
+              {% endif %}
+            </dd>
+            <dt>Source type</dt><dd>{{ d.source_type or "—" }}</dd>
+            <dt>Published</dt><dd>{{ d.publication_date or "unknown" }} · confidence {{ d.publication_date_confidence }}</dd>
+            <dt>Discovered</dt><dd>{{ d.discovered_at or "—" }}</dd>
+            <dt>Captured</dt><dd>{{ d.captured_at or "—" }}</dd>
+            <dt>Acquisition</dt><dd>{{ d.acquisition_outcome }}</dd>
+            <dt>Provenance digest</dt><dd><code>{{ d.provenance_digest }}</code></dd>
+            <dt>Content digest</dt><dd><code>{{ d.content_digest }}</code></dd>
+          </dl>
+        </div>
+
+        <div class="pr-block" aria-label="Readable content">
+          <h3>{% if d.body_kind == 'transcript' %}Transcript{% else %}Extracted readable body{% endif %}</h3>
+          {% if d.limited_explanation %}
+            <p class="pr-limited" role="status">{{ d.limited_explanation }}</p>
+          {% endif %}
+          {% if d.body_text %}
+            <pre class="pr-body">{{ d.body_text }}</pre>
+          {% elif not d.limited_explanation %}
+            <p class="pr-limited" role="status">No usable body.</p>
+          {% endif %}
+        </div>
+
+        {% if d.ai_enrichment %}
+        <div class="pr-block" aria-label="Untrusted AI enrichment">
+          <h3>Untrusted AI enrichment</h3>
+          <p class="pr-trust-note" role="status">This block is untrusted suggestion material and must not be read as acquired body or approved intelligence.</p>
+          <pre class="pr-body">{{ d.ai_enrichment }}</pre>
+        </div>
+        {% endif %}
+
+        <div class="pr-block" aria-label="Entities and duplicates">
+          <h3>Proposed entities &amp; duplicates</h3>
+          <p>
+            <strong>Entity match:</strong>
+            {% if d.entity_match.status == 'matched' %}
+              {% for e in d.entity_match.entities %}{{ e.name }} ({{ e.type }}){% if not loop.last %}, {% endif %}{% endfor %}
+            {% else %}
+              No entity match proposed
+            {% endif %}
+          </p>
+          {% if d.duplicate %}
+            <div class="pr-dup" role="status">
+              <strong>Probable duplicate</strong>
+              of {{ d.duplicate.candidate_title }} ({{ d.duplicate.candidate_id }})
+              {% if d.duplicate.similarity %} · similarity {{ d.duplicate.similarity }}{% endif %}.
+              Warning only — does not auto-block (contractual blockers are listed separately).
+            </div>
+          {% else %}
+            <p class="pr-meta">No duplicate candidates flagged.</p>
+          {% endif %}
+        </div>
+
+        <div class="pr-block" aria-label="Warnings">
+          <h3>Provenance warnings</h3>
+          {% if d.provenance_warnings %}
+            <ul class="pr-warn-list">
+              {% for w in d.provenance_warnings %}
+                <li>[{{ w.level }}] {{ w.message }} <em>(warning — not an automatic blocker)</em></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="pr-meta">None</p>
+          {% endif %}
+          <h3>Blocking warnings</h3>
+          {% if d.blocking_warnings %}
+            <ul class="pr-warn-list">
+              {% for w in d.blocking_warnings %}
+                <li class="is-block">[{{ w.level }}] {{ w.message }} <em>(contractual blocker)</em></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="pr-meta">None</p>
+          {% endif %}
+        </div>
+
+        <div class="pr-block" aria-label="Provenance chain">
+          <h3>Complete provenance chain</h3>
+          {% if d.provenance_chain %}
+            <ol class="pr-prov">
+              {% for p in d.provenance_chain %}
+                <li><strong>{{ p.step }}</strong> · {{ p.at }} — {{ p.detail }}</li>
+              {% endfor %}
+            </ol>
+          {% else %}
+            <p class="pr-meta">No provenance steps recorded.</p>
+          {% endif %}
+        </div>
+
+        <div class="pr-block" aria-label="Review history">
+          <h3>Review history</h3>
+          {% if d.review_history %}
+            <ul class="pr-history">
+              {% for h in d.review_history %}
+                <li>{{ h.at }} · {{ h.actor }} · <strong>{{ h.action }}</strong>{% if h.note %} — {{ h.note }}{% endif %}</li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="pr-meta">No prior review events.</p>
+          {% endif %}
+        </div>
+
+        <div class="pr-block" aria-label="Publication decisions">
+          <h3>Publication decisions</h3>
+          <p class="pr-meta">{{ d.decision_controls.reason }}</p>
+          <p class="pr-meta"><strong>Approve publication</strong> means publication approval only — not Evidence approval. Bulk approval is not available.</p>
+          <div class="pr-decisions" role="group" aria-label="Decision actions (disconnected)">
+            {% for action in d.decision_controls.actions %}
+              <button type="button"
+                      class="pr-decision-btn{% if action.id == 'approve_publication' %} primary{% endif %}"
+                      disabled
+                      aria-disabled="true"
+                      title="{{ d.decision_controls.reason }}"
+                      data-decision="{{ action.id }}"
+                      data-enabled="false">{{ action.label }}</button>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </section>
+  </div>
+  {% endif %}
+
+  <div class="pr-sr-only" id="pr-live" aria-live="polite" aria-atomic="true">
+    {% if view.detail %}Selected {{ view.detail.title }}{% elif view.empty %}Queue empty{% endif %}
+  </div>
+</div>
+<script>
+(function () {
+  var root = document.getElementById("publication-review-readonly");
+  if (!root) return;
+  var live = document.getElementById("pr-live");
+  function announce(msg) {
+    if (!live) return;
+    live.textContent = "";
+    requestAnimationFrame(function () { live.textContent = msg; });
+  }
+  // Guard: never bind decision POSTs in Slice 1.
+  root.querySelectorAll("[data-decision]").forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      announce("Decision service is not connected in this slice.");
+    });
+  });
+  document.addEventListener("keydown", function (e) {
+    var tag = (e.target && e.target.tagName || "").toLowerCase();
+    if (tag === "input" || tag === "textarea" || tag === "select") return;
+    var items = Array.prototype.slice.call(root.querySelectorAll(".pr-queue-item"));
+    if (!items.length) return;
+    var idx = items.findIndex(function (el) { return el.classList.contains("is-selected"); });
+    if (e.key === "j") {
+      var next = items[Math.min(items.length - 1, Math.max(0, idx) + 1)];
+      if (next) { next.focus(); window.location.href = next.getAttribute("href"); }
+      e.preventDefault();
+    } else if (e.key === "k") {
+      var prev = items[Math.max(0, idx - 1)];
+      if (prev) { prev.focus(); window.location.href = prev.getAttribute("href"); }
+      e.preventDefault();
+    }
+  });
+})();
+</script>
+{% endblock %}
