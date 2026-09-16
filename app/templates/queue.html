@@ -1,10 +1,22 @@
 {% extends "base.html" %}
 {% block title %}{{ label }} — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+{% if dimension == 'monitoring' %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/pvs_tokens.css">
+<link rel="stylesheet" href="/static/monitor_pvs.css">
+{% endif %}
+{% endblock %}
 {% block content %}
-<div class="{% if dimension in ('reading', 'monitoring', 'testing', 'commercial_position') %}v2-page{% endif %}">
+<div class="{% if dimension == 'monitoring' %}v2-page pvs-slice-4{% elif dimension in ('reading', 'testing', 'commercial_position') %}v2-page{% endif %}"{% if dimension == 'monitoring' %} id="monitor-workspace" data-pvs-slice="4"{% endif %}>
+{% if dimension == 'monitoring' %}
+<a class="skip-link" href="#alerts">Skip to alerts</a>
+{% endif %}
 <section class="page-heading{% if dimension in ('reading', 'monitoring', 'testing', 'commercial_position') %} v2-page-header{% endif %}">
   <div>
-    <p class="eyebrow">{{ eyebrow }}</p>
+    <p class="eyebrow">{% if dimension == 'monitoring' %}MONITOR · ALERTS + WATCHES{% else %}{{ eyebrow }}{% endif %}</p>
     <h1>{{ label }}</h1>
     <p class="also-known-as">{{ purpose }}</p>
   </div>
