@@ -33,6 +33,10 @@ DATE_PROXIMITY_EXACT_TITLE_DAYS = 14
 DATE_PROXIMITY_EVENT_DAYS = 7
 DATE_PROXIMITY_TRANSLATION_DAYS = 1
 MIN_EVENT_JACCARD = 0.45
+# Live /threads candidate-universe recency reuses the exact-title reprint
+# window. This is not a second matcher threshold and must not be widened
+# to inflate thread counts.
+THREAD_UNIVERSE_WINDOW_DAYS = DATE_PROXIMITY_EXACT_TITLE_DAYS
 THREAD_LINK_PREDICATES = {"corroborates", "contradicts", "follows_up", "same_signal", "duplicates"}
 STRONG_LINK_PREDICATES = {"follows_up", "same_signal"}
 PRIMARY_SOURCE_HINTS = (
@@ -118,6 +122,75 @@ def item_date(item: dict[str, Any]) -> date | None:
 def item_date_text(item: dict[str, Any]) -> str:
     day = item_date(item)
     return day.isoformat() if day else str(item.get("published_date") or item.get("date") or item.get("captured_date") or "")[:10]
+
+
+def in_thread_universe_window(record: dict[str, Any], *, as_of: date | None = None) -> bool:
+    """Whether a record falls inside the live thread universe recency window.
+
+    Date fields are the same ones ``item_date()`` already reads. The window
+    is ``THREAD_UNIVERSE_WINDOW_DAYS`` (aliased to
+    ``DATE_PROXIMITY_EXACT_TITLE_DAYS``). Future-dated records are excluded
+    here; a current-record seed is added separately.
+    """
+
+    day = item_date(record)
+    if day is None:
+        return False
+    as_of = as_of or date.today()
+    gap = (as_of - day).days
+    return 0 <= gap <= THREAD_UNIVERSE_WINDOW_DAYS
+
+
+def recent_published_for_threads(
+    published: list[dict[str, Any]],
+    *,
+    as_of: date | None = None,
+) -> list[dict[str, Any]]:
+    """Trusted published Evidence inside the existing recency window."""
+
+    out: list[dict[str, Any]] = []
+    for record in published:
+        if record.get("status") != "published":
+            continue
+        if not item_id(record):
+            continue
+        if in_thread_universe_window(record, as_of=as_of):
+            out.append(record)
+    return out
+
+
+def merge_thread_universe(*groups: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """First-wins by id. Preserves caller group order, then within-group order."""
+
+    out: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for group in groups:
+        for record in group:
+            rid = item_id(record)
+            if not rid or rid in seen:
+                continue
+            seen.add(rid)
+            out.append(record)
+    return out
+
+
+def live_thread_candidate_universe(
+    *,
+    pending: list[dict[str, Any]] | None = None,
+    seed: dict[str, Any] | None = None,
+    published: list[dict[str, Any]] | None = None,
+    as_of: date | None = None,
+) -> list[dict[str, Any]]:
+    """Live /threads universe: pending drafts + seed + recent trusted published.
+
+    Copies each record so later presentation annotation cannot mutate
+    repository objects or trust status. Matcher thresholds are unchanged.
+    """
+
+    pending_rows = [dict(row) for row in (pending or []) if item_id(row)]
+    seed_rows = [dict(seed)] if seed and item_id(seed) else []
+    recent = [dict(row) for row in recent_published_for_threads(published or [], as_of=as_of)]
+    return merge_thread_universe(pending_rows, seed_rows, recent)
 
 
 def _primary(item: dict[str, Any]) -> dict[str, Any]:

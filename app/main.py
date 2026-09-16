@@ -374,7 +374,12 @@ from app.services.signal_review import (
     present_review,
     triage_groups,
 )
-from app.services.story_threads import compress_recent_intelligence, expand_with_related, thread_for_item
+from app.services.story_threads import (
+    compress_recent_intelligence,
+    expand_with_related,
+    live_thread_candidate_universe,
+    thread_for_item,
+)
 from app.session_auth import (
     EnvSessionMiddleware,
     auth_template_context,
@@ -5206,6 +5211,86 @@ def _related_signal_rows(item_id: str) -> tuple[list[dict[str, Any]], list[dict[
     return related_signals, related_candidates
 
 
+def _annotate_live_thread_row(
+    row: dict[str, Any],
+    *,
+    entities: dict[str, Any],
+    source_index: dict[str, Any],
+    published_style: bool,
+) -> None:
+    """Presentation annotation for a live thread-universe copy.
+
+    Pending/seed rows resolve ``primary_subject`` via ``attribute_draft``.
+    Extra published rows keep the existing first company/variety
+    ``entity_ids`` convention so stored-link expansion stays comparable.
+    """
+
+    if published_style and not row.get("primary_subject"):
+        for entity_id in row.get("entity_ids") or []:
+            entity = entities.get(entity_id) or {}
+            if entity.get("entity_type") in {"company", "variety"}:
+                row["primary_subject"] = {
+                    "id": entity_id,
+                    "name": entity.get("name") or entity_id,
+                    "entity_type": entity.get("entity_type"),
+                }
+                break
+    if not row.get("primary_subject"):
+        attribution = attribute_draft(row, entities, sources=source_index)
+        if attribution.get("primary"):
+            row["primary_subject"] = attribution["primary"]
+    row["href"] = f"/intelligence/{row.get('id')}"
+    row["date"] = row.get("published_date") or row.get("captured_date") or ""
+    row["trust"] = "trusted" if row.get("status") == "published" else "pending"
+    row["trust_label"] = "Trusted" if row.get("status") == "published" else "Pending"
+
+
+def _live_story_thread_universe(
+    seed: dict[str, Any],
+    *,
+    entities: dict[str, Any],
+    source_index: dict[str, Any],
+) -> list[dict[str, Any]]:
+    """Candidate universe for live ``/threads`` and the full intelligence reader.
+
+    Pending drafts + the currently viewed record + recent trusted published
+    Evidence (existing ``DATE_PROXIMITY_EXACT_TITLE_DAYS`` window). Older
+    published records still enter only via one-hop ``expand_with_related``
+    so stored same-event links keep working without widening the matcher.
+    """
+
+    published = published_evidence()
+    seed_id = str(seed.get("id") or "")
+    universe = live_thread_candidate_universe(
+        pending=list_pending_drafts(),
+        seed=seed,
+        published=published,
+    )
+    for row in universe:
+        published_style = row.get("status") == "published" and str(row.get("id") or "") != seed_id
+        _annotate_live_thread_row(
+            row,
+            entities=entities,
+            source_index=source_index,
+            published_style=published_style,
+        )
+    published_rows: list[dict[str, Any]] = []
+    for rec in published:
+        rec = dict(rec)
+        _annotate_live_thread_row(
+            rec,
+            entities=entities,
+            source_index=source_index,
+            published_style=True,
+        )
+        published_rows.append(rec)
+    universe = expand_with_related(universe, published_rows)
+    for row in universe:
+        if not row.get("href"):
+            row["href"] = f"/intelligence/{row.get('id')}"
+    return universe
+
+
 def _intelligence_page_context(
     request: Request,
     record: dict[str, Any],
@@ -5245,18 +5330,10 @@ def _intelligence_page_context(
         ]})
     story_thread = None
     if not overlay and record.get("id"):
-        universe = [row for row in list_pending_drafts() if row.get("id")]
-        if record.get("status") == "published":
-            universe.append(record)
-        elif not any(str(row.get("id")) == str(record.get("id")) for row in universe):
-            universe.append(record)
-        for row in universe:
-            if row.get("primary_subject"):
-                continue
-            row_attr = attribute_draft(row, entities, sources=source_index)
-            if row_attr.get("primary"):
-                row["primary_subject"] = row_attr["primary"]
-        found = thread_for_item(str(record.get("id")), universe)
+        found = thread_for_item(
+            str(record.get("id")),
+            _live_story_thread_universe(record, entities=entities, source_index=source_index),
+        )
         if found and int(found.get("source_count") or 0) > 1:
             story_thread = found
     item_id = str(record.get("id") or "")
@@ -5316,38 +5393,7 @@ def story_thread_reader(request: Request, item_id: str) -> HTMLResponse:
         raise HTTPException(status_code=404, detail="Story thread not found")
     source_index = {str(source.get("id")): source for source in load_sources() if source.get("id")}
     entities = entity_index()
-    universe = [row for row in list_pending_drafts() if row.get("id")]
-    if seed.get("status") == "published" or not any(str(row.get("id")) == item_id for row in universe):
-        universe.append(seed)
-    for row in universe:
-        attribution = attribute_draft(row, entities, sources=source_index)
-        if attribution.get("primary"):
-            row["primary_subject"] = attribution["primary"]
-        row["href"] = f"/intelligence/{row.get('id')}"
-        row["date"] = row.get("published_date") or row.get("captured_date") or ""
-        row["trust"] = "trusted" if row.get("status") == "published" else "pending"
-        row["trust_label"] = "Trusted" if row.get("status") == "published" else "Pending"
-    published_rows = []
-    for rec in published_evidence():
-        rec = dict(rec)
-        for entity_id in rec.get("entity_ids") or []:
-            entity = entities.get(entity_id) or {}
-            if entity.get("entity_type") in {"company", "variety"}:
-                rec["primary_subject"] = {
-                    "id": entity_id,
-                    "name": entity.get("name") or entity_id,
-                    "entity_type": entity.get("entity_type"),
-                }
-                break
-        rec["href"] = f"/intelligence/{rec.get('id')}"
-        rec["date"] = rec.get("published_date") or rec.get("captured_date") or ""
-        rec["trust"] = "trusted"
-        rec["trust_label"] = "Trusted"
-        published_rows.append(rec)
-    universe = expand_with_related(universe, published_rows)
-    for row in universe:
-        if not row.get("href"):
-            row["href"] = f"/intelligence/{row.get('id')}"
+    universe = _live_story_thread_universe(seed, entities=entities, source_index=source_index)
     thread = thread_for_item(item_id, universe)
     if thread is None:
         raise HTTPException(status_code=404, detail="Story thread not found")
