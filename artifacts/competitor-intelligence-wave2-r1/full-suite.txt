@@ -1,0 +1,993 @@
+EEEEEF.................................................................. [  2%]
+........................................................................ [  5%]
+........................................................................ [  7%]
+....................................................................F... [ 10%]
+..............F......................................................... [ 12%]
+........................................................................ [ 15%]
+........................................................................ [ 17%]
+........................................................................ [ 20%]
+..................................................................F..... [ 22%]
+........................................................................ [ 25%]
+........................................................................ [ 27%]
+........................................................................ [ 30%]
+........................................................................ [ 32%]
+........................................................................ [ 35%]
+............................................F...............F....F...... [ 37%]
+........................................................................ [ 40%]
+........................................................................ [ 43%]
+........................................................................ [ 45%]
+.......................................................................F [ 48%]
+..................FF.................................................... [ 50%]
+........................................................................ [ 53%]
+..F..................................................................... [ 55%]
+........................................................................ [ 58%]
+........................................................................ [ 60%]
+........................................................................ [ 63%]
+.............................................................F.......... [ 65%]
+........................................................................ [ 68%]
+........................................................................ [ 70%]
+........................................................................ [ 73%]
+........................................................................ [ 75%]
+........................................................................ [ 78%]
+........................................................................ [ 81%]
+..........................................................F............. [ 83%]
+.......F................................................................ [ 86%]
+........................................................................ [ 88%]
+........................................................................ [ 91%]
+........................................................................ [ 93%]
+..........................................F............................. [ 96%]
+......................................F................................. [ 98%]
+....................................                                     [100%]
+=================================== ERRORS ====================================
+_ ERROR at setup of test_package_manifest_structure_families_order_and_no_drafts _
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x00000251CCF443E0>, _basetemp=WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def live_package(tmp_path_factory):
+        output = tmp_path_factory.mktemp("intelligence-package") / "package"
+        exporter = IntelligencePackageExporter(
+            get_repositories(DEFAULT_DATA_DIR, SCHEMAS_DIR), SCHEMAS_DIR,
+            generated_on="2026-08-14T12:00:00Z",
+        )
+>       manifest = exporter.export(output)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\exports\test_intelligence_package.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <app.exports.intelligence_package.IntelligencePackageExporter object at 0x00000251E0EDD7F0>
+output = WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749/intelligence-package0/package')
+overwrite = False
+
+    def export(self, output: Path, *, overwrite: bool = False) -> dict[str, Any]:
+        if output.exists() and any(output.iterdir()):
+            if not overwrite:
+                raise FileExistsError(f"output directory is not empty: {output}")
+            raise FileExistsError("refusing destructive overwrite of a non-empty package directory")
+        output.mkdir(parents=True, exist_ok=True)
+        records, exclusions = self.collect()
+        exported: dict[str, list[dict[str, Any]]] = {}
+        for family, values in records.items():
+            exported[family] = []
+            for record in values:
+                item = {**deepcopy(record), "_package_ref": record["id"], "_lineage_depth": DEPTHS[family]}
+                exported[family].append(item)
+                folder = output / FOLDERS[family]
+                if family == "entities":
+                    folder /= record["entity_type"]
+                folder.mkdir(parents=True, exist_ok=True)
+                (folder / f"{record['id']}.json").write_bytes(_json_bytes(item))
+        claims = [r for r in exported["facts"] if r.get("classification") == "claim"]
+        (output / "claims").mkdir(exist_ok=True)
+        for record in claims:
+            (output / "claims" / f"{record['id']}.json").write_bytes(_json_bytes(record))
+        lineage = build_lineage(records)
+        (output / "source-lineage.json").write_bytes(_json_bytes(lineage))
+        content_hash = hashlib.sha256(_json_bytes({"records": exported, "claims": claims, "lineage": lineage})).hexdigest()
+        counts = {SINGULAR[family]: len(values) for family, values in exported.items()}
+        counts["claim"] = len(claims)
+        manifest = {
+            "package_id": f"intelligence-os-v2-export-{self.generated_on[:10]}", "package_version": PACKAGE_VERSION,
+            "intelligence_os_version": INTELLIGENCE_OS_VERSION, "domain_pack": {"id": "berries", "version": "1.0.0"},
+            "generated_on": self.generated_on, "generated_by": {"type": "system", "id": "minimal-exporter"},
+            "workspace_id": "workspace-berries-global-compatibility", "scope": {"description": "Published Evidence plus current non-Evidence operational records; known V1 fictional seed/demo records excluded.", "filter": {"evidence_status": ["published"], "non_evidence_status": "preserved"}},
+            "format": "json", "counts": counts, "content_hash": f"sha256:{content_hash}",
+            "schema_versions": {SINGULAR[family]: "current" for family in FAMILIES if family != "sources"},
+            "provenance_completeness": "full", "review_state_included": ["published", "proposed"], "exclusions": exclusions,
+            "notes": "Minimal BL-035 export. Evidence is published-only; six legacy Signals retain proposed status so all operational families round-trip honestly. Workspace id is compatibility metadata; no persisted Workspace record exists. Sources are a JSON-format extension. Attachments are not included.",
+        }
+        (output / "manifest.json").write_bytes(_json_bytes(manifest))
+        errors = validate_package(output, self.schemas_dir)
+        if errors:
+>           raise ValueError("package validation failed: " + "; ".join(errors))
+E           ValueError: package validation failed: orphan_check is not empty
+
+app\exports\intelligence_package.py:98: ValueError
+___________ ERROR at setup of test_export_is_content_deterministic ____________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x00000251CCF443E0>, _basetemp=WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def live_package(tmp_path_factory):
+        output = tmp_path_factory.mktemp("intelligence-package") / "package"
+        exporter = IntelligencePackageExporter(
+            get_repositories(DEFAULT_DATA_DIR, SCHEMAS_DIR), SCHEMAS_DIR,
+            generated_on="2026-08-14T12:00:00Z",
+        )
+>       manifest = exporter.export(output)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\exports\test_intelligence_package.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <app.exports.intelligence_package.IntelligencePackageExporter object at 0x00000251E0EDD7F0>
+output = WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749/intelligence-package0/package')
+overwrite = False
+
+    def export(self, output: Path, *, overwrite: bool = False) -> dict[str, Any]:
+        if output.exists() and any(output.iterdir()):
+            if not overwrite:
+                raise FileExistsError(f"output directory is not empty: {output}")
+            raise FileExistsError("refusing destructive overwrite of a non-empty package directory")
+        output.mkdir(parents=True, exist_ok=True)
+        records, exclusions = self.collect()
+        exported: dict[str, list[dict[str, Any]]] = {}
+        for family, values in records.items():
+            exported[family] = []
+            for record in values:
+                item = {**deepcopy(record), "_package_ref": record["id"], "_lineage_depth": DEPTHS[family]}
+                exported[family].append(item)
+                folder = output / FOLDERS[family]
+                if family == "entities":
+                    folder /= record["entity_type"]
+                folder.mkdir(parents=True, exist_ok=True)
+                (folder / f"{record['id']}.json").write_bytes(_json_bytes(item))
+        claims = [r for r in exported["facts"] if r.get("classification") == "claim"]
+        (output / "claims").mkdir(exist_ok=True)
+        for record in claims:
+            (output / "claims" / f"{record['id']}.json").write_bytes(_json_bytes(record))
+        lineage = build_lineage(records)
+        (output / "source-lineage.json").write_bytes(_json_bytes(lineage))
+        content_hash = hashlib.sha256(_json_bytes({"records": exported, "claims": claims, "lineage": lineage})).hexdigest()
+        counts = {SINGULAR[family]: len(values) for family, values in exported.items()}
+        counts["claim"] = len(claims)
+        manifest = {
+            "package_id": f"intelligence-os-v2-export-{self.generated_on[:10]}", "package_version": PACKAGE_VERSION,
+            "intelligence_os_version": INTELLIGENCE_OS_VERSION, "domain_pack": {"id": "berries", "version": "1.0.0"},
+            "generated_on": self.generated_on, "generated_by": {"type": "system", "id": "minimal-exporter"},
+            "workspace_id": "workspace-berries-global-compatibility", "scope": {"description": "Published Evidence plus current non-Evidence operational records; known V1 fictional seed/demo records excluded.", "filter": {"evidence_status": ["published"], "non_evidence_status": "preserved"}},
+            "format": "json", "counts": counts, "content_hash": f"sha256:{content_hash}",
+            "schema_versions": {SINGULAR[family]: "current" for family in FAMILIES if family != "sources"},
+            "provenance_completeness": "full", "review_state_included": ["published", "proposed"], "exclusions": exclusions,
+            "notes": "Minimal BL-035 export. Evidence is published-only; six legacy Signals retain proposed status so all operational families round-trip honestly. Workspace id is compatibility metadata; no persisted Workspace record exists. Sources are a JSON-format extension. Attachments are not included.",
+        }
+        (output / "manifest.json").write_bytes(_json_bytes(manifest))
+        errors = validate_package(output, self.schemas_dir)
+        if errors:
+>           raise ValueError("package validation failed: " + "; ".join(errors))
+E           ValueError: package validation failed: orphan_check is not empty
+
+app\exports\intelligence_package.py:98: ValueError
+_______ ERROR at setup of test_lineage_and_validator_accept_live_export _______
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x00000251CCF443E0>, _basetemp=WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def live_package(tmp_path_factory):
+        output = tmp_path_factory.mktemp("intelligence-package") / "package"
+        exporter = IntelligencePackageExporter(
+            get_repositories(DEFAULT_DATA_DIR, SCHEMAS_DIR), SCHEMAS_DIR,
+            generated_on="2026-08-14T12:00:00Z",
+        )
+>       manifest = exporter.export(output)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\exports\test_intelligence_package.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <app.exports.intelligence_package.IntelligencePackageExporter object at 0x00000251E0EDD7F0>
+output = WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749/intelligence-package0/package')
+overwrite = False
+
+    def export(self, output: Path, *, overwrite: bool = False) -> dict[str, Any]:
+        if output.exists() and any(output.iterdir()):
+            if not overwrite:
+                raise FileExistsError(f"output directory is not empty: {output}")
+            raise FileExistsError("refusing destructive overwrite of a non-empty package directory")
+        output.mkdir(parents=True, exist_ok=True)
+        records, exclusions = self.collect()
+        exported: dict[str, list[dict[str, Any]]] = {}
+        for family, values in records.items():
+            exported[family] = []
+            for record in values:
+                item = {**deepcopy(record), "_package_ref": record["id"], "_lineage_depth": DEPTHS[family]}
+                exported[family].append(item)
+                folder = output / FOLDERS[family]
+                if family == "entities":
+                    folder /= record["entity_type"]
+                folder.mkdir(parents=True, exist_ok=True)
+                (folder / f"{record['id']}.json").write_bytes(_json_bytes(item))
+        claims = [r for r in exported["facts"] if r.get("classification") == "claim"]
+        (output / "claims").mkdir(exist_ok=True)
+        for record in claims:
+            (output / "claims" / f"{record['id']}.json").write_bytes(_json_bytes(record))
+        lineage = build_lineage(records)
+        (output / "source-lineage.json").write_bytes(_json_bytes(lineage))
+        content_hash = hashlib.sha256(_json_bytes({"records": exported, "claims": claims, "lineage": lineage})).hexdigest()
+        counts = {SINGULAR[family]: len(values) for family, values in exported.items()}
+        counts["claim"] = len(claims)
+        manifest = {
+            "package_id": f"intelligence-os-v2-export-{self.generated_on[:10]}", "package_version": PACKAGE_VERSION,
+            "intelligence_os_version": INTELLIGENCE_OS_VERSION, "domain_pack": {"id": "berries", "version": "1.0.0"},
+            "generated_on": self.generated_on, "generated_by": {"type": "system", "id": "minimal-exporter"},
+            "workspace_id": "workspace-berries-global-compatibility", "scope": {"description": "Published Evidence plus current non-Evidence operational records; known V1 fictional seed/demo records excluded.", "filter": {"evidence_status": ["published"], "non_evidence_status": "preserved"}},
+            "format": "json", "counts": counts, "content_hash": f"sha256:{content_hash}",
+            "schema_versions": {SINGULAR[family]: "current" for family in FAMILIES if family != "sources"},
+            "provenance_completeness": "full", "review_state_included": ["published", "proposed"], "exclusions": exclusions,
+            "notes": "Minimal BL-035 export. Evidence is published-only; six legacy Signals retain proposed status so all operational families round-trip honestly. Workspace id is compatibility metadata; no persisted Workspace record exists. Sources are a JSON-format extension. Attachments are not included.",
+        }
+        (output / "manifest.json").write_bytes(_json_bytes(manifest))
+        errors = validate_package(output, self.schemas_dir)
+        if errors:
+>           raise ValueError("package validation failed: " + "; ".join(errors))
+E           ValueError: package validation failed: orphan_check is not empty
+
+app\exports\intelligence_package.py:98: ValueError
+___ ERROR at setup of test_validator_detects_intentional_dangling_reference ___
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x00000251CCF443E0>, _basetemp=WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def live_package(tmp_path_factory):
+        output = tmp_path_factory.mktemp("intelligence-package") / "package"
+        exporter = IntelligencePackageExporter(
+            get_repositories(DEFAULT_DATA_DIR, SCHEMAS_DIR), SCHEMAS_DIR,
+            generated_on="2026-08-14T12:00:00Z",
+        )
+>       manifest = exporter.export(output)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\exports\test_intelligence_package.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <app.exports.intelligence_package.IntelligencePackageExporter object at 0x00000251E0EDD7F0>
+output = WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749/intelligence-package0/package')
+overwrite = False
+
+    def export(self, output: Path, *, overwrite: bool = False) -> dict[str, Any]:
+        if output.exists() and any(output.iterdir()):
+            if not overwrite:
+                raise FileExistsError(f"output directory is not empty: {output}")
+            raise FileExistsError("refusing destructive overwrite of a non-empty package directory")
+        output.mkdir(parents=True, exist_ok=True)
+        records, exclusions = self.collect()
+        exported: dict[str, list[dict[str, Any]]] = {}
+        for family, values in records.items():
+            exported[family] = []
+            for record in values:
+                item = {**deepcopy(record), "_package_ref": record["id"], "_lineage_depth": DEPTHS[family]}
+                exported[family].append(item)
+                folder = output / FOLDERS[family]
+                if family == "entities":
+                    folder /= record["entity_type"]
+                folder.mkdir(parents=True, exist_ok=True)
+                (folder / f"{record['id']}.json").write_bytes(_json_bytes(item))
+        claims = [r for r in exported["facts"] if r.get("classification") == "claim"]
+        (output / "claims").mkdir(exist_ok=True)
+        for record in claims:
+            (output / "claims" / f"{record['id']}.json").write_bytes(_json_bytes(record))
+        lineage = build_lineage(records)
+        (output / "source-lineage.json").write_bytes(_json_bytes(lineage))
+        content_hash = hashlib.sha256(_json_bytes({"records": exported, "claims": claims, "lineage": lineage})).hexdigest()
+        counts = {SINGULAR[family]: len(values) for family, values in exported.items()}
+        counts["claim"] = len(claims)
+        manifest = {
+            "package_id": f"intelligence-os-v2-export-{self.generated_on[:10]}", "package_version": PACKAGE_VERSION,
+            "intelligence_os_version": INTELLIGENCE_OS_VERSION, "domain_pack": {"id": "berries", "version": "1.0.0"},
+            "generated_on": self.generated_on, "generated_by": {"type": "system", "id": "minimal-exporter"},
+            "workspace_id": "workspace-berries-global-compatibility", "scope": {"description": "Published Evidence plus current non-Evidence operational records; known V1 fictional seed/demo records excluded.", "filter": {"evidence_status": ["published"], "non_evidence_status": "preserved"}},
+            "format": "json", "counts": counts, "content_hash": f"sha256:{content_hash}",
+            "schema_versions": {SINGULAR[family]: "current" for family in FAMILIES if family != "sources"},
+            "provenance_completeness": "full", "review_state_included": ["published", "proposed"], "exclusions": exclusions,
+            "notes": "Minimal BL-035 export. Evidence is published-only; six legacy Signals retain proposed status so all operational families round-trip honestly. Workspace id is compatibility metadata; no persisted Workspace record exists. Sources are a JSON-format extension. Attachments are not included.",
+        }
+        (output / "manifest.json").write_bytes(_json_bytes(manifest))
+        errors = validate_package(output, self.schemas_dir)
+        if errors:
+>           raise ValueError("package validation failed: " + "; ".join(errors))
+E           ValueError: package validation failed: orphan_check is not empty
+
+app\exports\intelligence_package.py:98: ValueError
+_ ERROR at setup of test_export_round_trips_all_supported_content_through_fresh_repositories _
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x00000251CCF443E0>, _basetemp=WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def live_package(tmp_path_factory):
+        output = tmp_path_factory.mktemp("intelligence-package") / "package"
+        exporter = IntelligencePackageExporter(
+            get_repositories(DEFAULT_DATA_DIR, SCHEMAS_DIR), SCHEMAS_DIR,
+            generated_on="2026-08-14T12:00:00Z",
+        )
+>       manifest = exporter.export(output)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\exports\test_intelligence_package.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <app.exports.intelligence_package.IntelligencePackageExporter object at 0x00000251E0EDD7F0>
+output = WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749/intelligence-package0/package')
+overwrite = False
+
+    def export(self, output: Path, *, overwrite: bool = False) -> dict[str, Any]:
+        if output.exists() and any(output.iterdir()):
+            if not overwrite:
+                raise FileExistsError(f"output directory is not empty: {output}")
+            raise FileExistsError("refusing destructive overwrite of a non-empty package directory")
+        output.mkdir(parents=True, exist_ok=True)
+        records, exclusions = self.collect()
+        exported: dict[str, list[dict[str, Any]]] = {}
+        for family, values in records.items():
+            exported[family] = []
+            for record in values:
+                item = {**deepcopy(record), "_package_ref": record["id"], "_lineage_depth": DEPTHS[family]}
+                exported[family].append(item)
+                folder = output / FOLDERS[family]
+                if family == "entities":
+                    folder /= record["entity_type"]
+                folder.mkdir(parents=True, exist_ok=True)
+                (folder / f"{record['id']}.json").write_bytes(_json_bytes(item))
+        claims = [r for r in exported["facts"] if r.get("classification") == "claim"]
+        (output / "claims").mkdir(exist_ok=True)
+        for record in claims:
+            (output / "claims" / f"{record['id']}.json").write_bytes(_json_bytes(record))
+        lineage = build_lineage(records)
+        (output / "source-lineage.json").write_bytes(_json_bytes(lineage))
+        content_hash = hashlib.sha256(_json_bytes({"records": exported, "claims": claims, "lineage": lineage})).hexdigest()
+        counts = {SINGULAR[family]: len(values) for family, values in exported.items()}
+        counts["claim"] = len(claims)
+        manifest = {
+            "package_id": f"intelligence-os-v2-export-{self.generated_on[:10]}", "package_version": PACKAGE_VERSION,
+            "intelligence_os_version": INTELLIGENCE_OS_VERSION, "domain_pack": {"id": "berries", "version": "1.0.0"},
+            "generated_on": self.generated_on, "generated_by": {"type": "system", "id": "minimal-exporter"},
+            "workspace_id": "workspace-berries-global-compatibility", "scope": {"description": "Published Evidence plus current non-Evidence operational records; known V1 fictional seed/demo records excluded.", "filter": {"evidence_status": ["published"], "non_evidence_status": "preserved"}},
+            "format": "json", "counts": counts, "content_hash": f"sha256:{content_hash}",
+            "schema_versions": {SINGULAR[family]: "current" for family in FAMILIES if family != "sources"},
+            "provenance_completeness": "full", "review_state_included": ["published", "proposed"], "exclusions": exclusions,
+            "notes": "Minimal BL-035 export. Evidence is published-only; six legacy Signals retain proposed status so all operational families round-trip honestly. Workspace id is compatibility metadata; no persisted Workspace record exists. Sources are a JSON-format extension. Attachments are not included.",
+        }
+        (output / "manifest.json").write_bytes(_json_bytes(manifest))
+        errors = validate_package(output, self.schemas_dir)
+        if errors:
+>           raise ValueError("package validation failed: " + "; ".join(errors))
+E           ValueError: package validation failed: orphan_check is not empty
+
+app\exports\intelligence_package.py:98: ValueError
+================================== FAILURES ===================================
+________ test_exporter_reads_core_data_only_via_repository_interfaces _________
+
+tmp_path = WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749/test_exporter_reads_core_data_0')
+
+    def test_exporter_reads_core_data_only_via_repository_interfaces(tmp_path: Path) -> None:
+        real = get_repositories(DEFAULT_DATA_DIR, SCHEMAS_DIR)
+        calls = []
+    
+        class Spy:
+            def __getattr__(self, name):
+                repository = getattr(real, name)
+                return type("RepoSpy", (), {"list": lambda self, n=name, r=repository: calls.append(n) or r.list()})()
+    
+>       IntelligencePackageExporter(Spy(), SCHEMAS_DIR, generated_on="2026-08-14T12:00:00Z").export(tmp_path / "package")
+
+tests\exports\test_intelligence_package.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <app.exports.intelligence_package.IntelligencePackageExporter object at 0x00000251E38FDBD0>
+output = WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749/test_exporter_reads_core_data_0/package')
+overwrite = False
+
+    def export(self, output: Path, *, overwrite: bool = False) -> dict[str, Any]:
+        if output.exists() and any(output.iterdir()):
+            if not overwrite:
+                raise FileExistsError(f"output directory is not empty: {output}")
+            raise FileExistsError("refusing destructive overwrite of a non-empty package directory")
+        output.mkdir(parents=True, exist_ok=True)
+        records, exclusions = self.collect()
+        exported: dict[str, list[dict[str, Any]]] = {}
+        for family, values in records.items():
+            exported[family] = []
+            for record in values:
+                item = {**deepcopy(record), "_package_ref": record["id"], "_lineage_depth": DEPTHS[family]}
+                exported[family].append(item)
+                folder = output / FOLDERS[family]
+                if family == "entities":
+                    folder /= record["entity_type"]
+                folder.mkdir(parents=True, exist_ok=True)
+                (folder / f"{record['id']}.json").write_bytes(_json_bytes(item))
+        claims = [r for r in exported["facts"] if r.get("classification") == "claim"]
+        (output / "claims").mkdir(exist_ok=True)
+        for record in claims:
+            (output / "claims" / f"{record['id']}.json").write_bytes(_json_bytes(record))
+        lineage = build_lineage(records)
+        (output / "source-lineage.json").write_bytes(_json_bytes(lineage))
+        content_hash = hashlib.sha256(_json_bytes({"records": exported, "claims": claims, "lineage": lineage})).hexdigest()
+        counts = {SINGULAR[family]: len(values) for family, values in exported.items()}
+        counts["claim"] = len(claims)
+        manifest = {
+            "package_id": f"intelligence-os-v2-export-{self.generated_on[:10]}", "package_version": PACKAGE_VERSION,
+            "intelligence_os_version": INTELLIGENCE_OS_VERSION, "domain_pack": {"id": "berries", "version": "1.0.0"},
+            "generated_on": self.generated_on, "generated_by": {"type": "system", "id": "minimal-exporter"},
+            "workspace_id": "workspace-berries-global-compatibility", "scope": {"description": "Published Evidence plus current non-Evidence operational records; known V1 fictional seed/demo records excluded.", "filter": {"evidence_status": ["published"], "non_evidence_status": "preserved"}},
+            "format": "json", "counts": counts, "content_hash": f"sha256:{content_hash}",
+            "schema_versions": {SINGULAR[family]: "current" for family in FAMILIES if family != "sources"},
+            "provenance_completeness": "full", "review_state_included": ["published", "proposed"], "exclusions": exclusions,
+            "notes": "Minimal BL-035 export. Evidence is published-only; six legacy Signals retain proposed status so all operational families round-trip honestly. Workspace id is compatibility metadata; no persisted Workspace record exists. Sources are a JSON-format extension. Attachments are not included.",
+        }
+        (output / "manifest.json").write_bytes(_json_bytes(manifest))
+        errors = validate_package(output, self.schemas_dir)
+        if errors:
+>           raise ValueError("package validation failed: " + "; ".join(errors))
+E           ValueError: package validation failed: orphan_check is not empty
+
+app\exports\intelligence_package.py:98: ValueError
+_____ test_today_is_a_morning_console_with_source_problems_and_next_work ______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000251D04F9860>
+tmp_path = WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749/test_today_is_a_morning_consol0')
+
+    def test_today_is_a_morning_console_with_source_problems_and_next_work(monkeypatch, tmp_path: Path) -> None:
+        monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
+        monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
+        (tmp_path / "inbox").mkdir(parents=True, exist_ok=True)
+        main._NAV_WORK_CACHE["key"] = None
+        main._NAV_WORK_CACHE["value"] = None
+        expected = {
+            "system_state": "DEGRADED",
+            "current_through": "2026-08-24T12:00:00+00:00",
+            "last_successful_collection": "2026-08-24T12:00:00+00:00",
+            "last_new_intelligence": "2026-08-24T11:58:00+00:00",
+            "can_claim_current": False,
+            "counts": {"scheduled_sources": 73, "overdue": 2, "failing": 1, "blocked": 0},
+        }
+        monkeypatch.setattr("app.services.today.build_runtime_freshness", lambda **_kwargs: expected.copy())
+        monkeypatch.setattr(main, "published_evidence", lambda: [_ev("new-low", "2026-08-24")])
+        monkeypatch.setattr(main, "all_signals", lambda: [])
+        monkeypatch.setattr(main, "all_assessments", lambda: [])
+        monkeypatch.setattr(main, "load_sources", lambda: [])
+        page = TestClient(main.app).get("/today")
+        assert page.status_code == 200
+>       assert "Berry news, in context." in page.text
+E       assert 'Berry news, in context.' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+E        +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>' = <Response [200 OK]>.text
+
+tests\test_analyst_dogfood_ux.py:62: AssertionError
+____________ test_home_opens_news_without_fictional_seed_reporting ____________
+
+    def test_home_opens_news_without_fictional_seed_reporting() -> None:
+        response = client.get("/")
+        assert response.status_code == 200
+        assert response.url.path == "/today"
+>       assert "Focus the news" in response.text
+E       assert 'Focus the news' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+E        +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>' = <Response [200 OK]>.text
+
+tests\test_app.py:19: AssertionError
+___ test_live_source_repository_includes_all_onboarded_sources_generically ____
+
+tmp_path = WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749/test_live_source_repository_in0')
+
+    def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_path):
+        repos = main.get_repositories(ROOT / "data", main.SCHEMAS_DIR)
+        report = _service(tmp_path, repos, tmp_path / "inbox").build()
+        expected = {
+            "source-the-packer-podcast", "source-fresh-takes-on-tech-podcast", "source-produce-buzzers-podcast",
+            "source-global-fresh-series-podcast", "source-fresh-cred-podcast", "source-lubera-edibles-podcast",
+            "source-blueberries-tv-youtube",
+        }
+        # 75 adapter-configured Sources = 73 plus two selective Company feeds
+        # added by Direct Source Upgrade + Coverage Gap Closure V1.
+        # Source Reliability Remediation V1 explicitly pauses one of those
+        # (Growing Produce - Berries) as OPERATOR_ACTION_REQUIRED, leaving 74
+        # currently collection-eligible while freshness still accounts for the
+        # blocked Source as scheduled coverage.
+        # Coverage Expansion V1 (17 article_rss and 3 sitemap_xml). 194 = 174
+        # plus those same 20 sources.
+        # 53 = 50 plus 3 new discoverable sources added for the Blackberry/
+        # Raspberry Vertical V1 mission (2026-08-22): source-news-search-
+        # caneberry-global, source-news-search-mexico-zarzamora, and
+        # source-news-search-chile-frambuesa, all with real news_search_rss
+        # discovery.adapter blocks. 174 = 171 plus those same 3 sources.
+        # 50 = 47 plus 3 new discoverable sources added for the Unknown-Event
+        # Discovery + Query Coverage V3 mission (2026-08-23): FreshPlaza and
+        # Fruitnet global article_rss feeds, and a new sec_edgar_search_json
+        # adapter (SEC EDGAR full-text search, CIK-scoped to Mission Produce),
+        # all with real discovery.adapter blocks. 171 = 168 plus those same 3
+        # sources.
+        # 47 = 43 plus 4 new discoverable sources added for the Global
+        # Qualitative Coverage Expansion V2 mission (2026-08-22): the UK Food
+        # Standards Agency's food-alerts API (a new government_alert_json
+        # adapter type, also discoverable) and 3 Google News news_search_rss
+        # searches, all with real discovery.adapter blocks. 168 = 164 plus
+        # those same 4 sources.
+        # 43 = 29 plus 14 new discoverable sources added for the Global
+        # Qualitative Coverage Expansion V1 mission (2026-08-21): 13 Google
+        # News news_search_rss searches (geography/language/topic/retailer-
+        # scoped, all with real discovery.adapter blocks) and 1 openFDA
+        # government_recall_json source (a new adapter type, also
+        # discoverable). 164 = 150 plus those same 14 sources.
+        # 150 = 149 plus source-nasa-power-daily-point, added for the Weather /
+        # Climate Context V1 mission (2026-08-21) -- no discovery.adapter, runs
+        # via scripts/monitor_weather_intelligence.py instead, so it never
+        # counted toward sources_discoverable. 149 = 148 plus
+        # source-un-comtrade-public-preview, added for the Global Trade /
+        # Customs Intelligence V1 mission (2026-08-21). 148 = 147 plus
+        # source-cpvo-public-register, added for the Variety Intelligence
+        # Backbone V1 mission (2026-08-21). 147 = 142 plus 5 sources added for
+        # the Mainstream News + Regulatory Coverage Recall Benchmark V1 mission
+        # (2026-08-21): 2 Federal Register government_register_json sources
+        # and 3 Google News news_search_rss sources, all with real
+        # discovery.adapter blocks, proven against real network traffic.
+        # 198 = 196 plus source-uk-pvro-seeds-gazette and source-za-pbr-dalrrd,
+        # added for Variety Universe Expansion V1 (2026-08-26) as reference
+        # Sources with no discovery.adapter (structured import only).
+        # 200 = 198 plus source-news-search-italian-berry and
+        # source-20260901-blueberrybreeding-newsroom, added for Source
+        # Coverage Gap Closure V1 (2026-09-01), both with real
+        # discovery.adapter blocks and both collection-eligible (76 = 74 + 2).
+        # 201 = 200 plus source-industry-pulse-catchnet, added for Continuous
+        # Newsroom Intake V1 (2026-09-01) -- reference type, no discovery.adapter,
+        # enabled=false, so sources_discoverable stays 76 unchanged.
+>       assert report.sources_configured == 201 and report.sources_discoverable == 76
+E       AssertionError: assert (205 == 201)
+E        +  where 205 = CollectionStatusReport(generated_at='2026-08-16T12:00:00+00:00', source_filter=None, sources_configured=205, sources_d...', recommended_next_action='run collection', source_schedule={'due': 0, 'not_due': 0, 'blocked': 0, 'unscheduled': 78}).sources_configured
+
+tests\test_collection_status.py:272: AssertionError
+____ test_coverage_mix_and_source_counts_are_selective_not_broad_expansion ____
+
+    def test_coverage_mix_and_source_counts_are_selective_not_broad_expansion() -> None:
+        sources = list(_sources().values())
+        discoverable = [source for source in sources if source.get("enabled") and source.get("discovery")]
+        eligible = [source for source in sources if is_collection_eligible(source)]
+        direct_rss = [source for source in discoverable if source["discovery"]["adapter"] == "article_rss"]
+        linked_direct = [
+            source
+            for source in discoverable
+            if source["discovery"]["adapter"] != "news_search_rss" and source.get("linked_competitor_ids")
+        ]
+    
+        # Source Coverage Gap Closure V1 (2026-09-01) added 2 sources
+        # (source-news-search-italian-berry: news_search_rss, all 4 berries;
+        # source-20260901-blueberrybreeding-newsroom: sitemap_xml, blueberry
+        # only, no linked_competitor_ids) -- both enabled/eligible, neither
+        # article_rss, neither counted in linked_direct.
+        # Continuous Newsroom Intake V1 (2026-09-01) added
+        # source-industry-pulse-catchnet: enabled=false, no discovery block,
+        # not discoverable, not eligible, not counted anywhere else here.
+>       assert len(sources) == 201
+E       AssertionError: assert 205 == 201
+E        +  where 205 = len([{'id': 'source-20260806173428-a8b4-michigan-state-university-blueberry-bree-0', 'type': 'reference', 'label': 'Michig...'type': 'reference', 'label': 'Global Plant Genetics (GPG)', 'value': 'https://www.globalplantgenetics.com', ...}, ...])
+
+tests\test_direct_source_upgrade_v1.py:78: AssertionError
+________ test_every_live_relationship_resolves_to_a_declared_predicate ________
+
+    def test_every_live_relationship_resolves_to_a_declared_predicate() -> None:
+        declared = {p["id"] for p in _load("relationship-predicates.json")["relationship_predicates"]}
+        total = 0
+        for f in glob.glob(str(ROOT / "data" / "relationships" / "*.json")):
+            record = json.loads(Path(f).read_text(encoding="utf-8"))
+            assert record.get("predicate") in declared, f"{f}: predicate {record.get('predicate')!r} not declared"
+            total += 1
+        # 210 = 204 plus 6 real relationships added for the Strawberry Vertical
+        # V1 depth mission (2026-08-20), one per new variety/company link:
+        # rel-planasa-develops-redsayra, rel-nova-siri-genetics-develops-
+        # melissa, rel-nova-siri-genetics-develops-marimbella, rel-civ-
+        # develops-flavia, rel-freshuelva-operates-in-spain, rel-njaes-
+        # rutgers-develops-dlight.
+        # 223 = 210 plus 13 real relationships added for the Raspberry Vertical
+        # V1 depth mission (2026-08-20), one per new variety/company link:
+        # rel-cornell-berry-develops-double-gold, rel-cornell-berry-develops-
+        # crimson-night, rel-cornell-berry-develops-crimson-treasure, rel-abb-
+        # develops-malaika, rel-abb-develops-zawadi, rel-tsbc-grows-malaika,
+        # rel-berrytech-develops-amalia-rossa, rel-abb-develops-sarafina,
+        # rel-abb-develops-rafiki, rel-abb-develops-baridi, rel-abb-develops-
+        # shani, rel-abb-develops-kwanza, rel-gpg-represents-james-hutton.
+        # 226 = 223 plus 3 real relationships added for the Variety
+        # Intelligence Backbone V1 mission (2026-08-21): rel-driscolls-owns-
+        # drisblueseventeen (a real rights-holder edge, distinct from the
+        # pre-existing develops edge, same underlying PBR-grant evidence),
+        # rel-driscolls-markets-zara, rel-driscolls-markets-victoria (real
+        # marketer edges using the newly schema-valid 'markets' predicate --
+        # rel-berryworld-sells-eureka.json's predicate was also corrected from
+        # a disclaimed 'sells' substitution to real 'markets' in place, not
+        # counted as a new relationship).
+        # 234 = 226 plus 8 real relationships added for the Caneberry Variety +
+        # Actor Expansion V1 mission (2026-08-22): rel-nc-state-develops-ervin,
+        # rel-nc-state-operates-in-united-states, rel-university-of-arkansas-
+        # develops-ponca, rel-university-of-arkansas-develops-ouachita,
+        # rel-psg-owns-rejoice, rel-psg-develops-bk-6-13, rel-onubafruit-grows-
+        # malaika, rel-onubafruit-operates-in-spain.
+        # 241 = 234 plus 7 real geography containment relationships added for
+        # the Geographic Intelligence Resolution V1 mission (2026-09-01), one
+        # per (country, continent) pair with both Geography entities already
+        # canonical and a real UN M49 continental-grouping citation (see
+        # scripts/generate_geography_containment.py): rel-spain-part-of-europe,
+        # rel-portugal-part-of-europe, rel-united-kingdom-part-of-europe,
+        # rel-germany-part-of-europe, rel-netherlands-part-of-europe,
+        # rel-united-states-part-of-north-america, rel-canada-part-of-north-america.
+        # 252 = 241 plus 11 real geography containment relationships added for
+        # the Intelligence Front Page V1 mission (2026-09-01), completing region
+        # coverage for the front page's By Region section (see
+        # scripts/generate_geography_regions_v2.py): rel-morocco-part-of-africa,
+        # rel-south-africa-part-of-africa, rel-zambia-part-of-africa,
+        # rel-zimbabwe-part-of-africa, rel-north-america-part-of-americas,
+        # rel-chile-part-of-americas, rel-peru-part-of-americas,
+        # rel-colombia-part-of-americas, rel-mexico-part-of-americas,
+        # rel-australia-part-of-apac, rel-china-part-of-apac.
+>       assert total == 252, f"expected 252 live relationships, found {total}"
+E       AssertionError: expected 252 live relationships, found 255
+E       assert 255 == 252
+
+tests\test_domain_pack.py:288: AssertionError
+_____________________ test_all_live_sources_accounted_for _____________________
+
+    def test_all_live_sources_accounted_for() -> None:
+        data = _load("collector-templates.json")
+        templates = data["collector_templates"]
+        excluded = data.get("excluded", [])
+        sources = json.loads((ROOT / "data" / "configuration" / "sources.json").read_text(encoding="utf-8"))
+        # 194 = 174 plus 20 direct recurring Sources added (each with a matching
+        # collector_templates entry) for Forward Acquisition Coverage Expansion
+        # V1 (2026-08-24): 17 direct RSS feeds and 3 bounded official leaf
+        # sitemaps. 174 = 171 plus 3 sources added (each with a matching collector_templates
+        # entry) for the Blackberry/Raspberry Vertical V1 mission (2026-08-22):
+        # source-news-search-caneberry-global (English, global caneberry
+        # company/breeder news), source-news-search-mexico-zarzamora (Spanish,
+        # the real Mexican-Spanish term for blackberry), and
+        # source-news-search-chile-frambuesa (Spanish, Chile is a real major
+        # raspberry exporter with zero prior raspberry-specific query), all
+        # real and live-verified with proven idempotence. 171 = 168 plus 3 sources added (each with a matching collector_templates
+        # entry) for the Unknown-Event Discovery + Query Coverage V3 mission
+        # (2026-08-23): FreshPlaza and Fruitnet global RSS feeds (real,
+        # live-verified, previously only static reference entries despite being
+        # cited as the publisher of multiple still-missed benchmark events), and
+        # a new sec_edgar_search_json adapter against SEC EDGAR's real,
+        # unauthenticated full-text search API, CIK-scoped to Mission Produce
+        # (real primary-source disclosure, live-verified). 168 = 164 plus 4 sources added (each with a matching
+        # collector_templates entry) for the Global Qualitative Coverage
+        # Expansion V2 mission (2026-08-22): the UK Food Standards Agency's
+        # real, unauthenticated food-alerts API (a new government_alert_json
+        # adapter) and 3 Google News news_search_rss searches (Peru organic
+        # investment, UK grower season-launch, USDA GAIN-report Mexico), all
+        # real and live-verified. 164 = 150 plus 14 sources added (each with a
+        # matching collector_templates entry) for the Global Qualitative
+        # Coverage Expansion V1 mission (2026-08-21): 13 Google News
+        # news_search_rss
+        # searches (Spanish-language Peru/Chile/Mexico, French-language
+        # Morocco, UK growers + UK retailer-class, South Africa production +
+        # trade, Chile-Morocco trade, global/Peru-Chile investment topic,
+        # labor/legal-risk topic, Spanish-language Spain) and 1 new openFDA
+        # government_recall_json source, all real and live-verified. 150 = 149
+        # plus source-nasa-power-daily-point, added (with a matching
+        # collector_templates entry) for the Weather / Climate Context V1
+        # mission (2026-08-21) -- NASA POWER's real, unauthenticated daily
+        # point API, live-verified. 149 = 148 plus source-un-comtrade-public-preview,
+        # added (with a matching collector_templates entry) for the Global
+        # Trade / Customs Intelligence V1 mission (2026-08-21) -- UN Comtrade's
+        # real, unauthenticated public preview API, live-verified. 148 = 147 plus
+        # source-cpvo-public-register, added (with a matching
+        # collector_templates entry) for the Variety Intelligence Backbone V1
+        # mission (2026-08-21) -- CPVO's real, unauthenticated public register
+        # API, live-verified. 147 = 142 plus 5 sources added for the Mainstream
+        # News + Regulatory Coverage Recall Benchmark V1 mission (2026-08-21):
+        # 2 Federal Register government_register_json sources (real
+        # documents.json search API, live-verified) and 3 Google News
+        # news_search_rss sources (Driscoll's, Costa Group, a generic
+        # berry-trade-remedy topic query), all proven against real network
+        # traffic. 142 = 140 plus source-freshuelva-news and source-nova-siri-
+        # genetics-news, added for the Strawberry Vertical V1 depth mission
+        # (2026-08-20).
+        # Direct Source Upgrade + Coverage Gap Closure V1 adds two selective,
+        # body-proven Company feeds (Advanced Berry Breeding and The Summer
+        # Berry Company). Two other upgrades preserve existing
+        # Source identities and therefore do not change this count.
+        # Variety Universe Expansion V1 adds two reference Sources
+        # (UK PVRO gazette, South Africa DALRRD) with no discovery.adapter.
+        # 200 = 198 plus 2 sources added (each with a matching
+        # collector_templates entry) for Source Coverage Gap Closure V1
+        # (2026-09-01): source-news-search-italian-berry (a site-restricted
+        # Google News keyword_search, live-verified to return 50+ real
+        # cultivar/genetics items) and source-20260901-blueberrybreeding-
+        # newsroom (a direct leaf-sitemap rss collector, live-verified with
+        # 120+ real breeding-program articles). A third candidate
+        # (producereport.com) was found already collected by a pre-existing
+        # Source and was not duplicated.
+        # 201 = 200 plus source-industry-pulse-catchnet, added for Continuous
+        # Newsroom Intake V1 (2026-09-01): a reference_manual, default_active
+        # false, never-independently-collected technical Source-linkage
+        # placeholder for Publication drafts app/services/industry_pulse/
+        # intake.py creates when a qualifying discovery hit's real publisher
+        # domain has no registered Source of its own yet -- every such draft
+        # still carries the real publisher in its own source_name/source_url.
+>       assert len(sources) == 201
+E       AssertionError: assert 205 == 201
+E        +  where 205 = len([{'id': 'source-20260806173428-a8b4-michigan-state-university-blueberry-bree-0', 'type': 'reference', 'label': 'Michig...'type': 'reference', 'label': 'Global Plant Genetics (GPG)', 'value': 'https://www.globalplantgenetics.com', ...}, ...])
+
+tests\test_domain_pack.py:426: AssertionError
+____________________ test_today_and_nav_point_at_this_week ____________________
+
+    def test_today_and_nav_point_at_this_week():
+        page = TestClient(app).get("/today")
+        assert page.status_code == 200
+>       assert ">This week<" in page.text
+E       assert '>This week<' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+E        +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>' = <Response [200 OK]>.text
+
+tests\test_global_week_intelligence_v1.py:470: AssertionError
+_____________ test_today_route_console_help_and_no_trust_mutation _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000251E896FF50>
+tmp_path = WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749/test_today_route_console_help_0')
+
+    def test_today_route_console_help_and_no_trust_mutation(monkeypatch, tmp_path: Path) -> None:
+        inbox = tmp_path / "inbox"
+        inbox.mkdir(parents=True, exist_ok=True)
+        monkeypatch.setattr(main, "INBOX_DIR", inbox)
+        monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
+        main._NAV_WORK_CACHE["key"] = None
+        main._NAV_WORK_CACHE["value"] = None
+        add_watch(inbox, "company", "company-planasa")
+        expected = {
+            "system_state": "DEGRADED",
+            "current_through": "2026-08-24T12:00:00+00:00",
+            "last_successful_collection": "2026-08-24T12:00:00+00:00",
+            "last_collection_attempt": "2026-08-24T12:05:00+00:00",
+            "last_new_intelligence": "2026-08-24T11:58:00+00:00",
+            "can_claim_current": False,
+            "retrying_count": 1,
+            "counts": {"scheduled_sources": 73, "overdue": 2, "failing": 1, "blocked": 0, "retrying": 1},
+        }
+        monkeypatch.setattr("app.services.today.build_runtime_freshness", lambda **_kwargs: expected.copy())
+        monkeypatch.setattr(main, "published_evidence", lambda: [_ev("new-low", "2026-08-24")])
+        monkeypatch.setattr(main, "all_signals", lambda: [])
+        monkeypatch.setattr(main, "all_assessments", lambda: [])
+        monkeypatch.setattr(main, "load_sources", lambda: [])
+        before = load_watches(inbox)[0]
+        assert before["last_seen_at"] is None
+        page = TestClient(main.app).get("/today")
+        assert page.status_code == 200
+        html = page.text
+>       assert "Focus the news" in html
+E       assert 'Focus the news' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+
+tests\test_guided_analyst_experience_v1.py:118: AssertionError
+_______________________ test_today_sparse_empty_states ________________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000251E896FE70>
+tmp_path = WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749/test_today_sparse_empty_states0')
+
+    def test_today_sparse_empty_states(monkeypatch, tmp_path: Path) -> None:
+        inbox = tmp_path / "inbox"
+        inbox.mkdir(parents=True, exist_ok=True)
+        monkeypatch.setattr(main, "INBOX_DIR", inbox)
+        monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
+        main._NAV_WORK_CACHE["key"] = None
+        main._NAV_WORK_CACHE["value"] = None
+        monkeypatch.setattr(
+            "app.services.today.build_runtime_freshness",
+            lambda **_kwargs: {
+                "system_state": "CURRENT",
+                "current_through": None,
+                "last_successful_collection": None,
+                "last_new_intelligence": None,
+                "can_claim_current": False,
+                "counts": {"scheduled_sources": 0, "overdue": 0, "failing": 0, "blocked": 0},
+            },
+        )
+        monkeypatch.setattr(main, "published_evidence", lambda: [])
+        monkeypatch.setattr(main, "all_signals", lambda: [])
+        monkeypatch.setattr(main, "all_assessments", lambda: [])
+        monkeypatch.setattr(main, "load_sources", lambda: [])
+        page = TestClient(main.app).get("/today")
+        assert page.status_code == 200
+>       assert "Berry news, in context." in page.text
+E       assert 'Berry news, in context.' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+E        +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>' = <Response [200 OK]>.text
+
+tests\test_guided_analyst_experience_v1.py:154: AssertionError
+_________________________ test_front_page_route_smoke _________________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000251D1B30EC0>
+tmp_path = WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749/test_front_page_route_smoke0')
+
+    def test_front_page_route_smoke(monkeypatch, tmp_path: Path) -> None:
+        monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
+        monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
+        monkeypatch.setattr(main, "published_evidence", lambda: [_evidence("ev-smoke", published="2026-08-31", captured="2026-08-31", title="Blueberry harvest update")])
+        monkeypatch.setattr(main, "all_signals", lambda: [])
+        monkeypatch.setattr(main, "all_assessments", lambda: [])
+        monkeypatch.setattr(main, "load_sources", lambda: [])
+        monkeypatch.setattr(main, "pending_publication_drafts", lambda: [_draft("ev-smoke-draft", captured="2026-08-31", title="Blueberry crop condition")])
+        monkeypatch.setattr(main, "all_entities", lambda: [])
+        monkeypatch.setattr(main, "all_relationships", lambda: [])
+        page = TestClient(main.app).get("/today?date=archive")
+        assert page.status_code == 200
+        assert "Draft ev-smoke-draft" not in page.text
+        undated = TestClient(main.app).get("/today?date=undated")
+>       assert "FRESH / UNREVIEWED" in undated.text
+E       assert 'FRESH / UNREVIEWED' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+E        +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>' = <Response [200 OK]>.text
+
+tests\test_intelligence_front_page_v1.py:552: AssertionError
+_______ test_front_page_publication_classification_is_provider_agnostic _______
+
+    def test_front_page_publication_classification_is_provider_agnostic() -> None:
+        from app.services.front_page import build_front_page
+    
+        draft = {
+            "id": "ev-pulse-draft",
+            "record_type": "evidence",
+            "status": "draft",
+            "evidence_role": "publication_artifact",
+            "title": "New raspberry variety launch acreage licensing",
+            "captured_date": "2026-09-01",
+            "source_name": "Discovered via Industry Pulse",
+            "source_type": "news_search",
+            "source_url": "https://freshplaza.com/discovered-item",
+            "berry_ids": ["berry-raspberry"],
+        }
+        page = build_front_page(
+            published=[],
+            drafts=[draft],
+            signals=[],
+            assessments=[],
+            sources=[],
+            entities=[],
+            relationships=[],
+            inbox_dir=Path("."),
+            data_dir=Path("."),
+            now=None,
+        )
+        matches = [i for i in page["top_stories"] if i["id"] == "ev-pulse-draft"]
+>       assert matches and matches[0]["trust_label"] == "FRESH / UNREVIEWED"
+E       assert ([])
+
+tests\test_perplexity_semantic_pulse_v1.py:241: AssertionError
+_____________ test_stakeholder_today_has_slim_nav_not_ops_chrome ______________
+
+    def test_stakeholder_today_has_slim_nav_not_ops_chrome() -> None:
+        page = TestClient(app).get("/today")
+        assert page.status_code == 200
+        html = page.text
+>       assert 'class="sh-nav' in html
+E       assert 'class="sh-nav' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+
+tests\test_stakeholder_frontend_v1.py:37: AssertionError
+_______ test_brief_review_soon_collapses_reprint_into_review_now_thread _______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000251E0D64600>
+tmp_path = WindowsPath('C:/Users/Johnny/AppData/Local/Temp/pytest-of-Johnny/pytest-749/test_brief_review_soon_collaps0')
+
+    def test_brief_review_soon_collapses_reprint_into_review_now_thread(monkeypatch, tmp_path: Path) -> None:
+        _isolate(monkeypatch, tmp_path)
+        repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+        _seed_entities(repos)
+        drafts = [
+            _draft(
+                "draft-hf-en",
+                title=HORTIFRUT_EN,
+                source_id="source-hortifrut-newsroom",
+                source_name="Hortifrut Newsroom",
+                published_date="2026-07-30",
+                captured_date="2026-07-30",
+                summary="Hortifrut and Naturipe expand a genetics platform.",
+            ),
+            _draft(
+                "draft-hf-es",
+                title=HORTIFRUT_ES,
+                source_name="International Blueberry Organization",
+                published_date="2026-07-30",
+                captured_date="2026-07-30",
+            ),
+            _draft(
+                "draft-mx-conf",
+                title="Mexico will host a new international conference on blueberry cultivation",
+                source_name="HortiDaily",
+                published_date=_today(),
+            ),
+        ]
+        brief = build_morning_brief(
+            inbox_dir=main.INBOX_DIR,
+            published=[],
+            drafts=drafts,
+            entities={entity["id"]: entity for entity in repos.entities.list()},
+            berry_labels={"berry-blueberry": "Blueberry"},
+            sources=[
+                {
+                    "id": "source-hortifrut-newsroom",
+                    "label": "Hortifrut Newsroom",
+                    "monitoring_priority": "high",
+                    "linked_competitor_ids": ["company-hortifrut"],
+                }
+            ],
+            mark_seen=False,
+        )
+        buckets = {group["key"]: group for group in brief["pending_triage"]["buckets"]}
+        review_now = buckets["review_now"]
+        review_soon = buckets["review_soon"]
+>       assert review_now["count"] >= 1
+E       assert 0 >= 1
+
+tests\test_story_threads.py:556: AssertionError
+_______________________ test_war_room_nav_entry_present _______________________
+
+    def test_war_room_nav_entry_present() -> None:
+        page = TestClient(app).get("/today")
+        assert page.status_code == 200
+>       assert 'href="/war-room"' in page.text
+E       assert 'href="/war-room"' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+E        +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>' = <Response [200 OK]>.text
+
+tests\test_war_room.py:354: AssertionError
+________ test_news_keeps_watchtower_access_without_loading_alert_panel ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000251EB798E50>
+
+    def test_news_keeps_watchtower_access_without_loading_alert_panel(monkeypatch) -> None:
+        dev = _development()
+        alerts = [a.as_dict() for a in _generate(developments=[dev], watches=[{"watch_type": "company", "object_id": "company-planasa"}])]
+        for a in alerts:
+            a["state"] = "open"
+        monkeypatch.setattr(main, "load_watches", lambda inbox_dir: [{"watch_type": "company", "object_id": "company-planasa"}])
+        monkeypatch.setattr(main, "_watchtower_cached", lambda: {
+            "alerts": alerts, "digest": build_digest(alerts), "cache_status": "fresh",
+            "radar_freshness_label": "fresh", "watch_count": 1, "watches": [],
+        })
+        page = TestClient(app).get("/today")
+        assert page.status_code == 200
+>       assert 'href="/watchtower"' in page.text
+E       assert 'href="/watchtower"' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+E        +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>' = <Response [200 OK]>.text
+
+tests\test_watchtower.py:517: AssertionError
+============================== warnings summary ===============================
+..\berry-intelligence-os\.venv\Lib\site-packages\reportlab\lib\rl_safe_eval.py:12
+  C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\reportlab\lib\rl_safe_eval.py:12: DeprecationWarning: ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    haveNameConstant = hasattr(ast,'NameConstant')
+
+tests/test_app.py: 144 warnings
+tests/test_archive_source_discovery_onboarding.py: 20 warnings
+tests/test_article_ingestion_pipeline.py: 26 warnings
+tests/test_article_refresh.py: 56 warnings
+tests/test_competitor_source_activation_wave1.py: 16 warnings
+tests/test_industry_pulse_discovery_v1.py: 3150 warnings
+tests/test_media_discovery.py: 268 warnings
+tests/test_media_discovery_source_expansion.py: 74 warnings
+tests/test_youtube_source_portability.py: 16 warnings
+  C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\feedparser\html.py:152: DeprecationWarning: 'count' is passed as positional argument
+    data = re.sub(r'<!((?!DOCTYPE|--|\[))', r'&lt;!\1', data, re.IGNORECASE)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/exports/test_intelligence_package.py::test_exporter_reads_core_data_only_via_repository_interfaces
+FAILED tests/test_analyst_dogfood_ux.py::test_today_is_a_morning_console_with_source_problems_and_next_work
+FAILED tests/test_app.py::test_home_opens_news_without_fictional_seed_reporting
+FAILED tests/test_collection_status.py::test_live_source_repository_includes_all_onboarded_sources_generically
+FAILED tests/test_direct_source_upgrade_v1.py::test_coverage_mix_and_source_counts_are_selective_not_broad_expansion
+FAILED tests/test_domain_pack.py::test_every_live_relationship_resolves_to_a_declared_predicate
+FAILED tests/test_domain_pack.py::test_all_live_sources_accounted_for - Asser...
+FAILED tests/test_global_week_intelligence_v1.py::test_today_and_nav_point_at_this_week
+FAILED tests/test_guided_analyst_experience_v1.py::test_today_route_console_help_and_no_trust_mutation
+FAILED tests/test_guided_analyst_experience_v1.py::test_today_sparse_empty_states
+FAILED tests/test_intelligence_front_page_v1.py::test_front_page_route_smoke
+FAILED tests/test_perplexity_semantic_pulse_v1.py::test_front_page_publication_classification_is_provider_agnostic
+FAILED tests/test_stakeholder_frontend_v1.py::test_stakeholder_today_has_slim_nav_not_ops_chrome
+FAILED tests/test_story_threads.py::test_brief_review_soon_collapses_reprint_into_review_now_thread
+FAILED tests/test_war_room.py::test_war_room_nav_entry_present - assert 'href...
+FAILED tests/test_watchtower.py::test_news_keeps_watchtower_access_without_loading_alert_panel
+ERROR tests/exports/test_intelligence_package.py::test_package_manifest_structure_families_order_and_no_drafts
+ERROR tests/exports/test_intelligence_package.py::test_export_is_content_deterministic
+ERROR tests/exports/test_intelligence_package.py::test_lineage_and_validator_accept_live_export
+ERROR tests/exports/test_intelligence_package.py::test_validator_detects_intentional_dangling_reference
+ERROR tests/exports/test_intelligence_package.py::test_export_round_trips_all_supported_content_through_fresh_repositories
+16 failed, 2823 passed, 3771 warnings, 5 errors in 1083.86s (0:18:03)
