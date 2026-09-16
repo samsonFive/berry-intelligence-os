@@ -1,0 +1,36 @@
+{
+  "id": "concept-strawberry-viruses",
+  "slug": "strawberry-viruses",
+  "name": "Strawberry viruses",
+  "aliases": ["strawberry virus", "virus-tested strawberry", "vector-borne strawberry virus"],
+  "pillar": "pest_disease_process",
+  "knowledge_class": "current_technical_guidance",
+  "trait_ids": [],
+  "reviewed_at": "2026-09-16",
+  "review_by": "2027-03-16",
+  "summary": "Most strawberry virus control is exclusion through clean nursery stock and vector management — not a curative spray, and not a Fact about a named farm's plants.",
+  "what_is_it": "Strawberry is vegetatively propagated, so viruses move with plants and with insect vectors (aphids, whitefly, and others depending on the virus). Field 'treatment' is largely start-clean, keep-clean: certified stock, rogueing, and vector IPM. This page names the framework. It is not a list of every strawberry virus or a diagnostic key.",
+  "why_it_matters": "Annual plasticulture makes plant source a yearly decision. A 'new planting' or nursery-scale story is incomplete without stock health. Decline that looks like poor variety performance is sometimes virus plus poor stock.",
+  "how_evaluated": "Nursery certification, laboratory tests on mother plants, and vector monitoring. Symptom photos are teaching aids, not a diagnosis of a competitor's field.",
+  "what_affects_it": "Nursery isolation, testing panel, how plants are handled after leaving the nursery, and vector pressure in the fruiting field. Clean stock does not replace IPM.",
+  "how_to_interpret": "Do not collapse this into IPM scouting, and do not read 'certified plants' as proof a field stayed clean. Pair with clean planting stock and plasticulture. Specific virus names in a source stay scoped to that source.",
+  "related_concept_ids": ["concept-clean-planting-stock", "concept-ipm", "concept-plasticulture"],
+  "berry_notes": [
+    {
+      "berry_id": "berry-strawberry",
+      "note": "This framework is strawberry-specific. Caneberry and blueberry viruses exist but are not this page; do not copy strawberry exclusion language onto those crops without a source that names them."
+    }
+  ],
+  "sources": [
+    {
+      "publisher": "USDA APHIS",
+      "title": "National Clean Plant Network",
+      "url": "https://www.aphis.usda.gov/plant-pests-diseases/national-clean-plant-network"
+    },
+    {
+      "publisher": "NC State Extension",
+      "title": "Southern Regional Strawberry Plasticulture Production Guide",
+      "url": "https://content.ces.ncsu.edu/southern-regional-strawberry-plasticulture-production-guide"
+    }
+  ]
+}

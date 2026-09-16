@@ -18,6 +18,9 @@
   {% elif item.summary %}
     <p class="v2-card-summary">{{ item.summary|truncate(140) }}</p>
   {% endif %}
+    {% set hits = learn_glossary_hits(item.title, item.why or item.summary or '') %}
+  {% set compact = true %}
+  {% include "_learn_glossary_hits.html" %}
   {% if item.ai_untrusted %}
     <p class="v2-meta v2-card-ai">AI-assisted · pending analyst review</p>
   {% endif %}

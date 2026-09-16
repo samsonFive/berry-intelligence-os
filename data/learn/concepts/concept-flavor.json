@@ -6,6 +6,8 @@
   "pillar": "taste_consumer_science",
   "knowledge_class": "consumer_sensory_observations",
   "trait_ids": ["trait-eating-quality"],
+  "reviewed_at": "2026-09-16",
+  "review_by": "2027-09-16",
   "summary": "Perceived sweetness, tartness, and aroma -- driven mainly by the balance of sugar (Brix) to acidity, plus volatile aroma compounds.",
   "what_is_it": "Flavor is the combined sensory experience of taste (primarily sweetness and tartness) and aroma. The single most measurable predictor of basic taste across berries is the ratio of soluble solids (sugar content, measured in degrees Brix) to titratable acidity -- but aroma, driven by volatile organic compounds (VOCs), often drives the strongest overall 'flavor' impression, separate from sugar and acid.",
   "why_it_matters": "Flavor is consistently rated by consumers as a top purchase-repeat driver across all four berries, and it is a primary breeding target -- companies frequently market new varieties as 'extra sweet' or 'intensely aromatic.' Whether such marketing claims are substantiated by actual sensory or chemical measurement is a distinct question from whether the claim was made.",

@@ -8,6 +8,9 @@
     {% if not static_build %}<p class="v2-card-line"><a href="/brief-pack?signals={{ signal.id }}">Add to Brief Pack</a></p>{% endif %}
   </div>
 </section>
+{% set hits = learn_glossary_hits(signal.title, signal.description or signal.observation or '', signal.why_it_might_matter or '') %}
+{% set compact = false %}
+{% include "_learn_glossary_hits.html" %}
 {% if authoring_mode and signal.status == 'proposed' and alert_state == 'open' %}
   <div class="banner">
     <p>New proposed signal. Confirm or dismiss this alert. The underlying signal record stays in history.</p>

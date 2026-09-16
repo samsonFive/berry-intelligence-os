@@ -1004,7 +1004,33 @@
   padding: 14px 18px;
   border-radius: 4px;
 }
-.v2-learn-return { border-top: 1px solid var(--v2-border); padding-top: 12px; }
+.v2-learn-glossary {
+  margin-top: 8px;
+}
+.v2-learn-glossary .v2-mark-learn { margin-right: 6px; }
+.v2-learn-figure {
+  margin: 12px 0 18px;
+  max-width: 640px;
+}
+.v2-learn-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--v2-border);
+  border-radius: 4px;
+  background: #fff;
+}
+.v2-learn-figure figcaption {
+  font-size: 13px;
+  color: var(--v2-muted, #5c6570);
+  margin-top: 8px;
+}
+.v2-learn-stale {
+  border-left: 3px solid #b45309;
+  background: #fff7ed;
+  padding: 10px 14px;
+  border-radius: 4px;
+}
 
 /* Executive Readout V1 -- lightweight presentation/screen-share mode.
    Toggled by a body class set from executive_readout.html's own inline

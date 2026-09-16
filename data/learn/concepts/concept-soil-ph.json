@@ -13,6 +13,12 @@
   "what_affects_it": "Native soil pH and buffering, irrigation water alkalinity, mulch, fertilizer form, and whether production is in soil or soilless troughs. Other berries (strawberry, caneberries) have different pH optima; do not copy blueberry numbers onto them.",
   "how_to_interpret": "A press mention that a farm 'planted blueberries' does not prove the soil was acidified or that plants will crop. Treat pH ranges as crop-class guidance from extension, not as a Fact about a named competitor's field. Substrate or protected-culture blueberry is a different system than soil highbush.",
   "related_concept_ids": ["concept-protected-culture", "concept-plasticulture"],
+  "berry_notes": [
+    {
+      "berry_id": "berry-blueberry",
+      "note": "This page is blueberry-specific chemistry. Highbush wants strongly acid, open soil; rabbiteye tolerates a slightly higher pH. Do not copy these numbers onto strawberry or caneberries."
+    }
+  ],
   "sources": [
     {
       "publisher": "Cornell CALS",

@@ -16,9 +16,12 @@
   "media": [
     {
       "kind": "photo",
-      "title": "Wikimedia Commons — Category: Berries (CC-licensed plant and fruit images)",
+      "title": "Blueberries — Wikimedia Commons",
       "publisher": "Wikimedia Commons",
-      "url": "https://commons.wikimedia.org/wiki/Category:Berries"
+      "url": "https://commons.wikimedia.org/wiki/File:Blueberries.jpg",
+      "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Blueberries.jpg",
+      "license": "See file page; typically CC or public-domain as labeled on Commons",
+      "attribution_required": true
     },
     {
       "kind": "diagram",

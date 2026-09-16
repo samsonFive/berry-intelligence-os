@@ -46,6 +46,9 @@
     {% if scope.unresolved or scope.ambiguous %}
     <p class="rd-scope-warning">Needs correction: {{ (scope.unresolved + scope.ambiguous)|join(', ') }}</p>
     {% endif %}
+    {% set hits = learn_glossary_hits(scope.question) %}
+    {% set compact = false %}
+    {% include "_learn_glossary_hits.html" %}
     <form class="rd-followup" method="post" action="/research">
       <input type="hidden" name="previous_scope" value="{{ scope_json }}">
       <label class="visually-hidden" for="rd-followup">Ask a follow-up</label>

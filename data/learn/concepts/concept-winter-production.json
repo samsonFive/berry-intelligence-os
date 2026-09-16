@@ -13,6 +13,16 @@
   "what_affects_it": "Chill-hour requirement of the variety, availability and cost of protected-culture infrastructure, regional climate, and market access/logistics for reaching demand during the target window all determine whether winter production is viable.",
   "how_to_interpret": "Winter-production claims are regional and system-dependent -- a variety or growing approach that supports winter production in one climate zone will not automatically do so elsewhere. Treat winter-production claims the same way as other regional production-practice claims: look for the specific geography and growing system before generalizing.",
   "related_concept_ids": ["concept-double-cropping", "concept-precocity", "concept-protected-culture", "concept-chill-hours"],
+  "berry_notes": [
+    {
+      "berry_id": "berry-strawberry",
+      "note": "Winter strawberry windows are often plasticulture or tunnel calendars plus geography, not a universal variety trait."
+    },
+    {
+      "berry_id": "berry-blueberry",
+      "note": "Counter-season and low-chill blueberry programs are usually a chill-and-geography story, sometimes with protected culture."
+    }
+  ],
   "sources": [
     {
       "publisher": "University of Arkansas Cooperative Extension",

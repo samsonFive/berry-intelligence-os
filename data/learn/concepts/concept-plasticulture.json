@@ -13,6 +13,12 @@
   "what_affects_it": "Climate, nursery plant type (plug vs bare-root), fumigation or alternative soil treatments, labor, and whether the operation is open-field or tunnel. Variety still matters for bloom and fruit, but the system is not the variety.",
   "how_to_interpret": "Never generalize a southeastern plasticulture calendar to every strawberry region. 'Plasticulture' in a source is a production-system claim. It does not prove a named company uses fumigation, nor that fruit quality is higher than matted-row. Pair with geography and, where relevant, double-cropping or winter-production context.",
   "related_concept_ids": ["concept-double-cropping", "concept-clean-planting-stock", "concept-winter-production"],
+  "berry_notes": [
+    {
+      "berry_id": "berry-strawberry",
+      "note": "Annual hill culture on plastic is the dominant commercial strawberry system in much of the U.S. South. Frost protection with overhead sprinklers at bloom is part of this system, not drip irrigation's job."
+    }
+  ],
   "media": [
     {
       "kind": "diagram",

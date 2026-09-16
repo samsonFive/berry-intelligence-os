@@ -1,0 +1,25 @@
+{% if hits %}
+  {% if compact %}
+    <p class="v2-learn-glossary" data-pagefind-ignore>
+      <span class="v2-mark v2-mark-learn">LEARN</span>
+      {% for hit in hits %}
+        <a class="v2-explain-this" href="{{ hit.href }}" title="Educational knowledge: {{ hit.name }}">{{ hit.name }}</a>
+      {% endfor %}
+    </p>
+  {% else %}
+    <section class="v2-company-section v2-learn-glossary" id="{{ section_id|default('learn-glossary') }}" data-pagefind-ignore>
+      <h2>{{ heading|default('Educational terms in this item') }}</h2>
+      <p class="context-limit">Learner Mode vocabulary matched on this item's title and short excerpt — not a full-text scan, not a Fact, Signal, or Assessment, and not a claim that the source used the term correctly.</p>
+      <ul class="entity-links">
+        {% for hit in hits %}
+          <li>
+            <span class="v2-mark v2-mark-learn">EDUCATIONAL KNOWLEDGE</span>
+            <a href="{{ hit.href }}">{{ hit.name }}</a>
+            {% if hit.matched_term and hit.matched_term|lower != hit.name|lower %}<span class="v2-meta"> matched “{{ hit.matched_term }}”</span>{% endif %}
+            {% if hit.pillar_label %}<span class="v2-meta"> · {{ hit.pillar_label }}</span>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+{% endif %}
