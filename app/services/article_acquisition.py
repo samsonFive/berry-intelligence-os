@@ -27,6 +27,8 @@ from urllib.parse import urlparse
 import httpx
 import trafilatura
 
+from app.services.google_news_url import resolve_google_news_url
+
 ARTICLE_ACQUISITION_VERSION = "article-acquisition-v1"
 ARTICLE_FETCH_TIMEOUT_SECONDS = 20
 ARTICLE_FETCH_USER_AGENT = "berry-intelligence-os-article-acquisition/1.0"
@@ -212,9 +214,12 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
     if not url or not url.strip():
         raise ArticleAcquisitionError("empty article URL", category="malformed_html")
 
+    requested = url.strip()
+    target = resolve_google_news_url(requested)
+
     try:
         response = httpx.get(
-            url,
+            target,
             timeout=timeout,
             headers={"User-Agent": ARTICLE_FETCH_USER_AGENT},
             follow_redirects=True,
@@ -236,13 +241,14 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
         )
 
     # Google News RSS article links are JavaScript wrappers, not article
-    # pages and not HTTP redirects. Treating their shared wrapper/chrome as
-    # readable source text caused the historic repeated-body incident. A
-    # publisher URL must be resolved by discovery before article extraction;
-    # the wrapper itself can never be a FULL_ARTICLE artifact.
-    requested_host = (urlparse(url).hostname or "").casefold()
+    # pages and not HTTP redirects. Local token decode (google_news_url)
+    # may already have replaced `target` with a publisher URL. If we are
+    # still on news.google.com / consent.google.com after follow_redirects,
+    # treat the wrapper as unreadable — never extract shared chrome as a
+    # FULL_ARTICLE artifact (historic repeated-body incident).
+    fetched_host = (urlparse(target).hostname or "").casefold()
     final_host = (urlparse(str(response.url)).hostname or "").casefold()
-    if requested_host == "news.google.com" and final_host in {"news.google.com", "consent.google.com"}:
+    if fetched_host == "news.google.com" and final_host in {"news.google.com", "consent.google.com"}:
         raise ArticleAcquisitionError(
             "Google News wrapper did not resolve to a publisher article",
             category="interstitial" if final_host == "consent.google.com" else "script_rendered",
@@ -287,9 +293,10 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
     word_count = len(body_text.split())
     content_sha256 = hashlib.sha256(body_text.encode("utf-8")).hexdigest()
 
+    final = str(response.url)
     return ArticleBody(
-        source_url=url,
-        final_url=str(response.url) if str(response.url) != url else None,
+        source_url=requested,
+        final_url=final if final != requested else None,
         paragraphs=paragraphs,
         word_count=word_count,
         content_sha256=content_sha256,
