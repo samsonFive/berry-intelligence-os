@@ -17,6 +17,9 @@
     <a class="button-link" href="/assessments/{{ assessment.id }}/edit">Edit</a>
   {% endif %}
 </section>
+{% set hits = learn_glossary_hits(assessment.title, assessment.rationale or '', assessment.why_it_matters or '') %}
+{% set compact = false %}
+{% include "_learn_glossary_hits.html" %}
 <article class="detail-card v2-assessment-detail">
   <dl data-pagefind-ignore>
     <dt>Confidence</dt><dd>{{ assessment.confidence|upper }}</dd>

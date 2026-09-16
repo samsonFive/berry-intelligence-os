@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -175,9 +175,12 @@ def test_login_lands_on_today_and_preserves_deep_link(monkeypatch) -> None:
 
 
 def test_today_route_front_page_and_mobile_css(monkeypatch, tmp_path: Path) -> None:
+    # Route uses wall-clock now; keep the fixture inside the 14-day window
+    # instead of baking 2026-08-24 (that date fell out of window on 2026-09-16).
+    today = date.today().isoformat()
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
     monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
-    monkeypatch.setattr(main, "published_evidence", lambda: [_ev("new-low", "2026-08-24")])
+    monkeypatch.setattr(main, "published_evidence", lambda: [_ev("new-low", today)])
     monkeypatch.setattr(main, "all_signals", lambda: [])
     monkeypatch.setattr(main, "all_assessments", lambda: [])
     monkeypatch.setattr(main, "load_sources", lambda: [])

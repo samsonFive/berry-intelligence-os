@@ -13,6 +13,13 @@
       {% if concept.aliases %}<span class="v2-meta">Also known as: {{ concept.aliases|join(', ') }}</span>{% endif %}
     </p>
     {% if concept.knowledge_class_note %}<p class="context-limit">{{ concept.knowledge_class_note }}</p>{% endif %}
+    {% if concept.needs_review_cadence %}
+      <p class="context-limit{% if concept.is_stale %} v2-learn-stale{% endif %}">
+        {% if concept.reviewed_at %}Last reviewed {{ concept.reviewed_at }}.{% endif %}
+        {% if concept.review_by %} Review by {{ concept.review_by }}.{% endif %}
+        {% if concept.is_stale %} This page is past its review date — treat the technical guidance as possibly outdated.{% endif %}
+      </p>
+    {% endif %}
     <p class="context-limit">This is explanatory knowledge, not trusted Competitive Intelligence -- it is never a Fact, Atomic Evidence, Signal, or Assessment, and reading it does not increase confidence in any Signal.</p>
   </div>
 </section>
@@ -20,6 +27,19 @@
 <section class="v2-company-section" id="what-is-it">
   <h2>What is it?</h2>
   <p>{{ concept.what_is_it }}</p>
+  {% if concept.teaching_figure %}
+    <figure class="v2-learn-figure">
+      <img src="{{ concept.teaching_figure.image_url }}" alt="{{ concept.teaching_figure.title }}" loading="lazy" referrerpolicy="no-referrer">
+      <figcaption>
+        {{ concept.teaching_figure.title }}
+        · {{ concept.teaching_figure.publisher }}
+        {% if concept.teaching_figure.license %} · {{ concept.teaching_figure.license }}{% endif %}
+        {% if concept.teaching_figure.attribution_required %} · Attribution required at the publisher{% endif %}
+        {% if concept.teaching_figure.url %} · <a href="{{ concept.teaching_figure.url }}" rel="noopener">Source file</a>{% endif %}
+        — educational citation, not Evidence.
+      </figcaption>
+    </figure>
+  {% endif %}
 </section>
 
 <section class="v2-company-section" id="why-it-matters">
@@ -41,6 +61,43 @@
   <h2>When you see this in intelligence</h2>
   <p>{{ concept.how_to_interpret }}</p>
 </section>
+
+{% if berry_notes and berry_notes.has_any %}
+<section class="v2-company-section" id="crop-notes">
+  <h2>By crop</h2>
+  <p class="context-limit">Crop notes are still educational knowledge. They are not a claim that every region grows this way, and they are not Facts about a named company.</p>
+  {% if berry_notes.in_context %}
+    <ul class="entity-links">
+      {% for note in berry_notes.in_context %}
+        <li><span class="v2-chip v2-chip-berry">{{ note.berry_label }}</span> {{ note.note }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  {% if berry_notes.also_global %}
+    <h3 class="v2-subsection-title">Also in other berries</h3>
+    <ul class="entity-links">
+      {% for note in berry_notes.also_global %}
+        <li><span class="v2-chip v2-chip-berry">{{ note.berry_label }}</span> {{ note.note }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+{% endif %}
+
+{% if concept.media %}
+<section class="v2-company-section" id="teaching-visuals">
+  <h2>Teaching visuals</h2>
+  <p class="context-limit">Educational citations to diagrams or photographs at the publisher. These links are not Evidence, not a hosted image library, and never a diagnosis of a named farm.</p>
+  <ul class="entity-links">
+    {% for item in concept.media %}
+      <li>
+        {% if item.url %}<a href="{{ item.url }}" rel="noopener">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %}
+        <span class="v2-meta">{% if item.kind %} · {{ item.kind }}{% endif %}{% if item.publisher %} · {{ item.publisher }}{% endif %}</span>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
 
 <section class="v2-company-section" id="related-terms">
   <h2>Related terms</h2>

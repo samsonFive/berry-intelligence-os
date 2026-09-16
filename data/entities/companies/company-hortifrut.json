@@ -4,8 +4,7 @@
   "entity_type": "company",
   "name": "Hortifrut S.A.",
   "aliases": [
-    "Hortifrut",
-    "RUT 96.896.990-0"
+    "Hortifrut"
   ],
   "status": "active",
   "description": "Chilean berry group, listed on the Bolsa de Comercio de Santiago under the code HF, describing itself as vertically integrated from genetics to the final customer. In blueberry it is simultaneously a grower, packer, exporter, marketer, co-owner of a breeding joint venture, and a licensee of third-party genetics. Controlled by the Moller, Quevedo, Del Rio and Elberg families; PSP Investments with SJF Investment SpA took 49.56% under a December 2022 investment agreement.",
@@ -72,6 +71,13 @@
     "ownership": "publicly listed",
     "stock_exchange": "Bolsa de Comercio de Santiago",
     "ticker": "HF",
-    "countries_of_operation_count": 15
+    "countries_of_operation_count": 15,
+    "registration_ids": [
+      {
+        "jurisdiction": "CL",
+        "kind": "RUT",
+        "value": "96.896.990-0"
+      }
+    ]
   }
 }

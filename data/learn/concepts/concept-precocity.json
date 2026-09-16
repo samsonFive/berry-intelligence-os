@@ -12,7 +12,7 @@
   "how_evaluated": "Precocity is typically reported as time-to-first-commercial-harvest or yield achieved by a stated year after planting, compared against a regional or varietal baseline. Because baselines vary by region, rootstock/propagation method, and production system, precocity figures are not directly comparable across sources without knowing what baseline was used.",
   "what_affects_it": "Genetics, propagation method (e.g. tissue-culture plants vs. bare-root), planting density, site preparation, and regional climate/chill conditions all influence how quickly a planting reaches meaningful production.",
   "how_to_interpret": "Precocity claims depend heavily on the specific trial or regional context in which they were made -- a variety described as 'early-bearing' in one region's guide is not automatically early-bearing everywhere. Treat precocity claims the way you would any other regional production-practice claim: check whether the geography and production system are stated before generalizing.",
-  "related_concept_ids": ["concept-double-cropping"],
+  "related_concept_ids": ["concept-double-cropping", "concept-chill-hours", "concept-primocane-floricane"],
   "sources": [
     {
       "publisher": "Washington State University Extension",

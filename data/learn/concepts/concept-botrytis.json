@@ -1,0 +1,44 @@
+{
+  "id": "concept-botrytis",
+  "slug": "botrytis",
+  "name": "Botrytis (gray mold)",
+  "aliases": ["gray mold", "grey mould", "Botrytis cinerea", "botrytis fruit rot"],
+  "pillar": "pest_disease_process",
+  "knowledge_class": "current_technical_guidance",
+  "trait_ids": [],
+  "reviewed_at": "2026-09-16",
+  "review_by": "2027-03-16",
+  "summary": "A wet-weather fruit and flower rot that often shows up in strawberry and caneberry harvest talk — a disease framework, not a residue or quality score.",
+  "what_is_it": "Botrytis cinerea (gray mold) infects flowers and ripening fruit, especially in cool, wet, or dense canopies. It is one of the reasons strawberry bloom sprays, caneberry canopy air-flow, and postharvest cold chain are discussed together. It is not the same organism as soil Phytophthora, and it is not a proof of poor 'food safety culture' by itself.",
+  "why_it_matters": "Competitive talk about packout, bloom sprays, tunnel rain-cover, or 'wet harvest losses' is often a Botrytis story. Resistance to fungicide groups is why current regional IPM guides exist and why this page must not freeze a product list.",
+  "how_evaluated": "Field incidence on flowers and fruit, postharvest rot after a defined hold, and which labeled products were used that season. A photo of fuzzy gray fruit is a teaching image, not a diagnosis of a named farm.",
+  "what_affects_it": "Bloom weather, canopy density, harvest interval, wounding, and cold-chain breaks. Protected culture that keeps rain off fruit can reduce pressure and can also change other pests.",
+  "how_to_interpret": "Do not treat a news mention of 'mold' as Botrytis, and do not treat this page as a spray program. Pair with IPM and with harvest methods. A variety described as 'Botrytis tolerant' is a breeder or trial claim until a scoped Fact says so.",
+  "related_concept_ids": ["concept-ipm", "concept-plasticulture", "concept-protected-culture", "concept-shelf-life"],
+  "berry_notes": [
+    {
+      "berry_id": "berry-strawberry",
+      "note": "Strawberry gray mold is classically a bloom-to-harvest disease; plasticulture and tunnels change canopy wetness, not the pathogen."
+    },
+    {
+      "berry_id": "berry-raspberry",
+      "note": "Caneberry gray mold tracks dense floricane canopies and wet harvests; trellis and air flow are cultural levers inside IPM."
+    },
+    {
+      "berry_id": "berry-blackberry",
+      "note": "Same caneberry pattern as raspberry; trailing types in wet climates are the usual extension examples, not a universal blackberry law."
+    }
+  ],
+  "sources": [
+    {
+      "publisher": "University of California Statewide Integrated Pest Management Program",
+      "title": "Botrytis Fruit Rot / Gray Mold on Strawberry",
+      "url": "https://ipm.ucanr.edu/agriculture/strawberry/botrytis-fruit-rot/"
+    },
+    {
+      "publisher": "NC State Extension",
+      "title": "Strawberry Disease Management",
+      "url": "https://content.ces.ncsu.edu/strawberry-diseases-and-their-control"
+    }
+  ]
+}

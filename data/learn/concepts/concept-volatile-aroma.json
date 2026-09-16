@@ -1,0 +1,33 @@
+{
+  "id": "concept-volatile-aroma",
+  "slug": "volatile-aroma",
+  "name": "Volatile aroma",
+  "aliases": ["aroma volatiles", "flavor volatiles", "fruity aroma", "odor-active compounds"],
+  "pillar": "taste_consumer_science",
+  "knowledge_class": "foundational_knowledge",
+  "trait_ids": [],
+  "summary": "The smell compounds that make a berry taste like itself — distinct from sugar, acid, and color, and mostly lost in a one-number Brix claim.",
+  "what_is_it": "Aroma is carried by volatile organic compounds (esters, terpenes, aldehydes, and others depending on crop). They are sensed retronasally during eating, which is why 'flavor' is not the same as sweetness. Strawberry, blueberry, raspberry, and blackberry have overlapping and crop-specific volatile families. Breeding and postharvest handling both change the profile; heat, time, and some storage atmospheres reduce or shift volatiles.",
+  "why_it_matters": "Premium-flavor positioning, 'aromatic' variety launches, and complaints that fruit 'looks fine but tastes of nothing' are often volatile stories. SSC can be high while aroma is thin. Color does not measure aroma.",
+  "how_evaluated": "Research labs use gas chromatography (often GC-MS or GC-olfactometry) and trained sensory panels. Commercial intelligence almost never has that chromatogram. A sensory comment in a source is not a lab volatile profile. Absence of a GC number is the honest default.",
+  "what_affects_it": "Genetics, ripeness at harvest, temperature after harvest, and some packaging. Overripe fruit can smell different, not just sweeter. Processing (puree, IQF) changes or loses many fresh volatiles.",
+  "how_to_interpret": "Do not invent a volatile ranking from a press release that says 'great flavor.' Do not treat color intensity or Brix as a proxy. When a trusted Fact names flavor or sensory traits, keep the source's wording; this page only explains the chemistry category. Pair with Flavor and sugar–acid balance.",
+  "related_concept_ids": ["concept-flavor", "concept-sugar-acid-balance", "concept-texture"],
+  "sources": [
+    {
+      "publisher": "Frontiers in Plant Science",
+      "title": "Editorial: Metabolism of Fruit Volatile Organic Compounds",
+      "url": "https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2022.873515/full"
+    },
+    {
+      "publisher": "PMC",
+      "title": "Inheritance of esters and other volatile compounds in cultivated strawberry",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9412188/"
+    },
+    {
+      "publisher": "PubMed",
+      "title": "Identification and characterization of key aroma chemotypes and volatile biomarkers by HS-SPME-GC-MS for precision flavor breeding in blueberries",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41548377/"
+    }
+  ]
+}

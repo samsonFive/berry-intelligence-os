@@ -1,0 +1,39 @@
+{
+  "id": "concept-soil-ph",
+  "slug": "soil-ph",
+  "name": "Soil pH and blueberry roots",
+  "aliases": ["soil acidity", "blueberry pH", "acid soil", "elemental sulfur", "root hairs"],
+  "pillar": "plant_biology_agronomy",
+  "knowledge_class": "foundational_knowledge",
+  "trait_ids": [],
+  "summary": "Highbush blueberry needs strongly acid, open soil and has fine roots without root hairs — site chemistry and mulch are establishment constraints, not a variety marketing slogan.",
+  "what_is_it": "Highbush blueberry is adapted to acid soils, commonly described around pH 4.0–5.2 with an ideal near 4.5; rabbiteye types tolerate a slightly higher range (about 4.2–5.3). Roots are shallow, fine, and lack root hairs, so they need porous, high-organic-matter soil and compete poorly with weeds. Elemental sulfur is often incorporated months before planting to acidify mineral soils. Nitrogen sources such as ammonium sulfate are chosen in part because they help keep soil acid.",
+  "why_it_matters": "Failed establishment, chlorosis, and weak plants are often a pH or soil-structure problem, not a 'bad variety.' Intelligence about new plantings, substrate systems, or a company moving blueberry into a new region should be read against whether the site can actually hold acid, open rooting conditions.",
+  "how_evaluated": "Soil tests (pH, organic matter, texture) before planting, then tissue and soil monitoring after. Visual chlorosis is a clue, not a lab result. Substrate/coir systems replace native soil chemistry with a designed medium — a different evaluation than a field soil test.",
+  "what_affects_it": "Native soil pH and buffering, irrigation water alkalinity, mulch, fertilizer form, and whether production is in soil or soilless troughs. Other berries (strawberry, caneberries) have different pH optima; do not copy blueberry numbers onto them.",
+  "how_to_interpret": "A press mention that a farm 'planted blueberries' does not prove the soil was acidified or that plants will crop. Treat pH ranges as crop-class guidance from extension, not as a Fact about a named competitor's field. Substrate or protected-culture blueberry is a different system than soil highbush.",
+  "related_concept_ids": ["concept-protected-culture", "concept-plasticulture"],
+  "berry_notes": [
+    {
+      "berry_id": "berry-blueberry",
+      "note": "This page is blueberry-specific chemistry. Highbush wants strongly acid, open soil; rabbiteye tolerates a slightly higher pH. Do not copy these numbers onto strawberry or caneberries."
+    }
+  ],
+  "sources": [
+    {
+      "publisher": "Cornell CALS",
+      "title": "Getting the Most out of Your Blueberry Soil Test Report",
+      "url": "https://hort.cornell.edu/gardening/soil/blueberries.pdf"
+    },
+    {
+      "publisher": "Oregon State University Extension",
+      "title": "Nutrient Management for Blueberries in Oregon (EM 8918)",
+      "url": "https://extension.oregonstate.edu/catalog/pub/em-8918-nutrient-management-blueberries-oregon"
+    },
+    {
+      "publisher": "University of Maryland Extension",
+      "title": "Blueberry success is all in the soil",
+      "url": "https://marylandgrows.umd.edu/2021/02/19/blueberry-success-is-all-in-the-soil/"
+    }
+  ]
+}

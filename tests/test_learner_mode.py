@@ -6,14 +6,22 @@ from __future__ import annotations
 from fastapi.testclient import TestClient
 
 from app.main import app
+from app.services.global_search import SearchDoc, SearchPools, _in_berry, search_global
 from app.services.learner import (
+    KNOWLEDGE_CLASS_LABELS,
+    PILLAR_LABELS,
     all_concepts,
+    berry_notes_for_display,
     concept_by_slug,
     concepts_by_pillar,
+    freshness_summary,
+    glossary_hits_for_text,
+    growing_profile_for_varieties,
     learn_href_for_trait_id,
     related_concepts,
     related_intelligence_for_concept,
     search_concepts,
+    stale_concepts,
 )
 
 ACCEPTANCE_SLUGS = {
@@ -27,6 +35,23 @@ ACCEPTANCE_SLUGS = {
     "double-cropping",
     "winter-production",
     "color",
+    "ipm",
+    "primocane-floricane",
+    "chill-hours",
+    "soil-ph",
+    "plasticulture",
+    "trellis-training",
+    "clean-planting-stock",
+    "protected-culture",
+    "harvest-methods",
+    "harvest-robotics",
+    "sugar-acid-balance",
+    "volatile-aroma",
+    "visual-learning-aids",
+    "spotted-wing-drosophila",
+    "botrytis",
+    "phytophthora",
+    "strawberry-viruses",
 }
 
 
@@ -79,6 +104,9 @@ def test_category_grouping_uses_declared_pillars_and_stable_order():
     labels = [g["label"] for g in groups]
     assert "Taste & Consumer Science" in labels
     assert "Plant Biology & Agronomy" in labels
+    assert "Pest, Disease & Cross-Cutting Process" in labels
+    assert "Harvest Technology & AgTech" in labels
+    assert "Visual Content Sourcing" in labels
     total = sum(len(g["concepts"]) for g in groups)
     assert total == len(all_concepts())
     # Deterministic ordering: calling twice yields identical structure.
@@ -97,6 +125,12 @@ def test_related_concepts_resolve_to_real_slugs():
 def test_learn_href_for_trait_id_maps_known_traits_and_returns_none_for_unknown():
     assert learn_href_for_trait_id("trait-fruit-firmness") == "/learn/firmness"
     assert learn_href_for_trait_id("trait-postharvest-shelf-life") == "/learn/shelf-life"
+    assert learn_href_for_trait_id("trait-fruiting-habit") == "/learn/primocane-floricane"
+    assert learn_href_for_trait_id("trait-chilling-requirement") == "/learn/chill-hours"
+    assert learn_href_for_trait_id("trait-machine-harvest-suitability") == "/learn/harvest-methods"
+    assert learn_href_for_trait_id("trait-soluble-solids") == "/learn/sugar-acid-balance"
+    assert learn_href_for_trait_id("trait-titratable-acidity") == "/learn/sugar-acid-balance"
+    assert learn_href_for_trait_id("trait-eating-quality") == "/learn/flavor"
     assert learn_href_for_trait_id("trait-does-not-exist") is None
 
 
@@ -150,6 +184,22 @@ def test_related_intelligence_honest_empty_for_concepts_without_trait_ids():
     assert result == {"rows": [], "has_any": False}
 
 
+def test_ipm_is_pillar_two_educational_knowledge_not_a_fact():
+    concept = concept_by_slug("ipm")
+    assert concept is not None
+    assert concept["pillar"] == "pest_disease_process"
+    assert concept["knowledge_class"] == "foundational_knowledge"
+    assert concept["trait_ids"] == []
+    client = TestClient(app)
+    page = client.get("/learn/ipm")
+    assert page.status_code == 200
+    assert "EDUCATIONAL KNOWLEDGE" in page.text
+    assert "Integrated Pest Management" in page.text
+    assert "not trusted Competitive Intelligence" in page.text
+    assert "No trusted intelligence currently linked to this concept." in page.text
+    assert any(c["slug"] == "ipm" for c in search_concepts("biocontrol"))
+
+
 # --- Route-level tests against real data --------------------------------
 
 
@@ -159,6 +209,11 @@ def test_learn_home_loads():
     assert page.status_code == 200
     assert "Learner Mode" in page.text
     assert "Taste &amp; Consumer Science" in page.text or "Taste & Consumer Science" in page.text
+    assert "Pest, Disease" in page.text
+    assert "Harvest Technology" in page.text
+    assert "Visual Content Sourcing" in page.text
+    assert "Integrated Pest Management" in page.text
+    assert "Primocane vs floricane" in page.text
 
 
 def test_learn_home_search_firmness():
@@ -190,6 +245,17 @@ def test_learn_concept_detail_firmness_has_all_required_sections():
         "Sources / provenance",
     ):
         assert heading in page.text
+
+
+def test_learn_concept_optional_teaching_visuals_section():
+    client = TestClient(app)
+    page = client.get("/learn/primocane-floricane")
+    assert page.status_code == 200
+    assert "Teaching visuals" in page.text
+    assert "not Evidence" in page.text
+    firmness = client.get("/learn/firmness")
+    assert firmness.status_code == 200
+    assert "Teaching visuals" not in firmness.text
 
 
 def test_learn_concept_invalid_slug_is_404():
@@ -261,3 +327,223 @@ def test_learn_deterministic_ordering_across_requests():
     first = client.get("/learn").text
     second = client.get("/learn").text
     assert first == second
+
+
+def test_all_five_pillars_are_populated():
+    groups = {g["pillar"]: g for g in concepts_by_pillar()}
+    assert set(groups) == set(PILLAR_LABELS)
+    for pillar, label in PILLAR_LABELS.items():
+        assert groups[pillar]["concepts"], f"{pillar} has no concepts"
+        assert groups[pillar]["label"] == label
+
+
+def test_every_concept_uses_closed_vocabularies_and_real_trait_ids():
+    from app.runtime_config import resolve_data_dir
+
+    traits_dir = resolve_data_dir() / "entities" / "traits"
+    slugs = {c["slug"] for c in all_concepts()}
+    assert slugs == ACCEPTANCE_SLUGS
+    for concept in all_concepts():
+        assert concept["pillar"] in PILLAR_LABELS, concept["slug"]
+        assert concept["knowledge_class"] in KNOWLEDGE_CLASS_LABELS, concept["slug"]
+        for related_id in concept.get("related_concept_ids") or []:
+            related = related_concepts({"related_concept_ids": [related_id]})
+            assert related, f"{concept['slug']} related {related_id} does not resolve"
+        for trait_id in concept.get("trait_ids") or []:
+            assert (traits_dir / f"{trait_id}.json").is_file(), trait_id
+        for item in concept.get("media") or []:
+            assert item.get("title")
+            assert item.get("url")
+            assert item.get("kind") in {"diagram", "photo", "video"}
+
+
+def test_harvest_robotics_is_current_guidance_not_a_deployment_claim():
+    concept = concept_by_slug("harvest-robotics")
+    assert concept["pillar"] == "harvest_technology_agtech"
+    assert concept["knowledge_class"] == "current_technical_guidance"
+    assert concept["trait_ids"] == []
+    client = TestClient(app)
+    page = client.get("/learn/harvest-robotics")
+    assert page.status_code == 200
+    assert "EDUCATIONAL KNOWLEDGE" in page.text
+    assert "not proof a named company has deployed robots" in page.text
+    assert "No trusted intelligence currently linked to this concept." in page.text
+
+
+def test_visual_learning_aids_is_pillar_five_not_evidence():
+    concept = concept_by_slug("visual-learning-aids")
+    assert concept["pillar"] == "visual_content_sourcing"
+    client = TestClient(app)
+    page = client.get("/learn/visual-learning-aids")
+    assert page.status_code == 200
+    assert "Teaching visuals" in page.text
+    assert "never Evidence" in page.text
+    assert any(c["slug"] == "visual-learning-aids" for c in search_concepts("diagrams"))
+
+
+def test_search_matches_new_glossary_terms():
+    assert any(c["slug"] == "primocane-floricane" for c in search_concepts("floricane"))
+    assert any(c["slug"] == "sugar-acid-balance" for c in search_concepts("brix"))
+    assert any(c["slug"] == "plasticulture" for c in search_concepts("plasticulture"))
+    assert any(c["slug"] == "harvest-robotics" for c in search_concepts("soft gripper"))
+    assert any(c["slug"] == "spotted-wing-drosophila" for c in search_concepts("SWD"))
+
+
+def test_glossary_hits_match_name_and_alias_not_weak_body_mentions():
+    hits = glossary_hits_for_text("New primocane raspberry release", "plants were in bloom this week")
+    slugs = {row["slug"] for row in hits}
+    assert "primocane-floricane" in slugs
+    assert "bloom" not in slugs
+    title_hits = glossary_hits_for_text("Bloom on berries")
+    assert any(row["slug"] == "bloom" for row in title_hits)
+    swd = glossary_hits_for_text("SWD trap counts rose")
+    assert any(row["slug"] == "spotted-wing-drosophila" for row in swd)
+
+
+def test_glossary_chrome_on_brief_item_and_reader_never_uses_trust_badges():
+    client = TestClient(app)
+    brief = client.get("/brief")
+    assert brief.status_code == 200
+    if "v2-learn-glossary" in brief.text:
+        assert "EDUCATIONAL KNOWLEDGE" in brief.text or 'class="v2-mark v2-mark-learn">LEARN' in brief.text
+        assert "badge-fact" not in brief.text.split("v2-learn-glossary", 1)[-1][:800]
+
+
+def test_pest_framework_pages_are_educational_with_crop_notes_and_review_dates():
+    client = TestClient(app)
+    page = client.get("/learn/spotted-wing-drosophila")
+    assert page.status_code == 200
+    assert "EDUCATIONAL KNOWLEDGE" in page.text
+    assert "By crop" in page.text
+    assert "Current technical guidance" in page.text
+    assert "Review by 2027-03-16" in page.text
+    assert "never a Fact, Atomic Evidence, Signal, or Assessment" in page.text
+    for slug in ("botrytis", "phytophthora", "strawberry-viruses"):
+        row = client.get(f"/learn/{slug}")
+        assert row.status_code == 200, slug
+        assert "EDUCATIONAL KNOWLEDGE" in row.text
+        assert "By crop" in row.text
+
+
+def test_berry_notes_split_in_context_from_also_global():
+    concept = concept_by_slug("primocane-floricane")
+    notes = berry_notes_for_display(concept, "berry-raspberry")
+    assert notes["has_any"] is True
+    assert {row["berry_id"] for row in notes["in_context"]} == {"berry-raspberry"}
+    assert {row["berry_id"] for row in notes["also_global"]} == {"berry-blackberry"}
+
+
+def test_growing_profile_maps_trait_facts_and_stays_educational():
+    entities = {
+        "variety-a": {"id": "variety-a", "entity_type": "variety", "name": "Variety A"},
+        "trait-fruit-firmness": {"id": "trait-fruit-firmness", "entity_type": "trait", "name": "Fruit firmness"},
+    }
+    facts = [
+        {
+            "id": "fact-1",
+            "entity_ids": ["variety-a", "trait-fruit-firmness"],
+            "classification": "fact",
+        }
+    ]
+    profile = growing_profile_for_varieties(["variety-a"], facts=facts, entities=entities)
+    assert profile["has_any"] is True
+    assert profile["rows"][0]["slug"] == "firmness"
+    assert profile["rows"][0]["href"] == "/learn/firmness"
+    empty = growing_profile_for_varieties(["variety-a"], facts=[], entities=entities)
+    assert empty == {"rows": [], "has_any": False, "variety_count": 1}
+
+
+def test_variety_and_company_pages_render_growing_profile():
+    client = TestClient(app)
+    variety = client.get("/entities/variety/variety-sekoya-grande")
+    assert variety.status_code == 200
+    assert 'id="growing-profile"' in variety.text
+    assert "Educational context for traits already captured" in variety.text
+    company = client.get("/entities/company/company-driscolls")
+    assert company.status_code == 200
+    assert 'id="growing-profile"' in company.text
+    assert "not a new Fact" in company.text
+
+
+def test_teaching_figure_embeds_publisher_image_not_a_cms():
+    client = TestClient(app)
+    page = client.get("/learn/primocane-floricane")
+    assert page.status_code == 200
+    assert 'class="v2-learn-figure"' in page.text
+    assert "Special:FilePath/Raspberry.jpg" in page.text
+    assert "educational citation, not Evidence" in page.text
+    visual = client.get("/learn/visual-learning-aids")
+    assert visual.status_code == 200
+    assert "Special:FilePath/Blueberries.jpg" in visual.text
+
+
+def test_review_cadence_list_is_not_a_trust_queue_and_foundational_is_not_stale():
+    summary = freshness_summary(as_of="2026-09-16")
+    assert summary["cadence_count"] > 0
+    assert summary["stale_count"] == 0
+    bloom = concept_by_slug("bloom")
+    assert bloom["knowledge_class"] == "foundational_knowledge"
+    assert not bloom.get("review_by")
+    future_stale = {row["slug"] for row in stale_concepts(as_of="2099-01-01")}
+    assert "bloom" not in future_stale
+    assert "spotted-wing-drosophila" in future_stale
+    client = TestClient(app)
+    home = client.get("/learn")
+    assert home.status_code == 200
+    assert 'href="/learn?view=stale"' in home.text
+    page = client.get("/learn", params={"view": "stale"})
+    assert page.status_code == 200
+    assert "Review cadence" in page.text
+    assert "not a trust queue" in page.text
+    assert "Approve" not in page.text
+
+
+def test_global_search_learn_group_is_educational_knowledge_never_trusted():
+    payload = search_global("primocane", SearchPools(learn_concepts=all_concepts()), include_private=False)
+    learn = next(group for group in payload["groups"] if group["id"] == "learn")
+    assert learn["label"] == "Learner Mode"
+    hit = learn["in_context"][0]
+    assert hit["state"] == "educational_knowledge"
+    assert hit["state_label"] == "Educational knowledge"
+    assert hit["href"].startswith("/learn/")
+    assert hit["state_label"] != "Trusted"
+    client = TestClient(app)
+    page = client.get("/api/search/global", params={"q": "floricane", "berry": "global"})
+    assert page.status_code == 200
+    groups = {group["id"]: group for group in page.json()["groups"]}
+    assert "learn" in groups
+    assert all(row["state"] == "educational_knowledge" for row in groups["learn"]["in_context"])
+
+
+def test_learn_search_empty_berry_ids_are_generally_applicable_companies_are_not():
+    learn = SearchDoc(
+        id="concept-ipm",
+        group="learn",
+        object_type="learn_concept",
+        title="IPM",
+        href="/learn/ipm",
+        state="educational_knowledge",
+        berry_ids=(),
+    )
+    company = SearchDoc(
+        id="company-x",
+        group="companies",
+        object_type="company",
+        title="Acme",
+        href="/entities/company/company-x",
+        state="trusted",
+        berry_ids=(),
+    )
+    assert _in_berry(learn, "berry-blueberry") is True
+    assert _in_berry(company, "berry-blueberry") is False
+    scoped = SearchDoc(
+        id="concept-primocane",
+        group="learn",
+        object_type="learn_concept",
+        title="Primocane",
+        href="/learn/primocane-floricane",
+        state="educational_knowledge",
+        berry_ids=("berry-raspberry",),
+    )
+    assert _in_berry(scoped, "berry-raspberry") is True
+    assert _in_berry(scoped, "berry-blueberry") is False

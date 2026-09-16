@@ -1,0 +1,40 @@
+{
+  "id": "concept-phytophthora",
+  "slug": "phytophthora",
+  "name": "Phytophthora root rot",
+  "aliases": ["root rot", "Phytophthora cinnamomi", "crown rot"],
+  "pillar": "pest_disease_process",
+  "knowledge_class": "current_technical_guidance",
+  "trait_ids": [],
+  "reviewed_at": "2026-09-16",
+  "review_by": "2027-03-16",
+  "summary": "A soilborne water-mold that kills roots in wet, poorly drained sites — an establishment and drainage story, not a foliar spray slogan.",
+  "what_is_it": "Phytophthora species (often P. cinnamomi on blueberry) are oomycetes that attack roots and crowns when soil stays saturated. Plants wilt, leave color poorly, and collapse. Raised beds, drainage, and clean planting stock matter more than a late fungicide headline. This is not Botrytis and not SWD.",
+  "why_it_matters": "New plantings that 'didn't take,' a company moving blueberry onto heavy soil, or a nursery recall can be a Phytophthora story. Interpreting those signals requires site and stock, not a variety marketing adjective.",
+  "how_evaluated": "Laboratory isolation or PCR from roots, plus the site's drainage history. Visual wilt is a clue. A catalog claim of 'root-rot tolerance' is not a field assay.",
+  "what_affects_it": "Soil drainage, irrigation, replant history, and whether plants arrived clean. Substrate/trough systems replace native soil but do not make water-molds conceptually irrelevant if the medium stays anaerobic.",
+  "how_to_interpret": "Do not diagnose a competitor's field from this page. Pair with soil pH / blueberry roots, clean planting stock, and IPM. Absence of a Phytophthora Fact on a variety is not proof the variety is resistant.",
+  "related_concept_ids": ["concept-ipm", "concept-soil-ph", "concept-clean-planting-stock", "concept-protected-culture"],
+  "berry_notes": [
+    {
+      "berry_id": "berry-blueberry",
+      "note": "Highbush blueberry on wet mineral soils is the classic Phytophthora cinnamomi case; raised beds and drainage are establishment controls, not flavor traits."
+    },
+    {
+      "berry_id": "berry-raspberry",
+      "note": "Raspberry Phytophthora root rot is a wet-site caneberry problem; it is why sloping, well-drained sites show up in production guides."
+    }
+  ],
+  "sources": [
+    {
+      "publisher": "Michigan State University Extension",
+      "title": "Phytophthora root rot of blueberry",
+      "url": "https://www.canr.msu.edu/blueberries/pest_management/diseases"
+    },
+    {
+      "publisher": "Oregon State University Extension",
+      "title": "Phytophthora root rot in raspberries",
+      "url": "https://extension.oregonstate.edu/catalog/pub/pnw-598-commercial-red-raspberry-production-pacific-northwest"
+    }
+  ]
+}
