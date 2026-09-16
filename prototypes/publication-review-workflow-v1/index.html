@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Publication Review Workflow V1 — Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="tokens.css" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="shell">
+  <aside class="rail" aria-label="Prototype navigation">
+    <p class="brand">Berry Intelligence OS<small>Publication Review · Prototype</small></p>
+    <nav aria-label="Sections">
+      <a href="#main" aria-current="page">Review queue</a>
+      <a href="docs/component-state-catalog.md">Component catalog</a>
+      <a href="docs/interaction-notes.md">Interaction notes</a>
+      <a href="docs/accessibility-checklist.md">Accessibility</a>
+      <a href="docs/production-migration-map.md">Migration map</a>
+      <a href="README.md">README</a>
+    </nav>
+    <div class="proto-note" role="note">
+      Disconnected fixture prototype. No production routes, no backend mutations, no trusted publication or Evidence, no canonical/live data.
+    </div>
+    <div class="kbd-help" aria-label="Keyboard shortcuts">
+      <div><kbd>j</kbd>/<kbd>k</kbd> next/prev draft</div>
+      <div><kbd>a</kbd> approve publication</div>
+      <div><kbd>r</kbd> reject · <kbd>x</kbd> defer · <kbd>c</kbd> correction</div>
+      <div><kbd>Esc</kbd> close dialog</div>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <p class="eyebrow">Operator experience · fixture-driven</p>
+    <h1>Publication Review</h1>
+    <p class="lede">
+      Safely triage publication drafts, inspect provenance, and record an explicit decision.
+      Approval here is <strong>publication approval</strong> only — not Evidence approval.
+    </p>
+    <p class="callout" role="status">
+      SYNTHETIC FIXTURES — NOT PRODUCTION / NOT CANONICAL.
+      Decisions stay in browser memory. Bulk approval is not available.
+      No false undo: corrective events only.
+    </p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:0 0 1rem">
+      <span class="count-pill" aria-live="polite">
+        Pending review: <strong id="pending-count">0</strong>
+      </span>
+      <button type="button" class="btn" id="reset-demo">Reset demo state</button>
+    </div>
+
+    <div class="filters" id="filters" role="toolbar" aria-label="Content quality filters"></div>
+
+    <div class="layout">
+      <section class="panel" aria-labelledby="queue-heading">
+        <div class="panel-head">
+          <h2 id="queue-heading">Queue</h2>
+          <span class="meta">Needs-attention hierarchy · source &amp; capture dates</span>
+        </div>
+        <div class="queue" id="queue-list" role="listbox" aria-label="Publication drafts pending review"></div>
+      </section>
+
+      <div>
+        <div class="receipt" id="receipt" role="status" aria-live="polite"></div>
+        <section class="panel workspace" id="workspace" aria-labelledby="workspace-title" aria-live="polite">
+          <p class="workspace-empty">Select a draft from the queue.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="backdrop" id="backdrop" hidden></div>
+<div class="dialog" id="decision-dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title" aria-hidden="true">
+  <header>
+    <h2 id="dialog-title">Decision</h2>
+    <button type="button" class="x" id="dialog-close" aria-label="Close dialog">×</button>
+  </header>
+  <div id="dialog-body"></div>
+</div>
+
+<div class="toast-region" id="toast-region" aria-live="polite"></div>
+<div class="sr-only" id="live" aria-live="polite" aria-atomic="true"></div>
+
+<script src="fixtures/publication-review-fixtures.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
