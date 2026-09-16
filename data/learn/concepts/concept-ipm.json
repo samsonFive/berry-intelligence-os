@@ -12,7 +12,9 @@
   "how_evaluated": "In the field, IPM is evaluated by scouting records, trap counts, damage thresholds, which tactics were used, and whether interventions stayed within labeled, resistance-aware programs. Regional production guides (updated as labels and resistance change) are the usual written source, not a one-time news mention. There is no single IPM score; presence of a biocontrol product in a catalog also does not prove it was used in a given season.",
   "what_affects_it": "Crop (strawberry virus management is largely clean planting stock and vector control, not a curative spray), production system (open field vs protected culture/substrate), region, weather, resistance status, and which products are legally labeled that season. Protected-culture blueberry and strawberry in coir or peat-based troughs change pest complexes relative to soil production.",
   "how_to_interpret": "When a company, variety, or region is described as practicing IPM, treat that as educational context unless a specific, dated source names the pest, the tactic, and the place. Do not read this page as a spray schedule, a resistance map, or a claim that one competitor has fewer pests. Specific pesticide recommendations belong in current regional technical guidance and change; this concept explains the framework only. A concept page is not a Fact, Signal, or Assessment.",
-  "related_concept_ids": ["concept-winter-production", "concept-clean-planting-stock", "concept-protected-culture"],
+  "related_concept_ids": ["concept-winter-production", "concept-clean-planting-stock", "concept-protected-culture", "concept-spotted-wing-drosophila", "concept-botrytis"],
+  "reviewed_at": "2026-09-16",
+  "review_by": "2027-03-16",
   "sources": [
     {
       "publisher": "University of California Statewide Integrated Pest Management Program",

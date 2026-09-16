@@ -30,6 +30,10 @@
       {% if item.ai_untrusted %}<span class="badge badge-muted">AI-assisted · pending analyst review</span>{% endif %}
     </div>
 
+    {% set hits = learn_glossary_hits(item.title, item.why or '', item.summary or record.summary or '') %}
+    {% set compact = false %}
+    {% include "_learn_glossary_hits.html" %}
+
     {% if kind == 'article' %}
       {% if paragraphs %}
         <div class="intel-body">

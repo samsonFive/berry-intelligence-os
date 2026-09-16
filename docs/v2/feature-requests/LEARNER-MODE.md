@@ -1,6 +1,6 @@
 # Feature Request: "Learner Mode" — Deep Agronomy, Process, Technology & Taste Layer
 
-**Status:** Workstream K of `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md` (formalized 2026-08-22). Learner Mode `/learn` is implemented: educational concept records now cover all five pillars (Plant Biology & Agronomy; Pest/Disease; Harvest Technology & AgTech; Taste & Consumer Science; Visual Content Sourcing). Still out of scope: per-variety Growing Profiles, OS-wide glossary chrome on intelligence surfaces, hosted image/video libraries, and live robotics/VOC monitoring feeds. This document remains the authoritative product requirement; concept JSON under `data/learn/concepts/` is the executable glossary, never a trust object.
+**Status:** Workstream K of `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md` (formalized 2026-08-22). Learner Mode `/learn` is implemented: educational concept records cover all five pillars, including pest/disease framework pages, crop-specific `berry_notes`, OS-wide glossary chrome on intelligence surfaces, a Global Search Learner group, read-only Variety/Company Growing Profiles mapped from captured trait-tagged Facts, in-page teaching figures when a publisher `image_url` exists, and `reviewed_at`/`review_by` cadence with `/learn?view=stale`. Still out of scope: a hosted image/video CMS and live robotics/VOC monitoring feeds. This document remains the authoritative product requirement; concept JSON under `data/learn/concepts/` is the executable glossary, never a trust object.
 
 ## Summary
 

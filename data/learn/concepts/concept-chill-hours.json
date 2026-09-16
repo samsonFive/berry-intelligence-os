@@ -13,6 +13,16 @@
   "what_affects_it": "Genetics, winter temperature pattern, elevation, and for some systems protected culture that changes the temperature the plant actually experiences. Insufficient chill can mean delayed or uneven bud break; a late frost after early bud break is a different risk.",
   "how_to_interpret": "A chill-hour figure in a catalog is a suitability range, not a measured Fact about a specific farm's last winter. Do not infer fruit quality, yield, or that a company 'owns' a climate from a chill number alone. Compare the variety class and the geography named in the source.",
   "related_concept_ids": ["concept-winter-production", "concept-precocity", "concept-protected-culture"],
+  "berry_notes": [
+    {
+      "berry_id": "berry-blueberry",
+      "note": "Northern highbush types generally need more winter chill than southern highbush or rabbiteye. A 'low-chill blueberry' claim is a class/suitability statement, not a flavor score."
+    },
+    {
+      "berry_id": "berry-raspberry",
+      "note": "Many biennial-cane raspberries are described around 800 or more hours below about 45°F (7°C). Protected culture can change the temperature the cane actually sees."
+    }
+  ],
   "sources": [
     {
       "publisher": "University of Arkansas Cooperative Extension",

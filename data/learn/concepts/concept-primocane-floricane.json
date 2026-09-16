@@ -13,12 +13,31 @@
   "what_affects_it": "Genetics set the habit. Climate, winter injury, tipping, and whether a grower manages for a single fall crop or also a summer floricane crop change how the habit is used commercially. The same cultivar can be managed differently by region.",
   "how_to_interpret": "Do not treat 'primocane' as a quality grade or a claim that fruit is sweeter. It names cane-year fruiting biology. Blueberry 'everbearing' marketing is a different plant. When intelligence names a primocane raspberry or blackberry, look for the crop, the habit, and the geography before generalizing to other berries or to commercial success.",
   "related_concept_ids": ["concept-double-cropping", "concept-trellis-training", "concept-precocity"],
+  "berry_notes": [
+    {
+      "berry_id": "berry-raspberry",
+      "note": "Raspberry pruning, trellis, and harvest timing are this distinction. Biennial-cane (floricane) types and primocane-fruiting types are managed as different systems."
+    },
+    {
+      "berry_id": "berry-blackberry",
+      "note": "Primocane-fruiting blackberry (including University of Arkansas Prime-Ark series) is why 'first-year fruiting' shows up in commercial expansion talk. Trailing vs erect still changes the trellis."
+    }
+  ],
   "media": [
     {
       "kind": "diagram",
       "title": "Pruning and Training Caneberries (Blackberries and Raspberries)",
       "publisher": "University of Tennessee Extension",
       "url": "https://uthort.tennessee.edu/wp-content/uploads/sites/228/2023/11/SP284-G.pdf"
+    },
+    {
+      "kind": "photo",
+      "title": "Raspberry (Rubus idaeus) fruiting canes — Wikimedia Commons",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Raspberry.jpg",
+      "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Raspberry.jpg",
+      "license": "See file page; typically CC or public-domain as labeled on Commons",
+      "attribution_required": true
     }
   ],
   "sources": [

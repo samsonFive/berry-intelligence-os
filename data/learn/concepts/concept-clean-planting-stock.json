@@ -12,7 +12,9 @@
   "how_evaluated": "Certification tags, nursery invoices, and laboratory tests on mother plants — not fruit Brix. Field indexing and ELISA/PCR protocols differ by crop and pathogen. Absence of a certificate is not proof of infection; presence of a certificate is not proof the field stayed clean.",
   "what_affects_it": "Nursery isolation, testing panel, how plants are handled after leaving the nursery, and whether the field already had soilborne pathogens. Clean stock does not replace crop rotation, sanitation, or vector management.",
   "how_to_interpret": "Do not read 'certified plants' as a quality-grade of fruit or as a Fact that a competitor's field is disease-free. Do not collapse this into IPM: IPM is in-season decision-making; clean stock is a planting-material control. Pair with plasticulture when the crop is annual strawberry.",
-  "related_concept_ids": ["concept-ipm", "concept-plasticulture"],
+  "related_concept_ids": ["concept-ipm", "concept-plasticulture", "concept-strawberry-viruses"],
+  "reviewed_at": "2026-09-16",
+  "review_by": "2027-03-16",
   "sources": [
     {
       "publisher": "USDA APHIS",

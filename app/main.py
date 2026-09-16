@@ -291,6 +291,8 @@ from app.services.variety_universe.corpus_discovery import (
 )
 from app.services.company_workspace import (
     COMPARE_MAX_COMPANIES,
+    _company_portfolio_roles,
+    _portfolio_variety_ids,
     present_company_compare,
     present_company_portfolio,
 )
@@ -313,8 +315,12 @@ from app.services.global_search import (
 )
 from app.services.learner import (
     all_concepts as learn_all_concepts,
+    berry_notes_for_display as learn_berry_notes_for_display,
     concept_by_slug as learn_concept_by_slug,
     concepts_by_pillar as learn_concepts_by_pillar,
+    freshness_summary as learn_freshness_summary,
+    glossary_hits_for_text as learn_glossary_hits_for_text,
+    growing_profile_for_varieties as learn_growing_profile_for_varieties,
     learn_href_for_trait_id,
     related_concepts as learn_related_concepts,
     related_intelligence_for_concept,
@@ -934,6 +940,7 @@ from app.services.source_body import safe_source_record
 templates.env.globals["safe_source_record"] = safe_source_record
 templates.env.globals["queue_counts"] = lambda: queue_counts()
 templates.env.globals["learn_href_for_trait"] = learn_href_for_trait_id
+templates.env.globals["learn_glossary_hits"] = learn_glossary_hits_for_text
 templates.env.globals["nav_work"] = lambda: work_counts(
     inbox_dir=INBOX_DIR,
     published=published_evidence(),
@@ -3118,15 +3125,17 @@ def entity_synthesis_context(
 
 
 @app.get("/learn", response_class=HTMLResponse)
-def learn_home(request: Request, q: str = "") -> HTMLResponse:
+def learn_home(request: Request, q: str = "", view: str = "") -> HTMLResponse:
     """Learner Mode home -- deterministic browse/glossary over concept
     records (data/learn/concepts/*.json). Search is a plain
     substring match over name/alias/pillar/summary, not semantic search,
     per Learner Mode governance (docs/v2/feature-requests/LEARNER-MODE.md,
     INTELLIGENCE-EXPANSION-BUILD-GUIDE.md section 12a). Educational
     knowledge, not Competitive Intelligence -- no Evidence/Fact/Signal
-    objects are created or implied here."""
+    objects are created or implied here. `view=stale` is an operator
+    cadence list, not a trust queue."""
     search_results = learn_search_concepts(q) if q.strip() else None
+    stale_view = view.strip().lower() == "stale" and search_results is None
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     response = templates.TemplateResponse(
         request=request,
@@ -3136,6 +3145,8 @@ def learn_home(request: Request, q: str = "") -> HTMLResponse:
             "concept_count": len(learn_all_concepts()),
             "search_query": q,
             "search_results": search_results,
+            "stale_view": stale_view,
+            "freshness": learn_freshness_summary(),
             "static_build": False,
             "ui_context": ui,
             "berries": BERRIES,
@@ -3169,6 +3180,7 @@ def learn_concept_detail(request: Request, slug: str) -> HTMLResponse:
             "concept": concept,
             "related": learn_related_concepts(concept),
             "related_intelligence": related_intel,
+            "berry_notes": learn_berry_notes_for_display(concept, ui["berry"]),
             "static_build": False,
             "ui_context": ui,
             "berries": BERRIES,
@@ -3467,8 +3479,30 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                         ),
                     )
                 )
+                synthesis["growing_profile"] = learn_growing_profile_for_varieties(
+                    [entity_id], facts=entity_facts, entities=entities
+                )
             else:
                 synthesis["open_signals"] = open_signals
+            if entity.get("entity_type") == "company":
+                facts_pool: list[dict[str, Any]] = []
+                seen_facts: set[str] = set()
+                vids = _portfolio_variety_ids(
+                    _company_portfolio_roles(
+                        entity_id, relationships=entity_relationships, entities=entities
+                    )
+                )
+                for vid in vids:
+                    for fact in facts_for_entity(vid):
+                        fact_id = str(fact.get("id") or "")
+                        if fact_id and fact_id in seen_facts:
+                            continue
+                        if fact_id:
+                            seen_facts.add(fact_id)
+                        facts_pool.append(fact)
+                synthesis["growing_profile"] = learn_growing_profile_for_varieties(
+                    vids, facts=facts_pool, entities=entities
+                )
             response = templates.TemplateResponse(
                 request=request,
                 name="entity.html",
@@ -8869,6 +8903,7 @@ def _search_index_key(*, include_private: bool) -> tuple[Any, ...]:
         _path_sig(DATA_DIR / "configuration" / "sources.json"),
         _json_tree_sig(DATA_DIR / "entities"),
         _json_tree_sig(DATA_DIR / "relationships"),
+        _json_folder_sig(DATA_DIR / "learn" / "concepts"),
     ]
     if include_private:
         parts.extend(
@@ -8892,6 +8927,7 @@ def _search_pools(*, include_private: bool) -> SearchPools:
         pending_drafts=list_pending_drafts() if include_private else [],
         signal_candidates=load_candidates(INBOX_DIR) if include_private else [],
         identity_redirects=identity_redirects(),
+        learn_concepts=learn_all_concepts(),
     )
 
 

@@ -66,7 +66,11 @@ from app.services.executive_readout import (  # noqa: E402
 from app.services.intelligence_feed import annotate_feed_semantics, build_intelligence_feed  # noqa: E402
 from app.services.learner import (  # noqa: E402
     all_concepts as learn_all_concepts,
+    berry_notes_for_display as learn_berry_notes_for_display,
     concepts_by_pillar as learn_concepts_by_pillar,
+    freshness_summary as learn_freshness_summary,
+    growing_profile_for_company as learn_growing_profile_for_company,
+    growing_profile_for_varieties as learn_growing_profile_for_varieties,
     related_concepts as learn_related_concepts,
     related_intelligence_for_concept,
 )
@@ -418,6 +422,16 @@ def build() -> list[Path]:
                     facts=entity_facts,
                     evidence_by_id=evidence_idx,
                 )
+            )
+            synthesis["growing_profile"] = learn_growing_profile_for_varieties(
+                [entity_id], facts=entity_facts, entities=entities
+            )
+        elif entity.get("entity_type") == "company":
+            synthesis["growing_profile"] = learn_growing_profile_for_company(
+                entity_id,
+                relationships=relationships_all,
+                entities=entities,
+                facts=facts_all,
             )
         written.append(
             write_page(
@@ -952,6 +966,8 @@ def build() -> list[Path]:
                 "concept_count": len(learn_all_concepts()),
                 "search_query": "",
                 "search_results": None,
+                "stale_view": False,
+                "freshness": learn_freshness_summary(),
                 "authoring_mode": False,
             },
         )
@@ -971,6 +987,7 @@ def build() -> list[Path]:
                     "concept": concept,
                     "related": learn_related_concepts(concept),
                     "related_intelligence": related_intel,
+                    "berry_notes": learn_berry_notes_for_display(concept, "global"),
                     "authoring_mode": False,
                 },
             )

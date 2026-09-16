@@ -1,0 +1,20 @@
+<section class="v2-company-section" id="growing-profile">
+  <h2>{{ growing_profile_title|default('Growing profile') }}</h2>
+  <p class="context-limit">Educational context for traits already captured on trusted Facts — a map onto Learner Mode, not a farm guide, not a competitive score, and not a new Fact.</p>
+  {% if growing_profile and growing_profile.has_any %}
+    <ul class="entity-links">
+      {% for row in growing_profile.rows %}
+        <li>
+          <span class="v2-mark v2-mark-learn">EDUCATIONAL KNOWLEDGE</span>
+          <a href="{{ row.href }}">{{ row.name }}</a>
+          {% if row.trait_names %}<span class="v2-meta"> · {{ row.trait_names|join(', ') }}</span>{% endif %}
+          {% if row.varieties and row.varieties|length > 1 %}
+            <span class="v2-meta"> · {% for v in row.varieties %}<a href="{{ v.href }}">{{ v.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No captured trait-tagged Facts currently link {{ growing_profile_empty_subject|default('this record') }} to Learner Mode concepts.</p>
+  {% endif %}
+</section>

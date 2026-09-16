@@ -31,6 +31,10 @@
   </header>
 
   {% if reader_content.notice %}<p class="sh-note" role="status">{{ reader_content.notice }}</p>{% endif %}
+  {% set hits = learn_glossary_hits(item.title, item.why or '', item.summary or '') %}
+  {% set compact = false %}
+  {% include "_learn_glossary_hits.html" %}
+
   {% if item.why %}
     <section class="v2-reader-block">
       <h3>Interpretation</h3>
