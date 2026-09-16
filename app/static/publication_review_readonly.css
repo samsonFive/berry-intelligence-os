@@ -309,6 +309,11 @@
   color: var(--pvs-ink, #1c1812);
   font: inherit;
   font-size: 0.85rem;
+  cursor: not-allowed;
+}
+
+.pub-review-ro .pr-decision-btn:disabled,
+.pub-review-ro .pr-decision-btn[aria-disabled="true"] {
   opacity: 0.55;
   cursor: not-allowed;
 }
