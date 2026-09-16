@@ -18,4 +18,3 @@
 | Static/public safety | Passed | Static build wrote 1,665 pages and found no unpublished draft leakage. |
 
 California Giant's combined state is coherent: entity represented; official source blocked; automated discovery not configured; no successful readable acquisition; no current usable coverage.
-

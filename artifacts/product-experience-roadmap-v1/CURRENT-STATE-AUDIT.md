@@ -33,4 +33,3 @@
 ## Honest maturity summary
 
 The integration is a strong foundation candidate, not a complete monitoring product. The 33/33 result means canonical representation, not current readable coverage. The source strategy proves research coverage and candidate mechanisms, not activation. The Python 3.14 attempt was blocked by declared `pydantic-core`/PyO3 compatibility and is not compatibility evidence.
-

@@ -30,4 +30,3 @@ All eight required remote heads were verified with `git ls-remote origin` on 202
 | Integration manifest | `b2b457514ea8e244811feb01d4c9ed7886640fb7` | `36e60b0e1d6768ad4267e641194d102a5ba008ae` |
 
 The original landscape commit `d44e3e3` was intentionally omitted because its logical content already exists in base as `d36f6785afbbb2785a3915c312dda45d87a71b14`. Parent commits already included by the profile, trust, and prototype ranges were not duplicated.
-

@@ -111,4 +111,3 @@ Research/import-planning only — no live Source created, no collection run, no 
 **Well-Pict**
 - Connection to wellpict.com failed outright (not a 403/blocked response) during this mission's verification -- could be a transient network condition in this research environment, a DNS/hosting issue, or a genuine access restriction; not distinguishable without a retry from elsewhere.
 - See Gem-Pack Berries entry: trade press reports Gem-Pack and Well-Pict Berries 'combining companies' -- a possible merger/affiliation between two separate roster entries, not investigated or acted on further (entity-identity scope, not this mission's).
-

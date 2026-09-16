@@ -10,4 +10,3 @@
 
 All screenshots are genuine captures of this branch's local app. No records were
 inserted through the browser.
-

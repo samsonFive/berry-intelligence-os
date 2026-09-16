@@ -133,4 +133,3 @@ See REHEARSAL-PACK-INDEX.md for which items are real vs. synthetic, and the indi
 - **warnings**: ["The AI-generated why_it_matters text itself states this source provides 'general agricultural principles rather than berry-sector-specific competitive intelligence' -- an honest, self-flagged scope caveat an operator should read before deciding."]
 - **recommended_operator_action**: Defer, or correct scope classification (e.g., tag as adjacent/background rather than direct competitive intelligence) rather than an outright Approve or Reject.
 - **why_not_automatic**: Whether adjacent agricultural-practice content belongs in this corpus at all is an editorial scope decision this pipeline correctly declines to make on its own -- the AI enrichment surfaces the question, a human answers it.
-

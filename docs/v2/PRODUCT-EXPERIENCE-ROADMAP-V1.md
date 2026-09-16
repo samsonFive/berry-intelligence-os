@@ -1,8 +1,8 @@
 # Berry Intelligence OS — Product Experience Roadmap V1
 
-**Planning checkpoint:** `031c9b6a80bd72ce3f271933d8a1ea302decb077`  
-**Base:** `origin/integration/competitor-intelligence-v1`  
-**Prepared:** 2026-09-15  
+**Planning checkpoint:** `031c9b6a80bd72ce3f271933d8a1ea302decb077`
+**Base:** `origin/integration/competitor-intelligence-v1`
+**Prepared:** 2026-09-15
 **Status:** documentation-only product plan; no application implementation is included.
 
 ## Executive direction
@@ -203,8 +203,8 @@ No more than six major phases are intentionally defined.
 
 ### Phase 1 — Integrate and release the trustworthy foundation
 
-**Size:** Medium  
-**User problem:** Stakeholders cannot rely on a single released baseline for the 33-competitor universe, identity roles, and honest monitoring gaps.  
+**Size:** Medium
+**User problem:** Stakeholders cannot rely on a single released baseline for the 33-competitor universe, identity roles, and honest monitoring gaps.
 **Outcome:** The canonical `/competitors` foundation is merged only after Linux/CI validation, record validation, isolated static build, browser gates, and explicit documentation of unresolved coverage.
 
 **Scope:** Merge the canonical registry, source-state separation, genetics/provenance reconciliation, competitor landscape, and acquisition/content-honesty integration as one release candidate. Verify 33/33, zero missing rows, zero canary records, Ozblu brand identity, UC Davis breeding-program identity, California Giant simultaneous states, and no unusable captures in intelligence views.
@@ -215,14 +215,14 @@ No more than six major phases are intentionally defined.
 
 **Data/migration:** No schema migration unless CI finds a genuine contract blocker. Preserve pending/disputed statuses and the historical Sol audit label.
 
-**Gates:** UX: seven required screenshots and mobile no-overflow. Data: 33/33 and no synthetic outcomes. Test: canonical focused suite, records, static leak checks, full deterministic suite in supported CI.  
-**Risks:** Windows path/ACL and Python-version environment issues; stale runtime assumptions.  
+**Gates:** UX: seven required screenshots and mobile no-overflow. Data: 33/33 and no synthetic outcomes. Test: canonical focused suite, records, static leak checks, full deterministic suite in supported CI.
+**Risks:** Windows path/ACL and Python-version environment issues; stale runtime assumptions.
 **Exclusions:** No source bulk run, no Today redesign, no thumbs, no new scoring.
 
 ### Phase 2 — Source activation and quality telemetry
 
-**Size:** Medium  
-**User problem:** A configured roster does not reveal which sources actually yield readable, relevant, current intelligence.  
+**Size:** Medium
+**User problem:** A configured roster does not reveal which sources actually yield readable, relevant, current intelligence.
 **Outcome:** The approved first wave runs under operator supervision and produces comparable operational and user-value telemetry.
 
 **Scope:** Human-review the 12 first-wave strategy entries; register only approved Sources through existing governance; run bounded collection; persist per-source discovery, readable-body, relevance, duplicate, freshness, blocking, and promotion measures; keep manual-only and blocked cases explicit.
@@ -233,14 +233,14 @@ No more than six major phases are intentionally defined.
 
 **Data/migration:** Add only governed Source records and operational state through existing paths. No fabricated outcomes; no production data promotion in the activation mission.
 
-**Gates:** UX: operators can distinguish discovery success from body success and blocked/manual. Data: every new Source has a real adapter/scope; no duplicate Source aliases; no private draft leakage. Test/browser: dry-run, bounded live canary only when separately authorized, record validation, Source Health browser proof.  
-**Risks:** Publisher blocks, duplicate syndication, thin samples, review backpressure.  
+**Gates:** UX: operators can distinguish discovery success from body success and blocked/manual. Data: every new Source has a real adapter/scope; no duplicate Source aliases; no private draft leakage. Test/browser: dry-run, bounded live canary only when separately authorized, record validation, Source Health browser proof.
+**Risks:** Publisher blocks, duplicate syndication, thin samples, review backpressure.
 **Exclusions:** No blended source score, no auto-publish, no activation of The Berry Collective or manual-only entities without identity evidence.
 
 ### Phase 3 — Daily Reading Loop and in-app Reader
 
-**Size:** Large  
-**User problem:** Today is useful but editorial and reading behavior are split across pages; analysts leave the application to inspect sources.  
+**Size:** Large
+**User problem:** Today is useful but editorial and reading behavior are split across pages; analysts leave the application to inspect sources.
 **Outcome:** Analysts can open, read, navigate, and triage current intelligence without losing feed context.
 
 **Scope:** Three-pane-capable Today projection; five recency groups; visual cards; URL-backed filters/sort; compact/comfortable density; Reader integration; keyboard/mobile behavior; explicit partial/unusable states; links to company/entity and competitor filters; current versus historical separation.
@@ -253,13 +253,13 @@ No more than six major phases are intentionally defined.
 
 **Gates:** UX: open/close/focus restore, j/k navigation, mobile Reader, date honesty, empty/partial/error states, no external navigation required for readable content. Data: no unreadable body appears as article text. Test/browser: Today, Reader, chronology, content-honesty, keyboard, responsive, and static-public safety tests.
 
-**Risks:** Two existing shells, performance of broad feed projections, image licensing/safety, old records with inconsistent bodies.  
+**Risks:** Two existing shells, performance of broad feed projections, image licensing/safety, old records with inconsistent bodies.
 **Exclusions:** No AI-written narrative, no automatic trust, no infinite scroll until measured.
 
 ### Phase 4 — Trust feedback and analyst state
 
-**Size:** Medium  
-**User problem:** Fast relevance feedback is missing, while existing publication review is too consequential to overload with a binary reaction.  
+**Size:** Medium
+**User problem:** Fast relevance feedback is missing, while existing publication review is too consequential to overload with a binary reaction.
 **Outcome:** Thumbs actions are fast, reversible, auditable working-state decisions that lead cleanly to existing governed review.
 
 **Scope:** Implement the state model in [TRUST-FEEDBACK-STATE-MODEL.md](../../artifacts/product-experience-roadmap-v1/TRUST-FEEDBACK-STATE-MODEL.md): typed up actions, reasoned down actions, undo, idempotency, event history, query-time feed exclusion, bulk safeguards, role permissions, and explicit handoff to Keep/Promote/Reject.
@@ -272,13 +272,13 @@ No more than six major phases are intentionally defined.
 
 **Gates:** UX: one-click action, undo, reason chips only when needed, keyboard equivalents, clear status. Data: provenance preserved, no auto-publish, duplicate actions idempotent, actor/time captured. Test/browser: transition matrix, permissions, bulk, undo/reload, static leakage, audit history.
 
-**Risks:** Users interpreting “up” as truth; state collisions across analysts; privacy of personal preferences.  
+**Risks:** Users interpreting “up” as truth; state collisions across analysts; privacy of personal preferences.
 **Exclusions:** No thumbs action confirms a Signal or promotes Evidence.
 
 ### Phase 5 — Coherent visual system and saved reading workspace
 
-**Size:** Large  
-**User problem:** Competing shells and limited persistent reading state make the product feel like several tools.  
+**Size:** Large
+**User problem:** Competing shells and limited persistent reading state make the product feel like several tools.
 **Outcome:** A coherent, accessible, responsive reading workspace with saved views, read/unread, saved/starred items, and shareable filter URLs.
 
 **Scope:** Migrate Today/Reader and adjacent cards onto shared V2 tokens/patterns; add saved views and per-analyst read state; preserve query URLs; compact/comfortable density; loading/error/empty system; image identity treatment.
@@ -291,13 +291,13 @@ No more than six major phases are intentionally defined.
 
 **Gates:** UX: 390/768/1100/desktop, keyboard/focus, deep links, filters survive Reader open/close and reload. Data: personal state cannot alter canonical trust. Test/browser: accessibility, route persistence, performance, static safety.
 
-**Risks:** CSS regressions, shell drift, state leakage between analysts.  
+**Risks:** CSS regressions, shell drift, state leakage between analysts.
 **Exclusions:** No full frontend rewrite and no new component framework.
 
 ### Phase 6 — Source optimization and coverage management
 
-**Size:** Medium  
-**User problem:** Once activation and reading are operating, the team needs to decide where to spend collection and review capacity.  
+**Size:** Medium
+**User problem:** Once activation and reading are operating, the team needs to decide where to spend collection and review capacity.
 **Outcome:** Source and competitor coverage decisions are evidence-backed and operationally actionable.
 
 **Scope:** Add sample-aware source performance views using relevant yield, body readability, duplicate rate, false-positive rate, freshness, recall against the 33 roster, berry/region precision, promotion rate, review time, cost, and blocking frequency. Link gaps to Source Health and manual/alternative-source decisions.
@@ -310,7 +310,7 @@ No more than six major phases are intentionally defined.
 
 **Gates:** UX: operational health remains distinct from recall and market activity. Data: no score hides missing denominators or thin samples. Test/browser: fixture benchmark, source-state transitions, 33-row coverage, performance.
 
-**Risks:** False precision, over-optimizing for easy publishers, conflating syndication with independent recall.  
+**Risks:** False precision, over-optimizing for easy publishers, conflating syndication with independent recall.
 **Exclusions:** No automatic source retirement, no competitive score, no API expansion without evidence.
 
 ## Success metrics
@@ -334,4 +334,3 @@ Metrics must be segmented by source class, berry, region, company, date basis, a
 ## Validation and governance
 
 Every implementation slice must demonstrate: exact base SHA, clean tracked tree, no live collection unless explicitly authorized, no auto-publish, record validation, focused tests, full deterministic tests in supported CI, static-public safety, and browser evidence for changed responsive surfaces. Documentation must preserve the distinctions in [CURRENT-STATE-AUDIT.md](../../artifacts/product-experience-roadmap-v1/CURRENT-STATE-AUDIT.md), and active-source changes must update the coverage matrix and technical-debt register when a durable gap remains.
-

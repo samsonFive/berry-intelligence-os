@@ -2,8 +2,8 @@
 
 **Purpose:** Git- and documentation-only integration plan. No branch is merged by this manifest.
 
-**Base:** `origin/integration/competitor-intelligence-v1`  
-**Base SHA:** `031c9b6a80bd72ce3f271933d8a1ea302decb077`  
+**Base:** `origin/integration/competitor-intelligence-v1`
+**Base SHA:** `031c9b6a80bd72ce3f271933d8a1ea302decb077`
 **Prepared:** 2026-09-15
 
 ## Branch inventory
@@ -153,4 +153,3 @@ For every pending branch when it arrives:
 | Profile | canonical profile data is reusable by landscape/Today/Reader; no duplicate entity or maturity field | identity and monitoring status are flattened or a parallel profile store is introduced |
 | Trust domain | feedback is reversible/audited and distinct from publication approval; provenance survives down actions | thumbs automatically publishes, deletes, confirms, or mutates trusted data |
 | Trust UI | consumes the approved domain state and existing queues with keyboard/mobile/a11y coverage | visual affordance becomes an ungrounded trust shortcut |
-

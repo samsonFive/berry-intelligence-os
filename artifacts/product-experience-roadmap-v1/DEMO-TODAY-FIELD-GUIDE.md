@@ -20,4 +20,3 @@ This is an integration checkpoint, not the published production branch. Focused 
 ## Do not demonstrate as complete
 
 Do not claim source activation, current market coverage, thumbs-based trust promotion, a production Daily Intelligence Briefing, Python 3.14 compatibility, automatic publication, bot-wall bypass, The Berry Collective activation, UC Davis access resolution, or California Giant freshness repair.
-

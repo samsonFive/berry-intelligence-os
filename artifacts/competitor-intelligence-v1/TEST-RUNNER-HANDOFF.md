@@ -36,4 +36,3 @@ Acceptance checks:
 - no private/inbox content appears in static output.
 
 Do not run collection as part of this validation.
-

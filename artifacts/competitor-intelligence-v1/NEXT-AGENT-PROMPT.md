@@ -29,4 +29,3 @@ Preserve these settled facts:
   remain withheld for human reconciliation;
 - the Sol 11/33 artifact is a historical pre-Claude audit;
 - live canary records imported: zero.
-

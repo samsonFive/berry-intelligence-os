@@ -51,4 +51,3 @@ Captured evidence:
 - Default Blueberry landscape: 33 of 33.
 - Missing expected landscape labels: 0.
 - Canonical/live/generated data changes from the R1 base: 0.
-

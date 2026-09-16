@@ -7,4 +7,3 @@ Wave 2 R1 already contains Claude's exact profile-completeness semantics fix. Do
 The full suite has inherited baseline debt: 16 failures and 5 errors reproduce exactly on base `85a157…`. Treat that as a separate bounded repair mission; do not mix it into a product-visual or Wave 3 integration. The failure inventory is in `TEST-RESULTS.md` and `base-failure-reproduction.txt`.
 
 Do not integrate `prototype/product-visual-system-v1` unless a later user request explicitly authorizes it. Do not import inbox, canary, generated, local-state, credentials, or temporary readable-content fixtures. Do not publish, approve, merge, or deploy without separate authorization.
-

@@ -1,8 +1,8 @@
 # Product Experience Roadmap V1 — Checkpoint
 
-Date: 2026-09-15  
-Branch: `planning/product-experience-roadmap-v1`  
-Base: `031c9b6a80bd72ce3f271933d8a1ea302decb077`  
+Date: 2026-09-15
+Branch: `planning/product-experience-roadmap-v1`
+Base: `031c9b6a80bd72ce3f271933d8a1ea302decb077`
 Scope: documentation-only planning and repository audit.
 
 ## Deliverables
@@ -20,4 +20,3 @@ Scope: documentation-only planning and repository audit.
 Current, unmerged, validated, prototype, planned, absent, and blocked states are distinguished. 33/33 means canonical representation, not current readable coverage. Unreadable content is not eligible for trusted feed content. Thumbs-down preserves provenance. The plan does not claim Python 3.14 compatibility and treats Sol, Claude, and Grok work as parallel rather than complete.
 
 No application tests, collection, publication, approval, deployment, or model calls were performed by this documentation checkpoint.
-

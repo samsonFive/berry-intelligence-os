@@ -12,4 +12,3 @@ The integration imports zero live canary records.
 Wave 1's source checkpoint records 25 staged discoveries, 5 discovery states, 20 operation items, 5 run records, 11 acquisition outcomes, and 10 private unapproved drafts in that source worktree's ignored inbox. None is present here and cherry-picking the tracked commits did not import them.
 
 Publication mutations: 0. Approval mutations: 0. Live collection runs during integration: 0.
-

@@ -13,4 +13,3 @@ Do not invent or infer its commit. When Claude publishes the checkpoint:
 7. Record the exact source-to-integrated commit map and any changed audit output.
 
 No UI rewrite, source run, collection, approval, publication, or live-data import belongs in this follow-up.
-

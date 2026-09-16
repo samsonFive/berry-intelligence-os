@@ -14,4 +14,3 @@ Evidence collected before editing:
 The previous report's “verification-fix commit” field identified the fix commit while the “local/remote HEAD” field identified the later reconciliation commit. Both statements were individually correct, but the relationship was not stated clearly. The fix is the parent of the reported head, not an alternative head.
 
 Action taken: no cherry-pick, revert, or amendment. The commit remains in ancestry exactly once.
-

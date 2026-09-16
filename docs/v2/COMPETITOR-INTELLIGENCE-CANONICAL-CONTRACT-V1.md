@@ -42,4 +42,3 @@ source without creating a synthetic acquisition result.
 Genetics relationships remain existing graph records. A relationship with
 `status: disputed` from the imported handwritten notes is rendered as
 `Pending review`; integration does not promote, reject, or rewrite it.
-

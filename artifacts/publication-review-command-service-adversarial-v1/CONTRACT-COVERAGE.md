@@ -12,4 +12,3 @@
 | Crash recovery and complete-state isolation | crash recovery suite across documented journal phases | PASS |
 | Valid state transitions and audit history | domain/command/repository suites | PASS |
 | Offline no-mutation validation | record/build digest check; validator tmp-path snapshots | PASS |
-

@@ -1,8 +1,8 @@
 # Next-Wave Integration Manifest V1 — Checkpoint
 
-Date: 2026-09-15  
-Branch: `planning/next-wave-integration-manifest-v1`  
-Base: `031c9b6a80bd72ce3f271933d8a1ea302decb077`  
+Date: 2026-09-15
+Branch: `planning/next-wave-integration-manifest-v1`
+Base: `031c9b6a80bd72ce3f271933d8a1ea302decb077`
 Scope: read-only Git inspection and documentation-only integration planning.
 
 ## Frozen refs verified
@@ -21,4 +21,3 @@ See `docs/v2/NEXT-WAVE-INTEGRATION-MANIFEST-V1.md` for the branch inventory, ful
 ## Safety boundary
 
 No branch was merged. No application code, canonical application data, runtime data, collection state, publication state, or generated output was modified. This checkpoint does not authorize collection, publication, approval, deployment, or model calls.
-

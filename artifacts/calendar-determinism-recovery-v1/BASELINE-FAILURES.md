@@ -1,7 +1,7 @@
 # Baseline failures on untouched `c0de14c`
 
-Exact base SHA: `c0de14c88960c22fee97a51fef0c71ffe386bcf9`  
-Worktree: `.worktrees/calendar-determinism-recovery-v1`  
+Exact base SHA: `c0de14c88960c22fee97a51fef0c71ffe386bcf9`
+Worktree: `.worktrees/calendar-determinism-recovery-v1`
 Reproduced 2026-09-16 before any edit: **FFFF** (4 failed, 0 passed) on the four named tests.
 
 | # | Test | Assertion | Root cause |

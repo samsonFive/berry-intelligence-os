@@ -9146,4 +9146,3 @@ def api_global_search(
         limit_per_group=cap,
         sort=sort_mode,
     )
-

@@ -48,4 +48,3 @@ Reuse existing analyst queue/review-event conventions where safe. Do not create 
 Every event requires actor, timestamp, object ID, prior/resulting state, action, and reason where applicable. Bulk actions show scope/count and never bulk-promote. Keyboard shortcuts are explicit and disabled in text fields. Static output must not expose analyst state. Concurrent analysts append events rather than overwrite each other.
 
 Only existing publication review can promote a draft to trusted Evidence. Feedback never creates a Fact, confirms a Signal, creates an Assessment, or creates a Watch. Original records, acquisition outcomes, provenance, and feedback events remain authorized-audit searchable; exclusion changes only active Today/report projections. **Thumbs-down preserves provenance.**
-

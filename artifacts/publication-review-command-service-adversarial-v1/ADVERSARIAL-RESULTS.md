@@ -22,4 +22,3 @@ All listed cases were mapped to existing command/domain/repository/crash tests. 
 | Audit succeeds but publication fails | journal recovery path | Blocking |
 | Evidence job starts early | command writes no Facts or Atomic Evidence; static safety coverage | Blocking |
 | Static build sees partial record | atomic writes, static build and link validation pass | Blocking |
-

@@ -13,4 +13,3 @@ All checks ran at 1440×1000 in Chromium. Production checks used the clean integ
 | Source Health | `screenshots/source-health.png` | Discovery execution and article-body acquisition are visibly separate. |
 
 Machine-readable results: `browser-checks.json`.
-

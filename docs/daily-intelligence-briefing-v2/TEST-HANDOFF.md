@@ -9,5 +9,5 @@ python -m pytest tests/test_today.py tests/test_astra_news_reader.py tests/test_
 
 Covers: fixture isolation, What Changed gate, attention honesty, recency vs capture date, implication discipline, query/reader state, ID validation, landscape handoff, non-company profiles, route rendering.
 
-Full suite: NOT RUN  
+Full suite: NOT RUN
 Live collection: NOT RUN

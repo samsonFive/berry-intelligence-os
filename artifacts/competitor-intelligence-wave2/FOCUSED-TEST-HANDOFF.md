@@ -10,4 +10,3 @@ Date: 2026-09-15
 - Full suite: **NOT RUN**. Linux CI owns that gate.
 
 The only combined-suite failure was fixed in `fe46718116de764d1f02a49fdc8dfc1e42414d11`: static internal links now preserve query strings and fragments.
-

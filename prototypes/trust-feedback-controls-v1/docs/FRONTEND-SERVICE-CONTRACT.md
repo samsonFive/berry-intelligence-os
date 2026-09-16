@@ -143,7 +143,7 @@ Returns append-only events for the record (and optionally actor-scoped projectio
 
 ## Mapping to roadmap Trust Feedback State Model
 
-Aligned with commit `f2021d4b1709629cb20bc81c609a9ea644142950`  
+Aligned with commit `f2021d4b1709629cb20bc81c609a9ea644142950`
 `artifacts/product-experience-roadmap-v1/TRUST-FEEDBACK-STATE-MODEL.md`:
 
 - Up intents: `relevant` | `retain_for_review` | `monitor`

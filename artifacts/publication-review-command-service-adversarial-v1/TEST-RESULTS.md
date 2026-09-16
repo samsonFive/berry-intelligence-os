@@ -10,4 +10,3 @@
 | Wave 2 quick gate | `python scripts/wave2_contract_gate.py --mode quick` | PASS | 244 underlying checks | 212.2s |
 
 Total observed execution count across backend report and validator runs: no failures. The backend's prior report separately records its full suite totals; this document reports independently rerun groups and does not treat pre-existing intentional skips as validator failures.
-

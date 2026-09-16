@@ -12,4 +12,3 @@ Runtime: local integration worktree at `http://127.0.0.1:8031`.
 
 No browser action ran collection, changed application data, approved a draft,
 or published a record.
-

@@ -14,4 +14,3 @@
 Wait for Sol’s source-activation checkpoint before claiming source performance or current roster coverage. Use Claude’s canonical identity/genetics reconciliation for all links; do not infer affiliations or duplicate Ozblu, UC Davis, Planasa, AgroBerries/BerryWorld, or Gem-Pack/Well-Pict. Treat Grok/Cursor’s Daily Briefing V2 as prototype design input and reconcile it with existing Today, Morning Brief, Brief Pack, and Reader primitives before implementation. Do not introduce a second feed or briefing repository.
 
 After supported Linux/CI validation, the integration checkpoint should become the next base. Reader enters before thumbs because feedback needs stable body-quality, provenance, date, and review context. Source scoring waits for repeated runs; before that show raw operational state. Final Linux/CI validation follows Phase 1 and the first production slice; required PR checks remain deterministic and contain no live collection or model calls.
-

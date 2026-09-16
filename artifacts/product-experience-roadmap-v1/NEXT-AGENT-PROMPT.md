@@ -11,4 +11,3 @@ Do not add thumbs in this slice. That is Phase 4.
 Acceptance: focused Today/Reader/chronology/acquisition/content-honesty tests; new tests for all date and unusable states plus keyboard/mobile/focus; static leak safety; browser evidence for desktop, filtered, mobile, empty, readable, and blocked states; record validation; no Source/data changes; full deterministic CI suite.
 
 Exclusions: live collection, model calls, automatic publication, new trust schema, source activation, blended scoring, full CSS rewrite, and infinite scroll before measured need.
-

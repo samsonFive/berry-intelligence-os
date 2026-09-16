@@ -45,7 +45,7 @@ Demonstrated reason chips: duplicate, wrong entity, outdated, weak source, unrea
 
 ## Bulk review (minimal)
 
-Select N cards → “Exclude selected…” with confirm.  
+Select N cards → “Exclude selected…” with confirm.
 Never bulk-promotes. Scope/count shown.
 
 ## Keyboard
