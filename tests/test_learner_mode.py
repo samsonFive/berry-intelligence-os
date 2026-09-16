@@ -488,6 +488,9 @@ def test_review_cadence_list_is_not_a_trust_queue_and_foundational_is_not_stale(
     assert "bloom" not in future_stale
     assert "spotted-wing-drosophila" in future_stale
     client = TestClient(app)
+    home = client.get("/learn")
+    assert home.status_code == 200
+    assert 'href="/learn?view=stale"' in home.text
     page = client.get("/learn", params={"view": "stale"})
     assert page.status_code == 200
     assert "Review cadence" in page.text

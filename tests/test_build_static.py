@@ -179,6 +179,13 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
             assert sentinel not in content
         assert 'href="/' not in content, f"unrewritten absolute href in {html_file}"
 
+    learn_html = (output_dir / "learn" / "index.html").read_text(encoding="utf-8")
+    assert 'href="/learn?view=stale"' not in learn_html
+    assert "learn/stale/index.html" in learn_html
+    stale_html = (output_dir / "learn" / "stale" / "index.html").read_text(encoding="utf-8")
+    assert "not a trust queue" in stale_html
+    assert "Approve" not in stale_html
+
     search_html = (output_dir / "search" / "index.html").read_text(encoding="utf-8")
     assert 'id="pagefind-js-path"' in search_html
     assert 'href="../pagefind/pagefind.js"' in search_html
@@ -312,3 +319,23 @@ def test_build_search_index_succeeds_when_available(monkeypatch, tmp_path) -> No
 
     assert build_static.build_search_index() is True
     assert (output_dir / "pagefind" / "pagefind.js").exists()
+
+
+def test_rewrite_internal_links_preserves_query_strings() -> None:
+    import scripts.build_static as build_static
+
+    query = build_static._rewrite_internal_links(
+        '<a href="/learn?view=stale">Review cadence</a>',
+        "../",
+    )
+    assert query == '<a href="../learn/index.html?view=stale">Review cadence</a>'
+    path = build_static._rewrite_internal_links(
+        '<a href="/learn/stale">Review cadence</a>',
+        "../",
+    )
+    assert path == '<a href="../learn/stale/index.html">Review cadence</a>'
+    hashed = build_static._rewrite_internal_links(
+        '<a href="/learn#pillar-plant_biology_agronomy">Biology</a>',
+        "../",
+    )
+    assert hashed == '<a href="../learn/index.html#pillar-plant_biology_agronomy">Biology</a>'

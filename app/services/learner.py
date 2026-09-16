@@ -463,4 +463,3 @@ def growing_profile_for_company(
         _company_portfolio_roles(company_id, relationships=relationships, entities=entities)
     )
     return growing_profile_for_varieties(vids, facts=facts, entities=entities, limit=limit)
-
