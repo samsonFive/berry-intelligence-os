@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% block title %}Publication Review (read-only) — Berry Intelligence OS{% endblock %}
+{% block content %}
+<div class="v2-page">
+<section class="page-heading v2-page-header">
+  <div>
+    <p class="eyebrow">PUBLICATION REVIEW — READ ONLY</p>
+    <h1>Publication review queue</h1>
+    <p class="also-known-as">Read-only view over the durable publication-review store. There are no approve, reject, defer, or correction controls on this page — viewing it never changes any review state, never creates a trusted publication, and never touches Evidence, Entities, Facts, or Relationships.</p>
+  </div>
+</section>
+
+{% with help_what="The current durable publication-review backlog: pending drafts awaiting a human decision, plus already-decided items (approved, rejected, deferred, correction-required, superseded).", help_why="This is the same durable state a future decision-making review UI would act on. Seeing it here first, without any way to change it, lets an operator understand the backlog before any mutation surface exists.", help_do="Filter by review state or content class, and open an item to see its full detail: decision history, correction history, publication binding, and content classification. No action can be taken from this page.", help_after="Nothing. This page issues only read calls (app.services.publication_review_query) against the durable repository — it has no side effects at all.", help_note="Full acquired article/transcript bodies are never shown here — only a bounded excerpt, matching the read model's own privacy rule." %}
+  {% include "_workspace_help.html" %}
+{% endwith %}
+
+<section class="v2-company-section" id="publication-review-summary">
+  <h2>Status summary</h2>
+  <div class="balanced-card-grid">
+    <article class="card"><p class="card-kicker">TOTAL</p><h2>{{ summary.total }}</h2></article>
+    {% for state_name, count in summary.by_state.items() %}
+    <article class="card"><p class="card-kicker">{{ state_name|upper|replace("_", " ") }}</p><h2>{{ count }}</h2></article>
+    {% endfor %}
+    <article class="card"><p class="card-kicker">PENDING TRANSACTION</p><h2>{{ summary.drafts_with_pending_transaction }}</h2></article>
+  </div>
+</section>
+
+<section class="v2-company-section" id="publication-review-filters">
+  <h2>Filters</h2>
+  <p class="v2-card-line">
+    <span class="v2-meta">Review state</span>
+    <a class="badge {{ 'badge-fact' if not filters.state else 'badge-muted' }}" href="/review-ops/publications">All</a>
+    {% for state_name in review_states %}
+    <a class="badge {{ 'badge-fact' if filters.state == state_name else 'badge-muted' }}" href="/review-ops/publications?state={{ state_name }}">{{ state_name|replace("_", " ") }}</a>
+    {% endfor %}
+  </p>
+</section>
+
+<section class="v2-company-section" id="publication-review-queue">
+  <h2>Queue{% if queue.total_matching %} ({{ queue.total_matching }} matching){% endif %}</h2>
+  {% if queue['items'] %}
+  <div class="table-wrap">
+    <table data-pagefind-ignore>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Source</th>
+          <th>Review state</th>
+          <th>Content class</th>
+          <th>Version</th>
+          <th>Updated</th>
+          <th>Warnings / blockers</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in queue['items'] %}
+        <tr {% if item.draft_id == selected_id %}class="is-selected"{% endif %}>
+          <td><a href="/review-ops/publications?selected={{ item.draft_id }}{% if filters.state %}&state={{ filters.state }}{% endif %}{% if filters.content_class %}&content_class={{ filters.content_class }}{% endif %}">{{ item.title }}</a></td>
+          <td>{{ item.source_name }}</td>
+          <td><span class="badge badge-muted">{{ item.review_state|replace("_", " ") }}</span></td>
+          <td>{{ item.content_class }}</td>
+          <td>{{ item.version }}</td>
+          <td>{{ item.updated_at }}</td>
+          <td>
+            {% if item.blockers %}<span class="badge badge-counterevidence">{{ item.blockers|length }} blocker{{ 's' if item.blockers|length != 1 else '' }}</span>{% endif %}
+            {% if item.warnings %}<span class="badge badge-muted">{{ item.warnings|length }} warning{{ 's' if item.warnings|length != 1 else '' }}</span>{% endif %}
+            {% if item.has_pending_transaction %}<span class="badge badge-counterevidence">pending transaction</span>{% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if queue.next_cursor %}
+  <p class="v2-card-line"><a href="/review-ops/publications?cursor={{ queue.next_cursor }}{% if filters.state %}&state={{ filters.state }}{% endif %}{% if filters.content_class %}&content_class={{ filters.content_class }}{% endif %}">Next page →</a></p>
+  {% endif %}
+  {% else %}
+  <p class="empty-state">No durable publication-review drafts match this filter. This page never invents backlog — an empty durable store means an empty queue, honestly.</p>
+  {% endif %}
+</section>
+
+<section class="v2-company-section" id="publication-review-detail">
+  <h2>Detail</h2>
+  {% if detail %}
+  <h3>{{ detail.title }}</h3>
+  <dl data-pagefind-ignore>
+    <dt>Draft id</dt><dd><code>{{ detail.draft_id }}</code></dd>
+    <dt>Review state</dt><dd><span class="badge badge-muted">{{ detail.review_state|replace("_", " ") }}</span></dd>
+    <dt>Version</dt><dd>{{ detail.version }}</dd>
+    <dt>Content class</dt><dd>{{ detail.content_class }} ({{ detail.acquisition_classification }})</dd>
+    <dt>Source</dt><dd>{{ detail.source_name }}{% if detail.source_url %} — <a href="{{ detail.source_url }}" rel="noopener noreferrer">{{ detail.source_url }}</a>{% endif %}</dd>
+    <dt>Publication date</dt><dd>{{ detail.publication_date or "Unknown" }}</dd>
+    <dt>Captured</dt><dd>{{ detail.captured_at or "—" }}</dd>
+    <dt>Content digest</dt><dd><code>{{ detail.content_digest }}</code></dd>
+    <dt>Provenance digest</dt><dd><code>{{ detail.provenance_digest }}</code></dd>
+  </dl>
+
+  {% if detail.eligibility_result %}
+  <p class="v2-card-line"><span class="v2-meta">Eligibility (informational only)</span> <span class="badge {{ 'badge-fact' if detail.eligibility_result == 'eligible' else 'badge-counterevidence' if detail.eligibility_result == 'blocked' else 'badge-muted' }}">{{ detail.eligibility_result|replace("_", " ") }}</span></p>
+  {% endif %}
+  {% if detail.blockers %}
+  <p class="v2-card-line"><span class="v2-meta">Blockers</span> {% for code in detail.blockers %}<span class="badge badge-counterevidence">{{ code|replace("_", " ") }}</span> {% endfor %}</p>
+  {% endif %}
+  {% if detail.warnings %}
+  <p class="v2-card-line"><span class="v2-meta">Warnings</span> {% for code in detail.warnings %}<span class="badge badge-muted">{{ code|replace("_", " ") }}</span> {% endfor %}</p>
+  {% endif %}
+  {% if detail.duplicate_of %}
+  <p class="v2-card-line"><span class="v2-meta">Probable duplicate of</span> <code>{{ detail.duplicate_of }}</code></p>
+  {% endif %}
+
+  <h4>Excerpt (bounded — never the full acquired body)</h4>
+  {% if detail.excerpt.excerpt %}
+  <blockquote class="context-limit">{{ detail.excerpt.excerpt }}{% if detail.excerpt.truncated %} …{% endif %}</blockquote>
+  <p class="context-limit">{{ detail.excerpt.word_count }} words in the full acquired {{ detail.excerpt.kind }}{% if detail.excerpt.truncated %}; only the first characters are shown here{% endif %}.</p>
+  {% else %}
+  <p class="empty-state">No acquired body or transcript excerpt is available for this draft.</p>
+  {% endif %}
+
+  {% if detail.publication_binding %}
+  <h4>Publication binding</h4>
+  <dl data-pagefind-ignore>
+    <dt>Publication id</dt><dd><code>{{ detail.publication_binding.publication_id }}</code></dd>
+    <dt>Committed at</dt><dd>{{ detail.publication_binding.committed_at }}</dd>
+    <dt>Verified</dt>
+    <dd>
+      {% if detail.publication_verified == true %}<span class="badge badge-fact">VERIFIED</span>
+      {% elif detail.publication_verified == false %}<span class="badge badge-counterevidence">NOT FOUND — reference is stale</span>
+      {% else %}<span class="badge badge-muted">NOT CHECKED</span>{% endif %}
+    </dd>
+  </dl>
+  {% endif %}
+
+  {% if detail.promotion_status.has_pending_transaction %}
+  <p class="banner banner-warning">This draft has a real, durable, <strong>uncommitted</strong> approval transaction in progress. It is not approved. Recovery/reconciliation is an operator action this read-only page does not perform.</p>
+  {% endif %}
+
+  {% if detail.supersession %}
+  <h4>Supersession</h4>
+  <p class="v2-card-line">Superseded by <code>{{ detail.supersession.survivor_id }}</code> ({{ detail.supersession.identity_basis|replace("_", " ") }}).</p>
+  {% endif %}
+
+  <h4>Decision history</h4>
+  {% if detail.decision_history %}
+  <div class="table-wrap">
+    <table data-pagefind-ignore>
+      <thead><tr><th>Command</th><th>Actor</th><th>When</th><th>Reason</th><th>Comment</th><th>Resulting state</th></tr></thead>
+      <tbody>
+      {% for event in detail.decision_history %}
+        <tr>
+          <td>{{ event.command|replace("_", " ") }}</td>
+          <td>{{ event.actor_id }}</td>
+          <td>{{ event.occurred_at }}</td>
+          <td>{{ event.reason_category or "—" }}</td>
+          <td>{{ event.comment or "—" }}</td>
+          <td>{{ event.resulting_state|replace("_", " ") }} (v{{ event.resulting_version }})</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="empty-state">No decisions have been recorded for this draft yet.</p>
+  {% endif %}
+
+  {% if detail.correction_history %}
+  <h4>Correction history</h4>
+  <div class="table-wrap">
+    <table data-pagefind-ignore>
+      <thead><tr><th>Command</th><th>Actor</th><th>When</th><th>Comment</th></tr></thead>
+      <tbody>
+      {% for event in detail.correction_history %}
+        <tr>
+          <td>{{ event.command|replace("_", " ") }}</td>
+          <td>{{ event.actor_id }}</td>
+          <td>{{ event.occurred_at }}</td>
+          <td>{{ event.comment or "—" }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+  {% if detail.is_legacy_import %}
+  <p class="context-limit">This draft's own shape suggests it was imported from a development inbox draft and has not yet had any decision applied.</p>
+  {% endif %}
+
+  <h4>Permitted next commands</h4>
+  <p class="context-limit">Shown for information only — this page has no controls to invoke them. {% if detail.permitted_commands %}{% for command in detail.permitted_commands %}<code>{{ command }}</code>{% if not loop.last %}, {% endif %}{% endfor %}{% else %}None — this is a terminal state.{% endif %}</p>
+
+  {% else %}
+  <p class="empty-state">Select an item from the queue above to see its detail.</p>
+  {% endif %}
+</section>
+</div>
+{% endblock %}

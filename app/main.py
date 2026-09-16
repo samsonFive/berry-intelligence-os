@@ -117,6 +117,11 @@ from app.services.analyst_queue import (
 from app.services.derived_review import present_derived_review, section_review_key
 from app.services.commercial_positions import commercial_page_model
 from app.services.review_operations import build_review_operations
+from app.services.publication_review_domain import REVIEW_STATES as PUBLICATION_REVIEW_STATES
+from app.services.publication_review_query import get_detail as publication_review_get_detail
+from app.services.publication_review_query import list_queue as publication_review_list_queue
+from app.services.publication_review_query import status_summary as publication_review_status_summary
+from app.services.publication_review_repository import DurableReviewRepository, resolve_review_state_dir
 from app.services.collection_ops import (
     DEFAULT_RUN_SIZE,
     RUN_SIZE_CHOICES,
@@ -4930,6 +4935,59 @@ def collection_ops_run(max_items: int = Form(DEFAULT_RUN_SIZE)) -> RedirectRespo
     if result.get("reason"):
         params["reason"] = result["reason"]
     return RedirectResponse(url=f"/collection-ops?{urlencode(params)}", status_code=303)
+
+
+_PUBLICATION_REVIEW_PAGE_SIZE = 25
+
+
+@app.get("/review-ops/publications", response_class=HTMLResponse)
+def publication_review_readonly_page(
+    request: Request, state: str = "", content_class: str = "", cursor: str = "", selected: str = "",
+) -> HTMLResponse:
+    """Read-only publication-review queue and detail workspace over the
+    durable review-state store (`app.services.publication_review_query`).
+
+    This route renders exactly what the durable repository already
+    contains -- it never calls any decision command
+    (`PublicationReviewCommandService.approve_publication`/`reject_publication`/
+    etc.), never mutates the repository, and exposes no form or button
+    that could. It is a pure GET view over an existing, already-tested
+    read model; see `artifacts/publication-review-durable-read-model-v1/`
+    for that model's own contract and privacy guarantees (no full acquired
+    article/transcript body is ever included here either -- only the
+    bounded excerpt the read model itself already enforces).
+    """
+    repository = DurableReviewRepository(resolve_review_state_dir())
+    page = publication_review_list_queue(
+        repository, state=state or None, content_class=content_class or None,
+        page_size=_PUBLICATION_REVIEW_PAGE_SIZE, cursor=cursor or None,
+    )
+    summary = publication_review_status_summary(repository)
+
+    detail = None
+    detail_id = selected.strip()
+    if not detail_id and page.items:
+        detail_id = page.items[0]["draft_id"]
+    if detail_id:
+        detail = publication_review_get_detail(repository, detail_id)
+
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="publication_review_readonly.html",
+        context={
+            "queue": page.as_dict(),
+            "summary": summary,
+            "detail": detail,
+            "selected_id": detail_id or None,
+            "filters": {"state": state, "content_class": content_class},
+            "review_states": list(PUBLICATION_REVIEW_STATES),
+            "static_build": False,
+            "ui_context": ui,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
 
 
 def _reconcile_active_session() -> dict[str, Any] | None:
