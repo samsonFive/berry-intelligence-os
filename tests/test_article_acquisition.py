@@ -6,6 +6,7 @@ import httpx
 import pytest
 
 from app.services import article_acquisition as aa
+from tests.test_google_news_url import PUBLISHER, google_news_article_url
 
 
 class _FakeResponse:
@@ -115,6 +116,35 @@ def test_navigation_and_photo_credit_lines_are_stripped_from_the_body(monkeypatc
     assert "back to top" not in body.full_text.lower()
     assert "j. marchini farms" not in body.full_text.lower()
     assert "fresh figs continue to be in good supply" in body.full_text.lower()
+
+
+def test_google_news_encoded_wrapper_fetches_publisher_not_wrapper(monkeypatch):
+    fetched: list[str] = []
+
+    def _get(url, **kwargs):
+        fetched.append(url)
+        return _FakeResponse(_REAL_ARTICLE_HTML, url=url)
+
+    monkeypatch.setattr(aa.httpx, "get", _get)
+    wrapper = google_news_article_url(PUBLISHER)
+    body = aa.fetch_article(wrapper)
+    assert fetched == [PUBLISHER]
+    assert "Peru" in body.full_text
+    assert body.source_url == wrapper
+    assert body.final_url == PUBLISHER
+
+
+def test_google_news_wrapper_http_redirect_to_publisher_is_extracted(monkeypatch):
+    """TD-014's original HEAD/GET hope: if Google actually 302s, extract
+    the publisher page and do not treat remaining wrapper chrome as body."""
+    def _get(url, **kwargs):
+        return _FakeResponse(_REAL_ARTICLE_HTML, url=PUBLISHER)
+
+    monkeypatch.setattr(aa.httpx, "get", _get)
+    wrapper = "https://news.google.com/rss/articles/wrapper"
+    body = aa.fetch_article(wrapper)
+    assert "Peru" in body.full_text
+    assert body.final_url == PUBLISHER
 
 
 def test_empty_url_is_a_malformed_html_failure_not_a_crash():

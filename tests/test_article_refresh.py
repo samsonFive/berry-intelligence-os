@@ -20,6 +20,7 @@ from app.services.article_refresh import process_discovered_article
 from app.services.media_discovery import discover_source, list_discovered_items
 from app.services.media_orchestration import JsonStagedTranscriptAdapter, MediaOrchestrationService
 from app.services.relevance_screen import TIER_UNCERTAIN
+from tests.test_google_news_url import PUBLISHER, google_news_article_url
 
 SOURCE_ID = "source-article-refresh-test"
 FEED_URL = "https://feeds.example.invalid/article-refresh-test/rss"
@@ -548,3 +549,38 @@ def test_always_body_check_without_access_limitation_still_lets_stage_b_decide(
 
     assert result.state == "skipped_irrelevant"
     assert result.publication_draft_id is None
+
+
+def test_google_news_encoded_wrapper_acquires_publisher_body_for_borderline_item(
+    tmp_path, repos, source, monkeypatch
+):
+    """TD-014: a news_search_rss-shaped wrapper whose token encodes the
+    publisher article must fetch that article, not sit retry_deferred
+    because the wrapper SPA has no extractable body."""
+    wrapper = google_news_article_url(PUBLISHER)
+    item = _discover_one(
+        tmp_path, source, monkeypatch,
+        title="Blueberry acreage grows in Peru",
+        link=wrapper,
+        description="Acreage update from Peru.",
+    )
+    fetched: list[str] = []
+
+    def _get(url, **kwargs):
+        fetched.append(url)
+        return _FakeArticleResponse(_RELEVANT_HTML, url=url)
+
+    monkeypatch.setattr(article_acquisition.httpx, "get", _get)
+    orchestrator = _orchestrator(repos, tmp_path)
+    result, extra = process_discovered_article(
+        item, orchestrator=orchestrator, inbox_dir=tmp_path / "inbox",
+    )
+
+    assert fetched == [PUBLISHER]
+    assert extra.get("acquired") is True
+    assert result.state == "awaiting_publication_review"
+    draft = json.loads(
+        (tmp_path / "inbox" / "evidence" / f"{result.publication_draft_id}.json").read_text(encoding="utf-8")
+    )
+    assert draft["article"]["final_url"] == PUBLISHER
+    assert draft["article"]["word_count"] > 0

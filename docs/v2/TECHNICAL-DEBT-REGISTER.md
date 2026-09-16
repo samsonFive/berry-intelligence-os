@@ -486,14 +486,14 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Severity** | Medium |
 | **Area** | collection / access limitation |
 | **Date discovered** | 2026-08-21 |
-| **Evidence** | A Google News RSS entry's `<link>` is a `news.google.com/rss/articles/...` redirect wrapper, not the publisher's real URL. `app/services/article_acquisition.py`'s `fetch_article()` cannot extract readable content directly from that wrapper (live-verified: `"no extractable article body found at https://news.google.com/rss/articles/..."` on multiple real items). The mission's new metadata-only fallback (paired with `always_body_check`) only rescues items where Stage A already confirms relevance from title/description alone (`TIER_DIRECT`) -- a genuinely BORDERLINE `news_search_rss` item stays `retry_deferred` indefinitely, since the body it needs can never be fetched through this path. |
-| **Impact** | Mainstream discovery via Google News search systematically under-recalls a "company name only, no berry word" headline -- exactly the class this mission set out to catch is the class most likely to stay unconfirmed. Measured directly: 44 of 191 processed items across this mission's 5 sources ended `article_acquisition_failed`/unconfirmed. |
-| **Workaround** | None currently; relies on the item's own title/description already being Stage-A-confident. |
-| **Recommended resolution** | Resolve the Google redirect to its real destination URL before calling `fetch_article()` (a plain HTTP HEAD/GET following redirects may already work where the direct-fetch of the wrapper page does not -- not verified in this mission). |
-| **Status** | active |
+| **Evidence** | A Google News RSS entry's `<link>` is a `news.google.com/rss/articles/...` wrapper, not the publisher's real URL. `fetch_article()` cannot extract readable content from that wrapper (live-verified empty/SPA chrome; historic repeated-body incident when shared wrapper HTML was treated as an article). Metadata-only fallback only rescued Stage A `TIER_DIRECT` items; a genuinely BORDERLINE `news_search_rss` item stayed `retry_deferred` / `article_acquisition_failed`. Measured originally: 44 of 191 processed items across 5 sources ended unconfirmed. |
+| **Impact** | Mainstream discovery via Google News search systematically under-recalled "company name only, no berry word" headlines — the class this source class exists to catch. |
+| **Fix** | `app/services/google_news_url.py` locally decodes the RSS article token (base64url payload already on the `<link>`) and returns a publisher article URL when one is present. `fetch_article()` fetches that publisher URL before extraction. HTTP follow-redirects still win when Google actually 302s. Undecodable wrappers, publisher homepages, and Google tracking hosts are not accepted. Wrapper HTML is still never a FULL_ARTICLE artifact. Does **not** call an undocumented Google decode endpoint (TD-059). Discovery `canonical_url` stays the wrapper (stable identity). |
+| **Remaining limitation** | A token that does not embed a publisher article URL still cannot be body-fetched; existing `script_rendered` / `interstitial` outcomes remain correct. Direct publisher RSS is still preferable where a publisher has one. Live production yield was not re-measured this pass (tests are mocked). |
+| **Status** | resolved |
 | **Owner lane** | data |
-| **PR/SHA when resolved** | — |
-| **Regression-test reference** | — |
+| **PR/SHA when resolved** | `fix/td-014-google-news-redirect-v1` |
+| **Regression-test reference** | `tests/test_google_news_url.py`; `tests/test_article_acquisition.py::test_google_news_encoded_wrapper_fetches_publisher_not_wrapper`; `tests/test_article_refresh.py::test_google_news_encoded_wrapper_acquires_publisher_body_for_borderline_item`; `tests/test_rich_source_acquisition.py::test_google_news_wrapper_is_never_preserved_as_full_article` |
 
 ### TD-015 — Generic-species-word ambiguity in broad topic search ("BlackBerry" phone)
 
@@ -951,14 +951,14 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Severity** | Medium |
 | **Area** | discovery / article acquisition |
 | **Date discovered** | 2026-08-23 |
-| **Evidence** | Live-tested against the real BM-C-04 canonical_url: `httpx.get(..., follow_redirects=True)` returns HTTP 200 with a ~580KB Google News single-page-application shell (real, server-rendered), but the actual target article URL is resolved only by client-side JavaScript -- no server-rendered link, embedded JSON payload, or `data-*` attribute carrying the real target URL was found in the response body. `article_acquisition.fetch_article()` correctly raises `empty_body` (trafilatura finds no extractable content). Measured: **100% of 309** real zero-signal `news_search_rss` items in the current backlog have a `news.google.com/rss/articles/...` canonical_url; Stage B body verification is therefore structurally unavailable for essentially this entire source class, not just an occasional failure. |
-| **Impact** | Query-provenance corroboration's `TIER_UNCERTAIN` fallback (TD-040) is the only mitigation available for this source class -- items lacking a corroboration hit remain unresolved, not because Stage B rejected them, but because Stage B can never run. Real body-content verification (the strongest, most trustworthy signal) is available only for non-Google-News sources (Federal Register, openFDA, UK FSA, direct publisher `article_rss` feeds). |
-| **Workaround** | None implemented. Community libraries exist that decode Google's redirect payload via an additional request to an undocumented internal Google endpoint -- deliberately not integrated: undocumented, has already changed encoding once (community tooling had to adapt), and sits uncomfortably against this project's own "respect access controls, never build around a wall" discipline even though it is not a paywall in the traditional sense. |
-| **Recommended resolution** | If this becomes a priority, the safer fix is source-level: prefer direct publisher RSS/JSON feeds over Google News search queries wherever a given publisher (AgriMaroc, Fruitnet, FreshPlaza, etc.) already has one, rather than attempting to resolve Google's redirect. Not evaluated this mission -- would be a new source-configuration change, out of this mission's own "no broad source expansion" stop instruction. |
-| **Status** | active |
+| **Evidence** | Live-tested against the real BM-C-04 canonical_url: `httpx.get(..., follow_redirects=True)` returns HTTP 200 with a ~580KB Google News SPA shell. No server-rendered publisher link. Community libraries that POST to an undocumented internal Google endpoint were deliberately not integrated. |
+| **Impact** | Stage B body verification was structurally unavailable for `news.google.com/rss/articles/...` canonical URLs (100% of 309 zero-signal `news_search_rss` items in that backlog). |
+| **Fix** | Google News Publisher URL Resolution V1 locally decodes the article token already present on the RSS `<link>` (`app/services/google_news_url.py`). That is not an extra request to an undocumented Google endpoint. `fetch_article()` then fetches the publisher page. Wrapper SPA HTML is still rejected. See TD-014. |
+| **Remaining limitation** | Tokens that do not embed a publisher article URL still cannot be body-verified; those stay `script_rendered` / metadata-only fallback. Direct publisher feeds remain the better source-level path. The undocumented batchexecute-style decoder is still not used. |
+| **Status** | resolved (local token decode; undocumented Google endpoint still rejected) |
 | **Owner lane** | collection/runtime |
-| **PR/SHA when resolved** | — |
-| **Regression-test reference** | `tests/test_article_refresh.py::test_query_corroborated_zero_signal_item_becomes_uncertain_draft_when_body_unverifiable` |
+| **PR/SHA when resolved** | `fix/td-014-google-news-redirect-v1` |
+| **Regression-test reference** | `tests/test_google_news_url.py`; `tests/test_article_refresh.py::test_query_corroborated_zero_signal_item_becomes_uncertain_draft_when_body_unverifiable` |
 
 ### TD-060 — French blackberry species identity ("mûre"/"mûres") remains unrecognized
 
