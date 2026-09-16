@@ -71,6 +71,7 @@ these as Open UI-lane items):
 | TD-UI-004 | TD-004 **resolved** |
 | TD-ACQ-001 | TD-006 **resolved** |
 | TD-THREAD-001 | **resolved** in PR #51 (`807e059`) |
+| TD-THREAD-002 | **resolved** on `feature/td-thread-002-published-coverage-v1` (unmerged; live `/threads` now includes recent trusted published Evidence) |
 
 Unique withdrawn-draft items below keep their original IDs.
 
@@ -181,14 +182,14 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Severity** | Low–Medium |
 | **Area** | story threads / routes |
 | **Date discovered** | 2026-08-20 |
-| **Evidence** | `story_thread_reader()` and `_intelligence_page_context()` build `universe` from `list_pending_drafts()` plus at most the currently viewed published record. Trusted-only clusters never thread in the live UI. |
-| **Impact** | Published same-event coverage is not assembled as a thread unless a pending draft is also in the set. Product decision, not a silent matcher bug. |
-| **Workaround** | Tests assemble a broader universe by hand. |
-| **Recommended resolution** | Decide whether trusted-only clusters should surface in live UI; if yes, include recently published Evidence in `universe`. Do not loosen membership rules. |
-| **Status** | active |
+| **Evidence** | `story_thread_reader()` and `_intelligence_page_context()` previously built `universe` from `list_pending_drafts()` plus at most the currently viewed published record. Trusted-only clusters never threaded in the live UI. |
+| **Impact** | Published same-event coverage was not assembled as a thread unless a pending draft was also in the set. Product decision, not a silent matcher bug. |
+| **Workaround** | Tests assembled a broader universe by hand. |
+| **Recommended resolution** | Include recently published Evidence in the live `/threads` candidate universe using the existing `DATE_PROXIMITY_EXACT_TITLE_DAYS` window. Do not loosen membership rules. |
+| **Status** | resolved on `feature/td-thread-002-published-coverage-v1` (unmerged; not based on PR #255) |
 | **Owner lane** | product |
-| **PR/SHA when resolved** | — |
-| **Regression-test reference** | `app/main.py` thread routes; `tests/test_story_threads.py` |
+| **PR/SHA when resolved** | branch `feature/td-thread-002-published-coverage-v1` (push-only; PR not opened while #255 remains unmerged) |
+| **Regression-test reference** | `app/services/story_threads.py` (`live_thread_candidate_universe`); `app/main.py` thread routes; `tests/test_story_threads.py` |
 
 ### TD-ACQ-002 — Growing Produce berries feed returns 403
 
