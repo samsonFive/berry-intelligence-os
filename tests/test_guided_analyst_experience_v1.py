@@ -115,8 +115,9 @@ def test_today_route_console_help_and_no_trust_mutation(monkeypatch, tmp_path: P
     page = TestClient(main.app).get("/today")
     assert page.status_code == 200
     html = page.text
-    assert "Focus the news" in html
-    assert "Berry news, in context." in html
+    assert "DAILY INTELLIGENCE" in html
+    assert "Coverage Pulse" in html
+    assert "What Changed" in html
     assert "new since last visit" not in html.lower()
     assert "name=\"decision\"" not in html
     assert "Create Report" not in html
@@ -151,8 +152,9 @@ def test_today_sparse_empty_states(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setattr(main, "load_sources", lambda: [])
     page = TestClient(main.app).get("/today")
     assert page.status_code == 200
-    assert "Berry news, in context." in page.text
-    assert "Focus the news" in page.text
+    assert "DAILY INTELLIGENCE" in page.text
+    assert "No current trusted readable coverage in this scope." in page.text
+    assert "Review Needs Attention" in page.text
     assert "Publication Review" not in page.text
     snapshot = watch_monitoring_snapshot(inbox_dir=inbox)
     assert snapshot["watch_count"] == 0

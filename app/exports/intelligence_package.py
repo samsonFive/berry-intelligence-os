@@ -48,10 +48,50 @@ class IntelligencePackageExporter:
     def collect(self) -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any]]:
         records = {name: sorted(getattr(self.repositories, name).list(), key=lambda r: r["id"]) for name in FAMILIES}
         records["entities"] = [r for r in records["entities"] if r["id"] not in SEED_ENTITY_IDS]
-        records["evidence"] = [r for r in records["evidence"] if r["id"] not in SEED_EVIDENCE_IDS and r.get("status") == "published"]
+        all_evidence = records["evidence"]
+        records["evidence"] = [
+            r for r in all_evidence
+            if r["id"] not in SEED_EVIDENCE_IDS and r.get("status") == "published"
+        ]
+        exported_evidence_ids = {record["id"] for record in records["evidence"]}
+        pruned_evidence_references: list[str] = []
+        for family, values in records.items():
+            if family == "evidence":
+                continue
+            for record in values:
+                references = record.get("evidence_ids")
+                if not isinstance(references, list):
+                    continue
+                missing = [ref for ref in references if ref not in exported_evidence_ids]
+                if missing:
+                    pruned_evidence_references.extend(
+                        f"{family}:{record['id']}:evidence_ids:{ref}" for ref in missing
+                    )
+                    record["evidence_ids"] = [ref for ref in references if ref in exported_evidence_ids]
+        excluded_relationship_ids = sorted(
+            record["id"] for record in records["relationships"]
+            if not record.get("evidence_ids")
+        )
+        records["relationships"] = [
+            record for record in records["relationships"]
+            if record.get("evidence_ids")
+        ]
         exclusions = {
             "entity": {"count": len(SEED_ENTITY_IDS), "ids": sorted(SEED_ENTITY_IDS), "reason": "known fictional V1 seed/demo records"},
             "evidence": {"count": len(SEED_EVIDENCE_IDS), "ids": sorted(SEED_EVIDENCE_IDS), "reason": "known fictional V1 seed/demo records"},
+            "unpublished_evidence": {
+                "count": sum(
+                    1 for record in all_evidence
+                    if record["id"] not in SEED_EVIDENCE_IDS and record.get("status") != "published"
+                ),
+                "reason": "published-only portable package boundary",
+                "pruned_reference_count": len(pruned_evidence_references),
+            },
+            "relationships_without_exportable_evidence": {
+                "count": len(excluded_relationship_ids),
+                "ids": excluded_relationship_ids,
+                "reason": "published-only packages cannot carry relationships supported only by unpublished evidence",
+            },
         }
         return records, exclusions
 

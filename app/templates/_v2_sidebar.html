@@ -76,6 +76,9 @@
   <a href="/watchtower" class="v2-nav-link{% if path.startswith('/watchtower') %} is-active{% endif %}" title="Watchtower" aria-label="Watchtower"{% if path.startswith('/watchtower') %} aria-current="page"{% endif %}>
     {{ nav_icon('watch') }}<span class="v2-nav-text">Watchtower</span>
   </a>
+  <a href="/week" class="v2-nav-link{% if path.startswith('/week') %} is-active{% endif %}" title="This week" aria-label="This week"{% if path.startswith('/week') %} aria-current="page"{% endif %}>
+    {{ nav_icon('brief') }}<span class="v2-nav-text">This week</span>
+  </a>
   <a href="/review-ops" class="v2-nav-link{% if path == '/review-ops' or path.startswith('/review-ops/') %} is-active{% endif %}" title="Review Operations" aria-label="Review Operations"{% if path == '/review-ops' or path.startswith('/review-ops/') %} aria-current="page"{% endif %}>
     {{ nav_icon('review') }}<span class="v2-nav-text">Review Operations</span>
   </a>

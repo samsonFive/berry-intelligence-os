@@ -30,25 +30,20 @@ def test_compose_front_uses_trusted_when_top_stories_empty() -> None:
     assert composed["freshness_note"]
 
 
-def test_stakeholder_today_has_slim_nav_not_ops_chrome() -> None:
+def test_today_uses_the_product_visual_system_briefing_shell() -> None:
     page = TestClient(app).get("/today")
     assert page.status_code == 200
     html = page.text
-    assert 'class="sh-nav' in html
-    assert ">Today<" in html
-    assert ">This week<" in html
-    assert ">Radar<" in html
-    assert ">Moves<" in html
-    assert ">Companies<" in html
-    assert ">Markets<" in html
-    assert ">Watchlist<" in html
-    assert ">Reports<" in html
-    assert "stakeholder.css" in html
-    assert "v2-count-action" not in html
-    assert "Publication Review" not in html
-    assert "Collection Operations" not in html
-    assert "Coverage Assurance" not in html
-    assert "Morning Brief" not in html
+    assert 'class="v2-sidebar"' in html
+    assert ">Today</span>" in html
+    assert ">This week</span>" in html
+    assert ">War Room</span>" in html
+    assert ">Watchtower</span>" in html
+    assert ">Companies</span>" in html
+    assert ">Reports</span>" in html
+    assert "daily_briefing.css" in html
+    assert 'data-pvs-slice="1"' in html
+    assert "Coverage Pulse" in html
     assert "elapsed_ms" not in html
     assert "All berries" in html
     assert "Blueberry" in html
