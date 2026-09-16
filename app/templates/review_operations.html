@@ -119,7 +119,9 @@
     <ul class="review-ops-ages">{% for row in ops.publication.age_buckets %}<li>{{ row.label }} {{ row.count }}</li>{% endfor %}</ul>
     {% if ops.publication.reasons %}<p class="brief-why">{{ ops.publication.reasons|join(' · ') }}</p>{% endif %}
     <p><a class="action-button action-approve" href="{{ ops.publication.next_href }}">Review next publication</a>
-       <a class="action-button" href="{{ ops.publication.queue_href }}">Open queue</a></p>
+       <a class="action-button" href="{{ ops.publication.queue_href }}">Open queue</a>
+       <a class="action-button" href="/review-ops/publications">Read-only review workspace</a></p>
+    <p class="context-limit">Read-only Slice 1 workspace shows queue + provenance without connecting decision mutations.</p>
   </section>
 
   <section class="review-ops-card" id="source-fidelity-review">
