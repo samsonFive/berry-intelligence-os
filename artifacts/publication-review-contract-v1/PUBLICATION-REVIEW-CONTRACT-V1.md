@@ -26,6 +26,20 @@ V1 MUST use the existing Evidence schema and repository as a compatibility store
 
 The compatibility location does not make the publication Atomic Evidence. Downstream code MUST use `evidence_role` and the trust projection, never `record_type` alone.
 
+## Implementation-blocking prerequisites
+
+No production mutation path may implement this contract until all of the following are enforced and proven together:
+
+1. review drafts, states, versions, decisions, receipts, and recovery metadata use authoritative shared durable storage; a gitignored worktree-local `inbox/` is not sufficient production state;
+2. the actor is an authenticated, authorized human identity rather than form text or an AI/service identity;
+3. every mutation uses expected-version or equivalent optimistic concurrency;
+4. an immutable content/provenance digest binds the reviewed draft, acquisition/transcript provenance, decision, and resulting publication;
+5. retries are idempotent across response loss, duplicate clicks, and process restart;
+6. publication, decision, and audit writes are atomic in one durable transaction or recoverably staged behind one commit marker;
+7. dynamic and static readers see the prior complete state or the new complete state, never staged or partial records.
+
+Failure to satisfy any item blocks production promotion. These are acceptance gates, not future hardening.
+
 ## Identity
 
 - `publication_id` defaults to the draft’s deterministic ID.
@@ -81,6 +95,8 @@ An approval command MUST:
 8. create no canonical Entity; only preserve resolvable existing IDs;
 9. append auditable intent/completion events and preserve the source draft in a private archive;
 10. return the same result on an identical retry.
+11. publish one durable commit marker only after the publication, decision, audit event, and immutable bindings are complete and mutually verified;
+12. keep all pre-commit staged records invisible to trusted queries, extraction jobs, reports, Today, and static builders.
 
 Acquisition success, AI enrichment, queue rank, spreadsheet selection, session navigation, or batch membership MUST NOT imply approval.
 

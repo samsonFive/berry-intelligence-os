@@ -19,6 +19,8 @@ The queue response is body-free and contains:
 
 It never embeds article bodies, transcripts, review comments, raw failure payloads, or credentials.
 
+The queue is a projection of authoritative shared durable review state. It must return the same acknowledged backlog after worker restart, a new checkout, or routing the operator to another application instance. A missing local `inbox/` cannot mean that accepted review work disappeared.
+
 ## Review detail
 
 The detail response adds complete provenance, canonical URL, content hashes, acquisition/extractor versions, quality findings, duplicate evidence, immutable event summary, and an authorized content locator or separately hydrated content. It returns `review_version` and `review_content_digest`; every state-changing form must submit both.
@@ -46,4 +48,4 @@ Source Health remains the discovery/acquisition operational surface. Publication
 
 ## Static/public projection
 
-Static builders receive a derived projection only after journal completion. It contains public-safe publication metadata, approved excerpt/link policy, content limitation label, and resolved public entity links. It excludes draft IDs where unnecessary, bodies designated private, reviewer identity/comments, command receipts, event ledgers, journals, acquisition diagnostics, and Atomic proposals.
+Static builders receive a derived projection only from verified visibility commit markers. A build reads one stable committed snapshot/version and must fail closed without replacing prior output if any referenced publication, decision, event, or hash is missing or changes during the build. It contains public-safe publication metadata, approved excerpt/link policy, content limitation label, and resolved public entity links. It excludes draft IDs where unnecessary, bodies designated private, reviewer identity/comments, command receipts, event ledgers, journals, acquisition diagnostics, and Atomic proposals.

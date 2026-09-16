@@ -18,6 +18,9 @@
 | How are duplicates handled? | Exact deterministic duplicates become `superseded_duplicate` and point to one survivor. Ambiguous similarity blocks approval for human identity resolution. | Prevents duplicate trust without allowing fuzzy automatic merges. |
 | Can a later body/transcript replace reviewed content silently? | No. It creates a new content revision and requires re-review. | Coverage and summaries must reflect inspected content. |
 | Does Source Health own publication semantics? | No. | Collection health, review throughput, and usable coverage are distinct. |
+| Can gitignored `inbox/` files be authoritative review state? | No. Production requires shared durable state; the inbox adapter is local/development only. | A fresh isolated worktree has no backlog, so local files cannot preserve acknowledged work or support multiple workers. |
+| Is existing rollback compensation sufficient for production promotion? | No. | It runs after caught exceptions but cannot resolve abrupt termination between writes. |
+| What controls publication visibility across multiple writes? | One durable transaction where possible; otherwise a recoverably staged transaction with an atomic commit marker. | Readers can then select the prior or new complete state and ignore partial staging. |
 
 ## Product decisions still required
 
@@ -29,3 +32,8 @@
 6. **AI enrichment visibility.** Decide which model-generated fields may be visible to reviewers and which can enter public metadata after publication approval.
 
 None of these open decisions permits the current publication command to create trusted claims or canonical graph records.
+
+## Evidence informing this revision
+
+- Candidate-pack commit `8952566625a543f1850b33fcb033ef0aac5a0839`: empty inbox in an isolated worktree; 1,272 canonical Evidence records (1,269 published, 3 in review), none with readable bodies; 10 rehearsal items (six real, four synthetic); one review-ready report result without a persisted draft.
+- Safety-audit commit `decb97049a79b3d9e7c4f007f4f5977284d27eec`: confirmed current human/AI/claim separation, duplicate handling, compensation, and append-only event conventions; identified missing concurrency, actor authorization, provenance binding, crash consistency, and partial-reader enforcement; found no auto-publication or direct publication-to-trusted-Evidence path.
