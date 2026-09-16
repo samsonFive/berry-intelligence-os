@@ -1,0 +1,124 @@
+{
+  "rehearsal_slot": 10,
+  "decision_type": "defer_or_correction_required",
+  "rehearsal_metadata": {
+    "synthetic": false,
+    "no_scraped_body_or_transcript": true,
+    "no_raw_html_cookies_credentials_or_headers": true,
+    "grounded_in": null,
+    "real_run_reference": "Real item discovered 2026-09-16 from source-lucentlands-podcast during this mission's own bounded inventory run; entity_ids=[] and berry_ids=[] on the real record, but the AI-generated summary/why_it_matters explicitly flags general-agriculture-not-berry-specific content -- a genuine, real editorial judgment call, not a fabricated example."
+  },
+  "record": {
+    "id": "rehearsal-10-defer-correction-required",
+    "record_type": "evidence",
+    "status": "draft",
+    "review_state": "in_review",
+    "intake_type": "discovered_media_publication",
+    "source_type": "discovered_media",
+    "title": "Can Farmers Use Fewer Chemicals Without Risking Their Crops? | Ep. 156",
+    "source_name": "Lucentlands Podcast",
+    "source_url": "https://podcasters.spotify.com/pod/show/lucentlands/episodes/Can-Farmers-Use-Fewer-Chemicals-Without-Risking-Their-Crops---Ep--156-e3ob92i",
+    "published_date": "2026-09-07",
+    "captured_date": "2026-09-16",
+    "summary": "A podcast episode featuring RealIPM's Jean Kuiper discusses how farmers can reduce chemical dependency through integrated pest management, combining biological products, selective chemical use, beneficial organisms, and monitoring. The discussion emphasizes measuring results and highlights that biological crop protection need not be more expensive than conventional approaches, with applications relevant to commercial agricultural production systems.",
+    "why_it_matters": "Understanding IPM and biological alternatives is strategically important for berry producers facing regulatory pressure on chemical residues and consumer demand for sustainable practices. However, this source provides general agricultural principles rather than berry-sector-specific competitive intelligence.",
+    "submitted_by": "media-orchestration",
+    "berry_ids": [],
+    "geography_ids": [
+      "geography-south-africa"
+    ],
+    "entity_ids": [],
+    "fact_ids": [],
+    "relationship_ids": [],
+    "strategic_question_ids": [],
+    "tags": [],
+    "attachments": [],
+    "auto_captured": false,
+    "priority": {
+      "reading": {
+        "level": "none",
+        "rationale": ""
+      },
+      "testing": {
+        "level": "none",
+        "rationale": ""
+      },
+      "commercial_position": {
+        "level": "none",
+        "rationale": ""
+      },
+      "monitoring": {
+        "level": "none",
+        "rationale": ""
+      }
+    },
+    "source_id": "source-lucentlands-podcast",
+    "media_format": "podcast",
+    "evidence_role": "publication_artifact",
+    "discovered_item_id": "discovered-source-lucentlands-podcast-0c85b7065446522f",
+    "discovery_provenance": {
+      "dedupe_key": "42ebb5d9-bb32-49ce-902a-e60f904fa912",
+      "external_id": "42ebb5d9-bb32-49ce-902a-e60f904fa912",
+      "first_seen_at": "2026-09-16T05:36:13+00:00",
+      "last_seen_at": "2026-09-16T05:36:13+00:00"
+    },
+    "publisher_description": "Can farmers reduce their reliance on conventional chemicals without placing their crops at risk?Jean Kuiper, Director at RealIPM, joins Lucentlands Podcast hosts Dewald Kirsten and Louise Brodie to explain how integrated pest management combines biological crop-protection products, carefully selected chemicals, beneficial organisms and effective monitoring.Jean shares how problems with chemical resistance in her commercial rose operation led her to explore biological alternatives. After seeing the results firsthand, she began helping farmers introduce fungi, bacteria and other biological solutions into practical commercial production systems.The conversation explores:•Why integrated pest management does not mean abandoning chemicals•How biological products can complement conventional crop-protection programmes•The importance of scouting and spraying only when necessary•How beneficial insects help control agricultural pests•Why biological crop protection is not necessarily more expensive•The role of cover crops, soil health and companion planting•How consumer demand for reduced residues is changing agriculture•Why growers must measure results and remain open to new approachesJean also shares a simple message for commercial growers: use these products, measure the benefits and allow the results to guide your decisions.Connect with us:Website: https://lucentlands.co.za/Instagram: https://www.instagram.com/lucentlandsmedia/Facebook: https://www.facebook.com/lucentlandsmediaLinkedIn: https://www.linkedin.com/company/lucentlandsmedia/Podcast LinkedIn: https://www.linkedin.com/showcase/lucentlandspodcastSupport this podcast by buying us a coffee: https://buymeacoffee.com/lucentlands?new=1This podcast is proudly sponsored by Agrarius. Find out more: ⁠https://www.agrarius.co.za/?ref=recR9vP8u5CYfEOek&utm_source=lucentlands&utm_medium=referral&utm_campaign=LucentLandsPromo⁠Visit our agricultural stock site: https://lucentlands.smugmug.com/",
+    "tagging_provenance": {
+      "method": "deterministic-known-match",
+      "trust_state": "untrusted_suggestion"
+    },
+    "ai_enrichment": {
+      "concise_summary": "A podcast episode featuring RealIPM's Jean Kuiper discusses how farmers can reduce chemical dependency through integrated pest management, combining biological products, selective chemical use, beneficial organisms, and monitoring. The discussion emphasizes measuring results and highlights that biological crop protection need not be more expensive than conventional approaches, with applications relevant to commercial agricultural production systems.",
+      "why_it_matters": "Understanding IPM and biological alternatives is strategically important for berry producers facing regulatory pressure on chemical residues and consumer demand for sustainable practices. However, this source provides general agricultural principles rather than berry-sector-specific competitive intelligence.",
+      "suggested_berry_ids": [],
+      "suggested_geography_ids": [
+        "geography-south-africa"
+      ],
+      "suggested_entity_ids": [],
+      "suggested_tags": [
+        "integrated-pest-management",
+        "biological-crop-protection",
+        "chemical-reduction",
+        "pest-monitoring",
+        "beneficial-insects",
+        "soil-health",
+        "cover-crops",
+        "agricultural-sustainability"
+      ],
+      "topical_relevance": "Moderately relevant to berry competitive intelligence. The content addresses crop-protection strategies and pest management methodologies that could apply to berry production, but lacks berry-specific case studies, data, or industry participants.",
+      "confidence": 0.45,
+      "caveats": "The podcast episode discusses integrated pest management (IPM) generally through the lens of commercial rose production, not specifically berry crops. While IPM principles are applicable across crops, no explicit berry-crop data, quantified results, or specific berry producers are mentioned in the source material. The deterministic catalog IDs provided are empty, indicating no specific berries, geographies, or entities can be confidently mapped from this content.",
+      "model_provenance": {
+        "status": "ok",
+        "provider": "perplexity-agent",
+        "model": "anthropic/claude-haiku-4-5",
+        "reason": "non-trusted publication enrichment",
+        "trust_state": "untrusted_suggestion",
+        "generated_at": "2026-09-16T05:37:27Z"
+      }
+    },
+    "source_completeness": {
+      "version": "source-completeness-v1",
+      "class": "THIN_DESCRIPTION",
+      "failure_category": null,
+      "retryable": false,
+      "content_sha256": null,
+      "operator_accepted_thin": false
+    }
+  },
+  "analysis": {
+    "source": "source-lucentlands-podcast (real, currently-configured, collection-eligible)",
+    "discovery_acquisition_path": "podcast_rss discovery -> deterministic-relevance-v1 screener scored 'process' -> AI enrichment applied, and the enrichment's own why_it_matters text explicitly notes the content is general-agriculture rather than berry-sector-specific",
+    "content_state": "description_only / metadata-only with an AI-generated summary that itself flags scope uncertainty",
+    "provenance_completeness": "medium -- source/date/summary present; the AI enrichment's own caveat is a real, useful provenance signal, not a gap",
+    "publication_date_confidence": "medium -- feed-declared date only",
+    "body_transcript_availability": "none (metadata-only draft; no transcript)",
+    "entity_association": "none -- entity_ids=[] and berry_ids=[], same real gap pattern as item 6, but here the AI enrichment's own text already surfaces the scope question rather than silently omitting it",
+    "duplicate_risk": "not assessed",
+    "warnings": [
+      "The AI-generated why_it_matters text itself states this source provides 'general agricultural principles rather than berry-sector-specific competitive intelligence' -- an honest, self-flagged scope caveat an operator should read before deciding."
+    ],
+    "recommended_operator_action": "Defer, or correct scope classification (e.g., tag as adjacent/background rather than direct competitive intelligence) rather than an outright Approve or Reject.",
+    "why_not_automatic": "Whether adjacent agricultural-practice content belongs in this corpus at all is an editorial scope decision this pipeline correctly declines to make on its own -- the AI enrichment surfaces the question, a human answers it."
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "rehearsal_slot": 7,
+  "decision_type": "duplicate_probable_duplicate",
+  "rehearsal_metadata": {
+    "synthetic": false,
+    "no_scraped_body_or_transcript": true,
+    "no_raw_html_cookies_credentials_or_headers": true,
+    "grounded_in": null,
+    "real_run_reference": "Real discovery-time match found 2026-09-16 re-discovering source-lucentlands-podcast during this mission's own bounded inventory run: discovered-source-lucentlands-podcast-4a4e9cbacb472ce3 (title 'Scaling the Blueberry Industry – Opportunities for Africa and Beyond | Ep. 102', published_date 2025-10-28) exactly title- and date-matches the already-trusted, already-published data/evidence/ev-lucentlands-scaling-blueberry-industry-2025.json (medium confidence, reasons: title_match + published_date_match). No draft was created for this item in this mission's run; it stayed a discovery-stage record only."
+  },
+  "record": {
+    "id": "rehearsal-07-duplicate-candidate",
+    "record_type": "evidence",
+    "status": "draft",
+    "review_state": "in_review",
+    "source_type": "discovered_media",
+    "title": "Scaling the Blueberry Industry – Opportunities for Africa and Beyond | Ep. 102",
+    "captured_date": "2026-09-16",
+    "summary": "Real discovery-time duplicate signal: a freshly re-discovered podcast episode whose title and published_date exactly match an already-published, trusted Evidence record.",
+    "submitted_by": "media-orchestration",
+    "priority": {
+      "reading": {
+        "level": "none",
+        "rationale": ""
+      },
+      "testing": {
+        "level": "none",
+        "rationale": ""
+      },
+      "commercial_position": {
+        "level": "none",
+        "rationale": ""
+      },
+      "monitoring": {
+        "level": "none",
+        "rationale": ""
+      }
+    },
+    "berry_ids": [],
+    "geography_ids": [],
+    "entity_ids": [],
+    "fact_ids": [],
+    "relationship_ids": [],
+    "strategic_question_ids": [],
+    "tags": [],
+    "attachments": [],
+    "auto_captured": false,
+    "source_id": "source-lucentlands-podcast",
+    "source_name": "Lucentlands Podcast",
+    "source_url": "https://podcasters.spotify.com/pod/show/lucentlands/episodes/Scaling-the-Blueberry-Industry--Opportunities-for-Africa-and-Beyond--Ep--102-e39lg7i",
+    "published_date": "2025-10-28",
+    "media_format": "podcast",
+    "possible_evidence_matches": [
+      {
+        "evidence_id": "ev-lucentlands-scaling-blueberry-industry-2025",
+        "reasons": [
+          "title_match",
+          "published_date_match"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "matched_trusted_evidence": {
+      "id": "ev-lucentlands-scaling-blueberry-industry-2025",
+      "title": "Scaling the Blueberry Industry – Opportunities for Africa and Beyond | Ep. 102",
+      "published_date": "2025-10-28",
+      "status": "published",
+      "summary": "Lucentlands hosts Dewald Kirsten and Louise Brodie interview Fall Creek President and CEO Cort Brazelton about the company's international development and the outlook for blueberry production in Southern Africa."
+    }
+  },
+  "analysis": {
+    "source": "source-lucentlands-podcast (real, currently-configured, collection-eligible)",
+    "discovery_acquisition_path": "podcast_rss discovery -> media_discovery.py's own possible_evidence_matches check flagged an exact title+date match against an already-trusted record BEFORE any draft/acquisition step ran",
+    "content_state": "discovery_stage_only -- no draft was ever created for this item in this run",
+    "provenance_completeness": "high on the trusted side (already-published Evidence with full provenance); the re-discovered item itself carries only feed metadata",
+    "publication_date_confidence": "high -- both records agree exactly (2025-10-28)",
+    "body_transcript_availability": "the already-trusted record has none either (podcast, no transcript stored)",
+    "entity_association": "matches the trusted record's own company-fall-creek-farm-and-nursery / geography-south-africa linkage",
+    "duplicate_risk": "high (medium confidence per the real signal, but exact title+date match on a re-discovered feed entry is one of the strongest natural duplicate signatures this pipeline detects)",
+    "warnings": [
+      "Do not create a second draft or Evidence record for this item -- it very likely represents the same real-world episode already trusted under ev-lucentlands-scaling-blueberry-industry-2025."
+    ],
+    "recommended_operator_action": "Reject/dismiss as a probable duplicate, or, if a reviewer wants to double-check, compare against the existing trusted record's own review history before taking any action.",
+    "why_not_automatic": "possible_evidence_matches is a deterministic title/date heuristic, not proof of identity -- two distinct real episodes could coincidentally share a title, and only a human comparing both records can confirm they are the same event before dismissing the new one."
+  }
+}

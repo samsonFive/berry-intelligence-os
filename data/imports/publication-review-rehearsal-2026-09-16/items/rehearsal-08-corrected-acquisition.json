@@ -1,0 +1,77 @@
+{
+  "rehearsal_slot": 8,
+  "decision_type": "corrected_or_upgraded_acquisition",
+  "rehearsal_metadata": {
+    "synthetic": true,
+    "no_scraped_body_or_transcript": true,
+    "no_raw_html_cookies_credentials_or_headers": true,
+    "grounded_in": "Modeled on the real, existing article_refresh._persist_content_check / article_identity_probe mechanism (CONTENT_CHANGED / KNOWN_IDENTICAL / CONTENT_CHANGE_UNVERIFIED states) and tests/test_article_refresh.py::test_known_url_with_genuinely_changed_body_is_flagged_without_overwrite -- the real code never overwrites the original trusted/draft representation automatically; it only records the probe for human inspection.",
+    "real_run_reference": null
+  },
+  "record": {
+    "id": "rehearsal-08-corrected-acquisition",
+    "record_type": "evidence",
+    "status": "draft",
+    "review_state": "in_review",
+    "source_type": "discovered_media",
+    "title": "[REHEARSAL FIXTURE] Existing Draft's Article Body Re-Checked and Found Changed",
+    "captured_date": "2026-09-16",
+    "summary": "A previously-acquired draft's source URL was re-checked on a later collection pass; the publisher has since updated the page, and the newly-fetched body no longer matches the originally-captured content hash.",
+    "submitted_by": "media-orchestration",
+    "priority": {
+      "reading": {
+        "level": "none",
+        "rationale": ""
+      },
+      "testing": {
+        "level": "none",
+        "rationale": ""
+      },
+      "commercial_position": {
+        "level": "none",
+        "rationale": ""
+      },
+      "monitoring": {
+        "level": "none",
+        "rationale": ""
+      }
+    },
+    "berry_ids": [],
+    "geography_ids": [],
+    "entity_ids": [],
+    "fact_ids": [],
+    "relationship_ids": [],
+    "strategic_question_ids": [],
+    "tags": [],
+    "attachments": [],
+    "auto_captured": false,
+    "source_id": "source-rehearsal-fixture-v1",
+    "source_name": "[REHEARSAL FIXTURE] Grower Blog",
+    "source_url": "https://example.invalid/rehearsal/updated-after-first-capture",
+    "published_date": "2026-08-20",
+    "media_format": "web_article",
+    "article_identity_probe": {
+      "status": "CONTENT_CHANGED",
+      "representation_id": "rehearsal-08-corrected-acquisition",
+      "prior_content_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "observed_content_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "final_url": "https://example.invalid/rehearsal/updated-after-first-capture",
+      "checked_at": "2026-09-16T00:00:00+00:00"
+    }
+  },
+  "analysis": {
+    "source": "source-rehearsal-fixture-v1 (synthetic; modeled on the real article_identity_probe mechanism, exercised for any existing web_article representation on a repeat collection pass)",
+    "discovery_acquisition_path": "existing draft/Evidence representation already on file -> a later collection pass re-fetches the same canonical_url -> article_acquisition.fetch_article() succeeds again -> content_sha256 differs from the originally-stored hash -> CONTENT_CHANGED probe recorded, original representation left untouched",
+    "content_state": "article_update_detected (a structural, non-destructive probe result, not a new draft and not an overwrite)",
+    "provenance_completeness": "high -- both the prior and newly-observed content hashes, and the check timestamp, are recorded",
+    "publication_date_confidence": "unchanged from the original representation; a content change does not by itself imply a new publication date",
+    "body_transcript_availability": "the newly-fetched body exists only transiently during the probe; it was never persisted over the original representation",
+    "entity_association": "unchanged from the original representation",
+    "duplicate_risk": "not a duplicate -- this is the same URL/representation being re-checked, the opposite case from item 7",
+    "warnings": [
+      "A content change on the same URL could mean a correction, a substantive update, or an unrelated site redesign -- the probe alone cannot distinguish which."
+    ],
+    "recommended_operator_action": "Inspect the private article identity probe and decide whether the original draft/Evidence needs a manual correction, a new supplementary record, or no action.",
+    "why_not_automatic": "Silently overwriting a reviewed or trusted representation whenever a publisher edits their page would erase review history and could launder an unrelated site change into what looks like a content update -- this project's real code deliberately never does this without a human decision."
+  }
+}

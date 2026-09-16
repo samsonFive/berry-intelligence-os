@@ -1,0 +1,100 @@
+{
+  "rehearsal_slot": 1,
+  "decision_type": "clearly_readable_article",
+  "rehearsal_metadata": {
+    "synthetic": true,
+    "no_scraped_body_or_transcript": true,
+    "no_raw_html_cookies_credentials_or_headers": true,
+    "grounded_in": "artifacts/readable-acquisition-canary-v1/ROOT-CAUSE-ANALYSIS.md and SOURCE-FUNNEL.md (Refine/Diagnose Readable Acquisition mission, 2026-09-15): 2/3 UF blueberrybreeding URLs and 6/21 Fruitist Newsroom URLs sampled were independently confirmed readable via fetch_article() (word counts 61-495), proving the pipeline is capable of a genuinely readable body from these publishers even though this mission's own 5-10 item capped samples did not happen to land on one.",
+    "real_run_reference": null
+  },
+  "record": {
+    "id": "rehearsal-01-readable-article",
+    "record_type": "evidence",
+    "status": "draft",
+    "review_state": "in_review",
+    "source_type": "discovered_media",
+    "title": "[REHEARSAL FIXTURE] Regional Blueberry Cooperative Reports Record Spring Yield",
+    "captured_date": "2026-09-16",
+    "summary": "A regional grower cooperative announced its highest recorded spring blueberry yield, citing favorable weather and expanded acreage. The cooperative's president attributed the gain to new planting density guidelines adopted two seasons ago.",
+    "submitted_by": "media-orchestration",
+    "priority": {
+      "reading": {
+        "level": "none",
+        "rationale": ""
+      },
+      "testing": {
+        "level": "none",
+        "rationale": ""
+      },
+      "commercial_position": {
+        "level": "none",
+        "rationale": ""
+      },
+      "monitoring": {
+        "level": "none",
+        "rationale": ""
+      }
+    },
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "geography_ids": [],
+    "entity_ids": [],
+    "fact_ids": [],
+    "relationship_ids": [],
+    "strategic_question_ids": [],
+    "tags": [],
+    "attachments": [],
+    "auto_captured": false,
+    "source_id": "source-rehearsal-fixture-v1",
+    "source_name": "[REHEARSAL FIXTURE] Regional Grower News",
+    "source_url": "https://example.invalid/rehearsal/regional-blueberry-cooperative-record-yield",
+    "published_date": "2026-09-10",
+    "published_date_basis": "article_body",
+    "media_format": "web_article",
+    "relevance_tier": "direct",
+    "article": {
+      "word_count": 92,
+      "paragraphs": [
+        {
+          "index": 0,
+          "text": "A regional grower cooperative announced its highest recorded spring blueberry yield this season, citing favorable weather and expanded acreage across member farms."
+        },
+        {
+          "index": 1,
+          "text": "The cooperative's president attributed the gain to new planting density guidelines adopted two seasons ago, alongside continued investment in irrigation infrastructure."
+        }
+      ],
+      "content_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "fetched_at": "2026-09-16T00:00:00+00:00",
+      "extractor": "trafilatura",
+      "extractor_version": "rehearsal-fixture",
+      "acquisition": {
+        "method": "readable_text_extraction",
+        "version": "article-acquisition-v1"
+      }
+    },
+    "discovery_provenance": {
+      "dedupe_key": "example.invalid/rehearsal/regional-blueberry-cooperative-record-yield",
+      "external_id": null,
+      "first_seen_at": "2026-09-16T00:00:00+00:00",
+      "last_seen_at": "2026-09-16T00:00:00+00:00"
+    }
+  },
+  "analysis": {
+    "source": "source-rehearsal-fixture-v1 (synthetic; modeled on source-20260915-fruitist-newsroom / source-20260901-blueberrybreeding-newsroom, both real, currently-configured Wave 1 Sources proven capable of a readable body)",
+    "discovery_acquisition_path": "sitemap_xml/article_rss discovery -> article_acquisition.fetch_article() -> MIN_BODY_CHARS satisfied -> readable_article_body outcome (synthetic fixture reproduces this shape; no live network call was made for this specific item)",
+    "content_state": "readable_article_body (2 paragraphs, 92 words, above MIN_BODY_CHARS)",
+    "provenance_completeness": "high -- source_url, published_date with article_body basis, extractor/version, content_sha256 all present",
+    "publication_date_confidence": "high -- date reconciled from the article body itself (published_date_basis=article_body), per article_refresh._reconcile_published_date's real, preserved logic",
+    "body_transcript_availability": "full readable body available; no transcript applicable (web_article)",
+    "entity_association": "berry-blueberry only; no company/geography entity linked -- an analyst would need to confirm or add an entity match before this could support company-level intelligence",
+    "duplicate_risk": "none observed (synthetic URL/title; no possible_evidence_matches signal)",
+    "warnings": [
+      "Synthetic fixture -- no live publisher exists at this URL; do not attempt to fetch it."
+    ],
+    "recommended_operator_action": "Move to publication review as a normal candidate for Approve, pending entity confirmation.",
+    "why_not_automatic": "A readable body alone never establishes editorial trust, entity accuracy, or duplicate-freedom -- publication review is a mandatory human gate regardless of content quality, and this mission does not exercise it."
+  }
+}

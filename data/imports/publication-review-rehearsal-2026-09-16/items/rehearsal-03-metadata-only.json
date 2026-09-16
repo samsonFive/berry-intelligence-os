@@ -1,0 +1,135 @@
+{
+  "rehearsal_slot": 3,
+  "decision_type": "metadata_only_item",
+  "rehearsal_metadata": {
+    "synthetic": false,
+    "no_scraped_body_or_transcript": true,
+    "no_raw_html_cookies_credentials_or_headers": true,
+    "grounded_in": null,
+    "real_run_reference": "Real item discovered 2026-09-16 from source-business-of-blueberries-podcast during this mission's own bounded inventory run (see INVENTORY.md); AI-generated (untrusted) summary of publisher metadata only -- no transcript, no scraped body."
+  },
+  "record": {
+    "id": "rehearsal-03-metadata-only",
+    "record_type": "evidence",
+    "status": "draft",
+    "review_state": "in_review",
+    "intake_type": "discovered_media_publication",
+    "source_type": "discovered_media",
+    "title": "Inside Walmart’s Berry Strategy With Melissa Byland",
+    "source_name": "The Business of Blueberries (USHBC / NABC)",
+    "source_url": "https://blueberries.captivate.fm",
+    "published_date": "2026-09-15",
+    "captured_date": "2026-09-16",
+    "summary": "Walmart's Senior Merchandising Director Melissa Byland discusses the retailer's blueberry strategy, emphasizing year-round availability, consistent quality, and omnichannel expectations. Walmart is strengthening relationships with growers and suppliers to improve eating quality consistency, with progress noted since 2024 despite not yet achieving 100% year-round supply reliability.",
+    "why_it_matters": "Walmart's scale as a world-leading blueberry buyer makes its sourcing strategy and quality expectations significant market drivers. The emphasis on consistent year-round availability and supplier partnerships reflects broader industry trends influencing production planning and trade relationships.",
+    "submitted_by": "media-orchestration",
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "geography_ids": [
+      "geography-mexico",
+      "geography-peru",
+      "geography-united-states"
+    ],
+    "entity_ids": [
+      "company-ushbc"
+    ],
+    "fact_ids": [],
+    "relationship_ids": [],
+    "strategic_question_ids": [],
+    "tags": [],
+    "attachments": [],
+    "auto_captured": false,
+    "priority": {
+      "reading": {
+        "level": "none",
+        "rationale": ""
+      },
+      "testing": {
+        "level": "none",
+        "rationale": ""
+      },
+      "commercial_position": {
+        "level": "none",
+        "rationale": ""
+      },
+      "monitoring": {
+        "level": "none",
+        "rationale": ""
+      }
+    },
+    "source_id": "source-business-of-blueberries-podcast",
+    "media_format": "podcast",
+    "evidence_role": "publication_artifact",
+    "discovered_item_id": "discovered-source-business-of-blueberries-podcast-860b80aef7ec4641",
+    "discovery_provenance": {
+      "dedupe_key": "0814ef08-5c2d-46b9-b036-de559144925a",
+      "external_id": "0814ef08-5c2d-46b9-b036-de559144925a",
+      "first_seen_at": "2026-09-16T05:35:42+00:00",
+      "last_seen_at": "2026-09-16T05:35:42+00:00"
+    },
+    "publisher_description": "In this episode of “The Business of Blueberries,” host Kasey Cronquist, president of the U.S. Highbush Blueberry Council (USHBC) and the North American Blueberry Council (NABC), is joined by Walmart Senior Merchandising Director Melissa Byland. As one of the world’s largest blueberry buyers, Walmart relies on experts like Byland to ensure customers receive great quality and value with each purchase. Byland plays a pivotal role in understanding and fulfilling customer needs, and ensuring that the highest quality produce reaches shoppers nationwide. Byland says omnichannel expectations have risen, making consistent quality, reliable availability and recognizable value critical across in-store and online shopping. She first appeared on the podcast in 2024 on episode 173. “ I'm proud to say that we are in a position now where we are able to provide our customers with blueberries every day, and so that still remains a focus for us. … So, it's really been partnering with our growers and suppliers to make sure that they're able to provide our customers with a consistently great experience every day. And even though we're not 100% there yet, since we talked in 2024 at the convention, I think that the industry has made great strides in being able to provide high-quality, consistently good berries for much of the year.” – Melissa Byland Topics covered include: An introduction to Byland and her role at Walmart.Blueberry category growth opportunities at retail.USHBC’s partnership with Walmart and Walmart Connect.Walmart’s focus on improving consistent eating quality through stronger, less-transactional relationships with growers and suppliers.Crop ReportThe Blueberry Crop Report is an update on crop conditions and markets throughout important blueberry growing areas. Today you’ll hear from TJ Hafner in Oregon, Emilie Parkanzky in Michigan, Luis Vegas in Peru and Liczy Sotomayor in Mexico. This was recorded on September 10, 2026.",
+    "auto_tagged": true,
+    "tagging_provenance": {
+      "method": "deterministic-known-match",
+      "trust_state": "untrusted_suggestion"
+    },
+    "ai_enrichment": {
+      "concise_summary": "Walmart's Senior Merchandising Director Melissa Byland discusses the retailer's blueberry strategy, emphasizing year-round availability, consistent quality, and omnichannel expectations. Walmart is strengthening relationships with growers and suppliers to improve eating quality consistency, with progress noted since 2024 despite not yet achieving 100% year-round supply reliability.",
+      "why_it_matters": "Walmart's scale as a world-leading blueberry buyer makes its sourcing strategy and quality expectations significant market drivers. The emphasis on consistent year-round availability and supplier partnerships reflects broader industry trends influencing production planning and trade relationships.",
+      "suggested_berry_ids": [
+        "berry-blueberry"
+      ],
+      "suggested_geography_ids": [
+        "geography-mexico",
+        "geography-peru",
+        "geography-united-states"
+      ],
+      "suggested_entity_ids": [
+        "company-ushbc"
+      ],
+      "suggested_tags": [
+        "retail-strategy",
+        "omnichannel",
+        "supply-chain-partnerships",
+        "eating-quality",
+        "year-round-availability",
+        "crop-conditions"
+      ],
+      "topical_relevance": "Directly relevant to blueberry competitive intelligence. Addresses retail buyer strategy, supplier relationships, category growth, and market dynamics from a major global blueberry buyer perspective.",
+      "confidence": 0.75,
+      "caveats": "The source material does not provide specific entity names for growers/suppliers beyond Walmart and USHBC. Geographic references to Oregon and Michigan are mentioned in crop report segments but lack corresponding catalog IDs in the provided list. No specific competitive entities (e.g., other retailers or major suppliers) are named in the description. Tag suggestions are inferred from topic coverage rather than explicit statements.",
+      "model_provenance": {
+        "status": "ok",
+        "provider": "perplexity-agent",
+        "model": "anthropic/claude-haiku-4-5",
+        "reason": "non-trusted publication enrichment",
+        "trust_state": "untrusted_suggestion",
+        "generated_at": "2026-09-16T05:37:12Z"
+      }
+    },
+    "source_completeness": {
+      "version": "source-completeness-v1",
+      "class": "THIN_DESCRIPTION",
+      "failure_category": null,
+      "retryable": false,
+      "content_sha256": null,
+      "operator_accepted_thin": false
+    }
+  },
+  "analysis": {
+    "source": "source-business-of-blueberries-podcast (real, currently-configured, collection-eligible)",
+    "discovery_acquisition_path": "podcast_rss discovery -> no publisher transcript detected -> metadata-only draft (transcript_status=missing) -> untrusted AI enrichment applied to publisher_description",
+    "content_state": "description_only / metadata-only (no transcript, no written body)",
+    "provenance_completeness": "medium -- source_url, published_date (feed-declared), publisher_description present; no independently-verified content",
+    "publication_date_confidence": "medium -- feed-declared date only",
+    "body_transcript_availability": "none -- summary is AI-generated from publisher metadata, explicitly provenance-tagged as untrusted enrichment, never presented as a verified quote",
+    "entity_association": "company-ushbc, berry-blueberry (real, real enrichment-suggested link)",
+    "duplicate_risk": "not checked in this fixture; a real reviewer would still run the same possible_evidence_matches check discovery already performs",
+    "warnings": [
+      "AI-enrichment summary is untrusted and must be verified against the original episode before any Fact/Assessment references it."
+    ],
+    "recommended_operator_action": "Save for further review (metadata-only) or Approve only if the untrusted summary is independently verified against the source audio.",
+    "why_not_automatic": "An AI-generated summary of metadata is not verified content -- publishing it as trusted Evidence without a human confirming it against the real source would misrepresent an untrusted suggestion as fact."
+  }
+}

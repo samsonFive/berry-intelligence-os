@@ -1,0 +1,117 @@
+{
+  "rehearsal_slot": 9,
+  "decision_type": "rejection_candidate",
+  "rehearsal_metadata": {
+    "synthetic": false,
+    "no_scraped_body_or_transcript": true,
+    "no_raw_html_cookies_credentials_or_headers": true,
+    "grounded_in": null,
+    "real_run_reference": "Real item discovered 2026-09-16 from source-20260915-oishii-press during this mission's own bounded inventory run -- a second, independent Oishii item from item 4, confirming the same permanent, structural pattern (empty_body / navigation_only_shell) rather than a one-off fluke."
+  },
+  "record": {
+    "id": "rehearsal-09-rejection-candidate",
+    "record_type": "evidence",
+    "status": "draft",
+    "review_state": "in_review",
+    "intake_type": "discovered_media_publication",
+    "source_type": "discovered_media",
+    "title": "High-end strawberry grower Oishii opens solar-powered indoor vertical farm utilizing robots",
+    "source_name": "Oishii Press Feed",
+    "source_url": "https://oishii.com/blogs/press/high-end-strawberry-grower-oishii-opens-solar-powered-indoor-vertical-farm-utilizing-robots",
+    "published_date": "2024-06-21",
+    "captured_date": "2026-09-16",
+    "summary": "Discovered web_article item from Oishii Press Feed.",
+    "why_it_matters": "",
+    "submitted_by": "media-orchestration",
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "geography_ids": [],
+    "entity_ids": [
+      "company-oishii"
+    ],
+    "fact_ids": [],
+    "relationship_ids": [],
+    "strategic_question_ids": [],
+    "tags": [],
+    "attachments": [],
+    "auto_captured": false,
+    "priority": {
+      "reading": {
+        "level": "none",
+        "rationale": ""
+      },
+      "testing": {
+        "level": "none",
+        "rationale": ""
+      },
+      "commercial_position": {
+        "level": "none",
+        "rationale": ""
+      },
+      "monitoring": {
+        "level": "none",
+        "rationale": ""
+      }
+    },
+    "source_id": "source-20260915-oishii-press",
+    "media_format": "web_article",
+    "evidence_role": "publication_artifact",
+    "discovered_item_id": "discovered-source-20260915-oishii-press-be1fdfaabadadb03",
+    "discovery_provenance": {
+      "dedupe_key": "https://oishii.com/blogs/press/high-end-strawberry-grower-oishii-opens-solar-powered-indoor-vertical-farm-utilizing-robots",
+      "external_id": "https://oishii.com/blogs/press/high-end-strawberry-grower-oishii-opens-solar-powered-indoor-vertical-farm-utilizing-robots",
+      "first_seen_at": "2026-09-16T05:35:40+00:00",
+      "last_seen_at": "2026-09-16T05:35:40+00:00",
+      "acquisition_failure_category": "EMPTY_BODY"
+    },
+    "publisher_description": "",
+    "auto_tagged": true,
+    "tagging_provenance": {
+      "method": "deterministic-known-match",
+      "trust_state": "untrusted_suggestion"
+    },
+    "ai_enrichment": {
+      "concise_summary": "",
+      "why_it_matters": "",
+      "suggested_berry_ids": [],
+      "suggested_geography_ids": [],
+      "suggested_entity_ids": [],
+      "suggested_tags": [],
+      "topical_relevance": "",
+      "confidence": 0.0,
+      "caveats": "ai enrichment skipped: no completer or empty publisher text",
+      "model_provenance": {
+        "status": "skipped",
+        "reason": "ai enrichment skipped: no completer or empty publisher text",
+        "model": null,
+        "trust_state": "untrusted_suggestion",
+        "generated_at": "2026-09-16T05:37:04Z"
+      }
+    },
+    "source_completeness": {
+      "version": "source-completeness-v1",
+      "class": "THIN_DESCRIPTION",
+      "failure_category": "EMPTY_BODY",
+      "retryable": false,
+      "content_sha256": null,
+      "operator_accepted_thin": false
+    },
+    "relevance_tier": "direct"
+  },
+  "analysis": {
+    "source": "source-20260915-oishii-press (real, currently-configured Wave 1 Source)",
+    "discovery_acquisition_path": "article_rss discovery -> article_acquisition.fetch_article() -> empty_body/navigation_only_shell (same confirmed permanent pattern as item 4, a second independent sample) -> access-limited metadata-only draft fallback",
+    "content_state": "navigation_only_shell (empty_body; template summary only)",
+    "provenance_completeness": "low -- same shape as item 4",
+    "publication_date_confidence": "medium -- feed-declared date only",
+    "body_transcript_availability": "none, confirmed permanently absent (this is the second independent Oishii item in this pack showing the identical failure -- see also item 4 and the 8-sample diagnostic in artifacts/readable-acquisition-canary-v1/)",
+    "entity_association": "company-oishii, berry-strawberry (source-configured, not content-derived)",
+    "duplicate_risk": "not assessed -- insufficient content",
+    "warnings": [
+      "Repeat confirmation (this pack's second independent Oishii sample) that this publisher's Press feed structurally cannot supply full-text coverage."
+    ],
+    "recommended_operator_action": "Reject -- two independently-sampled items from this exact feed both fail identically; retrying acquisition is not expected to succeed, and continuing to route these into review adds reviewer load with no realistic upside.",
+    "why_not_automatic": "Even a well-evidenced pattern (2 samples here; 8 across this mission's full diagnostic history) is a recommendation, not proof for every future item -- a human should confirm before any Source-level policy change (e.g., excluding Oishii from future review queues) is made, since this mission's own scope forbids altering extraction/collection configuration."
+  }
+}

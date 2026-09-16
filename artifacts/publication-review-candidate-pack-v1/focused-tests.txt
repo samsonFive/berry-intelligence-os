@@ -1,0 +1,17 @@
+........................................................................ [ 24%]
+........................................................................ [ 48%]
+........................................................................ [ 72%]
+........................................................................ [ 96%]
+.........                                                                [100%]
+============================== warnings summary ===============================
+..\berry-intelligence-os\.venv\Lib\site-packages\reportlab\lib\rl_safe_eval.py:12
+  C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\reportlab\lib\rl_safe_eval.py:12: DeprecationWarning: ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    haveNameConstant = hasattr(ast,'NameConstant')
+
+tests/test_article_refresh.py: 60 warnings
+tests/test_media_discovery.py: 268 warnings
+  C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\feedparser\html.py:152: DeprecationWarning: 'count' is passed as positional argument
+    data = re.sub(r'<!((?!DOCTYPE|--|\[))', r'&lt;!\1', data, re.IGNORECASE)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+297 passed, 329 warnings in 30.55s
