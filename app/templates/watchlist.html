@@ -1,11 +1,19 @@
 {% extends "base_stakeholder.html" %}
 {% block title %}Watchlist{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/pvs_tokens.css">
+<link rel="stylesheet" href="/static/monitor_pvs.css">
+{% endblock %}
 {% block content %}
 {% set watches = watches if watches is defined else [] %}
-<div class="sh-page v2-page">
+<div class="sh-page v2-page pvs-slice-4" id="watchlist" data-pvs-slice="4">
+<a class="skip-link" href="#watchlist-results">Skip to watchlist results</a>
 <section class="sh-header page-heading v2-page-header">
   <div>
-    <p class="sh-kicker eyebrow">Watchlist</p>
+    <p class="sh-kicker eyebrow">MONITOR · MY WATCHES</p>
     <h1>Watchlist</h1>
     <p class="also-known-as">What you're personally monitoring, and what's genuinely new since you last checked. A Watch is navigation only -- it never publishes, affirms, approves, or rejects anything.</p>
   </div>
@@ -38,22 +46,23 @@
   </div>
 </nav>
 
+<div id="watchlist-results">
 {% if watches %}
   <div class="balanced-card-grid">
     {% for w in watches %}
-      <article class="card entity-card">
+      <article class="card entity-card" data-watch-type="{{ w.watch_type }}"{% if w.new_evidence_count or w.new_assessment_count %} data-has-new="1"{% endif %}{% if w.monitoring and w.monitoring.status == 'degraded' %} data-monitoring="degraded"{% endif %}>
         <p class="card-kicker">{{ w.watch_type|replace('_',' ')|upper }}{% for b in w.berries %} · {{ b|upper }}{% endfor %}</p>
         <h2><a href="{{ w.open_href }}">{{ w.name }}</a></h2>
 
         {% if w.monitoring and w.monitoring.status == 'degraded' %}
-          <p><span class="badge badge-counterevidence">MONITORING DEGRADED</span>{% if w.monitoring.reason %} <span class="v2-meta">{{ w.monitoring.reason }}</span>{% endif %}</p>
+          <p><span class="badge badge-counterevidence pvs-badge pvs-badge-warn">MONITORING DEGRADED</span>{% if w.monitoring.reason %} <span class="v2-meta">{{ w.monitoring.reason }}</span>{% endif %}</p>
         {% endif %}
 
         {% if w.new_evidence_count > 0 %}
-          <p><span class="badge badge-claim">NEW INTELLIGENCE</span> {{ w.new_evidence_count }} new item{{ 's' if w.new_evidence_count != 1 else '' }} since your last check</p>
+          <p><span class="badge badge-claim pvs-badge pvs-badge-pending">NEW INTELLIGENCE</span> {{ w.new_evidence_count }} new item{{ 's' if w.new_evidence_count != 1 else '' }} since your last check</p>
         {% endif %}
         {% if w.new_assessment_count > 0 %}
-          <p><span class="badge badge-assessment">NEW ASSESSMENT</span> {{ w.new_assessment_count }} new since your last check</p>
+          <p><span class="badge badge-assessment pvs-badge pvs-badge-ok">NEW ASSESSMENT</span> {{ w.new_assessment_count }} new since your last check</p>
         {% endif %}
         {% if not w.new_evidence_count and not w.new_assessment_count %}
           {% if w.never_seen %}
@@ -73,7 +82,7 @@
         </ul>
 
         <p class="v2-card-line">
-          <a href="{{ w.open_href }}">Open</a>
+          <a class="v2-btn v2-btn-quiet" href="{{ w.open_href }}">Open</a>
           <form method="post" action="/watches/toggle" style="display:inline">
             <input type="hidden" name="watch_type" value="{{ w.watch_type }}">
             <input type="hidden" name="object_id" value="{{ w.object_id }}">
@@ -87,10 +96,11 @@
   </div>
 {% else %}
   {% if watch_type_filter or has_new_only %}
-    <p class="empty-state">No watches match these filters. <a href="/watches">Clear filters</a> to see every watch.</p>
+    <p class="empty-state pvs-system-state" role="status">No watches match these filters. <a href="/watches">Clear filters</a> to see every watch.</p>
   {% else %}
-    <p class="empty-state">You aren't watching anything yet. Add a watch from a Company, Variety, Geography, or Strategic Question page.</p>
+    <p class="empty-state pvs-system-state" role="status">You aren't watching anything yet. Add a watch from a Company, Variety, Geography, or Strategic Question page.</p>
   {% endif %}
 {% endif %}
+</div>
 </div>
 {% endblock %}
