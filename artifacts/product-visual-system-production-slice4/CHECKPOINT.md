@@ -4,7 +4,7 @@
 
 | Field | Value |
 | --- | --- |
-| Branch | `feature/product-visual-system-production-slice4` |
+| Branch | `cursor/product-visual-system-production-slice4-d16f` |
 | Base | `dd72be72dd50ac087e51a5089dfef2d357926a02` (Slice 3 tip) |
 | Worktree | `/home/ubuntu/worktrees/product-visual-system-production-slice4` |
 | Frozen prior | Slice 2 @ `0ec6904`; Slice 3 branch not amended |
