@@ -1,0 +1,596 @@
+/* Product Visual System — Production Slice 3
+   Source Health + Collection Operations.
+   Scoped under .pvs-slice-3. Does not redefine a fourth design language.
+   Does not alter Today/reader (Slice 1) or Landscape/profiles (Slice 2). */
+
+.pvs-slice-3 {
+  font-family: var(--pvs-font-sans);
+  font-size: var(--pvs-size-body);
+  color: var(--pvs-ink);
+  background:
+    radial-gradient(900px 320px at 6% -10%, rgba(138, 106, 59, 0.1), transparent 55%),
+    radial-gradient(700px 280px at 100% 0%, rgba(8, 35, 77, 0.06), transparent 50%),
+    transparent;
+}
+
+.pvs-slice-3 :focus-visible {
+  outline: var(--pvs-focus);
+  outline-offset: var(--pvs-focus-offset);
+}
+
+.pvs-slice-3 .skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: #fff;
+  padding: 0.5rem 0.75rem;
+  z-index: 1000;
+  min-height: var(--pvs-touch);
+}
+
+.pvs-slice-3 .skip-link:focus {
+  left: 0.75rem;
+  top: 0.75rem;
+}
+
+.pvs-slice-3 .page-heading h1,
+.pvs-slice-3 .v2-page-header h1 {
+  font-family: var(--pvs-font-display);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--pvs-navy);
+}
+
+.pvs-slice-3 .eyebrow {
+  font-size: var(--pvs-size-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pvs-muted);
+}
+
+.pvs-slice-3 .also-known-as,
+.pvs-slice-3 .context-limit,
+.pvs-slice-3 .brief-window,
+.pvs-slice-3 .v2-recall-note {
+  color: var(--pvs-muted);
+  max-width: 52rem;
+}
+
+/* —— Sticky local jump nav —— */
+.pvs-slice-3 .ops-band-nav {
+  position: sticky;
+  top: 0.5rem;
+  z-index: 15;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0.55rem 0.65rem;
+  background: rgba(255, 252, 247, 0.94);
+  border: 1px solid var(--pvs-border);
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+}
+
+.pvs-slice-3 .ops-band-nav a {
+  min-height: var(--pvs-touch);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  color: var(--pvs-navy);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.pvs-slice-3 .ops-band-nav a:hover,
+.pvs-slice-3 .ops-band-nav a:focus-visible {
+  border-color: var(--pvs-border-strong);
+  background: #fff;
+}
+
+.pvs-slice-3 .ops-band-nav strong {
+  font-family: var(--pvs-font-display);
+  font-weight: 650;
+  color: var(--pvs-navy);
+}
+
+.pvs-slice-3 .ops-band-nav a[data-band="failing"],
+.pvs-slice-3 .ops-band-nav a[data-band="blocked"] {
+  color: var(--pvs-danger);
+}
+
+.pvs-slice-3 .ops-band-nav a[data-band="stale"],
+.pvs-slice-3 .ops-band-nav a[data-band="due"] {
+  color: var(--pvs-warn);
+}
+
+.pvs-slice-3 .ops-band-nav a[data-band="quiet"],
+.pvs-slice-3 .ops-band-nav a[data-band="current"] {
+  color: var(--pvs-ok);
+}
+
+.pvs-slice-3 .ops-band-nav a[data-band="manual"] {
+  color: var(--pvs-muted);
+}
+
+/* —— Status summary strips —— */
+.pvs-slice-3 .ops-status-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin: 0 0 1rem;
+  padding: 0.85rem 1rem;
+  background: var(--pvs-surface);
+  border: 1px solid var(--pvs-border);
+  border-radius: var(--pvs-radius-lg);
+  box-shadow: var(--pvs-shadow-soft);
+  font-size: var(--pvs-size-meta);
+  color: var(--pvs-muted);
+}
+
+.pvs-slice-3 .ops-status-strip strong {
+  color: var(--pvs-navy);
+  font-family: var(--pvs-font-display);
+  font-weight: 650;
+}
+
+/* —— Banners / system states —— */
+.pvs-slice-3 .banner,
+.pvs-slice-3 .pvs-system-state {
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--pvs-border);
+  background: var(--pvs-raised);
+  color: var(--pvs-muted);
+  margin: 0 0 1rem;
+}
+
+.pvs-slice-3 .banner-error,
+.pvs-slice-3 .pvs-system-state.is-error {
+  border-color: var(--pvs-danger-border);
+  background: var(--pvs-danger-bg);
+  color: var(--pvs-danger);
+}
+
+.pvs-slice-3 .banner-warning,
+.pvs-slice-3 .pvs-system-state.is-warn {
+  border-color: var(--pvs-warn-border);
+  background: var(--pvs-warn-bg);
+  color: var(--pvs-warn);
+}
+
+.pvs-slice-3 .banner-success,
+.pvs-slice-3 .pvs-system-state.is-ok {
+  border-color: var(--pvs-ok-border);
+  background: var(--pvs-ok-bg);
+  color: var(--pvs-ok);
+}
+
+.pvs-slice-3 .empty-state {
+  padding: 1.25rem 1rem;
+  border-radius: 12px;
+  border: 1px dashed var(--pvs-border);
+  background: var(--pvs-raised);
+  color: var(--pvs-muted);
+}
+
+/* —— Health sections & rows —— */
+.pvs-slice-3 .v2-monitor-section,
+.pvs-slice-3 .ops-section {
+  padding: 0 0 1.75rem;
+  scroll-margin-top: 4.5rem;
+}
+
+.pvs-slice-3 .v2-monitor-section h2,
+.pvs-slice-3 .ops-section h2 {
+  font-family: var(--pvs-font-display);
+  font-weight: 650;
+  color: var(--pvs-navy);
+  font-size: var(--pvs-size-section);
+  margin: 0 0 0.35rem;
+}
+
+.pvs-slice-3 .ops-section-band {
+  border-left: 3px solid var(--pvs-border-strong);
+  padding-left: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.pvs-slice-3 .ops-section-band[data-band="failing"],
+.pvs-slice-3 .ops-section-band[data-band="blocked"] {
+  border-left-color: var(--pvs-danger);
+}
+
+.pvs-slice-3 .ops-section-band[data-band="stale"],
+.pvs-slice-3 .ops-section-band[data-band="due"] {
+  border-left-color: var(--pvs-warn);
+}
+
+.pvs-slice-3 .ops-section-band[data-band="quiet"],
+.pvs-slice-3 .ops-section-band[data-band="current"] {
+  border-left-color: var(--pvs-ok);
+}
+
+.pvs-slice-3 .ops-section-band[data-band="manual"] {
+  border-left-color: var(--pvs-faint);
+}
+
+.pvs-slice-3 .v2-health-list {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.pvs-slice-3 .v2-health-row {
+  background: var(--pvs-surface);
+  border: 1px solid var(--pvs-border);
+  border-radius: var(--pvs-radius-lg);
+  box-shadow: var(--pvs-shadow-soft);
+  padding: 0.9rem 1rem;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.pvs-slice-3 .v2-health-row .v2-card-title {
+  margin: 0 0 0.35rem;
+  font-size: var(--pvs-size-card);
+  font-family: var(--pvs-font-display);
+  font-weight: 650;
+  color: var(--pvs-navy);
+}
+
+.pvs-slice-3 .v2-health-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.5rem 0;
+}
+
+.pvs-slice-3 .v2-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.75rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--pvs-border);
+  background: var(--pvs-raised);
+  color: var(--pvs-ink);
+  font-size: var(--pvs-size-meta);
+}
+
+.pvs-slice-3 .pvs-badge,
+.pvs-slice-3 .v2-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: var(--pvs-size-label);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--pvs-border);
+  background: var(--pvs-raised);
+  white-space: nowrap;
+}
+
+.pvs-slice-3 .pvs-badge::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+.pvs-slice-3 .pvs-badge-ok,
+.pvs-slice-3 .v2-mark-health-current,
+.pvs-slice-3 .v2-mark-health-quiet {
+  color: var(--pvs-ok);
+  background: var(--pvs-ok-bg);
+  border-color: var(--pvs-ok-border);
+}
+
+.pvs-slice-3 .pvs-badge-warn,
+.pvs-slice-3 .v2-mark-health-stale,
+.pvs-slice-3 .v2-mark-health-due {
+  color: var(--pvs-warn);
+  background: var(--pvs-warn-bg);
+  border-color: var(--pvs-warn-border);
+}
+
+.pvs-slice-3 .pvs-badge-danger,
+.pvs-slice-3 .v2-mark-health-failing,
+.pvs-slice-3 .v2-mark-health-blocked,
+.pvs-slice-3 .v2-mark-warning {
+  color: var(--pvs-danger);
+  background: var(--pvs-danger-bg);
+  border-color: var(--pvs-danger-border);
+}
+
+.pvs-slice-3 .pvs-badge-muted,
+.pvs-slice-3 .v2-mark-health-manual {
+  color: var(--pvs-muted);
+  background: var(--pvs-raised);
+  border-color: var(--pvs-border);
+}
+
+.pvs-slice-3 .pvs-badge-info {
+  color: var(--pvs-info);
+  background: var(--pvs-info-bg);
+  border-color: var(--pvs-info-border);
+}
+
+.pvs-slice-3 .v2-health-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+}
+
+.pvs-slice-3 .v2-health-actions .v2-btn,
+.pvs-slice-3 .v2-health-actions button,
+.pvs-slice-3 .filters button,
+.pvs-slice-3 .form-actions button,
+.pvs-slice-3 .filter-actions button {
+  min-height: var(--pvs-touch);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pvs-slice-3 button:disabled,
+.pvs-slice-3 .v2-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.pvs-slice-3 .filters,
+.pvs-slice-3 .intake-form {
+  background: rgba(255, 252, 247, 0.96);
+  border: 1px solid var(--pvs-border);
+  border-radius: var(--pvs-radius-xl);
+  box-shadow: var(--pvs-shadow-soft);
+  padding: 1rem;
+  margin: 0 0 1rem;
+}
+
+.pvs-slice-3 .filters select,
+.pvs-slice-3 .filters input,
+.pvs-slice-3 .intake-form input,
+.pvs-slice-3 .intake-form select,
+.pvs-slice-3 .intake-form textarea {
+  min-height: var(--pvs-touch);
+}
+
+.pvs-slice-3 .filter-field label,
+.pvs-slice-3 .form-field label,
+.pvs-slice-3 .checkbox-label {
+  color: var(--pvs-muted);
+  font-size: var(--pvs-size-meta);
+}
+
+.pvs-slice-3 .collapsible-form {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--pvs-surface);
+  border: 1px solid var(--pvs-border);
+  border-radius: var(--pvs-radius-lg);
+}
+
+.pvs-slice-3 .collapsible-form summary {
+  min-height: var(--pvs-touch);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--pvs-navy);
+  font-weight: 600;
+}
+
+/* —— Collection Ops metric cards —— */
+.pvs-slice-3 .ops-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 0.65rem;
+  margin: 0.75rem 0 1rem;
+}
+
+.pvs-slice-3 .ops-metric {
+  background: var(--pvs-surface);
+  border: 1px solid var(--pvs-border);
+  border-radius: var(--pvs-radius-lg);
+  box-shadow: var(--pvs-shadow-soft);
+  padding: 0.75rem 0.85rem;
+}
+
+.pvs-slice-3 .ops-metric .card-kicker,
+.pvs-slice-3 .ops-metric .ops-metric-label {
+  margin: 0 0 0.25rem;
+  font-size: var(--pvs-size-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pvs-muted);
+}
+
+.pvs-slice-3 .ops-metric h2,
+.pvs-slice-3 .ops-metric .ops-metric-value {
+  margin: 0;
+  font-family: var(--pvs-font-display);
+  font-weight: 650;
+  font-size: 1.35rem;
+  color: var(--pvs-navy);
+}
+
+.pvs-slice-3 .ops-lock-panel {
+  padding: 0.85rem 1rem;
+  border-radius: var(--pvs-radius-lg);
+  border: 1px solid var(--pvs-border);
+  background: var(--pvs-surface);
+  box-shadow: var(--pvs-shadow-soft);
+}
+
+.pvs-slice-3 .ops-lock-panel[data-lock="none"] {
+  border-left: 3px solid var(--pvs-faint);
+}
+
+.pvs-slice-3 .ops-lock-panel[data-lock="active"] {
+  border-left: 3px solid var(--pvs-info);
+  background: var(--pvs-info-bg);
+}
+
+.pvs-slice-3 .ops-lock-panel[data-lock="stale"] {
+  border-left: 3px solid var(--pvs-warn);
+  background: var(--pvs-warn-bg);
+}
+
+.pvs-slice-3 .ops-lock-panel[data-lock="unreadable"] {
+  border-left: 3px solid var(--pvs-danger);
+  background: var(--pvs-danger-bg);
+}
+
+.pvs-slice-3 .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: var(--pvs-size-label);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--pvs-border);
+}
+
+.pvs-slice-3 .badge-fact {
+  color: var(--pvs-info);
+  background: var(--pvs-info-bg);
+  border-color: var(--pvs-info-border);
+}
+
+.pvs-slice-3 .badge-muted {
+  color: var(--pvs-muted);
+  background: var(--pvs-raised);
+}
+
+.pvs-slice-3 .badge-counterevidence {
+  color: var(--pvs-danger);
+  background: var(--pvs-danger-bg);
+  border-color: var(--pvs-danger-border);
+}
+
+.pvs-slice-3 .brief-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--pvs-size-meta);
+}
+
+.pvs-slice-3 .brief-table th,
+.pvs-slice-3 .brief-table td {
+  padding: 0.55rem 0.65rem;
+  border-bottom: 1px solid var(--pvs-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.pvs-slice-3 .brief-table th {
+  color: var(--pvs-muted);
+  font-size: var(--pvs-size-label);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--pvs-raised);
+}
+
+.pvs-slice-3 .table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--pvs-border);
+  border-radius: var(--pvs-radius-lg);
+  background: var(--pvs-surface);
+}
+
+.pvs-slice-3 .entity-links {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.pvs-slice-3 .entity-links li {
+  padding: 0.65rem 0.85rem;
+  background: var(--pvs-surface);
+  border: 1px solid var(--pvs-border);
+  border-radius: var(--pvs-radius);
+}
+
+.pvs-slice-3 .entity-links a {
+  color: var(--pvs-link);
+  min-height: var(--pvs-touch);
+  display: inline-flex;
+  align-items: center;
+}
+
+.pvs-slice-3 dl {
+  display: grid;
+  grid-template-columns: minmax(6rem, 10rem) 1fr;
+  gap: 0.35rem 0.85rem;
+  margin: 0 0 1rem;
+}
+
+.pvs-slice-3 dt {
+  color: var(--pvs-muted);
+  font-size: var(--pvs-size-meta);
+}
+
+.pvs-slice-3 dd {
+  margin: 0;
+  color: var(--pvs-ink);
+}
+
+.pvs-slice-3 .v2-btn,
+.pvs-slice-3 .v2-btn-quiet {
+  min-height: var(--pvs-touch);
+}
+
+@media (max-width: 980px) {
+  .pvs-slice-3 .ops-band-nav {
+    top: 0;
+  }
+
+  .pvs-slice-3 .filters .filter-field,
+  .pvs-slice-3 .form-row {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .pvs-slice-3 .ops-metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pvs-slice-3 dl {
+    grid-template-columns: 1fr;
+  }
+
+  .pvs-slice-3 .v2-health-actions,
+  .pvs-slice-3 .filter-actions {
+    width: 100%;
+  }
+
+  .pvs-slice-3 .v2-health-actions .v2-btn,
+  .pvs-slice-3 .v2-health-actions button,
+  .pvs-slice-3 .filter-actions button,
+  .pvs-slice-3 .filter-actions a {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pvs-slice-3 * {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
