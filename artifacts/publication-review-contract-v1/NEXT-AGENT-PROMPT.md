@@ -7,12 +7,12 @@ Start from the exact published HEAD of `design/publication-review-contract-v1` a
 Scope:
 
 1. Add the pure publication-review domain model: canonical review states, typed commands/results, eligibility/blocker/warning vocabulary, transition rules, deterministic publication identity, and canonical review-content digest.
-2. Add private repository/recovery primitives over the existing inbox architecture: version compare-and-set, per-draft locking, idempotency receipts, private durable promotion journal, and private draft archive behavior.
-3. Add focused tests for every transition, eligibility content class, stale version/digest, idempotent replay/conflict, concurrent decisions, duplicate identities, and injected failure/recovery phase.
+2. Define the repository/recovery primitives for authoritative shared durable review state. Keep `inbox/` only as a local/test adapter; it cannot be the production source of truth. Include version compare-and-set, cross-worker serialization, immutable provenance binding, idempotency receipts, private staging, a single visibility commit marker, reconciliation, and private archive behavior.
+3. Add focused tests for every transition, eligibility content class, persistence across restart/new checkout, the `review_ready`-without-persisted-draft discrepancy, unauthorized/automated actors, stale version/digest/provenance, idempotent replay/conflict, concurrent decisions, duplicate identities, every stop-between-writes phase, and dynamic/static reader isolation.
 
-Do not implement routes, UI, CLI integration, production promotion commands, trusted publication writes, static behavior changes, or data migrations. Do not call or alter `ReviewPublishService.publish()` in this slice. Do not create/update Entity, Fact, Relationship, Evidence, Source, Signal, Assessment, acquisition, transcript, inbox, or live/generated application records.
+Do not implement routes, UI, CLI integration, production promotion commands, trusted publication writes, static behavior changes, or data migrations. Do not call or alter `ReviewPublishService.publish()` in this slice. Do not create/update Entity, Fact, Relationship, Evidence, Source, Signal, Assessment, acquisition, transcript, operator inbox, or live/generated application records.
 
-Use temporary test roots only. Keep journals, receipts, locks, archives, and tests body-safe and outside static inputs. Preserve all existing acquisition, transcript, duplicate, Source Health, Atomic Evidence, and record-validation behavior.
+Use temporary test stores only. Keep journals, receipts, locks, archives, and tests body-safe and outside static inputs. Explicitly distinguish caught-exception compensation from hard-stop recovery. Preserve all existing acquisition, transcript, duplicate, Source Health, Atomic Evidence, no-auto-publication, and record-validation behavior.
 
 Validation:
 

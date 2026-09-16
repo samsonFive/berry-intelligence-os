@@ -21,12 +21,16 @@
 - Queue membership, spreadsheet rows, review sessions, and bulk dismiss do not authorize approval.
 - Drafts, full private bodies, reviewer comments, journals, events, and Atomic proposals cannot enter the static build.
 - Source Health reports collection and body-acquisition health. Publication-review throughput and current usable coverage remain separate measures.
+- A worktree-local or gitignored queue is not authoritative production state. Accepted discovery/draft work must survive worker restart, a new checkout, and handoff to another authorized reviewer.
+- Trusted readers require a completed promotion commit marker whose referenced publication, decision, audit event, and provenance hashes all verify.
 
 ## Required compatibility change
 
 The current `ReviewPublishService.publish()` can create/update entities and create Facts and Relationships from the publication form. An implementation of this contract must route publication approval through a new boundary-safe command service and remove those side effects from the approval adapter. Existing historical records remain valid; the new service must not rewrite them.
 
 The shared Evidence schema is a storage compatibility layer. Consumers must use `evidence_role`, review state, content quality, and trust projection. Treating every published Evidence-shaped record as an approved factual claim violates this contract.
+
+Existing exception-time rollback and compensation remain useful but do not establish crash consistency. Compensation runs only when the process remains alive to catch a failure. Production safety requires a real durable transaction or a recoverably staged protocol that remains unambiguous after abrupt termination.
 
 ## Static trust projection
 

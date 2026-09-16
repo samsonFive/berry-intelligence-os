@@ -22,6 +22,14 @@ Base inspected: `integration/competitor-intelligence-wave3` at `c95c05e51b8247a0
 | Static build | Reads published records from `data/`; never includes inbox drafts, review events, analyst state, or Atomic proposals. Leak tests scan draft IDs/titles. | Approval immediately makes a publication eligible for public/static projection under existing rules. |
 | Source Health | Separates discovery, acquisition and readable outcomes. Collection Status separately counts publication-review backlog, trusted publications, Atomic proposals and Atomic review. | Review throughput may be linked from Source Health, but must not redefine collection health. |
 
+## Independent checkpoint findings incorporated
+
+Claude's candidate-pack checkpoint, `research/publication-review-candidate-pack-v1` at `8952566625a543f1850b33fcb033ef0aac5a0839`, confirmed that a fresh isolated worktree has no review backlog because `inbox/` is gitignored and absent. The canonical corpus contained 1,272 Evidence-shaped records: 1,269 published, 3 in review, and zero with readable article bodies. Its 10-item rehearsal pack contains six real and four synthetic cases. The bounded run also reported one item as review-ready without a corresponding persisted draft. That reporting/persistence discrepancy was documented and not repaired.
+
+These findings make local inbox files unsuitable as authoritative production queue state. V1 requires a shared durable production review-state repository. The filesystem inbox remains acceptable only as a local/development adapter or cache whose loss cannot erase accepted work.
+
+Luna's safety checkpoint, `audit/publication-review-safety-v1` at `decb97049a79b3d9e7c4f007f4f5977284d27eec`, confirmed the existing human publication gate, untrusted AI enrichment, separate claim/Atomic review, duplicate protection, rollback compensation, and append-only event convention. It found no automatic publication route or direct publication-to-trusted-Evidence path. It also confirmed missing enforcement for actor authorization, provenance binding, optimistic concurrency, crash consistency, and partial static-read protection.
+
 ## Existing route and CLI surface
 
 - `GET /review`, `GET /review/{draft_id}`: queue and detail.
@@ -41,6 +49,9 @@ Base inspected: `integration/competitor-intelligence-wave3` at `c95c05e51b8247a0
 5. Rejection is terminal in practice; no formal correction or supersession mechanism exists after approval.
 6. A separate trusted Publication schema does not exist. Compatibility therefore requires a strict `publication_artifact` storage profile inside the current Evidence schema unless a later migration is authorized.
 7. Static-public body exposure is not independently governed by the review decision; publication approval and static eligibility currently coincide.
+8. Gitignored, worktree-local inbox state is not durable or shared across production workers and cannot be the authoritative review backlog.
+9. Exception-time rollback compensation is not crash consistency: process termination can occur between publication, decision, event, draft, and attachment writes before compensation runs.
+10. Static readers have no explicit commit-marker protocol proving they see only a complete publication transition.
 
 ## Confirmed safety behavior
 

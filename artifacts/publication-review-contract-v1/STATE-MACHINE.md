@@ -38,6 +38,8 @@ V1 does not reinterpret historical records. The service introduces a versioned p
 
 Saving editorial changes while `pending_review` is a content revision, not a trust decision. It increments `review_version`, changes the digest, and appends a revision event.
 
+Every transition is persisted in the shared durable review repository. A local inbox projection may mirror it but cannot be the sole state. For approval, the state changes to `approved` for trusted readers only when one commit marker immutably binds the prior draft ID/version/digest and provenance hashes to the actor, decision, audit event, and resulting publication hash.
+
 ## Invalid transitions
 
 - Approval from any state other than `pending_review`: 409 `invalid_transition`.

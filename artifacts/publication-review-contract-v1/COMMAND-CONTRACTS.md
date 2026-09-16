@@ -46,7 +46,7 @@ Common errors are:
 
 ### Approve
 
-`approve_publication(envelope, approval_basis, warning_acknowledgments)` rechecks eligibility, identity, duplicates, version, digest, and permission under a per-draft lock. It creates exactly one trusted publication compatibility record with empty `fact_ids`, creates no graph records, archives the reviewed draft privately, and records intent and completion. `approval_basis` is one of `full_article`, `partial_article`, `full_transcript`, `structured_registry`, or, if product policy accepts it, `limited_content`.
+`approve_publication(envelope, approval_basis, warning_acknowledgments)` rechecks eligibility, identity, duplicates, version, digest, provenance binding, and permission under a per-draft lock. It recoverably stages exactly one trusted publication compatibility record with empty `fact_ids`, creates no graph records, records the immutable decision and audit event, publishes one visibility commit marker, and archives the reviewed draft privately. `approval_basis` is one of `full_article`, `partial_article`, `full_transcript`, `structured_registry`, or, if product policy accepts it, `limited_content`.
 
 ### Reject
 
@@ -84,6 +84,6 @@ Existing HTML routes should call these commands rather than `ReviewPublishServic
 
 ## Repository boundary and test seams
 
-The command service depends on narrow ports for draft load/compare-and-set/archive, trusted-publication identity lookup/create, Source/entity read resolution, acquisition/transcript outcome reads, event append, idempotency receipt read/write, lock acquisition, and journal recovery. Repositories return typed not-found/conflict results and do not make trust decisions.
+The command service depends on narrow ports for durable draft load/compare-and-set/archive, trusted-publication identity lookup/stage, Source/entity read resolution, acquisition/transcript outcome reads, decision and event append, idempotency receipt read/write, cross-worker lock acquisition, commit-marker publication, and journal reconciliation. Repositories return typed not-found/conflict results and do not make trust decisions.
 
 Tests inject temporary implementations of each port plus a clock and command-ID generator. Failure injection is required at every journal phase. Route tests verify actor binding and response mapping; domain tests require no filesystem or application data.
