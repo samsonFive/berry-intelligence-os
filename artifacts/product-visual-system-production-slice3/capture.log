@@ -1,0 +1,12 @@
+ffmpeg skipped [Errno 27] File too large
+copied 01_desktop_source_health.png 169398
+copied 02_desktop_source_health_blocked.png 165068
+copied 03_desktop_collection_ops.png 153406
+copied 04_desktop_collection_ops_completed.png 155223
+copied 05_desktop_collection_ops_refused.png 154004
+copied 06_desktop_collection_ops_error.png 154438
+copied 07_mobile_source_health.png 85699
+copied 08_mobile_collection_ops.png 87511
+errors 1
+ALL CAPTURES DONE
+EXIT:0
