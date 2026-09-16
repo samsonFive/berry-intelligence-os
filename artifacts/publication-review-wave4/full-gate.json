@@ -1,0 +1,97 @@
+{
+  "mode": "full",
+  "root": "C:\\Users\\Johnny\\Downloads\\sscanar\\berry-intelligence-os-publication-review-wave4",
+  "python": "C:\\Users\\Johnny\\Downloads\\sscanar\\berry-intelligence-os\\.venv\\Scripts\\python.exe",
+  "results": [
+    {
+      "label": "Roster and identity",
+      "command": "C:\\Users\\Johnny\\Downloads\\sscanar\\berry-intelligence-os\\.venv\\Scripts\\python.exe -m pytest -q -p no:cacheprovider tests/test_competitor_registry_v1.py tests/test_competitor_profile_v1.py tests/test_competitor_intelligence_integration_v1.py tests/test_entity_identity_integrity.py tests/test_entity_alias_recall.py",
+      "passed": true,
+      "returncode": 0,
+      "test_count": 108,
+      "duration_seconds": 20.058,
+      "record_mutations": [],
+      "pagefind_missing": false,
+      "output_tail": "........................................................................ [ 66%]\n....................................                                     [100%]\n============================== warnings summary ===============================\n..\\berry-intelligence-os\\.venv\\Lib\\site-packages\\reportlab\\lib\\rl_safe_eval.py:12\n  C:\\Users\\Johnny\\Downloads\\sscanar\\berry-intelligence-os\\.venv\\Lib\\site-packages\\reportlab\\lib\\rl_safe_eval.py:12: DeprecationWarning: ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead\n    haveNameConstant = hasattr(ast,'NameConstant')\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n108 passed, 1 warning in 18.67s"
+    },
+    {
+      "label": "Landscape",
+      "command": "C:\\Users\\Johnny\\Downloads\\sscanar\\berry-intelligence-os\\.venv\\Scripts\\python.exe -m pytest -q -p no:cacheprovider tests/test_competitor_landscape_v1.py tests/test_landscape_v2.py",
+      "passed": true,
+      "returncode": 0,
+      "test_count": 38,
+      "duration_seconds": 42.605,
+      "record_mutations": [],
+      "pagefind_missing": false,
+      "output_tail": "......................................                                   [100%]\n============================== warnings summary ===============================\n..\\berry-intelligence-os\\.venv\\Lib\\site-packages\\reportlab\\lib\\rl_safe_eval.py:12\n  C:\\Users\\Johnny\\Downloads\\sscanar\\berry-intelligence-os\\.venv\\Lib\\site-packages\\reportlab\\lib\\rl_safe_eval.py:12: DeprecationWarning: ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead\n    haveNameConstant = hasattr(ast,'NameConstant')\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n38 passed, 1 warning in 40.79s"
+    },
+    {
+      "label": "Daily Briefing",
+      "command": "C:\\Users\\Johnny\\Downloads\\sscanar\\berry-intelligence-os\\.venv\\Scripts\\python.exe -m pytest -q -p no:cacheprovider tests/test_daily_intelligence_briefing_slice1.py tests/test_morning_brief.py",
+      "passed": true,
+      "returncode": 0,
+      "test_count": 23,
+      "duration_seconds": 12.902,
+      "record_mutations": [],
+      "pagefind_missing": false,
+      "output_tail": ".......................                                                  [100%]\n============================== warnings summary ===============================\n..\\berry-intelligence-os\\.venv\\Lib\\site-packages\\reportlab\\lib\\rl_safe_eval.py:12\n  C:\\Users\\Johnny\\Downloads\\sscanar\\berry-intelligence-os\\.venv\\Lib\\site-packages\\reportlab\\lib\\rl_safe_eval.py:12: DeprecationWarning: ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead\n    haveNameConstant = hasattr(ast,'NameConstant')\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n23 passed, 1 warning in 11.21s"
+    },
+    {
+      "label": "Reader",
+      "command": "C:\\Users\\Johnny\\Downloads\\sscanar\\berry-intelligence-os\\.venv\\Scripts\\python.exe -m pytest -q -p no:cacheprovider tests/test_astra_news_reader.py tests/test_intelligence_feed.py",
+      "passed": true,
+      "returncode": 0,
+      "test_count": 20,
+      "duration_seconds": 5.832,
+      "record_mutations": [],
+      "pagefind_missing": false,
+      "output_tail": "....................                                                     [100%]\n============================== warnings summary ===============================\n..\\berry-intelligence-os\\.venv\\Lib\\site-packages\\reportlab\\lib\\rl_safe_eval.py:12\n  C:\\Users\\Johnny\\Downloads\\sscanar\\berry-intelligence-os\\.venv\\Lib\\site-packages\\reportlab\\lib\\rl_safe_eval.py:12: DeprecationWarning: ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead\n    haveNameConstant = hasattr(ast,'NameConstant')\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n20 passed, 1 warning in 4.28s"
+    },
+    {
+      "label": "Trust",
+      "command": "C:\\Users\\Johnny\\Downloads\\sscanar\\berry-intelligence-os\\.venv\\Scripts\\python.exe -m pytest -q -p no:cacheprovider tests/test_trust_feedback.py tests/test_sync_trusted_data.py tests/repositories/test_repository_backends.py",
+      "passed": true,
+      "returncode": 0,
+      "test_count": 55,
+      "duration_seconds": 41.666,
+      "record_mutations": [],
+      "pagefind_missing": false,
+      "output_tail": ".......................................................                  [100%]\n55 passed in 40.10s"
+    },
+    {
+      "label": "Build integrity",
+      "command": "C:\\Users\\Johnny\\Downloads\\sscanar\\berry-intelligence-os\\.venv\\Scripts\\python.exe -m pytest -q -p no:cacheprovider tests/test_build_static.py",
+      "passed": true,
+      "returncode": 0,
+      "test_count": 6,
+      "duration_seconds": 10.454,
+      "record_mutations": [],
+      "pagefind_missing": false,
+      "output_tail": "......                                                                   [100%]\n============================== warnings summary ===============================\n..\\berry-intelligence-os\\.venv\\Lib\\site-packages\\reportlab\\lib\\rl_safe_eval.py:12\n  C:\\Users\\Johnny\\Downloads\\sscanar\\berry-intelligence-os\\.venv\\Lib\\site-packages\\reportlab\\lib\\rl_safe_eval.py:12: DeprecationWarning: ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead\n    haveNameConstant = hasattr(ast,'NameConstant')\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n6 passed, 1 warning in 8.86s"
+    },
+    {
+      "label": "Record validation",
+      "command": "C:\\Users\\Johnny\\Downloads\\sscanar\\berry-intelligence-os\\.venv\\Scripts\\python.exe scripts/validate_records.py",
+      "passed": true,
+      "returncode": 0,
+      "test_count": 0,
+      "duration_seconds": 2.822,
+      "record_mutations": [],
+      "pagefind_missing": false,
+      "output_tail": "All validated records passed."
+    },
+    {
+      "label": "Static build and Pagefind",
+      "command": "C:\\Users\\Johnny\\Downloads\\sscanar\\berry-intelligence-os\\.venv\\Scripts\\python.exe scripts/build_static.py",
+      "passed": true,
+      "returncode": 0,
+      "test_count": 0,
+      "duration_seconds": 93.822,
+      "record_mutations": [],
+      "pagefind_missing": false,
+      "output_tail": "Search index built (pagefind).\nStatic build complete: 1665 pages written to generated/\nVerified: no unpublished draft ids or titles appear in the output."
+    }
+  ],
+  "canonical_or_runtime_mutation": false,
+  "passed": true
+}

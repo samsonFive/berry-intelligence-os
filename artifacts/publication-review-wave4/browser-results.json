@@ -1,0 +1,60 @@
+{
+  "viewports": [
+    "1440x900",
+    "834x1112",
+    "390x844"
+  ],
+  "representative_review_states": 10,
+  "results": [
+    {
+      "surface": "private queue desktop",
+      "status": 200,
+      "focus": "A"
+    },
+    {
+      "surface": "Today",
+      "path": "/",
+      "status": 200
+    },
+    {
+      "surface": "Morning Brief",
+      "path": "/brief",
+      "status": 200
+    },
+    {
+      "surface": "Landscape",
+      "path": "/competitors",
+      "status": 200
+    },
+    {
+      "surface": "Company",
+      "path": "/entities/company/company-berryworld",
+      "status": 200
+    },
+    {
+      "surface": "Brand",
+      "path": "/entities/brand/brand-berryworld-varietal-brands",
+      "status": 200
+    },
+    {
+      "surface": "Breeding program",
+      "path": "/entities/breeding_program/breeding_program-fall-creek-blueberry-breeding",
+      "status": 200
+    },
+    {
+      "surface": "Source Health",
+      "path": "/sources",
+      "status": 200
+    },
+    {
+      "surface": "Reader offcanvas",
+      "item_id": null,
+      "status": 200
+    }
+  ],
+  "console_errors": [],
+  "bad_responses": [],
+  "mutation_requests": [],
+  "static_private_leaks": 0,
+  "decision_controls_connected": false
+}
