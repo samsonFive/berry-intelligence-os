@@ -3119,8 +3119,8 @@ def entity_synthesis_context(
 
 @app.get("/learn", response_class=HTMLResponse)
 def learn_home(request: Request, q: str = "") -> HTMLResponse:
-    """Learner Mode V1 home -- deterministic browse/glossary over the
-    starter concept set (data/learn/concepts/*.json). Search is a plain
+    """Learner Mode home -- deterministic browse/glossary over concept
+    records (data/learn/concepts/*.json). Search is a plain
     substring match over name/alias/pillar/summary, not semantic search,
     per Learner Mode governance (docs/v2/feature-requests/LEARNER-MODE.md,
     INTELLIGENCE-EXPANSION-BUILD-GUIDE.md section 12a). Educational

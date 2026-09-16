@@ -78,6 +78,13 @@
       "row_number": 15,
       "spreadsheet_label": "Hortifrut Genetica",
       "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
-    }
+    },
+    "registration_ids": [
+      {
+        "jurisdiction": "CL",
+        "kind": "RUT",
+        "value": "96.896.990-0"
+      }
+    ]
   }
 }

@@ -12,7 +12,7 @@
   "how_evaluated": "Whether a system supports double cropping is assessed through the underlying production method (e.g. plasticulture vs. matted row), planting density, and regional climate window -- it is a system-level and regional characterization, not a single-variety trait.",
   "what_affects_it": "Production system (plasticulture vs. traditional), regional climate and day length, variety-specific flowering response, and grower investment in irrigation/frost protection all determine whether double cropping is agronomically and economically viable in a given operation.",
   "how_to_interpret": "Double cropping is a regional production-practice claim, not a universal characteristic of a variety -- it depends on the production system and geography described, and should never be generalized from one region's guide to another. When intelligence references double cropping, check whether it is describing the production system, the variety, or both.",
-  "related_concept_ids": ["concept-precocity", "concept-winter-production"],
+  "related_concept_ids": ["concept-precocity", "concept-winter-production", "concept-plasticulture"],
   "sources": [
     {
       "publisher": "NC State Extension",

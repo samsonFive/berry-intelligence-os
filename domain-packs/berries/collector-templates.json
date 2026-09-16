@@ -1641,8 +1641,8 @@
       ],
       "monitoring_priority": "high",
       "update_cadence": "weekly",
-      "default_active": true,
-      "notes": "Explicitly weighted High priority per this list's own coverage-gap note: global fresh produce news with strong berry coverage, fills the same fast-moving-deal gap as Fresh Fruit Portal but with broader geographic scope."
+      "default_active": false,
+      "notes": "TD-108 (2026-09-16): retired as a duplicate of source-freshplaza-global against the same live RSS. Do not re-activate. Historical lineage only."
     },
     {
       "id": "source-20260806173428-9300-hortidaily-75",

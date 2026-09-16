@@ -1,0 +1,41 @@
+{
+  "id": "concept-plasticulture",
+  "slug": "plasticulture",
+  "name": "Strawberry plasticulture",
+  "aliases": ["annual hill culture", "plastic mulch strawberry", "matted row", "raised bed strawberry"],
+  "pillar": "plant_biology_agronomy",
+  "knowledge_class": "regional_production_practice",
+  "trait_ids": [],
+  "summary": "The dominant commercial strawberry system in much of the U.S. South: annual plants on raised, plastic-covered, drip-irrigated beds — not a universal strawberry method and not a variety trait.",
+  "what_is_it": "Plasticulture (annual hill culture) grows strawberries as a short-cycle crop on raised beds covered with plastic mulch and irrigated by drip, often after pre-plant soil treatment. Time to harvest is commonly described as about 7–8 months versus a longer matted-row cycle. Commercial southeastern systems use high densities (guides often cite roughly 15,000–17,500 plants per acre in double rows). Overhead sprinklers are used in bloom for frost protection by freezing-water heat release, which is a different job from drip irrigation. Historical methyl bromide + chloropicrin fumigation has been replaced or restricted in many places; current practice is regional and labeled.",
+  "why_it_matters": "Most strawberry competitive talk about plant cost, yield per acre, double cropping, and winter windows assumes this system or a protected-culture analogue. Matted-row and perennial beds are different economics and calendars. Fumigation, plastic, and plant density are cost and regulation stories, not flavor stories.",
+  "how_evaluated": "Extension production guides describe bed geometry, density, planting dates, and frost-protection practice for a region. A farm's actual system is observed from beds, plastic, drip, and whether plants are annual. Do not score 'plasticulture quality.'",
+  "what_affects_it": "Climate, nursery plant type (plug vs bare-root), fumigation or alternative soil treatments, labor, and whether the operation is open-field or tunnel. Variety still matters for bloom and fruit, but the system is not the variety.",
+  "how_to_interpret": "Never generalize a southeastern plasticulture calendar to every strawberry region. 'Plasticulture' in a source is a production-system claim. It does not prove a named company uses fumigation, nor that fruit quality is higher than matted-row. Pair with geography and, where relevant, double-cropping or winter-production context.",
+  "related_concept_ids": ["concept-double-cropping", "concept-clean-planting-stock", "concept-winter-production"],
+  "media": [
+    {
+      "kind": "diagram",
+      "title": "Southern Regional Strawberry Plasticulture Production Guide",
+      "publisher": "NC State Extension",
+      "url": "https://content.ces.ncsu.edu/southern-regional-strawberry-plasticulture-production-guide"
+    }
+  ],
+  "sources": [
+    {
+      "publisher": "NC State Extension",
+      "title": "Southern Regional Strawberry Plasticulture Production Guide",
+      "url": "https://content.ces.ncsu.edu/southern-regional-strawberry-plasticulture-production-guide"
+    },
+    {
+      "publisher": "University of Arkansas Cooperative Extension",
+      "title": "An Introductory Guide to Strawberry Plasticulture",
+      "url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/Guide%20to-Strawberry-Plasticulture.pdf"
+    },
+    {
+      "publisher": "Cornell University",
+      "title": "Strawberry Production Guide (NRAES-88)",
+      "url": "http://www.hort.cornell.edu/fruit/berry-guides/NRAES-88_LowRes.pdf"
+    }
+  ]
+}
