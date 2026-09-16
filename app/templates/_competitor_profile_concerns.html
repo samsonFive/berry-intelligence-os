@@ -1,0 +1,94 @@
+{# Read-only presentation of competitor_profile.completeness — seven separated concerns.
+   Does not invent a blended score. Unknown/provisional/missing-monitoring stay distinct
+   from structural malformation. #}
+{% if competitor_profile is defined and competitor_profile and competitor_profile.completeness %}
+{% set c = competitor_profile.completeness %}
+<section class="pvs-concerns v2-company-section" id="profile-concerns" aria-labelledby="profile-concerns-heading">
+  <h2 id="profile-concerns-heading">Profile concerns</h2>
+  <p class="context-limit">{{ c.note }}</p>
+  <div class="pvs-concerns-grid">
+    <article class="pvs-concern-card" aria-label="Record integrity">
+      <h3>Record integrity</h3>
+      {% if c.record_integrity.status == 'structurally_valid' %}
+        <span class="pvs-badge pvs-badge-ok">Structurally valid</span>
+      {% else %}
+        <span class="pvs-badge pvs-badge-danger">{{ c.record_integrity.status|replace('_',' ') }}</span>
+      {% endif %}
+      <p>Only this concern represents structural malformation. Unknown or unassigned classification is never shown as malformed here.</p>
+    </article>
+
+    <article class="pvs-concern-card" aria-label="Classification coverage">
+      <h3>Classification coverage</h3>
+      {% if c.classification_coverage.has_unassigned %}
+        <span class="pvs-badge pvs-badge-warn">Unknown / unassigned present</span>
+      {% else %}
+        <span class="pvs-badge pvs-badge-ok">Assigned</span>
+      {% endif %}
+      <p>Unassigned berry/region/type fields are incomplete classification — not record defects.</p>
+    </article>
+
+    <article class="pvs-concern-card" aria-label="Identity verification">
+      <h3>Identity verification</h3>
+      {% set id_state = c.identity_verification.state %}
+      {% if id_state in ['provisional', 'pending_review'] %}
+        <span class="pvs-badge pvs-badge-warn">{{ id_state|replace('_',' ') }}</span>
+      {% elif 'verified' in id_state or id_state == 'active' %}
+        <span class="pvs-badge pvs-badge-ok">{{ id_state|replace('_',' ') }}</span>
+      {% else %}
+        <span class="pvs-badge pvs-badge-info">{{ id_state|replace('_',' ') }}</span>
+      {% endif %}
+      <p>{{ c.identity_verification.reason }}</p>
+    </article>
+
+    <article class="pvs-concern-card" aria-label="Relationship knowledge">
+      <h3>Relationship knowledge</h3>
+      {% if c.relationship_knowledge.genetics_known or c.relationship_knowledge.verified_variety_relationships_known or c.relationship_knowledge.parent_brand_relationships_known %}
+        <span class="pvs-badge pvs-badge-info">Relationships on record</span>
+      {% else %}
+        <span class="pvs-badge pvs-badge-warn">No relationships recorded</span>
+      {% endif %}
+      <p>{{ c.relationship_knowledge.note }}</p>
+    </article>
+
+    <article class="pvs-concern-card" aria-label="Monitoring maturity">
+      <h3>Monitoring maturity</h3>
+      {% if c.monitoring_maturity.discovery_configured %}
+        <span class="pvs-badge pvs-badge-ok">Discovery configured</span>
+      {% else %}
+        <span class="pvs-badge pvs-badge-warn">Missing monitoring</span>
+      {% endif %}
+      <p>{{ c.monitoring_maturity.note }}</p>
+    </article>
+
+    <article class="pvs-concern-card" aria-label="Current intelligence coverage">
+      <h3>Current intelligence coverage</h3>
+      {% if c.current_intelligence_coverage.current_coverage_available %}
+        <span class="pvs-badge pvs-badge-ok">Current usable coverage</span>
+      {% else %}
+        <span class="pvs-badge pvs-badge-warn">Missing coverage</span>
+      {% endif %}
+      <p>
+        Readable acquired: {{ 'yes' if c.current_intelligence_coverage.readable_content_acquired else 'no' }}
+        · usable count {{ c.current_intelligence_coverage.current_usable_coverage_count }}
+      </p>
+    </article>
+  </div>
+
+  <div class="pvs-concern-card" aria-label="Actionable gaps">
+    <h3>Actionable gaps</h3>
+    {% if c.actionable_gaps %}
+      <ul class="pvs-gaps">
+        {% for gap in c.actionable_gaps %}
+          <li class="{% if gap.severity == 'blocking' %}is-blocking{% endif %}">
+            <strong>{{ gap.severity }}</strong>
+            — {{ gap.why_it_matters }}
+            {% if gap.recommended_next_action %}<span class="pr-meta"> Next: {{ gap.recommended_next_action }}</span>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty-state">No actionable gaps flagged for this profile.</p>
+    {% endif %}
+  </div>
+</section>
+{% endif %}

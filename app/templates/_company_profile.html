@@ -1,18 +1,28 @@
 {% set ui = ui_context if ui_context is defined else {"berry": "global", "berry_label": "Global", "feed_view": "grid"} %}
+{% macro lettermark(name) -%}
+{%- set parts = (name or '?').split() -%}
+{%- if parts|length >= 2 -%}{{ parts[0][0] }}{{ parts[1][0] }}
+{%- else -%}{{ (name or '?')[:2] }}
+{%- endif -%}
+{%- endmacro %}
 <div class="sh-page v2-page v2-company">
+<a class="skip-link" href="{% if competitor_profile is defined and competitor_profile %}#profile-concerns{% else %}#what-changed{% endif %}">Skip to {% if competitor_profile is defined and competitor_profile %}profile concerns{% else %}recent activity{% endif %}</a>
 <section class="sh-header page-heading v2-page-header" data-pagefind-filter="type:entity">
-  <div>
+  <div class="pvs-profile-hero">
+    <span class="pvs-lettermark" data-tone="company" aria-hidden="true">{{ lettermark(entity.name) }}</span>
+    <div>
     <p class="sh-kicker eyebrow">Company</p>
     <h1>{{ entity.name }}</h1>
     {% if entity.aliases %}
       <p class="sh-lede also-known-as" data-pagefind-weight="10">Also known as: {{ entity.aliases|join(', ') }}</p>
     {% endif %}
     <p class="sh-meta v2-company-meta">
-      {% if entity.status %}<span>{{ entity.status|humanize_label }}</span>{% endif %}
+      {% if entity.status %}<span class="pvs-badge pvs-badge-info" aria-label="Status {{ entity.status }}">{{ entity.status|humanize_label }}</span>{% endif %}
       {% if entity.roles %}<span>{% for role in entity.roles %}{{ role|humanize_label }}{% if not loop.last %} · {% endif %}{% endfor %}</span>{% endif %}
       {% if last_updated %}<span>Updated {{ last_updated|us_date }}</span>{% endif %}
       {% if ui.berry != 'global' %}<span>{{ ui.berry_label }} context</span>{% endif %}
     </p>
+    </div>
   </div>
   <div class="sh-actions v2-company-actions">
     {% if not static_build %}
@@ -33,10 +43,13 @@
 </section>
 
 <nav class="sh-section-nav" aria-label="Company sections">
+  <a href="#profile-concerns">Profile concerns</a>
   <a href="#what-changed">Recent activity</a><a href="{{ '#current-reporting' if company_news is defined and not static_build else '#recent-intelligence' }}">Reporting</a>
   <a href="#varieties">Varieties</a><a href="#geographic-activity">Geographies</a>
   <a href="#intelligence-timeline">Timeline</a>
 </nav>
+
+{% include "_competitor_profile_concerns.html" %}
 
 {% if company_news is defined and not static_build %}
 <section class="sh-section sh-company-news" id="current-reporting" aria-label="Current company coverage">
