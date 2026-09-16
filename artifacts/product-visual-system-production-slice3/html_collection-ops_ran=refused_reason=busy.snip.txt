@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Collection Operations — Berry Intelligence OS</title>
+  <link rel="stylesheet" href="/static/vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/app.css">
+  <link rel="stylesheet" href="/static/v2.css">
+  
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/pvs_tokens.css">
+<link rel="stylesheet" href="/static/ops_pvs.css">
+
+</head>
+<body class="v2-body">
+  <div class="v2-app" id="v2-app">
+    <aside class="v2-sidebar" id="v2DesktopSidebar">
+      
+
+
+
+
+
+
+<div class="v2-brand">BERRY<span>INTELLIGENCE OS</span></div>
+<nav class="v2-nav" aria-label="Primary">
+  <p class="v2-nav-group">Work</p>
+  
+  <a href="/today" class="v2-nav-link" title="Today" aria-label="Today">
+    <span class="v2-nav-icon" aria-hidden="true" data-icon="brief"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="2.5" width="10" height="11" rx="1.5"/><path d="M5.5 6h5M5.5 8.5h5M5.5 11h3"/></svg></span><span class="v2-nav-text">Today</span>
+  </a>
+  
+  <a href="/guide" class="v2-nav-link" title="How it works" aria-label="How it works">
+    <span class="v2-nav-icon" aria-hidden="true" data-icon="learn"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4.2C6.8 3.3 5 2.8 3 2.8v9.4c2 0 3.8.5 5 1.4"/><path d="M8 4.2c1.2-.9 3-1.4 5-1.4v9.4c-2 0-3.8.5-5 1.4V4.2Z"/></svg></span><span class="v2-nav-text">How it works</span>
+  </a>
+  <a href="/brief" class="v2-nav-link" title="Morning Brief" aria-label="Morning Brief">
+    <span class="v2-nav-icon" aria-hidden="true" data-icon="brief"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="2.5" width="10" height="11" rx="1.5"/><path d="M5.5 6h5M5.5 8.5h5M5.5 11h3"/></svg></span><span class="v2-nav-text">Morning Brief</span>
+    
+  </a>
+  <a href="/work-queue" class="v2-nav-link" title="Live Intelligence" aria-label="Live Intelligence">
+    <span class="v2-nav-icon" aria-hidden="true" data-icon="feed"><svg viewBox="0 0 16 16" width="1
