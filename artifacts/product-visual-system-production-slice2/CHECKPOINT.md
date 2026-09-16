@@ -5,7 +5,7 @@
 | Field | Value |
 | --- | --- |
 | Branch | `feature/product-visual-system-production-slice2` |
-| Commit | `8650fb16815d8f56dbf75ff2363af1593f997eab` |
+| Commit | `24d7299895a86de5439dc7384144391536e62826` |
 | Base | `c95c05e51b8247a0b22f417a877088c8d7f20e6b` |
 | PVS prototype | `prototype/product-visual-system-v1` @ `1c6b299` |
 | Frozen sibling | `feature/publication-review-readonly-ui-v1` @ `d19ee0a` (no new commits) |
