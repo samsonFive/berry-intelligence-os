@@ -208,8 +208,11 @@ def test_today_route_front_page_and_mobile_css(monkeypatch, tmp_path: Path) -> N
     assert "Planasa Newsroom" in page.text
     assert "/today?reader=new-low" in page.text or 'data-item-id="new-low"' in page.text
     assert 'name="decision"' not in page.text
-    css = (Path(main.BASE_DIR) / "app" / "static" / "v2.css").read_text(encoding="utf-8")
+    tokens = (Path(main.BASE_DIR) / "app" / "static" / "pvs_tokens.css").read_text(encoding="utf-8")
+    css = (Path(main.BASE_DIR) / "app" / "static" / "daily_briefing.css").read_text(encoding="utf-8")
+    assert "--pvs-navy" in tokens
     assert ".daily-briefing" in css
     assert "@media (max-width: 720px)" in css
+    assert 'href="/static/daily_briefing.css"' in page.text
     blueberry = TestClient(main.app).get("/today?berry=raspberry")
     assert blueberry.status_code == 200
