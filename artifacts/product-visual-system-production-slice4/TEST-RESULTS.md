@@ -2,7 +2,7 @@
 
 ## Environment
 
-- Branch: `feature/product-visual-system-production-slice4`
+- Branch: `cursor/product-visual-system-production-slice4-d16f`
 - Base: `dd72be7` (Slice 3 tip)
 - App: `127.0.0.1:18794`
 
