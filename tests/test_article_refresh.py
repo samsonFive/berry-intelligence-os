@@ -146,6 +146,46 @@ def test_relevant_article_produces_a_review_ready_draft_with_real_body(tmp_path,
     assert draft["published_date_basis"] == "discovery_feed"
 
 
+def test_readable_article_never_reaches_trusted_evidence_or_publication_review_approval(
+    tmp_path, repos, source, monkeypatch,
+):
+    """A readable, review-ready draft must land only in the untrusted
+    `inbox/evidence/` staging area -- never in the canonical, trusted
+    `<data_dir>/evidence/` store `repositories.evidence.list()`/
+    `published_evidence()` read from. `process_discovered_article()` (and
+    everything upstream of it: discovery, acquisition, screening) performs
+    no publication-review action of its own; promotion from draft to
+    trusted Evidence is a separate, human-gated action this pipeline never
+    calls itself. This is the mission-level guarantee that a successful
+    readable acquisition, however good the extracted body, is never
+    self-publishing."""
+    item = _discover_one(
+        tmp_path, source, monkeypatch,
+        title="Blueberry acreage grows in Peru", link="https://example.invalid/peru-blueberry-trust-check",
+        description="Blueberry acreage update from Peru.",
+    )
+    monkeypatch.setattr(article_acquisition.httpx, "get", lambda *a, **k: _FakeArticleResponse(_RELEVANT_HTML))
+
+    orchestrator = _orchestrator(repos, tmp_path)
+    result, extra = process_discovered_article(item, orchestrator=orchestrator, inbox_dir=tmp_path / "inbox")
+
+    assert result.state == "awaiting_publication_review"
+    assert extra["acquired"] is True
+
+    draft_path = tmp_path / "inbox" / "evidence" / f"{result.publication_draft_id}.json"
+    draft = json.loads(draft_path.read_text(encoding="utf-8"))
+    assert draft.get("article", {}).get("word_count", 0) > 0
+    assert draft.get("review_state") in (None, "pending", "in_review") or draft.get("status") != "published"
+
+    trusted_evidence_dir = tmp_path / "evidence"
+    trusted_evidence_files = list(trusted_evidence_dir.glob("*.json")) if trusted_evidence_dir.exists() else []
+    assert trusted_evidence_files == [], (
+        "a readable draft must never create a file under the canonical, trusted evidence store: "
+        f"found {trusted_evidence_files}"
+    )
+    assert repos.evidence.list() == []
+
+
 _STALE_LASTMOD_HTML = """
 <html><head>
 <title>Strong forecast for winter strawberries</title>
