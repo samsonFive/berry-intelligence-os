@@ -1,0 +1,173 @@
+name: Linux validation
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Validation depth
+        required: true
+        default: focused
+        type: choice
+        options:
+          - focused
+          - full
+      ref:
+        description: Branch, tag, or commit to validate (defaults to the selected workflow ref)
+        required: false
+        type: string
+  workflow_call:
+    inputs:
+      mode:
+        description: Validation depth
+        required: false
+        default: focused
+        type: string
+      ref:
+        description: Branch, tag, or commit to validate
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: linux-validation-${{ inputs.ref || github.ref }}-${{ inputs.mode || 'focused' }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Python 3.12 ${{ inputs.mode || 'focused' }} validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      VALIDATION_MODE: ${{ inputs.mode || 'focused' }}
+      ENABLE_SOURCE_POLLING: 'false'
+      BIOS_MODE: readonly
+      PYTHONUNBUFFERED: '1'
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+
+    steps:
+      - name: Check out selected ref
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.ref || github.ref }}
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+
+      - name: Install declared validation dependencies
+        shell: bash
+        run: |
+          python -m pip install -r requirements-dev.txt
+          python -m pip install pagefind pagefind_bin
+
+      - name: Initialize isolated validation paths
+        shell: bash
+        run: |
+          case "$VALIDATION_MODE" in
+            focused|full) ;;
+            *) echo "Unsupported validation mode: $VALIDATION_MODE" >&2; exit 2 ;;
+          esac
+          log_dir="$RUNNER_TEMP/berry-validation-logs-${GITHUB_RUN_ID}"
+          pytest_base="$RUNNER_TEMP/berry-validation-pytest-${GITHUB_RUN_ID}"
+          mkdir -p "$log_dir" "$pytest_base/focused" "$pytest_base/full"
+          {
+            echo "LOG_DIR=$log_dir"
+            echo "PYTEST_BASE=$pytest_base"
+          } >> "$GITHUB_ENV"
+
+      - name: Capture environment and package information
+        shell: bash
+        run: |
+          {
+            python --version
+            python -m pip --version
+            python -m pip freeze
+            git rev-parse HEAD
+            git status --short
+          } > "$LOG_DIR/environment.log" 2>&1
+
+      - name: Focused tests
+        shell: bash
+        run: |
+          python -m pytest -q \
+            -p no:cacheprovider \
+            --basetemp "$PYTEST_BASE/focused" \
+            tests/test_competitor_registry_v1.py \
+            tests/test_competitor_landscape_v1.py \
+            tests/test_competitor_intelligence_integration_v1.py \
+            tests/test_article_acquisition.py \
+            tests/test_article_acquisition_outcomes.py \
+            tests/test_article_refresh.py \
+            tests/test_monitor_workspace.py \
+            tests/test_company_news_coverage.py \
+            > "$LOG_DIR/focused-pytest.log" 2>&1
+
+      - name: Record validation
+        shell: bash
+        run: python scripts/validate_records.py > "$LOG_DIR/record-validation.log" 2>&1
+
+      - name: Draft-leakage tests
+        shell: bash
+        run: |
+          mkdir -p "$PYTEST_BASE/leakage"
+          python -m pytest -q \
+            -p no:cacheprovider \
+            --basetemp "$PYTEST_BASE/leakage" \
+            tests/test_build_static.py \
+            tests/test_review_events.py \
+            tests/test_testing_workspace.py::test_static_testing_page_hides_disposition \
+            tests/test_commercial_positions.py::test_commercial_positions_hide_private_rows_on_static_model \
+            > "$LOG_DIR/draft-leakage-pytest.log" 2>&1
+
+      - name: Build trusted static snapshot
+        shell: bash
+        run: python scripts/build_static.py > "$LOG_DIR/static-build.log" 2>&1
+
+      - name: Verify public artifact contract
+        shell: bash
+        run: |
+          {
+            test -f generated/index.html
+            test -f generated/.nojekyll
+            test -f generated/landscapes/berries/blueberry/index.html
+            test -f generated/pagefind/pagefind.js
+          } > "$LOG_DIR/public-artifact.log" 2>&1
+
+      - name: Complete deterministic test suite
+        if: env.VALIDATION_MODE == 'full'
+        shell: bash
+        run: |
+          python -m pytest -vv --tb=short --durations=50 \
+            -p no:cacheprovider \
+            --basetemp "$PYTEST_BASE/full" \
+            > "$LOG_DIR/full-pytest.log" 2>&1
+
+      - name: Summarize test failures
+        if: failure() || cancelled()
+        shell: bash
+        run: |
+          for log in "$LOG_DIR"/*pytest.log; do
+            [ -f "$log" ] || continue
+            {
+              echo "=== $log ==="
+              grep -E 'FAILED|ERROR|short test summary|passed|failed|skipped|xfailed|xpassed|warnings' "$log" || true
+            }
+          done > "$LOG_DIR/failure-summary.log"
+
+      - name: Upload validation logs
+        if: failure() || cancelled()
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-validation-logs-${{ github.run_id }}
+          path: ${{ runner.temp }}/berry-validation-logs-${{ github.run_id }}
+          if-no-files-found: ignore
+          retention-days: 14
