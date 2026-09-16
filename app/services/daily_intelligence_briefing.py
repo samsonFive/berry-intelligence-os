@@ -17,6 +17,7 @@ from datetime import date
 from typing import Any, Iterable
 from urllib.parse import urlencode, urlparse
 
+from app.services.berries.landscape import SEED_FIXTURE_EVIDENCE_IDS
 from app.services.competitor_landscape import (
     DEFAULT_REGION_CODE_LABELS,
     LandscapeFilters,
@@ -634,7 +635,13 @@ def build_daily_intelligence_briefing(
         if isinstance(entity, dict) and entity.get("id")
     }
 
-    evidence_rows = [row for row in evidence if isinstance(row, dict) and row.get("id")]
+    evidence_rows = [
+        row
+        for row in evidence
+        if isinstance(row, dict)
+        and row.get("id")
+        and row.get("id") not in SEED_FIXTURE_EVIDENCE_IDS
+    ]
     index = records_by_id or {str(row.get("id")): row for row in evidence_rows}
 
     presented: list[dict[str, Any]] = []

@@ -65,8 +65,9 @@ def test_today_is_a_morning_console_with_source_problems_and_next_work(monkeypat
     monkeypatch.setattr(main, "load_sources", lambda: [])
     page = TestClient(main.app).get("/today")
     assert page.status_code == 200
-    assert "Berry news, in context." in page.text
-    assert "Ordered by publication date" in page.text
+    assert "Daily Intelligence Briefing" in page.text
+    assert "Publication date drives recency" in page.text
+    assert "Needs Attention" in page.text
     assert 'href="/watches"' in page.text
     assert "Publication Review" not in page.text
     assert "name=\"decision\"" not in page.text

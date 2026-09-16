@@ -16,7 +16,8 @@ def test_home_opens_news_without_fictional_seed_reporting() -> None:
     response = client.get("/")
     assert response.status_code == 200
     assert response.url.path == "/today"
-    assert "Focus the news" in response.text
+    assert "Daily Intelligence Briefing" in response.text
+    assert "Publication date drives recency" in response.text
     assert "Example breeder announces" not in response.text
 
 
