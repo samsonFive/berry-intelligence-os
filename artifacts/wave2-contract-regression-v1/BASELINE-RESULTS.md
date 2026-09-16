@@ -11,7 +11,7 @@ Command:
 python scripts/wave2_contract_gate.py --mode full --report artifacts/wave2-contract-regression-v1/full-report.json
 ```
 
-Result: **PASS**. Eight command groups completed in 332.2 seconds; 244
+Result: **PASS**. Eight command groups completed in 332.2 seconds; 250
 focused pytest tests passed. Record validation passed. Static build passed and
 Pagefind completed. No `data/` or live `inbox/` mutation was detected by the
 successful run.
