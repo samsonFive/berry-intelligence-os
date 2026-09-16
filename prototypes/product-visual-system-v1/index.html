@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Product Visual System V1 — Style Guide Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./tokens/tokens.css" />
+<link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to style guide</a>
+
+<div class="shell" id="shell">
+  <aside class="rail" aria-label="Global navigation">
+    <p class="brand">Berry Intelligence OS<small>Product Visual System V1</small></p>
+    <nav class="rail-nav">
+      <a href="#overview" aria-current="page">Overview</a>
+      <a href="#tokens">Tokens</a>
+      <a href="#shell-demo">App shell</a>
+      <a href="#typography">Typography</a>
+      <a href="#buttons">Buttons &amp; links</a>
+      <a href="#filters">Filters &amp; chips</a>
+      <a href="#cards">Feed &amp; competitor cards</a>
+      <a href="#profiles">Profiles</a>
+      <a href="#source-health">Source Health</a>
+      <a href="#trust">Trust controls</a>
+      <a href="#overlays">Drawers &amp; tables</a>
+      <a href="#queues">Review queues</a>
+      <a href="#states">System states</a>
+      <a href="#imagery">Imagery</a>
+      <a href="#responsive">Responsive</a>
+      <a href="./docs/COMPONENT-CATALOG.md">Component catalog</a>
+      <a href="./docs/MIGRATION-MAP.md">Migration map</a>
+    </nav>
+    <div class="proto-note">
+      Standalone prototype. Unifies Briefing / Landscape / Trust visual language.
+      Does not replace production CSS. No live data.
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <header class="page-header" id="overview">
+      <p class="eyebrow">Product experience · Visual system prototype</p>
+      <h1>Product Visual System V1</h1>
+      <p class="lede">
+        One coherent visual language for news and intelligence surfaces —
+        stakeholder credible, editorial rather than administrative, compact but readable.
+        Later migration can adopt these tokens without a rewrite.
+      </p>
+    </header>
+
+    <p class="callout" role="note">
+      <strong>Prototype only.</strong> Base <code>5113b22</code> (trust-controls).
+      No production templates, routes, or CSS modified. Synthetic demos only.
+    </p>
+
+    <div class="viewport-bar" role="toolbar" aria-label="Viewport preview">
+      <span class="meta-label">Preview width</span>
+      <button type="button" class="chip-btn" data-viewport="desktop" aria-pressed="true">Desktop</button>
+      <button type="button" class="chip-btn" data-viewport="tablet" aria-pressed="false">Tablet</button>
+      <button type="button" class="chip-btn" data-viewport="mobile" aria-pressed="false">Mobile</button>
+      <button type="button" class="btn" id="open-drawer-demo">Open drawer</button>
+      <button type="button" class="btn" id="show-toast-demo">Show undo toast</button>
+    </div>
+
+    <div class="preview-frame" id="preview-frame" data-width="desktop">
+
+      <!-- TOKENS -->
+      <section class="block" id="tokens">
+        <header class="block-head">
+          <h2>Design tokens</h2>
+          <p>Warm canvas, navy structure, bronze accent — continuity with Briefing and Landscape.</p>
+        </header>
+        <div class="swatch-grid" aria-label="Color system">
+          <div class="swatch" style="--sw:var(--pvs-navy)"><span>Navy</span><code>#08234d</code></div>
+          <div class="swatch" style="--sw:var(--pvs-accent)"><span>Accent</span><code>#8a6a3b</code></div>
+          <div class="swatch light" style="--sw:var(--pvs-canvas)"><span>Canvas</span><code>#f4f1ea</code></div>
+          <div class="swatch light" style="--sw:var(--pvs-surface)"><span>Surface</span><code>#fffcf7</code></div>
+          <div class="swatch" style="--sw:var(--pvs-ok)"><span>OK / trusted</span><code>#1c6b42</code></div>
+          <div class="swatch" style="--sw:var(--pvs-pending)"><span>Pending</span><code>#5e4b8a</code></div>
+          <div class="swatch" style="--sw:var(--pvs-warn)"><span>Warn</span><code>#8a5a10</code></div>
+          <div class="swatch" style="--sw:var(--pvs-danger)"><span>Danger</span><code>#8f2f28</code></div>
+        </div>
+        <div class="token-rows">
+          <div><strong>Space</strong> 4 · 8 · 12 · 16 · 24 · 32 · 48</div>
+          <div><strong>Radius</strong> 6 · 10 · 14 · 16</div>
+          <div><strong>Elevation</strong> soft sticky bars · raised drawers · inset accent on focus cards</div>
+          <div><strong>Touch</strong> min 44px targets</div>
+        </div>
+      </section>
+
+      <!-- SHELL -->
+      <section class="block" id="shell-demo">
+        <header class="block-head">
+          <h2>Application shell &amp; page header</h2>
+          <p>Navy rail for orientation; warm content canvas. Brand is a hero-level signal in the rail.</p>
+        </header>
+        <div class="mini-shell" aria-hidden="false">
+          <div class="mini-rail">
+            <strong>Berry</strong>
+            <span>Today</span>
+            <span>Landscape</span>
+            <span>Profiles</span>
+            <span class="is-active">Visual system</span>
+          </div>
+          <div class="mini-main">
+            <header class="page-header compact">
+              <p class="eyebrow">Daily Intelligence Briefing</p>
+              <h3>Today · 15 Sep 2026</h3>
+              <p class="lede short">What changed in trusted readable coverage for your scope.</p>
+            </header>
+            <div class="ghost-lines" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TYPOGRAPHY -->
+      <section class="block" id="typography">
+        <header class="block-head">
+          <h2>Typography</h2>
+          <p>Fraunces for display hierarchy; Source Sans 3 for UI and body. Avoid Inter/system defaults.</p>
+        </header>
+        <div class="type-specimen">
+          <p class="type-display">Display — intelligence worth reading</p>
+          <p class="type-page">Page title — Daily Intelligence Briefing</p>
+          <p class="type-section">Section — Needs Attention</p>
+          <p class="type-card">Card title — Chilean packer expands cold-chain capacity</p>
+          <p class="type-body">Body — Compact but readable editorial copy for analysts and stakeholders.</p>
+          <p class="type-meta">Meta — Published 2026-09-14 · Captured 2026-09-15 · Agrofruta Sur</p>
+          <p class="type-label">Label — readable in app</p>
+          <p class="type-mono">Mono — evt-prototype-001 · syn-record-id</p>
+        </div>
+      </section>
+
+      <!-- BUTTONS -->
+      <section class="block" id="buttons">
+        <header class="block-head">
+          <h2>Buttons &amp; links</h2>
+          <p>Primary navy for commitment; quiet borders for secondary; text links for navigation.</p>
+        </header>
+        <div class="row wrap">
+          <button type="button" class="btn primary">Primary action</button>
+          <button type="button" class="btn">Secondary</button>
+          <button type="button" class="btn ghost">Ghost</button>
+          <button type="button" class="btn danger">Destructive</button>
+          <button type="button" class="btn" disabled>Disabled</button>
+          <a class="text-link" href="#buttons">Inline text link</a>
+          <a class="secondary-link" href="#buttons">Original source</a>
+        </div>
+        <p class="help">Focus rings use accent outline — never color alone for state.</p>
+      </section>
+
+      <!-- FILTERS -->
+      <section class="block" id="filters">
+        <header class="block-head">
+          <h2>Filters &amp; active chips</h2>
+          <p>Sticky filter bar; pressed chips carry text + fill, not color alone.</p>
+        </header>
+        <div class="filter-bar" role="toolbar" aria-label="Demo filters">
+          <button type="button" class="chip-btn" aria-pressed="true">All berries</button>
+          <button type="button" class="chip-btn" aria-pressed="false">Blueberry</button>
+          <button type="button" class="chip-btn" aria-pressed="false">Chile</button>
+          <button type="button" class="chip-btn" aria-pressed="false">Needs attention</button>
+          <span class="active-chip">Active: All berries <button type="button" class="chip-x" aria-label="Clear All berries filter">×</button></span>
+        </div>
+      </section>
+
+      <!-- CARDS -->
+      <section class="block" id="cards">
+        <header class="block-head">
+          <h2>Feed cards &amp; competitor cards</h2>
+          <p>One job per card. Hierarchy: source → title → dates → status → observed → actions.</p>
+        </header>
+        <div class="card-grid">
+          <article class="feed-card is-focused">
+            <div class="media-slot identity" aria-hidden="true"><span>FP</span></div>
+            <div>
+              <div class="topline"><span class="source">Fresh Produce News</span><span class="badge ok">Readable in app</span></div>
+              <h3>Chilean blueberry packer expands cold-chain capacity in Biobío</h3>
+              <p class="meta">Published 2026-09-14 · Captured 2026-09-15 · Agrofruta Sur</p>
+              <p class="observed"><strong>Observed</strong> Two incremental cold rooms commissioned for peak export volume.</p>
+              <div class="actions">
+                <a class="btn primary" href="#overlays">Read in app</a>
+                <a class="btn" href="#cards">Landscape</a>
+                <a class="secondary-link" href="#imagery">Original source</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="feed-card attention">
+            <div class="media-slot empty" aria-hidden="true"><span>No image</span></div>
+            <div>
+              <div class="topline"><span class="source">Logistics Mirror</span><span class="badge danger">Bot wall</span></div>
+              <h3>Mexican blackberry logistics brief (capture incomplete)</h3>
+              <p class="meta">Published unknown · Captured 2026-09-15</p>
+              <p class="attention-copy">Body unavailable. No invented summary.</p>
+              <div class="actions">
+                <a class="btn" href="#states">Diagnostics</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="competitor-card">
+            <div class="topline"><span class="badge info">Competitor</span><span class="badge ok">Active</span></div>
+            <h3>Agrofruta Sur</h3>
+            <p class="meta">Chile · Blueberry · Packer / exporter</p>
+            <p class="body-copy">Cold-chain expansion noted in recent trusted coverage. Profile summary stays compact.</p>
+            <div class="actions">
+              <a class="btn primary" href="#profiles">Open profile</a>
+              <a class="btn" href="#cards">Compare</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- PROFILES -->
+      <section class="block" id="profiles">
+        <header class="block-head">
+          <h2>Profile summaries</h2>
+          <p>Company/entity identity first; facts before speculation; status labels restrained.</p>
+        </header>
+        <div class="profile-summary">
+          <div class="media-slot identity lg" aria-hidden="true"><span>AS</span></div>
+          <div>
+            <p class="eyebrow">Company profile</p>
+            <h3>Agrofruta Sur</h3>
+            <p class="meta">Packer · Chile · Blueberry · Biobío</p>
+            <div class="badges">
+              <span class="badge ok">Trusted coverage present</span>
+              <span class="badge warn">Unknown-date notes retained</span>
+            </div>
+            <p class="body-copy">Editorial summary for stakeholders. Does not invent claims beyond captured evidence.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SOURCE HEALTH -->
+      <section class="block" id="source-health">
+        <header class="block-head">
+          <h2>Source Health states</h2>
+          <p>Operational clarity without dashboard tile grids. Text + badge + optional meter.</p>
+        </header>
+        <div class="health-list">
+          <div class="health-row"><span class="badge ok">Healthy</span><strong>Fresh Produce News</strong><span class="meta">Last success 2h ago · Readable rate 92%</span></div>
+          <div class="health-row"><span class="badge warn">Degraded</span><strong>Andean Berry Weekly</strong><span class="meta">Intermittent bot challenges · 3 failures / 24h</span></div>
+          <div class="health-row"><span class="badge danger">Blocked</span><strong>Consent Gate Capture</strong><span class="meta">Cookie wall · No usable body</span></div>
+          <div class="health-row"><span class="badge info">Watching</span><strong>Central Europe Berry Wire</strong><span class="meta">New source · limited sample</span></div>
+        </div>
+      </section>
+
+      <!-- TRUST -->
+      <section class="block" id="trust">
+        <header class="block-head">
+          <h2>Trust controls</h2>
+          <p>From Trust Feedback Controls V1. Up does not auto-publish. Down preserves provenance.</p>
+        </header>
+        <div class="trust-demo feed-card">
+          <h3>Peruvian highbush acreage guidance revised</h3>
+          <div class="badges">
+            <span class="badge ok">Readable in app</span>
+            <span class="badge pending">Relevant · awaiting approval</span>
+          </div>
+          <div class="trust-controls" role="group" aria-label="Trust feedback demo">
+            <button type="button" class="trust-btn" aria-pressed="true"><span aria-hidden="true">▲</span> Up</button>
+            <button type="button" class="trust-btn" aria-pressed="false"><span aria-hidden="true">▼</span> Down</button>
+            <button type="button" class="trust-btn">History</button>
+          </div>
+          <div class="chips" role="radiogroup" aria-label="Exclusion reasons">
+            <button type="button" class="chip" role="radio" aria-checked="false">Duplicate</button>
+            <button type="button" class="chip" role="radio" aria-checked="true">Wrong entity</button>
+            <button type="button" class="chip" role="radio" aria-checked="false">Outdated</button>
+            <button type="button" class="chip" role="radio" aria-checked="false">Weak source</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- OVERLAYS / TABLES -->
+      <section class="block" id="overlays">
+        <header class="block-head">
+          <h2>Drawers, lightboxes &amp; tables</h2>
+          <p>Reader drawer keeps feed position. Tables stay dense but editorial — not admin spreadsheets.</p>
+        </header>
+        <div class="table-wrap">
+          <table class="data-table">
+            <caption class="sr-only">Review sample rows</caption>
+            <thead>
+              <tr><th scope="col">Record</th><th scope="col">State</th><th scope="col">Captured</th><th scope="col">Action</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Cold-chain capacity note</td><td><span class="badge ok">Trusted draft</span></td><td>2026-09-15</td><td><button type="button" class="btn">Review</button></td></tr>
+              <tr><td>Bot-wall logistics brief</td><td><span class="badge danger">Unreadable</span></td><td>2026-09-15</td><td><button type="button" class="btn">Diagnostics</button></td></tr>
+              <tr><td>Unknown-date greenhouse note</td><td><span class="badge warn">Unknown date</span></td><td>2026-09-14</td><td><button type="button" class="btn">Open</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="help">Use <button type="button" class="text-btn" id="open-drawer-demo-2">Open drawer demo</button> to inspect reader overlay patterns.</p>
+      </section>
+
+      <!-- QUEUES -->
+      <section class="block" id="queues">
+        <header class="block-head">
+          <h2>Review queues</h2>
+          <p>Smallest useful queue: count, next item, restrained actions. Not a spreadsheet takeover.</p>
+        </header>
+        <div class="queue-panel">
+          <div class="queue-head">
+            <h3>Publication review</h3>
+            <span class="badge pending">4 awaiting</span>
+          </div>
+          <ol class="queue-list">
+            <li class="is-current"><strong>Agrofruta Sur cold-chain</strong><span class="meta">Promoted · needs Evidence review</span></li>
+            <li><strong>Lambayeque acreage guidance</strong><span class="meta">Pending approval</span></li>
+            <li><strong>Polish cooperatives calendar</strong><span class="meta">Already promoted · idempotent</span></li>
+          </ol>
+          <div class="actions">
+            <button type="button" class="btn primary">Approve next</button>
+            <button type="button" class="btn">Skip</button>
+            <button type="button" class="btn danger">Reject</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATES -->
+      <section class="block" id="states">
+        <header class="block-head">
+          <h2>Loading, empty, incomplete, blocked, error</h2>
+          <p>Honest emptiness. No invented summaries. Status text accompanies color.</p>
+        </header>
+        <div class="state-grid">
+          <div class="state-card"><div class="skeleton" aria-hidden="true"></div><p><strong>Loading</strong> Skeleton pulse; announce “Loading briefing”.</p></div>
+          <div class="state-card empty"><p><strong>Empty</strong> No current trusted readable coverage in this scope.</p></div>
+          <div class="state-card warn"><p><strong>Incomplete</strong> Provenance incomplete — promotion blocked.</p></div>
+          <div class="state-card danger"><p><strong>Blocked</strong> Bot wall — body not usable in app.</p></div>
+          <div class="state-card danger"><p><strong>Error</strong> Service unavailable. Retry or open diagnostics.</p></div>
+        </div>
+        <div class="alert info" role="status">Restrained confirmation: Marked relevant — awaiting approval. Not published as trusted intelligence.</div>
+        <div class="alert warn" role="status">Blocking explanation: Content is unreadable in-app. Trusted promotion is not available.</div>
+      </section>
+
+      <!-- IMAGERY -->
+      <section class="block" id="imagery">
+        <header class="block-head">
+          <h2>Imagery &amp; fallbacks</h2>
+          <p>Honest media slots. No hotlinked arbitrary images. No generated “article photos”.</p>
+        </header>
+        <div class="imagery-grid">
+          <figure class="media-demo">
+            <div class="media-slot photo" role="img" aria-label="Legitimate article image placeholder using gradient pattern, not a factual photo">Article image available</div>
+            <figcaption>Legitimate article image available (local/captured asset)</figcaption>
+          </figure>
+          <figure class="media-demo">
+            <div class="media-slot identity" aria-hidden="true"><span>FP</span></div>
+            <figcaption>Company / source identity only</figcaption>
+          </figure>
+          <figure class="media-demo">
+            <div class="media-slot empty" aria-hidden="true"><span>No image</span></div>
+            <figcaption>No image</figcaption>
+          </figure>
+          <figure class="media-demo">
+            <div class="media-slot broken" aria-hidden="true"><span>Unavailable</span></div>
+            <figcaption>Unavailable remote image</figcaption>
+          </figure>
+          <figure class="media-demo">
+            <div class="media-slot entity" aria-hidden="true"><span>Region</span></div>
+            <figcaption>Non-company entity</figcaption>
+          </figure>
+          <figure class="media-demo">
+            <div class="media-slot media-type" aria-hidden="true"><span>▶ Podcast</span></div>
+            <figcaption>Video / podcast content marker</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- RESPONSIVE -->
+      <section class="block" id="responsive">
+        <header class="block-head">
+          <h2>Desktop, tablet, mobile</h2>
+          <p>Use the viewport toolbar. Rail stacks on small screens; drawers go full-bleed; touch targets stay ≥44px.</p>
+        </header>
+        <ul class="plain-list">
+          <li><strong>Desktop</strong> — rail + content; sticky filters; reader drawer ~36rem</li>
+          <li><strong>Tablet</strong> — condensed rail or top nav; two-column cards collapse thoughtfully</li>
+          <li><strong>Mobile</strong> — single column; no horizontal trap; full-screen reader</li>
+        </ul>
+      </section>
+
+      <section class="block" id="a11y-live">
+        <header class="block-head">
+          <h2>Keyboard focus</h2>
+          <p>Tab through controls. Focus-visible outline is accent, not browser default alone.</p>
+        </header>
+        <div class="row wrap">
+          <button type="button" class="btn primary">Focus me</button>
+          <button type="button" class="chip-btn" aria-pressed="false">Chip</button>
+          <a class="text-link" href="#a11y-live">Text link</a>
+          <button type="button" class="trust-btn"><span aria-hidden="true">▲</span> Up</button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<div class="backdrop" id="backdrop" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-hidden="true">
+  <header>
+    <div>
+      <p class="eyebrow">In-app reader</p>
+      <h2 id="drawer-title">Chilean blueberry packer expands cold-chain capacity</h2>
+    </div>
+    <button type="button" class="icon-btn" id="drawer-close" aria-label="Close reader">×</button>
+  </header>
+  <div class="drawer-body">
+    <p class="meta">Fresh Produce News · Published 2026-09-14 · Captured 2026-09-15</p>
+    <div class="badges"><span class="badge ok">Readable in app</span></div>
+    <p class="reader-copy">Agrofruta Sur commissioned two additional cold rooms at its Biobío packing site, citing peak-export volume pressure for the 2026 season. Capacity is described as incremental, not a new facility.</p>
+    <p class="external-note">Original source is a separate action and does not change trust state.</p>
+    <div class="trust-controls" role="group" aria-label="Reader trust feedback">
+      <button type="button" class="trust-btn"><span aria-hidden="true">▲</span> Up</button>
+      <button type="button" class="trust-btn"><span aria-hidden="true">▼</span> Down</button>
+      <button type="button" class="trust-btn">History</button>
+    </div>
+  </div>
+</aside>
+
+<div class="toast-region" id="toast-region" aria-live="polite"></div>
+<div class="sr-only" id="live" aria-live="polite"></div>
+
+<script src="./guide.js"></script>
+</body>
+</html>
