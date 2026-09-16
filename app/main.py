@@ -3911,6 +3911,1092 @@ def review_operations_page(request: Request) -> HTMLResponse:
     )
 
 
+@app.get("/coverage-assurance", response_class=HTMLResponse)
+def coverage_assurance_page(request: Request) -> HTMLResponse:
+    """Private Coverage Assurance surface. GET is read-only by
+    construction -- it never onboards a Source, publishes Evidence, or
+    writes the Source Universe registry. Distinguishes known publishers
+    from actively collected Sources, technical health from intelligence
+    yield, and independent benchmark misses from trusted Evidence; there
+    is no completeness score."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Coverage Assurance is authoring-only")
+    varieties, candidates, _corpus_report = variety_candidate_universe()
+    report = build_coverage_report(
+        data_dir=DATA_DIR,
+        sources=load_sources(),
+        published_evidence=published_evidence(),
+        publications=list_drafts_metadata(),
+        variety_candidates=candidates,
+        varieties=varieties,
+        discovered_items=list_discovered_items(INBOX_DIR),
+        blocked_domains=load_blocked_domains(),
+        inbox_dir=INBOX_DIR,
+    )
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="coverage_assurance.html",
+        context={
+            "report": report,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/industry-pulse", response_class=HTMLResponse)
+def industry_pulse_page(request: Request, ran: str = "", reason: str = "") -> HTMLResponse:
+    """Authoring-only catch-net. GET never fetches the public web, never
+    publishes Evidence, and never onboards a Source."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Industry Pulse is authoring-only")
+    sources = load_sources()
+    evidence = published_evidence()
+    publications = [
+        row
+        for row in list_drafts_metadata()
+        if row.get("evidence_role") == "publication_artifact"
+    ]
+    discovered = list_discovered_items(INBOX_DIR)
+    freshness = audit_freshness(
+        sources=sources,
+        published_evidence=evidence,
+        publications=publications,
+        discovered_items=discovered,
+    )
+    snapshot = load_snapshot(INBOX_DIR)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="industry_pulse.html",
+        context={
+            "freshness": freshness,
+            "snapshot": snapshot,
+            "live_query_count": query_count(),
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+            "perplexity_pulse_enabled": PERPLEXITY_PULSE_ENABLED,
+            "perplexity_credential_present": has_perplexity(),
+            "recent_newsroom_runs": load_recent_newsroom_runs(INBOX_DIR, limit=5),
+            "newsroom_lock": newsroom_lock_status(INBOX_DIR),
+            "run_outcome": ran,
+            "run_refusal_reason": reason,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/industry-pulse/run")
+def industry_pulse_run() -> RedirectResponse:
+    """Explicit newsroom-intake cycle: discovery+qualification, then the
+    pulse-to-Publication bridge. Writes only inbox metadata and, for
+    genuinely novel qualifying results, ordinary Publication drafts under
+    inbox/evidence/ -- never trusted Evidence, never a Source, never a
+    review bypass. Lock-protected against overlapping the scheduled
+    industry_pulse_intake pipeline; refuses instead of running twice."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Industry Pulse is authoring-only")
+    varieties, _candidates, _report = variety_candidate_universe()
+    # has_perplexity() gate here (not just run_pulse()'s own per-query
+    # isolation) avoids 20 noisy per-query auth failures when the flag is on
+    # but no key is configured -- PerplexitySearchProvider exposes
+    # `available()` as a module-level function, not an instance method, so
+    # run_pulse()'s generic `catch_net_provider.available()` pre-check does
+    # not apply to it.
+    catch_net = PerplexitySearchProvider() if (PERPLEXITY_PULSE_ENABLED and has_perplexity()) else None
+    publications = [row for row in list_drafts_metadata() if row.get("evidence_role") == "publication_artifact"]
+    result = run_newsroom_cycle(
+        provider=GoogleNewsRssProvider(),
+        catch_net_provider=catch_net,
+        sources=load_sources(),
+        published_evidence=published_evidence(),
+        drafts=list_pending_drafts(),
+        varieties=varieties,
+        entities=all_entities(),
+        publications=publications,
+        discovered_items=list_discovered_items(INBOX_DIR),
+        inbox_dir=INBOX_DIR,
+        data_dir=DATA_DIR,
+    )
+    ran = "refused" if result["refused"] else "ok"
+    reason = result.get("refusal_reason") or ""
+    return RedirectResponse(url=f"/industry-pulse?ran={ran}&reason={quote(reason)}", status_code=303)
+
+
+def _pulse_providers() -> list[Any]:
+    from app.services.industry_pulse.live_stack import pulse_discovery_providers
+
+    return pulse_discovery_providers(perplexity_enabled=PERPLEXITY_PULSE_ENABLED)
+
+
+RESEARCH_EXAMPLE_PROMPTS = (
+    "What changed around Hortifrut in the last 90 days?",
+    "What changed with Planasa this month?",
+    "What scenarios should we watch next in Peru blueberries?",
+    "What is happening in European blueberry genetics?",
+)
+
+
+def _research_scope_display(scope: ResearchScope, entities: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    return {
+        "intelligence_type": humanize_label(scope.intelligence_type),
+        "berry": BERRIES.get(scope.berry_id or "", ""),
+        "companies": [entities[c].get("name") or c for c in scope.company_ids if c in entities],
+        "geographies": [entities[g].get("name") or g for g in scope.geography_ids if g in entities],
+        "topics": [humanize_label(topic) for topic in scope.topics],
+    }
+
+
+def _radar_developments_for_scope(scope: ResearchScope) -> list[dict[str, Any]]:
+    """Ask Berry OS -> Radar seam. Read-only cached-edition filter -- never
+    triggers a live Radar fetch from inside a research answer. Only
+    relevant developments (already bounded by developments_for()'s own
+    company/berry/geography filters, plus a hard cap here), never every
+    cached item."""
+    if scope.window_days <= 7:
+        timeframe = "7d"
+    elif scope.window_days <= 30:
+        timeframe = "30d"
+    else:
+        timeframe = "90d"
+    rows = developments_for(
+        company_ids=scope.company_ids,
+        berry_ids=[scope.berry_id] if scope.berry_id else None,
+        geography_ids=scope.geography_ids,
+        timeframe=timeframe,
+        inbox_dir=INBOX_DIR,
+    )
+    return [
+        {
+            "id": row.get("id"),
+            "title": row.get("title") or row.get("id"),
+            "event_type": row.get("event_type") or "",
+            "event_date": row.get("event_date") or "",
+            "first_seen": row.get("first_seen") or "",
+            "latest_update": row.get("latest_update") or "",
+            "date": row.get("event_date") or row.get("latest_update") or row.get("first_seen") or "",
+            "href": f"/radar/{row.get('id')}",
+            "trust_state": row.get("trust_state") or "LIVE / UNREVIEWED DEVELOPMENT",
+            "trust_class": "LIVE / UNREVIEWED DEVELOPMENT",
+            "company_ids": list(row.get("company_ids") or []),
+            "company_names": list(row.get("company_names") or [])[:4],
+            "geography_ids": list(row.get("geography_ids") or []),
+            "geography_labels": list(row.get("geography_labels") or []),
+            "berry_ids": list(row.get("berry_ids") or []),
+            "variety_ids": list(row.get("variety_ids") or []),
+            "variety_names": list(row.get("variety_names") or []),
+            "source_count": int(row.get("independent_source_count") or row.get("source_count") or 1),
+        }
+        for row in rows[:6]
+    ]
+
+
+def _research_competitive_moves(scope: ResearchScope, board=None) -> list[dict[str, Any]]:
+    """Official Competitive Move Detector read seam. Never reads inbox JSON directly."""
+    if scope.window_days <= 7:
+        timeframe = "7d"
+    elif scope.window_days <= 30:
+        timeframe = "30d"
+    else:
+        timeframe = "90d"
+    board = board or compose_moves_board(inbox_dir=INBOX_DIR)
+    rows = competitive_moves_for(
+        companies=scope.company_ids or None,
+        geography=scope.geography_ids or None,
+        berries=[scope.berry_id] if scope.berry_id else None,
+        timeframe=timeframe,
+        inbox_dir=INBOX_DIR,
+        moves=board.moves,
+    )
+    adapted: list[dict[str, Any]] = []
+    for row in rows[:12]:
+        sources = list(row.get("supporting_sources") or [])
+        first = sources[0] if sources else {}
+        company_id = row.get("company_id")
+        source_dates = [
+            str(source.get("published_date") or "")[:10]
+            for source in sources
+            if str(source.get("published_date") or "")[:10]
+        ]
+        event_date = min(source_dates) if source_dates else ""
+        adapted.append({
+            "id": row.get("id"),
+            "title": row.get("title") or row.get("what_happened"),
+            "what_happened": row.get("what_happened"),
+            "event_type": row.get("move_type") or "OTHER",
+            "move_type": row.get("move_type"),
+            "event_date": event_date,
+            "first_seen": row.get("first_seen") or "",
+            "latest_update": row.get("latest_update") or "",
+            "date": event_date or row.get("latest_update") or row.get("first_seen") or "",
+            "href": f"/moves/{company_id}" if company_id else "/moves",
+            "url": first.get("url") or "",
+            "source_name": first.get("publisher") or "Competitive Move Detector",
+            "trust_class": "LIVE / UNREVIEWED MOVE",
+            "company_ids": [company_id] if company_id else [],
+            "company_id": company_id,
+            "variety_ids": list(row.get("variety_ids") or []),
+            "variety_names": list(row.get("variety_names") or []),
+            "geography_ids": list(row.get("geography_ids") or []),
+            "geography_labels": list(row.get("geography_labels") or []),
+            "berry_ids": list(row.get("berry_ids") or []),
+            "berry_labels": list(row.get("berry_labels") or []),
+            "sources": sources,
+            "source_count": max(1, len(sources)),
+            "why_move": list(row.get("why_move") or []),
+            "layer": "COMPETITIVE MOVE",
+        })
+    return adapted
+
+
+def _research_move_patterns(scope: ResearchScope, move_rows: list[dict[str, Any]], board=None) -> list[dict[str, Any]]:
+    board = board or compose_moves_board(inbox_dir=INBOX_DIR)
+    selected = {str(row.get("company_id") or "") for row in move_rows} | set(scope.company_ids)
+    return [
+        row.as_dict()
+        for row in board.patterns
+        if row.company_id in selected
+    ]
+
+
+def _research_brief_notes(scope: ResearchScope, decision_support: dict[str, Any] | None) -> str:
+    lines = [scope.question]
+    if decision_support:
+        differences = decision_support.get("brief_key_differences") or []
+        watch = decision_support.get("brief_watch_next") or []
+        source_ids = decision_support.get("selected_source_ids") or []
+        companies = [row.get("name") for row in decision_support.get("companies") or [] if row.get("name")]
+        if companies:
+            lines.extend(["", "Compared companies: " + ", ".join(companies)])
+        if differences:
+            lines.extend(["", "Key differences:", *[f"- {row}" for row in differences[:5]]])
+        if watch:
+            lines.extend(["", "Watch next:", *[f"- {row}" for row in watch[:5]]])
+        if source_ids:
+            lines.extend(["", "Selected Research Desk source IDs: " + ", ".join(source_ids[:12])])
+    return "\n".join(lines)
+
+
+def _present_research_company_compare(company_ids: list[str]) -> dict[str, Any] | None:
+    if not company_ids:
+        return None
+    entities = entity_index()
+    evidence = published_evidence()
+    facts = all_facts()
+    relationships = all_relationships()
+    signals = all_signals()
+    assessments = all_assessments()
+    return present_company_compare(
+        company_ids,
+        entities=entities,
+        relationships=relationships,
+        published_evidence=evidence,
+        facts=facts,
+        evidence_by_id={row["id"]: row for row in evidence if row.get("id")},
+        signals=signals,
+        assessments=assessments,
+        berry_labels=BERRIES,
+        redirects=load_identity_redirects(DATA_DIR),
+    )
+
+
+def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, Any] | None, dict[str, Any] | None]:
+    entities = entity_index()
+    evidence = published_evidence()
+    facts = all_facts()
+    relationships = all_relationships()
+    signals = all_signals()
+    assessments = all_assessments()
+    market_repo = get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations
+    moves_board = compose_moves_board(inbox_dir=INBOX_DIR)
+    packet = assemble_research_packet(
+        scope,
+        entities=entities,
+        relationships=relationships,
+        published_evidence=evidence,
+        facts=facts,
+        signals=signals,
+        assessments=assessments,
+        market_context_provider=lambda s: market_context_for_research_scope(market_repo, s),
+        developments_provider=_radar_developments_for_scope,
+        competitive_moves_provider=lambda s: _research_competitive_moves(s, moves_board),
+    )
+    packet["move_patterns"] = _research_move_patterns(scope, packet.get("competitive_moves") or [], moves_board)
+    comparison_ids = comparison_candidate_ids(
+        scope, packet=packet, entities=entities, relationships=relationships
+    ) if (scope.comparison or scope.company_ids) else []
+    comparison = _present_research_company_compare(comparison_ids)
+    packet["comparison_company_ids"] = [row.get("id") for row in (comparison or {}).get("companies") or []]
+    packet["change_scenario"] = build_change_scenario(scope, packet)
+    decision_support = build_research_decision_support(scope, packet=packet, company_compare=comparison)
+    return packet, comparison, decision_support
+
+
+@app.get("/research", response_class=HTMLResponse)
+def research_desk_page(request: Request) -> HTMLResponse:
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    # "Ask Berry OS about this" handoff from /today and /radar (Overnight
+    # Flagship Integration V1, sections 4-5): a natural-language question
+    # only -- reuses the existing free-text /research entry point rather
+    # than adding a second, structured conversational-state path. No
+    # article body is ever passed, only the caller-constructed question.
+    prefill_question = str(request.query_params.get("q") or "").strip()
+    response = templates.TemplateResponse(
+        request=request,
+        name="research_desk.html",
+        context={
+            "scope": None,
+            "example_prompts": RESEARCH_EXAMPLE_PROMPTS,
+            "prefill_question": prefill_question,
+            "authoring_mode": AUTHORING_MODE,
+            "ui_context": ui,
+            "static_build": False,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/research", response_class=HTMLResponse)
+def research_desk_submit(
+    request: Request,
+    question: str = Form(""),
+    previous_scope: str = Form(""),
+) -> HTMLResponse:
+    started = time.monotonic()
+    prior = None
+    if previous_scope:
+        try:
+            prior = ResearchScope.from_dict(json.loads(previous_scope))
+        except (TypeError, ValueError, json.JSONDecodeError):
+            prior = None
+    entities_list = living_catalog()
+    scope = interpret_research_scope(
+        question,
+        berries=BERRIES,
+        entities=entities_list,
+        questions=load_strategic_questions(),
+        relationships=all_relationships(),
+        previous=prior,
+    )
+    packet, comparison, decision_support = _research_packet(scope)
+    answer = compose_research_answer(packet)
+    first_content_ms = round((time.monotonic() - started) * 1000)
+    scope_json = json.dumps(scope.as_dict(), separators=(",", ":"))
+    entities = entity_index()
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="research_desk.html",
+        context={
+            "scope": scope,
+            "scope_json": scope_json,
+            "scope_display": _research_scope_display(scope, entities),
+            "packet": packet,
+            "answer": answer,
+            "comparison": comparison,
+            "decision_support": decision_support,
+            "brief_focus_notes": _research_brief_notes(scope, decision_support),
+            "phase": "trusted",
+            "first_content_ms": first_content_ms,
+            "complete_ms": first_content_ms,
+            "example_prompts": RESEARCH_EXAMPLE_PROMPTS,
+            "authoring_mode": AUTHORING_MODE,
+            "ui_context": ui,
+            "static_build": False,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/api/research/live", response_class=HTMLResponse)
+async def research_desk_live(request: Request) -> HTMLResponse:
+    started = time.monotonic()
+    payload = await request.json()
+    raw_scope = payload.get("scope") if isinstance(payload, dict) else None
+    if not isinstance(raw_scope, dict):
+        raise HTTPException(status_code=422, detail="A structured research scope is required")
+    scope = ResearchScope.from_dict(raw_scope)
+    entities = entity_index()
+    # Browser-carried state is selection state only. Unknown/wrong-type IDs
+    # are discarded before any packet or provider query is constructed.
+    scope = ResearchScope(
+        question=scope.question,
+        berry_id=scope.berry_id if scope.berry_id in BERRIES else None,
+        geography_ids=tuple(g for g in scope.geography_ids if (entities.get(g) or {}).get("entity_type") == "geography"),
+        company_ids=tuple(c for c in scope.company_ids if (entities.get(c) or {}).get("entity_type") == "company"),
+        variety_ids=tuple(v for v in scope.variety_ids if (entities.get(v) or {}).get("entity_type") == "variety"),
+        window_days=scope.window_days,
+        topics=scope.topics,
+        intelligence_type=scope.intelligence_type,
+        comparison=scope.comparison,
+        unresolved=scope.unresolved,
+        ambiguous=scope.ambiguous,
+        interpretation_source=scope.interpretation_source,
+    )
+    packet, comparison, _initial_decision_support = _research_packet(scope)
+    from app.services.industry_pulse.live_stack import week_background_hits
+
+    live = await asyncio.to_thread(
+        run_live_research,
+        scope,
+        providers=_pulse_providers(),
+        entities=entities,
+        sources=load_sources(),
+        background_hits=week_background_hits(inbox_dir=INBOX_DIR),
+    )
+    if scope.comparison and not scope.company_ids:
+        comparison_ids = comparison_candidate_ids(
+            scope,
+            packet=packet,
+            entities=entities,
+            relationships=all_relationships(),
+            live=live,
+        )
+        comparison = _present_research_company_compare(comparison_ids)
+        packet["comparison_company_ids"] = [row.get("id") for row in (comparison or {}).get("companies") or []]
+    answer = compose_research_answer(packet, live=live, completer=maybe_untrusted_completer())
+    decision_support = build_research_decision_support(scope, packet=packet, company_compare=comparison, live=live)
+    try:
+        first_content_ms = int(payload.get("first_content_ms") or 0)
+    except (TypeError, ValueError):
+        first_content_ms = 0
+    # This is browser-supplied UX telemetry, never a performance/trust input.
+    first_content_ms = max(0, min(first_content_ms, 60_000))
+    complete_ms = first_content_ms + round((time.monotonic() - started) * 1000)
+    return templates.TemplateResponse(
+        request=request,
+        name="_research_result.html",
+        context={
+            "scope": scope,
+            "packet": packet,
+            "answer": answer,
+            "comparison": comparison,
+            "decision_support": decision_support,
+            "brief_focus_notes": _research_brief_notes(scope, decision_support),
+            "phase": "complete",
+            "first_content_ms": first_content_ms,
+            "complete_ms": complete_ms,
+            "static_build": False,
+        },
+    )
+
+
+@app.get("/pulse/company/{company_id}", response_class=HTMLResponse)
+def pulse_company_page(request: Request, company_id: str, window: str = PULSE_DEFAULT_WINDOW, promoted: str = "") -> HTMLResponse:
+    """LIVE RESEARCH PLANE -- structurally separate from the durable trust
+    model. Never writes Evidence, never mutates Company truth, never
+    creates a Signal/Assessment, never silently onboards a Source. Unlike
+    Industry Pulse's 32-query matrix, this is one bounded, company-scoped
+    query per provider, so GET runs it directly: the product requirement
+    is that a user opening a Company sees current results immediately,
+    not after a separate manual "run" step."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Competitor Pulse is authoring-only")
+    if window not in PULSE_LIVE_WINDOWS:
+        window = PULSE_DEFAULT_WINDOW
+    entities = entity_index()
+    company = entities.get(company_id)
+    if not company or company.get("entity_type") != "company":
+        raise HTTPException(status_code=404, detail="company not found")
+    relationships = relationships_for_entity(company_id, all_relationships())
+    providers = _pulse_providers()
+    result = run_company_pulse(
+        company,
+        relationships=relationships,
+        entities_by_id=entities,
+        window=window,
+        providers=providers,
+    )
+    brief = pulse_generate_current_brief(result.items, completer=maybe_untrusted_completer())
+    indexed_items = {f"live-{i}": item for i, item in enumerate(result.items[:25])}
+    brief_rows = [
+        {"text": statement.text, "sources": [indexed_items[sid] for sid in statement.source_ids if sid in indexed_items]}
+        for statement in brief
+    ]
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="pulse_company.html",
+        context={
+            "company": company,
+            "pulse": result,
+            "brief_rows": brief_rows,
+            "window": window,
+            "windows": PULSE_LIVE_WINDOWS,
+            "perplexity_available": any(getattr(p, "name", "") == "perplexity" for p in providers),
+            "promoted": promoted,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/pulse/company/{company_id}/promote")
+def pulse_company_promote(company_id: str, url: str = Form(...), window: str = Form(PULSE_DEFAULT_WINDOW)) -> RedirectResponse:
+    """Optional bridge from a LIVE result into the existing, unchanged
+    Publication Review / Evidence Review path -- reuses
+    industry_pulse.intake.intake_qualified_hits() verbatim. Re-runs the
+    same live query rather than trusting anything cached client-side, so
+    the promoted draft is built from a freshly re-qualified hit."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Competitor Pulse is authoring-only")
+    if window not in PULSE_LIVE_WINDOWS:
+        window = PULSE_DEFAULT_WINDOW
+    entities = entity_index()
+    company = entities.get(company_id)
+    if not company or company.get("entity_type") != "company":
+        raise HTTPException(status_code=404, detail="company not found")
+    relationships = relationships_for_entity(company_id, all_relationships())
+    hit = pulse_find_live_hit_by_url(
+        company,
+        relationships=relationships,
+        entities_by_id=entities,
+        window=window,
+        providers=_pulse_providers(),
+        url=url,
+    )
+    status = "not_found"
+    if hit is not None:
+        summary = intake_qualified_hits(
+            [hit],
+            sources=load_sources(),
+            published_evidence=published_evidence(),
+            drafts=list_pending_drafts(),
+            entities=all_entities(),
+            inbox_dir=INBOX_DIR,
+        )
+        status = "promoted" if summary.drafts_created else "already_represented"
+    return RedirectResponse(url=f"/pulse/company/{company_id}?window={window}&promoted={status}", status_code=303)
+
+
+def _week_discovery_stack() -> tuple[list[Any], Any, Any]:
+    """Google (+ optional sync high-recall), Perplexity catch-net, specialist RSS."""
+    from app.services.industry_pulse.live_stack import week_discovery_stack
+
+    return week_discovery_stack(perplexity_enabled=PERPLEXITY_PULSE_ENABLED)
+
+
+def _week_edition_context(request: Request, *, window: str, promoted: str = "") -> dict[str, Any]:
+    if window not in WEEK_LIVE_WINDOWS:
+        window = WEEK_DEFAULT_WINDOW
+    entities = all_entities()
+    varieties = [row for row in entities if row.get("entity_type") == "variety"]
+    providers, catch_net, specialist = _week_discovery_stack()
+    from app.services.industry_pulse.live_stack import week_background_hits
+
+    edition = run_week_intelligence(
+        window=window,
+        providers=providers,
+        catch_net_provider=catch_net,
+        specialist_provider=specialist,
+        entities=entities,
+        varieties=varieties,
+        sources=load_sources(),
+        background_hits=week_background_hits(inbox_dir=INBOX_DIR),
+    )
+    brief = generate_week_brief(edition.what_matters or edition.items, completer=maybe_untrusted_completer())
+    indexed = {f"live-{i}": item for i, item in enumerate((edition.what_matters or edition.items)[:25])}
+    brief_rows = [
+        {"text": statement.text, "sources": [indexed[sid] for sid in statement.source_ids if sid in indexed]}
+        for statement in brief
+    ]
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    return {
+        "edition": edition,
+        "brief_rows": brief_rows,
+        "window": window,
+        "promoted": promoted,
+        "live": True,
+        "authoring_mode": AUTHORING_MODE,
+        "static_build": False,
+        "ui_context": ui,
+        "berries": BERRIES,
+    }
+
+
+@app.get("/week", response_class=HTMLResponse)
+def week_page(request: Request, window: str = WEEK_DEFAULT_WINDOW) -> HTMLResponse:
+    """Stakeholder weekly intelligence shell. GET does not fetch the public
+    web -- the live edition loads from /week/live so the first paint is
+    immediate. Trust stays visibly LIVE / UNREVIEWED."""
+    if window not in WEEK_LIVE_WINDOWS:
+        window = WEEK_DEFAULT_WINDOW
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="week.html",
+        context={
+            "edition": None,
+            "brief_rows": [],
+            "window": window,
+            "promoted": "",
+            "live": False,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/week/live", response_class=HTMLResponse)
+def week_live_page(request: Request, window: str = WEEK_DEFAULT_WINDOW, fragment: str = "", promoted: str = "") -> HTMLResponse:
+    """LIVE RESEARCH PLANE. Runs the Industry Pulse query matrix against
+    Google News (and Perplexity catch-net when configured). Never writes
+    Evidence, Signals, or Assessments."""
+    context = _week_edition_context(request, window=window, promoted=promoted)
+    template = "week_fragment.html" if fragment in {"1", "true", "yes"} else "week.html"
+    ui = context["ui_context"]
+    response = templates.TemplateResponse(request=request, name=template, context=context)
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/week/review")
+def week_send_to_review(
+    url: str = Form(...),
+    window: str = Form(WEEK_DEFAULT_WINDOW),
+    query_id: str = Form(""),
+) -> RedirectResponse:
+    """Optional bridge into unchanged Publication Review. Does not approve
+    Evidence and does not create a Signal or Assessment."""
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Send to review is authoring-only")
+    if window not in WEEK_LIVE_WINDOWS:
+        window = WEEK_DEFAULT_WINDOW
+    entities = all_entities()
+    varieties = [row for row in entities if row.get("entity_type") == "variety"]
+    providers, catch_net, specialist = _week_discovery_stack()
+    hit = find_week_hit_by_url(
+        url=url,
+        window=window,
+        providers=providers,
+        catch_net_provider=catch_net,
+        specialist_provider=specialist,
+        entities=entities,
+        varieties=varieties,
+        sources=load_sources(),
+        query_id=query_id or None,
+    )
+    status = "not_found"
+    if hit is not None:
+        summary = intake_qualified_hits(
+            [hit],
+            sources=load_sources(),
+            published_evidence=published_evidence(),
+            drafts=list_pending_drafts(),
+            entities=entities,
+            inbox_dir=INBOX_DIR,
+        )
+        status = "promoted" if summary.drafts_created else "already_represented"
+    return RedirectResponse(url=f"/week/live?window={window}&promoted={status}", status_code=303)
+
+
+def _radar_discovery_stack() -> tuple[list[Any], Any, Any]:
+    from app.services.industry_pulse.live_stack import radar_discovery_stack
+
+    return radar_discovery_stack(perplexity_enabled=PERPLEXITY_PULSE_ENABLED)
+
+
+def _radar_edition_live() -> Any:
+    entities = all_entities()
+    providers, catch_net, specialist = _radar_discovery_stack()
+    from app.services.industry_pulse.live_stack import week_background_hits
+
+    return run_radar_intelligence(
+        providers=providers,
+        catch_net_provider=catch_net,
+        specialist_provider=specialist,
+        entities=entities,
+        sources=load_sources(),
+        evidence=published_evidence(),
+        assessments=all_assessments(),
+        background_hits=week_background_hits(inbox_dir=INBOX_DIR),
+        market_repo=get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations,
+        inbox_dir=INBOX_DIR,
+        persist=True,
+    )
+
+
+def _radar_page_context(request: Request, *, edition: Any, live: bool) -> dict[str, Any]:
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    return {
+        "edition": edition,
+        "live": live,
+        "authoring_mode": AUTHORING_MODE,
+        "static_build": False,
+        "ui_context": ui,
+        "berries": BERRIES,
+    }
+
+
+@app.get("/radar", response_class=HTMLResponse)
+def radar_page(request: Request) -> HTMLResponse:
+    """Stakeholder Emerging Developments Radar. Serves a fresh cache
+    immediately. A stale or missing cache still renders honestly, then
+    /radar/live refreshes the bounded Google + specialist + Exa stack.
+    Never writes Evidence."""
+    cached = edition_from_cache(inbox_dir=INBOX_DIR)
+    fresh = cache_is_fresh(inbox_dir=INBOX_DIR)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="radar.html",
+        context=_radar_page_context(request, edition=cached, live=bool(cached and fresh)),
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/radar/live", response_class=HTMLResponse)
+def radar_live_page(request: Request, fragment: str = "") -> HTMLResponse:
+    """LIVE RESEARCH PLANE. Bounded Radar queries only — not Pulse 32."""
+    edition = _radar_edition_live()
+    template = "radar_fragment.html" if fragment in {"1", "true", "yes"} else "radar.html"
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name=template,
+        context=_radar_page_context(request, edition=edition, live=True),
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/radar/{development_id}", response_class=HTMLResponse)
+def radar_detail_page(request: Request, development_id: str) -> HTMLResponse:
+    cached = edition_from_cache(inbox_dir=INBOX_DIR)
+    development = None
+    if cached:
+        development = next((row for row in cached.developments if row.id == development_id), None)
+    if development is None:
+        raise HTTPException(status_code=404, detail="Development not in the current Radar cache")
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    payload = development.as_dict() if hasattr(development, "as_dict") else development
+    # "Ask Berry OS about this" handoff (Overnight Flagship Integration V1,
+    # section 4): title + entity names only, never development.what_happened
+    # or article-body text -- the question reuses the same interpretation
+    # path any other free-text question does.
+    ask_parts = [str(payload.get("title") or "")]
+    ask_parts.extend(str(name) for name in (payload.get("company_names") or [])[:2])
+    ask_parts.extend(str(label) for label in (payload.get("geography_labels") or [])[:2])
+    ask_question = "What should I know about: " + " -- ".join(p for p in ask_parts if p)
+    derived_review = present_derived_review(
+        development_id,
+        object_type="radar_development",
+        state=load_analyst_queue_state(INBOX_DIR),
+        return_to=f"/radar/{development_id}",
+        trusted_context=payload.get("trusted_context"),
+    )
+    response = templates.TemplateResponse(
+        request=request,
+        name="radar_detail.html",
+        context={
+            "development": payload,
+            "ask_berry_os_href": f"/research?{urlencode({'q': ask_question})}",
+            "derived_review": derived_review,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/moves", response_class=HTMLResponse)
+def moves_page(request: Request) -> HTMLResponse:
+    """Who is moving — Competitive Moves derived from the Radar cache.
+
+    Does not fetch providers. Refresh Radar first if the cache is empty.
+    """
+    board = compose_moves_board(inbox_dir=INBOX_DIR)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="moves.html",
+        context={
+            "board": board.as_dict(),
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/whitespace", response_class=HTMLResponse)
+def whitespace_page(
+    request: Request,
+    berry: str | None = None,
+    companies: str | None = None,
+    geographies: str | None = None,
+    window: int = 30,
+) -> HTMLResponse:
+    """Observed competitive concentration vs coverage — not opportunity."""
+    demo = default_demo_scope()
+    berry_id = berry or demo["berry_id"]
+    if berry_id not in BERRIES:
+        berry_id = demo["berry_id"]
+    window_days = 7 if int(window or 30) <= 7 else 30
+    company_ids = parse_id_list(companies, demo["company_ids"])
+    geography_ids = parse_id_list(geographies, demo["geography_ids"])
+    landscape = _cached_whitespace_landscape(
+        berry_id=berry_id,
+        company_ids=company_ids,
+        geography_ids=geography_ids,
+        window_days=window_days,
+    )
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="whitespace.html",
+        context={
+            "landscape": landscape,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/moves/{company_id}", response_class=HTMLResponse)
+def moves_company_page(request: Request, company_id: str) -> HTMLResponse:
+    board = compose_moves_board(inbox_dir=INBOX_DIR)
+    moves = [row.as_dict() for row in board.moves if row.company_id == company_id]
+    pattern = next((row.as_dict() for row in board.patterns if row.company_id == company_id), None)
+    entity = entity_index().get(company_id) or {}
+    company_name = entity.get("name") or (moves[0]["company_name"] if moves else company_id)
+    timeline = [row for item in moves for row in (item.get("timeline") or [])]
+    timeline.sort(key=lambda row: row.get("date") or "", reverse=True)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="moves_company.html",
+        context={
+            "company_id": company_id,
+            "company_name": company_name,
+            "moves": moves,
+            "pattern": pattern,
+            "timeline": timeline[:20],
+            "trust_label": board.trust_label,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/watchtower", response_class=HTMLResponse)
+def watchtower_page(request: Request) -> HTMLResponse:
+    """Proactive alerts for watched Companies/Varieties/Geographies/
+    Berries/Strategic Questions/Move types -- never fetches a provider
+    itself (refresh /radar/live first if the underlying cache is stale)."""
+    from app.services.watchtower.present import present_watchtower
+
+    page = present_watchtower(_watchtower_cached())
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="watchtower.html",
+        context={
+            "page": page,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/watchtower/{alert_id}/action")
+def watchtower_alert_action(alert_id: str, action: str = Form(...), return_to: str = Form("/watchtower")) -> RedirectResponse:
+    """Explicit, user-initiated only -- never fired by rendering the page.
+    Alert state is a notification-review flag, never a trust mutation: it
+    never touches Evidence/Signal/Assessment/Development/Move (mission
+    section 11)."""
+    try:
+        apply_alert_action(INBOX_DIR, alert_id, action)
+    except ValueError:
+        raise HTTPException(status_code=400, detail=f"unsupported alert action: {action!r}")
+    safe_target = return_to if return_to.startswith("/") and not return_to.startswith("//") else "/watchtower"
+    return RedirectResponse(url=safe_target, status_code=303)
+
+
+def _war_room_scope_from_params(request: Request) -> WarRoomScope:
+    berry = (request.query_params.get("berry") or "").strip()
+    berry_id = berry if not berry or berry.startswith("berry-") else f"berry-{berry}"
+    geography_ids = tuple(v.strip() for v in (request.query_params.get("geography_ids") or "").split(",") if v.strip())
+    company_ids = tuple(v.strip() for v in (request.query_params.get("company_ids") or "").split(",") if v.strip())
+    try:
+        window_days = int(request.query_params.get("days") or 30)
+    except ValueError:
+        window_days = 30
+    window_days = max(1, min(window_days, 90))
+    return WarRoomScope(berry_id=berry_id or None, geography_ids=geography_ids, company_ids=company_ids, window_days=window_days)
+
+
+def _compose_war_room_for_request(scope: WarRoomScope) -> dict[str, Any]:
+    return compose_war_room(
+        scope,
+        inbox_dir=INBOX_DIR,
+        entities=entity_index(),
+        relationships=all_relationships(),
+        published_evidence=published_evidence(),
+        facts=all_facts(),
+        signals=all_signals(),
+        assessments=all_assessments(),
+        strategic_questions=load_strategic_questions(),
+        berry_labels=BERRIES,
+        identity_redirects=identity_redirects(),
+        market_repo=get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations,
+        completer=maybe_untrusted_completer(),
+    )
+
+
+@app.get("/war-room", response_class=HTMLResponse)
+def war_room_page(request: Request) -> HTMLResponse:
+    """Strategy War Room -- a working strategy session, not a homepage.
+
+    Composes from the existing Radar cache / Moves board / Market
+    Reality store / trusted Evidence for the requested scope. Never
+    fetches a live provider itself; refresh /radar/live first (or use
+    /war-room/live) if the underlying cache is stale."""
+    scope = _war_room_scope_from_params(request)
+    session = _compose_war_room_for_request(scope) if not scope.is_empty else None
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="war_room.html",
+        context={
+            "session": session,
+            "scope": scope.as_dict(),
+            "companies": [{"id": e["id"], "name": e.get("name") or e["id"]} for e in all_entities() if e.get("entity_type") == "company"],
+            "geographies": [{"id": e["id"], "name": e.get("name") or e["id"]} for e in all_entities() if e.get("entity_type") == "geography"],
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+            "berries": BERRIES,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/war-room/live", response_class=HTMLResponse)
+def war_room_live_page(request: Request) -> HTMLResponse:
+    """Explicit live refresh: run the bounded Radar stack first, then
+    compose the same way /war-room does. Mission section 13 -- default
+    load stays cache-only; this is the opt-in."""
+    scope = _war_room_scope_from_params(request)
+    if not scope.is_empty:
+        _radar_edition_live()
+    return RedirectResponse(url=f"/war-room?{request.url.query}", status_code=303)
+
+
+@app.post("/war-room/notes")
+def war_room_add_note_route(
+    request: Request,
+    text: str = Form(...),
+    berry: str = Form(""),
+    geography_ids: str = Form(""),
+    company_ids: str = Form(""),
+    return_to: str = Form("/war-room"),
+) -> RedirectResponse:
+    """Private session takeaway -- never persisted intelligence, never a
+    trust object (mission section 9)."""
+    berry_id = berry if not berry or berry.startswith("berry-") else f"berry-{berry}"
+    try:
+        war_room_add_note(
+            INBOX_DIR,
+            text=text,
+            berry_id=berry_id or None,
+            geography_ids=tuple(v.strip() for v in geography_ids.split(",") if v.strip()),
+            company_ids=tuple(v.strip() for v in company_ids.split(",") if v.strip()),
+        )
+    except ValueError:
+        pass
+    safe_target = return_to if return_to.startswith("/") and not return_to.startswith("//") else "/war-room"
+    return RedirectResponse(url=safe_target, status_code=303)
+
+
+@app.get("/collection-ops", response_class=HTMLResponse)
+def collection_ops_page(request: Request, ran: str = "", reason: str = "") -> HTMLResponse:
+    """Private operator surface exposing EXISTING collection runtime/
+    status machinery (CollectionStatusService, CollectionRunner run
+    history, Source health) -- read-only by construction; rendering this
+    page never starts a run, retries anything, or touches the lock."""
+    repositories = get_repositories(DATA_DIR, SCHEMAS_DIR)
+    report = build_status_report(repositories=repositories, data_dir=DATA_DIR, inbox_dir=INBOX_DIR)
+    sources = load_sources()
+    degraded_sources = failing_source_health_rows(sources, inbox_dir=INBOX_DIR)
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="collection_ops.html",
+        context={
+            "report": report,
+            "recent_runs": list_recent_runs(INBOX_DIR),
+            "degraded_sources": degraded_sources,
+            "run_size_choices": RUN_SIZE_CHOICES,
+            "default_run_size": DEFAULT_RUN_SIZE,
+            "polling_enabled": SOURCE_POLLING_ENABLED,
+            "just_ran": ran,
+            "just_ran_reason": reason,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+            "ui_context": ui,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.post("/collection-ops/run")
+def collection_ops_run(max_items: int = Form(DEFAULT_RUN_SIZE)) -> RedirectResponse:
+    """Explicit, bounded, POST-only manual collection trigger. Refuses if
+    a run is already active; never opts into extraction; shells out to
+    the same scripts/run_collection.py the production scheduler already
+    uses rather than re-wiring CollectionRunner inside the web process."""
+    repositories = get_repositories(DATA_DIR, SCHEMAS_DIR)
+    result = trigger_bounded_run(
+        repositories=repositories, data_dir=DATA_DIR, inbox_dir=INBOX_DIR, max_items=max_items,
+    )
+    params = {"ran": result["state"]}
+    if result.get("reason"):
+        params["reason"] = result["reason"]
+    return RedirectResponse(url=f"/collection-ops?{urlencode(params)}", status_code=303)
+
+
+
+
 _PUBLICATION_REVIEW_PAGE_SIZE = 25
 
 

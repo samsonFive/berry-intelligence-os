@@ -70,6 +70,12 @@
     {{ nav_icon('feed') }}<span class="v2-nav-text">Live Intelligence</span>
   </a>
   {% if not static_build %}
+  <a href="/war-room" class="v2-nav-link{% if path.startswith('/war-room') %} is-active{% endif %}" title="War Room" aria-label="War Room"{% if path.startswith('/war-room') %} aria-current="page"{% endif %}>
+    {{ nav_icon('signals') }}<span class="v2-nav-text">War Room</span>
+  </a>
+  <a href="/watchtower" class="v2-nav-link{% if path.startswith('/watchtower') %} is-active{% endif %}" title="Watchtower" aria-label="Watchtower"{% if path.startswith('/watchtower') %} aria-current="page"{% endif %}>
+    {{ nav_icon('watch') }}<span class="v2-nav-text">Watchtower</span>
+  </a>
   <a href="/review-ops" class="v2-nav-link{% if path == '/review-ops' or path.startswith('/review-ops/') %} is-active{% endif %}" title="Review Operations" aria-label="Review Operations"{% if path == '/review-ops' or path.startswith('/review-ops/') %} aria-current="page"{% endif %}>
     {{ nav_icon('review') }}<span class="v2-nav-text">Review Operations</span>
   </a>
