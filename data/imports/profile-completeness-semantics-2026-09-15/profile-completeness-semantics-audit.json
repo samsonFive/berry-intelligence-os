@@ -1,0 +1,4132 @@
+{
+  "id": "profile-completeness-semantics-audit-2026-09-15",
+  "verification_date": "2026-09-15",
+  "supersedes_model": "data/imports/competitor-profile-data-2026-09-15/profile-completeness-audit.json (10-dimension present/missing/not_applicable model, left untouched)",
+  "row_count": 33,
+  "entity_types_supported": [
+    "brand",
+    "breeding_program",
+    "company"
+  ],
+  "roster_summary": {
+    "profiles_returned": 33,
+    "structurally_valid": 33,
+    "missing_required_data": 0,
+    "invalid_reference": 0,
+    "unassigned_internal_classification": 32,
+    "provisional_identity": 9,
+    "lacking_genetics_information": 18,
+    "no_configured_sources": 25,
+    "no_operational_discovery": 33,
+    "no_readable_coverage": 33,
+    "no_current_usable_coverage": 33,
+    "blocking_profile_defects": 0,
+    "note": "A multidimensional summary, deliberately never collapsed into one 'X/33 complete' percentage. Unknown/Unassigned classifications, provisional identities, and monitoring/coverage gaps are counted honestly here but never treated as record defects -- only missing_required_data, invalid_reference, and blocking_profile_defects represent genuine structural problems."
+  },
+  "note": "Seven separated concerns per row -- record integrity, classification coverage, identity verification, relationship knowledge, monitoring maturity, current intelligence coverage, and actionable gaps -- never collapsed into one 'N/33 complete' percentage. Unknown/Unassigned classifications, provisional identities, and monitoring/coverage gaps are counted honestly in roster_summary but never treated as record defects; only roster_summary.missing_required_data/invalid_reference/blocking_profile_defects represent genuine structural problems.",
+  "rows": [
+    {
+      "row_number": 2,
+      "spreadsheet_label": "Advanced Berry Breeding",
+      "canonical_entity_id": "company-advanced-berry-breeding",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-advanced-berry-breeding",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Tier 1"
+        },
+        "berry_summary": {
+          "assigned": 1,
+          "unknown_unassigned": 3,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": true,
+        "verified_variety_relationships_known": true,
+        "parent_brand_relationships_known": true
+      },
+      "monitoring_maturity": {
+        "state": "configured_not_operational",
+        "discovery_configured": true,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "operational_discovery",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "A Source is linked but has never completed a successful discovery run.",
+          "recommended_next_action": "Run or debug the linked Source's discovery adapter.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": false,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 3,
+      "spreadsheet_label": "AgroBerries",
+      "canonical_entity_id": "company-agroberries",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-agroberries",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 0,
+          "unknown_unassigned": 4,
+          "not_applicable": 0
+        },
+        "strategic_priority": "Top",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "provisional",
+        "reason": "entity status is 'unverified' -- identity not yet independently confirmed. A provisional identity is a verification gap, not a malformed profile."
+      },
+      "relationship_knowledge": {
+        "genetics_known": true,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "identity",
+          "state": "pending_verification",
+          "category": "identity_verification",
+          "severity": "attention",
+          "why_it_matters": "Stakeholders should know this identity has not been independently confirmed yet.",
+          "recommended_next_action": "Run a dedicated identity-verification pass and record evidence_urls/confidence.",
+          "owning_workflow": "Identity verification pass",
+          "source_provenance": "entity.status == 'unverified'",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": true,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 4,
+      "spreadsheet_label": "Australasian Plant Genetics",
+      "canonical_entity_id": "company-australasian-plant-genetics",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-australasian-plant-genetics",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 0,
+          "unknown_unassigned": 4,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 5,
+      "spreadsheet_label": "BerryWorld",
+      "canonical_entity_id": "company-berryworld",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-berryworld",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Tier 2",
+          "blueberry": "Tier 3",
+          "raspberry": "Tier 1",
+          "blackberry": "Tier 2"
+        },
+        "berry_summary": {
+          "assigned": 4,
+          "unknown_unassigned": 0,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": true,
+        "verified_variety_relationships_known": true,
+        "parent_brand_relationships_known": true
+      },
+      "monitoring_maturity": {
+        "state": "configured_not_operational",
+        "discovery_configured": true,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "operational_discovery",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "A Source is linked but has never completed a successful discovery run.",
+          "recommended_next_action": "Run or debug the linked Source's discovery adapter.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": false,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 6,
+      "spreadsheet_label": "Black Venture Farm",
+      "canonical_entity_id": "company-black-venture-farm",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-black-venture-farm",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Tier 3",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Tier 2",
+          "blackberry": "Tier 1"
+        },
+        "berry_summary": {
+          "assigned": 3,
+          "unknown_unassigned": 1,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "unknown_unassigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "provisional",
+        "reason": "entity status is 'unverified' -- identity not yet independently confirmed. A provisional identity is a verification gap, not a malformed profile."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "identity",
+          "state": "pending_verification",
+          "category": "identity_verification",
+          "severity": "attention",
+          "why_it_matters": "Stakeholders should know this identity has not been independently confirmed yet.",
+          "recommended_next_action": "Run a dedicated identity-verification pass and record evidence_urls/confidence.",
+          "owning_workflow": "Identity verification pass",
+          "source_provenance": "entity.status == 'unverified'",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "regions",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "No region assignment limits regional filtering/reporting for this competitor.",
+          "recommended_next_action": "An analyst may assign region code(s) from internal classification.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": true,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 7,
+      "spreadsheet_label": "California Giant",
+      "canonical_entity_id": "company-california-giant-berry-farms",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-california-giant-berry-farms",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Tier 1",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 1,
+          "unknown_unassigned": 3,
+          "not_applicable": 0
+        },
+        "strategic_priority": "Top",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": true,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": true
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "attention",
+          "why_it_matters": "Two Cal Giant Source entries exist as type 'reference' with no discovery adapter; direct calgiant.com acquisition is TLS/HTTP-client-fingerprint blocked (Cloudflare bot management), confirmed on fix/astra-news-reader (commit 721a20a). Cited, not re-diagnosed here.",
+          "recommended_next_action": "Pursue a compliant alternative/manual acquisition path.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry._KNOWN_BLOCKED_ENTITIES",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 8,
+      "spreadsheet_label": "Costa",
+      "canonical_entity_id": "company-costa-group-holdings",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-costa-group-holdings",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Tier 1",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 1,
+          "unknown_unassigned": 3,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": true,
+        "verified_variety_relationships_known": true,
+        "parent_brand_relationships_known": true
+      },
+      "monitoring_maturity": {
+        "state": "configured_not_operational",
+        "discovery_configured": true,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "operational_discovery",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "A Source is linked but has never completed a successful discovery run.",
+          "recommended_next_action": "Run or debug the linked Source's discovery adapter.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": false,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 9,
+      "spreadsheet_label": "Denning Blueberries",
+      "canonical_entity_id": "company-denning-blueberries",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-denning-blueberries",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Present",
+          "raspberry": "Tier 2",
+          "blackberry": "Tier 1"
+        },
+        "berry_summary": {
+          "assigned": 3,
+          "unknown_unassigned": 1,
+          "not_applicable": 0
+        },
+        "strategic_priority": "Watch",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "provisional",
+        "reason": "entity status is 'unverified' -- identity not yet independently confirmed. A provisional identity is a verification gap, not a malformed profile."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "identity",
+          "state": "pending_verification",
+          "category": "identity_verification",
+          "severity": "attention",
+          "why_it_matters": "Stakeholders should know this identity has not been independently confirmed yet.",
+          "recommended_next_action": "Run a dedicated identity-verification pass and record evidence_urls/confidence.",
+          "owning_workflow": "Identity verification pass",
+          "source_provenance": "entity.status == 'unverified'",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": true,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 10,
+      "spreadsheet_label": "Expoberries",
+      "canonical_entity_id": "company-expoberries",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-expoberries",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Tier 1",
+          "raspberry": "Tier 3",
+          "blackberry": "Tier 3"
+        },
+        "berry_summary": {
+          "assigned": 3,
+          "unknown_unassigned": 1,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "unknown_unassigned",
+        "competitor_types_state": "unknown_unassigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "provisional",
+        "reason": "entity status is 'unverified' -- identity not yet independently confirmed. A provisional identity is a verification gap, not a malformed profile."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "identity",
+          "state": "pending_verification",
+          "category": "identity_verification",
+          "severity": "attention",
+          "why_it_matters": "Stakeholders should know this identity has not been independently confirmed yet.",
+          "recommended_next_action": "Run a dedicated identity-verification pass and record evidence_urls/confidence.",
+          "owning_workflow": "Identity verification pass",
+          "source_provenance": "entity.status == 'unverified'",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "regions",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "No region assignment limits regional filtering/reporting for this competitor.",
+          "recommended_next_action": "An analyst may assign region code(s) from internal classification.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "competitor_types",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "No competitor-type assignment limits type-based filtering/reporting for this competitor.",
+          "recommended_next_action": "An analyst may assign competitor type(s) from internal classification.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": true,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 11,
+      "spreadsheet_label": "Fall Creek",
+      "canonical_entity_id": "company-fall-creek-farm-and-nursery",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-fall-creek-farm-and-nursery",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Tier 1",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 1,
+          "unknown_unassigned": 3,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": true,
+        "verified_variety_relationships_known": true,
+        "parent_brand_relationships_known": true
+      },
+      "monitoring_maturity": {
+        "state": "configured_not_operational",
+        "discovery_configured": true,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "operational_discovery",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "A Source is linked but has never completed a successful discovery run.",
+          "recommended_next_action": "Run or debug the linked Source's discovery adapter.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": false,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 12,
+      "spreadsheet_label": "Fresh Forward",
+      "canonical_entity_id": "company-fresh-forward",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-fresh-forward",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Tier 1",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 1,
+          "unknown_unassigned": 3,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 13,
+      "spreadsheet_label": "Fruitist",
+      "canonical_entity_id": "company-agrovision",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-agrovision",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 0,
+          "unknown_unassigned": 4,
+          "not_applicable": 0
+        },
+        "strategic_priority": "Top",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": true,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": true
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 14,
+      "spreadsheet_label": "Gem-Pack Berries",
+      "canonical_entity_id": "company-gem-pack-berries",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-gem-pack-berries",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Tier 1",
+          "raspberry": "Tier 1",
+          "blackberry": "Tier 2"
+        },
+        "berry_summary": {
+          "assigned": 3,
+          "unknown_unassigned": 1,
+          "not_applicable": 0
+        },
+        "strategic_priority": "Top",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "provisional",
+        "reason": "entity status is 'unverified' -- identity not yet independently confirmed. A provisional identity is a verification gap, not a malformed profile."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "identity",
+          "state": "pending_verification",
+          "category": "identity_verification",
+          "severity": "attention",
+          "why_it_matters": "Stakeholders should know this identity has not been independently confirmed yet.",
+          "recommended_next_action": "Run a dedicated identity-verification pass and record evidence_urls/confidence.",
+          "owning_workflow": "Identity verification pass",
+          "source_provenance": "entity.status == 'unverified'",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": true,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 15,
+      "spreadsheet_label": "Hortifrut Genetica",
+      "canonical_entity_id": "company-hortifrut",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-hortifrut",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Present",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Tier 3",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 2,
+          "unknown_unassigned": 2,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": true,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": true
+      },
+      "monitoring_maturity": {
+        "state": "configured_not_operational",
+        "discovery_configured": true,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "operational_discovery",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "A Source is linked but has never completed a successful discovery run.",
+          "recommended_next_action": "Run or debug the linked Source's discovery adapter.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": false,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 16,
+      "spreadsheet_label": "IQ Berries",
+      "canonical_entity_id": "company-iq-berries",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-iq-berries",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Tier 3",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 1,
+          "unknown_unassigned": 3,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": true,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": true
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 17,
+      "spreadsheet_label": "Marionnet",
+      "canonical_entity_id": "company-marionnet",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-marionnet",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Tier 1",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Tier 3",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 2,
+          "unknown_unassigned": 2,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "provisional",
+        "reason": "entity status is 'unverified' -- identity not yet independently confirmed. A provisional identity is a verification gap, not a malformed profile."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "identity",
+          "state": "pending_verification",
+          "category": "identity_verification",
+          "severity": "attention",
+          "why_it_matters": "Stakeholders should know this identity has not been independently confirmed yet.",
+          "recommended_next_action": "Run a dedicated identity-verification pass and record evidence_urls/confidence.",
+          "owning_workflow": "Identity verification pass",
+          "source_provenance": "entity.status == 'unverified'",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": true,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 18,
+      "spreadsheet_label": "Mountain Blue",
+      "canonical_entity_id": "company-mountain-blue-orchards",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-mountain-blue-orchards",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Tier 2",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 1,
+          "unknown_unassigned": 3,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": true,
+        "verified_variety_relationships_known": true,
+        "parent_brand_relationships_known": true
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 19,
+      "spreadsheet_label": "Oishii",
+      "canonical_entity_id": "company-oishii",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-oishii",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Tier 2",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 1,
+          "unknown_unassigned": 3,
+          "not_applicable": 0
+        },
+        "strategic_priority": "Watch",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 20,
+      "spreadsheet_label": "Ozblu",
+      "canonical_entity_id": "brand-ozblu",
+      "entity_type": "brand",
+      "profile_url": "/entities/brand/brand-ozblu",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 0,
+          "unknown_unassigned": 4,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": true,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": true
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 21,
+      "spreadsheet_label": "Pairwise",
+      "canonical_entity_id": "company-pairwise",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-pairwise",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Tier 1",
+          "blueberry": "Tier 2",
+          "raspberry": "Tier 1",
+          "blackberry": "Tier 2"
+        },
+        "berry_summary": {
+          "assigned": 4,
+          "unknown_unassigned": 0,
+          "not_applicable": 0
+        },
+        "strategic_priority": "Top",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": false
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": false,
+        "identity_provisional": false,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 22,
+      "spreadsheet_label": "Perfection Fresh",
+      "canonical_entity_id": "company-perfection-fresh",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-perfection-fresh",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Tier 1",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Tier 1",
+          "blackberry": "Tier 2"
+        },
+        "berry_summary": {
+          "assigned": 3,
+          "unknown_unassigned": 1,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 23,
+      "spreadsheet_label": "Planasa",
+      "canonical_entity_id": "company-planasa",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-planasa",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Tier 1",
+          "blueberry": "Tier 1",
+          "raspberry": "Tier 3",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 3,
+          "unknown_unassigned": 1,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": true,
+        "verified_variety_relationships_known": true,
+        "parent_brand_relationships_known": true
+      },
+      "monitoring_maturity": {
+        "state": "configured_not_operational",
+        "discovery_configured": true,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "operational_discovery",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "A Source is linked but has never completed a successful discovery run.",
+          "recommended_next_action": "Run or debug the linked Source's discovery adapter.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": false,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 24,
+      "spreadsheet_label": "Plant Sciences",
+      "canonical_entity_id": "company-plant-sciences-genetics",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-plant-sciences-genetics",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Tier 2",
+          "blackberry": "Tier 1"
+        },
+        "berry_summary": {
+          "assigned": 2,
+          "unknown_unassigned": 2,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": true,
+        "verified_variety_relationships_known": true,
+        "parent_brand_relationships_known": true
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 25,
+      "spreadsheet_label": "Royakkers",
+      "canonical_entity_id": "company-royakkers",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-royakkers",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Tier 2",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Tier 1"
+        },
+        "berry_summary": {
+          "assigned": 2,
+          "unknown_unassigned": 2,
+          "not_applicable": 0
+        },
+        "strategic_priority": "Watch",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 26,
+      "spreadsheet_label": "Smart Berries",
+      "canonical_entity_id": "company-smart-berries",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-smart-berries",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Tier 2",
+          "blackberry": "Tier 1"
+        },
+        "berry_summary": {
+          "assigned": 2,
+          "unknown_unassigned": 2,
+          "not_applicable": 0
+        },
+        "strategic_priority": "Watch",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 27,
+      "spreadsheet_label": "Splendor Produce",
+      "canonical_entity_id": "company-splendor-produce",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-splendor-produce",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 0,
+          "unknown_unassigned": 4,
+          "not_applicable": 0
+        },
+        "strategic_priority": "Watch",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "provisional",
+        "reason": "entity status is 'unverified' -- identity not yet independently confirmed. A provisional identity is a verification gap, not a malformed profile."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "identity",
+          "state": "pending_verification",
+          "category": "identity_verification",
+          "severity": "attention",
+          "why_it_matters": "Stakeholders should know this identity has not been independently confirmed yet.",
+          "recommended_next_action": "Run a dedicated identity-verification pass and record evidence_urls/confidence.",
+          "owning_workflow": "Identity verification pass",
+          "source_provenance": "entity.status == 'unverified'",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": true,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 28,
+      "spreadsheet_label": "SunBelle",
+      "canonical_entity_id": "company-sunbelle",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-sunbelle",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Tier 1",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 1,
+          "unknown_unassigned": 3,
+          "not_applicable": 0
+        },
+        "strategic_priority": "Top",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 29,
+      "spreadsheet_label": "The Berry Collective",
+      "canonical_entity_id": "company-the-berry-collective",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-the-berry-collective",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Tier 1",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Tier 2",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 2,
+          "unknown_unassigned": 2,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "unknown_unassigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "provisional",
+        "reason": "entity status is 'unverified' -- identity not yet independently confirmed. A provisional identity is a verification gap, not a malformed profile."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "identity",
+          "state": "pending_verification",
+          "category": "identity_verification",
+          "severity": "attention",
+          "why_it_matters": "Stakeholders should know this identity has not been independently confirmed yet.",
+          "recommended_next_action": "Run a dedicated identity-verification pass and record evidence_urls/confidence.",
+          "owning_workflow": "Identity verification pass",
+          "source_provenance": "entity.status == 'unverified'",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "regions",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "No region assignment limits regional filtering/reporting for this competitor.",
+          "recommended_next_action": "An analyst may assign region code(s) from internal classification.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": true,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 30,
+      "spreadsheet_label": "UC Davis",
+      "canonical_entity_id": "breeding_program-uc-davis-strawberry",
+      "entity_type": "breeding_program",
+      "profile_url": "/entities/breeding_program/breeding_program-uc-davis-strawberry",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Tier 1",
+          "blueberry": "Tier 2",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 2,
+          "unknown_unassigned": 2,
+          "not_applicable": 0
+        },
+        "strategic_priority": "unassigned",
+        "regions_state": "unknown_unassigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "strategic_priority",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "An unassigned strategic priority limits stakeholder prioritization views.",
+          "recommended_next_action": "An analyst may assign Top/Watch priority from internal strategy review.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "regions",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "No region assignment limits regional filtering/reporting for this competitor.",
+          "recommended_next_action": "An analyst may assign region code(s) from internal classification.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 31,
+      "spreadsheet_label": "University of Arkansas",
+      "canonical_entity_id": "company-university-of-arkansas",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-university-of-arkansas",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 0,
+          "unknown_unassigned": 4,
+          "not_applicable": 0
+        },
+        "strategic_priority": "Top",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": true,
+        "verified_variety_relationships_known": true,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "configured_not_operational",
+        "discovery_configured": true,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "operational_discovery",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "A Source is linked but has never completed a successful discovery run.",
+          "recommended_next_action": "Run or debug the linked Source's discovery adapter.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": false,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 32,
+      "spreadsheet_label": "University of Florida",
+      "canonical_entity_id": "company-university-of-florida",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-university-of-florida",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 0,
+          "unknown_unassigned": 4,
+          "not_applicable": 0
+        },
+        "strategic_priority": "Watch",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": true,
+        "verified_variety_relationships_known": true,
+        "parent_brand_relationships_known": true
+      },
+      "monitoring_maturity": {
+        "state": "configured_not_operational",
+        "discovery_configured": true,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "operational_discovery",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "A Source is linked but has never completed a successful discovery run.",
+          "recommended_next_action": "Run or debug the linked Source's discovery adapter.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": false,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 33,
+      "spreadsheet_label": "Well-Pict",
+      "canonical_entity_id": "company-well-pict",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-well-pict",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Unknown/Unassigned",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Unknown/Unassigned"
+        },
+        "berry_summary": {
+          "assigned": 0,
+          "unknown_unassigned": 4,
+          "not_applicable": 0
+        },
+        "strategic_priority": "Watch",
+        "regions_state": "unknown_unassigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "provisional",
+        "reason": "entity status is 'unverified' -- identity not yet independently confirmed. A provisional identity is a verification gap, not a malformed profile."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "identity",
+          "state": "pending_verification",
+          "category": "identity_verification",
+          "severity": "attention",
+          "why_it_matters": "Stakeholders should know this identity has not been independently confirmed yet.",
+          "recommended_next_action": "Run a dedicated identity-verification pass and record evidence_urls/confidence.",
+          "owning_workflow": "Identity verification pass",
+          "source_provenance": "entity.status == 'unverified'",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blueberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blueberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blueberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:blackberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Blackberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify blackberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "regions",
+          "state": "unknown_unassigned",
+          "category": "analyst_classification_work",
+          "severity": "attention",
+          "why_it_matters": "No region assignment limits regional filtering/reporting for this competitor.",
+          "recommended_next_action": "An analyst may assign region code(s) from internal classification.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": true,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    },
+    {
+      "row_number": 34,
+      "spreadsheet_label": "Wish Farms",
+      "canonical_entity_id": "company-wish-farms",
+      "entity_type": "company",
+      "profile_url": "/entities/company/company-wish-farms",
+      "record_integrity": {
+        "status": "structurally_valid",
+        "failed_checks": []
+      },
+      "classification_coverage": {
+        "berry_positions": {
+          "strawberry": "Unknown/Unassigned",
+          "blueberry": "Tier 1",
+          "raspberry": "Unknown/Unassigned",
+          "blackberry": "Tier 2"
+        },
+        "berry_summary": {
+          "assigned": 2,
+          "unknown_unassigned": 2,
+          "not_applicable": 0
+        },
+        "strategic_priority": "Top",
+        "regions_state": "assigned",
+        "competitor_types_state": "assigned",
+        "has_unassigned": true
+      },
+      "identity_verification": {
+        "state": "active_verified",
+        "reason": "entity status is settled ('active') with no open duplicate/structural review."
+      },
+      "relationship_knowledge": {
+        "genetics_known": false,
+        "verified_variety_relationships_known": false,
+        "parent_brand_relationships_known": false
+      },
+      "monitoring_maturity": {
+        "state": "absent_optional",
+        "discovery_configured": false,
+        "discovery_operational": false
+      },
+      "current_intelligence_coverage": {
+        "state": "absent_optional",
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "current_usable_coverage_count": 0
+      },
+      "actionable_gaps": [
+        {
+          "dimension": "berry_position:strawberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Strawberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify strawberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "berry_position:raspberry",
+          "state": "unknown_unassigned",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "Raspberry tier is legitimately unclassified -- visible uncertainty, not a defect.",
+          "recommended_next_action": "An analyst may classify raspberry tier from the source spreadsheet when known.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "genetics",
+          "state": "absent_optional",
+          "category": "informational_uncertainty",
+          "severity": "informational",
+          "why_it_matters": "No genetics-provider relationship is recorded for this entity yet.",
+          "recommended_next_action": "Record a genetics Relationship if/when supporting evidence is found.",
+          "owning_workflow": "Analyst classification pass",
+          "source_provenance": "app.services.competitor_registry.genetics_relationships_for_company",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "source_configuration",
+          "state": "absent_optional",
+          "category": "source_configuration",
+          "severity": "attention",
+          "why_it_matters": "No runnable Source is linked, so this entity is not being monitored at all.",
+          "recommended_next_action": "Link and configure a discovery-eligible Source for this entity.",
+          "owning_workflow": "Source configuration",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        },
+        {
+          "dimension": "current_intelligence_coverage",
+          "state": "absent_optional",
+          "category": "acquisition_failure",
+          "severity": "informational",
+          "why_it_matters": "No current usable coverage window is available for this entity right now.",
+          "recommended_next_action": "No action required unless monitoring is also unconfigured -- see that gap.",
+          "owning_workflow": "Acquisition / collection pipeline",
+          "source_provenance": "app.services.competitor_registry.monitoring_maturity_for_entity",
+          "blocks_stakeholder_display": false
+        }
+      ],
+      "ui_flags": {
+        "profile_structurally_valid": true,
+        "classification_incomplete_or_unassigned": true,
+        "identity_provisional": false,
+        "monitoring_not_configured": true,
+        "coverage_unavailable": true,
+        "action_required": true
+      }
+    }
+  ]
+}

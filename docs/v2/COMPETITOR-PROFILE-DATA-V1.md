@@ -70,26 +70,29 @@ mission's explicit "do not collapse" rule):
 | `profile_url` | mirrors `CompetitorLandscapeAdapter._row_from_entry`'s own derivation exactly | — |
 | `filtered_landscape_urls` | one `/competitors?...` link per berry, built with the landscape page's own `LandscapeFilters`/`filters_to_query` | — |
 
-## 3. Profile completeness — dimension-by-dimension, never a score
+## 3. Profile completeness — superseded by a 7-concern model
 
-`profile_completeness()` reports exactly 10 fixed dimensions
-(`COMPLETENESS_DIMENSIONS`): `identity`, `aliases`, `classifications`,
-`berry_positions`, `regions`, `genetics`, `source_configuration`,
-`operational_discovery`, `readable_content`, `current_coverage`. Each is
-independently `present`, `missing`, or `not_applicable` — **the latter two
-are never conflated**: `not_applicable` means the dimension legitimately
-does not apply yet (e.g. no genetics assertion exists either way for this
-company, and no other gap was found either), while `missing` means a real,
-addressable gap. There is no blended score, no "strategic completeness
-index," and no ranking across competitors — per the mission's explicit
-prohibition on inventing one.
+**As of Refine Profile Completeness Semantics V1 (2026-09-15), the 10-flat-dimension
+model described in this section's original text no longer exists.**
+`profile["completeness"]` is now a 7-concern report (record integrity,
+classification coverage, identity verification, relationship knowledge,
+monitoring maturity, current intelligence coverage, actionable gaps) that
+never conflates a structural data-quality defect with a legitimate
+Unknown/Unassigned classification, a provisional identity, or an
+operational coverage gap. See
+[`PROFILE-COMPLETENESS-SEMANTICS-V1.md`](./PROFILE-COMPLETENESS-SEMANTICS-V1.md)
+for the full contract — the "one blended score" prohibition still holds,
+more strongly than before: there is no field on `completeness` that is a
+count of "how complete" a profile is, only a set of independently-true
+facts and a triaged `actionable_gaps` list.
 
-Audited across all 33 roster entries at
-`data/imports/competitor-profile-data-2026-09-15/profile-completeness-audit.json`:
-0 of 33 are fully complete on every applicable dimension — an honest
-reflection of the underlying data (most entries are missing 3 of 4 berry
-tiers by design, since the spreadsheet only ever populated the berries
-relevant to that company), not a defect in this service.
+`build_competitor_profile()`'s own view-model shape (§2 above) is
+otherwise unchanged by that mission — `identity`, `classification`,
+`parent_brand_relationships`, `genetics`, `verified_variety_relationships`,
+`monitoring`, `unresolved_data_gaps`, `profile_url`, and
+`filtered_landscape_urls` all still mean exactly what §2 says. `identity`
+additionally now carries `verification_state`/`verification_state_reason`
+(see the new doc, §3).
 
 ## 4. Non-company support
 
@@ -135,5 +138,9 @@ any entity id regardless of type.
   separation.
 - Use `filtered_landscape_urls` for "see this company in context" links
   rather than constructing `/competitors` query strings independently.
-- Treat `completeness.dimensions` as a checklist, never as a score to sort
-  or rank competitors by.
+- Treat `completeness` as seven independent concern reports plus a triaged
+  gap list (see
+  [`PROFILE-COMPLETENESS-SEMANTICS-V1.md`](./PROFILE-COMPLETENESS-SEMANTICS-V1.md)),
+  never as a score to sort or rank competitors by. Use
+  `completeness.ui_flags` for simple badge/icon logic rather than
+  re-deriving those booleans independently.
