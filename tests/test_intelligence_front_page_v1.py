@@ -19,6 +19,7 @@ from fastapi.testclient import TestClient
 from app import main
 from app.services.front_page import build_front_page
 from app.services.stakeholder_ui import brief_handoff_query_string
+from tests.clock_helpers import freeze_utc_now
 
 NOW = datetime(2026, 9, 1, 12, 0, tzinfo=UTC)
 
@@ -536,9 +537,8 @@ def test_today_coverage_watch_is_ttl_cached_not_recomputed_every_request(monkeyp
 
 
 def test_front_page_route_smoke(monkeypatch, tmp_path: Path) -> None:
-    # GET /today uses datetime.now(); pin fixture dates to today so this
-    # smoke does not fall out of the 14-day window as the calendar moves.
-    today = datetime.now(UTC).date().isoformat()
+    freeze_utc_now(monkeypatch, NOW)
+    today = NOW.date().isoformat()
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
     monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
     monkeypatch.setattr(main, "published_evidence", lambda: [_evidence("ev-smoke", published=today, captured=today, title="Blueberry harvest update")])

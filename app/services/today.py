@@ -12,6 +12,7 @@ from app.services.chronology import (
     development_stamp,
     parse_stamp as _parse,
 )
+from app.services.clock import resolve_now
 from app.services.morning_brief import brief_last_seen, _parse_stamp as parse_brief_stamp
 from app.services.freshness_assurance import build_runtime_freshness
 from app.services.guided_analyst import freshness_clock_label
@@ -221,7 +222,7 @@ def build_today(
     berry_id: str = "",
     now: datetime | None = None,
 ) -> dict[str, Any]:
-    instant = (now or datetime.now(UTC)).astimezone(UTC)
+    instant = resolve_now(now)
     rows: list[dict[str, Any]] = []
     older: list[dict[str, Any]] = []
     by_id = {str(record.get("id") or ""): record for record in published}

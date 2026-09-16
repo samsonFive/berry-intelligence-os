@@ -10,6 +10,7 @@ from fastapi.testclient import TestClient
 from app import main
 from app.session_auth import DEFAULT_NEXT_PATH, safe_next_path
 from app.services.today import build_today, development_stamp
+from tests.clock_helpers import freeze_utc_now
 
 
 NOW = datetime(2026, 8, 24, 14, 0, tzinfo=UTC)
@@ -175,9 +176,8 @@ def test_login_lands_on_today_and_preserves_deep_link(monkeypatch) -> None:
 
 
 def test_today_route_front_page_and_mobile_css(monkeypatch, tmp_path: Path) -> None:
-    # Route uses wall-clock now; keep the fixture inside the 14-day window
-    # instead of baking 2026-08-24 (that date fell out of window on 2026-09-16).
-    today = date.today().isoformat()
+    freeze_utc_now(monkeypatch, NOW)
+    today = NOW.date().isoformat()
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
     monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
     readable = _ev(
