@@ -16,7 +16,7 @@
 {% endif %}
 <section class="page-heading{% if dimension in ('reading', 'monitoring', 'testing', 'commercial_position') %} v2-page-header{% endif %}">
   <div>
-    <p class="eyebrow">{% if dimension == 'monitoring' %}MONITOR · ALERTS + WATCHES{% else %}{{ eyebrow }}{% endif %}</p>
+    <p class="eyebrow">{{ eyebrow }}</p>
     <h1>{{ label }}</h1>
     <p class="also-known-as">{{ purpose }}</p>
   </div>
