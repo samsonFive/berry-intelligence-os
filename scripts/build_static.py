@@ -119,7 +119,7 @@ def render(template_name: str, path: str, context: dict[str, Any]) -> str:
     return templates.get_template(template_name).render(context)
 
 
-_HREF_RE = re.compile(r'(href|src)="(/[^"#?]*)(#[^"]*)?"')
+_HREF_RE = re.compile(r'(href|src)="(/(?!/)[^"#?]*)(\?[^"#]*)?(#[^"]*)?"')
 
 
 def _depth_prefix(output_file: Path) -> str:
@@ -129,14 +129,15 @@ def _depth_prefix(output_file: Path) -> str:
 
 def _rewrite_internal_links(html: str, prefix: str) -> str:
     def repl(match: re.Match[str]) -> str:
-        attr, path, fragment = match.group(1), match.group(2), match.group(3) or ""
+        attr, path = match.group(1), match.group(2)
+        query, fragment = match.group(3) or "", match.group(4) or ""
         if path == "/":
             target = "index.html"
         else:
             stripped = path.strip("/")
             last_segment = stripped.rsplit("/", 1)[-1]
             target = stripped if "." in last_segment else f"{stripped}/index.html"
-        return f'{attr}="{prefix}{target}{fragment}"'
+        return f'{attr}="{prefix}{target}{query}{fragment}"'
 
     return _HREF_RE.sub(repl, html)
 

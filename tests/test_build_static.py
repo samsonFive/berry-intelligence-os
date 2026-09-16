@@ -253,6 +253,22 @@ def test_static_build_detects_leak_if_validation_bypassed(monkeypatch, tmp_path)
     assert build_static.validate_no_drafts_leaked() != []
 
 
+def test_static_link_rewrite_preserves_query_fragment_and_external_urls() -> None:
+    import scripts.build_static as build_static
+
+    html = (
+        '<a href="/competitors?berry=blueberry&amp;company=company-a#detail">internal</a>'
+        '<a href="//cdn.example.invalid/asset.css">external</a>'
+    )
+    rewritten = build_static._rewrite_internal_links(html, "../")
+
+    assert (
+        'href="../competitors/index.html?berry=blueberry&amp;company=company-a#detail"'
+        in rewritten
+    )
+    assert 'href="//cdn.example.invalid/asset.css"' in rewritten
+
+
 def test_build_search_index_skips_gracefully_without_pagefind(monkeypatch, tmp_path) -> None:
     import scripts.build_static as build_static
 
