@@ -216,7 +216,10 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
         "source-global-fresh-series-podcast", "source-fresh-cred-podcast", "source-lubera-edibles-podcast",
         "source-blueberries-tv-youtube",
     }
-    # 75 adapter-configured Sources = 73 plus two selective Company feeds
+    # The combined release includes four additional Wave 1 competitor
+    # sources. They remain separate from PR #255's duplicate-source
+    # retirement, so the integrated registry has 205 configured and 77
+    # collection-eligible sources.
     # added by Direct Source Upgrade + Coverage Gap Closure V1.
     # Source Reliability Remediation V1 explicitly pauses one of those
     # (Growing Produce - Berries) as OPERATOR_ACTION_REQUIRED, leaving 74
@@ -273,7 +276,7 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
     # TD-108 as a duplicate of source-freshplaza-global against the same
     # https://www.freshplaza.com/rss.xml feed. The retired record stays in
     # the registry, so sources_configured remains 201.
-    assert report.sources_configured == 201 and report.sources_discoverable == 75
+    assert report.sources_configured == 205 and report.sources_discoverable == 77
     assert expected <= {source.source_id for source in report.sources}
 
 

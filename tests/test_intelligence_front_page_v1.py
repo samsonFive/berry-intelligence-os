@@ -548,10 +548,12 @@ def test_front_page_route_smoke(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setattr(main, "pending_publication_drafts", lambda: [_draft("ev-smoke-draft", captured=today, title="Blueberry crop condition")])
     monkeypatch.setattr(main, "all_entities", lambda: [])
     monkeypatch.setattr(main, "all_relationships", lambda: [])
-    page = TestClient(main.app).get("/today?date=archive")
+    # The Wave 3 Product Visual System made /today the daily briefing and
+    # retained the edition filters at /news. Exercise the integrated route.
+    page = TestClient(main.app).get("/news?date=archive")
     assert page.status_code == 200
     assert "Draft ev-smoke-draft" not in page.text
-    undated = TestClient(main.app).get("/today?date=undated")
+    undated = TestClient(main.app).get("/news?date=undated")
     assert "FRESH / UNREVIEWED" in undated.text
     assert "Date not established" in undated.text
     assert "REVIEWED EVIDENCE" in page.text

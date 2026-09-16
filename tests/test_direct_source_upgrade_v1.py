@@ -79,15 +79,18 @@ def test_coverage_mix_and_source_counts_are_selective_not_broad_expansion() -> N
     # (duplicate FreshPlaza RSS of source-freshplaza-global). The record
     # remains enabled with a discovery block, so discoverable stays 77;
     # is_collection_eligible() excludes RETIRED, so eligible is 75.
-    assert len(sources) == 201
-    assert len(discoverable) == 77
-    assert len(eligible) == 75  # Growing Produce remains scheduled-but-paused; TD-108 retired the duplicate FreshPlaza Source.
-    assert len(direct_rss) == 33
-    assert len(linked_direct) == 18
-    assert sum("berry-blueberry" in source.get("berry_ids", []) for source in discoverable) == 65
-    assert sum("berry-strawberry" in source.get("berry_ids", []) for source in discoverable) == 46
-    assert sum("berry-raspberry" in source.get("berry_ids", []) for source in discoverable) == 45
-    assert sum("berry-blackberry" in source.get("berry_ids", []) for source in discoverable) == 44
+    # The combined release also contains four frozen competitor-activation
+    # sources from Wave 1. Preserve those sources while checking that PR #255
+    # still retires only the duplicate FreshPlaza source.
+    assert len(sources) == 205
+    assert len(discoverable) == 81
+    assert len(eligible) == 77  # Growing Produce remains paused; TD-108 retires the duplicate FreshPlaza Source.
+    assert len(direct_rss) == 36
+    assert len(linked_direct) == 23
+    assert sum("berry-blueberry" in source.get("berry_ids", []) for source in discoverable) == 68
+    assert sum("berry-strawberry" in source.get("berry_ids", []) for source in discoverable) == 48
+    assert sum("berry-raspberry" in source.get("berry_ids", []) for source in discoverable) == 47
+    assert sum("berry-blackberry" in source.get("berry_ids", []) for source in discoverable) == 46
 
 
 def test_weekly_cadence_and_never_run_freshness_remain_existing_semantics() -> None:
