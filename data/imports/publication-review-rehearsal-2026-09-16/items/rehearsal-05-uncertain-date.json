@@ -1,0 +1,95 @@
+{
+  "rehearsal_slot": 5,
+  "decision_type": "uncertain_publication_date",
+  "rehearsal_metadata": {
+    "synthetic": true,
+    "no_scraped_body_or_transcript": true,
+    "no_raw_html_cookies_credentials_or_headers": true,
+    "grounded_in": "Modeled on article_refresh.py's own documented, confirmed-real case: calgiant.com's Yoast sitemap stamped lastmod at bulk-republish time during a 2026-07 site migration, so a 2021 article reported a 2026-07 date -- see article_refresh._reconcile_published_date's docstring and tests/test_article_refresh.py::test_stale_feed_date_is_overridden_by_the_articles_own_published_date.",
+    "real_run_reference": null
+  },
+  "record": {
+    "id": "rehearsal-05-uncertain-date",
+    "record_type": "evidence",
+    "status": "draft",
+    "review_state": "in_review",
+    "source_type": "discovered_media",
+    "title": "[REHEARSAL FIXTURE] California Giant Blog Post Republished With New Sitemap Timestamp",
+    "captured_date": "2026-09-16",
+    "summary": "A blog post whose sitemap lastmod timestamp reflects a recent site migration, not the article's real, much earlier original publication date.",
+    "submitted_by": "media-orchestration",
+    "priority": {
+      "reading": {
+        "level": "none",
+        "rationale": ""
+      },
+      "testing": {
+        "level": "none",
+        "rationale": ""
+      },
+      "commercial_position": {
+        "level": "none",
+        "rationale": ""
+      },
+      "monitoring": {
+        "level": "none",
+        "rationale": ""
+      }
+    },
+    "berry_ids": [],
+    "geography_ids": [],
+    "entity_ids": [],
+    "fact_ids": [],
+    "relationship_ids": [],
+    "strategic_question_ids": [],
+    "tags": [],
+    "attachments": [],
+    "auto_captured": false,
+    "source_id": "source-rehearsal-fixture-v1",
+    "source_name": "[REHEARSAL FIXTURE] Grower Blog",
+    "source_url": "https://example.invalid/rehearsal/republished-post-stale-lastmod",
+    "published_date": "2026-07-15",
+    "published_date_basis": "discovery_feed",
+    "media_format": "web_article",
+    "discovery_provenance": {
+      "dedupe_key": "example.invalid/rehearsal/republished-post-stale-lastmod",
+      "external_id": null,
+      "first_seen_at": "2026-09-16T00:00:00+00:00",
+      "last_seen_at": "2026-09-16T00:00:00+00:00",
+      "discovery_published_date": "2026-07-15"
+    },
+    "article": {
+      "word_count": 340,
+      "paragraphs": [
+        {
+          "index": 0,
+          "text": "[rehearsal fixture body omitted]"
+        }
+      ],
+      "content_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "fetched_at": "2026-09-16T00:00:00+00:00",
+      "extractor": "trafilatura",
+      "extractor_version": "rehearsal-fixture",
+      "published_date": "2021-09-02",
+      "acquisition": {
+        "method": "readable_text_extraction",
+        "version": "article-acquisition-v1"
+      }
+    }
+  },
+  "analysis": {
+    "source": "source-rehearsal-fixture-v1 (synthetic; modeled on the real, documented calgiant.com stale-lastmod case)",
+    "discovery_acquisition_path": "sitemap_xml discovery (lastmod=2026-07-15) -> article body fetched -> body's own article:published_time metadata (2021-09-02) reconciled over the feed date, per the real, preserved _reconcile_published_date logic",
+    "content_state": "readable_article_body, but with a date conflict between discovery feed and article body",
+    "provenance_completeness": "medium -- both dates are present and both are recorded (discovery_provenance.discovery_published_date preserves the discarded feed value, per real, existing behavior)",
+    "publication_date_confidence": "low until reviewed -- a 5-year gap between feed lastmod and body date is exactly the shape of a republish-timestamp artifact, but only a human can confirm the article itself is really from 2021 and not a genuine 2026 republish with old content reused",
+    "body_transcript_availability": "full readable body available",
+    "entity_association": "none in this fixture",
+    "duplicate_risk": "elevated -- an old article resurfacing with a fresh-looking timestamp is a known way a stale item can slip past a naive 'is this new' check and appear as a duplicate of, or contradiction with, an already-covered older event",
+    "warnings": [
+      "published_date_basis=discovery_feed default was already overridden here (article_body wins) -- but the underlying date GAP itself still needs human judgment about whether the story is current."
+    ],
+    "recommended_operator_action": "Defer/flag for date verification -- confirm whether this is a genuine republish (still newsworthy) or an artifact of a sitemap/CMS migration before treating it as current intelligence.",
+    "why_not_automatic": "Reconciling which date field to store is mechanical (already automated); judging whether an old story is being presented as new competitive intelligence is an editorial judgment call this pipeline correctly leaves to a person."
+  }
+}

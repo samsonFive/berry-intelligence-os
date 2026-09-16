@@ -1,0 +1,79 @@
+{
+  "id": "publication-review-rehearsal-pack-v1",
+  "generated_date": "2026-09-16",
+  "noncanonical": true,
+  "review_required": true,
+  "note": "NONCANONICAL. A bounded, 10-item rehearsal pack for the publication-review operator workflow. Not Evidence, not Sources, not published or trusted data of any kind -- never loaded by scripts/validate_records.py, app.repositories.json.evidence.EvidenceRepository, or any other repository/loader in this codebase (all of which read only from data/evidence, data/entities, etc., never data/imports). Five items are real discovery/acquisition outcomes reproduced from this mission's own bounded inventory run (metadata and AI-enrichment summaries only -- zero scraped article/transcript bodies); five are deterministic synthetic fixtures modeled on real, cited pipeline mechanisms this mission's own capped sample did not happen to produce a live example of. No item may be promoted, published, or approved by any process referencing this pack.",
+  "items": [
+    {
+      "slot": 1,
+      "decision_type": "clearly_readable_article",
+      "id": "rehearsal-01-readable-article",
+      "synthetic": true,
+      "title": "[REHEARSAL FIXTURE] Regional Blueberry Cooperative Reports Record Spring Yield"
+    },
+    {
+      "slot": 2,
+      "decision_type": "transcript_backed_item",
+      "id": "rehearsal-02-transcript-backed",
+      "synthetic": true,
+      "title": "[REHEARSAL FIXTURE] Podcast Episode: Blueberry Genetics Trends in Southern Africa"
+    },
+    {
+      "slot": 3,
+      "decision_type": "metadata_only_item",
+      "id": "rehearsal-03-metadata-only",
+      "synthetic": false,
+      "title": "Inside Walmart’s Berry Strategy With Melissa Byland"
+    },
+    {
+      "slot": 4,
+      "decision_type": "navigation_only_shell",
+      "id": "rehearsal-04-navigation-only-shell",
+      "synthetic": false,
+      "title": "How Oishii Uses Bees, Robots And Solar To Sustainably Grow Strawberries Indoors"
+    },
+    {
+      "slot": 5,
+      "decision_type": "uncertain_publication_date",
+      "id": "rehearsal-05-uncertain-date",
+      "synthetic": true,
+      "title": "[REHEARSAL FIXTURE] California Giant Blog Post Republished With New Sitemap Timestamp"
+    },
+    {
+      "slot": 6,
+      "decision_type": "missing_or_weak_entity_match",
+      "id": "rehearsal-06-weak-entity-match",
+      "synthetic": false,
+      "title": "Ports and Fresh Produce Logistics | Ep. 157"
+    },
+    {
+      "slot": 7,
+      "decision_type": "duplicate_probable_duplicate",
+      "id": "rehearsal-07-duplicate-candidate",
+      "synthetic": false,
+      "title": "Scaling the Blueberry Industry – Opportunities for Africa and Beyond | Ep. 102"
+    },
+    {
+      "slot": 8,
+      "decision_type": "corrected_or_upgraded_acquisition",
+      "id": "rehearsal-08-corrected-acquisition",
+      "synthetic": true,
+      "title": "[REHEARSAL FIXTURE] Existing Draft's Article Body Re-Checked and Found Changed"
+    },
+    {
+      "slot": 9,
+      "decision_type": "rejection_candidate",
+      "id": "rehearsal-09-rejection-candidate",
+      "synthetic": false,
+      "title": "High-end strawberry grower Oishii opens solar-powered indoor vertical farm utilizing robots"
+    },
+    {
+      "slot": 10,
+      "decision_type": "defer_or_correction_required",
+      "id": "rehearsal-10-defer-correction-required",
+      "synthetic": false,
+      "title": "Can Farmers Use Fewer Chemicals Without Risking Their Crops? | Ep. 156"
+    }
+  ]
+}

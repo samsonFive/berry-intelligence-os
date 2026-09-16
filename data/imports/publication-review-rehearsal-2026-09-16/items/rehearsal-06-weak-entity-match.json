@@ -1,0 +1,126 @@
+{
+  "rehearsal_slot": 6,
+  "decision_type": "missing_or_weak_entity_match",
+  "rehearsal_metadata": {
+    "synthetic": false,
+    "no_scraped_body_or_transcript": true,
+    "no_raw_html_cookies_credentials_or_headers": true,
+    "grounded_in": null,
+    "real_run_reference": "Real item discovered 2026-09-16 from source-lucentlands-podcast during this mission's own bounded inventory run. entity_ids and berry_ids are both genuinely empty on the real record -- no berry-specific or company-specific term matched the deterministic relevance screener despite a real 'process' decision (score 11-14, adjacent-ag-signal topic)."
+  },
+  "record": {
+    "id": "rehearsal-06-weak-entity-match",
+    "record_type": "evidence",
+    "status": "draft",
+    "review_state": "in_review",
+    "intake_type": "discovered_media_publication",
+    "source_type": "discovered_media",
+    "title": "Ports and Fresh Produce Logistics | Ep. 157",
+    "source_name": "Lucentlands Podcast",
+    "source_url": "https://podcasters.spotify.com/pod/show/lucentlands/episodes/Ports-and-Fresh-Produce-Logistics--Ep--157-e3ob92e",
+    "published_date": "2026-09-14",
+    "captured_date": "2026-09-16",
+    "summary": "GoReefers CEO Delena Engelbrecht discusses South Africa's fresh-produce logistics sector and the operational challenges exporters face in reaching international markets. The episode covers supply chain disruptions, port performance issues, and the human-dependent nature of fresh-produce logistics—all factors affecting South Africa's competitive position in global food markets.",
+    "why_it_matters": "Supply chain and port efficiency directly impact berry exporters' ability to deliver products to international markets competitively. South Africa's logistics infrastructure improvements could affect regional berry trade positioning and market access.",
+    "submitted_by": "media-orchestration",
+    "berry_ids": [],
+    "geography_ids": [
+      "geography-africa",
+      "geography-south-africa"
+    ],
+    "entity_ids": [],
+    "fact_ids": [],
+    "relationship_ids": [],
+    "strategic_question_ids": [],
+    "tags": [],
+    "attachments": [],
+    "auto_captured": false,
+    "priority": {
+      "reading": {
+        "level": "none",
+        "rationale": ""
+      },
+      "testing": {
+        "level": "none",
+        "rationale": ""
+      },
+      "commercial_position": {
+        "level": "none",
+        "rationale": ""
+      },
+      "monitoring": {
+        "level": "none",
+        "rationale": ""
+      }
+    },
+    "source_id": "source-lucentlands-podcast",
+    "media_format": "podcast",
+    "evidence_role": "publication_artifact",
+    "discovered_item_id": "discovered-source-lucentlands-podcast-100dcef376fc2bd7",
+    "discovery_provenance": {
+      "dedupe_key": "1159fa62-cdf6-4ba5-9572-35bcea1687bb",
+      "external_id": "1159fa62-cdf6-4ba5-9572-35bcea1687bb",
+      "first_seen_at": "2026-09-16T05:36:13+00:00",
+      "last_seen_at": "2026-09-16T05:36:13+00:00"
+    },
+    "publisher_description": "South Africa produces world-class fresh fruit, but getting that fruit to international markets requires a complex logistics network operating under immense pressure.In Episode 157 of the Lucentlands Podcast, hosts Dewald Kirsten and Louise Brodie speak with Delena Engelbrecht, CEO at GoReefers, about the evolution of South Africa’s fresh-produce logistics sector and the challenges facing exporters today.Delena shares how GoReefers began with three people in 2001, shortly after deregulation transformed the fruit industry. The company has since developed into an international logistics business handling more than 700,000 pallets annually.The conversation explores:•The logistical disruption that followed deregulation•How GoReefers grew by finding solutions during periods of change•Why fresh-produce logistics still depends heavily on people•The effect of port delays on growers, exporters and international customers•Why South Africa must improve the performance of its ports•The importance of protecting fruit throughout the supply chain•Leadership, workplace culture and empowering employees•Preparing employees for artificial intelligence and new technology•Opportunities for South Africa to become a larger contributor to the global food supplyDelena explains that GoReefers approaches difficult decisions by asking one central question: What is best for the fruit?Her message to exporters is equally clear: “You pick, you pack and you sell — we will do the rest.”Connect with us:Website: https://lucentlands.co.za/Instagram: https://www.instagram.com/lucentlandsmedia/Facebook: https://www.facebook.com/lucentlandsmediaLinkedIn: https://www.linkedin.com/company/lucentlandsmedia/Podcast LinkedIn: https://www.linkedin.com/showcase/lucentlandspodcastSupport this podcast by buying us a coffee: https://buymeacoffee.com/lucentlands?new=1This podcast is proudly sponsored by Agrarius. Find out more: ⁠https://www.agrarius.co.za/?ref=recR9vP8u5CYfEOek&utm_source=lucentlands&utm_medium=referral&utm_campaign=LucentLandsPromo⁠Visit our agricultural stock site: https://lucentlands.smugmug.com/",
+    "auto_tagged": true,
+    "tagging_provenance": {
+      "method": "deterministic-known-match",
+      "trust_state": "untrusted_suggestion"
+    },
+    "ai_enrichment": {
+      "concise_summary": "GoReefers CEO Delena Engelbrecht discusses South Africa's fresh-produce logistics sector and the operational challenges exporters face in reaching international markets. The episode covers supply chain disruptions, port performance issues, and the human-dependent nature of fresh-produce logistics—all factors affecting South Africa's competitive position in global food markets.",
+      "why_it_matters": "Supply chain and port efficiency directly impact berry exporters' ability to deliver products to international markets competitively. South Africa's logistics infrastructure improvements could affect regional berry trade positioning and market access.",
+      "suggested_berry_ids": [],
+      "suggested_geography_ids": [
+        "geography-africa",
+        "geography-south-africa"
+      ],
+      "suggested_entity_ids": [],
+      "suggested_tags": [
+        "logistics",
+        "supply-chain",
+        "ports",
+        "fresh-produce",
+        "international-trade",
+        "export-challenges",
+        "deregulation"
+      ],
+      "topical_relevance": "Moderately relevant. Addresses logistics and export infrastructure for South Africa's fresh produce sector, which includes berries as a category, but does not focus specifically on berry crop production or competition.",
+      "confidence": 0.65,
+      "caveats": "The podcast discusses South Africa's fresh produce logistics broadly, not specifically berry crops. While South Africa does produce berries, the episode focuses on GoReefers' general fresh-produce supply chain operations without explicit mention of blueberry, strawberry, raspberry, or blackberry. No specific berry companies, varieties, or production details are mentioned in the available description. Entity_ids left empty due to lack of company identification in source material.",
+      "model_provenance": {
+        "status": "ok",
+        "provider": "perplexity-agent",
+        "model": "anthropic/claude-haiku-4-5",
+        "reason": "non-trusted publication enrichment",
+        "trust_state": "untrusted_suggestion",
+        "generated_at": "2026-09-16T05:37:19Z"
+      }
+    },
+    "source_completeness": {
+      "version": "source-completeness-v1",
+      "class": "THIN_DESCRIPTION",
+      "failure_category": null,
+      "retryable": false,
+      "content_sha256": null,
+      "operator_accepted_thin": false
+    }
+  },
+  "analysis": {
+    "source": "source-lucentlands-podcast (real, currently-configured, collection-eligible)",
+    "discovery_acquisition_path": "podcast_rss discovery -> deterministic-relevance-v1 screener scored 'process' on general agricultural/logistics signal -> AI enrichment applied -> no entity_ids or berry_ids populated",
+    "content_state": "description_only / metadata-only with an AI-generated summary; adjacent, not direct, topical relevance",
+    "provenance_completeness": "medium -- source/date/summary present, but no entity linkage at all",
+    "publication_date_confidence": "medium -- feed-declared date only",
+    "body_transcript_availability": "none (metadata-only draft; no transcript)",
+    "entity_association": "none -- entity_ids=[] and berry_ids=[] on the real record; the deterministic screener correctly identified general logistics/export signal without a berry-specific or company-specific match",
+    "duplicate_risk": "low observed, but not verifiable without a real entity anchor to compare against",
+    "warnings": [
+      "No berry or company entity is linked -- this item cannot support any entity-scoped intelligence (Company Profile, Variety Profile, Watchlist) until an analyst adds one, if warranted."
+    ],
+    "recommended_operator_action": "Defer/correction-required: an analyst should decide whether this is genuinely berry-adjacent competitive intelligence worth a manual entity tag, or whether it belongs outside this corpus entirely.",
+    "why_not_automatic": "Entity linkage determines what a record can ever be used for downstream (Company/Variety/Geography pages, Watchlists); guessing an entity to force a match would risk misattributing general agricultural content as company- or variety-specific intelligence."
+  }
+}

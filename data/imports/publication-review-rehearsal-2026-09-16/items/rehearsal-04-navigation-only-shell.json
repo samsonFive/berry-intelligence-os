@@ -1,0 +1,117 @@
+{
+  "rehearsal_slot": 4,
+  "decision_type": "navigation_only_shell",
+  "rehearsal_metadata": {
+    "synthetic": false,
+    "no_scraped_body_or_transcript": true,
+    "no_raw_html_cookies_credentials_or_headers": true,
+    "grounded_in": null,
+    "real_run_reference": "Real item discovered 2026-09-16 from source-20260915-oishii-press during this mission's own bounded inventory run. Confirmed structurally bodyless: Oishii's own Press page template renders a hero image, title, publish date, and share icons only, on every sampled item (8/8 across this and the prior readable-acquisition-canary-v1 mission) -- see artifacts/readable-acquisition-canary-v1/ROOT-CAUSE-ANALYSIS.md."
+  },
+  "record": {
+    "id": "rehearsal-04-navigation-only-shell",
+    "record_type": "evidence",
+    "status": "draft",
+    "review_state": "in_review",
+    "intake_type": "discovered_media_publication",
+    "source_type": "discovered_media",
+    "title": "How Oishii Uses Bees, Robots And Solar To Sustainably Grow Strawberries Indoors",
+    "source_name": "Oishii Press Feed",
+    "source_url": "https://oishii.com/blogs/press/how-oishii-uses-bees-robots-and-solar-to-sustainably-grow-strawberries-indoors",
+    "published_date": "2024-06-21",
+    "captured_date": "2026-09-16",
+    "summary": "Discovered web_article item from Oishii Press Feed.",
+    "why_it_matters": "",
+    "submitted_by": "media-orchestration",
+    "berry_ids": [
+      "berry-strawberry"
+    ],
+    "geography_ids": [],
+    "entity_ids": [
+      "company-oishii"
+    ],
+    "fact_ids": [],
+    "relationship_ids": [],
+    "strategic_question_ids": [],
+    "tags": [],
+    "attachments": [],
+    "auto_captured": false,
+    "priority": {
+      "reading": {
+        "level": "none",
+        "rationale": ""
+      },
+      "testing": {
+        "level": "none",
+        "rationale": ""
+      },
+      "commercial_position": {
+        "level": "none",
+        "rationale": ""
+      },
+      "monitoring": {
+        "level": "none",
+        "rationale": ""
+      }
+    },
+    "source_id": "source-20260915-oishii-press",
+    "media_format": "web_article",
+    "evidence_role": "publication_artifact",
+    "discovered_item_id": "discovered-source-20260915-oishii-press-75ba28760439c408",
+    "discovery_provenance": {
+      "dedupe_key": "https://oishii.com/blogs/press/how-oishii-uses-bees-robots-and-solar-to-sustainably-grow-strawberries-indoors",
+      "external_id": "https://oishii.com/blogs/press/how-oishii-uses-bees-robots-and-solar-to-sustainably-grow-strawberries-indoors",
+      "first_seen_at": "2026-09-16T05:35:40+00:00",
+      "last_seen_at": "2026-09-16T05:35:40+00:00",
+      "acquisition_failure_category": "EMPTY_BODY"
+    },
+    "publisher_description": "",
+    "auto_tagged": true,
+    "tagging_provenance": {
+      "method": "deterministic-known-match",
+      "trust_state": "untrusted_suggestion"
+    },
+    "ai_enrichment": {
+      "concise_summary": "",
+      "why_it_matters": "",
+      "suggested_berry_ids": [],
+      "suggested_geography_ids": [],
+      "suggested_entity_ids": [],
+      "suggested_tags": [],
+      "topical_relevance": "",
+      "confidence": 0.0,
+      "caveats": "ai enrichment skipped: no completer or empty publisher text",
+      "model_provenance": {
+        "status": "skipped",
+        "reason": "ai enrichment skipped: no completer or empty publisher text",
+        "model": null,
+        "trust_state": "untrusted_suggestion",
+        "generated_at": "2026-09-16T05:37:02Z"
+      }
+    },
+    "source_completeness": {
+      "version": "source-completeness-v1",
+      "class": "THIN_DESCRIPTION",
+      "failure_category": "EMPTY_BODY",
+      "retryable": false,
+      "content_sha256": null,
+      "operator_accepted_thin": false
+    },
+    "relevance_tier": "direct"
+  },
+  "analysis": {
+    "source": "source-20260915-oishii-press (real, currently-configured Wave 1 Source)",
+    "discovery_acquisition_path": "article_rss discovery -> article_acquisition.fetch_article() -> body under MIN_BODY_CHARS -> empty_body/navigation_only_shell outcome -> access-limited metadata-only draft fallback (Stage A had already confirmed TIER_DIRECT relevance)",
+    "content_state": "navigation_only_shell (empty_body; template summary only, 'Discovered web_article item from Oishii Press Feed')",
+    "provenance_completeness": "low -- real source_url and published_date present, but no body, no publisher_description, no AI enrichment (enrichment was not applied to this un-readable item)",
+    "publication_date_confidence": "medium -- feed/sitemap-declared date only, unconfirmed by article body (none was extractable)",
+    "body_transcript_availability": "none -- confirmed permanently absent on this publisher's own page template, not a transient failure",
+    "entity_association": "company-oishii, berry-strawberry (correct, from the source's own configured linked_competitor_ids/berry_ids, not content-derived)",
+    "duplicate_risk": "not assessed -- insufficient content to compare against existing Evidence",
+    "warnings": [
+      "This publisher's Press page template has never produced a readable body across 8+ independently sampled items -- do not expect a retry to succeed."
+    ],
+    "recommended_operator_action": "Reject as non-substantive, or Defer with a note that this publisher's Press feed structurally cannot supply full-text coverage; consider it for a separate structured/headline-only Source class rather than continued retry.",
+    "why_not_automatic": "Recognizing a shell page is a content-quality judgment; only a human can decide whether the bare metadata (headline + date) is still worth a low-detail trusted mention or should be dropped entirely."
+  }
+}
