@@ -35,7 +35,7 @@ python3 -m http.server 8765
 | Transcript | `pub-transcript` |
 | Metadata-only | `pub-metadata-only` |
 | Navigation-only shell | `pub-nav-shell` |
-| Probable duplicate | `pub-probable-dup` |
+| Probable duplicate | `pub-probable-duplicate` |
 | Uncertain date | `pub-uncertain-date` |
 | Missing entity match | `pub-missing-entity` |
 | Upgraded acquisition | `pub-upgraded` |

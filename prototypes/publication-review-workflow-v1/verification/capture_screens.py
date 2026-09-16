@@ -63,7 +63,7 @@ def main() -> int:
         shot(page, out / "03_desktop_metadata_only.png")
 
         # Probable duplicate (warn, not block)
-        select_draft(page, "pub-probable-dup")
+        select_draft(page, "pub-probable-duplicate")
         shot(page, out / "04_desktop_probable_duplicate.png")
 
         # Validation failure — approve disabled
@@ -125,7 +125,7 @@ def main() -> int:
 
         # Mobile
         page.set_viewport_size({"width": 390, "height": 844})
-        select_draft(page, "pub-probable-dup")
+        select_draft(page, "pub-probable-duplicate")
         shot(page, out / "12_mobile_queue_workspace.png")
         page.locator('[data-decision="request_correction"]').click()
         page.wait_for_selector("#decision-dialog.open")
