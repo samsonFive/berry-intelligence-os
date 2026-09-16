@@ -1,11 +1,19 @@
 {% extends "base.html" %}
 {% set health_groups = health_groups if health_groups is defined else [] %}
 {% block title %}Source Health — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/pvs_tokens.css">
+<link rel="stylesheet" href="/static/ops_pvs.css">
+{% endblock %}
 {% block content %}
-<div class="v2-page">
+<div class="v2-page pvs-slice-3" id="source-health" data-pvs-slice="3">
+<a class="skip-link" href="#health-buckets">Skip to health buckets</a>
 <section class="page-heading v2-page-header">
   <div>
-    <p class="eyebrow">MONITOR</p>
+    <p class="eyebrow">MONITOR · SOURCE HEALTH</p>
     <h1>Source Health</h1>
     <p class="also-known-as">Sources as operational collection health. This is not intelligence recall.</p>
   </div>
@@ -18,39 +26,39 @@
 <p class="brief-window v2-recall-note">Healthy vs quiet vs failed vs not configured for discovery are collection states. Source volume must never be presented as recall. The Coverage Matrix remains the authoritative maturity record.</p>
 
 {% if not authoring_mode and not static_build %}
-  <p class="empty-state" role="status">Source edits are disabled in this deployment. Health below is still the live registry.</p>
+  <p class="empty-state pvs-system-state" role="status">Source edits are disabled in this deployment. Health below is still the live registry.</p>
 {% endif %}
 
 {% if error %}
-  <div class="banner banner-error" role="alert">{{ error }}</div>
+  <div class="banner banner-error pvs-system-state is-error" role="alert">{{ error }}</div>
 {% endif %}
 
 {% if static_build %}
-  <p class="result-count">Read-only source registry from trusted published configuration. Source checks and edits stay on the local Intelligence OS.</p>
+  <p class="result-count ops-status-strip">Read-only source registry from trusted published configuration. Source checks and edits stay on the local Intelligence OS.</p>
 {% endif %}
 
 {% if not static_build %}
 {% if source_polling_enabled %}
-  <p class="context-limit">RSS/keyword sources can be checked automatically every {{ poll_interval_minutes }} minutes. Reference sources without a discovery adapter are manual.</p>
+  <p class="context-limit ops-status-strip">RSS/keyword sources can be checked automatically every {{ poll_interval_minutes }} minutes. Reference sources without a discovery adapter are manual.</p>
 {% else %}
-  <div class="banner banner-warning" role="status">Automatic polling is off. Use Check now on a discoverable source when you need a fetch. Nothing runs in the background on a plain restart.</div>
+  <div class="banner banner-warning pvs-system-state is-warn" role="status">Automatic polling is off. Use Check now on a discoverable source when you need a fetch. Nothing runs in the background on a plain restart.</div>
 {% endif %}
 {% endif %}
 
 {% if source_coverage %}
-<p class="result-count" title="Operational health, not recall.">
-  SOURCE HEALTH — {{ source_coverage.current }} healthy · {{ source_coverage.quiet }} quiet · {{ source_coverage.failing }} failing · {{ source_coverage.blocked }} blocked · {{ source_coverage.stale }} stale · {{ source_coverage.manual }} not configured for discovery
+<p class="result-count ops-status-strip" title="Operational health, not recall.">
+  <strong>SOURCE HEALTH</strong> — {{ source_coverage.current }} healthy · {{ source_coverage.quiet }} quiet · {{ source_coverage.failing }} failing · {{ source_coverage.blocked }} blocked · {{ source_coverage.stale }} stale · {{ source_coverage.manual }} not configured for discovery
   {% if source_coverage.last_refresh_at %}· Last successful collection: {{ source_coverage.last_refresh_at }}{% endif %}
 </p>
 {% endif %}
 {% if source_execution %}
-<p class="result-count" title="Discovery execution only; a successful run does not prove article bodies were readable or that recall is complete.">
-  DISCOVERY EXECUTION — {{ source_execution.configured_runnable }} configured and runnable · {{ source_execution.successfully_run }} successfully run · {{ source_execution.never_run }} never run · {{ source_execution.retryable_failure }} retryable failure · {{ source_execution.blocked }} blocked · {{ source_execution.invalid_incomplete }} invalid / incomplete
+<p class="result-count ops-status-strip" title="Discovery execution only; a successful run does not prove article bodies were readable or that recall is complete.">
+  <strong>DISCOVERY EXECUTION</strong> — {{ source_execution.configured_runnable }} configured and runnable · {{ source_execution.successfully_run }} successfully run · {{ source_execution.never_run }} never run · {{ source_execution.retryable_failure }} retryable failure · {{ source_execution.blocked }} blocked · {{ source_execution.invalid_incomplete }} invalid / incomplete
 </p>
 {% endif %}
 {% if source_acquisition %}
-<p class="result-count" title="Article-body acquisition is separate from discovery execution and current company coverage.">
-  ARTICLE-BODY ACQUISITION — {{ source_acquisition.sources_with_attempts }} sources attempted · {{ source_acquisition.attempts }} attempts · {{ source_acquisition.readable }} readable · {{ source_acquisition.blocked_or_unusable }} blocked or unusable · {{ source_acquisition.retryable }} retryable
+<p class="result-count ops-status-strip" title="Article-body acquisition is separate from discovery execution and current company coverage.">
+  <strong>ARTICLE-BODY ACQUISITION</strong> — {{ source_acquisition.sources_with_attempts }} sources attempted · {{ source_acquisition.attempts }} attempts · {{ source_acquisition.readable }} readable · {{ source_acquisition.blocked_or_unusable }} blocked or unusable · {{ source_acquisition.retryable }} retryable
 </p>
 {% endif %}
 
@@ -101,10 +109,10 @@
 </form>
 {% endif %}
 
-<ul class="brief-delta-strip" aria-label="Source health buckets">
+<ul class="brief-delta-strip ops-band-nav" id="health-buckets" aria-label="Source health buckets">
   {% for group in health_groups %}
     <li>
-      <a href="#health-{{ group.key }}">
+      <a href="#health-{{ group.key }}" data-band="{{ group.key }}">
         <span>{{ group.label }}</span>
         <strong>{{ group.count }}</strong>
       </a>
@@ -113,23 +121,23 @@
 </ul>
 
 {% if total_count == 0 %}
-  <p class="empty-state">No sources yet. Add an RSS/Atom feed, a keyword to search for, or a reference source to track.</p>
+  <p class="empty-state pvs-system-state" role="status">No sources yet. Add an RSS/Atom feed, a keyword to search for, or a reference source to track.</p>
 {% endif %}
 
 {% for group in health_groups %}
-  <section class="brief-section v2-monitor-section" id="health-{{ group.key }}">
+  <section class="brief-section v2-monitor-section ops-section-band" id="health-{{ group.key }}" data-band="{{ group.key }}">
     <h2>{{ group.label }} ({{ group.count }})</h2>
     <p class="context-limit">{{ group.blurb }}</p>
     {% if group.rows %}
       <ul class="v2-health-list">
         {% for source in group.rows %}
-          <li class="v2-card v2-health-row" id="source-{{ source.id }}">
+          <li class="v2-card v2-health-row" id="source-{{ source.id }}" data-health="{{ group.key }}">
             <p class="v2-card-kicker">
-              <span class="v2-mark v2-mark-source v2-mark-health-{{ group.key }}">{{ source.health_label }}</span>
+              <span class="v2-mark v2-mark-source v2-mark-health-{{ group.key }} pvs-badge{% if group.key in ['failing', 'blocked'] %} pvs-badge-danger{% elif group.key in ['stale', 'due'] %} pvs-badge-warn{% elif group.key in ['current', 'quiet'] %} pvs-badge-ok{% else %} pvs-badge-muted{% endif %}">{{ source.health_label }}</span>
               {% if source.monitoring_priority %}<span class="v2-meta">{{ source.monitoring_priority }} priority</span>{% endif %}
               {% if source.adapter %}<span class="v2-meta">{{ source.adapter }}</span>{% endif %}
-              {% if source.execution %}<span class="v2-mark v2-mark-source">Discovery: {{ source.execution.label }}</span>{% endif %}
-              {% if source.acquisition %}<span class="v2-mark v2-mark-source">Article body: {{ source.acquisition.label }}</span>{% endif %}
+              {% if source.execution %}<span class="v2-mark v2-mark-source pvs-badge pvs-badge-info">Discovery: {{ source.execution.label }}</span>{% endif %}
+              {% if source.acquisition %}<span class="v2-mark v2-mark-source pvs-badge pvs-badge-info">Article body: {{ source.acquisition.label }}</span>{% endif %}
               {% if not source.enabled %}<span class="v2-meta">paused</span>{% endif %}
             </p>
             <h3 class="v2-card-title">{{ source.label }}</h3>
@@ -152,7 +160,7 @@
               {% if source.freshness.next_check_due %} · next due {{ source.freshness.next_check_due|us_date }}{% endif %}
             </p>
             {% if source.retry.retry_count %}
-              <p class="v2-card-line"><span class="v2-mark v2-mark-warning">Retry / backoff</span> attempt {{ source.retry.retry_count }}{% if source.retry.next_eligible_retry_at %} · next eligible {{ source.retry.next_eligible_retry_at[:16] }}{% endif %}</p>
+              <p class="v2-card-line"><span class="v2-mark v2-mark-warning pvs-badge pvs-badge-danger">Retry / backoff</span> attempt {{ source.retry.retry_count }}{% if source.retry.next_eligible_retry_at %} · next eligible {{ source.retry.next_eligible_retry_at[:16] }}{% endif %}</p>
             {% endif %}
             {% if source.freshness.reason %}
               <p class="v2-card-summary">{{ source.freshness.reason }}</p>
@@ -177,7 +185,7 @@
         {% endfor %}
       </ul>
     {% else %}
-      <p class="empty-state">No sources in this state.</p>
+      <p class="empty-state" role="status">No sources in this state.</p>
     {% endif %}
   </section>
 {% endfor %}
