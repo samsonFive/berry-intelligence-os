@@ -1,23 +1,55 @@
 {% extends "base_stakeholder.html" %}
 {% block title %}{{ entity.name }}{% endblock %}
+{% block head_extra %}
+{% if entity.entity_type in ['company', 'brand', 'breeding_program'] %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/pvs_tokens.css">
+<link rel="stylesheet" href="/static/competitor_pvs.css">
+{% endif %}
+{% endblock %}
 {% block content %}
+{% macro lettermark(name) -%}
+{%- set parts = (name or '?').split() -%}
+{%- if parts|length >= 2 -%}{{ parts[0][0] }}{{ parts[1][0] }}
+{%- else -%}{{ (name or '?')[:2] }}
+{%- endif -%}
+{%- endmacro %}
 {% if entity.entity_type == 'company' %}
+<div class="pvs-slice-2" data-pvs-slice="2" data-entity-type="company">
 {% include "_company_profile.html" %}
+</div>
 {% elif entity.entity_type == 'variety' %}
 {% include "_variety_profile.html" %}
+{% elif entity.entity_type in ['brand', 'breeding_program'] %}
+<div class="pvs-slice-2" data-pvs-slice="2" data-entity-type="{{ entity.entity_type }}">
+  <a class="skip-link" href="{% if competitor_profile is defined and competitor_profile %}#profile-concerns{% else %}#main{% endif %}">Skip to profile concerns</a>
+  <section class="page-heading sh-header" data-pagefind-filter="type:entity">
+    <div class="pvs-profile-hero">
+      <span class="pvs-lettermark" data-tone="{{ entity.entity_type }}" aria-hidden="true">{{ lettermark(entity.name) }}</span>
+      <div>
+        <p class="eyebrow">{{ entity.entity_type|replace('_',' ')|upper }}</p>
+        <h1>{{ entity.name }}</h1>
+        {% if entity.aliases %}
+          <p class="also-known-as" data-pagefind-weight="10">Also known as: {{ entity.aliases|join(', ') }}</p>
+        {% endif %}
+        <p class="sh-meta">
+          {% if entity.status %}<span class="pvs-badge pvs-badge-info" aria-label="Status {{ entity.status }}">{{ entity.status|replace('_',' ') }}</span>{% endif %}
+          {% if entity.roles %}<span>{% for role in entity.roles %}{{ role|replace('_',' ') }}{% if not loop.last %} · {% endif %}{% endfor %}</span>{% endif %}
+        </p>
+      </div>
+    </div>
+  </section>
+  {% include "_competitor_profile_concerns.html" %}
+  {% include "_entity_body.html" %}
+</div>
 {% else %}
 <section class="page-heading" data-pagefind-filter="type:entity">
   <div>
     <p class="eyebrow">{{ entity.entity_type|replace('_',' ')|upper }}</p>
     <h1>{{ entity.name }}</h1>
     {% if entity.aliases %}
-      {# Indexed and weighted deliberately -- this is the single strongest
-         relevance signal a search page can offer for short-name/acronym
-         queries like "MBO", stronger than an incidental mention buried in
-         an article body. Previously inside the ignored metadata <dl> below,
-         which meant aliases weren't searchable at all: a query for an
-         entity's own alias ranked that entity's page behind news articles
-         that merely mentioned the acronym once in passing. #}
       <p class="also-known-as" data-pagefind-weight="10">Also known as: {{ entity.aliases|join(', ') }}</p>
     {% endif %}
   </div>

@@ -419,6 +419,19 @@ def build() -> list[Path]:
                     evidence_by_id=evidence_idx,
                 )
             )
+        competitor_profile = None
+        if entity.get("entity_type") in ("company", "brand", "breeding_program"):
+            from app.services.competitor_profile import build_competitor_profile
+
+            competitor_profile = build_competitor_profile(
+                entity_id,
+                data_dir=DATA_DIR,
+                entities=all_entities(),
+                sources=load_sources(),
+                relationships=relationships_all,
+                published=evidence,
+                inbox_dir=OUTPUT_DIR / ".static-empty-inbox",
+            )
         written.append(
             write_page(
                 "entity.html",
@@ -434,6 +447,7 @@ def build() -> list[Path]:
                     "regions": regions,
                     "berry_label": berry_label,
                     "authoring_mode": False,
+                    "competitor_profile": competitor_profile,
                     **synthesis,
                 },
             )

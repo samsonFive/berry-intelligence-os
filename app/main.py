@@ -3465,6 +3465,19 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                 )
             else:
                 synthesis["open_signals"] = open_signals
+            competitor_profile = None
+            if entity.get("entity_type") in ("company", "brand", "breeding_program"):
+                from app.services.competitor_profile import build_competitor_profile
+
+                competitor_profile = build_competitor_profile(
+                    entity_id,
+                    data_dir=DATA_DIR,
+                    entities=all_entities(),
+                    sources=load_sources(),
+                    relationships=all_relationships(),
+                    published=published_evidence(),
+                    inbox_dir=INBOX_DIR,
+                )
             response = templates.TemplateResponse(
                 request=request,
                 name="entity.html",
@@ -3480,6 +3493,7 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     "berry_label": berry_label,
                     "authoring_mode": AUTHORING_MODE,
                     "is_watched": is_watched(INBOX_DIR, entity_type, entity_id) if entity_type in WATCH_TYPES else False,
+                    "competitor_profile": competitor_profile,
                     **synthesis,
                 },
             )

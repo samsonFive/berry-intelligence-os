@@ -1,7 +1,24 @@
 {% extends "base.html" %}
 {% block title %}Competitor Landscape — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/pvs_tokens.css">
+<link rel="stylesheet" href="/static/competitor_pvs.css">
+{% endblock %}
 {% block content %}
-<div class="v2-page competitor-landscape" id="competitor-landscape">
+{% macro status_slug(value) -%}
+{{- value|replace(' ', '-')|replace('/', '-')|lower -}}
+{%- endmacro %}
+{% macro lettermark(name) -%}
+{%- set parts = (name or '?').split() -%}
+{%- if parts|length >= 2 -%}{{ parts[0][0] }}{{ parts[1][0] }}
+{%- else -%}{{ (name or '?')[:2] }}
+{%- endif -%}
+{%- endmacro %}
+<div class="v2-page competitor-landscape pvs-slice-2" id="competitor-landscape" data-pvs-slice="2">
+  <a class="skip-link" href="#competitor-results">Skip to competitor results</a>
   <section class="page-heading competitor-landscape-hero">
     <div>
       <p class="eyebrow">COMPETITOR LANDSCAPE · FILTERABLE UNIVERSE</p>
@@ -100,20 +117,28 @@
 
   <section class="competitor-tier-summary" aria-label="Tier status counts for selected berry">
     {% for status, count in tier_counts.items() %}
-      <div class="competitor-tier-pill competitor-tier-{{ status|replace(' ', '-')|replace('/', '-')|lower }}{% if count == 0 %} is-empty{% endif %}">
+      <div class="competitor-tier-pill competitor-tier-{{ status_slug(status) }}{% if count == 0 %} is-empty{% endif %}">
         <strong>{{ count }}</strong>
         <span>{{ status }}</span>
       </div>
     {% endfor %}
   </section>
 
+  <div id="competitor-results">
   {% if empty_message %}
-    <p class="empty-state competitor-empty" role="status">{{ empty_message }}</p>
+    <p class="empty-state competitor-empty pvs-system-state" role="status">{{ empty_message }}</p>
   {% else %}
+    <nav class="competitor-band-nav" aria-label="Jump to tier bands">
+      {% for band in bands %}
+        {% if band.count %}
+          <a href="#band-{{ loop.index }}">{{ band.label }} ({{ band.count }})</a>
+        {% endif %}
+      {% endfor %}
+    </nav>
     <div class="competitor-bands">
       {% for band in bands %}
         {% if band.count %}
-          <section class="competitor-band competitor-band-{{ band.status|replace(' ', '-')|replace('/', '-')|lower }}" aria-labelledby="band-{{ loop.index }}">
+          <section class="competitor-band competitor-band-{{ status_slug(band.status) }}" aria-labelledby="band-{{ loop.index }}" id="band-section-{{ loop.index }}">
             <header class="competitor-band-header">
               <h2 id="band-{{ loop.index }}">
                 <span class="competitor-band-marker" aria-hidden="true"></span>
@@ -124,18 +149,22 @@
             <div class="competitor-card-grid">
               {% for company in band.competitors %}
                 {% set company_href = '/competitors?' + query_string + ('&' if query_string else '') + 'company=' + company.entity_id %}
+                {% set status_key = status_slug(company.selected_berry_status) %}
                 <article class="competitor-card{% if selected_company and selected_company.entity_id == company.entity_id %} is-selected{% endif %}" id="card-{{ company.entity_id }}">
                   <div class="competitor-card-top">
-                    <h3>
-                      <a href="{{ company_href }}" class="competitor-open-detail" data-company-id="{{ company.entity_id }}">{{ company.display_name }}</a>
-                    </h3>
-                    <span class="competitor-status-badge" title="Selected berry tier/status">{{ company.selected_berry_status }}</span>
+                    <span class="pvs-lettermark" data-tone="{{ company.entity_type }}" aria-hidden="true">{{ lettermark(company.display_name) }}</span>
+                    <div>
+                      <h3>
+                        <a href="{{ company_href }}" class="competitor-open-detail" data-company-id="{{ company.entity_id }}">{{ company.display_name }}</a>
+                      </h3>
+                      <span class="competitor-status-badge" data-state="{{ status_key }}" title="Selected berry tier/status" aria-label="Berry status {{ company.selected_berry_status }}">{{ company.selected_berry_status }}</span>
+                    </div>
                   </div>
                   <p class="competitor-card-meta">
                     {% if company.competitor_types %}
                       {{ company.competitor_types|join(' · ') }}
                     {% else %}
-                      Type Unknown/Unassigned
+                      <span class="pvs-badge pvs-badge-warn" aria-label="Competitor type unknown or unassigned">Type Unknown/Unassigned</span>
                     {% endif %}
                   </p>
                   <ul class="competitor-card-facts">
@@ -144,7 +173,7 @@
                       {% if company.regions %}
                         {% for code in company.regions %}{{ region_labels.get(code, code) }}{% if not loop.last %}, {% endif %}{% endfor %}
                       {% else %}
-                        Unknown/Unassigned
+                        <span aria-label="Regions unknown or unassigned">Unknown/Unassigned</span>
                       {% endif %}
                     </li>
                     <li><span>Entity</span> {{ company.entity_type|replace('_', ' ') }} · {{ company.entity_review_state }}</li>
@@ -164,14 +193,18 @@
       {% endfor %}
     </div>
   {% endif %}
+  </div>
 </div>
 
 {% if selected_company %}
-<div class="offcanvas offcanvas-end show competitor-detail-drawer" tabindex="-1" id="competitorDetailDrawer" aria-labelledby="competitorDetailLabel" style="visibility:visible;">
+<div class="offcanvas offcanvas-end show competitor-detail-drawer pvs-slice-2" tabindex="-1" id="competitorDetailDrawer" aria-labelledby="competitorDetailLabel" style="visibility:visible;">
   <div class="offcanvas-header">
-    <div>
-      <p class="eyebrow">COMPETITOR DETAIL</p>
-      <h2 class="offcanvas-title" id="competitorDetailLabel">{{ selected_company.display_name }}</h2>
+    <div class="pvs-profile-hero">
+      <span class="pvs-lettermark" data-tone="{{ selected_company.entity_type }}" aria-hidden="true">{{ lettermark(selected_company.display_name) }}</span>
+      <div>
+        <p class="eyebrow">COMPETITOR DETAIL</p>
+        <h2 class="offcanvas-title" id="competitorDetailLabel">{{ selected_company.display_name }}</h2>
+      </div>
     </div>
     <a class="btn-close" href="/competitors?{{ query_string }}" aria-label="Close competitor detail and return to landscape"></a>
   </div>

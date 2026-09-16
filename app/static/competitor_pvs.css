@@ -1,0 +1,356 @@
+/* Product Visual System — Production Slice 2
+   Competitor Landscape + competitor entity profiles (company/brand/breeding).
+   Scoped under .pvs-slice-2. Does not redefine a fourth design language.
+   Does not alter Today/reader (Slice 1) styles. */
+
+.pvs-slice-2 {
+  font-family: var(--pvs-font-sans);
+  font-size: var(--pvs-size-body);
+  color: var(--pvs-ink);
+  background:
+    radial-gradient(900px 320px at 6% -10%, rgba(138, 106, 59, 0.1), transparent 55%),
+    radial-gradient(700px 280px at 100% 0%, rgba(8, 35, 77, 0.06), transparent 50%),
+    transparent;
+}
+
+.pvs-slice-2 :focus-visible {
+  outline: var(--pvs-focus);
+  outline-offset: var(--pvs-focus-offset);
+}
+
+.pvs-slice-2 .skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: #fff;
+  padding: 0.5rem 0.75rem;
+  z-index: 1000;
+  min-height: var(--pvs-touch);
+}
+
+.pvs-slice-2 .skip-link:focus {
+  left: 0.75rem;
+  top: 0.75rem;
+}
+
+/* —— Landscape shell —— */
+.pvs-slice-2.competitor-landscape .competitor-landscape-hero h1,
+.pvs-slice-2 .sh-header h1,
+.pvs-slice-2 .page-heading h1 {
+  font-family: var(--pvs-font-display);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--pvs-navy);
+}
+
+.pvs-slice-2 .eyebrow,
+.pvs-slice-2 .sh-kicker {
+  font-size: var(--pvs-size-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pvs-muted);
+}
+
+.pvs-slice-2 .competitor-landscape-stats div,
+.pvs-slice-2 .competitor-card,
+.pvs-slice-2 .competitor-tier-pill,
+.pvs-slice-2 .pvs-concern-card {
+  background: var(--pvs-surface);
+  border: 1px solid var(--pvs-border);
+  border-radius: var(--pvs-radius-lg);
+  box-shadow: var(--pvs-shadow-soft);
+}
+
+.pvs-slice-2 .competitor-landscape-stats strong {
+  font-family: var(--pvs-font-display);
+  color: var(--pvs-navy);
+}
+
+.pvs-slice-2 .competitor-landscape-note {
+  border-left-color: var(--pvs-accent);
+  background: rgba(138, 106, 59, 0.08);
+  color: var(--pvs-muted);
+  border-radius: 0 var(--pvs-radius) var(--pvs-radius) 0;
+}
+
+.pvs-slice-2 .competitor-landscape-controls {
+  background: rgba(255, 252, 247, 0.96);
+  border-color: var(--pvs-border);
+  border-radius: var(--pvs-radius-xl);
+  box-shadow: var(--pvs-shadow-soft);
+}
+
+.pvs-slice-2 .competitor-field select,
+.pvs-slice-2 .competitor-field input[type="search"],
+.pvs-slice-2 .action-button {
+  min-height: var(--pvs-touch);
+}
+
+.pvs-slice-2 .competitor-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 8px;
+  border: 1px solid var(--pvs-border);
+  background: var(--pvs-raised);
+  color: var(--pvs-ink);
+  font-size: var(--pvs-size-meta);
+}
+
+.pvs-slice-2 .competitor-band-nav {
+  position: sticky;
+  top: 0.5rem;
+  z-index: 15;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0 0 1rem;
+  padding: 0.55rem 0.65rem;
+  background: rgba(255, 252, 247, 0.94);
+  border: 1px solid var(--pvs-border);
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+}
+
+.pvs-slice-2 .competitor-band-nav a {
+  min-height: var(--pvs-touch);
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  color: var(--pvs-navy);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.pvs-slice-2 .competitor-band-nav a:hover,
+.pvs-slice-2 .competitor-band-nav a:focus-visible {
+  border-color: var(--pvs-border-strong);
+  background: #fff;
+}
+
+.pvs-slice-2 .competitor-card.is-selected {
+  border-color: var(--pvs-border-strong);
+  box-shadow: inset 3px 0 0 var(--pvs-accent), var(--pvs-shadow-soft);
+}
+
+.pvs-slice-2 .competitor-card-top {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+}
+
+.pvs-slice-2 .pvs-lettermark {
+  flex: 0 0 auto;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 10px;
+  display: inline-grid;
+  place-items: center;
+  font-family: var(--pvs-font-display);
+  font-weight: 650;
+  font-size: 0.95rem;
+  color: #fff;
+  background: linear-gradient(145deg, var(--pvs-navy), #0c2d5d);
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+
+.pvs-slice-2 .pvs-lettermark[data-tone="brand"] {
+  background: linear-gradient(145deg, #5e4b8a, #3d3260);
+}
+
+.pvs-slice-2 .pvs-lettermark[data-tone="breeding_program"] {
+  background: linear-gradient(145deg, #2f5d7a, #1c3d52);
+}
+
+.pvs-slice-2 .pvs-badge,
+.pvs-slice-2 .competitor-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: var(--pvs-size-label);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--pvs-border);
+  background: var(--pvs-raised);
+  white-space: nowrap;
+}
+
+.pvs-slice-2 .pvs-badge::before,
+.pvs-slice-2 .competitor-status-badge::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+.pvs-slice-2 .pvs-badge-ok,
+.pvs-slice-2 .competitor-status-badge[data-state="tier-1"],
+.pvs-slice-2 .competitor-status-badge[data-state="tier-2"] {
+  color: var(--pvs-ok);
+  background: var(--pvs-ok-bg);
+  border-color: var(--pvs-ok-border);
+}
+
+.pvs-slice-2 .pvs-badge-warn,
+.pvs-slice-2 .competitor-status-badge[data-state="unknown-unassigned"],
+.pvs-slice-2 .competitor-status-badge[data-state="provisional"] {
+  color: var(--pvs-warn);
+  background: var(--pvs-warn-bg);
+  border-color: var(--pvs-warn-border);
+}
+
+.pvs-slice-2 .pvs-badge-info {
+  color: var(--pvs-info);
+  background: var(--pvs-info-bg);
+  border-color: var(--pvs-info-border);
+}
+
+.pvs-slice-2 .pvs-badge-danger,
+.pvs-slice-2 .competitor-status-badge[data-state="malformed"] {
+  color: var(--pvs-danger);
+  background: var(--pvs-danger-bg);
+  border-color: var(--pvs-danger-border);
+}
+
+.pvs-slice-2 .pvs-badge-pending {
+  color: var(--pvs-pending);
+  background: var(--pvs-pending-bg);
+  border-color: var(--pvs-pending-border);
+}
+
+.pvs-slice-2 .competitor-empty,
+.pvs-slice-2 .pvs-system-state {
+  padding: 1.25rem 1rem;
+  border-radius: 12px;
+  border: 1px dashed var(--pvs-border);
+  background: var(--pvs-raised);
+  color: var(--pvs-muted);
+}
+
+.pvs-slice-2 .pvs-system-state.is-error {
+  border-color: var(--pvs-danger-border);
+  background: var(--pvs-danger-bg);
+  color: var(--pvs-danger);
+}
+
+.pvs-slice-2 .competitor-maturity-list li.is-complete {
+  border-left-color: var(--pvs-ok);
+}
+
+.pvs-slice-2 .competitor-maturity-list li.is-gap {
+  border-left-color: var(--pvs-warn);
+}
+
+.pvs-slice-2 .competitor-blocked-note {
+  padding: 0.75rem 0.85rem;
+  border-radius: 10px;
+  background: var(--pvs-warn-bg);
+  border: 1px solid var(--pvs-warn-border);
+  color: var(--pvs-warn);
+}
+
+/* —— Profile concerns —— */
+.pvs-slice-2 .pvs-concerns {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0 0 1.25rem;
+}
+
+.pvs-slice-2 .pvs-concerns-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.75rem;
+}
+
+.pvs-slice-2 .pvs-concern-card {
+  padding: 0.85rem 0.95rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.pvs-slice-2 .pvs-concern-card h3 {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pvs-muted);
+  font-family: var(--pvs-font-sans);
+}
+
+.pvs-slice-2 .pvs-concern-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--pvs-ink);
+}
+
+.pvs-slice-2 .pvs-gaps {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.35rem;
+  color: var(--pvs-muted);
+  font-size: 0.9rem;
+}
+
+.pvs-slice-2 .pvs-gaps .is-blocking {
+  color: var(--pvs-danger);
+  font-weight: 600;
+}
+
+.pvs-slice-2 .pvs-profile-hero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.pvs-slice-2 .pvs-profile-hero .pvs-lettermark {
+  width: 3.25rem;
+  height: 3.25rem;
+  font-size: 1.15rem;
+}
+
+.pvs-slice-2 .sh-section-nav {
+  background: rgba(255, 252, 247, 0.96);
+  border-bottom-color: var(--pvs-border);
+}
+
+.pvs-slice-2 .sh-btn,
+.pvs-slice-2 .v2-btn,
+.pvs-slice-2 .v2-berry-chip {
+  min-height: var(--pvs-touch);
+}
+
+@media (max-width: 980px) {
+  .pvs-slice-2 .competitor-landscape-hero,
+  .pvs-slice-2 .competitor-landscape-controls-grid {
+    grid-template-columns: 1fr;
+  }
+  .pvs-slice-2 .competitor-band-nav {
+    top: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .pvs-slice-2 .competitor-card-facts li {
+    grid-template-columns: 1fr;
+  }
+  .pvs-slice-2 .competitor-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pvs-slice-2 * {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
