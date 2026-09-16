@@ -50,7 +50,7 @@ def test_rehearsal_fixture_covers_ten_states(rehearsal_drafts: list[dict]) -> No
     assert FIXTURE_PATH.exists()
     states = {row["fixture_state"] for row in rehearsal_drafts}
     assert states == REQUIRED_STATES
-    assert "tests/fixtures/publication_review_readonly_rehearsal.json" in str(FIXTURE_PATH)
+    assert "tests/fixtures/publication_review_readonly_rehearsal.json" in FIXTURE_PATH.as_posix()
 
 
 def test_decisions_enabled_always_false(rehearsal_drafts: list[dict]) -> None:
@@ -193,7 +193,7 @@ def test_rehearsal_fixtures_not_shipped_under_data() -> None:
     assert data_hits == []
     # Must live only under tests/
     assert FIXTURE_PATH.exists()
-    assert "tests/fixtures" in str(FIXTURE_PATH)
+    assert "tests/fixtures" in FIXTURE_PATH.as_posix()
 
 
 def test_content_filters(client: TestClient) -> None:
