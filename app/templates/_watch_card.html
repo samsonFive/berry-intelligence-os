@@ -1,6 +1,6 @@
-<article class="v2-card v2-watch-card" id="watch-{{ item.id }}">
+<article class="v2-card v2-watch-card" id="watch-{{ item.id }}" data-workflow="{{ item.workflow_state or 'active' }}">
   <p class="v2-card-kicker">
-    <span class="v2-mark v2-mark-watch">Watch</span>
+    <span class="v2-mark v2-mark-watch pvs-badge pvs-badge-info">Watch</span>
     <span class="v2-meta">{{ item.workflow_label }}</span>
     {% if item.watch_type and item.watch_type != 'evidence' %}
       <span class="v2-meta">{{ item.watch_type|replace('_',' ')|title }}</span>
