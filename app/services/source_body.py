@@ -122,7 +122,11 @@ def classify_source_body(record: dict[str, Any]) -> dict[str, Any]:
         state = "description_only"
     else:
         discovery = record.get("discovery_provenance") or {}
-        failure = str(discovery.get("failure_category") or "").casefold()
+        # Real acquisition output stores `acquisition_failure_category`;
+        # `failure_category` is kept as a fallback for older records/fixtures.
+        failure = str(
+            discovery.get("acquisition_failure_category") or discovery.get("failure_category") or ""
+        ).casefold()
         if failure in {"paywall", "blocked", "http_error", "empty_body"}:
             state = "access_limited"
         else:
