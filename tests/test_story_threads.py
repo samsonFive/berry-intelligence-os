@@ -19,6 +19,7 @@ from app.services.story_threads import (
     items_form_thread,
     present_thread,
 )
+from tests.clock_helpers import freeze_utc_now
 
 
 PRIORITY = {
@@ -508,6 +509,7 @@ def test_different_patent_filings_for_same_breeder_stay_separate():
 
 def test_brief_review_soon_collapses_reprint_into_review_now_thread(monkeypatch, tmp_path: Path) -> None:
     _isolate(monkeypatch, tmp_path)
+    freeze_utc_now(monkeypatch, date(2026, 8, 6))
     repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
     _seed_entities(repos)
     drafts = [
@@ -531,7 +533,7 @@ def test_brief_review_soon_collapses_reprint_into_review_now_thread(monkeypatch,
             "draft-mx-conf",
             title="Mexico will host a new international conference on blueberry cultivation",
             source_name="HortiDaily",
-            published_date=_today(),
+            published_date="2026-08-06",
         ),
     ]
     brief = build_morning_brief(
@@ -567,6 +569,61 @@ def test_brief_review_soon_collapses_reprint_into_review_now_thread(monkeypatch,
     )
     hortifrut_delta = next(row for row in brief["company_deltas"] if row["id"] == "company-hortifrut")
     assert any(bullet.get("is_thread") or "Developing" in str(bullet.get("label") or "") for bullet in hortifrut_delta["bullets"])
+
+
+def _hortifrut_triage(monkeypatch, tmp_path: Path, *, as_of: date) -> dict:
+    _isolate(monkeypatch, tmp_path)
+    freeze_utc_now(monkeypatch, as_of)
+    repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    _seed_entities(repos)
+    drafts = [
+        _draft(
+            "draft-hf-en",
+            title=HORTIFRUT_EN,
+            source_id="source-hortifrut-newsroom",
+            source_name="Hortifrut Newsroom",
+            published_date="2026-07-30",
+            captured_date="2026-07-30",
+            summary="Hortifrut and Naturipe expand a genetics platform.",
+        ),
+        _draft(
+            "draft-hf-es",
+            title=HORTIFRUT_ES,
+            source_name="International Blueberry Organization",
+            published_date="2026-07-30",
+            captured_date="2026-07-30",
+        ),
+    ]
+    return build_morning_brief(
+        inbox_dir=main.INBOX_DIR,
+        published=[],
+        drafts=drafts,
+        entities={entity["id"]: entity for entity in repos.entities.list()},
+        berry_labels={"berry-blueberry": "Blueberry"},
+        sources=[
+            {
+                "id": "source-hortifrut-newsroom",
+                "label": "Hortifrut Newsroom",
+                "monitoring_priority": "high",
+                "linked_competitor_ids": ["company-hortifrut"],
+            }
+        ],
+        mark_seen=False,
+    )
+
+
+def test_hortifrut_reprints_stay_review_now_on_day_45(monkeypatch, tmp_path: Path) -> None:
+    brief = _hortifrut_triage(monkeypatch, tmp_path, as_of=date(2026, 9, 13))
+    buckets = {group["key"]: group for group in brief["pending_triage"]["buckets"]}
+    assert buckets["review_now"]["count"] >= 1
+    assert buckets["older_backlog"]["count"] == 0
+
+
+def test_hortifrut_reprints_are_older_backlog_on_day_46(monkeypatch, tmp_path: Path) -> None:
+    brief = _hortifrut_triage(monkeypatch, tmp_path, as_of=date(2026, 9, 14))
+    buckets = {group["key"]: group for group in brief["pending_triage"]["buckets"]}
+    assert buckets["review_now"]["count"] == 0
+    assert buckets["older_backlog"]["count"] >= 1
 
 
 def test_dismiss_redundant_coverage_keeps_file(monkeypatch, tmp_path: Path) -> None:

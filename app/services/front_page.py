@@ -66,11 +66,12 @@ V1 -- see docs/v2/TECHNICAL-DEBT-REGISTER.md.
 
 from __future__ import annotations
 
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
 from app.services.chronology import date_label, meaningful_stamp, parse_stamp
+from app.services.clock import resolve_now
 from app.services.evidence_claim_review import trust_tier_label
 from app.services.geography_hierarchy import resolve_geography_scope
 from app.services.intelligence_feed import MARKET_TAGS, classify_kind, entity_chips
@@ -320,7 +321,7 @@ def build_front_page(
     market_observations_repo: Any | None = None,
     watches: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    instant = (now or datetime.now(UTC)).astimezone(UTC)
+    instant = resolve_now(now)
     entity_index = {e["id"]: e for e in entities if e.get("id")}
     evidence_by_id = {str(r.get("id")): r for r in published}
     for record in signals:
