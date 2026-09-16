@@ -15,11 +15,7 @@ from pathlib import Path
 
 import pytest
 
-from app.services.competitor_profile import (
-    COMPLETENESS_DIMENSIONS,
-    build_competitor_profile,
-    profile_completeness,
-)
+from app.services.competitor_profile import build_competitor_profile
 from app.services.competitor_registry import load_reconciliation_matrix
 
 REPO = Path(__file__).resolve().parents[1]
@@ -154,7 +150,10 @@ def test_non_company_entities_do_not_depend_on_company_only_queries(all_profiles
         assert isinstance(profile["genetics"]["as_company"], list)
         assert isinstance(profile["genetics"]["as_provider"], list)
         assert profile["monitoring"]["maturity"] is not None
-        assert profile["completeness"]["applicable_count"] > 0
+        # Non-company entity_type must never degrade record integrity or
+        # produce a spurious "unsupported" outcome -- correct applicability
+        # means identical treatment to a company profile.
+        assert profile["completeness"]["record_integrity"]["status"] == "structurally_valid"
 
 
 # ---------------------------------------------------------------------------
@@ -204,15 +203,22 @@ def test_priority_is_independent_of_tier(all_profiles):
 
 def test_incomplete_dimensions_are_explicit_not_silently_blank(all_profiles):
     profile = all_profiles["Denning Blueberries"]
-    dims = profile["completeness"]["dimensions"]
-    assert dims["identity"] == "missing"  # still 'unverified', not promoted
-    assert set(dims.values()) <= {"present", "missing", "not_applicable"}
+    completeness = profile["completeness"]
+    # Still 'unverified', not promoted -- a provisional identity, never a
+    # malformed record.
+    assert completeness["identity_verification"]["state"] == "provisional"
+    assert completeness["record_integrity"]["status"] == "structurally_valid"
     assert len(profile["unresolved_data_gaps"]) > 0
+    assert len(completeness["actionable_gaps"]) > 0
 
 
-def test_completeness_dimensions_are_the_fixed_documented_set(all_profiles):
+def test_completeness_concerns_are_the_fixed_documented_set(all_profiles):
+    expected = {
+        "record_integrity", "classification_coverage", "identity_verification", "relationship_knowledge",
+        "monitoring_maturity", "current_intelligence_coverage", "actionable_gaps", "ui_flags", "note",
+    }
     for profile in all_profiles.values():
-        assert set(profile["completeness"]["dimensions"].keys()) == set(COMPLETENESS_DIMENSIONS)
+        assert set(profile["completeness"].keys()) == expected
 
 
 def test_completeness_is_never_a_single_invented_score(all_profiles):
@@ -220,24 +226,20 @@ def test_completeness_is_never_a_single_invented_score(all_profiles):
         completeness = profile["completeness"]
         assert "score" not in completeness
         assert "strategic_score" not in completeness
-        assert isinstance(completeness["dimensions"], dict)
+        assert "present_count" not in completeness
+        assert isinstance(completeness["actionable_gaps"], list)
 
 
-def test_not_applicable_never_conflated_with_missing():
-    """A synthetic profile-completeness call proves not_applicable and
-    missing are structurally distinct outcomes, not just differently-named
-    versions of the same thing."""
-    profile_no_genetics_no_gaps = {
-        "identity": {"entity_found": True, "status": "active"},
-        "classification": {"competitor_type": "Commercial", "berry_tier": {"blueberry": "tier_1", "strawberry": "unassigned", "raspberry": "unassigned", "blackberry": "unassigned"}, "regions": ["DOTA"]},
-        "genetics": {"as_company": [], "as_provider": []},
-        "monitoring": {"maturity": {"discovery_configured": True, "discovery_operational": True, "readable_content_acquired": True, "current_coverage_available": True}},
-        "aliases": ["Alias"],
-        "unresolved_data_gaps": [],
-    }
-    result = profile_completeness(profile_no_genetics_no_gaps)
-    assert result["dimensions"]["genetics"] == "not_applicable"
-    assert result["dimensions"]["identity"] == "present"
+def test_not_applicable_never_conflated_with_missing(all_profiles):
+    """Unknown/Unassigned and Not Applicable berry states must be
+    structurally distinct outcomes, never differently-named versions of
+    the same thing -- and neither is ever 'missing_required'."""
+    profile = all_profiles["Fall Creek"]
+    berries = profile["completeness"]["classification_coverage"]["berry_positions"]
+    assert berries["blueberry"]["state"] == "assigned"
+    assert berries["strawberry"]["state"] == "unknown_unassigned"
+    for block in berries.values():
+        assert block["state"] != "missing_required"
 
 
 # ---------------------------------------------------------------------------
