@@ -269,7 +269,11 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
     # 201 = 200 plus source-industry-pulse-catchnet, added for Continuous
     # Newsroom Intake V1 (2026-09-01) -- reference type, no discovery.adapter,
     # enabled=false, so sources_discoverable stays 76 unchanged.
-    assert report.sources_configured == 201 and report.sources_discoverable == 76
+    # 75 = 76 minus source-20260806173428-a004-fresh-plaza-74, retired by
+    # TD-108 as a duplicate of source-freshplaza-global against the same
+    # https://www.freshplaza.com/rss.xml feed. The retired record stays in
+    # the registry, so sources_configured remains 201.
+    assert report.sources_configured == 201 and report.sources_discoverable == 75
     assert expected <= {source.source_id for source in report.sources}
 
 

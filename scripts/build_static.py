@@ -122,7 +122,7 @@ def render(template_name: str, path: str, context: dict[str, Any]) -> str:
     return templates.get_template(template_name).render(context)
 
 
-_HREF_RE = re.compile(r'(href|src)="(/[^"#?]*)(#[^"]*)?"')
+_HREF_RE = re.compile(r'(href|src)="(/[^"#?]*)(\?[^"#]*)?(#[^"]*)?"')
 
 
 def _depth_prefix(output_file: Path) -> str:
@@ -132,14 +132,19 @@ def _depth_prefix(output_file: Path) -> str:
 
 def _rewrite_internal_links(html: str, prefix: str) -> str:
     def repl(match: re.Match[str]) -> str:
-        attr, path, fragment = match.group(1), match.group(2), match.group(3) or ""
+        attr, path, query, fragment = (
+            match.group(1),
+            match.group(2),
+            match.group(3) or "",
+            match.group(4) or "",
+        )
         if path == "/":
             target = "index.html"
         else:
             stripped = path.strip("/")
             last_segment = stripped.rsplit("/", 1)[-1]
             target = stripped if "." in last_segment else f"{stripped}/index.html"
-        return f'{attr}="{prefix}{target}{fragment}"'
+        return f'{attr}="{prefix}{target}{query}{fragment}"'
 
     return _HREF_RE.sub(repl, html)
 
@@ -926,19 +931,26 @@ def build() -> list[Path]:
     # reuses the same trusted facts_all/evidence_idx already loaded above --
     # no additional corpus scan, and only trusted Fact/Evidence, never
     # inbox/ drafts or Signal Candidates.
+    _learn_home_ctx = {
+        "pillars": learn_concepts_by_pillar(),
+        "concept_count": len(learn_all_concepts()),
+        "search_query": "",
+        "search_results": None,
+        "freshness": learn_freshness_summary(),
+        "authoring_mode": False,
+    }
     written.append(
         write_page(
             "learn_home.html",
             "/learn",
-            {
-                "pillars": learn_concepts_by_pillar(),
-                "concept_count": len(learn_all_concepts()),
-                "search_query": "",
-                "search_results": None,
-                "stale_view": False,
-                "freshness": learn_freshness_summary(),
-                "authoring_mode": False,
-            },
+            {**_learn_home_ctx, "stale_view": False},
+        )
+    )
+    written.append(
+        write_page(
+            "learn_home.html",
+            "/learn/stale",
+            {**_learn_home_ctx, "stale_view": True},
         )
     )
     for concept in learn_all_concepts():

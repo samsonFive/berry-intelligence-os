@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 from copy import deepcopy
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -510,22 +510,26 @@ def test_brief_review_soon_collapses_reprint_into_review_now_thread(monkeypatch,
     _isolate(monkeypatch, tmp_path)
     repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
     _seed_entities(repos)
+    # Pending triage uses calendar_age <= 45 for Review now. A baked
+    # 2026-07-30 stamp aged out on 2026-09-16; keep the reprints inside
+    # that window relative to date.today() without changing production cutoffs.
+    reprint_day = (date.today() - timedelta(days=7)).isoformat()
     drafts = [
         _draft(
             "draft-hf-en",
             title=HORTIFRUT_EN,
             source_id="source-hortifrut-newsroom",
             source_name="Hortifrut Newsroom",
-            published_date="2026-07-30",
-            captured_date="2026-07-30",
+            published_date=reprint_day,
+            captured_date=reprint_day,
             summary="Hortifrut and Naturipe expand a genetics platform.",
         ),
         _draft(
             "draft-hf-es",
             title=HORTIFRUT_ES,
             source_name="International Blueberry Organization",
-            published_date="2026-07-30",
-            captured_date="2026-07-30",
+            published_date=reprint_day,
+            captured_date=reprint_day,
         ),
         _draft(
             "draft-mx-conf",

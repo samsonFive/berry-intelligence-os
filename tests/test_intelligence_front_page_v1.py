@@ -536,13 +536,16 @@ def test_today_coverage_watch_is_ttl_cached_not_recomputed_every_request(monkeyp
 
 
 def test_front_page_route_smoke(monkeypatch, tmp_path: Path) -> None:
+    # GET /today uses datetime.now(); pin fixture dates to today so this
+    # smoke does not fall out of the 14-day window as the calendar moves.
+    today = datetime.now(UTC).date().isoformat()
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
     monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
-    monkeypatch.setattr(main, "published_evidence", lambda: [_evidence("ev-smoke", published="2026-08-31", captured="2026-08-31")])
+    monkeypatch.setattr(main, "published_evidence", lambda: [_evidence("ev-smoke", published=today, captured=today)])
     monkeypatch.setattr(main, "all_signals", lambda: [])
     monkeypatch.setattr(main, "all_assessments", lambda: [])
     monkeypatch.setattr(main, "load_sources", lambda: [])
-    monkeypatch.setattr(main, "pending_publication_drafts", lambda: [_draft("ev-smoke-draft", captured="2026-08-31")])
+    monkeypatch.setattr(main, "pending_publication_drafts", lambda: [_draft("ev-smoke-draft", captured=today)])
     monkeypatch.setattr(main, "all_entities", lambda: [])
     monkeypatch.setattr(main, "all_relationships", lambda: [])
     page = TestClient(main.app).get("/today")

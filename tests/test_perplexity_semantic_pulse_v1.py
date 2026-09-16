@@ -12,7 +12,7 @@ static leak.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import date
+from datetime import UTC, date, datetime
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -235,7 +235,7 @@ def test_front_page_publication_classification_is_provider_agnostic() -> None:
         relationships=[],
         inbox_dir=Path("."),
         data_dir=Path("."),
-        now=None,
+        now=datetime(2026, 9, 1, 12, 0, tzinfo=UTC),
     )
     matches = [i for i in page["top_stories"] if i["id"] == "ev-pulse-draft"]
     assert matches and matches[0]["trust_label"] == "FRESH / UNREVIEWED"

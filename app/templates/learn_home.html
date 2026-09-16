@@ -73,7 +73,7 @@
       </div>
     </section>
   {% endfor %}
-  <p class="context-limit">{{ concept_count }} concept{{ 's' if concept_count != 1 else '' }} today across all five educational pillars. {{ freshness.cadence_count }} page{{ 's' if freshness.cadence_count != 1 else '' }} carry a review-by date; {{ freshness.stale_count }} {{ 'are' if freshness.stale_count != 1 else 'is' }} past it. {% if freshness.cadence_count %}<a href="/learn?view=stale">Review cadence</a>.{% endif %} Educational knowledge never becomes a Fact, Signal, or Assessment.</p>
+  <p class="context-limit">{{ concept_count }} concept{{ 's' if concept_count != 1 else '' }} today across all five educational pillars. {{ freshness.cadence_count }} page{{ 's' if freshness.cadence_count != 1 else '' }} carry a review-by date; {{ freshness.stale_count }} {{ 'are' if freshness.stale_count != 1 else 'is' }} past it. {% if freshness.cadence_count %}{% if static_build %}<a href="/learn/stale">Review cadence</a>{% else %}<a href="/learn?view=stale">Review cadence</a>{% endif %}.{% endif %} Educational knowledge never becomes a Fact, Signal, or Assessment.</p>
 {% endif %}
 </div>
 {% endblock %}
