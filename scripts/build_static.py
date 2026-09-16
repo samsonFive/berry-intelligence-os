@@ -221,6 +221,9 @@ def build() -> list[Path]:
     shutil.copy2(ROOT / "app" / "static" / "v2.css", static_out / "v2.css")
     shutil.copy2(ROOT / "app" / "static" / "stakeholder.css", static_out / "stakeholder.css")
     shutil.copy2(ROOT / "app" / "static" / "v2.js", static_out / "v2.js")
+    shutil.copy2(ROOT / "app" / "static" / "pvs_tokens.css", static_out / "pvs_tokens.css")
+    shutil.copy2(ROOT / "app" / "static" / "daily_briefing.css", static_out / "daily_briefing.css")
+    shutil.copy2(ROOT / "app" / "static" / "daily_briefing.js", static_out / "daily_briefing.js")
     vendor_src = ROOT / "app" / "static" / "vendor"
     if vendor_src.is_dir():
         shutil.copytree(vendor_src, static_out / "vendor", dirs_exist_ok=True)

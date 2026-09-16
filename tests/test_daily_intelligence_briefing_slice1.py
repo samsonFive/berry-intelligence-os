@@ -219,6 +219,11 @@ def test_reader_query_preserves_filters_and_stays_in_app():
     assert "Published" in response.text
     assert "Captured" in response.text
     assert "View original source" in response.text or "original source" in response.text.lower()
+    assert 'name="berry"' in response.text
+    assert "blueberry" in response.text
+    assert "data-briefing-reader-close" in response.text
+    # Does not force a top-level navigation away from /today for the reader chrome
+    assert 'action="/today"' in response.text or "/today?berry=blueberry" in response.text or "berry=blueberry" in response.text
 
 
 def test_page_adapter_marks_no_fixture_dependency():

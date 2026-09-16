@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% block title %}{{ briefing.title }} — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/pvs_tokens.css">
+<link rel="stylesheet" href="/static/daily_briefing.css">
+{% endblock %}
 {% block content %}
-<div class="v2-page daily-briefing" id="daily-briefing" data-briefing-root{% if briefing.selected_reader %} data-reader-open="1"{% endif %}>
+<div class="v2-page daily-briefing" id="daily-briefing" data-briefing-root data-pvs-slice="1"{% if briefing.selected_reader %} data-reader-open="1"{% endif %}>
   <a class="skip-link" href="#what-changed">Skip to What Changed</a>
 
   <section class="page-heading daily-briefing-hero">
@@ -237,7 +244,7 @@
     <aside class="daily-briefing-reader" id="briefing-reader" role="dialog" aria-modal="true" aria-labelledby="briefing-reader-title" tabindex="-1">
       <div class="daily-briefing-reader-bar">
         <p class="eyebrow">In-app reader</p>
-        <button type="button" class="action-button" data-briefing-reader-close>Close</button>
+        <button type="button" class="action-button" data-briefing-reader-close aria-label="Close in-app reader">Close</button>
       </div>
       <h2 id="briefing-reader-title">{{ reader.headline }}</h2>
       <p class="daily-briefing-reader-meta">
@@ -270,7 +277,10 @@
         {% else %}
         <p class="daily-briefing-muted">Analyst implication not yet added.</p>
         {% endif %}
-        <p class="daily-briefing-trust">Review / trust: {{ reader.review_trust_state }}</p>
+        <p class="daily-briefing-trust">
+          Review / trust:
+          <span class="daily-briefing-trust-badge">{{ reader.review_trust_state }}</span>
+        </p>
       </section>
 
       <section class="daily-briefing-reader-block" aria-label="Readable body">
