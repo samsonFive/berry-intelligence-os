@@ -1,5 +1,10 @@
 # Publication Review Wave 4 checkpoint
 
+> Release-cutoff addendum: this atomic checkpoint was subsequently extended on
+> the same release-candidate branch with the completed-before-cutoff inputs in
+> `artifacts/release-cutoff-wave4/`. This document remains the evidence for the
+> Publication Review atomic step; it is not the final combined release tip.
+
 ## Frozen candidate
 
 - Branch: `integration/publication-review-wave4`
