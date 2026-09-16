@@ -21,6 +21,8 @@ Rules:
 - Publisher homepages and Google tracking hosts are not accepted as article URLs.
 - Discovery `canonical_url` stays the wrapper (stable identity). `ArticleBody.final_url` is the publisher page.
 
+Industry Pulse / Competitor Pulse intake previously preferred Google's `<source href>`, which is usually the publisher **homepage**. That skipped the decoder, could fetch homepage chrome, and could key draft ids on a shared homepage. `_real_publisher_url()` now uses `preferred_url()`: real article path, else decoded wrapper, else wrapper. Attribution still uses the origin hostname so a registered Source is not lost.
+
 ## What this does not do
 
 - Does not onboard The Packer or any new Source.
@@ -30,4 +32,4 @@ Rules:
 
 ## Tests
 
-Mocked HTTP only. See `tests/test_google_news_url.py`, `tests/test_article_acquisition.py`, and `tests/test_article_refresh.py`.
+Mocked HTTP only. See `tests/test_google_news_url.py`, `tests/test_article_acquisition.py`, `tests/test_article_refresh.py`, and `tests/test_continuous_newsroom_intake_v1.py`.
