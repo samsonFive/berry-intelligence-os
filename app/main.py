@@ -117,6 +117,11 @@ from app.services.analyst_queue import (
 from app.services.derived_review import present_derived_review, section_review_key
 from app.services.commercial_positions import commercial_page_model
 from app.services.review_operations import build_review_operations
+from app.services.publication_review_readonly import (
+    build_publication_review_readonly_view,
+    rehearsal_ui_allowed,
+    select_source_drafts,
+)
 from app.services.publication_review_domain import REVIEW_STATES as PUBLICATION_REVIEW_STATES
 from app.services.publication_review_query import get_detail as publication_review_get_detail
 from app.services.publication_review_query import list_queue as publication_review_list_queue
@@ -3909,6 +3914,37 @@ def review_operations_page(request: Request) -> HTMLResponse:
 _PUBLICATION_REVIEW_PAGE_SIZE = 25
 
 
+def _publication_review_rehearsal_context(
+    request: Request,
+    *,
+    selected_id: str | None = None,
+    content_filter: str = "all",
+) -> dict[str, Any]:
+    """Build the explicitly enabled, fixture-only rehearsal view.
+
+    Production requests never enter this adapter.  It remains available for
+    the earlier read-only UI's browser rehearsal and has no mutation routes.
+    """
+    durable = [
+        record
+        for record in pending_publication_drafts()
+        if record.get("evidence_role") == "publication_artifact"
+    ]
+    drafts, source = select_source_drafts(durable_drafts=durable)
+    view = build_publication_review_readonly_view(
+        drafts=drafts,
+        selected_id=selected_id,
+        content_filter=content_filter or "all",
+        source=source,
+    )
+    return {
+        "publication_review": view,
+        "authoring_mode": AUTHORING_MODE,
+        "static_build": False,
+        "ui_context": read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR),
+    }
+
+
 @app.get("/review-ops/publications", response_class=HTMLResponse)
 def publication_review_readonly_page(
     request: Request, state: str = "", content_class: str = "", cursor: str = "", selected: str = "",
@@ -3926,6 +3962,19 @@ def publication_review_readonly_page(
     article/transcript body is ever included here either -- only the
     bounded excerpt the read model itself already enforces).
     """
+    if rehearsal_ui_allowed():
+        content_filter = (request.query_params.get("filter") or "all").strip()
+        selected_id = (request.query_params.get("draft") or "").strip() or None
+        return templates.TemplateResponse(
+            request=request,
+            name="publication_review_rehearsal.html",
+            context=_publication_review_rehearsal_context(
+                request,
+                selected_id=selected_id,
+                content_filter=content_filter,
+            ),
+        )
+
     repository = DurableReviewRepository(resolve_review_state_dir())
     page = publication_review_list_queue(
         repository, state=state or None, content_class=content_class or None,
@@ -3957,6 +4006,26 @@ def publication_review_readonly_page(
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
     return response
+
+
+@app.get("/review-ops/publications/{draft_id}", response_class=HTMLResponse)
+def publication_review_readonly_detail_compat(request: Request, draft_id: str) -> HTMLResponse:
+    """Keep fixture rehearsal deep links while production uses the durable page."""
+    if not rehearsal_ui_allowed():
+        return RedirectResponse(
+            url=f"/review-ops/publications?selected={quote(draft_id)}",
+            status_code=303,
+        )
+    content_filter = (request.query_params.get("filter") or "all").strip()
+    return templates.TemplateResponse(
+        request=request,
+        name="publication_review_rehearsal.html",
+        context=_publication_review_rehearsal_context(
+            request,
+            selected_id=draft_id,
+            content_filter=content_filter,
+        ),
+    )
 
 
 def _reconcile_active_session() -> dict[str, Any] | None:
