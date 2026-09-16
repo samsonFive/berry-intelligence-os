@@ -9,6 +9,8 @@ from app.services.google_news_url import (
     is_google_news_wrapper,
     resolve_google_news_url,
 )
+from app.services.industry_pulse.canonical_urls import preferred_url
+from app.services.industry_pulse.models import DiscoveryHit
 
 
 PUBLISHER = "https://www.freshplaza.test/article/99/blueberry-acreage-peru"
@@ -72,3 +74,45 @@ def test_query_string_on_wrapper_is_ignored_for_decode() -> None:
 def test_resolve_is_deterministic_across_repeated_calls() -> None:
     wrapper = google_news_article_url(PUBLISHER, nested=True)
     assert resolve_google_news_url(wrapper) == resolve_google_news_url(wrapper) == PUBLISHER
+
+
+def test_preferred_url_decodes_wrapper_instead_of_publisher_homepage() -> None:
+    wrapper = google_news_article_url(PUBLISHER)
+    hit = DiscoveryHit(
+        title="Blueberry acreage",
+        url=wrapper,
+        source_domain="freshplaza.test",
+        published_date="2026-08-30",
+        snippet="",
+        query_id="q",
+        query_text="",
+        geography="global",
+        berry="blueberry",
+        topic="industry_pulse",
+        provider="google_news_rss",
+        origin_publisher_url="https://www.freshplaza.test/",
+        wrapper_url=wrapper,
+        qualifying=True,
+    )
+    assert preferred_url(hit) == PUBLISHER
+
+
+def test_preferred_url_keeps_undecodable_wrapper_not_homepage() -> None:
+    wrapper = "https://news.google.com/rss/articles/wrapper"
+    hit = DiscoveryHit(
+        title="Blueberry acreage",
+        url=wrapper,
+        source_domain="fruitnet.com",
+        published_date="2026-08-30",
+        snippet="",
+        query_id="q",
+        query_text="",
+        geography="global",
+        berry="blueberry",
+        topic="industry_pulse",
+        provider="google_news_rss",
+        origin_publisher_url="https://www.fruitnet.com",
+        wrapper_url=wrapper,
+        qualifying=True,
+    )
+    assert preferred_url(hit) == wrapper

@@ -61,6 +61,8 @@ def test_public_intelligence_pages_use_compact_bluf_tables() -> None:
     assert "Bottom line" in signal_page
     assert "Decision test" in signal_page
     assert 'class="brief-table evidence-link-table"' in signal_page
+    assert "Published / captured" in signal_page
+    assert "Published / captured" in entity_page
 
 
 def test_evidence_detail_404_for_unknown_id() -> None:
