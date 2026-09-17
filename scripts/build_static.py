@@ -223,18 +223,7 @@ def build() -> list[Path]:
 
     # Static asset.
     static_out = OUTPUT_DIR / "static"
-    static_out.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(ROOT / "app" / "static" / "app.css", static_out / "app.css")
-    shutil.copy2(ROOT / "app" / "static" / "search-core.js", static_out / "search-core.js")
-    shutil.copy2(ROOT / "app" / "static" / "v2.css", static_out / "v2.css")
-    shutil.copy2(ROOT / "app" / "static" / "stakeholder.css", static_out / "stakeholder.css")
-    shutil.copy2(ROOT / "app" / "static" / "v2.js", static_out / "v2.js")
-    shutil.copy2(ROOT / "app" / "static" / "pvs_tokens.css", static_out / "pvs_tokens.css")
-    shutil.copy2(ROOT / "app" / "static" / "daily_briefing.css", static_out / "daily_briefing.css")
-    shutil.copy2(ROOT / "app" / "static" / "daily_briefing.js", static_out / "daily_briefing.js")
-    vendor_src = ROOT / "app" / "static" / "vendor"
-    if vendor_src.is_dir():
-        shutil.copytree(vendor_src, static_out / "vendor", dirs_exist_ok=True)
+    shutil.copytree(ROOT / "app" / "static", static_out, dirs_exist_ok=True)
 
     # Newsfeed.
     written.append(
