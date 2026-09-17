@@ -170,6 +170,14 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
 
     css = (output_dir / "static" / "app.css").read_text(encoding="utf-8")
     assert css
+    for stylesheet in (
+        "competitor_pvs.css",
+        "monitor_pvs.css",
+        "ops_pvs.css",
+        "publication_review_readonly.css",
+        "reading_pvs.css",
+    ):
+        assert (output_dir / "static" / stylesheet).is_file()
 
     for html_file in output_dir.rglob("*.html"):
         content = html_file.read_text(encoding="utf-8")
